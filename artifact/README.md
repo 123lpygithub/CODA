@@ -44,23 +44,28 @@ Every run directory contains exactly:
 | SATD | [S2-2](SATD/S2-2/codebook.md) | 856 | 20 | 1580 |
 | Privacy | [S3-1](Privacy/S3-1/codebook.md) | 652 | 18 | 980 |
 | Privacy | [S3-2](Privacy/S3-2/codebook.md) | 652 | 11 | 1877 |
-| Privacy | [S1-1](Privacy/S1-1/codebook.md) | 652 | 15 | 2183 |
+| Privacy | [S1-1](Privacy/S1-1/codebook.md) | 652 | 21 | 2435 |
 | Privacy | [S1-2](Privacy/S1-2/codebook.md) | 652 | 31 | 2841 |
 | Privacy | [S2-1](Privacy/S2-1/codebook.md) | 652 | 16 | 1752 |
 | Privacy | [S2-2](Privacy/S2-2/codebook.md) | 652 | 28 | 3187 |
 
-There are 18 packages, 12,390 artifact records across runs and 25,489 artifact–code
+There are 18 packages, 12,390 artifact records across runs and 25,741 artifact–code
 assignments. Each run covers the same dataset size; these are repeated analyses,
 not 12,390 distinct source artifacts. Evidence snapshots and record order can
 differ across runs. Compare records by `case_id`, not by row position.
 
-Privacy S1-1 includes a documented refinement of its existing analysis: A, C
-and E were split into seven assignable subcodes (15 codes in total). Each
-new subcode has 54–151 artifacts; parent groups are not counted as codes.
-The refinement reviews existing case notes and quotations, with targeted
-source checks; it is not a new independent full-corpus reading round.
+Privacy S1-1 includes two documented refinements of its existing analysis,
+from 11 to 21 assignable codes. Groups A/B/C/D/E/F/G now contain 17 subcodes;
+H/I/Y/Z retain their memberships. Each of the 17 subcodes has 38–193 artifacts;
+parent groups are not counted as codes. The latest refinement splits B/D/F/G
+into ten codes, each supported by at least 38 artifacts. The working minimum
+of 30 artifacts per new code is an analyst-selected anti-fragmentation rule,
+not a paper requirement; the existing eight-artifact Z code is retained.
+The refinements review existing case notes and quotations, with targeted
+source checks; they are not new independent full-corpus reading rounds.
 Current decisions and boundary corrections are recorded in
-`assignments.json` under `extensions.refinement_review`.
+`assignments.json` under `extensions.refinement_review`, with earlier reviews
+retained in `extensions.refinement_history` where superseded.
 
 ## Common schema
 

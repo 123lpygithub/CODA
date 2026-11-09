@@ -1,17 +1,20 @@
 # Privacy — S1-1
 
-652 artifacts; 15 codes; 2183 artifact–code assignments.
+652 artifacts; 21 codes; 2435 artifact–code assignments.
 
-Analyst-authored refinement of the existing S1-1 codebook: individual review of existing case rationales, provisional concepts, scope notes and source quotations; explicit case-ID decisions split A, C and E and screen other cases for missed memberships. Scripts serialize those decisions and validate evidence and format; no keyword classifier is used.
+Second analyst-authored refinement of the existing Privacy S1-1 analysis. Individually review all 511 distinct case notes assigned to B/D/F/G, including rationales, concepts, scope notes and quotations; screen the remaining 141 case notes, and check source text for boundaries and added memberships. Explicit case-ID decisions split B/D/F/G into ten codes; scripts only serialize decisions and validate evidence and format.
 
 ## Refinement scope
 
-本轮是已有编码的细化，不是新的全量原文独立阅读实验。逐项复核 A/C/E 的既有逐例记录与引文（393 个不同案例），并筛查其他 259 个案例的既有理由与概念；对边界及补充分配查阅相关原文。未重新通读全部 652 篇原文。
+本轮继续细化已有分析：逐项阅读 B/D/F/G 涉及的 511 个不同案例的既有理由、概念、限定与引文，筛查其余 141 个案例的既有记录，并对边界、补充分配及代表例核对相关原文。未重新通读全部 652 篇原文；这不是新一轮独立编码实验。
 
-本轮将原 A 拆为 A1/A2/A3，C 拆为 C1/C2，E 拆为 E1/E2，其余 8 个 code 保留。分类可重叠，父组不参与分配计数。
-新增细分类以至少 30 个案例作为本轮避免碎片化的工作门槛；该门槛不是论文规定。既有 Z 的 8 条证据不足材料保留。
-本轮保留全部原始文档、既有逐例理由、限定及引文。边界修正与补充分配详见 assignments.json 的 extensions.refinement_review；历史原值保留在 original_record 等扩展字段中。
-提案、维护者陈述、争议与已验证行为须区分；材料涉及某机制不代表已复现缺陷、完成修复或经法律审查确认合规。
+初始 11 类先将 A/C/E 细化到 15 类；本轮再将 B/D/F/G 细化，形成 21 个可分配 code。H/I/Y/Z 保留。父组只用于 taxonomy，不重复分配。
+
+本轮 10 个细分类均至少有 30 条材料；30 是本轮避免碎片化的工作门槛，不是论文规定。类别可重叠，材料数不应跨类别直接求和作为独立样本数。既有 Z 的 8 条证据不足材料继续保留。
+
+所有原文、既有逐例理由、证据与限定保留。当前修订见 assignments.json 的 extensions.refinement_review；上一轮修订见 refinement_history，原始编码见 original_record。历史字段不代表当前分配。
+
+按实际机制修订边界，不因出现隐私法律或个人数据就自动纳入某类。提案、单方主张、已实现声明、测试与部署证据分别保留；分类不等于确认缺陷或法律合规。
 
 ## Codebook
 
@@ -20,14 +23,20 @@ Analyst-authored refinement of the existing S1-1 codebook: individual review of 
 | PRIVACY-A1 | 隐私选择界面、默认值与拒绝/撤回入口 | 151 |
 | PRIVACY-A2 | 同意前门控与隐私选择的实际执行 | 124 |
 | PRIVACY-A3 | 同意状态持久化、跨组件传递与审计留证 | 54 |
-| PRIVACY-B | 透明告知、文档与信息可达性 | 277 |
+| PRIVACY-B1 | 隐私政策与法律告知内容的建立和维护 | 82 |
+| PRIVACY-B2 | 隐私告知入口、呈现、本地化与可访问性 | 115 |
+| PRIVACY-B3 | 数据处理、隐私控制与风险的技术说明 | 193 |
 | PRIVACY-C1 | 分析、广告与诊断遥测 | 129 |
 | PRIVACY-C2 | 功能性数据访问、内容传输与服务间数据边界 | 89 |
-| PRIVACY-D | 去标识、最小化与再识别 | 148 |
+| PRIVACY-D1 | 假名替换、哈希、扰动与精度降低 | 66 |
+| PRIVACY-D2 | 字段、元数据与采集范围最小化 | 87 |
+| PRIVACY-D3 | 去标识覆盖、执行质量与再识别边界 | 100 |
 | PRIVACY-E1 | 留存期限、存储位置与持久化边界 | 101 |
 | PRIVACY-E2 | 删除、匿名化清理、访问导出与主体请求流程 | 87 |
-| PRIVACY-F | 身份、受众与访问边界 | 137 |
-| PRIVACY-G | 安全保护与隐私威胁机制 | 125 |
+| PRIVACY-F1 | 角色、受众、租户与跨组件访问隔离 | 86 |
+| PRIVACY-F2 | 身份关联、存在性暴露与行为可推断性 | 69 |
+| PRIVACY-G1 | 加密、密钥与通信或存储的密码学保护 | 38 |
+| PRIVACY-G2 | 认证、权限、攻击防护与意外披露控制 | 103 |
 | PRIVACY-H | 隐私控制可用性与系统兼容 | 294 |
 | PRIVACY-I | 治理、责任与需求权衡 | 397 |
 | PRIVACY-Y | 反例、争议或归因修正 | 62 |
@@ -39,7 +48,7 @@ Analyst-authored refinement of the existing S1-1 codebook: individual review of 
 
 **Include:** 同意框、Cookie 横幅、分类选择、隐私设置、明确的默认开启/关闭、不可见或不可操作的选择入口。
 
-**Exclude:** 仅有政策链接用 B；仅有后端执行用 A2；仅有同意状态的保存或交换用 A3。
+**Exclude:** 仅有政策链接用 B2；仅有后端执行用 A2；仅有同意状态的保存或交换用 A3。
 
 **Boundary:** 8877 要求同等显著的 Reject，属于 A1；20503 只要求按同意条件加载 tracker，属于 A2。2592 的 Continue 故障仅表明通知/选择入口不可操作，不证明无同意采集。
 
@@ -81,18 +90,53 @@ Analyst-authored refinement of the existing S1-1 codebook: individual review of 
 - `privacy-issue-2286`: 用户同意已显示登记却不断再提示，多站复现；原因解释为subject varchar25过短，255及PR修复。后又有两站报告，要求另开issue，不能认定全面解决。 Evidence: "change data type of subject field to varchar(255) / Still happening for me, two different sites."。限定：关联PR关闭，后续仍报告
 - `privacy-issue-11297`: 请求GPC优先覆盖USP值并允许publisher配置；咨询法律后暂决定只传header由竞价方处理，服务端另议，另一人建议publisher统一转换，JS不实施所请。 Evidence: "just pass the GPC HTTP header through the system and let bidders deal with it for now. / nothing to do on Prebid.js"。限定：暂不改JS，服务端及发布方另处理
 
-## PRIVACY-B — 透明告知、文档与信息可达性
+## PRIVACY-B1 — 隐私政策与法律告知内容的建立和维护
 
-材料涉及说明收集内容、目的、对象、期限、法律文本、操作路径及其可理解性。
+围绕隐私声明、Cookie 政策、条款及相关法律告知文本的缺失、起草、修订、版本来源、模板适配和维护归属开展工作。
 
-**Include:** 政策发布/翻译、说明准确性、告知入口、数据清单、控制文档及组织对外解释。
+**Include:** 创建/更新/定稿政策文本、核对法律实体与法规名称、从 legal-docs 维护副本、按实例配置政策内容、声明与实际实践同步。
 
-**Exclude:** 披露承诺不当作行为已验证；链接未取得不能推其内容。
+**Exclude:** 仅有链接失效、布局、语言呈现或部署入口用 B2；解释具体数据行为或配置用 B3。B1 不证明政策承诺已实现。
+
+**Boundary:** 14169 政策修订部署属于 B1，且作者承认处理清单有猜测；2406 只修 ICO 链接用 B2。14157/14160 暂停一般网站翻译仅属治理 I，不推定为隐私告知维护。
 
 **Examples:**
 
-- `privacy-issue-21460`: 法文服务条款仍保留英文的隐私法句子，报告者请求翻译并建议 Privacy Act 用标题大小写和斜体；维护者回复已获批准，但未提供发布验证。主题是法律文本的可读性与告知质量，不涉及实际数据流。 Evidence: "Should be translated / \"privacy act\" should be title case and italicized"。限定：文案批准，发布未知
-- `privacy-issue-1444`: 任务要求创建订阅服务隐私通知和法律条款页面，并把旧 VPN/Relay 法律页面在指定日期重定向到新页面；正文明确法律内容尚待提供，评论仅给出 legal-docs 源文件链接。成功标准是复选框，没有完成记录，外部链接未读取。 Evidence: "Create new subscription services privacy/legal pages / Legal docs content: still to come"。限定：发布任务，完成状态未知
+- `privacy-issue-14169`: mySociety按GDPR修订隐私政策，作者承认部分收集与用途描述是educated guess，并邀请研究、传播团队核查；随后给出PR并明确已合并部署。外部员工文档未读取，不能声称处理清单已核对正确。 Evidence: "merged and deployed now"。限定：合并并部署，处理清单未独立核对
+- `privacy-issue-21583`: 针对 WhatDoTheyKnow 隐私页开头“WhatDoTheyKnow is run by the charity mySociety: see more details here”提出改写，希望明确 mySociety 与 UK Citizens Online Democracy 的慈善关系，并链接到 Who makes WhatDoTheyKnow 页面以获取结构、治理及在信息专员办公室与慈善委员会的注册信息。评论一指出页面的 “General Data Protection Act” 应为 “General Data Protection Regulations”（法规名纠错）。评论二转达 Mark C 的意见：首行应改为“WhatDoTheyKnow is run by mySociety, a project of the charity UK Citizens Online Democracy.” 全部为文案提案，未见合并、上线或页面现状核对。 Evidence: "WhatDoTheyKnow is run by mySociety, a project of the charity UK Citizens Online Democracy."。限定：文案修订提案（无实施确认）
+- `privacy-issue-7376`: Codebuddies缺privacy路由，贡献者贴出生成器政策全文并建templates/other/privacy.html模板，涵盖姓名邮箱用途、不追踪cookie/DNT、第三方例外、未成年营销、7工作日泄露告知与退订；但其自述问卷答案未知，页面路由与声明行为均未验证。 Evidence: "A lot of questions to answer and I don't know all the answers myself. / We do not use cookies for tracking purposes."。限定：政策文本与模板提供，部署未知
+
+## PRIVACY-B2 — 隐私告知入口、呈现、本地化与可访问性
+
+隐私通知、政策或 Cookie/同意告知能否在正确位置、语言、地区与平台被访问、显示和操作，以及相关页面的发布与接入。
+
+**Include:** 页脚/注册页/应用商店链接、横幅与弹窗呈现、语言翻译、文本裁剪、屏幕阅读器、链接路由、告知页面发布与跨平台集成。
+
+**Exclude:** 一般网站翻译不自动属于隐私告知；单纯后台机制或配置文档用 B3；仅有选择按钮而未涉及告知载体时用 A1。B2 可与 A1 同时出现。
+
+**Boundary:** 8890 的 NVDA 横幅可访问性属于 B2；14123 隐私政策勾选框兼 A1/B2，但界面存在不证明 A2 门控生效。
+
+**Examples:**
+
+- `privacy-issue-1665`: 订阅设置与确认页的 “Privacy Notice” 链接标签在法语、德语、西班牙语、意大利语、荷兰语环境中仍显示英文，虽然点入后的通知正文是用户语言。修复后维护者在 Train 1.230.2 staging 复验标签已本地化；截图与 Jira 附件未读取。 Evidence: "label link is displayed in English, regardless of the user language / the Privacy Notice page is displayed in the user language"。限定：staging 复验已修复，生产部署未说明
+- `privacy-issue-2406`: 报告隐私政策和各隐私通知中的 ICO 链接失效，要求统一改为 https://ico.org.uk/concerns/。无评论，未提供修复或部署确认。 Evidence: "There's a broken link on the privacy policy and each privacy notice. / https://ico.org.uk/concerns/"。限定：链接更新请求，完成未知
+- `privacy-issue-8890`: Ubuntu cookie横幅在Firefox下NVDA不读，Chrome可用，导致盲人难以访问；维护者复现并关联cookie-policy的123修复，随后维护者与原报告者均确认横幅可被NVDA访问。 Evidence: "the cookie dialog now can be easily accessed by NVDA"。限定：修复并获原报告者复验
+
+## PRIVACY-B3 — 数据处理、隐私控制与风险的技术说明
+
+对具体收集字段、用途、数据流、保留、隐私控制、能力边界或威胁作技术解释、文档化、风险告知或真实性核对。
+
+**Include:** 实际发送/保存内容说明、默认值与开关语义、配置和 API 指引、第三方数据处理披露、风险警示、诊断材料分享说明与处理清单。
+
+**Exclude:** 不把所有技术讨论自动算透明告知；仅有法规目标或泛化合规咨询仍用 I/Z。仅修链接或排版用 B2；政策整体建立维护另用 B1。
+
+**Boundary:** 4216 解释策略未配置与启用后下拉框默认值的区别；3942 更新日志手机号位数文档，不代表脱敏策略改进；18560 仍未验证实际外连。
+
+**Examples:**
+
+- `privacy-issue-4216`: 报告指出 Microsoft 365 文档称未配置诊断数据策略时“可选和必需诊断数据都会发送”，而 ADMX 表显示默认 Neither。维护者解释 Neither 是选择 Enable 后下拉框的默认值；策略若 Disabled/Not Configured 则不创建注册表项，因此两处描述并不矛盾。截图/附件未读取，证据状态为 partial。 Evidence: "both optional and required diagnostic data are sent to Microsoft / the default setting is `Neither`"。限定：文档差异获解释，无代码变更
+- `privacy-issue-3942`: Signal Desktop 0.30.0 的调试日志在上报 URL 中保留联系人手机号后三位（如 /v1/messages/+[REDACTED]123），而 Signal Android wiki 声明只显示后两位，桌面端 wiki 当时为空。报告者按“三点菜单 → Submit debug log”复现，并说明 Android 上确为两位。额外指出提交日志 UI 只说会公开张贴、却未说明张贴到哪里、如何编辑，容易让非技术用户误以为点击后还能再编辑，整体让人不敢轻易提交。维护者确认三位是设计、是文档写错，会更新文档；随后另一贡献者确认已更新该 wiki。日志脱敏程度与提交流程本身未改。 Evidence: "The three digits is by design, and we'll go update that documentation. / I have updated the mentioned wiki."。限定：文档纠正；三位脱敏按设计保留
+- `privacy-issue-20596`: 需求是为会写 cookie 的两个包补充说明：在 README 写清所用 cookie 及用途，并在代码里加简短注释，帮助使用方判断是否需要向终端用户告知。作者说明实际只设一个存 AuthenticationProperties 的状态 cookie（默认名 __ActiveLogin.BankIdState / __ActiveLogin.GrandIdState，可改），其中含 RedirectUri 等，并有一个可被使用方写入任意数据的 Items 属性包。评论引欧盟指南“会话期认证 cookie 一般无需同意”，并指出若使用方在 Items 里放敏感数据责任在其自身。作者澄清目标是给开发者文档、不是给终端用户弹窗，并认可认证 cookie 可能属豁免。无文档是否合并的证据。 Evidence: "rather explain what our cookies do for developers / Authentication cookies, for the duration of a session"。限定：澄清文档范围，完成未证
 
 ## PRIVACY-C1 — 分析、广告与诊断遥测
 
@@ -126,18 +170,53 @@ Analyst-authored refinement of the existing S1-1 codebook: individual review of 
 - `privacy-issue-18373`: Synapse 要求推送通知不向 APNS/GCM 发送消息明文，改为唤醒客户端后经 Matrix 取内容并可用 E2E 加密。后续确认 event_id_only 与 include_content 配置可避免明文；维护者解释默认 true 的兼容取舍，并称已足够解决后关闭。 Evidence: "We simply shouldn't be ever sending the plain text of push notifications to APNS or GCM / Setting this to `false` makes Synapse withhold the content"。限定：维护者称已足够解决并关闭；默认值未改
 - `privacy-issue-18621`: 最初认为两个收件者显示不同被作者纠正，两者均链接；维护者解释自动HEAD可被独特URL定位且XMPP服务器中转不直接泄露双方IP，拟opt-in显示。最终OSX beta有偏好，iOS待测试移植。 Evidence: "it makes a http head call automatically for every link to check if it is an image."。限定：OSX beta实现，iOS计划中
 
-## PRIVACY-D — 去标识、最小化与再识别
+## PRIVACY-D1 — 假名替换、哈希、扰动与精度降低
 
-材料涉及减少可识别信息、匿名/假名变换、粒度降低，以及剩余关联风险或保护覆盖。
+通过替换、哈希、映射、随机化、聚合或降低精度改变标识与可识别属性，同时保留部分使用价值。
 
-**Include:** 日志脱敏、哈希与随机映射、时间位置精度、字段遗漏、导出清洗及效果验证。
+**Include:** 用户/IP 假名、随机 UUID、姓名假数据替换、IP 截断、坐标/日期降精度、计数随机化、音频或 OS 指纹伪造。
 
-**Exclude:** 不能把 hash 自动等同匿名；仅删除整账户用 PRIVACY-E2，权利/政策文本仍需 PRIVACY-B。
+**Exclude:** 直接省略或停止收集字段用 D2；运行失败、漏字段、强度/可逆性与再识别评估另用 D3。可逆加密属于 G1，不自动归去标识。
+
+**Boundary:** 4866 网格吸附是降精度，不是随机化；1019 指纹哈希不等于匿名化，兼 D3；3871 可逆字段加密仅归 G1 等保留类别。
 
 **Examples:**
 
-- `privacy-issue-943`: 性能分析任务原本怀疑同步与目录查询中的伪名化、DTO 转换是瓶颈；最终结论明确写明伪名化可排除为重要性能影响，主要耗时来自含大量 join 的长 SQL，并拆出两个后续 issue。主题是隐私保护处理与系统性能的权衡。 Evidence: "especially include the pseudonymisation logic because this was already identified as a huge bottleneck / pseudonymization can be ruled out as a relevant impact on performance"。限定：分析完成，后续优化拆单
-- `privacy-issue-975`: 社区人员打开个人目录时，辖区外本不应可见的人员没有被伪名化，且过滤列表显示其无权限查看的实体关系；期望是只显示可访问人员，否则进行伪名化，过滤结果也不应暴露不可见关系。评论仅确认在 1.60.0-SNAPSHOT 验证，截图未读取。 Evidence: "persons that the user should not be allowed to see are not pseudonymized / should only see the persons on the directory that they have access to"。限定：QA 验证通过，部署状态未在文本说明
+- `privacy-issue-4866`: 要求API也遮蔽坐标，已有匿名/精度功能获认可；后续澄清为网格吸附非随机，4级约100m可能过精确，统一尺度不适混合密度；动态方案进入UX待办。 Evidence: "The function is not a randomiser / snaps the coordinates to the nearest intersection point in a grid"。限定：基本功能已有，适应密度改进待办
+- `privacy-issue-4842`: #1287 的后续：在匿名化时打乱评教结果。动机是拥有生产权限者可能在匿名化数据里识别未发布课程（少于两名参与者投票才不发布），并借其他课程的答案分布反推，从而去匿名化贡献者姓名；因此决定匿名化时随机化答案计数，同时要求每题答案总数大致不变，且任何一项计数不得超过该课程投票人数。讨论给出两版实现：一是先汇总答案总数，再按 RatingAnswerCounters 逐个取 0 到剩余数的随机值分配，实现简单但对靠前的计数项系统性偏高；二是先给每项一个 0..票数的随机数，再按因子缩放回原总数并均匀分摊误差，分布更均匀但需额外清理。正文无评论，无实现或合并证据。 Evidence: "it is better to randomize answers / answer counters should be set randomly on anonymization."。限定：方案设计讨论（两版实现取舍），无实现证据
+- `privacy-issue-4603`: SmartNoise 提议新增匿名化 transformer：用户传入按字段生成假数据的函数或 Faker provider，变换时清洗真实 PII，反向变换时生成假值。维护者建议派生 ColumnTransformer，并讨论训练集不应学习假 PII、单列 PII 的 1→n/ n→1 变换以及返回 None 的处理。作者随后称 AnonymizationTransformer 已实现、测试并合并，TableTransformer 使用测试和 PII 推断也完成，最后修复文档构建。该实现降低可识别性，但材料没有给出匿名性证明或再识别评估。 Evidence: "The `AnonymizationTransformer` itself is implemented, tested and merged. / Thanks @joshua-oss for implementing the tests and basic PII inference in #515."。限定：组件与集成测试已合并，文档已修复
+
+## PRIVACY-D2 — 字段、元数据与采集范围最小化
+
+通过不收集、不保存、不发送、过滤或移除非必要数据字段、内容或元信息来减少数据暴露。
+
+**Include:** 日志/遥测字段清理、EXIF/URL/凭据去除、只保留必要字段、缩小位置或传感器采集范围、避免新增身份存储与最小权限设计。
+
+**Exclude:** 假名或扰动算法用 D1；专门的主体删除或生命周期流程用 E2，可同时注明字段最小化。仅加密或身份认证不等于最小化。
+
+**Boundary:** 15030 默认删除非方向 EXIF 属于 D2；4389 只讨论 2FA，移除旧 D；18391 不记录 IP 是最小化声明，不是接收方完全未见 IP 的证明。
+
+**Examples:**
+
+- `privacy-issue-15030`: 报告称 Signal iOS 2.10.1 发送图片时保留 EXIF 与精确 GPS，要求至少移除位置。讨论指出 Android 仅因缩放偶然清除，iOS 用 PHAsset 保留原始数据；维护者提出在 SignalAttachment 统一处理，先增加可选移除，随后提交改为默认始终移除除方向外的元数据。2020 年评论用提交与源码确认功能存在，但开发团队多年未显式更新或关闭 issue，最终由 stale bot 关闭；材料同时有“已默认清除”的代码证据和“缺少正式验收”的治理缺口。 Evidence: "Signal for iOS includes EXIF data in sent images, including precise GPS data if present. / We'd consider a PR which strips out non-orientation exif metadata by default"。限定：默认元数据清除已由提交/源码支持，issue 由 stale bot 关闭
+- `privacy-issue-14209`: saproto清单停止保存国籍与性别、删除用户自填学习史、保留UT提供的学习史并每半年邮件核对联系方式；评论称隐私政策已更新、邮件已排期。并非一概删除学习历史。 Evidence: "persistently save the study (history) provided by the UT / Privacy policy updated and e-mail scheduled."。限定：清单与政策完成，邮件已排期
+- `privacy-issue-3074`: 税务法院要求避免日志泄露可冒用身份的凭据，验收包括不记录 JWT、明确允许记录的用户字段、发往 AWS 外服务的数据不含 PII。评论先讨论日志字段规范，后缩小到 access token 与 Authorization bearer token；最终称过滤已实现，且法院环境不向 Honeybadger 等外部服务发送数据，票据完成。AWS token 等剩余问题在另一票据。 Evidence: "Ensure user secrets are not logged. / JWT tokens are not logged."。限定：访问令牌与 bearer token 过滤已实现；票据完成
+
+## PRIVACY-D3 — 去标识覆盖、执行质量与再识别边界
+
+围绕去标识能否正确执行、覆盖全部字段/格式/副本、维持数据结构或效用，以及残余可识别性、关联攻击和保护声明的适用边界展开评估。
+
+**Include:** 漏字段/格式/嵌套/临时文件、工具配置或运行失败、脱敏验证、可逆推哈希、组合识别、算法强度/适用性、性能与效用取舍。
+
+**Exclude:** 只描述转换或字段移除且没有质量/覆盖/识别边界讨论时用 D1/D2；一般隐私争议不自动归 D3；仅同意或删除失败仍按 A/E。
+
+**Boundary:** 5005 开启匿名 IP 后 headers 仍留完整 IP，兼 D1/D3；11947 搜索建议与历史删除争议未说明去标识机制，归保留的 E/Y/H，不延续旧 D。
+
+**Examples:**
+
+- `privacy-issue-5005`: 打开匿名IP后X-Forwarded-For及X-Real-Ip仍保留全IP；维护者认可两处都应处理并报告修复，待下个tag发布。 Evidence: "We should do anonymization for both. / Fixed. Will be released in the next tag."。限定：修复声明，发布待后续
+- `privacy-issue-974`: Twitter NDJSON未被CSV既有假名化覆盖；PR递归字典按作者字段应用同一hash，最后明确Fixed in151。hash假名化不等于不可重识别匿名。 Evidence: "uses the same hash function for pseudonymization"。限定：报告修复
+- `privacy-issue-3902`: DCAF患者结束服务后删电话姓名等但保留报告与重复服务关联；指出公开电话加公开算法可逆推身份，讨论secret salt、年龄分段、字段组合复核和清除audit日志。期限从120天到已履约30天/未履约约120天讨论，最终仅计划推进，未证部署匿名化。 Evidence: "If a person knew someone's phone number they could apply the archive ID-scramble process / We definitely need a second pass to see if our combination of data becomes identifiable."。限定：设计推进，最终实现未证
 
 ## PRIVACY-E1 — 留存期限、存储位置与持久化边界
 
@@ -161,7 +240,7 @@ Analyst-authored refinement of the existing S1-1 codebook: individual review of 
 
 **Include:** 账户/消息/cookie/cache 删除、卸载清理、匿名化代替删除、redaction 残留、下载数据、主体访问与删除请求。
 
-**Exclude:** 一般字段脱敏和再识别用 D；只有保存时间/位置用 E1；界面隐藏和停用不能自动视为删除。
+**Exclude:** 一般字段脱敏和再识别用 D1/D2/D3；只有保存时间/位置用 E1；界面隐藏和停用不能自动视为删除。
 
 **Boundary:** 2958 同时下载与关户属于 E2；13934 明确 redaction 后数据库仍留内容，必须保留删除不完整的限定；18464 搜索可见性不属于删除。
 
@@ -171,31 +250,69 @@ Analyst-authored refinement of the existing S1-1 codebook: individual review of 
 - `privacy-issue-13934`: 圣诞期间 FN spambot 攻击后出现大量批量 redaction 需求，并认为 GDPR 也需要。当前范围定为 redact all messages from this user，另一议题负责多选消息。评论警告：redaction 只是替换事件内容，事件内容仍留在数据库，因此不等于彻底删除，并链接 Synapse 相关讨论。2018 年补充关联的 GDPR 议题与 riot-web 议题。2022 年有人追问进展，答复参见 matrix-spec-proposals PR #2244，并因该规范 PR 已落地而把议题转到 element-meta#920 关闭。规范层推进，本仓库功能完成情况未验证。 Evidence: "event content still stays in database after redaction. / redact all messages from this user"。限定：规范推进并转移跟踪；删除后数据残留问题未解
 - `privacy-issue-6881`: Firebase 请求暴露清除 IndexedDB 离线持久化的 API。维护者说明持久化假设 OS 用户即实际用户，不适合共享账户；安全规则不能充当本地缓存过滤器；手工改 IndexedDB 可能破坏缓存。垃圾回收在 5.7.0，clearPersistence() 在 v6.2.0 发布。属本地留存与生命周期控制，并有明确残余风险说明。 Evidence: "Expose API to clear offline persistence (in IndexedDB). / clearPersistence()"。限定：clearPersistence 在 v6.2.0 发布；共享账户风险未消除
 
-## PRIVACY-F — 身份、受众与访问边界
+## PRIVACY-F1 — 角色、受众、租户与跨组件访问隔离
 
-材料涉及谁能识别谁、谁能访问哪些信息，以及跨用户/角色/实例/视图的边界。
+谁可以看到、取得、修改或接收数据，以及角色、群组、实例、设备、视图或输出目标之间的权限和受众隔离。
 
-**Include:** 角色权限、资料可见性、账户关联、行为状态、消息受众、共享设备及公开索引。
+**Include:** 字段/资料可见性、管理员权限、跨用户内容泄露、私密群组、联邦受众、通知/导出目标、访问角色盘点和凭据使用目标。
 
-**Exclude:** 不把不猜得到的 URL 当身份授权；本地保存也可能暴露给本地管理员或旁观者。
+**Exclude:** 身份存在性、资料关联和行为推断用 F2；纯存储位置或网络连接选择不自动归 F1。隐藏界面、随机 URL 或公开链接不等于有效授权。
+
+**Boundary:** 18418 随机文件 URL 不等于授权；12082 退群后桌面仍接收是受众隔离问题；8869 仅按钮遮挡，无访问授权机制，保留 A1/H。
 
 **Examples:**
 
-- `privacy-issue-21543`: 请求新增管理员修改用户密码功能，用于帮助无法登录的用户；讨论者指出这会带来管理员接触账户凭据、模拟用户访问和未经同意干预的风险。维护者最终拒绝管理员改密能力，认为真正的问题是找回密码流程，并关闭本条。材料没有证明找回流程修复已完成。 Evidence: "no field that enable to change the user password / directly access/simulate access to a user account without his consent is questionable"。限定：功能请求拒绝，转查找回密码故障
-- `privacy-issue-975`: 社区人员打开个人目录时，辖区外本不应可见的人员没有被伪名化，且过滤列表显示其无权限查看的实体关系；期望是只显示可访问人员，否则进行伪名化，过滤结果也不应暴露不可见关系。评论仅确认在 1.60.0-SNAPSHOT 验证，截图未读取。 Evidence: "persons that the user should not be allowed to see are not pseudonymized / should only see the persons on the directory that they have access to"。限定：QA 验证通过，部署状态未在文本说明
+- `privacy-issue-20221`: Ushahidi为发布核验帖子隐藏PII；起初按字段角色后改private开关，仅能编辑整帖者能见私有字段，不支持部分编辑；提交仍可填。hide author隐藏署名，非新增采集。QA修私有照片及管理员不可见等，最终确认私有字段正常；tasks改sections未采纳。 Evidence: "Private fields work perfectly / this is not field level permissions, it's more field level locking."。限定：私有字段测试通过关闭
+- `privacy-issue-12082`: Signal移动端退群后桌面端仍显示群并可收发，重新加入再退出仍复现；另一组成员证实已离群数月者持续在桌面收消息，界面不提示其仍在受众中。维护者怀疑离组通知未到所有设备，索要关键时刻日志并建议用正确成员设备改群名广播状态，最终不活跃关闭，无修复验证。 Evidence: "fourth member who left the group months ago has continued receiving / closed due to inactivity"。限定：疑因与绕过建议，未修复验证
+- `privacy-issue-18418`: Sensei测验上传进公共媒体库可直链访问；维护者承认非意图转bug，提随机URL混淆，无实施时间；随机不可猜不能等同身份授权，闭合状态不证修复。 Evidence: "all files uploaded by learners as quiz answers, are stored in the media library / Our proposed solution is to obfuscate the file url with a random string"。限定：承认问题并提出混淆，未证实施
 
-## PRIVACY-G — 安全保护与隐私威胁机制
+## PRIVACY-F2 — 身份关联、存在性暴露与行为可推断性
 
-材料以具体攻击、故障、加密、认证、权限、反指纹或通信机制讨论信息保护。
+身份、账号、设备或行为记录如何被关联、枚举或呈现给观察者，包括资料合并、活动状态、公开索引和本地历史带来的识别风险。
 
-**Include:** 凭据泄露、异常路径污染、传输/静态加密、密钥、认证、权限声明、威胁模型及误报。
+**Include:** 邮箱/订单/账号绑定、匿名资料与署名、账户枚举、行为状态和已读回执、公开索引、共享终端历史、稳定客户端标识与活动关联。
 
-**Exclude:** 必须区分假设、报告、复现和反驳；安全相关标题不证明发生泄露。
+**Exclude:** 一般角色权限用 F1；单纯浏览器存储适配用 E1/H；仅与个人数据相关但没有关联或推断机制时不纳入。算法去标识另用 D。
+
+**Boundary:** 11975 即使只返回地址存在的布尔值，也可能被用来枚举账号；12278 最终拒绝旧订单自动关联；3976 仅替换 userStore，没有身份关系或受众变更。
+
+**Examples:**
+
+- `privacy-issue-11975`: 多用户可设他人联系方式引spam，唯一约束又可抢占地址；显示谁使用被批隐私泄露，即使布尔也可能枚举账户。最终提按现有destination主键回布尔，不显示身份；无实现确认。 Evidence: "could still be a breach of privacy / simply returns a boolean"。限定：缩减披露的设计共识
+- `privacy-issue-12278`: OFN最初设想确认邮箱后把旧guest订单关联新用户但用户不可见，争论邮箱拼错、地址转让或虚构以及商家重复记录；最终决定完全不关联旧guest与新账号，只以guest标签区分身份并另开2338。不能按初始正文写成自动合并已实施。 Evidence: "final decision is to not associate old guest orders / two different identities"。限定：决定不关联，标签另项
+- `privacy-issue-18388`: 用户称隐藏last-seen仍从群排序估计时间；维护者解释客户端无精确隐藏时间，只持先前可见状态或可见打字/消息触发时间。用户确认第二来源但仍要求离线沉底；自动不活跃关闭，未改排序。 Evidence: "Yes, he saw it because of option 2 / shouldn't my name go to the bottom of the list"。限定：机制解释，剩余界面请求未解决证据
+
+## PRIVACY-G1 — 加密、密钥与通信或存储的密码学保护
+
+通过加密、密钥、密码派生、签名或安全传输协议保护数据，及其信任边界、配置、默认值和替代架构。
+
+**Include:** TLS/HTTPS/DoH、静态/字段/端到端加密、PAKE/PBKDF2/HMAC、密钥备份和管理、密码学签名完整性及弱加密争议。
+
+**Exclude:** 权限声明、登录会话、XSS、日志暴露与指纹防护本身用 G2；只有随机 ID/哈希去标识且无密码学安全边界时用 D1/D3。
+
+**Boundary:** 3871 密文入库而前端仍见明文，非所有使用方均无法解密；14048 TURN-TLS 主要为防火墙兼容，语音视频已有加密；13503 是发布签名完整性，没有个人数据泄露证据。
+
+**Examples:**
+
+- `privacy-issue-3871`: 表单字段由持久化代理加密后入库，前端明文，管理员可按表单重处理已有数据；完成项及文档支持实现，全文检索不含加密字段且仅精确匹配，换钥与多密钥管理延期。 Evidence: "The Form Runner \"front-end\" will always see unencrypted data / We defer Key management"。限定：功能完成并文档化，密钥管理另项
+- `privacy-issue-7032`: croc初始短码SHA256被质疑离线枚举和MITM，先加公私钥仍需带外人工核验且文档弱化必要性；长讨论澄清PAKE后作者发布3.0使用PAKE，对方认可。wormhole协议互通仅考虑，不算完成；未独立审计安全保证。 Evidence: "I've bumped croc to 3.0 which uses PAKE / Nowhere does it mention that public keys must be authenticated"。限定：PAKE实现获回应认可，互通未完成
+- `privacy-issue-7252`: 用户担心服务器上的数据库文件以口令派生密钥对称加密，服务端泄露后可离线字典攻击，建议每台设备用密钥对，并以多公钥加密文件。维护者说明使用 PBKDF2 做密钥拉伸、弱口令提示，认为非对称方案对大文件性能差、复杂度高，且密钥交换与多设备授权会引入新问题；还提到渗透测试曾审查现有方案。讨论澄清 2048 位 RSA 与 128 位 AES 的强度类比，以及盐/彩虹表问题。最终决定不改加密架构，报告未证明现有方案被攻破。 Evidence: "We're using [PBKDF2] / my decision remains to not change anything about the encryption scheme right now."。限定：维持现有加密方案，风险被部分限定
+
+## PRIVACY-G2 — 认证、权限、攻击防护与意外披露控制
+
+围绕认证会话、平台敏感权限、攻击面、意外信息披露、指纹防护或安全报告处理采取或讨论控制。
+
+**Include:** 2FA、凭据/会话撤销、CSRF/XSS、防误发/误填、SDK 权限初始化、日志 secret、反指纹与网络广播控制、泄露防护与风险误报。
+
+**Exclude:** 仅涉及合法受众设计不自动归安全缺陷；密码学保护用 G1；不能把权限崩溃、静态告警、单方指控或 hypothetical 威胁写成已证实泄露。
+
+**Boundary:** 352 XSS 输入转义属于 G2，不由 payload 的 document.cookie 推断同意；7594 权限崩溃未证实摄像头被使用；12057 错误 URL 共享兼 F1/G2，修复状态仍有限定。
 
 **Examples:**
 
 - `privacy-issue-352`: 完整阅读恶意属性载荷与三条评论。问题根因是用户可控属性被 html_safe 且自动链接；维护者先考虑取消自动链接，随后接受先转义输入、再保留自动链接的方案，但文本没有部署或验证记录。payload 中的 document.cookie 只是攻击示例，不能据此归为 Cookie 同意问题。 Evidence: "XSS through `.html_safe`-ing attributes / escapes the input beforehand"。限定：修复方案获维护者认可，部署未从文本确认
-- `privacy-issue-21543`: 请求新增管理员修改用户密码功能，用于帮助无法登录的用户；讨论者指出这会带来管理员接触账户凭据、模拟用户访问和未经同意干预的风险。维护者最终拒绝管理员改密能力，认为真正的问题是找回密码流程，并关闭本条。材料没有证明找回流程修复已完成。 Evidence: "no field that enable to change the user password / directly access/simulate access to a user account without his consent is questionable"。限定：功能请求拒绝，转查找回密码故障
+- `privacy-issue-4389`: 因系统要保存姓名、邮箱、电话等个人信息，要求登录启用 2FA 以满足隐私与安全控制：询问是否默认开启、能否用 SMS、开发测试期间能否关闭。回复称应用已强制使用邮件链接或短信 2FA；有人指出邮件/短信是最不安全的选项，建议 Yubikey 或 TOTP；最终结论是默认用邮件、在测试期保持开启。未讨论 2FA 与最小化、留存的关系。 Evidence: "The app already enforces 2fa email links or sms"。限定：现有2FA保持开启
+- `privacy-issue-3079`: Tenable 扫描发现生产环境的 csrftoken 未正确设置 SameSite；Secure 项被拆到另一 issue。团队因旧版 Django 缺少能力而阻塞，2020-02-28 升级至 2.2.10 并部署 dev 后，称 dev 与 stage 均已验证 CSRF token 为 Lax，生产计划随 11.5 发布生效。该 issue 后来被重新打开，2021-03 评论称 CSRF token 已设置并已修复；材料没有附生产响应头或回归测试，法律/风险判断均为讨论观点。 Evidence: "I verified that the CSRF token is now being set to `Lax` in both  `dev` and `stage` spaces. / Samesite flag is set on the CSRF token, this is remediated"。限定：开发与预发已验证 Lax，生产修复由后续评论确认
 
 ## PRIVACY-H — 隐私控制可用性与系统兼容
 
@@ -249,9 +366,6 @@ Analyst-authored refinement of the existing S1-1 codebook: individual review of 
 - `privacy-issue-1830`: 正文只有一句“à la”加一个 mozilla/legal-docs PR 链接，没有可读的隐私通知内容、处理活动或实施说明；无评论，外部 PR 未读取，无法定位具体机制。 Evidence: "à la https://github.com/mozilla/legal-docs/pull/1021/files"。限定：内容不足，无法判断
 - `privacy-issue-11387`: 正文只有占位反馈，评论要求说明具体缺什么后关闭；无法确定具体法律文本或数据机制。 Evidence: "[Enter feedback here] / Could you please clarify what exactly is missing or needs modification"。限定：证据缺失，结果未知
 
-## Original scope qualifications
+## Scope qualifications
 
-Coverage refers to all supplied textual sections, not all content ever linked on the web.
-Source revision ambiguity, inaccessible context, tentative proposals and absence of execution evidence remain in individual scope notes.
-Coding is assistant-authored; it is not published human annotation, independently validated ground truth, or an experimental system run.
-All artifacts are included; unspecified work and comments without established outstanding work are retained explicitly rather than invented as defects.
+仅覆盖已提供的文本；没有重新抓取外链、截图或附件。既有 partial/complete、来源时间差和实现未验证等限定保留。编码由助手撰写，未标注为人类审定或独立验证真值。
