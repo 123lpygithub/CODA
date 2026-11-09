@@ -1,7 +1,7 @@
 # Codebook artifacts
 
 All datasets and runs use the same seven-file package and the same JSON fields,
-field types and CSV headers. The common format is based on the GPT6-1 presentation
+field types and CSV headers. The common format is based on the S3-1 presentation
 and is identified as `coda.artifact.v1`. Coding decisions remain specific to each
 run; format normalization does not merge, rename or reassign semantic codes.
 
@@ -15,8 +15,10 @@ Artifact/
 └── Privacy/
 ```
 
-Each dataset has six run directories: `GPT6-1`, `GPT6-2`, `deepseek-1`,
-`deepseek-2`, `gpt5.6-1` and `gpt5.6-2`. Every run directory contains exactly:
+Each dataset has six run directories: `S1-1`, `S1-2`, `S2-1`,
+`S2-2`, `S3-1` and `S3-2`. The directory labels are DeepSeek → S1,
+GPT-5.6 → S2 and GPT-6 → S3; the suffix retains the original round.
+Every run directory contains exactly:
 
 | File | Contents |
 |---|---|
@@ -32,24 +34,24 @@ Each dataset has six run directories: `GPT6-1`, `GPT6-2`, `deepseek-1`,
 
 | Dataset | Run | Artifacts | Codes | Artifact–code assignments |
 |---|---|---:|---:|---:|
-| CodeErrors | [GPT6-1](CodeErrors/GPT6-1/codebook.md) | 557 | 17 | 729 |
-| CodeErrors | [GPT6-2](CodeErrors/GPT6-2/codebook.md) | 557 | 13 | 706 |
-| CodeErrors | [deepseek-1](CodeErrors/deepseek-1/codebook.md) | 557 | 15 | 735 |
-| CodeErrors | [deepseek-2](CodeErrors/deepseek-2/codebook.md) | 557 | 28 | 1228 |
-| CodeErrors | [gpt5.6-1](CodeErrors/gpt5.6-1/codebook.md) | 557 | 14 | 946 |
-| CodeErrors | [gpt5.6-2](CodeErrors/gpt5.6-2/codebook.md) | 557 | 29 | 1254 |
-| SATD | [GPT6-1](SATD/GPT6-1/codebook.md) | 856 | 18 | 869 |
-| SATD | [GPT6-2](SATD/GPT6-2/codebook.md) | 856 | 18 | 1546 |
-| SATD | [deepseek-1](SATD/deepseek-1/codebook.md) | 856 | 18 | 1072 |
-| SATD | [deepseek-2](SATD/deepseek-2/codebook.md) | 856 | 30 | 938 |
-| SATD | [gpt5.6-1](SATD/gpt5.6-1/codebook.md) | 856 | 14 | 1066 |
-| SATD | [gpt5.6-2](SATD/gpt5.6-2/codebook.md) | 856 | 20 | 1580 |
-| Privacy | [GPT6-1](Privacy/GPT6-1/codebook.md) | 652 | 18 | 980 |
-| Privacy | [GPT6-2](Privacy/GPT6-2/codebook.md) | 652 | 11 | 1877 |
-| Privacy | [deepseek-1](Privacy/deepseek-1/codebook.md) | 652 | 11 | 1948 |
-| Privacy | [deepseek-2](Privacy/deepseek-2/codebook.md) | 652 | 31 | 2841 |
-| Privacy | [gpt5.6-1](Privacy/gpt5.6-1/codebook.md) | 652 | 16 | 1752 |
-| Privacy | [gpt5.6-2](Privacy/gpt5.6-2/codebook.md) | 652 | 28 | 3187 |
+| CodeErrors | [S3-1](CodeErrors/S3-1/codebook.md) | 557 | 17 | 729 |
+| CodeErrors | [S3-2](CodeErrors/S3-2/codebook.md) | 557 | 13 | 706 |
+| CodeErrors | [S1-1](CodeErrors/S1-1/codebook.md) | 557 | 15 | 735 |
+| CodeErrors | [S1-2](CodeErrors/S1-2/codebook.md) | 557 | 28 | 1228 |
+| CodeErrors | [S2-1](CodeErrors/S2-1/codebook.md) | 557 | 14 | 946 |
+| CodeErrors | [S2-2](CodeErrors/S2-2/codebook.md) | 557 | 29 | 1254 |
+| SATD | [S3-1](SATD/S3-1/codebook.md) | 856 | 18 | 869 |
+| SATD | [S3-2](SATD/S3-2/codebook.md) | 856 | 18 | 1546 |
+| SATD | [S1-1](SATD/S1-1/codebook.md) | 856 | 18 | 1072 |
+| SATD | [S1-2](SATD/S1-2/codebook.md) | 856 | 30 | 938 |
+| SATD | [S2-1](SATD/S2-1/codebook.md) | 856 | 14 | 1066 |
+| SATD | [S2-2](SATD/S2-2/codebook.md) | 856 | 20 | 1580 |
+| Privacy | [S3-1](Privacy/S3-1/codebook.md) | 652 | 18 | 980 |
+| Privacy | [S3-2](Privacy/S3-2/codebook.md) | 652 | 11 | 1877 |
+| Privacy | [S1-1](Privacy/S1-1/codebook.md) | 652 | 11 | 1948 |
+| Privacy | [S1-2](Privacy/S1-2/codebook.md) | 652 | 31 | 2841 |
+| Privacy | [S2-1](Privacy/S2-1/codebook.md) | 652 | 16 | 1752 |
+| Privacy | [S2-2](Privacy/S2-2/codebook.md) | 652 | 28 | 3187 |
 
 There are 18 packages, 12,390 artifact records across runs and 25,254 artifact–code
 assignments. Each run covers the same dataset size; these are repeated analyses,
@@ -102,8 +104,12 @@ the publication tree. The local conversion and verification script is
 `/home/peiyuan/CODA/Artifact/format_unification/unify_packages.py`.
 
 Coverage refers to supplied text. Missing bodies, inaccessible links, images and
-attachments remain evidence limitations. In SATD/Privacy GPT6-2, SATD uses 856
+attachments remain evidence limitations. In SATD/Privacy S3-2, SATD uses 856
 released comments; Privacy has 536 complete snapshots, 115 metadata-only records
 and one partial snapshot. Mechanical validation establishes presentation and
 conversion integrity, not independent semantic accuracy or human double coding.
 Run labels identify result versions; they are not verified API model identities.
+
+Current directory names and public `metadata.run` values use the S1/S2/S3 labels.
+Historical names inside preserved original records, quoted text and provenance
+remain unchanged. `FORMAT_VALIDATION.json` records the rename mapping and checks.

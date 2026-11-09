@@ -1,0 +1,1148 @@
+# Privacy / S2-2
+
+Schema: `coda.artifact.v1`. Artifacts: **652**; codes: **28**; artifact–code assignments: **3187**.
+
+This package uses the common seven-file format. All existing coding decisions, evidence and limitations are preserved. Additional source-specific fields are retained in `extensions`; original codebook text is retained in `codebook.json` metadata extensions and the local pre-conversion backup.
+
+## Scope and method
+
+逐条完整阅读、开放编码、持续比较、逐条人工 assignment；程序仅转换格式并验证。
+
+单一 AI 编码；机械一致性检查不构成人工双重编码或语义准确性证明。
+
+## Codes
+
+| Code | Name | Artifacts |
+|---|---|---:|
+| PR01 | 通知、披露与透明度 / notice_transparency | 237 |
+| PR02 | 同意与偏好生命周期 / consent_preference_lifecycle | 218 |
+| PR03 | Cookie 与客户端标识符 / cookies_client_identifiers | 133 |
+| PR04 | Analytics、Telemetry 与使用测量 / analytics_telemetry | 107 |
+| PR05 | 数据最小化与隐私默认值 / minimization_privacy_defaults | 177 |
+| PR06 | 访问控制与可见性 / access_visibility_control | 85 |
+| PR07 | 删除、擦除与遗忘权 / deletion_erasure | 85 |
+| PR08 | 数据访问、导出与可携带性 / access_export_portability | 14 |
+| PR09 | 匿名化、假名化与脱敏 / anonymization_redaction | 131 |
+| PR10 | 保留期限与自动清理 / retention_automatic_cleanup | 64 |
+| PR11 | 第三方共享与供应商边界 / third_party_sharing | 143 |
+| PR12 | 本地、缓存与设备侧隐私 / local_device_storage | 54 |
+| PR13 | 日志、诊断与秘密泄露 / logs_diagnostics_secrets | 55 |
+| PR14 | 加密与安全传输 / encryption_secure_transport | 53 |
+| PR15 | Metadata 与间接信息泄露 / metadata_leakage | 147 |
+| PR16 | 敏感数据收集与处理 / sensitive_data_handling | 203 |
+| PR17 | 反跟踪、私密模式与隐私信号 / anti_tracking_private_mode | 47 |
+| PR18 | 权利请求流程与人工治理 / rights_request_governance | 67 |
+| PR19 | 合规、政策与法律不确定性 / compliance_policy_legal | 205 |
+| PR20 | 安全漏洞导致的隐私暴露 / security_exposure | 77 |
+| PR21 | 隐私 UX、可发现性与功能权衡 / privacy_usability_tradeoff | 233 |
+| PR22 | 已实施并由材料确认 / implemented_confirmed | 159 |
+| PR23 | 已接受、原型或部分进展但未充分验证 / accepted_partial_unverified | 131 |
+| PR24 | 提议或讨论，未记录实施决定 / proposal_discussion_only | 24 |
+| PR25 | 拒绝、延期、搁置或不实施 / rejected_deferred_wontfix | 94 |
+| PR26 | 重复、转交或结果在材料外 / duplicate_transferred_external | 54 |
+| PR27 | 有正文但关闭/陈旧且无结果证据 / closed_stale_no_outcome_evidence | 85 |
+| PR28 | 仅元数据，处理结果不可判定 / metadata_only_unassessable | 105 |
+
+## PR01 — 通知、披露与透明度 / notice_transparency
+
+向用户说明收集什么数据、为何处理、传给谁、保存多久或如何行使权利的界面、政策、文档或可发现性问题。
+
+- Include: privacy policy/notice、cookie notice 的说明部分、遥测披露、政策本地化、隐私文档缺失或难以找到。
+- Exclude: 只改变是否同意而不涉及信息充分性的控制（PR02）；纯法律合规讨论而没有用户披露问题（PR19）。
+- Boundary/examples: notice 同时提供可操作选择时并列 PR02；仅有兼容性或开发文档时，只有材料明确意在解释数据实践才编码本项。 要求在启用第三方 analytics 前说明收集字段、接收方和退出方式。 给管理员增加删除数据库记录的按钮属于 PR07，而非本项。
+- Supporting artifacts: 237; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-21460",
+    "row": 4,
+    "field": "reading_memo.evidence",
+    "quote": "加入经审核的法语翻译",
+    "interpretation": "该条处理 Privacy Act 告知文本的法语本地化、法案名称和人工法律文案审核；指定人员已批准拟议表述，但没有提交或部署证据，因此是获接受但上线未验证。"
+  }
+]
+````
+
+## PR02 — 同意与偏好生命周期 / consent_preference_lifecycle
+
+获取、记录、执行、撤回或重新取得用户隐私选择，包括 opt-in、opt-out、拒绝、设置和同意状态持久化。
+
+- Include: consent banner 操作、预先勾选、拒绝与接受对等、撤回同意、选择后才写入状态、偏好未生效。
+- Exclude: 只讨论 cookie 技术而无用户选择（PR03）；只讨论默认少收集且没有选择过程（PR05）。
+- Boundary/examples: “退出 telemetry”通常同时编码 PR04；同意状态存入 cookie 时同时编码 PR03，但不得把 cookie 本身等同于有效同意。 用户尚未点击提示，仅刷新页面就被记录为已处理提示。 删除过期 session cookie 是存储清理，不一定涉及同意。
+- Supporting artifacts: 218; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-450",
+    "row": 3,
+    "field": "reading_memo.evidence",
+    "quote": "只有用户点击prompt中的选项后才禁用后续prompt",
+    "interpretation": "页面刷新就在用户操作前写入 cookie，并错误持久化为已处理 prompt，破坏选择界面的语义；公开记录只说明问题转入内部跟踪，没有材料内修复结果。"
+  }
+]
+````
+
+## PR03 — Cookie 与客户端标识符 / cookies_client_identifiers
+
+创建、读取、限制、清除或分类 cookie 及类似客户端标识符所产生的隐私问题。
+
+- Include: 按域删除 cookie、third-party cookie、cookie duration、identifier rotation、cookie banner 中具体 cookie 行为。
+- Exclude: 任意本地文件或缓存但不作为 Web 标识/状态（PR12）；泛化的 tracking 防护而未涉及标识符机制（PR17）。
+- Boundary/examples: cookie 用于 analytics 时并列 PR04；用于同意记录时并列 PR02；扩展为操作 cookie 申请更高权限时也考虑 PR20。 Surfingkeys 提议按域名正则删除 cookie。 删除本地查询历史属于 PR12/PR07，不属于本项。
+- Supporting artifacts: 133; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-310",
+    "row": 1,
+    "field": "reading_memo.evidence",
+    "quote": "增加按domain正则匹配并删除cookie的命令",
+    "interpretation": "材料提出按域名正则删除 cookie，并权衡增强用户清理控制与扩展新增 cookies 权限/重新授权的代价；issue 虽为 closed，但无评论、提交、拒绝或关闭原因，不能判定实现。"
+  }
+]
+````
+
+## PR04 — Analytics、Telemetry 与使用测量 / analytics_telemetry
+
+产品分析、遥测、崩溃/性能测量或第三方统计脚本对使用数据的收集及其开关。
+
+- Include: telemetry opt-in/opt-out、默认开启、analytics SDK、IP anonymization、关闭后仍发送、测量字段范围。
+- Exclude: 为单次故障排查主动提交日志（PR13）；一般第三方共享但无测量目的（PR11）。
+- Boundary/examples: crash report 若以诊断包形式提交，优先 PR13；若是持续、聚合的产品度量，可并列本项。退出后的网络行为必须按实际证据编码，不能从 UI 开关推断停止收集。 用户拒绝 Netlify telemetry 后客户端仍连接遥测服务器。 私下发送一次 Terraform TRACE 日志属于 PR13。
+- Supporting artifacts: 107; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-1765",
+    "row": 16,
+    "field": "reading_memo.evidence",
+    "quote": "发布说明crates.io及相关Rust网站如何处理个人数据的统一隐私政策",
+    "interpretation": "crates.io 缺少通知的讨论扩展为个人数据盘点：曾移除 Google Analytics，披露 IP/User-Agent/发布 metadata、日志超期及部分无限保存，并讨论 IP 去识别、删除限制和统一政策；最后只记录外部 PR 已存在、待合并后链接，未见合并上线。"
+  }
+]
+````
+
+## PR05 — 数据最小化与隐私默认值 / minimization_privacy_defaults
+
+限制收集字段、处理频率、作用范围或默认公开程度，使系统只处理实现目的所必要的数据。
+
+- Include: 非必要字段改为可选、默认关闭收集、缩小同步范围、最小权限/最小披露 route、privacy by default。
+- Exclude: 已有数据的删除（PR07）或保存时长（PR10）；仅靠匿名化降低识别性（PR09）。
+- Boundary/examples: 从“不收集”解决问题时用本项；从“收集后去标识”解决时用 PR09；两种机制同时存在可并列。 自托管财务录入方案只暴露必要的交易录入 route，而非完整账本。 收集全部字段后加密传输属于 PR14，不是最小化。
+- Supporting artifacts: 177; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-21543",
+    "row": 6,
+    "field": "reading_memo.evidence",
+    "quote": "增加管理员修改外部用户密码的界面",
+    "interpretation": "请求让管理员代改外部用户密码，涉及账户控制、未经同意访问和支持便利性的权衡；维护者明确采用最小管理员权力思路，拒绝该功能并要求另行修复密码恢复流程，后者是否实施未知。"
+  }
+]
+````
+
+## PR06 — 访问控制与可见性 / access_visibility_control
+
+决定哪些主体、角色、房间、页面或 API 能看到或操作个人/敏感数据的授权与可见性边界。
+
+- Include: private profile/field、角色权限、对象级授权、私密房间、未登录可见、UI 隐藏但 API 仍可访问。
+- Exclude: 传输窃听防护（PR14）；向外部供应商主动共享（PR11）。
+- Boundary/examples: 单纯隐藏按钮不能视为访问控制修复；必须区分展示层与服务端授权。漏洞允许未授权读取时也编码 PR20。 私密字段在页面隐藏但仍可由未经授权的 API 请求获得。 对公开字段做文本 redaction 属于 PR09。
+- Supporting artifacts: 85; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-21543",
+    "row": 6,
+    "field": "reading_memo.evidence",
+    "quote": "增加管理员修改外部用户密码的界面",
+    "interpretation": "请求让管理员代改外部用户密码，涉及账户控制、未经同意访问和支持便利性的权衡；维护者明确采用最小管理员权力思路，拒绝该功能并要求另行修复密码恢复流程，后者是否实施未知。"
+  }
+]
+````
+
+## PR07 — 删除、擦除与遗忘权 / deletion_erasure
+
+删除账号或个人数据，以及清理派生副本、附件、索引、缓存、联合实例和下游副本的能力与边界。
+
+- Include: account deletion、right to be forgotten、级联/匿名化选择、删除历史、删除传播、残留数据。
+- Exclude: 按到期时间自动清理而非权利/操作触发（PR10）；仅从显示中隐藏（PR06）。
+- Boundary/examples: 论坛保留帖子但移除作者标识时并列 PR09；删除请求的身份核验与工单流程并列 PR18；不能从“用户已删除”推断备份和派生数据也已删除。 Django-machina 跟踪用户删除及帖子关联处理。 仅让用户导出账号数据属于 PR08。
+- Supporting artifacts: 85; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-310",
+    "row": 1,
+    "field": "reading_memo.evidence",
+    "quote": "增加按domain正则匹配并删除cookie的命令",
+    "interpretation": "材料提出按域名正则删除 cookie，并权衡增强用户清理控制与扩展新增 cookies 权限/重新授权的代价；issue 虽为 closed，但无评论、提交、拒绝或关闭原因，不能判定实现。"
+  }
+]
+````
+
+## PR08 — 数据访问、导出与可携带性 / access_export_portability
+
+用户或管理员查看、下载、机器可读导出或迁移个人数据的能力。
+
+- Include: subject access export、完整账号 archive、JSON/CSV 下载、可携带性、导出范围遗漏。
+- Exclude: 普通业务报表且不服务个人数据访问；删除功能（PR07）。
+- Boundary/examples: 导出文件包含不必要 metadata 或他人数据时并列 PR05/PR15/PR20；“数据库备份”不自动等于用户可携带导出。 为用户生成其账号、活动和上传内容的机器可读 archive。 管理员查看服务器日志属于 PR13。
+- Supporting artifacts: 14; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-2958",
+    "row": 43,
+    "field": "reading_memo.evidence",
+    "quote": "在settings增加删除入口和确认页面",
+    "interpretation": "Flaredown 完成自助账户删除，清除 email、密码、用户名、出生日期和位置关系，并在删除前建议导出；共享位置参考可保留但解除用户关联，去标识健康追踪数据能否保留另作边界评估，所有任务及完成评论均可见。"
+  }
+]
+````
+
+## PR09 — 匿名化、假名化与脱敏 / anonymization_redaction
+
+移除、替换、聚合或遮蔽直接和间接标识符，以降低个人或敏感数据可识别性。
+
+- Include: IP anonymization、日志 redaction、用户名替换、路径/URL 去敏、公开数据聚合、pseudonymous IDs。
+- Exclude: 完全停止收集（PR05）；靠权限限制原值访问（PR06）。
+- Boundary/examples: 必须考虑重识别与结构化字段遗漏；只在 UI 遮盖而原值仍公开可取不算成功脱敏，并列 PR20/PR06。 发布故障复现前移除日志中的 token、用户名和基础设施路径。 把原始日志改为私下邮件发送是披露面变化（PR13/PR11），并非匿名化。
+- Supporting artifacts: 131; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-943",
+    "row": 9,
+    "field": "reading_memo.evidence",
+    "quote": "开启PerformanceLoggingInterceptor TRACE记录调用层级和执行时间",
+    "interpretation": "该性能调查以测量检验 pseudonymisation 是否为瓶颈，结果明确排除其显著影响并把慢点定位到大型 SQL joins，从而避免无证据削弱伪名化；原调查结论已完成确认，后续 SQL 优化另由两个 issue 跟踪。"
+  }
+]
+````
+
+## PR10 — 保留期限与自动清理 / retention_automatic_cleanup
+
+定义数据保存多久、何时过期，以及定期清理活动记录、日志、缓存、备份或临时数据。
+
+- Include: retention period、TTL、定期 purge、过期记录未删、短期诊断保留。
+- Exclude: 用户即时删除操作（PR07）；cookie 的纯 session/persistent 类型若没有隐私保留讨论（PR03）。
+- Boundary/examples: 自动删除是 PR10，数据主体请求触发是 PR07；同一方案同时提供二者时可并列。 将访问日志从无限期保存改为 30 天后自动清理。 退出 analytics 仅影响未来收集，不说明既有数据保留。
+- Supporting artifacts: 64; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-1765",
+    "row": 16,
+    "field": "reading_memo.evidence",
+    "quote": "发布说明crates.io及相关Rust网站如何处理个人数据的统一隐私政策",
+    "interpretation": "crates.io 缺少通知的讨论扩展为个人数据盘点：曾移除 Google Analytics，披露 IP/User-Agent/发布 metadata、日志超期及部分无限保存，并讨论 IP 去识别、删除限制和统一政策；最后只记录外部 PR 已存在、待合并后链接，未见合并上线。"
+  }
+]
+````
+
+## PR11 — 第三方共享与供应商边界 / third_party_sharing
+
+数据离开原控制方，被外部服务、公共中转、嵌入资源、广告/分析供应商或其他组织接收。
+
+- Include: third-party SDK/script、CDN/font 请求、供应商 DPA、公共同步服务、跨服务传输、下游控制不足。
+- Exclude: 同一应用内部角色访问（PR06）；仅在本机保存（PR12）。
+- Boundary/examples: 网络连接本身只有在可能携带/暴露用户或设备信息时纳入；自托管替代方案以减少第三方接收时，同时编码 PR05。 公共财务中转服务会集中取得用户全部交易，讨论后被放弃。 维护者在同一组织内查看受控日志未必是第三方共享，但仍可能属于 PR13。
+- Supporting artifacts: 143; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-21474",
+    "row": 7,
+    "field": "reading_memo.evidence",
+    "quote": "改用db-ip.com的免费IP-to-city数据库",
+    "interpretation": "讨论因隐私法规驱动的供应商政策而更换或模块化 IP 地理数据源，涉及位置数据供应商与来源披露；冻结材料缺 1 条评论，现有内容虽显示 in progress/closed，却没有最终采用、拒绝或实现证据。"
+  }
+]
+````
+
+## PR12 — 本地、缓存与设备侧隐私 / local_device_storage
+
+数据写入浏览器、客户端数据库、移动设备、缓存、剪贴板或本地文件后产生的持久化和暴露问题。
+
+- Include: localStorage、应用查询历史、客户端 cache、设备共享场景、离线副本、清除应用数据。
+- Exclude: 专门作为 Web cookie/标识符（PR03）；服务端数据库保留（PR10）。
+- Boundary/examples: “不在本地记录”不等于网络匿名，应按材料并列 PR17；删除本地既有历史也编码 PR07。 Transportr private mode 试图阻止查询历史写入本地数据库。 服务端 analytics event 属于 PR04。
+- Supporting artifacts: 54; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-2461",
+    "row": 35,
+    "field": "reading_memo.evidence",
+    "quote": "明确只有点击Cloud Share才上传并复制链接",
+    "interpretation": "Firefox Screenshots 未清楚说明何时上传、云端保存多久、如何删除及未分享图像是否留在设备；关闭后仍有评论称 FAQ 一年未变且担忧建议文案不符实际，材料没有修改或关闭解释。"
+  }
+]
+````
+
+## PR13 — 日志、诊断与秘密泄露 / logs_diagnostics_secrets
+
+日志、错误报告、调试输出、crash dump 或支持材料中包含个人数据、凭证、路径、配置或其他秘密。
+
+- Include: PII/secrets in logs、TRACE 分享、crash report 清理、支持工单附件、避免公开日志。
+- Exclude: 持续产品 telemetry（PR04）；普通 metadata 文件（PR15）。
+- Boundary/examples: 私下发送不是自动安全；需按材料记录接收方、渠道、最小化、redaction 和保留未知。日志暴露构成可利用漏洞时并列 PR20。 Terraform 用户因隐私顾虑拒绝公开 TRACE，改为最小去敏复现并私下传递必要材料。 导出图片保留 EXIF 属于 PR15。
+- Supporting artifacts: 55; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-3101",
+    "row": 44,
+    "field": "reading_memo.evidence",
+    "quote": "对error及以上日志做第一轮敏感数据审计并mask发现的内容",
+    "interpretation": "Open Service Mesh 审计 error 以上日志，移除 xDS 内容并以较少敏感的 serial/UID 替代其他标识，同时区分自然人数据与系统标识、提出持续 PR 级治理；关联 PR 完成支持本轮改动已交付，但不证明所有业务自定义敏感字段永久覆盖。"
+  }
+]
+````
+
+## PR14 — 加密与安全传输 / encryption_secure_transport
+
+通过 TLS、静态加密、密钥管理或安全信道保护数据在传输与存储中的机密性。
+
+- Include: HTTPS/TLS、encrypted backup、明文传输、证书验证、敏感资料安全发送。
+- Exclude: 谁被授权访问（PR06）；去除数据字段（PR05）。
+- Boundary/examples: 加密不能替代最小化、同意或授权；仅建议 TLS 且无部署证据时状态仍为 PR24/PR23。 自托管财务录入被建议只通过 TLS 和认证暴露。 用 Base64 编码个人数据不属于加密保护。
+- Supporting artifacts: 53; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-14099",
+    "row": 8,
+    "field": "reading_memo.evidence",
+    "quote": "把Always Encrypted移植到.NET Core SqlClient",
+    "interpretation": "Always Encrypted 缺失阻碍敏感列数据保护并被多次联系到 GDPR/企业采用；长讨论记录功能迁移到 Microsoft.Data.SqlClient、preview 问题修复，且维护者最终明确原始问题已解决，尽管部分 provider 与生态适配另行处理。"
+  }
+]
+````
+
+## PR15 — Metadata 与间接信息泄露 / metadata_leakage
+
+EXIF、文件名、路径、URL、Referer、时间、位置、响应头或格式附带字段泄露超出主要内容的信息。
+
+- Include: 图片 EXIF、导出 metadata、Referer 泄露、URL query 中 PII、文件路径和地理坐标。
+- Exclude: 应用日志主体中的 PII（PR13）；明确的账号字段公开（PR06）。
+- Boundary/examples: metadata 经第三方请求传出时并列 PR11；删除或重写 metadata 时也可并列 PR09。 Darktable JXL 导出保留全部原始 metadata。 用户主动填写的公开个人简介不是 metadata 泄露。
+- Supporting artifacts: 147; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-975",
+    "row": 10,
+    "field": "reading_memo.evidence",
+    "quote": "目录仅显示用户有权访问的人",
+    "interpretation": "community officer 可见辖区外未伪名化人员及过滤器中的受限关系，构成跨视图授权、脱敏与关系 metadata 暴露不一致；评论明确记录在 1.60.0-SNAPSHOT 验证通过后关闭。"
+  }
+]
+````
+
+## PR16 — 敏感数据收集与处理 / sensitive_data_handling
+
+对财务、健康、位置、通信、身份、凭证、未成年人信息等高风险数据的采集、验证、变换或业务使用。
+
+- Include: 交易、精确位置、医疗信息、token/secret、政府标识、联系人、消息内容。
+- Exclude: 仅因任何数据都可能与个人相关而泛化使用；应有材料支持的敏感类型或高风险语境。
+- Boundary/examples: 本项描述数据性质，必须与具体处理问题（如 PR05、PR06、PR11、PR13）并列；不得作为含糊兜底代码。 移动财务录入会处理账户、payee、交易和收据。 匿名聚合的页面加载次数在无其他证据时不自动视为敏感数据。
+- Supporting artifacts: 203; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-21474",
+    "row": 7,
+    "field": "reading_memo.evidence",
+    "quote": "改用db-ip.com的免费IP-to-city数据库",
+    "interpretation": "讨论因隐私法规驱动的供应商政策而更换或模块化 IP 地理数据源，涉及位置数据供应商与来源披露；冻结材料缺 1 条评论，现有内容虽显示 in progress/closed，却没有最终采用、拒绝或实现证据。"
+  }
+]
+````
+
+## PR17 — 反跟踪、私密模式与隐私信号 / anti_tracking_private_mode
+
+试图减少跨会话/跨站跟踪、提供 private/incognito mode，或发送、检测和尊重 DNT 等隐私偏好信号。
+
+- Include: Do Not Track、private browsing mode、anti-fingerprinting、阻止历史记录、tracking protection。
+- Exclude: 普通 analytics 开关（PR04）；单一 cookie 管理但没有反跟踪目的（PR03）。
+- Boundary/examples: UI 称为“private/anonymous”时必须核对真实范围；只停止本地写入而服务端仍可观察时仍编码本项，并在 rationale 指明不等于匿名。 Transportr 讨论全局 private mode，但明确本地不留历史不等于匿名。 Can I Use 展示 DNT API 兼容性并不证明任何服务尊重 DNT。
+- Supporting artifacts: 47; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-2102",
+    "row": 27,
+    "field": "reading_memo.evidence",
+    "quote": "无代码修复提案；维护者解释tracking pixel限制和事件回填逻辑",
+    "interpretation": "邮件客户端出于隐私阻止 tracking pixel，导致 open event 不可靠；Gophish 以点击必然意味着已打开来回填统计，维护者明确接受隐私保护带来的观测缺口并把现有行为判为 expected，没有尝试绕过客户端。"
+  }
+]
+````
+
+## PR18 — 权利请求流程与人工治理 / rights_request_governance
+
+接收、核验、分派、履行和审计数据主体访问、删除、更正、限制或反对请求的操作流程。
+
+- Include: DSAR workflow、管理员工具、身份核验、工单状态、审批与例外处理、人工补救。
+- Exclude: 单纯技术删除函数（PR07）；宽泛法规研究（PR19）。
+- Boundary/examples: 具体权利能力与流程并列编码，例如删除请求同时为 PR07；只有“支持 GDPR”而无工作流证据时优先 PR19。 为管理员提供经身份核验后执行导出和删除请求的工作流。 普通账号注销按钮没有人工权利流程时仅属 PR07。
+- Supporting artifacts: 67; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-1770",
+    "row": 17,
+    "field": "reading_memo.evidence",
+    "quote": "由sysadmin启用并编辑Markdown/HTML隐私声明",
+    "interpretation": "eLabFTW 为机构注册实现可配置隐私声明、checkbox 同意及政策链接，并讨论同意证据和科研记录删除边界；普通注册流已明确实现，但 team-admin 与 Shibboleth 路径仍可绕过，后续方案未验证，故为部分实施。"
+  }
+]
+````
+
+## PR19 — 合规、政策与法律不确定性 / compliance_policy_legal
+
+围绕 GDPR、CCPA、DNT 政策、隐私条款、法律义务、审计和合规架构的研究、解释或决策。
+
+- Include: GDPR extension、政策审查、合法基础、保留例外、合规清单、法律问题待确认。
+- Exclude: 已具体化的技术权利实现应加相应主题；普通安全最佳实践而无隐私/合规语境（PR20）。
+- Boundary/examples: 法规名称只是线索，不足以证明合规；代码 rationale 应说明材料是在探索、解释还是落地具体义务。 Cloud Foundry UAA 讨论是否需要 GDPR extension，但冻结材料无法看到结论。 修复 XSS 不因可能涉及个人数据就自动成为合规代码。
+- Supporting artifacts: 205; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-21460",
+    "row": 4,
+    "field": "reading_memo.evidence",
+    "quote": "加入经审核的法语翻译",
+    "interpretation": "该条处理 Privacy Act 告知文本的法语本地化、法案名称和人工法律文案审核；指定人员已批准拟议表述，但没有提交或部署证据，因此是获接受但上线未验证。"
+  }
+]
+````
+
+## PR20 — 安全漏洞导致的隐私暴露 / security_exposure
+
+XSS、注入、认证/授权绕过、秘密暴露、不安全默认或其他可利用缺陷使个人或敏感数据面临未授权处理。
+
+- Include: 存储型 XSS、越权读取、token 泄露、CSRF 导致隐私设置改变、不可信 HTML 执行。
+- Exclude: 只有合规或可用性争议而无安全暴露机制；一般加密建议（PR14）。
+- Boundary/examples: 本项描述暴露机制，应与受影响的数据/控制主题并列。修复方案被接受但未看到代码时，状态不能编码 PR22。 Errbit 把不可信 user attributes 标为 `html_safe`，产生存储型 XSS。 notice 文案不清楚通常属于 PR01/PR21，而不是安全漏洞。
+- Supporting artifacts: 77; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-352",
+    "row": 2,
+    "field": "reading_memo.evidence",
+    "quote": "移除自动链接并停止html_safe",
+    "interpretation": "不可信 user attributes 被标记为 html_safe 导致存储型 XSS；讨论在安全与 autolink 便利间选择先转义再链接，维护者明确接受该方案，但所引 PR 与最终代码不可见，故只确认已接受而非已实施。"
+  }
+]
+````
+
+## PR21 — 隐私 UX、可发现性与功能权衡 / privacy_usability_tradeoff
+
+隐私保护的界面可理解性、状态可见性、控制可发现性，以及隐私与功能、可靠性、便利性之间的明确权衡。
+
+- Include: 状态指示、误导性“匿名”命名、拒绝按钮难找、全量清数据副作用、隐私修复牺牲便利功能。
+- Exclude: 任何 UI 讨论都泛化为本项；必须直接影响隐私理解、选择或保护行为。
+- Boundary/examples: 当 UX 仅承载同意时并列 PR02；当材料明确保留功能同时加保护时，rationale 记录权衡的两端。 Transportr 讨论 private mode 的持续状态提示，避免用户把“不存本地历史”误解为匿名。 与隐私无关的按钮颜色偏好不属于本项。
+- Supporting artifacts: 233; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-310",
+    "row": 1,
+    "field": "reading_memo.evidence",
+    "quote": "增加按domain正则匹配并删除cookie的命令",
+    "interpretation": "材料提出按域名正则删除 cookie，并权衡增强用户清理控制与扩展新增 cookies 权限/重新授权的代价；issue 虽为 closed，但无评论、提交、拒绝或关闭原因，不能判定实现。"
+  }
+]
+````
+
+## PR22 — 已实施并由材料确认 / implemented_confirmed
+
+冻结材料明确展示合并/发布/生效，或报告者、维护者通过测试确认目标行为已经发生。
+
+- Include: 可见修复提交已合并且行为验证；报告者复测通过；发布说明与所述行为对应。
+- Exclude: 只有方案被接受、PR 被提及、`fixed/done` 标签或 issue closed（PR23/PR27/PR28）。
+- Boundary/examples: 只确认替代 workaround 有效而未改变项目时，可以将“该案例的处理结果”编码本项，但 rationale 必须说清是 workaround，而不是项目修复。 报告者切换到建议资源后明确确认其角色场景工作正常。 维护者说“听起来不错，请发 PR”不是实施确认。
+- Supporting artifacts: 159; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-8387",
+    "row": 5,
+    "field": "reading_memo.evidence",
+    "quote": "在平台增加cookie consent消息和合规页面",
+    "interpretation": "DNN 请求面向 EU 站点的 cookie consent 消息和页面，讨论同时记录 GDPR/ePrivacy 规则不确定性；最后评论明确称关联 PR 已合并并据此关闭，足以确认交付发生，但本材料不能重建最终 UI 和同意粒度。"
+  }
+]
+````
+
+## PR23 — 已接受、原型或部分进展但未充分验证 / accepted_partial_unverified
+
+材料显示维护者接受方案、有人提交/展示原型、工作正在进行或只完成部分范围，但缺少合并、发布或完整行为验证。
+
+- Include: accepted fix、未抓取的 PR、截图原型、partial remediation、测试范围不足。
+- Exclude: 纯提议无承诺（PR24）；明确完成且验证（PR22）。
+- Boundary/examples: 项目标签 `fixed/done/tested` 只有在缺正文证据时不能单独支持本项，metadata-only 仍用 PR28。 Errbit 维护者接受“先 escape 再 autolink”，但材料未展示 PR 合并或最终代码。 用户单方面建议一个方案且无人回应属于 PR24。
+- Supporting artifacts: 131; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-352",
+    "row": 2,
+    "field": "reading_memo.evidence",
+    "quote": "移除自动链接并停止html_safe",
+    "interpretation": "不可信 user attributes 被标记为 html_safe 导致存储型 XSS；讨论在安全与 autolink 便利间选择先转义再链接，维护者明确接受该方案，但所引 PR 与最终代码不可见，故只确认已接受而非已实施。"
+  }
+]
+````
+
+## PR24 — 提议或讨论，未记录实施决定 / proposal_discussion_only
+
+材料停留在需求、设计探索、问题诊断或开放讨论，没有可靠证据表明方案被实施或正式处置。
+
+- Include: open request、需求探索、原理讨论、未决法律问题、无人承诺的建议。
+- Exclude: 明确拒绝/延期（PR25）；转交/duplicate（PR26）；关闭原因不可见（PR27）。
+- Boundary/examples: 即使讨论很详细，只要没有可证结果仍使用本项；rationale 区分“提出了什么”与“实际发生了什么”。 提出增强 cookie 删除控制但无投票、提交或决定记录。 维护者明确决定不做属于 PR25。
+- Supporting artifacts: 24; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-1545",
+    "row": 14,
+    "field": "reading_memo.evidence",
+    "quote": "由评论澄清Twire自身不收集信息，数据收集由Twitch进行",
+    "interpretation": "讨论把 Twire 自身与 Twitch 第三方的数据收集责任分开，并称强制 Twitch 登录会展示其政策；这是维护者与参与者对透明度边界的解释，材料没有网络审计来验证“自身不收集”或外部政策实践。"
+  }
+]
+````
+
+## PR25 — 拒绝、延期、搁置或不实施 / rejected_deferred_wontfix
+
+可见材料明确说明方案被拒绝、`wontfix`、因资源/风险长期延期，或参与者放弃该设计。
+
+- Include: wontfix、有理由拒绝、无人继续而明确 unresolved 关闭、方案因隐私风险被放弃。
+- Exclude: 关闭原因不可见（PR27/PR28）；转至其他 issue（PR26）。
+- Boundary/examples: 一个子方案被拒绝、另一方案继续时，按整体主要处理结果选择；rationale 必须分别记录，必要时以 PR23/PR24 代替，不能同时使用两个状态代码。 公共财务中转服务因集中全部交易而被明确放弃。 issue 无评论地 closed 不能推断为拒绝。
+- Supporting artifacts: 94; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-21543",
+    "row": 6,
+    "field": "reading_memo.evidence",
+    "quote": "增加管理员修改外部用户密码的界面",
+    "interpretation": "请求让管理员代改外部用户密码，涉及账户控制、未经同意访问和支持便利性的权衡；维护者明确采用最小管理员权力思路，拒绝该功能并要求另行修复密码恢复流程，后者是否实施未知。"
+  }
+]
+````
+
+## PR26 — 重复、转交或结果在材料外 / duplicate_transferred_external
+
+issue 被明确标为 duplicate、迁移到内部/外部跟踪、由另一 issue/仓库继续，导致本材料不包含最终处置。
+
+- Include: duplicate of、moved、internal tracking、交给上游或供应商、另开 issue 继续。
+- Exclude: 只是引用相关资料；metadata-only 只有标签但无可见关系证据（PR28）。
+- Boundary/examples: 本项不表示已解决；只表示处理链离开当前 artifact。若当前材料同时明确验证了结果，优先 PR22。 cookie prompt 问题被转为内部跟踪，公开材料没有修复结果。 评论建议查阅另一文档但当前 issue 仍继续处理，不算转交。
+- Supporting artifacts: 54; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-450",
+    "row": 3,
+    "field": "reading_memo.evidence",
+    "quote": "只有用户点击prompt中的选项后才禁用后续prompt",
+    "interpretation": "页面刷新就在用户操作前写入 cookie，并错误持久化为已处理 prompt，破坏选择界面的语义；公开记录只说明问题转入内部跟踪，没有材料内修复结果。"
+  }
+]
+````
+
+## PR27 — 有正文但关闭/陈旧且无结果证据 / closed_stale_no_outcome_evidence
+
+冻结材料包含足以理解问题的正文或讨论，但 issue 的关闭、陈旧或终止没有可见的实施、拒绝、转交等可靠结果解释。
+
+- Include: closed without reason、stale bot 关闭、结尾消失但没有决定、标签与讨论冲突。
+- Exclude: 整条只有元数据（PR28）；明确 proposal 仍开放可用 PR24。
+- Boundary/examples: `closed` 永远不是实现代理；若有明确接受但无验证则 PR23，明确拒绝则 PR25。 Surfingkeys cookie 删除请求为 closed，但没有实施、拒绝或关闭原因记录。 有复测通过的 closed issue 属于 PR22。
+- Supporting artifacts: 85; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-310",
+    "row": 1,
+    "field": "reading_memo.evidence",
+    "quote": "增加按domain正则匹配并删除cookie的命令",
+    "interpretation": "材料提出按域名正则删除 cookie，并权衡增强用户清理控制与扩展新增 cookies 权限/重新授权的代价；issue 虽为 closed，但无评论、提交、拒绝或关闭原因，不能判定实现。"
+  }
+]
+````
+
+## PR28 — 仅元数据，处理结果不可判定 / metadata_only_unassessable
+
+冻结输入没有正文/评论内容，只有标题、标签、时间、状态和评论计数，无法独立判断讨论、实现或关闭原因。
+
+- Include: 明确标记 `metadata_only` 的材料；正文和历史评论均未取回。
+- Exclude: 有正文可理解但结果不明（PR24/PR27）；只有个别外链缺失但主要讨论完整。
+- Boundary/examples: 可依据标题编码最小必要主题，但 rationale 必须明确不可见信息；`fixed`、`done`、`tested` 等项目标签只可记录为项目侧信号，不能升级为 PR22/PR23。 Darktable JXL 导出 metadata 的条目只有标题和标签，无法确认修复。 完整正文说明请求但无人回应，应使用 PR24 或 PR27，而非本项。
+- Supporting artifacts: 105; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "privacy-issue-4216",
+    "row": 57,
+    "field": "reading_memo.evidence",
+    "quote": "release metadata显示closed，但没有可读证据说明冲突内容、判断、修改或关闭原因。",
+    "interpretation": "冻结材料只有“相互冲突文档”标题、隐私匹配元数据与 closed 状态，正文和 1 条评论不可见；只能作最小的隐私文档主题编码，无法判断具体冲突、修改或结果。"
+  }
+]
+````
+
+## Files
+
+- `codebook.md`, `codebook.json`, `codebook.csv`: definitions and complete reverse memberships.
+- `assignments.json`, `assignments.csv`: one record per artifact, including decisions and evidence.
+- `taxonomy.json`: category tree with every code as a leaf.
+- `results.json`: supplied full documents aligned to their assignments.
+
+## Original codebook
+
+The original codebook text below preserves run-specific scope, combination rules and qualifications. Links and filenames in that historical text describe the original package; use the seven files above for the normalized interface. The exact original text is also stored in metadata extensions.
+
+# gpt5.6-2 — Privacy 最终编码本
+
+本轮覆盖 **652 个 artifact**，形成 **28 个可分配 code**，共记录 **3187 个 artifact–code assignment**。全部 artifact 均已逐件阅读并编码。
+
+本文件按 GPT6-1 七文件发布格式生成。语义判断来自已完成的逐件阅读与人工 assignment；格式转换程序不读取正文选择代码，只负责序列化、计数和一致性核验。
+
+## 类别一览
+
+|Code|类别|覆盖 artifact 数|
+|---|---|---:|
+|PR01|通知、披露与透明度 / notice_transparency|237|
+|PR02|同意与偏好生命周期 / consent_preference_lifecycle|218|
+|PR03|Cookie 与客户端标识符 / cookies_client_identifiers|133|
+|PR04|Analytics、Telemetry 与使用测量 / analytics_telemetry|107|
+|PR05|数据最小化与隐私默认值 / minimization_privacy_defaults|177|
+|PR06|访问控制与可见性 / access_visibility_control|85|
+|PR07|删除、擦除与遗忘权 / deletion_erasure|85|
+|PR08|数据访问、导出与可携带性 / access_export_portability|14|
+|PR09|匿名化、假名化与脱敏 / anonymization_redaction|131|
+|PR10|保留期限与自动清理 / retention_automatic_cleanup|64|
+|PR11|第三方共享与供应商边界 / third_party_sharing|143|
+|PR12|本地、缓存与设备侧隐私 / local_device_storage|54|
+|PR13|日志、诊断与秘密泄露 / logs_diagnostics_secrets|55|
+|PR14|加密与安全传输 / encryption_secure_transport|53|
+|PR15|Metadata 与间接信息泄露 / metadata_leakage|147|
+|PR16|敏感数据收集与处理 / sensitive_data_handling|203|
+|PR17|反跟踪、私密模式与隐私信号 / anti_tracking_private_mode|47|
+|PR18|权利请求流程与人工治理 / rights_request_governance|67|
+|PR19|合规、政策与法律不确定性 / compliance_policy_legal|205|
+|PR20|安全漏洞导致的隐私暴露 / security_exposure|77|
+|PR21|隐私 UX、可发现性与功能权衡 / privacy_usability_tradeoff|233|
+|PR22|已实施并由材料确认 / implemented_confirmed|159|
+|PR23|已接受、原型或部分进展但未充分验证 / accepted_partial_unverified|131|
+|PR24|提议或讨论，未记录实施决定 / proposal_discussion_only|24|
+|PR25|拒绝、延期、搁置或不实施 / rejected_deferred_wontfix|94|
+|PR26|重复、转交或结果在材料外 / duplicate_transferred_external|54|
+|PR27|有正文但关闭/陈旧且无结果证据 / closed_stale_no_outcome_evidence|85|
+|PR28|仅元数据，处理结果不可判定 / metadata_only_unassessable|105|
+
+## 使用规则
+
+- **以冻结材料的可见证据为准。** 不访问旧 codebook、参考标签或当前材料未抓取的链接来补结论。
+- **主题与结果分离。** `PR22–PR28` 中恰好一个，且不能成为一条记录的唯一代码。
+- **提议不等于结果。** rationale 使用“提议/讨论/接受/验证”这类动词明确证据层级。
+- **状态不等于结果。** `closed`、里程碑、标签和评论数都不是单独的实施证据。
+- **多重编码必须有材料支持。** 不因理论上可能相关就添加代码；每个代码都应能由正文、评论或可见元数据解释。
+- **安全与隐私可并列。** 只有安全缺陷实际威胁个人、敏感数据或隐私控制时才使用 PR20。
+- **限制必须保留。** 外链、截图、PR、内部工单或删除后的内容不可见时，在 rationale 中指出，不能补造。
+
+## PR01 通知、披露与透明度 / notice_transparency
+
+向用户说明收集什么数据、为何处理、传给谁、保存多久或如何行使权利的界面、政策、文档或可发现性问题。
+
+- 纳入：privacy policy/notice、cookie notice 的说明部分、遥测披露、政策本地化、隐私文档缺失或难以找到。
+- 排除与边界：只改变是否同意而不涉及信息充分性的控制（PR02）；纯法律合规讨论而没有用户披露问题（PR19）。
+- 边界说明：notice 同时提供可操作选择时并列 PR02；仅有兼容性或开发文档时，只有材料明确意在解释数据实践才编码本项。 要求在启用第三方 analytics 前说明收集字段、接收方和退出方式。 给管理员增加删除数据库记录的按钮属于 PR07，而非本项。
+- 支持：237 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-21460`（row 4；完整材料见 `results.json`）。
+
+````text
+加入经审核的法语翻译
+````
+
+该条处理 Privacy Act 告知文本的法语本地化、法案名称和人工法律文案审核；指定人员已批准拟议表述，但没有提交或部署证据，因此是获接受但上线未验证。
+
+## PR02 同意与偏好生命周期 / consent_preference_lifecycle
+
+获取、记录、执行、撤回或重新取得用户隐私选择，包括 opt-in、opt-out、拒绝、设置和同意状态持久化。
+
+- 纳入：consent banner 操作、预先勾选、拒绝与接受对等、撤回同意、选择后才写入状态、偏好未生效。
+- 排除与边界：只讨论 cookie 技术而无用户选择（PR03）；只讨论默认少收集且没有选择过程（PR05）。
+- 边界说明：“退出 telemetry”通常同时编码 PR04；同意状态存入 cookie 时同时编码 PR03，但不得把 cookie 本身等同于有效同意。 用户尚未点击提示，仅刷新页面就被记录为已处理提示。 删除过期 session cookie 是存储清理，不一定涉及同意。
+- 支持：218 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-450`（row 3；完整材料见 `results.json`）。
+
+````text
+只有用户点击prompt中的选项后才禁用后续prompt
+````
+
+页面刷新就在用户操作前写入 cookie，并错误持久化为已处理 prompt，破坏选择界面的语义；公开记录只说明问题转入内部跟踪，没有材料内修复结果。
+
+## PR03 Cookie 与客户端标识符 / cookies_client_identifiers
+
+创建、读取、限制、清除或分类 cookie 及类似客户端标识符所产生的隐私问题。
+
+- 纳入：按域删除 cookie、third-party cookie、cookie duration、identifier rotation、cookie banner 中具体 cookie 行为。
+- 排除与边界：任意本地文件或缓存但不作为 Web 标识/状态（PR12）；泛化的 tracking 防护而未涉及标识符机制（PR17）。
+- 边界说明：cookie 用于 analytics 时并列 PR04；用于同意记录时并列 PR02；扩展为操作 cookie 申请更高权限时也考虑 PR20。 Surfingkeys 提议按域名正则删除 cookie。 删除本地查询历史属于 PR12/PR07，不属于本项。
+- 支持：133 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-310`（row 1；完整材料见 `results.json`）。
+
+````text
+增加按domain正则匹配并删除cookie的命令
+````
+
+材料提出按域名正则删除 cookie，并权衡增强用户清理控制与扩展新增 cookies 权限/重新授权的代价；issue 虽为 closed，但无评论、提交、拒绝或关闭原因，不能判定实现。
+
+## PR04 Analytics、Telemetry 与使用测量 / analytics_telemetry
+
+产品分析、遥测、崩溃/性能测量或第三方统计脚本对使用数据的收集及其开关。
+
+- 纳入：telemetry opt-in/opt-out、默认开启、analytics SDK、IP anonymization、关闭后仍发送、测量字段范围。
+- 排除与边界：为单次故障排查主动提交日志（PR13）；一般第三方共享但无测量目的（PR11）。
+- 边界说明：crash report 若以诊断包形式提交，优先 PR13；若是持续、聚合的产品度量，可并列本项。退出后的网络行为必须按实际证据编码，不能从 UI 开关推断停止收集。 用户拒绝 Netlify telemetry 后客户端仍连接遥测服务器。 私下发送一次 Terraform TRACE 日志属于 PR13。
+- 支持：107 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-1765`（row 16；完整材料见 `results.json`）。
+
+````text
+发布说明crates.io及相关Rust网站如何处理个人数据的统一隐私政策
+````
+
+crates.io 缺少通知的讨论扩展为个人数据盘点：曾移除 Google Analytics，披露 IP/User-Agent/发布 metadata、日志超期及部分无限保存，并讨论 IP 去识别、删除限制和统一政策；最后只记录外部 PR 已存在、待合并后链接，未见合并上线。
+
+## PR05 数据最小化与隐私默认值 / minimization_privacy_defaults
+
+限制收集字段、处理频率、作用范围或默认公开程度，使系统只处理实现目的所必要的数据。
+
+- 纳入：非必要字段改为可选、默认关闭收集、缩小同步范围、最小权限/最小披露 route、privacy by default。
+- 排除与边界：已有数据的删除（PR07）或保存时长（PR10）；仅靠匿名化降低识别性（PR09）。
+- 边界说明：从“不收集”解决问题时用本项；从“收集后去标识”解决时用 PR09；两种机制同时存在可并列。 自托管财务录入方案只暴露必要的交易录入 route，而非完整账本。 收集全部字段后加密传输属于 PR14，不是最小化。
+- 支持：177 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-21543`（row 6；完整材料见 `results.json`）。
+
+````text
+增加管理员修改外部用户密码的界面
+````
+
+请求让管理员代改外部用户密码，涉及账户控制、未经同意访问和支持便利性的权衡；维护者明确采用最小管理员权力思路，拒绝该功能并要求另行修复密码恢复流程，后者是否实施未知。
+
+## PR06 访问控制与可见性 / access_visibility_control
+
+决定哪些主体、角色、房间、页面或 API 能看到或操作个人/敏感数据的授权与可见性边界。
+
+- 纳入：private profile/field、角色权限、对象级授权、私密房间、未登录可见、UI 隐藏但 API 仍可访问。
+- 排除与边界：传输窃听防护（PR14）；向外部供应商主动共享（PR11）。
+- 边界说明：单纯隐藏按钮不能视为访问控制修复；必须区分展示层与服务端授权。漏洞允许未授权读取时也编码 PR20。 私密字段在页面隐藏但仍可由未经授权的 API 请求获得。 对公开字段做文本 redaction 属于 PR09。
+- 支持：85 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-21543`（row 6；完整材料见 `results.json`）。
+
+````text
+增加管理员修改外部用户密码的界面
+````
+
+请求让管理员代改外部用户密码，涉及账户控制、未经同意访问和支持便利性的权衡；维护者明确采用最小管理员权力思路，拒绝该功能并要求另行修复密码恢复流程，后者是否实施未知。
+
+## PR07 删除、擦除与遗忘权 / deletion_erasure
+
+删除账号或个人数据，以及清理派生副本、附件、索引、缓存、联合实例和下游副本的能力与边界。
+
+- 纳入：account deletion、right to be forgotten、级联/匿名化选择、删除历史、删除传播、残留数据。
+- 排除与边界：按到期时间自动清理而非权利/操作触发（PR10）；仅从显示中隐藏（PR06）。
+- 边界说明：论坛保留帖子但移除作者标识时并列 PR09；删除请求的身份核验与工单流程并列 PR18；不能从“用户已删除”推断备份和派生数据也已删除。 Django-machina 跟踪用户删除及帖子关联处理。 仅让用户导出账号数据属于 PR08。
+- 支持：85 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-310`（row 1；完整材料见 `results.json`）。
+
+````text
+增加按domain正则匹配并删除cookie的命令
+````
+
+材料提出按域名正则删除 cookie，并权衡增强用户清理控制与扩展新增 cookies 权限/重新授权的代价；issue 虽为 closed，但无评论、提交、拒绝或关闭原因，不能判定实现。
+
+## PR08 数据访问、导出与可携带性 / access_export_portability
+
+用户或管理员查看、下载、机器可读导出或迁移个人数据的能力。
+
+- 纳入：subject access export、完整账号 archive、JSON/CSV 下载、可携带性、导出范围遗漏。
+- 排除与边界：普通业务报表且不服务个人数据访问；删除功能（PR07）。
+- 边界说明：导出文件包含不必要 metadata 或他人数据时并列 PR05/PR15/PR20；“数据库备份”不自动等于用户可携带导出。 为用户生成其账号、活动和上传内容的机器可读 archive。 管理员查看服务器日志属于 PR13。
+- 支持：14 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-2958`（row 43；完整材料见 `results.json`）。
+
+````text
+在settings增加删除入口和确认页面
+````
+
+Flaredown 完成自助账户删除，清除 email、密码、用户名、出生日期和位置关系，并在删除前建议导出；共享位置参考可保留但解除用户关联，去标识健康追踪数据能否保留另作边界评估，所有任务及完成评论均可见。
+
+## PR09 匿名化、假名化与脱敏 / anonymization_redaction
+
+移除、替换、聚合或遮蔽直接和间接标识符，以降低个人或敏感数据可识别性。
+
+- 纳入：IP anonymization、日志 redaction、用户名替换、路径/URL 去敏、公开数据聚合、pseudonymous IDs。
+- 排除与边界：完全停止收集（PR05）；靠权限限制原值访问（PR06）。
+- 边界说明：必须考虑重识别与结构化字段遗漏；只在 UI 遮盖而原值仍公开可取不算成功脱敏，并列 PR20/PR06。 发布故障复现前移除日志中的 token、用户名和基础设施路径。 把原始日志改为私下邮件发送是披露面变化（PR13/PR11），并非匿名化。
+- 支持：131 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-943`（row 9；完整材料见 `results.json`）。
+
+````text
+开启PerformanceLoggingInterceptor TRACE记录调用层级和执行时间
+````
+
+该性能调查以测量检验 pseudonymisation 是否为瓶颈，结果明确排除其显著影响并把慢点定位到大型 SQL joins，从而避免无证据削弱伪名化；原调查结论已完成确认，后续 SQL 优化另由两个 issue 跟踪。
+
+## PR10 保留期限与自动清理 / retention_automatic_cleanup
+
+定义数据保存多久、何时过期，以及定期清理活动记录、日志、缓存、备份或临时数据。
+
+- 纳入：retention period、TTL、定期 purge、过期记录未删、短期诊断保留。
+- 排除与边界：用户即时删除操作（PR07）；cookie 的纯 session/persistent 类型若没有隐私保留讨论（PR03）。
+- 边界说明：自动删除是 PR10，数据主体请求触发是 PR07；同一方案同时提供二者时可并列。 将访问日志从无限期保存改为 30 天后自动清理。 退出 analytics 仅影响未来收集，不说明既有数据保留。
+- 支持：64 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-1765`（row 16；完整材料见 `results.json`）。
+
+````text
+发布说明crates.io及相关Rust网站如何处理个人数据的统一隐私政策
+````
+
+crates.io 缺少通知的讨论扩展为个人数据盘点：曾移除 Google Analytics，披露 IP/User-Agent/发布 metadata、日志超期及部分无限保存，并讨论 IP 去识别、删除限制和统一政策；最后只记录外部 PR 已存在、待合并后链接，未见合并上线。
+
+## PR11 第三方共享与供应商边界 / third_party_sharing
+
+数据离开原控制方，被外部服务、公共中转、嵌入资源、广告/分析供应商或其他组织接收。
+
+- 纳入：third-party SDK/script、CDN/font 请求、供应商 DPA、公共同步服务、跨服务传输、下游控制不足。
+- 排除与边界：同一应用内部角色访问（PR06）；仅在本机保存（PR12）。
+- 边界说明：网络连接本身只有在可能携带/暴露用户或设备信息时纳入；自托管替代方案以减少第三方接收时，同时编码 PR05。 公共财务中转服务会集中取得用户全部交易，讨论后被放弃。 维护者在同一组织内查看受控日志未必是第三方共享，但仍可能属于 PR13。
+- 支持：143 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-21474`（row 7；完整材料见 `results.json`）。
+
+````text
+改用db-ip.com的免费IP-to-city数据库
+````
+
+讨论因隐私法规驱动的供应商政策而更换或模块化 IP 地理数据源，涉及位置数据供应商与来源披露；冻结材料缺 1 条评论，现有内容虽显示 in progress/closed，却没有最终采用、拒绝或实现证据。
+
+## PR12 本地、缓存与设备侧隐私 / local_device_storage
+
+数据写入浏览器、客户端数据库、移动设备、缓存、剪贴板或本地文件后产生的持久化和暴露问题。
+
+- 纳入：localStorage、应用查询历史、客户端 cache、设备共享场景、离线副本、清除应用数据。
+- 排除与边界：专门作为 Web cookie/标识符（PR03）；服务端数据库保留（PR10）。
+- 边界说明：“不在本地记录”不等于网络匿名，应按材料并列 PR17；删除本地既有历史也编码 PR07。 Transportr private mode 试图阻止查询历史写入本地数据库。 服务端 analytics event 属于 PR04。
+- 支持：54 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-2461`（row 35；完整材料见 `results.json`）。
+
+````text
+明确只有点击Cloud Share才上传并复制链接
+````
+
+Firefox Screenshots 未清楚说明何时上传、云端保存多久、如何删除及未分享图像是否留在设备；关闭后仍有评论称 FAQ 一年未变且担忧建议文案不符实际，材料没有修改或关闭解释。
+
+## PR13 日志、诊断与秘密泄露 / logs_diagnostics_secrets
+
+日志、错误报告、调试输出、crash dump 或支持材料中包含个人数据、凭证、路径、配置或其他秘密。
+
+- 纳入：PII/secrets in logs、TRACE 分享、crash report 清理、支持工单附件、避免公开日志。
+- 排除与边界：持续产品 telemetry（PR04）；普通 metadata 文件（PR15）。
+- 边界说明：私下发送不是自动安全；需按材料记录接收方、渠道、最小化、redaction 和保留未知。日志暴露构成可利用漏洞时并列 PR20。 Terraform 用户因隐私顾虑拒绝公开 TRACE，改为最小去敏复现并私下传递必要材料。 导出图片保留 EXIF 属于 PR15。
+- 支持：55 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-3101`（row 44；完整材料见 `results.json`）。
+
+````text
+对error及以上日志做第一轮敏感数据审计并mask发现的内容
+````
+
+Open Service Mesh 审计 error 以上日志，移除 xDS 内容并以较少敏感的 serial/UID 替代其他标识，同时区分自然人数据与系统标识、提出持续 PR 级治理；关联 PR 完成支持本轮改动已交付，但不证明所有业务自定义敏感字段永久覆盖。
+
+## PR14 加密与安全传输 / encryption_secure_transport
+
+通过 TLS、静态加密、密钥管理或安全信道保护数据在传输与存储中的机密性。
+
+- 纳入：HTTPS/TLS、encrypted backup、明文传输、证书验证、敏感资料安全发送。
+- 排除与边界：谁被授权访问（PR06）；去除数据字段（PR05）。
+- 边界说明：加密不能替代最小化、同意或授权；仅建议 TLS 且无部署证据时状态仍为 PR24/PR23。 自托管财务录入被建议只通过 TLS 和认证暴露。 用 Base64 编码个人数据不属于加密保护。
+- 支持：53 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-14099`（row 8；完整材料见 `results.json`）。
+
+````text
+把Always Encrypted移植到.NET Core SqlClient
+````
+
+Always Encrypted 缺失阻碍敏感列数据保护并被多次联系到 GDPR/企业采用；长讨论记录功能迁移到 Microsoft.Data.SqlClient、preview 问题修复，且维护者最终明确原始问题已解决，尽管部分 provider 与生态适配另行处理。
+
+## PR15 Metadata 与间接信息泄露 / metadata_leakage
+
+EXIF、文件名、路径、URL、Referer、时间、位置、响应头或格式附带字段泄露超出主要内容的信息。
+
+- 纳入：图片 EXIF、导出 metadata、Referer 泄露、URL query 中 PII、文件路径和地理坐标。
+- 排除与边界：应用日志主体中的 PII（PR13）；明确的账号字段公开（PR06）。
+- 边界说明：metadata 经第三方请求传出时并列 PR11；删除或重写 metadata 时也可并列 PR09。 Darktable JXL 导出保留全部原始 metadata。 用户主动填写的公开个人简介不是 metadata 泄露。
+- 支持：147 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-975`（row 10；完整材料见 `results.json`）。
+
+````text
+目录仅显示用户有权访问的人
+````
+
+community officer 可见辖区外未伪名化人员及过滤器中的受限关系，构成跨视图授权、脱敏与关系 metadata 暴露不一致；评论明确记录在 1.60.0-SNAPSHOT 验证通过后关闭。
+
+## PR16 敏感数据收集与处理 / sensitive_data_handling
+
+对财务、健康、位置、通信、身份、凭证、未成年人信息等高风险数据的采集、验证、变换或业务使用。
+
+- 纳入：交易、精确位置、医疗信息、token/secret、政府标识、联系人、消息内容。
+- 排除与边界：仅因任何数据都可能与个人相关而泛化使用；应有材料支持的敏感类型或高风险语境。
+- 边界说明：本项描述数据性质，必须与具体处理问题（如 PR05、PR06、PR11、PR13）并列；不得作为含糊兜底代码。 移动财务录入会处理账户、payee、交易和收据。 匿名聚合的页面加载次数在无其他证据时不自动视为敏感数据。
+- 支持：203 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-21474`（row 7；完整材料见 `results.json`）。
+
+````text
+改用db-ip.com的免费IP-to-city数据库
+````
+
+讨论因隐私法规驱动的供应商政策而更换或模块化 IP 地理数据源，涉及位置数据供应商与来源披露；冻结材料缺 1 条评论，现有内容虽显示 in progress/closed，却没有最终采用、拒绝或实现证据。
+
+## PR17 反跟踪、私密模式与隐私信号 / anti_tracking_private_mode
+
+试图减少跨会话/跨站跟踪、提供 private/incognito mode，或发送、检测和尊重 DNT 等隐私偏好信号。
+
+- 纳入：Do Not Track、private browsing mode、anti-fingerprinting、阻止历史记录、tracking protection。
+- 排除与边界：普通 analytics 开关（PR04）；单一 cookie 管理但没有反跟踪目的（PR03）。
+- 边界说明：UI 称为“private/anonymous”时必须核对真实范围；只停止本地写入而服务端仍可观察时仍编码本项，并在 rationale 指明不等于匿名。 Transportr 讨论全局 private mode，但明确本地不留历史不等于匿名。 Can I Use 展示 DNT API 兼容性并不证明任何服务尊重 DNT。
+- 支持：47 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-2102`（row 27；完整材料见 `results.json`）。
+
+````text
+无代码修复提案；维护者解释tracking pixel限制和事件回填逻辑
+````
+
+邮件客户端出于隐私阻止 tracking pixel，导致 open event 不可靠；Gophish 以点击必然意味着已打开来回填统计，维护者明确接受隐私保护带来的观测缺口并把现有行为判为 expected，没有尝试绕过客户端。
+
+## PR18 权利请求流程与人工治理 / rights_request_governance
+
+接收、核验、分派、履行和审计数据主体访问、删除、更正、限制或反对请求的操作流程。
+
+- 纳入：DSAR workflow、管理员工具、身份核验、工单状态、审批与例外处理、人工补救。
+- 排除与边界：单纯技术删除函数（PR07）；宽泛法规研究（PR19）。
+- 边界说明：具体权利能力与流程并列编码，例如删除请求同时为 PR07；只有“支持 GDPR”而无工作流证据时优先 PR19。 为管理员提供经身份核验后执行导出和删除请求的工作流。 普通账号注销按钮没有人工权利流程时仅属 PR07。
+- 支持：67 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-1770`（row 17；完整材料见 `results.json`）。
+
+````text
+由sysadmin启用并编辑Markdown/HTML隐私声明
+````
+
+eLabFTW 为机构注册实现可配置隐私声明、checkbox 同意及政策链接，并讨论同意证据和科研记录删除边界；普通注册流已明确实现，但 team-admin 与 Shibboleth 路径仍可绕过，后续方案未验证，故为部分实施。
+
+## PR19 合规、政策与法律不确定性 / compliance_policy_legal
+
+围绕 GDPR、CCPA、DNT 政策、隐私条款、法律义务、审计和合规架构的研究、解释或决策。
+
+- 纳入：GDPR extension、政策审查、合法基础、保留例外、合规清单、法律问题待确认。
+- 排除与边界：已具体化的技术权利实现应加相应主题；普通安全最佳实践而无隐私/合规语境（PR20）。
+- 边界说明：法规名称只是线索，不足以证明合规；代码 rationale 应说明材料是在探索、解释还是落地具体义务。 Cloud Foundry UAA 讨论是否需要 GDPR extension，但冻结材料无法看到结论。 修复 XSS 不因可能涉及个人数据就自动成为合规代码。
+- 支持：205 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-21460`（row 4；完整材料见 `results.json`）。
+
+````text
+加入经审核的法语翻译
+````
+
+该条处理 Privacy Act 告知文本的法语本地化、法案名称和人工法律文案审核；指定人员已批准拟议表述，但没有提交或部署证据，因此是获接受但上线未验证。
+
+## PR20 安全漏洞导致的隐私暴露 / security_exposure
+
+XSS、注入、认证/授权绕过、秘密暴露、不安全默认或其他可利用缺陷使个人或敏感数据面临未授权处理。
+
+- 纳入：存储型 XSS、越权读取、token 泄露、CSRF 导致隐私设置改变、不可信 HTML 执行。
+- 排除与边界：只有合规或可用性争议而无安全暴露机制；一般加密建议（PR14）。
+- 边界说明：本项描述暴露机制，应与受影响的数据/控制主题并列。修复方案被接受但未看到代码时，状态不能编码 PR22。 Errbit 把不可信 user attributes 标为 `html_safe`，产生存储型 XSS。 notice 文案不清楚通常属于 PR01/PR21，而不是安全漏洞。
+- 支持：77 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-352`（row 2；完整材料见 `results.json`）。
+
+````text
+移除自动链接并停止html_safe
+````
+
+不可信 user attributes 被标记为 html_safe 导致存储型 XSS；讨论在安全与 autolink 便利间选择先转义再链接，维护者明确接受该方案，但所引 PR 与最终代码不可见，故只确认已接受而非已实施。
+
+## PR21 隐私 UX、可发现性与功能权衡 / privacy_usability_tradeoff
+
+隐私保护的界面可理解性、状态可见性、控制可发现性，以及隐私与功能、可靠性、便利性之间的明确权衡。
+
+- 纳入：状态指示、误导性“匿名”命名、拒绝按钮难找、全量清数据副作用、隐私修复牺牲便利功能。
+- 排除与边界：任何 UI 讨论都泛化为本项；必须直接影响隐私理解、选择或保护行为。
+- 边界说明：当 UX 仅承载同意时并列 PR02；当材料明确保留功能同时加保护时，rationale 记录权衡的两端。 Transportr 讨论 private mode 的持续状态提示，避免用户把“不存本地历史”误解为匿名。 与隐私无关的按钮颜色偏好不属于本项。
+- 支持：233 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-310`（row 1；完整材料见 `results.json`）。
+
+````text
+增加按domain正则匹配并删除cookie的命令
+````
+
+材料提出按域名正则删除 cookie，并权衡增强用户清理控制与扩展新增 cookies 权限/重新授权的代价；issue 虽为 closed，但无评论、提交、拒绝或关闭原因，不能判定实现。
+
+## PR22 已实施并由材料确认 / implemented_confirmed
+
+冻结材料明确展示合并/发布/生效，或报告者、维护者通过测试确认目标行为已经发生。
+
+- 纳入：可见修复提交已合并且行为验证；报告者复测通过；发布说明与所述行为对应。
+- 排除与边界：只有方案被接受、PR 被提及、`fixed/done` 标签或 issue closed（PR23/PR27/PR28）。
+- 边界说明：只确认替代 workaround 有效而未改变项目时，可以将“该案例的处理结果”编码本项，但 rationale 必须说清是 workaround，而不是项目修复。 报告者切换到建议资源后明确确认其角色场景工作正常。 维护者说“听起来不错，请发 PR”不是实施确认。
+- 支持：159 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-8387`（row 5；完整材料见 `results.json`）。
+
+````text
+在平台增加cookie consent消息和合规页面
+````
+
+DNN 请求面向 EU 站点的 cookie consent 消息和页面，讨论同时记录 GDPR/ePrivacy 规则不确定性；最后评论明确称关联 PR 已合并并据此关闭，足以确认交付发生，但本材料不能重建最终 UI 和同意粒度。
+
+## PR23 已接受、原型或部分进展但未充分验证 / accepted_partial_unverified
+
+材料显示维护者接受方案、有人提交/展示原型、工作正在进行或只完成部分范围，但缺少合并、发布或完整行为验证。
+
+- 纳入：accepted fix、未抓取的 PR、截图原型、partial remediation、测试范围不足。
+- 排除与边界：纯提议无承诺（PR24）；明确完成且验证（PR22）。
+- 边界说明：项目标签 `fixed/done/tested` 只有在缺正文证据时不能单独支持本项，metadata-only 仍用 PR28。 Errbit 维护者接受“先 escape 再 autolink”，但材料未展示 PR 合并或最终代码。 用户单方面建议一个方案且无人回应属于 PR24。
+- 支持：131 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-352`（row 2；完整材料见 `results.json`）。
+
+````text
+移除自动链接并停止html_safe
+````
+
+不可信 user attributes 被标记为 html_safe 导致存储型 XSS；讨论在安全与 autolink 便利间选择先转义再链接，维护者明确接受该方案，但所引 PR 与最终代码不可见，故只确认已接受而非已实施。
+
+## PR24 提议或讨论，未记录实施决定 / proposal_discussion_only
+
+材料停留在需求、设计探索、问题诊断或开放讨论，没有可靠证据表明方案被实施或正式处置。
+
+- 纳入：open request、需求探索、原理讨论、未决法律问题、无人承诺的建议。
+- 排除与边界：明确拒绝/延期（PR25）；转交/duplicate（PR26）；关闭原因不可见（PR27）。
+- 边界说明：即使讨论很详细，只要没有可证结果仍使用本项；rationale 区分“提出了什么”与“实际发生了什么”。 提出增强 cookie 删除控制但无投票、提交或决定记录。 维护者明确决定不做属于 PR25。
+- 支持：24 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-1545`（row 14；完整材料见 `results.json`）。
+
+````text
+由评论澄清Twire自身不收集信息，数据收集由Twitch进行
+````
+
+讨论把 Twire 自身与 Twitch 第三方的数据收集责任分开，并称强制 Twitch 登录会展示其政策；这是维护者与参与者对透明度边界的解释，材料没有网络审计来验证“自身不收集”或外部政策实践。
+
+## PR25 拒绝、延期、搁置或不实施 / rejected_deferred_wontfix
+
+可见材料明确说明方案被拒绝、`wontfix`、因资源/风险长期延期，或参与者放弃该设计。
+
+- 纳入：wontfix、有理由拒绝、无人继续而明确 unresolved 关闭、方案因隐私风险被放弃。
+- 排除与边界：关闭原因不可见（PR27/PR28）；转至其他 issue（PR26）。
+- 边界说明：一个子方案被拒绝、另一方案继续时，按整体主要处理结果选择；rationale 必须分别记录，必要时以 PR23/PR24 代替，不能同时使用两个状态代码。 公共财务中转服务因集中全部交易而被明确放弃。 issue 无评论地 closed 不能推断为拒绝。
+- 支持：94 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-21543`（row 6；完整材料见 `results.json`）。
+
+````text
+增加管理员修改外部用户密码的界面
+````
+
+请求让管理员代改外部用户密码，涉及账户控制、未经同意访问和支持便利性的权衡；维护者明确采用最小管理员权力思路，拒绝该功能并要求另行修复密码恢复流程，后者是否实施未知。
+
+## PR26 重复、转交或结果在材料外 / duplicate_transferred_external
+
+issue 被明确标为 duplicate、迁移到内部/外部跟踪、由另一 issue/仓库继续，导致本材料不包含最终处置。
+
+- 纳入：duplicate of、moved、internal tracking、交给上游或供应商、另开 issue 继续。
+- 排除与边界：只是引用相关资料；metadata-only 只有标签但无可见关系证据（PR28）。
+- 边界说明：本项不表示已解决；只表示处理链离开当前 artifact。若当前材料同时明确验证了结果，优先 PR22。 cookie prompt 问题被转为内部跟踪，公开材料没有修复结果。 评论建议查阅另一文档但当前 issue 仍继续处理，不算转交。
+- 支持：54 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-450`（row 3；完整材料见 `results.json`）。
+
+````text
+只有用户点击prompt中的选项后才禁用后续prompt
+````
+
+页面刷新就在用户操作前写入 cookie，并错误持久化为已处理 prompt，破坏选择界面的语义；公开记录只说明问题转入内部跟踪，没有材料内修复结果。
+
+## PR27 有正文但关闭/陈旧且无结果证据 / closed_stale_no_outcome_evidence
+
+冻结材料包含足以理解问题的正文或讨论，但 issue 的关闭、陈旧或终止没有可见的实施、拒绝、转交等可靠结果解释。
+
+- 纳入：closed without reason、stale bot 关闭、结尾消失但没有决定、标签与讨论冲突。
+- 排除与边界：整条只有元数据（PR28）；明确 proposal 仍开放可用 PR24。
+- 边界说明：`closed` 永远不是实现代理；若有明确接受但无验证则 PR23，明确拒绝则 PR25。 Surfingkeys cookie 删除请求为 closed，但没有实施、拒绝或关闭原因记录。 有复测通过的 closed issue 属于 PR22。
+- 支持：85 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-310`（row 1；完整材料见 `results.json`）。
+
+````text
+增加按domain正则匹配并删除cookie的命令
+````
+
+材料提出按域名正则删除 cookie，并权衡增强用户清理控制与扩展新增 cookies 权限/重新授权的代价；issue 虽为 closed，但无评论、提交、拒绝或关闭原因，不能判定实现。
+
+## PR28 仅元数据，处理结果不可判定 / metadata_only_unassessable
+
+冻结输入没有正文/评论内容，只有标题、标签、时间、状态和评论计数，无法独立判断讨论、实现或关闭原因。
+
+- 纳入：明确标记 `metadata_only` 的材料；正文和历史评论均未取回。
+- 排除与边界：有正文可理解但结果不明（PR24/PR27）；只有个别外链缺失但主要讨论完整。
+- 边界说明：可依据标题编码最小必要主题，但 rationale 必须明确不可见信息；`fixed`、`done`、`tested` 等项目标签只可记录为项目侧信号，不能升级为 PR22/PR23。 Darktable JXL 导出 metadata 的条目只有标题和标签，无法确认修复。 完整正文说明请求但无人回应，应使用 PR24 或 PR27，而非本项。
+- 支持：105 个 artifact；完整列表见 `codebook.json`。
+- 代表案例：artifact `privacy-issue-4216`（row 57；完整材料见 `results.json`）。
+
+````text
+release metadata显示closed，但没有可读证据说明冲突内容、判断、修改或关闭原因。
+````
+
+冻结材料只有“相互冲突文档”标题、隐私匹配元数据与 closed 状态，正文和 1 条评论不可见；只能作最小的隐私文档主题编码，无法判断具体冲突、修改或结果。
+
+## 配套文件
+
+- `codebook.json`：结构化定义、成员、计数和代表证据。
+- `codebook.csv`：表格化 codebook。
+- `assignments.json` / `assignments.csv`：逐 artifact 的代码、理由、阅读摘要、证据和限制。
+- `taxonomy.json`：与 GPT6-1 一致的 HOW-style 类别树。
+- `results.json`：冻结材料全文与最终类别的逐条组合。
