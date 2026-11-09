@@ -21,16 +21,10 @@ from threading import Event, RLock
 from typing import Callable
 
 from adapters import (
-    CommonSenseViolatingBugAdapter,
-    CppOopRelatedFeatureAdapter,
     Defects4CodeLLMSemanticAdapter,
     Defects4CodeLLMSyntacticAdapter,
-    DockerfileFlakinessAdapter,
-    FairnessApiIssueTopicAdapter,
     MLSATD23ShadesAdapter,
     PersonalDataProtectionGitHubAdapter,
-    QuantumClassicalIssueAdapter,
-    StaticAnalysisNondeterminismAdapter,
 )
 from adapters.base import ArtifactRecord, DatasetAdapter
 from coda.agents import (
@@ -109,16 +103,9 @@ class WebRunNotFoundError(WebWorkflowError):
 
 
 _ADAPTER_FACTORIES: dict[str, AdapterFactory] = {
-    "common_sense_violating_bug": CommonSenseViolatingBugAdapter,
-    "cpp_oop_related_feature": CppOopRelatedFeatureAdapter,
-    "dockerfile_flakiness": DockerfileFlakinessAdapter,
-    "fairness_api_issue_topic": FairnessApiIssueTopicAdapter,
     "ml_satd_23_shades": MLSATD23ShadesAdapter,
     "personal_data_protection_github": PersonalDataProtectionGitHubAdapter,
     "llm_code_error_semantic": Defects4CodeLLMSemanticAdapter,
-    "llm_code_error_syntactic": Defects4CodeLLMSyntacticAdapter,
-    "quantum_classical_issue": QuantumClassicalIssueAdapter,
-    "static_analysis_nondeterminism": StaticAnalysisNondeterminismAdapter,
 }
 
 _SPLIT_FAMILIES = {
