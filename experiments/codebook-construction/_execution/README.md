@@ -32,4 +32,4 @@ Final outputs are written only after every artifact has a valid supported assign
 
 Existing CodeErrors results were moved intact under `Artifact/CodeErrors`. The relocation manifest verifies 687 files byte-for-byte. Their old documented scripts belong to that existing analysis and must not be used to construct the new runs.
 
-Inputs, intermediate results, coverage audits, and execution state live under `experiments/codebook-construction/`. Only the seven final result files per run are exported to `Artifact/<dataset>/<run>/`. Legacy CodeErrors scripts and documents are archived for provenance; their historical relative paths are not live output paths.
+Inputs, intermediate results, coverage audits, and execution state live under `experiments/codebook-construction/`. Only the seven final result files per run are exported to `artifact/<dataset>/<run>/`. Legacy CodeErrors scripts and documents are archived for provenance; their historical relative paths are not live output paths.

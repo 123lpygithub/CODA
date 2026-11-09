@@ -4,7 +4,7 @@ and is identified as `coda.artifact.v1`. Coding decisions remain specific to eac
 run; format normalization does not merge, rename or reassign semantic codes.
 
 ```text
-Artifact/
+artifact/
 ├── README.md
 ├── CodeErrors/
 ├── SATD/
