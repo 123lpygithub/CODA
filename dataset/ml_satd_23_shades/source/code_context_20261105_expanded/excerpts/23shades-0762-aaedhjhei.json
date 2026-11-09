@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0762-aaedhjhei",
+  "revision_url": "https://github.com/menpo/menpo/commit/91a3f18dda22c03c245801cd801583c33aadca76",
+  "filename": "menpo/landmark/base.py",
+  "commit": "91a3f18dda22c03c245801cd801583c33aadca76",
+  "source_url": "https://raw.githubusercontent.com/menpo/menpo/91a3f18dda22c03c245801cd801583c33aadca76/menpo/landmark/base.py",
+  "fetched_at": "2026-11-05T06:13:49.078798+00:00",
+  "source_sha256": "634e3aff3e041d91db96d5433fbb05cf3b99a22ce7c70bb9b583b75e7d999fe4",
+  "line_start": 89,
+  "line_end": 113,
+  "excerpt": "        \"\"\"\n        from menpo.shape import PointCloud\n        # firstly, make sure the dim is correct\n        if value.n_dims != self._target.n_dims:\n            raise ValueError(\n                \"Trying to set {}D landmarks on a \"\n                \"{}D shape\".format(value.n_dims, self._target.n_dims))\n        if isinstance(value, PointCloud):\n            lmark_group = LandmarkGroup(\n                None, None, value,\n                {'all': np.ones(value.n_points, dtype=np.bool)})\n        elif isinstance(value, LandmarkGroup):\n            # TODO: Use the copy function\n            lmark_group = LandmarkGroup(self._target, group_label,\n                                        value._pointcloud,\n                                        value._labels_to_masks)\n        else:\n            raise ValueError('Valid types are PointCloud or LandmarkGroup')\n\n        self._landmark_groups[group_label] = lmark_group\n\n    def __getitem__(self, group_label=None):\n        \"\"\"\n        Returns the group for the provided label.\n"
+}

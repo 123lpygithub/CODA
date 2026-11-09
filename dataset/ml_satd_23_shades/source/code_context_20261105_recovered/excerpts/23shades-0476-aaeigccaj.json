@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0476-aaeigccaj",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/9f0d976cc9316713a47c947e9ec0279bf6a92b63",
+  "filename": "sdc/datatypes/hpat_pandas_series_rolling_functions.py",
+  "commit": "9f0d976cc9316713a47c947e9ec0279bf6a92b63",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/9f0d976cc9316713a47c947e9ec0279bf6a92b63/sdc/datatypes/hpat_pandas_series_rolling_functions.py",
+  "fetched_at": "2026-11-05T06:13:00.144117+00:00",
+  "source_sha256": "e3864dc94f54712d0e4d8d23b62dadf84c5848811ec8f068a6d07ace91fc3d9d",
+  "line_start": 230,
+  "line_end": 254,
+  "excerpt": "hpat_pandas_rolling_series_min_impl = register_jitable(\n    gen_hpat_pandas_series_rolling_impl(arr_min, float64))\nhpat_pandas_rolling_series_sum_impl = register_jitable(\n    gen_hpat_pandas_series_rolling_impl(arr_sum, float64))\n\n\n@sdc_overload_method(SeriesRollingType, 'corr')\ndef hpat_pandas_series_rolling_corr(self, other=None, pairwise=None):\n\n    ty_checker = TypeChecker('Method rolling.corr().')\n    ty_checker.check(self, SeriesRollingType)\n\n    # TODO: check `other` is Series after a circular import of SeriesType fixed\n    # accepted_other = (bool, Omitted, NoneType, SeriesType)\n    # if not isinstance(other, accepted_other) and other is not None:\n    #     ty_checker.raise_exc(other, 'Series', 'other')\n\n    accepted_pairwise = (bool, Boolean, Omitted, NoneType)\n    if not isinstance(pairwise, accepted_pairwise) and pairwise is not None:\n        ty_checker.raise_exc(pairwise, 'bool', 'pairwise')\n\n    nan_other = isinstance(other, (Omitted, NoneType)) or other is None\n\n    def hpat_pandas_rolling_series_std_impl(self, other=None, pairwise=None):\n        win = self._window"
+}

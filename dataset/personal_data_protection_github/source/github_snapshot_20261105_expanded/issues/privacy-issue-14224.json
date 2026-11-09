@@ -1,0 +1,202 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14224",
+  "issue_url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667",
+  "source_issue_url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667",
+  "api_url": "https://api.github.com/repos/openfoodfoundation/openfoodnetwork/issues/1667",
+  "title": "Email Confirmation | Manage unexpected validation email sent to users",
+  "body": "Updated by Myriam 21.05.2018\r\n\r\n## Description\r\n**- As a:** user (person)\r\n\r\n**- On page:** when I receive an automatic email with a confirmation link to validate my email\r\n\r\n**- I want to:** know what to do if I didn't register on the OFN and don't understand why I'm receiving this message.\r\n\r\n**- Solution to implement:** \r\nOn all automatic email confirmation messages, add at the bottom of the email, in italic (a bit like the small messages to unsubscribe when you receive a newsletter): \"You received this message because you signed up on [instance name], or were invited to sign up by someone you probably know. If you don't understand why you are receiving this email, please write to [instance contact manager].\"\r\n![screenshot from 2018-05-21 16-47-38](https://user-images.githubusercontent.com/8135376/40313745-bc5586dc-5d16-11e8-8d2c-08e71f88aae3.png)\r\n\r\n## Acceptance criteria\r\nWhen a new user register on OFN, from whatever link (origin), when she receives the confirmation email, she can see that sentence at the bottom of the email with the adapted instance name and contact.",
+  "author": "Participant 1",
+  "created_at": "2017-07-07T08:13:51Z",
+  "updated_at": "2018-07-20T02:19:24Z",
+  "state": "closed",
+  "closed_at": "2018-07-20T02:19:24Z",
+  "issue_fetched_at": "2026-11-05T05:56:25.826237+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T05:56:27.327629+00:00"
+  ],
+  "expected_comment_count": 22,
+  "retrieved_comment_count": 22,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 370065576,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-370065576",
+      "created_at": "2018-03-02T22:02:20Z",
+      "updated_at": "2018-03-02T22:02:20Z",
+      "author": "Participant 2",
+      "body": "@daniellemoorhead I don't find trace on that, I guess the idea was to avoid using this to hack the system and send lots of confirmation email? Like avoid unwanted use of this? Or is there any other idea behind that? Else I don't see why limitating it... \r\nAnd if we limit, we need to know what to do when we reach the limit... we need a way to unlock it to avoid ending up stucked."
+    },
+    {
+      "id": 371024164,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-371024164",
+      "created_at": "2018-03-07T05:06:30Z",
+      "updated_at": "2018-03-07T05:06:30Z",
+      "author": "Participant 1",
+      "body": "To be honest @myriamboure I don't remember why this issue was created. Interesting that there is no detail, I would put that down to it being created maybe during a meeting or discussion and then lost along the way.\r\n\r\nHappy enough for it to be closed if it isn't seen as necessary :)"
+    },
+    {
+      "id": 371089517,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-371089517",
+      "created_at": "2018-03-07T10:10:26Z",
+      "updated_at": "2018-03-07T10:10:26Z",
+      "author": "Participant 2",
+      "body": "@Matt-Yorkley @mkllnk any important security point I don't see about limitating the number of confirmation we can resend? I thought someone with bad intention could probably exploit that to send massive amounts of confirmation and crash our server and blacklist us... is that possible with this \"resend confirmation\" thing? If yes I would suggest we agree on how many max confirm email we can send (I would say 10 to be large) and just make sure we can unlock this (even if from admin sys) is needs be. Happy to read your thoughts on it."
+    },
+    {
+      "id": 372483710,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-372483710",
+      "created_at": "2018-03-12T22:27:52Z",
+      "updated_at": "2018-03-12T22:27:52Z",
+      "author": "Participant 3",
+      "body": "This issue was about spam. We don't want people who are not interested in signing up to receive too many emails about it. It happens quite easily that people think \"oh, these people still haven't signed up, I need to remind them again\", but they actually don't want to sign up. We need to balance \"possible technical problem\" vs. \"people don't bother\".\r\nSecondly, people could abuse the feature to advertise their enterprise.\r\n\r\nI think 10 is good to start with and then we can gain some experiences over time if people complain."
+    },
+    {
+      "id": 372585545,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-372585545",
+      "created_at": "2018-03-13T08:31:24Z",
+      "updated_at": "2018-03-13T08:31:24Z",
+      "author": "Participant 2",
+      "body": "@mkllnk Instead of that solution I would rather add in the email a line \"if you didn't wish to sign up on the OFN please click here\" and that could just trigger some action like: put a message on user profile \"this user said he doesn't want to register\" and \"lock\" the resend confirmation email (but it should be possible to unlock in case he wants to register later)\r\nIn term of UX it's far better than receiving 10 emails. Sincerly someone who doesn't want to register, if he received 10 emails it is faaar too much.\r\n\r\nAlso I don't see how people could advertise their enterprise abusing that feature: do you mean a hacker using that to replace the automatic message with some other content? because else resending a confirmation message is not really a good strategy to advertise ;-)"
+    },
+    {
+      "id": 372870884,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-372870884",
+      "created_at": "2018-03-14T01:08:15Z",
+      "updated_at": "2018-03-14T01:08:15Z",
+      "author": "Participant 3",
+      "body": "That's an interesting idea about the \"no link\". That would need to be elaborated a bit more.\r\n\r\nRe advertising, an email saying \"confirm your email address to join My Shop as a customer\" can be seen and used as advertising. But I'm actually not sure what the email currently says."
+    },
+    {
+      "id": 374271446,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-374271446",
+      "created_at": "2018-03-19T16:18:27Z",
+      "updated_at": "2018-03-19T16:18:27Z",
+      "author": "Participant 4",
+      "body": "So we need a `resend_count` field on users, and don't resend emails when > 10? Do we want to reset the limit if a user changes their email, so resend counts from an old email address don't stack?"
+    },
+    {
+      "id": 374287691,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-374287691",
+      "created_at": "2018-03-19T17:01:22Z",
+      "updated_at": "2018-03-19T17:01:22Z",
+      "author": "Participant 5",
+      "body": "Did we actually have any user related to this? Or are we just gessing? Honestly, I see all these ideas will require lots of resources (in hours of dev, test, po) we don't have plus the extra complexity they add to the product."
+    },
+    {
+      "id": 374295182,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-374295182",
+      "created_at": "2018-03-19T17:21:52Z",
+      "updated_at": "2018-03-19T17:21:52Z",
+      "author": "Participant 2",
+      "body": "I don't think we should implement any limitation on resends sincerly but rather add a \"didn't want to join OFN?\" link in email received. So please @Matt-Yorkley don't implement anything on that for now we need to spec properly if/what we want. But would rather create an icebox item for that IMO email confirm full iteration one doesn't need that, let's see the use and then see what's missing on that end. Will create an icebox and close this one for now."
+    },
+    {
+      "id": 374797984,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-374797984",
+      "created_at": "2018-03-21T00:01:30Z",
+      "updated_at": "2018-03-21T00:01:30Z",
+      "author": "Participant 3",
+      "body": "@myriamboure I agree that we have more pressing issues than this one. Just a comment on you \"unsubscribe\" link: What should happen when people click on it? Implementing that is almost as much work as this issue. I'm happy to wait until we have a real use case for this since we are guessing."
+    },
+    {
+      "id": 374919651,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-374919651",
+      "created_at": "2018-03-21T12:26:07Z",
+      "updated_at": "2018-03-21T12:26:07Z",
+      "author": "Participant 4",
+      "body": "I think the new GPDR legislation for Europe includes rules about ensuring users can \"opt out\" of receiving any/all emails. "
+    },
+    {
+      "id": 376924915,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-376924915",
+      "created_at": "2018-03-28T15:18:04Z",
+      "updated_at": "2018-03-28T15:18:04Z",
+      "author": "Participant 2",
+      "body": "@Matt-Yorkley most of the time here the user receives an email HE has requested by volunteerly signing up.\r\nThe only case that is not true is when a hub owner invites a new user as a manager. But this is not within the GDPR rule for me, it's an invitation that this person is free to accept or not. It's not an automatic email like a newsletter. It's like if I was sending you a personal email.\r\nAgain the only \"edge\" case is if that hub owner or an instance admin click on \"resend confirmation link\" without the target person requesting it.\r\nBut in real life that won't happen, or maybe we should write that as a \"good practice\" in our data management handbook (some next level project that we can do later on to publicly explain our data policy ;-)).\r\n\r\nFor safety and show our legal compliance **I propose to add in all automatic validation link emails sent a small line at the bottom of the email:\r\n\"You received this message because you signed up on [instance], or was invited to sign up by someone you probably know. If you don't know why you are receiving this email, please write to [instance contact manager]\"**\r\n\r\nDo you agree with that proposal @Matt-Yorkley @mkllnk @sauloperez ? It's a quick fix and I think it answers our need. If later on we see that we need more we will do more then."
+    },
+    {
+      "id": 376971789,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-376971789",
+      "created_at": "2018-03-28T17:36:41Z",
+      "updated_at": "2018-03-28T17:36:41Z",
+      "author": "Participant 5",
+      "body": "Agree. If I'm not mistaken we're already doing that in the new manager invites. I've read a similar copy there."
+    },
+    {
+      "id": 377533654,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-377533654",
+      "created_at": "2018-03-30T14:17:03Z",
+      "updated_at": "2018-03-30T14:17:03Z",
+      "author": "Participant 2",
+      "body": "Ok I need to check that but we have not yet deployed v1.13 in France so can't test now, will do a bit later and confirm then the action to take on this."
+    },
+    {
+      "id": 378066718,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-378066718",
+      "created_at": "2018-04-02T22:29:29Z",
+      "updated_at": "2018-04-02T22:29:29Z",
+      "author": "Participant 3",
+      "body": "Sounds good."
+    },
+    {
+      "id": 390677531,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-390677531",
+      "created_at": "2018-05-21T14:51:03Z",
+      "updated_at": "2018-05-21T14:51:03Z",
+      "author": "Participant 2",
+      "body": "Ok so I checked on a very recent master branch that I asked Paco to deploy on French staging (after v1.15  but before v1.15.1) and this sentence was not on email confirmation messages, so here is my proposal, I specified the into thread. @sstead or @daniellemoorhead can you check if you are happy with the sentence I propose in English and think it clear enough for users and would meet the need in case someone receives a unexpected confirmation email? Thanks in advance."
+    },
+    {
+      "id": 391963206,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-391963206",
+      "created_at": "2018-05-25T07:12:22Z",
+      "updated_at": "2018-05-25T07:12:22Z",
+      "author": "Participant 1",
+      "body": "Not sure where to check this @myriamboure, @sstead is the best person to do this."
+    },
+    {
+      "id": 392009295,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-392009295",
+      "created_at": "2018-05-25T10:18:11Z",
+      "updated_at": "2018-05-25T10:18:11Z",
+      "author": "Participant 6",
+      "body": "You're suggesting we add this line to all confirmation link emails @myriamboure ? _\"You received this message because you signed up on [instance name], or were invited to sign up by someone you probably know. If you don't understand why you are receiving this email, please write to [instance contact manager].\"_ I have no problem with this if you think it's necessary. It reads well in English.\r\n\r\nJust a note- when someone gets invited to be a manager of an enterprise they get 2 emails at the same time (pictured below). The email on the right does have a line saying 'Not sure why you have received this email? Please contact (shop owner) for more information'. So there is some coverage of this use case, but I don't think it hurts to also have a sentence in the other email.\r\n\r\n![image](https://user-images.githubusercontent.com/10843056/40539550-71b953fc-6058-11e8-8ca0-a3ffdc8b5a28.png)\r\n"
+    },
+    {
+      "id": 392129868,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-392129868",
+      "created_at": "2018-05-25T17:38:49Z",
+      "updated_at": "2018-05-25T17:38:49Z",
+      "author": "Participant 2",
+      "body": "Actually I see a case where someone would create an account (from sign-up) with an email which is not theirs (a mistake/typo maybe?). So it is another case than the one where you receive a confirmation email after having being invited as a manager. This case is covered as you say with the second email, but the one I just mentionned is not.\r\nBut we could say that also for any order confirmation email if there is a typo in the email address though I guess... so I'm not sure if that worth it (that would go also in the direction of not having gest accounts anymore see where we are stuck at on that in #1592)\r\n\r\nBut anyway, with the GDPR and increasing data management concerns I propose to move forward with that for now, and add in small italic at the bottom of the confirmation email the message proposed (a bit like when you receive a newsletter, where they say that you can usubscribe, you see?).\r\n\r\nThanks all for having participated to that conversation and I hope everyone is happy with that decision :-)  I put the issue in dev ready."
+    },
+    {
+      "id": 392509138,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-392509138",
+      "created_at": "2018-05-28T12:04:28Z",
+      "updated_at": "2018-05-28T12:04:28Z",
+      "author": "Participant 7",
+      "body": "The instance is OFN ? Who would be the instance manager ?"
+    },
+    {
+      "id": 392510873,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-392510873",
+      "created_at": "2018-05-28T12:12:43Z",
+      "updated_at": "2018-05-28T12:12:43Z",
+      "author": "Participant 2",
+      "body": "@HugsDaniel the instance is \"Open Food France\" or \"Katuma\" or \"OFN UK\" or... there is a string somewhere in the code to call it, check in other emails I guess or ask on #dev. The instance manager is the instance main email that is already called in most registration email, etc. like \"hello@openfoodnetwork.org in Australia\". Is that clear? Ask on slack if you don't find those objects to call."
+    },
+    {
+      "id": 392828061,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/1667#issuecomment-392828061",
+      "created_at": "2018-05-29T15:49:10Z",
+      "updated_at": "2018-05-29T15:53:32Z",
+      "author": "Participant 4",
+      "body": "Hi @HugsDaniel these values are different for each instance depending on the configuration. You can access them with: `Spree::Config[:site_name]` for the name of the instance, or `Spree::MailMethod.current.preferred_mails_from` for the contact email address for that instance.\r\n\r\nIf it's in the context of a Mailer class, you can just use the `from_address` method to get the email address."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

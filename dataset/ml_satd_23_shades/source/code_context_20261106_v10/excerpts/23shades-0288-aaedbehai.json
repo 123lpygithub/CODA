@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0288-aaedbehai",
+  "revision_url": "https://github.com/inferno-pytorch/inferno/commit/b75a6ac9d5b74e0bf720ee91fe92b08a2f21c0af",
+  "filename": "inferno/io/box/bsd500.py",
+  "commit": "b75a6ac9d5b74e0bf720ee91fe92b08a2f21c0af",
+  "source_url": "https://raw.githubusercontent.com/inferno-pytorch/inferno/b75a6ac9d5b74e0bf720ee91fe92b08a2f21c0af/inferno/io/box/bsd500.py",
+  "fetched_at": "2026-11-05T06:12:28.238155+00:00",
+  "source_sha256": "1f0721bfdd0c4ac58972544364bfc43e9f4d64b365addd3e69aa1ee3287939c0",
+  "line_start": 45,
+  "line_end": 69,
+  "excerpt": "            self.accumulator = np.amax\n        elif accumulator == 'min':\n            self.accumulator = np.amin\n        if close_channels is not None:\n            assert isinstance(close_channels, (list, tuple))\n        self.close_channels = close_channels\n\n    def __call__(self, input_):\n        transformed = np.array([self.transform(inp) for inp in input_])\n        transformed = self.accumulator(transformed, axis=0)\n        if self.close_channels is not None:\n            for c in self.close_channels:\n                # TODO figure out what exactly size does\n                transformed[c] = grey_opening(transformed[c], size=(3, 3))\n        return transformed\n\n\ndef get_label_transforms(offsets, accumulator='mean', close_channels=None):\n    from neurofire.transforms.segmentation import Segmentation2AffinitiesFromOffsets\n    seg2aff = Segmentation2AffinitiesFromOffsets(dim=2,\n                                                 offsets=pyu.from_iterable(offsets),\n                                                 add_singleton_channel_dimension=True,\n                                                 retain_segmentation=False)\n    return AccumulateTransformOverLabelers(seg2aff, accumulator, close_channels)\n"
+}

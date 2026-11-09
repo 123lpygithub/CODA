@@ -1,0 +1,106 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18339",
+  "issue_url": "https://github.com/bitwarden/server/issues/31",
+  "source_issue_url": "https://github.com/bitwarden/server/issues/31",
+  "api_url": "https://api.github.com/repos/bitwarden/server/issues/31",
+  "title": "Equivalent Domains should not be sent/stored as plain text.",
+  "body": "Right now the Equivalent Domains is sent from the client and stored on the server in plain text. This should be encrypted on the client the same as passwords/sites.\r\n\r\nThis isn't a huge security issue, but if the database was compromised then the list of domains would be available from each account. This list of domains would be ones that the user has accounts on creating a privacy issue.",
+  "author": "Participant 1",
+  "created_at": "2017-02-14T20:13:45Z",
+  "updated_at": "2022-04-13T12:17:24Z",
+  "state": "closed",
+  "closed_at": "2022-04-13T12:17:24Z",
+  "issue_fetched_at": "2026-11-05T05:56:33.927092+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T05:56:35.243117+00:00"
+  ],
+  "expected_comment_count": 10,
+  "retrieved_comment_count": 10,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 280184783,
+      "url": "https://github.com/bitwarden/server/issues/31#issuecomment-280184783",
+      "created_at": "2017-02-16T00:09:02Z",
+      "updated_at": "2017-02-16T00:09:39Z",
+      "author": "Participant 2",
+      "body": "The idea behind this is so that we could improve the global associations in the future as we see popular custom associations, however, I can see where privacy concerns can come into play. Thanks for the feedback."
+    },
+    {
+      "id": 282347006,
+      "url": "https://github.com/bitwarden/server/issues/31#issuecomment-282347006",
+      "created_at": "2017-02-24T17:10:31Z",
+      "updated_at": "2017-02-24T17:10:31Z",
+      "author": "Participant 3",
+      "body": "Could using server-side encryption for this stored data be an option?  Of course all the username/password/etc. data is encrypted client-side before being sent off to the server & that shouldn't change but when it comes to what is being stored in plain text on your servers encrypted storage seems better than nothing.  It wouldn't provide protection of this data from bitwarden server admins as they'd have access to the key used but it would be an extra layer of defense if a server was compromised by an outside attacker.  Just a suggestion & perhaps you're already implementing something like that server-side or have a good reason not to.  I'm not a programmer, I'm a sysadmin just here trying to learn more about bitwarden & thought I'd give you my two cents, though I'm sure it's worth far less.  Thanks for a great product!"
+    },
+    {
+      "id": 282460706,
+      "url": "https://github.com/bitwarden/server/issues/31#issuecomment-282460706",
+      "created_at": "2017-02-25T05:06:13Z",
+      "updated_at": "2017-02-25T05:06:13Z",
+      "author": "Participant 2",
+      "body": "@tllong2 Thanks for the input. Currently we do not encrypt this data in any way. If we were to implement this it would definitely be client-side encryption like all things in your vault."
+    },
+    {
+      "id": 289501395,
+      "url": "https://github.com/bitwarden/server/issues/31#issuecomment-289501395",
+      "created_at": "2017-03-27T16:07:35Z",
+      "updated_at": "2017-03-27T16:07:35Z",
+      "author": "Participant 4",
+      "body": "Looking at my custom equivalent domains you could discern where I bank, what insurance I use, which government sites I log into.   If it can be linked to me I would want it encrypted but I can see merit if it lets others benefit from my custom equivalent domain associations."
+    },
+    {
+      "id": 289532755,
+      "url": "https://github.com/bitwarden/server/issues/31#issuecomment-289532755",
+      "created_at": "2017-03-27T17:56:27Z",
+      "updated_at": "2017-03-27T17:56:27Z",
+      "author": "Participant 5",
+      "body": "Lastpass has an option to, when adding a new association, to optionally share that association (check box at a prompt) with other users. Something like that would be nice."
+    },
+    {
+      "id": 289622000,
+      "url": "https://github.com/bitwarden/server/issues/31#issuecomment-289622000",
+      "created_at": "2017-03-28T00:03:34Z",
+      "updated_at": "2017-03-28T00:03:34Z",
+      "author": "Participant 1",
+      "body": "I like that idea @sreich all user domains are encrypted but with an option to submit the domains which get stored in the database not associated with the user account to be reviewed to potential be added to the global list."
+    },
+    {
+      "id": 323202139,
+      "url": "https://github.com/bitwarden/server/issues/31#issuecomment-323202139",
+      "created_at": "2017-08-17T21:41:05Z",
+      "updated_at": "2017-08-17T21:41:05Z",
+      "author": "Participant 6",
+      "body": "Reading this thread it looks to me two points are clear:\r\n- We want the equivalent relationship domains we use to be fully protected\r\n- We see the value in being able to add those relationships to the global equivalents if enough people use them.\r\n\r\nPerhaps when you add such relationship the user could send an optional message to the server with the suggestion, which would be stored anonymously?"
+    },
+    {
+      "id": 1097126904,
+      "url": "https://github.com/bitwarden/server/issues/31#issuecomment-1097126904",
+      "created_at": "2022-04-12T19:24:42Z",
+      "updated_at": "2022-04-12T19:24:42Z",
+      "author": "Participant 7",
+      "body": "Hi @matt-h, \n We're cleaning up our repositories in preparation for a major reorganization. Issues from last year will be marked as stale and closed after two weeks. If you still need help, comment to let us know and we'll look into it. \n Thanks!"
+    },
+    {
+      "id": 1097587510,
+      "url": "https://github.com/bitwarden/server/issues/31#issuecomment-1097587510",
+      "created_at": "2022-04-13T05:53:54Z",
+      "updated_at": "2022-04-13T05:53:54Z",
+      "author": "Participant 6",
+      "body": "This was never fixed, was it? Why close the ticket then?\n\nSent from ProtonMail mobile\n\n-------- Original Message --------\nOn Apr 12, 2022, 21:24, Bitwarden Bot wrote:\n\n> Hi ***@***.***(https://github.com/matt-h),\n> We're cleaning up our repositories in preparation for a major reorganization. Issues from last year will be marked as stale and closed after two weeks. If you still need help, comment to let us know and we'll look into it.\n> Thanks!\n>\n> —\n> Reply to this email directly, [view it on GitHub](https://github.com/bitwarden/server/issues/31#issuecomment-1097126904), or [unsubscribe](https://github.com/notifications/unsubscribe-auth/ABN4GOK6UTDO2IFL4Z27D53VEXEYJANCNFSM4DADYMRQ).\n> You are receiving this because you commented.Message ID: ***@***.***>"
+    },
+    {
+      "id": 1097982317,
+      "url": "https://github.com/bitwarden/server/issues/31#issuecomment-1097982317",
+      "created_at": "2022-04-13T12:17:24Z",
+      "updated_at": "2022-04-13T12:17:24Z",
+      "author": "Participant 8",
+      "body": "Hey everyone, since this is an ongoing discussion and not a bug, the best place to continue the conversation is in the Bitwarden Community Forums [Feature Request ](https://community.bitwarden.com/c/feature-requests/5)category."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

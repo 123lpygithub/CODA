@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0560-aaifhghej",
+  "revision_url": "https://github.com/OpenMined/PySyft/commit/0dca0e8e9e22676000ddaf672989d168b3b0fada",
+  "filename": "syft/frameworks/torch/tensors/interpreters/abstract.py",
+  "commit": "0dca0e8e9e22676000ddaf672989d168b3b0fada",
+  "source_url": "https://raw.githubusercontent.com/OpenMined/PySyft/0dca0e8e9e22676000ddaf672989d168b3b0fada/syft/frameworks/torch/tensors/interpreters/abstract.py",
+  "fetched_at": "2026-11-05T06:13:12.253208+00:00",
+  "source_sha256": "1363e88b9fe5b6a7aa4daf1ffe4b4e0acac5cc22e97e401c72bff0caf5aa4954",
+  "line_start": 156,
+  "line_end": 180,
+  "excerpt": "        :return: the response of the function command\n        \"\"\"\n        cmd, _, args, kwargs = command\n\n        # Check that the function has not been overwritten\n        try:\n            # Try to get recursively the attributes in cmd = \"<attr1>.<attr2>.<attr3>...\"\n            cmd = rgetattr(cls, cmd)\n            return cmd(*args, **kwargs)\n        except AttributeError:\n            pass\n\n        # TODO: I can't manage the import issue, can you?\n        # Replace all LoggingTensor with their child attribute\n        new_args, new_kwargs, new_type = sy.frameworks.torch.hook_args.hook_function_args(\n            cmd, args, kwargs\n        )\n\n        # build the new command\n        new_command = (cmd, None, new_args, new_kwargs)\n\n        # Do a generic action depending og the call\n        cls.on_function_call(new_command)\n\n        # Send it to the appropriate class and get the response",
+  "match_policy": "unique-release-normalized-v2"
+}

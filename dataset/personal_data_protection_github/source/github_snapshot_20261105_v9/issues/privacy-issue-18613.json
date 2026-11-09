@@ -1,0 +1,34 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18613",
+  "issue_url": "https://github.com/Automattic/jetpack/issues/5189",
+  "source_issue_url": "https://github.com/Automattic/jetpack/issues/5189",
+  "api_url": "https://api.github.com/repos/Automattic/jetpack/issues/5189",
+  "title": "Sharing: XHR/JS should not run if the button style is set to something w/o sharing counts",
+  "body": "<!-- Thanks for contributing to Jetpack! Pick a clear title (\"Sharing: add new Facebook button\") and proceed. -->\n#### Steps to reproduce the issue\n1. Turn on JetPack Sharing buttons and put Facebook button on the page\n2. Set the Button Style to \"Icon + Text\".\n3. Go to the blog home page\n4. Observe network requests from DevTools\n#### What I expected\n1. No requests made to graph.facebook.com\n#### What happened instead\n1. 3 requests made to graph.facebook.com\n#### Note\n\nThis can be workaround by adding a `jetpack_sharing_counts` filter, added back in 2004. However itself is a bug that should be corrected. \n\nIt's a privacy issue too, since we are essentially ended up allowing Facebook to track it's user on every WordPress blog post s/he reads (assuming 3rd-party cookie is not blocked).\n",
+  "author": "Participant 1",
+  "created_at": "2016-09-22T08:53:29Z",
+  "updated_at": "2016-09-26T09:29:19Z",
+  "state": "closed",
+  "closed_at": "2016-09-22T09:15:00Z",
+  "issue_fetched_at": "2026-10-18T22:11:25.932002+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T22:11:27.322695+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 248850604,
+      "url": "https://github.com/Automattic/jetpack/issues/5189#issuecomment-248850604",
+      "created_at": "2016-09-22T09:15:00Z",
+      "updated_at": "2016-09-22T09:15:00Z",
+      "author": "Participant 1",
+      "body": "I am sorry. This issue is invalid. All button styles would have the sharing count show on the button; it just don't show when the sharing count is 0.\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0227-aagfchifa",
+  "revision_url": "https://github.com/AllenCellModeling/pytorch_integrated_cell/commit/06e10c1324f68e5a1e9b348e576f86df259fa6b5",
+  "filename": "data_providers/DataProvider3Dh5.py",
+  "commit": "06e10c1324f68e5a1e9b348e576f86df259fa6b5",
+  "source_url": "https://raw.githubusercontent.com/AllenCellModeling/pytorch_integrated_cell/06e10c1324f68e5a1e9b348e576f86df259fa6b5/data_providers/DataProvider3Dh5.py",
+  "fetched_at": "2026-11-05T06:12:18.392135+00:00",
+  "source_sha256": "03ab9fdb0290d09563b3098c34e1ee1505b966abf92de29c4f89f553879fd46c",
+  "line_start": 68,
+  "line_end": 92,
+  "excerpt": "        if self.opts['verbose']:\n            print('reading csv manifest')\n        csv_df = pd.read_csv(csv_path)\n        \n        h5_files = [os.path.splitext(os.path.basename(file))[0][0:-5] + '.h5' for file in csv_df['save_cell_reg_path']]\n        # os.path.splitext(os.path.basename(csv_df['save_cell_reg_path'][0]))[0][0:-5] + '.hf'\n        # h5_files = csv_df.save_dir + os.sep + h5_files\n        \n        csv_df['h5_file'] = h5_files\n        \n        # check which rows in csv are valid, based on all the channels i want being present\n        if self.opts['check_files'] is not None:\n                    # TODO add checking to make sure number of keys in h5 file matches number of lines in csv file\n            if self.opts['verbose']:\n                print('Making h5 files')\n\n            for index in tqdm(range(0, csv_df.shape[0]), desc='loading images into h5 files', ascii=True):\n                is_good_row = True\n\n                row = csv_df.loc[index]\n\n                h5_path = self.image_parent + os.sep + row.save_dir + os.sep + row.h5_file\n                if not os.path.exists(h5_path):\n                    \n                    try:"
+}

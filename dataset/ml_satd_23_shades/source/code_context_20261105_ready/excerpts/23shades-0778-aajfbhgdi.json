@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0778-aajfbhgdi",
+  "revision_url": "https://github.com/HDI-Project/ATM/commit/5625050953f3a7aaa90342147267a772aa829485",
+  "filename": "btb/worker.py",
+  "commit": "5625050953f3a7aaa90342147267a772aa829485",
+  "source_url": "https://raw.githubusercontent.com/HDI-Project/ATM/5625050953f3a7aaa90342147267a772aa829485/btb/worker.py",
+  "fetched_at": "2026-11-05T06:13:51.003646+00:00",
+  "source_sha256": "baeb306e4b8aa9ca44601989ce4fe7fdb9bf8da861840bb20ce9f95c0b82bd1c",
+  "line_start": 148,
+  "line_end": 172,
+  "excerpt": "        else:\n            local_model_path = None\n            local_metric_path = None\n\n        # compile fields\n        completed = time.strftime('%Y-%m-%d %H:%M:%S')\n        trainables = model.algorithm.performance()['trainable_params']\n        fmt_completed = datetime.datetime.strptime(completed, SQL_DATE_FORMAT)\n        fmt_started = datetime.datetime.strptime(started, SQL_DATE_FORMAT)\n        seconds = (fmt_completed - fmt_started).total_seconds()\n\n        # create learner ORM object, and insert learner into the database\n        # TODO: wrap this properly in a with session_context():\n        session = self.db.get_session()\n        learner = self.db.Learner(datarun_id=datarun.id,\n                             frozen_set_id=frozen_set.id,\n                             dataname=datarun.name,\n                             algorithm=frozen_set.algorithm,\n                             trainpath=datarun.trainpath,\n                             testpath=datarun.testpath,\n                             modelpath=local_model_path,\n                             params_hash=phash,\n                             params=params,\n                             trainable_params=trainables,\n                             cv_judgment_metric=performance['cv_judgment_metric'],"
+}

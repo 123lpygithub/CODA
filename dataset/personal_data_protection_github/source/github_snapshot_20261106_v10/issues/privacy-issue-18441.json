@@ -1,0 +1,37 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18441",
+  "issue_url": "https://github.com/openlayers/openlayers/issues/5229",
+  "source_issue_url": "https://github.com/openlayers/openlayers/issues/5229",
+  "api_url": "https://api.github.com/repos/openlayers/openlayers/issues/5229",
+  "title": "Using a KML overlay causes unwanted and unnecessary request to maps.google.com, resulting in data leak via Referer header field",
+  "body": "When using a KML overlay, OpenLayers is making an unexpected request to https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png, even though this file is nowhere referenced in my KML file. I even do not use any points at all, that might justify loading a generic marker image as default icon style.\n\nBecause the path to the map in my current project also contains somewhat confidential data, and this is getting sent to Google via the Referer header field, this behavior is not just an unnecessary request, but a data leak/privacy issue.\n\nMy proposal: If there is no marker used, there should be no request. If the KML file uses a marker with no explicit icon href, a local file should be used as the default icon to prevent this unexpected data leak. Hardcoding a remote image URI like in the current version of OpenLayers also causes unnecessary dependencies. If somebody wants to use the Google marker icon from the current location, one could specify it in the style.\n",
+  "author": "Participant 1",
+  "created_at": "2016-04-13T22:13:10Z",
+  "updated_at": "2019-05-29T17:06:47Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:06.228357+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:06.228357+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 494876192,
+      "url": "https://github.com/openlayers/openlayers/issues/5229#issuecomment-494876192",
+      "created_at": "2019-05-22T16:26:41Z",
+      "updated_at": "2019-05-22T16:26:41Z",
+      "author": "Participant 2",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/openlayers/openlayers/issues/5229",
+  "closed_at_available": false
+}

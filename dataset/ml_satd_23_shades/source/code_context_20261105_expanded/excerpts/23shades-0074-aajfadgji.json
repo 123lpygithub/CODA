@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0074-aajfadgji",
+  "revision_url": "https://github.com/pyannote/pyannote-audio/commit/f8a5b5a43184a5f6939ea8d89c17d64cef49a122",
+  "filename": "pyannote/audio/pipeline/speaker_diarization.py",
+  "commit": "f8a5b5a43184a5f6939ea8d89c17d64cef49a122",
+  "source_url": "https://raw.githubusercontent.com/pyannote/pyannote-audio/f8a5b5a43184a5f6939ea8d89c17d64cef49a122/pyannote/audio/pipeline/speaker_diarization.py",
+  "fetched_at": "2026-11-05T06:11:50.390203+00:00",
+  "source_sha256": "a6b01b53a786f4053096642dba7fb0074bd4d390328081d180b6087ed17abb94",
+  "line_start": 231,
+  "line_end": 255,
+  "excerpt": "        # initial segmentation\n        speech_turns = super().apply(current_file)\n\n        # initialize the hypothesized annotation\n        hypothesis = Annotation(uri=current_file['uri'])\n        if len(speech_turns) < 1:\n            return hypothesis\n\n        # get raw (sliding window) embeddings\n        emb = self.emb_(current_file)\n\n        # get one embedding per speech turn\n        # FIXME don't l2_normalize for any metric\n        fX = l2_normalize(np.vstack(\n            [np.sum(emb.crop(t, mode='loose'), axis=0) for t in speech_turns]))\n\n        # compute affinity matrix\n        affinity = -squareform(pdist(fX, metric=self.metric))\n\n        # apply clustering\n        clusters = self.cls_.fit_predict(affinity)\n\n        for speech_turn, cluster in zip(speech_turns, clusters):\n            # HACK find why fit_predict returns NaN sometimes and fix it.\n            cluster = -1 if np.isnan(cluster) else cluster"
+}

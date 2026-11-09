@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0454-aaefgiijg",
+  "revision_url": "https://github.com/awslabs/sockeye/commit/e934541132fb1c92cc9810d515450602d11e6662",
+  "filename": "sockeye/arguments.py",
+  "commit": "e934541132fb1c92cc9810d515450602d11e6662",
+  "source_url": "https://raw.githubusercontent.com/awslabs/sockeye/e934541132fb1c92cc9810d515450602d11e6662/sockeye/arguments.py",
+  "fetched_at": "2026-11-05T06:12:57.277683+00:00",
+  "source_sha256": "b6610b34f4ea94dda9befd9a5b15b57aced8716b2b75efe1b88cb5357b438e01",
+  "line_start": 517,
+  "line_end": 541,
+  "excerpt": "                              help='How to initialize RNN decoder states. Default: %(default)s.')\n    model_params.add_argument('--rnn-residual-connections',\n                              action=\"store_true\",\n                              default=False,\n                              help=\"Add residual connections to stacked RNNs. (see Wu ETAL'16). Default: %(default)s.\")\n    model_params.add_argument('--rnn-first-residual-layer',\n                              type=int_greater_or_equal(2),\n                              default=2,\n                              help='First RNN layer to have a residual connection. Default: %(default)s.')\n    model_params.add_argument('--rnn-context-gating', action=\"store_true\",\n                              help=\"Enables a context gate which adaptively weighs the RNN decoder input against the \"\n                                   \"source context vector before each update of the decoder hidden state.\")\n    # TODO: At the moment LHUC is RNN specific. We should support other models as well.\n    model_params.add_argument('--lhuc',\n                              nargs=\"+\",\n                              default=None,\n                              choices=C.LHUC_CHOICES,\n                              metavar=\"COMPONENT\",\n                              help=\"Use LHUC (Vilar 2018). Include an amplitude parameter to hidden units for\"\n                              \" domain adaptation. Needs a pre-trained model. Valid values: {values}. Currently only\"\n                              \" supported for RNN models. Default: %(default)s.\".format(\n                                  values=\", \".join(C.LHUC_CHOICES)))\n\n    # transformer arguments\n    model_params.add_argument('--transformer-model-size',"
+}

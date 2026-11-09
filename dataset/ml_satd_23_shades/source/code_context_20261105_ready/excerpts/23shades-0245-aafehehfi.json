@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0245-aafehehfi",
+  "revision_url": "https://github.com/aleju/imgaug/commit/ee415fb94594700b30b8984ad5a5ad018c0b0088",
+  "filename": "imgaug/augmenters/weather.py",
+  "commit": "ee415fb94594700b30b8984ad5a5ad018c0b0088",
+  "source_url": "https://raw.githubusercontent.com/aleju/imgaug/ee415fb94594700b30b8984ad5a5ad018c0b0088/imgaug/augmenters/weather.py",
+  "fetched_at": "2026-11-05T06:12:20.998454+00:00",
+  "source_sha256": "9aa78c4ffbe51d79d1f9311980fa5255c0498450808418d803015f9fc36e22ec",
+  "line_start": 175,
+  "line_end": 199,
+  "excerpt": "            intensity_mean=(196, 255), intensity_freq_exponent=(-2.5, -2.0), intensity_coarse_scale=10,\n            alpha_min=0, alpha_multiplier=(0.25, 0.75), alpha_size_px_max=(2, 8), alpha_freq_exponent=(-2.5, -2.0),\n            sparsity=(0.8, 1.0), density_multiplier=(0.5, 1.0)\n        ),\n        CloudLayer(\n            intensity_mean=(196, 255), intensity_freq_exponent=(-2.0, -1.0), intensity_coarse_scale=10,\n            alpha_min=0, alpha_multiplier=(0.5, 1.0), alpha_size_px_max=(64, 128), alpha_freq_exponent=(-2.0, -1.0),\n            sparsity=(1.0, 1.4), density_multiplier=(0.8, 1.5)\n        )\n    ], random_order=False, name=name, deterministic=deterministic, random_state=random_state)\n\n\n# TODO add vertical gradient alpha to have fog only at skylevel/groundlevel\n# TODO add configurable parameters\ndef Fog(name=None, deterministic=False, random_state=None):\n    \"\"\"\n    Augmenter to draw fog in images.\n\n    This is a wrapper around ``CloudLayer``. It executes a single layer per image with a configuration leading\n    to fairly dense clouds with low-frequency patterns.\n\n    This augmenter seems to be fairly robust w.r.t. the image size. Tested with ``96x128``, ``192x256``\n    and ``960x1280``.\n\n    Parameters",
+  "match_policy": "unique-release-normalized-v2"
+}

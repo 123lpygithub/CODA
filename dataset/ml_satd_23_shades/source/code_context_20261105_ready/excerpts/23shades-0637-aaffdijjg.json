@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:da911be573cf712c1da67c09713cc018372127a7/raw/",
+  "source_sha256": "d27f408ce483cb99756ff1c4ec876795517a00f8cce13fc000b9427b23a7b816",
+  "fetched_at": "2026-11-05T06:43:15.118757+00:00",
+  "archive_directory": "509a62a47d0cb4d6677a4ce1c65b7e8785b43290",
+  "git_blob_sha1": "da911be573cf712c1da67c09713cc018372127a7",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/07431f224242d931f567c0e6fdf70c139bd159b2/",
+  "artifact_id": "23shades-0637-aaffdijjg",
+  "revision_url": "https://github.com/Aifred-Health/Vulcan/commit/07431f224242d931f567c0e6fdf70c139bd159b2",
+  "filename": "vulcanai2/models/basenetwork.py",
+  "commit": "07431f224242d931f567c0e6fdf70c139bd159b2",
+  "line_start": 482,
+  "line_end": 506,
+  "excerpt": "        os.makedirs(module_save_path)  # let this throw an error if it already exists\n\n        # recursive recursive recursive\n        if self._input_network is not None:\n            self._input_network.save_model(save_path)\n\n        self.save_path = save_path  # TODO: I don't think this is necessary\n\n        # to improve: # object.__getstate__() https://docs.python.org/3/library/pickle.html#example\n        model_file_path = module_save_path + \"model.pkl\"\n        state_dict_file_path = module_save_path + \"state_dict.pkl\"\n        pickle.dump(self, open(model_file_path, \"wb\"), 2)\n        pickle.dump(self.state_dict, open(state_dict_file_path, \"wb\"), 2)  # TODO: pretty sure this isn't necessary\n\n    # TODO: update the state dict and push to the appropriate device.\n    # https://pytorch.org/tutorials/beginner/saving_loading_models.html#what-is-a-state-dict\n    @classmethod\n    def load_ensemble(cls, load_path):\n        \"\"\"\n        Load the model from its parent directory. All parent networks are also loaded.\n        :param load_path: The load directory (not a file)\n        :return: a network object\n        \"\"\"\n\n        if not load_path.endswith(\"/\"):  # TODO: does this break windows?? no idea.",
+  "match_policy": "unique-release-normalized-v2"
+}

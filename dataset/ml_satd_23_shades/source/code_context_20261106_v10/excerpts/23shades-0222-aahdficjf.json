@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0222-aahdficjf",
+  "revision_url": "https://github.com/emlynjdavies/PySilCam/commit/a9a0f4365efbf6be611d0b8f51af53aad4402273",
+  "filename": "pysilcam/__main__.py",
+  "commit": "a9a0f4365efbf6be611d0b8f51af53aad4402273",
+  "source_url": "https://raw.githubusercontent.com/emlynjdavies/PySilCam/a9a0f4365efbf6be611d0b8f51af53aad4402273/pysilcam/__main__.py",
+  "fetched_at": "2026-11-05T06:12:17.784361+00:00",
+  "source_sha256": "6859d23aa3fdec77d858c97f4de66bb90c5e18d0970ca4acd403082046bca0a4",
+  "line_start": 219,
+  "line_end": 243,
+  "excerpt": "    if (not os.path.isdir(settings.General.datafile)):\n       logger.info('Folder ' + settings.General.datafile + ' was not found and is created')\n       os.mkdir(settings.General.datafile)\n\n    procfoldername = os.path.split(datapath)[-1]\n    datafilename = os.path.join(settings.General.datafile,procfoldername)\n    logger.info('output stats to: ' + datafilename)\n\n    adminSTATS(logger, settings, overwriteSTATS, datafilename, datapath)\n\t\n    #Initialize the image acquisition generator\n    \n    #TODO : use realtime var\n    aq = Acquire(USE_PYMBA=False)\n    aqgen = aq.get_generator(datapath, writeToDisk=discWrite,\n            camera_config_file=config_filename)\n\n    #Get number of images to use for background correction from config\n    print('* Initializing background image handler')\n    bggen = backgrounder(settings.Background.num_images, aqgen,\n            bad_lighting_limit = settings.Process.bad_lighting_limit,\n            real_time_stats=settings.Process.real_time_stats)\n\n    # Create export directory if needed\n    if settings.ExportParticles.export_images:"
+}

@@ -1,0 +1,482 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-15248",
+  "issue_url": "https://github.com/kkapsner/CanvasBlocker/issues/71",
+  "source_issue_url": "https://github.com/kkapsner/CanvasBlocker/issues/71",
+  "api_url": "https://api.github.com/repos/kkapsner/CanvasBlocker/issues/71",
+  "title": "Add AudioContext Fingerprint Blocking?",
+  "body": "It looks like the world could really use a per-site blocker/spoofer for the AudioContext API. (See https://audiofingerprint.openwpm.com/) Maybe blocking/spoofing this API could be added to CanvasBlocker? Or, if that's too much a departure, maybe a separate extension using the same  per-site blocker/spoofer model as CanvasBlocker?\n",
+  "author": "Participant 1",
+  "created_at": "2016-05-21T19:26:44Z",
+  "updated_at": "2018-07-21T13:37:11Z",
+  "state": "closed",
+  "closed_at": "2018-07-15T23:04:59Z",
+  "issue_fetched_at": "2026-10-18T21:11:17.351022+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T21:11:18.831000+00:00"
+  ],
+  "expected_comment_count": 57,
+  "retrieved_comment_count": 57,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 222117644,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-222117644",
+      "created_at": "2016-05-27T10:50:40Z",
+      "updated_at": "2016-05-27T10:50:40Z",
+      "author": "Participant 2",
+      "body": "I think this fingerprinting could be handled the same as canvas fingerprinting. But I'm not sure if this should be done in a separate addon. Both aproaches have benefits.\n"
+    },
+    {
+      "id": 238017695,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-238017695",
+      "created_at": "2016-08-06T10:49:09Z",
+      "updated_at": "2016-08-06T10:49:09Z",
+      "author": "Participant 3",
+      "body": "What's the state on this? It is still talked about (https://webtransparency.cs.princeton.edu/webcensus/#audio-fp) and I think solving this would be good.\n\nAnyone interested to post his results from https://audiofingerprint.openwpm.com/ ?\n\nPS: \nIf this addon is called \"CanvasBlocker\", you may either rename it to something like FingerprintBlocker, or create a separate addon if AudioContext is solved. Just my opinion.\n\nAlso it's not going to be present in uBlock Origin: https://github.com/gorhill/uBlock/issues/1647 [closed]. \nSo this is one more reason to go ahead and then having more users to use your addon.\n"
+    },
+    {
+      "id": 238047597,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-238047597",
+      "created_at": "2016-08-06T20:38:58Z",
+      "updated_at": "2016-08-06T20:38:58Z",
+      "author": "Participant 2",
+      "body": "There is no state yet. Had no time to dig into this subject.\n"
+    },
+    {
+      "id": 238073824,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-238073824",
+      "created_at": "2016-08-07T10:01:20Z",
+      "updated_at": "2016-08-07T10:01:20Z",
+      "author": "Participant 3",
+      "body": "No problem, I see that even the TorBrowser guys are still working on this: https://trac.torproject.org/projects/tor/ticket/13017\n"
+    },
+    {
+      "id": 244522696,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-244522696",
+      "created_at": "2016-09-03T02:56:48Z",
+      "updated_at": "2016-09-03T02:56:48Z",
+      "author": "Participant 4",
+      "body": "From what I can tell, the most popular fingerprinting methods here involve the usage of: \n- **AudioBuffer.getChannelData()**   (and AudioBuffer.copyFromChannel()) \n- **AnalyserNode.getFloatFrequencyData()**  (and AnalyserNode.getByteFrequencyData())\n\nI'm not sure if the same fingerprinting could be pulled off with time-domain data (AnalyserNode.getFloatTimeDomainData() / AnalyserNode.getByteTimeDomainData()). \n\nSee: \n- https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer\n- https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode\n\nI wouldn't be surprised if there are other methods of obtaining audio data in the API, though. \n"
+    },
+    {
+      "id": 260209014,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-260209014",
+      "created_at": "2016-11-13T20:08:51Z",
+      "updated_at": "2016-11-13T20:08:51Z",
+      "author": "Participant 5",
+      "body": "Has anyone identified an extension that has been created to address this issue yet? Thanks\n"
+    },
+    {
+      "id": 260223063,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-260223063",
+      "created_at": "2016-11-13T23:56:40Z",
+      "updated_at": "2016-11-13T23:56:40Z",
+      "author": "Participant 6",
+      "body": "I don't know about any addon but Mozilla has made it possible to disable the AudioContext API by setting **dom.webaudio.enabled** to **false** (https://bugzil.la/1288359). It's marked for being included in Firefox 51 which is schedules for 2017-01-24 (https://wiki.mozilla.org/RapidRelease/Calendar) so if you want to use it now you'll have to use beta/aurora/nightly. I also haven't really looked into where AudioContext is used so disabling it might break something.\n"
+    },
+    {
+      "id": 262166460,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-262166460",
+      "created_at": "2016-11-22T07:23:50Z",
+      "updated_at": "2016-11-22T07:24:08Z",
+      "author": "Participant 5",
+      "body": "If it is opt out by default, it would make you more track-able or no?"
+    },
+    {
+      "id": 262304083,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-262304083",
+      "created_at": "2016-11-22T17:17:04Z",
+      "updated_at": "2016-11-22T17:17:04Z",
+      "author": "Participant 2",
+      "body": "So you're mainly interested in the faking modes?"
+    },
+    {
+      "id": 262323205,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-262323205",
+      "created_at": "2016-11-22T18:25:55Z",
+      "updated_at": "2016-11-22T19:15:48Z",
+      "author": "Participant 5",
+      "body": "I guess, I'm not convinced an opt out is the way. I don't know enough about it though, you tell me. "
+    },
+    {
+      "id": 262855719,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-262855719",
+      "created_at": "2016-11-24T23:29:41Z",
+      "updated_at": "2016-11-24T23:29:41Z",
+      "author": "Participant 2",
+      "body": "I totally agree that an opt out is not the best way. Faking would be better."
+    },
+    {
+      "id": 277964369,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-277964369",
+      "created_at": "2017-02-07T10:52:15Z",
+      "updated_at": "2017-02-07T10:52:15Z",
+      "author": "Participant 7",
+      "body": "There is SIlverdog extension for chrome regarding audio fing.\r\nMaybe it can help implementing this in CanvasBlocker\r\nhttp://www.ghacks.net/2017/01/06/silverdog-a-sound-firewall-for-chrome/\r\n\r\n"
+    },
+    {
+      "id": 284265896,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-284265896",
+      "created_at": "2017-03-05T21:51:07Z",
+      "updated_at": "2017-03-05T21:55:09Z",
+      "author": "Participant 5",
+      "body": "@jugi1 are we sure this extension is directly related to this issue? It sounded a bit different from what I read there. I could be totally wrong, anyone test it on FF yet? \r\n\r\nAwaiting eagerly for your response, thank you.\r\n\r\nEdit:\r\nCan anyone confirm https://audiofingerprint.openwpm.com/ is still working for them? Even enabling flash ended with no result for the upper portion, not sure if an extension or protection was developed in use on my side or the website is just broken, thanks."
+    },
+    {
+      "id": 284270157,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-284270157",
+      "created_at": "2017-03-05T22:50:55Z",
+      "updated_at": "2017-03-05T22:50:55Z",
+      "author": "Participant 8",
+      "body": "The mentioned site works fine on my end."
+    },
+    {
+      "id": 345054311,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-345054311",
+      "created_at": "2017-11-16T20:35:15Z",
+      "updated_at": "2017-11-16T20:35:15Z",
+      "author": "Participant 5",
+      "body": "I tried it again today, it's working again, this is still, unfortunately, a problem, at least in Waterfox, not sure if FF 57 fixed it, but I doubt it.\r\n\r\nThanks"
+    },
+    {
+      "id": 356164452,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-356164452",
+      "created_at": "2018-01-09T02:53:21Z",
+      "updated_at": "2018-01-09T02:53:21Z",
+      "author": "Participant 9",
+      "body": "@jetwhiz Do you know how to reconstruct function AnalyserNode.getFloatFrequencyData() to add some noise to the data?"
+    },
+    {
+      "id": 394190720,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-394190720",
+      "created_at": "2018-06-03T20:56:54Z",
+      "updated_at": "2018-06-03T20:57:10Z",
+      "author": "Participant 10",
+      "body": "Perhaps you can reuse the source code from the WebExtension [AudioContext Fingerprint Defender](https://addons.mozilla.org/en-US/firefox/addon/audioctx-fingerprint-defender/)?"
+    },
+    {
+      "id": 394212803,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-394212803",
+      "created_at": "2018-06-04T01:43:41Z",
+      "updated_at": "2018-06-04T01:43:41Z",
+      "author": "Participant 9",
+      "body": "Thank you!"
+    },
+    {
+      "id": 394272439,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-394272439",
+      "created_at": "2018-06-04T08:19:29Z",
+      "updated_at": "2018-06-04T08:19:29Z",
+      "author": "Participant 2",
+      "body": "I'll have a look."
+    },
+    {
+      "id": 396681952,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-396681952",
+      "created_at": "2018-06-12T18:05:44Z",
+      "updated_at": "2018-06-12T18:05:44Z",
+      "author": "Participant 2",
+      "body": "Well... I had a look and am not impressed. I think I can do better."
+    },
+    {
+      "id": 396734338,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-396734338",
+      "created_at": "2018-06-12T21:07:53Z",
+      "updated_at": "2018-06-12T21:07:53Z",
+      "author": "Participant 11",
+      "body": "Nice to hear and happy to get two in one. :)\r\n\r\nCheers"
+    },
+    {
+      "id": 397557383,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-397557383",
+      "created_at": "2018-06-15T08:52:59Z",
+      "updated_at": "2018-06-15T08:52:59Z",
+      "author": "Participant 11",
+      "body": "@kkapsner \r\nDo you might have any ETA? Assuming that you will take this road.\r\n\r\nThank you and cheers"
+    },
+    {
+      "id": 397660203,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-397660203",
+      "created_at": "2018-06-15T15:37:52Z",
+      "updated_at": "2018-06-15T15:37:52Z",
+      "author": "Participant 2",
+      "body": "The basics are already finished, but I have to rethink some RNG things.\r\n\r\nI think I can provide an alpha within the next week."
+    },
+    {
+      "id": 397706323,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-397706323",
+      "created_at": "2018-06-15T18:30:08Z",
+      "updated_at": "2018-06-15T18:30:08Z",
+      "author": "Participant 11",
+      "body": "OMG... you made my day. :smile: "
+    },
+    {
+      "id": 397759582,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-397759582",
+      "created_at": "2018-06-15T22:38:39Z",
+      "updated_at": "2018-06-15T22:38:39Z",
+      "author": "Participant 2",
+      "body": "https://github.com/kkapsner/CanvasBlocker/releases/tag/0.4.6-Alpha1\r\nYou should deactivate the normal CanvasBlocker when using the CanvasBlocker-Beta. You can port your settings by the following:\r\n- activating the expert mode\r\n- clicking on export settings\r\n- copy the content you see\r\n- go to CB-Beta\r\n- activating the expert mode\r\n- clicking on export settings\r\n- delete everything and paste\r\n\r\nPlease test and give feedback."
+    },
+    {
+      "id": 397762492,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-397762492",
+      "created_at": "2018-06-15T22:59:00Z",
+      "updated_at": "2018-06-15T22:59:00Z",
+      "author": "Participant 2",
+      "body": "Just imported to my main profile and already found a bug... you must not activate storeImageForInspection..."
+    },
+    {
+      "id": 397794049,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-397794049",
+      "created_at": "2018-06-16T07:28:57Z",
+      "updated_at": "2018-06-16T07:28:57Z",
+      "author": "Participant 11",
+      "body": "At first glace it looks that this works as it shoud.\r\nVery good job."
+    },
+    {
+      "id": 397798133,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-397798133",
+      "created_at": "2018-06-16T08:42:02Z",
+      "updated_at": "2018-06-16T08:42:02Z",
+      "author": "Participant 10",
+      "body": "https://github.com/kkapsner/CanvasBlocker/issues/200"
+    },
+    {
+      "id": 397874535,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-397874535",
+      "created_at": "2018-06-17T12:09:21Z",
+      "updated_at": "2018-06-17T12:09:21Z",
+      "author": "Participant 8",
+      "body": "I just tested the alpha-Version, and can't find malfunctions so far.. the Audio API spoofing seems to work, even though it takes some time to process (at least on the test website mentioned in the first post)."
+    },
+    {
+      "id": 397898630,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-397898630",
+      "created_at": "2018-06-17T18:50:33Z",
+      "updated_at": "2018-06-17T18:52:42Z",
+      "author": "Participant 12",
+      "body": "So I tested the alpha on https://audiofingerprint.openwpm.com/, and I found that the Fingerprint using OscillatorNode and the Fingerprint using hybrid of OscillatorNode/DynamicsCompressor method are persistent. "
+    },
+    {
+      "id": 397909339,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-397909339",
+      "created_at": "2018-06-17T21:59:30Z",
+      "updated_at": "2018-06-17T21:59:30Z",
+      "author": "Participant 2",
+      "body": "@spodermenpls: even without CB this fingerprinting test page is slow.\r\n\r\n@DRigby26: thanks for pointing this out. I will have a look what happens there."
+    },
+    {
+      "id": 399663805,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399663805",
+      "created_at": "2018-06-23T10:36:30Z",
+      "updated_at": "2018-06-23T10:36:30Z",
+      "author": "Participant 2",
+      "body": "New alpha: https://github.com/kkapsner/CanvasBlocker/releases/tag/0.4.6-Alpha2\r\n\r\nPlease test and give feedback.\r\n\r\n@DRigby26: now it should not be persistent."
+    },
+    {
+      "id": 399695357,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399695357",
+      "created_at": "2018-06-23T17:27:12Z",
+      "updated_at": "2018-06-23T17:27:53Z",
+      "author": "Participant 12",
+      "body": "It looks like those two fingerprints are still persistent for me. "
+    },
+    {
+      "id": 399697899,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399697899",
+      "created_at": "2018-06-23T18:08:05Z",
+      "updated_at": "2018-06-23T18:08:05Z",
+      "author": "Participant 2",
+      "body": "Weird - I get non persistent values. What are your CB settings?"
+    },
+    {
+      "id": 399698630,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399698630",
+      "created_at": "2018-06-23T18:20:03Z",
+      "updated_at": "2018-06-23T18:20:03Z",
+      "author": "Participant 11",
+      "body": "Same here, they are persisten... default settings."
+    },
+    {
+      "id": 399698740,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399698740",
+      "created_at": "2018-06-23T18:21:58Z",
+      "updated_at": "2018-06-23T18:21:58Z",
+      "author": "Participant 12",
+      "body": "Same here \r\n\r\n{\r\n\t\"logLevel\": 1,\r\n\t\"urlSettings\": [],\r\n\t\"whiteList\": \"\",\r\n\t\"blackList\": \"\",\r\n\t\"blockMode\": \"fakeReadout\",\r\n\t\"minFakeSize\": 1,\r\n\t\"maxFakeSize\": 0,\r\n\t\"rng\": \"nonPersistent\",\r\n\t\"apiWhiteList\": {},\r\n\t\"useCanvasCache\": true,\r\n\t\"ignoreFrequentColors\": 0,\r\n\t\"minColors\": 0,\r\n\t\"fakeAlphaChannel\": false,\r\n\t\"persistentRndStorage\": \"\",\r\n\t\"storePersistentRnd\": false,\r\n\t\"persistentRndClearIntervalValue\": 0,\r\n\t\"persistentRndClearIntervalUnit\": \"days\",\r\n\t\"lastPersistentRndClearing\": 1529776484900,\r\n\t\"askOnlyOnce\": \"individual\",\r\n\t\"askDenyMode\": \"block\",\r\n\t\"showCanvasWhileAsking\": true,\r\n\t\"showNotifications\": true,\r\n\t\"storeImageForInspection\": false,\r\n\t\"notificationDisplayTime\": 30,\r\n\t\"ignoreList\": \"\",\r\n\t\"showCallingFile\": false,\r\n\t\"showCompleteCallingStack\": false,\r\n\t\"enableStackList\": false,\r\n\t\"stackList\": \"\",\r\n\t\"protectAudio\": true,\r\n\t\"audioFakeRate\": \"10\",\r\n\t\"audioNoiseLevel\": \"high\",\r\n\t\"audioUseFixedIndices\": true,\r\n\t\"audioFixedIndices\": \"0\",\r\n\t\"displayAdvancedSettings\": true,\r\n\t\"displayDescriptions\": false,\r\n\t\"isStillDefault\": false,\r\n\t\"storageVersion\": 0.3\r\n}"
+    },
+    {
+      "id": 399714589,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399714589",
+      "created_at": "2018-06-23T22:27:40Z",
+      "updated_at": "2018-06-23T22:27:40Z",
+      "author": "Participant 2",
+      "body": "Can you please set the logging level to \"warning\" and tell me if you see any messages in the browser console (to open hit F12 and go to console) that have a \"[CanvasBlocker]\" in it?\r\n\r\nWhich Firefox version are you using?"
+    },
+    {
+      "id": 399714720,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399714720",
+      "created_at": "2018-06-23T22:30:16Z",
+      "updated_at": "2018-06-23T22:30:16Z",
+      "author": "Participant 2",
+      "body": "Additional you can set the fixed indices to \"0,1\" which should force the first two numbers of these two fingerprints to change."
+    },
+    {
+      "id": 399715903,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399715903",
+      "created_at": "2018-06-23T22:58:35Z",
+      "updated_at": "2018-06-23T22:58:35Z",
+      "author": "Participant 12",
+      "body": "Oh okay that seemed to work for the first two number which are not persistent. I also checked the browser console, and found no warnings. I set it back to 9 and noticed only the 9th index was changing along with the the 4th index in the Oscillator Node fingerprint, but the other numbers seem to be mostly the same. "
+    },
+    {
+      "id": 399717084,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399717084",
+      "created_at": "2018-06-23T23:21:28Z",
+      "updated_at": "2018-06-23T23:21:28Z",
+      "author": "Participant 12",
+      "body": "So I went ahead and set it fixed to spoof all the indices and it did that! "
+    },
+    {
+      "id": 399736770,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399736770",
+      "created_at": "2018-06-24T07:45:49Z",
+      "updated_at": "2018-06-24T07:45:49Z",
+      "author": "Participant 11",
+      "body": "If `Fixed indices = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29` then all numbers of `Fingerprint using OscillatorNode` and `Fingerprint using hybrid of OscillatorNode/DynamicsCompressor method` are different, which is OK, but the method is slow.\r\nProblem is that in that case the `Fingerprint using DynamicsCompressor (sum of buffer values)` and `Fingerprint using DynamicsCompressor (hash of full buffer)` remains the same every time, which is not OK."
+    },
+    {
+      "id": 399737172,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399737172",
+      "created_at": "2018-06-24T07:51:13Z",
+      "updated_at": "2018-06-24T07:51:13Z",
+      "author": "Participant 12",
+      "body": "Oh yeah it stays the same for me too. "
+    },
+    {
+      "id": 399765315,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399765315",
+      "created_at": "2018-06-24T15:35:04Z",
+      "updated_at": "2018-06-24T15:35:04Z",
+      "author": "Participant 2",
+      "body": "The point is that I cannot change all numbers as this would be way too slow (each request contains 44100 datapoints).\r\nTherefore only some of the datapoints are faked. If you do not use fixed indices the used indices are randomized and the amount is controlled by the fake rate.\r\n\r\nI have to look into the sum and the hash to check why they stay the same.\r\n"
+    },
+    {
+      "id": 399776266,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399776266",
+      "created_at": "2018-06-24T18:17:13Z",
+      "updated_at": "2018-06-24T18:17:13Z",
+      "author": "Participant 2",
+      "body": "This test page... I will create my own as it is slow and badly written."
+    },
+    {
+      "id": 399776914,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399776914",
+      "created_at": "2018-06-24T18:26:48Z",
+      "updated_at": "2018-06-24T18:26:48Z",
+      "author": "Participant 2",
+      "body": "I figured out the problem and will provide a new alpha soon."
+    },
+    {
+      "id": 399776982,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-399776982",
+      "created_at": "2018-06-24T18:27:57Z",
+      "updated_at": "2018-06-24T18:27:57Z",
+      "author": "Participant 12",
+      "body": "Awesome! Thank you!"
+    },
+    {
+      "id": 401571532,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-401571532",
+      "created_at": "2018-06-30T23:01:12Z",
+      "updated_at": "2018-06-30T23:01:12Z",
+      "author": "Participant 2",
+      "body": "I created this test page which provides the same hash and sum, but is much faster: http://kkapsner.github.io/CanvasBlocker/test/audioTest.html\r\n\r\nThere you can see that the other addon does not fully protect you. The second hash will stay constant."
+    },
+    {
+      "id": 401638063,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-401638063",
+      "created_at": "2018-07-01T22:35:27Z",
+      "updated_at": "2018-07-01T22:35:27Z",
+      "author": "Participant 2",
+      "body": "New alpha: https://github.com/kkapsner/CanvasBlocker/releases/tag/0.4.6-Alpha3\r\nYou will have to disable the audio cache if you want to use the other test page."
+    },
+    {
+      "id": 401698702,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-401698702",
+      "created_at": "2018-07-02T07:39:54Z",
+      "updated_at": "2018-07-02T07:39:54Z",
+      "author": "Participant 11",
+      "body": "This looks super cool now :)\r\nWhat exactly are `Fixed indices`?\r\nWhy there is only value 24 and not all in the array?"
+    },
+    {
+      "id": 401844378,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-401844378",
+      "created_at": "2018-07-02T15:32:15Z",
+      "updated_at": "2018-07-02T15:32:15Z",
+      "author": "Participant 12",
+      "body": "It looks great to me so far! Thank you!"
+    },
+    {
+      "id": 401946874,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-401946874",
+      "created_at": "2018-07-02T21:42:29Z",
+      "updated_at": "2018-07-02T21:42:29Z",
+      "author": "Participant 2",
+      "body": "@crssi: the indices that are changed in the audio data are usually picked at random. With the \"fixed indices\" you can pick some by yourself. The default is to chose one from 0-30 at random by browser start.\r\nThe basic idea there was that apparently some fingerprinters are only using the first 30 entries in the audio data and the you are always somewhat protected there. Otherwise it could by random that you are tracked because the random indices were not in that range.\r\n\r\nIf I would always fake all audio data entries CB would render the other test page not useable - my test page is actually fine... so I will also add a 10% and 100% buffer fake rate."
+    },
+    {
+      "id": 405125076,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-405125076",
+      "created_at": "2018-07-15T23:04:59Z",
+      "updated_at": "2018-07-15T23:04:59Z",
+      "author": "Participant 2",
+      "body": "The new release is out."
+    },
+    {
+      "id": 405125205,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-405125205",
+      "created_at": "2018-07-15T23:07:02Z",
+      "updated_at": "2018-07-15T23:07:02Z",
+      "author": "Participant 12",
+      "body": "Thank you!!!"
+    },
+    {
+      "id": 406781113,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-406781113",
+      "created_at": "2018-07-21T08:39:09Z",
+      "updated_at": "2018-07-21T08:58:58Z",
+      "author": "Participant 10",
+      "body": "No videos on the most popular Swedish new sites play with CV 0.5.1.0b enabled.\r\n\r\nExamples\r\n* https://www.aftonbladet.se/tv/a/260479\r\n* https://www.expressen.se/nyheter/ny-skogsbrand-hotar-trafiken-pa-e4/\r\n* https://www.svt.se/nyheter/lokalt/sormland/fem-fakta-om-fetma-och-overvikt\r\n"
+    },
+    {
+      "id": 406793741,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-406793741",
+      "created_at": "2018-07-21T12:31:23Z",
+      "updated_at": "2018-07-21T12:31:23Z",
+      "author": "Participant 2",
+      "body": "Please try 0.5.1.1b"
+    },
+    {
+      "id": 406795030,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-406795030",
+      "created_at": "2018-07-21T12:56:08Z",
+      "updated_at": "2018-07-21T12:57:23Z",
+      "author": "Participant 10",
+      "body": "I can now play all three videos thanks to your bug fix in that version."
+    },
+    {
+      "id": 406797249,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/71#issuecomment-406797249",
+      "created_at": "2018-07-21T13:37:11Z",
+      "updated_at": "2018-07-21T13:37:11Z",
+      "author": "Participant 2",
+      "body": "You're welcome."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

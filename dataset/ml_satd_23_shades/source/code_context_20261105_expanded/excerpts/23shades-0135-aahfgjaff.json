@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0135-aahfgjaff",
+  "revision_url": "https://github.com/tensorflow/tensor2tensor/commit/e2e9a5ff9975ab5699c9c174012ba6290f3ead8a",
+  "filename": "tensor2tensor/trax/layers/core.py",
+  "commit": "e2e9a5ff9975ab5699c9c174012ba6290f3ead8a",
+  "source_url": "https://raw.githubusercontent.com/tensorflow/tensor2tensor/e2e9a5ff9975ab5699c9c174012ba6290f3ead8a/tensor2tensor/trax/layers/core.py",
+  "fetched_at": "2026-11-05T06:11:59.493797+00:00",
+  "source_sha256": "538e532612246daef520190a7bf434a4bdfbbf71c3083aaf83acbcd35f600a5a",
+  "line_start": 166,
+  "line_end": 190,
+  "excerpt": "    raise ValueError(\"n_axes_to_keep[%d] should be less than input's rank[%d]\" %\n                     (n_axes_to_keep, len(x.shape)))\n  return np.reshape(x, (x.shape[:n_axes_to_keep] + (-1,)))\n\n\nclass Dropout(base.Layer):\n  \"\"\"Dropout.\"\"\"\n\n  def __init__(self, rate=0.0, name='dropout', mode='train'):\n    super(Dropout, self).__init__()\n    self._initial_rate = rate\n    # TODO(lukaszkaiser): remove the name property by the end of September'19.\n    # It's only needed for a specific purpose in the short term, will go.\n    self._name = 'dropout_' + name\n    self._mode = mode\n\n  def new_parameters(self, input_shape, input_dtype, rng):\n    \"\"\"Initialize dropout parameters and state.\"\"\"\n    del input_shape, input_dtype, rng\n    return (), {self._name: np.array(self._initial_rate)}\n\n  def call(self, x, params, state, rng=None, **unused_kwargs):\n    \"\"\"Execute dropout.\"\"\"\n    del params\n    rate = self._initial_rate",
+  "match_policy": "unique-release-normalized-v2"
+}

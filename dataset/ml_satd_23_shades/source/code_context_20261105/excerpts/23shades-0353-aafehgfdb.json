@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0353-aafehgfdb",
+  "revision_url": "https://github.com/aleju/imgaug/commit/0a7d5a80856b69b4899468ca52a019bc2264129a",
+  "filename": "imgaug/augmenters/blend.py",
+  "commit": "0a7d5a80856b69b4899468ca52a019bc2264129a",
+  "source_url": "https://raw.githubusercontent.com/aleju/imgaug/0a7d5a80856b69b4899468ca52a019bc2264129a/imgaug/augmenters/blend.py",
+  "fetched_at": "2026-11-05T06:12:38.662318+00:00",
+  "source_sha256": "2381cb6fa94c10648919734a496c57cdf22706f1d3e4221dee22345da1aef212",
+  "line_start": 589,
+  "line_end": 613,
+  "excerpt": "            if self.second is None:\n                images_second = images\n            else:\n                images_second = self.second.augment_images(\n                    images=meta.copy_arrays(images),\n                    parents=parents + [self],\n                    hooks=hooks\n                )\n        else:\n            images_first = images\n            images_second = images\n\n        # TODO simplify this loop and the ones for heatmaps, keypoints; similar to Alpha\n        for i in sm.xrange(nb_images):\n            image = images[i]\n            h, w, nb_channels = image.shape[0:3]\n            image_first = images_first[i]\n            image_second = images_second[i]\n            per_channel = self.per_channel.draw_sample(random_state=ia.new_random_state(seeds[i]))\n            if per_channel > 0.5:\n                alphas = []\n                for c in sm.xrange(nb_channels):\n                    samples_c = self.factor.draw_samples((h, w), random_state=ia.new_random_state(seeds[i]+1+c))\n                    ia.do_assert(0 <= samples_c.item(0) <= 1.0) # validate only first value\n                    alphas.append(samples_c)",
+  "match_policy": "unique-release-normalized-v2"
+}

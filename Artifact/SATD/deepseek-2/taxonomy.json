@@ -1,0 +1,217 @@
+{
+  "category": "SATD",
+  "description": "由自承认技术债务注释直接支持的技术债务机制类别。",
+  "layer": 0,
+  "children": [
+    {
+      "category": "known correctness defect or runtime failure",
+      "code_id": "SD01",
+      "description": "Comment asserts existing or generated code yields wrong results, mishandles inputs, loses data, breaks an invariant, or throws an exception, and the author treats the behavior as defective.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "unverified behavior, comprehension, or suspected defect",
+      "code_id": "SD02",
+      "description": "Author lacks confirmation about runtime behavior, input acceptance, concurrency, semantics, why code exists, or suspects a specific structural, shape, traversal, numerical, or theoretical problem without asserting a failure symptom; verification or investigation is deferred.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "open design, organizational, or speculative proposal",
+      "code_id": "SD03",
+      "description": "Author poses an unresolved design, API, placement, suitability, or feature-adoption question, possibly with a provisional answer or hedge, and does not commit to implementation; alternatives remain pending.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "unimplemented named capability or api-parity gap",
+      "code_id": "SD04",
+      "description": "A specific named function, input mode, operator, command, module feature, domain class, distribution step, placeholder, or public symbol is absent or partly implemented, including API-parity gaps; work is additive functionality.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "deferred feature activation or restoration",
+      "code_id": "SD05",
+      "description": "An existing capability is present but switched off in an entry point/configuration, or was dropped during migration and should be enabled, restored, or ported back.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "component integration or workflow wiring gap",
+      "code_id": "SD06",
+      "description": "Named existing components are not wired into the workflow, pipeline, or architecture; pending work is composition or plumbing, not a new algorithm.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "configuration externalization, parameterization, or argument propagation",
+      "code_id": "SD07",
+      "description": "A hard-coded, fixed, computed-in-module, workspace-specific, or magic value/path/param/dtype/threshold should be exposed as configuration, derived, or passed to all sibling calls; includes unresolved configurability gaps.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "redundant or inert parameter or api surface debt",
+      "code_id": "SD08",
+      "description": "Overlapping configuration knobs should be consolidated/removed, or a named option/parameter has no effect on behavior and silently misleads; API-surface redundancy or unwired config.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "validation, guard, contract, or diagnostic feedback gap",
+      "code_id": "SD09",
+      "description": "Required guards, type/default checks, shape compatibility, invalid layer combinations, argument contracts, or runtime preconditions are absent, undefined, unsafe, or undiagnosed; includes unresolved isinstance-vs-duck-typing validation debates.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "test coverage, compatibility, or tooling infrastructure debt",
+      "code_id": "SD10",
+      "description": "Tests are missing, disabled, stubbed, weakly asserting, or failing due to CI/platform/encoding/dependency environment; admitted gap is verification or tooling, not production logic.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "documentation, observability, or reporting gap",
+      "code_id": "SD11",
+      "description": "Deferred work is to write docs/docstrings/README/tutorials, explain an opaque parameter, clarify test messages, or add logging, timing, warnings, or reporting output; behavior is not claimed wrong.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "self-labeled hack, shared-state, or coupling smell",
+      "code_id": "SD12",
+      "description": "Author labels code a hack/kludge/for-now or mutable shared/global state that should be local, or code that exists solely to satisfy another module's method/flag, admitting hidden coupling.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "test-only scaffolding in production code",
+      "code_id": "SD13",
+      "description": "A parameter, constant, or branch exists only to satisfy tests but lives in shipped application code; test concern mixed into production.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "deferred structural refactor, representation, or interface redesign",
+      "code_id": "SD14",
+      "description": "Deferred change to data representation, object model, local code shape, public signature/input contract, or abstraction level (dict to tuple, split functions, separate data from metadata, narrow over-general implementation, lighter identifier).",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "structural relocation, extraction, duplication, coupling, or canonical migration",
+      "code_id": "SD15",
+      "description": "Existing code is misplaced, wrongly partitioned, duplicated, entangled across layers, or bespoke where a library abstraction exists; remedy is move, extract into class/file, consolidate, delete, decouple, or propagate canonical change.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "naming or api-cleanup debt",
+      "code_id": "SD16",
+      "description": "Proposed rename of an identifier, parameter, field, or option for consistency, spelling, or convention alignment; primarily nomenclature and public-surface tidiness.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "performance, idiom, or redundant recomputation debt",
+      "code_id": "SD17",
+      "description": "Working code is inefficient in time/memory or non-idiomatic, performs redundant recomputation or initialization, or artifact names a faster/cheaper primitive, vectorization, in-place rewrite, lazy loading, or complexity concern.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "external-dependency workaround or cross-file or external-source debt",
+      "code_id": "SD18",
+      "description": "Local code compensates for a named third-party/upstream/rendering/library/version constraint or lags external API drift; or debt originates in another file, external repo, or informal source.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "methodological or domain-assumption concern",
+      "code_id": "SD19",
+      "description": "Current statistical/algorithmic approach or WIP feature rests on a strong dataset-wide or domain assumption that may not generalize; documented inline without concrete fix.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "alternative algorithm, model, or heuristic quality debt",
+      "code_id": "SD20",
+      "description": "Artifact names a specific alternative mathematical formulation/algorithmic option, says a core algorithm or heuristic should be improved, or proposes changing a named model capacity/hyperparameter from a hunch; no failing input recorded.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "device, memory, aliasing, or state-serialization debt",
+      "code_id": "SD21",
+      "description": "Code makes a suboptimal hardware/device decision, has aliasing/copy-semantics uncertainty, unresolved reference-count ownership, import-cycle blocker, or fails to pass values/checkpoints across process boundaries.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "packaging, manual-setup, or asset-bundling gap",
+      "code_id": "SD22",
+      "description": "A packaging manifest lacks required declarations, a setup/provisioning step is delegated to the user, or generated output depends on external assets/CDNs that should be bundled so output is self-contained.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "behavioral override or normative policy reversal",
+      "code_id": "SD23",
+      "description": "Current behavior is too aggressive, strict, or a configuration choice may be wrong; gating/relaxing is proposed, or a normative rule current code should adopt is asserted with relatively strong commitment.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "version- or status-gated removal",
+      "code_id": "SD24",
+      "description": "Removal or substitution of code is tied to a release version, API experimental status, or deprecation state; debt is time-bounded or status-bounded with no re-enablement.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "cleanup, dead-code removal, or unscheduled deletion",
+      "code_id": "SD25",
+      "description": "Working code should be deleted, de-duplicated locally, renamed locally, or tidied without claiming behavioral fault; removal or cleanup has no version, status, or named replacement trigger.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "personal-state or hand-off deferral",
+      "code_id": "SD26",
+      "description": "TODO postpones work by citing author's momentary personal state (sleepiness, lack of time), waiting on a stated precondition, or delegating to another collaborator, without claiming a defect.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "deferred benchmark or parallelism work",
+      "code_id": "SD27",
+      "description": "Empirical comparison, measurement, optimization, timing, parallelization, or incremental infrastructure work is outstanding; no correctness problem is alleged.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "enhancement or example-quality desire",
+      "code_id": "SD28",
+      "description": "Desirable improvement to working code, examples, or data that is not a defect: better illustrative dataset, optional multi-GPU support, example-quality suggestion.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "formatting, style, readability, or organizational cleanup",
+      "code_id": "SD29",
+      "description": "The admitted debt is cosmetic or presentational: formatting/lint conformance, banner or grouping tidiness, or a low-confidence claim that code is hard to read, misnamed stylistically, or \"could be smarter\" without naming a speed, correctness or structural mechanism.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "bare or underspecified deferred marker",
+      "code_id": "SD30",
+      "description": "TODO has only a marker, author tag, lone noun/symbol/fragment, pronoun, truncated fragment, generic phrase, or self-doubting note with no reconstructable action or target; only debt location is inferable.",
+      "layer": 1,
+      "children": []
+    }
+  ]
+}

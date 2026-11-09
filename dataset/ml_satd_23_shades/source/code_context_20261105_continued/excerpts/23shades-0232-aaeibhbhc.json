@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0232-aaeibhbhc",
+  "revision_url": "https://github.com/cltk/cltk/commit/ce6ba260f38c522d1642e2be98d56e38a73f1933",
+  "filename": "src/cltkv1/sentences/sentence.py",
+  "commit": "ce6ba260f38c522d1642e2be98d56e38a73f1933",
+  "source_url": "https://raw.githubusercontent.com/cltk/cltk/ce6ba260f38c522d1642e2be98d56e38a73f1933/src/cltkv1/sentences/sentence.py",
+  "fetched_at": "2026-11-05T06:12:19.065744+00:00",
+  "source_sha256": "3cad80601b9333cdcdd51bddb231975e2deb7f2dae913bc30a3990a39f03df71",
+  "line_start": 97,
+  "line_end": 121,
+  "excerpt": "        \"\"\"\n        :param language: language for sentences tokenization\n        :type language: str\n        :param sent_end_chars: list of sentences-ending punctuation marks\n        :type sent_end_chars: list\n        \"\"\"\n        BaseSentenceTokenizer.__init__(self, language)\n        if sent_end_chars:\n            self.sent_end_chars = sent_end_chars\n            self.sent_end_chars_regex = \"|\".join(self.sent_end_chars)\n            self.pattern = rf\"(?<=[{self.sent_end_chars_regex}])\\s\"\n        else:\n            raise Exception  # TODO add message, must specify sent_end_chars, or warn and use defaults\n\n    def tokenize(self, text: str, model: object = None) -> List[str]:\n        \"\"\"\n        Method for tokenizing sentences with regular expressions.\n\n        :rtype: list\n        :param text: text to be tokenized into sentences\n        :type text: str\n        \"\"\"\n        sentences = re.split(self.pattern, text)\n        return sentences\n",
+  "match_policy": "unique-release-normalized-v2"
+}

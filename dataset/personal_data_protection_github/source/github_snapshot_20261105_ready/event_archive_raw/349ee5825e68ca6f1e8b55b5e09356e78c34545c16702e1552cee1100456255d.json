@@ -1,0 +1,378 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27blockframes%2Fblockframes%27+AND+number%3D6556+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='blockframes/blockframes' AND number=6556 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T06:45:16.398130+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "Jackseed",
+        "created_at": "2021-08-31 14:39:23",
+        "updated_at": "2021-08-31 14:39:23",
+        "title": "Update cookie acceptation bar",
+        "body": "We shall have 3 buttons instead of 2: \n- Settings\n- Accept\n**- Decline**\n\nDecline is thus new and should be same level as Accept. \n\nOnce the UI is done this issue should be used in dev to 'refuse' cookie by default: e.g. as long as users haven't accepted cookies we shouldn't have Metrica\n\n",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-08-31 14:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "frenchyrules",
+        "created_at": "2021-10-06 10:06:40",
+        "updated_at": "2021-10-06 10:06:39",
+        "title": "Update cookie acceptation bar",
+        "body": "![image](https://user-images.githubusercontent.com/85220905/136182483-2e766c43-5bed-41ea-8125-33a594836381.png)\r\nIf this version is doable dev wise, rework it according to the following guidelines:\r\n- Change the switches to checkboxes and add a third line/category for chatbot\r\n- Add a switch to deactivate all notifications\r\n- Have a \"accept all\" button, and cookie details button button \r\n\r\n**IF that is not doable, use version below** (may need a text rework though)\r\n![image](https://user-images.githubusercontent.com/85220905/136182893-2866bb67-df81-482e-a1b2-44d1d72c1178.png)",
+        "comment_id": 935894673,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-10-06 10:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "frenchyrules",
+        "created_at": "2021-10-06 13:28:07",
+        "updated_at": "2021-10-06 13:28:07",
+        "title": "Update cookie acceptation bar",
+        "body": "**Reworked version**\r\n![image](https://user-images.githubusercontent.com/85220905/136211527-ab454794-3d95-49dd-a933-b7037a3ff6b7.png)",
+        "comment_id": 936235432,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-10-06 13:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Jackseed",
+        "created_at": "2021-10-06 13:50:02",
+        "updated_at": "2021-10-06 13:50:01",
+        "title": "Update cookie acceptation bar",
+        "body": "Thanks just a few comments:\r\n- toggle and \"Uncheck all\" looks not completely centered\r\n- Analytics: test with \"Video Analytics\" instead please\r\n- 1 script > 1 cookie ? \r\n- \"Accept all\" > \"Save my choice\"\r\n\r\n@GrandSchtroumpf @maltmayer what do you think of these propositions?",
+        "comment_id": 936272630,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-10-06 13:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "frenchyrules",
+        "created_at": "2021-10-06 14:42:03",
+        "updated_at": "2021-10-06 14:42:02",
+        "title": "Update cookie acceptation bar",
+        "body": "@GrandSchtroumpf @Jackseed @maltmayer Like this ? (tooltip text is a placeholder)\r\n\r\n![image](https://user-images.githubusercontent.com/85220905/136224373-7b4c7638-46b2-4ca1-9a43-e8ae0ebaf4ad.png)\r\n![image](https://user-images.githubusercontent.com/85220905/136225423-1611f59b-a287-40ca-98be-9f74ccfae85d.png)\r\n",
+        "comment_id": 936389146,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-10-06 14:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "maltmayer",
+        "created_at": "2021-10-06 15:03:57",
+        "updated_at": "2021-10-06 15:03:57",
+        "title": "Update cookie acceptation bar",
+        "body": "+ I would add an information icon for the tooltip\r\n+ and I would put the check box on the right of \"Unselect all non-essential\"\r\n\r\n+ Also we agreed with @Jackseed to change the text for \"Video Analytics\" to \"Behavioral Analytics\"\r\n+ And lastly, please be careful with the capital letters for \"More Details\" and \"Save Preferences\"\" ;) thanks!",
+        "comment_id": 936454652,
+        "comments": 7,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-10-06 15:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "frenchyrules",
+        "created_at": "2021-10-07 08:09:16",
+        "updated_at": "2021-10-07 08:09:15",
+        "title": "Update cookie acceptation bar",
+        "body": "Thanks for the feedback @maltmayer 🤝 Here's an updated version:\r\n![image](https://user-images.githubusercontent.com/85220905/136344777-3767796e-3d5a-4202-94ef-38f7007a2bac.png)",
+        "comment_id": 937555914,
+        "comments": 8,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-10-07 08:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Jackseed",
+        "created_at": "2021-10-08 12:11:53",
+        "updated_at": "2021-10-08 12:11:52",
+        "title": "Update cookie acceptation bar",
+        "body": "@2amarkina shouldn't be a toggle for \"Unselect all non essentials\" to differentiate it from others checkboxes?",
+        "comment_id": 938592747,
+        "comments": 9,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-10-08 12:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Jackseed",
+        "created_at": "2021-10-11 07:49:14",
+        "updated_at": "2021-10-11 07:49:14",
+        "title": "Update cookie acceptation bar",
+        "body": "We need to have this 'check all' option so that refusing cookies is as easy as accepting it. \r\n\r\nRe your comments, I agree with the button order and checkbox over toggle (but bold), also with the positive wording. ",
+        "comment_id": 939776007,
+        "comments": 12,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-10-11 07:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Jackseed",
+        "created_at": "2022-05-17 07:48:38",
+        "updated_at": "2022-05-17 07:48:37",
+        "title": "Update cookie acceptation bar",
+        "body": "Looking back at it, to be completely RGPD friendly \"decline all\" should be at the same level than \"accept all\". I think it was on an earlier proposition but I would favour 3 buttons:\r\n- accept all\r\n- decline all\r\n- details",
+        "comment_id": 1128531649,
+        "comments": 15,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-05-17 07:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "frenchyrules",
+        "created_at": "2022-05-17 07:54:52",
+        "updated_at": "2022-05-17 07:54:51",
+        "title": "Update cookie acceptation bar",
+        "body": "> Looking back at it, to be completely RGPD friendly \"decline all\" should be at the same level than \"accept all\". I think it was on an earlier proposition but I would favour 3 buttons:\r\n> \r\n> * accept all\r\n> * decline all\r\n> * details\r\n\r\nDo we still want the ability to be able to fine tune which cookies we accept, from the banner ?",
+        "comment_id": 1128537511,
+        "comments": 15,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-05-17 07:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Jackseed",
+        "created_at": "2022-05-20 09:22:42",
+        "updated_at": "2022-05-20 09:22:42",
+        "title": "Update cookie acceptation bar",
+        "body": "That would be the ideal scenario, maybe we can replace \"more details\" with \"decline all\" and move \"More details\" as an icon button (like \"?\") somewhere else in the banner? \r\nThis button is by far the less important since most of the info are already in the banner, imo only people looking for it may click on it\r\n",
+        "comment_id": 1132678521,
+        "comments": 17,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-05-20 09:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "frenchyrules",
+        "created_at": "2022-06-15 13:04:26",
+        "updated_at": "2022-06-15 13:04:26",
+        "title": "Update cookie acceptation bar",
+        "body": "Updated idea @Jackseed \r\n<img width=\"772\" alt=\"image\" src=\"https://user-images.githubusercontent.com/85220905/173833640-417d8e32-3d6c-41b9-8f08-3ca5b86473e7.png\">\r\n",
+        "comment_id": 1156446198,
+        "comments": 18,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-06-15 13:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Jackseed",
+        "created_at": "2022-06-15 14:42:52",
+        "updated_at": "2022-06-15 14:42:52",
+        "title": "Update cookie acceptation bar",
+        "body": "That's perfect!",
+        "comment_id": 1156564341,
+        "comments": 19,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-06-15 14:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "RemcoSimonides",
+        "created_at": "2022-07-06 06:50:38",
+        "updated_at": "2022-07-06 06:50:38",
+        "title": "Update cookie acceptation bar",
+        "body": "[Link to design](https://www.figma.com/file/OMMs8YORBwwvZOMkuw7Vu2/Cookies?node-id=401%3A81)\r\n\r\nHi @frenchyrules, I have a few questions\r\n\r\n1. Should the banner be fully at the bottom right corner, or have a little offset like the file upload progress pop-up\r\n<img width=\"587\" alt=\"image\" src=\"https://user-images.githubusercontent.com/27687382/177486211-11b470b1-2063-49bd-a254-18b058565a23.png\">\r\n2. What do I click if I don't want to \"Accept all\" or \"Decline all\"? Should we have a \"Save my choices\" button or something?\r\n3. What is the difference between the \"Allow all cookies\" checkbox and the \"Accept all\" button?\r\n4. What text should be in all the tooltips? i.e. every i or ? icon\r\n5. Does this issue include changes on the cookie preferences modal/page?\r\n<img width=\"1189\" alt=\"image\" src=\"https://user-images.githubusercontent.com/27687382/177487096-9eac39e7-d314-4e4a-bd24-1ea2b676b87d.png\">\r\n<img width=\"1188\" alt=\"image\" src=\"https://user-images.githubusercontent.com/27687382/177487187-76136f59-1db5-4195-92d0-b34bc40268fc.png\">\r\n\r\n\r\nAlso, could you please provide the png for the cookie for both light and dark theme",
+        "comment_id": 1175846643,
+        "comments": 19,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-07-06 06:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "frenchyrules",
+        "created_at": "2022-07-06 16:42:36",
+        "updated_at": "2022-07-06 16:42:36",
+        "title": "Update cookie acceptation bar",
+        "body": "Hi @RemcoSimonides \r\n\r\n1. Yes please include a small offset. I've included a screen in the file as an example.\r\n![image](https://user-images.githubusercontent.com/85220905/177578243-8d7d7d68-32f5-4a1f-b8ae-d1b0f4828348.png)\r\n2. Accept all will close cookie banner, and decline all will close it as well whilst keeping essential cookies on. Two buttons are fine in this situation. \r\n3. Good point about the allow all checkbox. It's probably not needed with the two buttons already present. I've made the change in the file\r\n![image](https://user-images.githubusercontent.com/85220905/177587633-2259c2ba-48db-4782-a05d-3ea6f058d5c4.png)\r\n4. Here are some text propositions for the \"i\" icons, to be validated with @Jackseed or marketing team @Lorena-Amaral \r\n\r\n**Essential cookies:** _Essential cookies are necessary for Archipel products to function as intended._\r\n**Behavioral analytics:** _Analytical cookies help us to improve Archipel products by collecting and reporting information on their usage._\r\n**Chat:** _Chat cookies are used to allow the Archipel team to communicate with its’ users through the chatbot tool._\r\n![image](https://user-images.githubusercontent.com/85220905/177600406-72febe20-6afd-4faf-869d-7d4171086c0d.png)\r\n5. I did re-work the modal/page in the same issue.\r\n6. Cookie is light and dark theme friendly, png [here](https://drive.google.com/file/d/1CF1Kaxq4J3JRbv0ymu95kauAzngYXk4A/view?usp=sharing), and svg [here](https://drive.google.com/file/d/1Ua22zGVcln3nTnnnrB0voEsoJYH_cePo/view?usp=sharing) ",
+        "comment_id": 1176443524,
+        "comments": 21,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-07-06 16:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "RemcoSimonides",
+        "created_at": "2022-07-07 06:15:30",
+        "updated_at": "2022-07-07 06:15:30",
+        "title": "Update cookie acceptation bar",
+        "body": "Thanks!\r\n2. If I want to accept \"Behavior analytics\", but I don't want to accept \"chat\" cookies. What button do I click to save these settings?",
+        "comment_id": 1177135319,
+        "comments": 22,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-07-07 06:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "frenchyrules",
+        "created_at": "2022-07-07 09:18:14",
+        "updated_at": "2022-07-07 09:18:14",
+        "title": "Update cookie acceptation bar",
+        "body": "Oh sorry I see what you mean now. Changes reflected in the file.\r\n![image](https://user-images.githubusercontent.com/85220905/177738843-8ecd457b-9d9a-4fc1-a486-98ec62f70f7d.png)\r\n",
+        "comment_id": 1177298086,
+        "comments": 24,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-07-07 09:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "RemcoSimonides",
+        "created_at": "2022-07-19 07:38:33",
+        "updated_at": "2022-07-19 07:38:33",
+        "title": "Update cookie acceptation bar",
+        "body": "We shall have 3 buttons instead of 2: \r\n- Settings\r\n- Accept\r\n- **Decline**\r\n\r\nDecline is thus new and should be same level as Accept. \r\n\r\nOnce the UI is done this issue should be used in dev to 'refuse' cookie by default: e.g. as long as users haven't accepted cookies we shouldn't have Metrica\r\n\r\n",
+        "comment_id": 0,
+        "comments": 24,
+        "state": "closed",
+        "closed_at": "2022-07-19 07:38:33",
+        "file_time": "2022-07-19 07:00:00",
+        "repo_name": "blockframes/blockframes",
+        "number": 6556
+      }
+    ],
+    "rows": 19,
+    "statistics": {
+      "elapsed": 0.025776901,
+      "rows_read": 289456,
+      "bytes_read": 5721052
+    }
+  },
+  "response_sha256": "d634653932ea1f8695e7b480f1c920bc3d12deef273447d2e2f584c312de8cc0"
+}

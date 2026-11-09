@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0457-aaeiecejb",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/102aeae5dc75d48a405e1b8c02e54c325f897654",
+  "filename": "hpat/hiframes_rolling.py",
+  "commit": "102aeae5dc75d48a405e1b8c02e54c325f897654",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/102aeae5dc75d48a405e1b8c02e54c325f897654/hpat/hiframes_rolling.py",
+  "fetched_at": "2026-11-05T06:12:57.686524+00:00",
+  "source_sha256": "fbebfd031cd31e45bd49781c9e32e60eff3b8960997c92bc772475b0cbcf4bc3",
+  "line_start": 205,
+  "line_end": 229,
+  "excerpt": "    if rank != n_pes - 1:\n        hpat.distributed_api.wait(r_send_req, True)\n    # wait on send left\n    if center and rank != 0:\n        hpat.distributed_api.wait(l_send_req, True)\n\n@numba.njit\ndef _is_small_for_parallel(N, halo_size):\n    # gather data on one processor and compute sequentially if data of any\n    # processor is too small for halo size\n    # TODO: handle 1D_Var or other cases where data is actually large but\n    # highly imbalanced\n    # TODO: avoid reduce for obvious cases like no center and large 1D_Block\n    num_small = hpat.distributed_api.dist_reduce(\n        int(N<halo_size), np.int32(Reduce_Type.Sum.value))\n    return num_small != 0\n\n@numba.njit\ndef _handle_small_data(in_arr, win, center, rank, n_pes):\n    all_N = hpat.distributed_api.dist_reduce(\n        len(in_arr), np.int32(Reduce_Type.Sum.value))\n    all_in_arr = hpat.distributed_api.gatherv(in_arr)\n    if rank == 0:\n        all_out, _, _ = roll_sum_fixed_seq(all_in_arr, win, center)\n    else:"
+}

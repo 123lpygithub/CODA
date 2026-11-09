@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0337-aaebaidjj",
+  "revision_url": "https://github.com/persephone-tools/persephone/commit/9c41b03df6b9e4f82c53345ba527d97d8933ef07",
+  "filename": "src/datasets/na.py",
+  "commit": "9c41b03df6b9e4f82c53345ba527d97d8933ef07",
+  "source_url": "https://raw.githubusercontent.com/persephone-tools/persephone/9c41b03df6b9e4f82c53345ba527d97d8933ef07/src/datasets/na.py",
+  "fetched_at": "2026-11-05T06:12:35.944499+00:00",
+  "source_sha256": "3934ab5622b1c2811c778530db4967744ab78207dcf68703f1f566824a4d071f",
+  "line_start": 36,
+  "line_end": 60,
+  "excerpt": "           'ĩ', 'õ', 'dz'}\nTRI_PHNS = {\"tɕʰ\", \"ʈʂʰ\", \"tsʰ\", \"ṽ̩\", \"ṽ̩\"}\nPHONES = UNI_PHNS.union(BI_PHNS).union(TRI_PHNS)\nNUM_PHONES = len(PHONES)\nPHONES2INDICES = {phn: index for index, phn in enumerate(PHONES)}\nINDICES2PHONES = {index: phn for index, phn in enumerate(PHONES)}\nPHONES_TONES = sorted(list(PHONES.union(set(TONES)))) # Sort for determinism\nPHONESTONES2INDICES = {phn_tone: index for index, phn_tone in enumerate(PHONES_TONES)}\nINDICES2PHONESTONES = {index: phn_tone for index, phn_tone in enumerate(PHONES_TONES)}\nTONES2INDICES = {tone: index for index, tone in enumerate(TONES)}\nINDICES2TONES = {index: tone for index, tone in enumerate(TONES)}\n\n# TODO rename this to \"tokens2indices\" or something similar.\ndef phones2indices(tokens, target_type):\n    \"\"\" Converts a list of phones to a list of indices. Increments the index by\n    1 to avoid issues to do with dynamic padding in Tensorflow. \"\"\"\n    if target_type == \"phonemes_and_tones\":\n        return [PHONESTONES2INDICES[token]+1 for token in tokens]\n    elif target_type == \"phonemes\":\n        return [PHONES2INDICES[token]+1 for token in tokens]\n    elif target_type == \"tones\":\n        return [TONES2INDICES[token]+1 for token in tokens]\n    else:\n        raise Exception(\"Target type %s not supported.\" % target_type)\n",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,21 @@
+{
+  "artifact_id": "23shades-0654-aagbifedh",
+  "revision_url": "https://github.com/drckf/paysage/commit/a28501f94342560209e174b0f8ecd2ea67accd6a",
+  "published_commit": "a28501f94342560209e174b0f8ecd2ea67accd6a",
+  "filename": "paysage/models/model.py",
+  "commit": "708e3583a4d3edda59779f74d2c387bed2130f0b",
+  "source_url": "https://raw.githubusercontent.com/drckf/paysage/708e3583a4d3edda59779f74d2c387bed2130f0b/paysage/models/model.py",
+  "source_sha256": "96982a1fc77503136dbe6d7265f63b4939d1a5f6dcf9358e54547ed73cfc0b12",
+  "fetched_at": "2026-11-05T12:56:40.739639+00:00",
+  "line_start": 583,
+  "line_end": 607,
+  "excerpt": "            seed 'None' or Magnetization: initial seed for the minimization routine.\n                                          Chosing 'None' will result in a random seed\n            init_lr float: initial learning rate which is halved whenever necessary to enforce descent.\n            tol float: tolerance for quitting minimization.\n            max_iters: maximum gradient decsent steps.\n            method: one of 'gd' or 'constraint' picking which Gibbs FE minimization method to use.\n\n        Returns:\n            tuple (magnetization, TAP-approximated Helmholtz free energy)\n                  (Magnetization, float)\n\n        \"\"\"\n        # TODO: re-implement support for constraint satisfaction method as needed\n        if method not in ['gd']:\n            raise ValueError(\"Must specify a valid method for minimizing the Gibbs free energy\")\n\n        def minimize_gibbs_free_energy_GD(m, init_lr=0.01, tol=1e-6, max_iters=1):\n            \"\"\"\n            Simple gradient descent routine to minimize Gibbs free energy\n\n            Note: The fact that this method is a closure suggests that it might be moved to a\n                   utility class later\n\n            Args:\n                m (list of magnetizations of layers): seed for gradient descent",
+  "status": "historical_partial",
+  "revision_relation": "verified-related-branch",
+  "revision_note": "The released introducing pointer does not contain the full comment. This excerpt uniquely matches it at a verified-related-branch revision. It is supplemental historical context, not evidence that the published case revision has this implementation. Do not infer case-time behavior or debt resolution from the alternate version.",
+  "match_policy": "unique-full-comment-at-related-revision-from-released-preprocessing-record",
+  "alternate_dataset_id": "aagbifecd",
+  "comparison_url": "https://api.github.com/repos/drckf/paysage/compare/708e3583a4d3edda59779f74d2c387bed2130f0b...a28501f94342560209e174b0f8ecd2ea67accd6a",
+  "comparison_sha256": "5c167ce64a3708df28c6ca104df7bf83b46d7903b58b438a3c18d86a2fbeee03",
+  "original_comment_and_revision_preserved": true
+}

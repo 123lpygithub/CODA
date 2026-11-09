@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0597-aaefagbgc",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/a62f9f3114e5a67a9cf875b68fada015be25f9a5",
+  "filename": "madmom/audio/signal.py",
+  "commit": "a62f9f3114e5a67a9cf875b68fada015be25f9a5",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/a62f9f3114e5a67a9cf875b68fada015be25f9a5/madmom/audio/signal.py",
+  "fetched_at": "2026-11-05T06:13:18.755721+00:00",
+  "source_sha256": "8a87671bf0292111ec6e0edfae79c210cae5bca56d418a34155f5a560ecf652e",
+  "line_start": 1544,
+  "line_end": 1568,
+  "excerpt": "        data : str\n            Audio data represented as a string.\n\n        Returns\n        -------\n        data : numpy array\n            Audio data as numpy array.\n        flag : PortAudio callback flag\n            Indicate whether to continue the stream.\n\n        \"\"\"\n        # get the data from the stream\n        # TODO: make the dtype configurable; see __init__()\n        data = np.fromstring(data, 'int16').astype(self.dtype)\n        # save the data\n        if self.buffer is None:\n            # if it is the first data to arrive just save it\n            self.buffer = data\n        else:\n            # append the new data to the old one\n            self.buffer = np.concatenate((self.buffer, data))\n        # truncate the buffer to the size of a frame\n        self.buffer = self.buffer[-self.frame_size:]\n        # wrap it as a Signal (including the start position)\n        # TODO: check float/int hop size"
+}

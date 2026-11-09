@@ -1,0 +1,6 @@
+{
+  "url": "https://raw.githubusercontent.com/deepchem/deepchem/e392516f0073ae2ff5cab0701a4103a83928270f/deepchem/utils/test/test_vina_utils.py",
+  "source": "\"\"\"\nTest Autodock Vina Utility Functions.\n\"\"\"\nimport os\nimport numpy as np\nimport unittest\nfrom deepchem.utils import vina_utils\nfrom deepchem.utils import rdkit_util\n\nclass TestVinaUtils(unittest.TestCase):\n\n  def setUp(self):\n    # TODO test more formats for ligand\n    current_dir = os.path.dirname(os.path.realpath(__file__))\n    self.docked_ligands = os.path.join(current_dir,\n                                     '1jld_ligand_docked.pdbqt')\n\n  def test_load_docked_ligand(self):\n    docked_ligands = vina_utils.load_docked_ligands(self.docked_ligands)\n    assert len(docked_ligands) == 9\n\n    for ligand in docked_ligands:\n      xyz = rdkit_util.get_xyz_from_mol(ligand)\n      assert np.count_nonzero(xyz) > 0\n",
+  "fetched_at": "2026-11-05T06:12:39.362992+00:00",
+  "source_sha256": "c357749b9b411d76dbf607841fa6053a4f513de82f301f90a25750c55b6a9297"
+}

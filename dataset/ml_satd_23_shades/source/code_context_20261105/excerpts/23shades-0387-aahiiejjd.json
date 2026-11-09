@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0387-aahiiejjd",
+  "revision_url": "https://github.com/kengz/SLM-Lab/commit/d670e94d3f8e938858e938b1d3efeac5389a26d3",
+  "filename": "slm_lab/agent/algorithm/dqn.py",
+  "commit": "d670e94d3f8e938858e938b1d3efeac5389a26d3",
+  "source_url": "https://raw.githubusercontent.com/kengz/SLM-Lab/d670e94d3f8e938858e938b1d3efeac5389a26d3/slm_lab/agent/algorithm/dqn.py",
+  "fetched_at": "2026-11-05T06:12:43.522300+00:00",
+  "source_sha256": "2ce03cc524096f269fadc9163a1c170139d4ff06494d169d7000bfa4195c0f57",
+  "line_start": 362,
+  "line_end": 375,
+  "excerpt": "        # print(\"Combined actions size: {}\".format(combined_actions.size()))\n        # We only want to train the network for the action selected\n        # For all other actions we set the q_target = q_vals\n        # So that the loss for these actions is 0\n        q_targets = torch.mul(q_targets_max, combined_actions.data) + \\\n            torch.mul(q_vals, (1 - combined_actions.data))\n        # print(\"Q targets size: {}\".format(q_targets.size()))\n        # exit()\n        return q_targets\n\n    def act(self, state):\n        '''Override the spread-per-body act. self.action_policy must be a batch multi-body method'''\n        # TODO when backprop need to use relevant r too\n        return self.action_policy(self.agent.bodies, state, self.net, self.explore_var)"
+}

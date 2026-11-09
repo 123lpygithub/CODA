@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0292-aaebieaia",
+  "revision_url": "https://github.com/alan-turing-institute/sktime/commit/ec7ca2ba978df180911d547864b1d49fb4bcbec1",
+  "filename": "sktime/transformers/series_to_tabular.py",
+  "commit": "ec7ca2ba978df180911d547864b1d49fb4bcbec1",
+  "source_url": "https://raw.githubusercontent.com/alan-turing-institute/sktime/ec7ca2ba978df180911d547864b1d49fb4bcbec1/sktime/transformers/series_to_tabular.py",
+  "fetched_at": "2026-11-05T06:12:28.619390+00:00",
+  "source_sha256": "2f25dfe960864fe5d947fcdfd7041f5c3cc310e4377ca6bbe03fe48627f378cd",
+  "line_start": 77,
+  "line_end": 101,
+  "excerpt": "\n        # Compute features on intervals.\n        Xt = np.zeros((n_rows, n_features * n_cols_intervals))  # Allocate output array for transformed data\n        self.columns_ = []\n        i = 0\n        for c, (colname, col) in enumerate(X.items()):\n            # Tabularize each column assuming series have equal indexes in any given column.\n            # TODO generalise to non-equal-index cases\n            arr = tabularize(col, return_array=True)\n            for start, end in self.intervals_[c]:\n                interval = arr[:, start:end]\n                for func in self.features:\n                    # TODO generalise to series-to-series functions and function kwargs\n                    try:\n                        Xt[:, i] = func(interval, axis=1)\n                    except TypeError as e:\n                        if str(e) == f\"{func.__name__}() got an unexpected keyword argument 'axis'\":\n                            Xt[:, i] = np.apply_along_axis(func, 1, interval)\n                        else:\n                            raise\n                    i += 1\n                    self.columns_.append(f'{colname}_{start}_{end}_{func.__name__}')\n        Xt = pd.DataFrame(Xt)\n        Xt.columns = self.columns_\n        return Xt"
+}

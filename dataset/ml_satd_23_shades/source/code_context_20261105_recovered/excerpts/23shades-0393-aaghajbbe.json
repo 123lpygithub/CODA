@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0393-aaghajbbe",
+  "revision_url": "https://github.com/jhu-lcsr/costar_plan/commit/90f5b0b0ceba545efaf0e6b3caca89a3e5ea15d3",
+  "filename": "costar_google_brainrobotdata/cornell_grasp_dataset_reader.py",
+  "commit": "90f5b0b0ceba545efaf0e6b3caca89a3e5ea15d3",
+  "source_url": "https://raw.githubusercontent.com/jhu-lcsr/costar_plan/90f5b0b0ceba545efaf0e6b3caca89a3e5ea15d3/costar_google_brainrobotdata/cornell_grasp_dataset_reader.py",
+  "fetched_at": "2026-11-05T06:12:45.135706+00:00",
+  "source_sha256": "de9c5d275ce0ffb46b77b35d3c0dd967923ee7e5174e89a2b096b9373e300b8c",
+  "line_start": 280,
+  "line_end": 304,
+  "excerpt": "    # TODO(ahundt) clean up, use grasp_dataset.py as reference, possibly refactor to reuse the code\n    sensor_image_dimensions = [FLAGS.sensor_image_height, FLAGS.sensor_image_width, FLAGS.sensor_color_channels]\n    image_buffer = feature['image/encoded']\n    image = tf.image.decode_png(image_buffer, channels=FLAGS.sensor_color_channels)\n    image = tf.image.convert_image_dtype(image, dtype=tf.float32)\n    image = tf.reshape(image, sensor_image_dimensions)\n    feature['image/decoded'] = image\n\n    image = preprocess_image(image, is_training=is_training)\n\n    feature['image/preprocessed'] = image\n\n    # TODO(ahundt) difference between \"redundant\" and regular proto parsing, figure out how to deal with grasp_success rename properly\n    feature['grasp_success'] = feature['bbox/grasp_success']\n\n    # TODO(ahundt) reenabling this and compare performance against segmentation_gaussian_measurement()\n    if False:\n        feature['grasp_success_2D'] = approximate_gaussian_ground_truth_image(\n            image_shape=keras.backend.int_shape(image),\n            center=[feature['bbox/cy'], feature['bbox/cx']],\n            grasp_theta=feature['bbox/theta'],\n            grasp_width=feature['bbox/width'],\n            grasp_height=feature['bbox/height'],\n            label=feature['grasp_success'])\n    feature['sin_cos_height_width_4'] = height_width_sin_cos_4(features=feature)",
+  "match_policy": "unique-release-normalized-v2"
+}

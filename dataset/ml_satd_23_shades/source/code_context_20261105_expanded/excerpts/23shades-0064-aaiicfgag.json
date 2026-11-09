@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0064-aaiicfgag",
+  "revision_url": "https://github.com/ray-project/ray/commit/e74947cc94f5b085510d8b95fb359e487cf70622",
+  "filename": "rllib/env/wrappers/atari_wrappers.py",
+  "commit": "e74947cc94f5b085510d8b95fb359e487cf70622",
+  "source_url": "https://raw.githubusercontent.com/ray-project/ray/e74947cc94f5b085510d8b95fb359e487cf70622/rllib/env/wrappers/atari_wrappers.py",
+  "fetched_at": "2026-11-05T06:11:48.635932+00:00",
+  "source_sha256": "07773b6b27ebd63e16773505834295dd8e2a82ab03e7b490229d643d9bd152d5",
+  "line_start": 298,
+  "line_end": 320,
+  "excerpt": "    Args:\n        dim (int): Dimension to resize observations to (dim x dim).\n        framestack (bool): Whether to framestack observations.\n    \"\"\"\n    env = MonitorEnv(env)\n    env = NoopResetEnv(env, noop_max=30)\n    if env.spec is not None and \"NoFrameskip\" in env.spec.id:\n        env = MaxAndSkipEnv(env, skip=4)\n    env = EpisodicLifeEnv(env)\n    if \"FIRE\" in env.unwrapped.get_action_meanings():\n        env = FireResetEnv(env)\n    env = WarpFrame(env, dim)\n    # env = ScaledFloatFrame(env)  # TODO: use for dqn?\n    # env = ClipRewardEnv(env)  # reward clipping is handled by policy eval\n    # New way of frame stacking via the trajectory view API (model config key:\n    # `num_framestacks=[int]`.\n    if framestack_via_traj_view_api:\n        env = FrameStackTrajectoryView(env)\n    # Old way (w/o traj. view API) via model config key: `framestack=True`.\n    # TODO: (sven) Remove once traj. view is norm.\n    elif framestack is True:\n        env = FrameStack(env, 4)\n    return env"
+}

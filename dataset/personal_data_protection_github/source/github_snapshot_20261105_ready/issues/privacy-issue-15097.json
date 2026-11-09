@@ -1,0 +1,66 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-15097",
+  "issue_url": "https://github.com/freedomofpress/securedrop/issues/1475",
+  "source_issue_url": "https://github.com/freedomofpress/securedrop/issues/1475",
+  "api_url": "https://api.github.com/repos/freedomofpress/securedrop/issues/1475",
+  "title": "Consider how external links can hurt anonymity, even using Tor",
+  "body": "Currently, we provide several links to external websites in the context of educating the source to the rational behind certain warnings (e.g., not using Tor2Web or JS):\r\n\r\n```\r\n% ag http source_templates\r\nsource_templates/tor2web-warning.html\r\n4:<p><a href='https://tor2web.org'>Tor2Web</a> is a proxy service that lets you browse Tor Hidden Services (.onion sites) without installing Tor. It was designed to facilitate anonymous publishing.</p>\r\n5:<p>Tor2Web only protects publishers, not readers. If you upload documents to us using Tor2Web, you are <strong>not anonymous</strong> and could be identified by your ISP or the Tor2Web proxy operators. Additionally, since Tor2Websites typically use HTTPS, it is possible that your connection could be MITM'ed by a capable adversary.</p>\r\n6:<p>If you want to submit information, we <strong>strongly advise you</strong> to install <a href='https://www.torproject.org/download.html.en'>Tor</a> and use it to access our site safely and anonymously.</p>\r\n\r\nsource_templates/howto-disable-js.html\r\n9:JavaScript exploit to <a href='https://www.wired.com/threatlevel/2013/09/freedom-hosting-fbi'>de-anonymize Tor users</a>. JavaScript exploits are also mentioned in documents describing the NSA's <a href='http://www.theguardian.com/world/interactive/2013/oct/04/egotistical-giraffe-nsa-tor-document'>Egotistical Giraffe</a> program, which also has the goal of targeting and de-anonymizing Tor users.</p>\r\n\r\nsource_templates/why-journalist-key.html\r\n10:<li>If you are using <a href='https://tails.boum.org/'>Tails</a>, you can double-click the <code>.asc</code> file you just downloaded and it will be automatically imported to your keyring.</li>\r\n```\r\n\r\nWe should consider the possibility that clicking any of these links makes it easier to deanonymize a source. In particular, I think of passive attacks such as website and circuit fingerprinting, especially combined with DNS observation. However, as not all are HTTPS, targeted MITM attacks against Tor clients who visit them is also a possible strategy, or targeted attacks against Tor clients who visit these particular pages in the case the site itself has been compromised (i.e., HTTPS in no guarantee of safety).\r\n\r\nWould it be better to just give our own brief description of why you should turn off JS? Does a source really need to read some article on Egotistical Giraffe before they submit a document? My opinion is yes, and that we should omit the the Tails website link as well.\r\n\r\nOTOH, the Tor2Web warning links make more sense because the user has already potentially compromised themselves, but we should at least cleanup the language there--\"MITM'ed\", \"ISP\", \"capable adversary\" are not exactly user-friendly terms, and we also shouldn't be claiming Tor2Web protects publishers.",
+  "author": "Participant 1",
+  "created_at": "2016-11-15T04:00:59Z",
+  "updated_at": "2020-09-04T17:51:30Z",
+  "state": "closed",
+  "closed_at": "2020-09-04T17:51:30Z",
+  "issue_fetched_at": "2026-10-19T04:04:56.536484+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T04:04:57.945438+00:00"
+  ],
+  "expected_comment_count": 5,
+  "retrieved_comment_count": 5,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 283208005,
+      "url": "https://github.com/freedomofpress/securedrop/issues/1475#issuecomment-283208005",
+      "created_at": "2017-03-01T00:41:10Z",
+      "updated_at": "2017-03-01T00:41:10Z",
+      "author": "Participant 1",
+      "body": "One other thing to note to this regard is that extensive explanations and external links represent a distraction to the user and are bad UX. We don't have time to explain the how and why of SD security. Our goal is to make things simple and streamlined, so the source stays focus and isn't overwhelmed by excessive information or warnings."
+    },
+    {
+      "id": 283806467,
+      "url": "https://github.com/freedomofpress/securedrop/issues/1475#issuecomment-283806467",
+      "created_at": "2017-03-02T22:41:38Z",
+      "updated_at": "2017-03-02T22:41:38Z",
+      "author": "Participant 1",
+      "body": "I'm definitely in favor of removing all external links from SD and removing altogether the lengthy explanatory pages for security, flow, and maintainability/simplicity reasons. Going to move this back from the 0.4 milestone though."
+    },
+    {
+      "id": 306939242,
+      "url": "https://github.com/freedomofpress/securedrop/issues/1475#issuecomment-306939242",
+      "created_at": "2017-06-07T22:07:19Z",
+      "updated_at": "2017-06-07T22:07:19Z",
+      "author": "Participant 1",
+      "body": "Relevant exception https://github.com/freedomofpress/securedrop/pull/1780/files#r120708295 . I do think we should keep this link, but include the URL as text as Garrett suggests."
+    },
+    {
+      "id": 313970098,
+      "url": "https://github.com/freedomofpress/securedrop/issues/1475#issuecomment-313970098",
+      "created_at": "2017-07-09T22:34:51Z",
+      "updated_at": "2017-07-09T22:34:51Z",
+      "author": "Participant 2",
+      "body": "I can take a look into this. "
+    },
+    {
+      "id": 687294316,
+      "url": "https://github.com/freedomofpress/securedrop/issues/1475#issuecomment-687294316",
+      "created_at": "2020-09-04T17:51:30Z",
+      "updated_at": "2020-09-04T17:51:30Z",
+      "author": "Participant 3",
+      "body": "Some of this content has since been removed; the `tor2web` warning is a bit of a special case as noted. Closing as we're not anticipating additional cleanup here, but feel free to file more specific issues."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

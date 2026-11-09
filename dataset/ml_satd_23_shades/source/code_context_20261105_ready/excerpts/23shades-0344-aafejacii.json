@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0344-aafejacii",
+  "revision_url": "https://github.com/aleju/imgaug/commit/fc411a004e6dbdfbbb989254d32ea545ff7a0241",
+  "filename": "imgaug/augmenters/debug.py",
+  "commit": "fc411a004e6dbdfbbb989254d32ea545ff7a0241",
+  "source_url": "https://raw.githubusercontent.com/aleju/imgaug/fc411a004e6dbdfbbb989254d32ea545ff7a0241/imgaug/augmenters/debug.py",
+  "fetched_at": "2026-11-05T06:12:37.399561+00:00",
+  "source_sha256": "c8ac52c4db523f586c7361c05c1fcfd8706c70260f453aefe85f870cceac041b",
+  "line_start": 304,
+  "line_end": 328,
+  "excerpt": "        \"\"\"Convert this grid to an image array.\"\"\"\n        nb_rows_by_col = [column.nb_rows for column in self.columns]\n        assert len(set(nb_rows_by_col)) == 1\n        rowwise_heights = np.zeros((self.columns[0].nb_rows,), dtype=np.int32)\n        for column in self.columns:\n            heights = [cell.min_height for cell in column.cells]\n            rowwise_heights = np.maximum(rowwise_heights, heights)\n        return np.hstack([column.draw(heights=rowwise_heights)\n                          for column in self.columns])\n\n\n# TODO image subtitles\n# TODO run start date\n# TODO main process id, process id\n# TODO warning if map aspect ratio is different from image aspect ratio\n# TODO error if non-image shapes differ from image shapes\ndef draw_debug_image(images, heatmaps=None, segmentation_maps=None,\n                     keypoints=None, bounding_boxes=None, polygons=None,\n                     line_strings=None):\n    \"\"\"Generate a debug image grid of a single batch and various datatypes.\n\n    Parameters\n    ----------\n    images : ndarray or list of ndarray\n        Images in the batch. Must always be provided. Batches without images"
+}

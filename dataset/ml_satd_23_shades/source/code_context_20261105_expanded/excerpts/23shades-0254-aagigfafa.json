@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0254-aagigfafa",
+  "revision_url": "https://github.com/OpenNMT/OpenNMT-py/commit/522104535e9b0ab4ca4ea8213f4034e1802412f4",
+  "filename": "onmt/decoders/decoder.py",
+  "commit": "522104535e9b0ab4ca4ea8213f4034e1802412f4",
+  "source_url": "https://raw.githubusercontent.com/OpenNMT/OpenNMT-py/522104535e9b0ab4ca4ea8213f4034e1802412f4/onmt/decoders/decoder.py",
+  "fetched_at": "2026-11-05T06:12:23.219793+00:00",
+  "source_sha256": "0cfb48d4eceaafd45dd6c38cdb2ffb78451fe74f38dbfe0118c3a7ba25981d88",
+  "line_start": 179,
+  "line_end": 203,
+  "excerpt": "\n        # Concatenates sequence of tensors along a new dimension.\n        # NOTE: v0.3 to 0.4: dec_outs / attns[*] may not be list\n        #       (in particular in case of SRU) it was not raising error in 0.3\n        #       since stack(Variable) was allowed.\n        #       In 0.4, SRU returns a tensor that shouldn't be stacke\n        if type(dec_outs) == list:\n            dec_outs = torch.stack(dec_outs)\n\n            for k in attns:\n                if type(attns[k]) == list:\n                    attns[k] = torch.stack(attns[k])\n        # TODO change the way attns is returned dict => list or tuple (onnx)\n        return dec_outs, attns\n\n\nclass StdRNNDecoder(RNNDecoderBase):\n    \"\"\"\n    Standard fully batched RNN decoder with attention.\n    Faster implementation, uses CuDNN for implementation.\n    See :obj:`RNNDecoderBase` for options.\n\n\n    Based around the approach from\n    \"Neural Machine Translation By Jointly Learning To Align and Translate\""
+}

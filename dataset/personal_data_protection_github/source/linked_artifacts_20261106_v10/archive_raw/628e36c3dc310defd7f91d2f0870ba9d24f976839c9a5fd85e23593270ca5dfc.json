@@ -1,0 +1,8 @@
+{
+  "url": "https://bugs.chromium.org/p/chromium/issues/detail?id=1054624",
+  "final_url": "https://bugs.chromium.org/p/chromium/issues/detail?id=1054624",
+  "text": "<!DOCTYPE html>\n<script>\n  const commentRegexp = /#c([0-9]+)/;\n  const url = \"https://issues.chromium.org/40119604\"\n  let hash = window.location.hash;\n\n  // If a monorail style comment is specified then convert it to an\n  // issue tracker style comment. Increment it by one because issue\n  // tracker considers the description as the first comment.\n  const matches = hash.match(commentRegexp);\n  if (matches) {\n    let commentNum = parseInt(matches[1]);\n    hash = hash.replace(\"#c\" + commentNum, \"#comment\" + (commentNum+1));\n  }\n  window.location = url + hash;\n</script>",
+  "content_type": "text/html; charset=utf-8",
+  "sha256": "07fcc2bb110c7fbb8d7699cc6daa83c42086d5fdfe1362105a40b40a52f11247",
+  "fetched_at": "2026-11-06T06:11:24.912141+00:00"
+}

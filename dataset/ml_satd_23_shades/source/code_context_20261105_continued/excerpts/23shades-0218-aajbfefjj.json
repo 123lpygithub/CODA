@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0218-aajbfefjj",
+  "revision_url": "https://github.com/Drakkar-Software/OctoBot/commit/5285addbb0f8b75bc4fd4f76ff804f2e39cf8cb4",
+  "filename": "trading/trader/trades_manager.py",
+  "commit": "5285addbb0f8b75bc4fd4f76ff804f2e39cf8cb4",
+  "source_url": "https://raw.githubusercontent.com/Drakkar-Software/OctoBot/5285addbb0f8b75bc4fd4f76ff804f2e39cf8cb4/trading/trader/trades_manager.py",
+  "fetched_at": "2026-11-05T06:12:17.265266+00:00",
+  "source_sha256": "640128a810d7eaabe30012019794e44bbbd26c750d178208cecc997a7f86a0f4",
+  "line_start": 1,
+  "line_end": 25,
+  "excerpt": "from trading.trader.portfolio import Portfolio, ExchangeConstantsTickersColumns\n\n\nclass TradesManager:\n    def __init__(self, trader):\n        self.trader = trader\n        self.portfolio = trader.get_portfolio()\n        self.exchange = trader.get_exchange()\n        self.trades = []\n        self.profitability = 0\n        self.profitability_percent = 0\n\n        # TODO : market value\n        self.reported_market = \"BTC\"\n\n        self.currencies_prices = None\n        self.origin_portfolio = None\n        self.last_portfolio = None\n\n        self.portfolio_origin_value = 0\n        self.portfolio_current_value = 0\n        self.trades_value = 0\n\n        self.get_porfolio_origin_value()\n"
+}

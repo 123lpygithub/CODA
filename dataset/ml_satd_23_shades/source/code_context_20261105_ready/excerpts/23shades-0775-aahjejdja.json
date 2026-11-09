@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0775-aahjejdja",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/255a05a5980efb8b096c283d79872d0695886161",
+  "filename": "pandas_numpy/sources/pandas/tseries/offsets.py",
+  "commit": "255a05a5980efb8b096c283d79872d0695886161",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/255a05a5980efb8b096c283d79872d0695886161/pandas_numpy/sources/pandas/tseries/offsets.py",
+  "fetched_at": "2026-11-05T06:13:41.394786+00:00",
+  "source_sha256": "bca88175cd58da42c132eb5f2c32874b8b8c4858d8325623eb8e3a58f08b746f",
+  "line_start": 2177,
+  "line_end": 2201,
+  "excerpt": "    def apply(self, other):\n        current_easter = easter(other.year)\n        current_easter = datetime(current_easter.year,\n                                  current_easter.month, current_easter.day)\n        current_easter = tslib._localize_pydatetime(current_easter,\n                                                    other.tzinfo)\n\n        n = self.n\n        if n >= 0 and other < current_easter:\n            n -= 1\n        elif n < 0 and other > current_easter:\n            n += 1\n        # TODO: Why does this handle the 0 case the opposite of others?\n\n        # NOTE: easter returns a datetime.date so we have to convert to type of\n        # other\n        new = easter(other.year + n)\n        new = datetime(new.year, new.month, new.day, other.hour,\n                       other.minute, other.second, other.microsecond)\n        return new\n\n    def onOffset(self, dt):\n        if self.normalize and not _is_normalized(dt):\n            return False\n        return date(dt.year, dt.month, dt.day) == easter(dt.year)"
+}

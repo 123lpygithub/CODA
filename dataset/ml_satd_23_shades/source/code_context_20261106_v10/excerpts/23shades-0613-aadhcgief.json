@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0613-aadhcgief",
+  "revision_url": "https://github.com/Pinafore/qb/commit/507a03a2f01c33ef93828598dfc8fe26e1b99e68",
+  "filename": "extractors/ir.py",
+  "commit": "507a03a2f01c33ef93828598dfc8fe26e1b99e68",
+  "source_url": "https://raw.githubusercontent.com/Pinafore/qb/507a03a2f01c33ef93828598dfc8fe26e1b99e68/extractors/ir.py",
+  "fetched_at": "2026-11-05T06:13:24.459631+00:00",
+  "source_sha256": "d631aac2c5e45ff40be9fb3f465171bec644dbeea10bf19691112497aed9f105",
+  "line_start": 138,
+  "line_end": 162,
+  "excerpt": "            #                                   self._name))\n            vec = self._document_cache[title]\n            if vec is None:\n                return kNEG_INF\n\n        length = 0\n        for field, word in [x for x in self._query_terms if x[1] in vec]:\n            length += 1\n            score += self._idf[word] * vec[word]\n        if length > 0:\n            score /= float(length)\n\n        # TODO: My implementation of idf isn't matching *exactly* with theirs,\n        # but it should be much faster, and it's close\n\n        # print(\"My way %f\" % score)\n\n        # allow_q = query.Term(\"id\", title)\n        # backup_score = kNEG_INF\n        # with self._index.searcher(weighting=scoring.TF_IDF()) as s:\n        #     text_query, text_length = self.create_query(text)\n        #     res = s.search(text_query, limit=1, filter=allow_q)\n        #     if not res.is_empty():\n        #         backup_score = res[0].score\n        # print(\"Their way %f\" % backup_score)",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0182-aafhddaff",
+  "revision_url": "https://github.com/lopuhin/transformer-lm/commit/dded91f624b82ffbe0d8f27c0023e9118c643f77",
+  "filename": "lm/inference.py",
+  "commit": "dded91f624b82ffbe0d8f27c0023e9118c643f77",
+  "source_url": "https://raw.githubusercontent.com/lopuhin/transformer-lm/dded91f624b82ffbe0d8f27c0023e9118c643f77/lm/inference.py",
+  "fetched_at": "2026-11-05T06:12:07.461871+00:00",
+  "source_sha256": "bf16faa560342a34603648cccb8b6d568ae8ddf57b17e1de5a7c222c0980b0c0",
+  "line_start": 44,
+  "line_end": 63,
+  "excerpt": "        If this is a start of the text, you may want to prepend END_OF_TEXT:\n        model.get_log_probs([model.END_OF_TEXT] + tokens).\n        Use model.tokenize to obtain tokens.\n        \"\"\"\n        ids = [self.token_to_id(t) for t in tokens]\n        ctx = torch.LongTensor(ids).unsqueeze(0)\n        with torch.no_grad():\n            # TODO - check prev argument for the model\n            logits = self.model(ctx)['logits'].squeeze(0)\n            return torch.log_softmax(logits, dim=1)\n\n    def get_occurred_log_probs(self, tokens: List[str]):\n        pass  # TODO\n\n\ndef fixed_state_dict(state_dict):\n    if all(k.startswith('module.') for k in state_dict):\n        # legacy multi-GPU format\n        state_dict = {k[len('module.'):]: v for k, v in state_dict.items()}\n    return state_dict",
+  "match_policy": "unique-release-normalized-v2"
+}

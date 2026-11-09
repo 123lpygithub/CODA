@@ -1,0 +1,24 @@
+{
+  "artifact_id": "privacy-issue-3757",
+  "source_issue_url": "https://github.com/Ultimaker/Cura/issues/2810",
+  "issue_snapshot_sha256": "e28b5591f95a00bd1f4389023ad707b14d6577b5416298aaa6795bc49235355f",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/Ultimaker/Cura/blob/master/plugins/SliceInfoPlugin/SliceInfo.py#L65",
+      "kind": "file",
+      "cited_in": [
+        "comment_345652380"
+      ],
+      "revision": "master",
+      "immutable_revision": false,
+      "line_start": 53,
+      "line_end": 77,
+      "text": "\n    def _onAppInitialized(self):\n        # DO NOT read any preferences values in the constructor because at the time plugins are created, no version\n        # upgrade has been performed yet because version upgrades are plugins too!\n        if self._more_info_dialog is None:\n            self._more_info_dialog = self._createDialog(\"MoreInfoWindow.qml\")\n\n    def messageActionTriggered(self, message_id, action_id):\n        \"\"\"Perform action based on user input.\n\n        Note that clicking \"Disable\" won't actually disable the data sending, but rather take the user to preferences where they can disable it.\n        \"\"\"\n        self._application.getPreferences().setValue(\"info/asked_send_slice_info\", True)\n        if action_id == \"MoreInfo\":\n            self.showMoreInfoDialog()\n        self.send_slice_info_message.hide()\n\n    def showMoreInfoDialog(self):\n        if self._more_info_dialog is None:\n            self._more_info_dialog = self._createDialog(\"MoreInfoWindow.qml\")\n        self._more_info_dialog.show()\n\n    def _createDialog(self, qml_name):\n        Logger.log(\"d\", \"Creating dialog [%s]\", qml_name)\n        file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), qml_name)",
+      "source_sha256": "a7f417a9c87e71f4c01c835e82bee2118ec2f13d9cbd69b5da56a0aba8391b9d",
+      "fetched_at": "2026-11-05T06:21:55.199740+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/Ultimaker/Cura/master/plugins/SliceInfoPlugin/SliceInfo.py",
+      "status": "available"
+    }
+  ]
+}

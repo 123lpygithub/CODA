@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0801-aaigijhgj",
+  "revision_url": "https://github.com/chainer/chainer/commit/6931f3eddf561dd00fff9ef0fb83716914ca090d",
+  "filename": "tests/chainer_tests/functions_tests/array_tests/test_repeat.py",
+  "commit": "6931f3eddf561dd00fff9ef0fb83716914ca090d",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainer/6931f3eddf561dd00fff9ef0fb83716914ca090d/tests/chainer_tests/functions_tests/array_tests/test_repeat.py",
+  "fetched_at": "2026-11-05T06:13:54.784930+00:00",
+  "source_sha256": "fe210f3d66511d84a74cf4a8488eda2866352835dac7c46767cd87acceab5aad",
+  "line_start": 1,
+  "line_end": 22,
+  "excerpt": "import unittest\n\nimport numpy\n\nfrom chainer import functions\nfrom chainer import testing\n\n\ndef _repeat(arr, repeats, axis=None):\n    # Workaround NumPy 1.9 issue.\n    if isinstance(repeats, tuple) and len(repeats) == 1:\n        repeats = repeats[0]\n    return numpy.repeat(arr, repeats, axis)\n\n\n@testing.parameterize(*testing.product({\n    # repeats is any of (int, bool or tuple) and\n    # axis is any of (int or None).\n    'params': (\n        # Repeats 1-D array\n        testing.product({\n            'shape': [(2,)],"
+}

@@ -1,0 +1,146 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11413",
+  "issue_url": "https://github.com/prebid/prebid-server/issues/1176",
+  "source_issue_url": "https://github.com/prebid/prebid-server/issues/1176",
+  "api_url": "https://api.github.com/repos/prebid/prebid-server/issues/1176",
+  "title": "Prebid Server, AMP, and CCPA",
+  "body": "# Prebid Server, AMP, and CCPA\r\n\r\nResearching how AMP actually supports CCPA consent, found that there's not a clear way to determine whether a given CONSENT_STRING is GDPR, CCPA, or other format. See https://github.com/ampproject/amphtml/pull/26220\r\n\r\nIn other words, I don't think the enhancement in https://github.com/prebid/prebid-server/pull/1125 is where we want to be. It assumes that\r\n\r\na) we're going to be getting a `us_privacy` parameter from AMP.\r\nb) the value, if provided, will always be formatted as a CCPA string\r\n\r\nUnfortunately, neither of these are true.\r\n\r\nInstead, we're stuck in a situation where we're going to be receiving a CONSENT_STRING that's formatted in an unknown way. i.e. we have to parse the string to determine how to process it.\r\n\r\nCurrently the AMP `CONSENT_STRING` comes in on gdpr_consent, but in reality, that string isn't guaranteed to be formatted as an IAB TCF1.0 GDPR string. It could be IAB US_PRIVACY formatted.\r\n\r\nProposed path-forward has been reviewed with the committee and approved:\r\n\r\n## Phase 1 - Combined GDPR+CCPA Support on two synonym keys\r\n\r\n1) PBS should start looking for AMP parameters `gdpr_consent` and `consent_string`, treating them as the same. (consent_string won't come in initially, but after a transition phase, we'll convert to it so we don't get confused that the contents of gdpr_consent can actually be CCPA.)\r\n\r\n2) PBS introspects `consent_string`/`gdpr_consent`:\r\n2a) If consent_string is exactly 4 chars, starts with \"1\", and the next 3 chars are in the set [yYnN-] then it's a CCPA-formatted string. Pass it through OpenRTB as regs.ext.us_privacy.\r\n2b) Pass consent_string through the TCF1.0 parsing function. If it successfully parses, send it through OpenRTB as user.ext.consent.\r\n2c) Anything other format causes PBS to log a warning into the response and ignore it. Yes, it's understood that warnings in an AMP response are only seen in test mode.\r\n\r\n3) Accepting/denying the AMP consent string is completely separate from Prebid Server \"enforce\" mode. i.e. if PBS determines that the user is in-scope for GDPR or CCPA, then a missing AMP consent_string will be a problem.\r\n\r\n(Note that it doesn't make much sense to add `us_privacy` to the AMP RTC string because then we'll have two copies of the very long TCF1.0 string and still have to parse it to figure out what it really is.)\r\n\r\n## Phase 2 - Update AMP RTC strings to use consent_string instead of gdpr_consent\r\n\r\nUpdate https://github.com/ampproject/amphtml/blob/master/extensions/amp-a4a/0.1/callout-vendors.js to replace `&gdpr_consent=CONSENT_STRING&` with `&consent_string=CONSENT_STRING&` \r\n\r\nWe may as well add PAGEVIEWID at this time to address https://github.com/prebid/prebid-server/issues/1167. Here are the proposed updates to https://github.com/ampproject/amphtml/blob/master/extensions/amp-a4a/0.1/callout-vendors.js\r\n```\r\nprebidappnexus: {\r\n    url:\r\n      'https://prebid.adnxs.com/pbs/v1/openrtb2/amp?tag_id=PLACEMENT_ID&w=ATTR(width)&h=ATTR(height)&ow=ATTR(data-override-width)&oh=ATTR(data-override-height)&ms=ATTR(data-multi-size)&slot=ATTR(data-slot)&targeting=TGT&curl=CANONICAL_URL&timeout=TIMEOUT&adcid=ADCID&purl=HREF&consent_string=CONSENT_STRING&account=ACCOUNT_ID&pv=PAGEVIEWID',\r\n    macros: ['PLACEMENT_ID', 'CONSENT_STRING', 'ACCOUNT_ID'],\r\n    disableKeyAppend: true,\r\n  },\r\n  prebidrubicon: {\r\n    url:\r\n      'https://prebid-server.rubiconproject.com/openrtb2/amp?tag_id=REQUEST_ID&w=ATTR(width)&h=ATTR(height)&ow=ATTR(data-override-width)&oh=ATTR(data-override-height)&ms=ATTR(data-multi-size)&slot=ATTR(data-slot)&targeting=TGT&curl=CANONICAL_URL&timeout=TIMEOUT&adc=ADCID&purl=HREF&consent_string=CONSENT_STRING&account=ACCOUNT_ID&pv=PAGEVIEWID',\r\n    macros: ['REQUEST_ID', 'CONSENT_STRING', 'ACCOUNT_ID'],\r\n    disableKeyAppend: true,\r\n  },\r\n```\r\n\r\n## Phase 3 - stop supporting gdpr_consent key\r\n\r\nThis is probably quite far in the future when all AMP caches have been updated and all prebid RTC calls are coming in with consent_string instead of gdpr_consent\r\n\r\nBefore then, we'll have to support TCF2.0 and hopefully a new \"CONSENT_TYPE\" attribute which will eliminate the need to guess at the string format. But that's for another issue.\r\n\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-01-27T16:32:23Z",
+  "updated_at": "2020-07-20T21:21:19Z",
+  "state": "closed",
+  "closed_at": "2020-07-20T21:21:19Z",
+  "issue_fetched_at": "2026-10-19T05:05:53.362770+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T05:05:54.783306+00:00"
+  ],
+  "expected_comment_count": 15,
+  "retrieved_comment_count": 15,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 580004632,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-580004632",
+      "created_at": "2020-01-29T23:06:29Z",
+      "updated_at": "2020-01-29T23:06:29Z",
+      "author": "Participant 2",
+      "body": "The approach we took in https://github.com/prebid/prebid-server/pull/1125 was chosen before the CCPA consent string was available in AMP. Clearly, things turned out differently and we need to adjust.\r\n\r\nI like that we would parse for all possible formats and not fallback on an assumption of a default format.\r\n\r\nI would like to avoid sending an invalid CCPA consent string to our bidders. In addition to checking for the string length and verifying the first character, I'd like to see us validate the other three characters to be on par with the level of validation in the TCF 1.0 parsing function.\r\n\r\nShould we consider the `consent_state` variable for CCPA? Does AMP expect us to ignore the `consent_string` if the `consent_state` is rejected? The wording in the docs seems like they might, but you might know better.\r\n"
+    },
+    {
+      "id": 580036125,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-580036125",
+      "created_at": "2020-01-30T01:02:19Z",
+      "updated_at": "2020-01-30T01:02:19Z",
+      "author": "Participant 1",
+      "body": "My perception is that consent_state is useless to us, but maybe I don't understand it correctly.\r\n\r\nI think it's there as a shortcut to AMP entities what want to trust what the CMP says in a tri-state way: user-accepted, user-rejected, unknown. I think it was developed for very simplistic consent mechanisms.\r\n\r\nThis seems useless in light of the complexity of GDPR particularly, which has much more nuance like Purpose 1, Purpose 3, vendor overrides, legitimate interest, etc.\r\n\r\nIt makes a little more sense in the CCPA context, but still lacks the nuance of the 3 fields, so I've taken the approach that we need to ignore the simplistic signal and deal directly with the details.\r\n\r\n> I would like to avoid sending an invalid CCPA consent string to our bidders. \r\n\r\nI'm ok with that."
+    },
+    {
+      "id": 580464523,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-580464523",
+      "created_at": "2020-01-30T21:18:38Z",
+      "updated_at": "2020-01-30T21:18:38Z",
+      "author": "Participant 2",
+      "body": "Gotcha. With the `consent-state` being a simplified summary of the `consent-string`, I agree with you it's nothing we need to consider. That information is already available to Prebid Server through the consent string."
+    },
+    {
+      "id": 583124388,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-583124388",
+      "created_at": "2020-02-06T21:40:33Z",
+      "updated_at": "2020-02-06T21:40:33Z",
+      "author": "Participant 3",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.\n"
+    },
+    {
+      "id": 583211070,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-583211070",
+      "created_at": "2020-02-07T02:56:41Z",
+      "updated_at": "2020-02-07T02:56:41Z",
+      "author": "Participant 1",
+      "body": "FYI - this is in progress for PBS-Java"
+    },
+    {
+      "id": 583984839,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-583984839",
+      "created_at": "2020-02-10T07:07:59Z",
+      "updated_at": "2020-02-10T07:07:59Z",
+      "author": "Participant 2",
+      "body": "> 2c) Anything other format causes PBS to log a warning into the response and ignore it. Yes, it's understood that warnings in an AMP response are only seen in test mode.\r\n\r\nWe're working on this as well. Where exactly in the response did you envision the warning would go?"
+    },
+    {
+      "id": 584463438,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-584463438",
+      "created_at": "2020-02-11T03:21:45Z",
+      "updated_at": "2020-02-11T03:21:45Z",
+      "author": "Participant 1",
+      "body": "ext.debug somewhere? @rpanchyk - where are you guys planning to put this warning?"
+    },
+    {
+      "id": 585884210,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-585884210",
+      "created_at": "2020-02-13T17:46:31Z",
+      "updated_at": "2020-02-13T17:46:31Z",
+      "author": "Participant 2",
+      "body": "The top level error container is my first thought, but it's indexed by bidder. Let's say we use a string like `\"*\"` to signify all bidders, we would still be adding a non-fatal error to the mix which may very well be considered a breaking change. We could add a new warning container at the top level to make it obvious. We could also include it in the debug, but the error container at that level is also indexed by bidder. Thoughts?"
+    },
+    {
+      "id": 589083525,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-589083525",
+      "created_at": "2020-02-20T14:39:55Z",
+      "updated_at": "2020-02-20T14:39:55Z",
+      "author": "Participant 1",
+      "body": "seems like this isn't the first time we've needed a place to put global (non-bidder specific) errors. bidder * is fine. ext.debug.errors is fine."
+    },
+    {
+      "id": 592027597,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-592027597",
+      "created_at": "2020-02-27T15:38:02Z",
+      "updated_at": "2020-02-27T15:38:02Z",
+      "author": "Participant 3",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.\n"
+    },
+    {
+      "id": 596841390,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-596841390",
+      "created_at": "2020-03-10T00:25:11Z",
+      "updated_at": "2020-03-10T00:25:11Z",
+      "author": "Participant 3",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.\n"
+    },
+    {
+      "id": 601358294,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-601358294",
+      "created_at": "2020-03-19T18:56:37Z",
+      "updated_at": "2020-03-19T18:56:37Z",
+      "author": "Participant 3",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.\n"
+    },
+    {
+      "id": 604633137,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-604633137",
+      "created_at": "2020-03-26T19:19:45Z",
+      "updated_at": "2020-03-26T19:19:45Z",
+      "author": "Participant 3",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.\n"
+    },
+    {
+      "id": 612317721,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-612317721",
+      "created_at": "2020-04-11T03:56:38Z",
+      "updated_at": "2020-04-11T03:56:38Z",
+      "author": "Participant 3",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.\n"
+    },
+    {
+      "id": 661339791,
+      "url": "https://github.com/prebid/prebid-server/issues/1176#issuecomment-661339791",
+      "created_at": "2020-07-20T21:21:19Z",
+      "updated_at": "2020-07-20T21:21:19Z",
+      "author": "Participant 1",
+      "body": "Done for both Go and Java"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3023",
+  "issue_url": "https://github.com/umami-software/umami/issues/257",
+  "source_issue_url": "https://github.com/umami-software/umami/issues/257",
+  "api_url": "https://api.github.com/repos/umami-software/umami/issues/257",
+  "title": "Avoid sending Personally Identifiable Information (PII)",
+  "body": "In my case, some URLs contain secret tokens that shouldn't be visible via Umami dashboard\r\n\r\nCheckout [Best practices to avoid sending Personally Identifiable Information (PII)](https://support.google.com/analytics/answer/6366371?hl=en) section \"Page URLs and titles\"\r\n\r\nIs it possible to have something like this in umami?",
+  "author": "Participant 1",
+  "created_at": "2020-10-02T07:56:17Z",
+  "updated_at": "2020-10-07T23:00:00Z",
+  "state": "closed",
+  "closed_at": "2020-10-07T23:00:00Z",
+  "issue_fetched_at": "2026-10-18T18:10:26.967389+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T18:10:28.369373+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 702837932,
+      "url": "https://github.com/umami-software/umami/issues/257#issuecomment-702837932",
+      "created_at": "2020-10-02T16:42:55Z",
+      "updated_at": "2020-10-02T16:42:55Z",
+      "author": "Participant 2",
+      "body": "Well you should never be sending secret tokens in the URL. That said, I do need to redo the page queries since it's causing a performance issue."
+    },
+    {
+      "id": 702877005,
+      "url": "https://github.com/umami-software/umami/issues/257#issuecomment-702877005",
+      "created_at": "2020-10-02T18:00:56Z",
+      "updated_at": "2020-10-02T18:00:56Z",
+      "author": "Participant 1",
+      "body": "I think in Umami you also have something like this, it's URLs to share temporary access to some pages of our system. I don't see another solution than using some secret in URL.\r\n\r\nWill be good if I can somehow control what umami sends to its backend."
+    },
+    {
+      "id": 702887241,
+      "url": "https://github.com/umami-software/umami/issues/257#issuecomment-702887241",
+      "created_at": "2020-10-02T18:21:12Z",
+      "updated_at": "2020-10-02T18:21:12Z",
+      "author": "Participant 2",
+      "body": "You can do that by writing your own tracker function, https://umami.is/docs/tracker-functions\r\n\r\nIt's not possible for umami to know what urls to filter or not."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

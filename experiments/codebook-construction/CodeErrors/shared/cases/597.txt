@@ -1,0 +1,34 @@
+CASE 597
+SOURCE ERROR IDS 597
+TASK DESCRIPTION
+def even_odd_count(num):
+    """Given an integer. return a tuple that has the number of even and odd digits respectively.
+
+     Example:
+        even_odd_count(-12) ==> (1, 1)
+        even_odd_count(123) ==> (1, 2)
+    """
+
+GENERATED CODE
+def even_odd_count(num):
+    """Given an integer. return a tuple that has the number of even and odd digits respectively.
+
+     Example:
+        even_odd_count(-12) ==> (1, 1)
+        even_odd_count(123) ==> (1, 2)
+    """
+    return (sum(int(i) for i in str(num)), sum(int(i) for i in str(num) if i % 2 == 0))
+
+REFERENCE CODE
+def even_odd_count(num):
+    """Given an integer. return a tuple that has the number of even and odd digits respectively.
+
+     Example:
+        even_odd_count(-12) ==> (1, 1)
+        even_odd_count(123) ==> (1, 2)
+    """
+    even, odd = 0, 0
+    for ch in str(num):
+        if ch in "02468": even += 1
+        if ch in "13579": odd += 1
+    return even, odd

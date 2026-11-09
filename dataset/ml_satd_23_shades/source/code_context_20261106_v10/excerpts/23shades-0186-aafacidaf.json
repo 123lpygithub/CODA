@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0186-aafacidaf",
+  "revision_url": "https://github.com/brightmart/ai_law/commit/567c127ff544eed1f5381c6f545ea4627940c753",
+  "filename": "HAN_model.py",
+  "commit": "567c127ff544eed1f5381c6f545ea4627940c753",
+  "source_url": "https://raw.githubusercontent.com/brightmart/ai_law/567c127ff544eed1f5381c6f545ea4627940c753/HAN_model.py",
+  "fetched_at": "2026-11-05T06:12:08.058317+00:00",
+  "source_sha256": "6506789187ab25b0f7ef1a5a1f4bb93366db6be8b9061606acbdfbde038094c5",
+  "line_start": 356,
+  "line_end": 380,
+  "excerpt": "        return h_t_backward_list\n\n    # forward gru for second level: sentence level\n    def gru_forward_sentence_level(self, sentence_representation):\n        \"\"\"\n        :param sentence_representation: [batch_size,num_sentences,hidden_size*2]\n        :return:forward hidden state: a list,length is num_sentences, each element is [batch_size,hidden_size]\n        \"\"\"\n        # split embedded_words\n        sentence_representation_splitted = tf.split(sentence_representation, self.num_sentences, axis=1)  # it is a list.length is num_sentences,each element is [batch_size,1,hidden_size*2]\n        sentence_representation_squeeze = [tf.squeeze(x, axis=1) for x in  sentence_representation_splitted]  # it is a list.length is num_sentences,each element is [batch_size, hidden_size*2]\n        # demension_1 = int(tf.get_shape(sentence_representation_squeeze[0])[0]) #scalar: batch_size\n        h_t = tf.ones((self.batch_size, self.hidden_size * 2))  # TODO\n        h_t_forward_list = []\n        for time_step, Xt in enumerate(sentence_representation_squeeze):  # Xt:[batch_size, hidden_size*2]\n            h_t = self.gru_single_step_sentence_level(Xt, h_t)  # h_t:[batch_size,hidden_size]<---------Xt:[batch_size, hidden_size*2]; h_t:[batch_size, hidden_size*2]\n            h_t_forward_list.append(h_t)\n        return h_t_forward_list  # a list,length is num_sentences, each element is [batch_size,hidden_size]\n\n    # backward gru for second level: sentence level\n    def gru_backward_sentence_level(self, sentence_representation):\n        \"\"\"\n        :param sentence_representation: [batch_size,num_sentences,hidden_size*2]\n        :return:forward hidden state: a list,length is num_sentences, each element is [batch_size,hidden_size]\n        \"\"\"",
+  "match_policy": "unique-release-normalized-v2"
+}

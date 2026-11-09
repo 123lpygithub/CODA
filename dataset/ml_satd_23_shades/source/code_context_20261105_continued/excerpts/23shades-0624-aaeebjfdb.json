@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0624-aaeebjfdb",
+  "revision_url": "https://github.com/chainer/chainer-chemistry/commit/c426e08351a5bf2e8989aaf8d79b76fceb177e05",
+  "filename": "examples/qm9/train_qm9.py",
+  "commit": "c426e08351a5bf2e8989aaf8d79b76fceb177e05",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainer-chemistry/c426e08351a5bf2e8989aaf8d79b76fceb177e05/examples/qm9/train_qm9.py",
+  "fetched_at": "2026-11-05T06:13:27.310124+00:00",
+  "source_sha256": "77a987bff19e772aba21184bd8eab934b4fb0c4a6b8df90ba1751d88a8099eb0",
+  "line_start": 56,
+  "line_end": 80,
+  "excerpt": "        return x\n\n    def _predict(self, atoms, adjs):\n        with chainer.no_backprop_mode(), chainer.using_config('train', False):\n            x = self.__call__(atoms, adjs)\n            return F.sigmoid(x)\n\n    def predict(self, *args, batchsize=32, device=-1):\n        if device >= 0:\n            chainer.cuda.get_device_from_id(device).use()\n            self.to_gpu()  # Copy the model to the GPU\n\n        # TODO: Not test yet, check behavior\n        data = args[0]\n        y_list = []\n        for i in range(0, len(data), batchsize):\n            #adj, atom_types = concat_examples(data[i:i + batchsize], device=device)\n            atoms, adjs = concat_mols(data[i:i + batchsize], device=device)[:2]\n            y = self._predict(atoms, adjs)\n            y_list.append(cuda.to_cpu(y.data))\n        y_array = numpy.concatenate(y_list, axis=0)\n        return y_array\n\n\ndef main():",
+  "match_policy": "unique-release-normalized-v2"
+}

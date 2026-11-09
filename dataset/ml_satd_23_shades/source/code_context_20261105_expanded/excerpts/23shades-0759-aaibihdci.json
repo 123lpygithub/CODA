@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0759-aaibihdci",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/434eed65b4b2eb5f0f8814467576cd808742ccfd",
+  "filename": "scikits/learn/datasets/mlcomp.py",
+  "commit": "434eed65b4b2eb5f0f8814467576cd808742ccfd",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/434eed65b4b2eb5f0f8814467576cd808742ccfd/scikits/learn/datasets/mlcomp.py",
+  "fetched_at": "2026-11-05T06:13:48.381829+00:00",
+  "source_sha256": "0cf0e2103e29cdb1fa93cda3137775b17063a15ddbb6b37a78a61335d4e71d06",
+  "line_start": 9,
+  "line_end": 33,
+  "excerpt": "\n\ndef load_document_classification(dataset_path, metadata, set_, **kw):\n    \"\"\"Loader implementation for the DocumentClassification format\"\"\"\n    target = []\n    target_names = {}\n    filenames = []\n    vectorizer = kw.get('vectorizer', HashingVectorizer())\n\n    # TODO: make it possible to plug a several pass system to filter-out tokens\n    # that occur in more than 30% of the documents for instance.\n\n    # TODO: use joblib.Parallel or multiprocessing to parallelize the following\n    # (provided this is not IO bound)\n\n    dataset_path = os.path.join(dataset_path, set_)\n    folders = [f for f in sorted(os.listdir(dataset_path))\n               if os.path.isdir(os.path.join(dataset_path, f))]\n    for label, folder in enumerate(folders):\n        target_names[label] = folder\n        folder_path = os.path.join(dataset_path, folder)\n        documents = [os.path.join(folder_path, d)\n                     for d in sorted(os.listdir(folder_path))]\n        vectorizer.vectorize(documents)\n        target.extend(len(documents) * [label])"
+}

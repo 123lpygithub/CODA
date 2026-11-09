@@ -1,0 +1,205 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5412",
+  "issue_url": "https://github.com/mastodon/mastodon/issues/109",
+  "source_issue_url": "https://github.com/mastodon/mastodon/issues/109",
+  "api_url": "https://api.github.com/repos/mastodon/mastodon/issues/109",
+  "title": "Delete account function?",
+  "body": "Where is that function or when comes it?\n",
+  "author": "Participant 1",
+  "created_at": "2016-10-25T08:14:41Z",
+  "updated_at": "2023-01-16T21:04:57Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:03.095519+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:03.095519+00:00"
+  ],
+  "expected_comment_count": 57,
+  "retrieved_comment_count": 22,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 256508258,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-256508258",
+      "created_at": "2016-10-26T23:41:22Z",
+      "updated_at": "2016-10-26T23:41:22Z",
+      "author": "Participant 2",
+      "body": "What would be the implications of deleting an account from the technical perspective?\n\nIt would be problematic, for example, if someone could immediately register a new account with the same username. Remote instances that may not be aware of the account's prior deletion would keep following the new, now impersonating account.\n\nSo the username needs to stick around after deletion. Then every status by the user would be deleted, every deletion would need to be federated which might take a while (imagine deleting 40,000 statuses - you'd need to send the updated \"deleted\" status for every remote follower x 40,000).\n\nSo this solution would be a soft delete then - as much information as possible is removed but basic structure and some pointers must be retained. So perhaps we could delete avatar, display name, bio, delete all statuses/media, unfollow everyone the account has been following, force all local users to unfollow it (cannot force remote accounts to unfollow though). Perhaps disable login on the account.\n\nThat's quite a big task, isn't it\n"
+    },
+    {
+      "id": 256698264,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-256698264",
+      "created_at": "2016-10-27T16:32:33Z",
+      "updated_at": "2016-10-27T16:32:33Z",
+      "author": "Participant 1",
+      "body": "For me as user it's not very interesting if this is a big task. I tested out your project, wanted to see how it is. It's not the great one and now I can't delete my data. I do not want you to keep data from me.\n"
+    },
+    {
+      "id": 260108504,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-260108504",
+      "created_at": "2016-11-12T08:04:25Z",
+      "updated_at": "2016-11-12T08:04:25Z",
+      "author": "Participant 3",
+      "body": "@Gargron Ideally, OStatus would include a \"delete\" status, sendable to a server, which tells that server to (optionally, depending on server policy) mass-delete or mark-as-deleted any status from that user, so that you only need to send one update rather than one per status.\n"
+    },
+    {
+      "id": 262301665,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-262301665",
+      "created_at": "2016-11-22T17:08:59Z",
+      "updated_at": "2016-11-22T17:09:55Z",
+      "author": "Participant 4",
+      "body": "> It would be problematic, for example, if someone could immediately register a new account with the same username.\r\n\r\nTwitter lets this happen, but in Twitter's case handles are not the primary key (that is, Twitter knows that a new user with the same handle is *not* the same as the old user), so it's not too bad. What does GNU Social use as the primary key? If it's the handle, then I see the problem."
+    },
+    {
+      "id": 291800541,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-291800541",
+      "created_at": "2017-04-05T09:07:58Z",
+      "updated_at": "2017-04-05T16:55:41Z",
+      "author": "Participant 5",
+      "body": "There should definitely be a way to delete your account, from a data privacy perspective. I think it may even be a legal requirement in some countries to be able to leave a service.\r\n\r\nMost commercial services (Facebook, Twitter) seem to offer the option to deactivate your account, which hides all your content and gives you the option to one day return. Some then let you go further and remove your data from the platform permanently if you wish. \r\n\r\nFor my part I opened an account on one instance before realising it was very localised to a country whose language I don't speak, then found there was no way to export to a different instance. I had to open a second account on the new instance, only to then find there is no way to delete my old account - which people can still find and follow. Very confusing.\r\n\r\nI also imagine many like the idea of an open source platform alternative to twitter, or other social platforms, that will give them full control over their own data. Right now we don't have that.\r\n"
+    },
+    {
+      "id": 291822590,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-291822590",
+      "created_at": "2017-04-05T10:39:13Z",
+      "updated_at": "2017-04-05T10:39:13Z",
+      "author": "Participant 6",
+      "body": "Same here, as a user I would like to be able to have my account deleted."
+    },
+    {
+      "id": 291860543,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-291860543",
+      "created_at": "2017-04-05T13:26:55Z",
+      "updated_at": "2017-04-05T13:26:55Z",
+      "author": "Participant 7",
+      "body": "It'll definitely be needed in the future, in France it's an obligation for a service to provide its users with a way to access, modify and oppose any information stored on them (see [Loi Informatique et Libertés du 6 janvier 1978](https://www.cnil.fr/fr/loi-78-17-du-6-janvier-1978-modifiee)).\r\n\r\nMaybe you can just deactivate the account for some period of time when the user asked to delete it so that the deletion has the time to propagate to the different instances.\r\n\r\nBut as @TazeTSchnitzel commented, if the users are identified by their handle as the primary key, here resides the main problem..."
+    },
+    {
+      "id": 292036539,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-292036539",
+      "created_at": "2017-04-06T00:38:40Z",
+      "updated_at": "2017-04-06T00:38:40Z",
+      "author": "Participant 8",
+      "body": "Absolutely needed. I'm not going to be using mastodon until I know there's some kind of delete account that I'll be able to use if needed. It's basic."
+    },
+    {
+      "id": 292114473,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-292114473",
+      "created_at": "2017-04-06T09:09:28Z",
+      "updated_at": "2017-04-06T09:09:28Z",
+      "author": "Participant 9",
+      "body": "I was invited for mastodon.network but then noticed I already created an account on mastodon.social last year. Same email address. So I'd like to delete my latest account (from mastodon.network) - assuming \"federated timeline\" means both Mastodons end up in the same \"world\"."
+    },
+    {
+      "id": 292148580,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-292148580",
+      "created_at": "2017-04-06T11:44:34Z",
+      "updated_at": "2017-04-06T11:44:34Z",
+      "author": "Participant 10",
+      "body": "I agree with the general sentiment that this should be bumped up in priority. A lot of users are using this to avoid lock-in, so it's quite natural to expect a way to wipe your data from an instance you don't control if you decide to move to another one. \r\n"
+    },
+    {
+      "id": 292149634,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-292149634",
+      "created_at": "2017-04-06T11:49:22Z",
+      "updated_at": "2017-04-06T11:49:57Z",
+      "author": "Participant 5",
+      "body": "Agree 100% about users coming here to escape lock-in. An option to export our data and then hide or permanently delete from Mastodon would be ideal. It would also be great if you could then choose to import it to a new instance if you wanted, or just keep it offline for your own use/delete it forever."
+    },
+    {
+      "id": 292420160,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-292420160",
+      "created_at": "2017-04-07T03:31:32Z",
+      "updated_at": "2017-04-07T03:31:32Z",
+      "author": "Participant 11",
+      "body": "Make the account locked; if the user doesn't return in 30 days, all the toots are deleted and the username becomes available again."
+    },
+    {
+      "id": 292462009,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-292462009",
+      "created_at": "2017-04-07T07:23:51Z",
+      "updated_at": "2017-04-07T07:32:37Z",
+      "author": "Participant 12",
+      "body": "Just a note on the actual propagation of a delete request across multiple instances.  You will inevitably run into people who will modify their instances to ignore/deny requests to delete data. The motivations for this kinda thing are far ranging, see politwoops/reddit undelete/sleazy advertiser/data scientist/troll/internet archivist/etc. Whatever the reason though the solution proposed should take this in consideration.\r\n\r\nYou also may have to deal with a similar issue in the future when very old instances suddenly come online after being down for months/years."
+    },
+    {
+      "id": 292468649,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-292468649",
+      "created_at": "2017-04-07T07:57:36Z",
+      "updated_at": "2017-04-07T07:57:36Z",
+      "author": "Participant 3",
+      "body": "@Spunkie There's absolutely nothing that can be done about that.  In a federated system, all you can do is ask."
+    },
+    {
+      "id": 305860117,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-305860117",
+      "created_at": "2017-06-02T17:35:00Z",
+      "updated_at": "2017-06-02T17:35:00Z",
+      "author": "Participant 13",
+      "body": "I did not examine the security model of inter-instance communication yet but I would like to make a warning: a \"remote delete\" function has better to be very secure! Any weakness in the way it is authenticated and authorized will be exploited for a denial-of-service attack (attacking the account of a guy I don't like by sending lying deletion requests)."
+    },
+    {
+      "id": 305861707,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-305861707",
+      "created_at": "2017-06-02T17:39:46Z",
+      "updated_at": "2017-06-02T17:39:46Z",
+      "author": "Participant 13",
+      "body": "Also (and it does not seem it was mentioned yet), I think it would be a bad idea to keep the username forever after the deletion: it would allow people to \"freeze\" a name by registering in every possible instance, then deleting the account. (A grace period of, say, 30 days, would be OK.)\r\n "
+    },
+    {
+      "id": 306041551,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-306041551",
+      "created_at": "2017-06-04T13:56:28Z",
+      "updated_at": "2017-06-04T13:56:28Z",
+      "author": "Participant 14",
+      "body": "Adding in @hoodiek 's [discussion on discourse about this feature.](https://discourse.joinmastodon.org/t/deleting-accounts-and-schedule-toot-auto-deletion/217)"
+    },
+    {
+      "id": 308575779,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-308575779",
+      "created_at": "2017-06-14T22:26:23Z",
+      "updated_at": "2017-06-14T22:26:23Z",
+      "author": "Participant 15",
+      "body": "Amazing! :) Thank you! <3"
+    },
+    {
+      "id": 308615331,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-308615331",
+      "created_at": "2017-06-15T03:02:22Z",
+      "updated_at": "2017-06-15T03:02:22Z",
+      "author": "Participant 1",
+      "body": "Thank You for Clarifying we really need that function!!!  I will now recommend to all my friends!"
+    },
+    {
+      "id": 1384321190,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-1384321190",
+      "created_at": "2023-01-16T16:54:30Z",
+      "updated_at": "2023-01-16T16:54:30Z",
+      "author": "Participant 16",
+      "body": "I am sorry for commenting on such an old issue, but I was hoping for a bit of clarification:\r\n\r\nIs the account deletion currently implemented in such a way that the username and the email are freed? If yes, how is that done, since the website currently warns you that the username and email will be unusable forever? If it's not yet implemented in such a way, when is it expected to be?"
+    },
+    {
+      "id": 1384428919,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-1384428919",
+      "created_at": "2023-01-16T18:37:03Z",
+      "updated_at": "2023-01-16T18:37:03Z",
+      "author": "Participant 17",
+      "body": "@ifohancroft Because of the risk of impersonation, we do not expect to ever allow a username to be reused, except in the case of manual admin intervention. "
+    },
+    {
+      "id": 1384547621,
+      "url": "https://github.com/mastodon/mastodon/issues/109#issuecomment-1384547621",
+      "created_at": "2023-01-16T21:04:56Z",
+      "updated_at": "2023-01-16T21:04:56Z",
+      "author": "Participant 16",
+      "body": "> @ifohancroft Because of the risk of impersonation, we do not expect to ever allow a username to be reused, except in the case of manual admin intervention.\r\n\r\nThank you! I feared I might get such a reply.\r\nTo clarify - if I want my account deleted, and the username/email/everything released so it can be used again in the future, I can contact the instance's admin and that can be manually done?"
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/mastodon/mastodon/issues/109",
+  "closed_at_available": false
+}

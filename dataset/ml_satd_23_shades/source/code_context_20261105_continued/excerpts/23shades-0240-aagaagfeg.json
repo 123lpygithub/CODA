@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0240-aagaagfeg",
+  "revision_url": "https://github.com/Merck/deepbgc/commit/f91d3f01440445d42e550814390716ff3f527ed4",
+  "filename": "deepbgc/output/antismash_json.py",
+  "commit": "f91d3f01440445d42e550814390716ff3f527ed4",
+  "source_url": "https://raw.githubusercontent.com/Merck/deepbgc/f91d3f01440445d42e550814390716ff3f527ed4/deepbgc/output/antismash_json.py",
+  "fetched_at": "2026-11-05T06:12:19.205962+00:00",
+  "source_sha256": "fb73cd4799b13edc4668e8bd049101fb8fde70720afe82d1ec84d2a9cd8d4790",
+  "line_start": 22,
+  "line_end": 46,
+  "excerpt": "    @classmethod\n    def get_name(cls):\n        return 'antismash-json'\n\n    def write(self, record):\n        cluster_features = util.get_cluster_features(record)\n        classifier_names = util.get_record_classifier_names(record)\n        subregions = []\n        protoclusters = []\n        for cluster in cluster_features:\n            subregion = self._create_cluster_json(cluster, classifier_names=classifier_names)\n            subregions.append(subregion)\n            # TODO add protocluster?\n\n        self.record_ids.append(record.id)\n        self.record_subregions.append(subregions)\n        self.record_protoclusters.append(protoclusters)\n        # TODO add meta info from all detectors?\n        if not self.tool_meta:\n            self.tool_meta = util.get_record_detector_meta(record)\n\n    def _get_cluster_classes_str(self, cluster, classifier_name):\n        class_str_list = cluster.qualifiers.get(util.format_classification_column(classifier_name))\n        return class_str_list[0] if class_str_list else 'no confident class'\n"
+}

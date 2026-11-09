@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0295-aadghcged",
+  "revision_url": "https://github.com/sorgerlab/indra/commit/e2492f28f7f5dd289b46d57d672a289ec6f87540",
+  "filename": "indra/sources/omnipath/omnipath_client.py",
+  "commit": "e2492f28f7f5dd289b46d57d672a289ec6f87540",
+  "source_url": "https://raw.githubusercontent.com/sorgerlab/indra/e2492f28f7f5dd289b46d57d672a289ec6f87540/indra/sources/omnipath/omnipath_client.py",
+  "fetched_at": "2026-11-05T06:12:29.431497+00:00",
+  "source_sha256": "4ce8fa0a295401b7a26cce51e408c0dfdbd4165dd418b4f9daf1a0f7bd1adfd7",
+  "line_start": 51,
+  "line_end": 75,
+  "excerpt": "        stmt_list.append(stmt)\n    print(Counter(unhandled_mod_types))\n    return stmt_list\n\n#'cleavage',\n#'proteolytic cleavage',\n\n\ndef _stmts_from_op_rlint(rlint_list):\n    \"\"\"rlint_list is a list of receptor-ligand interactions\"\"\"\n    stmt_list = []\n    for entry in rlint_list:\n        # ToDo handle when source and/or target is COMPLEX:ID1_ID2_...\n        source = _agent_from_up_id(entry['source'])\n        target = _agent_from_up_id(entry['target'])\n\n        # Todo add to annotations if interesting\n        is_directed = entry['is_directed']\n        is_stimulation = entry['is_stimulation']\n        is_inhibition = entry['is_inhibition']\n\n        # We don't know the pairing of source db with PMID, so add sources\n        # to all of them\n        for pmid in entry['references']:\n            evidence = Evidence('omnipath', None, pmid,",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,202 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-17691",
+  "issue_url": "https://github.com/dotnet/aspnetcore/issues/7696",
+  "source_issue_url": "https://github.com/dotnet/aspnetcore/issues/7696",
+  "api_url": "https://api.github.com/repos/dotnet/aspnetcore/issues/7696",
+  "title": "Auth cookies not sticking with Desktop versions of Safari",
+  "body": "I have a small handful of users that are unable to log on to our site while using their macOS & Safari browser. These users have confirmed they can authenticate just fine with another browser, or their phones (typically iPhone). This is a preview release of our new version of our product so I have very limited reach to these users in terms of technical troubleshooting. I am hesitant to release this further until I can fix this problem. \r\n\r\nUsers attempt to log in, but the login screen just refreshes, with no errors. Think of behavior like a sign in page redirect after accessing a protected resource. My theory is the `Set-Cookie` response headers are for some reason being ignored with the redirect.\r\n\r\nI do not have anyone on the company side to reproduce. Any developers with Mac's can't reproduce.\r\n\r\nASP.NET Core 2.2\r\nAuth0 for identity provider\r\nCookie Authentication\r\nSafari 10.X & 12.X fail, but others also report success.\r\n\r\n*What I'm looking for*\r\nIs there anything misconfigured here that could be affecting Safari somehow? I'm at a loss as I can't reproduce this, but enough random users have reported it so it's certainly a problem. \r\n\r\n**Startup Configure**\r\n```\r\npublic void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)\r\n{\r\n    // irrelevant bits removed\r\n\r\n    app.Use(next => context =>\r\n    {\r\n        context.Request.EnableRewind();\r\n        return next(context);\r\n    });\r\n\r\n    if (Environment.IsDevelopment())\r\n    {\r\n        app.UseDatabaseErrorPage();\r\n        app.UseDeveloperExceptionPage();\r\n        app.UseMiniProfiler();\r\n\r\n        loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Trace);\r\n    }\r\n    else\r\n    {\r\n        app.UseHsts();\r\n        app.UseExceptionHandler(\"/error\");\r\n        app.UseStatusCodePagesWithRedirects(\"/error/{0}\");\r\n        loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Warning);\r\n    }\r\n\r\n    app.UseHttpsRedirection();\r\n    app.UseSession();\r\n    app.UseStaticFiles();\r\n    app.UseAuthentication();\r\n\r\n    app.UseMvc(routes =>\r\n    {\r\n            // commented out\r\n    });\r\n}\r\n```\r\n\r\n**Startup Configure Services**\r\n```\r\npublic void ConfigureServices(IServiceCollection services)\r\n{\r\n    // irrelevant bits removed \r\n\r\n    services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();\r\n\r\n    services.AddHsts(options =>\r\n    {\r\n        options.Preload = true;\r\n        options.IncludeSubDomains = true;\r\n        options.MaxAge = TimeSpan.FromDays(180);\r\n    });\r\n\r\n    // add data protection\r\n\r\n    // add distributed session\r\n\r\n    services.AddAuthentication(options =>\r\n    {\r\n        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;\r\n        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;\r\n        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;\r\n    })\r\n    .AddCookie(opts =>\r\n    {\r\n        var cookieDomain = Configuration.GetValue<string>(\"Auth0:CookieDomain\");\r\n        if (!string.IsNullOrWhiteSpace(cookieDomain))\r\n        {\r\n            opts.Cookie.Domain = cookieDomain;\r\n        }\r\n        \r\n        opts.LoginPath = \"/login\";\r\n        opts.Events = new CookieAuthenticationEvents()\r\n        {\r\n            OnValidatePrincipal = CustomCookieAuthenticationEvents.ValidatePrincipal\r\n        };\r\n    });\r\n\r\n    services.Configure<SecurityStampValidatorOptions>(options =>\r\n    {\r\n        options.ValidationInterval = TimeSpan.FromMinutes(1);\r\n        options.OnRefreshingPrincipal = context =>\r\n        {\r\n            var isImpersonatingClaim = context.CurrentPrincipal.IsImpersonating();\r\n            if (isImpersonatingClaim)\r\n            {\r\n                var impersonationClaims = context.CurrentPrincipal.BuildImpersonationClaims();\r\n                context.NewPrincipal.Identities.First().AddClaims(impersonationClaims);\r\n            }\r\n            return Task.FromResult(0);\r\n        };\r\n    });\r\n\r\n    // Add AutoMapper\r\n    services.AddAutoMapper(typeof(Startup));\r\n    MappingConfigurator.InitializeAndCompile();\r\n\r\n    services\r\n        .AddMvc()\r\n        .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);\r\n}\r\n```\r\n\r\n**Login**\r\n```\r\n[HttpPost]\r\n[Route(\"/login\")]\r\n[ValidateAntiForgeryToken]\r\npublic async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)\r\n{\r\n    // irrelevant bits removed \r\n\r\n    if (!ModelState.IsValid) return View(model);\r\n\r\n    var ticket = await _authorizeService.Authorize(model.EmailAddress, model.Password);\r\n\r\n    var claimsPrincipal = authTicket.CreateClaimsPrincipal();\r\n    var authProps = authTicket.CreateAuthProperties(persistent);\r\n\r\n    // Sign user into cookie middleware\r\n    await HttpContextAccessor.HttpContext.SignInAsync(\r\n        CookieAuthenticationDefaults.AuthenticationScheme,\r\n        claimsPrincipal,\r\n        authProps);\r\n\r\n    // this uses the claims principal to figure out where to send the user.\r\n    // this will result in a 302 \r\n    return BaseServices.RedirectService.AfterLogin(claimsPrincipal, returnUrl);\r\n\r\n    return View(model);    \r\n}\r\n```",
+  "author": "Participant 1",
+  "created_at": "2019-02-19T03:55:56Z",
+  "updated_at": "2019-12-03T11:01:14Z",
+  "state": "closed",
+  "closed_at": "2019-02-27T14:27:15Z",
+  "issue_fetched_at": "2026-10-18T22:10:23.176025+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T22:10:24.645520+00:00"
+  ],
+  "expected_comment_count": 22,
+  "retrieved_comment_count": 22,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 465004876,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-465004876",
+      "created_at": "2019-02-19T06:39:20Z",
+      "updated_at": "2019-02-19T06:39:37Z",
+      "author": "Participant 2",
+      "body": "An issue like this is best troubleshot by capturing a trace of the HTTP headers. Tools like Fiddler and Wireshark are good (HTTPS issues aside), or manual server side logging of request and response headers.\r\n\r\nSafari is known to discard large cookies. How large are your typical auth cookies?"
+    },
+    {
+      "id": 465128821,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-465128821",
+      "created_at": "2019-02-19T13:32:02Z",
+      "updated_at": "2019-02-19T13:32:02Z",
+      "author": "Participant 3",
+      "body": "Might be similar to https://github.com/aspnet/Announcements/issues/318?"
+    },
+    {
+      "id": 465147575,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-465147575",
+      "created_at": "2019-02-19T14:24:03Z",
+      "updated_at": "2019-02-19T14:24:03Z",
+      "author": "Participant 1",
+      "body": "> An issue like this is best troubleshot by capturing a trace of the HTTP headers. Tools like Fiddler and Wireshark are good (HTTPS issues aside), or manual server side logging of request and response headers.\r\n> \r\n> Safari is known to discard large cookies. How large are your typical auth cookies?\r\n\r\n@Tratcher  Here's the trace of a 302 that includes the auth cookies being set, and the redirect to the logged in path for me. When signing the user in, the claims principal is being enriched with data used by the application, but as you can see, ASP.NET is properly chunking cookies, as far as I can tell.\r\n\r\n![image](https://user-images.githubusercontent.com/791022/53021604-2d4a8600-341f-11e9-8d01-d48ca46a8b63.png)\r\n\r\n![image](https://user-images.githubusercontent.com/791022/53021746-831f2e00-341f-11e9-934b-02f5c54c9cb1.png)\r\n\r\nYou'll notice the auth cookie's SameSite setting is set to None, as an attempt for what @benaadams linked, though I don't feel it's related as that appears specific to iOS12, and not macOS."
+    },
+    {
+      "id": 465153470,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-465153470",
+      "created_at": "2019-02-19T14:37:38Z",
+      "updated_at": "2019-02-19T14:37:38Z",
+      "author": "Participant 3",
+      "body": "Expires on the cookies (from the safari dev tools) is very in the past; could it be using the Page expires as no value is given in Set-Cookie (from the fiddler trace)"
+    },
+    {
+      "id": 465219336,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-465219336",
+      "created_at": "2019-02-19T16:59:33Z",
+      "updated_at": "2019-02-19T17:06:41Z",
+      "author": "Participant 1",
+      "body": "> Expires on the cookies (from the safari dev tools) is very in the past; could it be using the Page expires as no value is given in Set-Cookie (from the fiddler trace)\r\n\r\nThat makes sense to me, but it doesn't explain the sporadic behavior of the issue. I just tested on the CookieSample from the Docs repo, and see the same result on the cookies. I will work on getting these set.\r\n\r\nhttps://github.com/aspnet/Docs/tree/master/aspnetcore/security/authentication/cookie/samples/2.x/CookieSample\r\n\r\n![image](https://user-images.githubusercontent.com/791022/53032868-5aa22e80-3435-11e9-94ee-c07f4935e40c.png)"
+    },
+    {
+      "id": 465625424,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-465625424",
+      "created_at": "2019-02-20T15:28:22Z",
+      "updated_at": "2019-02-20T15:28:22Z",
+      "author": "Participant 1",
+      "body": "Just got a report from a user that explicitly setting the auth expiration did not have an effect."
+    },
+    {
+      "id": 465691252,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-465691252",
+      "created_at": "2019-02-20T18:07:45Z",
+      "updated_at": "2019-02-20T18:07:56Z",
+      "author": "Participant 2",
+      "body": "Note the expiration should be unrelated. That 1969 date just means that it's a browser session cookie and will be removed if you close the browser.\r\n\r\nSee http://browsercookielimits.squawky.net/, Safari has the lowest total size per domain. Even chunking may not be adequate. [ITicketStore](https://github.com/aspnet/AspNetCore/blob/master/src/Security/Authentication/Cookies/src/ITicketStore.cs) can be used to mitigate size issues."
+    },
+    {
+      "id": 466043869,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466043869",
+      "created_at": "2019-02-21T15:32:10Z",
+      "updated_at": "2019-02-21T15:32:10Z",
+      "author": "Participant 1",
+      "body": "@Tratcher Thanks a lot Chris. The date bit is helpful.\r\n\r\nThis cookie limit is great info, though it's a bit out of date on Safari versions. \"Per domain\" gives me what I need for searching. \r\n\r\nI was already starting to look at ITicketStore, but my hand may be forced. Do you have any recommendations for preferred storage for cookies? I've only seen an in-memory example. I am using Redis for Session, but unsure if there's a security or implication over using this vs SQL. "
+    },
+    {
+      "id": 466047967,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466047967",
+      "created_at": "2019-02-21T15:42:28Z",
+      "updated_at": "2019-02-21T15:42:28Z",
+      "author": "Participant 2",
+      "body": "No specific recommendations. If you've got multiple servers you'll need some distributed storage like redis."
+    },
+    {
+      "id": 466147777,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466147777",
+      "created_at": "2019-02-21T20:09:45Z",
+      "updated_at": "2019-02-21T20:09:45Z",
+      "author": "Participant 1",
+      "body": "@Tratcher Hey Chris - I have everything all set up, but I'm struggling to handle the storage of the `AuthenticationTicket` into Redis. Do you have any proper guidance for this type? \r\n\r\nI'm trying to serialize the model but I'm unable.\r\n\r\n> Type 'Microsoft.AspNetCore.Authentication.AuthenticationTicket' in Assembly 'Microsoft.AspNetCore.Authentication.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60' is not marked as serializable.\r\n\r\n```\r\npublic static byte[] ToByteArray<T>(T obj)\r\n{\r\n    if (obj == null)\r\n        return null;\r\n    BinaryFormatter bf = new BinaryFormatter();\r\n    using (MemoryStream ms = new MemoryStream())\r\n    {\r\n        bf.Serialize(ms, obj);\r\n        return ms.ToArray();\r\n    }\r\n}\r\n```"
+    },
+    {
+      "id": 466149068,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466149068",
+      "created_at": "2019-02-21T20:13:39Z",
+      "updated_at": "2019-02-21T20:13:39Z",
+      "author": "Participant 2",
+      "body": "You can probobly re-use https://github.com/aspnet/AspNetCore/blob/master/src/Security/Authentication/Core/src/TicketSerializer.cs."
+    },
+    {
+      "id": 466149262,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466149262",
+      "created_at": "2019-02-21T20:14:12Z",
+      "updated_at": "2019-02-21T20:14:12Z",
+      "author": "Participant 1",
+      "body": "Just came across that after posting. Works just fine. Thanks!\r\n\r\n```\r\npublic Task RenewAsync(string key, AuthenticationTicket ticket)\r\n{\r\n    TimeSpan? expiresTimespan = null;\r\n\r\n    if (ticket.Properties.ExpiresUtc.HasValue)\r\n        expiresTimespan = ticket.Properties.ExpiresUtc.Value.Subtract(DateTimeOffset.UtcNow);\r\n\r\n    var ticketBytes = TicketSerializer.Default.Serialize(ticket);\r\n    \r\n    _cacheProvider.Set(key, ticketBytes, expiresTimespan);\r\n\r\n    return Task.CompletedTask;\r\n}\r\n```"
+    },
+    {
+      "id": 466207423,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466207423",
+      "created_at": "2019-02-21T23:14:12Z",
+      "updated_at": "2019-02-21T23:14:12Z",
+      "author": "Participant 1",
+      "body": "@Tratcher Is there a recommended best practice for generating the keys used for storage? The memory cache provider example uses a new Guid on each issue, but that's not seemingly practical. It works for a basic sign in session, but I am making use of the CookieAuthenticationEvents.ValidatePrincipal to handle refreshing the current users auth tokens when their access token is nearing expiration. I can't seem to track the call stack down, but because of the randomness of the key being generated, there seems to be a mixup between the auth cookie on the browser & what's stored in the ticket store. \r\n\r\nI'm also utilizing shared cookies between web & api applications which works great, but seems to have the same symptom I described above. \r\n\r\nIf I test by generating the key to a known & common value (ie. a user id), everything works perfectly, except I end up with a global cookie session and sign out that affects all browsers.\r\n\r\nAm I making sense?  "
+    },
+    {
+      "id": 466211284,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466211284",
+      "created_at": "2019-02-21T23:28:13Z",
+      "updated_at": "2019-02-21T23:28:13Z",
+      "author": "Participant 2",
+      "body": "I don't follow. The identifier is arbitrary but should uniquely identify a login session. Why not use a GUID?\r\n\r\nIt sounds like you're running into a race condition in ValidatePrincipal where you may be updating the same ID concurrently on two parallel requests. That would be unrelated to the actual key value. If you weren't using ITicketStore then it would be a matter of last-write-wins, whichever last cookie made it to the client would be the one used in the future. How is it different in this case?"
+    },
+    {
+      "id": 466220284,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466220284",
+      "created_at": "2019-02-22T00:07:55Z",
+      "updated_at": "2019-02-22T00:07:55Z",
+      "author": "Participant 1",
+      "body": "Ok. So it now makes sense to me that any `HttpContext.SignInAsync()` call will call `ITicketProvider.StoreAsync`. \r\n\r\nIn my ValidatePrincipal event, I am generating a new claims principal, as well as new authentication properties. The main point of this method existing is to refresh the auth properties when the access token is expiring. I have the refresh token, so I can make this happen, however, `CookieValidatePrincipalContext` only exposes `ReplacePrincipal`, which will update the claims of the current user, but not the auth properties. In effect, I think, I would perpetually have an expired access token that is continually being refresh. For this reason, I was explicitly calling SignOut/SignIn, thus the race condition you mentioned when looking up the ticket.\r\n\r\nShould I be handling expiring access tokens in a different way? To reiterate my OP, I'm using Auth0 as my identity provider, and simple Cookie authentication. No identity."
+    },
+    {
+      "id": 466221025,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466221025",
+      "created_at": "2019-02-22T00:11:33Z",
+      "updated_at": "2019-02-22T00:11:33Z",
+      "author": "Participant 2",
+      "body": "Yeah, ValidatePrincipal isn't great for that, you could end up doing a lot of redundant work. You'd be better off verifying and refreshing the tokens when you went to use them instead.\r\n\r\nNote you do not need to call SignOut for a refresh, only SignIn."
+    },
+    {
+      "id": 466306447,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466306447",
+      "created_at": "2019-02-22T07:51:05Z",
+      "updated_at": "2019-02-22T07:51:05Z",
+      "author": "Participant 4",
+      "body": "> Yeah, ValidatePrincipal isn't great for that\r\n\r\nHm - I prototyped that as well and it seems to work fine (there is one little edge case that I need to fix)\r\n\r\nhttps://github.com/leastprivilege/AspNetCoreSecuritySamples/blob/aspnetcore21/AutomaticTokenManagement/src/AspNetCoreSecurity/AutomaticTokenManagement/AutomaticTokenManagementCookieEvents.cs\r\n"
+    },
+    {
+      "id": 466425113,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466425113",
+      "created_at": "2019-02-22T14:58:27Z",
+      "updated_at": "2019-02-22T15:00:21Z",
+      "author": "Participant 1",
+      "body": "> > Yeah, ValidatePrincipal isn't great for that\r\n> \r\n> Hm - I prototyped that as well and it seems to work fine (there is one little edge case that I need to fix)\r\n> \r\n> https://github.com/leastprivilege/AspNetCoreSecuritySamples/blob/aspnetcore21/AutomaticTokenManagement/src/AspNetCoreSecurity/AutomaticTokenManagement/AutomaticTokenManagementCookieEvents.cs\r\n\r\nI forked your sample & tried to make it match my solution, but I couldn't make it fail. \r\n\r\nI have a few extras at play:\r\n- Redis backed ITicketStore\r\n- Web & Api sharing cookies \r\n\r\nApi looks for the ASP.NET Core cookie on the request, and if found, it'll use the cookie policy. When it's not found, it'll use JWT. Defaulting to cookies gives me a big benefit due to the claims enrichment I'm doing for the user. When I use JWT (mobile app), that enrichment has to be done for each request.\r\n\r\nIf I only use JWT on the API, the `SignIn` within ValidatePrincipal works fine. When using cookies, I am finding the API cookie key seems to be out of sync with web. That's as specific as I can get right now as the semantics are over my head. That's when the the `ITicketStore.RetrieveAsync` call doesn't find the ticket given the key.\r\n\r\n```\r\npublic Task<AuthenticationTicket> RetrieveAsync(string key)\r\n{\r\n    var ticketBytes = _cacheProvider.Get<byte[]>(key);\r\n    if (ticketBytes == null)\r\n        return Task.FromResult<AuthenticationTicket>(null);\r\n\r\n    var ticket = TicketSerializer.Default.Deserialize(ticketBytes);\r\n    return Task.FromResult(ticket);\r\n}\r\n```"
+    },
+    {
+      "id": 466462493,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466462493",
+      "created_at": "2019-02-22T16:43:43Z",
+      "updated_at": "2019-02-22T17:04:40Z",
+      "author": "Participant 1",
+      "body": "I refactored my expires refresh code out of the ValidatePrincipal into a new service. I ask for the access token just as I'm about to send an HTTP request to the API, except I'm still seeing the same issue. The tokens are refresh, I re-call sign in, but the API is throwing back the 401 still. It can't find the ticket. \r\n\r\nSo I added a check to see if we just refreshed the tokens (while getting them off the HTTP context), I will explicitly remove the Cookie headers from the request. This in turn causes the API to use JWT token for authorization.\r\n![image](https://user-images.githubusercontent.com/791022/53256939-a996d080-368e-11e9-8e16-7eeb2e501e7e.png)\r\n\r\nAnd this works. But I feel like I'm bending the system in a fashion that it's not meant to be, specifically with passing cookies from web to mobile. I am going to remove this. The primary intent is to be able to access the API manually (as the admin) for troubleshooting. The cookie domain setup allows me to handle this, and I'll revert back to using just JWT for auth to the API.\r\n\r\nNow that this is working, I need to get it in to users hands to see if this resolves the original issue."
+    },
+    {
+      "id": 466470950,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466470950",
+      "created_at": "2019-02-22T17:07:51Z",
+      "updated_at": "2019-02-22T17:07:51Z",
+      "author": "Participant 2",
+      "body": "That smells. You should never have to remove the cookie header. This seems more like an issue with how you've configured your auth policies. You've got so many moving parts here I don't think we can comment further without a complete example app and some repro steps."
+    },
+    {
+      "id": 466472621,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-466472621",
+      "created_at": "2019-02-22T17:12:46Z",
+      "updated_at": "2019-02-22T17:12:46Z",
+      "author": "Participant 1",
+      "body": "I understand, and agree. I will try and get a sample repro setup with the same parts.\r\n\r\nThanks for keeping an eye here."
+    },
+    {
+      "id": 467881514,
+      "url": "https://github.com/dotnet/aspnetcore/issues/7696#issuecomment-467881514",
+      "created_at": "2019-02-27T14:27:15Z",
+      "updated_at": "2019-02-27T14:27:15Z",
+      "author": "Participant 1",
+      "body": "I can confirm implementing the ITicketStore solved the problem for some versions of Safari. \r\n\r\nI'll close this for now, big thanks to all the comments. Whenever I can get around to trying to repro my cookie issue, I'll open a separate issue."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

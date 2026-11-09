@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0720-aagejejie",
+  "revision_url": "https://github.com/nengo/nengo-dl/commit/5da45781a5cea40efb89b79b2cddc61842f03478",
+  "filename": "nengo_dl/tensor_graph.py",
+  "commit": "5da45781a5cea40efb89b79b2cddc61842f03478",
+  "source_url": "https://raw.githubusercontent.com/nengo/nengo-dl/5da45781a5cea40efb89b79b2cddc61842f03478/nengo_dl/tensor_graph.py",
+  "fetched_at": "2026-11-05T06:13:07.591524+00:00",
+  "source_sha256": "cbb5c7c57d46782934ff520360413cd9877b7208f8911de34a3bf0292223884b",
+  "line_start": 415,
+  "line_end": 439,
+  "excerpt": "        ----------\n        progress : `.utils.ProgressBar`\n            Progress bar for loop construction\n        \"\"\"\n\n        def loop_condition(loop_i, n_steps, *_):\n            return loop_i < n_steps\n\n        def loop_body(loop_i, n_steps, probe_arrays, base_tensors):\n            # fill in signals.bases (note: we need to do this here because we\n            # need to use the tensors from inside the\n            # loop, not the variables in signals.saved_state)\n            # TODO: test that rebuilding multiple times works properly\n            assert len(self.signals.bases) == 0\n            for i, key in enumerate(self.signals.saved_state):\n                self.signals.bases[key] = base_tensors[i]\n            # for the parameter variables we can just use the base variable\n            # (since we'll only be reading inside the loop, not updating\n            # the variables)\n            for key in self.signals.base_params:\n                self.signals.bases[key] = self.signals.base_params[key]\n\n            for iter in range(self.unroll):\n                logger.debug(\"BUILDING ITERATION %d\", iter)\n                with tf.name_scope(\"iteration_%d\" % iter):"
+}

@@ -1,0 +1,23 @@
+{
+  "url": "https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/Socks5/server.py#L25",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "status": "partial",
+  "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+  "line_start": 13,
+  "line_end": 37,
+  "historical_evidence": true,
+  "revision": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+  "immutable_revision": true,
+  "retrieval_url": "https://raw.githubusercontent.com/Tribler/tribler/46f5abde70b44c84bfa8310febbf1ab170e982f0/Tribler/community/tunnel/Socks5/server.py",
+  "text": "    Enumeration of possible SOCKS5 connection states\n    \"\"\"\n\n    BEFORE_METHOD_REQUEST = 'BEFORE_METHOD_REQUEST'\n    METHOD_REQUESTED = 'METHOD_REQUESTED'\n    CONNECTED = 'CONNECTED'\n    PROXY_REQUEST_RECEIVED = 'PROXY_REQUEST_RECEIVED'\n    PROXY_REQUEST_ACCEPTED = 'PROXY_REQUEST_ACCEPTED'\n    TCP_RELAY = 'TCP_RELAY'\n\n\nclass SocksUDPConnection(DatagramProtocol):\n\n    def __init__(self, socksconnection, remote_udp_address):\n        self._logger = logging.getLogger(self.__class__.__name__)\n        self.socksconnection = socksconnection\n\n        if remote_udp_address != (\"0.0.0.0\", 0):\n            self.remote_udp_address = remote_udp_address\n        else:\n            self.remote_udp_address = None\n\n        self.listen_port = reactor.listenUDP(0, self)\n\n    def get_listen_port(self):",
+  "source_sha256": "3c0c818202ef34ca929de6c26de2d600c492d3151236dc6b5bc67b03c91f1a36",
+  "fetched_at": "2026-11-05T15:54:55.888020+00:00",
+  "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+  "history_query_url": "https://github.com/Tribler/tribler/commits/main/Tribler/community/tunnel/Socks5/server.py",
+  "history_response_sha256": "9aca4bbecdfaef779ecf4d10776084ca2c48a7bc0467cc6339dbeee025f2260d",
+  "history_entry_sha": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+  "history_commit_date": "2017-06-12T12:45:46.000+02:00"
+}

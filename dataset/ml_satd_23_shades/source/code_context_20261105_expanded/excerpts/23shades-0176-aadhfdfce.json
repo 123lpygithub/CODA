@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0176-aadhfdfce",
+  "revision_url": "https://github.com/aqlaboratory/rgn/commit/9856d9f9f11a488a0406197d30e67188948918e6",
+  "filename": "model/tests.py",
+  "commit": "9856d9f9f11a488a0406197d30e67188948918e6",
+  "source_url": "https://raw.githubusercontent.com/aqlaboratory/rgn/9856d9f9f11a488a0406197d30e67188948918e6/model/tests.py",
+  "fetched_at": "2026-11-05T06:12:07.100387+00:00",
+  "source_sha256": "322ee9309cbdbbd421c6ff72ae72352295f35b3935554fb957afa6580cd1f8a5",
+  "line_start": 2728,
+  "line_end": 2752,
+  "excerpt": "            m_train = RGNModel('training', c_train)\n            m_eval_wt_val = RGNModel('evaluation', c_eval_wt_val)\n\n            m_train.start([m_eval_wt_val], sess, False)\n            assign_weights(sess, w_template)\n\n            ds_expected = [{'curriculum_quantiles': [11, 21, 31, 42], 'curriculum_step': 40.0, 'max_grad': 22.979836, 'max_weight': 0.212669,    'min_grad': -475.43021, 'min_weight': -0.074623868},\n                           {'curriculum_quantiles': [13, 26, 38, 51], 'curriculum_step': 50.0, 'max_grad': 343.01083, 'max_weight': 0.2078426,   'min_grad': -17.459183, 'min_weight': -0.074623466},\n                           {'curriculum_quantiles': [16, 31, 45, 61], 'curriculum_step': 60.0, 'max_grad': 277.08871, 'max_weight': 0.084469058, 'min_grad': -1966.3207, 'min_weight': -0.46561706}]\n\n            try:\n                for d_expected in ds_expected:\n                    m_eval_wt_val.evaluate(sess) # this is needed to update loss history\n                    d_actual = m_train.diagnose(sess) # note that diagnostic evaluations consume training batches, so in total this is doing five steps.     \n                    for values_actual, values_expected in dicts_to_matched_tuples(d_actual, d_expected):\n                        self.assertAllClose(values_expected, values_actual, rtol=1e-2, atol=1e-2)\n                    m_train.train(sess)\n            finally:\n                m_train.finish(sess, save=False, close_session=False, reset_graph=False)\n\n    def testQueueSizes(self):\n        with self.test_session(use_gpu=use_gpu) as sess:    \n            m_train = RGNModel('training', c_train_template)\n            m_train.start([], sess, False)\n"
+}

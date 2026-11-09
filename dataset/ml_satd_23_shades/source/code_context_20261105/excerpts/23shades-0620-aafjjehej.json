@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0620-aafjjehej",
+  "revision_url": "https://github.com/trungnt13/odin-ai/commit/f486354047341279e434dd791005ae18502cee89",
+  "filename": "odin/visual/figures.py",
+  "commit": "f486354047341279e434dd791005ae18502cee89",
+  "source_url": "https://raw.githubusercontent.com/trungnt13/odin-ai/f486354047341279e434dd791005ae18502cee89/odin/visual/figures.py",
+  "fetched_at": "2026-11-05T06:13:26.762278+00:00",
+  "source_sha256": "6803ede7a48082328fce6dacc377c5d1cbf60141d220dcab5e5477be0098f213",
+  "line_start": 1264,
+  "line_end": 1288,
+  "excerpt": "             verticalalignment=\"center\",\n             horizontalalignment=\"center\")\n  # Turns off grid on the left Axis.\n  ax.grid(False)\n  title = \"Cnorm: %.6f\" % np.mean(cnorm) if title is None else \\\n  \"%s (Cnorm: %.6f)\" % (str(title), np.mean(cnorm))\n  ax.set_title(title, fontsize=fontsize + 2, weight='semibold')\n  # axis.tight_layout()\n  return ax\n\ndef plot_confusion_matrix(cm, labels, ax=None, fontsize=12, colorbar=False,\n                          title=None):\n  # TODO: new style for confusion matrix (using small and big dot)\n  from matplotlib import pyplot as plt\n  cmap = plt.cm.Blues\n  ax = to_axis(ax, is_3D=False)\n  # calculate F1\n  N_row = np.sum(cm, axis=-1)\n  N_col = np.sum(cm, axis=0)\n  TP = np.diagonal(cm)\n  FP = N_col - TP\n  FN = N_row - TP\n  precision = TP / (TP + FP)\n  recall = TP / (TP + FN)\n  F1 = 2 / (1 / precision + 1 / recall)"
+}

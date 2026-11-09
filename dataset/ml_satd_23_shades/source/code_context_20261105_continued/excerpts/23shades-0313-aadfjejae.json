@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0313-aadfjejae",
+  "revision_url": "https://github.com/pyro-ppl/funsor/commit/e5c7e778ad15397173956ce03e2c8c0acdcb8c63",
+  "filename": "funsor/tensor.py",
+  "commit": "e5c7e778ad15397173956ce03e2c8c0acdcb8c63",
+  "source_url": "https://raw.githubusercontent.com/pyro-ppl/funsor/e5c7e778ad15397173956ce03e2c8c0acdcb8c63/funsor/tensor.py",
+  "fetched_at": "2026-11-05T06:12:32.309055+00:00",
+  "source_sha256": "b1210a879c524de9c63d0cd8899bf4ac69e18bfebf2c73e39b7b983fe2479b97",
+  "line_start": 394,
+  "line_end": 418,
+  "excerpt": "                subs.append((name, self.new_arange(name, domain.dtype)))\n        subs = tuple(subs)\n        return substitute(x, subs)\n\n    @property\n    def backend(self):\n        if torch.is_tensor(self.data):\n            return \"torch\"\n        else:\n            return \"numpy\"\n\n\n# TODO move these registrations to backend-specific files\n@to_funsor.register(torch.Tensor)\n@to_funsor.register(np.ndarray)\n@to_funsor.register(np.generic)\ndef tensor_to_funsor(x, output=None, dim_to_name=None):\n    if not dim_to_name:\n        output = output if output is not None else reals(*x.shape)\n        result = Tensor(x, dtype=output.dtype)\n        if result.output != output:\n            raise ValueError(\"Invalid shape: expected {}, actual {}\"\n                             .format(output.shape, result.output.shape))\n        return result\n    else:"
+}

@@ -1,0 +1,23 @@
+{
+  "artifact_id": "privacy-issue-18564",
+  "source_issue_url": "https://github.com/danielsogl/awesome-cordova-plugins/issues/390",
+  "issue_snapshot_sha256": "ca422c5910492d1d0c096d1c9b0c389b6efce4ae5958bda3e91bc4e367682b9c",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/apache/cordova-plugin-contacts/pull/131",
+      "kind": "pull_request",
+      "cited_in": [
+        "body"
+      ],
+      "text": "From 0dc9d7b51a5baeac77a9dc30b2edb7cd8c628b18 Mon Sep 17 00:00:00 2001\nFrom: =?UTF-8?q?Julio=20C=C3=A9sar?= <jcesarmobile@gmail.com>\nDate: Tue, 2 Aug 2016 23:39:16 +0200\nSubject: [PATCH] Added variable to set the usage\n\n---\n README.md  | 11 +++++++++++\n plugin.xml |  5 +++++\n 2 files changed, 16 insertions(+)\n\ndiff --git a/README.md b/README.md\nindex fc614cbd..30f42e77 100644\n--- a/README.md\n+++ b/README.md\n@@ -69,6 +69,17 @@ It is also possible to install via repo url directly ( unstable )\n     cordova plugin add https://github.com/apache/cordova-plugin-contacts.git\n \n \n+### iOS Quirks\n+\n+Since iOS 10 it's mandatory to add a `NSContactsUsageDescription` entry in the info.plist.\n+\n+`NSContactsUsageDescription` describes the reason that the app accesses the user’s contacts. When the system prompts the user to allow access, this string is displayed as part of the dialog box. To add this entry you can pass the variable `CONTACTS_USAGE_DESCRIPTION` on plugin install.\n+\n+Example:\n+`cordova plugin add cordova-plugin-contacts --variable CONTACTS_USAGE_DESCRIPTION=\"your usage message\"`\n+\n+If you don't pass the variable, the plugin will add an empty string as value.\n+\n ### Firefox OS Quirks\n \n Create __www/manifest.webapp__ as described in\ndiff --git a/plugin.xml b/plugin.xml\nindex 14ec0d99..3797101a 100644\n--- a/plugin.xml\n+++ b/plugin.xml\n@@ -132,6 +132,11 @@\n             </feature>\n         </config-file>\n \n+        <preference name=\"CONTACTS_USAGE_DESCRIPTION\" default=\" \" />\n+        <config-file target=\"*-Info.plist\" parent=\"NSContactsUsageDescription\">\n+            <string>$CONTACTS_USAGE_DESCRIPTION</string>\n+        </config-file>\n+\n         <js-module src=\"www/ios/contacts.js\" name=\"contacts-ios\">\n             <merges target=\"navigator.contacts\" />\n         </js-module>\n",
+      "source_sha256": "7218b147d055d02be70b23281d4824bd40b4a7792789afa69d3f203e5fe3eaa3",
+      "fetched_at": "2026-11-05T06:21:44.557263+00:00",
+      "retrieval_url": "https://github.com/apache/cordova-plugin-contacts/pull/131.patch",
+      "status": "available",
+      "revision": "131",
+      "immutable_revision": false,
+      "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+    }
+  ]
+}

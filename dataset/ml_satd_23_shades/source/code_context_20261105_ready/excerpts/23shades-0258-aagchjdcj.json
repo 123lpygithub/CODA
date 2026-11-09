@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0258-aagchjdcj",
+  "revision_url": "https://github.com/OFAI/hub-toolbox-python3/commit/2577eca8b1b8be1b09b5650274738ce9349a2cd7",
+  "filename": "Centering.py",
+  "commit": "2577eca8b1b8be1b09b5650274738ce9349a2cd7",
+  "source_url": "https://raw.githubusercontent.com/OFAI/hub-toolbox-python3/2577eca8b1b8be1b09b5650274738ce9349a2cd7/Centering.py",
+  "fetched_at": "2026-11-05T06:12:23.168171+00:00",
+  "source_sha256": "c0ac3605163fec99bf7a95440bcf21c60722b63f486d794258a7089b9f8484ab",
+  "line_start": 32,
+  "line_end": 56,
+  "excerpt": "        d = np.zeros(n)\n        vectors_sum = self.vectors.sum(0)\n        for i in range(n):\n            d[i] = n * np.inner(self.vectors[i], vectors_sum)\n        d_sum = np.sum(d ** gamma)\n        w = (d ** gamma) / d_sum\n        vectors_mean_weighted = np.sum(w.reshape(n,1) * self.vectors, 0)\n        vectors_weighted = self.vectors - vectors_mean_weighted\n        return vectors_weighted\n        \n    def localized_centering(self, kappa:int, gamma:float = 1):\n        \"\"\"Perform localized centering.\"\"\"\n        # TODO CHECK CORRECTNESS!!\n        from hub_toolbox.HubnessAnalysis import cosine_distance\n        \n        if kappa == None:\n            kappa = 20\n            print(\"No 'kappa' defined for localized centering. \\\n                Using kappa=20 for 20 nearest neighbors.\")\n            \n        # Rescale vectors to unit length\n        v = self.vectors / np.sqrt((self.vectors ** 2).sum(-1))[..., np.newaxis]\n        \n        # for unit vectors it holds inner() == cosine()\n        sim = -(cosine_distance(v) - 1)"
+}

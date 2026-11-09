@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0816-aajgefjja",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/7c51e252cc90602c91be6df0763baab62083d159",
+  "filename": "mne/viz/_3d.py",
+  "commit": "7c51e252cc90602c91be6df0763baab62083d159",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/7c51e252cc90602c91be6df0763baab62083d159/mne/viz/_3d.py",
+  "fetched_at": "2026-11-05T06:13:59.342925+00:00",
+  "source_sha256": "27cf2fe7694f6a14fa0a6f94303af6847de4a06f2c5a7a6e1f897f0c8070bf8a",
+  "line_start": 403,
+  "line_end": 427,
+  "excerpt": "    meg_rrs, meg_tris = list(), list()\n    hpi_loc = list()\n    ext_loc = list()\n    car_loc = list()\n    eeg_loc = list()\n    eegp_loc = list()\n    if len(eeg_sensors) > 0 and (ch_type is None or ch_type == 'eeg'):\n        eeg_loc = np.array([info['chs'][k]['loc'][:3]\n                           for k in pick_types(info, meg=False, eeg=True,\n                                               ref_meg=False)])\n        if len(eeg_loc) > 0:\n            eeg_loc = apply_trans(head_trans, eeg_loc)\n            # XXX do projections here if necessary\n            if 'projected' in eeg_sensors:\n                eegp_loc = _project_onto_surface(eeg_loc, surfs['head'],\n                                                 project_rrs=True)[2]\n            if 'original' not in eeg_sensors:\n                eeg_loc = list()\n        else:\n            # only warn if EEG explicitly requested, or EEG channels exist but\n            # no locations are provided\n            if (ch_type is not None or\n                    len(pick_types(info, meg=False, eeg=True)) > 0):\n                warn('EEG electrode locations not found. Cannot plot EEG '\n                     'electrodes.')"
+}

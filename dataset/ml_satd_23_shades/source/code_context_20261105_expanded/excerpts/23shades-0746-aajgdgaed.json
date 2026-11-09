@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0746-aajgdgaed",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/691f02417b3628923cb83978004d807d208df588",
+  "filename": "mne/simulation/raw.py",
+  "commit": "691f02417b3628923cb83978004d807d208df588",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/691f02417b3628923cb83978004d807d208df588/mne/simulation/raw.py",
+  "fetched_at": "2026-11-05T06:13:46.458263+00:00",
+  "source_sha256": "0ceb20c2b06b3190fa075a5efb280245c0b82661d6e300bade53875080d68c37",
+  "line_start": 110,
+  "line_end": 134,
+  "excerpt": "    if not np.allclose(info['sfreq'], 1. / stc.tstep):\n        raise ValueError('stc and info must have same sample rate')\n    if len(stc.times) <= 2:  # to ensure event encoding works\n        raise ValueError('stc must have at least three time points')\n\n    # Only use cHPI if custom frequency is in HPI information\n    if chpi and np.all(['custom_ref' in x.keys()\n                        for x in info['hpi_meas'][0]['hpi_coils']]):\n        raise ValueError(\"`custom_ref` must be in \"\n                         \"info['hpi_meas'][0]['hpi_coils'] to use cHPI\")\n\n    if len(pick_types(info, meg=False, stim=True)) == 0:\n        # TODO: To further functionality, eventually expand raw object with\n        #     this channel if it doesn't exist\n        raise ValueError('At least one stim channel must be present to '\n                         'record events.')\n\n    rng = check_random_state(random_state)\n    if interp not in ('cos2', 'linear', 'zero'):\n        raise ValueError('interp must be \"cos2\", \"linear\", or \"zero\"')\n\n    if head_pos is None:  # use pos from file\n        dev_head_ts = [info['dev_head_t']] * 2\n        offsets = np.array([0, len(times)])\n        interp = 'zero'",
+  "match_policy": "unique-release-normalized-v2"
+}

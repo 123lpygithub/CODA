@@ -1,0 +1,114 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-7152",
+  "issue_url": "https://github.com/prebid/prebid-server/issues/490",
+  "source_issue_url": "https://github.com/prebid/prebid-server/issues/490",
+  "api_url": "https://api.github.com/repos/prebid/prebid-server/issues/490",
+  "title": "Possible Data Leakage Through AMP Load Cookie iFrame",
+  "body": "Just checking on this. It seems that the AMP Cookie Sync iFrame is loading against all possible bidders irrespective of whether they're being used on the page. In the two examples below e-planning and conversant are dropping cookies despite not being bidders.\r\n\r\nThis would breach GDPR where the data is neither being used and presumably consent would not have been received to do this.\r\n\r\nI don't know if it's possible but it would seem that the possible solution may be to pass bidders through to the cookie sync in url vars. If my observations are correct.\r\n\r\n<img width=\"1237\" alt=\"screen shot 2018-05-02 at 18 01 49\" src=\"https://user-images.githubusercontent.com/6436641/39537935-0006f688-4e33-11e8-9737-af06bb32132e.png\">\r\n<img width=\"1238\" alt=\"screen shot 2018-05-02 at 18 01 11\" src=\"https://user-images.githubusercontent.com/6436641/39537936-00259124-4e33-11e8-98fc-7bfd7a588271.png\">\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-05-02T17:05:46Z",
+  "updated_at": "2018-05-16T10:59:23Z",
+  "state": "closed",
+  "closed_at": "2018-05-16T10:59:22Z",
+  "issue_fetched_at": "2026-10-19T03:11:53.299066+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T03:11:54.740491+00:00"
+  ],
+  "expected_comment_count": 11,
+  "retrieved_comment_count": 11,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 386053199,
+      "url": "https://github.com/prebid/prebid-server/issues/490#issuecomment-386053199",
+      "created_at": "2018-05-02T17:17:02Z",
+      "updated_at": "2018-05-02T17:17:02Z",
+      "author": "Participant 2",
+      "body": "That's a really good catch!\r\n\r\n@jaiminpanchal27, @mkendall07, @jsnellbaker ... thoughts?"
+    },
+    {
+      "id": 386085051,
+      "url": "https://github.com/prebid/prebid-server/issues/490#issuecomment-386085051",
+      "created_at": "2018-05-02T19:00:06Z",
+      "updated_at": "2018-05-02T19:00:06Z",
+      "author": "Participant 3",
+      "body": "@dbemiller https://github.com/prebid/prebid-universal-creative/blob/master/src/cookieSync.js#L97\r\n"
+    },
+    {
+      "id": 386133591,
+      "url": "https://github.com/prebid/prebid-server/issues/490#issuecomment-386133591",
+      "created_at": "2018-05-02T21:54:15Z",
+      "updated_at": "2018-05-02T21:54:15Z",
+      "author": "Participant 4",
+      "body": "it looks like AMP is integrating some kind of consent framework. We'll need to look into that and see if it's possible to pass consent data into PBS. https://github.com/ampproject/amphtml/issues/13716"
+    },
+    {
+      "id": 386342428,
+      "url": "https://github.com/prebid/prebid-server/issues/490#issuecomment-386342428",
+      "created_at": "2018-05-03T15:48:57Z",
+      "updated_at": "2018-05-03T15:48:57Z",
+      "author": "Participant 2",
+      "body": "@mkendall07  I dove through AMP a bit to understand the `amp-consent` tag, and how it relates to `amp-ad` and `amp-iframe`. The former is used for PBS auctions, and the latter for PBS cookie syncs.\r\n\r\nHere are some highlights:\r\n\r\n1. [This comment](https://github.com/ampproject/amphtml/issues/13716#issuecomment-386115655) says that the `amp-consent` tag only exposes [an enum value](https://github.com/ampproject/amphtml/blob/master/extensions/amp-consent/customizing-extension-behaviors-on-consent.md#advanced-blocking-behaviors) to other elements. There won't be enough info there for us to make bidder-specific decisions. \r\n\r\n2. Consent status [is available to `amp-ad` extensions](https://github.com/ampproject/amphtml/issues/14921), but `amp-iframe` ones are a [work in progress](https://github.com/ampproject/amphtml/issues/14877)... so we couldn't use it in our `amp-iframe` yet even if we wanted to.\r\n\r\n3. We _may_ be able to pass this flag into the actual `auction` call, depending on the ad network being used. `amp-ad` implementations can define [their own macros](https://github.com/ampproject/amphtml/blob/master/extensions/amp-a4a/rtc-documentation.md#fast-fetch-implementation-defined-macros), which we could then encode into [our vendor URL](https://github.com/ampproject/amphtml/blob/master/extensions/amp-a4a/0.1/callout-vendors.js#L45). I doubt any ad networks are doing this yet, so we would have to submit PRs to the networks we care about, or convince them. As an example, the doubleclick code is [here](https://github.com/ampproject/amphtml/blob/master/extensions/amp-ad-network-doubleclick-impl/0.1/amp-ad-network-doubleclick-impl.js#L716)"
+    },
+    {
+      "id": 386345847,
+      "url": "https://github.com/prebid/prebid-server/issues/490#issuecomment-386345847",
+      "created_at": "2018-05-03T15:59:23Z",
+      "updated_at": "2018-05-03T16:00:00Z",
+      "author": "Participant 2",
+      "body": "@gramorris I'm not a GDPR expert, so... a question about this:\r\n\r\n> I don't know if it's possible but it would seem that the possible solution may be to pass bidders through to the cookie sync in url vars. If my observations are correct.\r\n\r\nI thought that GDPR required users to give their consent to _each company_ who wanted to use their personal info. If we added query string param support for bidders, how would the publisher [setting up their AMP page](http://prebid.org/dev-docs/show-prebid-ads-on-amp-pages.html#amp-content-page) know which bidders the user had consented to?"
+    },
+    {
+      "id": 386348450,
+      "url": "https://github.com/prebid/prebid-server/issues/490#issuecomment-386348450",
+      "created_at": "2018-05-03T16:06:57Z",
+      "updated_at": "2018-05-03T16:06:57Z",
+      "author": "Participant 1",
+      "body": "Yeah you're right, that doesn't satisfy GDPR.\r\n\r\nOn the consent flags in the amp implementation I don't think that's fit for purpose yet. We've just got to the testing stage now but I don't think there's the ability (there should be and hopefully will be) to get optional consent for multiple vendors and have separate consent flags for each.\r\n\r\nGoogle are selling the AMP solution so I'm assuming they intend to have it complete at some point."
+    },
+    {
+      "id": 386392089,
+      "url": "https://github.com/prebid/prebid-server/issues/490#issuecomment-386392089",
+      "created_at": "2018-05-03T18:27:11Z",
+      "updated_at": "2018-05-04T17:17:54Z",
+      "author": "Participant 2",
+      "body": "Actually... I may have spoken too soon here.\r\n\r\n[This Issue](https://github.com/ampproject/amphtml/issues/14877) is making sure that `amp-consent` info can be seen from `amp-iframe` and `amp-ad` tags.\r\n\r\nThe [amp-consent docs](https://www.ampproject.org/docs/reference/components/amp-consent) say that the tag only supports a single `consent` ID instance (for now), and @mkendall07 found an [amp-story-consent tag PR](https://github.com/ampproject/amphtml/pull/15062) opened just yesterday. Note the `vendors` list in the example:\r\n\r\n```\r\n“story-consent”: {\r\n         “title”: \"Foo\",\r\n         “message”: \"Bar\",\r\n         “vendors”: [\"Item 1\", \"Item 2\", \"Item 3\", \"Item 4\"],\r\n         “color”: \"#0379c4\"\r\n     }\r\n```\r\n\r\nAll that in mind: it seems like their strategy is for publishers to use a single Consent instance/UI, and list all the vendors who they plan to share data with in their consent modal.\r\n\r\nIf that's all accurate, then it seems like we _could_ pass query strings, the way you suggested. You could do the following\r\n\r\n```\r\n{\r\n  \"consents\": {\r\n    \"some-id\": {\r\n      \"checkConsentHref\": \"http://path.to.your/amp_consent_url\",\r\n      \"promptUI\": \"consent-ui\"\r\n    }\r\n  }\r\n}\r\n```\r\n\r\nAnd then make sure that the `consent-ui` element lists off the PBS Host company and all the Bidders who you plan to sync.\r\n\r\nWe could enhance `/cookie_sync` to allow Bidders as arguments, as well as in query params to `cookieSync` script that @jaiminpanchal27 linked. It would then be up to the Publisher to make sure they include any Bidders who they drop cookie syncs for in their consent UI."
+    },
+    {
+      "id": 388043092,
+      "url": "https://github.com/prebid/prebid-server/issues/490#issuecomment-388043092",
+      "created_at": "2018-05-10T12:46:56Z",
+      "updated_at": "2018-05-10T12:47:58Z",
+      "author": "Participant 2",
+      "body": "I was researching stuff for #501 (similar issue in non-AMP pages), and found that the IAB defines a spec for CMPs. These manage consent data across pages, and have some standards for use in iframes:\r\n\r\n- [Determine if a CMP is Present](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework/blob/master/CMP%20JS%20API%20v1.1%20Final.md#how-can-callers-determine-if-there-is-a-cmp-present-)\r\n- [Calling the CMP API from an iframe](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework/blob/master/CMP%20JS%20API%20v1.1%20Final.md#how-can-vendors-that-use-iframes-call-the-cmp-api-from-an-iframe-)\r\n\r\nIf there's some way to load your CMP onto an AMP page and we can find a way to get the consent info into it, this would be a much better solution."
+    },
+    {
+      "id": 388428056,
+      "url": "https://github.com/prebid/prebid-server/issues/490#issuecomment-388428056",
+      "created_at": "2018-05-11T17:17:25Z",
+      "updated_at": "2018-05-11T17:17:25Z",
+      "author": "Participant 5",
+      "body": "@dbemiller, Vamsee from the AMP team here. \r\n\r\n>  It would then be up to the Publisher to make sure they include any Bidders who they drop cookie syncs for in their consent UI.\r\n\r\nThis is exactly the assumption under which <amp-consent> is currently developed. Having said that we are looking at supporting per vendor, per purpose based consent post May 25th if that's something publisher absolutely request. "
+    },
+    {
+      "id": 389164866,
+      "url": "https://github.com/prebid/prebid-server/issues/490#issuecomment-389164866",
+      "created_at": "2018-05-15T13:23:43Z",
+      "updated_at": "2018-05-15T13:23:43Z",
+      "author": "Participant 2",
+      "body": "@jasti Thanks for the details Vamsee.\r\n\r\nI did a bit more research, and I don't think [AMP's localstorage scheme](https://github.com/ampproject/amphtml/issues/13716) will integrate well with the IAB's \r\n [Transparency and Consent framework](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework). In particular, it's very difficult (if not impossible) to implement [the CMP APIs](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework/blob/master/CMP%20JS%20API%20v1.1%20Final.md#what-api-will-need-to-be-provided-by-the-cmp-) given the state: `amp-consent:${consentInstanceId}: true/false`.\r\n\r\nSo... I don't think it's possible for publishers using the Prebids to be able to share the user's consent between AMP and non-AMP pages. All that in mind, I logged https://github.com/prebid/prebid-universal-creative/issues/19 to add the query params and update the AMP docs. Once closed, publishers will need to update their `amp-iframe` tags to send in the query params of the bidders they want to sync.\r\n\r\nSince Prebid Server's `/cookie_sync` endpoint [already accepts a list of Bidders to sync](https://github.com/prebid/prebid-server/blob/master/docs/endpoints/cookieSync.md), I don't think there's any more work to do for AMP in this project.\r\n\r\n@gramorris please close this and follow https://github.com/prebid/prebid-universal-creative/issues/19 if you feel like this sufficiently addresses your concerns."
+    },
+    {
+      "id": 389479248,
+      "url": "https://github.com/prebid/prebid-server/issues/490#issuecomment-389479248",
+      "created_at": "2018-05-16T10:59:22Z",
+      "updated_at": "2018-05-16T10:59:22Z",
+      "author": "Participant 1",
+      "body": "@dbemiller @jasti \r\n\r\nThanks I'll close this, in the immediate term with the amp-consent limitations I'd accept this as the solution. We have a non-optimal solution to ensure we have some level of consent on AMP pages."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

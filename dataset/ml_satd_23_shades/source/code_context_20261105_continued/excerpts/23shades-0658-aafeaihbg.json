@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:465569f94caa6b1def67e26aac13e714a4fb4852/raw/",
+  "source_sha256": "4bfb7c681b49c5e4d20bad4116d1571f84145ecb35d7ecc8f95f3ea21df4fc85",
+  "fetched_at": "2026-11-05T06:43:18.911874+00:00",
+  "archive_directory": "7a7e43e659893b4c93dc3581e1f8cc21bd993d19",
+  "git_blob_sha1": "465569f94caa6b1def67e26aac13e714a4fb4852",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/c83ca25a8ff3691f5d55968969e3e38e6b80b5b4/",
+  "artifact_id": "23shades-0658-aafeaihbg",
+  "revision_url": "https://github.com/AKSHAYUBHAT/DeepVideoAnalytics/commit/c83ca25a8ff3691f5d55968969e3e38e6b80b5b4",
+  "filename": "yolo/yad2k/models/keras_yolo.py",
+  "commit": "c83ca25a8ff3691f5d55968969e3e38e6b80b5b4",
+  "line_start": 368,
+  "line_end": 392,
+  "excerpt": "    Returns\n    -------\n    detectors_mask : array\n        0/1 mask for detectors in [conv_height, conv_width, num_anchors, 1]\n        that should be compared with a matching ground truth box.\n    matching_true_boxes: array\n        Same shape as detectors_mask with the corresponding ground truth box\n        adjusted for comparison with predicted parameters at training time.\n    \"\"\"\n    height, width = image_size\n    num_anchors = len(anchors)\n    # Downsampling factor of 5x 2-stride max_pools == 32.\n    # TODO: Remove hardcoding of downscaling calculations.\n    assert height % 32 == 0, 'Image sizes in YOLO_v2 must be multiples of 32.'\n    assert width % 32 == 0, 'Image sizes in YOLO_v2 must be multiples of 32.'\n    conv_height = height // 32\n    conv_width = width // 32\n    num_box_params = true_boxes.shape[1]\n    detectors_mask = np.zeros(\n        (conv_height, conv_width, num_anchors, 1), dtype=np.float32)\n    matching_true_boxes = np.zeros(\n        (conv_height, conv_width, num_anchors, num_box_params),\n        dtype=np.float32)\n\n    for box in true_boxes:",
+  "match_policy": "unique-release-normalized-v2"
+}

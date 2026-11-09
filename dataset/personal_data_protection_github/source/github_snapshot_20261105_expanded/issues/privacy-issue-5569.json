@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5569",
+  "issue_url": "https://github.com/ushahidi/platform/issues/3341",
+  "source_issue_url": "https://github.com/ushahidi/platform/issues/3341",
+  "api_url": "https://api.github.com/repos/ushahidi/platform/issues/3341",
+  "title": "Research Twitter current usage, consider removal for new users",
+  "body": "- We believe the right to be forgotten wins here over the right to save the data (that should not have been saved)\r\n- We are deleting all messages and blanking out post content and post.title where they match the tweet\r\n- We need to notify the users of the twittter datasource so they know this is coming\r\n- We can do this with a migration since it will apply to everyone who has used the Twitter datasource at any point\r\n     - Messages.message will be blanked out for tweets\r\n     - Posts.content will be blanked out _when_ it matches the tweet exactly. \r\n     - Posts.title will be replaced with `From twittter on {date}`  _when_ it matches the tweet exactly. \r\n",
+  "author": "Participant 1",
+  "created_at": "2018-10-15T20:22:07Z",
+  "updated_at": "2019-06-18T13:40:37Z",
+  "state": "closed",
+  "closed_at": "2018-10-30T16:03:48Z",
+  "issue_fetched_at": "2026-10-18T15:09:56.090800+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T15:09:57.433794+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 430039934,
+      "url": "https://github.com/ushahidi/platform/issues/3341#issuecomment-430039934",
+      "created_at": "2018-10-15T22:45:58Z",
+      "updated_at": "2018-10-15T22:45:58Z",
+      "author": "Participant 2",
+      "body": "Quick summary from Slack (without details because this is a public issue)\r\n\r\n- Only about 30 paid or grassroots deployments use Twitter at all\r\n- Once we ignore draft posts, it gets down to just 6 deployments with a handful of posts\r\n- Unpaid deployments will get archived if they don't upgrade soon\r\n\r\nI think this means that a lot of the issue with old Twitter data will go away once free (aka basic) deployments start getting turned off when they don't upgrade.\r\n\r\nFor the remainder of them:\r\n- Those we own, we could clean out the twitter data manually if needed\r\n- The others we could reach out to and ask if we can remove twitter posts\r\n\r\nThe easiest solution then for new deployments would be to disable the Twitter data source entirely. "
+    },
+    {
+      "id": 431889620,
+      "url": "https://github.com/ushahidi/platform/issues/3341#issuecomment-431889620",
+      "created_at": "2018-10-22T16:34:50Z",
+      "updated_at": "2018-10-22T16:34:50Z",
+      "author": "Participant 3",
+      "body": "@willdoran can you verify this is correct, from our chat last friday ? \r\n- We believe the right to be forgotten wins here over the right to save the data (that should not have been saved)\r\n- We are deleting all messages and blanking out post content and post.title where they match the tweet\r\n- We need to notify the users of the twittter datasource so they know this is coming \r\n- We can do this with a migration since it will apply to everyone who has used the Twitter datasource at any point\r\n\r\nI'll send a PR in a bit if that's the case."
+    },
+    {
+      "id": 431891491,
+      "url": "https://github.com/ushahidi/platform/issues/3341#issuecomment-431891491",
+      "created_at": "2018-10-22T16:41:05Z",
+      "updated_at": "2018-10-22T16:41:05Z",
+      "author": "Participant 1",
+      "body": "@rowasc I agree with these but we need to check with @aoduor to make sure it's ok and how to communicate it. We should replace title with something like From Twitter and a date it was created.\r\n"
+    },
+    {
+      "id": 431894455,
+      "url": "https://github.com/ushahidi/platform/issues/3341#issuecomment-431894455",
+      "created_at": "2018-10-22T16:50:40Z",
+      "updated_at": "2018-10-22T16:50:40Z",
+      "author": "Participant 3",
+      "body": "Ah yea Agree, `From twitter on {date}` maybe ? \r\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

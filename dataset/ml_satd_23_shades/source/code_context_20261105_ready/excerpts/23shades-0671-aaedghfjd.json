@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0671-aaedghfjd",
+  "revision_url": "https://github.com/menpo/menpo/commit/1da190d97fb2530b7c75e0ce208a2d728e2f9a04",
+  "filename": "pybug/lucaskanade/image/base.py",
+  "commit": "1da190d97fb2530b7c75e0ce208a2d728e2f9a04",
+  "source_url": "https://raw.githubusercontent.com/menpo/menpo/1da190d97fb2530b7c75e0ce208a2d728e2f9a04/pybug/lucaskanade/image/base.py",
+  "fetched_at": "2026-11-05T06:13:36.479456+00:00",
+  "source_sha256": "5b2776151a5eb5a86856893980aeb333c8e9489c78d647ea6cb9347d78274eaf",
+  "line_start": 25,
+  "line_end": 49,
+  "excerpt": "        error = self.eps + 1\n\n        # Forward Additive Algorithm\n        while self.n_iters < (max_iters - 1) and error > self.eps:\n            # Compute warped image with current parameters\n            IWxp = self._warp(self.image, self.template,\n                              self.optimal_transform)\n\n            # Compute the Jacobian of the warp\n            dW_dp = self.optimal_transform.jacobian(\n                self.template.mask.true_indices)\n\n            # TODO: rename kwarg \"forward\" to \"forward_additive\"\n            # Compute steepest descent images, VI_dW_dp\n            self._J = self.residual.steepest_descent_images(\n                self.image, dW_dp, forward=(self.template,\n                                            self.optimal_transform,\n                                            self._warp))\n\n            # Compute Hessian and inverse\n            self._H = self.residual.calculate_hessian(self._J)\n\n            # Compute steepest descent parameter updates\n            sd_delta_p = self.residual.steepest_descent_update(\n                self._J, self.template, IWxp)",
+  "match_policy": "unique-release-normalized-v2"
+}

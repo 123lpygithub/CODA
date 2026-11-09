@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0451-aaifgfeag",
+  "revision_url": "https://github.com/OpenMined/PySyft/commit/fd836005d89d3204fe299e96846ab0beff1383c8",
+  "filename": "syft/core/frameworks/torch/tensor.py",
+  "commit": "fd836005d89d3204fe299e96846ab0beff1383c8",
+  "source_url": "https://raw.githubusercontent.com/OpenMined/PySyft/fd836005d89d3204fe299e96846ab0beff1383c8/syft/core/frameworks/torch/tensor.py",
+  "fetched_at": "2026-11-05T06:12:56.950703+00:00",
+  "source_sha256": "be9ee9bb02dce0665c79d496d7c20102e3490f1e7dddb3ea23df5936d4917605",
+  "line_start": 1329,
+  "line_end": 1353,
+  "excerpt": "        return gp_response\n\n    def cumsum(self, *args, **kwargs):\n        gp_response = self.child.cumsum(*args, **kwargs) % spdz.field\n        return gp_response\n\n    def __mul__(self, other):\n        if(isinstance(other, _SPDZTensor)):\n            workers = list(self.shares.child.pointer_tensor_dict.keys())\n            if torch_utils.is_variable(self.torch_type):\n                gp_response = self*1\n                gp_response.data = spdz.spdz_mul(self.data.shares, other.data.shares, workers)\n                #TODO: and the grad ?\n            else:\n                gp_response = spdz.spdz_mul(self.shares, other.shares, workers)\n        else:\n            gp_response = self.shares * other\n        return gp_response\n\n    def mm(self, other):\n        workers = list(self.shares.child.pointer_tensor_dict.keys())\n        gp_response = spdz.spdz_matmul(self.shares, other.shares, workers)\n        return gp_response\n\n    def __matmul__(self, other):"
+}

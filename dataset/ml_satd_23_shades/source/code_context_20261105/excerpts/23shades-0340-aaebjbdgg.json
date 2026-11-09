@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0340-aaebjbdgg",
+  "revision_url": "https://github.com/alan-turing-institute/sktime/commit/7bba5e701ad58bbc3c62d6c703155a8afa2e507b",
+  "filename": "sktime/highlevel/tasks.py",
+  "commit": "7bba5e701ad58bbc3c62d6c703155a8afa2e507b",
+  "source_url": "https://raw.githubusercontent.com/alan-turing-institute/sktime/7bba5e701ad58bbc3c62d6c703155a8afa2e507b/sktime/highlevel/tasks.py",
+  "fetched_at": "2026-11-05T06:12:36.133822+00:00",
+  "source_sha256": "f249d141feaf2680d6ec02224ce1402f96561516296076d23421174dc7894291",
+  "line_start": 70,
+  "line_end": 94,
+  "excerpt": "        This method is especially useful in orchestration where metadata may not be\n        available when specifying the task.\n\n        Parameters\n        ----------\n        metadata : pandas.DataFrame\n            Metadata container\n\n        Returns\n        -------\n        self : an instance of self\n        \"\"\"\n        # TODO replace whole pandas data container as input argument with separated metadata container\n\n        # only set metadata if metadata is not already set, otherwise raise error\n        if self._metadata is not None:\n            raise AttributeError('Metadata is already set and can only be set once, create a new task for different '\n                                 'metadata')\n\n        # check for consistency of information provided in task with given metadata\n        self.check_data_compatibility(metadata)\n\n        # set default feature information (all columns but target) using metadata\n        if self.features is None:\n            self._features = metadata.columns.drop(self.target)"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0741-aaigbchde",
+  "revision_url": "https://github.com/OpenMined/PySyft/commit/40953e644e858cc3a4fefca1895694b455ed6bd0",
+  "filename": "tests/syft/lib/torch/nn/parameter/parameter_remote_method_api_suite_test.py",
+  "commit": "40953e644e858cc3a4fefca1895694b455ed6bd0",
+  "source_url": "https://raw.githubusercontent.com/OpenMined/PySyft/40953e644e858cc3a4fefca1895694b455ed6bd0/tests/syft/lib/torch/nn/parameter/parameter_remote_method_api_suite_test.py",
+  "fetched_at": "2026-11-05T06:13:45.748822+00:00",
+  "source_sha256": "dbd6a72966c6d2d1ffb961225e2a6590499edd52093d9c0db99d661ccd747bb5",
+  "line_start": 199,
+  "line_end": 223,
+  "excerpt": "    t_type = TORCH_STR_DTYPE[tensor_type]\n\n    # Step 3: Create the object we're going to call a method on\n    # NOTE: we need a second copy because some methods mutate tensor before we send\n    self_tensor, self_tensor_copy = (\n        th.nn.Parameter(th.tensor(self_tensor, dtype=t_type)),\n        th.nn.Parameter(th.tensor(self_tensor, dtype=t_type)),\n    )\n\n    # Copy the UID over so that its easier to see they are supposed to be the same obj\n    self_tensor_copy.id = self_tensor.id  # type: ignore\n\n    # TODO: This needs to be enforced to something more specific\n    args: Any\n\n    # Step 4: Create the arguments we're going to pass the method on\n    if _args == \"None\":\n        args = None\n    elif _args == \"self\":\n        args = [th.nn.Parameter(self_tensor)]\n    elif _args == \"0\":\n        args = 0\n    elif _args == \"1\":\n        args = 1\n    elif _args == \"[0]\":"
+}

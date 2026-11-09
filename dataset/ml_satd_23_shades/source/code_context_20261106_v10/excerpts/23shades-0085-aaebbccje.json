@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0085-aaebbccje",
+  "revision_url": "https://github.com/Calysto/conx/commit/b71d6b9f870a3e57c8417e7e763bb3516783f4ae",
+  "filename": "conx/__init__.py",
+  "commit": "b71d6b9f870a3e57c8417e7e763bb3516783f4ae",
+  "source_url": "https://raw.githubusercontent.com/Calysto/conx/b71d6b9f870a3e57c8417e7e763bb3516783f4ae/conx/__init__.py",
+  "fetched_at": "2026-11-05T06:11:52.093693+00:00",
+  "source_sha256": "ad9653b43f087075dc129e58a09c95cbaee99bc8fd16e428882ca364e8b77178",
+  "line_start": 313,
+  "line_end": 332,
+  "excerpt": "            self.context_layer[i].set_value(value)\n\n    def update_weights(self):\n        \"\"\"\n        Returns [(weights, Theano update function), ...]\n        \"\"\"\n        updates = super().update_weights()\n        # Hidden layers:\n        for i in range(len(self.context_layer)):\n            updates.append(\n                (self.context_layer[i], self.layer[i])\n            )\n            # FIXME: can I backprop error through both\n            # context_weights and weights?\n            updates.append(\n                (self.context_weights[i],\n                 self.compute_delta_weights(self.compute_error,\n                                            self.context_weights[i]))\n            )\n        return updates"
+}

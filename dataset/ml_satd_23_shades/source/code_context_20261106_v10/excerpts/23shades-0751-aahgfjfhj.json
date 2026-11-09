@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0751-aahgfjfhj",
+  "revision_url": "https://github.com/yzhao062/pyod/commit/e156ae724ccd4f6cd5060a658684aeb3c3c203bc",
+  "filename": "pyod/test/test_pca.py",
+  "commit": "e156ae724ccd4f6cd5060a658684aeb3c3c203bc",
+  "source_url": "https://raw.githubusercontent.com/yzhao062/pyod/e156ae724ccd4f6cd5060a658684aeb3c3c203bc/pyod/test/test_pca.py",
+  "fetched_at": "2026-11-05T06:13:47.225136+00:00",
+  "source_sha256": "3e768e7ea0d5658a23ae65dcaa962a58b61ea00e29897d820063e4c56714dc8b",
+  "line_start": 55,
+  "line_end": 79,
+  "excerpt": "            self.assertRaises(AttributeError,\n                              'selected_w_components_ is not set')\n\n    def test_train_scores(self):\n        assert_equal(len(self.clf.decision_scores_), self.X_train.shape[0])\n\n    def test_prediction_scores(self):\n        pred_scores = self.clf.decision_function(self.X_test)\n\n        # check score shapes\n        assert_equal(pred_scores.shape[0], self.X_test.shape[0])\n\n        # TODO: turn off performance check before a better data generation\n        # method is available.\n        # check performance\n        # assert_greater(roc_auc_score(self.y_test, pred_scores), self.roc_floor)\n\n    def test_prediction_labels(self):\n        pred_labels = self.clf.predict(self.X_test)\n        assert_equal(pred_labels.shape, self.y_test.shape)\n\n    def test_prediction_proba(self):\n        pred_proba = self.clf.predict_proba(self.X_test)\n        assert_greater_equal(pred_proba.min(), 0)\n        assert_less_equal(pred_proba.max(), 1)"
+}

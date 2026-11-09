@@ -1,0 +1,242 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4799",
+  "issue_url": "https://github.com/netdata/netdata/issues/5577",
+  "source_issue_url": "https://github.com/netdata/netdata/issues/5577",
+  "api_url": "https://api.github.com/repos/netdata/netdata/issues/5577",
+  "title": ".opt-out-from-anonymous-statistics still leaks referrer",
+  "body": "<!---\r\nWhen creating a bug report please:\r\n- Verify first that your issue is not already reported on GitHub\r\n- Test if the latest release and master branch are affected too.\r\n- Provide a clear and concise description of what the bug is in \"Bug report \r\n  summary\" section.\r\n- Try to provide as much information about your environment (OS distribution,\r\n  running in container, etc.) as possible to allow us reproduce this bug faster.\r\n- Write which component is affected. We group our components the same way our\r\n  code is structured so basically:\r\n  component name = dir in top level directory of repository\r\n- Describe how you found this bug and how we can reproduce it. Preferable with\r\n  a minimal test-case scenario. You can paste gist.github.com links for larger\r\n  files\r\n- Provide a clear and concise description of what you expected to happen.\r\n-->\r\n\r\n##### Bug report summary\r\nCreating the file `.opt-out-from-anonymous-statistics ` to opt-out telemetry seems to have no effect.\r\n\r\nI have put the file in `/opt/netdata/etc/netdata/.opt-out-from-anonymous-statistics`, `/etc/netdata/.opt-out-from-anonymous-statistics`\r\n\r\nI tried to write `all` in the file as specified in a documentation I read but I cannot find anymore.\r\nFile is permissioned to netdata user.\r\n\r\nI am aware of the documentation here: https://docs.netdata.cloud/docs/anonymous-statistics/ \r\n\r\nWhatever I do, i see the call to `https://www.googletagmanager.com/gtm.js?` \r\n\r\nAdditionally, i'd like to report it here for telemetry as well, I also see a call to `https://netdata.cloud/account/sso-agent`, which is not expected as I already run I run my own registry to avoid calls to my-netdata.io\r\n\r\n##### OS / Environment\r\nCoreOS Stable\r\n\r\n##### Netdata version (ouput of `netdata -V`)\r\nv1.12.1\r\n\r\n##### Component Name\r\nnetdata \r\n\r\n##### Steps To Reproduce\r\nInstall netdata 1.12.1 with release page run.gz on CoreOs Stable, try to disable telemetry as per documentation\r\n\r\n##### Expected behavior\r\nI expect netdata to respect my configuration options",
+  "author": "Participant 1",
+  "created_at": "2019-03-07T17:36:37Z",
+  "updated_at": "2021-03-06T04:48:03Z",
+  "state": "closed",
+  "closed_at": "2020-10-30T14:10:21Z",
+  "issue_fetched_at": "2026-10-19T05:06:09.536880+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T05:06:11.003120+00:00"
+  ],
+  "expected_comment_count": 27,
+  "retrieved_comment_count": 27,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 470868873,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-470868873",
+      "created_at": "2019-03-08T09:46:43Z",
+      "updated_at": "2019-03-08T09:46:43Z",
+      "author": "Participant 2",
+      "body": "What you see has to do with how Google Tag Manager works. As described in https://docs.netdata.cloud/docs/anonymous-statistics/#google-tag-manager\r\n> We have configured GTM to trigger the tag only when the variable anonymous_statistics is true. The value of this variable is controlled via the opt-out mechanism.\r\n\r\nYou may see a call to GTM when you have the file, but nothing is sent to Google analytics. There are many ways to see what GTM does exactly and when it triggers tags. A quick search brought up the following:\r\n\r\nhttps://www.analyticsmania.com/post/how-to-check-if-google-tag-manager-is-working/\r\n\r\n> I tried to write all in the file as specified in a documentation I read but I cannot find anymore.\r\n\r\nYou don't need to write anything on the file, just `touch` it. We found this much more user-friendly.\r\n\r\n> Additionally, i'd like to report it here for telemetry as well, I also see a call to https://netdata.cloud/account/sso-agent, which is not expected as I already run I run my own registry to avoid calls to my-netdata.io\r\n\r\nThis has nothing to do with telemetry. The call is for the sign-in functionality only. It sends no information other than the referrer, which can't be avoided.\r\n\r\nAs for the relationship with the local registry: We are building a lot of features that can only be provided via proper authentication/authorization and a centralized control system (on the cloud or on premise), so signing in will soon be much more than just seeing the servers you have visited. "
+    },
+    {
+      "id": 471001100,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-471001100",
+      "created_at": "2019-03-08T17:02:33Z",
+      "updated_at": "2019-03-08T17:02:33Z",
+      "author": "Participant 1",
+      "body": "Thank you for the link. Unfortunately it doesn't help much. The only way I can check is with the google chrome developer tools, which I already did. \r\n\r\nThe request to gtm returns a 200, and the response contains minified JS. I cannot tell from this if any data was posted to GA or not.\r\n\r\nIn any case, the referrer is already some information I do not want to leak, whether it's to google or to netdata.cloud.\r\n\r\nI am pretty sure there are ways to prevent netdata from making these calls altogether when the user has disabled telemetry and doesn't want to use netdata.cloud"
+    },
+    {
+      "id": 471021356,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-471021356",
+      "created_at": "2019-03-08T18:06:02Z",
+      "updated_at": "2019-03-08T18:06:02Z",
+      "author": "Participant 3",
+      "body": "You may be able to stop the referrer from leaking by injecting the following headers on the HTTP responses from the Netdata nodes:\r\n\r\n```\r\nContent-Security-Policy: referrer same-origin\r\nReferrer-Policy: same-origin\r\n```\r\n\r\nAssuming your browser follows those correctly, that will prevent it from sending any `Referer` header at all when making requests from the Netdata dashboard or navigating away from it.  I'm not sure if we are explicitly setting a `Referer` header though when we send such requests, and the above solution probably won't stop that if we are."
+    },
+    {
+      "id": 471204203,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-471204203",
+      "created_at": "2019-03-09T17:36:01Z",
+      "updated_at": "2019-03-09T17:36:01Z",
+      "author": "Participant 2",
+      "body": "> I am pretty sure there are ways to prevent netdata from making these calls altogether when the user has disabled telemetry and doesn't want to use netdata.cloud\r\n\r\nI personally spent a lot of time researching this and I can say that I'm not exactly thrilled with this indirect way of disabling the calls. I will try one thing I hadn't thought about, which is to get and test the value of the parameter before adding the gtm function."
+    },
+    {
+      "id": 471471907,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-471471907",
+      "created_at": "2019-03-11T09:48:49Z",
+      "updated_at": "2019-03-11T09:48:49Z",
+      "author": "Participant 1",
+      "body": "I think @cakrit solution is preferable in regards to gtm.\r\n\r\nHowever the call to netdata.cloud still persists. I am no front end developer, but I see that the URL is configured in local storage `cloud.baseURL`. \r\n\r\nMaybe this could be made configurable to a dummy URL, or prevent the call if an option `cloud.loggedIn` is not set or if the netdata.cloud cookie doesn't exist ?"
+    },
+    {
+      "id": 471493508,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-471493508",
+      "created_at": "2019-03-11T10:56:13Z",
+      "updated_at": "2019-03-11T10:56:13Z",
+      "author": "Participant 2",
+      "body": "> Maybe this could be made configurable to a dummy URL, or prevent the call if an option `cloud.loggedIn` is not set or if the netdata.cloud cookie doesn't exist ?\r\n\r\nIt IS configurable:\r\n```\r\n[cloud]\r\n        # cloud base url = https://netdata.cloud\r\n```\r\nI probably won't be able to try the solution I suggested this week, will keep it on the backlog to try it as soon as I'm done with some other things."
+    },
+    {
+      "id": 471496947,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-471496947",
+      "created_at": "2019-03-11T11:07:26Z",
+      "updated_at": "2019-03-11T11:07:26Z",
+      "author": "Participant 1",
+      "body": "My bad i didn't see that, I will give it a try."
+    },
+    {
+      "id": 471991009,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-471991009",
+      "created_at": "2019-03-12T13:02:42Z",
+      "updated_at": "2019-03-12T13:02:42Z",
+      "author": "Participant 1",
+      "body": "The option suggested works fine for disabling the call to `netdata.cloud`. \r\n\r\nRemains the referrer leaked to google analytics."
+    },
+    {
+      "id": 497858329,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-497858329",
+      "created_at": "2019-05-31T20:59:22Z",
+      "updated_at": "2019-05-31T20:59:22Z",
+      "author": "Participant 4",
+      "body": "@cakrit As I see, you fixed the GTM leaks. Nevertheless, my browser still calls `https://www.googletagmanager.com/gtm.js?id=GTM-XXXXXX` on each page load of my netdata dashboard. I have touched `/opt/netdata/etc/netdata/.opt-out-from-anonymous-statistics` which is `0644` and I am currently running **netdata v1.15.0-35-g2f72bfaf** as a static binary."
+    },
+    {
+      "id": 498197591,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-498197591",
+      "created_at": "2019-06-03T10:12:33Z",
+      "updated_at": "2019-06-03T10:12:33Z",
+      "author": "Participant 2",
+      "body": "We haven't found a way to prevent loading `gtm.js` when statistics are enabled. As you'll see [here](https://docs.netdata.cloud/docs/anonymous-statistics/#google-tag-manager), we state that\r\n\r\n> The only thing that’s impossible for us to prevent from being sent is the URL in the “Referrer” Header of the browser request to GA. However, the settings above ensure that all stored URLs and host names are anonymized\r\n\r\nIf you, or anyone else can help us find a with a way to prevent this from happening when telemetry is disabled, we'll be happy to merge such a PR. "
+    },
+    {
+      "id": 498198341,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-498198341",
+      "created_at": "2019-06-03T10:14:50Z",
+      "updated_at": "2019-06-03T10:14:50Z",
+      "author": "Participant 2",
+      "body": "I should have really opened a different issue for this last part, but I'm keeping it as a low priority bug. \r\nI"
+    },
+    {
+      "id": 498237273,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-498237273",
+      "created_at": "2019-06-03T12:32:59Z",
+      "updated_at": "2019-06-03T12:32:59Z",
+      "author": "Participant 3",
+      "body": "As mentioned above, setting a referrer policy should do this for most people (of the major browsers, only IE, Edge, and stuff on iOS ignores this).  The two options for this are either:\r\n\r\n* The HTTP `Referrer-Policy` header (and yes, that is spelled correctly).  This may cause issues for some users who are proxying things.\r\n* A `<meta name='referrer' />` tag in the HTML.  This one isn't as universally handled by some browsers, and may still leak referrer information if it comes after any tags that load external resources.\r\n\r\nIn either case, the value needs to be `same-origin`, which will prevent sending a `Referer` header to other origins, but continue to send one for the origin the Netdata dashboard is hosted on (which may be important for security reasons).  I can confirm that the header approach works, as I've got that set on all the nginx instances I proxy Netdata through, and see no `Referer` header in the requests for GTM.\r\n\r\n[More info on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)"
+    },
+    {
+      "id": 498261564,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-498261564",
+      "created_at": "2019-06-03T13:41:41Z",
+      "updated_at": "2019-06-03T13:41:41Z",
+      "author": "Participant 2",
+      "body": "I looked into this and there's an additional point where the referrer is sent, it's actually used for the cloud SSO functionality. I'll need to test if it's only SSO or sign-in in general that's affected with `same-origin`. If it works, we can provide an option in `netdata.conf` to set the header to any policy the user wants, with the disclaimer on the SSO. "
+    },
+    {
+      "id": 498265191,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-498265191",
+      "created_at": "2019-06-03T13:50:54Z",
+      "updated_at": "2019-06-03T13:51:34Z",
+      "author": "Participant 5",
+      "body": "@cakrit I don't see how the SSO referer is an issue. The user can set `cloud base url` to a dummy value (or empty). A user can disable both SSO and GA."
+    },
+    {
+      "id": 498269106,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-498269106",
+      "created_at": "2019-06-03T14:00:45Z",
+      "updated_at": "2019-06-03T14:00:45Z",
+      "author": "Participant 2",
+      "body": "No, I'm saying that I'd like to see if we can use the sign-in functionality and just lose the SSO if we don't send the referrer. "
+    },
+    {
+      "id": 498415424,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-498415424",
+      "created_at": "2019-06-03T20:32:40Z",
+      "updated_at": "2019-06-03T20:32:40Z",
+      "author": "Participant 4",
+      "body": "@cakrit \r\n\r\n> We haven't found a way to prevent loading `gtm.js` when statistics are enabled. As you'll see [here](https://docs.netdata.cloud/docs/anonymous-statistics/#google-tag-manager), we state that.\r\n\r\nDo you mean **when statistics are enabled** or **when statistics are disabled**? Maybe I got something wrong, I just want to clarify this.\r\n\r\nSearching for `gtm.js` in this repository shows me, that `goto-host-from-alarm.html` and `console.html` does not check for the opt out flag. Is this behavior intended?\r\n"
+    },
+    {
+      "id": 498578883,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-498578883",
+      "created_at": "2019-06-04T08:40:02Z",
+      "updated_at": "2019-06-04T08:40:02Z",
+      "author": "Participant 2",
+      "body": "> you mean **when statistics are enabled** or **when statistics are disabled**? Maybe I got something wrong, I just want to clarify this.\r\n\r\nYes, you got it wrong. See https://docs.netdata.cloud/docs/anonymous-statistics/#opt-out:\r\n*- The Google Tag Manager Javascript snippet will remain in the page, but the linked tag will not be fired. The effect is that no data will ever be sent to GA.*\r\n\r\n> Searching for `gtm.js` in this repository shows me, that `goto-host-from-alarm.html` and `console.html` does not check for the opt out flag. Is this behavior intended?\r\n\r\nNo GTM tags are triggered from `goto-host-from-alarm.html`. If we ever add a tag for it, we'll put the condition in. \r\n\r\n`console.html` access requires creating an account and signing in first. Our [privacy policy](http://netdata.cloud/legal/privacy-policy) explains everything we collect and how we use it. See section 3 especially. We mention there the following:\r\n\r\n> Website and Analytics: When you visit our Websites and use our Services, ND collects some information about your activities through tools such as Google Analytics. The type of information that we collect focuses on general information such as country or city where you are located, pages visited, time spent on pages, heat-map of visitors’ activity on the site, information about the browser you are using, etc. ND collects and uses this information pursuant to our legitimate interest in enhancing the security and utility of our Services. The information we gather and process is used in the aggregate to spot trends without deliberately identifying individuals.\r\n\r\n> Note that you can learn about Google’s practices in connection with its analytics services and how to opt out of it by downloading the Google Analytics opt-out browser add-on, available at https://tools.google.com/dlpage/gaoptout.\r\n\r\nPlease note that the intent of the `.opt-out-from-anonymous-statistics` flag was to completely disable sending the host information described in that policy and in https://docs.netdata.cloud/docs/anonymous-statistics/. That information is quite different than anything that any pageview/session info GA collects. Of course we're happy to investigate all suggestions. \r\n\r\nAs always, we're completely transparent about what we do and why we do it.  You do realize of course that we don't want to make all data collection opt-in, because we'd be completely blind. But let's continue this discussion and we'll do more things and update the privacy policy if that's what makes sense.\r\n\r\n*P.S. I haven't been able to do the referrer test I mentioned yet, I hope I can get to it today*"
+    },
+    {
+      "id": 576828305,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-576828305",
+      "created_at": "2020-01-21T18:58:25Z",
+      "updated_at": "2020-01-21T18:58:25Z",
+      "author": "Participant 2",
+      "body": "I don't remember us doing anything to stop leaking the referrer, so please see if/what we still need to do here."
+    },
+    {
+      "id": 617795564,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-617795564",
+      "created_at": "2020-04-22T13:57:43Z",
+      "updated_at": "2020-04-22T13:57:43Z",
+      "author": "Participant 6",
+      "body": "I'm not sure if this is still an issue after the DO_NOT_TRACK fixes last year. Does anybody know if this is still an issue?"
+    },
+    {
+      "id": 617869766,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-617869766",
+      "created_at": "2020-04-22T16:00:25Z",
+      "updated_at": "2020-04-22T16:00:25Z",
+      "author": "Participant 7",
+      "body": "We still have the \"issue\" with the referrer in goto-host-from-alarm.html. We could make it optional (fetch only when we know the `anonymous_statistics` setting), but in this case sometimes GTM would not serve its purpose (because it would be too late then, goto-host-from-alarm will often redirect quickly after making `registry?action=hello` call)\r\n\r\nApart from that, Dashboard is sometimes fetching gtm.js because of old cloud's sso iframe."
+    },
+    {
+      "id": 618344774,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-618344774",
+      "created_at": "2020-04-23T11:21:22Z",
+      "updated_at": "2020-04-23T11:21:22Z",
+      "author": "Participant 2",
+      "body": "As discussed, we're removing GTM from everything on the agent, except `index.html`."
+    },
+    {
+      "id": 790023536,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-790023536",
+      "created_at": "2021-03-03T20:11:57Z",
+      "updated_at": "2021-03-03T20:11:57Z",
+      "author": "Participant 8",
+      "body": "not sure if this already covered somewhere or if it's obsolete because of a newer version. i just scrolled down in this ticket and read the following:\r\n\r\n> we're removing GTM from everything on the agent, except index.html.\r\n\r\nso even after i add the file `/etc/netdata/.opt-out-from-anonymous-statistics` and restarted netdata i see the following snippet in the html and umatrix is blocking the connection to the tag manager.\r\n\r\n```\r\n    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\r\n            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\r\n        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\r\n        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\r\n    })(window,document,'script','dataLayer','GTM-N6CBMJD');\r\n    dataLayer.push({\"anonymous_statistics\" : \"false\"});\r\n    </script>\r\n```\r\ni installed netdata from the debian buster repository and got the version `1.12.0-1+deb10u1: all`, so maybe it is already removed from the code in higher versions.\r\n\r\nthere are a few hard facts from the GDPR in europe:\r\n\r\n- the ip address is personal data https://ec.europa.eu/info/law/law-topic/data-protection/reform/what-personal-data_en\r\n- tracking must be opt-in and not opt-out\r\n\r\nso having an app which requires to opt-out and loads the googletagmanager file from google which sends my ip address to google looks quite bad to me.\r\n\r\n"
+    },
+    {
+      "id": 790068342,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-790068342",
+      "created_at": "2021-03-03T21:30:33Z",
+      "updated_at": "2021-03-03T21:30:33Z",
+      "author": "Participant 8",
+      "body": "well found another ticket about that.\r\n\r\ncomment fomr @ktsaou https://github.com/netdata/netdata/issues/7366#issuecomment-558279022\r\n\r\nso it's all said? ip is no personal data and done. even if GDPR says opt-in is required? for each cookie i have to opt in but transmission of my (parts of) ip to google is not opt-in? it is even not opt-out. each fragment you submit to google is used for fingerprinting. \r\n\r\n> Our intention is never to spy our users and we will comply with anything required in that respect.\r\n\r\nthen please make a real opt in like debian does it and think about collecting the data by yourself, for me it would be much easier to opt-in if my data is on some of your server and not sent to google.\r\n\r\nbut i think this won't gonna happen. so the only thing a privacy aware person like me can do is not using the software or manually patching the html file :(\r\n\r\n\r\n"
+    },
+    {
+      "id": 790422155,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-790422155",
+      "created_at": "2021-03-04T08:22:44Z",
+      "updated_at": "2021-03-04T08:22:44Z",
+      "author": "Participant 9",
+      "body": "@c33s hi, I just wanted to give you a little update. We are actually working on moving from GA and GTM for the agent to a self hosted PostHog instance. Idea being we can finally get off Google for the agent side and PostHog will actually enable much better product insights anyway to keep trying to make improvements. So no data going to Google for the open source agent analytics is the aim here and actually owning and protecting the analytics data we depend on to help spot issues earlier and understand the product usage to better see how to keep improving it. \r\n\r\nPostHog is open source and pretty well tuned in to privacy concerns. Check them out https://posthog.com/docs#philosophy\r\n\r\nWe are testing this on our demo servers at the moment so hopefully within the next release or two we will be swapping out PostHog for GA. \r\n\r\nHappy to chat more about this with you if you'd like and share the details. "
+    },
+    {
+      "id": 790541105,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-790541105",
+      "created_at": "2021-03-04T11:20:24Z",
+      "updated_at": "2021-03-04T11:20:24Z",
+      "author": "Participant 8",
+      "body": "@andrewm4894 this is really a very good direction, will have a look at posthog. \r\n\r\nstill there are two important points for me (while the first makes the 2nd obsolete)\r\n- it must be opt-in \r\n- if the user doesn't opt-in or opted-out, tracking must be completely disabled. no exceptions\r\n\r\nall this \"we only track a bit\" or \"we track to our servers\" or \"we anonymize this or that part\" is not ok, opt-out or not-opt-in means **no tracking at all; full stop**.\r\n\r\nanonymizing simply does not work ([Robust De-anonymization of Large Sparse Datasets][1], [So wenig nützt Daten-Anonymisierung ][2] (german). nearly every time you have \"anonymized\" data, you can reconnect the data to a person with 3-5 control/connection points.\r\n\r\nthese are simply law requirements from GDPR. i am a small devops, i simply cannot risk to install such a tool on my clients system because in the end it can happen that the customer sues me because i installed a tracking software on his system. so maybe it's ok for you to live risky or being a company only located in america (? have not checked) or your lawyer just bends it to be \"ok\" (it is not ok. no means no), for me this is too hot and i sadly have to switch to some other software (although i really want to use yours). even if the data you send to your servers or to google is anonymized, it still would be required to put up a privacy statement, where i have to inform the user that google tag manager is used.  for example: if you use google fonts on your website you **must** state it in your privacy statement,\r\n\r\n[1]: https://www.cs.cornell.edu/~shmat/shmat_oak08netflix.pdf\r\n[2]: https://www.heise.de/newsticker/meldung/So-wenig-nuetzt-Daten-Anonymisierung-4479968.html?wt_mc=rss.security.beitrag.atom"
+    },
+    {
+      "id": 790637768,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-790637768",
+      "created_at": "2021-03-04T14:00:02Z",
+      "updated_at": "2021-03-04T14:00:02Z",
+      "author": "Participant 2",
+      "body": "> @andrewm4894 this is really a very good direction, will have a look at posthog.\r\n> \r\n> still there are two important points for me (while the first makes the 2nd obsolete)\r\n> \r\n> * it must be opt-in\r\n> * if the user doesn't opt-in or opted-out, tracking must be completely disabled. no exceptions\r\n> \r\n> all this \"we only track a bit\" or \"we track to our servers\" or \"we anonymize this or that part\" is not ok, opt-out or not-opt-in means **no tracking at all; full stop**.\r\n> \r\n> anonymizing simply does not work ([Robust De-anonymization of Large Sparse Datasets](https://www.cs.cornell.edu/~shmat/shmat_oak08netflix.pdf), [So wenig nützt Daten-Anonymisierung ](https://www.heise.de/newsticker/meldung/So-wenig-nuetzt-Daten-Anonymisierung-4479968.html?wt_mc=rss.security.beitrag.atom) (german). nearly every time you have \"anonymized\" data, you can reconnect the data to a person with 3-5 control/connection points.\r\n> \r\n> these are simply law requirements from GDPR. i am a small devops, i simply cannot risk to install such a tool on my clients system because in the end it can happen that the customer sues me because i installed a tracking software on his system. so maybe it's ok for you to live risky or being a company only located in america (? have not checked) or your lawyer just bends it to be \"ok\" (it is not ok. no means no), for me this is too hot and i sadly have to switch to some other software (although i really want to use yours). even if the data you send to your servers or to google is anonymized, it still would be required to put up a privacy statement, where i have to inform the user that google tag manager is used. for example: if you use google fonts on your website you **must** state it in your privacy statement,\r\n\r\nGDPR is about personal information and we have none of that. Regardless of what the paper says, we have no information at our disposal regarding FOSS agent users, unless someone chooses to sign-in to the cloud and provide us with an email address. GTM can't even track a user across different agent UIs, as each has a separate URL, that is unknown to us. \r\n\r\nFor anyone still concerned, disabling anonymous statistics and setting up a private registry are both very well documented and quite easy to configure. We can't even know how many users use netdata, because of these opt-out methods. "
+    },
+    {
+      "id": 791872995,
+      "url": "https://github.com/netdata/netdata/issues/5577#issuecomment-791872995",
+      "created_at": "2021-03-06T04:48:02Z",
+      "updated_at": "2021-03-06T04:48:02Z",
+      "author": "Participant 10",
+      "body": "One workaround for software that disregards user consent like this is to use a browser plugin like uBlock Origin, and blacklist all of the domains (such as GTM, GA, netdata.cloud, et c) that they try to talk to.  This won't help for other users of the web UI, but if it's just you accessing your own servers, this will prevent the HTML client from phoning home from any browser so configured.\r\n\r\nIt's a stupid hack and shouldn't be necessary, but is often faster than fighting with developers of web apps that feel somehow entitled to user data."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

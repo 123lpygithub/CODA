@@ -1,0 +1,386 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-21382",
+  "issue_url": "https://github.com/opencart/opencart/issues/10441",
+  "source_issue_url": "https://github.com/opencart/opencart/issues/10441",
+  "api_url": "https://api.github.com/repos/opencart/opencart/issues/10441",
+  "title": "[master] Reverting telephone field as required",
+  "body": "https://github.com/opencart/opencart/blob/24273376c71ad8498e0aded785ed386c5dafafd2/upload/catalog/view/template/account/register.twig#L46\r\n\r\nBad decision!\r\nWhy?\r\nWhen this field is again required, European webshop owners get in troubles.\r\nBecause a telephone number IS private and nothing just to \"share\" because this value is requried.\r\nThe more, if a website intends to collect such data, it has to be very good argumented, e.g. required because of our delivery serice, or because my grandma may wants to call you once ..\r\n\r\nThis behaviour violates the GDPR!\r\n\r\nInstead add a new setting to make it either required or optional.\r\nAs with so some other values in the store.",
+  "author": "Participant 1",
+  "created_at": "2022-02-26T14:46:46Z",
+  "updated_at": "2022-03-17T19:14:28Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:18:50.767933+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:18:50.767933+00:00",
+    "2026-11-05T06:39:27.650980+00:00"
+  ],
+  "expected_comment_count": 44,
+  "retrieved_comment_count": 44,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1052277603,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1052277603",
+      "created_at": "2022-02-26T16:28:59Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "Custom field still won't show the billing / shipping information as private nevertheless."
+    },
+    {
+      "id": 1052310070,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1052310070",
+      "created_at": "2022-02-26T16:55:48Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@TheCartpenter telephone field is okay, but only when able to disable or hide or make as required per setting in the system.\r\n\r\nI have read all the other comments about Daniels decision disabling the telephone.\r\nAs it seems, all of them do not know the current regulations - worldwide.\r\nAnd having such as a \"custom field\" is also useless - would produce too many \"bug reports\" from the noobs!"
+    },
+    {
+      "id": 1052313566,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1052313566",
+      "created_at": "2022-02-26T16:58:47Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "Just make it an optional field, that is, not required?\r\n"
+    },
+    {
+      "id": 1052328492,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1052328492",
+      "created_at": "2022-02-26T17:11:18Z",
+      "updated_at": "2022-02-26T17:12:40Z",
+      "author": "Participant 1",
+      "body": "@mhcwebdesign Some shops need it (e,g, for depending processes like delivery, call back if custom products).\r\nSome shops want it - for whatver reason ..\r\nAnd many shops do not need it.\r\n\r\nSo, we have 3 options finally:\r\n\r\n1. required\r\n2. optional (normal or required)\r\n3. not needed and shop will not ask for it\r\n\r\nWhen we read current regulations, a personal **telephone number is personal and private**.\r\nTherefore, if a shop needs that value, it must be described why and the reasons behind.\r\nIf these reasons are not valid, a penalty payment will happen - as seeing currently at many German shops (as it seems their laywer mafia needs money ..)\r\n\r\nCurrently for all these shop, an additional extension must be installed.\r\nBut it should be integrated as standard desicion."
+    },
+    {
+      "id": 1052431932,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1052431932",
+      "created_at": "2022-02-26T18:34:30Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "@osworx: Would you be able to create a pull request for this, for Daniel to look at?\r\n"
+    },
+    {
+      "id": 1052435207,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1052435207",
+      "created_at": "2022-02-26T18:37:10Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@osworx: While I do agree about the telephone field that should not be a custom field due to regular expression lookups since multiple OC releases had to be reviewed about this, based on the CCPA / CCRA / GDPR regulations, the field should not be optional but rather based on the specific payment / shipping service providers being used since even by enabling / disabling the telephone field in this scenario, store owners would still have to re-enable this field based on the checkout form or while using the APII as a requirement."
+    },
+    {
+      "id": 1053796683,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1053796683",
+      "created_at": "2022-02-28T02:05:02Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "With custom themes by editing checkout.twig file, this could be accomplished."
+    },
+    {
+      "id": 1053967411,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1053967411",
+      "created_at": "2022-02-28T07:31:07Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "> With custom themes by editing checkout.twig file, this could be accomplished.\r\n\r\nIt's not only the template, think also about the check inside the controllers!"
+    },
+    {
+      "id": 1053967769,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1053967769",
+      "created_at": "2022-02-28T07:31:34Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "> @osworx: Would you be able to create a pull request for this, for Daniel to look at?\r\n\r\nAs soon as I will have more time, I will do."
+    },
+    {
+      "id": 1054268715,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1054268715",
+      "created_at": "2022-02-28T13:41:27Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "> > With custom themes by editing checkout.twig file, this could be accomplished.\r\n> \r\n> It's not only the template, think also about the check inside the controllers!\r\n\r\nYes, with Events."
+    },
+    {
+      "id": 1054366624,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1054366624",
+      "created_at": "2022-02-28T15:22:52Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "> > > With custom themes by editing checkout.twig file, this could be accomplished.\r\n> > \r\n> > \r\n> > It's not only the template, think also about the check inside the controllers!\r\n> \r\n> Yes, with Events.\r\n\r\nWhy with events when it can be done by a simple definiton in the store settings .. ?\r\n1. new value has to added to the settinsg template\r\n2. new value has to be check in several backend and frontend controllers\r\n3. new value state has to be checked in several backend and frontend templates\r\n\r\nWhen all this is in the core, no additional events or hacks are required."
+    },
+    {
+      "id": 1054520863,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1054520863",
+      "created_at": "2022-02-28T18:03:29Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "> > > > With custom themes by editing checkout.twig file, this could be accomplished.\r\n> > > \r\n> > > \r\n> > > It's not only the template, think also about the check inside the controllers!\r\n> > \r\n> > \r\n> > Yes, with Events.\r\n> \r\n> Why with events when it can be done by a simple definiton in the store settings .. ?\r\n> \r\n> 1. new value has to added to the settinsg template\r\n> 2. new value has to be check in several backend and frontend controllers\r\n> 3. new value state has to be checked in several backend and frontend templates\r\n> \r\n> When all this is in the core, no additional events or hacks are required.\r\n\r\nThat would be another way but simply considering a longer road to get there, since setting a new store value will still only allow a store owner to load a single custom theme at a time as it would be more restrictive to modify several files in the backend and frontend as opposed to the use of Event triggers which the admin orders and checkout page are already linked to when needed whereas the use of Event triggers would simply require a simple if validation with the associative template as per the selected payment / shipping extension that could load the reliable billing and shipping details afterwards regardless if these forms would originate from the admin orders or from the checkout page."
+    },
+    {
+      "id": 1054635956,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1054635956",
+      "created_at": "2022-02-28T20:30:02Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "> That would be another way but simply considering a longer road to get there, since setting a new store value will still only allow a store owner to load a single custom theme at a time as it would be more restrictive to modify several files in the backend and frontend as opposed to the use of Event ...\r\n\r\nTheme/Template developeros have to follow the core - not the opposite.\r\nSame as prices: logged in or not -just a simple setting.\r\n\r\nMaybe there are more settings/values which should be defined via the shop configutation.\r\nLike the default order in all list in the frontend.\r\nJust think about that."
+    },
+    {
+      "id": 1054647502,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1054647502",
+      "created_at": "2022-02-28T20:46:21Z",
+      "updated_at": "2022-02-28T20:47:53Z",
+      "author": "Participant 2",
+      "body": "It's already been thought. While I do agree that users needs to follow the core, not the other way around. sources who established regulations regarding data confidentiality, as you addressed, is also where it won't seem to maintain their tracks as long as the core won't deliver the needs as per the providers' requirements. As for the prices, customer groups are already defined in each stores which means the admin catalog products can already manage several types of prices based on customer groups fortunately. Therefore, this shouldn't be much of a problem on that side.\r\n\r\nIn addition, payment extensions like PayPal, and similar, are also redirecting users outside the site where the transactions might already been cancelled prior to return to the checkout page without store owners' realizing those events. By prioritizing the payment / shipping extension options, after selecting the guest or customer's account option, this prioritization could also help to identify which transaction has been cancelled before the orders gets created by guests / customers regardless of prices that's been initiated from the stores."
+    },
+    {
+      "id": 1054723475,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1054723475",
+      "created_at": "2022-02-28T22:27:23Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@TheCartpenter I meant the store setting \"Display prices incl. VAT\" or \"Allow Reviews\" and so on .. TAB Options in the store settings.\r\n\r\nSo I see really no reason, why there should be more to \"fine tune\" instead of letting users \"fiddeling\" around on the scripts, editing templates or creating events .. \r\nAnd finally see them in the forum again and crying for help bevause they did something wrong.\r\n\r\nInstead having such values defineable per \"mouse click\", I am sure everybody will be satisfied - and can tune his store as he need/want it."
+    },
+    {
+      "id": 1054810130,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1054810130",
+      "created_at": "2022-02-28T23:24:11Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "While users already can, then it ain't hard to figure that if everybody will be satisfied, then at this point of time there ain't any issues with GDPR on these forms."
+    },
+    {
+      "id": 1060617388,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060617388",
+      "created_at": "2022-03-07T12:06:15Z",
+      "updated_at": "2022-03-07T16:00:07Z",
+      "author": "Participant 4",
+      "body": "ill add a setting in config for display and required for telephone field"
+    },
+    {
+      "id": 1060864682,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060864682",
+      "created_at": "2022-03-07T16:14:25Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "By doing that, it will affect all payment and shipping details where payment and service providers may either or not require this field since a single change from each stores could affect the entire telephone field."
+    },
+    {
+      "id": 1060878897,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060878897",
+      "created_at": "2022-03-07T16:27:04Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "> By doing that, it will affect all payment and shipping details where payment and service providers may either or not require this field since a single change from each stores could affect the entire telephone field.\r\n\r\nIf (and only then IF) any payment or shipping extension will need the telephone number (and I do not know any), the telephone number can be \"collected\".\r\nBut, this has to be stated public (e.g. in the \"Privacy Statement\") and clear why this private and personal data is required.\r\n\r\nI see no reason for any payment provider to become telephone numbers (and I don't know one).\r\nShipping couriers may need them, but only \"may\".\r\n\r\nAdding such advices into the help field at this setting, will help store owners to find their right decision.\r\n\r\n@danielkerr Thank you."
+    },
+    {
+      "id": 1060888422,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060888422",
+      "created_at": "2022-03-07T16:36:38Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "It's your show but as stated on my previous reply, these restrictions not only needs to be validated with the payment service providers but also with shipping and can become quite competitive on that and not only specifically on the telephone field but can also request other billing and shipping details once connected to their APIs."
+    },
+    {
+      "id": 1060897962,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060897962",
+      "created_at": "2022-03-07T16:46:52Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@TheCartpenter Then please tell me only one payment and one shipping extension which needs a telephone number (and is then a requirement).\r\n\r\nCompanies (no matter which industry) like to collect as much data they can get!\r\n\r\nFor example, had last year a big discussion with eKomi what for they need all order data from the shops when the shop would add their services.\r\nBeside this, their so called API is collecting much more data beside the standard - only to get reviews.\r\nThey were not able to explain me why and what for.\r\nEnded with a no from my side to develope any plugin for them."
+    },
+    {
+      "id": 1060907459,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060907459",
+      "created_at": "2022-03-07T16:57:01Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "That simply requires some travel around, taking the time to look into API documentations once in a while.. There are many modifications that can be opted by payment and shipping services within one year. Some might not be up-to-date unfortunately and even on the OC forum, we're constantly getting posts about extensions where it used to work but may no longer work for multiple reasons but one of them is service change."
+    },
+    {
+      "id": 1060912319,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060912319",
+      "created_at": "2022-03-07T17:01:58Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "An alternative would be to create a compliance group with the information page where the OC admin setting form can validate by group rather than GDPR only."
+    },
+    {
+      "id": 1060939018,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060939018",
+      "created_at": "2022-03-07T17:27:28Z",
+      "updated_at": "2022-03-07T17:32:36Z",
+      "author": "Participant 1",
+      "body": "When we would go this way, then all current (and also new when published) should be considered:\r\nGDPR https://gdpr.eu/what-is-gdpr/\r\nCCPA https://oag.ca.gov/privacy/ccpa\r\nLGPD https://en.wikipedia.org/wiki/General_Personal_Data_Protection_Law\r\nPOPI https://popia.co.za/\r\n\r\nThere may be more, like this here:\r\nUS - Nevada https://legiscan.com/NV/bill/SB220/2019"
+    },
+    {
+      "id": 1060951162,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060951162",
+      "created_at": "2022-03-07T17:40:32Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "CCRA as well.\r\n\r\nYes, this is the direction I am talking about."
+    },
+    {
+      "id": 1060964500,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060964500",
+      "created_at": "2022-03-07T17:54:59Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@TheCartpenter sorry, but what is CCRA ?\r\nWhenever possible. post also a link (because in this case this abbreviation can be more than one ..)"
+    },
+    {
+      "id": 1060977563,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060977563",
+      "created_at": "2022-03-07T18:08:28Z",
+      "updated_at": "2022-03-07T18:10:25Z",
+      "author": "Participant 2",
+      "body": "By all means: https://pro.bloomberglaw.com/brief/the-far-reaching-implications-of-the-california-consumer-privacy-act-ccpa/#:~:text=The%20California%20Privacy%20Rights%20Act%20(CPRA)%2C%20also%20known%20as,to%20as%20%E2%80%9CCCPA%202.0.%E2%80%9D .\r\n\r\nHowever, it is 'CPRA', not 'CCRA'. Typo."
+    },
+    {
+      "id": 1060981959,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1060981959",
+      "created_at": "2022-03-07T18:12:58Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "As it was already addressed on the OC forum: https://forum.opencart.com/viewtopic.php?t=222491 ."
+    },
+    {
+      "id": 1061138115,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1061138115",
+      "created_at": "2022-03-07T21:08:46Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@TheCartpenter That's why I wrote. post always a link!\r\nCPRA > California Privacy Rights Act, an extension of CCPA \r\nhttps://en.wikipedia.org/wiki/California_Privacy_Rights_Act\r\n\r\nCovers \r\nCalifornia CCPA | CPRA\r\nColorado CPA\r\nVirginia VCDPA\r\n\r\nA good comparison is: https://pro.bloomberglaw.com/brief/data-privacy-laws-in-the-u-s/"
+    },
+    {
+      "id": 1061141411,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1061141411",
+      "created_at": "2022-03-07T21:12:38Z",
+      "updated_at": "2022-03-07T21:13:18Z",
+      "author": "Participant 2",
+      "body": "I thought you already knew about the extended law. Take note, however, that since the financial institutions currencies from the US can also be used in Canada, then Canada is also implicit with these laws with E-Commerce since the payment service providers in the country also included these laws over email and from their websites regarding their terms and conditions."
+    },
+    {
+      "id": 1061149333,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1061149333",
+      "created_at": "2022-03-07T21:22:01Z",
+      "updated_at": "2022-03-07T21:22:40Z",
+      "author": "Participant 1",
+      "body": "I cannot know all - and read everything ;)\r\nNo, I was aware of this \"extension\" - thanks for informing me (and others).\r\nAnd links to all are good in case someone else may read these comments.\r\n\r\np.s.: my \"main goal\" is Europe - and they have laws more than I want or need.\r\nAnd the GDPR is not all what is related and important for Ecommerce."
+    },
+    {
+      "id": 1061156639,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1061156639",
+      "created_at": "2022-03-07T21:30:49Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "No worries. Politically, Canada has been allied with Europe since almost two months now in the meantime. Which is why, I believe that subsets of political groups should be added in OC in order to better inform customers prior to complete checkout. I thought perhaps on adding thumbnails with each links from the above lists but the problem would be with the site redirection from the payment service providers like PayPal and a few others with their token strings.\r\n\r\nMay be to move the terms and conditions to the upper location during checkout?"
+    },
+    {
+      "id": 1062973289,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1062973289",
+      "created_at": "2022-03-09T14:24:19Z",
+      "updated_at": "2022-03-09T14:24:50Z",
+      "author": "Participant 2",
+      "body": "https://stripe.com/docs/payments/checkout/phone-numbers\r\n\r\n\"With phone number collection enabled, Checkout adds a required phone number field to the payment form. If you’re collecting a shipping address, the phone number field displays under the address fields. Otherwise, Checkout displays the phone number field below the email input. Customers can only enter one phone number per session.\""
+    },
+    {
+      "id": 1062985355,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1062985355",
+      "created_at": "2022-03-09T14:35:43Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "Quote from their website: \r\n\r\n> You can enable phone number collection in Checkout if you need to collect a phone number for shipping or invoicing.\r\n\r\nMeans, IF it is required, it can be collected (and this has to be stated clearly in the \"Privacy Statement\" > why and who is receiving it for which purpose).\r\n\r\nI have made several plugins for PayPal (and other payment providers).\r\nNone of them ever requested (and required) a telephone number.\r\n\r\nSo Daniels commit goes the correct direction, IF someone needs it, he can enable it via the system settings.\r\nIt's with everything, store owners (and operators) have to read prior they are starting their business.\r\nWith this commit we give all the option to set it as required - or not."
+    },
+    {
+      "id": 1062994856,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1062994856",
+      "created_at": "2022-03-09T14:45:06Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "What will also happen is when other payment service providers will be enlisted during checkout and won't require a phone number, store owners will have to make each adjustments for each customers where a payment service provider will have this option set to enabled by store owners. Therefore, the store owners' services will be affected before customers can complete their checkout transactions unless store owners do like to switch their phone number settings in accordance of the customers' selection (which I seriously doubt in this case)."
+    },
+    {
+      "id": 1063015978,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1063015978",
+      "created_at": "2022-03-09T15:05:53Z",
+      "updated_at": "2022-03-09T15:07:16Z",
+      "author": "Participant 1",
+      "body": "You have hightlighted only Stripe - and they say, it's **optional**.\r\n\r\nAnd I wrote (from my experience the last 12 years) that no payment provider really need it (as required).\r\nPossible that some shipping couriers want it, but this can be only an option - none of them ever had the need to call me (and to be true, they have not the time to make a call).\r\n\r\nDaniels commit has all options: enable/disable this field, make it required or not.\r\n\r\nBut it's the same with the birthdate: this can be a field some payment providers really need to evaluate the creditability of the customer (in case for example when an option to pay per \"Credit\" is given and selected).\r\n\r\nThose extensions have to offer automatically that field - or they are not worth to use in a webstore!\r\nIn such cases the store owners would have the need to create a ** Custom Field** which value has to be submitted with that request - but that requries some extra coding.\r\n\r\nSo, I would say, whenever an payment or shipping extension may require the telephone field, the extension developer has to add it in his extension.\r\nBasically a simple task ..\r\n"
+    },
+    {
+      "id": 1063044861,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1063044861",
+      "created_at": "2022-03-09T15:31:58Z",
+      "updated_at": "2022-03-09T15:32:19Z",
+      "author": "Participant 2",
+      "body": "Yes, other fields can also be amended as a mandatory field and not only the telephone field which is why restricting one field throughout the entire store versus a payment extension can involve on-demand orders to be created and is not the goal to start a store.\r\n\r\n\"So, I would say, whenever an payment or shipping extension may require the telephone field, the extension developer has to add it in his extension.\r\nBasically a simple task ..\"\r\n\r\nThat couldn't be more true; it is indeed a simple task. Which is why, any fields that are mandatory by each payment and shipping service providers could already be adjusted by extension developers rather than store owners' having to set a yes or no option from a specific field that could affect his entire service, including extensions being offered from the Marketplace whereas billing / shipping details information are already restricting those fields. From there, it is to reflect on how many extensions a single globalized restriction could affect each extensions at this point."
+    },
+    {
+      "id": 1063086029,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1063086029",
+      "created_at": "2022-03-09T16:03:18Z",
+      "updated_at": "2022-03-09T16:04:20Z",
+      "author": "Participant 2",
+      "body": "@danielkerr: I take it back. What is needed is not a generic TWIG file autoload based on the payment and shipping service providers. Since the master branch uses data OC toggle with the Accordion, showing error messages in the billing details and shipping details in accordance to the payment and shipping services' requirements could also be done by moving the browser's page back to the billing / shipping position in order to show those error messages from a controller method where each extension developers could rely on in order to output their JSON response.\r\n\r\nThis way, we don't need to set a restrictive customer field based on the entire store."
+    },
+    {
+      "id": 1063086979,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1063086979",
+      "created_at": "2022-03-09T16:04:14Z",
+      "updated_at": "2022-03-09T16:15:03Z",
+      "author": "Participant 1",
+      "body": "Beside this discussion, I have some clients they need the telephone number because their products have to be discussed by phone before sold (and they argument this in their privacy statement very well - why and what for).\r\n\r\nOn the other side, in 99% of all my clients from the European Market (and here especially DE and AT), wether they need the telephone number - nor they want it.\r\nHad to create extra for that a 3-line-extension to disable and hide it.\r\n\r\nSo, to have such (new) options is a benefit I think.\r\nOpenCart must increase the market share and should have unique settings other store software does not have.\r\nUsing OC only in China, India, USA cannot be the target, the store owners which have money, are sitting in Europe.\r\n\r\nAnd - as you may know - the restrictions in Ecommerce are here given in many ways.\r\nWhile Europe has the GDPR - all 27 countries have differences in their laws, it's not only the GDPR which has to be carefully implemented, the stores must have also an eye on the national regulations they have!\r\n\r\nBecause punishments could be per case up to 100.000,- Euro in some special cases (even for really small shops selling only in their own country).\r\nAnd who is willing - or able - to pay such fines .. ?!"
+    },
+    {
+      "id": 1063087743,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1063087743",
+      "created_at": "2022-03-09T16:04:58Z",
+      "updated_at": "2022-03-09T16:05:20Z",
+      "author": "Participant 2",
+      "body": "My latest reply above is beside the point of GDPR or other laws imposed. It is by design."
+    },
+    {
+      "id": 1063097160,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1063097160",
+      "created_at": "2022-03-09T16:13:52Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@TheCartpenter I really do understand your intention.\r\nBut I think we should discuss that not at this place here - it's only for developers finally.\r\n\r\nIn general: it's a **shame** to have an eye on all regulations, restrictions and laws before opening a Webstore.\r\n\r\nFinally the **victim** is always the proper store owner who wants to sell only a few products \"over the web\".\r\nAnd is completely concerned, that the letter from a lawyer is arriving with at least a fine minimum of 1.200,- Euro (payable within 7 days!).\r\nThat's the daily and current reality in Germany!\r\n\r\n`Called the **Abzockermafia** - lawyers only targeting webstores (from small to big and bigger) to get some money!`\r\n"
+    },
+    {
+      "id": 1063101139,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1063101139",
+      "created_at": "2022-03-09T16:17:34Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "This section is the right section to talk about it, since the request you have convinced a creator to do is within this section and must be rectified."
+    },
+    {
+      "id": 1063131989,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1063131989",
+      "created_at": "2022-03-09T16:47:59Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "Okay, I've said all what to say."
+    },
+    {
+      "id": 1071237407,
+      "url": "https://github.com/opencart/opencart/issues/10441#issuecomment-1071237407",
+      "created_at": "2022-03-17T19:14:28Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "This GDPR form is appliable from Canada (not sure, yet, originating from the US): https://gdpr-info.eu/chapter-3/ ."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original Markdown from GitHub's structured issue pages, including numbered timeline pages. Discussion complete only after pagination, comment-ID, expected-count and unchanged-issue checks. Closure timestamp is unavailable; linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/opencart/opencart/issues/10441",
+  "closed_at_available": false,
+  "timeline_page_urls": [
+    "https://github.com/opencart/opencart/issues/10441",
+    "https://github.com/opencart/opencart/issues/10441?timeline_page=1"
+  ]
+}

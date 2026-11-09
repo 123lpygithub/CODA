@@ -1,0 +1,713 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14099",
+  "issue_url": "https://github.com/dotnet/SqlClient/issues/11",
+  "api_url": "https://api.github.com/repos/dotnet/SqlClient/issues/11",
+  "title": "Column Encryption (Always Encrypted) support in SqlClient for .NET Core",
+  "body": "When using a DbContext with a ConnectionString like\r\n\r\n```\r\n{\r\n  \"ConnectionStrings\": {\r\n    \"DefaultConnection\": \"Server=.\\\\SQLEXPRESS;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;Column Encryption Setting=Enabled;MultipleActiveResultSets=true;\"\r\n  }\r\n}\r\n```\r\n\r\nI get the following error\r\nStackTrace\r\n```\r\n{System.ArgumentException: Keyword not supported: 'column encryption setting'.\r\n   at System.Data.Common.DbConnectionOptions.ParseInternal(Dictionary`2 parsetable, String connectionString, Boolean buildChain, Dictionary`2 synonyms)\r\n   at System.Data.Common.DbConnectionOptions..ctor(String connectionString, Dictionary`2 synonyms)\r\n   at System.Data.SqlClient.SqlConnectionString..ctor(String connectionString)\r\n   at System.Data.SqlClient.SqlConnectionFactory.CreateConnectionOptions(String connectionString, DbConnectionOptions previous)\r\n   at System.Data.ProviderBase.DbConnectionFactory.GetConnectionPoolGroup(DbConnectionPoolKey key, DbConnectionPoolGroupOptions poolOptions, DbConnectionOptions& userConnectionOptions)\r\n   at System.Data.SqlClient.SqlConnection.ConnectionString_Set(DbConnectionPoolKey key)\r\n   at System.Data.SqlClient.SqlConnection.set_ConnectionString(String value)\r\n   at Microsoft.EntityFrameworkCore.Storage.Internal.SqlServerConnection.CreateDbConnection()\r\n   at Microsoft.EntityFrameworkCore.Internal.LazyRef`1.get_Value()\r\n   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open()\r\n   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.BeginTransaction(IsolationLevel isolationLevel)\r\n   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(Tuple`2 parameters)\r\n   at Microsoft.EntityFrameworkCore.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](Func`2 operation, Func`2 verifySucceeded, TState state)\r\n   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IReadOnlyList`1 entriesToSave)\r\n   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)\r\n   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)\r\n   at xBN.Repository.Repositories.EntityBaseRepository`1.Commit() in C:\\!Checkouts\\git checkouts\\xBN\\xBN.Service\\Repositories\\EntityBaseRepository.cs:line 98\r\n   at xBN.API.Controllers.CompanyController.Get(Int32 id) in C:\\!Checkouts\\git checkouts\\xBN\\xBN.API\\Controllers\\CompanyController.cs:line 37\r\n   at lambda_method(Closure , Object , Object[] )\r\n   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.<InvokeActionMethodAsync>d__27.MoveNext()}\r\n```\r\n\r\nThe issue is about adding support for the Column Encryption Setting to the .NET Core ADO.NET SqlClient.",
+  "author": "Participant 1",
+  "created_at": "2017-04-12T12:57:15Z",
+  "updated_at": "2019-08-10T00:15:57Z",
+  "state": "closed",
+  "closed_at": "2019-08-10T00:15:57Z",
+  "issue_fetched_at": "2026-10-18T12:14:46.598355+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T12:14:48.036292+00:00"
+  ],
+  "expected_comment_count": 86,
+  "retrieved_comment_count": 86,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 314608935,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-314608935",
+      "created_at": "2017-07-12T00:24:08Z",
+      "updated_at": "2017-07-12T00:24:08Z",
+      "author": "Participant 2",
+      "body": "guys, has this been fixed or?"
+    },
+    {
+      "id": 314609172,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-314609172",
+      "created_at": "2017-07-12T00:25:51Z",
+      "updated_at": "2017-07-12T00:25:51Z",
+      "author": "Participant 3",
+      "body": "CoreFx SqlClient does not currently support column encryption"
+    },
+    {
+      "id": 314610062,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-314610062",
+      "created_at": "2017-07-12T00:31:37Z",
+      "updated_at": "2017-07-12T00:31:37Z",
+      "author": "Participant 2",
+      "body": "@corivera, do we have any plans on this feature?"
+    },
+    {
+      "id": 314610769,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-314610769",
+      "created_at": "2017-07-12T00:36:35Z",
+      "updated_at": "2017-07-12T00:36:35Z",
+      "author": "Participant 3",
+      "body": "We don't have any plans for it at the moment, we (SqlClient team) will have to discuss it."
+    },
+    {
+      "id": 314611108,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-314611108",
+      "created_at": "2017-07-12T00:38:58Z",
+      "updated_at": "2017-07-12T00:38:58Z",
+      "author": "Participant 2",
+      "body": "Thanks for you info. I think it would be highly demanded feature as column encryption is widely used. Hope to see this feature being implemented soon."
+    },
+    {
+      "id": 314617317,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-314617317",
+      "created_at": "2017-07-12T01:22:28Z",
+      "updated_at": "2017-07-12T01:22:28Z",
+      "author": "Participant 4",
+      "body": "Related https://github.com/aspnet/EntityFramework/issues/9142. "
+    },
+    {
+      "id": 336817243,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-336817243",
+      "created_at": "2017-10-16T08:32:00Z",
+      "updated_at": "2017-10-16T08:32:00Z",
+      "author": "Participant 5",
+      "body": "Need this"
+    },
+    {
+      "id": 345061470,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-345061470",
+      "created_at": "2017-11-16T21:02:56Z",
+      "updated_at": "2017-11-16T21:02:56Z",
+      "author": "Participant 6",
+      "body": "The lack of Always Encrypted is a real drag on promoting .net Core where I am, because security is paramount."
+    },
+    {
+      "id": 351304633,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-351304633",
+      "created_at": "2017-12-13T07:17:37Z",
+      "updated_at": "2017-12-13T07:17:37Z",
+      "author": "Participant 7",
+      "body": "Actually I had reported this separately, so technically my issue is a duplicate. But I've been looking at explicit server-based value encryption (using ENCRYPTBYKEY etc), and it seems there are no .net libraries out there that support this either?"
+    },
+    {
+      "id": 359139767,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-359139767",
+      "created_at": "2018-01-20T02:56:11Z",
+      "updated_at": "2018-01-20T02:56:11Z",
+      "author": "Participant 8",
+      "body": "What is going on with this? We really need this now!"
+    },
+    {
+      "id": 359148110,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-359148110",
+      "created_at": "2018-01-20T05:53:00Z",
+      "updated_at": "2018-01-20T05:53:00Z",
+      "author": "Participant 9",
+      "body": "@divega @corivera is this in plan? If not is it feasible for community to port?"
+    },
+    {
+      "id": 363366565,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-363366565",
+      "created_at": "2018-02-06T09:42:55Z",
+      "updated_at": "2018-02-06T09:42:55Z",
+      "author": "Participant 10",
+      "body": "Just starting a new enterprise project, we had decided on .Net Core but are switching to .Net Framework over this issue - I just removed the .Net Core projects from the solution and am retargeting ASP.Net Core at the .Net Framework. It is a shame Core isn't yet mature enough for us, but at the end of the day you've got the resources you've got."
+    },
+    {
+      "id": 379264478,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-379264478",
+      "created_at": "2018-04-06T14:08:06Z",
+      "updated_at": "2018-04-06T14:08:06Z",
+      "author": "Participant 11",
+      "body": "@corivera : Similar to @mattd73uk, we've started an enterprise project and just found out always encrypted is not supported in .Net Core. Basically we will have to switch back to the .Net Framework unless we hear otherwise. Is there any indication on when this feature would likely be added? "
+    },
+    {
+      "id": 379270511,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-379270511",
+      "created_at": "2018-04-06T14:28:34Z",
+      "updated_at": "2018-04-06T14:29:17Z",
+      "author": "Participant 12",
+      "body": "We had the same demand during mid of 2017 in one of our enterprise project that uses AE feature from a .NET Core API, reached through the Microsoft premier support, but could not find any timelines for this functionality, I don't think its even present in their future milestones. \r\n\r\nWondering when they will add support for column encryption in CoreFX sql client.\r\n\r\nFinally, we had to target the API to .NET Framework and use EF 6.x instead of Core."
+    },
+    {
+      "id": 379363647,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-379363647",
+      "created_at": "2018-04-06T20:09:52Z",
+      "updated_at": "2018-04-06T20:09:52Z",
+      "author": "Participant 9",
+      "body": "@divega @corivera could you please share thoughts? Clearly it's a blocking issue for a number of folks here. Is it something community could help port?"
+    },
+    {
+      "id": 379727128,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-379727128",
+      "created_at": "2018-04-09T11:58:41Z",
+      "updated_at": "2018-04-09T11:58:41Z",
+      "author": "Participant 13",
+      "body": "Ouch, this has burned me today horribly. Tomorrow we are deploying to production. Which means that today we start migrating users across from an old system across to a new one.\r\n\r\nThen I get hit by this......"
+    },
+    {
+      "id": 380796120,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-380796120",
+      "created_at": "2018-04-12T12:59:02Z",
+      "updated_at": "2018-04-12T12:59:02Z",
+      "author": "Participant 14",
+      "body": "While I was looking forward to trying .NET Core out for a new project the lack of support for column encryption and the lack of support for AccessToken means I will have to build the project on .Net Framework instead.  "
+    },
+    {
+      "id": 394867355,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-394867355",
+      "created_at": "2018-06-05T21:32:05Z",
+      "updated_at": "2018-06-05T21:32:05Z",
+      "author": "Participant 15",
+      "body": "Always Encrypted is definitely still on our radar. We don't have a timeline for it at the moment, though. There are a few items that we believe are higher on the list. We are open to prioritization changes, though (vote up comments on this issue)."
+    },
+    {
+      "id": 394868313,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-394868313",
+      "created_at": "2018-06-05T21:35:44Z",
+      "updated_at": "2018-06-05T21:35:44Z",
+      "author": "Participant 16",
+      "body": "I've commented on another thread regarding this already - but with your recent push on GDPR it shocks me that this isn't available. It's fairly critical to stop people from rolling their own methods to encrypt data in columns (which as we know from experience never ends well).\r\n\r\nBeing forced to use .NET Framework for such \"basic\" (from an outside perspective) functionality isn't really acceptable, when there's such a huge push to use .NET Core."
+    },
+    {
+      "id": 394884083,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-394884083",
+      "created_at": "2018-06-05T22:45:04Z",
+      "updated_at": "2018-06-05T22:45:04Z",
+      "author": "Participant 8",
+      "body": "@David-Engel We cannot use the latest SQL and .net Core due to this. We had hours and hours of rework which had to be done because of this and we aren't the only ones. This should have already been done imo."
+    },
+    {
+      "id": 394909938,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-394909938",
+      "created_at": "2018-06-06T01:23:22Z",
+      "updated_at": "2018-06-06T01:23:22Z",
+      "author": "Participant 6",
+      "body": "Here we are at the midpoint of 2018.  To find out now that this critical piece of functionality is even at this late date not under development is deeply disappointing.  \r\n\r\nLike these others, I've had to push back on timelines to move to .net core.  \r\n\r\nProspective dates are in order here.  When?"
+    },
+    {
+      "id": 394928352,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-394928352",
+      "created_at": "2018-06-06T03:26:05Z",
+      "updated_at": "2018-06-06T03:26:05Z",
+      "author": "Participant 8",
+      "body": "Always Encrypted came out in 2016. We are a complete newer version of SQL Server ahead and at least 4 versions of .net framework ahead since it came out and we still don't have support for core. This makes no sense!"
+    },
+    {
+      "id": 404156246,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-404156246",
+      "created_at": "2018-07-11T12:46:54Z",
+      "updated_at": "2018-07-11T12:46:54Z",
+      "author": "Participant 17",
+      "body": "I hope to see this feature in the next version of System.Data.SqlClient.\r\nSupport for Always Encrypted is required for enterprise applications that rely on SQL Server and it's security features.\r\nReleasing this together with .NET Core 2.2 later this year should be high priority.\r\n"
+    },
+    {
+      "id": 409849987,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-409849987",
+      "created_at": "2018-08-02T08:33:32Z",
+      "updated_at": "2018-08-02T08:33:32Z",
+      "author": "Participant 18",
+      "body": "I share your hope as I need a solution to comply the GDPR's rules."
+    },
+    {
+      "id": 410305861,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-410305861",
+      "created_at": "2018-08-03T16:26:02Z",
+      "updated_at": "2018-08-03T16:26:02Z",
+      "author": "Participant 19",
+      "body": "With all the data security push from GDPR and others, we really need this fix ASAP"
+    },
+    {
+      "id": 415426003,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-415426003",
+      "created_at": "2018-08-23T14:05:41Z",
+      "updated_at": "2018-08-23T14:05:41Z",
+      "author": "Participant 20",
+      "body": "\r\nwe really need this fix ASAP. This feature will be release with .Net Core 2.2 ?"
+    },
+    {
+      "id": 415865607,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-415865607",
+      "created_at": "2018-08-24T19:54:11Z",
+      "updated_at": "2018-08-24T19:54:11Z",
+      "author": "Participant 21",
+      "body": "Any news on this ? would be nice to not have to use .net framework for bigger projects..."
+    },
+    {
+      "id": 418688676,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-418688676",
+      "created_at": "2018-09-05T10:55:23Z",
+      "updated_at": "2018-09-05T10:55:23Z",
+      "author": "Participant 22",
+      "body": "Wow. Basically my whole Cryptography layer can't be upgraded to .NET Core because of this. "
+    },
+    {
+      "id": 423912985,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-423912985",
+      "created_at": "2018-09-24T09:00:24Z",
+      "updated_at": "2018-09-24T09:05:41Z",
+      "author": "Participant 23",
+      "body": "Would very much like this prioritized.\r\n\r\nUnderstand you are busy, do you guys want help - this isn't really an optional feature anymore.\r\n\r\nRolling custom encryption is going to lead to insecurity, which is really bad PR for NetCore. Once you implement said feature- unless you never release - you are essentially locked to said implementation.\r\n\r\nIt's also been lower priority than features released and then re-released under NetCore 1.0 and then 2.0.\r\n\r\nI simply dont understand the motivation to shelve this, even without GDPR. Security is paramount."
+    },
+    {
+      "id": 424083730,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-424083730",
+      "created_at": "2018-09-24T18:49:11Z",
+      "updated_at": "2018-09-24T18:49:11Z",
+      "author": "Participant 15",
+      "body": "Always Encrypted is still very much a priority for the SqlClient team and we are hearing all the comments. Unfortunately, we still don't have a concrete timeline we can share yet."
+    },
+    {
+      "id": 424085672,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-424085672",
+      "created_at": "2018-09-24T18:55:12Z",
+      "updated_at": "2018-09-24T18:55:12Z",
+      "author": "Participant 8",
+      "body": "We are going 3 versions deep in SQL Server without support. We really want to use .net core, but we can't because of this we have to stay full framework. When will it be priority enough to get it finished?"
+    },
+    {
+      "id": 424091659,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-424091659",
+      "created_at": "2018-09-24T19:14:20Z",
+      "updated_at": "2018-09-24T19:14:20Z",
+      "author": "Participant 23",
+      "body": "@David-Engel can we bribe you with cookies and beer? "
+    },
+    {
+      "id": 424123235,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-424123235",
+      "created_at": "2018-09-24T21:00:31Z",
+      "updated_at": "2018-09-24T21:24:49Z",
+      "author": "Participant 15",
+      "body": "@houseofcat I do like a good chocolate chip cookie. 😄 But some things are beyond my control. I wish I could share more. There are always other factors in play but we definitely are shooting for AE support in .NET Core as soon as we can."
+    },
+    {
+      "id": 425786292,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-425786292",
+      "created_at": "2018-10-01T04:27:17Z",
+      "updated_at": "2018-10-01T04:27:17Z",
+      "author": "Participant 24",
+      "body": "I have a .NET Core application currently using SQL Server. In a future release, data is being added to the system which needs column encryption due to its nature - we’re going to have to port it to .NET Framework due to this missing capability."
+    },
+    {
+      "id": 428602206,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-428602206",
+      "created_at": "2018-10-10T14:49:31Z",
+      "updated_at": "2018-10-10T14:49:31Z",
+      "author": "Participant 25",
+      "body": "Was always told by pundits that .NET had best in class security which was the governing reason for selecting the platform. Surprised to find out that as of yet \".NET Core\" doesn't support the Always Encrypted feature. Neither our team or the consultants we hired were aware of this 😆Learning experience, tenfold. \r\n\r\nAnyway, throwing our hat into the ring to support fast-tracking this feature, it would be beneficial to have. Because conversion is out of the question, but we'll figure out something else in the interim. \r\n\r\nAnd it's worth saying that despite this, thanks for the excellent product so far! 😀"
+    },
+    {
+      "id": 433385860,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-433385860",
+      "created_at": "2018-10-26T12:06:52Z",
+      "updated_at": "2018-10-26T12:06:52Z",
+      "author": "Participant 26",
+      "body": "Adding our name to the list of people not implementing new projects in .NET Core because of the lack of AE support."
+    },
+    {
+      "id": 433463642,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-433463642",
+      "created_at": "2018-10-26T16:19:45Z",
+      "updated_at": "2018-10-26T16:19:45Z",
+      "author": "Participant 27",
+      "body": "Work for a large Fortune 10 company that is also putting the brakes on many large projects due to this. Going with .NET Framework is not an option. We would really appreciate it if at least you could give us hope that this feature is coming in the near future, at least in beta form, so our management doesn't throw .NET Core out the window and go for a Java solution. We have already invested in .NET Core and was about to become our corporate standard. Please give us a date range at least."
+    },
+    {
+      "id": 433481436,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-433481436",
+      "created_at": "2018-10-26T17:20:27Z",
+      "updated_at": "2018-10-26T17:20:27Z",
+      "author": "Participant 8",
+      "body": "I wonder if the holdup is the fact that the encryption is proprietary and they can't open source it. If that is the cast then they should just create an add on nuget package for .net core so we can use it!"
+    },
+    {
+      "id": 433484146,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-433484146",
+      "created_at": "2018-10-26T17:29:14Z",
+      "updated_at": "2018-10-26T17:29:14Z",
+      "author": "Participant 28",
+      "body": "@aspnerd that definitely isn't the problem. The existing SqlClient always encrypted support code is available right now in the Framework GitHub. There's nothing proprietary about that implementation."
+    },
+    {
+      "id": 433508492,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-433508492",
+      "created_at": "2018-10-26T18:51:11Z",
+      "updated_at": "2018-10-26T18:51:11Z",
+      "author": "Participant 15",
+      "body": "@jxvalenz It's coming. Someone is actively working on the code. I don't have a timeline I can publicly share right now, though."
+    },
+    {
+      "id": 433550202,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-433550202",
+      "created_at": "2018-10-26T21:36:58Z",
+      "updated_at": "2018-10-26T21:39:33Z",
+      "author": "Participant 23",
+      "body": "@David-Engel thank you for the update and I understand you can't give specifics, however, what we really could use are some abstracts. Will we have a preview/release this year (2018), or in v2.2, >v2.2, 3.0. etc.\r\n\r\nCan you let us know if there is intention to release it this year? \r\n\r\nThis isn't asking for a concrete delivery date, this is so we can plan our future NetCore empires. We have to plan/prototype. Sell these ideas we are creating - and the technology that powers these ideas - to Project Managers who by-and-large eat q-tips. Being able to tell the q-tip eaters when this will be secure and viable is the horcrux for keeping these ideas alive.\r\n\r\nRespectfully, and not above bribing with cookies and beer, HouseCat."
+    },
+    {
+      "id": 435131966,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-435131966",
+      "created_at": "2018-11-01T18:07:07Z",
+      "updated_at": "2018-11-01T18:07:07Z",
+      "author": "Participant 29",
+      "body": "Seconding @houseofcat . With full framework support going away in asp.net core 3.0 we need to start making plans."
+    },
+    {
+      "id": 435293942,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-435293942",
+      "created_at": "2018-11-02T07:27:01Z",
+      "updated_at": "2018-11-02T07:27:01Z",
+      "author": "Participant 30",
+      "body": "I also hope we could make a mid-term decision for our project with the plan of Column Encryption support."
+    },
+    {
+      "id": 435559771,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-435559771",
+      "created_at": "2018-11-03T04:29:05Z",
+      "updated_at": "2018-11-03T04:29:05Z",
+      "author": "Participant 24",
+      "body": "This has definitely become more urgent with the news that ASP.NET Core will no longer run on netfx - the plan of porting back to netfx which we had is no longer feasible!"
+    },
+    {
+      "id": 438449059,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-438449059",
+      "created_at": "2018-11-13T21:43:16Z",
+      "updated_at": "2018-11-13T21:43:16Z",
+      "author": "Participant 8",
+      "body": "@divega I don't this is related to our issue above."
+    },
+    {
+      "id": 438456037,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-438456037",
+      "created_at": "2018-11-13T22:05:30Z",
+      "updated_at": "2018-11-13T22:05:30Z",
+      "author": "Participant 4",
+      "body": "@aspnerd they are related in the sense that they are both potentially competing priorities for the SqlClient team to tackle in the near future. You can follow the link to see in what context I mentioned it."
+    },
+    {
+      "id": 438576484,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-438576484",
+      "created_at": "2018-11-14T08:20:28Z",
+      "updated_at": "2018-11-14T08:20:28Z",
+      "author": "Participant 10",
+      "body": "Hi, as per my comment above I switched our enterprise project from Core to Framework over this, definitely the right decision, SQL Server 2017 with ASP.Net Core targeting the .Net Framework with EF is a great combination of secure & easy to maintain tech.\r\n\r\nBut taking a step back, my concern is how is it possible that the latest Microsoft technology in one area (.Net Core) has spent two years not supporting/interop with such a great feature in the current MS tech in another area (SQL Server 2016, 2017, 2019).  \r\n\r\nI don't mind using the .Net Framework - it's fantastic & served me well.  But from its announcements the MS megalith (that's a good thing - I and my clients have relied on it for 20 years) *wants* me/my clients to use .Net Core going forward, but it hasn't able to put the resources in play to make what it wants happen.  \r\n\r\n@divega does that make sense as a concern?  Yes, you are able to cite an issue that has received more upvotes, but why is there a need to pit two so important/requested issues against each other?  Why has MS been unable to resource either for 2 years to support a flagship product like SQL Server?"
+    },
+    {
+      "id": 445062143,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-445062143",
+      "created_at": "2018-12-06T23:02:39Z",
+      "updated_at": "2018-12-06T23:02:39Z",
+      "author": "Participant 31",
+      "body": "We are developing a LOB application using UWP and just hit a roadblock because of the lack of support for this feature. I think that these types of feature are critical for developers to be able to adopt UWP and .NET Core/ .NET Standard, especially for Enterprise applications. \r\n\r\nWould there need to be a separate issue opened for UWP support?\r\n\r\nPlease consider implementing this feature soon!"
+    },
+    {
+      "id": 448332890,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-448332890",
+      "created_at": "2018-12-18T19:03:34Z",
+      "updated_at": "2018-12-18T19:03:34Z",
+      "author": "Participant 32",
+      "body": "I echo what @David-Engel says about not being able to share a concrete timeframe, but I can tell you that the feature is under active development with high priority for the SqlClient team. This capability is important to our users and it is important for cross platform parity in Microsoft's own data tools.\r\n\r\nFor directional purposes: it is currently planned for the v3.0 timeframe and we will announce more soon as we become more confident in the timing. "
+    },
+    {
+      "id": 448337060,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-448337060",
+      "created_at": "2018-12-18T19:17:10Z",
+      "updated_at": "2018-12-18T19:17:10Z",
+      "author": "Participant 23",
+      "body": "My body is ready!"
+    },
+    {
+      "id": 457546979,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-457546979",
+      "created_at": "2019-01-25T11:40:47Z",
+      "updated_at": "2019-01-25T11:40:47Z",
+      "author": "Participant 33",
+      "body": "Highly demanded feature!!!  Incredible that there's still no support for this in .NET Core, after two years!"
+    },
+    {
+      "id": 458771536,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-458771536",
+      "created_at": "2019-01-30T01:09:39Z",
+      "updated_at": "2019-01-30T01:09:39Z",
+      "author": "Participant 4",
+      "body": "As mentioned by @vickyharp previously, it is now planned for 3.0. I have updated the milestone assignment to reflect this. "
+    },
+    {
+      "id": 461088525,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-461088525",
+      "created_at": "2019-02-06T16:28:30Z",
+      "updated_at": "2019-02-06T16:28:30Z",
+      "author": "Participant 34",
+      "body": "I see .NET Core 3.0 previews are coming out now. Is this still in scope for the release?"
+    },
+    {
+      "id": 461247325,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-461247325",
+      "created_at": "2019-02-07T00:45:59Z",
+      "updated_at": "2019-02-07T00:45:59Z",
+      "author": "Participant 32",
+      "body": "@mmacagno Yes "
+    },
+    {
+      "id": 465277107,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-465277107",
+      "created_at": "2019-02-19T19:31:27Z",
+      "updated_at": "2019-02-19T19:31:27Z",
+      "author": "Participant 35",
+      "body": "Man, hopefully AE support gets rolled out soon. We need this big time..."
+    },
+    {
+      "id": 466467915,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-466467915",
+      "created_at": "2019-02-22T16:59:16Z",
+      "updated_at": "2019-02-22T16:59:16Z",
+      "author": "Participant 36",
+      "body": "Adding in my vote for this as well.  Our project had to switch from .NET Core to .NET Framework over this exact limitation.   "
+    },
+    {
+      "id": 472512582,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-472512582",
+      "created_at": "2019-03-13T16:58:33Z",
+      "updated_at": "2019-03-13T16:58:33Z",
+      "author": "Participant 37",
+      "body": "Will the 3.0 release support the new Always Encrypted enclaves coming out in SQL 2019?  Will there need to be anything done on the .net Core side?   I don't think there would be, but if there is -- will we need to wait another 3 years for that support?   When will there be previews for AE support that we can start testing?"
+    },
+    {
+      "id": 473412493,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-473412493",
+      "created_at": "2019-03-15T19:24:18Z",
+      "updated_at": "2019-03-15T19:24:18Z",
+      "author": "Participant 38",
+      "body": "A workaround is to use ODBC driver to access AE data. It works with .net core 2.x.\r\nhttps://docs.microsoft.com/en-us/sql/connect/odbc/using-always-encrypted-with-the-odbc-driver?view=sql-server-2017. In my project I have 2 connection strings, one SqlServer for non encrypted data and one ODBC for everything that needs to be decrypted. It is a pain but it works well."
+    },
+    {
+      "id": 473501648,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-473501648",
+      "created_at": "2019-03-16T05:30:42Z",
+      "updated_at": "2019-03-16T05:30:42Z",
+      "author": "Participant 6",
+      "body": "> \r\n> \r\n> A workaround is to use ODBC driver to access AE data. It works with .net core 2.x.\r\n> https://docs.microsoft.com/en-us/sql/connect/odbc/using-always-encrypted-with-the-odbc-driver?view=sql-server-2017. In my project I have 2 connection strings, one SqlServer for non encrypted data and one ODBC for everything that needs to be decrypted. It is a pain but it works well.\r\n\r\nThat looks crazy compliated"
+    },
+    {
+      "id": 481739236,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-481739236",
+      "created_at": "2019-04-10T15:28:30Z",
+      "updated_at": "2019-05-01T12:18:45Z",
+      "author": "Participant 39",
+      "body": "Is it already available on .net core 3.0 preview ? any preview release targeted for that feature ?"
+    },
+    {
+      "id": 487907316,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-487907316",
+      "created_at": "2019-04-30T10:49:51Z",
+      "updated_at": "2019-04-30T10:49:51Z",
+      "author": "Participant 40",
+      "body": "I guess this is still not in any preview? This issue is making porting our website to .Net Core a real pain."
+    },
+    {
+      "id": 489723661,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-489723661",
+      "created_at": "2019-05-06T18:24:24Z",
+      "updated_at": "2019-05-06T18:41:25Z",
+      "author": "Participant 4",
+      "body": "Everyone,\r\n\r\nA new out-of-band version of SqlClient was released in preview today to [NuGet](https://www.nuget.org/packages/Microsoft.Data.SqlClient/). It is a new package called Microsoft.Data.SqlClient, and it includes support for Always Encrypted on .NET Core and other enhancements like UTF-8 and data classification support on both .NET Core and .NET Framework. \r\n\r\nInitial details about the new package are included in the new .NET Core 3.0 Preview 5 announcement at https://devblogs.microsoft.com/dotnet/announcing-net-core-3-0-preview-5/ and a lot more information can be found in the new repository at https://github.com/dotnet/sqlclient, where the open source codebase for the new provider will be hosted. \r\n\r\nIn coming weeks, we will move issue tracking to the new repo. In the meantime, issues and PRs that apply to System.Data.SqlClient are still accepted here. \r\n\r\nWe would like to encourage you to try the new package and give us feedback, especially if you were blocked by Always Encrypted not being available on .NET Core. \r\n\r\ncc @David-Engel @vickyharp "
+    },
+    {
+      "id": 490045507,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-490045507",
+      "created_at": "2019-05-07T11:46:03Z",
+      "updated_at": "2019-05-07T11:46:03Z",
+      "author": "Participant 41",
+      "body": "@divega thanks for the awesome news!\r\n\r\nI just wanted to try to migrate a sample project from .NET Framework 4.7 to .NET Core 2.2 that is using Always Encrypted on a Azure SQL Database and Azure KeyVault. It was originally built from [this example](https://docs.microsoft.com/de-de/azure/sql-database/sql-database-always-encrypted-azure-key-vault#register-the-azure-key-vault-provider).\r\nBut I'm failing so far as `SqlColumnEncryptionKeyStoreProvider` is not available in Microsoft.Data.SqlClient and neither is `SqlConnection.RegisterColumnEncryptionKeyStoreProviders()`\r\n\r\nCould you maybe please post a complete example using Always Encrypted with KeyVault in the new Microsoft.Data.SqlClient package?"
+    },
+    {
+      "id": 490113398,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-490113398",
+      "created_at": "2019-05-07T14:51:08Z",
+      "updated_at": "2019-05-07T14:57:28Z",
+      "author": "Participant 40",
+      "body": "I still have the same issue with Column Encryption Setting in the connection string in my .Net Core app that uses EF.\r\nI use all the previews that were released the 6th of may 2019.\r\nI have the following related NuGet packages installed:\r\n\r\n- Microsoft.EntityFrameworkCore v3.0.0-preview5.19227.1\r\n- Microsoft.EntityFrameworkCore.SqlServer v3.0.0-preview5.19227.1\r\n- System.Data.SqlClient v4.7.0-preview5.19224.8\r\n- Microsoft.Data.SqlClient v1.0.19123.2-Preview\r\n\r\n But the app (EntitityFrameworkCore) seems to still have a dependency System.Data.SQLClient instead of the new Microsoft.Data.SqlClient this is the Exception :\r\n\r\nArgumentException: Keyword not supported: 'column encryption setting'.\r\nSystem.Data.SqlClient.SqlConnectionStringBuilder.GetIndex(string keyword)\r\nSystem.Data.SqlClient.SqlConnectionStringBuilder.set_Item(string keyword, object value)\r\nSystem.Data.Common.DbConnectionStringBuilder.set_ConnectionString(string value)\r\nMicrosoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerConnection.get_IsMultipleActiveResultSetsEnabled()\r\nMicrosoft.EntityFrameworkCore.Storage.RelationalConnection.Microsoft.EntityFrameworkCore.Storage.IRelationalConnection.UnregisterBufferable(IBufferable bufferable)\r\nMicrosoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable<T>+AsyncEnumerator.Dispose()\r\nSystem.Linq.AsyncEnumerable+SelectEnumerableAsyncIterator<TSource, TResult>.Dispose() in Select.cs\r\nMicrosoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider+ExceptionInterceptor<T>+EnumeratorExceptionInterceptor.Dispose()\r\nSystem.Linq.AsyncEnumerable.Aggregate_<TSource, TAccumulate, TResult>(IAsyncEnumerable<TSource> source, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> accumulator, Func<TAccumulate, TResult> resultSelector, CancellationToken cancellationToken) in Aggregate.cs\r\nClementinePortal.Core.Pages.Companies.IndexModel.OnGetAsync() in Index.cshtml.cs\r\n+\r\n            Companies = await _context.Companies.ToListAsync();\r\n\r\n is there something I can do to alleviate the issue?\r\n\r\n\r\nMaybe worth to note : If I DO NOT use the Column Encryption Setting keyword, I can display the data of unencrypted tables on my page, but not the encrypted table data (throws exception)\r\nIf I do use it then I get the exception mentioned above on ALL pages."
+    },
+    {
+      "id": 490129414,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-490129414",
+      "created_at": "2019-05-07T15:29:31Z",
+      "updated_at": "2019-05-07T15:29:31Z",
+      "author": "Participant 41",
+      "body": "@Tim-Bijnens your issue as actually a bit different, as the reason for yours is that EF Core does not yet use the new package. The exception is thus thrown by the old *System.Data.SqlClient*\r\nThere is already an issue for the update here: https://github.com/aspnet/EntityFrameworkCore/issues/15636"
+    },
+    {
+      "id": 490168787,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-490168787",
+      "created_at": "2019-05-07T17:13:08Z",
+      "updated_at": "2019-05-07T17:14:46Z",
+      "author": "Participant 4",
+      "body": "> But I'm failing so far as SqlColumnEncryptionKeyStoreProvider is not available in Microsoft.Data.SqlClient and neither is SqlConnection.RegisterColumnEncryptionKeyStoreProviders()\r\n> Could you maybe please post a complete example using Always Encrypted with KeyVault in the new Microsoft.Data.SqlClient package?\r\n\r\n@David-Engel would you be able to answer this? I think it is the second time the idea of having a minimal sample comes up. \r\n\r\n> I still have the same issue with Column Encryption Setting in the connection string in my .Net Core app that uses EF.,,\r\n\r\n@Tim-Bijnens good point. Yes, unfortunately the current preview of EF Core still uses System.Data.SqlClient. We are moving to Microsoft.Data.SqlClient in an upcoming preview. You can follow https://github.com/aspnet/EntityFrameworkCore/issues/15636 to know when the change will make it to nightly builds. At which point I believe we will still have a few rough edges to work out, but to the degree that Always Encrypted is transparent, things should generally work."
+    },
+    {
+      "id": 490241036,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-490241036",
+      "created_at": "2019-05-07T20:22:37Z",
+      "updated_at": "2019-05-07T20:22:37Z",
+      "author": "Participant 15",
+      "body": "@divega It appears that when the AE port to Core was done, the Core ref classes were not updated with the new APIs. Tests were/are run against the non-ref implementation so we didn't catch it. We'll get an update to the package out ASAP."
+    },
+    {
+      "id": 490628394,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-490628394",
+      "created_at": "2019-05-08T19:57:47Z",
+      "updated_at": "2019-05-08T19:57:47Z",
+      "author": "Participant 15",
+      "body": "We pushed an update to the Microsoft.Data.SqlClient 1.0 preview. It should resolve the issues noted around Always Encrypted.\r\n\r\n@sebader - I want to note, though, custom key store providers like the Azure Key Vault provider need to be updated to work with Microsoft.Data.SqlClient. Only the built-in providers will work until that happens (hopefully soon!). So the example you were following using Azure Key Vault still won't work. But this example, which uses the built-in Windows Certificate Store provider, should work as expected after changing from System.Data.SqlClient to Microsoft.Data.SqlClient:\r\nhttps://docs.microsoft.com/en-us/azure/sql-database/sql-database-always-encrypted\r\n\r\n@divega "
+    },
+    {
+      "id": 490639899,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-490639899",
+      "created_at": "2019-05-08T20:32:06Z",
+      "updated_at": "2019-05-08T20:32:06Z",
+      "author": "Participant 41",
+      "body": "thanks for the update @David-Engel ! Too bad though about KeyVault missing yet. I'm using Azure Functions so Windows Cert store is no good for me ;-)\r\nWhere could we track the progress of their update?"
+    },
+    {
+      "id": 490676359,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-490676359",
+      "created_at": "2019-05-08T22:40:40Z",
+      "updated_at": "2019-05-08T22:40:40Z",
+      "author": "Participant 15",
+      "body": "@sebader I'm not sure. We've pinged the team who owns it. I don't think that project is public."
+    },
+    {
+      "id": 492853476,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-492853476",
+      "created_at": "2019-05-15T22:52:43Z",
+      "updated_at": "2019-05-15T22:52:43Z",
+      "author": "Participant 4",
+      "body": "As recently [announced in the .NET Blog](https://devblogs.microsoft.com/dotnet/introducing-the-new-microsoftdatasqlclient/), focus on new SqlClient features an improvements is moving to the new [Microsoft.Data.SqlClient package](https://www.nuget.org/packages/Microsoft.Data.SqlClient/). For this reason, we are moving this issue to the new repo at https://github.com/dotnet/SqlClient. We will still use https://github.com/dotnet/corefx to track issues on other providers like System.Data.Odbc and System.Data.OleDB, and general ADO.NET and .NET data access issues."
+    },
+    {
+      "id": 492854814,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-492854814",
+      "created_at": "2019-05-15T22:59:15Z",
+      "updated_at": "2019-05-15T22:59:15Z",
+      "author": "Participant 28",
+      "body": "@David-Engel could you recommend the best place to watch for updated Azure Key Vault support? We're using certificate store for the moment but trying to catch all the places that need cert updates is a pain and we'd love to migrate in the near term."
+    },
+    {
+      "id": 493085665,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-493085665",
+      "created_at": "2019-05-16T14:15:17Z",
+      "updated_at": "2019-05-16T14:15:17Z",
+      "author": "Participant 42",
+      "body": "@divega  How can this change be incorporated into the EFCore.SqlServer? because System.Data.SqlClient is  one of the dependencies of EFCore.SqlServer."
+    },
+    {
+      "id": 493091283,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-493091283",
+      "created_at": "2019-05-16T14:28:45Z",
+      "updated_at": "2019-05-16T17:59:56Z",
+      "author": "Participant 28",
+      "body": "@kedarchinchvalkar There are two relatively small steps:\r\n\r\n1. Register your DB context for DI using the overload provided for specifying the abstract `DbConnection`, constructing instead a `Microsoft.Data.SqlClient.SqlConnection` (probably optional).\r\n2. Replace the `ISqlServerConnection` service with one targeting `Microsoft.Data.SqlClient` for both `SqlConnection` and `SqlConnectionStringBuilder`.\r\n\r\nI lifted the code from GitHub for the last Microsoft.EntityFrameworkCore.SqlServer 2.x release for `SqlServerConnection` and updated it with proper targets as follows:\r\n\r\n```\r\nusing Microsoft.Data.SqlClient;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;\r\nusing Microsoft.EntityFrameworkCore.Storage;\r\nusing System.Data.Common;\r\n\r\nnamespace My.Storage\r\n{\r\n    /// <summary>\r\n    ///     This API supports the Entity Framework Core infrastructure.\r\n    /// </summary>\r\n    public class SqlServerConnection : RelationalConnection, ISqlServerConnection\r\n    {\r\n        private bool? _multipleActiveResultSetsEnabled;\r\n\r\n        // Compensate for slow SQL Server database creation\r\n        private const int DefaultMasterConnectionCommandTimeout = 60;\r\n\r\n        /// <summary>\r\n        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used\r\n        ///     directly from your code. This API may change or be removed in future releases.\r\n        /// </summary>\r\n        public SqlServerConnection(RelationalConnectionDependencies dependencies)\r\n            : base(dependencies)\r\n        {\r\n        }\r\n\r\n        /// <summary>\r\n        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used\r\n        ///     directly from your code. This API may change or be removed in future releases.\r\n        /// </summary>\r\n        protected override DbConnection CreateDbConnection() => new SqlConnection(ConnectionString);\r\n\r\n        /// <summary>\r\n        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used\r\n        ///     directly from your code. This API may change or be removed in future releases.\r\n        /// </summary>\r\n        public virtual ISqlServerConnection CreateMasterConnection()\r\n        {\r\n            var connectionStringBuilder = new SqlConnectionStringBuilder(ConnectionString)\r\n            {\r\n                InitialCatalog = \"master\"\r\n            };\r\n            connectionStringBuilder.Remove(\"AttachDBFilename\");\r\n\r\n            var contextOptions = new DbContextOptionsBuilder()\r\n                .UseSqlServer(\r\n                    connectionStringBuilder.ConnectionString,\r\n                    b => b.CommandTimeout(CommandTimeout ?? DefaultMasterConnectionCommandTimeout))\r\n                .Options;\r\n\r\n            return new SqlServerConnection(Dependencies.With(contextOptions));\r\n        }\r\n\r\n        /// <summary>\r\n        ///     This API supports the Entity Framework Core infrastructure and is not intended to be used\r\n        ///     directly from your code. This API may change or be removed in future releases.\r\n        /// </summary>\r\n        public override bool IsMultipleActiveResultSetsEnabled\r\n            => (bool)(_multipleActiveResultSetsEnabled\r\n                      ?? (_multipleActiveResultSetsEnabled\r\n                          = new SqlConnectionStringBuilder(ConnectionString).MultipleActiveResultSets));\r\n\r\n        /// <summary>\r\n        ///     Indicates whether the store connection supports ambient transactions\r\n        /// </summary>\r\n        protected override bool SupportsAmbientTransactions => true;\r\n    }\r\n}\r\n```\r\n\r\nThen I updated my service registration for AddDbContext as follows, where I construct a `Microsoft.Data.SqlClient.SqlConnection` and `SqlServerConnection` is `using SqlServerConnection = My.Storage.SqlServerConnection;`:\r\n```\r\npublic void ConfigureServices(IServiceCollection services)\r\n{\r\n    services\r\n        .AddDbContext<MyContext>(opts =>\r\n            opts\r\n                .UseSqlServer(new SqlConnection(Configuration.GetConnectionString(\"DefaultConnection\")))\r\n                .ReplaceService<ISqlServerConnection, SqlServerConnection>()) // TODO: Remove after transition to Core 3\r\n}\r\n```\r\n\r\nWorks like a charm. I even think the step of constructing the DbConnection may be unnecessary and you can use the raw string value for UseSqlServer(), but haven't tried it. Feel free to experiment."
+    },
+    {
+      "id": 493122884,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-493122884",
+      "created_at": "2019-05-16T15:46:23Z",
+      "updated_at": "2019-05-16T15:46:23Z",
+      "author": "Participant 15",
+      "body": "> @David-Engel could you recommend the best place to watch for updated Azure Key Vault support? We're using certificate store for the moment but trying to catch all the places that need cert updates is a pain and we'd love to migrate in the near term.\r\n\r\n@lsuarez5280 I'm not sure. I'll be sure to update this issue if I hear anything, though."
+    },
+    {
+      "id": 493285053,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-493285053",
+      "created_at": "2019-05-17T01:25:22Z",
+      "updated_at": "2019-05-17T01:25:22Z",
+      "author": "Participant 4",
+      "body": "> @divega How can this change be incorporated into the EFCore.SqlServer? because System.Data.SqlClient is one of the dependencies of EFCore.SqlServer.\r\n\r\n@kedarchinchvalkar, EF Core 3.0 will switch to depend directly on Microsoft.Data.SqlClient. This change is coming probably in the next preview."
+    },
+    {
+      "id": 493286047,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-493286047",
+      "created_at": "2019-05-17T01:30:41Z",
+      "updated_at": "2019-05-17T01:30:41Z",
+      "author": "Participant 4",
+      "body": "@David-Engel should we have a separate issue to track Azure Key Vault support? I am not very familiar with the feature, but it seems we need to follow up internally with the owners of https://www.nuget.org/packages/Microsoft.SqlServer.Management.AlwaysEncrypted.AzureKeyVaultProvider. "
+    },
+    {
+      "id": 494103141,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-494103141",
+      "created_at": "2019-05-20T18:37:40Z",
+      "updated_at": "2019-05-20T18:37:40Z",
+      "author": "Participant 15",
+      "body": "@divega I've already notified the team that owns the AKV library. Given the priority of AE support in SqlClient on netcore, I'm certainly keeping tabs on their progress. I've filed #111 here for tracking."
+    },
+    {
+      "id": 494851711,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-494851711",
+      "created_at": "2019-05-22T15:25:24Z",
+      "updated_at": "2019-05-22T15:25:24Z",
+      "author": "Participant 42",
+      "body": "> @kedarchinchvalkar There are two relatively small steps:\r\n> \r\n> 1. Register your DB context for DI using the overload provided for specifying the abstract `DbConnection`, constructing instead a `Microsoft.Data.SqlClient.SqlConnection` (probably optional).\r\n> 2. Replace the `ISqlServerConnection` service with one targeting `Microsoft.Data.SqlClient` for both `SqlConnection` and `SqlConnectionStringBuilder`.\r\n> \r\n> I lifted the code from GitHub for the last Microsoft.EntityFrameworkCore.SqlServer 2.x release for `SqlServerConnection` and updated it with proper targets as follows:\r\n> \r\n> ```\r\n> using Microsoft.Data.SqlClient;\r\n> using Microsoft.EntityFrameworkCore;\r\n> using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;\r\n> using Microsoft.EntityFrameworkCore.Storage;\r\n> using System.Data.Common;\r\n> \r\n> namespace My.Storage\r\n> {\r\n>     /// <summary>\r\n>     ///     This API supports the Entity Framework Core infrastructure.\r\n>     /// </summary>\r\n>     public class SqlServerConnection : RelationalConnection, ISqlServerConnection\r\n>     {\r\n>         private bool? _multipleActiveResultSetsEnabled;\r\n> \r\n>         // Compensate for slow SQL Server database creation\r\n>         private const int DefaultMasterConnectionCommandTimeout = 60;\r\n> \r\n>         /// <summary>\r\n>         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used\r\n>         ///     directly from your code. This API may change or be removed in future releases.\r\n>         /// </summary>\r\n>         public SqlServerConnection(RelationalConnectionDependencies dependencies)\r\n>             : base(dependencies)\r\n>         {\r\n>         }\r\n> \r\n>         /// <summary>\r\n>         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used\r\n>         ///     directly from your code. This API may change or be removed in future releases.\r\n>         /// </summary>\r\n>         protected override DbConnection CreateDbConnection() => new SqlConnection(ConnectionString);\r\n> \r\n>         /// <summary>\r\n>         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used\r\n>         ///     directly from your code. This API may change or be removed in future releases.\r\n>         /// </summary>\r\n>         public virtual ISqlServerConnection CreateMasterConnection()\r\n>         {\r\n>             var connectionStringBuilder = new SqlConnectionStringBuilder(ConnectionString)\r\n>             {\r\n>                 InitialCatalog = \"master\"\r\n>             };\r\n>             connectionStringBuilder.Remove(\"AttachDBFilename\");\r\n> \r\n>             var contextOptions = new DbContextOptionsBuilder()\r\n>                 .UseSqlServer(\r\n>                     connectionStringBuilder.ConnectionString,\r\n>                     b => b.CommandTimeout(CommandTimeout ?? DefaultMasterConnectionCommandTimeout))\r\n>                 .Options;\r\n> \r\n>             return new SqlServerConnection(Dependencies.With(contextOptions));\r\n>         }\r\n> \r\n>         /// <summary>\r\n>         ///     This API supports the Entity Framework Core infrastructure and is not intended to be used\r\n>         ///     directly from your code. This API may change or be removed in future releases.\r\n>         /// </summary>\r\n>         public override bool IsMultipleActiveResultSetsEnabled\r\n>             => (bool)(_multipleActiveResultSetsEnabled\r\n>                       ?? (_multipleActiveResultSetsEnabled\r\n>                           = new SqlConnectionStringBuilder(ConnectionString).MultipleActiveResultSets));\r\n> \r\n>         /// <summary>\r\n>         ///     Indicates whether the store connection supports ambient transactions\r\n>         /// </summary>\r\n>         protected override bool SupportsAmbientTransactions => true;\r\n>     }\r\n> }\r\n> ```\r\n> \r\n> Then I updated my service registration for AddDbContext as follows, where I construct a `Microsoft.Data.SqlClient.SqlConnection` and `SqlServerConnection` is `using SqlServerConnection = My.Storage.SqlServerConnection;`:\r\n> \r\n> ```\r\n> public void ConfigureServices(IServiceCollection services)\r\n> {\r\n>     services\r\n>         .AddDbContext<MyContext>(opts =>\r\n>             opts\r\n>                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString(\"DefaultConnection\")))\r\n>                 .ReplaceService<ISqlServerConnection, SqlServerConnection>()) // TODO: Remove after transition to Core 3\r\n> }\r\n> ```\r\n> \r\n> Works like a charm. I even think the step of constructing the DbConnection may be unnecessary and you can use the raw string value for UseSqlServer(), but haven't tried it. Feel free to experiment.\r\n\r\nIts giving an error on UserSqlServer() as,\r\nThe call is ambiguous between the following methods or properties: \r\n\r\n'Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder, System.Data.Common.DbConnection, System.Action<Microsoft.EntityFrameworkCore.Infrastructure.SqlServerDbContextOptionsBuilder>)' \r\nand \r\n'Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder, System.Data.Common.DbConnection, System.Action<Microsoft.EntityFrameworkCore.Infrastructure.SqlServerDbContextOptionsBuilder>)'\t"
+    },
+    {
+      "id": 494853136,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-494853136",
+      "created_at": "2019-05-22T15:28:48Z",
+      "updated_at": "2019-05-22T15:28:48Z",
+      "author": "Participant 28",
+      "body": "> Its giving an error on UserSqlServer() as,\r\n> The call is ambiguous between the following methods or properties:\r\n> 'Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder, System.Data.Common.DbConnection, System.Action<Microsoft.EntityFrameworkCore.Infrastructure.SqlServerDbContextOptionsBuilder>)'\r\n> and\r\n> 'Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder, System.Data.Common.DbConnection, System.Action<Microsoft.EntityFrameworkCore.Infrastructure.SqlServerDbContextOptionsBuilder>)'\r\n\r\n@kedarchinchvalkar That sounds like you may have reference problems in your project with multiple SQL Server EF Relational packages imported somehow, but is not related to the code. Those method prototypes are exactly the same."
+    },
+    {
+      "id": 495277429,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-495277429",
+      "created_at": "2019-05-23T15:52:42Z",
+      "updated_at": "2019-05-23T15:52:42Z",
+      "author": "Participant 42",
+      "body": "> > Its giving an error on UserSqlServer() as,\r\n> > The call is ambiguous between the following methods or properties:\r\n> > 'Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder, System.Data.Common.DbConnection, System.Action<Microsoft.EntityFrameworkCore.Infrastructure.SqlServerDbContextOptionsBuilder>)'\r\n> > and\r\n> > 'Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder, System.Data.Common.DbConnection, System.Action<Microsoft.EntityFrameworkCore.Infrastructure.SqlServerDbContextOptionsBuilder>)'\r\n> \r\n> @kedarchinchvalkar That sounds like you may have reference problems in your project with multiple SQL Server EF Relational packages imported somehow, but is not related to the code. Those method prototypes are exactly the same.\r\n\r\nYes, You're right. There was a duplicate reference due to \"Microsoft.AspNetCore.All\" package. Thank you so much.\r\n\r\nProgram now builds perfectly. I have applied column encryption on database table columns.\r\nbut while reading data I am getting following error,\r\n\r\nInvalidCastException: Unable to cast object of type 'System.Byte[]' to type 'System.String'.\r\nMicrosoft.Data.SqlClient.SqlBuffer.get_String()\r\nlambda_method(Closure , DbDataReader )\r\nMicrosoft.EntityFrameworkCore.Storage.Internal.TypedRelationalValueBufferFactory.Create(DbDataReader dataReader)\r\nMicrosoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable<T>+Enumerator.BufferlessMoveNext(DbContext _, bool buffer)\r\nMicrosoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute<TState, TResult>(TState state, Func<DbContext, TState, TResult> operation, Func<DbContext, TState, ExecutionResult<TResult>> verifySucceeded) in SqlServerExecutionStrategy.cs\r\n-\r\n            TState state,\r\n            Func<DbContext, TState, TResult> operation,\r\n            Func<DbContext, TState, ExecutionResult<TResult>> verifySucceeded)\r\n        {\r\n            try\r\n            {\r\n                return operation(Dependencies.CurrentDbContext.Context, state);\r\n            }\r\n            catch (Exception ex) when (ExecutionStrategy.CallOnWrappedException(ex, SqlServerTransientExceptionDetector.ShouldRetryOn))\r\n            {\r\n                throw new InvalidOperationException(SqlServerStrings.TransientExceptionDetected, ex);\r\n            }\r\n        }\r\nMicrosoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable<T>+Enumerator.MoveNext()\r\nMicrosoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider._TrackEntities<TOut, TIn>(IEnumerable<TOut> results, QueryContext queryContext, IList<EntityTrackingInfo> entityTrackingInfos, IList<Func<TIn, object>> entityAccessors)+MoveNext()\r\nMicrosoft.EntityFrameworkCore.Query.Internal.LinqOperatorProvider+ExceptionInterceptor<T>+EnumeratorExceptionInterceptor.MoveNext()\r\nMicrosoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.Load<TSource>(IQueryable<TSource> source)\r\nMicrosoft.EntityFrameworkCore.Internal.EntityFinder<TEntity>.Load(INavigation navigation, InternalEntityEntry entry)\r\nMicrosoft.EntityFrameworkCore.Internal.LazyLoader.Load(object entity, string navigationName)\r\nMicrosoft.EntityFrameworkCore.Proxies.Internal.LazyLoadingInterceptor.Intercept(IInvocation invocation)\r\nCastle.DynamicProxy.AbstractInvocation.Proceed()\r\nCastle.Proxies.WorkflowProxy.get_FormData()\r\nlambda_method(Closure , Workflow , SurveyViewModel , ResolutionContext )\r\n"
+    },
+    {
+      "id": 496846864,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-496846864",
+      "created_at": "2019-05-29T08:52:13Z",
+      "updated_at": "2019-05-29T08:52:13Z",
+      "author": "Participant 42",
+      "body": "Any updates on above?\r\n"
+    },
+    {
+      "id": 496982113,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-496982113",
+      "created_at": "2019-05-29T15:17:59Z",
+      "updated_at": "2019-05-29T15:17:59Z",
+      "author": "Participant 28",
+      "body": "@kedarchinchvalkar I'm gonna guess that you haven't actually added `Column Encryption Setting=Enabled` in your connection string. At this point, I suggest you don't use this issue to continue the conversation. Either seek community support for utilizing the connector or open a new issue so your questions can be addressed there."
+    },
+    {
+      "id": 496984043,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-496984043",
+      "created_at": "2019-05-29T15:22:43Z",
+      "updated_at": "2019-05-29T15:22:43Z",
+      "author": "Participant 42",
+      "body": "> @kedarchinchvalkar I'm gonna guess that you haven't actually added `Column Encryption Setting=Enabled` in your connection string. At this point, I suggest you don't use this issue to continue the conversation. Either seek community support for utilizing the connector or open a new issue so your questions can be addressed there.\r\n\r\n@Isuarez5280 : Thank you so much for the suggestion. I will open it as a new issue."
+    },
+    {
+      "id": 497393449,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-497393449",
+      "created_at": "2019-05-30T16:30:47Z",
+      "updated_at": "2019-05-30T16:30:47Z",
+      "author": "Participant 42",
+      "body": "Thank you so much @lsuarez5280 and @divega \r\nYour solution works like a charm."
+    },
+    {
+      "id": 520100830,
+      "url": "https://github.com/dotnet/SqlClient/issues/11#issuecomment-520100830",
+      "created_at": "2019-08-10T00:15:57Z",
+      "updated_at": "2019-08-10T00:15:57Z",
+      "author": "Participant 43",
+      "body": "We believe the originally reported issue has been addressed in Microsoft.Data.SqlClient (NetCore), please open new issues for any specific usecase, closing the issue."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,106 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-21242",
+  "issue_url": "https://github.com/fesch/CanZE/issues/349",
+  "source_issue_url": "https://github.com/fesch/CanZE/issues/349",
+  "api_url": "https://api.github.com/repos/fesch/CanZE/issues/349",
+  "title": "Degradation graph and or prediction",
+  "body": "Title says it all, per Sandy's suggestion. I think if we decide to implement this, we should be careful with the following two issues:\n- collected data should be stored per VIN just in case it is used for another car;\n- collected data should not be erased through the clear cache button.\n",
+  "author": "Participant 1",
+  "created_at": "2016-07-04T10:37:55Z",
+  "updated_at": "2017-01-30T20:15:12Z",
+  "state": "closed",
+  "closed_at": "2017-01-30T20:15:12Z",
+  "issue_fetched_at": "2026-10-18T23:11:22.681710+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T23:11:24.113267+00:00"
+  ],
+  "expected_comment_count": 10,
+  "retrieved_comment_count": 10,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 231595447,
+      "url": "https://github.com/fesch/CanZE/issues/349#issuecomment-231595447",
+      "created_at": "2016-07-10T15:43:29Z",
+      "updated_at": "2016-07-10T15:44:03Z",
+      "author": "Participant 1",
+      "body": "I have given this suggestion a bit more thought. In all fairness, I don't think we can implement this without cloud based storage. Phones live 2-3 years (with probably one or two full factory resets in that time frame); degradation to 75% for a ZOE is expected in the rough order of 200.000 kilometers, which is much more than the lifespan of the device.\n\nGiven the reluctance to implement and also maintain ANYTHING with remote data, partly because of Luxembourg and German legislation, I think this might be something we need to let go.\n\n@fesch what do you think?\n"
+    },
+    {
+      "id": 231599810,
+      "url": "https://github.com/fesch/CanZE/issues/349#issuecomment-231599810",
+      "created_at": "2016-07-10T17:14:30Z",
+      "updated_at": "2016-07-10T17:14:30Z",
+      "author": "Participant 2",
+      "body": "You are right: As soon as we make our app \"connected\", we will get a rather large tail of constraints to handle to make this \"the right way\".\n\nAlthough any user must upload his data 100% willingly I think that the stored data itself will need some extra protection we could hardly guarantee. And then, as you already mentioned, we would need to ask to be allowed to handle such a database ... to be 100% legally ...\n"
+    },
+    {
+      "id": 231600681,
+      "url": "https://github.com/fesch/CanZE/issues/349#issuecomment-231600681",
+      "created_at": "2016-07-10T17:31:49Z",
+      "updated_at": "2016-07-10T17:31:49Z",
+      "author": "Participant 1",
+      "body": "Would storing in file in a users PERSONAL google drive be OK?\n"
+    },
+    {
+      "id": 231706003,
+      "url": "https://github.com/fesch/CanZE/issues/349#issuecomment-231706003",
+      "created_at": "2016-07-11T11:10:11Z",
+      "updated_at": "2016-07-11T11:10:11Z",
+      "author": "Participant 2",
+      "body": "Probably, but I think putting a file there from within the app automatically will not be trivial. To be tested ... I've never done that ...\n"
+    },
+    {
+      "id": 231823662,
+      "url": "https://github.com/fesch/CanZE/issues/349#issuecomment-231823662",
+      "created_at": "2016-07-11T18:33:19Z",
+      "updated_at": "2016-07-11T18:33:19Z",
+      "author": "Participant 1",
+      "body": "I skimmed this https://developers.google.com/drive/android/ Not VERY hard it seems, and I am slightly unsure about the keys required and if OAuth can be automated to ones own identity. Or I should maybe say: I am 100% that can be done, but unsure about the complexities :-)\n"
+    },
+    {
+      "id": 267942645,
+      "url": "https://github.com/fesch/CanZE/issues/349#issuecomment-267942645",
+      "created_at": "2016-12-19T11:28:35Z",
+      "updated_at": "2016-12-19T11:28:35Z",
+      "author": "Participant 1",
+      "body": "I am now leaning to a similar, but alternative approach, What about using a well established IoT service like thingsspeak? Strictly personal, I don't want to have to do with ANY storage responsibility myself.\r\n\r\nMildly related: next version of CanZE needs to have Internet access in the manifest as it needs to be able to access a Wemos Gateway or an emulator. I have already drafted a note on that change for the users on the CanZE website."
+    },
+    {
+      "id": 272961650,
+      "url": "https://github.com/fesch/CanZE/issues/349#issuecomment-272961650",
+      "created_at": "2017-01-16T21:04:11Z",
+      "updated_at": "2017-01-16T21:04:11Z",
+      "author": "Participant 1",
+      "body": "I have made a draft note on MQTT on the CanZE website. Don't get me wrong, this is NOT a given. I am OK with not publishing that all. But I do like the idea and for sure I am going to implement it on the WeMos"
+    },
+    {
+      "id": 272964928,
+      "url": "https://github.com/fesch/CanZE/issues/349#issuecomment-272964928",
+      "created_at": "2017-01-16T21:22:34Z",
+      "updated_at": "2017-01-16T21:22:34Z",
+      "author": "Participant 2",
+      "body": "Even without heaving read it right now,\nI think \"why not\". Maybe someone gets inspired ;)\n\n\nBob\n\nOn 16.01.2017 22:04 , yoh-there wrote:\n>\n> I have made a draft note on MQTT on the CanZE website. Don't get me\n> wrong, this is NOT a given. I am OK with not publishing that all. But\n> I do like the idea and for sure I am going to implement it on the WeMos\n>\n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/fesch/CanZE/issues/349#issuecomment-272961650>, or\n> mute the thread\n> <https://github.com/notifications/unsubscribe-auth/AA-tGgc-Tj5PoecL1ToC5UtMO-gnQyF9ks5rS9tLgaJpZM4JEQJe>.\n>\n\n"
+    },
+    {
+      "id": 272965398,
+      "url": "https://github.com/fesch/CanZE/issues/349#issuecomment-272965398",
+      "created_at": "2017-01-16T21:25:08Z",
+      "updated_at": "2017-01-16T21:25:08Z",
+      "author": "Participant 1",
+      "body": "In that case I'll just publish it and we'll see. If there is lukewarm response, we'll only do it for ourselves if and when we want it :-)"
+    },
+    {
+      "id": 276177123,
+      "url": "https://github.com/fesch/CanZE/issues/349#issuecomment-276177123",
+      "created_at": "2017-01-30T20:15:12Z",
+      "updated_at": "2017-01-30T20:15:12Z",
+      "author": "Participant 1",
+      "body": "I am closing this issue. MQTT is on the back burner as far as I am concerned, in the sense that I will implement it on the WiFi gateway first. As we will not implement a degradation function in CanZE itself for the reasons stated above, there is no need to keep this issue open.\r\n\r\nI do expect keen interest from a few number-keen users to push for MQTT and implement the most interesting graphs and stuff on degradation cloud based later on."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

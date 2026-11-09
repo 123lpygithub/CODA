@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0499-aadajcbia",
+  "revision_url": "https://github.com/Cartus/DCGCN/commit/0446ad5d682457b423031731fee1f5b74875529e",
+  "filename": "sockeye/layers.py",
+  "commit": "0446ad5d682457b423031731fee1f5b74875529e",
+  "source_url": "https://raw.githubusercontent.com/Cartus/DCGCN/0446ad5d682457b423031731fee1f5b74875529e/sockeye/layers.py",
+  "fetched_at": "2026-11-05T06:13:04.158523+00:00",
+  "source_sha256": "9a3f8675dfffca44bf2ab512c14ef444a2c07019fbbd675c1ad0352c1412c641",
+  "line_start": 30,
+  "line_end": 54,
+  "excerpt": "\n    Custom activation types include:\n     - Swish-1, also called Sigmoid-Weighted Linear Unit (SiLU): Ramachandran et\n       al. (https://arxiv.org/pdf/1710.05941.pdf), Elfwing et al.\n       (https://arxiv.org/pdf/1702.03118.pdf)\n     - Gaussian Error Linear Unit (GELU): Hendrycks and Gimpel\n       (https://arxiv.org/pdf/1606.08415.pdf)\n\n    :param data: input Symbol of any shape.\n    :param act_type: Type of activation.\n    :return: output Symbol with same shape as input.\n    \"\"\"\n    # TODO: Contribute these to MXNet?  For now it appears that registered activation types must be implemented in C++.\n    if act_type == C.SWISH1:\n        return data * mx.sym.Activation(data, act_type=\"sigmoid\")\n    elif act_type == C.GELU:\n        # Approximation of x * gaussian_cdf(x) used by Hendrycks and Gimpel\n        return 0.5 * data * (1 + mx.sym.Activation((math.sqrt(2 / math.pi) * (data + (0.044715 * (data**3)))),\n                                                   act_type=\"tanh\"))\n    else:\n        return mx.sym.Activation(data, act_type=act_type)\n\n\nclass LayerNormalization:\n    \"\"\""
+}

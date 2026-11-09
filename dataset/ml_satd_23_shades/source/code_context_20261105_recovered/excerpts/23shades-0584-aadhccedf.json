@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0584-aadhccedf",
+  "revision_url": "https://github.com/Epistimio/orion/commit/d0dfd3a4797cdd74c6a18f90809af94c0efe45b7",
+  "filename": "src/orion/benchmark/__init__.py",
+  "commit": "d0dfd3a4797cdd74c6a18f90809af94c0efe45b7",
+  "source_url": "https://raw.githubusercontent.com/Epistimio/orion/d0dfd3a4797cdd74c6a18f90809af94c0efe45b7/src/orion/benchmark/__init__.py",
+  "fetched_at": "2026-11-05T06:13:16.890257+00:00",
+  "source_sha256": "a11f9332fd2f54c48a41d21a791adf8b2a93325767fb871d2b90579c2709b64e",
+  "line_start": 111,
+  "line_end": 135,
+  "excerpt": "        space = self.task.get_search_space()\n\n        for task_index in range(task_num):\n\n            for algo_index, algorithm in enumerate(self.algorithms):\n\n                experiment_name =  self.benchmark.name + '_' + self.assess_name + \\\n                            '_' + self.task_name + '_' + \\\n                            str(task_index) + '_' + str(algo_index);\n                experiment = create_experiment(\n                    experiment_name, space=space, algorithms=algorithm,\n                    max_trials=max_trials)\n                # TODO: it is a blocking call\n                experiment.workon(blackbox_fun, max_trials)\n                self.experiments_info.append((task_index, experiment))\n\n    def status(self):\n\n        algorithm_tasks = {}\n\n        for _, experiment in self.experiments_info:\n            trials = experiment.fetch_trials()\n\n            algorithm_name = list(experiment.configuration['algorithms'].keys())[0]\n"
+}

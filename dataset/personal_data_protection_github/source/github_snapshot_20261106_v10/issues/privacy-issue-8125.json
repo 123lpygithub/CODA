@@ -1,0 +1,34 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8125",
+  "issue_url": "https://github.com/yt-dlp/yt-dlp/issues/455",
+  "source_issue_url": "https://github.com/yt-dlp/yt-dlp/issues/455",
+  "api_url": "https://api.github.com/repos/yt-dlp/yt-dlp/issues/455",
+  "title": "[Suggestion] Redact `formats` in info json with an option",
+  "body": "<!--\r\n\r\n######################################################################\r\n  WARNING!\r\n  IGNORING THE FOLLOWING TEMPLATE WILL RESULT IN ISSUE CLOSED AS INCOMPLETE\r\n######################################################################\r\n\r\n-->\r\n\r\n\r\n## Checklist\r\n\r\n<!--\r\nCarefully read and work through this check list in order to prevent the most common mistakes and misuse of yt-dlp:\r\n- First of, make sure you are using the latest version of yt-dlp. Run `yt-dlp --version` and ensure your version is 2021.06.23. If it's not, see https://github.com/yt-dlp/yt-dlp on how to update. Issues with outdated version will be REJECTED.\r\n- Search the bugtracker for similar feature requests: https://github.com/yt-dlp/yt-dlp. DO NOT post duplicates.\r\n- Finally, put x into all relevant boxes like this [x] (Dont forget to delete the empty space)\r\n-->\r\n\r\n- [x] I'm reporting a feature request\r\n- [x] I've verified that I'm running yt-dlp version **2021.06.23**\r\n- [x] I've searched the bugtracker for similar feature requests including closed ones\r\n\r\n\r\n## Description\r\n\r\nFor some websites like YouTube, they might include IP address or any kind of identification in the URL. This is one of the cases that AutoModerator modifies the post on `r/youtubedl`.\r\n\r\nThis is a serious problem on privacy, since info json may be uploaded along with the video for archiving purposes.\r\n\r\nSo I suggest to add an option to remove `formats` and `url` when the user wishes to remove them.\r\n\r\nThanks",
+  "author": "Participant 1",
+  "created_at": "2021-06-29T09:19:01Z",
+  "updated_at": "2026-01-02T02:24:54Z",
+  "state": "closed",
+  "closed_at": "2023-01-06T21:50:23Z",
+  "issue_fetched_at": "2026-10-18T19:11:02.754006+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T19:11:04.138410+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1367741786,
+      "url": "https://github.com/yt-dlp/yt-dlp/issues/455#issuecomment-1367741786",
+      "created_at": "2022-12-30T05:59:47Z",
+      "updated_at": "2022-12-30T05:59:47Z",
+      "author": "Participant 2",
+      "body": "With 119e40ef64b25f66a39246e87ce6c143cd34276d, fe74d5b592438c669f5717b34504f27c34ca9904, all metadata fields can now be removed using `--parse-metadata \"video::(?P<url>)\"` etc.\r\n\r\nSo an alias like:\r\n\r\n    --alias --minimal-info-json '--parse-metadata \"video::(?P<formats>)\" --parse-metadata \"video::(?P<url>)\" --parse-metadata \"video::(?P<http_headers>)\" --parse-metadata \"video::(?P<automatic_captions>)\" --parse-metadata \"video::(?P<subtitles>)\" --parse-metadata \"video::(?P<thumbnails>)\"'\r\n\r\ncould be used to write a very minimal info json. Is a single option to do this still desired?"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,15 @@
+{
+  "fetched_at": "2026-11-05T06:12:35.420130+00:00",
+  "source_sha256": "000cff62f7557eb7c7e83baf19cfcb0ef7ef66dc441ef101e26546b3f2b8a390",
+  "source_url": "https://raw.githubusercontent.com/SimGus/Chatette/52afc86871b3fdaab1c68b380a2c5a010f845dd3/src/Generator.py",
+  "artifact_id": "23shades-0335-aagaceabd",
+  "revision_url": "https://github.com/SimGus/Chatette/commit/52afc86871b3fdaab1c68b380a2c5a010f845dd3",
+  "filename": "src/Generator.py",
+  "commit": "52afc86871b3fdaab1c68b380a2c5a010f845dd3",
+  "line_start": 148,
+  "line_end": 172,
+  "excerpt": "                sub_generation = self.generate_unit(sub_unit_rule)\n                generated_entities.extend(sub_generation[\"entities\"])\n                generated_str += sub_generation[\"text\"]\n            # Add a space at the front if needed\n            if generated_str != \"\" and unit_rule[\"leading-space\"] and \\\n                not generated_str.startswith(' '):\n                    generated_str = ' '+generated_str\n\n            if '[' in generated_str:\n                print(\"PROBLEM in choice: \"+generated_str)  # TODO remove this\n\n            if generated_str == \"\":\n                print(\"AAAA choice generated empty string\")  # TODO remove this\n\n            return {\n                \"text\": generated_str,\n                \"entities\": generated_entities,\n            }\n        else:\n            # TODO keep track of already generated sentences (+max nb of attempts)\n            # Manage random generation\n            randgen_name = unit_rule[\"randgen\"]\n            if randgen_name is not None:\n                if randgen_name not in self.generated_randgens:  # not yet tested\n                    percentage_gen = 50",
+  "match_policy": "unique-full-comment-on-added-lines-of-exact-commit",
+  "match_diff_url": "https://github.com/SimGus/Chatette/commit/52afc86871b3fdaab1c68b380a2c5a010f845dd3.diff",
+  "match_diff_sha256": "c230bdfc9087e8911906107fdb4bdc2acc776dfb0ab45c43814a6d2879c328d6"
+}

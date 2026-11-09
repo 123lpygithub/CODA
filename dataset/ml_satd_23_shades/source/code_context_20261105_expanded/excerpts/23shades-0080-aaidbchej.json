@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0080-aaidbchej",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/89e49b6641871d7106d5e196be69707d81c8d30d",
+  "filename": "sklearn/manifold/tests/test_t_sne.py",
+  "commit": "89e49b6641871d7106d5e196be69707d81c8d30d",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/89e49b6641871d7106d5e196be69707d81c8d30d/sklearn/manifold/tests/test_t_sne.py",
+  "fetched_at": "2026-11-05T06:11:51.488718+00:00",
+  "source_sha256": "ec44ab578334b4d713623de7980c7feb695520a2529ddee127594866ba1323b9",
+  "line_start": 889,
+  "line_end": 913,
+  "excerpt": "            metric='precomputed', n_components=n_components_embedding,\n            random_state=0, n_iter=300,\n            square_distances=True).fit_transform(dist_func(X))\n        assert_array_equal(X_transformed_tsne, X_transformed_tsne_precomputed)\n\n\n@pytest.mark.parametrize('method', ['exact', 'barnes_hut'])\n@pytest.mark.parametrize('metric', ['euclidean', 'manhattan'])\n@pytest.mark.parametrize('square_distances', [True, 'legacy'])\n@ignore_warnings(category=FutureWarning)\ndef test_tsne_different_square_distances(method, metric, square_distances):\n    # Make sure that TSNE works for different square_distances settings\n    # FIXME remove test when square_distances=True becomes the default in 0.26\n    random_state = check_random_state(0)\n    n_components_original = 3\n    n_components_embedding = 2\n\n    # Used to create data with structure; this avoids unstable behavior in TSNE\n    X, _ = make_blobs(n_features=n_components_original,\n                      random_state=random_state)\n    X_precomputed = pairwise_distances(X, metric=metric)\n\n    if metric == 'euclidean' and square_distances == 'legacy':\n        X_precomputed **= 2\n"
+}

@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18374",
+  "issue_url": "https://github.com/signalapp/Signal-iOS/issues/2173",
+  "source_issue_url": "https://github.com/signalapp/Signal-iOS/issues/2173",
+  "api_url": "https://api.github.com/repos/signalapp/Signal-iOS/issues/2173",
+  "title": "Text cropped in privacy, notification and advanced settings",
+  "body": "- [x] I have searched open and closed issues for duplicates\r\n\r\n----------------------------------------\r\n\r\n### Bug description\r\nIn privacy, notification and advanced settings, some of the text is too long for the space provided, causing the text to be cropped. This makes it hard to understand what the option does. Using a smaller font size at these locations could potentially fix the issue without changing the text as the font size used is pretty large and larger than in other locations.\r\n\r\nThe issue was noticed in the french version of Signal on a phone which is not my own and thus could not be tested in other languages.\r\n\r\n**Actual result:** The text is cropped\r\n**Expected result:** The full text is displayed\r\n\r\n### Device info\r\n**Device**:  iPhone SE\r\n**iOS version**: 10.3.1\r\n**Signal version:** 2.12.2\r\n\r\n### Screenshots\r\n![img_0070](https://cloud.githubusercontent.com/assets/7825368/26701300/8a89f226-46ee-11e7-99ec-91ac01e8c0b4.PNG)\r\n![img_0071](https://cloud.githubusercontent.com/assets/7825368/26701302/8c4e7564-46ee-11e7-9950-4ed26ff7d1e8.PNG)\r\n![img_0072](https://cloud.githubusercontent.com/assets/7825368/26701303/8db4b5ee-46ee-11e7-8694-44b1002ee08d.PNG)\r\n",
+  "author": "Participant 1",
+  "created_at": "2017-06-01T21:37:35Z",
+  "updated_at": "2022-01-31T22:45:05Z",
+  "state": "closed",
+  "closed_at": "2022-01-31T22:45:05Z",
+  "issue_fetched_at": "2026-10-19T00:10:59.986206+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T00:11:01.409983+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 308219796,
+      "url": "https://github.com/signalapp/Signal-iOS/issues/2173#issuecomment-308219796",
+      "created_at": "2017-06-13T19:16:45Z",
+      "updated_at": "2017-06-13T19:16:45Z",
+      "author": "Participant 2",
+      "body": "Can you post a screenshot of what the text size is set to in the iPhone Settings app? The best place to find this is in General > Accessibility > Larger Text. I think this problem should be addressed in the context of a larger font size set in Settings, because from the screenshots, it's clear that the system font size is set to something larger than default."
+    },
+    {
+      "id": 308247309,
+      "url": "https://github.com/signalapp/Signal-iOS/issues/2173#issuecomment-308247309",
+      "created_at": "2017-06-13T21:01:12Z",
+      "updated_at": "2017-06-13T21:01:12Z",
+      "author": "Participant 1",
+      "body": "@ebelinski  As requested, here is a screenshot showing the font size used :\r\n\r\n![signal-2017-06-13-164119](https://user-images.githubusercontent.com/7825368/27104308-ca8197c0-5059-11e7-8bcc-72dc808ca73a.png)\r\n"
+    },
+    {
+      "id": 308774125,
+      "url": "https://github.com/signalapp/Signal-iOS/issues/2173#issuecomment-308774125",
+      "created_at": "2017-06-15T15:30:58Z",
+      "updated_at": "2017-06-15T15:30:58Z",
+      "author": "Participant 2",
+      "body": "@guiweber I see, thank you.\r\n\r\nSince the UI elements that contain the text in these pages are `UITableViewCells`, I think the text cutoff could be fixed by setting the labels' `numberOfLines` to unlimited and setting the cell height dynamically based on the label sizes."
+    },
+    {
+      "id": 1020580164,
+      "url": "https://github.com/signalapp/Signal-iOS/issues/2173#issuecomment-1020580164",
+      "created_at": "2022-01-24T21:46:47Z",
+      "updated_at": "2022-01-24T21:46:47Z",
+      "author": "Participant 3",
+      "body": "Is this still relevant? If so, what is blocking it? Is there anything you can do to help move it forward?\n\nThis issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

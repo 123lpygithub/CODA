@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0578-aaeiefhaa",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/088665c3b527977d4a13bab5a7957b5717f857f8",
+  "filename": "hpat/tests/test_dataframe.py",
+  "commit": "088665c3b527977d4a13bab5a7957b5717f857f8",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/088665c3b527977d4a13bab5a7957b5717f857f8/hpat/tests/test_dataframe.py",
+  "fetched_at": "2026-11-05T06:13:15.617037+00:00",
+  "source_sha256": "694eee5d54879109fb92db32aec5013f2b06e24b573467758d948f490cbd8904",
+  "line_start": 724,
+  "line_end": 748,
+  "excerpt": "        hpat_func = hpat.jit(test_impl)\n        n = 11\n        df = pd.DataFrame({'A': np.arange(n), 'B': np.arange(n)**2})\n        df2 = pd.DataFrame({'A': np.arange(n), 'B': np.arange(n)**2})\n        df2.A[n//2:] = n\n        df3 = pd.DataFrame({'A': np.arange(n), 'B': np.arange(n)**2})\n        pd.testing.assert_frame_equal(\n            hpat_func(df, df2, df3), test_impl(df, df2, df3))\n\n    def test_var_rename(self):\n        # tests df variable replacement in hiframes_untyped where inlining\n        # can cause extra assignments and definition handling errors\n        # TODO: inline freevar\n        def test_impl():\n            df = pd.DataFrame({'A': [1,2,3], 'B': [2,3,4]})\n            # TODO: df['C'] = [5,6,7]\n            df['C'] = np.ones(3)\n            return inner_get_column(df)\n\n        hpat_func = hpat.jit(test_impl)\n        pd.testing.assert_series_equal(hpat_func(), test_impl(), check_names=False)\n\n\nif __name__ == \"__main__\":\n    unittest.main()"
+}

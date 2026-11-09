@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0108-aaeieagib",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/316dad6d98d0aafeccfe52f422788fec5b03899d",
+  "filename": "hpat/ml/d4p.py",
+  "commit": "316dad6d98d0aafeccfe52f422788fec5b03899d",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/316dad6d98d0aafeccfe52f422788fec5b03899d/hpat/ml/d4p.py",
+  "fetched_at": "2026-11-05T06:11:55.213614+00:00",
+  "source_sha256": "942407ecec8118151d9633470ff4756034d9f1e7e3c12152c928bff80d34cb59",
+  "line_start": 5,
+  "line_end": 29,
+  "excerpt": "from numba.typing.templates import (signature, AbstractTemplate, infer, infer_getattr,\n                                    ConcreteTemplate, AttributeTemplate, bound_function, infer_global)\nfrom collections import namedtuple\nfrom hpat.str_ext import string_type\nfrom hpat.distributed_analysis import Distribution as DType\nfrom llvmlite import ir as lir\nfrom numba.targets.arrayobj import _empty_nd_impl\n\n##############################################################################\n##############################################################################\nimport daal4py\n\n# FIXME: this needs to become more generic, we need to find the actual so in the python root\nso = \"/localdisk/work/fschlimb/miniconda3/envs/HPAT/lib/python3.6/site-packages/daal4py-0.2018.20180608-py3.6-linux-x86_64.egg/_daal4py.cpython-36m-x86_64-linux-gnu.so\"\n\nimport llvmlite.binding as ll\n# just load the whole thing\nll.load_library_permanently(so)\n\n\n##############################################################################\n##############################################################################\n\n# short-cut for Array type. FIXME: we currently only support 2d-double arrays\ndtable_type = types.Array(types.float64, 2, 'C')",
+  "match_policy": "unique-release-normalized-v2"
+}

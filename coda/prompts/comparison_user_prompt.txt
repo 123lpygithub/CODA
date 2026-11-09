@@ -1,0 +1,175 @@
+Prior task proposal (empty for first comparison):
+{prior_comparison_json}
+
+Comparison task: {comparison_task}
+
+Research Question:
+{research_question}
+
+Analysis Scope:
+{analysis_scope}
+
+Use Case:
+{use_case}
+
+Frozen Analysis Protocol:
+{analysis_protocol}
+
+Current Artifact ID:
+{artifact_id}
+
+Current Artifact Content:
+{artifact_content}
+
+Context Packet:
+{context_packet_json}
+
+Independent Coder Outputs:
+{coder_outputs_json}
+
+The coder outputs above are codebook-blind observations. Do not expect them to name
+existing code ids or decide whether a concept is new. Perform that mapping below.
+
+Active Codebook Snapshot:
+{codebook_snapshot}
+
+Relevant Coding Case History (each case states whether it was human-reviewed or automatically accepted):
+{history_snapshot}
+
+Perform constant comparison in this order:
+1. Analytical-axis check: identify whether the research question asks about cause,
+   location or construct, symptom, repair action, or another dimension. Treat candidates
+   from another dimension as contextual evidence or an alternative memo, not peer categories.
+2. Error-unit check: when several candidates come from one artifact, ask whether resolving
+   one would leave another independently meaningful issue unresolved. Do not count changed
+   lines, expressions, or locations as separate issues by default.
+3. Case-to-case: compare the current evidence with relevant reviewed cases. Focus on similarities and analytically important differences.
+4. Case-to-code: test whether each plausible active code's definition, inclusion criteria, and exclusion criteria explain the current evidence.
+5. Code-to-code: only when the current case exposes overlap, synonymy, granularity, or category-boundary questions, compare the relevant active codes.
+6. Synthesize coder agreement and disagreement after the comparisons. Agreement means
+   compatible evidence-near readings, not agreement on codebook ids. Do not use majority voting.
+7. Follow the selected task: case_comparison recommends reuse or records a refinement
+   need without structural operations; codebook_refinement and batch_recheck may return
+   justified add, add_parent, refine, merge, split, or rename proposals, or deferral.
+   Do not invent unsupported category structure or treat a proposal as accepted.
+8. Granularity check: treat coder candidates as evidence-near observations, not category
+   definitions. Map observations with the same relevant meaning to a suitable reusable
+   existing or proposed code, and preserve local manifestations in the comparison memo.
+9. A new code must state an operational inclusion/exclusion boundary against the nearest
+   existing code and ground that boundary in the current or supplied historical evidence.
+   A merely imaginable future distinction is insufficient. If no grounded boundary can be
+   stated, prefer reuse, refinement, a memo, or deferral rather than adding a narrow category.
+10. Parent-abstraction check: whenever the comparison identifies at least two distinct
+   active or proposed codes, directly ask whether they can be represented by one useful
+   higher-level abstraction while remaining meaningful child categories. Recommend
+   add_parent only when all of the following hold:
+   - at least two child codes have distinct and defensible inclusion/exclusion boundaries;
+   - observed artifacts support a shared semantic abstraction relevant to the research question;
+   - the parent would help organize or compare future cases, rather than merely restating
+     a generic domain label;
+   - keeping the children under the parent preserves information that merge would erase.
+   If the evidence is suggestive but insufficient, do not propose add_parent; preserve the
+   children and create an open unresolved_question memo about the possible hierarchy.
+11. Compact-induction decision: before recommending add or split, compare with the nearest
+    existing category and explain why reuse or a coherent refinement would lose an observed
+    distinction relevant to the research question. Put this reasoning in comparison_findings
+    and the proposed change's rationale. If the new observation is another manifestation
+    of the same concept, reuse the category and record the detail without creating a subtype.
+    If relevant existing categories are redundant, propose their evidence-supported merge;
+    adding an organizational parent alone does not reduce fragmentation.
+
+Return a JSON object with exactly these keys:
+- "agreement_summary": English summary
+- "agreement_summary_zh": Chinese version with the same meaning
+- "disagreement_summary": English summary
+- "disagreement_summary_zh": Chinese version with the same meaning
+- "comparison_findings": array of objects with:
+  - "comparison_type": one of ["case_to_case", "case_to_code", "code_to_code"]
+  - "finding": one of ["same_phenomenon", "distinct_phenomenon", "partial_overlap", "granularity_difference", "boundary_case", "insufficient_evidence"]
+  - "summary": English comparison result
+  - "summary_zh": Chinese version with the same meaning
+  - "compared_artifact_ids": reviewed artifact ids used in this comparison
+  - "compared_code_ids": active code ids used in this comparison
+  - "evidence_refs": current-case evidence ids supporting the result
+  - "resolution_status": one of ["unresolved", "resolved", "complementary", "permitted"]
+  - "implication": English statement of what this means for coding or the codebook
+  - "implication_zh": Chinese version with the same meaning
+- "recommended_codes": array of up to {max_recommended_codes} provisional-code objects
+- "preserved_alternatives": array of up to {max_preserved_alternatives} provisional-code objects
+- "disagreements": array of objects with:
+  - "disagreement_type": one of ["evidence_disagreement", "semantic_disagreement", "granularity_disagreement", "codebook_boundary_disagreement", "missing_context_disagreement", "output_format_inconsistency"]
+  - "summary": English summary
+  - "summary_zh": Chinese version with the same meaning
+  - "coder_ids": array of coder ids
+  - "affected_code_names": array of code names
+  - "evidence_refs": array of current-case evidence ids
+- "relevant_historical_artifact_ids": array of reviewed artifact ids actually used
+- "possible_codebook_changes": array of objects with:
+  - "action": one of ["add", "add_parent", "refine", "merge", "split", "rename", "no_change"]
+  - "summary": English summary
+  - "summary_zh": Chinese version with the same meaning
+  - "rationale": English evidence-based rationale
+  - "rationale_zh": Chinese version with the same meaning
+  - "target_code_ids": active code ids changed by the proposal
+  - "resulting_code_names": names expected after the change
+  - "affected_historical_artifact_ids": reviewed artifacts that may need retrospective checking if accepted
+  - "changes_existing_meaning": boolean; true only if existing category meanings/conditions change
+- "analytic_memos": array of objects with:
+  - "memo_type": one of ["comparison", "category_boundary", "alternative_interpretation", "change_rationale", "unresolved_question"]
+  - "summary": English analytical note
+  - "summary_zh": Chinese version with the same meaning
+  - "artifact_ids": current or reviewed artifact ids discussed by the memo
+  - "code_ids": active code ids discussed by the memo
+  - "status": one of ["open", "resolved"]
+- "prior_human_conflicts": array of objects with:
+  - "code_ids": active code ids governed by an earlier explicit human boundary decision
+  - "summary": English description of the concrete conflict
+  - "summary_zh": Chinese version with the same meaning
+  - "rationale": why the current proposal contradicts, rather than merely touches, that decision
+
+Each provisional-code object must contain exactly these keys:
+- "code_name": English code name
+- "code_name_zh": Chinese version with the same meaning
+- "short_definition": English definition
+- "short_definition_zh": Chinese version with the same meaning
+- "inclusion_criteria": English operational conditions for the proposed category
+- "exclusion_criteria": English boundaries against the nearest competing category
+- "inclusion_criteria_zh": Chinese conditions in the same order
+- "exclusion_criteria_zh": Chinese boundaries in the same order
+- "observed_phenomenon": English evidence-near phenomenon retained from coder comparison
+- "observed_phenomenon_zh": Chinese version with the same meaning
+- "supporting_evidence_refs": current-case evidence ids
+- "relationship_to_codebook": one of ["reuse_existing_code", "new_code", "add_parent_code", "refine_existing_code", "merge_existing_codes", "split_existing_code", "uncertain"]
+- "linked_code_ids": active code ids related to this candidate, or []
+- "alternative_interpretation": English string
+- "alternative_interpretation_zh": Chinese version with the same meaning
+- "uncertainty_note": English string
+- "uncertainty_note_zh": Chinese version with the same meaning
+- "proposed_codebook_action": one of ["add", "add_parent", "refine", "merge", "split", "rename", "no_change"]
+- "proposed_codebook_target_ids": active code ids changed by this candidate, or []
+
+Constraints:
+- In case_comparison, possible_codebook_changes must be [] and each candidate's
+  proposed_codebook_action must be "no_change". A new_code/refine_existing_code/etc.
+  relationship identifies only a refinement need for the separate refinement call.
+- In all tasks, identify proposed new entries by their names; linked_code_ids and
+  proposed_codebook_target_ids refer only to active codebook IDs, not pending additions.
+- Include at least one case-to-code finding when the active codebook is non-empty.
+- Include case-to-case findings only for cases present in Relevant Coding Case History.
+- Report a prior-human conflict only when the supplied history contains an explicit human-reviewed rationale that the current interpretation contradicts. Merely touching a human-edited code is not a conflict.
+- Include code-to-code findings only when comparing at least two active code ids.
+- For add_parent, target_code_ids must contain at least two distinct active child code ids,
+  resulting_code_names must contain exactly one new parent name, and the rationale must
+  explain both the children's distinguishing boundaries and their shared higher-level abstraction.
+- When a recommended-code object represents the new parent, use
+  relationship_to_codebook="add_parent_code", proposed_codebook_action="add_parent",
+  and place the same child ids in linked_code_ids and proposed_codebook_target_ids.
+- Keep a defensible minority interpretation in "preserved_alternatives".
+- Use an "unresolved_question" memo with status "open" when evidence is insufficient to choose a boundary or structural change.
+- Every explanatory string must have a Chinese field with the same meaning.
+- Preserve the evidence-near observation separately from the category label in every recommended or alternative code.
+- Do not copy a coder's provisional label into the codebook merely because both coders used
+  similar wording; agreement strengthens the reading of the case, not the existence of a
+  separate category.
+- Use only supplied evidence ids, artifact ids, and code ids.
+- Do not output markdown.

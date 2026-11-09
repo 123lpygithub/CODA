@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0831-aajghfcje",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/47ce37e3cacd63fed04ca4e078dba60f0330f161",
+  "filename": "mne/preprocessing/tests/test_ica.py",
+  "commit": "47ce37e3cacd63fed04ca4e078dba60f0330f161",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/47ce37e3cacd63fed04ca4e078dba60f0330f161/mne/preprocessing/tests/test_ica.py",
+  "fetched_at": "2026-11-05T06:14:01.563752+00:00",
+  "source_sha256": "998060f245280f74cc8edb907c97d0a3baabbd4701af590dd3334f06f26049e8",
+  "line_start": 174,
+  "line_end": 198,
+  "excerpt": "            n_components > max_pca_components:\n        with pytest.raises(ValueError, match='n_components must be smaller.*'):\n            ICA(**kwargs)\n        return\n    ica = ICA(**kwargs)\n    if n_components == 10 and isinstance(max_pca_components, float):\n        with pytest.raises(ValueError, match='select only a subset'):\n            ica.fit(raw)\n        return\n    ica.fit(raw)\n    raw_new = ica.apply(raw.copy())\n    # not a no-op\n    if max_pca_components == 8:  # XXX this fails: or n_pca_components == 8:\n        assert not np.allclose(raw.get_data(), raw_new.get_data())\n        return\n    # XXX this case should warn?\n    if max_pca_components == 10:\n        assert ica.max_pca_components_ == 10\n        # XXX setting n_components to something safe prevents the blowup, maybe\n        # we don't need max_pca_components as float? For example setting the\n        # default or warning based on n_components is probably enough...\n        if not (max_pca_components == 10 and n_components in (8, 9, 0.9999)):\n            assert not np.allclose(raw.get_data(), raw_new.get_data())\n            return\n    else:"
+}

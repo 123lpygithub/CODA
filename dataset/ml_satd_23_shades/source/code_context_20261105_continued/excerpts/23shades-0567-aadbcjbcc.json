@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0567-aadbcjbcc",
+  "revision_url": "https://github.com/Ciaran1981/geospatial-learn/commit/8c20d1343eee181ece042339a5a040d7285d7417",
+  "filename": "geospatial_learn/data.py",
+  "commit": "8c20d1343eee181ece042339a5a040d7285d7417",
+  "source_url": "https://raw.githubusercontent.com/Ciaran1981/geospatial-learn/8c20d1343eee181ece042339a5a040d7285d7417/geospatial_learn/data.py",
+  "fetched_at": "2026-11-05T06:13:13.842008+00:00",
+  "source_sha256": "b4ecf19b0419a3e1d3497df3d30284e4996eff0bddb2d60515e87f4d77e2a448",
+  "line_start": 788,
+  "line_end": 807,
+  "excerpt": "    date_filter = planet_api.filters.date_range(\"acquired\", gte=start_date, lte=end_date)\n    aoi_filter = planet_api.filters.geom_filter(aoi)\n    query = planet_api.filters.and_filter(date_filter, aoi_filter)\n    request = planet_api.filters.build_search_request(query, [item_type])\n\n    # Get URLS\n    response = client.quick_search(request)\n\n    #Download and save\n    with open(out_path, 'w') as out:\n        out.write(client.download(response))\n\n    # TODO: Implement mass downloading with a cool-off in case of 429 response\n\n\ndef shp_to_geojson(shp):\n    pass\n\ndef send_planet_request(data):\n    pass"
+}

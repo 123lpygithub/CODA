@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0470-aaedhgdgd",
+  "revision_url": "https://github.com/menpo/menpo/commit/86b28ca75f40b1f9acffaafa156885cfaabf8535",
+  "filename": "menpo/fitmultilevel/sdm/base.py",
+  "commit": "86b28ca75f40b1f9acffaafa156885cfaabf8535",
+  "source_url": "https://raw.githubusercontent.com/menpo/menpo/86b28ca75f40b1f9acffaafa156885cfaabf8535/menpo/fitmultilevel/sdm/base.py",
+  "fetched_at": "2026-11-05T06:12:59.334956+00:00",
+  "source_sha256": "eddac1b14e65d21383a7193e5d8fceaa78e963c0e0dbf4cfcfaddb6ddd8f21c0",
+  "line_start": 69,
+  "line_end": 93,
+  "excerpt": "    @property\n    def downscale(self):\n        return self._downscale\n\n    @property\n    def scaled_levels(self):\n        return self._scaled_levels\n\n    @property\n    def interpolator(self):\n        return self._interpolator\n\n    # TODO: Can this be moved up?\n    def _prepare_image(self, image, initial_shape, gt_shape=None):\n        r\"\"\"\n        The image is first rescaled wrt the reference_landmarks, then\n        smoothing or gaussian pyramid are computed and, finally, features\n        are extracted from each pyramidal element.\n        \"\"\"\n        image.landmarks['initial_shape'] = initial_shape\n        image = image.rescale_to_reference_shape(\n            self.reference_shape, group='initial_shape',\n            interpolator=self.interpolator)\n\n        if gt_shape:"
+}

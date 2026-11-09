@@ -1,0 +1,66 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18795",
+  "issue_url": "https://github.com/aframevr/aframe/issues/5105",
+  "source_issue_url": "https://github.com/aframevr/aframe/issues/5105",
+  "api_url": "https://api.github.com/repos/aframevr/aframe/issues/5105",
+  "title": "Running a-frame without internet access seems impossible",
+  "body": "**Description:**\r\nFor a stand-alone setup, I used a laptop hosting an a-frame webpage and an Oculus Quest.\r\nThe loading of the page takes ages when no (real) internet is available.\r\nIt occurred to me that for a-text elements, fonts are being downloaded from the web. Also the oculus controller models don't load when no internet is available.\r\n\r\nI think a better way of hosting these can be found, or a way to run a-frame without internet should be documented\r\n\r\n- A-Frame Version: Not sure, the version that was available in July 2022\r\n- Platform / Device: Oculus Quest (with Firefox Reality Browser or Wolvic Reality Browser)\r\n- Reproducible Code Snippet or URL:\r\n`https://cdn.aframe.io/fonts/Roboto-msdf.json`\r\n\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2022-08-30T08:49:46Z",
+  "updated_at": "2022-11-21T01:56:27Z",
+  "state": "closed",
+  "closed_at": "2022-11-21T01:56:27Z",
+  "issue_fetched_at": "2026-10-19T03:10:53.384956+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T03:10:54.821187+00:00"
+  ],
+  "expected_comment_count": 5,
+  "retrieved_comment_count": 5,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1233235751,
+      "url": "https://github.com/aframevr/aframe/issues/5105#issuecomment-1233235751",
+      "created_at": "2022-08-31T17:45:44Z",
+      "updated_at": "2022-08-31T19:50:56Z",
+      "author": "Participant 2",
+      "body": "For text you could point the [text component](https://aframe.io/docs/1.3.0/components/text.html#properties_font) to an URL where you host fonts locally. \r\n\r\nFor the controllers the URL of the built-in models is not currently exposed in the [component schema](https://aframe.io/docs/1.3.0/components/oculus-touch-controls.html#value). \r\n\r\nIf you're offline I'm assuming you are not pulling A-Frame from the CDN but serving your own. You could create custom builds, modify the base URL from [oculus-touch-controls](https://github.com/aframevr/aframe/blob/master/src/components/oculus-touch-controls.js#L19) and serve the models locally.\r\n\r\n"
+    },
+    {
+      "id": 1249547583,
+      "url": "https://github.com/aframevr/aframe/issues/5105#issuecomment-1249547583",
+      "created_at": "2022-09-16T16:12:34Z",
+      "updated_at": "2022-09-16T16:12:34Z",
+      "author": "Participant 3",
+      "body": "FWIW as I need an offline session few weeks ago I updated the URL from the build. Not clean but worked for both text and controllers."
+    },
+    {
+      "id": 1250832748,
+      "url": "https://github.com/aframevr/aframe/issues/5105#issuecomment-1250832748",
+      "created_at": "2022-09-19T10:19:22Z",
+      "updated_at": "2022-09-19T10:19:22Z",
+      "author": "Participant 4",
+      "body": "It would be also interesting to have generic self-contained builds so when having the a-frame js locally hosted it does not serve user data (IP, else) to third parties, in order to be compliant with GDPR and similar privacy laws. "
+    },
+    {
+      "id": 1250944689,
+      "url": "https://github.com/aframevr/aframe/issues/5105#issuecomment-1250944689",
+      "created_at": "2022-09-19T12:19:35Z",
+      "updated_at": "2022-09-19T12:19:35Z",
+      "author": "Participant 3",
+      "body": "IMHO documenting this should be sufficient."
+    },
+    {
+      "id": 1321345596,
+      "url": "https://github.com/aframevr/aframe/issues/5105#issuecomment-1321345596",
+      "created_at": "2022-11-21T01:56:27Z",
+      "updated_at": "2022-11-21T01:56:27Z",
+      "author": "Participant 2",
+      "body": "Fixed by https://github.com/aframevr/aframe/pull/5118"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0317-aaieffgij",
+  "revision_url": "https://github.com/RasaHQ/rasa_core/commit/97980c7277924880e75def490624aa813efc1886",
+  "filename": "tests/test_policies.py",
+  "commit": "97980c7277924880e75def490624aa813efc1886",
+  "source_url": "https://raw.githubusercontent.com/RasaHQ/rasa_core/97980c7277924880e75def490624aa813efc1886/tests/test_policies.py",
+  "fetched_at": "2026-11-05T06:12:33.161922+00:00",
+  "source_sha256": "2f7f2fc8295233cd5ca05a70baa5f61148d0a15e6a4bac75e76c17aa36938ca2",
+  "line_start": 13,
+  "line_end": 37,
+  "excerpt": "from rasa_core.channels import UserMessage\nfrom rasa_core.domain import TemplateDomain\nfrom rasa_core.policies.keras_policy import KerasPolicy\nfrom rasa_core.policies.memoization import MemoizationPolicy\nfrom rasa_core.policies.scoring_policy import ScoringPolicy\nfrom rasa_core.policies.sklearn_policy import SklearnPolicy\nfrom rasa_core.trackers import DialogueStateTracker\nfrom rasa_core.training import (\n    DialogueTrainingData)\nfrom tests.conftest import DEFAULT_DOMAIN_PATH, DEFAULT_STORIES_FILE\n\n\n# TODO new tests due to new system\ndef train_data(max_history, domain):\n    return extract_training_data(\n            DEFAULT_STORIES_FILE, domain,\n            BinaryFeaturizer(), max_history=max_history, remove_duplicates=True)\n\n\n# We are going to use class style testing here since unfortunately pytest\n# doesn't support using fixtures as arguments to its own parameterize yet\n# (hence, we can't train a policy, declare it as a fixture and use the different\n# fixtures of the different policies for the functional tests). Therefore, we\n# are going to reverse this and train the policy within a class and collect the\n# tests in a base class."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0573-aaidjgaag",
+  "revision_url": "https://github.com/biolab/orange3/commit/cae097749e098191b6789e0bc4ca68b85851c749",
+  "filename": "Orange/canvas/canvas/items/nodeitem.py",
+  "commit": "cae097749e098191b6789e0bc4ca68b85851c749",
+  "source_url": "https://raw.githubusercontent.com/biolab/orange3/cae097749e098191b6789e0bc4ca68b85851c749/Orange/canvas/canvas/items/nodeitem.py",
+  "fetched_at": "2026-11-05T06:13:14.755681+00:00",
+  "source_sha256": "cfaf36b4b88d8ef98f2705f06f7dccaf07bbc706097d97190d4c522526dde1e6",
+  "line_start": 878,
+  "line_end": 902,
+  "excerpt": "        \"\"\"Set the anchor rotation.\n        \"\"\"\n        self.inputAnchorItem.setRotation(angle)\n        self.outputAnchorItem.setRotation(angle)\n        self.anchorGeometryChanged.emit()\n\n    def anchorRotation(self):\n        \"\"\"Return the anchor rotation.\n        \"\"\"\n        return self.inputAnchorItem.rotation()\n\n    def boundingRect(self):\n        # TODO: Important because of this any time the child\n        # items change geometry the self.prepareGeometryChange()\n        # needs to be called.\n        return self.childrenBoundingRect()\n\n    def shape(self):\n        \"\"\"Reimplemented: Return the shape of the 'shapeItem', This is used\n        for hit testing in QGraphicsScene.\n\n        \"\"\"\n        # Should this return the union of all child items?\n        return self.shapeItem.shape()\n"
+}

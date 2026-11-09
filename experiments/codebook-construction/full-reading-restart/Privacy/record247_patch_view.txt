@@ -1,0 +1,1343 @@
+From 3042c1c2c3b1c4a6a215725e691270fd10bcda15 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Thu, 30 Apr 2020 15:08:57 +0530
+Subject: [PATCH 01/11] TCF v2.0 enforcement
+
+---
+ modules/gdprEnforcement.js                |  88 ++++++++---
+ src/constants.json                        |   3 +-
+ test/spec/modules/gdprEnforcement_spec.js | 176 +++++++++++++++++-----
+ 3 files changed, 211 insertions(+), 56 deletions(-)
+
+diff --git a/modules/gdprEnforcement.js b/modules/gdprEnforcement.js
+index 363d0e396f8..466786ee9d4 100644
+--- a/modules/gdprEnforcement.js
++++ b/modules/gdprEnforcement.js
+@@ -11,18 +11,25 @@ import includes from 'core-js/library/fn/array/includes.js';
+ import { registerSyncInner } from '../src/adapters/bidderFactory.js';
+ import { getHook } from '../src/hook.js';
+ import { validateStorageEnforcement } from '../src/storageManager.js';
++import events from '../src/events.js';
++import { EVENTS } from '../src/constants.json';
+ 
+-const purpose1 = 'storage';
++const PURPOSE_1 = 'storage';
++const PURPOSE_2 = 'basicAds';
+ 
++let hasDefinedPurpose1 = false;
++let hasDefinedPurpose2 = false;
+ let addedDeviceAccessHook = false;
+ let enforcementRules;
+ 
+-function getGvlid() {
++function getGvlid(bidderCode) {
+   let gvlid;
+-  const bidderCode = config.getCurrentBidder();
++  bidderCode = bidderCode || config.getCurrentBidder();
+   if (bidderCode) {
+     const bidder = adapterManager.getBidAdapter(bidderCode);
+-    gvlid = bidder.getSpec().gvlid;
++    if (bidder && bidder.getSpec) {
++      gvlid = bidder.getSpec().gvlid;
++    }
+   } else {
+     utils.logWarn('Current module not found');
+   }
+@@ -31,18 +38,21 @@ function getGvlid() {
+ 
+ /**
+  * This function takes in rules and consentData as input and validates against the consentData provided. If it returns true Prebid will allow the next call else it will log a warning
+- * @param {Object} rules enforcement rules set in config
+- * @param {Object} consentData gdpr consent data
++ * @param {Object} rule - enforcement rules set in config
++ * @param {Object} consentData - gdpr consent data
++ * @param {number} purpose - Defines which purpose (1, 2, 4, 7) is under check
++ * @param {string=} currentModule - Bidder code of the current module
++ * @param {number=} gvlid - GVL ID for the module
+  * @returns {boolean}
+  */
+-function validateRules(rule, consentData, currentModule, gvlid) {
++function validateRules(rule, consentData, purpose, currentModule, gvlid) {
+   let isAllowed = false;
+   if (!rule.vendorExceptions) rule.vendorExceptions = [];
+-  if (rule.enforcePurpose && rule.enforceVendor) {
++  if (rule.enforcePurpose === true && rule.enforceVendor === true) {
+     if (
+       includes(rule.vendorExceptions, currentModule) ||
+       (
+-        utils.deepAccess(consentData, 'vendorData.purpose.consents.1') === true &&
++        utils.deepAccess(consentData, `vendorData.purpose.consents.${purpose}`) === true &&
+         utils.deepAccess(consentData, `vendorData.vendor.consents.${gvlid}`) === true
+       )
+     ) {
+@@ -61,7 +71,7 @@ function validateRules(rule, consentData, currentModule, gvlid) {
+     if (
+       !includes(rule.vendorExceptions, currentModule) ||
+       (
+-        (utils.deepAccess(consentData, 'vendorData.purpose.consents.1') === true) &&
++        (utils.deepAccess(consentData, `vendorData.purpose.consents.${purpose}`) === true) &&
+         (utils.deepAccess(consentData, `vendorData.vendor.consents.${gvlid}`) === true)
+       )
+     ) {
+@@ -69,7 +79,7 @@ function validateRules(rule, consentData, currentModule, gvlid) {
+     }
+   } else if (rule.enforcePurpose === true && rule.enforceVendor === false) {
+     if (
+-      (utils.deepAccess(consentData, 'vendorData.purpose.consents.1') === true) &&
++      (utils.deepAccess(consentData, `vendorData.purpose.consents.${purpose}`) === true) &&
+       (
+         !includes(rule.vendorExceptions, currentModule) ||
+         (utils.deepAccess(consentData, `vendorData.vendor.consents.${gvlid}`) === true)
+@@ -103,8 +113,8 @@ export function deviceAccessHook(fn, gvlid, moduleName, result) {
+           gvlid = getGvlid();
+         }
+         const curModule = moduleName || config.getCurrentBidder();
+-        const purpose1Rule = find(enforcementRules, hasPurpose1);
+-        let isAllowed = validateRules(purpose1Rule, consentData, curModule, gvlid);
++        const purpose1Rule = hasDefinedPurpose1;
++        let isAllowed = validateRules(purpose1Rule, consentData, 1, curModule, gvlid);
+         if (isAllowed) {
+           result.valid = true;
+           fn.call(this, gvlid, moduleName, result);
+@@ -137,8 +147,8 @@ export function userSyncHook(fn, ...args) {
+       const gvlid = getGvlid();
+       const curBidder = config.getCurrentBidder();
+       if (gvlid) {
+-        const purpose1Rule = find(enforcementRules, hasPurpose1);
+-        let isAllowed = validateRules(purpose1Rule, consentData, curBidder, gvlid);
++        const purpose1Rule = hasDefinedPurpose1;
++        let isAllowed = validateRules(purpose1Rule, consentData, 1, curBidder, gvlid);
+         if (isAllowed) {
+           fn.call(this, ...args);
+         } else {
+@@ -169,8 +179,8 @@ export function userIdHook(fn, submodules, consentData) {
+         const gvlid = submodule.submodule.gvlid;
+         const moduleName = submodule.submodule.name;
+         if (gvlid) {
+-          const purpose1Rule = find(enforcementRules, hasPurpose1);
+-          let isAllowed = validateRules(purpose1Rule, consentData, moduleName, gvlid);
++          const purpose1Rule = hasDefinedPurpose1;
++          let isAllowed = validateRules(purpose1Rule, consentData, 1, moduleName, gvlid);
+           if (isAllowed) {
+             return submodule;
+           } else {
+@@ -191,11 +201,44 @@ export function userIdHook(fn, submodules, consentData) {
+   }
+ }
+ 
+-const hasPurpose1 = (rule) => { return rule.purpose === purpose1 }
++/**
++ * Checks if the bidder is given consent. If yes, bid adapter is allowed to send ajax request to their endpoint, else, no request
++ * is sent. Enforces "purpose 2 (basic ads)" of TCF v2.0 spec
++ * @param {Function} fn - Function reference to the original function.
++ * @param {Array<adUnits>} adUnits
++ */
++export function makeBidRequestsHook(fn, adUnits, ...args) {
++  const purpose2Rule = hasDefinedPurpose2;
++  if (purpose2Rule) {
++    const consentData = gdprDataHandler.getConsentData();
++    const disabledBidders = [];
++    adUnits.forEach(adUnit => {
++      adUnit.bids = adUnit.bids.filter(bid => {
++        const currBidder = bid.bidder;
++        const gvlId = getGvlid(currBidder);
++        if (includes(disabledBidders, currBidder)) return false;
++        const isAllowed = validateRules(purpose2Rule, consentData, 2, currBidder, gvlId);
++        if (!isAllowed) {
++          utils.logWarn(`User blocked bidder: ${currBidder}. No bid request will be sent to their endpoint.`);
++          // Emit an event for the Analytics adapters to listen
++          events.emit(EVENTS.BIDDER_BLOCKED, currBidder);
++          disabledBidders.push(currBidder);
++        }
++        return isAllowed;
++      });
++    });
++    fn.call(this, adUnits, ...args);
++  } else {
++    fn.call(this, adUnits, ...args);
++  }
++}
++
++const hasPurpose1 = (rule) => { return rule.purpose === PURPOSE_1 }
++const hasPurpose2 = (rule) => { return rule.purpose === PURPOSE_2 }
+ 
+ /**
+  * A configuration function that initializes some module variables, as well as add hooks
+- * @param {Object} config GDPR enforcement config object
++ * @param {Object} config - GDPR enforcement config object
+  */
+ export function setEnforcementConfig(config) {
+   const rules = utils.deepAccess(config, 'gdpr.rules');
+@@ -205,7 +248,9 @@ export function setEnforcementConfig(config) {
+   }
+ 
+   enforcementRules = rules;
+-  const hasDefinedPurpose1 = find(enforcementRules, hasPurpose1);
++  hasDefinedPurpose1 = find(enforcementRules, hasPurpose1);
++  hasDefinedPurpose2 = find(enforcementRules, hasPurpose2);
++
+   if (hasDefinedPurpose1 && !addedDeviceAccessHook) {
+     addedDeviceAccessHook = true;
+     validateStorageEnforcement.before(deviceAccessHook, 49);
+@@ -213,6 +258,9 @@ export function setEnforcementConfig(config) {
+     // Using getHook as user id and gdprEnforcement are both optional modules. Using import will auto include the file in build
+     getHook('validateGdprEnforcement').before(userIdHook, 47);
+   }
++  if (hasDefinedPurpose2) {
++    adapterManager.makeBidRequests.before(makeBidRequestsHook);
++  }
+ }
+ 
+ config.getConfig('consentManagement', config => setEnforcementConfig(config.consentManagement));
+diff --git a/src/constants.json b/src/constants.json
+index 7ffef9db1aa..9080a56238a 100644
+--- a/src/constants.json
++++ b/src/constants.json
+@@ -36,7 +36,8 @@
+     "BEFORE_REQUEST_BIDS": "beforeRequestBids",
+     "REQUEST_BIDS": "requestBids",
+     "ADD_AD_UNITS": "addAdUnits",
+-    "AD_RENDER_FAILED" : "adRenderFailed"
++    "AD_RENDER_FAILED" : "adRenderFailed",
++    "BIDDER_BLOCKED": "bidderBlocked"
+   },
+   "AD_RENDER_FAILED_REASON" : {
+     "PREVENT_WRITING_ON_MAIN_DOCUMENT": "preventWritingOnMainDocuemnt",
+diff --git a/test/spec/modules/gdprEnforcement_spec.js b/test/spec/modules/gdprEnforcement_spec.js
+index 5b46441cbbb..246e0e3c5a2 100644
+--- a/test/spec/modules/gdprEnforcement_spec.js
++++ b/test/spec/modules/gdprEnforcement_spec.js
+@@ -1,11 +1,12 @@
+-import { deviceAccessHook, setEnforcementConfig, userSyncHook, userIdHook } from 'modules/gdprEnforcement.js';
++import { deviceAccessHook, setEnforcementConfig, userSyncHook, userIdHook, makeBidRequestsHook } from 'modules/gdprEnforcement.js';
+ import { config } from 'src/config.js';
+ import adapterManager, { gdprDataHandler } from 'src/adapterManager.js';
+ import * as utils from 'src/utils.js';
+ import { validateStorageEnforcement } from 'src/storageManager.js';
+ import { executeStorageCallbacks } from 'src/prebid.js';
++import events from 'src/events.js';
+ 
+-describe('gdpr enforcement', function() {
++describe('gdpr enforcement', function () {
+   let nextFnSpy;
+   let logWarnSpy;
+   let gdprDataHandlerStub;
+@@ -46,7 +47,9 @@ describe('gdpr enforcement', function() {
+           'consents': {
+             '1': true,
+             '2': true,
+-            '3': false
++            '3': false,
++            '4': true,
++            '5': false
+           },
+           'legitimateInterests': {
+             '1': false,
+@@ -81,23 +84,24 @@ describe('gdpr enforcement', function() {
+     }
+   };
+ 
+-  after(function() {
+-    validateStorageEnforcement.getHooks({hook: deviceAccessHook}).remove();
+-    $$PREBID_GLOBAL$$.requestBids.getHooks({hook: executeStorageCallbacks}).remove();
++  after(function () {
++    validateStorageEnforcement.getHooks({ hook: deviceAccessHook }).remove();
++    $$PREBID_GLOBAL$$.requestBids.getHooks({ hook: executeStorageCallbacks }).remove();
++    adapterManager.makeBidRequests.getHooks({ hook: makeBidRequestsHook }).remove();
+   })
+ 
+-  describe('deviceAccessHook', function() {
+-    beforeEach(function() {
++  describe('deviceAccessHook', function () {
++    beforeEach(function () {
+       nextFnSpy = sinon.spy();
+       gdprDataHandlerStub = sinon.stub(gdprDataHandler, 'getConsentData');
+       logWarnSpy = sinon.spy(utils, 'logWarn');
+     });
+-    afterEach(function() {
++    afterEach(function () {
+       config.resetConfig();
+       gdprDataHandler.getConsentData.restore();
+       logWarnSpy.restore();
+     });
+-    it('should not allow device access when device access flag is set to false', function() {
++    it('should not allow device access when device access flag is set to false', function () {
+       config.setConfig({
+         deviceAccess: false,
+         consentManagement: {
+@@ -118,10 +122,11 @@ describe('gdpr enforcement', function() {
+         hasEnforcementHook: true,
+         valid: false
+       }
+-      expect(nextFnSpy.calledWith(undefined, result));
++      sinon.assert.calledWith(nextFnSpy, undefined, undefined, result);
++      // expect(nextFnSpy.calledWith(undefined, result));
+     });
+ 
+-    it('should only check for consent for vendor exceptions when enforcePurpose and enforceVendor are false', function() {
++    it('should only check for consent for vendor exceptions when enforcePurpose and enforceVendor are false', function () {
+       setEnforcementConfig({
+         gdpr: {
+           rules: [{
+@@ -143,7 +148,7 @@ describe('gdpr enforcement', function() {
+       expect(logWarnSpy.callCount).to.equal(0);
+     });
+ 
+-    it('should check consent for all vendors when enforcePurpose and enforceVendor are true', function() {
++    it('should check consent for all vendors when enforcePurpose and enforceVendor are true', function () {
+       setEnforcementConfig({
+         gdpr: {
+           rules: [{
+@@ -164,7 +169,7 @@ describe('gdpr enforcement', function() {
+       expect(logWarnSpy.callCount).to.equal(1);
+     });
+ 
+-    it('should allow device access when gdprApplies is false and hasDeviceAccess flag is true', function() {
++    it('should allow device access when gdprApplies is false and hasDeviceAccess flag is true', function () {
+       setEnforcementConfig({
+         gdpr: {
+           rules: [{
+@@ -187,15 +192,16 @@ describe('gdpr enforcement', function() {
+         hasEnforcementHook: true,
+         valid: true
+       }
+-      expect(nextFnSpy.calledWith(undefined, result));
++      sinon.assert.calledWith(nextFnSpy, 1, 'appnexus', result);
++      // expect(nextFnSpy.calledWith(undefined, result));
+     });
+   });
+ 
+-  describe('userSyncHook', function() {
++  describe('userSyncHook', function () {
+     let curBidderStub;
+     let adapterManagerStub;
+ 
+-    beforeEach(function() {
++    beforeEach(function () {
+       gdprDataHandlerStub = sinon.stub(gdprDataHandler, 'getConsentData');
+       logWarnSpy = sinon.spy(utils, 'logWarn');
+       curBidderStub = sinon.stub(config, 'getCurrentBidder');
+@@ -203,7 +209,7 @@ describe('gdpr enforcement', function() {
+       nextFnSpy = sinon.spy();
+     });
+ 
+-    afterEach(function() {
++    afterEach(function () {
+       config.getCurrentBidder.restore();
+       config.resetConfig();
+       gdprDataHandler.getConsentData.restore();
+@@ -211,7 +217,7 @@ describe('gdpr enforcement', function() {
+       logWarnSpy.restore();
+     });
+ 
+-    it('should allow bidder to do user sync if consent is true', function() {
++    it('should allow bidder to do user sync if consent is true', function () {
+       setEnforcementConfig({
+         gdpr: {
+           rules: [{
+@@ -230,7 +236,7 @@ describe('gdpr enforcement', function() {
+ 
+       curBidderStub.returns('sampleBidder1');
+       adapterManagerStub.withArgs('sampleBidder1').returns({
+-        getSpec: function() {
++        getSpec: function () {
+           return {
+             'gvlid': 1
+           }
+@@ -240,7 +246,7 @@ describe('gdpr enforcement', function() {
+ 
+       curBidderStub.returns('sampleBidder2');
+       adapterManagerStub.withArgs('sampleBidder2').returns({
+-        getSpec: function() {
++        getSpec: function () {
+           return {
+             'gvlid': 3
+           }
+@@ -250,7 +256,7 @@ describe('gdpr enforcement', function() {
+       expect(nextFnSpy.calledTwice).to.equal(true);
+     });
+ 
+-    it('should not allow bidder to do user sync if user has denied consent', function() {
++    it('should not allow bidder to do user sync if user has denied consent', function () {
+       setEnforcementConfig({
+         gdpr: {
+           rules: [{
+@@ -269,7 +275,7 @@ describe('gdpr enforcement', function() {
+ 
+       curBidderStub.returns('sampleBidder1');
+       adapterManagerStub.withArgs('sampleBidder1').returns({
+-        getSpec: function() {
++        getSpec: function () {
+           return {
+             'gvlid': 1
+           }
+@@ -279,7 +285,7 @@ describe('gdpr enforcement', function() {
+ 
+       curBidderStub.returns('sampleBidder2');
+       adapterManagerStub.withArgs('sampleBidder2').returns({
+-        getSpec: function() {
++        getSpec: function () {
+           return {
+             'gvlid': 3
+           }
+@@ -290,7 +296,7 @@ describe('gdpr enforcement', function() {
+       expect(logWarnSpy.callCount).to.equal(1);
+     });
+ 
+-    it('should not check vendor consent when enforceVendor is false', function() {
++    it('should not check vendor consent when enforceVendor is false', function () {
+       setEnforcementConfig({
+         gdpr: {
+           rules: [{
+@@ -309,7 +315,7 @@ describe('gdpr enforcement', function() {
+ 
+       curBidderStub.returns('sampleBidder1');
+       adapterManagerStub.withArgs('sampleBidder1').returns({
+-        getSpec: function() {
++        getSpec: function () {
+           return {
+             'gvlid': 1
+           }
+@@ -319,7 +325,7 @@ describe('gdpr enforcement', function() {
+ 
+       curBidderStub.returns('sampleBidder2');
+       adapterManagerStub.withArgs('sampleBidder2').returns({
+-        getSpec: function() {
++        getSpec: function () {
+           return {
+             'gvlid': 3
+           }
+@@ -331,16 +337,16 @@ describe('gdpr enforcement', function() {
+     });
+   });
+ 
+-  describe('userIdHook', function() {
+-    beforeEach(function() {
++  describe('userIdHook', function () {
++    beforeEach(function () {
+       logWarnSpy = sinon.spy(utils, 'logWarn');
+       nextFnSpy = sinon.spy();
+     });
+-    afterEach(function() {
++    afterEach(function () {
+       config.resetConfig();
+       logWarnSpy.restore();
+     });
+-    it('should allow user id module if consent is given', function() {
++    it('should allow user id module if consent is given', function () {
+       setEnforcementConfig({
+         gdpr: {
+           rules: [{
+@@ -365,7 +371,7 @@ describe('gdpr enforcement', function() {
+       expect(nextFnSpy.calledOnce).to.equal(true);
+     });
+ 
+-    it('should allow userId module if gdpr not in scope', function() {
++    it('should allow userId module if gdpr not in scope', function () {
+       let submodules = [{
+         submodule: {
+           gvlid: 1,
+@@ -375,10 +381,11 @@ describe('gdpr enforcement', function() {
+       let consentData = null;
+       userIdHook(nextFnSpy, submodules, consentData);
+       expect(nextFnSpy.calledOnce).to.equal(true);
+-      expect(nextFnSpy.calledWith(undefined, submodules, consentData));
++      sinon.assert.calledWith(nextFnSpy, submodules, consentData);
++      // expect(nextFnSpy.calledWith(undefined, submodules, consentData));
+     });
+ 
+-    it('should not allow user id module if user denied consent', function() {
++    it('should not allow user id module if user denied consent', function () {
+       setEnforcementConfig({
+         gdpr: {
+           rules: [{
+@@ -412,7 +419,106 @@ describe('gdpr enforcement', function() {
+           name: 'sampleUserId'
+         }
+       }]
+-      expect(nextFnSpy.calledWith(undefined, expectedSubmodules, consentData));
++      sinon.assert.calledWith(nextFnSpy, expectedSubmodules, consentData);
++      // expect(nextFnSpy.calledWith(undefined, expectedSubmodules, consentData));
++    });
++  });
++
++  describe('makeBidRequestsHook', function () {
++    let sandbox;
++    let adapterManagerStub;
++    let emitEventSpy;
++    const MOCK_AD_UNITS = [{
++      code: 'ad-unit-1',
++      mediaTypes: {},
++      bids: [{
++        bidder: 'bidder_1' // has consent
++      }, {
++        bidder: 'bidder_2' // doesn't have consent
++      }]
++    }, {
++      code: 'ad-unit-2',
++      mediaTypes: {},
++      bids: [{
++        bidder: 'bidder_2'
++      }]
++    }];
++    beforeEach(function () {
++      sandbox = sinon.createSandbox();
++      gdprDataHandlerStub = sandbox.stub(gdprDataHandler, 'getConsentData');
++      adapterManagerStub = sandbox.stub(adapterManager, 'getBidAdapter');
++      logWarnSpy = sandbox.spy(utils, 'logWarn');
++      nextFnSpy = sandbox.spy();
++      emitEventSpy = sandbox.spy(events, 'emit');
++    });
++    afterEach(function () {
++      config.resetConfig();
++      sandbox.restore();
++    });
++    it('should block bidder which does not have consent and allow bidder which has consent', function () {
++      setEnforcementConfig({
++        gdpr: {
++          rules: [{
++            purpose: 'basicAds',
++            enforcePurpose: true,
++            enforceVendor: true,
++            vendorExceptions: []
++          }]
++        }
++      });
++      const consentData = {};
++      consentData.vendorData = staticConfig.consentData.getTCData;
++      consentData.apiVersion = 2;
++      consentData.gdprApplies = true;
++
++      gdprDataHandlerStub.returns(consentData);
++      adapterManagerStub.withArgs('bidder_1').returns({
++        getSpec: function () {
++          return { 'gvlid': 4 }
++        }
++      });
++      adapterManagerStub.withArgs('bidder_2').returns({
++        getSpec: function () {
++          return { 'gvlid': 5 }
++        }
++      });
++      makeBidRequestsHook(nextFnSpy, MOCK_AD_UNITS, []);
++
++      // Assertions
++      expect(nextFnSpy.calledOnce).to.equal(true);
++      sinon.assert.calledWith(nextFnSpy, [{
++        code: 'ad-unit-1',
++        mediaTypes: {},
++        bids: [
++          sinon.match({ bidder: 'bidder_1' })
++        ]
++      }, {
++        code: 'ad-unit-2',
++        mediaTypes: {},
++        bids: []
++      }], []);
++      expect(emitEventSpy.calledOnce).to.equal(true);
++      expect(logWarnSpy.calledOnce).to.equal(true);
++    });
++
++    it('should skip TCF v2.0 validation checks if "Purpose 2" enforcment not present in gdpr config rules', function () {
++      setEnforcementConfig({
++        gdpr: {
++          rules: [{
++            purpose: 'storage',
++            enforePurpose: false,
++            enforceVendor: false,
++            vendorExceptions: []
++          }]
++        }
++      });
++      makeBidRequestsHook(nextFnSpy, MOCK_AD_UNITS, []);
++
++      // Assertions
++      expect(nextFnSpy.calledOnce).to.equal(true);
++      sinon.assert.calledWith(nextFnSpy, sinon.match.array.deepEquals(MOCK_AD_UNITS), []);
++      expect(emitEventSpy.notCalled).to.equal(true);
++      expect(logWarnSpy.notCalled).to.equal(true);
+     });
+   });
+ });
+
+From 73d3b52fafe851e487c752fbbe402d2f7da98f91 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Thu, 30 Apr 2020 15:21:23 +0530
+Subject: [PATCH 02/11] test/spec/modules/gdprEnforcement_spec.js
+
+---
+ test/spec/modules/gdprEnforcement_spec.js | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/test/spec/modules/gdprEnforcement_spec.js b/test/spec/modules/gdprEnforcement_spec.js
+index 246e0e3c5a2..7f9c3438aff 100644
+--- a/test/spec/modules/gdprEnforcement_spec.js
++++ b/test/spec/modules/gdprEnforcement_spec.js
+@@ -123,7 +123,6 @@ describe('gdpr enforcement', function () {
+         valid: false
+       }
+       sinon.assert.calledWith(nextFnSpy, undefined, undefined, result);
+-      // expect(nextFnSpy.calledWith(undefined, result));
+     });
+ 
+     it('should only check for consent for vendor exceptions when enforcePurpose and enforceVendor are false', function () {
+@@ -193,7 +192,6 @@ describe('gdpr enforcement', function () {
+         valid: true
+       }
+       sinon.assert.calledWith(nextFnSpy, 1, 'appnexus', result);
+-      // expect(nextFnSpy.calledWith(undefined, result));
+     });
+   });
+ 
+@@ -382,7 +380,6 @@ describe('gdpr enforcement', function () {
+       userIdHook(nextFnSpy, submodules, consentData);
+       expect(nextFnSpy.calledOnce).to.equal(true);
+       sinon.assert.calledWith(nextFnSpy, submodules, consentData);
+-      // expect(nextFnSpy.calledWith(undefined, submodules, consentData));
+     });
+ 
+     it('should not allow user id module if user denied consent', function () {
+@@ -420,7 +417,6 @@ describe('gdpr enforcement', function () {
+         }
+       }]
+       sinon.assert.calledWith(nextFnSpy, expectedSubmodules, consentData);
+-      // expect(nextFnSpy.calledWith(undefined, expectedSubmodules, consentData));
+     });
+   });
+ 
+
+From d9d4d36e3d355e9a3021fc84dfca1b4bd078f7ba Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Tue, 5 May 2020 17:02:28 +0530
+Subject: [PATCH 03/11] initialize purpose 4 variables
+
+---
+ modules/gdprEnforcement.js | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/modules/gdprEnforcement.js b/modules/gdprEnforcement.js
+index 466786ee9d4..cfa42dcd361 100644
+--- a/modules/gdprEnforcement.js
++++ b/modules/gdprEnforcement.js
+@@ -16,9 +16,11 @@ import { EVENTS } from '../src/constants.json';
+ 
+ const PURPOSE_1 = 'storage';
+ const PURPOSE_2 = 'basicAds';
++const PURPOSE_4 = 'personalizedAds';
+ 
+ let hasDefinedPurpose1 = false;
+ let hasDefinedPurpose2 = false;
++let hasDefinedPurpose4 = false;
+ let addedDeviceAccessHook = false;
+ let enforcementRules;
+ 
+@@ -235,6 +237,7 @@ export function makeBidRequestsHook(fn, adUnits, ...args) {
+ 
+ const hasPurpose1 = (rule) => { return rule.purpose === PURPOSE_1 }
+ const hasPurpose2 = (rule) => { return rule.purpose === PURPOSE_2 }
++const hasPurpose4 = (rule) => { return rule.purpose === PURPOSE_4 }
+ 
+ /**
+  * A configuration function that initializes some module variables, as well as add hooks
+@@ -250,6 +253,7 @@ export function setEnforcementConfig(config) {
+   enforcementRules = rules;
+   hasDefinedPurpose1 = find(enforcementRules, hasPurpose1);
+   hasDefinedPurpose2 = find(enforcementRules, hasPurpose2);
++  hasDefinedPurpose4 = find(enforcementRules, hasPurpose4);
+ 
+   if (hasDefinedPurpose1 && !addedDeviceAccessHook) {
+     addedDeviceAccessHook = true;
+
+From a49f7e15328214b7fdaba6dffd130b76f9570a82 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Tue, 5 May 2020 20:59:36 +0530
+Subject: [PATCH 04/11] add check for gdpr version
+
+---
+ modules/gdprEnforcement.js                | 20 ++++++++------------
+ test/spec/modules/gdprEnforcement_spec.js |  9 ++++++++-
+ 2 files changed, 16 insertions(+), 13 deletions(-)
+
+diff --git a/modules/gdprEnforcement.js b/modules/gdprEnforcement.js
+index 466786ee9d4..3d7fd35380d 100644
+--- a/modules/gdprEnforcement.js
++++ b/modules/gdprEnforcement.js
+@@ -17,8 +17,8 @@ import { EVENTS } from '../src/constants.json';
+ const PURPOSE_1 = 'storage';
+ const PURPOSE_2 = 'basicAds';
+ 
+-let hasDefinedPurpose1 = false;
+-let hasDefinedPurpose2 = false;
++let purpose1Rule;
++let purpose2Rule;
+ let addedDeviceAccessHook = false;
+ let enforcementRules;
+ 
+@@ -113,7 +113,6 @@ export function deviceAccessHook(fn, gvlid, moduleName, result) {
+           gvlid = getGvlid();
+         }
+         const curModule = moduleName || config.getCurrentBidder();
+-        const purpose1Rule = hasDefinedPurpose1;
+         let isAllowed = validateRules(purpose1Rule, consentData, 1, curModule, gvlid);
+         if (isAllowed) {
+           result.valid = true;
+@@ -147,7 +146,6 @@ export function userSyncHook(fn, ...args) {
+       const gvlid = getGvlid();
+       const curBidder = config.getCurrentBidder();
+       if (gvlid) {
+-        const purpose1Rule = hasDefinedPurpose1;
+         let isAllowed = validateRules(purpose1Rule, consentData, 1, curBidder, gvlid);
+         if (isAllowed) {
+           fn.call(this, ...args);
+@@ -179,7 +177,6 @@ export function userIdHook(fn, submodules, consentData) {
+         const gvlid = submodule.submodule.gvlid;
+         const moduleName = submodule.submodule.name;
+         if (gvlid) {
+-          const purpose1Rule = hasDefinedPurpose1;
+           let isAllowed = validateRules(purpose1Rule, consentData, 1, moduleName, gvlid);
+           if (isAllowed) {
+             return submodule;
+@@ -208,9 +205,8 @@ export function userIdHook(fn, submodules, consentData) {
+  * @param {Array<adUnits>} adUnits
+  */
+ export function makeBidRequestsHook(fn, adUnits, ...args) {
+-  const purpose2Rule = hasDefinedPurpose2;
+-  if (purpose2Rule) {
+-    const consentData = gdprDataHandler.getConsentData();
++  const consentData = gdprDataHandler.getConsentData();
++  if (consentData && consentData.apiVersion === 2) {
+     const disabledBidders = [];
+     adUnits.forEach(adUnit => {
+       adUnit.bids = adUnit.bids.filter(bid => {
+@@ -248,17 +244,17 @@ export function setEnforcementConfig(config) {
+   }
+ 
+   enforcementRules = rules;
+-  hasDefinedPurpose1 = find(enforcementRules, hasPurpose1);
+-  hasDefinedPurpose2 = find(enforcementRules, hasPurpose2);
++  purpose1Rule = find(enforcementRules, hasPurpose1);
++  purpose2Rule = find(enforcementRules, hasPurpose2);
+ 
+-  if (hasDefinedPurpose1 && !addedDeviceAccessHook) {
++  if (purpose1Rule && !addedDeviceAccessHook) {
+     addedDeviceAccessHook = true;
+     validateStorageEnforcement.before(deviceAccessHook, 49);
+     registerSyncInner.before(userSyncHook, 48);
+     // Using getHook as user id and gdprEnforcement are both optional modules. Using import will auto include the file in build
+     getHook('validateGdprEnforcement').before(userIdHook, 47);
+   }
+-  if (hasDefinedPurpose2) {
++  if (purpose2Rule) {
+     adapterManager.makeBidRequests.before(makeBidRequestsHook);
+   }
+ }
+diff --git a/test/spec/modules/gdprEnforcement_spec.js b/test/spec/modules/gdprEnforcement_spec.js
+index 7f9c3438aff..66e474c23ec 100644
+--- a/test/spec/modules/gdprEnforcement_spec.js
++++ b/test/spec/modules/gdprEnforcement_spec.js
+@@ -497,7 +497,7 @@ describe('gdpr enforcement', function () {
+       expect(logWarnSpy.calledOnce).to.equal(true);
+     });
+ 
+-    it('should skip TCF v2.0 validation checks if "Purpose 2" enforcment not present in gdpr config rules', function () {
++    it('should skip validation checks if GDPR version is not equal to "2"', function () {
+       setEnforcementConfig({
+         gdpr: {
+           rules: [{
+@@ -508,6 +508,13 @@ describe('gdpr enforcement', function () {
+           }]
+         }
+       });
++
++      const consentData = {};
++      consentData.vendorData = staticConfig.consentData.getTCData;
++      consentData.apiVersion = 1;
++      consentData.gdprApplies = true;
++      gdprDataHandlerStub.returns(consentData);
++
+       makeBidRequestsHook(nextFnSpy, MOCK_AD_UNITS, []);
+ 
+       // Assertions
+
+From 559724edb19663b9bd1211129e2589dce4a5601b Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Tue, 5 May 2020 21:26:07 +0530
+Subject: [PATCH 05/11] add logInfo message
+
+---
+ modules/gdprEnforcement.js                | 39 +++++++++++++----------
+ test/spec/modules/gdprEnforcement_spec.js |  3 ++
+ 2 files changed, 25 insertions(+), 17 deletions(-)
+
+diff --git a/modules/gdprEnforcement.js b/modules/gdprEnforcement.js
+index 3d7fd35380d..0940e3a7470 100644
+--- a/modules/gdprEnforcement.js
++++ b/modules/gdprEnforcement.js
+@@ -206,24 +206,29 @@ export function userIdHook(fn, submodules, consentData) {
+  */
+ export function makeBidRequestsHook(fn, adUnits, ...args) {
+   const consentData = gdprDataHandler.getConsentData();
+-  if (consentData && consentData.apiVersion === 2) {
+-    const disabledBidders = [];
+-    adUnits.forEach(adUnit => {
+-      adUnit.bids = adUnit.bids.filter(bid => {
+-        const currBidder = bid.bidder;
+-        const gvlId = getGvlid(currBidder);
+-        if (includes(disabledBidders, currBidder)) return false;
+-        const isAllowed = validateRules(purpose2Rule, consentData, 2, currBidder, gvlId);
+-        if (!isAllowed) {
+-          utils.logWarn(`User blocked bidder: ${currBidder}. No bid request will be sent to their endpoint.`);
+-          // Emit an event for the Analytics adapters to listen
+-          events.emit(EVENTS.BIDDER_BLOCKED, currBidder);
+-          disabledBidders.push(currBidder);
+-        }
+-        return isAllowed;
++  if (consentData && consentData.gdprApplies) {
++    if (consentData.apiVersion === 2) {
++      const disabledBidders = [];
++      adUnits.forEach(adUnit => {
++        adUnit.bids = adUnit.bids.filter(bid => {
++          const currBidder = bid.bidder;
++          const gvlId = getGvlid(currBidder);
++          if (includes(disabledBidders, currBidder)) return false;
++          const isAllowed = validateRules(purpose2Rule, consentData, 2, currBidder, gvlId);
++          if (!isAllowed) {
++            utils.logWarn(`User blocked bidder: ${currBidder}. No bid request will be sent to their endpoint.`);
++            // Emit an event for the Analytics adapters to listen
++            events.emit(EVENTS.BIDDER_BLOCKED, currBidder);
++            disabledBidders.push(currBidder);
++          }
++          return isAllowed;
++        });
+       });
+-    });
+-    fn.call(this, adUnits, ...args);
++      fn.call(this, adUnits, ...args);
++    } else {
++      utils.logInfo('Enforcing TCF2 only');
++      fn.call(this, adUnits, ...args);
++    }
+   } else {
+     fn.call(this, adUnits, ...args);
+   }
+diff --git a/test/spec/modules/gdprEnforcement_spec.js b/test/spec/modules/gdprEnforcement_spec.js
+index 66e474c23ec..4401bb0d22c 100644
+--- a/test/spec/modules/gdprEnforcement_spec.js
++++ b/test/spec/modules/gdprEnforcement_spec.js
+@@ -424,6 +424,7 @@ describe('gdpr enforcement', function () {
+     let sandbox;
+     let adapterManagerStub;
+     let emitEventSpy;
++    let logInfoSpy;
+     const MOCK_AD_UNITS = [{
+       code: 'ad-unit-1',
+       mediaTypes: {},
+@@ -444,6 +445,7 @@ describe('gdpr enforcement', function () {
+       gdprDataHandlerStub = sandbox.stub(gdprDataHandler, 'getConsentData');
+       adapterManagerStub = sandbox.stub(adapterManager, 'getBidAdapter');
+       logWarnSpy = sandbox.spy(utils, 'logWarn');
++      logInfoSpy = sandbox.spy(utils, 'logInfo');
+       nextFnSpy = sandbox.spy();
+       emitEventSpy = sandbox.spy(events, 'emit');
+     });
+@@ -522,6 +524,7 @@ describe('gdpr enforcement', function () {
+       sinon.assert.calledWith(nextFnSpy, sinon.match.array.deepEquals(MOCK_AD_UNITS), []);
+       expect(emitEventSpy.notCalled).to.equal(true);
+       expect(logWarnSpy.notCalled).to.equal(true);
++      expect(logInfoSpy.calledOnce).to.equal(true);
+     });
+   });
+ });
+
+From d945a8a1bb6e3412ee7815b26824bc1a5e182b18 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Thu, 7 May 2020 11:41:44 +0530
+Subject: [PATCH 06/11] remove comment and store value of PURPOSES in an object
+
+---
+ modules/gdprEnforcement.js | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
+
+diff --git a/modules/gdprEnforcement.js b/modules/gdprEnforcement.js
+index 0940e3a7470..a4b486f639a 100644
+--- a/modules/gdprEnforcement.js
++++ b/modules/gdprEnforcement.js
+@@ -14,8 +14,15 @@ import { validateStorageEnforcement } from '../src/storageManager.js';
+ import events from '../src/events.js';
+ import { EVENTS } from '../src/constants.json';
+ 
+-const PURPOSE_1 = 'storage';
+-const PURPOSE_2 = 'basicAds';
++const PURPOSE_1 = {
++  id: 1,
++  name: 'storage'
++}
++
++const PURPOSE_2 = {
++  id: 2,
++  name: 'basicAds'
++}
+ 
+ let purpose1Rule;
+ let purpose2Rule;
+@@ -113,7 +120,7 @@ export function deviceAccessHook(fn, gvlid, moduleName, result) {
+           gvlid = getGvlid();
+         }
+         const curModule = moduleName || config.getCurrentBidder();
+-        let isAllowed = validateRules(purpose1Rule, consentData, 1, curModule, gvlid);
++        let isAllowed = validateRules(purpose1Rule, consentData, PURPOSE_1.id, curModule, gvlid);
+         if (isAllowed) {
+           result.valid = true;
+           fn.call(this, gvlid, moduleName, result);
+@@ -146,7 +153,7 @@ export function userSyncHook(fn, ...args) {
+       const gvlid = getGvlid();
+       const curBidder = config.getCurrentBidder();
+       if (gvlid) {
+-        let isAllowed = validateRules(purpose1Rule, consentData, 1, curBidder, gvlid);
++        let isAllowed = validateRules(purpose1Rule, consentData, PURPOSE_1.id, curBidder, gvlid);
+         if (isAllowed) {
+           fn.call(this, ...args);
+         } else {
+@@ -177,7 +184,7 @@ export function userIdHook(fn, submodules, consentData) {
+         const gvlid = submodule.submodule.gvlid;
+         const moduleName = submodule.submodule.name;
+         if (gvlid) {
+-          let isAllowed = validateRules(purpose1Rule, consentData, 1, moduleName, gvlid);
++          let isAllowed = validateRules(purpose1Rule, consentData, PURPOSE_1.id, moduleName, gvlid);
+           if (isAllowed) {
+             return submodule;
+           } else {
+@@ -214,10 +221,9 @@ export function makeBidRequestsHook(fn, adUnits, ...args) {
+           const currBidder = bid.bidder;
+           const gvlId = getGvlid(currBidder);
+           if (includes(disabledBidders, currBidder)) return false;
+-          const isAllowed = validateRules(purpose2Rule, consentData, 2, currBidder, gvlId);
++          const isAllowed = validateRules(purpose2Rule, consentData, PURPOSE_2.id, currBidder, gvlId);
+           if (!isAllowed) {
+             utils.logWarn(`User blocked bidder: ${currBidder}. No bid request will be sent to their endpoint.`);
+-            // Emit an event for the Analytics adapters to listen
+             events.emit(EVENTS.BIDDER_BLOCKED, currBidder);
+             disabledBidders.push(currBidder);
+           }
+@@ -234,8 +240,8 @@ export function makeBidRequestsHook(fn, adUnits, ...args) {
+   }
+ }
+ 
+-const hasPurpose1 = (rule) => { return rule.purpose === PURPOSE_1 }
+-const hasPurpose2 = (rule) => { return rule.purpose === PURPOSE_2 }
++const hasPurpose1 = (rule) => { return rule.purpose === PURPOSE_1.name }
++const hasPurpose2 = (rule) => { return rule.purpose === PURPOSE_2.name }
+ 
+ /**
+  * A configuration function that initializes some module variables, as well as add hooks
+
+From 06e46d29c25748b597009a8a3f145a28ce16da04 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Mon, 11 May 2020 18:11:40 +0530
+Subject: [PATCH 07/11] add gvlid check
+
+---
+ modules/gdprEnforcement.js                |  2 +-
+ test/spec/modules/gdprEnforcement_spec.js | 14 ++++++++++++--
+ 2 files changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/modules/gdprEnforcement.js b/modules/gdprEnforcement.js
+index a4b486f639a..2062ec703e5 100644
+--- a/modules/gdprEnforcement.js
++++ b/modules/gdprEnforcement.js
+@@ -221,7 +221,7 @@ export function makeBidRequestsHook(fn, adUnits, ...args) {
+           const currBidder = bid.bidder;
+           const gvlId = getGvlid(currBidder);
+           if (includes(disabledBidders, currBidder)) return false;
+-          const isAllowed = validateRules(purpose2Rule, consentData, PURPOSE_2.id, currBidder, gvlId);
++          const isAllowed = gvlId && validateRules(purpose2Rule, consentData, PURPOSE_2.id, currBidder, gvlId);
+           if (!isAllowed) {
+             utils.logWarn(`User blocked bidder: ${currBidder}. No bid request will be sent to their endpoint.`);
+             events.emit(EVENTS.BIDDER_BLOCKED, currBidder);
+diff --git a/test/spec/modules/gdprEnforcement_spec.js b/test/spec/modules/gdprEnforcement_spec.js
+index 4401bb0d22c..3598a98225b 100644
+--- a/test/spec/modules/gdprEnforcement_spec.js
++++ b/test/spec/modules/gdprEnforcement_spec.js
+@@ -5,6 +5,7 @@ import * as utils from 'src/utils.js';
+ import { validateStorageEnforcement } from 'src/storageManager.js';
+ import { executeStorageCallbacks } from 'src/prebid.js';
+ import events from 'src/events.js';
++import { EVENTS } from 'src/constants.json';
+ 
+ describe('gdpr enforcement', function () {
+   let nextFnSpy;
+@@ -438,6 +439,8 @@ describe('gdpr enforcement', function () {
+       mediaTypes: {},
+       bids: [{
+         bidder: 'bidder_2'
++      }, {
++        bidder: 'bidder_3'
+       }]
+     }];
+     beforeEach(function () {
+@@ -480,6 +483,11 @@ describe('gdpr enforcement', function () {
+           return { 'gvlid': 5 }
+         }
+       });
++      adapterManagerStub.withArgs('bidder_3').returns({
++        getSpec: function () {
++          return { 'gvlid': undefined }
++        }
++      });
+       makeBidRequestsHook(nextFnSpy, MOCK_AD_UNITS, []);
+ 
+       // Assertions
+@@ -495,8 +503,10 @@ describe('gdpr enforcement', function () {
+         mediaTypes: {},
+         bids: []
+       }], []);
+-      expect(emitEventSpy.calledOnce).to.equal(true);
+-      expect(logWarnSpy.calledOnce).to.equal(true);
++      expect(emitEventSpy.calledTwice).to.equal(true);
++      expect(logWarnSpy.calledTwice).to.equal(true);
++      sinon.assert.calledWith(emitEventSpy.firstCall, EVENTS.BIDDER_BLOCKED, 'bidder_2');
++      sinon.assert.calledWith(emitEventSpy.secondCall, EVENTS.BIDDER_BLOCKED, 'bidder_3');
+     });
+ 
+     it('should skip validation checks if GDPR version is not equal to "2"', function () {
+
+From 254b3317ef504a0a748bd8751936361865444c75 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Tue, 12 May 2020 17:59:27 +0530
+Subject: [PATCH 08/11] add hook function stucture for purpose 4
+
+---
+ modules/gdprEnforcement.js |  114 +-
+ modules/userId/index.js    |    4 +-
+ package-lock.json          | 2180 ++++++++++++++++--------------------
+ 3 files changed, 1051 insertions(+), 1247 deletions(-)
+
+diff --git a/modules/gdprEnforcement.js b/modules/gdprEnforcement.js
+index cfa42dcd361..11c7ad7e928 100644
+--- a/modules/gdprEnforcement.js
++++ b/modules/gdprEnforcement.js
+@@ -1,3 +1,5 @@
++/* eslint no-console: 0 */
++
+ /**
+  * This module gives publishers extra set of features to enforce individual purposes of TCF v2
+  */
+@@ -13,14 +15,26 @@ import { getHook } from '../src/hook.js';
+ import { validateStorageEnforcement } from '../src/storageManager.js';
+ import events from '../src/events.js';
+ import { EVENTS } from '../src/constants.json';
++// import { getGlobal } from '../src/prebidGlobal.js';
+ 
+-const PURPOSE_1 = 'storage';
+-const PURPOSE_2 = 'basicAds';
+-const PURPOSE_4 = 'personalizedAds';
++const PURPOSE_1 = {
++  id: 1,
++  name: 'storage'
++}
+ 
+-let hasDefinedPurpose1 = false;
+-let hasDefinedPurpose2 = false;
+-let hasDefinedPurpose4 = false;
++const PURPOSE_2 = {
++  id: 2,
++  name: 'basicAds'
++}
++
++const PURPOSE_4 = {
++  id: 4,
++  name: 'personalizedAds'
++}
++
++let purpose1Rule;
++let purpose2Rule;
++let purpose4Rule;
+ let addedDeviceAccessHook = false;
+ let enforcementRules;
+ 
+@@ -115,8 +129,7 @@ export function deviceAccessHook(fn, gvlid, moduleName, result) {
+           gvlid = getGvlid();
+         }
+         const curModule = moduleName || config.getCurrentBidder();
+-        const purpose1Rule = hasDefinedPurpose1;
+-        let isAllowed = validateRules(purpose1Rule, consentData, 1, curModule, gvlid);
++        let isAllowed = validateRules(purpose1Rule, consentData, PURPOSE_1.id, curModule, gvlid);
+         if (isAllowed) {
+           result.valid = true;
+           fn.call(this, gvlid, moduleName, result);
+@@ -149,8 +162,7 @@ export function userSyncHook(fn, ...args) {
+       const gvlid = getGvlid();
+       const curBidder = config.getCurrentBidder();
+       if (gvlid) {
+-        const purpose1Rule = hasDefinedPurpose1;
+-        let isAllowed = validateRules(purpose1Rule, consentData, 1, curBidder, gvlid);
++        let isAllowed = validateRules(purpose1Rule, consentData, PURPOSE_1.id, curBidder, gvlid);
+         if (isAllowed) {
+           fn.call(this, ...args);
+         } else {
+@@ -181,8 +193,7 @@ export function userIdHook(fn, submodules, consentData) {
+         const gvlid = submodule.submodule.gvlid;
+         const moduleName = submodule.submodule.name;
+         if (gvlid) {
+-          const purpose1Rule = hasDefinedPurpose1;
+-          let isAllowed = validateRules(purpose1Rule, consentData, 1, moduleName, gvlid);
++          let isAllowed = validateRules(purpose1Rule, consentData, PURPOSE_1.id, moduleName, gvlid);
+           if (isAllowed) {
+             return submodule;
+           } else {
+@@ -210,34 +221,47 @@ export function userIdHook(fn, submodules, consentData) {
+  * @param {Array<adUnits>} adUnits
+  */
+ export function makeBidRequestsHook(fn, adUnits, ...args) {
+-  const purpose2Rule = hasDefinedPurpose2;
+-  if (purpose2Rule) {
+-    const consentData = gdprDataHandler.getConsentData();
+-    const disabledBidders = [];
+-    adUnits.forEach(adUnit => {
+-      adUnit.bids = adUnit.bids.filter(bid => {
+-        const currBidder = bid.bidder;
+-        const gvlId = getGvlid(currBidder);
+-        if (includes(disabledBidders, currBidder)) return false;
+-        const isAllowed = validateRules(purpose2Rule, consentData, 2, currBidder, gvlId);
+-        if (!isAllowed) {
+-          utils.logWarn(`User blocked bidder: ${currBidder}. No bid request will be sent to their endpoint.`);
+-          // Emit an event for the Analytics adapters to listen
+-          events.emit(EVENTS.BIDDER_BLOCKED, currBidder);
+-          disabledBidders.push(currBidder);
+-        }
+-        return isAllowed;
++  const consentData = gdprDataHandler.getConsentData();
++  if (consentData && consentData.gdprApplies) {
++    if (consentData.apiVersion === 2) {
++      const disabledBidders = [];
++      adUnits.forEach(adUnit => {
++        adUnit.bids = adUnit.bids.filter(bid => {
++          const currBidder = bid.bidder;
++          const gvlId = getGvlid(currBidder);
++          if (includes(disabledBidders, currBidder)) return false;
++          const isAllowed = validateRules(purpose2Rule, consentData, PURPOSE_2.id, currBidder, gvlId);
++          if (!isAllowed) {
++            utils.logWarn(`User blocked bidder: ${currBidder}. No bid request will be sent to their endpoint.`);
++            events.emit(EVENTS.BIDDER_BLOCKED, currBidder);
++            disabledBidders.push(currBidder);
++          }
++          return isAllowed;
++        });
+       });
+-    });
+-    fn.call(this, adUnits, ...args);
++      fn.call(this, adUnits, ...args);
++    } else {
++      utils.logInfo('Enforcing TCF2 only');
++      fn.call(this, adUnits, ...args);
++    }
+   } else {
+     fn.call(this, adUnits, ...args);
+   }
+ }
+ 
+-const hasPurpose1 = (rule) => { return rule.purpose === PURPOSE_1 }
+-const hasPurpose2 = (rule) => { return rule.purpose === PURPOSE_2 }
+-const hasPurpose4 = (rule) => { return rule.purpose === PURPOSE_4 }
++export function addIdDataToAdUnitBidsHook(fn, adUnits, ...args) {
++  const consentData = gdprDataHandler.getConsentData();
++  if (consentData && consentData.gdprApplies) {
++    if (consentData.apiVersion === 2) {
++
++    } else {
++      utils.logInfo('Enforcing TCF2 only');
++      fn.call(this, adUnits, ...args);
++    }
++  } else {
++    fn.call(this, adUnits, ...args);
++  }
++}
+ 
+ /**
+  * A configuration function that initializes some module variables, as well as add hooks
+@@ -251,20 +275,32 @@ export function setEnforcementConfig(config) {
+   }
+ 
+   enforcementRules = rules;
+-  hasDefinedPurpose1 = find(enforcementRules, hasPurpose1);
+-  hasDefinedPurpose2 = find(enforcementRules, hasPurpose2);
+-  hasDefinedPurpose4 = find(enforcementRules, hasPurpose4);
++  purpose1Rule = find(enforcementRules, rule => rule.purpose === PURPOSE_1.name);
++  purpose2Rule = find(enforcementRules, rule => rule.purpose === PURPOSE_2.name);
++  purpose4Rule = find(enforcementRules, rule => rule.purpose === PURPOSE_4.name);
+ 
+-  if (hasDefinedPurpose1 && !addedDeviceAccessHook) {
++  if (purpose1Rule && !addedDeviceAccessHook) {
+     addedDeviceAccessHook = true;
+     validateStorageEnforcement.before(deviceAccessHook, 49);
+     registerSyncInner.before(userSyncHook, 48);
+     // Using getHook as user id and gdprEnforcement are both optional modules. Using import will auto include the file in build
+     getHook('validateGdprEnforcement').before(userIdHook, 47);
+   }
+-  if (hasDefinedPurpose2) {
++  if (purpose2Rule) {
+     adapterManager.makeBidRequests.before(makeBidRequestsHook);
+   }
++  if (purpose4Rule) {
++    // check if purpuse2Rule is present. If yes, check if the bidder passed purpose2 check. if purpose2Rule
++    // not present, continue ahead with purpose4 checks.
++
++    // check if purpose1Rule is present. If yes, check if the 'userId' module is given consent, if not, remove that userId from 'bidRequest.userId'
++    // array. If the 'bidder' is not given consent for purpose1, remove the bidRequest.usreId property for bidder A.
++
++    // place the purpose4 hook on pbjs.requestBids function. It should execute after consentManagement hook and userId hook.
++    // getGlobal().requestBids.before(requestBidsHook, 30);
++
++    getHook('addIdDataToAdUnitBids').before(addIdDataToAdUnitBidsHook); ;
++  }
+ }
+ 
+ config.getConfig('consentManagement', config => setEnforcementConfig(config.consentManagement));
+diff --git a/modules/userId/index.js b/modules/userId/index.js
+index 5de8ad75978..458c8dfd040 100644
+--- a/modules/userId/index.js
++++ b/modules/userId/index.js
+@@ -301,6 +301,8 @@ function addIdDataToAdUnitBids(adUnits, submodules) {
+   }
+ }
+ 
++const addIdDataToAdUnitBidsHook = hook('sync', addIdDataToAdUnitBids, 'addIdDataToAdUnitBids');
++
+ /**
+  * This is a common function that will initalize subModules if not already done and it will also execute subModule callbacks
+  */
+@@ -366,7 +368,7 @@ export function requestBidsHook(fn, reqBidsConfigObj) {
+   // initialize submodules only when undefined
+   initializeSubmodulesAndExecuteCallbacks(function() {
+     // pass available user id data to bid adapters
+-    addIdDataToAdUnitBids(reqBidsConfigObj.adUnits || getGlobal().adUnits, initializedSubmodules);
++    addIdDataToAdUnitBidsHook(reqBidsConfigObj.adUnits || getGlobal().adUnits, initializedSubmodules);
+     // calling fn allows prebid to continue processing
+     fn.call(this, reqBidsConfigObj);
+   });
+[Excluded dependency lock diff: 126345 characters]
+From fb807d7f9ad962cf5eeae659d4ac21a7721ad132 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Wed, 13 May 2020 12:49:23 +0530
+Subject: [PATCH 09/11] remove/modify comments
+
+---
+ modules/gdprEnforcement.js | 37 ++-----------------------------------
+ 1 file changed, 2 insertions(+), 35 deletions(-)
+
+diff --git a/modules/gdprEnforcement.js b/modules/gdprEnforcement.js
+index 819585ec71c..bb0b2a476da 100644
+--- a/modules/gdprEnforcement.js
++++ b/modules/gdprEnforcement.js
+@@ -1,5 +1,3 @@
+-/* eslint no-console: 0 */
+-
+ /**
+  * This module gives publishers extra set of features to enforce individual purposes of TCF v2
+  */
+@@ -215,8 +213,7 @@ export function userIdHook(fn, submodules, consentData) {
+ }
+ 
+ /**
+- * Checks if the bidder is given consent. If yes, bid adapter is allowed to send ajax request to their endpoint, else, no request
+- * is sent. Enforces "purpose 2 (basic ads)" of TCF v2.0 spec
++ * Enforces TCF Purpose 2 and Purpose 4 rules.
+  * @param {Function} fn - Function reference to the original function.
+  * @param {Array<adUnits>} adUnits
+  */
+@@ -237,6 +234,7 @@ export function makeBidRequestsHook(fn, adUnits, ...args) {
+               utils.logWarn(`User blocked bidder: ${currBidder}. No bid request will be sent to their endpoint.`);
+               events.emit(EVENTS.BIDDER_BLOCKED, currBidder);
+               disabledBidders.push(currBidder);
++              return isAllowed;
+             }
+           }
+           if (purpose4Rule) {
+@@ -260,25 +258,6 @@ export function makeBidRequestsHook(fn, adUnits, ...args) {
+   }
+ }
+ 
+-// export function addIdDataToAdUnitBidsHook(fn, adUnits, ...args) {
+-//   const consentData = gdprDataHandler.getConsentData();
+-//   if (consentData && consentData.gdprApplies) {
+-//     if (consentData.apiVersion === 2) {
+-//       adUnits.forEach(adUnit => {
+-//         adUnit.bids.forEach(bid => {
+-//           const currBidder = bid.bidder;
+-//           const glvId = getGvlid(currBidder);
+-//         });
+-//       });
+-//     } else {
+-//       utils.logInfo('Enforcing TCF2 only');
+-//       fn.call(this, adUnits, ...args);
+-//     }
+-//   } else {
+-//     fn.call(this, adUnits, ...args);
+-//   }
+-// }
+-
+ /**
+  * A configuration function that initializes some module variables, as well as add hooks
+  * @param {Object} config - GDPR enforcement config object
+@@ -305,18 +284,6 @@ export function setEnforcementConfig(config) {
+   if (purpose2Rule || purpose4Rule) {
+     adapterManager.makeBidRequests.before(makeBidRequestsHook);
+   }
+-  if (purpose4Rule) {
+-    // check if purpuse2Rule is present. If yes, check if the bidder passed purpose2 check. if purpose2Rule
+-    // not present, continue ahead with purpose4 checks.
+-
+-    // check if purpose1Rule is present. If yes, check if the 'userId' module is given consent, if not, remove that userId from 'bidRequest.userId'
+-    // array. If the 'bidder' is not given consent for purpose1, remove the bidRequest.usreId property for bidder A.
+-
+-    // place the purpose4 hook on pbjs.requestBids function. It should execute after consentManagement hook and userId hook.
+-    // getGlobal().requestBids.before(requestBidsHook, 30);
+-
+-    // getHook('addIdDataToAdUnitBids').after(addIdDataToAdUnitBidsHook); ;
+-  }
+ }
+ 
+ config.getConfig('consentManagement', config => setEnforcementConfig(config.consentManagement));
+
+From 3afcdac07b31a4b1ad0ea20e6baaa009e6217e21 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Wed, 13 May 2020 18:43:36 +0530
+Subject: [PATCH 10/11] add empty test shells
+
+---
+ test/spec/modules/gdprEnforcement_spec.js | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/test/spec/modules/gdprEnforcement_spec.js b/test/spec/modules/gdprEnforcement_spec.js
+index 3598a98225b..0001f654e9c 100644
+--- a/test/spec/modules/gdprEnforcement_spec.js
++++ b/test/spec/modules/gdprEnforcement_spec.js
+@@ -456,6 +456,7 @@ describe('gdpr enforcement', function () {
+       config.resetConfig();
+       sandbox.restore();
+     });
++
+     it('should block bidder which does not have consent and allow bidder which has consent', function () {
+       setEnforcementConfig({
+         gdpr: {
+@@ -536,5 +537,9 @@ describe('gdpr enforcement', function () {
+       expect(logWarnSpy.notCalled).to.equal(true);
+       expect(logInfoSpy.calledOnce).to.equal(true);
+     });
++
++    it('should remove userIds from a bid if Purpose 4 check fails', function() {});
++
++    it('should run Purpose2 and/or Purpose4 checks based on their presence in GDPR rules', function() {});
+   });
+ });
+
+From f4a1a0a0f029b300dc76e536391512d03ff8b7b0 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Wed, 13 May 2020 19:52:17 +0530
+Subject: [PATCH 11/11] restore package-lock.json
+
+---
+ package-lock.json | 2300 +++++++++++++++++++++++++--------------------
+ 1 file changed, 1277 insertions(+), 1023 deletions(-)
+
+[Excluded dependency lock diff: 131123 characters]

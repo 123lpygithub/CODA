@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0051-aagacefbc",
+  "revision_url": "https://github.com/SimGus/Chatette/commit/cbf435a391c1058172a8fb81a5f9563e58be6463",
+  "filename": "chatette/units/intent/definition.py",
+  "commit": "cbf435a391c1058172a8fb81a5f9563e58be6463",
+  "source_url": "https://raw.githubusercontent.com/SimGus/Chatette/cbf435a391c1058172a8fb81a5f9563e58be6463/chatette/units/intent/definition.py",
+  "fetched_at": "2026-11-05T06:11:46.611498+00:00",
+  "source_sha256": "00dcf491ed366ceba79bb57840b659b4a4ac9b28b93205e17a1ffc1e5cc787ea",
+  "line_start": 9,
+  "line_end": 33,
+  "excerpt": "    \"\"\"\n    This class represents the definition of an intent,\n    containing all the rules it can generate from.\n    \"\"\"\n\n    def __init__(self, name, rules=None, arg=None, casegen=False):\n        super(IntentDefinition, self).__init__(name, rules=rules, arg=arg, casegen=casegen)\n\n        if rules is None:\n            rules = []\n\n        self.type = \"intent\"\n        self.nb_training_examples_asked = None  # All possibilities will be generated TODO\n        self.nb_testing_examples_asked = None\n\n    def set_nb_examples_asked(self, nb_training_examples_asked, nb_testing_examples_asked=None):\n        self.nb_training_examples_asked = nb_training_examples_asked\n        self.nb_testing_examples_asked = nb_testing_examples_asked\n\n    def generate(self, max_nb_examples, training_examples=None) -> List[Example]:\n        \"\"\"\n        Generates all the examples that were asked (i.e. as much examples\n        as asked). The number of generated examples is tied to a maximum though TODO.\n        When `training_examples` is `None`, this will generate the training examples\n        (i.e. the number of training examples asked), otherwise, it will generate"
+}

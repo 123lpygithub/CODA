@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0474-aaeebgdbh",
+  "revision_url": "https://github.com/menpo/menpo/commit/4bd994898cb7b2c8fc7c85b6876a6895e9ab8480",
+  "filename": "menpo/_version.py",
+  "commit": "4bd994898cb7b2c8fc7c85b6876a6895e9ab8480",
+  "source_url": "https://raw.githubusercontent.com/menpo/menpo/4bd994898cb7b2c8fc7c85b6876a6895e9ab8480/menpo/_version.py",
+  "fetched_at": "2026-11-05T06:12:59.846222+00:00",
+  "source_sha256": "e0172b66af52f0467f828f9613a2e1b683f88f87010f359c557185ecb1f86fb2",
+  "line_start": 122,
+  "line_end": 146,
+  "excerpt": "\n    try:\n        p = subprocess.Popen([\"git\", \"diff\", \"--quiet\"], cwd=distr_root)\n    except OSError:\n        labels.append(\"confused\")  # This should never happen.\n    else:\n        if p.wait() == 1:\n            labels.append(\"dirty\")\n\n    return Version(release, dev, labels)\n\n\n# TODO: change this logic when there is a git pretty-format\n#       that gives the same output as 'git describe'.\n#       Currently we can only tell the tag the current commit is\n#       pointing to, or its hash (with no version info)\n#       if it is not tagged.\ndef get_version_from_git_archive(version_info):\n    try:\n        refnames = version_info[\"refnames\"]\n        git_hash = version_info[\"git_hash\"]\n    except KeyError:\n        # These fields are not present if we are running from an sdist.\n        # Execution should never reach here, though\n        return None"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0400-aaigebhce",
+  "revision_url": "https://github.com/chainer/chainer/commit/afaf2a3564d1ce24b3bbc28fcb5ffb858d859567",
+  "filename": "chainer/functions/loss/softmax_cross_entropy.py",
+  "commit": "afaf2a3564d1ce24b3bbc28fcb5ffb858d859567",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainer/afaf2a3564d1ce24b3bbc28fcb5ffb858d859567/chainer/functions/loss/softmax_cross_entropy.py",
+  "fetched_at": "2026-11-05T06:12:45.652568+00:00",
+  "source_sha256": "0f703a1dffed10295c075e51e983ed4e5c0e39b4c9623ed997967544e24f79be",
+  "line_start": 98,
+  "line_end": 122,
+  "excerpt": "            return False\n\n        return True\n\n    def forward_chainerx(self, inputs):\n        # TODO(niboshi): Current implementation is only intended to support\n        # MNIST example.\n        x, t = inputs\n        num_classes = x.shape[1]\n        score = chainerx.log_softmax(x, axis=1)\n        mask = (t[:, chainerx.newaxis] == chainerx.arange(\n            num_classes, dtype=t.dtype, device=x.device)).astype(score.dtype)\n        # TODO(beam2d): implement mean\n        y = -(score * mask).sum() * (1 / x.shape[0])\n        return y,\n\n    def forward_cpu(self, inputs):\n        class_weight = backend.from_chainerx(self.class_weight)\n\n        self.retain_inputs((0, 1))\n        x, t = inputs\n        if chainer.is_debug():\n            _check_input_values(x, t, self.ignore_label)\n\n        log_y = log_softmax._log_softmax(x)"
+}

@@ -1,0 +1,125 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-7252",
+  "issue_url": "https://github.com/padloc/padloc/issues/57",
+  "source_issue_url": "https://github.com/padloc/padloc/issues/57",
+  "api_url": "https://api.github.com/repos/padloc/padloc/issues/57",
+  "title": "Use asymmetric encryption",
+  "body": "IDK if this is a real issue or not, but I was thinking about it this morning\r\n\r\nIt seems like the architecture is that the DB file is symmetrically encrypted using the passphrase I choose and stored on the server to be synchronized with other devices\r\n\r\nThat means if someone gets ahold of my database file somehow (e.g. back end server breach) they could relatively easily brute force or dictionary attack passwords on the file unless my passphrase was very complicated (and I doubt most people have complicated passphrases)\r\n\r\nSeems like padlock should be using public key encryption where each machine has its own key pair and the key pair has a passphrase-allows you to use different keyphrases on different machines as well. The only limitation of that approach is that a machine with access to the file has to be used to approve adding another device, because it would have to decrypt the file and re-encrypt with a new set of public keys\r\n\r\nLMK if I'm totally off base here (I'm hoping that I am)",
+  "author": "Participant 1",
+  "created_at": "2016-11-07T15:36:19Z",
+  "updated_at": "2018-05-24T07:18:56Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:33.399037+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:33.399037+00:00"
+  ],
+  "expected_comment_count": 12,
+  "retrieved_comment_count": 12,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 258892567,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-258892567",
+      "created_at": "2016-11-07T16:54:50Z",
+      "updated_at": "2016-11-07T17:10:38Z",
+      "author": "Participant 2",
+      "body": "Brute-force and dictionary attacks are real concerns but there are steps we are taking to mitigate the risks. Basically it comes down to using the right method for key derivation. We're using [PBKDF2](https://en.wikipedia.org/wiki/PBKDF2), which uses a method called [key stretching](https://en.wikipedia.org/wiki/Key_stretching) to make these kind of attacks harder. Of course, the reality is that an attacker with sufficient resources might still be able to break the encryption within a finite amount of time but using the methods mentioned above, we can make it uneconomical for an attacker to even try (i.e. it would take years and millions of dollars to break the encryption, even with a moderately strong password). Of course, making sure that users are using a sufficiently strong password is still a big concern. But that is what the strength-meter and the warning for weak passwords at the getting started screen is for ;)\n\nAside from the fact that asymmetric encryption is not feasible for large amounts of data I don't see how your approach would make the encryption any more robust. Can you explain, for example, how it would protect against brute-force attacks?\n"
+    },
+    {
+      "id": 258900956,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-258900956",
+      "created_at": "2016-11-07T17:22:16Z",
+      "updated_at": "2016-11-07T17:22:16Z",
+      "author": "Participant 1",
+      "body": "Hmm-I'd never heard of key stretching-that eases my concern a bit depending on how expensive it is to test a single passphrase against a DB file.\n\nIf you are using public key cryptography, the attacker would need both the DB file AND a private key from one of the connected devices to attempt to decrypt the file. It is completely impractical to generate a private key from the public keys for which the DB file is encrypted, and the server has no knowledge of the private keys. So a device has to be compromised in order for the DB files to be brute forced/dictionary attacked. How come you say it's not feasible to encrypt large amounts of data with public key encryption?\n"
+    },
+    {
+      "id": 258902301,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-258902301",
+      "created_at": "2016-11-07T17:27:05Z",
+      "updated_at": "2016-11-07T17:27:05Z",
+      "author": "Participant 1",
+      "body": "PS I think iCloud keychain does something similar just based on the fact that it requires me to approve additional devices from other machines\n"
+    },
+    {
+      "id": 258904280,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-258904280",
+      "created_at": "2016-11-07T17:34:24Z",
+      "updated_at": "2016-11-07T17:34:24Z",
+      "author": "Participant 2",
+      "body": "About why asymmetric crypto is not feasible for large amounts of data: http://crypto.stackexchange.com/a/5790\n"
+    },
+    {
+      "id": 258909268,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-258909268",
+      "created_at": "2016-11-07T17:52:51Z",
+      "updated_at": "2016-11-07T17:52:51Z",
+      "author": "Participant 1",
+      "body": "It seems that's more of a performance/storage space concern-I wouldn't have any issue with waiting a few seconds for my db file to synchronize/decrypt/encrypt since it's not real time. I'm not sure what the average file size is for people's databases though. \n\nIf necessary for performance though it's possible to use the suggested workaround of using asymmetric encryption to get at a long symmetric encryption key. The server would just have to store both the asymmetrically encrypted key and the symmetrically encrypted db file\n\nSeems like a lot of work to change, but IMO it would be nice to know my data is totally safe from attack in case of a server breach\n"
+    },
+    {
+      "id": 258970456,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-258970456",
+      "created_at": "2016-11-07T21:36:33Z",
+      "updated_at": "2016-11-07T21:36:33Z",
+      "author": "Participant 2",
+      "body": "> It seems that's more of a performance/storage space concern-I wouldn't have any issue with waiting a few seconds for my db file to synchronize/decrypt/encrypt since it's not real time.\n\nI don't know how much longer it would take to encrypt the data with, say, rsa, but we're definitely talking about orders of magnitude here. It's quite possible that \"a few seconds\" won't be enough.\n\nAlso, if the data is encrypted with a device-specific public key and then stored on the server, how are other devices supposed to decrypt the data? Of course if every device knew the public key of every other device, it could upload an specifically encrypted version for each device but that leaves you with the fundamental problem of how to safely exchange public keys. And by the way, what makes you think that asymmetric crypto is not susceptible to brute-force attacks?\n"
+    },
+    {
+      "id": 258981738,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-258981738",
+      "created_at": "2016-11-07T22:19:41Z",
+      "updated_at": "2016-11-07T22:20:43Z",
+      "author": "Participant 1",
+      "body": "> I don't know how much longer it would take to encrypt the data with, say, rsa, but we're definitely talking about orders of magnitude here. It's quite possible that \"a few seconds\" won't be enough.\n\nI was basing that guesstimate on the fact that symmetric algorithms were estimated to do 2000MB/s in that stackoverflow post, and asymmetric crypto being 5000 times slower- somewhere in the 0.5MB/s range-and my guess of my database file not being any larger than a MB (all I'm storing is textual data-but I'm not positive what other metadata is in that file)\n\n> Also, if the data is encrypted with a device-specific public key and then stored on the server, how are other devices supposed to decrypt the data? \n\nIt's encrypted with multiple device-specific public keys as recipients, so anyone with any of the corresponding device private keys can decrypt the file.\n\nIn order to add a device, a machine that has a working private key would have to decrypt the file and then re-encrypt it with the additional public key in addition to the existing public keys. AFAIK with GPG the encrypted file contains information about which public keys it was encrypted for. It should always be safe to exchange public keys-you could store the active public keys on the server and information about whether they have been incorporated into the DB file, so that a client can when it needs to authorize another device\n\nAsymmetric crypto is technically susceptible to brute-force attacks, but a typical private key size is 2048 bits\n\nEDIT disclaimer: I'm not at all experienced in cryptography, I've just used [GPG](https://www.gnupg.org/) enough to have a working knowledge of it\n"
+    },
+    {
+      "id": 259175341,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-259175341",
+      "created_at": "2016-11-08T15:55:29Z",
+      "updated_at": "2016-11-08T15:58:20Z",
+      "author": "Participant 2",
+      "body": "> Asymmetric crypto is technically susceptible to brute-force attacks, but a typical private key size is 2048 bits\n\nI'm sure you know this, but due to the mathematical correlation between public and private key, a 2048 bit rsa key is roughly equivalent in strength to a (completely random) 128 bit aes key and using a larger key would likely not be practical due to performance concerns.\n\nIf I understand you correctly, your argument is that data encrypted using your technique would be less susceptible to key-guessing attacks due to a larger key space (because the 256 symmetric encryption keys are derived from the significantly smaller subset of passwords that can be handled by humans) but this is exactly what we're trying to mitigate through key stretching.\n\nIts hard to say without running the numbers, but its quite possible that the encryption scheme you're suggesting would actually be **easier** to break than what we have now. More importantly though, it is significantly more **complicated** and arguably far from common practice. Don't get me wrong - I highly appreciate your input! But if there is one thing I've learned about cryptography, it's that it is usually best to stick to simple, battle tested patterns and common practice where possible. Crypto is hard enough to get right as it is without trying to come up with new solutions to already solved problems.\n\nBtw, it's worth pointing out that I do see use cases for public key crypto in the future, specifically when it comes to sharing records between multiple accounts but for now I think it's best to stick with what we have.\n"
+    },
+    {
+      "id": 259183757,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-259183757",
+      "created_at": "2016-11-08T16:23:41Z",
+      "updated_at": "2016-11-08T16:24:35Z",
+      "author": "Participant 1",
+      "body": "> I'm sure you know this, but due to the mathematical correlation between public and private key, a 2048 bit rsa key is roughly equivalent in strength to a (completely random) 128 bit aes key and using a larger key would likely not be practical due to performance concerns.\n\nActually I didn't! Still, the bits are random so you don't have to worry about dictionary attacks. \n\nIf an attacker got a hold of all the DB files, I would imagine the attacker would run a dictionary of common passwords through the key stretching algorithm, and then try each of the stretched keys against each of the databases. If you're doing key stretching in addition to salting, that would be less of a concern-but I didn't see that was mentioned.\n\nedit: rainbow table - https://en.wikipedia.org/wiki/Rainbow_table\n\n> If I understand you correctly, your argument is that data encrypted using your technique would be less susceptible to key-guessing attacks due to a larger key space (because the 256 symmetric encryption keys are derived from the significantly smaller subset of passwords that can be handled by humans) but this is exactly what we're trying to mitigate through key stretching.\n\nIt's less susceptible to key guessing because the key isn't determined by the user. The key is generated by the computer, and the user just picks a passcode on the device to unlock the key. The key is never shared with the server, so the attacker has to guess the longer private key instead of the user-selected passphrase. I can't imagine a scenario in which trying to guess a generated private key is easier to do than trying to guess a user-selected passphrase.\n\nI do think it's a lot more complicated-but I also think this is what Apple does for iCloud keychain, so it's pretty safe to say it's the right way to share credentials between devices. See the iCloud keychain section here: https://support.apple.com/en-us/HT202303\n"
+    },
+    {
+      "id": 259406827,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-259406827",
+      "created_at": "2016-11-09T12:47:06Z",
+      "updated_at": "2016-11-09T12:47:06Z",
+      "author": "Participant 2",
+      "body": "> Still, the bits are random so you don't have to worry about dictionary attacks.\n\nThey aren't though. Key pairs are generated by solving a hard math problem the **parameters** of which are chose at random. This means that a asymmetric key of 2048 bits has **significantly** less entropy than a key of the same size in which every bit is chosen completely at random. It's true that dictionary attacks are not applicable to asymmetric key pairs but there are other techniques that are significantly more efficient than randomly guessing every single bit.\n\nAnyway, I've heard your argument but I my decision remains to not change anything about the encryption scheme right now. I hope you don't mind if I close this issue now.\n"
+    },
+    {
+      "id": 259407924,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-259407924",
+      "created_at": "2016-11-09T12:53:30Z",
+      "updated_at": "2016-11-09T12:53:30Z",
+      "author": "Participant 2",
+      "body": "I forgot to mention that the current encryption scheme was reviewed by experts during a recent penetration test which perhaps will further ease your concerns. The report will be published soon.\n"
+    },
+    {
+      "id": 259456426,
+      "url": "https://github.com/padloc/padloc/issues/57#issuecomment-259456426",
+      "created_at": "2016-11-09T16:24:07Z",
+      "updated_at": "2016-11-09T16:24:16Z",
+      "author": "Participant 1",
+      "body": "> They aren't though. Key pairs are generated by solving a hard math problem the parameters of which are chose at random. This means that a asymmetric key of 2048 bits has significantly less entropy than a key of the same size in which every bit is chosen completely at random. \n\nI just meant at least there are 128 bits of randomness, vs. a user chosen passphrase (I think you should try and see how many db files you can unlock with 'password')\n\n> It's true that dictionary attacks are not applicable to asymmetric key pairs but there are other techniques that are significantly more efficient than randomly guessing every single bit.\n\nIf someone figured out how to crack a modern public key crypto algorithm in a feasible amount of time, there would be a LOT of other valuable targets\n\n> Anyway, I've heard your argument but I my decision remains to not change anything about the encryption scheme right now. I hope you don't mind if I close this issue now.\n\nNo worries, I appreciate the discussion. Thanks\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/padloc/padloc/issues/57",
+  "closed_at_available": false
+}

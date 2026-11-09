@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0345-aafagebef",
+  "revision_url": "https://github.com/rafellerc/Pytorch-SiamFC/commit/34b7652607804ea2854a6beb147769c7cec562fd",
+  "filename": "run_tracker_evaluation.py",
+  "commit": "34b7652607804ea2854a6beb147769c7cec562fd",
+  "source_url": "https://raw.githubusercontent.com/rafellerc/Pytorch-SiamFC/34b7652607804ea2854a6beb147769c7cec562fd/run_tracker_evaluation.py",
+  "fetched_at": "2026-11-05T06:12:36.931482+00:00",
+  "source_sha256": "b662edab0c632aad783f09d5646e9202ecf384b302fd8b2ba77750a2977d9d69",
+  "line_start": 59,
+  "line_end": 83,
+  "excerpt": "                                             start_frame,\n                                             vid_name=video)\n                lengths[i,j], precisions[i,j], precisions_auc[i,j], ious[i,j] \\\n                    = _compile_results(current_gt, bboxes, evaluation.dist_threshold)\n                print('{} -- {}'\n                      ' -- Precision: {:.2f}'\n                      ' -- Precision AUC: {:.2f}'\n                      ' -- IOU: {:.2f}'\n                      ' -- Speed: {:.2f} --'.format(\n                            i, video, precisions[i,j], precisions_auc[i,j],\n                            ious[i,j], speed[i,j]))\n\n        # TODO save all the results to a json inside the experiment's folder\n\n        tot_frames = np.sum(lengths)\n        mean_precision = np.sum(precisions * lengths) / tot_frames\n        mean_precision_auc = np.sum(precisions_auc * lengths) / tot_frames\n        mean_iou = np.sum(ious * lengths) / tot_frames\n        mean_speed = np.sum(speed * lengths) / tot_frames\n        print(' -- Overall stats (averaged per frame) on {} videos'\n              '({} frames) --\\n'\n              ' -- Precision ({} px): {}'\n              ' -- Precision AUC: {:.2f}'\n              ' -- IOU: {:.2f}'\n              ' -- Speed: {:.2f} --'.format("
+}

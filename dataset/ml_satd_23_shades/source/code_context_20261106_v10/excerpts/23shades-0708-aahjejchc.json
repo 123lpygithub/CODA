@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0708-aahjejchc",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/255a05a5980efb8b096c283d79872d0695886161",
+  "filename": "pandas_numpy/sources/pandas/tseries/offsets.py",
+  "commit": "255a05a5980efb8b096c283d79872d0695886161",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/255a05a5980efb8b096c283d79872d0695886161/pandas_numpy/sources/pandas/tseries/offsets.py",
+  "fetched_at": "2026-11-05T06:13:41.394786+00:00",
+  "source_sha256": "bca88175cd58da42c132eb5f2c32874b8b8c4858d8325623eb8e3a58f08b746f",
+  "line_start": 402,
+  "line_end": 426,
+  "excerpt": "        except NotImplementedError:\n            return repr(self)\n\n        if self.n != 1:\n            fstr = '{n}{code}'.format(n=self.n, code=code)\n        else:\n            fstr = code\n\n        try:\n            if self._offset:\n                fstr += self._offset_str()\n        except AttributeError:\n            # TODO: standardize `_offset` vs `offset` naming convention\n            pass\n\n        return fstr\n\n    def _offset_str(self):\n        return ''\n\n    @property\n    def nanos(self):\n        raise ValueError(\"{name} is a non-fixed frequency\".format(name=self))\n\n    def __setstate__(self, state):"
+}

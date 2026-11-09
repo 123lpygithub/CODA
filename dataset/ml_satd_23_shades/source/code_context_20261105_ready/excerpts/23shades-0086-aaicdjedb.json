@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0086-aaicdjedb",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/3b8f54e58667be80af6c099bfda40c7fe6579712",
+  "filename": "sklearn/metrics/pairwise.py",
+  "commit": "3b8f54e58667be80af6c099bfda40c7fe6579712",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/3b8f54e58667be80af6c099bfda40c7fe6579712/sklearn/metrics/pairwise.py",
+  "fetched_at": "2026-11-05T06:11:52.169764+00:00",
+  "source_sha256": "b639331d9fb33357883b1cf05eea0bb50289f9b9900e08e9a0a6b128b22faf44",
+  "line_start": 487,
+  "line_end": 511,
+  "excerpt": "        return X\n    elif metric in pairwise_distance_functions:\n        func = pairwise_distance_functions[metric]\n        if n_jobs == 1:\n            return func(X, Y, **kwds)\n        else:\n            return _parallel_pairwise(X, Y, func, n_jobs, **kwds)\n    elif callable(metric):\n        # Check matrices first (this is usually done by the metric).\n        X, Y = check_pairwise_arrays(X, Y)\n        n_x, n_y = X.shape[0], Y.shape[0]\n        # Calculate distance for each element in X and Y.\n        # FIXME: can use n_jobs here too\n        D = np.zeros((n_x, n_y), dtype='float')\n        for i in range(n_x):\n            start = 0\n            if X is Y:\n                start = i\n            for j in range(start, n_y):\n                # distance assumed to be symmetric.\n                D[i][j] = metric(X[i], Y[j], **kwds)\n                if X is Y:\n                    D[j][i] = D[i][j]\n        return D\n    else:"
+}

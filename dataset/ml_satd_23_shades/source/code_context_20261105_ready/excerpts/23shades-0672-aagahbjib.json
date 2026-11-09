@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0672-aagahbjib",
+  "revision_url": "https://github.com/araffin/srl-zoo/commit/9f3bd0a705b7cfa8197a851f53de76bb3ff6433d",
+  "filename": "models/modules.py",
+  "commit": "9f3bd0a705b7cfa8197a851f53de76bb3ff6433d",
+  "source_url": "https://raw.githubusercontent.com/araffin/srl-zoo/9f3bd0a705b7cfa8197a851f53de76bb3ff6433d/models/modules.py",
+  "fetched_at": "2026-11-05T06:13:35.875644+00:00",
+  "source_sha256": "c510717ef5e3290d14f57f1b5d7dc1c31dc9aed9d90ef6a65c0e840d3520104f",
+  "line_start": 106,
+  "line_end": 130,
+  "excerpt": "        A model that can split representation, combining\n        AE/VAE for the first split with Inverse + Forward in the second split\n        Reward model is learned for all the dimensions\n        :param state_dim: (int)\n        :param action_dim: (int)\n        :param cuda: (bool)\n        :param model_type: (str)\n        :param losses: ([str])\n        :param split_index: (int or [int])) Number of dimensions for the different split\n        :param n_hidden_reward: (int) Number of hidden units for the reward model\n        \"\"\"\n\n        # TODO: rename split_index -> split_indices + change in RL repo\n        if isinstance(split_index, int):\n            assert split_index < state_dim, \\\n                \"The second split must be of dim >= 1, consider increasing the state_dim or decreasing the split_index\"\n            split_indices = [split_index]\n        else:\n            # TODO: sanity check: split_indices ordered + < state_dim\n            split_indices = split_index\n\n        # Compute the number of dimensions for each method\n        n_dimensions = [split_indices[0]]\n        for i in range(len(split_indices) - 1):\n            n_dimensions.append(split_indices[i + 1] - split_indices[i])"
+}

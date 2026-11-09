@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0809-aajfhgecg",
+  "revision_url": "https://github.com/probcomp/bayeslite/commit/57eefd7fd72a0f5047be744d45ea51fd0d6f15d8",
+  "filename": "src/txn.py",
+  "commit": "57eefd7fd72a0f5047be744d45ea51fd0d6f15d8",
+  "source_url": "https://raw.githubusercontent.com/probcomp/bayeslite/57eefd7fd72a0f5047be744d45ea51fd0d6f15d8/src/txn.py",
+  "fetched_at": "2026-11-05T06:13:55.473923+00:00",
+  "source_sha256": "1425bfbce0e6c018a20ca7c669d72ff6c1830ca229e3c367cc800fda1fcd35e5",
+  "line_start": 10,
+  "line_end": 34,
+  "excerpt": "#\n#   Unless required by applicable law or agreed to in writing, software\n#   distributed under the License is distributed on an \"AS IS\" BASIS,\n#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n#   See the License for the specific language governing permissions and\n#   limitations under the License.\n\nimport contextlib\n\nfrom bayeslite.sqlite3_util import sqlite3_savepoint\nfrom bayeslite.sqlite3_util import sqlite3_transaction\n\n# XXX Can't do this simultaneously in multiple threads.  Need\n# lightweight per-thread state.\n\n@contextlib.contextmanager\ndef bayesdb_savepoint(bdb):\n    bayesdb_txn_push(bdb)\n    try:\n        with sqlite3_savepoint(bdb.sqlite3):\n            yield\n    finally:\n        bayesdb_txn_pop(bdb)\n\n@contextlib.contextmanager"
+}

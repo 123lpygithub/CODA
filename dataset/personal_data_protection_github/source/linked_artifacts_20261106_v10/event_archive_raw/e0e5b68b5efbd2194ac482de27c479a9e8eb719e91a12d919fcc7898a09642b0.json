@@ -1,0 +1,106 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27bbc%2Fsimorgh%27+AND+number%3D3494+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='bbc/simorgh' AND number=3494 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:26.536793+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "dr3",
+        "created_at": "2019-09-02 09:35:26",
+        "updated_at": "2019-09-02 09:35:26",
+        "title": "We don't know where our users are",
+        "body": "Blocking https://github.com/bbc/psammead/issues/1957 being used in simorgh\r\n\r\n**Describe the bug**\r\nWhen simorgh was news articles only, we determined where a user was from a `BBC-ORIGIN` header sent from mozart. We use `headers['bbc-origin']` such that if it ends in `.co.uk` theyre in the UK, so show them the non-adverts cookie banner, else, show them the adverts cookie banner.\r\n\r\nSince simorgh has expanded out to the WS sites we lost use of this logic, as you can only hit them on `.com`, so you can only ever see the advert cookie banner.\r\n\r\nLuckily, this is the safest state to be in, as were showing messaging to people who dont need it, vs not showing it to people who do.\r\n\r\n**To Reproduce**\r\nSteps to reproduce the behavior:\r\n\r\nIn & Out of the UK\r\n1. Go to https://www.bbc.com/igbo\r\n2. See international cookie banner messaging\r\n\r\n**Expected behavior**\r\nIt shows the UK messaging if the user is inside the UK, even on `.com`\r\n\r\n**Possible fix implementation:**\r\nInstead of, or as well as the `bbc-origin` header, get an `isUK` header from mozart. This then needs to be baked into the page inside simorgh data, so on the client we know if theyre in or out of the UK (in place of fig). This info can then be used to show the right banner messaging and in future, adverts/not\r\n\r\n\r\n**Testing notes**\r\n\r\n- [x] This bug fix is expected to need manual testing.\r\n\r\n**Additional context**\r\nAdd any other context about the problem here.\r\n",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-09-02 09:00:00",
+        "repo_name": "bbc/simorgh",
+        "number": 3494
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "thekp",
+        "created_at": "2019-09-05 10:30:35",
+        "updated_at": "2019-09-05 10:30:35",
+        "title": "We don't know where our users are",
+        "body": "This requires talks with Frameworks team, @dr3 please arrange. ",
+        "comment_id": 528302779,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-09-05 10:00:00",
+        "repo_name": "bbc/simorgh",
+        "number": 3494
+      }
+    ],
+    "rows": 2,
+    "statistics": {
+      "elapsed": 0.027691315,
+      "rows_read": 312107,
+      "bytes_read": 4761169
+    }
+  },
+  "response_sha256": "0ce93ede1e3d50bf9721d8cf388bacbf1b7197399478da54b710a22f0f8a0bf2"
+}

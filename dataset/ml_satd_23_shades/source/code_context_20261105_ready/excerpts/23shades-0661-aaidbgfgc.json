@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0661-aaidbgfgc",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/b9d6db81ec2e75ec40404db49f97999a08f00c55",
+  "filename": "sklearn/ensemble/tests/test_forest.py",
+  "commit": "b9d6db81ec2e75ec40404db49f97999a08f00c55",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/b9d6db81ec2e75ec40404db49f97999a08f00c55/sklearn/ensemble/tests/test_forest.py",
+  "fetched_at": "2026-11-05T06:13:34.449755+00:00",
+  "source_sha256": "4acf075d26bd43e729282a06c50590f00d6ce81135762ccb24aa6f86a356cc16",
+  "line_start": 1488,
+  "line_end": 1512,
+  "excerpt": ")\ndef test_n_features_deprecation(Estimator):\n    # Check that we raise the proper deprecation warning if accessing\n    # `n_features_`.\n    X = np.array([[1, 2], [3, 4]])\n    y = np.array([1, 0])\n    est = Estimator().fit(X, y)\n\n    with pytest.warns(FutureWarning, match=\"n_features_ was deprecated\"):\n        est.n_features_\n\n\n# TODO: Remove in v1.2\ndef test_mse_deprecated():\n    est1 = RandomForestRegressor(criterion=\"mse\", random_state=0)\n\n    with pytest.warns(FutureWarning,\n                      match=\"Criterion 'mse' was deprecated\"):\n        est1.fit(X, y)\n\n    est2 = RandomForestRegressor(criterion=\"squared_error\", random_state=0)\n    est2.fit(X, y)\n    assert_allclose(est1.predict(X), est2.predict(X))\n\n"
+}

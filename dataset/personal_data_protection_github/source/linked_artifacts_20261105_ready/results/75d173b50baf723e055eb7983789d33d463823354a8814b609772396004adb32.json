@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/silverstripe/silverstripe-framework/blob/d876e36424918909b65c0c53d4d682d50aadcf7b/src/Security/MemberAuthenticator/MemberAuthenticator.php#L165",
+  "kind": "file",
+  "cited_in": [
+    "comment_361121246"
+  ],
+  "revision": "d876e36424918909b65c0c53d4d682d50aadcf7b",
+  "immutable_revision": true,
+  "line_start": 153,
+  "line_end": 177,
+  "text": "    }\n\n\n    /**\n     * Log login attempt\n     * TODO We could handle this with an extension\n     *\n     * @param array $data\n     * @param HTTPRequest $request\n     * @param Member $member\n     * @param boolean $success\n     */\n    protected function recordLoginAttempt($data, HTTPRequest $request, $member, $success)\n    {\n        if (!Security::config()->get('login_recording')) {\n            return;\n        }\n\n        // Check email is valid\n        /** @skipUpgrade */\n        $email = isset($data['Email']) ? $data['Email'] : null;\n        if (is_array($email)) {\n            throw new InvalidArgumentException(\"Bad email passed to MemberAuthenticator::authenticate(): $email\");\n        }\n",
+  "source_sha256": "735b8412c39f16280fe542a0fe9eec13dbe9328968e7b85a950e821414c7b8ca",
+  "fetched_at": "2026-11-05T06:21:25.404637+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/silverstripe/silverstripe-framework/d876e36424918909b65c0c53d4d682d50aadcf7b/src/Security/MemberAuthenticator/MemberAuthenticator.php",
+  "status": "available"
+}

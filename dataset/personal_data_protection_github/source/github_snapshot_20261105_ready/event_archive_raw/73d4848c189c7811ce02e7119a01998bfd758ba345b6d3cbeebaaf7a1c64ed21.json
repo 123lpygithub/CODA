@@ -1,0 +1,186 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27MicrosoftDocs%2Fazure-docs%27+AND+number%3D48378+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='MicrosoftDocs/azure-docs' AND number=48378 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T06:45:15.862215+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "tiny-dancer",
+        "created_at": "2020-02-18 20:11:42",
+        "updated_at": "2020-02-18 20:11:42",
+        "title": "Data Location",
+        "body": "I would expect this page to documentation the locations where the data is stored? Locations being Azure's term for Region.  Where would this be found?\n\nThanks!\n\n---\n#### Document Details\n\n⚠ *Do not edit this section. It is required for docs.microsoft.com ➟ GitHub issue linking.*\n\n* ID: ae0bcdbb-1579-0125-aac0-366f5d2108b3\n* Version Independent ID: 1aa19c15-3925-4e80-6081-ab515e3af10f\n* Content: [Monitoring data locations in Azure Monitor - Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-locations)\n* Content Source: [articles/azure-monitor/platform/data-locations.md](https://github.com/Microsoft/azure-docs/blob/master/articles/azure-monitor/platform/data-locations.md)\n* Service: **azure-monitor**\n* GitHub Login: @bwren\n* Microsoft Alias: **bwren**",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-02-18 20:00:00",
+        "repo_name": "MicrosoftDocs/azure-docs",
+        "number": 48378
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "tiny-dancer",
+        "created_at": "2020-02-18 20:36:37",
+        "updated_at": "2020-02-18 20:36:37",
+        "title": "Data Location",
+        "body": "For example, in crafting data privacy compliant location restriction policy we noticed Action Groups are deployed in `global` location\r\n\r\nError: Error creating or updating action group \"Action-Group\" (resource group \"logging\"): \r\ninsights.ActionGroupsClient#CreateOrUpdate: Failure responding to request: StatusCode=403 -- \r\nOriginal Error: autorest/azure: Service returned an error. Status=403 Code=\"RequestDisallowedByPolicy\" \r\nMessage=\"Resource 'Action-Group' was disallowed by policy. \r\nPolicy identifiers: \r\n\r\n```json\r\n'[{\\\"policyAssignment\\\":{\\\"name\\\":\\\"UK Region Group Allowed Regions\\\",\\\"id\\\":\\\"/providers/Microsoft.Management/managementGroups/xxx/providers/Microsoft.Authorization/policyAssignments/uk\\\"},\\\"policyDefinition\\\":{\\\"name\\\":\\\"UK Region Group\\\",\\\"id\\\":\\\"/providers/Microsoft.Management/managementgroups/xxx/providers/Microsoft.Authorization/policyDefinitions/uk\\\"}}]'.\" Target=\"Action-Group\" AdditionalInfo=[{\"info\":{\"evaluationDetails\":{\"evaluatedExpressions\":[{\"expression\":\"location\",\"expressionKind\":\"Field\",\"expressionValue\":\"global\",\"operator\":\"In\",\"path\":\"location\",\"result\":\"False\",\"targetValue\":[\"uksouth\",\"ukwest\"]}]},\"policyAssignmentDisplayName\":\"UK Region Group Allowed Regions\",\"policyAssignmentId\":\"/providers/Microsoft.Management/managementGroups/xxx/providers/Microsoft.Authorization/policyAssignments/uk\",\"policyAssignmentName\":\"regions-uk\",\"policyAssignmentParameters\":{\"allowedLocations\":{\"value\":[\"uksouth\",\"ukwest\"]}},\"policyAssignmentScope\":\"/providers/Microsoft.Management/managementGroups/xxx\",\"policyDefinitionDisplayName\":\"UK Region Group\",\"policyDefinitionEffect\":\"deny\",\"policyDefinitionId\":\"/providers/Microsoft.Management/managementgroups/xxx/providers/Microsoft.Authorization/policyDefinitions/regions-uk\",\"policyDefinitionName\":\"regions-uk\"},\"type\":\"PolicyViolation\"}]\r\n```",
+        "comment_id": 587805071,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-02-18 20:00:00",
+        "repo_name": "MicrosoftDocs/azure-docs",
+        "number": 48378
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "BharathNimmala-MSFT",
+        "created_at": "2020-02-18 21:01:28",
+        "updated_at": "2020-02-18 21:01:27",
+        "title": "Data Location",
+        "body": "@tiny-dancer Thank you for reaching out to us with your query, we will further look into it and get back to you at the earliest. ",
+        "comment_id": 587841600,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-02-18 21:00:00",
+        "repo_name": "MicrosoftDocs/azure-docs",
+        "number": 48378
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "BharathNimmala-MSFT",
+        "created_at": "2020-02-23 03:44:57",
+        "updated_at": "2020-02-23 03:44:57",
+        "title": "Data Location",
+        "body": "Assigning this to our document author @bwren to further evaluate the feedback and update the document accordingly. ",
+        "comment_id": 590023197,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-02-23 03:00:00",
+        "repo_name": "MicrosoftDocs/azure-docs",
+        "number": 48378
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "bwren",
+        "created_at": "2021-02-18 18:42:35",
+        "updated_at": "2021-02-18 18:42:34",
+        "title": "Data Location",
+        "body": "#label:\"CreateAzMonWIFeb2021\"  ",
+        "comment_id": 781556081,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-18 18:00:00",
+        "repo_name": "MicrosoftDocs/azure-docs",
+        "number": 48378
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "pritamso",
+        "created_at": "2021-06-30 19:23:06",
+        "updated_at": "2021-06-30 19:23:06",
+        "title": "Data Location",
+        "body": "Thank you for your contribution to the Azure Monitor documentation. We have created a workitem for this issue in our internal backlog database. We will prioritize it and make any necessary changes as we are able.\r\n#please-close",
+        "comment_id": 871666575,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-06-30 19:00:00",
+        "repo_name": "MicrosoftDocs/azure-docs",
+        "number": 48378
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "PRMerger7",
+        "created_at": "2021-06-30 19:23:07",
+        "updated_at": "2021-06-30 19:23:07",
+        "title": "Data Location",
+        "body": "I would expect this page to document the locations where the data is stored, locations being Azure's term for Region.  Where would this be found?\r\n\r\nThanks!\r\n\r\n---\r\n#### Document Details\r\n\r\n⚠ *Do not edit this section. It is required for docs.microsoft.com ➟ GitHub issue linking.*\r\n\r\n* ID: ae0bcdbb-1579-0125-aac0-366f5d2108b3\r\n* Version Independent ID: 1aa19c15-3925-4e80-6081-ab515e3af10f\r\n* Content: [Monitoring data locations in Azure Monitor - Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/data-locations)\r\n* Content Source: [articles/azure-monitor/platform/data-locations.md](https://github.com/Microsoft/azure-docs/blob/master/articles/azure-monitor/platform/data-locations.md)\r\n* Service: **azure-monitor**\r\n* GitHub Login: @bwren\r\n* Microsoft Alias: **bwren**",
+        "comment_id": 0,
+        "comments": 5,
+        "state": "closed",
+        "closed_at": "2021-06-30 19:23:07",
+        "file_time": "2021-06-30 19:00:00",
+        "repo_name": "MicrosoftDocs/azure-docs",
+        "number": 48378
+      }
+    ],
+    "rows": 7,
+    "statistics": {
+      "elapsed": 0.042094496,
+      "rows_read": 898273,
+      "bytes_read": 25100294
+    }
+  },
+  "response_sha256": "b9484cb76198048c5504b83ead725458cc5f17bbc88b3e661fa4d2b3c85e8973"
+}

@@ -1,0 +1,23 @@
+{
+  "artifact_id": "privacy-issue-8911",
+  "source_issue_url": "https://github.com/elementor/elementor/issues/9465",
+  "issue_snapshot_sha256": "d90412ef82ac2bf566bd44bdde0b2822cde1a9f9c2c62c1f0deb029417c19414",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/elementor/elementor/pull/12567",
+      "kind": "pull_request",
+      "cited_in": [
+        "comment_814030095"
+      ],
+      "text": "From 91d710bfc922818a75abe982781191c322818e15 Mon Sep 17 00:00:00 2001\nFrom: =?UTF-8?q?Matthias=20G=C3=BCnter?=\n <1008534+matzeeable@users.noreply.github.com>\nDate: Thu, 17 Sep 2020 08:25:14 +0200\nSubject: [PATCH 1/2] fix: compatibility with Consent API\n\n---\n assets/dev/js/frontend/utils/video-api/base-loader.js | 7 ++++++-\n 1 file changed, 6 insertions(+), 1 deletion(-)\n\ndiff --git a/assets/dev/js/frontend/utils/video-api/base-loader.js b/assets/dev/js/frontend/utils/video-api/base-loader.js\nindex 56352ac7f99f..bba8915409e5 100644\n--- a/assets/dev/js/frontend/utils/video-api/base-loader.js\n+++ b/assets/dev/js/frontend/utils/video-api/base-loader.js\n@@ -15,7 +15,12 @@ export default class BaseLoader extends elementorModules.ViewModule {\n \t}\n \n \tinsertAPI() {\n-\t\tthis.elements.$firstScript.before( jQuery( '<script>', { src: this.getApiURL() } ) );\n+\t\t// Check if consent is given for the external video service (if no `consentApi` is available, fallback to immediate loading)\n+\t\tconst apiUrl = this.getApiURL();\n+\t\tconst consentPromise = (window.consentApi && window.consentApi.unblock(apiUrl) || Promise.resolve());\n+\t\tconsentPromise.then(() => {\n+\t\t\tthis.elements.$firstScript.before( jQuery( '<script>', { src: apiUrl } ) );\n+\t\t});\n \n \t\tthis.setSettings( 'isInserted', true );\n \t}\n\nFrom 5f66c2f25f7dc4f39d8fe037d40b849302d7d33c Mon Sep 17 00:00:00 2001\nFrom: =?UTF-8?q?Matthias=20G=C3=BCnter?=\n <1008534+matzeeable@users.noreply.github.com>\nDate: Thu, 17 Sep 2020 08:46:59 +0200\nSubject: [PATCH 2/2] fix: lint\n\n---\n assets/dev/js/frontend/utils/video-api/base-loader.js | 6 +++---\n 1 file changed, 3 insertions(+), 3 deletions(-)\n\ndiff --git a/assets/dev/js/frontend/utils/video-api/base-loader.js b/assets/dev/js/frontend/utils/video-api/base-loader.js\nindex bba8915409e5..8ae075faef70 100644\n--- a/assets/dev/js/frontend/utils/video-api/base-loader.js\n+++ b/assets/dev/js/frontend/utils/video-api/base-loader.js\n@@ -17,10 +17,10 @@ export default class BaseLoader extends elementorModules.ViewModule {\n \tinsertAPI() {\n \t\t// Check if consent is given for the external video service (if no `consentApi` is available, fallback to immediate loading)\n \t\tconst apiUrl = this.getApiURL();\n-\t\tconst consentPromise = (window.consentApi && window.consentApi.unblock(apiUrl) || Promise.resolve());\n-\t\tconsentPromise.then(() => {\n+\t\tconst consentPromise = window.consentApi ? window.consentApi.unblock( apiUrl ) : Promise.resolve();\n+\t\tconsentPromise.then( () => {\n \t\t\tthis.elements.$firstScript.before( jQuery( '<script>', { src: apiUrl } ) );\n-\t\t});\n+\t\t} );\n \n \t\tthis.setSettings( 'isInserted', true );\n \t}\n",
+      "source_sha256": "d095a917031164bd6059316867c1b962263f8cecf24c91d4f72c4e60d32c5b09",
+      "fetched_at": "2026-11-05T06:21:23.859445+00:00",
+      "retrieval_url": "https://github.com/elementor/elementor/pull/12567.patch",
+      "status": "available",
+      "revision": "12567",
+      "immutable_revision": false,
+      "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+    }
+  ]
+}

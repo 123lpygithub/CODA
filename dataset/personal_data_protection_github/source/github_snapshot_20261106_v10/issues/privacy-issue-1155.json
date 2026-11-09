@@ -1,0 +1,106 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-1155",
+  "issue_url": "https://github.com/snowplow/snowplow/issues/3528",
+  "source_issue_url": "https://github.com/snowplow/snowplow/issues/3528",
+  "api_url": "https://api.github.com/repos/snowplow/snowplow/issues/3528",
+  "title": "Redshift: widen sensitive columns in atomic.events to support pseudonymization",
+  "body": "Although we are only initially supporting SHA256 for hashing (see #3472), we will bump these columns to 512 width as this is a relatively painful process (and we will likely want to support SHA512 hashing and also encryption options later on).  ",
+  "author": "Participant 1",
+  "created_at": "2017-12-03T01:08:42Z",
+  "updated_at": "2018-02-26T14:25:50Z",
+  "state": "closed",
+  "closed_at": "2018-02-26T14:25:50Z",
+  "issue_fetched_at": "2026-11-05T05:56:13.216585+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T05:56:14.553298+00:00"
+  ],
+  "expected_comment_count": 10,
+  "retrieved_comment_count": 10,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 348732659,
+      "url": "https://github.com/snowplow/snowplow/issues/3528#issuecomment-348732659",
+      "created_at": "2017-12-03T01:12:59Z",
+      "updated_at": "2017-12-03T01:12:59Z",
+      "author": "Participant 1",
+      "body": "@yalisassoon can you please review:\r\n\r\nhttps://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/atomic-def.sql\r\n\r\nand add to this ticket the full list of the sensitive columns which need to be widened?"
+    },
+    {
+      "id": 351368696,
+      "url": "https://github.com/snowplow/snowplow/issues/3528#issuecomment-351368696",
+      "created_at": "2017-12-13T11:48:01Z",
+      "updated_at": "2017-12-13T11:48:01Z",
+      "author": "Participant 2",
+      "body": "We need to think about this in context of this comment: https://github.com/snowplow/iglu-central/pull/664#issuecomment-351312945 "
+    },
+    {
+      "id": 351700000,
+      "url": "https://github.com/snowplow/snowplow/issues/3528#issuecomment-351700000",
+      "created_at": "2017-12-14T12:40:09Z",
+      "updated_at": "2017-12-14T12:40:09Z",
+      "author": "Participant 1",
+      "body": "Nudge @yalisassoon "
+    },
+    {
+      "id": 351835563,
+      "url": "https://github.com/snowplow/snowplow/issues/3528#issuecomment-351835563",
+      "created_at": "2017-12-14T21:05:42Z",
+      "updated_at": "2017-12-14T21:05:42Z",
+      "author": "Participant 3",
+      "body": "Sorry for the delay - adding below:\r\n\r\n* user_id\r\n* user_ipaddress\r\n* user_fingerprint\r\n* domain_userid\r\n* network_userid\r\n* ip_organization\r\n* ip_domain\r\n* tr_orderid\r\n* ti_orderid\r\n* mkt_clickid\r\n* refr_domain_userid\r\n* domain_sessionid"
+    },
+    {
+      "id": 351838326,
+      "url": "https://github.com/snowplow/snowplow/issues/3528#issuecomment-351838326",
+      "created_at": "2017-12-14T21:16:53Z",
+      "updated_at": "2017-12-16T00:08:40Z",
+      "author": "Participant 1",
+      "body": "That's your list @knservis - let's widen to 128 if they are currently <128, so we can support SHA_512. I believe they are all strings, so there shouldn't any other issues with this."
+    },
+    {
+      "id": 351955249,
+      "url": "https://github.com/snowplow/snowplow/issues/3528#issuecomment-351955249",
+      "created_at": "2017-12-15T09:20:20Z",
+      "updated_at": "2017-12-15T09:20:20Z",
+      "author": "Participant 2",
+      "body": "@alexanderdean sha-512 is 128 characters long as a hex string."
+    },
+    {
+      "id": 352142399,
+      "url": "https://github.com/snowplow/snowplow/issues/3528#issuecomment-352142399",
+      "created_at": "2017-12-16T00:09:09Z",
+      "updated_at": "2017-12-16T00:09:09Z",
+      "author": "Participant 1",
+      "body": "Edited!"
+    },
+    {
+      "id": 354597225,
+      "url": "https://github.com/snowplow/snowplow/issues/3528#issuecomment-354597225",
+      "created_at": "2017-12-31T10:47:11Z",
+      "updated_at": "2017-12-31T10:47:11Z",
+      "author": "Participant 1",
+      "body": "What about se_label @yalisassoon ?"
+    },
+    {
+      "id": 354598063,
+      "url": "https://github.com/snowplow/snowplow/issues/3528#issuecomment-354598063",
+      "created_at": "2017-12-31T11:09:57Z",
+      "updated_at": "2017-12-31T11:09:57Z",
+      "author": "Participant 3",
+      "body": "Any of the se_ fields could require anonymization but I think they're all long enough already?"
+    },
+    {
+      "id": 354598089,
+      "url": "https://github.com/snowplow/snowplow/issues/3528#issuecomment-354598089",
+      "created_at": "2017-12-31T11:10:24Z",
+      "updated_at": "2017-12-31T11:10:24Z",
+      "author": "Participant 1",
+      "body": "Yep they are - good point!"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/fastify/fastify/blob/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/route.js#L304-L315",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "revision": "bf18412f2ba838fc06e3162a13ebcf88b5a283be",
+  "immutable_revision": true,
+  "line_start": 292,
+  "line_end": 327,
+  "text": "\n      if (return503OnClosing) {\n        const headers = {\n          'Content-Type': 'application/json',\n          'Content-Length': '80'\n        }\n        res.writeHead(503, headers)\n        res.end('{\"error\":\"Service Unavailable\",\"message\":\"Service Unavailable\",\"statusCode\":503}')\n        return\n      }\n    }\n\n    var id = req.headers[requestIdHeader] || genReqId(req)\n    var hostname = req.headers.host || req.headers[':authority']\n    var ip = req.connection.remoteAddress\n    var ips\n\n    if (trustProxy) {\n      ip = proxyAddr(req, proxyFn)\n      ips = proxyAddr.all(req, proxyFn)\n      if (ip !== undefined && req.headers['x-forwarded-host']) {\n        hostname = req.headers['x-forwarded-host']\n      }\n    }\n\n    var loggerOpts = {\n      [requestIdLogLabel]: id,\n      level: context.logLevel\n    }\n\n    if (context.logSerializers) {\n      loggerOpts.serializers = context.logSerializers\n    }\n    var childLogger = logger.child(loggerOpts)\n    childLogger[kDisableRequestLogging] = disableRequestLogging\n",
+  "source_sha256": "7194dd3c4e1582880037d1c133f8fc48fb8e879eaab445e4c552f5d8b494b030",
+  "fetched_at": "2026-11-05T06:21:24.812457+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/fastify/fastify/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/route.js",
+  "status": "available"
+}

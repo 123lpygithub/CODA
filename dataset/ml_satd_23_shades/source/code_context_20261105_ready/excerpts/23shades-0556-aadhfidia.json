@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0556-aadhfidia",
+  "revision_url": "https://github.com/blue-oil/blueoil/commit/acb5a270f201f34fe5a5b27a4b395d9c3a838b27",
+  "filename": "dlk/python/dlk/plugins/tf.py",
+  "commit": "acb5a270f201f34fe5a5b27a4b395d9c3a838b27",
+  "source_url": "https://raw.githubusercontent.com/blue-oil/blueoil/acb5a270f201f34fe5a5b27a4b395d9c3a838b27/dlk/python/dlk/plugins/tf.py",
+  "fetched_at": "2026-11-05T06:13:13.057922+00:00",
+  "source_sha256": "7f98e66f0ed2438c13b74354c8a2e909ef43c05fa1cef97cee298b8eb5f2426a",
+  "line_start": 185,
+  "line_end": 209,
+  "excerpt": "\n    def list_attributes(self):\n        \"\"\"Return the attribute list corresponding to the node.\"\"\"\n        return self.attributes\n\n    def attribute(self, attr_name: str) -> Any:\n        \"\"\"Return the attributes data corresponding to the node.\"\"\"\n        attrs = [x for x in self.attributes if x == attr_name]\n        if len(attrs) != 1:\n            ValueError(\n                'f{self.op_type} {self.name} doesn\\'t have the valid attribute.')\n\n        # TODO: hard coded for now, looking for better extraction methods\n        attrs_data = []\n        if attr_name == 'padding' or attr_name == 'data_format':\n            attrs_data.append(self.nd_.attr[attr_name].s)\n        elif attr_name in ['strides', 'ksize']:\n            attrs_data.append(self.nd_.attr[attr_name].list.i)\n        elif attr_name == 'epsilon':\n            attrs_data.append(self.nd_.attr[attr_name].f)\n        elif attr_name == 'is_training' or attr_name == 'use_cudnn_on_gpu':\n            attrs_data.append(self.nd_.attr[attr_name].b)\n        elif attr_name in ['block_size', 'num_split']:\n            attrs_data.append(self.nd_.attr[attr_name].i)\n        else:",
+  "match_policy": "unique-release-normalized-v2"
+}

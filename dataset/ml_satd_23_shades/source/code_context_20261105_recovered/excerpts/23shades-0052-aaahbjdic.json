@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0052-aaahbjdic",
+  "revision_url": "https://github.com/Erotemic/netharn/commit/e16c3da37b8806b1dbd0f936a2392bb496de76d5",
+  "filename": "setup.py",
+  "commit": "e16c3da37b8806b1dbd0f936a2392bb496de76d5",
+  "source_url": "https://raw.githubusercontent.com/Erotemic/netharn/e16c3da37b8806b1dbd0f936a2392bb496de76d5/setup.py",
+  "fetched_at": "2026-11-05T06:11:46.906665+00:00",
+  "source_sha256": "c85feb5b74fc0a2a78d6f37c308942786b07381af56d9c6589e7c61d22908dc9",
+  "line_start": 137,
+  "line_end": 161,
+  "excerpt": "        return info\n\n    # This breaks on pip install, so check that it exists.\n    if exists(require_fpath):\n        with open(require_fpath, 'r') as f:\n            packages = []\n            for line in f.readlines():\n                line = line.strip()\n                if line and not line.startswith('#'):\n                    info = parse_line(line)\n                    package = info['package']\n                    if not sys.version.startswith('3.4'):\n                        # apparently package_deps are broken in 3.4\n                        platform_deps = info.get('platform_deps')\n                        if platform_deps is not None:\n                            package += ';' + platform_deps\n                    packages.append(package)\n            return packages\n    return []\n\n\ndef clean_repo(repodir, modname, rel_paths=[]):\n    \"\"\"\n    repodir = ub.truepath('~/code/netharn/')\n    modname = 'netharn'"
+}

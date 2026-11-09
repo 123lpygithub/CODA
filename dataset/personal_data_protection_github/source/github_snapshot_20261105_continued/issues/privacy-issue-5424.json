@@ -1,0 +1,66 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5424",
+  "issue_url": "https://github.com/elabftw/elabftw/issues/3731",
+  "source_issue_url": "https://github.com/elabftw/elabftw/issues/3731",
+  "api_url": "https://api.github.com/repos/elabftw/elabftw/issues/3731",
+  "title": "Audit trail and GDPR",
+  "body": "This feature issue is based on a discussion in issue #2304 \r\n>> Another problem in context of this topic is that (to my understanding) only people with \"editing\" permissions are allowed to investigate the audit trail.\r\n\r\n>Indeed it is true. I wasn't really aware of this and will make the necessary changes so it can be accessed in view mode, too.\r\n\r\nAs it turns out, the access to the audit trail is very broad and more fine control is needed. According to GDPR regulations, it must be possible to delete GDPR related data from electronic systems like elabFTW. In contrast to be compliant with FDA's \"21 CFR part 11\"  an audit trail recording all changes is needed. Both statements are somewhat exclusive to my opinion. The only solution I see is that access to an audit trail can be narrowed down to very limited number of people, at least for some specific experiment. \r\n@NicolasCARPi  Do you have any more ideas?\r\n\r\nIdeally, access settings for audit trail can be also enforced by admins to ensure that the system configurations are compliant as stated above.\r\n",
+  "author": "Participant 1",
+  "created_at": "2022-07-25T19:39:54Z",
+  "updated_at": "2022-12-09T00:51:33Z",
+  "state": "closed",
+  "closed_at": "2022-12-09T00:51:33Z",
+  "issue_fetched_at": "2026-10-19T01:11:19.910298+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:11:21.305765+00:00"
+  ],
+  "expected_comment_count": 5,
+  "retrieved_comment_count": 5,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1194635933,
+      "url": "https://github.com/elabftw/elabftw/issues/3731#issuecomment-1194635933",
+      "created_at": "2022-07-25T21:12:18Z",
+      "updated_at": "2022-07-25T21:12:18Z",
+      "author": "Participant 2",
+      "body": "I think it really depends on the contract signed between the employee and the company. The lab notebook is generally the property of the employer. The purpose of the GDPR law is to inform the user why their data is stored, with whom it is shared and for how long it is stored and what is stored. If it is clear from the beginning that the name of the person **needs** to appear for at least 10 years next to their results from the start, I think it's okay. It just needs to be written in the contract. This is an HR problem.\r\n\r\n> According to GDPR regulations, it must be possible to delete GDPR related data from electronic systems like elabFTW\r\n\r\n~~~mysql\r\nupdate users set firstname = 'redacted', lastname = 'redacted', email = redacted@gdpr.eu where userid = N;\r\n~~~\r\n\r\nNow it's anonymous. It can be as simple as that. But will the name be erased from the timestamped pdfs? No. Would it be reallistically possible to have 100% anonymization for a user without defeating the whole purpose of the app? Probably not.\r\n\r\nAgain, I've already spent a bit of time reading about GDPR over the years, and I'm pretty sure the main point is to **inform** the user and ask them for **consent** (which they can revoke). If it is clear that it is not revokable, it is IMHO fine, as long as the user knows about it.\r\n\r\nThere are some ELN companies out there that are perfectly happy selling your personal data to marketing companies outside the EU, and they tell you about it in their privacy policy, which you agree one when using their platform. And they say \"we are fully GDPR compliant\".\r\n\r\neLab is already very good on that side, being an open source tool with strictly no external information leakage. When you use the self-hosted eLab you don't have a third party that needs to comply. It becomes \"you\", the company, that has a contract with the employee.\r\n\r\nSo for me we are very far from news website tracking you on the web and selling your data to marketing companies for targeted advertising without your knowledge or consent, which is the target of this regulation.\r\n\r\nAnyway, not a simple matter for sure...."
+    },
+    {
+      "id": 1194675536,
+      "url": "https://github.com/elabftw/elabftw/issues/3731#issuecomment-1194675536",
+      "created_at": "2022-07-25T21:50:24Z",
+      "updated_at": "2022-07-25T21:50:24Z",
+      "author": "Participant 1",
+      "body": "Hi Nicolas,\r\nThank for the detailed answer. Unfortunately, it seems it did not make myself very clear. My concerns were not related to the user of elabFTW. I am pretty sure their data are very well protected (we have it in our hands ;-) ) and there should not be any GDPR related risks. \r\n\r\nI was more addressing another use case:\r\nWe are generating and processing lot's of GDP related data during our experiments and thus to make fully use of an ELN from time to time it would be good to mention within some experiment descriptions some data which fall under GDPR regulations. E.g. mentioning some blood parameters or clinical variables and linking it to a patient ID already falls under GDPR regulations (we have discussed those topics in long with external auditors, consultants and customers). According to \r\n\"Art. 17 GDPR Right to erasure (‘right to be forgotten’)\" there must be an opportunity to delete such entries or at least fully anonymize them i.e. remove ids.  This is especially critical for data within the scope of  \"Special category of data\".\r\n\r\nOf course those entries can not be removed from audit trails and and also not from time-stamped pdfs. So both should fall under special \"permission settings\" which allow to fine control access.\r\nI know it is a tedious and laborious topic but I am sure it will become more and more important in future. So might be better to think of it in time?   We already have such discussions with our auditors and customers as mentioned above and need to make sure to comply.  \r\n \r\n\r\n\r\n\r\n "
+    },
+    {
+      "id": 1194680481,
+      "url": "https://github.com/elabftw/elabftw/issues/3731#issuecomment-1194680481",
+      "created_at": "2022-07-25T21:55:53Z",
+      "updated_at": "2022-07-25T21:55:53Z",
+      "author": "Participant 2",
+      "body": "In my opinion, the data should be pseudonimized before reaching the lab, so before reaching the lab notebook. The lab notebook should only ever see \"Patient X23B\" and never \"Bill Gates's blood\".\r\n\r\nSo the way I see it you need to have a process **before** it reaches the lab. And you'll only have a single point where the correspondance between the ID and the real name exists and it's easy to delete from there. This way you avoid errors, impossibilities and remove the possibility for lab workers to even see the personal data in the first place!"
+    },
+    {
+      "id": 1194688678,
+      "url": "https://github.com/elabftw/elabftw/issues/3731#issuecomment-1194688678",
+      "created_at": "2022-07-25T22:04:58Z",
+      "updated_at": "2022-07-25T22:04:58Z",
+      "author": "Participant 1",
+      "body": "> In my opinion, the data should be pseudonimized before reaching the lab, so before reaching the lab notebook. The lab notebook should only ever see \"Patient X23B\" and never \"Bill Gates's blood\".\r\n> \r\n> So the way I see it you need to have a process **before** it reaches the lab. And you'll only have a single point where the correspondence between the ID and the real name exists and it's easy to delete from there. This way you avoid errors, impossibilities and remove the possibility for lab workers to even see the personal data in the first place!\r\n\r\nYes,  and that's of course a process we have in place. But errors can still happen (and unfortunately live is sometimes not that easy) so I thought it would be good to have some kind of a \"second option\" if data are entered by mistake.  "
+    },
+    {
+      "id": 1195305089,
+      "url": "https://github.com/elabftw/elabftw/issues/3731#issuecomment-1195305089",
+      "created_at": "2022-07-26T10:30:30Z",
+      "updated_at": "2022-07-26T10:41:10Z",
+      "author": "Participant 3",
+      "body": "Generally I think @NicolasCARPi  ist right. Just because someone requests deletion does not mean that data really needs to be deleted. If there is a legal obligation (like 10 years data storage retention for a laboratory accreditation) you do not have to remove that data. See also https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/dealing-citizens/do-we-always-have-delete-personal-data-if-person-asks_en\r\n\r\nThen again, this is really a question for a lawyer. Nothing that IT can answer. What could be the middle ground is data locking. I think that is also what @manuSrep proposes. A separate status or special tag for an experiment so that when set only an auditor can still view it. Or so that reading is logged and an explanation why needs to be given.\r\n\r\nPS: In general I would rather not store a patient id or name in elabFTW but link the experiment url in your patient file. Because generally I think - maybe I am wrong for your usecase - the scientist in the lab will only process the sample but does not need patient data for that. So he or she should not ever see that data. Even a ID number is personally identifiable information."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

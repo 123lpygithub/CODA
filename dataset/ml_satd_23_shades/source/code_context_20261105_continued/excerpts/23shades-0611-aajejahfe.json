@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0611-aajejahfe",
+  "revision_url": "https://github.com/mila-iqia/babyai/commit/651c30a78d6b0ca8e448d4d99d375f4eefdc482f",
+  "filename": "babyai/arguments.py",
+  "commit": "651c30a78d6b0ca8e448d4d99d375f4eefdc482f",
+  "source_url": "https://raw.githubusercontent.com/mila-iqia/babyai/651c30a78d6b0ca8e448d4d99d375f4eefdc482f/babyai/arguments.py",
+  "fetched_at": "2026-11-05T06:13:24.805819+00:00",
+  "source_sha256": "78cadc567a83f0a095b2c58c0c948fcb8c38b5ca95c24625151ae5f6a55fb818",
+  "line_start": 88,
+  "line_end": 102,
+  "excerpt": "\n        args = super().parse_args()\n\n        assert args.env is not None\n\n        # Set seed for all randomness sources\n        if args.seed == 0:\n            args.seed = np.random.randint(10000)\n        if args.task_id_seed:\n            args.seed = int(os.environ['SLURM_ARRAY_TASK_ID'])\n            print('set seed to {}'.format(args.seed))\n\n        # TODO: more validation\n\n        return args"
+}

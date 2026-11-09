@@ -1,0 +1,90 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3871",
+  "issue_url": "https://github.com/orbeon/orbeon-forms/issues/3525",
+  "source_issue_url": "https://github.com/orbeon/orbeon-forms/issues/3525",
+  "api_url": "https://api.github.com/repos/orbeon/orbeon-forms/issues/3525",
+  "title": "Field-level form data encryption in the database",
+  "body": "- [x] *Encryption at the level of Orbeon Forms* – Encryption and decryption will happen at the level of Orbeon Forms, so the values of the fields marked as \"to be encrypted\" will never be sent to the database (let alone stored by the database).\r\n- [x] *Form data* – When the value of a field is encrypted, in the form data the containing element will have the attribute `encrypted=\"true\"`.\r\n- [x] *Form Builder UI* – The \"Control Settings\" dialog will have a checkbox allowing form authors to mark a field for encryption.\r\n- [x] *Persistence proxy* – The Form Runner \"front-end\" will always see unencrypted data, and it is up to the persistence proxy to encrypt and decrypt data as needed.  When saving data, the persistence proxy will encrypt all fields marked as \"to be encrypted\" in the form definition before passing the form data to a specific implementation of the persistence API. Conversely, when reading data, it will decrypt all the fields that have the attribute `encrypted=\"true\"`.\r\n- [x] *Form Runner homepage in admin mode* – On this page, admins will be able to select a form definition and trigger data re-encryption for that form. Re-encryption will use the search API to get a list of all the form data, and for each form data, will read it, encrypt or decrypt fields according to the form definition, and if any change is needed, will write the form data back.\r\n* *Limitations* – On summary pages, encrypted fields won't be included in the free text search, and field search for encrypted fields will only be able to do exact matches.\r\n* *Out of scope* – The ability to change a key is out of scope for this request for enhancement.\r\n\r\n[+1 from customer](https://3.basecamp.com/3600924/buckets/1966718/messages/964223126#__recording_971644821)",
+  "author": "Participant 1",
+  "created_at": "2018-03-19T16:46:29Z",
+  "updated_at": "2018-07-16T17:16:32Z",
+  "state": "closed",
+  "closed_at": "2018-07-16T17:16:32Z",
+  "issue_fetched_at": "2026-10-18T18:10:22.478073+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T18:10:23.883059+00:00"
+  ],
+  "expected_comment_count": 8,
+  "retrieved_comment_count": 8,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 374282295,
+      "url": "https://github.com/orbeon/orbeon-forms/issues/3525#issuecomment-374282295",
+      "created_at": "2018-03-19T16:47:40Z",
+      "updated_at": "2018-03-19T16:47:40Z",
+      "author": "Participant 2",
+      "body": "+1"
+    },
+    {
+      "id": 374282342,
+      "url": "https://github.com/orbeon/orbeon-forms/issues/3525#issuecomment-374282342",
+      "created_at": "2018-03-19T16:47:46Z",
+      "updated_at": "2018-03-19T16:47:46Z",
+      "author": "Participant 1",
+      "body": "Where is the encryption key/password stored? `properties-local.xml`? A separate file? An API could also be contemplated."
+    },
+    {
+      "id": 375725850,
+      "url": "https://github.com/orbeon/orbeon-forms/issues/3525#issuecomment-375725850",
+      "created_at": "2018-03-23T16:37:27Z",
+      "updated_at": "2018-03-23T16:37:27Z",
+      "author": "Participant 1",
+      "body": "We also need to consider encryption of existing data in the database. This would be a process accessible probably from the Home page and typically run once only. In addition, it would be nice if you could run a sanity check making sure that the fields that need to be encrypted actually are."
+    },
+    {
+      "id": 387459757,
+      "url": "https://github.com/orbeon/orbeon-forms/issues/3525#issuecomment-387459757",
+      "created_at": "2018-05-08T16:21:30Z",
+      "updated_at": "2018-07-16T17:14:09Z",
+      "author": "Participant 1",
+      "body": "- [x] doc\r\n"
+    },
+    {
+      "id": 388436451,
+      "url": "https://github.com/orbeon/orbeon-forms/issues/3525#issuecomment-388436451",
+      "created_at": "2018-05-11T17:48:06Z",
+      "updated_at": "2018-05-11T17:48:24Z",
+      "author": "Participant 3",
+      "body": "Here are a few terms used to describe data that customers might want to encrypt at rest:\r\n\r\n- Personal information, more often used in the context of US law, which includes:\r\n    - Personally identifiable information (PII)\r\n    - Sensitive personal information (SPI)\r\n- Personal data, more often used in the next of the GDPR"
+    },
+    {
+      "id": 391163525,
+      "url": "https://github.com/orbeon/orbeon-forms/issues/3525#issuecomment-391163525",
+      "created_at": "2018-05-22T22:41:21Z",
+      "updated_at": "2018-05-22T22:41:21Z",
+      "author": "Participant 3",
+      "body": "1. From the Form Runner home page, admins ask for a given `app/form` to be re-encrypted (for now we won't support re-encrypting `app/*` or `*/*`).\r\n2. Based on the `app/form`, the persistence proxy dispatches the request to the appropriate implementation of the persistence API. Out-of-the-box, for now, we'll implement this only in the relational implementation of the API.\r\n3. The implementation queries the data table to find all the versions of the `app/form` for which we have data. It then iterates over the `app/form/version`.\r\n4. For a given `app/form/version`, it retrieves the form definition, iterates over the corresponding data, and for each runs `FieldEncryption.encryptDataIfNecessary()`, and writes back the result."
+    },
+    {
+      "id": 400091237,
+      "url": "https://github.com/orbeon/orbeon-forms/issues/3525#issuecomment-400091237",
+      "created_at": "2018-06-25T20:51:21Z",
+      "updated_at": "2018-06-25T20:51:21Z",
+      "author": "Participant 1",
+      "body": "We defer Key management:\r\n\r\n> Admins will be able to have different encryption keys per app/form. In the first implementation of this feature, keys will be stored in properties. In the future, we could support using keys from other sources, like a Java key store, or keys retrieved by calling the implementation of an API we provide, e.g. allowing Orbeon Forms to be integrated with a hardware key store.\r\n\r\nSee also #3631."
+    },
+    {
+      "id": 405320322,
+      "url": "https://github.com/orbeon/orbeon-forms/issues/3525#issuecomment-405320322",
+      "created_at": "2018-07-16T17:16:32Z",
+      "updated_at": "2018-07-16T17:16:32Z",
+      "author": "Participant 3",
+      "body": "This is now documented:\r\n\r\n- [Main page, for form authors](https://doc.orbeon.com/form-builder/advanced/field-level-encryption)\r\n- [Re-encryption from the Form Runner home page, for admins](https://doc.orbeon.com/form-runner/features/home-page#re-encryption)"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0555-aaeidjhhg",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/06eaeac416c4f1079a8815dd35a0964fa7500f79",
+  "filename": "hpat/hiframes_aggregate.py",
+  "commit": "06eaeac416c4f1079a8815dd35a0964fa7500f79",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/06eaeac416c4f1079a8815dd35a0964fa7500f79/hpat/hiframes_aggregate.py",
+  "fetched_at": "2026-11-05T06:13:11.519487+00:00",
+  "source_sha256": "3ffdfedae69aad1578d912f9c2082c0e8577fb43badba60a0a0bc0cf6c1b7ddc",
+  "line_start": 300,
+  "line_end": 322,
+  "excerpt": "    nodes[-1].target = agg_node.df_out_vars['B']\n\n    return nodes\n\n\ndistributed.distributed_run_extensions[Aggregate] = agg_distributed_run\n\n@numba.njit\ndef agg_send_recv_counts(key_arr):\n    n_pes = hpat.distributed_api.get_size()\n    send_counts = np.zeros(n_pes, np.int32)\n    recv_counts = np.empty(n_pes, np.int32)\n    # TODO: handle string\n    key_set = set()\n    for i in range(len(key_arr)):\n        k = key_arr[i]\n        if k not in key_set:\n            key_set.add(k)\n            node_id = hash(k) % n_pes\n            send_counts[node_id] += 1\n\n    hpat.distributed_api.alltoall(send_counts, recv_counts, 1)\n    return send_counts, recv_counts"
+}

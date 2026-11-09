@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0670-aaeeijdhi",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/efbc182bf294a11c70eaea00574f6950c66d672b",
+  "filename": "madmom/audio/filterbank.py",
+  "commit": "efbc182bf294a11c70eaea00574f6950c66d672b",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/efbc182bf294a11c70eaea00574f6950c66d672b/madmom/audio/filterbank.py",
+  "fetched_at": "2026-11-05T06:13:35.739126+00:00",
+  "source_sha256": "815de6e0228b38a30c51a02aa5de00a17ac3a32b658001ee11fda1875913905c",
+  "line_start": 299,
+  "line_end": 323,
+  "excerpt": "    \"\"\"\n    # Set the height of the filter, normalised if necessary\n    height = 1. / width if norm else 1.\n    # create filter and return it\n    return np.ones(width) * height\n\n\n# actual filter\nFilter = namedtuple('Filter', ['filter', 'start_pos'])\n\n\n# combine multiple filters into a filterbank\n# TODO: rename function to assemble_filterbank()?\ndef multi_filterbank(filters, num_fft_bins, num_bands, norm):\n    \"\"\"\n    Creates a filter bank with multiple filters per band\n\n    :param filters:      dictionary containing lists of Filters per band;\n                         keys are band ids. A Filter is represented by a tuple\n                         of a numpy array and the starting position\n    :param num_fft_bins: number of FFT bins (= half the FFT size)\n    :param num_bands:    number of bands\n    :param norm:         normalise the area of each filter band to 1 [bool]\n    :returns:            filter bank with respective filter elements\n"
+}

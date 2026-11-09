@@ -1,0 +1,146 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5516",
+  "issue_url": "https://github.com/OpenMage/magento-lts/issues/362",
+  "source_issue_url": "https://github.com/OpenMage/magento-lts/issues/362",
+  "api_url": "https://api.github.com/repos/OpenMage/magento-lts/issues/362",
+  "title": "Apply GDPR rules to magento",
+  "body": "What do you guys think about GDPR in Magento, it's going to be a Big thing in the EU http://www.eugdpr.org/.\r\n\r\nHow should we approach this as (core / optional) or as a module?\r\nBasically, we have to encrypt the customer's data in the database and every communication with the customer has to be concent.\r\n\r\n**TODO's**\r\n- [ ] Right to be forgotten (Need to validated how it works with orders and invoices)\r\n- [ ] Customer data encrypted\r\n- [ ] Customer Communication Consent (Email, SMS, etc)\r\n- [ ] Third-party customer info (Google Analytics, Hotjar, etc)\r\n- [ ] Customer data export function (All related customer data ex: orders, invoices, logs, customer data, addresses, etc)\r\n- [ ] Log customer data access in the admin\r\n- [ ] Database encryption",
+  "author": "Participant 1",
+  "created_at": "2017-11-02T12:48:27Z",
+  "updated_at": "2020-06-27T03:48:05Z",
+  "state": "closed",
+  "closed_at": "2018-09-27T23:53:05Z",
+  "issue_fetched_at": "2026-10-18T14:11:12.492461+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T14:11:13.922913+00:00"
+  ],
+  "expected_comment_count": 15,
+  "retrieved_comment_count": 15,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 341413115,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-341413115",
+      "created_at": "2017-11-02T12:59:20Z",
+      "updated_at": "2017-11-02T12:59:20Z",
+      "author": "Participant 2",
+      "body": "I'm quite up to date with the topic, and you're right it is a big thing in the EU.\r\nHowever it's not a hard requirement to encrypt customer data in db.\r\nThere are other more important requirements which might require changes in Magento e.g. \"right to be forgotten\". "
+    },
+    {
+      "id": 341422008,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-341422008",
+      "created_at": "2017-11-02T13:34:05Z",
+      "updated_at": "2017-11-02T13:34:05Z",
+      "author": "Participant 1",
+      "body": "We should do a list of all things we need to do."
+    },
+    {
+      "id": 341491717,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-341491717",
+      "created_at": "2017-11-02T17:08:22Z",
+      "updated_at": "2017-11-02T17:08:22Z",
+      "author": "Participant 3",
+      "body": "As M1 is not EOL yet it would be interesting to see if anything is done about this in upstream and in CE specifically..."
+    },
+    {
+      "id": 341496971,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-341496971",
+      "created_at": "2017-11-02T17:25:01Z",
+      "updated_at": "2017-11-02T17:25:01Z",
+      "author": "Participant 3",
+      "body": "Encryption should probably just be handled by the database or filesystem layer. Handling it in the app would be very ugly. E.g.: https://dev.mysql.com/doc/refman/5.7/en/innodb-tablespace-encryption.html"
+    },
+    {
+      "id": 349272793,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-349272793",
+      "created_at": "2017-12-05T11:10:32Z",
+      "updated_at": "2017-12-05T11:10:32Z",
+      "author": "Participant 4",
+      "body": "Hi, please keep in mind that you need user consent to just see customer data.  \r\nWhile the right to be forgotten seems tricky indeed, I think that case where user temporarily disallows access is even trickier.\r\nDid you guys maybe get some feedback from official Magento team/upstream?"
+    },
+    {
+      "id": 366058849,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-366058849",
+      "created_at": "2018-02-15T20:56:23Z",
+      "updated_at": "2018-02-15T20:56:23Z",
+      "author": "Participant 5",
+      "body": "I doubt they would do for CE more than this, https://magento.com/blog/magento-news/magento-gdpr-and-you-5-things-know-right-now"
+    },
+    {
+      "id": 367168906,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-367168906",
+      "created_at": "2018-02-21T00:20:16Z",
+      "updated_at": "2018-02-21T00:20:16Z",
+      "author": "Participant 6",
+      "body": "Some nice guidance here + extension:\r\nhttp://www.zero1.co.uk/2018/01/24/gdpr-how-to-achieve-compliance-with-magento/"
+    },
+    {
+      "id": 367170060,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-367170060",
+      "created_at": "2018-02-21T00:26:04Z",
+      "updated_at": "2018-02-21T00:26:04Z",
+      "author": "Participant 6",
+      "body": "This looks useful too:\r\nhttps://github.com/DivanteLtd/anonymizer/"
+    },
+    {
+      "id": 373987046,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-373987046",
+      "created_at": "2018-03-18T10:24:16Z",
+      "updated_at": "2018-03-18T10:24:16Z",
+      "author": "Participant 7",
+      "body": "This page looks promising with FAQ and key suggestion & considerations around Magento stores\r\nhttps://www.scommerce-mage.com/magento-gdpr-compliance.html"
+    },
+    {
+      "id": 378298911,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-378298911",
+      "created_at": "2018-04-03T15:50:16Z",
+      "updated_at": "2018-04-03T15:50:16Z",
+      "author": "Participant 8",
+      "body": "For: Right to be forgotten\r\n\r\nRegarding order data, we will need to keep them, at least as long as legally required (germany 10 years)\r\n\r\nhttps://blogs.opentext.com/general-data-protection-regulation-gdpr-can-customers-use-opentext-sap-timely-deletion/\r\n\r\nnon order related data is another topic, basically anything else related to a customer account.\r\n\r\nDoing this in a extendable way gets interesting, as you cant build a solution which covers all 3th party Modules automatically.\r\nIn the end I would say this part can already easy be done by the customer support. Just change all personal identifying data on the customer account and delete the addresses there. So while we can put a lot of work in building a genius solution, it will not be a lot faster then currently."
+    },
+    {
+      "id": 383125886,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-383125886",
+      "created_at": "2018-04-20T15:05:04Z",
+      "updated_at": "2018-04-20T15:05:04Z",
+      "author": "Participant 9",
+      "body": "I agree with Flyingmana's comment, there are a lot of reasons to keep sales data for accounting but also returns, insurance, proof that a service/product was provided, or dare I say public liability! I am UK based.\r\nI am Just getting my head around this GDPR (a month or two in!) but it states we need to give the customer the easy option of deleting the personal data. I am not convinced that \"Easy option\" specifically means providing the facility for the customer to action this at the click of a button in their account area, as this may be too complex as this not only causes issues or checks for third party extensions but may cause issues for third party data processors (i.e. mailchimp integration or cloud accounts solutions, shipping...etc), all of which may require admin to handle the deletion request (or to make non-essential data anonymous. Would be great to get any feedback from anyone else who is looking into this? From the official EU sources, the deletion needs to be done in a timely manner which is less than one month, not seconds?"
+    },
+    {
+      "id": 383145014,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-383145014",
+      "created_at": "2018-04-20T16:09:03Z",
+      "updated_at": "2018-04-20T16:09:03Z",
+      "author": "Participant 10",
+      "body": "Hi. according to the law, you should delete personal data on request, but orders completed and its data should stay in your database for accounting, taxes etc. I dont see any reason for removing it.\r\nPrivacy law cannot cover other laws like tax laws. so stores should have still access to the data, only user account should be deleted or anonymized.\r\nI see this as deleting account by admin in Magento, it makes user account to be romoved, but all past orders are changed to guest made (or something). and its sufficient\r\n"
+    },
+    {
+      "id": 383396889,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-383396889",
+      "created_at": "2018-04-22T17:11:20Z",
+      "updated_at": "2018-04-22T17:11:20Z",
+      "author": "Participant 1",
+      "body": "I agree @tomekjordan, but as Portugal you have to have an certified accounting software all the orders and tax have to go to that software has Magento is not a certified accounting software. So we have to anonymize or delete the customer info.\r\nI going to start an GDPR module, with the point's i have added on top.\r\nMost of them optional, so people can activate and deactivate them as needed.\r\nOpen-Sourced of course."
+    },
+    {
+      "id": 400265507,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-400265507",
+      "created_at": "2018-06-26T10:51:28Z",
+      "updated_at": "2018-06-26T10:55:11Z",
+      "author": "Participant 7",
+      "body": "@tomekjordan and @jaimiedijstra - you don’t need to remove any order data, just need to anonymise customer data from orders, invoices, shipments and credit memos. Rest of the data can stay in Magento for tax purposes for example order number, tax, shipping, product information, order total etc. Hope it clarifies!"
+    },
+    {
+      "id": 425277862,
+      "url": "https://github.com/OpenMage/magento-lts/issues/362#issuecomment-425277862",
+      "created_at": "2018-09-27T23:53:05Z",
+      "updated_at": "2018-09-27T23:53:05Z",
+      "author": "Participant 11",
+      "body": "Closing this. Out of scope - at least for now."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

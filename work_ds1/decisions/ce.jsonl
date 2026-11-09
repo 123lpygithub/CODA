@@ -1,0 +1,557 @@
+{"artifact_id": "1", "code_ids": ["CE01"], "open_codes": ["仅注释未实现"], "memo": "目标函数主体全部为注释，没有可执行实现。"}
+{"artifact_id": "2", "code_ids": ["CE05", "CE10"], "open_codes": ["只判断首项", "未累计余额"], "memo": "递归只判断当前首项是否为负，从不累计余额；既替换了“任一时点余额”目标，也缺少状态转移。"}
+{"artifact_id": "3", "code_ids": ["CE08"], "open_codes": ["分隔符位置错误", "丢失末尾元素"], "memo": "实现把分隔符放在两端，且只取前 len-1 个元素，结果组装与顺序错误。"}
+{"artifact_id": "4", "code_ids": ["CE01"], "open_codes": ["仅注释未实现"], "memo": "函数体只有重复注释，没有可执行实现。"}
+{"artifact_id": "5", "code_ids": ["CE03"], "open_codes": ["调用未定义 helper"], "memo": "正常路径调用未定义的 find_palindrome_prefix。"}
+{"artifact_id": "6", "code_ids": ["CE04"], "open_codes": ["按竖线切分"], "memo": "用 split('|') 切分音符，把 'o|' 拆成两段，音符边界解析错误。"}
+{"artifact_id": "8", "code_ids": ["CE04"], "open_codes": ["英文数字直接 int()"], "memo": "把 'one' 等英文数字直接 int()，表示转换不成立。"}
+{"artifact_id": "9", "code_ids": ["CE05"], "open_codes": ["取首尾"], "memo": "排序后返回最小与最大元素，是极值而非最近对。"}
+{"artifact_id": "11", "code_ids": ["CE06"], "open_codes": ["从1向上找首个约数"], "memo": "从 1 向上递增寻找首个约数并立即返回 1，候选枚举方向与契约要求的“小于 n 的最大约数”相反。"}
+{"artifact_id": "13", "code_ids": ["CE05"], "open_codes": ["set 去重"], "memo": "set 去掉所有重复值但保留单次出现，契约要求删除所有出现多于一次的元素。"}
+{"artifact_id": "17", "code_ids": ["CE02", "CE05"], "open_codes": ["源码截断", "未求根"], "memo": "find_zero 在循环表达式中途截断，且可见主体是对系数反复排序而非求解 poly(x)=0。"}
+{"artifact_id": "18", "code_ids": ["CE01"], "open_codes": ["仅注释"], "memo": "函数体只有重复注释，没有可执行实现。"}
+{"artifact_id": "19", "code_ids": ["CE06", "CE09"], "open_codes": ["range 起点1", "只判含7未计次数"], "memo": "循环从 1 开始漏掉 0，并用成员判断只计“含 7”一次，未统计数字 7 的出现次数。"}
+{"artifact_id": "20", "code_ids": ["CE08"], "open_codes": ["偶数位与奇数位分别排序后拼接"], "memo": "把偶数位与奇数位分别排序后整体拼接，改变了原位置与奇数位内容。"}
+{"artifact_id": "21", "code_ids": ["CE09"], "open_codes": ["decode 复用 encode 旋转"], "memo": "decode_cyclic 使用与 encode_cyclic 相同的左旋，未执行逆旋转。"}
+{"artifact_id": "22", "code_ids": ["CE05", "CE03"], "open_codes": ["返回第 n 个斐波那契并判素", "未定义 fib/is_prime"], "memo": "调用未定义的 fib/is_prime，且逻辑是取第 n 个斐波那契数再判素，而非枚举第 n 个同时为素数的斐波那契数。"}
+{"artifact_id": "23", "code_ids": ["CE09"], "open_codes": ["排序后比较相邻三项"], "memo": "判断 l[i] == l[i+1]+l[i+2]，与“三个不同元素之和为零”无关，公式被写错。"}
+{"artifact_id": "24", "code_ids": ["CE05", "CE09"], "open_codes": ["返回 n//2"], "memo": "契约答案是 n²，实现返回 n//2，目标量被替换且额外限制了偶数输入。"}
+{"artifact_id": "25", "code_ids": ["CE06", "CE13"], "open_codes": ["只支持2/8/10/16"], "memo": "仅对 2/8/10/16 特判，其他 base<10 返回 None；覆盖不足且破坏字符串返回契约。"}
+{"artifact_id": "27", "code_ids": ["CE09"], "open_codes": ["奇数分支多乘2"], "memo": "奇数分支返回 modp(n-1,p)**2*2，递推关系多乘了一次 2。"}
+{"artifact_id": "28", "code_ids": ["CE14"], "open_codes": ["只滤小写元音"], "memo": "vowels 只含小写字符，未处理大写元音，字符分类范围错误。"}
+{"artifact_id": "29", "code_ids": ["CE05", "CE09"], "open_codes": ["交集长度==两串长度"], "memo": "用交集长度等于两串长度判定，忽略了字符多重集合差异，目标谓词被替换。"}
+{"artifact_id": "33", "code_ids": ["CE14", "CE07"], "open_codes": ["只统计小写元音", "末位规则错误"], "memo": "vowels 只含小写，未处理大写；末位为元音时重复加 1，且未实现“末尾 y 才算元音”的条件。"}
+{"artifact_id": "35", "code_ids": ["CE07", "CE06"], "open_codes": ["shift==len 时错"], "memo": "shift >= len 时直接反转，未取模；shift 等于长度时应返回原串。"}
+{"artifact_id": "36", "code_ids": ["CE04"], "open_codes": ["取 split 后第2个词"], "memo": "用 s.split()[1] 读取橘子数量，实际数字在 words[3]，token 边界读取错误。"}
+{"artifact_id": "37", "code_ids": ["CE06"], "open_codes": ["返回首个满足者"], "memo": "遍历字典遇到首个 freq[i]>=i 就返回，未在所有候选中取最大值。"}
+{"artifact_id": "38", "code_ids": ["CE08", "CE06"], "open_codes": ["min+递归+min"], "memo": "递归去除所有等于 min 的元素且尾部再加 min，重复值丢失、顺序与重数错误。"}
+{"artifact_id": "40", "code_ids": ["CE11"], "open_codes": ["缺三角形不等式校验"], "memo": "未先判断三边能否构成三角形，非法输入会返回数值或复数。"}
+{"artifact_id": "41", "code_ids": ["CE03"], "open_codes": ["调用未定义 is_balanced"], "memo": "正常路径调用未定义的 is_balanced。"}
+{"artifact_id": "42", "code_ids": ["CE01"], "open_codes": ["pass"], "memo": "函数体只有 pass，没有可执行实现。"}
+{"artifact_id": "43", "code_ids": ["CE05"], "open_codes": ["比较列表长度"], "memo": "比较两个列表的元素个数而非所有字符串的总字符数，目标量被替换。"}
+{"artifact_id": "44", "code_ids": ["CE05"], "open_codes": ["判是否为素数"], "memo": "只判断 a 是否为素数，未判断 a 是否恰为三个素因子之积。"}
+{"artifact_id": "45", "code_ids": ["CE09"], "open_codes": ["x == n**int(n)"], "memo": "判据写成 x == n**int(n)，与 n 的整数次幂判等无关。"}
+{"artifact_id": "46", "code_ids": ["CE09", "CE11"], "open_codes": ["浮点立方根取模1"], "memo": "用 a**(1/3) % 1 == 0 判断立方数，浮点误差不可靠，且未处理负数。"}
+{"artifact_id": "48", "code_ids": ["CE01"], "open_codes": ["常量0"], "memo": "函数主体直接返回 0，没有针对输入的实质实现。"}
+{"artifact_id": "49", "code_ids": ["CE05"], "open_codes": ["去重后长度==3"], "memo": "用去重后字符数是否为 3 判断 happy，未检查每个长度为 3 的连续窗口。"}
+{"artifact_id": "50", "code_ids": ["CE01"], "open_codes": ["pass"], "memo": "函数体只有 pass，没有可执行实现。"}
+{"artifact_id": "51", "code_ids": ["CE09", "CE07"], "open_codes": ["按长度枚举判素"], "memo": "长度 1 被判为素数，偶数分支与 len/2 上界枚举也与素数定义不符。"}
+{"artifact_id": "53", "code_ids": ["CE03"], "open_codes": ["调用未定义 helper"], "memo": "递归分支调用未定义的 ends_one_starts。"}
+{"artifact_id": "54", "code_ids": ["CE05"], "open_codes": ["直接二进制"], "memo": "直接返回 N 的二进制，未先计算十进制数位和。"}
+{"artifact_id": "55", "code_ids": ["CE05"], "open_codes": ["未筛选偶数"], "memo": "对奇数下标元素全部求和，未筛选其中值为偶数的元素。"}
+{"artifact_id": "56", "code_ids": ["CE05"], "open_codes": ["按整词排序"], "memo": "按单词整体排序，未保持词序并对每个单词内部字符排序。"}
+{"artifact_id": "58", "code_ids": ["CE05", "CE07"], "open_codes": ["按首元素快排"], "memo": "始终按首元素做升序快排，未依据首尾和奇偶选择升序或降序。"}
+{"artifact_id": "59", "code_ids": ["CE01"], "open_codes": ["构造映射表后无返回"], "memo": "构造大量映射字典后没有执行加密，也没有返回结果。"}
+{"artifact_id": "60", "code_ids": ["CE06"], "open_codes": ["取排序后第二个"], "memo": "直接返回排序后第二个元素；重复最小值时应返回第一个更大的不同值，重复时错误。"}
+{"artifact_id": "61", "code_ids": ["CE04", "CE07"], "open_codes": ["按词切分", "startswith I"], "memo": "按空白切词统计以 I 开头的词，未按句号/问号/感叹号切句，startswith('I') 也会把 It 等词误算。"}
+{"artifact_id": "63", "code_ids": ["CE11"], "open_codes": ["未做整数类型校验"], "memo": "未校验三个参数都是整数，浮点输入也可能被误判为 True。"}
+{"artifact_id": "64", "code_ids": ["CE01"], "open_codes": ["pass"], "memo": "函数体只有 pass，没有可执行实现。"}
+{"artifact_id": "65", "code_ids": ["CE02", "CE01"], "open_codes": ["源码截断", "示例常量覆盖输入"], "memo": "源码在示例常量列表中途截断，无法解析；可见部分反复用示例常量覆盖 lst，没有求最大素数及数位和。"}
+{"artifact_id": "66", "code_ids": ["CE06", "CE07"], "open_codes": ["只看首个键即返回"], "memo": "遍历首个键后立即返回，未检查全部键是否同为小写或同为大写。"}
+{"artifact_id": "67", "code_ids": ["CE01"], "open_codes": ["pass"], "memo": "函数体只有 pass，没有可执行实现。"}
+{"artifact_id": "68", "code_ids": ["CE05"], "open_codes": ["直接相乘"], "memo": "返回 a*b，而非两个数个位数字之积。"}
+{"artifact_id": "69", "code_ids": ["CE14"], "open_codes": ["大小写不敏感"], "memo": "先 .upper() 再判断，把小写元音也计入；契约只统计大写元音。"}
+{"artifact_id": "70", "code_ids": ["CE11", "CE09"], "open_codes": ["未校验输入", "四舍五入方向错"], "memo": "未捕获非法输入；.5 情形向下取整而非远离零取整。"}
+{"artifact_id": "71", "code_ids": ["CE06", "CE09"], "open_codes": ["递归步长错"], "memo": "偶数时递归 n+2、奇数时 n+1 且无终止条件，层级数量与序列构造错误。"}
+{"artifact_id": "72", "code_ids": ["CE04"], "open_codes": ["只按逗号空格切分"], "memo": "只按逗号加空格切分，未处理仅有逗号或仅有空格的分隔情形。"}
+{"artifact_id": "73", "code_ids": ["CE05", "CE07"], "open_codes": ["判 x 偶数且范围"], "memo": "返回 x 或 y 的判据被替换为 x 偶/y 偶，且 x<y 与 x==y 的端点处理错误。"}
+{"artifact_id": "74", "code_ids": ["CE13"], "open_codes": ["bin() 后切片丢前缀"], "memo": "返回 bin(x)[2:]，缺少契约要求的 0b 前缀。"}
+{"artifact_id": "76", "code_ids": ["CE12", "CE05"], "open_codes": ["对字符做取模"], "memo": "对 str 的每个字符执行 y % 2，类型不支持该运算，且判据未先转成整数。"}
+{"artifact_id": "77", "code_ids": ["CE01"], "open_codes": ["常量空列表"], "memo": "函数主体直接返回空列表，没有按输入完成排序与数字名映射。"}
+{"artifact_id": "78", "code_ids": ["CE01"], "open_codes": ["常量[1]"], "memo": "函数主体直接返回 [1]，没有生成 n 个元素。"}
+{"artifact_id": "79", "code_ids": ["CE03"], "open_codes": ["调用未定义 helper"], "memo": "正常路径调用未定义的 is_palindrome 与 is_even。"}
+{"artifact_id": "80", "code_ids": ["CE05"], "open_codes": ["忽略负号语义"], "memo": "对 abs(num) 求数位和，未把负数的首位作为负值，目标量被替换。"}
+{"artifact_id": "81", "code_ids": ["CE06", "CE07", "CE05"], "open_codes": ["递归右移一位", "无循环检测"], "memo": "每次实际左移一位且无终止条件；也未枚举所有可能的右移次数，无法判定任意次右移。"}
+{"artifact_id": "82", "code_ids": ["CE05"], "open_codes": ["比较和与偶"], "memo": "用两列表和相等且为偶数判定，未比较 lst1 的奇数个数与 lst2 的偶数个数，目标谓词被替换。"}
+{"artifact_id": "83", "code_ids": ["CE05"], "open_codes": ["返回全部频次"], "memo": "返回所有字母的频次字典，未筛选出出现次数最大的字母集合。"}
+{"artifact_id": "84", "code_ids": ["CE08"], "open_codes": ["模板中的 i 未替换为奇数个数"], "memo": "把列表序号 j+1 填入模板中应填奇数个数的位置，输出字符串组装错误。"}
+{"artifact_id": "87", "code_ids": ["CE05", "CE06"], "open_codes": ["二维递归模拟"], "memo": "以二维格子路径递归并对每个非零格加 1，未按每行水量除以容量向上取整，目标与覆盖都错。"}
+{"artifact_id": "88", "code_ids": ["CE01"], "open_codes": ["常量空列表"], "memo": "函数主体直接返回空列表，没有按辅音数筛选单词。"}
+{"artifact_id": "89", "code_ids": ["CE06", "CE05"], "open_codes": ["从前往后找"], "memo": "从前往后寻找“辅音+元音”边界并返回辅音，未从右向左找夹在两个辅音之间的元音。"}
+{"artifact_id": "91", "code_ids": ["CE05"], "open_codes": ["只看两个字面值"], "memo": "只判断 lst[0]=='(' 且 lst[1]==')'，未尝试拼接并校验括号平衡。"}
+{"artifact_id": "92", "code_ids": ["CE01"], "open_codes": ["pass"], "memo": "函数体只有 pass，没有可执行实现。"}
+{"artifact_id": "93", "code_ids": ["CE05"], "open_codes": ["未筛奇数值"], "memo": "累加偶数下标元素，未进一步筛选值为奇数的元素。"}
+{"artifact_id": "95", "code_ids": ["CE01"], "open_codes": ["pass"], "memo": "函数体只有 pass，没有可执行实现。"}
+{"artifact_id": "97", "code_ids": ["CE05"], "open_codes": ["只按空白切分"], "memo": "只按空白切分，未处理逗号分支与无分隔符时统计奇数序号小写字母的分支。"}
+{"artifact_id": "98", "code_ids": ["CE05", "CE06"], "open_codes": ["只判有序"], "memo": "只检查非降序，未检查任何数字是否出现超过两次。"}
+{"artifact_id": "99", "code_ids": ["CE05"], "open_codes": ["只判区间相交"], "memo": "只判两区间是否相交，未计算交段长度并判断其是否为素数。"}
+{"artifact_id": "100", "code_ids": ["CE03"], "open_codes": ["调用未定义 prod/sign"], "memo": "正常路径调用未定义的 prod 与 sign。"}
+{"artifact_id": "101", "code_ids": ["CE05", "CE09", "CE02"], "open_codes": ["二维 DP 最短路", "末尾表达式截断"], "memo": "实现二维网格最短路 DP 而非长度 k 的字典序最小路径；末尾 ans.append 表达式也不完整。"}
+{"artifact_id": "102", "code_ids": ["CE05", "CE09", "CE06"], "open_codes": ["递推与基础项错误"], "memo": "基础项与偶数/奇数递推均未按契约实现，且用外层 n 覆盖循环变量，序列目标与计算都不成立。"}
+{"artifact_id": "104", "code_ids": ["CE05"], "open_codes": ["遇偶数即返回0"], "memo": "遇到任一偶数位就返回 0，契约只要求所有位均为偶数时返回 0，目标条件被替换。"}
+{"artifact_id": "105", "code_ids": ["CE05", "CE06"], "open_codes": ["只判整体平衡"], "memo": "只判断整个字符串是否平衡，未搜索是否存在含嵌套括号的合法子序列。"}
+{"artifact_id": "106", "code_ids": ["CE05", "CE09"], "open_codes": ["先平方再截断"], "memo": "对元素先平方再 int 截断，未先向上取整；目标变换顺序与公式错误。"}
+{"artifact_id": "108", "code_ids": ["CE05", "CE11"], "open_codes": ["要求无空格"], "memo": "判据要求整串无空格，契约只要求末字符为字母且前一字符为空格；空串还会索引越界。"}
+{"artifact_id": "109", "code_ids": ["CE06", "CE05"], "open_codes": ["按长度穷举"], "memo": "写死长度 0/1/2 分支，其余从前往后返回前一项下标，未从后向前取最大满足下标。"}
+{"artifact_id": "111", "code_ids": ["CE11"], "open_codes": ["空列表与仅零元素时 min 空序列"], "memo": "仅特判空列表；[0] 或全零列表没有正数，仍对空 positives 调 min() 并抛 ValueError。"}
+{"artifact_id": "112", "code_ids": ["CE04", "CE11"], "open_codes": ["未处理字符串逗号小数"], "memo": "未把逗号小数解析为数值，字符串比较会按字典序；混合类型也未做统一数值转换。"}
+{"artifact_id": "113", "code_ids": ["CE05"], "open_codes": ["要求被4整除"], "memo": "判据写成偶数且被 4 整除；正确条件是可表示为四个正偶数之和，即 n>=8 且为偶数。"}
+{"artifact_id": "114", "code_ids": ["CE05"], "open_codes": ["普通阶乘"], "memo": "只计算 n!，契约要求 n! * (n-1)! * ... * 1!。"}
+{"artifact_id": "116", "code_ids": ["CE01"], "open_codes": ["原样返回"], "memo": "函数直接返回输入字符串，没有执行空格替换规则。"}
+{"artifact_id": "117", "code_ids": ["CE05"], "open_codes": ["判文件名长度而非数字个数"], "memo": "以文件名长度 >3 判非法，未统计数字字符个数；规则目标被替换。"}
+{"artifact_id": "119", "code_ids": ["CE09", "CE07"], "open_codes": ["i%3==0 或 i%4==0 都平方"], "memo": "把下标为 4 的倍数且非 3 的倍数也平方，未改为立方；条件分支与公式都错。"}
+{"artifact_id": "120", "code_ids": ["CE03", "CE11"], "open_codes": ["调用未定义 is_prime", "split 保留空串"], "memo": "调用未定义的 is_prime；按单空格切分且未过滤空串，连续空格会产生空词。"}
+{"artifact_id": "121", "code_ids": ["CE01"], "open_codes": ["常量False"], "memo": "函数主体直接返回 False，没有解析两个分数并判断乘积是否为整数。"}
+{"artifact_id": "122", "code_ids": ["CE05", "CE12"], "open_codes": ["未处理负号"], "memo": "把负号字符直接交给 int()，会触发 ValueError；带符号数位和的语义也未实现。"}
+{"artifact_id": "123", "code_ids": ["CE05"], "open_codes": ["只判奇数"], "memo": "只判断 num 为奇数，未检查十进制首位和末位数字均为奇数。"}
+{"artifact_id": "124", "code_ids": ["CE05", "CE06"], "open_codes": ["统计元素个数"], "memo": "统计满足 a[i]%3==0 的元素个数，未枚举并计数满足和为 3 的倍数的三元组。"}
+{"artifact_id": "125", "code_ids": ["CE08"], "open_codes": ["仅按长度排序"], "memo": "筛掉奇数长度后只按长度排序，未在等长时按字母序排序。"}
+{"artifact_id": "127", "code_ids": ["CE05"], "open_codes": ["以 n==1 代替判素"], "memo": "把素数判断替换为 n 是否等于 1，绝大多数合数会被返回 x。"}
+{"artifact_id": "128", "code_ids": ["CE11"], "open_codes": ["未排除浮点数"], "memo": "奇偶与正数条件都满足，但未排除非整数；例如正奇数浮点会被计入平方和。"}
+{"artifact_id": "129", "code_ids": ["CE01"], "open_codes": ["pass"], "memo": "函数体只有 pass，未实现强度计算、并列取首项和结果拼接。"}
+{"artifact_id": "130", "code_ids": ["CE05"], "open_codes": ["只判子串"], "memo": "只判 b 是否为 a 的子串，未检查 b 的循环移位。"}
+{"artifact_id": "131", "code_ids": ["CE05"], "open_codes": ["按整数整体奇偶重复计数"], "memo": "每位循环都判断整个 num 的奇偶，而不是当前十进制位；目标谓词被替换，且负数循环一次也不进入。"}
+{"artifact_id": "132", "code_ids": ["CE09"], "open_codes": ["缺少4/9减法组合"], "memo": "罗马数字映射缺少 iv/ix/xl/xc/cd/cm 等减法组合，贪心分解公式不完整。"}
+{"artifact_id": "134", "code_ids": ["CE02"], "open_codes": ["注释中途截断"], "memo": "错误源码在示例注释的单词列表中中途结束，函数体未形成且模块不可解析。"}
+{"artifact_id": "135", "code_ids": ["CE01"], "open_codes": ["pass"], "memo": "函数体只有 pass，未计算总进食量与剩余量。"}
+{"artifact_id": "136", "code_ids": ["CE01"], "open_codes": ["固定返回0"], "memo": "仅有 TODO 注释并固定返回 0，未按运算符与操作数构造表达式。"}
+{"artifact_id": "137", "code_ids": ["CE11"], "open_codes": ["无字母时不反转"], "memo": "全部字符都是非字母时，契约要求返回原串反转；此处直接返回逐字符交换结果，未处理该边界。"}
+{"artifact_id": "138", "code_ids": ["CE03"], "open_codes": ["缺少 hashlib 导入"], "memo": "正常路径调用 hashlib.md5，但模块未导入 hashlib。"}
+{"artifact_id": "139", "code_ids": ["CE11", "CE06"], "open_codes": ["未交换a/b", "未截断到10"], "memo": "当 a>b 时 range 为空，未交换端点；也未把搜索上界限制为 9，10 以上的偶数会误入结果。"}
+{"artifact_id": "141", "code_ids": ["CE06", "CE11"], "open_codes": ["只检查前两对", "短列表越界"], "memo": "只检查下标 0-1 与 2-3 两对，未枚举其余数对；长度不足 4 时还会越界。"}
+{"artifact_id": "142", "code_ids": ["CE05"], "open_codes": ["只匹配三个字面值"], "memo": "把整串作为一个栈元素，只与 \"(\"、\")\"、\")(\" 三个字面值比较；从未按深度切分括号组，目标被替换。"}
+{"artifact_id": "143", "code_ids": ["CE03"], "open_codes": ["precision 未定义"], "memo": "引用未定义变量 precision，正常输入即抛出 NameError；返回式也没有实现 number-int(number) 的小数部分。"}
+{"artifact_id": "145", "code_ids": ["CE05", "CE11"], "open_codes": ["按长度穷举到5", "未累计余额"], "memo": "按长度 0-5 写死若干判断且判据是各项是否为零，完全不是余额；长度 >5 直接 False。"}
+{"artifact_id": "146", "code_ids": ["CE12"], "open_codes": ["对 float 调 .mean"], "memo": "x 是 float，却调用 .mean()；类型不支持该操作，应使用整个列表的均值。"}
+{"artifact_id": "148", "code_ids": ["CE08"], "open_codes": ["奇偶重排", "分隔符加在末尾"], "memo": "先把元素按奇偶下标重排，再把 len-1 个分隔符一次性追加到末尾，元素顺序与插入位置都错。"}
+{"artifact_id": "149", "code_ids": ["CE05", "CE08"], "open_codes": ["数左右括号数而非深度"], "memo": "对每组分别追加 \"(\" 与 \")\" 的计数，既把“最大嵌套深度”替换成括号计数，也使每组产生两个输出。"}
+{"artifact_id": "150", "code_ids": ["CE05"], "open_codes": ["startswith 代替包含"], "memo": "用 startswith 判断前缀，替换了“子串出现在任意位置”的目标谓词。"}
+{"artifact_id": "151", "code_ids": ["CE06", "CE08"], "open_codes": ["只输出一次且重置"], "memo": "只在滚动最大值下标到达末尾时输出一次并重置状态，输出数量与位置都不对。"}
+{"artifact_id": "153", "code_ids": ["CE03"], "open_codes": ["调用未定义 helper"], "memo": "调用未定义的 find_longest_palindrome 与 reverse_palindrome，正常路径抛出 NameError。"}
+{"artifact_id": "155", "code_ids": ["CE05"], "open_codes": ["只处理 a 且返回 bin 前缀"], "memo": "只把 a 转整数并返回其二进制，完全忽略 b 与逐位异或；bin() 还带 \"0b\" 前缀。"}
+{"artifact_id": "157", "code_ids": ["CE05"], "open_codes": ["排序后取最短"], "memo": "按长度升序排序后取首个，返回最短词而非最长词。"}
+{"artifact_id": "159", "code_ids": ["CE05"], "open_codes": ["按空格切分"], "memo": "按空格切分并返回词列表，没有生成原字符串的所有前缀。"}
+{"artifact_id": "161", "code_ids": ["CE13", "CE06"], "open_codes": ["空串连接", "漏掉 n"], "memo": "range(n) 漏掉上界 n，且用空串连接而非空格连接，序列内容与输出格式都不符合契约。"}
+{"artifact_id": "163", "code_ids": ["CE14"], "open_codes": ["未转小写"], "memo": "直接用 set(string) 计不同字符，未先统一大小写；契约要求大小写不敏感。"}
+{"artifact_id": "164", "code_ids": ["CE04"], "open_codes": ["按错误符号边界替换"], "memo": "把 \"o\" 与 \".\" 一律替换成 \"|\"，破坏 \"o|\"、\".|\" 的音符边界；随后没有按 token 映射拍数，也未返回结果。"}
+{"artifact_id": "165", "code_ids": ["CE06"], "open_codes": ["跳过重叠"], "memo": "匹配后每次前进 len(substring)，漏掉重叠出现；契约明确要求统计重叠。"}
+{"artifact_id": "166", "code_ids": ["CE04", "CE13"], "open_codes": ["int 转换英文数字", "空串连接"], "memo": "直接 int() 英文数字串导致 ValueError；且排序后以空串连接，未保留空格分隔。"}
+{"artifact_id": "167", "code_ids": ["CE05"], "open_codes": ["取最小与最大"], "memo": "分别追踪最小与最大，返回全局极值对，而非相邻差最小的一对。"}
+{"artifact_id": "168", "code_ids": ["CE09"], "open_codes": ["乘差值而非除"], "memo": "线性变换应为 (x-min)/(max-min)，实现却乘以 max-min，公式错误。"}
+{"artifact_id": "171", "code_ids": ["CE06", "CE10"], "open_codes": ["while 条件反了"], "memo": "divisor 从 1 开始且 while 条件为 n%divisor==0，循环在首个不整除处停止，状态推进与枚举方向都错。"}
+{"artifact_id": "173", "code_ids": ["CE09"], "open_codes": ["重复 append n", "只试2/3/5"], "memo": "因子分解算法错误：初始与各阶段无条件追加当前 n，且只试 2/3/5；结果含重复复合值与错误乘积。"}
+{"artifact_id": "174", "code_ids": ["CE05"], "open_codes": ["保留首次出现"], "memo": "去重时保留每个值的首次出现，而契约要求删除所有出现次数大于一的元素。"}
+{"artifact_id": "175", "code_ids": ["CE14"], "open_codes": ["只 lower"], "memo": "只把整串转小写，未将大写字符翻成小写、小写字符翻成大写。"}
+{"artifact_id": "176", "code_ids": ["CE11"], "open_codes": ["用 >=0"], "memo": "过滤条件为 x>=0，把 0 也当作正数；契约要求严格大于 0。"}
+{"artifact_id": "177", "code_ids": ["CE05"], "open_codes": ["取系数绝对值"], "memo": "遍历系数并返回最后一个非零系数的绝对值，没有求解 poly(x)=0 的根。"}
+{"artifact_id": "178", "code_ids": ["CE05", "CE06"], "open_codes": ["按值筛3的倍数", "丢弃非目标位置"], "memo": "按元素值而非下标是否被 3 整除来取候选，并只返回该子列表，未在原位置回填排序结果。"}
+{"artifact_id": "180", "code_ids": ["CE05", "CE09"], "open_codes": ["递归分解 n"], "memo": "对 n 做整除递归并返回 n 或递归和，既替换了“统计范围内 7 的数字出现次数”的目标，也没有区间枚举与计数。"}
+{"artifact_id": "181", "code_ids": ["CE05"], "open_codes": ["按值奇偶分组"], "memo": "按元素值奇偶拆成两段再排序拼接，而契约要求按原列表下标的奇偶性重排。"}
+{"artifact_id": "182", "code_ids": ["CE02", "CE09"], "open_codes": ["字符串截断", "解码旋转方向错误"], "memo": "decode_cyclic 的 split 调用在字符串字面量中途截断，模块无法解析；已显示表达式也把字符左旋而非逆向恢复。"}
+{"artifact_id": "183", "code_ids": ["CE05"], "open_codes": ["普通斐波那契递推"], "memo": "实现普通 Fibonacci 递归，未筛出同时为素数的 Fibonacci 项，也未返回第 n 个匹配项。"}
+{"artifact_id": "184", "code_ids": ["CE05"], "open_codes": ["不同元素数 >=3"], "memo": "只检查去重后元素数是否至少为 3，没有检查是否存在三个不同下标的元素之和为 0。"}
+{"artifact_id": "185", "code_ids": ["CE02"], "open_codes": ["常量数组中途截断"], "memo": "源码在超长 car_speeds 列表常量中途结束，模块不可解析；冻结材料没有形成碰撞计数逻辑。"}
+{"artifact_id": "186", "code_ids": ["CE08"], "open_codes": ["append 1 而非逐项+1"], "memo": "只在原列表末尾追加一个 1，未对每个元素加 1；返回元素与长度都错。"}
+{"artifact_id": "187", "code_ids": ["CE05"], "open_codes": ["判不同元素数==2"], "memo": "只检查去重后元素个数是否等于 2，没有检查是否存在两个不同下标元素互为相反数。"}
+{"artifact_id": "188", "code_ids": ["CE12"], "open_codes": ["整除用 / 得 float"], "memo": "x /= base 使 x 变成 float，后续 x % base 得到带小数点的浮点字符串，进制转换结果被破坏。"}
+{"artifact_id": "190", "code_ids": ["CE09", "CE10"], "open_codes": ["n==1 初值错误", "递归而非迭代"], "memo": "n==1 返回 1 而非契约的 0；且用递归实现，违反“不要递归”，缺少 2/3 的初值与迭代状态转移。"}
+{"artifact_id": "193", "code_ids": ["CE09"], "open_codes": ["偶数长度取中间"], "memo": "偶数长度时只返回上中位元素，未取两个中间元素的平均。"}
+{"artifact_id": "195", "code_ids": ["CE09"], "open_codes": ["decode 未减5"], "memo": "decode_shift 只做模 26 回绕，没有从编码字符减去 5，不能逆变换。"}
+{"artifact_id": "196", "code_ids": ["CE05"], "open_codes": ["只比长度"], "memo": "只比较两个字符串长度，未比较其字符集合是否相同。"}
+{"artifact_id": "198", "code_ids": ["CE05"], "open_codes": ["只数括号数量"], "memo": "只比较 \"<\" 与 \">\" 的数量，未按顺序维护深度；如 \"><<>\" 会被误判为真。"}
+{"artifact_id": "199", "code_ids": ["CE05"], "open_codes": ["只判严格递增"], "memo": "只检查严格递增，漏掉单调递减；且相等相邻元素在递减判定中也应允许。"}
+{"artifact_id": "201", "code_ids": ["CE06"], "open_codes": ["从1开始找首个因子"], "memo": "factor 从 1 开始且 while 条件为 n%factor==0，第一次迭代后返回 2 或更早的无关值，未枚举素因子。"}
+{"artifact_id": "202", "code_ids": ["CE05"], "open_codes": ["只数括号数量"], "memo": "开括号与“闭括号”集合都包含 \"(\"，实际仍只比较字符数量，没有检查嵌套顺序。"}
+{"artifact_id": "203", "code_ids": ["CE09"], "open_codes": ["系数与指数颠倒"], "memo": "返回 x**i 而非 xs[i]*i；既未跳过常数项，也把系数与指数关系写错。"}
+{"artifact_id": "205", "code_ids": ["CE03", "CE09"], "open_codes": ["调用未定义 fibfibfib", "n==1 初值错误"], "memo": "递归分支调用未定义的 fibfibfib；且 n<=1 直接返回 n，使 fibfib(1)=1 而非 0，缺少 n==2 的初值。"}
+{"artifact_id": "207", "code_ids": ["CE05"], "open_codes": ["漏 y 规则"], "memo": "只统计 a/e/i/o/u，未实现词尾 y 也计为一个元音的规则。"}
+{"artifact_id": "208", "code_ids": ["CE12"], "open_codes": ["对 int 调 __len__/切片"], "memo": "x 是 int，却调用 x.__len__() 并对 x 切片；正常输入即抛 TypeError。"}
+{"artifact_id": "209", "code_ids": ["CE14"], "open_codes": ["统计所有字符"], "memo": "对所有字符累加 ord，未筛选大写字符，大小写语义错误。"}
+{"artifact_id": "210", "code_ids": ["CE03"], "open_codes": ["调用未定义 helper"], "memo": "两次调用未定义的 fruit_distribution_helper，正常路径抛出 NameError，且没有解析输入或计算芒果数。"}
+{"artifact_id": "211", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有返回或可执行实现。"}
+{"artifact_id": "212", "code_ids": ["CE05"], "open_codes": ["返回最高频元素"], "memo": "返回频次最高的元素，未筛选“频次大于等于元素值”的元素，也未取其中最大者或返回 -1。"}
+{"artifact_id": "214", "code_ids": ["CE05"], "open_codes": ["整体降序排序"], "memo": "只把列表整体降序排列，未实现最小值、剩余最大值交替的 strange order。"}
+{"artifact_id": "216", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有三角形合法性判断、面积公式或返回。"}
+{"artifact_id": "217", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有判断回文与重量和。"}
+{"artifact_id": "218", "code_ids": ["CE06"], "open_codes": ["遍历全部而非一半"], "memo": "遍历全部下标比较对称位置，每对失配被计两次，应只遍历前半部分。"}
+{"artifact_id": "219", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有比较两列表总字符数或返回列表。"}
+{"artifact_id": "220", "code_ids": ["CE05"], "open_codes": ["a<100 且 3 的倍数"], "memo": "只判断 a<100 且能被 3 整除，未检查 a 是否能分解为三个素数之积。"}
+{"artifact_id": "221", "code_ids": ["CE05"], "open_codes": ["只判整除"], "memo": "只判断 x % n == 0，把“x 是 n 的整数次幂”替换成“x 能被 n 整除”。"}
+{"artifact_id": "222", "code_ids": ["CE05"], "open_codes": ["正偶数判据"], "memo": "只判断 a>0 且为偶数，把“整数立方”替换成无关的正偶数谓词。"}
+{"artifact_id": "223", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有统计十六进制素数数字。"}
+{"artifact_id": "224", "code_ids": ["CE05"], "open_codes": ["十进制串加 db"], "memo": "只把十进制数字转字符串并在末尾追加 db，没有二进制转换，也没有前置 db。"}
+{"artifact_id": "226", "code_ids": ["CE05", "CE09"], "open_codes": ["字符自比较恒真", "未比较相邻三位"], "memo": "letter == letter 恒真使 count 只增不减；未检查任意连续三位是否互异，最终判定式与目标关系不成立。"}
+{"artifact_id": "227", "code_ids": ["CE12", "CE05"], "open_codes": ["对 list 做布尔索引", "阈值映射错误"], "memo": "对 Python list 使用布尔数组索引赋值会抛 TypeError；即便可执行，条件顺序与 GPA 阈值表也不匹配。"}
+{"artifact_id": "228", "code_ids": ["CE05"], "open_codes": ["数位数"], "memo": "返回 n 的十进制位数，未统计以 1 开头或结尾的 n 位正整数个数。"}
+{"artifact_id": "229", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有数位和或二进制返回。"}
+{"artifact_id": "230", "code_ids": ["CE05"], "open_codes": ["未筛选偶数"], "memo": "只对奇数下标元素求和，未筛选其中值为偶数的元素。"}
+{"artifact_id": "231", "code_ids": ["CE02", "CE05"], "open_codes": ["源码截断", "过滤代替词内排序"], "memo": "源码在 words 列表推导中途结束，模块不可解析；可见逻辑反复过滤标点与数字，没有按 ASCII 排序每个词内部字符，也未保留空格。"}
+{"artifact_id": "232", "code_ids": ["CE05"], "open_codes": ["排序元组后相邻配对"], "memo": "把二维列表排序后 zip 相邻行，输出相邻元组对，没有搜索 x 并返回其 (行, 列) 坐标。"}
+{"artifact_id": "233", "code_ids": ["CE01"], "open_codes": ["固定复制前64项且无返回"], "memo": "只把 array[0] 到 array[63] 逐项 append 到新列表，随后结束；既未按首尾和选择升降序，也没有返回结果。"}
+{"artifact_id": "234", "code_ids": ["CE12", "CE05"], "open_codes": ["返回函数对象", "未移位字母"], "memo": "外层函数定义并返回内部函数对象而非加密字符串；内部函数把单字符按 alphabet.index 原样取回，未按 +4 移位。"}
+{"artifact_id": "235", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有找第二小元素或返回 None。"}
+{"artifact_id": "236", "code_ids": ["CE04"], "open_codes": ["只按句点切分"], "memo": "只用 \".\" 切分句子，未把 \"?\" 与 \"!\" 也当作句界，导致句子边界解析不完整。"}
+{"artifact_id": "237", "code_ids": ["CE12"], "open_codes": ["对 int 调 zip", "误用 is 与和判据"], "memo": "对整数 x、y、z 调用 zip 会抛 TypeError；即便可迭代，使用 is 比较对象身份也不能实现“一个数等于另两数之和”。"}
+{"artifact_id": "238", "code_ids": ["CE02", "CE01"], "open_codes": ["源码截断", "无编码实现"], "memo": "源码在 message 的 replace 链中途截断，模块不可解析；可见部分只转小写并反复删标点，没有大小写交换、元音后移或保留空格。"}
+{"artifact_id": "239", "code_ids": ["CE01", "CE05"], "open_codes": ["筛偶数后逐个删值", "无判素"], "memo": "先保留偶数，再逐项删除 0 到 41，未检查素数、未取最大素数，也未求数位和。"}
+{"artifact_id": "240", "code_ids": ["CE05", "CE11"], "open_codes": ["大小写双存在代替统一大小写", "空字典返回True"], "memo": "要求每个字符串键的大小写形式都同时存在，替换了“所有键同为小写或同为全大写”的谓词；空字典也返回 True。"}
+{"artifact_id": "242", "code_ids": ["CE02", "CE01"], "open_codes": ["源码截断", "硬编码素数表无返回"], "memo": "源码在 primes.append(119 处截断，模块不可解析；可见部分只硬编码递增表，没有按 n 生成素数或返回结果。"}
+{"artifact_id": "243", "code_ids": ["CE05", "CE09"], "open_codes": ["阶乘式累乘"], "memo": "对 a 与 b 分别做递减累乘，计算的是阶乘式乘积，未取两者个位数字再相乘。"}
+{"artifact_id": "244", "code_ids": ["CE14", "CE06"], "open_codes": ["只统计大写", "漏偶数下标约束"], "memo": "只统计 A/E/I/O/U 元音，但遍历全部下标，未限定偶数下标；字符语义与候选覆盖都不完整。"}
+{"artifact_id": "245", "code_ids": ["CE13"], "open_codes": ["返回 lambda"], "memo": "直接返回 lambda 对象，未解析输入字符串并返回整数，输出类型违反契约。"}
+{"artifact_id": "246", "code_ids": ["CE05"], "open_codes": ["返回 0..n-1"], "memo": "返回 0 到 n-1，而契约要求从 n 起按奇偶性每次加 2 生成 n 个层级。"}
+{"artifact_id": "248", "code_ids": ["CE04"], "open_codes": ["只按逗号切分"], "memo": "只按逗号切分再 strip，未把空格也作为词边界；空格分隔的输入会保留为一个整体。"}
+{"artifact_id": "249", "code_ids": ["CE05"], "open_codes": ["返回 x//2"], "memo": "x 为偶数时返回 x//2，而不是区间 [x,y] 内最大偶数；也未使用 y 或处理 x>y。"}
+{"artifact_id": "250", "code_ids": ["CE05"], "open_codes": ["返回 n 的二进制补零"], "memo": "返回 n 的二进制并按位数补零，未求 [n,m] 平均值、四舍五入或返回 -1。"}
+{"artifact_id": "251", "code_ids": ["CE05"], "open_codes": ["保留含偶数位的数"], "memo": "保留 num 本身为偶数的元素，而契约要求保留十进制表示中不含任何偶数数字的元素，方向相反。"}
+{"artifact_id": "252", "code_ids": ["CE13", "CE05"], "open_codes": ["转成字符串"], "memo": "排序反转后把数字转成字符串，未过滤 1..9 以外的值，也未映射为英文单词。"}
+{"artifact_id": "254", "code_ids": ["CE05"], "open_codes": ["只算阶乘"], "memo": "对每个 i 只计算阶乘，未按 i 的奇偶交替计算阶乘与 1..i 的累加和。"}
+{"artifact_id": "258", "code_ids": ["CE02"], "open_codes": ["append 中途截断"], "memo": "源码在 odd_palindromes.append( 中途结束，模块不可解析；可见部分只反复追加 n，没有回文判定与计数。"}
+{"artifact_id": "259", "code_ids": ["CE05"], "open_codes": ["数正整数"], "memo": "统计大于 0 的元素个数，未按含符号的首位数字计算数位和并判断其是否大于 0。"}
+{"artifact_id": "261", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有判断循环右移能否得到非降序。"}
+{"artifact_id": "262", "code_ids": ["CE05"], "open_codes": ["逐位奇偶比较"], "memo": "逐位要求两列表奇偶性一致；契约只要求 lst1 的奇数元素个数不超过 lst2 的偶数元素个数。"}
+{"artifact_id": "263", "code_ids": ["CE02", "CE05"], "open_codes": ["源码截断", "集合运算代替频次"], "memo": "源码在 letters_frequency. 中途截断，模块不可解析；可见部分对 set 调用 count/intersection，没有统计各字母出现次数或取最大频次。"}
+{"artifact_id": "264", "code_ids": ["CE05", "CE14"], "open_codes": ["先反转再替换", "用结果与c比较"], "memo": "先把 s 与 c 反转，再用 c 作为子串从 s 中 replace，随后把 s 与 c 比较；既未删除 c 中任意字符，也未检查结果是否回文。"}
+{"artifact_id": "265", "code_ids": ["CE05"], "open_codes": ["数位数而非奇数个数"], "memo": "统计每串数字字符总数，未统计奇数值数字的个数，也未套用要求的输出模板。"}
+{"artifact_id": "267", "code_ids": ["CE05"], "open_codes": ["取最小元素"], "memo": "返回数组最小元素，目标被替换。"}
+{"artifact_id": "269", "code_ids": ["CE01"], "open_codes": ["只有import与docstring"], "memo": "函数体只有 import math 和 docstring，没有计算每行水量所需的桶次数。"}
+{"artifact_id": "270", "code_ids": ["CE05"], "open_codes": ["改写计数且无排序返回"], "memo": "调用未提供的 count_ones 后反复对计数调用 bit_length，既未按二进制 1 的个数排序，也没有形成或返回排序结果。"}
+{"artifact_id": "271", "code_ids": ["CE05"], "open_codes": ["以单词长度代替辅音数"], "memo": "只筛选长度等于 n 的词，计算的是字符数而非辅音个数，目标谓词被替换。"}
+{"artifact_id": "272", "code_ids": ["CE05"], "open_codes": ["分串后反复strip", "未返回"], "memo": "把元音与非元音分到两个串后反复 strip，未检查夹在两个辅音之间的元音，也没有返回任何查找结果。"}
+{"artifact_id": "273", "code_ids": ["CE05", "CE06"], "open_codes": ["按长度与首字符写死"], "memo": "按列表长度和首字符写死返回，未尝试两种拼接顺序，也未做括号深度校验。"}
+{"artifact_id": "274", "code_ids": ["CE05"], "open_codes": ["按长度/k关系取中间段"], "memo": "按长度与 k 的关系返回排序数组的中间段或整段，未取最大的 k 个元素并升序返回。"}
+{"artifact_id": "275", "code_ids": ["CE12"], "open_codes": ["列表作list索引"], "memo": "odd_positions 是列表，却用作 lst[...] 的索引；类型不支持，正常输入即抛 TypeError。"}
+{"artifact_id": "276", "code_ids": ["CE06", "CE05"], "open_codes": ["遍历整个数组", "未筛两位数"], "memo": "循环遍历整个 arr 而非前 k 项，且在 i%k==0 时额外加 arr[i]；未按十进制位数不超过两位筛选元素。"}
+{"artifact_id": "277", "code_ids": ["CE01"], "open_codes": ["硬编码append常量"], "memo": "只反复 append 1 与 n 的常量序列，没有生成 Collatz 迭代、筛选奇数或排序。"}
+{"artifact_id": "278", "code_ids": ["CE11"], "open_codes": ["月份天数未区分", "未校验格式"], "memo": "只校验 month 1..12、day 1..31 与 year>=1900，未按月份使用 30/29 天上界，也未校验 mm-dd-yyyy 的定长数字格式。"}
+{"artifact_id": "280", "code_ids": ["CE05"], "open_codes": ["筛奇数长度词"], "memo": "先按空白切分后只保留奇数长度且长度>1 的词；未在无空白时按逗号切分，也未统计奇数位小写字母。"}
+{"artifact_id": "281", "code_ids": ["CE05"], "open_codes": ["要求严格递增", "未检查重复次数"], "memo": "用严格小于检查相邻元素，既拒绝合法的单个重复，也未实现“同一值重复超过一次则 False”的独立规则。"}
+{"artifact_id": "282", "code_ids": ["CE12", "CE05"], "open_codes": ["对tuple调sort", "集合交集代替区间"], "memo": "对区间元组调用 .sort() 会抛 AttributeError；且以端点集合交集大小代替闭区间交叠长度与素性判断。"}
+{"artifact_id": "283", "code_ids": ["CE05", "CE12"], "open_codes": ["对下标生成符号", "只求和"], "memo": "对 range(len(arr)) 的整数下标生成符号列表并求和，既未使用数组元素值，也未乘各元素绝对值。"}
+{"artifact_id": "284", "code_ids": ["CE02", "CE05"], "open_codes": ["源码截断", "逐格追加而非路径"], "memo": "源码在 ans.append(grid 中途截断，模块不可解析；可见部分从 grid[0][0] 起连续追加单元格，没有搜索长度 k 的字典序最小路径。"}
+{"artifact_id": "285", "code_ids": ["CE06", "CE09"], "open_codes": ["递归关系错误", "tri(n+1)自递归"], "memo": "偶数项与奇数项的递推均未按契约实现；奇数项调用 tri(n+1) 造成无限递归，初值与返回结构也不对。"}
+{"artifact_id": "287", "code_ids": ["CE05"], "open_codes": ["2..n乘积"], "memo": "返回 2 到 n 的连乘，未提取 n 的十进制奇数位并求积，也未在全偶数时返回 0。"}
+{"artifact_id": "288", "code_ids": ["CE05"], "open_codes": ["正则嵌套判定错误"], "memo": "用非贪婪正则抽取短括号段并递归调用自身，只判断是否存在含括号的片段，未搜索合法子序列中的嵌套层级。"}
+{"artifact_id": "289", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有向上取整、平方或求和。"}
+{"artifact_id": "290", "code_ids": ["CE02", "CE05"], "open_codes": ["字符串字面量截断", "末字符判据不完整"], "memo": "源码在 txt[-1] not in \" 的字符串字面量中途截断，模块不可解析；可见判据只检查末字符是否字母，缺少前一字符为空格及空串处理。"}
+{"artifact_id": "291", "code_ids": ["CE02", "CE05"], "open_codes": ["源码截断", "排序改变下标语义"], "memo": "源码在 prev = 处截断，模块不可解析；可见部分先排序再判断递增，破坏了“返回原数组中不大于前项的最大下标”的目标。"}
+{"artifact_id": "292", "code_ids": ["CE05"], "open_codes": ["按数量返回列表"], "memo": "比较正数与负数列表长度并返回其中一个列表，未取最大负数和最小正数，也未返回标量元组。"}
+{"artifact_id": "293", "code_ids": ["CE02", "CE05"], "open_codes": ["源码截断", "返回比较器"], "memo": "源码在 a.__ 属性访问中途截断，模块不可解析；可见分支返回 lambda 比较器，未把逗号小数解析为数值并返回较大原值。"}
+{"artifact_id": "294", "code_ids": ["CE05"], "open_codes": ["阈值写成4"], "memo": "判断条件为 n>=4 且 n 为偶数；四个正偶数的最小和是 8，因此 n=4、6 会被误判为真。"}
+{"artifact_id": "295", "code_ids": ["CE09"], "open_codes": ["递归成普通阶乘"], "memo": "递归式写成 n*F(n-1)，计算的是普通阶乘；巴西阶乘要求累乘每个 k!。"}
+{"artifact_id": "296", "code_ids": ["CE05"], "open_codes": ["所有空白统一为下划线"], "memo": "用 \\s+ 把任意连续空白都替换成单个下划线，未实现“2 个及以下用下划线、3 个及以上用连字符”的分级规则。"}
+{"artifact_id": "298", "code_ids": ["CE05", "CE13"], "open_codes": ["正则规则不符", "返回match对象"], "memo": "正则要求恰好三位数字开头和两位字母扩展名，与数字个数、单点、首字母及 txt/exe/dll 规则不符；且返回 match 对象而非 \"Yes\"/\"No\"。"}
+{"artifact_id": "300", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有按索引平方/立方并求和。"}
+{"artifact_id": "301", "code_ids": ["CE05", "CE12"], "open_codes": ["递归传float", "未做分数乘法"], "memo": "递归把 numerator/denominator 的 float 作为 x 传回自身，下一次 x.split 抛 AttributeError；且没有计算 x 与 n 的乘积或整除性。"}
+{"artifact_id": "302", "code_ids": ["CE12", "CE05"], "open_codes": ["对list调str后逐字符"], "memo": "把整个 list 转成字符串后逐字符 int()，既未逐元素计算数位和，也把列表当可迭代字符串处理，返回类型与目标都错。"}
+{"artifact_id": "303", "code_ids": ["CE05"], "open_codes": ["只判整体偶数"], "memo": "只统计大于 10 且整体为偶数的元素，未检查十进制首位和末位是否都为奇数。"}
+{"artifact_id": "305", "code_ids": ["CE09"], "open_codes": ["三重循环条件公式错误"], "memo": "三重循环内重复使用 i*i-j+k%3 作为判定，未构造 a[i]=i*i-i+1，也未检查三项之和模 3。"}
+{"artifact_id": "306", "code_ids": ["CE01"], "open_codes": ["只做大小写转换且无返回"], "memo": "只把两个行星名转小写再转大写，没有查找轨道区间、返回元组或处理非法名称。"}
+{"artifact_id": "307", "code_ids": ["CE05"], "open_codes": ["保留全部词并按字典序"], "memo": "先字典序排序，再把奇偶长度词都加入结果；未删除奇数长度词，也未按长度优先、等长字母序排序。"}
+{"artifact_id": "308", "code_ids": ["CE05"], "open_codes": ["以 n%x==0 代替判素"], "memo": "用 n 是否能被参数 x 整除决定返回 x 或 y，与 n 是否为素数无关，分支返回值也与契约相反。"}
+{"artifact_id": "309", "code_ids": ["CE05"], "open_codes": ["奇偶分支都加平方"], "memo": "对奇数和偶数元素都累加平方，且未排除负数与非整数；实际计算的是全列表平方和。"}
+{"artifact_id": "310", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有计算逐场猜测的绝对误差。"}
+{"artifact_id": "311", "code_ids": ["CE02", "CE01"], "open_codes": ["源码截断", "反复类型转换"], "memo": "源码在 extensions = map( 中途截断，模块不可解析；可见部分只反复做 upper/lower/int/str 映射，没有计算 CAP-SM 或选择最强扩展。"}
+{"artifact_id": "312", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有检查 b 的任意循环移位是否为 a 的子串。"}
+{"artifact_id": "313", "code_ids": ["CE09", "CE10"], "open_codes": ["按二进制位累加", "even初值为1"], "memo": "循环按二进制右移并分别累加位值，目标应是十进制数字位；even 初值为 1，计数基准也错。"}
+{"artifact_id": "316", "code_ids": ["CE05"], "open_codes": ["返回十进制数字串"], "memo": "对 1..999 直接返回十进制数字的字符串，未构造罗马数字；1000 以上分支还引用未定义的循环变量 i。"}
+{"artifact_id": "318", "code_ids": ["CE09"], "open_codes": ["绝对差链式比较"], "memo": "只比较三边两两绝对差的大小关系，未检查任一边平方等于另两边平方和。"}
+{"artifact_id": "319", "code_ids": ["CE12", "CE05"], "open_codes": ["对dict调sort", "统计词频而非唯一字符"], "memo": "word_count 是 dict，调用 .sort 会抛 AttributeError；且统计的是去重后词频，不是每个词的唯一字符数。"}
+{"artifact_id": "320", "code_ids": ["CE01"], "open_codes": ["空实现"], "memo": "函数体除 docstring 外只有空白行，没有计算进食总数与剩余量。"}
+{"artifact_id": "321", "code_ids": ["CE01", "CE05"], "open_codes": ["remove/append常量", "无返回"], "memo": "反复 remove 运算符并 append 大量 \"**\"，既没有按 operator/operand 构造表达式，也没有求值或返回。"}
+{"artifact_id": "322", "code_ids": ["CE11", "CE14"], "open_codes": ["只把小写字母转大写", "无字母时不反转"], "memo": "遍历时仅识别小写字母并转大写，未把大写字母转回小写；且缺少“无字母时反转整串”的分支，无字母输入直接原样返回。"}
+{"artifact_id": "323", "code_ids": ["CE03", "CE11"], "open_codes": ["缺少 hashlib 导入", "未处理空串"], "memo": "调用 hashlib 但未导入；同时缺少空字符串返回 None 的分支，空串会继续做 md5 而非返回 None。"}
+{"artifact_id": "325", "code_ids": ["CE05"], "open_codes": ["取 a 的数位"], "memo": "把 a 的数位倒序返回，未按 a..b 区间生成偶数，目标被替换。"}
+{"artifact_id": "328", "code_ids": ["CE05"], "open_codes": ["保留首次出现"], "memo": "实现保留了每个值的首次出现，而契约要求删除所有出现不止一次的值；去重谓词被替换。"}
+{"artifact_id": "329", "code_ids": ["CE09"], "open_codes": ["按二次方程解任意多项式"], "memo": "把最高次项当二次项、把中间系数和当一次项，套二次方程求根公式；任意次多项式求根的方法不成立。"}
+{"artifact_id": "330", "code_ids": ["CE05", "CE08"], "open_codes": ["每数最多计一次", "数字出现次数未累计"], "memo": "契约要求统计数字 7 在各数中的出现次数；实现用 in 判断后只加 1，多个 7 的数被按出现一次计，目标粒度与重数都错。"}
+{"artifact_id": "331", "code_ids": ["CE05", "CE09"], "open_codes": ["离散模拟位置相等", "碰撞判定模型不符"], "memo": "用离散位置列表逐时刻模拟并以位置相等计碰撞，未建模相向穿越；结果目标与运动模型均不符。"}
+{"artifact_id": "334", "code_ids": ["CE09", "CE10"], "open_codes": ["起始轮次为3", "状态推进顺序错"], "memo": "n=3 已由 else 分支进入循环并从 3 开始推进，且 a,b,c,d 的更新顺序未把新 d 正确移入状态，递推起点与状态转移均错。"}
+{"artifact_id": "339", "code_ids": ["CE09", "CE10"], "open_codes": ["初值错", "状态更新错"], "memo": "n=1 与 n=2 都返回 1，初始三元组写成 (1,1,0)；循环中先覆盖 c 再移入 a，状态更新链与契约递推不一致。"}
+{"artifact_id": "342", "code_ids": ["CE02"], "open_codes": ["docstring中途截断"], "memo": "错误源码在 docstring 的示例说明中途结束，字符串与函数块均未闭合，模块无法解析，也没有可执行主体。"}
+{"artifact_id": "343", "code_ids": ["CE06", "CE11"], "open_codes": ["枚举上界截断", "未处理n<=1与负指数"], "memo": "只枚举 2..int(x**(1/n))，浮点开方与截断会漏掉真实底数；n 为 0、1、负数及负 x 的幂语义也未处理。"}
+{"artifact_id": "344", "code_ids": ["CE05"], "open_codes": ["数位逐位转二进制后相加"], "memo": "把每个十进制数字分别转成二进制数值再相加，而不是先把十进制数位求和再输出该和的二进制，计算目标被替换。"}
+{"artifact_id": "346", "code_ids": ["CE08"], "open_codes": ["两轮排序次序错"], "memo": "先按行排序再按列逆序排序，第二次排序覆盖了行序，返回坐标不再按行升序、行内列降序。"}
+{"artifact_id": "348", "code_ids": ["CE06", "CE08"], "open_codes": ["三种分隔符分别切分后拼接", "句子重复计数"], "memo": "把按 .、?、! 分别切分的三个列表直接相加，同一句子在未含其他分隔符时被重复计数，句子集合覆盖错误。"}
+{"artifact_id": "349", "code_ids": ["CE09", "CE14"], "open_codes": ["元音+2未回绕", "元音分支未交换大小写"], "memo": "元音分支直接 chr(ord+2)，未按字母表回绕且未交换大小写；非元音才交换大小写，字符变换规则不完整。"}
+{"artifact_id": "350", "code_ids": ["CE09"], "open_codes": ["abs 抹掉符号"], "memo": "用 abs(a%10*b%10) 抹掉个位积的符号；契约要求按字符串末位取数，负数应保留乘积符号。"}
+{"artifact_id": "351", "code_ids": ["CE09"], "open_codes": ["奇数层偏移-1"], "memo": "n 为奇数时每层用 n+2*i-1，首层之后都少 1，未按 n,n+2,... 生成。"}
+{"artifact_id": "352", "code_ids": ["CE04"], "open_codes": ["先按逗号空格再按空格切分"], "memo": "只用 \", \" 作为首层分隔符，随后按单空格二次切分；纯逗号、连续空格和空串边界处理不成立。"}
+{"artifact_id": "353", "code_ids": ["CE05"], "open_codes": ["对区间求和后平均"], "memo": "对 n..m 全部整数求和后除以个数，计算的是区间算术平均；契约只取两端 n 与 m 的平均。"}
+{"artifact_id": "354", "code_ids": ["CE05"], "open_codes": ["abs 后求数位和"], "memo": "对 abs(num) 求数位和，未把负数的首位作为负值，负数数位和的目标语义被替换。"}
+{"artifact_id": "355", "code_ids": ["CE02"], "open_codes": ["docstring中途截断"], "memo": "错误源码在 docstring 的示例说明中途结束，字符串和函数块均未闭合，模块无法解析；没有可执行实现可供进一步归因。"}
+{"artifact_id": "356", "code_ids": ["CE03", "CE05"], "open_codes": ["只保留最高频字母", "result[letter]=c未定义c"], "memo": "实现只把最高频字母写入结果，而契约要求返回所有最高频字母及计数；且赋值右侧使用未定义变量 c，正常路径会 NameError。"}
+{"artifact_id": "357", "code_ids": ["CE13"], "open_codes": ["模板占位符未替换"], "memo": "输出模板写成固定句子，只把奇数个数放进一个槽位；契约要求模板中每个 i 都被奇数个数替换，最终字符串格式不符。"}
+{"artifact_id": "358", "code_ids": ["CE05"], "open_codes": ["按正数最小子段处理"], "memo": "先累加再与 0 截断，实际求的是普通最大子段和的镜像式扫描；对全正数会返回整段和或首个元素之外的量，最小子段和的目标被替换。"}
+{"artifact_id": "359", "code_ids": ["CE05"], "open_codes": ["全局总水量一次除容量"], "memo": "把整个网格总水量一次除以容量再向上取整，未按每一行/井分别装桶求和，装桶次数目标被替换。"}
+{"artifact_id": "361", "code_ids": ["CE08"], "open_codes": ["降序取前k"], "memo": "原地降序排序后取前 k，得到最大 k 个元素但按降序返回；契约要求返回升序列表。"}
+{"artifact_id": "362", "code_ids": ["CE05"], "open_codes": ["遍历奇数下标"], "memo": "range(1, len(lst), 2) 取的是奇数下标，契约要求偶数位置，候选集合被替换。"}
+{"artifact_id": "363", "code_ids": ["CE05"], "open_codes": ["只累加两位正整数"], "memo": "条件 10<=x<=99 只纳入两位正整数，排除个位数；契约要求前 k 个中至多两位的数字，包括 0 和负的一位数。"}
+{"artifact_id": "364", "code_ids": ["CE11"], "open_codes": ["2月固定29日", "格式校验非定长"], "memo": "正则未锚定且未检查定长数字字段，日期尾部可夹带其他字符；2 月固定允许 29 日而不区分闰年，year<1 的判据也与契约无关。"}
+{"artifact_id": "365", "code_ids": ["CE09"], "open_codes": ["ord(char)%2"], "memo": "用 ord(char)%2 判奇偶，实际检查的是 ASCII 码值，而契约要求 (ord(ch)-ord(\"a\"))%2，字符序号被替换。"}
+{"artifact_id": "366", "code_ids": ["CE05", "CE07"], "open_codes": ["要求无任何重复", "升序检查含等值失败"], "memo": "重复约束被替换成“任意值最多出现一次”，而非“最多重复一次”；升序检查用 >=，两个相同相邻值也会提前返回 False。"}
+{"artifact_id": "367", "code_ids": ["CE02", "CE05"], "open_codes": ["源码在if后截断", "未完成交集与素数判断"], "memo": "错误源码在 if start > end: 后缺少缩进块并直接结束，模块无法解析；可见部分仅算交集端点，未求长度或判断素数。"}
+{"artifact_id": "368", "code_ids": ["CE05", "CE10"], "open_codes": ["逐点最小邻居代替路径字典序", "全局visited禁止重访"], "memo": "把整条路径的值序列字典序最小替换为逐点最小邻居选择；全局 visited 还禁止合法重访，路径状态与目标均不成立。"}
+{"artifact_id": "370", "code_ids": ["CE09", "CE10"], "open_codes": ["奇数项索引未生成元素", "初始项与偶数项公式错"], "memo": "n=0 返回空列表、n=1 只返回 [3]，初始项不符合 [1,3]；奇数项访问尚未生成的 seq[i+1]，偶数项也未按 1+i/2 生成。"}
+{"artifact_id": "373", "code_ids": ["CE05"], "open_codes": ["栈残留量当嵌套判据"], "memo": "只比较栈长度与原串长度，未检查是否存在深度至少 2 的合法子序列；括号平衡的中间状态被当成嵌套目标。"}
+{"artifact_id": "375", "code_ids": ["CE08"], "open_codes": ["返回i-1"], "memo": "发现 arr[i] < arr[i-1] 时返回 i-1，契约要求返回该元素下标 i；结果位置偏移。"}
+{"artifact_id": "376", "code_ids": ["CE11", "CE13"], "open_codes": ["混合类型直接返回None", "字符串比较后返回原字符串"], "memo": "类型不同就直接返回 None，未把 int/float/数字字符串统一按数值比较；字符串分支比较后返回已替换逗号的字符串，也改变了原值表示。"}
+{"artifact_id": "377", "code_ids": ["CE05", "CE07"], "open_codes": ["三重循环判据恒真", "未构造四个正偶数"], "memo": "循环只枚举 i,j,k 后用 n-i-j-k 补齐，再比较其和恒等于 n，没有检查四个部分均为正偶数；目标谓词被替换。"}
+{"artifact_id": "379", "code_ids": ["CE05"], "open_codes": ["字符类正则", "扩展名不匹配"], "memo": "正则把扩展名写成字符类 [txt|exe|dll]{3}，会接受任意由这些字母和竖线组成的三字符后缀，未按 txt/exe/dll 枚举。"}
+{"artifact_id": "380", "code_ids": ["CE05"], "open_codes": ["abs 后求数位和", "并列时用index取首现"], "memo": "对 abs(num) 求数位和，未把负数的首位作为负值；并列时又用 nums.index(num) 取首次位置，未按原列表逐项稳定排序。"}
+{"artifact_id": "382", "code_ids": ["CE09"], "open_codes": ["平方和整体乘2"], "memo": "筛选与平方累加正确，但最后把平方和整体乘 2，数值公式与契约不符。"}
+{"artifact_id": "385", "code_ids": ["CE09"], "open_codes": ["负数时计数取负"], "memo": "对 abs(num) 统计后，在负数时把两个计数都乘 -1，契约要求按数字字符计数并保持非负计数。"}
+{"artifact_id": "386", "code_ids": ["CE05"], "open_codes": ["把已吃与库存相加"], "memo": "先算 number+remaining，再把 need 当作已吃总量并据此回填剩余，未按 need 与 remaining 的分支计算实际进食量与余量，目标量被替换。"}
+{"artifact_id": "387", "code_ids": ["CE09"], "open_codes": ["逐运算符左结合求值"], "memo": "按输入顺序逐项左结合计算，未构造完整表达式并遵循乘方、乘除、加减优先级；且除法分支写成 // 而契约运算符是 /。"}
+{"artifact_id": "388", "code_ids": ["CE05", "CE11"], "open_codes": ["收集各数偶数数位", "未交换a/b且未限0-9"], "memo": "遍历 a..b 内每个整数的十进制位并收集偶数位，得到的是数位集合而非区间内的偶数；a>b 未交换端点，也未把范围限制在 0..9。"}
+{"artifact_id": "393", "code_ids": ["CE06", "CE09"], "open_codes": ["区间扩张无终止保证", "二分法未保证端点异号"], "memo": "以 ±100 步长无限扩张区间，只有端点乘积变号才停止；对无实根或端点乘积始终同号的输入不终止，二分法也未验证区间夹根。"}
+{"artifact_id": "399", "code_ids": ["CE02"], "open_codes": ["docstring中途截断"], "memo": "错误源码在 docstring 的示例说明中途结束，字符串与函数块均未闭合，模块无法解析，也没有可执行主体。"}
+{"artifact_id": "400", "code_ids": ["CE07"], "open_codes": ["相等时返回lst2"], "memo": "字符总数相等时走 else 返回 lst2，契约明确要求返回 lst1；相等分支条件错误。"}
+{"artifact_id": "401", "code_ids": ["CE06", "CE09"], "open_codes": ["因子只除一次", "重复因子计数不足"], "memo": "枚举到原 a 的静态上界且每个素因子只整除一次，像 8=2*2*2 的重复因子不会被累计；因子覆盖与重数都不完整。"}
+{"artifact_id": "403", "code_ids": ["CE09"], "open_codes": ["n=1返回2", "计数公式错误"], "memo": "n=1 时错误返回 2；n>1 的公式 2*10^(n-1)-10^(n-2) 也不等于契约的 18*10^(n-2)，数值公式错误。"}
+{"artifact_id": "405", "code_ids": ["CE05"], "open_codes": ["对二进制位求和"], "memo": "把 N 转成二进制后对该二进制串的位求和，未先求十进制数位和，计算目标被替换。"}
+{"artifact_id": "406", "code_ids": ["CE03", "CE09"], "open_codes": ["startswith I 未要求空格", "re未导入"], "memo": "用 startswith(\"I\") 会把以 It 等词开头的句子误计，契约要求以单词 I 开头；且 re.split 使用未导入的 re，正常路径会 NameError。"}
+{"artifact_id": "408", "code_ids": ["CE14"], "open_codes": ["元音分支未交换大小写"], "memo": "元音分支只做字母表前移 2 位并保留原大小写，未再交换大小写；契约要求所有字母先交换大小写，再替换元音。"}
+{"artifact_id": "410", "code_ids": ["CE09"], "open_codes": ["最低位当首位取负"], "memo": "从最低位开始循环，并把最先遇到的个位当作首位取负；负数的首位应是最高位，取负位置错误。"}
+{"artifact_id": "411", "code_ids": ["CE05"], "open_codes": ["相邻逆序数代替轮转可排序性"], "memo": "只统计相邻逆序并检查局部端点，没有验证数组是否为某个有序数组的循环移位；判据被替换。"}
+{"artifact_id": "412", "code_ids": ["CE05"], "open_codes": ["全局总水量一次除容量"], "memo": "统计整个网格的 1 的总数后一次除以容量，未按每一行分别向上取整再求和。"}
+{"artifact_id": "413", "code_ids": ["CE08"], "open_codes": ["降序取前k"], "memo": "原地降序排序后取前 k，元素集合正确但返回顺序为降序；契约要求升序。"}
+{"artifact_id": "415", "code_ids": ["CE06", "CE09"], "open_codes": ["只比较路径末位", "全局最优在DFS中丢失"], "memo": "DFS 只用 path[-1] 比较候选，未按完整路径值序列字典序比较；递归也未保留跨分支最优，路径选择错误。"}
+{"artifact_id": "416", "code_ids": ["CE05"], "open_codes": ["栈判据返回布尔"], "memo": "用“曾出现嵌套且最终栈为空”作为判据，未按契约枚举合法子序列；对 [][ ] 等合法括号对和可嵌套子序列的区分被替换。"}
+{"artifact_id": "418", "code_ids": ["CE07"], "open_codes": ["12的倍数进入立方分支"], "memo": "条件写成 i%3==0 and i%4!=0，索引 12、24 等同时为 3 和 4 的倍数时落入 elif i%4==0 被立方；契约要求 3 的倍数一律平方。"}
+{"artifact_id": "420", "code_ids": ["CE05"], "open_codes": ["abs后求数位和", "并列用index取首现"], "memo": "对 abs(num) 求数位和，未把负数首位作为负值；并列时用 nums.index 取首次位置，不按原列表逐项稳定排序。"}
+{"artifact_id": "422", "code_ids": ["CE09"], "open_codes": ["逐运算符左结合求值"], "memo": "按输入顺序左结合求值，未构造完整表达式并遵循乘方、乘除、加减优先级；除法分支写成 // 而契约运算符是 /。"}
+{"artifact_id": "423", "code_ids": ["CE11"], "open_codes": ["未截断上界10"], "memo": "只交换端点后遍历 a..b，未把上界限制为 9；a..b 含 10 以上时会返回两位数，而契约只允许数字 0..9。"}
+{"artifact_id": "424", "code_ids": ["CE07"], "open_codes": ["比较方向反了"], "memo": "用 abs 差 > threshold 判为接近，比较方向相反，把相距较远的一对误判为接近。"}
+{"artifact_id": "425", "code_ids": ["CE04"], "open_codes": ["按右括号切分"], "memo": "用 split(\")\") 切分，右括号被当作分隔符丢失，无法保留括号组边界与嵌套层级。"}
+{"artifact_id": "426", "code_ids": ["CE03", "CE05"], "open_codes": ["math未导入", "用floor代替int"], "memo": "调用 math.floor 但未导入 math；且 floor 取向下整数的语义与契约的 int 截断不同，目标运算被替换。"}
+{"artifact_id": "427", "code_ids": ["CE05"], "open_codes": ["判断任一操作数为负"], "memo": "判断是否存在负数操作数，而非累计余额是否曾小于 0；账户状态目标被替换。"}
+{"artifact_id": "428", "code_ids": ["CE09"], "open_codes": ["用首元素代替均值"], "memo": "中心点取 numbers[0] 而非全部元素的均值，绝对偏差公式的中心量错误。"}
+{"artifact_id": "429", "code_ids": ["CE08"], "open_codes": ["只在末尾追加分隔符"], "memo": "返回 numbers 后再追加一个 delimeter，未在每两个相邻元素之间插入分隔符；元素位置与数量都错。"}
+{"artifact_id": "430", "code_ids": ["CE01", "CE02"], "open_codes": ["重复replace空转", "源码末尾截断"], "memo": "反复对括号与空格做无意义的 replace，没有计算任何深度或构造结果；源码在最后的 pare 处截断，模块无法解析。"}
+{"artifact_id": "431", "code_ids": ["CE03"], "open_codes": ["reduce未导入"], "memo": "正常路径调用 reduce 但未从 functools 导入，非空列表会 NameError。"}
+{"artifact_id": "432", "code_ids": ["CE06"], "open_codes": ["漏首元素", "窗口只含两项"], "memo": "从 i=1 开始且切片 numbers[i-1:i+1]，结果漏掉首个滚动最大值，并把窗口限制为最近两项而非全部前缀。"}
+{"artifact_id": "434", "code_ids": ["CE05", "CE09"], "open_codes": ["递归砍尾后补回原尾字符"], "memo": "递归去掉末字符后再补回同一末字符，最终只是原串；没有寻找回文后缀并追加前缀反转，构造目标被替换。"}
+{"artifact_id": "435", "code_ids": ["CE12"], "open_codes": ["对str做异或"], "memo": "直接对两个字符执行 ^，字符串不支持按位异或，且未先转为整数。"}
+{"artifact_id": "436", "code_ids": ["CE07"], "open_codes": ["基线条件a%b==0"], "memo": "欧几里得算法基线写成 a%b==0 返回 a，而应在 b==0 时返回 a；如 (3,5) 会反复递归不终止。"}
+{"artifact_id": "437", "code_ids": ["CE06"], "open_codes": ["包含空前缀"], "memo": "range(len+1) 与 s[:i] 组合会产生空前缀并漏掉完整字符串，前缀候选集合错误。"}
+{"artifact_id": "439", "code_ids": ["CE06", "CE13"], "open_codes": ["空串连接", "range漏n"], "memo": "用空串 join 数字，未保留空格分隔；range(n) 也漏掉上界 n，元素覆盖与输出格式都错。"}
+{"artifact_id": "441", "code_ids": ["CE14"], "open_codes": ["未统一大小写"], "memo": "直接对原串取 set，未先把字符统一大小写，大小写不同的同一字母被重复计数。"}
+{"artifact_id": "442", "code_ids": ["CE04"], "open_codes": ["按竖线切分并int音符"], "memo": "按 \"|\" 切分音符并直接 int，音符边界被破坏且 \"o\"、\".|\" 等无法转成整数。"}
+{"artifact_id": "443", "code_ids": ["CE06"], "open_codes": ["str.count不重叠"], "memo": "str.count 按非重叠方式计数，契约要求统计重叠出现，如 aaaa 中 aa 应计 3 次。"}
+{"artifact_id": "444", "code_ids": ["CE05"], "open_codes": ["按字典序排序"], "memo": "直接按英文单词字典序排序，未映射到 0..9 的数值序，排序目标被替换。"}
+{"artifact_id": "445", "code_ids": ["CE05", "CE08"], "open_codes": ["距离极值代替最近数对"], "memo": "计算每个元素与首元素的绝对差并返回差值的最小/最大值，既非两两最近元素，返回的也不是原数值对。"}
+{"artifact_id": "446", "code_ids": ["CE09"], "open_codes": ["未减最小值"], "memo": "只除以 max-min，未先减去最小值，线性变换公式错误，最小值不会映射为 0。"}
+{"artifact_id": "448", "code_ids": ["CE01"], "open_codes": ["常量返回1"], "memo": "直接返回常量 1，没有枚举或计算 n 的因数，未交付求解实现。"}
+{"artifact_id": "449", "code_ids": ["CE05", "CE09"], "open_codes": ["不可整除时追加2并减1"], "memo": "只在 n 能被 2 整除时除 2，否则追加 2 并把 n 减 1，未枚举真正素因子；分解目标与递推都不成立。"}
+{"artifact_id": "450", "code_ids": ["CE05", "CE08"], "open_codes": ["set去重并改变顺序"], "memo": "用 set 去重后转回列表，既保留了所有出现过的值，又丢失原顺序；契约要求删除所有重复出现的元素并保持剩余元素顺序。"}
+{"artifact_id": "451", "code_ids": ["CE14"], "open_codes": ["按整串大小写整体转换"], "memo": "按整串是否全小写决定 lower/upper，未逐字符交换大小写；混合大小写输入会被整体转成一种形式。"}
+{"artifact_id": "452", "code_ids": ["CE05", "CE13"], "open_codes": ["奇偶长度返回None或中间系数"], "memo": "按系数个数奇偶返回 None 或中间系数，既未求多项式的零点，返回类型也不是根；目标与输出契约均错。"}
+{"artifact_id": "453", "code_ids": ["CE05", "CE08"], "open_codes": ["整体排序后筛下标"], "memo": "先整体排序再只保留下标非 3 的倍数的元素，改变了原非目标位的内容、长度和位置，未只排序 3 的倍数位置。"}
+{"artifact_id": "454", "code_ids": ["CE05"], "open_codes": ["余数in(1,3)判据"], "memo": "用 i%11 或 i%13 的余数是否为 1/3 计数，既不是整除判据，也完全没有统计数字 7 的出现次数。"}
+{"artifact_id": "457", "code_ids": ["CE05", "CE08"], "open_codes": ["整体排序后取偶数位"], "memo": "先整体排序再只返回偶数下标，长度减半且奇数位被丢弃，未仅排序偶数位并保留其他位置。"}
+{"artifact_id": "458", "code_ids": ["CE09"], "open_codes": ["decode复用encode旋转"], "memo": "decode 与 encode 使用同一左旋操作，没有执行逆旋转，无法还原原串。"}
+{"artifact_id": "459", "code_ids": ["CE01"], "open_codes": ["硬编码前5项"], "memo": "只硬编码 n=1..5 的示例答案，其余返回 None，没有生成 Fibonacci 数或判素。"}
+{"artifact_id": "461", "code_ids": ["CE05"], "open_codes": ["集合大小与总和代替三元和"], "memo": "要求去重后恰好 3 个元素且整个列表总和为 0，未枚举三个不同下标使三元组和为零。"}
+{"artifact_id": "462", "code_ids": ["CE01"], "open_codes": ["常量返回0"], "memo": "直接返回常量 0，没有计算碰撞数。"}
+{"artifact_id": "463", "code_ids": ["CE05"], "open_codes": ["集合大小等于1"], "memo": "判断去重后只有一个元素，与是否存在两个不同元素之和为零无关。"}
+{"artifact_id": "464", "code_ids": ["CE04", "CE07", "CE12"], "open_codes": ["base<10直接返回原数", "对int调int(x,base)"], "memo": "base<10 时直接返回 str(x)，没有做进制转换；否则对已是 int 的 x 调用 int(x, base)，类型不支持，且分支方向与契约相反。"}
+{"artifact_id": "465", "code_ids": ["CE09", "CE10"], "open_codes": ["n=2返回1", "递归且漏n=3"], "memo": "n=2 的初值写成 1 而非 2，且漏掉 n=3 的 0；主体使用递归实现，违反契约的迭代要求。"}
+{"artifact_id": "468", "code_ids": ["CE03"], "open_codes": ["statistics未导入"], "memo": "调用 statistics.median 但未导入 statistics，正常路径会 NameError。"}
+{"artifact_id": "469", "code_ids": ["CE09"], "open_codes": ["decode偏移与取模顺序错"], "memo": "decode 写成 (ord(ch)-5+ord(\"a\"))%26+ord(\"a\")，把基准偏移放进取模前，未先减去 a 的码值，无法还原编码。"}
+{"artifact_id": "470", "code_ids": ["CE14"], "open_codes": ["元音表只含小写"], "memo": "vowels 只含小写字符，未把大写元音计入，大小写规范不完整。"}
+{"artifact_id": "471", "code_ids": ["CE05"], "open_codes": ["单向包含判据"], "memo": "只检查 s0 的去重字符是否全在 s1 中，未要求 s1 的字符也都出现在 s0；双向集合相等被替换成单向包含。"}
+{"artifact_id": "474", "code_ids": ["CE05"], "open_codes": ["只判非降"], "memo": "只检查 l[i] <= l[i+1]，把单调递减序列误判为 False，未同时接受递增或递减。"}
+{"artifact_id": "476", "code_ids": ["CE02", "CE06"], "open_codes": ["源码在n%113后截断", "因子只除一次"], "memo": "错误源码在 if n % 113 后缺少条件并直接结束，模块无法解析；可见部分对每个素数最多除一次，也没有返回剩余因子或最大值。"}
+{"artifact_id": "477", "code_ids": ["CE09"], "open_codes": ["逐系数平方"], "memo": "返回每个系数的平方，未按导数规则 xs[i]*i 计算并去掉常数项，公式错误。"}
+{"artifact_id": "479", "code_ids": ["CE14"], "open_codes": ["元音表含y"], "memo": "把 y 在所有位置都算作元音，且未处理大写元音；契约只把词尾 y 视为元音。"}
+{"artifact_id": "481", "code_ids": ["CE01", "CE02"], "open_codes": ["硬编码水果串答案", "源码中途截断"], "memo": "按固定水果串逐条返回常量，未解析数字并计算芒果数；源码在下一固定分支中途截断，模块无法解析。"}
+{"artifact_id": "482", "code_ids": ["CE05", "CE08"], "open_codes": ["按长度写死返回元素", "未返回值与下标"], "memo": "只对长度 1..4 写死分支并返回元素本身，既未求最小偶数与最小下标，也未返回 [值, 下标]；更长列表无返回。"}
+{"artifact_id": "483", "code_ids": ["CE01"], "open_codes": ["pass空实现"], "memo": "函数体只有 pass，没有计算频次或返回结果。"}
+{"artifact_id": "484", "code_ids": ["CE05"], "open_codes": ["整体降序排序"], "memo": "直接整体降序排序，未按最小、剩余最大、再最小的交替顺序构造结果。"}
+{"artifact_id": "485", "code_ids": ["CE09"], "open_codes": ["海伦公式未开方"], "memo": "海伦公式只返回四因子乘积，未对其开平方，面积公式错误。"}
+{"artifact_id": "486", "code_ids": ["CE01", "CE02"], "open_codes": ["源码截断", "按长度写死等值判断"], "memo": "源码在长度 10 的比较表达式中途截断，模块无法解析；可见分支按长度写死“全部元素相等”，既不是回文判据，也未检查重量。"}
+{"artifact_id": "487", "code_ids": ["CE02", "CE05"], "open_codes": ["源码在if后截断", "严格递减代替最少改动数"], "memo": "错误源码在最后的 if 后缺少条件并结束，模块无法解析；可见部分把最少改动数替换成是否严格递减，长度 10 以上也无返回。"}
+{"artifact_id": "488", "code_ids": ["CE05"], "open_codes": ["只比较列表长度"], "memo": "只比较两个列表的元素个数并返回 lst2，未比较字符串字符总数，也未在相等时返回 lst1。"}
+{"artifact_id": "489", "code_ids": ["CE05", "CE07"], "open_codes": ["a<100返回False", "仅判素数"], "memo": "对 a<100 直接返回 False，与契约允许的范围相反；否则只判断 a 是否为素数，未分解为三个素因子。"}
+{"artifact_id": "490", "code_ids": ["CE09"], "open_codes": ["指数写成int(x)"], "memo": "写成 n**int(x)==x，把 x 当作指数，未枚举整数幂或判断 x 是否为 n 的整数次幂。"}
+{"artifact_id": "491", "code_ids": ["CE09"], "open_codes": ["判据a**3==a"], "memo": "用 a**3==a 判立方，仅对 -1、0、1 成立，没有判断 a 是否为某个整数的立方。"}
+{"artifact_id": "492", "code_ids": ["CE03", "CE05", "CE09"], "open_codes": ["枚举1..int(num)判素", "十六进制串直接int", "is_prime未定义"], "memo": "把十六进制串直接转成整数后枚举 1..num 判素，既非逐位判断，也未按十六进制解析；is_prime 也未定义。"}
+{"artifact_id": "494", "code_ids": ["CE13"], "open_codes": ["缺少结尾db"], "memo": "手工转出的二进制主体正确，但只加了开头 db，未按契约追加结尾 db。"}
+{"artifact_id": "496", "code_ids": ["CE05", "CE06"], "open_codes": ["额外要求长度整除3", "只判三连全同"], "memo": "增加“长度必须为 3 的倍数”的额外条件，且只检查三个字符全相同，未要求每个连续三位两两不同。"}
+{"artifact_id": "498", "code_ids": ["CE07"], "open_codes": ["边界使用>="], "memo": "除 4.0 外所有阈值都用 >=，契约要求严格大于；恰好等于 3.7、3.3 等边界时会被分到更高一档。"}
+{"artifact_id": "499", "code_ids": ["CE05"], "open_codes": ["长度==2且小写字母"], "memo": "判据写成长度等于 2、全字母且全小写，与“字符串长度是否为素数”无关。"}
+{"artifact_id": "500", "code_ids": ["CE05"], "open_codes": ["统计约数个数"], "memo": "统计 n 在 1..n-1 内的约数个数，与 n 位数中首位或末位为 1 的计数无关。"}
+{"artifact_id": "501", "code_ids": ["CE05"], "open_codes": ["直接返回N的二进制"], "memo": "直接返回 N 的二进制表示，未先求十进制数位和，目标量被替换。"}
+{"artifact_id": "502", "code_ids": ["CE05"], "open_codes": ["未筛选偶数"], "memo": "只累加奇数下标的元素，未再筛选这些元素本身为偶数，目标谓词缺失。"}
+{"artifact_id": "504", "code_ids": ["CE05", "CE08"], "open_codes": ["按首字符排序整词", "空串连接"], "memo": "按每个词的首字符对词整体排序，未对词内字符排序；又用空串连接，丢失原空格分隔与词序。"}
+{"artifact_id": "507", "code_ids": ["CE05", "CE08"], "open_codes": ["对行列表排序", "把行当坐标筛选"], "memo": "直接对二维列表的行排序并按行的第二元素等于 x 过滤，未遍历行列找 x；返回的也不是 (行, 列) 坐标。"}
+{"artifact_id": "508", "code_ids": ["CE05", "CE09"], "open_codes": ["用总和奇偶分左右", "递归切分错误"], "memo": "判据使用整列表总和的奇偶，而契约要求首尾元素之和；递归又把同一元素重复纳入两侧，排序目标与递推都错。"}
+{"artifact_id": "510", "code_ids": ["CE09"], "open_codes": ["变换公式与+4无关"], "memo": "用 (ord(c)-2)*2+65 生成字符，既未按字母表循环移位 4 位，也未处理非字母字符。"}
+{"artifact_id": "512", "code_ids": ["CE05"], "open_codes": ["取前两个元素较小者"], "memo": "返回前两个元素中较小者，未对列表去重后找第二小不同值；长度不足 2 的边界也未覆盖。"}
+{"artifact_id": "514", "code_ids": ["CE04", "CE07"], "open_codes": ["按词切分", "startswith I 过宽"], "memo": "按空白切词而非按 .?! 切句，句子边界解析错误；startswith(\"I\") 还会把 It 等词开头的词计入。"}
+{"artifact_id": "516", "code_ids": ["CE05", "CE11"], "open_codes": ["只判x+y==z", "未校验整数类型"], "memo": "只检查 x+y==z，漏掉 x 或 y 为另两者之和的两种对称情况；也未要求三个输入都是整数。"}
+{"artifact_id": "517", "code_ids": ["CE02", "CE09"], "open_codes": ["连续replace互相污染", "源码末尾截断"], "memo": "先整体转小写再用连续 replace 改字母，替换结果会再次被后续替换改写；源码最后在单独的 message 处截断，模块无法解析。"}
+{"artifact_id": "518", "code_ids": ["CE05"], "open_codes": ["取最大元素的数位和"], "memo": "对列表排序后直接取最大元素的数位和，未筛选素数，也未取最大素数。"}
+{"artifact_id": "519", "code_ids": ["CE07"], "open_codes": ["条件方向反了"], "memo": "对每个键只排除“既非全小写又非全大写”的混合形式，未要求所有键统一为全小写或统一为全大写；大小写混合键仍会被接受。"}
+{"artifact_id": "520", "code_ids": ["CE11"], "open_codes": ["n<2时primes[1]越界"], "memo": "筛法主体从 i*i 开始标记并无错误；但 primes 长度为 n，n=0 或 1 时仍访问 primes[1]，空/单元素边界越界。"}
+{"artifact_id": "521", "code_ids": ["CE05", "CE08"], "open_codes": ["逐位zip相乘再求和"], "memo": "把两数的十进制位对齐后逐位相乘再求和，未取各自个位相乘，目标被替换。"}
+{"artifact_id": "522", "code_ids": ["CE06", "CE14"], "open_codes": ["统计所有大写字母", "未限定偶数下标"], "memo": "统计所有大写字符而非仅大写元音，且遍历全部下标，未限定偶数下标。"}
+{"artifact_id": "523", "code_ids": ["CE09"], "open_codes": ["round银行家舍入"], "memo": "直接使用 round(float(value))，恰在 .5 时按银行家舍入，契约要求远离零；负半整数方向也会错。"}
+{"artifact_id": "525", "code_ids": ["CE05", "CE13"], "open_codes": ["返回单个n//2元素"], "memo": "只返回一个元素的列表且值为 n//2 或 n//2+1，既未生成 n 层，也未按 n,n+2,... 递增。"}
+{"artifact_id": "526", "code_ids": ["CE04"], "open_codes": ["只按空白切分"], "memo": "只用 split() 按空白切分，未把逗号也作为词边界，逗号会留在词尾。"}
+{"artifact_id": "527", "code_ids": ["CE03", "CE05", "CE07"], "open_codes": ["x<y返回-1", "取首个偶数", "is_even未定义"], "memo": "方向条件写成 x<y 返回 -1；否则从 x 向上返回首个偶数而非最大偶数，且 is_even 未定义。"}
+{"artifact_id": "529", "code_ids": ["CE05", "CE13"], "open_codes": ["返回n的二进制并zfill"], "memo": "直接返回 n 的二进制字符串并用 m 填充，既未计算区间平均，也未保留契约的 0b 前缀。"}
+{"artifact_id": "531", "code_ids": ["CE05"], "open_codes": ["集合差集"], "memo": "用 set(x) 减去数字字符串集合，比较的是整数与字符串且不检查各数位是否含偶数位，目标被替换。"}
+{"artifact_id": "532", "code_ids": ["CE03", "CE05"], "open_codes": ["引用未定义names"], "memo": "用未定义的 names 过滤输入，目标也被替换；既未筛 1..9，也未映射数字到英文名。"}
+{"artifact_id": "534", "code_ids": ["CE05", "CE09"], "open_codes": ["列表推导遮蔽n", "未按奇偶构造"], "memo": "在列表推导中用 n 作循环变量并递归调用，既遮蔽外层参数，也未按偶数阶乘、奇数累加和构造序列。"}
+{"artifact_id": "536", "code_ids": ["CE05"], "open_codes": ["按n奇偶给公式"], "memo": "仅按 n 的奇偶返回线性公式，未枚举 1..n 的回文数并分别统计奇偶。"}
+{"artifact_id": "537", "code_ids": ["CE05"], "open_codes": ["统计正数个数"], "memo": "统计 arr 中正数的个数，未按负号语义计算各数的数位和并筛选大于 0 的元素。"}
+{"artifact_id": "538", "code_ids": ["CE01", "CE02"], "open_codes": ["按长度返回True", "源码截断"], "memo": "按长度逐个返回 True，没有检查数组是否可通过循环右移排序；源码在长度分支中途截断，模块无法解析。"}
+{"artifact_id": "539", "code_ids": ["CE05", "CE06"], "open_codes": ["只交换双偶数位", "用两表相等判断"], "memo": "只交换同一位置两表都为偶数的元素，未按 lst1 中奇数个数与 lst2 中偶数个数判断可行性；最终又用 lst1==lst2 决定 YES/NO。"}
+{"artifact_id": "540", "code_ids": ["CE05"], "open_codes": ["返回全部频次"], "memo": "返回整个 Counter，包含所有字母及频次，未只保留出现次数最高的字母。"}
+{"artifact_id": "541", "code_ids": ["CE05"], "open_codes": ["返回反转串与s==c"], "memo": "返回 s 的反转以及 s 与 c 反转是否相等，未删除 c 中字符，也未对删除结果做回文判断。"}
+{"artifact_id": "542", "code_ids": ["CE05", "CE08"], "open_codes": ["用下标填充模板"], "memo": "用 1..len(lst) 作为模板中的替换值，未统计每个字符串的奇数位个数，输出内容错误。"}
+{"artifact_id": "545", "code_ids": ["CE02", "CE05"], "open_codes": ["按长度返回最小元素", "源码截断"], "memo": "按长度逐个返回数组最小元素而非最小子数组和，源码在长度 11 的嵌套 min 中途截断，模块无法解析。"}
+{"artifact_id": "546", "code_ids": ["CE02", "CE05"], "open_codes": ["用max求行列", "源码截断"], "memo": "用 max 取行元素和行列索引，未按每行水量分桶计数；源码在重复块中途截断，模块无法解析。"}
+{"artifact_id": "547", "code_ids": ["CE05"], "open_codes": ["缺少十进制次级键"], "memo": "只按二进制中 1 的个数排序，未在个数相同时按十进制值升序排序。"}
+{"artifact_id": "548", "code_ids": ["CE05"], "open_codes": ["以单词长度代替辅音数"], "memo": "用 len(w)==n 筛选单词，计算的是单词长度，不是词内辅音个数。"}
+{"artifact_id": "549", "code_ids": ["CE05"], "open_codes": ["只看首尾元音"], "memo": "只检查词首、词尾是否为元音并返回其中之一，未从右向左寻找夹在两个辅音之间的元音。"}
+{"artifact_id": "550", "code_ids": ["CE05", "CE06"], "open_codes": ["逐串压栈", "未尝试拼接顺序"], "memo": "把两个字符串分别逐字符压栈，未尝试 lst[0]+lst[1] 与反向拼接，也未按整串平衡校验。"}
+{"artifact_id": "551", "code_ids": ["CE05"], "open_codes": ["升序取前k"], "memo": "arr.sort() 升序后取前 k，得到的是最小 k 个而非最大 k 个。"}
+{"artifact_id": "553", "code_ids": ["CE05"], "open_codes": ["遍历奇数下标"], "memo": "只累加奇数下标的元素，未限定偶数下标，也未筛选元素本身为奇数。"}
+{"artifact_id": "554", "code_ids": ["CE05"], "open_codes": ["全部元素求和"], "memo": "返回整个数组的和，未限定前 k 个，也未筛至多两位的元素。"}
+{"artifact_id": "556", "code_ids": ["CE05"], "open_codes": ["按1..n奇偶分组"], "memo": "把 1..n-1 按奇偶分组并拼接，完全没有生成 Collatz 序列。"}
+{"artifact_id": "557", "code_ids": ["CE03", "CE11"], "open_codes": ["日上界连续覆盖", "re未导入"], "memo": "先按 31 再按 30 再按 29 连续覆盖日上界，未按月份分别校验；且 re.match 使用未导入的 re。"}
+{"artifact_id": "560", "code_ids": ["CE05"], "open_codes": ["只按空白切分"], "memo": "只用 split() 按空白切分，未在无空白时改按逗号切分，也未统计小写字母的奇序号数量。"}
+{"artifact_id": "561", "code_ids": ["CE05"], "open_codes": ["只判非降序"], "memo": "只检查列表是否非降序，未检查同一数字是否出现超过两次。"}
+{"artifact_id": "562", "code_ids": ["CE05"], "open_codes": ["只判端点关系"], "memo": "只判断区间是否分离或完全重合，未计算交集长度并判断其是否为素数。"}
+{"artifact_id": "563", "code_ids": ["CE05"], "open_codes": ["逐元素乘符号后求和"], "memo": "对每个元素按自身正负乘 1 或 -1 后求和，未取绝对值并累乘全体符号，也未处理 0。"}
+{"artifact_id": "565", "code_ids": ["CE05", "CE08"], "open_codes": ["二维DP返回角点"], "memo": "用二维网格最小和 DP 并返回 dp[m-1][n-1]，既未按路径值序列字典序求长度 k 路径，返回的也是标量。"}
+{"artifact_id": "566", "code_ids": ["CE05", "CE09", "CE13"], "open_codes": ["返回递归列表而非序列", "递归访问n+1"], "memo": "n=1 返回 [1,1] 而非 [1,3]，主体返回嵌套列表且递归调用 tri(n+1)，未按奇偶递推生成前 n+1 项。"}
+{"artifact_id": "568", "code_ids": ["CE05", "CE09"], "open_codes": ["递归前缀乘积"], "memo": "返回 n 与 digits(n//10) 的乘积，未筛选奇数位；递归到底部又返回 0，最终结果通常为 0。"}
+{"artifact_id": "569", "code_ids": ["CE05"], "open_codes": ["平衡校验替代嵌套判断"], "memo": "只检查整串括号是否平衡，未判断是否存在合法的嵌套子序列；[][] 平衡但没有嵌套，仍会返回 True。"}
+{"artifact_id": "571", "code_ids": ["CE09"], "open_codes": ["未向上取整"], "memo": "直接对原值平方求和，未先对每个元素向上取整，公式顺序错误。"}
+{"artifact_id": "572", "code_ids": ["CE11"], "open_codes": ["未要求前一字符为空格", "空串越界"], "memo": "只判断末字符是否为字母，未要求末字符前一个是空格；空串还会索引越界。"}
+{"artifact_id": "573", "code_ids": ["CE01"], "open_codes": ["pass空实现"], "memo": "函数体只有 pass，没有查找逆序位置或返回 -1。"}
+{"artifact_id": "574", "code_ids": ["CE05"], "open_codes": ["返回max/min"], "memo": "返回列表的最大值和最小值，未分别筛负数取最大、正数取最小，也未返回 None 占位。"}
+{"artifact_id": "575", "code_ids": ["CE05", "CE11"], "open_codes": ["字符串按字典序比较", "未统一混合类型"], "memo": "字符串分支直接用 > 比较，未按逗号小数解析为数值；混合 int/float/str 类型也直接返回 None。"}
+{"artifact_id": "576", "code_ids": ["CE05"], "open_codes": ["等差数列恒等式"], "memo": "判据是 sum(1..n)==n(n+1)/2，这是恒真公式，与能否拆成四个正偶数无关。"}
+{"artifact_id": "577", "code_ids": ["CE09"], "open_codes": ["阶乘代替巴西阶乘"], "memo": "返回 n!，而契约要求 n!*(n-1)!*...*1! 的累乘，递推公式错误。"}
+{"artifact_id": "578", "code_ids": ["CE03", "CE05"], "open_codes": ["所有连续空格换成下划线", "re未导入"], "memo": "用 \\s+ 把所有连续空格统一替换成下划线，未区分两个空格与三个以上空格；且 re 未导入。"}
+{"artifact_id": "580", "code_ids": ["CE02", "CE05"], "open_codes": ["长度<=3等无关条件", "源码截断"], "memo": "错误源码加入长度不超过 3、首尾字母相同等无关条件，且未实现数字计数与扩展名校验；源码最后在 file_name[-1] 处截断。"}
+{"artifact_id": "581", "code_ids": ["CE05", "CE08"], "open_codes": ["对元素值取模", "漏加未命中元素"], "memo": "用元素值而非下标判断 3/4 的倍数，且只在命中时累加，未把未命中元素的原值计入总和。"}
+{"artifact_id": "583", "code_ids": ["CE05"], "open_codes": ["排序后返回"], "memo": "把句子中的词整体排序后返回，未按词长是否为素数筛选并保持原顺序。"}
+{"artifact_id": "585", "code_ids": ["CE01"], "open_codes": ["pass空实现"], "memo": "函数体只有 pass，没有解析分数或判断乘积是否为整数。"}
+{"artifact_id": "586", "code_ids": ["CE09"], "open_codes": ["负数含减号导致int转换失败"], "memo": "用 sum(map(int, str(x))) 计算数位和，负数字符串含 \"-\" 会转换失败；也未把负数首位作为负值。"}
+{"artifact_id": "588", "code_ids": ["CE05"], "open_codes": ["只看末位"], "memo": "只检查个位是否为奇数，未检查首位是否为奇数。"}
+{"artifact_id": "589", "code_ids": ["CE05"], "open_codes": ["对a[i]公式求和"], "memo": "对 a[i]*a[i]-a[i]+1 求和，未构造数组并枚举 i<j<k 的三元和是否被 3 整除。"}
+{"artifact_id": "590", "code_ids": ["CE01"], "open_codes": ["pass空实现"], "memo": "函数体只有 pass，没有定位行星区间或返回元组。"}
+{"artifact_id": "591", "code_ids": ["CE06", "CE08"], "open_codes": ["未筛奇数长度", "缺字母序次键"], "memo": "只按长度排序，未删除奇数长度字符串，也未在长度相同时按字母序排序。"}
+{"artifact_id": "593", "code_ids": ["CE05"], "open_codes": ["用偶性代替判素且分支反向"], "memo": "用 n%2==0 代替素数判断，且偶数返回 x、奇数返回 y，与“素数返回 x”相反。"}
+{"artifact_id": "594", "code_ids": ["CE05"], "open_codes": ["全部元素平方求和"], "memo": "对列表所有元素平方求和，未筛正奇数、也未排除非整数。"}
+{"artifact_id": "595", "code_ids": ["CE05"], "open_codes": ["按长度取最大"], "memo": "按扩展名长度取最大，未按大写数减小写数的强度选择，也没有按首次出现处理并列。"}
+{"artifact_id": "596", "code_ids": ["CE05", "CE07"], "open_codes": ["参数顺序颠倒", "未枚举b的旋转"], "memo": "判断 a 是否为 b 的子串，方向颠倒；主体切片也未枚举 b 的所有循环旋转。"}
+{"artifact_id": "597", "code_ids": ["CE05", "CE12"], "open_codes": ["数位和当作偶数个数", "对字符取模"], "memo": "第一个返回值是数位和而非偶数位个数，第二个分支对 str 字符执行 i%2 会 TypeError。"}
+{"artifact_id": "598", "code_ids": ["CE09"], "open_codes": ["按插入顺序贪心取罗马值"], "memo": "按字典插入顺序遍历，遇到第一个不大于 number 的键就取用，未从大到小或按位构造，罗马数字结果错误。"}
+{"artifact_id": "600", "code_ids": ["CE05"], "open_codes": ["只判三角形不等式"], "memo": "只检查三边能否构成三角形，未验证任一边平方等于另两边平方和，直角条件缺失。"}
+{"artifact_id": "601", "code_ids": ["CE05"], "open_codes": ["按词频取最大"], "memo": "用 set(words) 和 words.count 取出现次数最多的词，未按不同字符数最大并处理字典序并列。"}
+{"artifact_id": "602", "code_ids": ["CE05", "CE07"], "open_codes": ["分支条件与返回值错"], "memo": "用 number<need 分支并返回 [0,number] 或 [need-number,remaining]，未按 need 与 remaining 计算进食量和余量。"}
+{"artifact_id": "603", "code_ids": ["CE05", "CE12"], "open_codes": ["把operator当数值相乘"], "memo": "递归把字符串运算符 operator[0] 与操作数相乘，未按 +、-、*、//、** 构造表达式；字符串乘整数也不表示代数运算。"}
+{"artifact_id": "604", "code_ids": ["CE11", "CE14"], "open_codes": ["字母转小写非字母转大写"], "memo": "对字母执行 lower、对非字母执行 upper，大小写方向完全相反；且缺少无字母时反转整串的分支。"}
+{"artifact_id": "606", "code_ids": ["CE03"], "open_codes": ["hashlib未导入"], "memo": "调用 hashlib.md5 但未导入 hashlib，非空输入会 NameError。"}
+{"artifact_id": "607", "code_ids": ["CE11"], "open_codes": ["未交换端点且未限上界10"], "memo": "未在 a>b 时交换端点，也未把上界截断到 9；返回区间内所有偶数而非 0..9 的偶数数字。"}
+{"artifact_id": "609", "code_ids": ["CE01"], "open_codes": ["pass空实现"], "memo": "函数体只有 pass，没有分割括号组或返回列表。"}
+{"artifact_id": "610", "code_ids": ["CE06", "CE08"], "open_codes": ["奇偶分桶", "只插入一个分隔符"], "memo": "按奇偶下标把元素分成两段后用单个分隔符连接，改变原顺序且分隔符数量不足。"}
+{"artifact_id": "611", "code_ids": ["CE01"], "open_codes": ["pass空实现"], "memo": "函数体只有 pass，没有计算任何括号组的嵌套深度。"}
+{"artifact_id": "612", "code_ids": ["CE03"], "open_codes": ["reduce未导入"], "memo": "正常路径调用 reduce 但未从 functools 导入，非空列表会 NameError。"}
+{"artifact_id": "613", "code_ids": ["CE05"], "open_codes": ["检查回文前缀而非后缀"], "memo": "循环检查 string[:i] 是否为回文并补前缀逆序，方向与契约要求的“最长回文后缀”相反。"}
+{"artifact_id": "616", "code_ids": ["CE06"], "open_codes": ["包含空前缀"], "memo": "range(len+1) 与 s[:i] 组合产生空前缀并漏掉完整字符串，前缀候选集合错误。"}
+{"artifact_id": "618", "code_ids": ["CE01"], "open_codes": ["pass空实现"], "memo": "函数体只有 pass，没有解析音符或返回拍数列表。"}
+{"artifact_id": "619", "code_ids": ["CE06"], "open_codes": ["str.count不重叠"], "memo": "str.count 按非重叠方式计数，契约要求统计重叠出现。"}
+{"artifact_id": "620", "code_ids": ["CE05"], "open_codes": ["按字典序排序"], "memo": "直接按英文单词字典序排序，未映射到 0..9 的数值序。"}
+{"artifact_id": "621", "code_ids": ["CE05"], "open_codes": ["取排序后前两个"], "memo": "排序后返回最小两个元素，未比较相邻元素差以找最接近的数对。"}
+{"artifact_id": "622", "code_ids": ["CE09"], "open_codes": ["除以最大值而非差值"], "memo": "线性变换应为 (n-min)/(max-min)，使最小值映射为 0、最大值映射为 1；源码只除以 max(numbers)，既未减最小值也未除以差值。"}
+{"artifact_id": "626", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "factorize 函数体只有 pass，没有生成任何质因数，也没有返回列表。"}
+{"artifact_id": "627", "code_ids": ["CE05", "CE08"], "open_codes": ["set 去重保留重复值", "set 丢失输入顺序"], "memo": "契约要求删除所有出现多于一次的元素并保留剩余元素的输入顺序；list(set(numbers)) 保留每个不同值一次，既没有删除重复元素，也打乱了顺序。"}
+{"artifact_id": "631", "code_ids": ["CE05"], "open_codes": ["反复截取系数而未求根"], "memo": "find_zero 将系数列表反复反转并去掉首项，循环结束后直接落到函数末尾；没有计算导数、迭代求根或返回零点，计算目标没有实现。"}
+{"artifact_id": "632", "code_ids": ["CE05", "CE08"], "open_codes": ["非 3 倍数位置被全局排序值覆盖"], "memo": "契约只应排序下标为 3 的倍数的位置并保留其他位置；源码对 i%3!=0 追加 sorted(l)[i]，既替换了应保持不变的元素，也把未排序位置当成排序结果的一部分。"}
+{"artifact_id": "634", "code_ids": ["CE05"], "open_codes": ["额外要求 i%7==0", "按整数个数而非数字 7 出现次数计数"], "memo": "契约统计小于 n、可被 11 或 13 整除的整数中数字 7 出现的总次数；源码额外要求 i%7==0，且每个满足者只计 1，不检查其十进制表示中的 7。"}
+{"artifact_id": "636", "code_ids": ["CE05", "CE08"], "open_codes": ["奇数位被改写为相邻 min", "偶数位未取排序后的值"], "memo": "契约应排序偶数下标元素并原样保留奇数下标；源码原样放入偶数位、却把奇数位改成 min(l[i], 前一输出)，既未排序目标位置又破坏了应保持的位置。"}
+{"artifact_id": "638", "code_ids": ["CE02", "CE01"], "open_codes": ["源码在 if n == 中途截断", "用 n=1..34 的硬编码答案表代替算法"], "memo": "源码在最后一个 `if n ==` 处未完成，模块无法解析；可见主体是 n=1 到 34 的固定返回值表，没有生成 Fibonacci 数或判断素数的算法。"}
+{"artifact_id": "639", "code_ids": ["CE09"], "open_codes": ["碰撞数写成 n//2"], "memo": "同速相向而行的 n 对车辆两两都会相遇，碰撞总数应为 n²；源码返回 n//2，公式错误。"}
+{"artifact_id": "641", "code_ids": ["CE05"], "open_codes": ["用排序后多重集相等替代字符集合相等"], "memo": "契约判断两个单词的字符集合是否相同、忽略各字符出现次数；源码比较 sorted(s0) 与 sorted(s1)，实际要求字符重数也一致，例如 [a,a,b] 与 [a,b,b] 会被误判。"}
+{"artifact_id": "645", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "vowels_count 函数体只有 pass，没有统计元音或处理词尾 y。"}
+{"artifact_id": "646", "code_ids": ["CE05", "CE06"], "open_codes": ["实现左旋而非右旋", "缺少 shift 超过位数时反转的分支"], "memo": "契约要求右移 shift 位，源码用 s[shift:]+s[:shift] 实际执行左移；同时没有处理 shift 大于位数时应返回反转串的契约分支。"}
+{"artifact_id": "647", "code_ids": ["CE01"], "open_codes": ["常量 -1 代替搜索"], "memo": "函数只返回 -1，没有统计频次、筛选频次不小于数值的元素或求最大值；只有“无结果”这一种输出。"}
+{"artifact_id": "648", "code_ids": ["CE08"], "open_codes": ["递归保留全部尾元素并重复末尾 max"], "memo": "实现把 min(lst) 放在前面，却递归处理 lst[1:] 并在尾部再追加 max(lst)，既未从剩余元素中移除已用的最小值/最大值，又重复输出尾元素，无法形成 min、剩余 max 交替的序列。"}
+{"artifact_id": "649", "code_ids": ["CE03"], "open_codes": ["调用未导入的 math.sqrt"], "memo": "三角形的严格不等式判据与 Heron 面积公式都正确，但源码调用 math.sqrt 时没有导入 math，合法输入会抛 NameError。"}
+{"artifact_id": "650", "code_ids": ["CE03"], "open_codes": ["调用未定义 is_palindrome"], "memo": "will_it_fly 直接调用当前 artifact 未定义、也未导入的 is_palindrome，合法输入会在条件判断处抛 NameError。"}
+{"artifact_id": "651", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "smallest_change 函数体只有 pass，没有比较对称元素或返回修改次数。"}
+{"artifact_id": "652", "code_ids": ["CE05", "CE07"], "open_codes": ["按列表元素个数而非字符总数选择", "字符总数相等时错误返回第二列表"], "memo": "契约比较两个列表所有字符串的字符总数，并在相等时返回第一列表；源码比较 len(lst1) 与 len(lst2)，即元素个数，且相等时走到 else 返回 lst2。"}
+{"artifact_id": "653", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "is_multiply_prime 函数体只有 pass，没有质因数分解或三个质数的判断。"}
+{"artifact_id": "654", "code_ids": ["CE09"], "open_codes": ["指数写成 int(x/n)"], "memo": "simple power 应存在整数 k 使 n**k==x；源码把指数写成 int(x/n)，检验的是 n 的整除商次幂，例如 x=8,n=2 时会检验 2**4 而非 2**3。"}
+{"artifact_id": "655", "code_ids": ["CE09"], "open_codes": ["判据写成 a³>0 且为整数"], "memo": "契约判断 a 本身是否为某个整数的立方；源码检查 a³>0 且 a³ 为整数，正整数 2 会被判 True，而 0 和 -1 会被判 False。"}
+{"artifact_id": "656", "code_ids": ["CE05"], "open_codes": ["只检查三连字符全相同"], "memo": "happy 要求每个长度为 3 的连续窗口内三个字符两两不同；源码只在 s[i]==s[i+1]==s[i+2] 时返回 False，漏掉仅前两项、仅后两项或首尾两项相同的情形。"}
+{"artifact_id": "657", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "numerical_letter_grade 函数体只有 pass，没有实现 GPA 到字母等级的映射。"}
+{"artifact_id": "658", "code_ids": ["CE03"], "open_codes": ["调用未定义 is_prime"], "memo": "prime_length 调用当前 artifact 未定义、也未导入的 is_prime，合法输入会抛 NameError。"}
+{"artifact_id": "659", "code_ids": ["CE05"], "open_codes": ["统计 1..n 中首尾为 1 的整数"], "memo": "契约统计 n 位正整数中以 1 开头或以 1 结尾的个数；源码枚举 1 到 n，统计这些整数本身的首尾数字，输入规模与计数对象都被替换。"}
+{"artifact_id": "660", "code_ids": ["CE05"], "open_codes": ["返回 N 的二进制而非各位数字和的二进制"], "memo": "契约先把 N 的十进制各位数字求和，再把该和转成二进制；源码直接返回 bin(N)，跳过了求数位和。"}
+{"artifact_id": "661", "code_ids": ["CE05"], "open_codes": ["漏掉偶数元素筛选"], "memo": "契约只累加位于奇数下标且数值本身为偶数的元素；源码对 lst[1::2] 全部求和，没有筛选元素是否为偶数。"}
+{"artifact_id": "662", "code_ids": ["CE05", "CE08"], "open_codes": ["对整句 split 后的词排序", "用空串连接丢失词序和空格"], "memo": "契约要求逐词对词内字符排序并保留词序与空格；源码先 sorted(s.split()) 对整句的词列表排序，再用空串连接，词序、词内字符边界与空格都被破坏。"}
+{"artifact_id": "664", "code_ids": ["CE05"], "open_codes": ["无条件升序排序"], "memo": "契约根据首尾元素之和的奇偶决定升序或降序；源码始终返回 sorted(array)，没有计算该判据，也没有实现降序分支。"}
+{"artifact_id": "665", "code_ids": ["CE09"], "open_codes": ["直接给字符码加 4 而未按字母表取模"], "memo": "契约对每个字母在 26 个字母内循环右移 4 位；源码直接 chr(ord(c)+4)，没有减去 a、对 26 取模再加回，字母接近 z 时越出字母表。"}
+{"artifact_id": "667", "code_ids": ["CE06"], "open_codes": ["排序后取第二个而非第二个不同值"], "memo": "契约返回第二小的不同元素，重复最小值视为同一等级；源码返回 sorted(lst)[1]，输入 [1,1,2] 会得到 1 而非 2。"}
+{"artifact_id": "668", "code_ids": ["CE04"], "open_codes": ["按空格分词替代按句末标点断句"], "memo": "契约按 .、?、! 切分句子并检查句子是否以独立的 I 开头；源码按空白切词，统计任何以 I 开头的词，句子边界与开头判断的单位都错。"}
+{"artifact_id": "670", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "encode 函数体只有 pass，没有交换大小写或替换元音。"}
+{"artifact_id": "671", "code_ids": ["CE05", "CE03"], "open_codes": ["对所有素数求和而非最大素数", "调用未定义 is_prime"], "memo": "契约先找最大素数，再求该素数的各位数字和；源码对列表中所有素数求和，而且 is_prime 在当前 artifact 未定义。"}
+{"artifact_id": "672", "code_ids": ["CE05"], "open_codes": ["逐键检查大小写而非统一风格"], "memo": "契约要求所有键全小写或所有键全大写，混合大小写应返回 False；源码只要求每个键各自是纯小写或纯大写，因此 {\"a\":..., \"A\":...} 会被错误接受。"}
+{"artifact_id": "673", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "count_up_to 函数体只有 pass，没有筛选小于 n 的素数或返回列表。"}
+{"artifact_id": "674", "code_ids": ["CE09"], "open_codes": ["用 Python round 的银行家舍入代替远离零舍入"], "memo": "契约在恰好位于两个整数中点时远离零取整；源码 int(round(float(value))) 在 .5 时按 Python 的偶数舍入，例如 14.5 得 14、-14.5 得 -14，且没有显式处理远离零规则。"}
+{"artifact_id": "676", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "make_a_pile 函数体只有 pass，没有构造逐层递增 2 的列表。"}
+{"artifact_id": "677", "code_ids": ["CE04"], "open_codes": ["只按空白切分而未处理逗号"], "memo": "契约的单词由逗号或空格分隔；源码直接 s.split() 只按空白切分，逗号会残留在单词中，如 \"Hi,\"。"}
+{"artifact_id": "678", "code_ids": ["CE05"], "open_codes": ["要求 x 与 y 皆偶后取 max"], "memo": "契约返回 [x,y] 内最大的偶整数；源码只在 x 和 y 都为偶数时返回 max(x,y)，例如 12 到 15 应返回 14 却返回 -1，判据被替换。"}
+{"artifact_id": "679", "code_ids": ["CE09"], "open_codes": ["用 int 截断平均值而非四舍五入"], "memo": "契约要求把区间平均值四舍五入到最近整数；源码用 int 直接截断，平均值带 .5 或更大小数时向下偏，例如 20..33 的均值 26.5 应得 27，源码得 26。"}
+{"artifact_id": "680", "code_ids": ["CE01"], "open_codes": ["常量空列表代替实现"], "memo": "函数只返回 []，没有筛选 1 到 9、排序反转或把数字映射为英文名称；只有空输入这一种输出。"}
+{"artifact_id": "681", "code_ids": ["CE05", "CE09"], "open_codes": ["偶数位返回常量 1 而非阶乘", "奇数位用累加和而非阶乘"], "memo": "契约对偶数 i 返回 i!，对奇数 i 返回 1+...+i；源码对偶数 i 一律返回 1，只实现了奇数分支的累加和，阶乘目标被替换。"}
+{"artifact_id": "682", "code_ids": ["CE03"], "open_codes": ["调用未定义 sum_digits"], "memo": "count_nums 调用当前 artifact 未定义、也未导入的 sum_digits，合法输入会抛 NameError。"}
+{"artifact_id": "683", "code_ids": ["CE06", "CE11"], "open_codes": ["只检查原数组是否已排序", "未尝试任何循环移位且越界访问"], "memo": "契约允许任意次右移后判断能否得到非降序；源码只顺序扫描原数组，从未尝试移位，且 i 到 len(arr)-1 时访问 arr[i+1] 越界。"}
+{"artifact_id": "684", "code_ids": ["CE05"], "open_codes": ["用 lst1 元素和的奇偶代替奇偶元素可交换性"], "memo": "契约判断 lst1 中奇数元素个数是否不超过 lst2 中偶数元素个数；源码只判断 lst1 总和是否为偶数，既不检查 lst2 是否有可用偶数，也不对应逐个替换。"}
+{"artifact_id": "685", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "histogram 函数体只有 pass，没有统计字母频次或返回最高频字母。"}
+{"artifact_id": "686", "code_ids": ["CE08"], "open_codes": ["回文检查拿未删除串的反转与删除后的串比较"], "memo": "源码删除字符后得到结果串，却用原串 s 的反转与删除后的串比较；回文判断应比较删除后结果串与其自身反转，两个操作数组装错位。"}
+{"artifact_id": "687", "code_ids": ["CE05", "CE08"], "open_codes": ["用长度减 0 的个数代替奇数数字个数", "输出模板未替换 i 且把原串填入位置"], "memo": "契约统计每个数字串中奇数数字的个数，并把模板中所有 i 替换为该计数；源码用 len(i)-i.count(\"0\")，把非零偶数也计入，且只替换两个占位符、把整个输入串填进 string 位置，输出模板组装错误。"}
+{"artifact_id": "689", "code_ids": ["CE05"], "open_codes": ["扫描逻辑求最大子段和而非最小子段和"], "memo": "契约要求非空连续子数组的最小和；源码在累计和小于 0 时把 current_sum 重置为 0，等价于丢弃负贡献的 Kadane 变体，会求到最大子段和式结果，例如 [-1,-2,-3] 只得到 -1 而非 -6。"}
+{"artifact_id": "692", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "max_fill 函数体只有注释和 pass，没有按行统计水量、按容量分桶或返回下桶次数。"}
+{"artifact_id": "693", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "select_words 函数体只有 pass，没有分词、统计辅音或返回匹配词。"}
+{"artifact_id": "694", "code_ids": ["CE06", "CE05"], "open_codes": ["未检查元音两侧均为辅音", "把词尾元音纳入候选"], "memo": "契约要求从右往左找位于两个辅音之间的元音，且开头与结尾的元音不算；源码从 len(word)-1 开始只要遇到元音就返回，既不检查相邻字符是否都是辅音，也把词尾元音当作候选。"}
+{"artifact_id": "696", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "match_parens 函数体只有 pass，没有尝试两种拼接顺序或校验括号平衡。"}
+{"artifact_id": "697", "code_ids": ["CE08"], "open_codes": ["返回降序而非契约要求的升序"], "memo": "契约要求返回按升序排列的最大 k 个元素；源码 sorted(arr, reverse=True)[:k] 取到了最大 k 个，但返回顺序为降序。"}
+{"artifact_id": "698", "code_ids": ["CE05"], "open_codes": ["只累加偶数下标元素而未筛选奇数"], "memo": "契约要求累加位于偶数下标且数值本身为奇数的元素；源码直接对 lst[::2] 全部求和，没有检查元素是否为奇数。"}
+{"artifact_id": "699", "code_ids": ["CE05"], "open_codes": ["对全局最小 k 个元素求和"], "memo": "契约只考察 arr 的前 k 个元素，并累加其中位数不超过两位的元素；源码对全数组排序后取前 k 个求和，既替换了考察范围，也没有按位数筛选。"}
+{"artifact_id": "701", "code_ids": ["CE06", "CE08"], "open_codes": ["漏记初始 n", "把全部中间项收入结果而非只收奇数"], "memo": "契约收集 Collatz 序列中的所有奇数并升序返回；源码从变换后的项开始追加，漏掉初始 n（当 n>1 且为奇数时），且把偶数中间项也收入结果。"}
+{"artifact_id": "702", "code_ids": ["CE05"], "open_codes": ["只按空白切分而未实现逗号/字母计数分支"], "memo": "契约在无空白时按逗号切分，若也无逗号则统计字母序号为奇数的非大写字母个数；源码始终调用 txt.split()，只实现了空白切分这一分支。"}
+{"artifact_id": "703", "code_ids": ["CE05"], "open_codes": ["只判断有序而未拒绝重复超过两次"], "memo": "契约除升序外还要求同一数值最多出现两次；源码只比较 sorted(lst)==lst，[1,2,2,2,3] 会被错误接受。"}
+{"artifact_id": "704", "code_ids": ["CE05"], "open_codes": ["用区间包含关系替代交集长度素性"], "memo": "契约计算两闭区间交集的长度并判断该长度是否为素数；源码只检查一个区间是否包含另一个区间，满足包含就返回 YES，既没有计算交集长度也没有素性检验。"}
+{"artifact_id": "705", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "prod_signs 函数体只有 pass，没有计算绝对值之和、符号乘积或空数组返回值。"}
+{"artifact_id": "706", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "minPath 函数体只有注释和 pass，没有搜索长度为 k 的字典序最小邻接路径。"}
+{"artifact_id": "707", "code_ids": ["CE05", "CE09"], "open_codes": ["用普通 Tribonacci 递推替代题定奇偶递推", "漏掉 n=0 与返回 n+1 项"], "memo": "契约按偶数项 1+n/2、奇数项 tri(n-1)+tri(n-2)+tri(n+1) 生成前 n+1 项；源码把前三项固定为 [1,3,2] 后使用普通三项和递推，既不是题定递推，也没有返回 n=0 的 [1]。"}
+{"artifact_id": "708", "code_ids": ["CE01"], "open_codes": ["常量 0 代替实现"], "memo": "函数只返回 0，没有遍历数字、筛选奇数位或计算乘积；只有“全偶数”这一种输出。"}
+{"artifact_id": "709", "code_ids": ["CE01"], "open_codes": ["常量 False 代替实现"], "memo": "函数只返回 False，没有检查括号嵌套子序列，示例 [[][]] 等也会失败。"}
+{"artifact_id": "710", "code_ids": ["CE03"], "open_codes": ["调用 math.ceil 但未导入 math"], "memo": "实现调用 math.ceil 但当前 artifact 没有导入 math，非空输入会在列表推导中抛 NameError；上取整后平方的算术本身与契约一致。"}
+{"artifact_id": "711", "code_ids": ["CE07", "CE11"], "open_codes": ["用 isalpha 且非 isalnum 的恒假条件", "空串直接取 txt[-1] 越界"], "memo": "契约要求末字符是字母且它单独成词；源码的条件 isalpha() and not isalnum() 对任何字符都不可能同时成立，且没有先处理空串，txt[-1] 会抛 IndexError。"}
+{"artifact_id": "713", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "can_arrange 函数体只有 pass，没有从后向前找逆序位置或返回 -1。"}
+{"artifact_id": "714", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "largest_smallest_integers 函数体只有 pass，没有分别筛选负数与正数或返回元组。"}
+{"artifact_id": "715", "code_ids": ["CE04", "CE12"], "open_codes": ["直接比较字符串与数字而未解析数值", "混合类型比较会抛 TypeError"], "memo": "契约把 . 或 , 表示小数的字符串与数值统一按实数比较，并保留原类型返回较大者；源码直接用 a>b、a<b 做原生比较，既不解析逗号小数，也无法比较字符串与数字，例如 compare_one(1, \"2,3\") 会抛 TypeError。"}
+{"artifact_id": "716", "code_ids": ["CE01"], "open_codes": ["常量 False 代替实现"], "memo": "函数只返回 False，没有检查 n 是否至少为 8 且为偶数；示例 is_equal_to_sum_even(8) 就会失败。"}
+{"artifact_id": "717", "code_ids": ["CE09"], "open_codes": ["递推写成普通阶乘"], "memo": "契约要求 n!*(n-1)!*...*1! 的 Brazilian factorial；源码 return n*special_factorial(n-1) 计算的是普通 n!，乘的是前一阶乘结果而不是前一 Brazilian 值，递推关系错误。"}
+{"artifact_id": "718", "code_ids": ["CE05", "CE03"], "open_codes": ["把所有空白串都替换为下划线", "调用未导入的 re"], "memo": "契约只把单个空格替换为下划线、连续 3 个及以上空格替换为 -，两个空格仍应变成两个下划线；源码用 re.sub(r\"\\s+\",\"_\",text) 把任意长度空白串统一替换成一个下划线，且当前 artifact 未导入 re。"}
+{"artifact_id": "720", "code_ids": ["CE05"], "open_codes": ["用整个文件名长度代替数字字符个数"], "memo": "契约要求文件名中数字字符不超过 3 个；源码检查 len(file_name)>3，把字符串总长度当成数字个数，example.txt 这类合法文件名会被拒绝。"}
+{"artifact_id": "721", "code_ids": ["CE09"], "open_codes": ["漏掉非 3/4 倍数元素的直接累加"], "memo": "契约对下标为 3 的倍数平方、为 4 的倍数（且非 3）立方、其余元素原值累加；源码没有 else 分支，下标不满足任一条件的元素被直接丢弃，例如 [1,2,3] 只累加下标 0 的平方。"}
+{"artifact_id": "722", "code_ids": ["CE03"], "open_codes": ["调用未定义 is_prime"], "memo": "words_in_sentence 调用当前 artifact 未定义、也未导入的 is_prime，合法输入会抛 NameError。"}
+{"artifact_id": "724", "code_ids": ["CE05"], "open_codes": ["对绝对值求数位和而丢失负号权重"], "memo": "契约的权重是数字各位之和，负数的首位数字应带负号；源码对 abs(x) 求各位和，-12 与 12 得到相同权重，例如 [-12,11] 的排序依据被替换。"}
+{"artifact_id": "725", "code_ids": ["CE05"], "open_codes": ["用 x%100 判断首位奇偶"], "memo": "契约要求十进制表示的首位与末位数字都为奇数；源码用 x%100 作为首位判据，只有两位数时才近似成立，109 的 x%100=9 会被误当成首位奇数。"}
+{"artifact_id": "726", "code_ids": ["CE05"], "open_codes": ["统计下标为 3 的倍数的个数"], "memo": "契约要求构造 a[i]=i²-i+1，并统计 i<j<k 且三数之和为 3 的倍数的三元组数；源码只数 1..n 中下标为 3 的倍数的个数，计算对象被完全替换。"}
+{"artifact_id": "727", "code_ids": ["CE03", "CE12"], "open_codes": ["引用未定义的 planets", "把字符串当作列表下标"], "memo": "bf 在判断行星名称时引用当前 artifact 未定义的 planets；即使补齐该名称，planets[planet1][1:planets[planet2][0]+1] 仍把字符串 planet1、planet2 当作列表下标，类型协议不成立。"}
+{"artifact_id": "729", "code_ids": ["CE08"], "open_codes": ["默认按字典序排序而非先按长度再按字母序"], "memo": "契约要求偶数长度字符串按长度升序、同长度按字母序返回；源码 filter 后直接 sorted(...)，默认按字符串字典序排序，例如 \"aa\" 会排在 \"b\" 前，输出顺序违反契约。"}
+{"artifact_id": "730", "code_ids": ["CE05"], "open_codes": ["用 n 的奇偶性代替素性判断"], "memo": "契约在 n 为素数时返回 x、否则返回 y；源码只检查 n%2==0，所有奇合数（如 15）都会被当作素数返回 x，判据被替换。"}
+{"artifact_id": "731", "code_ids": ["CE11"], "open_codes": ["未排除负数与非整数元素"], "memo": "契约只累加正奇数的平方，负数、浮点数和其他非整数应忽略；源码对所有满足 x%2!=0 的元素平方求和，-1 和 1.5 等都会被错误纳入。"}
+{"artifact_id": "732", "code_ids": ["CE05", "CE08"], "open_codes": ["升序排序后取首个元素而非最强扩展", "用排序后列表的 index 取原扩展导致恒取首项"], "memo": "契约选择 CAP-SM 最大的扩展，强度相同取原列表中最先出现者；源码把强度升序排序后取 strength[0]（最小强度），再在排序列表上 index(strength[0]) 恒为 0，最终返回 extensions[0]，选择目标与索引组装都错。"}
+{"artifact_id": "733", "code_ids": ["CE06"], "open_codes": ["只检查 b 本身和 a 的一次旋转"], "memo": "契约要求枚举 b 的全部循环旋转并检查是否为 a 的子串；源码只检查 b 本身以及 a 的一次左旋，候选枚举对象和位移覆盖都不足。"}
+{"artifact_id": "734", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "int_to_mini_roman 函数体只有 pass，没有构造罗马数字或返回小写字符串。"}
+{"artifact_id": "735", "code_ids": ["CE06"], "open_codes": ["只检查一种斜边排列"], "memo": "直角判据 a²+b²=c² 本身正确，但只覆盖 c 为斜边这一种排列；a 或 b 为斜边时漏判，例如 5,3,4 会返回 False。"}
+{"artifact_id": "736", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "find_max 函数体只有 pass，没有统计不同字符数、比较字典序或返回单词。"}
+{"artifact_id": "737", "code_ids": ["CE07"], "open_codes": ["缺少剩余不足时只吃 remaining 的分支"], "memo": "契约在 need>remaining 时只能吃 remaining 根并返回剩余 0；源码无条件返回 number+need 与 remaining-need，剩余不足时总数超过实际可吃数量且剩余变成负数。"}
+{"artifact_id": "738", "code_ids": ["CE01"], "open_codes": ["pass 空实现"], "memo": "do_algebra 函数体只有 pass，没有拼接表达式或求值。"}
+{"artifact_id": "739", "code_ids": ["CE05"], "open_codes": ["总是反转整串而非按字符交换大小写"], "memo": "契约应逐字符交换字母大小写、非字母保持不变，只有完全不含字母时才反转整串；源码对所有输入直接返回 s[::-1]，交换大小写这一目标没有实现。"}
+{"artifact_id": "740", "code_ids": ["CE03"], "open_codes": ["缺少 hashlib 导入"], "memo": "string_to_md5 调用 hashlib.md5，但当前 artifact 没有导入 hashlib；非空输入会抛 NameError。"}
+{"artifact_id": "741", "code_ids": ["CE11"], "open_codes": ["未规范化 a>b 的顺序", "未限制到 10 以下"], "memo": "契约返回 a 到 b 之间的偶数数字并升序，输入逆序也应成立且范围只到数字 9；源码直接 range(a,b+1)，a>b 时返回空列表，a 或 b 超过 10 时还会包含非数字的整数。"}

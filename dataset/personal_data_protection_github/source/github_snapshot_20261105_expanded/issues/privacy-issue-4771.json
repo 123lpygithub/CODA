@@ -1,0 +1,122 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4771",
+  "issue_url": "https://github.com/allinurl/goaccess/issues/1009",
+  "source_issue_url": "https://github.com/allinurl/goaccess/issues/1009",
+  "api_url": "https://api.github.com/repos/allinurl/goaccess/issues/1009",
+  "title": "How to hide IP (make report anonymous)",
+  "body": "Hello,\r\n\r\nI'm the mirror of some projects and I provide accessible stats with goaccess to the dev.\r\nHowever I wish to hide the visitors IPs for privacy reason. Especially when we start to touch projects like Tor, Tails, etc..\r\n\r\nI'm using a script at the moment to replace the IPs with x.x.x.x, but I guess it could be a good feature for goaccess directly.\r\nMay be it exists already but I haven't seen it.\r\n\r\nThanks for your ideas there.",
+  "author": "Participant 1",
+  "created_at": "2018-02-12T14:03:45Z",
+  "updated_at": "2025-03-11T03:14:21Z",
+  "state": "closed",
+  "closed_at": "2018-05-31T03:02:31Z",
+  "issue_fetched_at": "2026-10-18T14:10:00.434183+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T14:10:03.736265+00:00"
+  ],
+  "expected_comment_count": 12,
+  "retrieved_comment_count": 12,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 365027808,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-365027808",
+      "created_at": "2018-02-12T19:04:48Z",
+      "updated_at": "2018-02-12T19:04:48Z",
+      "author": "Participant 2",
+      "body": "Great question. Currently it doesn't have this feature. I can look into it, shouldn't be too bad to implement this. Thanks for bring this up."
+    },
+    {
+      "id": 369756766,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-369756766",
+      "created_at": "2018-03-01T22:42:27Z",
+      "updated_at": "2018-03-02T17:47:21Z",
+      "author": "Participant 3",
+      "body": "Awesome :)\r\n\r\nI hope this might provide more context to a request like this:\r\n\r\nIP addresses are often seen as personal data (especially when related to a website or service), additionally referral urls can contain sensitive information too. Our wish is to publish the goacces statistics on a website for the world to see. We'd like to publish all panels of course, to show of all awesome stats.\r\n\r\nCurrently our quick workaround would be to filter the output. This solution is not future proof, as ip-addresses etc might pop up elsewhere in the next update.\r\n\r\nIdeally we would see a feature that transforms sensitive information into unique but meaningless (non-reversable) hashes or removed all-together. Ideally this would be a single flag you set to all relevant panels (\"--private\"). When thinking of privacy by design, this would be default behavior, and the option \"--unfiltered\" would be applied to see everything as is.\r\n"
+    },
+    {
+      "id": 389437498,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-389437498",
+      "created_at": "2018-05-16T08:24:47Z",
+      "updated_at": "2018-05-16T08:24:47Z",
+      "author": "Participant 4",
+      "body": "It might be enough to \"anonymize\" IP address by truncating the least-significant 16 bits (in IPv4) or 64 (or perhaps 96) bits in IPv6. That's probably still enough to report country, but not uniquely identify anyone."
+    },
+    {
+      "id": 389550973,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-389550973",
+      "created_at": "2018-05-16T15:01:00Z",
+      "updated_at": "2018-05-16T15:01:00Z",
+      "author": "Participant 2",
+      "body": "Should IP addresses be anonymized at the output level or at the storage level? If it's done at the the output level, all visitors stats will continue to show accurate numbers. However, if it's done at the storage level, then unique visitors will probably not be completely accurate, e.g., \r\n\r\n    192.168.1.100 => 192.168.1.0  == 192.168.1.120 => 192.168.1.0"
+    },
+    {
+      "id": 393386561,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-393386561",
+      "created_at": "2018-05-31T03:02:31Z",
+      "updated_at": "2018-05-31T03:02:31Z",
+      "author": "Participant 2",
+      "body": "The ability to anonymize IPv4/6 addresses has been added. This is done at the the output level so all visitors stats will continue to show accurate numbers. e.g.,\r\n\r\n    192.168.1.100 => 192.168.1.0 "
+    },
+    {
+      "id": 393386739,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-393386739",
+      "created_at": "2018-05-31T03:03:34Z",
+      "updated_at": "2018-05-31T03:03:34Z",
+      "author": "Participant 2",
+      "body": "BTW, feel free to build from [**development**](https://github.com/allinurl/goaccess#build-from-github-development) to test this out, otherwise it will be pushed out in the upcoming release."
+    },
+    {
+      "id": 431720839,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-431720839",
+      "created_at": "2018-10-22T01:10:38Z",
+      "updated_at": "2018-10-22T01:10:38Z",
+      "author": "Participant 5",
+      "body": "Any idea when this upcoming release might be?"
+    },
+    {
+      "id": 431913822,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-431913822",
+      "created_at": "2018-10-22T17:51:23Z",
+      "updated_at": "2018-10-22T17:51:23Z",
+      "author": "Participant 2",
+      "body": "@BobVul [Due by November 23, 2018](https://github.com/allinurl/goaccess/milestone/1)"
+    },
+    {
+      "id": 1107389478,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-1107389478",
+      "created_at": "2022-04-23T06:15:01Z",
+      "updated_at": "2022-04-23T06:18:19Z",
+      "author": "Participant 1",
+      "body": "Hello,?\r\nI've installed goaccess from repo (Debian), v1.4 and the IP of the users are visible. \r\nI think it should be hidden by default for privacy reasons.\r\n\r\nanonymize-ip true\r\n\r\nIs it something the community prefer as well?\r\nThank you"
+    },
+    {
+      "id": 1113301327,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-1113301327",
+      "created_at": "2022-04-29T13:18:48Z",
+      "updated_at": "2022-04-29T13:18:48Z",
+      "author": "Participant 2",
+      "body": "@karibuTW You can always run goaccess as (latest version):\r\n\r\n    goaccess access.log --anonymize-ip -o report.html\r\n\r\nand for more specificity\r\n\r\n    goaccess access.log --anonymize-ip --anonymize-level=3 -o report.html\r\n\r\nAnonymization levels: 1 => default, 2 => strong, 3 => pedantic."
+    },
+    {
+      "id": 2712053873,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-2712053873",
+      "created_at": "2025-03-10T23:13:16Z",
+      "updated_at": "2025-03-10T23:13:16Z",
+      "author": "Participant 6",
+      "body": "Hi All\nPlease help me\ngoaccess: unrecognized option '--anonymize-level=3'\n"
+    },
+    {
+      "id": 2712457228,
+      "url": "https://github.com/allinurl/goaccess/issues/1009#issuecomment-2712457228",
+      "created_at": "2025-03-11T03:14:20Z",
+      "updated_at": "2025-03-11T03:14:20Z",
+      "author": "Participant 2",
+      "body": "> Hi All Please help me goaccess: unrecognized option '--anonymize-level=3'\n\nSounds like you are running an older version; you will need to upgrade to the latest version.  "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

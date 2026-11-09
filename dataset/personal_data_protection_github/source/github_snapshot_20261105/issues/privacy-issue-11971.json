@@ -1,0 +1,125 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11971",
+  "issue_url": "https://github.com/tutao/tutanota/issues/516",
+  "source_issue_url": "https://github.com/tutao/tutanota/issues/516",
+  "api_url": "https://api.github.com/repos/tutao/tutanota/issues/516",
+  "title": "Provide a way to set sender name per email address",
+  "body": "As a user i want to be able to configure a sender name per email alias so i don't expose my real name for any of my anonymous email addresses.\r\n\r\n### Acceptance criteria\r\n\r\n- Allow to set a different name for every email alias and the main email address.\r\n- If there is no sender name configured for the used address, the sender name in the email should remain empty (no fallback).\r\n- Sender name is used when writing an email (new email, reply, forward)\r\n- Sender name is used in calendar invites/replies\r\n- Sender name is used in external notification emails\r\n- Sender name is stored encrypted with group key of the mailbox\r\n- Sender name can be modified by the owner (even if non-admin) of the mailbox that the email address is assigned to.\r\n- When creating a user the user name is also used as the sender name of the user's default email address\r\n- When an admin creates an alias for a user (or for themselves), the sender name for the alias can also be specified. The user name is shown in the text field by default.\r\n- When changing the user name or an email address name other names are not changed automatically (user name and email address names are independent)\r\n- Existing sender names are retained (main sender name and user group). All email addresses inherit the configured sender name.\r\n- Users can still log in with aliases\r\n\r\n### Implementation hints\r\n\r\n- Introduce configuration object per email address (users mail address and email aliases) which holds the name in the first place and later can also have the signature and out of office notification.\r\n- Run a migration on the client that creates the config object and writes existing email addresses with name to it.\r\n- Currently, a non-admin user can't see their aliases or change their sender name. We need to show alias list to all users and not only admins so that they can change their sender name.\r\n\r\nGUI: Replace email alias table with new email address table/list were also the users main email address is listed. Show it also for non admin users. Allow specifying name but not activation/deactivation/deletion. One entry in the list should have two rows. First row shows email address, second row status and sender name were status is either \"main address\", \"activated\" or \"deactivated\"\r\n\r\n## Tasks\r\n - [x] Design and change model\r\n - [x] Add client migration\r\n - [x] Add configuration UI to settings to configure the name per alias\r\n - [x] Allow non-admins to see mail aliases and configure the names for it\r\n - [x] Change the client to use the new model when sending mails/saving drafts\r\n - [x] Make sure that calendar invites include the right name\r\n - [x] Clarify with support/marketing that it behaves like expected\r\n - [x] Change UI for adding alias to allow configuring the name\r\n\r\n## Test notes\r\n - [x] Test new model: release new tutadb without schema upgrade and without a new client, test that spam report preference can still be changed\r\n\r\n - [x] Test desktop client migration from the previous DB version\r\n\r\nPrepare an existing account with admin, local admin and at least two normal users\r\n - [x] Previously unmigrated account, log in, open mail editor. Sender name dropdown should pick up existing sender name\r\n - [x] Go to settings and change sender name for some mail addresses. It should now be used in mail editor\r\n - [x] Check that it is used in calendar event invites\r\n - [x] Check that it is used in external notification emails\r\n - [x] Check that you can add an alias with sender name, it should default to user name\r\n - [x] Check that you can still edit the user name and it doesn't change sender name\r\n - [x] Log in as a global admin, check that your own sender names can be changed via mail or user management settings\r\n - [x] Check that you can view and change previous user's sender names\r\n - [x] Check another user (user B) (who hasn't logged in yet). Should be able to do the same things\r\n - [x] Check that you can add an alias with sender name, it should default to user name\r\n - [x] Log in as a local admin. Check that you can also view and edit things for both users.\r\n - [x] Log in as user B, check that the settings by admins have been applied, you can view and edit sender names\r\n - [x] Check that mail address table shows primary mail address and email aliases and their statuses correctly\r\n - [x] Check that as non-admin you don't see how many aliases you can add nor you can add/remove aliases\r\n - [x] Check that number of available aliases is correctly updated when an alias is added\r\n - [x] Check that as an admin aliases can be enabled/disabled and the status is displayed correctly\r\n - [x] Check that whitelabel aliases can be deleted but not disabled\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-08-11T14:00:36Z",
+  "updated_at": "2022-11-29T13:05:20Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:40.885688+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:40.885688+00:00"
+  ],
+  "expected_comment_count": 37,
+  "retrieved_comment_count": 12,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 438587608,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-438587608",
+      "created_at": "2018-11-14T09:01:27Z",
+      "updated_at": "2018-11-14T09:01:27Z",
+      "author": "Participant 2",
+      "body": "The user must be able to configure the names (not only the admin). The user name is not used as a name for the mail address anymore."
+    },
+    {
+      "id": 438673553,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-438673553",
+      "created_at": "2018-11-14T14:07:34Z",
+      "updated_at": "2018-11-14T14:07:34Z",
+      "author": "Participant 1",
+      "body": "I think so. I only have one user, so it's the `admin`.\r\n\r\nThis one was towards the ability to set a different \"sender name\" for all the registered e-mail addresses (including aliases). If you go to `Settings > User Management`, there is only one `Sender name`; the value there will be used for all outgoing e-mails, regardless of the alias in use.\r\n\r\nI think that has to be fixed because not all aliases will/should use the same `Sender name` value – the same applies for the main account address."
+    },
+    {
+      "id": 524243204,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-524243204",
+      "created_at": "2019-08-23T09:24:12Z",
+      "updated_at": "2019-08-23T09:25:36Z",
+      "author": "Participant 3",
+      "body": "This suggestion is similar to what is normally present in the UX of provider or an e-mail client (which can do this independently from the provider):\r\n\r\n![image](https://user-images.githubusercontent.com/54138438/63581112-8e9e0e00-c596-11e9-9c95-841b87832cca.png)\r\n\r\nA specific example (and compliant with the privacy mindset) would be this - one wants to create an identity which is not real (but sounds legit) for services where one does't feel comfortable sharing and/or is not required to provide a real name, but considers these services legitimate enough that one may want to still preserve some shape of form of an identity, especially when there is an e-mail correspondence (contacting support, sales,...).\r\n\r\nIn a nutshell, one can still do it, but only via aforementioned account-wide Sender name option in the settings, which I would be genuinely surprised if anyone had it filled in as it would \"sign\" every sent e-mail with that name, which we at that point we all could use just aliases with a standard firstname+surname syntax."
+    },
+    {
+      "id": 534913685,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-534913685",
+      "created_at": "2019-09-25T08:30:37Z",
+      "updated_at": "2019-09-25T08:30:37Z",
+      "author": "Participant 4",
+      "body": "This is the only issue stopping me from using Tutanota. I've got five aliases, but they have different names. Not being able to have a unique name per alias makes that functionality much less... functional. Creating and paying for five different accounts and then going through the login/logout logistics is not a great workaround. Any idea on when improving this feature is going to be available?"
+    },
+    {
+      "id": 541482910,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-541482910",
+      "created_at": "2019-10-14T02:02:40Z",
+      "updated_at": "2019-10-14T02:04:31Z",
+      "author": "Participant 5",
+      "body": "I just started using Tutanota and i'm not sure if i will continue. Protonmail allowed me to have a different sender name for each email as also filtering emails per email address. I think it is critical for tutanota to implement this feature. I really hope they do it soon. It's the only thing i miss in protonmail."
+    },
+    {
+      "id": 557387877,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-557387877",
+      "created_at": "2019-11-22T04:51:23Z",
+      "updated_at": "2019-11-22T07:14:19Z",
+      "author": "Participant 6",
+      "body": "[**@mpfau**](https://github.com/mpfau) commented on [Nov 14, 2018, 8:01 PM GMT+11](https://github.com/tutao/tutanota/issues/516#issuecomment-438587608 \"2018-11-14T09:01:27Z - Replied by Github Reply Comments\"):\r\n> The user must be able to configure the names (not only the admin). The user name is not used as a name for the mail address anymore.\r\n\r\nYes, a user can only configure 1 _**sender name**_ per account (they can change the sender name to what ever they like).\r\n\r\nThe problem here is that all aliases use the same sender name, we want to assign different _**sender name**_ simultaneously to every _**email aliases**_ created by a single tutanota user.\r\n\r\nIt has been few years and this feature has not yet been implemented. This was proposed in 2015 or 2016 on _**tutanota.uservoice\\.com**_ (website is <ins>not in service</ins>, there's an archived page with an idea title of _[Set a different «Name» for alias](https://web.archive.org/web/20160731191224/https://tutanota.uservoice.com/forums/237921-general/filters/top)_) with hundreds of likes and possibly thousands or more by now.\r\n\r\nWe have been informed that it was _planned_, but haven't heard anything since then..."
+    },
+    {
+      "id": 557466656,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-557466656",
+      "created_at": "2019-11-22T09:50:57Z",
+      "updated_at": "2019-11-22T09:50:57Z",
+      "author": "Participant 7",
+      "body": "@0Ky what also to say about it other than \"it's planned, look at the [roadmap](https://tutanota.com/roadmap/)\"?\r\nPlease take into account that some things from top of it are already implemented and are either in beta or about to be released"
+    },
+    {
+      "id": 560109001,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-560109001",
+      "created_at": "2019-12-01T13:34:01Z",
+      "updated_at": "2019-12-01T13:34:01Z",
+      "author": "Participant 8",
+      "body": "+1"
+    },
+    {
+      "id": 564969333,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-564969333",
+      "created_at": "2019-12-12T11:31:29Z",
+      "updated_at": "2019-12-12T11:31:29Z",
+      "author": "Participant 9",
+      "body": "+1! Feature in demand!"
+    },
+    {
+      "id": 566886031,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-566886031",
+      "created_at": "2019-12-18T06:22:55Z",
+      "updated_at": "2019-12-18T06:22:55Z",
+      "author": "Participant 10",
+      "body": "+1 Essential!"
+    },
+    {
+      "id": 860099156,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-860099156",
+      "created_at": "2021-06-12T19:37:35Z",
+      "updated_at": "2021-06-20T08:41:53Z",
+      "author": "Participant 11",
+      "body": "Och nö, jetzt wollte ich endlich mal zu Tutanota umziehen und finde das hier. Ich hatte angenommen so etwas sei eine Standardfunktion. Ich bin enttäuscht :(.\r\n\r\nIch habe mich trotzdem für Tutanota entschieden. Die Vorteile überwiegen. Dass Kommentare ausgeblendet werden...nun ja..."
+    },
+    {
+      "id": 864520231,
+      "url": "https://github.com/tutao/tutanota/issues/516#issuecomment-864520231",
+      "created_at": "2021-06-20T08:42:02Z",
+      "updated_at": "2021-06-20T08:42:02Z",
+      "author": "Participant 11",
+      "body": "Ich habe mich trotzdem für Tutanota entschieden. Die Vorteile überwiegen. Dass Kommentare ausgeblendet werden...nun ja..."
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/tutao/tutanota/issues/516",
+  "closed_at_available": false
+}

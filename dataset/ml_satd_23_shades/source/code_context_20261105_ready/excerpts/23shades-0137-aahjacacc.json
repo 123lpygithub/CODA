@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0137-aahjacacc",
+  "revision_url": "https://github.com/JohnVinyard/zounds/commit/bab5c8f7ef5e77f42e7eadbfa757127b012ce750",
+  "filename": "model/pipeline.py",
+  "commit": "bab5c8f7ef5e77f42e7eadbfa757127b012ce750",
+  "source_url": "https://raw.githubusercontent.com/JohnVinyard/zounds/bab5c8f7ef5e77f42e7eadbfa757127b012ce750/model/pipeline.py",
+  "fetched_at": "2026-11-05T06:11:59.839775+00:00",
+  "source_sha256": "f9a0e28cb435dc429c808a97f062bd56902e7efd52c0d796dc339a8877de3cd4",
+  "line_start": 41,
+  "line_end": 65,
+  "excerpt": "        self.learn = learn\n        # the date this pipeline completed training\n        self.trained_date = None\n        \n\n    def train(self,nexamples,stopping_condition):\n        '''\n        param stopping_condition: A callable that is specific to the \n        Learn-derived class. It is evaluated periodically by Learn.train to \n        decide when learning is complete.\n        '''\n        data = self.fetch(nexamples = nexamples)\n        # KLUDGE: Is this always OK?\n        data = flatten2d(data)\n        data = self.preprocess(data)\n        # TODO checkpoints, incremental save\n        self.learn.train(data,stopping_condition)\n        self.trained_date = datetime.utcnow()\n        self.store()\n    \n    def __call__(self,data):\n        data = self.preprocess(data)\n        return self.learn(data)\n    \n    def store(self):"
+}

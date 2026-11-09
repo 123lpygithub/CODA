@@ -1,0 +1,8 @@
+{
+  "url": "https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/7fb22d569212677042d4d9ed1b84576e12fa45f3/_includes/scripts/utils.js",
+  "final_url": "https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/7fb22d569212677042d4d9ed1b84576e12fa45f3/_includes/scripts/utils.js",
+  "text": "(function() {\n  window.isArray = function(val) {\n    return Object.prototype.toString.call(val) === '[object Array]';\n  };\n  window.isString = function(val) {\n    return typeof val === 'string';\n  };\n\n  window.decodeUrl = function(str) {\n    return str ? decodeURIComponent(str.replace(/\\+/g, '%20')) : '';\n  };\n\n\n  window.hasEvent = function(event) {\n    return 'on'.concat(event) in window.document;\n  };\n\n  window.isOverallScroller = function(node) {\n    return node === document.documentElement || node === document.body || node === window;\n  };\n\n  window.pageLoad = (function () {\n    var loaded = false, cbs = [];\n    window.addEventListener('load', function () {\n      var i, cb; loaded = true;\n      if (cbs.length > 0) {\n        for (i = 0; i < cbs.length; i++) {\n          cb = cbs[i]; cb();\n        }\n      }\n    });\n    return {\n      then: function(cb) {\n        cb && (loaded ? cb() : (cbs.push(cb)));\n      }\n    };\n  })();\n})();",
+  "content_type": "text/plain; charset=utf-8",
+  "fetched_at": "2026-11-05T16:50:52.952012+00:00",
+  "sha256": "c19ba9320cccc8943d68e32ac6dac7b45b6af90a9a68d07537c5038fd4eed67b"
+}

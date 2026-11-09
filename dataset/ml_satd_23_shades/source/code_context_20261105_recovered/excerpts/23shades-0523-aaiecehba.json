@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0523-aaiecehba",
+  "revision_url": "https://github.com/biolab/orange3/commit/e90f984063b77b360b04e827e6b17f9ca111694f",
+  "filename": "Orange/widgets/visualize/owscatterplotgraph.py",
+  "commit": "e90f984063b77b360b04e827e6b17f9ca111694f",
+  "source_url": "https://raw.githubusercontent.com/biolab/orange3/e90f984063b77b360b04e827e6b17f9ca111694f/Orange/widgets/visualize/owscatterplotgraph.py",
+  "fetched_at": "2026-11-05T06:13:07.425153+00:00",
+  "source_sha256": "42bd9bd4a4d834b8e612f463bd6f04b072168789024597487cec966264d05310",
+  "line_start": 628,
+  "line_end": 652,
+  "excerpt": "        self.set_axis_title(\"left\", \"\")\n\n        self.density_img = None\n        self.scatterplot_item = None\n        self.scatterplot_item_sel = None\n        self.labels = []\n        self.selection = None\n        self.valid_data = None\n\n    def update_data(self, reset_view=True):\n        self._clear_plot_widget()\n\n# TODO: do we need this?!\n#        if self.shown_y != attr_y:\n #           # 'reset' the axis text width estimation. Without this the left\n  #          # axis tick labels space only ever expands\n   #         yaxis = self.plot_widget.getAxis(\"left\")\n    #        yaxis.textWidth = 30\n\n        x_data, y_data = self.get_xy_data()\n\n        if reset_view:\n            min_x, max_x = np.nanmin(self.x_data), np.nanmax(self.x_data)\n            min_y, max_y = np.nanmin(self.y_data), np.nanmax(self.y_data)\n            self.view_box.setRange("
+}

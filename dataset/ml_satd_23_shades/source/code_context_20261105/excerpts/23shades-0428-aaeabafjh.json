@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0428-aaeabafjh",
+  "revision_url": "https://github.com/CartoDB/cartoframes/commit/f9d6640d69a01ebd24494168a3e9e4ca86a1811c",
+  "filename": "cartoframes/analysis/iso.py",
+  "commit": "f9d6640d69a01ebd24494168a3e9e4ca86a1811c",
+  "source_url": "https://raw.githubusercontent.com/CartoDB/cartoframes/f9d6640d69a01ebd24494168a3e9e4ca86a1811c/cartoframes/analysis/iso.py",
+  "fetched_at": "2026-11-05T06:12:53.574871+00:00",
+  "source_sha256": "fb4298dd684ee7a55248976f5b015ed82a664cd18490cfb6453612471ca75b6a",
+  "line_start": 91,
+  "line_end": 113,
+  "excerpt": "          FROM _isos\n        \"\"\".format(\n              iso_function=iso_function,\n              source_query=source_query,\n              source_id=source_id,\n              source_geom=source_geom,\n              mode=mode,\n              iso_ranges=iso_ranges,\n              iso_options=iso_options\n            )\n\n        if table_name:\n            # TODO:\n            # result = self._context.execute_long_running_query(\"CREATE TABLE {table} AS {sql}\".format(table=table_name, sql=sql))\n            # \"SELECT cdb_cartodbfytable({table})\".format(table=table_name)  # TODO: support for org users\n            result = {}\n        else:\n            # It would be nice to use execute_long_running_query, but we need the results\n            print(sql)\n            # result = self._context.execute_query(sql)\n            result = Dataset(sql).download()\n\n        return result",
+  "match_policy": "unique-release-normalized-v2"
+}

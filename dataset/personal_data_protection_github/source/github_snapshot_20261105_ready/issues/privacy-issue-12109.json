@@ -1,0 +1,154 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-12109",
+  "issue_url": "https://github.com/magento/magento2/issues/23122",
+  "source_issue_url": "https://github.com/magento/magento2/issues/23122",
+  "api_url": "https://api.github.com/repos/magento/magento2/issues/23122",
+  "title": "Error handling causes customer data leak",
+  "body": "### Preconditions (*)\r\n1. Magento 2.3.1\r\n\r\n### Steps to reproduce (*)\r\n1. Asynchronous email sending must be enabled in global settings\r\n2. Backlog of unsent emails (e.g in Magento\\Sales\\Model\\Order\\Email\\Sender\\CreditmemoSender)\r\n3. An error must be encountered during the getTransport method (e.g a plugin that references this tries to call an undefined function)\r\n4. The application must run via cron so that any \\Errors are automatically converted to \\Exceptions by Magento\\Framework\\App\\ErrorHandler.php\r\n\r\n### Expected result (*)\r\nThe class Magento\\Framework\\Mail\\Template\\TransportBuilder is implemented using the Singleton pattern, so should reset its internal variables after an error to prevent customers from seeing other customers order details.\r\n\r\n### Actual result (*)\r\nThe class Magento\\Framework\\Mail\\Template\\TransportBuilder is not reset, causing the customer who experienced the original issue to receive a copy of the next customers order/invoice/credit memo email.\r\n\r\n### Background information ###\r\n\r\nOne of our clients was receiving complaints from customers that they were being emailed the wrong customers orders, and were therefore concerned about their own privacy.\r\n\r\nWe isolated the error and found that the Fooman EmailAttachments module was referencing the createAttachment function which existed in Magento 2.2 but was removed in Magento 2.3\r\n\r\nIn Magento 2.2 :\r\nclass Message extends \\Zend_mail implements MessageInterface\r\n\r\nIn Magento 2.3 :\r\nclass Message implements MailMessageInterface\r\n\r\nSearching the web for \"Call to undefined method Magento\\Framework\\Mail\\Message\\Interceptor::createAttachment()\" showed 68 results, meaning that this is not an isolated fault.\r\n\r\nThe probability of this happening to other installations as a result of breaking changes to the core is very high\r\n\r\n### Suggested fix ###\r\n\r\nThe potential for a third party module to cause Magento to email the wrong customer is caused by the error handling in the SenderBuilder not resetting the TransportBuilder.\r\n\r\nThe send() function of the SenderBuilder should catch any errors, and reset the TransportBuilder to prevent this from happening.\r\n\r\nAlternatively the TransportBuilder could be converted from a Singleton into a Factory.",
+  "author": "Participant 1",
+  "created_at": "2019-06-04T13:17:21Z",
+  "updated_at": "2021-05-05T12:47:07Z",
+  "state": "closed",
+  "closed_at": "2021-05-05T12:47:00Z",
+  "issue_fetched_at": "2026-10-19T05:05:26.605834+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T05:05:28.533675+00:00"
+  ],
+  "expected_comment_count": 16,
+  "retrieved_comment_count": 16,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 498667381,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-498667381",
+      "created_at": "2019-06-04T13:17:23Z",
+      "updated_at": "2019-06-04T14:08:12Z",
+      "author": "Participant 2",
+      "body": "Hi @ryanpalmerweb. Thank you for your report. \nTo help us process this issue please make sure that you provided the following information:\n- [x] Summary of the issue\n- [x] Information on your environment\n- [x] Steps to reproduce\n- [x] Expected and actual results\n\nPlease make sure that the issue is reproducible on the vanilla Magento instance following **Steps to reproduce**. To deploy vanilla Magento instance on our environment, please, add a comment to the issue: \n\n`@magento give me 2.3-develop instance` - upcoming 2.3.x release\n\nFor more details, please, review the [Magento Contributor Assistant](https://devdocs.magento.com/guides/v2.2/contributor-guide/contributing.html#contributor-assist) documentation.\n\n@ryanpalmerweb do you confirm that you were able to reproduce the issue on vanilla Magento instance following steps to reproduce?\n- [ ] yes\n- [ ] no\n\n---\n-  Join [Magento Community Engineering Slack](http://tinyurl.com/engcom-slack) and ask your questions in [#github](https://magentocommeng.slack.com/messages/C7KB93M32) channel."
+    },
+    {
+      "id": 498688679,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-498688679",
+      "created_at": "2019-06-04T14:10:59Z",
+      "updated_at": "2019-06-04T14:13:01Z",
+      "author": "Participant 1",
+      "body": "@okorshenko I can see this change relates to MAGETWO-67680"
+    },
+    {
+      "id": 498889665,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-498889665",
+      "created_at": "2019-06-05T00:15:08Z",
+      "updated_at": "2019-06-05T00:15:20Z",
+      "author": "Participant 3",
+      "body": "```\r\nSuggested fix\r\nThe potential for a third party module to cause Magento to email the wrong customer is caused by the error handling in the SenderBuilder not resetting the TransportBuilder.\r\n\r\nThe send() function of the SenderBuilder should catch any errors, and reset the TransportBuilder to prevent this from happening.\r\n\r\nAlternatively the TransportBuilder could be converted from a Singleton into a Factory.\r\n```\r\n\r\nCore code must not take into consideration buggy plugins/interceptors. Sounds like the bug is in Fooman module."
+    },
+    {
+      "id": 498994775,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-498994775",
+      "created_at": "2019-06-05T08:44:51Z",
+      "updated_at": "2019-06-05T08:58:25Z",
+      "author": "Participant 1",
+      "body": "It's surely dangerous to assert that there could never be an exception in this area of code, given the consequences.\r\n\r\nIn this case, a backwards incompatible change to the Magento core (a function being removed) led to the issue being triggered by a 3rd party plugin, however *any* exception in this area of code could lead to customers being inadvertently emailed and it's quite a serious breach of customer privacy if this happens.\r\n\r\n> \"A personal data breach may, if not addressed in an appropriate and timely manner, result in physical, material or non-material damage to natural persons such as loss of control over their personal data or limitation of their rights, discrimination, identity theft or fraud, financial loss, unauthorised reversal of pseudonymisation, damage to reputation, loss of confidentiality of personal data protected by professional secrecy or any other significant economic or social disadvantage to the natural person concerned.\"\r\n\r\nGenerally, pushing customer data into a singleton object and relying on a specific execution path to reset this for the next use (which is bypassed by any exception handling) isn't safe behaviour\r\n\r\nIt would be relatively easy to safeguard this area of code, by initially resetting the transportBuilders internals or retrieving it via a factory pattern - is there any reason that this can't / shouldn't be done?"
+    },
+    {
+      "id": 499004199,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-499004199",
+      "created_at": "2019-06-05T09:12:33Z",
+      "updated_at": "2019-06-05T09:12:33Z",
+      "author": "Participant 3",
+      "body": "@ryanpalmerweb no objections to re-create `TransportBuilder` each time, just that there is no defect in core currently which needs to be fixed. Third-party extensions need to be tested properly when upgrading."
+    },
+    {
+      "id": 502491052,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-502491052",
+      "created_at": "2019-06-16T22:28:15Z",
+      "updated_at": "2019-06-16T22:29:08Z",
+      "author": "Participant 4",
+      "body": "As I was mentioned in here I wanted to note for future people coming across this that the issue would not exhibit when running the latest released versions of our extensions (and Composer should have prevented the 2.3.1 upgrade without also upgrading our extension) but I fully support making this code more defensive."
+    },
+    {
+      "id": 586323159,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-586323159",
+      "created_at": "2020-02-14T14:57:02Z",
+      "updated_at": "2020-02-18T09:37:40Z",
+      "author": "Participant 5",
+      "body": "@engcom-Golf @engcom-Alfa @engcom-Charlie  could you check if this issue still valid on 2.4-develop?"
+    },
+    {
+      "id": 754320475,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-754320475",
+      "created_at": "2021-01-05T01:06:03Z",
+      "updated_at": "2021-01-05T01:06:03Z",
+      "author": "Participant 6",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed after 14 days if no further activity occurs. Thank you for your contributions.\n"
+    },
+    {
+      "id": 755310138,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-755310138",
+      "created_at": "2021-01-06T13:51:53Z",
+      "updated_at": "2021-01-06T13:51:53Z",
+      "author": "Participant 5",
+      "body": "@engcom-Bravo maybe you could check this issue?"
+    },
+    {
+      "id": 832373380,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-832373380",
+      "created_at": "2021-05-05T02:32:36Z",
+      "updated_at": "2021-05-05T02:32:36Z",
+      "author": "Participant 6",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed after 14 days if no further activity occurs. Is this issue still relevant? If so, what is blocking it? Is there anything you can do to help move it forward? Thank you for your contributions!\n"
+    },
+    {
+      "id": 832443060,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-832443060",
+      "created_at": "2021-05-05T06:23:24Z",
+      "updated_at": "2021-05-05T06:23:24Z",
+      "author": "Participant 7",
+      "body": "Let's keep this issue open, it sounds important enough. Would be great if somebody could verify and assign priorities. @sidolov @gabrieldagama"
+    },
+    {
+      "id": 832520396,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-832520396",
+      "created_at": "2021-05-05T08:44:01Z",
+      "updated_at": "2021-05-05T08:45:25Z",
+      "author": "Participant 5",
+      "body": "@gabrieldagama @sivaschenko, I think the priority for this issue should be set to p2, or even to p1. Also, I asked for verifying this issue more than 1 year ago but didn't get any response yet... https://github.com/magento/magento2/issues/23122#issuecomment-586323159"
+    },
+    {
+      "id": 832526883,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-832526883",
+      "created_at": "2021-05-05T08:53:52Z",
+      "updated_at": "2021-05-05T08:53:52Z",
+      "author": "Participant 8",
+      "body": "Hi @ihor-sviziev @hostep, thanks for highlighting this issue. I wonder if this is still reproducible on 2.4-develop, as far as I can see the `getTransport()` method is always resetting its values since 2019.\r\n\r\n```\r\n    public function getTransport()\r\n    {\r\n        try {\r\n            $this->prepareMessage();\r\n            $mailTransport = $this->mailTransportFactory->create(['message' => clone $this->message]);\r\n        } finally {\r\n            $this->reset();\r\n        }\r\n\r\n        return $mailTransport;\r\n    }\r\n```\r\n\r\n@ryanpalmerweb were you able to reproduce this issue on the latest release 2.4.2? Thanks!"
+    },
+    {
+      "id": 832545177,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-832545177",
+      "created_at": "2021-05-05T09:23:04Z",
+      "updated_at": "2021-05-05T09:23:04Z",
+      "author": "Participant 1",
+      "body": "Hi @gabrieldagama,\r\n\r\nLooking at the commit below the issue looks to be fixed in 2.3.3-p1 and 2.4.2, although I'm not able to check at the moment whether this is the case.\r\n\r\nhttps://github.com/magento/magento2/commit/863ec2ebe29bc1c707383f05c37ebcfeb8437f94\r\n\r\nWhat does MC-18193 refer to?"
+    },
+    {
+      "id": 832658751,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-832658751",
+      "created_at": "2021-05-05T12:47:00Z",
+      "updated_at": "2021-05-05T12:47:00Z",
+      "author": "Participant 5",
+      "body": "@ryanpalmerweb, thank you for the confirmation! I'm closing this issue as it was already fixed in https://github.com/magento/magento2/commit/863ec2ebe29bc1c707383f05c37ebcfeb8437f94."
+    },
+    {
+      "id": 832658829,
+      "url": "https://github.com/magento/magento2/issues/23122#issuecomment-832658829",
+      "created_at": "2021-05-05T12:47:07Z",
+      "updated_at": "2021-05-05T12:47:07Z",
+      "author": "Participant 2",
+      "body": "Hi @ihor-sviziev. Thank you for working on this issue. \nIn order to make sure that issue has enough information and ready for development, please read and check the following instruction: :point_down:\n- [ ] 1. Verify that issue has all the required information. (**Preconditions**, **Steps to reproduce**, **Expected result**, **Actual result**).<details><summary>Details</summary>If the issue has a valid description, the label `Issue: Format is valid` will be added to the issue automatically. Please, edit issue description if needed, until label `Issue: Format is valid` appears.</details>\n\n- [ ] 2. Verify that issue has a meaningful description and provides enough information to reproduce the issue. If the report is valid, add `Issue: Clear Description` label to the issue by yourself.\n\n- [ ] 3. Add `Component: XXXXX` label(s) to the ticket, indicating the components it may be related to.\n- [ ] 4. Verify that the issue is reproducible on `2.4-develop` branch<details><summary>Details</summary>- Add the comment `@magento give me 2.4-develop instance` to deploy test instance on Magento infrastructure. <br/> - If the issue is reproducible on `2.4-develop` branch, please, add the label `Reproduced on 2.4.x`.<br/>- If the issue is not reproducible, add your comment that issue is not reproducible and close the issue and **_stop verification process here_**!</details>\n\n\n- [ ] 5. Add label `Issue: Confirmed` once verification is complete. \n\n- [ ] 6. Make sure that automatic system confirms that report has been added to the backlog."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

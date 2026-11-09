@@ -1,0 +1,17 @@
+{
+  "url": "https://github.com/uazo/bromite/blob/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch#L230",
+  "kind": "file",
+  "cited_in": [
+    "comment_743747585",
+    "comment_744014542"
+  ],
+  "revision": "f6d9f2ebcc384c3e75d921fbb3f3bb309122096e",
+  "immutable_revision": true,
+  "line_start": 218,
+  "line_end": 242,
+  "text": "         }\n \n+        createBromitePreferences();\n+\n         cachePreferences();\n \n         updatePasswordsPreference();\n@@ -303,4 +305,9 @@ public class MainSettings extends PreferenceFragmentCompat\n             }\n         };\n     }\n+\n+    private void createBromitePreferences() {\n+        SettingsUtils.inflatePrefsAddon(this, \"main_preferences_addon_\", \n+            R.xml.class.getFields(), getContext().getPackageName());\n+    }\n }\ndiff --git a/chrome/browser/BUILD.gn b/chrome/browser/BUILD.gn\n--- a/chrome/browser/BUILD.gn\n+++ b/chrome/browser/BUILD.gn\n@@ -3238,6 +3238,10 @@ static_library(\"browser\") {\n       ]\n       deps += [ \"//chrome/android/modules/dev_ui/provider:native\" ]\n     }\n+    deps += [ ",
+  "source_sha256": "276f439d9063a502225c5681d5371a640e6d25b8a3d68d8ddc131ccca98d7e96",
+  "fetched_at": "2026-11-05T06:21:15.284984+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/uazo/bromite/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch",
+  "status": "available"
+}

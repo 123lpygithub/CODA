@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0304-aahddgcai",
+  "revision_url": "https://github.com/astier/model-free-episodic-control/commit/05a8fae2113d0224f28065ff0d7cddf8fd7fef8d",
+  "filename": "mfec/qec.py",
+  "commit": "05a8fae2113d0224f28065ff0d7cddf8fd7fef8d",
+  "source_url": "https://raw.githubusercontent.com/astier/model-free-episodic-control/05a8fae2113d0224f28065ff0d7cddf8fd7fef8d/mfec/qec.py",
+  "fetched_at": "2026-11-05T06:12:30.522770+00:00",
+  "source_sha256": "c0f301be062ce2b63df77433adc267e103d6346e841540086c2cf8bf9e911846",
+  "line_start": 13,
+  "line_end": 37,
+  "excerpt": "\n    def project(self, observation):\n        return np.dot(self._projection, observation.flatten())\n\n    def estimate(self, state, action, time_step):\n        a_buffer = self.buffers[action]\n        state_index = a_buffer.find_state(state)\n\n        if state_index:\n            a_buffer.time_steps[state_index] = time_step  # TODO not in paper\n            return a_buffer.values[state_index]\n\n        if len(a_buffer) <= self.k:  # TODO init-phase\n            return float('inf')\n\n        value = .0\n        neighbors = a_buffer.find_neighbors(state, self.k)\n        for neighbor in neighbors:\n            value += a_buffer.values[neighbor]\n            a_buffer.time_steps[neighbor] = time_step  # TODO not in paper\n        return value / self.k\n\n    # TODO batch update\n    def update(self, state, action, new_value, new_time):\n        a_buffer = self.buffers[action]"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0714-aaadhcgbc",
+  "revision_url": "https://github.com/sshleifer/object_detection_kitti/commit/a4944a57ad2811e1f6a7a87589a9fc8a776e8d3c",
+  "filename": "object_detection/exporter.py",
+  "commit": "a4944a57ad2811e1f6a7a87589a9fc8a776e8d3c",
+  "source_url": "https://raw.githubusercontent.com/sshleifer/object_detection_kitti/a4944a57ad2811e1f6a7a87589a9fc8a776e8d3c/object_detection/exporter.py",
+  "fetched_at": "2026-11-05T06:13:42.113009+00:00",
+  "source_sha256": "13d0ca1d1ead5d8264290d61e9c314799b7e92e19d43cf1f4430933ba864a459",
+  "line_start": 88,
+  "line_end": 112,
+  "excerpt": "                                variable_names_blacklist else None)\n    output_graph_def = graph_util.convert_variables_to_constants(\n        sess,\n        input_graph_def,\n        output_node_names.split(','),\n        variable_names_blacklist=variable_names_blacklist)\n\n  with gfile.GFile(output_graph, 'wb') as f:\n    f.write(output_graph_def.SerializeToString())\n  logging.info('%d ops in the final graph.', len(output_graph_def.node))\n\n\n# TODO: Support batch tf example inputs.\ndef _tf_example_input_placeholder():\n  tf_example_placeholder = tf.placeholder(\n      tf.string, shape=[], name='tf_example')\n  tensor_dict = tf_example_decoder.TfExampleDecoder().Decode(\n      tf_example_placeholder)\n  image = tensor_dict[fields.InputDataFields.image]\n  return tf.expand_dims(image, axis=0)\n\n\ndef _image_tensor_input_placeholder():\n  return tf.placeholder(dtype=tf.uint8,\n                        shape=(1, None, None, 3),"
+}

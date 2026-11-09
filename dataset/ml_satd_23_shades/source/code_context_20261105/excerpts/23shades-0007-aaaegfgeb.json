@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0007-aaaegfgeb",
+  "revision_url": "https://github.com/zsdonghao/im2txt2im/commit/426ebb96165f793b40c0d0066d0e164d4d161e8d",
+  "filename": "tensorlayer/layers.py",
+  "commit": "426ebb96165f793b40c0d0066d0e164d4d161e8d",
+  "source_url": "https://raw.githubusercontent.com/zsdonghao/im2txt2im/426ebb96165f793b40c0d0066d0e164d4d161e8d/tensorlayer/layers.py",
+  "fetched_at": "2026-11-05T06:11:40.224861+00:00",
+  "source_sha256": "8d37557b8ced594ba6e35208ee63778ecc41073016c40d155baf8d4dd67da3cd",
+  "line_start": 2899,
+  "line_end": 2923,
+  "excerpt": "            # 2D Tensor [batch_size, n_hidden]\n            # self.outputs = outputs_fw\n            if return_last_mode == 'simple':\n                self.outputs_fw = advanced_indexing_op(outputs_fw, sequence_length)\n                self.outputs_bw = advanced_indexing_op(outputs_bw, sequence_length) # TensorFlow already reverse the bw\n                # print(self.outputs_fw) #(64, 200)\n                # print(outputs_bw)       # (64, ?, 200)\n                # print(self.outputs_bw)  # (?, 200),\n                self.outputs = tf.concat(1, [self.outputs_fw, self.outputs_bw])\n                # print(self.outputs) # (64, 400)\n                # exit()\n            elif return_last_mode == 'group':\n                ## reverse bw, before concat TODO\n                # https://www.tensorflow.org/versions/r0.11/api_docs/python/array_ops.html#reverse_sequence\n                outputs_concat = tf.concat(2, [outputs_fw, outputs_bw])\n                self.outputs = tf.reduce_mean(outputs_concat, reduction_indices=2)\n                exit(\"TODO\")\n            else:\n                raise Exception(\"Unsupport mode: %s\" % return_last_mode)\n        else:\n            if return_seq_2d:\n                # PTB tutorial:\n                # 2D Tensor [n_example, n_hidden]\n                # self.outputs = tf.reshape(tf.concat(1, outputs), [-1, n_hidden])\n                #TODO",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0562-aaeiefhcb",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/0d22a190d067493707fda90e621af12addacefb5",
+  "filename": "hpat/hiframes/pd_dataframe_ext.py",
+  "commit": "0d22a190d067493707fda90e621af12addacefb5",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/0d22a190d067493707fda90e621af12addacefb5/hpat/hiframes/pd_dataframe_ext.py",
+  "fetched_at": "2026-11-05T06:13:12.935558+00:00",
+  "source_sha256": "dd3d1f66352b633993b8a79c7e6d23dd871acdfb7a922a9ed0eeba79d659b89c",
+  "line_start": 1119,
+  "line_end": 1142,
+  "excerpt": "    def _impl(df, axis=None, skipna=None, level=None, numeric_only=None):\n        return hpat.hiframes.pd_dataframe_ext.mean_dummy(df)\n\n    return _impl\n\ndef mean_dummy(df, n):\n    return df\n\n@infer_global(mean_dummy)\nclass MeanDummyTyper(AbstractTemplate):\n    def generic(self, args, kws):\n        df = args[0]\n        # TODO: ignore non-numerics\n        # output is float64 series with original data as string index\n        out = SeriesType(\n            types.float64, types.Array(types.float64, 1, 'C'),\n            string_array_type)\n        return signature(out, *args)\n\n@lower_builtin(mean_dummy, types.VarArg(types.Any))\ndef lower_mean_dummy(context, builder, sig, args):\n    out_obj = cgutils.create_struct_proxy(\n        sig.return_type)(context, builder)\n    return out_obj._getvalue()"
+}

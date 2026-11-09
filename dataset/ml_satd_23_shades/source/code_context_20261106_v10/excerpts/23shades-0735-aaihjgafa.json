@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0735-aaihjgafa",
+  "revision_url": "https://github.com/ray-project/ray/commit/8f59546ef2fba5af2666c27e5480f6819389fedf",
+  "filename": "python/ray/dataframe/dataframe.py",
+  "commit": "8f59546ef2fba5af2666c27e5480f6819389fedf",
+  "source_url": "https://raw.githubusercontent.com/ray-project/ray/8f59546ef2fba5af2666c27e5480f6819389fedf/python/ray/dataframe/dataframe.py",
+  "fetched_at": "2026-11-05T06:13:45.627325+00:00",
+  "source_sha256": "ea93bf1bba188cbab09a8b08a70e3db24d994b15628fabf827217b6800391917",
+  "line_start": 3322,
+  "line_end": 3346,
+  "excerpt": "\n        Returns:\n            A modified DataFrame\n        \"\"\"\n        return self.abs()\n\n    def __round__(self, decimals=0):\n        raise NotImplementedError(\n            \"To contribute to Pandas on Ray, please visit \"\n            \"github.com/ray-project/ray.\")\n\n    def __array__(self, dtype=None):\n        # TODO: This is very inefficient and needs fix\n        return np.array(to_pandas(self))\n\n    def __array_wrap__(self, result, context=None):\n        raise NotImplementedError(\n            \"To contribute to Pandas on Ray, please visit \"\n            \"github.com/ray-project/ray.\")\n\n    def __getstate__(self):\n        raise NotImplementedError(\n            \"To contribute to Pandas on Ray, please visit \"\n            \"github.com/ray-project/ray.\")\n"
+}

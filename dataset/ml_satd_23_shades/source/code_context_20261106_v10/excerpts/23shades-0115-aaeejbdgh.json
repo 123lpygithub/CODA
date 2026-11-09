@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0115-aaeejbdgh",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/1fab9a1baff5a224fc8975a20a158396d6806fd9",
+  "filename": "madmom/utils/midi.py",
+  "commit": "1fab9a1baff5a224fc8975a20a158396d6806fd9",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/1fab9a1baff5a224fc8975a20a158396d6806fd9/madmom/utils/midi.py",
+  "fetched_at": "2026-11-05T06:11:56.263523+00:00",
+  "source_sha256": "56e39c58841e5c1f2fbc4ddc17ba580c57dcfc5b36b71ce2f08e6e44b53487c9",
+  "line_start": 1279,
+  "line_end": 1303,
+  "excerpt": "            for track in self.tracks:\n                # write each track to file\n                track.write(midi_file)\n\n    def add_notes_to_track(self, notes, track):\n        \"\"\"\n        Add the notes of the given array to the first track.\n\n        :param notes: numpy array with notes\n        :param track: a MIDITrack instance\n\n        \"\"\"\n        # FIXME: what we do here s basically writing a MIDI format 0 file,\n        #        since we put all events in a single (the given) track. The\n        #        tempo and time signature stuff is just a hack!\n        track._relative_timing = False\n        # first set a tempo, assume a tempo of 120bpm and 4/4 time\n        # signature, thus 1 quarter note is 0.5 sec long\n        tempo = SetTempoEvent()\n        tempo.microseconds_per_quarter_note = int(0.5 * 1e6)\n        sig = TimeSignatureEvent()\n        sig.denominator = 4\n        sig.numerator = 4\n        # beats per second\n        bps = 2",
+  "match_policy": "unique-release-normalized-v2"
+}

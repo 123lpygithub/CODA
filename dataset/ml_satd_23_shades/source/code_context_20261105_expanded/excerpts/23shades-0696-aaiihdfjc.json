@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0696-aaiihdfjc",
+  "revision_url": "https://github.com/NervanaSystems/neon/commit/4ef52334c587c36bc248616f80db42e0020327c2",
+  "filename": "neon/layers/layer.py",
+  "commit": "4ef52334c587c36bc248616f80db42e0020327c2",
+  "source_url": "https://raw.githubusercontent.com/NervanaSystems/neon/4ef52334c587c36bc248616f80db42e0020327c2/neon/layers/layer.py",
+  "fetched_at": "2026-11-05T06:13:39.334780+00:00",
+  "source_sha256": "9136301399db6745fd1ae7681216fb3dd3b5870e97752c683cf9acd5cd550be1",
+  "line_start": 466,
+  "line_end": 490,
+  "excerpt": "        self.bsum = False  # TODO: bsum for linear is not implemented\n\n    def __str__(self):\n        return \"Linear Layer '%s': %d inputs, %d outputs\" % (\n               self.name, self.nin, self.nout)\n\n    def configure(self, in_obj):\n        super(Linear, self).configure(in_obj)\n        (self.nin, self.nsteps) = interpret_in_shape(self.in_shape)\n        self.out_shape = (self.nout, self.nsteps)\n        if self.weight_shape is None:\n            self.weight_shape = (self.nout, self.nin)\n        # TODO: Set up self.batch_sum if self.bsum\n        return self\n\n    def fprop(self, inputs, inference=False):\n        self.inputs = inputs\n        self.be.compound_dot(A=self.W, B=self.inputs, C=self.outputs)  # , bsum=self.batch_sum\n        if self.bsum:\n            return (self.outputs, self.batch_sum)\n        else:\n            return self.outputs\n\n    def bprop(self, error, do_acts=True):\n        if do_acts:"
+}

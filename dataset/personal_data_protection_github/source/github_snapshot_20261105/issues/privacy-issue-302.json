@@ -1,0 +1,618 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-302",
+  "issue_url": "https://github.com/gnikyt/laravel-shopify/issues/522",
+  "source_issue_url": "https://github.com/gnikyt/laravel-shopify/issues/522",
+  "api_url": "https://api.github.com/repos/gnikyt/laravel-shopify/issues/522",
+  "title": "Browser Issues: ITP, Cookies, Redirection",
+  "body": "**Feature**: Currently there is no support for ITP cookies, theres also lingering issues with cookies outside of my control sadly.\r\n\r\nI am not sure if there will be a clean solution for this as adding ITP support really bloats the flow and quite honestly is frustrating to deal with the baggage Chrome and Chrome-like browsers bring with their isolated standards.\r\n\r\nI am not sure when I can complete this, or what it will take, or even if I can do it alone. However, theres been a growing number of cookie issues (again, outside of my control), so I will attempt this as the next feature!\r\n\r\nAny opened cookie-related issues will be closed and this issue will be referenced. I will pool your reports and use them to attempt a fix.\r\n\r\nThanks!",
+  "author": "Participant 1",
+  "created_at": "2020-07-07T12:24:45Z",
+  "updated_at": "2022-02-02T10:34:56Z",
+  "state": "closed",
+  "closed_at": "2021-01-22T18:16:48Z",
+  "issue_fetched_at": "2026-11-05T05:55:43.767336+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T05:55:45.208742+00:00"
+  ],
+  "expected_comment_count": 74,
+  "retrieved_comment_count": 74,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 654823243,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-654823243",
+      "created_at": "2020-07-07T12:31:10Z",
+      "updated_at": "2020-07-07T12:31:10Z",
+      "author": "Participant 1",
+      "body": "@Kyon147 FYI. If you see any issues which may regard cookies, feel free to close and reference this issue as master :) going to pool the reports and find a way to fix ITP."
+    },
+    {
+      "id": 654880913,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-654880913",
+      "created_at": "2020-07-07T13:57:00Z",
+      "updated_at": "2020-07-07T13:57:15Z",
+      "author": "Participant 2",
+      "body": "> @Kyon147 FYI. If you see any issues which may regard cookies, feel free to close and reference this issue as master :) going to pool the reports and find a way to fix ITP.\r\n\r\n@osiset No problem, also if you need some help with the issue - I'll pull a fork of the repo and try and take a look as well. As you say you are one person, so the more support the better for you and the package as a whole. If you'd like me to :) "
+    },
+    {
+      "id": 654889923,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-654889923",
+      "created_at": "2020-07-07T14:09:44Z",
+      "updated_at": "2020-07-07T14:09:44Z",
+      "author": "Participant 1",
+      "body": "Any help is welcome. I had a branch last year where I did some minor ITP work, so I may revive this and massage it into the current code base and see where I can get with safari. "
+    },
+    {
+      "id": 654890905,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-654890905",
+      "created_at": "2020-07-07T14:11:17Z",
+      "updated_at": "2020-07-07T14:11:17Z",
+      "author": "Participant 2",
+      "body": "Okay, I'll wait a little bit to see what you do with the existing work\nbefore jumping into it.\n\nThat way don't risk doing the same stuff etc\n\nOn Tue, 7 Jul 2020, 15:10 Tyler King, <notifications@github.com> wrote:\n\n> Any help is welcome. I had a branch last year where I did some minor ITP\n> work, so I may revive this and massage it into the current code base and\n> see where I can get with safari.\n>\n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/osiset/laravel-shopify/issues/522#issuecomment-654889923>,\n> or unsubscribe\n> <https://github.com/notifications/unsubscribe-auth/AHYDHQTPO5NBZDLX2QBQTLLR2MUDPANCNFSM4OSYNR7A>\n> .\n>\n"
+    },
+    {
+      "id": 655491305,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-655491305",
+      "created_at": "2020-07-08T12:34:39Z",
+      "updated_at": "2020-07-08T12:34:39Z",
+      "author": "Participant 1",
+      "body": "Following up, as a current plan of attack.\r\n\r\nI had previous code started to help deal with ITP which showed promise. The code is no longer compatible however, but I will pick out the bits.\r\n\r\nI will be attempting to debug this issue slowly with Safari/Chrome and try and implement ITP support as I go."
+    },
+    {
+      "id": 656797950,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-656797950",
+      "created_at": "2020-07-10T17:38:06Z",
+      "updated_at": "2020-07-10T17:38:06Z",
+      "author": "Participant 1",
+      "body": "Is anyone aware of a way to replicate this without Safari?\r\n\r\nFirefox and Chrome I have both set to block third party cookies, but its still allowing me through."
+    },
+    {
+      "id": 658039426,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-658039426",
+      "created_at": "2020-07-14T08:13:56Z",
+      "updated_at": "2020-07-14T08:13:56Z",
+      "author": "Participant 3",
+      "body": "We've started getting 419s on some calls (but not others) - not sure if it's related though and not seeing anything in the logs.\r\n\r\nAm investigating, will advise."
+    },
+    {
+      "id": 658170262,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-658170262",
+      "created_at": "2020-07-14T13:10:54Z",
+      "updated_at": "2020-07-14T13:10:54Z",
+      "author": "Participant 4",
+      "body": "Hi @osiset, I am getting the samesite cookie issue in chrome incognito."
+    },
+    {
+      "id": 658347700,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-658347700",
+      "created_at": "2020-07-14T18:43:22Z",
+      "updated_at": "2020-07-14T18:43:22Z",
+      "author": "Participant 5",
+      "body": "Hi @osiset, I am also getting this issue with Chrome Version 83.0.4103.116 (Official Build) (64-bit) setting up a brand new laravel app and this package.  In Safari, it works without the cookie error.  Not sure if it is a different issue or related to this, after I install the app on shopify, it asks me to login to the store on the app side and just continually redirects back to the login page rather than redirecting to shopify.  If I visit the app through the store admin, it seems to work just fine.  At least once, it did start working but I cannot reproduce the chain of events that got me to that point."
+    },
+    {
+      "id": 658353748,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-658353748",
+      "created_at": "2020-07-14T18:56:15Z",
+      "updated_at": "2020-07-14T18:56:15Z",
+      "author": "Participant 1",
+      "body": "@pagameba Can you please link me to a pastebin or something of your current config/session.php? I will copy it and give it a try on latest Chrome."
+    },
+    {
+      "id": 658354741,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-658354741",
+      "created_at": "2020-07-14T18:58:25Z",
+      "updated_at": "2020-07-14T19:35:48Z",
+      "author": "Participant 5",
+      "body": "session.php contents: https://pastebin.com/3jiVhpXL\r\n\r\nMore relevant info, maybe\r\n\r\nThe laravel app is running in a docker container locally combined with nginx-proxy for SSL termination and ngrok.  My .env file has the following:\r\n\r\n```\r\nSESSION_DRIVER=cookie\r\nSESSION_LIFETIME=120\r\nSESSION_DOMAIN=.myapp.ngrok.io\r\nSESSION_SECURE_COOKIE=true\r\n```\r\n\r\nI'm running ngrok with `ngrok http https://myapp.local:443`, my host file redirects myapp.local to localhost where nginx-proxy terminates the SSL with a tinycert certificate and proxies the request to the app container.  \r\n\r\nI've configured the Shopify app with the ngrok URL.\r\n\r\n"
+    },
+    {
+      "id": 658373413,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-658373413",
+      "created_at": "2020-07-14T19:37:12Z",
+      "updated_at": "2020-07-14T19:37:12Z",
+      "author": "Participant 1",
+      "body": "@pagameba Sadly not able to repeat with my Docker setup. Will try a full deployment to my Heroku test environment though.\r\n\r\nHow are you accessing the app? ngrok, docker/https, ... ?"
+    },
+    {
+      "id": 661860031,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-661860031",
+      "created_at": "2020-07-21T13:25:47Z",
+      "updated_at": "2020-07-21T13:25:47Z",
+      "author": "Participant 5",
+      "body": "edited my comment above with the details, I'm using ngrok/docker/https - willing to help out however I can, I'm going to spend some time today trying to understand how the flow of control works.  I'm not a laravel expert so I get easily lost in some of the magic :)  I had someone on my team create a node version of the app and that does work with Chrome so I assume it is possible to get it working here too and would prefer a PHP solution as its a better fit for our stack."
+    },
+    {
+      "id": 661913465,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-661913465",
+      "created_at": "2020-07-21T14:59:12Z",
+      "updated_at": "2020-07-21T14:59:12Z",
+      "author": "Participant 5",
+      "body": "I added some debug logging.\r\n\r\nThe `checkSameSiteNoneCompatible()` method in `CookieHelper.php` is returning `true`.\r\n\r\nThe redirect back to login happens in `AuthController.php` because `$status` is null returning from `AuthenticateShop::__invoke()` because the call to `$this->apiHelper->verifyRequest` is returning false.\r\n\r\nThe `Request` object seems valid in that it has a shop, a timestamp and an hmac (plus a code which doesn't seem to be used in verifyRequest).  However, the params also contain `\"q\":\"/authenticate\"` ... removing that from the params (           `unset($params['q']);`) before computing the hmac hash allows it to work correctly and redirect to the shopify store after authentication.\r\n\r\nAfter redirection, I see the app loaded correctly in the shopify admin interface. \r\n\r\n![image](https://user-images.githubusercontent.com/249841/88070737-0414b480-cb41-11ea-84f1-86a4e8a27fc7.png)\r\n\r\n However, in the Apps list, I still see this after a fresh install of the app.\r\n\r\n![image](https://user-images.githubusercontent.com/249841/88070797-155dc100-cb41-11ea-9195-14333a4796a5.png)\r\n\r\nI would recommend changing `verifyRequest` to only include keys from `$params` that should be in the hmac hash calculation, I think that is part of `osiset/BasicShopifyAPI` though.\r\n\r\n"
+    },
+    {
+      "id": 662015291,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-662015291",
+      "created_at": "2020-07-21T17:57:08Z",
+      "updated_at": "2020-07-21T17:57:08Z",
+      "author": "Participant 1",
+      "body": "@pagameba Great digging! Shopify keeps adding stuff to the URLs the past few years, I can't tell anyone what they're including in the HMAC signature. When I originally wrote the verify method, the only things existing in the URL was hmac/shop/timestamp.\r\n\r\nI've merged in your code and will push out a patch fix hopefully tonight. While this won't fix the ITP issue, it should fix the redirect to login by looks of it, which is great."
+    },
+    {
+      "id": 662016508,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-662016508",
+      "created_at": "2020-07-21T17:59:27Z",
+      "updated_at": "2020-07-21T17:59:27Z",
+      "author": "Participant 5",
+      "body": ":+1: I didn't get any further with the cookie issue other than to determine that it does seem to see that the browser is SameSite/None compatible and that it seems to set appropriate values for the cookie based on that.  Totally willing to dig further just not quite sure where to go next :)"
+    },
+    {
+      "id": 662044230,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-662044230",
+      "created_at": "2020-07-21T18:52:51Z",
+      "updated_at": "2020-07-21T18:52:51Z",
+      "author": "Participant 1",
+      "body": "@pagameba Actually, may be an issue with this. Shopify's docs are noting it uses state, locale, and possibly nonce.\r\n\r\nIt may be safer to check and remove the \"q\" part.\r\n\r\nI've tried several apps and can't see this \"q\" variable, where did you notice it?"
+    },
+    {
+      "id": 662045111,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-662045111",
+      "created_at": "2020-07-21T18:54:34Z",
+      "updated_at": "2020-07-21T18:54:34Z",
+      "author": "Participant 5",
+      "body": "Is it possible that q is introduced by laravel in some configuration?  If it uses state, locale and nonce those could just be added to the array of keys to keep?"
+    },
+    {
+      "id": 662046870,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-662046870",
+      "created_at": "2020-07-21T18:58:11Z",
+      "updated_at": "2020-07-21T18:58:11Z",
+      "author": "Participant 1",
+      "body": "@pagameba Yup and protocol by looks of it. If you can add those in and send a PR, I'll re-test again.\r\n\r\nI tested with the original PR and noticed a test failed on this package, looking into the test, its an HMAC from Shopify's docs, which lead me to see it does use things like state/locale/nonce/protocol.\r\n\r\nEdit: Its possible this is your issue with the \"q\": https://laracasts.com/discuss/channels/general-discussion/laravel-request-q-parameter. Nginx try_files would need an update."
+    },
+    {
+      "id": 662137654,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-662137654",
+      "created_at": "2020-07-21T22:24:16Z",
+      "updated_at": "2020-07-21T22:24:16Z",
+      "author": "Participant 5",
+      "body": "Ah, I think you are correct about the q issue, I will fix that in my container and try again. I'm looking at the [shopify documentation](https://shopify.dev/tutorials/authenticate-with-oauth#verification) and I don't see an explicit list of parameters used in the hmac calculation.  Perhaps just removing `q` would be sufficient since it seems I am not the only one with this setup - pretty sure its just a boilerplate configuration I copied from somewhere?  I'm happy to add a PR for the other parameters if you think that's the right way to go though."
+    },
+    {
+      "id": 662141456,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-662141456",
+      "created_at": "2020-07-21T22:35:04Z",
+      "updated_at": "2020-07-21T22:35:04Z",
+      "author": "Participant 1",
+      "body": "Given it's an nginx issue, I wouldn't want to remove it in the library. Hmm\n________________________________\nFrom: Paul Spencer <notifications@github.com>\nSent: Tuesday, July 21, 2020 7:54:31 PM\nTo: osiset/laravel-shopify <laravel-shopify@noreply.github.com>\nCc: Tyler King <tyler.n.king@gmail.com>; Mention <mention@noreply.github.com>\nSubject: Re: [osiset/laravel-shopify] Browser Issues: ITP, Cookies, Redirection (#522)\n\n\nAh, I think you are correct about the q issue, I will fix that in my container and try again. I'm looking at the shopify documentation<https://shopify.dev/tutorials/authenticate-with-oauth#verification> and I don't see an explicit list of parameters used in the hmac calculation. Perhaps just removing q would be sufficient since it seems I am not the only one with this setup - pretty sure its just a boilerplate configuration I copied from somewhere? I'm happy to add a PR for the other parameters if you think that's the right way to go though.\n\n—\nYou are receiving this because you were mentioned.\nReply to this email directly, view it on GitHub<https://github.com/osiset/laravel-shopify/issues/522#issuecomment-662137654>, or unsubscribe<https://github.com/notifications/unsubscribe-auth/AASO4OQMARNVQ7G7D2V6W5TR4YIR7ANCNFSM4OSYNR7A>.\n"
+    },
+    {
+      "id": 662382430,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-662382430",
+      "created_at": "2020-07-22T10:43:46Z",
+      "updated_at": "2020-07-22T10:43:46Z",
+      "author": "Participant 3",
+      "body": "> Any help is welcome. I had a branch last year where I did some minor ITP work, so I may revive this and massage it into the current code base and see where I can get with safari.\r\n\r\nWhich branch?"
+    },
+    {
+      "id": 662837506,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-662837506",
+      "created_at": "2020-07-23T06:18:09Z",
+      "updated_at": "2020-07-23T06:18:09Z",
+      "author": "Participant 6",
+      "body": "Having issue with chrome incognito and safari private mode. On chrome it says: Call to a member function api() on null.\r\nOn safari it just takes again to login page. I checked the auth values but don't see 'q' parameter in it. \r\n\r\nI am using nginx as reverse proxy server. It doesn't have try_files option configured. I tried adding the updated try_files option but it didn't work. "
+    },
+    {
+      "id": 663643048,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-663643048",
+      "created_at": "2020-07-24T17:15:37Z",
+      "updated_at": "2020-07-24T17:15:37Z",
+      "author": "Participant 1",
+      "body": "Unable to get this to trigger in Chrome Incognito. I don't have a Mac... I'll have to hunt one down to loan and try that way. Will have to hold this until then, nothing I can reproduce without Safari it seems."
+    },
+    {
+      "id": 663712167,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-663712167",
+      "created_at": "2020-07-24T20:06:46Z",
+      "updated_at": "2020-07-24T20:06:46Z",
+      "author": "Participant 6",
+      "body": "What is the version of your Chrome browser? For me, it is failing on 84.0 but works on 79.0. I tried both in incognito."
+    },
+    {
+      "id": 663719954,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-663719954",
+      "created_at": "2020-07-24T20:26:56Z",
+      "updated_at": "2020-07-24T20:26:56Z",
+      "author": "Participant 1",
+      "body": "Version 84.0.4147.89 (Official Build) (64-bit) :("
+    },
+    {
+      "id": 663726295,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-663726295",
+      "created_at": "2020-07-24T20:43:53Z",
+      "updated_at": "2020-07-24T20:43:53Z",
+      "author": "Participant 6",
+      "body": "Okay, I will just test this more and share details. Could be OS specific."
+    },
+    {
+      "id": 664811294,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-664811294",
+      "created_at": "2020-07-28T06:45:57Z",
+      "updated_at": "2020-07-28T06:45:57Z",
+      "author": "Participant 6",
+      "body": "Update: The app works fine with normal Chrome mode. But it cannot access session/cookie after auth redirect in Incognito mode. If Incognito setting is set to \"Block all 3rd party cookies\" which is default I guess, it doesn't work.  If I change it to \"Allow all cookies\" then it works. Also, if I don't do redirect through app bridge, it works on my domain. \r\n\r\nWhen my app code tries to access shop.json after redirect it gives the error. But I could access the shop JSON data using debug mode as mentioned [here](https://github.com/osiset/laravel-shopify/wiki/Usage) after auth redirect. \r\n\r\nI am testing on Chrome for Mac OS."
+    },
+    {
+      "id": 664995769,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-664995769",
+      "created_at": "2020-07-28T11:53:29Z",
+      "updated_at": "2020-07-28T11:53:29Z",
+      "author": "Participant 1",
+      "body": "@yrk2yrk I reinstalled my local Laradock setup, same issue - even with 3rd party cookies blocked it still lets me in. Are you doing this externally or locally? I may try to redeploy this to Heroku again to see if maybe the local is the issue."
+    },
+    {
+      "id": 665109918,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-665109918",
+      "created_at": "2020-07-28T15:31:15Z",
+      "updated_at": "2020-07-28T15:31:15Z",
+      "author": "Participant 6",
+      "body": "I am doing it externally. My app is hosted on AWS. I don't know if this is package related or something else. But I tried every possible option. Can I email you my app link to test?"
+    },
+    {
+      "id": 665110842,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-665110842",
+      "created_at": "2020-07-28T15:32:54Z",
+      "updated_at": "2020-07-28T15:32:54Z",
+      "author": "Participant 1",
+      "body": "@yrk2yrk Please yes, that would help. Just need to determine if my browsers are the issue or its simple because its locally hosted via Docker through a .local domain that the cookies work."
+    },
+    {
+      "id": 665115118,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-665115118",
+      "created_at": "2020-07-28T15:40:27Z",
+      "updated_at": "2020-07-28T15:40:27Z",
+      "author": "Participant 6",
+      "body": "Just emailed you the link."
+    },
+    {
+      "id": 665138870,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-665138870",
+      "created_at": "2020-07-28T16:23:31Z",
+      "updated_at": "2020-07-28T16:23:31Z",
+      "author": "Participant 1",
+      "body": "Thanks. I get the \"Trying to get property 'name' of non-object on null\" error, I see cookies in Chrome, but cookies in the debug are blank. Hmm, maybe it is because its local. I will give it a try on a deployed location and go from there."
+    },
+    {
+      "id": 665145959,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-665145959",
+      "created_at": "2020-07-28T16:36:57Z",
+      "updated_at": "2020-07-28T16:36:57Z",
+      "author": "Participant 6",
+      "body": "Yes, I was trying different config options for App bridge redirect so getting a different error now. Let me know if it works for you on live deployment."
+    },
+    {
+      "id": 666253395,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-666253395",
+      "created_at": "2020-07-30T09:20:53Z",
+      "updated_at": "2020-07-30T09:21:06Z",
+      "author": "Participant 7",
+      "body": "@osiset Cookieless App Bridge auth beta now available ! [Shopify developer documentation](https://shopify.dev/tools/app-bridge/authentication)\r\n\r\n"
+    },
+    {
+      "id": 666484602,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-666484602",
+      "created_at": "2020-07-30T15:56:26Z",
+      "updated_at": "2020-07-30T15:56:26Z",
+      "author": "Participant 1",
+      "body": "I've seen this yes. However it seems geared towards SPAs, which everyone is not using. It doesn't exactly solve our issue of Laravel using cookies to store the information.\r\n\r\nI'm going to repush my local to Heroku and see if I can trigger the ITP issue."
+    },
+    {
+      "id": 667111739,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-667111739",
+      "created_at": "2020-07-31T13:10:25Z",
+      "updated_at": "2020-07-31T13:10:25Z",
+      "author": "Participant 1",
+      "body": "I must be bad luck. I setup a brand new Laravel install, deployed it.\r\n\r\nFor both Firefox and Incognito Chrome.. theres no cookies but auth is fine. Chrome normal, cookies do show.\r\n\r\nI'm curious how Laravel is saying I'm logged in but theres no session cookies being used. I'll have to dig into the internal code, but I'm wondering if its falling back to file-based cookies? Really odd. Any insight from anyone would be helpful too.\r\n\r\n![image](https://user-images.githubusercontent.com/2420282/89037957-0681c600-d31a-11ea-88ac-d6f5cc0511da.png)\r\n"
+    },
+    {
+      "id": 668775506,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-668775506",
+      "created_at": "2020-08-04T19:13:42Z",
+      "updated_at": "2020-08-04T19:13:42Z",
+      "author": "Participant 1",
+      "body": "I have a loan of a Macbook for a little bit and will be able to check this out now with Safari. Still unsure how well this will fair."
+    },
+    {
+      "id": 677487717,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-677487717",
+      "created_at": "2020-08-20T09:28:26Z",
+      "updated_at": "2020-08-20T09:28:26Z",
+      "author": "Participant 4",
+      "body": "Hi all, Any further update?"
+    },
+    {
+      "id": 677507853,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-677507853",
+      "created_at": "2020-08-20T10:11:31Z",
+      "updated_at": "2020-08-20T10:11:31Z",
+      "author": "Participant 1",
+      "body": "None yet. I've been super busy. "
+    },
+    {
+      "id": 682170275,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-682170275",
+      "created_at": "2020-08-27T20:19:41Z",
+      "updated_at": "2020-08-27T20:19:41Z",
+      "author": "Participant 8",
+      "body": "Is there any update?"
+    },
+    {
+      "id": 688775260,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-688775260",
+      "created_at": "2020-09-08T10:24:34Z",
+      "updated_at": "2020-09-08T10:24:34Z",
+      "author": "Participant 9",
+      "body": "Any further updates?"
+    },
+    {
+      "id": 691105058,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-691105058",
+      "created_at": "2020-09-11T13:46:33Z",
+      "updated_at": "2020-09-11T13:46:33Z",
+      "author": "Participant 10",
+      "body": "For someone interested in implementing JWT session token based authentication, I have implemented it in one of my own project. Here's the commit: https://github.com/niveshsaharan/shark/commit/1bd88f7bf91d0d30805cb9aa5c996bed3283fa55"
+    },
+    {
+      "id": 691172500,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-691172500",
+      "created_at": "2020-09-11T15:46:37Z",
+      "updated_at": "2020-09-11T15:46:37Z",
+      "author": "Participant 1",
+      "body": "No updates right now, I have been ill the past few weeks from a condition. I am trying my best to balance and make some time to tackle this frustrating browser issue. I am attempting to make time Sunday to account for this."
+    },
+    {
+      "id": 707279428,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-707279428",
+      "created_at": "2020-10-12T18:29:30Z",
+      "updated_at": "2020-10-12T18:29:30Z",
+      "author": "Participant 3",
+      "body": "#601 contains support for authentication via the JWT issued by Shopify."
+    },
+    {
+      "id": 720169253,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-720169253",
+      "created_at": "2020-11-01T23:30:36Z",
+      "updated_at": "2020-11-01T23:30:36Z",
+      "author": "Participant 1",
+      "body": "Ugh. The loner Mac I have has the boot screen, with the logo, and just stays there. I'll be searching for a solution, but if anyone knows whats up with it off-by-hand, please let me know!\r\n![PXL_20201101_232858181](https://user-images.githubusercontent.com/2420282/97818417-e77a3380-1c7c-11eb-8613-810b78874d71.jpg)\r\n"
+    },
+    {
+      "id": 736564195,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-736564195",
+      "created_at": "2020-12-01T13:51:10Z",
+      "updated_at": "2020-12-01T13:51:10Z",
+      "author": "Participant 1",
+      "body": "No news on this. I am still unable to reproduce a way to make the cookie issue happen."
+    },
+    {
+      "id": 743800146,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-743800146",
+      "created_at": "2020-12-12T18:56:52Z",
+      "updated_at": "2020-12-12T18:56:52Z",
+      "author": "Participant 11",
+      "body": "I am having issues that I think link in with this, but am not totally sure. \r\n\r\nA number of my existing apps are suddenly forcing users to the /login page. Oddly, its not all of them. Some pages work fine, others redirect.\r\n\r\nIts definitely a cookie issue as it only happens on embedded apps, and not if it's just running as an external app. \r\n\r\n@osiset - I have an app in dev mode that I am happy to give you access to if you want to test out on it?\r\n\r\n"
+    },
+    {
+      "id": 747186518,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-747186518",
+      "created_at": "2020-12-17T03:47:51Z",
+      "updated_at": "2020-12-17T03:47:51Z",
+      "author": "Participant 12",
+      "body": "I just want to mention a few things I've noticed, maybe it will help? \r\n\r\nI have tried to set 'secure' => env('SESSION_SECURE_COOKIE', true), and 'same_site' => 'none', but it doesn't help.  This is a solution I've seen that's worked for some people, but not for others.\r\n\r\nAlso, I've asked a few people if they use a Mac or windows laptop, so far non of the Mac users can replicate this issue.  \r\n\r\n"
+    },
+    {
+      "id": 747420401,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-747420401",
+      "created_at": "2020-12-17T12:50:58Z",
+      "updated_at": "2020-12-17T12:50:58Z",
+      "author": "Participant 11",
+      "body": "@arthurCreek To chip in on this, I am on Mac and am facing these issues. Happens on Chrome & Safari, but not FF"
+    },
+    {
+      "id": 747455330,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-747455330",
+      "created_at": "2020-12-17T13:59:52Z",
+      "updated_at": "2020-12-17T13:59:52Z",
+      "author": "Participant 6",
+      "body": "I encountered the cookie issue on mac as well. I used Browserstack to check if it was specific to OS X version running on my mac, but that wasn't the case.\r\n\r\n@osiset consider requesting a [BrowserStack open-source access](https://www.browserstack.com/open-source) to test this issue on mac. It works like a real thing."
+    },
+    {
+      "id": 747472888,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-747472888",
+      "created_at": "2020-12-17T14:31:22Z",
+      "updated_at": "2020-12-17T14:31:22Z",
+      "author": "Participant 1",
+      "body": "@yrk2yrk I'll explore this, thanks."
+    },
+    {
+      "id": 747473551,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-747473551",
+      "created_at": "2020-12-17T14:32:33Z",
+      "updated_at": "2020-12-17T14:32:33Z",
+      "author": "Participant 1",
+      "body": "I've been approved, thanks, will try this out. "
+    },
+    {
+      "id": 747484862,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-747484862",
+      "created_at": "2020-12-17T14:52:02Z",
+      "updated_at": "2020-12-17T14:52:02Z",
+      "author": "Participant 6",
+      "body": "That's awesome!"
+    },
+    {
+      "id": 748092111,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-748092111",
+      "created_at": "2020-12-18T13:45:40Z",
+      "updated_at": "2020-12-18T13:45:40Z",
+      "author": "Participant 1",
+      "body": "I'm still unable to reproduce :(\r\n\r\nStandard settings...\r\nhttp_only => true,\r\nsame_site => lax,\r\nstorage => file,\r\n\r\nTried with Safari on Big Sur, Chrome, Edge... app would load fine. However, inspecting the cookies in Safari for the app domain, everything would be blank, no cookies at all. So I'm not sure how its working?"
+    },
+    {
+      "id": 748520628,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-748520628",
+      "created_at": "2020-12-19T20:23:24Z",
+      "updated_at": "2020-12-19T20:23:24Z",
+      "author": "Participant 11",
+      "body": "It may be worth trying it in incognito mode. On some on my apps, it works in normal mode, but not in Incognito. \r\n\r\nThis is affecting a few of my apps so I am more than happy to collaborate on this @osiset to see if we can sort it. \r\n\r\nFeel free to message me and I can give you access on one of my dev apps which is having this issue"
+    },
+    {
+      "id": 752225647,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-752225647",
+      "created_at": "2020-12-29T20:09:34Z",
+      "updated_at": "2020-12-29T20:09:34Z",
+      "author": "Participant 1",
+      "body": "So I am not sure what is going on or how its working.\r\n\r\nChrome incognito on Mac in BrowserStack - the homepage of my app fails to load, simply because my app is trying to access localStorage. However, inspecting the HTML source, I see the shop and other details, which means it passed through the middleware fine.\r\n\r\nBut, theres no cookies, yet user is marked as logged in.. I am not sure where its storing it :/"
+    },
+    {
+      "id": 754100284,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-754100284",
+      "created_at": "2021-01-04T17:13:22Z",
+      "updated_at": "2021-01-04T17:13:22Z",
+      "author": "Participant 1",
+      "body": "At this point, I am unsure what I need to do.\r\n\r\n1. I've setup an ITP middleware to check for existence of a test cookie\r\n2. If the test cookie does not exist, it does a fullpage redirect directly to the domain to a controller which sets the test cookie, this sets the cookie outside of the iframe\r\n3. Redirect back to the app... stuck in a loop then\r\n\r\nGoing back to the app... request->cookies and $_COOKIE are empty for some reason.\r\n\r\nAllowing third-party cookies, everything works fine, so I am unsure what I can do to get around this... any help would be greatful."
+    },
+    {
+      "id": 754839565,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-754839565",
+      "created_at": "2021-01-05T19:10:58Z",
+      "updated_at": "2021-01-05T19:10:58Z",
+      "author": "Participant 1",
+      "body": "I'm wondering if the reason cookies are empty is because of the self-signed certificate. Even though I've added an exception, I wonder if its not sending the cookies due to this. I'll push up some stuff to a branch and deploy to a server to confirm."
+    },
+    {
+      "id": 754843250,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-754843250",
+      "created_at": "2021-01-05T19:17:52Z",
+      "updated_at": "2021-01-05T19:17:52Z",
+      "author": "Participant 11",
+      "body": "@osiset I am running it on a production server using LetsEncrypt and still facing the issue. Not sure if this is self-signed or not ( or if it helps ), but wanted to throw it out there incase it helps"
+    },
+    {
+      "id": 754845963,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-754845963",
+      "created_at": "2021-01-05T19:22:53Z",
+      "updated_at": "2021-01-05T19:22:53Z",
+      "author": "Participant 1",
+      "body": "In your case no, the cookie setting outside the iframe is not part of the released versions."
+    },
+    {
+      "id": 755296209,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-755296209",
+      "created_at": "2021-01-06T13:22:52Z",
+      "updated_at": "2021-01-06T13:22:52Z",
+      "author": "Participant 1",
+      "body": "I've tried a few more attempts both locally and on-server. No luck. I don't really understand why it is not working.\r\n\r\nFrom my understanding, a samesite cookie needs to be set outside the iframe, which is done. I've even confirmed the cookie is there by navigating to a specific route and checking the cookie. However, the second I go back to the app within Shopify, no cookies are visible."
+    },
+    {
+      "id": 758664552,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-758664552",
+      "created_at": "2021-01-12T13:46:05Z",
+      "updated_at": "2021-01-12T13:46:05Z",
+      "author": "Participant 13",
+      "body": "Hey guys!\r\n\r\nI am having the same issue like the `isFreemium() on null` but there is one exception it is happened in all browsers for me. Is it still the cookie issue?\r\n\r\nThe version of packages I am using:\r\n`\"osiset/basic-shopify-api\": \"^7.0\"`\r\n`\"osiset/laravel-shopify\": \"^10.3.1\"`"
+    },
+    {
+      "id": 762868705,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-762868705",
+      "created_at": "2021-01-19T14:19:18Z",
+      "updated_at": "2021-01-19T14:19:18Z",
+      "author": "Participant 1",
+      "body": "I have attempted this again this weekend without luck. I am unable to pinpoint what the issue is. Samesite cookie gets set outside the iframe, redirecting back to app, everything is empty for cookies."
+    },
+    {
+      "id": 763761156,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-763761156",
+      "created_at": "2021-01-20T16:26:06Z",
+      "updated_at": "2021-01-20T16:26:06Z",
+      "author": "Participant 1",
+      "body": "I've had some success now by probing the Koa implementation.\n\nI believe my flow needs to be this:\n\n- ITP middleware will check for ITP cookie\n- If ITP cookie does not exist, redirect to top level and set a same site cookie, then redirect back to app with a query param of ?itp=true\n- Once redirected back to app, it'll run through ITP middleware again, we will check for ITP cookie, if it doesn't exist and the ITP query param exists, then we need to redirect to a cookie/storage permission page\n- On this page, using JS, user will read a prompt and click to try and enable cookies / storage access\n- Some browsers will prompt to confirm, others just allow it\n- Once this is done, were good to redirect back and have cookie access\n\n\nWith this plan in mind and loosely working I'll continue to develop a solution."
+    },
+    {
+      "id": 764691606,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-764691606",
+      "created_at": "2021-01-21T14:44:18Z",
+      "updated_at": "2021-01-21T14:44:18Z",
+      "author": "Participant 1",
+      "body": "I have success with the code, things seem to work OK. Test suite is passing (need to add test for new ITP middleware).\r\n\r\nI just need to test Safari as well.\r\n\r\nIf anyone wants to try it out.. please see feature/itp branch.\r\n\r\nOnce I'm done the new test files, and confirm Safari, I'll make a release."
+    },
+    {
+      "id": 764852902,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-764852902",
+      "created_at": "2021-01-21T18:36:01Z",
+      "updated_at": "2021-01-21T18:36:01Z",
+      "author": "Participant 1",
+      "body": "Now merged into master. Testers welcome. As noted in my PR...\r\n\r\n>In my testing on Chrome and Edge, all is fine. Firefox and Safari, the requestStorageAccess is granted but cookie creation fails. There is a lot of docs about issues with Safari and requestStorageAccess, even on Shopify's own repos. For now, I can not find a work around, but a \"Manual enable cookies\" screen does display for those instances.\r\n\r\n"
+    },
+    {
+      "id": 765597939,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-765597939",
+      "created_at": "2021-01-22T18:16:48Z",
+      "updated_at": "2021-01-22T18:16:48Z",
+      "author": "Participant 1",
+      "body": "v16.0.0 released with those features. See changelog / upgrade log. New wiki entry [for ITP](https://github.com/osiset/laravel-shopify/wiki/ITP).\r\n\r\nI will close any related issues for now, but I know this topic will come up again, Shopify's own repos have reports of this still not working 100% for them as well."
+    },
+    {
+      "id": 772852725,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-772852725",
+      "created_at": "2021-02-03T21:59:44Z",
+      "updated_at": "2021-02-03T21:59:44Z",
+      "author": "Participant 14",
+      "body": "GREAT WORK MAN!!!"
+    },
+    {
+      "id": 930765661,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-930765661",
+      "created_at": "2021-09-30T04:10:58Z",
+      "updated_at": "2021-09-30T04:22:23Z",
+      "author": "Participant 15",
+      "body": "I got the proplem when i navigated in shopify app using Safari (It worked as well in chrome).  My app version using below:\r\n```\r\n\"laravel/framework\": \"^8.40\",\r\n\"osiset/laravel-shopify\": \"^17.1\"\r\n\r\nIt was throughed error: Error Call to a member function getDomain() on null\r\nPath: vendor/osiset/laravel-shopify/src/Traits/AuthController.php:32\r\n```\r\n\r\nCan anyone help me \r\n"
+    },
+    {
+      "id": 951136333,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-951136333",
+      "created_at": "2021-10-25T17:17:24Z",
+      "updated_at": "2021-10-25T17:17:24Z",
+      "author": "Participant 16",
+      "body": "> I got the proplem when i navigated in shopify app using Safari (It worked as well in chrome). My app version using below:\r\n> \r\n> ```\r\n> \"laravel/framework\": \"^8.40\",\r\n> \"osiset/laravel-shopify\": \"^17.1\"\r\n> \r\n> It was throughed error: Error Call to a member function getDomain() on null\r\n> Path: vendor/osiset/laravel-shopify/src/Traits/AuthController.php:32\r\n> ```\r\n> \r\n> Can anyone help me\r\n\r\nI've faced the same issue.\r\nIf I will figure out how to fix, I will let you know."
+    },
+    {
+      "id": 1027680014,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-1027680014",
+      "created_at": "2022-02-02T08:08:08Z",
+      "updated_at": "2022-02-02T08:08:08Z",
+      "author": "Participant 17",
+      "body": "@vladbova can you please share how did you solve this issue? Facing the same app is working fine on chrome but not working on safari. any help will be much appreciated. "
+    },
+    {
+      "id": 1027725852,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-1027725852",
+      "created_at": "2022-02-02T09:09:36Z",
+      "updated_at": "2022-02-02T09:09:36Z",
+      "author": "Participant 16",
+      "body": "@faizan-glowlogix and @nguyenduc308 \r\n\r\nI've managed to fix this.\r\nWhenever you try to follow a link or click the app bridge button, always pass the 'shop' param into your route.\r\n\r\nfor example,\r\n\r\nInstead of using this:\r\n`{{ route('home') }}`\r\n\r\nUse this:\r\n`{{ route('home', ['shop' => auth()->user()->name ]) }}`\r\n\r\n\r\nI hope it will help you too."
+    },
+    {
+      "id": 1027796985,
+      "url": "https://github.com/gnikyt/laravel-shopify/issues/522#issuecomment-1027796985",
+      "created_at": "2022-02-02T10:34:56Z",
+      "updated_at": "2022-02-02T10:34:56Z",
+      "author": "Participant 17",
+      "body": "@vladbova thanks a lot. it worked."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

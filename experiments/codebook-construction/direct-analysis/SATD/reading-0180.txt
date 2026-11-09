@@ -1,0 +1,372 @@
+
+=== 180 23shades-0538-aafibegcj ===
+{"dataset_id": "aafibegcj", "repo_name": "ComputationalCryoEM/ASPIRE-Python", "filename": "src/aspire/image/image.py", "comment_introducing_revision": "https://github.com/ComputationalCryoEM/ASPIRE-Python/commit/f85cdd3bd1522c5334c17bdc52bad4847e7e9996", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "f85cdd3bd1522c5334c17bdc52bad4847e7e9996"}
+[comment_text]
+TODO: figure out how why the result of einsum requires reshape
+[source_context]
+    if shifts.shape[1] != 2:
+        raise ValueError("Input `shifts` must be of size n-by-2")
+
+    if n_shifts != 1 and n_shifts != im.n_images:
+        raise ValueError("The number of shifts must be 1 or match the number of images")
+
+    resolution = im.res
+    grid = np.fft.ifftshift(np.ceil(np.arange(-resolution / 2, resolution / 2)))
+    om_y, om_x = np.meshgrid(grid, grid)
+    phase_shifts = np.einsum("ij, k -> ijk", om_x, shifts[:, 0]) + np.einsum(
+        "ij, k -> ijk", om_y, shifts[:, 1]
+    )
+    # TODO: figure out how why the result of einsum requires reshape
+    phase_shifts = phase_shifts.reshape(n_shifts, resolution, resolution)
+    phase_shifts /= resolution
+
+    mult_f = np.exp(-2 * np.pi * 1j * phase_shifts)
+    im_f = np.fft.fft2(im.asnumpy())
+    im_translated_f = im_f * mult_f
+    im_translated = np.real(np.fft.ifft2(im_translated_f))
+
+    return Image(im_translated)
+
+
+def normalize_bg(imgs, bg_radius=1.0, do_ramp=True):
+
+=== 181 23shades-0226-aafdjfjab ===
+{"dataset_id": "aafdjfjab", "repo_name": "shenweichen/DeepCTR", "filename": "keras_model/dcn.py", "comment_introducing_revision": "https://github.com/shenweichen/DeepCTR/commit/15096ea01f1f1e584b574a6dd36058745c595cb6", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "15096ea01f1f1e584b574a6dd36058745c595cb6"}
+[comment_text]
+TODO add bias term
+[source_context]
+        deep_input = Flatten()(Concatenate()(embed_list))
+        if len(continuous_input) > 0:
+            if len(continuous_input) == 1:
+                continuous_list = continuous_input[0]
+            else:
+                continuous_list = Concatenate()(continuous_input)
+
+            deep_input = Concatenate()([deep_input, continuous_list])
+
+        #if self.bias_dim > 0:
+        #    bias_input_list = Concatenate()(bias_input)
+
+        final_logit = linear_term  # TODO add bias term
+        if len(self.hidden_size) > 0 and self.cross_num > 0:  # Deep & Cross
+            deep_out = self.deep_layer(deep_input, self.hidden_size, self.activation, self.init_std, self.keep_prob,
+                                       self.seed)
+            cross_out = CrossLayer(self.cross_num)(deep_input)
+            stack_out = Concatenate()([cross_out, deep_out])
+            final_logit = Dense(1, activation=None)(stack_out)
+        elif len(self.hidden_size) > 0:  # Only Deep
+            deep_out = self.deep_layer(deep_input, self.hidden_size, self.activation, self.init_std, self.keep_prob,
+                                       self.seed)
+            final_logit = Dense(1, activation=None)(deep_out)
+        elif self.cross_num > 0:  # Only Cross
+            cross_out = CrossLayer(self.cross_num, init_std=self.init_std, l2_reg=self.l2_reg_cross)(deep_input)
+
+=== 182 23shades-0094-aadaidhdg ===
+{"dataset_id": "aadaidhdg", "repo_name": "amir-jafari/Deep-Learning", "filename": "Caffe_/1-Simple_Example/PIL/PIL/PSDraw.py", "comment_introducing_revision": "https://github.com/amir-jafari/Deep-Learning/commit/1bc09ffc7eb3e5452577f3f8efe5f3efeae3c136", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "1bc09ffc7eb3e5452577f3f8efe5f3efeae3c136"}
+[comment_text]
+FIXME: incomplete
+[source_context]
+# Simple Postscript graphics interface.
+
+class PSDraw:
+
+    def __init__(self, fp=None):
+        if not fp:
+            import sys
+            fp = sys.stdout
+        self.fp = fp
+
+    def begin_document(self, id = None):
+        "Write Postscript DSC header"
+        # FIXME: incomplete
+        self.fp.write("%!PS-Adobe-3.0\n"
+                      "save\n"
+                      "/showpage { } def\n"
+                      "%%EndComments\n"
+                      "%%BeginDocument\n")
+        #self.fp.write(ERROR_PS) # debugging!
+        self.fp.write(EDROFF_PS)
+        self.fp.write(VDI_PS)
+        self.fp.write("%%EndProlog\n")
+        self.isofont = {}
+
+    def end_document(self):
+
+=== 183 23shades-0047-aajdbecaa ===
+{"dataset_id": "aajdbecaa", "repo_name": "mila-iqia/babyai", "filename": "rl/one_env_sbatch.py", "comment_introducing_revision": "https://github.com/mila-iqia/babyai/commit/4450d3b1e3547f15eefe2b72fce88b9bee71f0d1", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "4450d3b1e3547f15eefe2b72fce88b9bee71f0d1"}
+[comment_text]
+\"PickupAbove\": [TODO];
+[source_context]
+else:
+    lrs = [7e-4]
+
+
+
+components = {
+    "GoToRedDoor": [],
+    "GoToDoor": ["instr"],
+    "GoToObjDoor": ["instr"],
+    "LocalAction": ["instr"],
+    "UnlockDoor": [],
+    "UnlockDoorDist": [],
+    # "PickupAbove": [TODO],
+    "OpenRedBlueDoors": ["mem"],
+    "OpenTwoDoors": ["instr", "mem"],
+    "FindObj": ["mem"],
+    "FindObjLarge": ["mem"],
+    "UnlockPickup": ["instr"],
+    "FourObjects":  ["instr", "mem"],
+    "LockedRoom": ["mem"]
+}
+
+level = args.env
+options = components[level]
+for seed in range(1, 6):
+
+=== 184 23shades-0627-aaidgcaed ===
+{"dataset_id": "aaidgcaed", "repo_name": "DreamingRaven/nemesyst", "filename": "src/neuralNetwork.py", "comment_introducing_revision": "https://github.com/DreamingRaven/nemesyst/commit/eece98912460069ed02e6ca018cf222cdf2d691d", "comment_removing_revision": "https://github.com/DreamingRaven/nemesyst/commit/95d29536598cefddb6d33b49263cd33040b54303", "source_context_status": "available", "source_context_commit": "eece98912460069ed02e6ca018cf222cdf2d691d"}
+[comment_text]
+TODO: off by one ... you fool george; sort this out
+[source_context]
+                dataBatch = self.nextDataset(self.args["batchSize"])
+                for mongoDoc in dataBatch:
+                    data = pd.DataFrame(list(mongoDoc["data"]))
+                    self._model_test(data=data, target="placeholder")
+
+        else:
+            self.log("could not train, either model not generated or cursor does not exist", 2)
+
+
+
+    def _model_train(self, data, target, id):
+        try:
+            #TODO: off by one ... you fool george, sort this out
+            expectShape = (1, self.args["timeSteps"] + 1, self.args["dimensionality"])
+
+            # check if shape meets expectations
+            if(data.shape == expectShape):
+                # self.log(str(data.shape) + " == " + str(expectShape), 3)
+                # self.log(str(data))
+                # self.log( "\n" +
+                    # "\ttarget: "     +         str(target)     + "\n" +
+                    # "\tdataShape:"   +         str(data.shape) + "\n" +
+                    # "\tdesireShape:" +         str(expectShape)+ "\n"
+                # ,3)
+
+
+=== 185 23shades-0665-aaidbbafi ===
+{"dataset_id": "aaidbbafi", "repo_name": "scikit-learn/scikit-learn", "filename": "sklearn/ensemble/__init__.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/5a4340834d23c4bdcd813ccda24a690ae174c168", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "5a4340834d23c4bdcd813ccda24a690ae174c168"}
+[comment_text]
+TODO: remove this check once the estimator is no longer experimental.
+[source_context]
+from ._iforest import IsolationForest
+from ._weight_boosting import AdaBoostClassifier
+from ._weight_boosting import AdaBoostRegressor
+from ._gb import GradientBoostingClassifier
+from ._gb import GradientBoostingRegressor
+from ._voting import VotingClassifier
+from ._voting import VotingRegressor
+from ._stacking import StackingClassifier
+from ._stacking import StackingRegressor
+
+if typing.TYPE_CHECKING:
+    # Avoid errors in type checkers (e.g. mypy) for experimental estimators.
+    # TODO: remove this check once the estimator is no longer experimental.
+    from ._hist_gradient_boosting.gradient_boosting import (  # noqa
+        HistGradientBoostingRegressor, HistGradientBoostingClassifier
+    )
+
+__all__ = ["BaseEnsemble",
+           "RandomForestClassifier", "RandomForestRegressor",
+           "RandomTreesEmbedding", "ExtraTreesClassifier",
+           "ExtraTreesRegressor", "BaggingClassifier",
+           "BaggingRegressor", "IsolationForest", "GradientBoostingClassifier",
+           "GradientBoostingRegressor", "AdaBoostClassifier",
+           "AdaBoostRegressor", "VotingClassifier", "VotingRegressor",
+           "StackingClassifier", "StackingRegressor",
+
+=== 186 23shades-0692-aajcfiaid ===
+{"dataset_id": "aajcfiaid", "repo_name": "vita-epfl/openpifpaf", "filename": "openpifpaf/network/factory.py", "comment_introducing_revision": "https://github.com/vita-epfl/openpifpaf/commit/886418ba0059c6408cddaea0cec7d8a51a325621", "comment_removing_revision": "https://github.com/vita-epfl/openpifpaf/commit/d7bb1d15234d8bf09ac13e34f8d4d41b5e3df417", "source_context_status": "available", "source_context_commit": "886418ba0059c6408cddaea0cec7d8a51a325621"}
+[comment_text]
+TODO: set check_hash to True on final model
+[source_context]
+            checkpoint = torch.hub.load_state_dict_from_url(RESNET50_MODEL, check_hash=True)
+        elif checkpoint == 'resnet101':
+            checkpoint = torch.hub.load_state_dict_from_url(RESNET101_MODEL, check_hash=True)
+        elif checkpoint == 'resnet152':
+            checkpoint = torch.hub.load_state_dict_from_url(RESNET152_MODEL, check_hash=True)
+        elif checkpoint == 'resnext50':
+            checkpoint = torch.hub.load_state_dict_from_url(RESNEXT50_MODEL, check_hash=True)
+        elif checkpoint == 'shufflenetv2x1':
+            checkpoint = torch.hub.load_state_dict_from_url(SHUFFLENETV2X1_MODEL, check_hash=True)
+        elif checkpoint == 'shufflenetv2x2':
+            checkpoint = torch.hub.load_state_dict_from_url(SHUFFLENETV2X2_MODEL, check_hash=True)
+        elif checkpoint == 'shufflenetv2k18w':
+            # TODO: set check_hash to True on final model
+            checkpoint = torch.hub.load_state_dict_from_url(
+                SHUFFLENETV2K18W_MODEL, check_hash=False)
+        elif checkpoint.startswith('http'):
+            checkpoint = torch.hub.load_state_dict_from_url(
+                checkpoint, check_hash=not checkpoint.startswith('https'))
+        else:
+            checkpoint = torch.load(checkpoint)
+        net_cpu = checkpoint['model']
+        epoch = checkpoint['epoch']
+
+        # normalize for backwards compatibility
+        nets.model_migration(net_cpu)
+
+=== 187 23shades-0288-aaedbehai ===
+{"dataset_id": "aaedbehai", "repo_name": "inferno-pytorch/inferno", "filename": "inferno/io/box/bsd500.py", "comment_introducing_revision": "https://github.com/inferno-pytorch/inferno/commit/b75a6ac9d5b74e0bf720ee91fe92b08a2f21c0af", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b75a6ac9d5b74e0bf720ee91fe92b08a2f21c0af"}
+[comment_text]
+TODO figure out what exactly size does
+[source_context]
+            self.accumulator = np.amax
+        elif accumulator == 'min':
+            self.accumulator = np.amin
+        if close_channels is not None:
+            assert isinstance(close_channels, (list, tuple))
+        self.close_channels = close_channels
+
+    def __call__(self, input_):
+        transformed = np.array([self.transform(inp) for inp in input_])
+        transformed = self.accumulator(transformed, axis=0)
+        if self.close_channels is not None:
+            for c in self.close_channels:
+                # TODO figure out what exactly size does
+                transformed[c] = grey_opening(transformed[c], size=(3, 3))
+        return transformed
+
+
+def get_label_transforms(offsets, accumulator='mean', close_channels=None):
+    from neurofire.transforms.segmentation import Segmentation2AffinitiesFromOffsets
+    seg2aff = Segmentation2AffinitiesFromOffsets(dim=2,
+                                                 offsets=pyu.from_iterable(offsets),
+                                                 add_singleton_channel_dimension=True,
+                                                 retain_segmentation=False)
+    return AccumulateTransformOverLabelers(seg2aff, accumulator, close_channels)
+
+
+=== 188 23shades-0134-aaggcgaie ===
+{"dataset_id": "aaggcgaie", "repo_name": "ucam-smt/sgnmt", "filename": "cam/sgnmt/predictors/blocks_neural.py", "comment_introducing_revision": "https://github.com/ucam-smt/sgnmt/commit/eb61c8e69bd99717771ac205e9d47b23fc650565", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "eb61c8e69bd99717771ac205e9d47b23fc650565"}
+[comment_text]
+Initialize model (TODO: really necessary?)
+[source_context]
+                                       self.config['enc_nhids'])
+        decoder = Decoder(self.config['trg_vocab_size'],
+                          self.config['dec_embed'],
+                          self.config['dec_nhids'],
+                          self.config['enc_nhids'] * 2)
+        cost = decoder.cost(
+                encoder.apply(source_sentence, source_sentence_mask),
+                source_sentence_mask, target_sentence, target_sentence_mask)
+    
+        logging.info('Creating computational graph')
+        cg = ComputationGraph(cost)
+    
+        # Initialize model (TODO: really necessary?)
+        logging.info('Initializing model')
+        encoder.weights_init = decoder.weights_init = IsotropicGaussian(
+            self.config['weight_scale'])
+        encoder.biases_init = decoder.biases_init = Constant(0)
+        encoder.push_initialization_config()
+        decoder.push_initialization_config()
+        encoder.bidir.prototype.weights_init = Orthogonal()
+        decoder.transition.weights_init = Orthogonal()
+        encoder.initialize()
+        decoder.initialize()
+    
+        # Apply dropout for regularization (TODO: remove?)
+
+=== 189 23shades-0588-aaeiaghhj ===
+{"dataset_id": "aaeiaghhj", "repo_name": "cltk/cltk", "filename": "src/cltkv1/embeddings/embeddings.py", "comment_introducing_revision": "https://github.com/cltk/cltk/commit/3bd6dd6d4acd171f5fdda568c74a178b6cc78b25", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "3bd6dd6d4acd171f5fdda568c74a178b6cc78b25"}
+[comment_text]
+TODO: Log message
+[source_context]
+            "san": "sa",  # Sanskrit
+            "xno": "ang",  # Anglo-Saxon
+        }
+
+        self._check_input_params()
+
+        # load model once all checks OK
+        self.model_fp = self._build_fasttext_filepath()
+        if not self._is_model_present() or self.overwrite:
+            self.download_fasttext_models()
+        elif self._is_model_present() and not self.overwrite:
+            message = f"Model for '{self.iso_code}' / '{self.training_set}' / '{self.model_type}' already present at '{self.model_fp}' and ``overwrite=False``."
+            # TODO: Log message
+        self.model = self._load_model()
+
+    def _is_model_present(self):
+        """Check if model in an otherwise valid filepath."""
+
+        if os.path.isfile(self.model_fp):
+            return True
+        else:
+            return False
+
+    def _check_input_params(self):
+        """Look at combination of parameters give to class
+
+=== 190 23shades-0677-aaefecjfa ===
+{"dataset_id": "aaefecjfa", "repo_name": "scikit-learn-contrib/metric-learn", "filename": "metric_learn/nca.py", "comment_introducing_revision": "https://github.com/scikit-learn-contrib/metric-learn/commit/130cbadff294b686e466d430f26b2d069f6bbf59", "comment_removing_revision": "https://github.com/scikit-learn-contrib/metric-learn/commit/6f783de0254727a144c535056fe9e0022e0ce5bf", "source_context_status": "available", "source_context_commit": "130cbadff294b686e466d430f26b2d069f6bbf59"}
+[comment_text]
+TODO: replace init=None by init='auto' in v0.6.0 and remove the warning
+[source_context]
+                    ' removed in 0.6.0. Use "n_components" instead',
+                    DeprecationWarning)
+    X, labels = self._prepare_inputs(X, y, ensure_min_samples=2)
+    n, d = X.shape
+    n_components = _check_n_components(d, self.n_components)
+
+    # Measure the total training time
+    train_time = time.time()
+
+    # Initialize A
+    # if the init is the default (auto), we raise a warning just in case
+    if self.init is None:
+      # TODO: replace init=None by init='auto' in v0.6.0 and remove the warning
+      msg = ("Warning, no init was set (`init=None`). As of version 0.5.0, "
+             "the default init will now be set to 'auto', instead of the "
+             "previous scaling matrix. same scaling matrix as before as an "
+             "init, set init=np.eye(X.shape[1])/"
+             "(np.maximum(X.max(axis=0)-X.min(axis=0), EPS))). This warning "
+             "will disappear in v0.6.0, and `init` parameter's default value "
+             "will be set to 'auto'.")
+      warnings.warn(msg, ChangedBehaviorWarning)
+      init = 'auto'
+    else:
+      init = self.init
+    A = _initialize_transformer(n_components, X, labels, init, self.verbose)
+
+=== 191 23shades-0165-aajaicjbh ===
+{"dataset_id": "aajaicjbh", "repo_name": "HazyResearch/fonduer", "filename": "fonduer/snorkel/learning/utils.py", "comment_introducing_revision": "https://github.com/HazyResearch/fonduer/commit/611d23a9e43d2539475a328138323b00e5fdc86b", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "611d23a9e43d2539475a328138323b00e5fdc86b"}
+[comment_text]
+Test for categorical vs. binary in hack-ey way for now...
+[source_context]
+        # index, last one is the score to sort by
+        # Note: the models may be returned out of order!
+        i_opt = np.argmax([s[-1] for s in run_stats])
+        k_opt = run_stats[i_opt][0]
+        model = self.model_class(**self.model_class_params)
+        model.load('{0}_{1}'.format(model.name, k_opt), save_dir=self.save_dir)
+
+        # Also save the best model as separate file
+        model.save(model_name="{0}_best".format(model.name), 
+            save_dir=self.save_dir)
+
+        # Return model and DataFrame of scores
+        # Test for categorical vs. binary in hack-ey way for now...
+        f_score = 'F-{0}'.format(beta)
+        categorical = (len(scores) == 2)
+        labels = ['Acc.'] if categorical else ['Prec.', 'Rec.', f_score]
+        sort_by = 'Acc.' if categorical else f_score
+        self.results = DataFrame.from_records(
+            run_stats, columns=["Model"] + self.param_names + labels
+        ).sort_values(by=sort_by, ascending=False)
+        return model, self.results
+
+
+QUEUE_TIMEOUT = 3
+

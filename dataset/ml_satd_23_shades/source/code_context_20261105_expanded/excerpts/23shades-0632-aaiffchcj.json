@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0632-aaiffchcj",
+  "revision_url": "https://github.com/OpenMined/PySyft/commit/0a734fb356dfd3e8a6e3b93d6210c4b7b8ed141c",
+  "filename": "syft/core/workers/base.py",
+  "commit": "0a734fb356dfd3e8a6e3b93d6210c4b7b8ed141c",
+  "source_url": "https://raw.githubusercontent.com/OpenMined/PySyft/0a734fb356dfd3e8a6e3b93d6210c4b7b8ed141c/syft/core/workers/base.py",
+  "fetched_at": "2026-11-05T06:13:29.402140+00:00",
+  "source_sha256": "6233cb1175c9526d05296c730319a00c9955ad9fd30f3b1dc367ecd79a703c82",
+  "line_start": 769,
+  "line_end": 793,
+  "excerpt": "\n        * **force_attach_to_worker (bool)** if set to True, it will force the object\n        to be stored in the worker's permanent registry\n          even if the worker is a client worker.\n\n        * **temporary (bool)** If set to True, it will store the object in the\n        worker's temporary registry.\n\n        * **out (torch.Tensor or torch.autograd.Variable)** returns the object\n        newly registered.\n        \"\"\"\n\n        # TODO: pass in just the id instead of the entire obj_msg.\n\n        try:\n            # TorchClient case\n            # delete registration from init; it's got the wrong id\n            self.rm_obj(torch_object.id)\n        except (AttributeError, KeyError):\n            # Worker case: v was never formally registered\n            pass\n\n        torch_object = self.register_object(self,\n                                            torch_object,\n                                            id=obj_msg['id'],"
+}

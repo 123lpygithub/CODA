@@ -1,0 +1,146 @@
+row,artifact_id,evidence_availability,open_codes,analytic_memo,outcome
+7,privacy-issue-21474,partial,第三方合规变化传播依赖约束;地理数据库来源替换;账号注册负担,全文及现有3评论已读；MaxMind因合规动机改下载/账号要求，维护者考虑模块化替换db-ip及来源署名。3/4评论可用，缺失一条，不能确认最终决定。scramble为普通动词非脱敏。,方案讨论，部分证据
+57,privacy-issue-4216,metadata_only,证据不足,仅标题Conflicting documentation及元数据；不使用检索关键词privacy controls推导具体冲突。,无正文，无法判断
+100,privacy-issue-20510,metadata_only,会话外不持久化选项,仅标题与元数据可读，支持会话外不留存诉求；缺正文和3评论，不能判断存储类型、默认值或实现。,证据缺失，结果未知
+104,privacy-issue-3987,metadata_only,登录失败信息隐藏,只有标题，私密社区应模糊登录失败结果；无法确认具体暴露字段或账号枚举机制及处置。,证据缺失，结果未知
+110,privacy-issue-20198,metadata_only,日志配置需求;隐私关联证据不足,仅标题支持VBMS日志可配置，不能由检索词PII推断具体泄露或脱敏要求。,证据缺失，结果未知
+129,privacy-issue-5410,metadata_only,日志长期保留文档,仅标题要求记录长期保留，缺正文，不能判断期限或遗忘权具体机制。,证据缺失，结果未知
+132,privacy-issue-11387,metadata_only,法律主题未具体化,只有ccpa标题，无法分解需求、机制或结果，不由标签推断。,证据缺失，结果未知
+137,privacy-issue-2133,metadata_only,选项页隐私告知,仅标题要求选项页包含声明，无正文，具体内容与结果未知。,证据缺失，结果未知
+155,privacy-issue-2476,metadata_only,不可见复选框阻碍注册;隐私关联证据不足,仅标题支持注册被不可见checkbox阻碍，无法确认框的用途是否隐私同意，不依据matched关键词补全。,证据缺失，结果未知
+185,privacy-issue-13503,complete,软件完整性检查与发布来源;隐私关联不足,stable9 git安装缺signature.json导致核心与应用完整性检查失败，维护者解释git发布不带该密码学签名、不推荐生产；用户混淆git签名并追问公钥，未解决。无个人信息处理问题证据。,预期行为说明，公钥追问未解决
+190,privacy-issue-2308,metadata_only,隐私说明更新;仅元数据可判,仅标题Update privacy comment，能确认文档隐私说明更新请求，缺正文及四条原讨论，内容理由结果均不可判。,仅元数据，完成未知
+203,privacy-issue-13996,complete,GDPR需求规划,仅提产品团队GDPR准备方向和需求讨论，无具体措施，四年后过时关闭。,过时关闭
+214,privacy-issue-7594,complete,系统权限声明崩溃;依赖归因疑问,用户未主动用相机却iOS13 TCC隐私违规崩溃，怀疑DeviceKit并已加相机权限尝试；完整栈含CameraUI，但维护者解释DeviceKit相机型号是硬编码不交互，不需要权限，用户接受，真实触发源未定。,排除被疑库解释，根因未解决
+231,privacy-issue-7638,complete,地址误作搜索的隐私顾虑;隐私关联次要,Focus把802.11当地址导致乱码错误页，主要修复字符编码；把无效地址送搜索引擎仅为替代方案的潜在隐私顾虑，并非证实已外发。评论称1409修复随8.0发布。,乱码修复声明，隐私风险仅替代方案讨论
+234,privacy-issue-8271,complete,剪贴板被动监测;便利功能隐私争议,PowerToys请求监测URL弹出浏览器选择，争论打扰与场景，末有人怀疑监测隐私、另一人以OS允许辩护；作者在其他工具实现而关闭，不认定PowerToys读取或泄漏。,作者外部实现后关闭
+241,privacy-issue-8822,complete,必要与可选Cookie区分;正文空缺,仅标题要求横幅区分Optional与Essential，正文确实空且无评论，不能推断按钮执行或同意默认。,空正文，实施未知
+254,privacy-issue-9246,complete,Cookie接受横幅;正文空缺,仅标题要求EU cookie acceptance banner，无正文评论，无法细化同意拒绝阻断或实现。,空正文，完成未知
+268,privacy-issue-11513,complete,请求来源属性用于合规;隐私关联次要,Fastify把IP/ips/hostname改getter减少开销，参与者要求保留供GDPR/CCPA来源核实，作者确认不删；无降低采集或日志匿名要求，PR有人认领。,设计同意，实施未知
+277,privacy-issue-12157,metadata_only,第三方传输告知准确性;仅元数据可判,仅标题说发送Bing Maps内容说明不正确，正文两评论缺失，无法知道数据范围或修订结果。,仅元数据，完成未知
+287,privacy-issue-14051,complete,合规工具规划未细化,VirtoCommerce要求GDPR支持工具但需求故事验收均问号占位，长期无活动关闭。,不活跃关闭
+288,privacy-issue-14058,complete,数据访问角色盘点,PeeringDB确认数据库网站访问角色非注册、注册、管理员三类，未展开各类权限细节。,角色分类获确认
+306,privacy-issue-17517,metadata_only,追踪Cookie告知;仅元数据可判,仅标题要求网站追踪cookie告知，缺七评论正文，不推断实际追踪机制或已通知。,仅元数据，完成未知
+310,privacy-issue-17664,complete,凭证迁移;隐私关联较弱,Jira云弃用密码与cookie认证，API token可直接作为basic密码使用，无需修改连接器；仅建议文档调整。,现有兼容性确认，文档建议
+311,privacy-issue-17691,complete,认证Cookie容量兼容性;会话票据服务端存储;隐私关联较弱,完整排查Safari登录失败，过期日期假设被否定，转Redis ITicketStore解决部分Safari；Web/API共享cookie刷新竞态另待复现，不涉及告知同意。,部分Safari问题确认解决，刷新竞态另议
+312,privacy-issue-17694,complete,Cookie政策告知;实质证据不足,正文空，仅Cookie policy notice标题及致谢，虽完整抓取仍无法判断告知内容或实施方式。,致谢并关闭，实施细节未知
+321,privacy-issue-18442,complete,诊断材料保密;私下调试证据共享;核心故障隐私关联较弱,Terraform幂等性主要由同policy多attachment竞争引起，隐私是用户拒公开调试日志并私发邮件；维护者请求无secret复现，最终切role attachment成功。,私发诊断，配置迁移解决
+349,privacy-issue-20527,complete,Cookie用途盘点支持告知,OWA尚未运行用户先准备法律告知，问是否用cookie，维护者仅确认是，无种类同意机制信息。,确认使用Cookie
+354,privacy-issue-20655,complete,Cookie政策内容制定;法规资料收集,comses链接法律与django插件并要求和directorate迭代内容，正文未给实际banner门控，外链不是已实现证据。,内容制定过程，结果未知
+359,privacy-issue-21175,complete,广告SDK合规集成求助,Ionic3 admob-free问EU GDPR支持，仅inactive自动回复，未具体说明同意机制。,无人回答，陈旧关闭
+362,privacy-issue-21399,complete,组织数据治理职责;隐私关联较弱,ONRR人员能力及组织规划问题将Privacy Act列在多项法规例子中，回复仅内部草稿待审；无具体个人数据机制。,组织规划草稿
+363,privacy-issue-21495,complete,儿童隐私合规目标;实质证据不足,Mindlogger要求COPPA合规，只有Wikipedia链接无机制或验收，不能推断监护人同意已实施。,目标提出，细节不足
+389,privacy-issue-1423,complete,隐私告知文本更新;实质证据不足,Rally仅Google文档和PR613链接，标题更新告知但缺具体文案变化，不从外链推内容或完成。,链接到文案与PR，细节未知
+399,privacy-issue-1797,metadata_only,数据位置疑问;仅元数据可判,Azure Data Location仅标题与元数据，缺正文五评论，不能确定驻留地域或跨境问题。,证据不足
+410,privacy-issue-17750,complete,Cookie持久化并发用法;隐私关联较弱,youtube-dl手设cookie想下载结束前写jar供另进程，回复不应进程共享文件，非同意或个人信息议题。,不推荐共享Cookie文件
+419,privacy-issue-7326,metadata_only,安全说明沟通;仅元数据可判,VA call center安全措辞仅标题，缺五评论，不能因检索词认定数据泄露事件。,证据不足
+426,privacy-issue-1339,complete,隐私告知交互;实质证据不足,Rally隐私notice/contribution modal只有父任务和文案链接，未提供文案内容或实现。,请求，完成不明
+429,privacy-issue-2420,complete,隐私告知入口;实质证据不足,Canonical请求加入contact us and enquiries隐私notice链接，仅标题和外链可见。,请求，完成不明
+448,privacy-issue-3651,complete,共享授权匹配;合规控制映射,CoreOS AC21引用组织对共享伙伴授权与信息限制匹配及决策辅助，PII只是受限信息示例；评论仅链接控制文档，不能推断系统已实施。,标准映射，实施证据有限
+463,privacy-issue-3181,metadata_only,演示数据假名化;仅元数据证据,仅标题可知demo mode拟假名化机构名称，无正文评论可评估范围或效果。,仅标题，结果未知
+488,privacy-issue-14352,complete,去标识方法情境适用性;工具合规保证边界,ARX被问各选项GDPR指导，维护者称方法适配依数据/用途需专家选组合，无法一般推荐，非宣称任意方法即合规。,情境性建议后关闭
+494,privacy-issue-13353,complete,分析仪表板集成;应用权限与用户权限区分;弱隐私关联,dotCMS请求GA API内嵌报表及app级权限因embed绑定用户，评论另移legacy webform；无具体隐私保护要求，不能由data sharing关键词推泄露。,功能请求，实质隐私证据弱
+503,privacy-issue-20319,metadata_only,安全信任质疑;仅元数据证据,仅UserVoice标题100% insecure，PII只在匹配元数据不能推具体收集泄露机制。,证据不足
+507,privacy-issue-6824,complete,本地部署隐私误解;隐私负例,新用户把浏览器Notebook误认为远程服务器和必须联网，答复localhost在自己电脑并解释重命名；后续Lab启动和输出滚动问题未解，无实际外传证据。,本地架构澄清
+524,privacy-issue-14157,complete,法规压力暂停功能;隐私关联证据有限,Notebook原为机器翻译加校对且依据GA选语种，后以GDPR为由暂停；未解释具体数据或义务，不推断翻译传送个人信息。,翻译功能因GDPR理由暂停
+535,privacy-issue-14167,complete,合规调查与准备,DOAJ指派GDPR调查并贴PDF和步骤链接，正文无具体数据控制实施或评估结论；外链未读。,调查任务，无完成详情
+541,privacy-issue-8843,metadata_only,Cookie接受界面;仅元数据证据,仅blockframes更新cookie接受栏标题与24评论计数，未获正文，不推测具体控制或实现。,证据不足
+554,privacy-issue-2384,metadata_only,隐私告知链接;仅元数据证据,Ubuntu标题要求各notice首段末加链接，目标和实施不明。,证据不足
+555,privacy-issue-4346,metadata_only,健康标识关联风险;仅元数据证据,CWA标题要求防用户身份与上传诊断密钥关联；无32条讨论，不推具体攻击或修复。,证据不足
+556,privacy-issue-302,metadata_only,反跟踪与Cookie兼容;仅元数据证据,Laravel Shopify标题含ITP/Cookie/重定向，缺74评论无法定位失败机制。,证据不足
+557,privacy-issue-15163,metadata_only,权限策略命名;隐私关联证据有限;仅元数据证据,WebXR只问Feature Policy vr名称是否改，fingerprinting只在匹配元数据，不推测指纹机制。,证据不足
+558,privacy-issue-8901,metadata_only,同意前第三方Cookie;仅元数据证据,Nameless标题报告同意前设第三方cookie，无触发组件或修复证据。,证据不足
+559,privacy-issue-14310,metadata_only,遥测去标识;仅元数据证据,AzureAD标题GDPR PII/OII过滤遥测，缺字段及实现。,证据不足
+560,privacy-issue-5461,metadata_only,删除与遗忘请求;仅元数据证据,Lifebank仅遗忘权标题，hold标签不说明最终实现。,证据不足
+561,privacy-issue-18373,metadata_only,推送载荷最小化;仅元数据证据,Synapse标题要求消息内容不发推送服务器，无正文不能确认暴露范围。,证据不足
+562,privacy-issue-9828,metadata_only,Cookie使用告知;仅元数据证据,Webhint要求使用Cookie横幅，不能推同意按钮或拦截功能。,证据不足
+563,privacy-issue-11364,metadata_only,删除传播与副本残留;仅元数据证据,Libraries标题请求删除已删repo，缺个人信息内容和同步原因。,证据不足
+564,privacy-issue-7425,metadata_only,批量删除登录数据;仅元数据证据,Fenix标题要删所有logins，未说明同步账户范围及实现。,证据不足
+565,privacy-issue-1155,metadata_only,假名化存储兼容;仅元数据证据,Snowplow Redshift要求加宽atomic.events敏感列支持假名化，算法和宽度未知。,证据不足
+566,privacy-issue-12305,metadata_only,默认主题隐私;仅元数据证据,Pelican标题指默认主题侵犯隐私，不能猜字体/分析等具体第三方。,证据不足
+567,privacy-issue-12023,metadata_only,隐私事件响应准备;仅元数据证据,BCgov要求云泄露事件模板，不表示实际发生泄露。,证据不足
+568,privacy-issue-14082,metadata_only,崩溃诊断上报;仅元数据证据,Alva标题要崩溃发报告，未知载荷、同意与GDPR联系。,证据不足
+569,privacy-issue-14224,metadata_only,非预期邮件发送;仅元数据证据,Openfood标题处理意外验证邮件，无22评论不能确定收件地址或同意机制。,证据不足
+570,privacy-issue-11993,metadata_only,附件处理政策评审;仅元数据证据,表单附件CCCS assembly line政策审核，未见数据流或结论，不记为发生泄露。,证据不足
+571,privacy-issue-2144,metadata_only,隐私政策制定;仅元数据证据,Skylines标题添加Privacy Policy，未获条款及发布证据。,证据不足
+572,privacy-issue-18339,metadata_only,域名关联数据加密;仅元数据证据,Bitwarden标题反对Equivalent Domains明文发送/存储，缺威胁与方案细节。,证据不足
+573,privacy-issue-14160,metadata_only,隐私关联证据有限;仅元数据证据,Notebook标题仅西语翻译，GDPR只在匹配字段，不套用其他帖的暂停理由。,证据不足
+574,privacy-issue-4793,metadata_only,日志副本去标识;仅元数据证据,WSO2标题涉及原始及临时日志替换PII，未知错误方向或修复。,证据不足
+575,privacy-issue-17494,metadata_only,Cookie动态控制;仅元数据证据,Matomo标题要enableCookies重新启用，未见调用时机与同意验证。,证据不足
+576,privacy-issue-14241,metadata_only,后台使用指标;仅元数据证据,Dotmesh标题使用指标，GDPR关联和具体采集范围未知。,证据不足
+577,privacy-issue-18369,metadata_only,第三方地图替代;仅元数据证据,Wire标题请求Google地图改OpenStreetMap，无实现或数据流证据。,证据不足
+578,privacy-issue-20666,metadata_only,Cookie法规质疑;仅元数据证据,Tribler标题指违反cookie法，缺依据不能认定违法。,证据不足
+579,privacy-issue-21382,metadata_only,电话字段必填性;仅元数据证据,OpenCart标题涉及恢复电话必填，缺44评论不推断采用理由和最终方向。,证据不足
+580,privacy-issue-3873,metadata_only,日志自动过期;仅元数据证据,Wellcome要求ALB/CloudFront日志过期策略，期限和实现未知。,证据不足
+581,privacy-issue-1707,metadata_only,隐私关联证据有限;仅元数据证据,Fenix仅Onboarding元任务，不能从notice匹配词补写告知内容。,证据不足
+582,privacy-issue-3079,metadata_only,Cookie安全属性;依赖升级约束;仅元数据证据,FEC扫描报告缺SameSite，标题说Django2.1升级再看，未见验证与修复。,证据不足
+583,privacy-issue-7990,metadata_only,多语言隐私告知;仅元数据证据,Tandoor要求政策本地语言，语种和完成未知。,证据不足
+584,privacy-issue-11552,metadata_only,第三方分析集成;仅元数据证据,BBC canonical Comscore跟踪，未见CCPA控制机制。,证据不足
+585,privacy-issue-1760,metadata_only,跟踪风险评价分歧;仅元数据证据,Exodus标题反对一概认为tracker坏，无讨论不能定具体例外。,证据不足
+586,privacy-issue-11635,metadata_only,同意目的执行默认;仅元数据证据,Prebid标题提改TCF2 Purpose4默认处理，无提议细节和决定。,证据不足
+587,privacy-issue-18067,metadata_only,元数据隐私;仅元数据证据,InvokeAI GUI元数据隐私问题，不能猜prompt/路径等字段。,证据不足
+588,privacy-issue-13979,metadata_only,密码明文存储;仅元数据证据,my-thai-star标题报告泄露及明文密码，wontfix标签不能说明理由或现实攻击。,证据不足
+589,privacy-issue-5412,metadata_only,账户删除功能;仅元数据证据,Mastodon仅删户问句，缺57评论不能推联邦删除传播范围。,证据不足
+590,privacy-issue-5138,metadata_only,诊断日志用途;隐私关联证据有限;仅元数据证据,Openwhyd标题生产日志找防错误，匿名化只匹配词不能推已脱敏。,证据不足
+591,privacy-issue-11473,metadata_only,未同意第三方外发;仅元数据证据,Dataverse标题指未经同意向Google发用户信息，无正文不能认定具体载荷及违法。,证据不足
+592,privacy-issue-5574,metadata_only,按身份记录API行为;仅元数据证据,服装registry要求非app API按userID入库，遗忘权关联未见，不能补删除规则。,证据不足
+593,privacy-issue-8877,metadata_only,Cookie拒绝选项;仅元数据证据,Calypso标题增加Reject，元标签duplicate支持重复关闭但不证明功能实现。,重复标签，实施未知
+594,privacy-issue-18441,metadata_only,隐式外部请求与Referer;仅元数据证据,OpenLayers标题明确KML overlay引maps.google.com请求及Referer泄漏，缺原因及修复详情。,证据不足
+595,privacy-issue-11947,metadata_only,删除后搜索残留;仅元数据证据,Kotatsu清历史后搜索仍见，未知缓存位置和修复。,证据不足
+596,privacy-issue-4603,metadata_only,匿名化转换工具;仅元数据证据,Smartnoise仅添加transformer标题，不推算法或隐私保证。,证据不足
+597,privacy-issue-6840,metadata_only,泄露密码检查;仅元数据证据,KeePassXC提集成Pwned Passwords，不等同自身泄漏，不猜查询协议。,证据不足
+598,privacy-issue-18495,metadata_only,删除派生文件残留;仅元数据证据,WebTorrent删除任务后poster/torrent仍在，缺存储路径与处理。,证据不足
+599,privacy-issue-9814,metadata_only,法规准备评估;仅元数据证据,Bforartists要求检查新德语GDPR相关问题，无评估结论。,证据不足
+600,privacy-issue-694,metadata_only,隐私工作流记录清理;仅元数据证据,Zammad DataPrivacy任务不清理，verified仅标签，未知保留内容和修复。,证据不足
+601,privacy-issue-12293,metadata_only,浏览历史议题;隐私关联证据有限;仅元数据证据,Monika仅Internet History标题，无法区分提案、担忧或实际读取。,证据不足
+602,privacy-issue-8030,metadata_only,输出差异可识别性疑虑;仅元数据证据,HandBrake同设置编码文件不同被疑隐私问题，无正文不能确认指纹或元数据来源。,证据不足
+603,privacy-issue-3866,metadata_only,匿名化配置文档;仅元数据证据,WSO2标题要求BPMN说明config processors需加rdbms才匿名化库记录，有Fixed标签无正文验证。,仅标签称修复
+604,privacy-issue-18635,metadata_only,网站图标下载兼容;隐私关联证据有限;仅元数据证据,KeePassXC标题下载favicon某网站失败，缺讨论不能推隐私代理或外发方式。,证据不足
+605,privacy-issue-15030,metadata_only,图像EXIF位置披露;仅元数据证据,Signal iOS标题报告未剥精确位置EXIF，缺58评论不能确认版本/发送路径/最终修复。,证据不足
+606,privacy-issue-1810,metadata_only,隐私文档来源同步;仅元数据证据,Bedrock请求从legal-docs取FPN notice/terms，无同步行为验证。,证据不足
+607,privacy-issue-2460,metadata_only,自动更新自主控制;仅元数据证据,GDevelop标题要关自动更新，未见外传内容及notice联系。,证据不足
+608,privacy-issue-3784,metadata_only,资料编辑同意门控;仅元数据证据,Joomla标题称可未同意编辑资料而违法，缺正文不能认定法律或授权边界。,证据不足
+609,privacy-issue-11294,metadata_only,实例特定隐私政策;仅元数据证据,Lemmy每实例定制policy/terms需求，未见模板责任和实施。,证据不足
+610,privacy-issue-8334,metadata_only,分析与同意集成缺口;仅元数据证据,Hugo内置GA模板不联动cookie consent，stale/outdated不证修复。,证据不足
+611,privacy-issue-4871,metadata_only,隐私关联证据有限;仅元数据证据,BIDS EEG问答标题无匿名化细节，不补临床数据处理规则。,证据不足
+612,privacy-issue-12137,metadata_only,搜索索引控制;仅元数据证据,交友CMS要求阻搜索扫描索引，不推具体公开个人资料及措施。,证据不足
+613,privacy-issue-9111,metadata_only,Cookie限制与分析兼容;仅元数据证据,Magento Cookie Restriction开后GA不跟踪，标题不说明同意前后，Fixed2.1/2.2仅标签。,仅标签称修复
+614,privacy-issue-7252,metadata_only,加密架构选择;仅元数据证据,Padloc仅非对称加密请求，数据对象密钥分工未知。,证据不足
+615,privacy-issue-6858,metadata_only,保存凭据可见性;仅元数据证据,DBeaver saved passwords view功能请求，缺身份验证条件，不直接判泄漏。,证据不足
+616,privacy-issue-17718,metadata_only,隐私政策与Cookie告知;仅元数据证据,Openprescribing标题建privacy页和cookie通知，无同意和发布验证。,证据不足
+617,privacy-issue-3971,metadata_only,第三方服务隐私评估;仅元数据证据,Trustroots评估OneSignal，不推数据售卖或最终采纳拒绝。,证据不足
+618,privacy-issue-14194,metadata_only,分析退出控制;仅元数据证据,Riot Android标题opt out，不知现有方法或新需求结果。,证据不足
+619,privacy-issue-4804,metadata_only,网络隧道覆盖;仅元数据证据,Tribler TCP through tunnel需求，未见匿名保证和实现。,证据不足
+620,privacy-issue-8038,metadata_only,隐藏文件跨视图暴露;仅元数据证据,Simple File Manager隐藏目录文件出现在Recents，缺权限与修复证据。,证据不足
+621,privacy-issue-11971,metadata_only,别名发件身份隔离;仅元数据证据,Tutanota每邮箱sender name，tested/done仅标签，没有实际测试过程。,仅标签称完成测试
+622,privacy-issue-5168,metadata_only,匿名化未细化;仅元数据证据,Dax只有anonymization标题，不猜影像或标识字段。,证据不足
+623,privacy-issue-14358,metadata_only,区域部署需求;隐私关联证据有限;仅元数据证据,Cloud-builders请求发到eu.gcr.io，GDPR仅匹配元数据，不推具体个人数据跨境。,证据不足
+624,privacy-issue-6881,metadata_only,离线持久数据清除;仅元数据证据,Firestore请求IndexedDB清除API，未见56评论不能声明安全擦除/登出清空。,证据不足
+625,privacy-issue-7435,metadata_only,浏览数据删除覆盖;仅元数据证据,Fenix要求删浏览数据含recently closed，缺处理细节。,证据不足
+626,privacy-issue-1582,metadata_only,隐私请求文案;仅元数据证据,CWA exposure framework request改措辞，未知原文和修改。,证据不足
+627,privacy-issue-7541,metadata_only,双方消息删除权边界;仅元数据证据,Telegram标题说clear history删对方全部而非只自发，无法判断设计/bug讨论。,证据不足
+628,privacy-issue-223,metadata_only,Cookie同意提示;仅元数据证据,Algomart标题要求Cookie consent prompt，无具体交互或控制证据。,证据不足
+629,privacy-issue-1607,metadata_only,隐私法律文本翻译歧义;仅元数据证据,Mastodon条款/政策译文歧义，未知语种及文本差异。,证据不足
+630,privacy-issue-4991,metadata_only,Cookie合规议题;仅元数据证据,Compiler Explorer仅Cookie law标题，匿名化匹配词不足确定做法。,证据不足
+631,privacy-issue-5490,metadata_only,遗忘权人工控制;仅元数据证据,Galaxy标题手动控制遗忘权，无角色、审批或删除范围详情。,证据不足
+632,privacy-issue-5602,metadata_only,一般法规合规询问;仅元数据证据,Mastodon GDPR问句，缺73评论不补联邦删除难点。,证据不足
+633,privacy-issue-7579,metadata_only,静音控制与音频发送不一致;仅元数据证据,BBB标题报告静音仍记录并传FreeSWITCH，缺44评论不能定服务端保存范围或修复。,证据不足
+634,privacy-issue-7590,metadata_only,隐私政策缺失;仅元数据证据,StateOfJS标题缺policy并指GDPR违规，无正文不能认定违法或补齐。,证据不足
+635,privacy-issue-9811,metadata_only,Cookie盘点;仅元数据证据,OFN调查列cookie，未获列表和用途。,证据不足
+636,privacy-issue-11281,metadata_only,联系人删除;仅元数据证据,Chatwoot删联系人需求，无关联聊天处理和结果。,证据不足
+637,privacy-issue-11537,metadata_only,广告标识外发最小化;仅元数据证据,PBS标题移除user.ext.eids，未知适用条件和具体监管规则。,证据不足
+638,privacy-issue-12161,metadata_only,第三方分析用途质疑;仅元数据证据,TUI image editor询问为何GA追行为，无数据范围及回应。,证据不足
+639,privacy-issue-12255,metadata_only,外部字体关闭控制;仅元数据证据,Asciidoctor请求HTML停Google字体，缺具体配置答案。,证据不足
+640,privacy-issue-14033,metadata_only,合规工具支持;仅元数据证据,GiveWP GDPR工具epic，不能补导出/删除等未见范围。,证据不足
+641,privacy-issue-18587,metadata_only,图片本地托管;仅元数据证据,CodiMD请求本地文件系统存上传图，未见第三方现状或最终实现。,证据不足
+642,privacy-issue-18693,metadata_only,应用商店隐私条款争议;仅元数据证据,OneSignal Cordova标题Google Play条款违例，PII仅匹配词不能推具体采集。,证据不足
+643,privacy-issue-20638,metadata_only,分析收集透明度;仅元数据证据,StudioLibrary标题hidden analytics，未见实际行为或告知回应。,证据不足
+644,privacy-issue-4038,metadata_only,隐私控制粒度;仅元数据证据,Webtrees标题更细控制，无字段/角色/默认要求细节。,证据不足
+645,privacy-issue-5536,metadata_only,诊断日志PII盘点;仅元数据证据,Actions runner探索要清何类PII，无具体字段或清理结果。,证据不足
+646,privacy-issue-7605,metadata_only,拒绝遥测后外连;仅元数据证据,Netlify标题拒绝后仍连遥测服务器，无载荷及原因详情。,证据不足
+647,privacy-issue-12010,metadata_only,导出元数据最小化;仅元数据证据,Darktable JXL导出所有元数据，未知设置、敏感字段及修复。,证据不足
+648,privacy-issue-18972,metadata_only,静态资源本地托管;仅元数据证据,Minimal Mistakes FontAwesome本地安装需求伴GDPR动机，未见实现。,证据不足
+649,privacy-issue-3074,metadata_only,日志秘密排除;仅元数据证据,税务法院要求不记录user secrets，不推已发生凭据泄漏。,证据不足
+650,privacy-issue-14184,metadata_only,反跟踪能力文档;仅元数据证据,CanIUse请求navigator.doNotTrack及DNT支持表，不等于执行用户DNT偏好。,证据不足
+651,privacy-issue-5616,metadata_only,用户删除问题;仅元数据证据,Django-machina仅删用户问题标题，原因及数据关联未知。,证据不足
+652,privacy-issue-5617,metadata_only,合规扩展询问;仅元数据证据,UAA GDPR extension问句，遗忘权只匹配元数据不能补接口功能。,证据不足

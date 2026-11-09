@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0374-aahiiffci",
+  "revision_url": "https://github.com/kengz/SLM-Lab/commit/d96b2eb3157add4c4cb2faa7d853b28e0a1effc0",
+  "filename": "run_lab.py",
+  "commit": "d96b2eb3157add4c4cb2faa7d853b28e0a1effc0",
+  "source_url": "https://raw.githubusercontent.com/kengz/SLM-Lab/d96b2eb3157add4c4cb2faa7d853b28e0a1effc0/run_lab.py",
+  "fetched_at": "2026-11-05T06:12:41.506199+00:00",
+  "source_sha256": "20cba63e03707af6935171d9fe0a9690e07f3c191153e9487345b208962fbfe9",
+  "line_start": 6,
+  "line_end": 30,
+  "excerpt": "from slm_lab.experiment.control import Session, Trial, Experiment\nfrom slm_lab.lib import logger, util\nfrom slm_lab.spec import spec_util\n\n\ndef run_by_mode(spec_file, spec_name, run_mode):\n    spec = spec_util.get(spec_file, spec_name)\n    if run_mode == 'search':\n        Experiment(spec).run()\n    elif run_mode == 'train':\n        Trial(spec).run()\n    elif run_mode == 'enjoy':\n        # TODO turn on save/load model mode\n        # Session(spec).run()\n        pass\n    elif run_mode == 'benchmark':\n        # TODO need to spread benchmark over spec on Experiment\n        pass\n    elif run_mode == 'dev':\n        logger.set_level('DEBUG')\n        spec['meta']['train_mode'] = True\n        spec['meta']['max_episode'] = 20\n        Trial(spec).run()\n    else:\n        logger.warn(",
+  "match_policy": "unique-release-normalized-v2"
+}

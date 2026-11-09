@@ -1,0 +1,376 @@
+
+=== 360 23shades-0290-aaebieajg ===
+{"dataset_id": "aaebieajg", "repo_name": "alan-turing-institute/sktime", "filename": "sktime/transformers/series_to_series.py", "comment_introducing_revision": "https://github.com/alan-turing-institute/sktime/commit/f3ceaccfc872d64ba43ec3c5ae39bd00e0e26f0a", "comment_removing_revision": "https://github.com/alan-turing-institute/sktime/commit/b160db87c3a2e9f6554fc0de1c1b4c10510aa483", "source_context_status": "available", "source_context_commit": "f3ceaccfc872d64ba43ec3c5ae39bd00e0e26f0a"}
+[comment_text]
+TODO generalise to columns with series of unequal length
+[source_context]
+    def fit(self, X, y=None):
+        if self.check_input:
+            # TODO check input is series column, not column of primitives
+            pass
+
+        # Cast into 2d dataframe
+        if X.ndim == 1:
+            X = pd.DataFrame(X)
+
+        self.input_shape_ = X.shape
+
+        # Retrieve time-series indexes from each column.
+        # TODO generalise to columns with series of unequal length
+        self.input_indexes_ = [X.iloc[0, c].index if hasattr(X.iloc[0, c], 'index')
+                               else np.arange(X.iloc[0, c].shape[0]) for c in range(self.input_shape_[1])]
+
+        # Compute random intervals for each column.
+        # TODO if multiple columns are passed, introduce option to compute one set of shared intervals,
+        #  or use ColumnTransformer?
+        if self.n_intervals == 'random':
+            self.intervals_ = [rand_intervals_rand_n(self.input_indexes_[c], random_state=self.random_state)
+                               for c in range(self.input_shape_[1])]
+        else:
+            self.intervals_ = [rand_intervals_fixed_n(self.input_indexes_[c], n=self.n_intervals,
+                                                      random_state=self.random_state)
+
+=== 361 23shades-0162-aaifgcjei ===
+{"dataset_id": "aaifgcjei", "repo_name": "OpenMined/PySyft", "filename": "test/torch_test.py", "comment_introducing_revision": "https://github.com/OpenMined/PySyft/commit/0a506107ff57dc2caff0cdfd20880d25446584eb", "comment_removing_revision": "https://github.com/OpenMined/PySyft/commit/5b4e03b10e5305761f517c35da4c327ae0e43f8c", "source_context_status": "available", "source_context_commit": "0a506107ff57dc2caff0cdfd20880d25446584eb"}
+[comment_text]
+self.mpc_sum(3; -5) TODO: Future work: how to handle gracefully minus numbers
+[source_context]
+        return x_mpc, y_mpc
+
+    def mpc_sum(self, n1, n2):
+        x_mpc, y_mpc = self.generate_mpc_number_pair(n1, n2)
+        sum_mpc = x_mpc + y_mpc
+        sum_mpc = sum_mpc.get()
+        assert torch.eq(sum_mpc, torch.LongTensor([n1 + n2])).all()
+
+    def test_mpc_sum(self):
+        self.mpc_sum(3, 5)
+        self.mpc_sum(4, 0)
+        self.mpc_sum(5, -5)
+        # self.mpc_sum(3, -5) TODO: Future work: how to handle gracefully minus numbers
+        self.mpc_sum(2 ** 24, 2 ** 12)
+
+    def mpc_mul(self, n1, n2):
+        x_mpc, y_mpc = self.generate_mpc_number_pair(n1, n2)
+        mul_mpc = x_mpc * y_mpc
+        mul_mpc = mul_mpc.get()
+        assert torch.eq(mul_mpc, torch.LongTensor([n1 * n2])).all(), (mul_mpc, 'should be', torch.LongTensor([n1 * n2]))
+
+    def test_mpc_mul(self):
+        self.mpc_mul(3, 5)
+        self.mpc_mul(4, 0)
+        #self.mpc_mul(5, -5) TODO: Future work: how to handle gracefully minus numbers
+
+=== 362 23shades-0418-aadhgfgeb ===
+{"dataset_id": "aadhgfgeb", "repo_name": "blue-oil/blueoil", "filename": "lmnet/lmnet/datasets/dataset_iterator.py", "comment_introducing_revision": "https://github.com/blue-oil/blueoil/commit/d05e94d313cceac204fc9a7a6f15ddaf9bdf0fda", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "d05e94d313cceac204fc9a7a6f15ddaf9bdf0fda"}
+[comment_text]
+TODO(tokunaga): the number of processes should be configurable
+[source_context]
+
+
+def _xorshift32(r):
+    r = r ^ (r << 13 & 0xFFFFFFFF)
+    r = r ^ (r >> 17 & 0xFFFFFFFF)
+    r = r ^ (r << 5 & 0xFFFFFFFF)
+    return r & 0xFFFFFFFF
+
+
+class _MultiProcessDatasetPrefetchThread(threading.Thread):
+    def __init__(self, dataset, result_queue, seed):
+        super().__init__()
+        # TODO(tokunaga): the number of processes should be configurable
+        self.seed = seed + 1  # seed must not be 0
+        self.support_getitem = hasattr(dataset, "__getitem__")
+        self.pool = Pool(processes=8, initializer=_prefetch_setup,
+                         initargs=(dataset, self.seed, not self.support_getitem))
+        self.result_queue = result_queue
+        self.batch_size = dataset.batch_size
+        self.dataset = dataset
+        self.data_ids = []
+        self.terminate = False
+        self.setDaemon(True)
+
+    def gen_ids(self):
+
+=== 363 23shades-0041-aahdeachi ===
+{"dataset_id": "aahdeachi", "repo_name": "brendanhasz/probflow", "filename": "src/probflow/models.py", "comment_introducing_revision": "https://github.com/brendanhasz/probflow/commit/733fe5906b0189b5457b71ea55b4283b71683322", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "733fe5906b0189b5457b71ea55b4283b71683322"}
+[comment_text]
+\"\"\"Models. ||  || Models are objects which take Tensor(s) as input; perform some computation on  || those Tensor(s); and output probability distributions. ||  || TODO: more... ||  || * :func:`.Model` || * :func:`.ContinuousModel` || * :func:`.DiscreteModel` || * :func:`.CategoricalModel` || * :func:`.save_model` || * :func:`.load_model` ||  || ---------- ||  || \"\"\"
+[source_context]
+"""Models.
+
+Models are objects which take Tensor(s) as input, perform some computation on 
+those Tensor(s), and output probability distributions.
+
+TODO: more...
+
+* :func:`.Model`
+* :func:`.ContinuousModel`
+* :func:`.DiscreteModel`
+* :func:`.CategoricalModel`
+* :func:`.save_model`
+* :func:`.load_model`
+
+----------
+
+"""
+
+
+__all__ = [
+    'Model',
+    'ContinuousModel',
+    'DiscreteModel',
+    'CategoricalModel',
+    'save_model',
+    'load_model',
+]
+
+
+
+=== 364 23shades-0736-aafafebhi ===
+{"dataset_id": "aafafebhi", "repo_name": "vi3k6i5/GuidedLDA", "filename": "guidedlda/guidedlda.py", "comment_introducing_revision": "https://github.com/vi3k6i5/GuidedLDA/commit/cf0b68234ce9333740bd967e8e10135f309dcfd9", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "cf0b68234ce9333740bd967e8e10135f309dcfd9"}
+[comment_text]
+TODO: this loop is parallelizable
+[source_context]
+        Note
+        ----
+        This uses the "iterated pseudo-counts" approach described
+        in Wallach et al. (2009) and discussed in Buntine (2009).
+
+        """
+        if isinstance(X, np.ndarray):
+            # in case user passes a (non-sparse) array of shape (n_features,)
+            # turn it into an array of shape (1, n_features)
+            X = np.atleast_2d(X)
+        doc_topic = np.empty((X.shape[0], self.n_topics))
+        WS, DS = guidedlda.utils.matrix_to_lists(X)
+        # TODO: this loop is parallelizable
+        for d in np.unique(DS):
+            doc_topic[d] = self._transform_single(WS[DS == d], max_iter, tol)
+        return doc_topic
+
+    def _transform_single(self, doc, max_iter, tol):
+        """Transform a single document according to the previously fit model
+
+        Parameters
+        ----------
+        X : 1D numpy array of integers
+            Each element represents a word in the document
+        max_iter : int
+
+=== 365 23shades-0804-aajgccaef ===
+{"dataset_id": "aajgccaef", "repo_name": "mne-tools/mne-python", "filename": "mne/report.py", "comment_introducing_revision": "https://github.com/mne-tools/mne-python/commit/0c53e8ae8d56779b8cac2cdd62ad8a594954f2c4", "comment_removing_revision": "https://github.com/mne-tools/mne-python/commit/4884bb150a4d033ce5d48cab9e8b2f3846b42d6f", "source_context_status": "available", "source_context_commit": "0c53e8ae8d56779b8cac2cdd62ad8a594954f2c4"}
+[comment_text]
+XXX : include mpld3 js libraries in html folder
+[source_context]
+                                                  img_klass=img_klass,
+                                                  caption=caption,
+                                                  interactive=interactive,
+                                                  show=show))
+
+        self.html.append('\n'.join(html))
+
+    def render_eve(self, eve_fname, info, interactive=True):
+
+        import matplotlib.pyplot as plt
+
+        if interactive:
+            import mpld3  # XXX : include mpld3 js libraries in html folder
+
+        global_id = self.get_id()
+        events = read_events(eve_fname)
+        sfreq = info['sfreq']
+        plt.close("all")  # close figures to avoid weird plot
+        ax = plot_events(events, sfreq=sfreq, show=False)
+        fig = ax.gcf()
+
+        if interactive:
+
+            # Add tooltips
+            line2Ds = ax.gca().get_lines()
+
+=== 366 23shades-0813-aajgefiaf ===
+{"dataset_id": "aajgefiaf", "repo_name": "mne-tools/mne-python", "filename": "mne/io/ctf/trans.py", "comment_introducing_revision": "https://github.com/mne-tools/mne-python/commit/24ca938c616b3ef5b4f57a9ffbcf9f35a9dfdf56", "comment_removing_revision": "https://github.com/mne-tools/mne-python/commit/ee47fc349ae1a5c907f84c8c8ee47526afc976ec", "source_context_status": "available", "source_context_commit": "24ca938c616b3ef5b4f57a9ffbcf9f35a9dfdf56"}
+[comment_text]
+XXX de-duplicate this with code from Montage somewhere?
+[source_context]
+
+import numpy as np
+from scipy import linalg
+
+from ...transforms import combine_transforms, invert_transform
+from ...utils import logger
+from ..constants import FIFF
+from .constants import CTF
+
+
+def _make_transform_card(fro, to, r_lpa, r_nasion, r_rpa):
+    """Make a transform from cardinal landmarks."""
+    # XXX de-duplicate this with code from Montage somewhere?
+    diff_1 = r_nasion - r_lpa
+    ex = r_rpa - r_lpa
+    alpha = np.dot(diff_1, ex) / np.dot(ex, ex)
+    ex /= np.sqrt(np.sum(ex * ex))
+    trans = np.eye(4)
+    move = (1. - alpha) * r_lpa + alpha * r_rpa
+    trans[:3, 3] = move
+    trans[:3, 0] = ex
+    ey = r_nasion - move
+    ey /= np.sqrt(np.sum(ey * ey))
+    trans[:3, 1] = ey
+    trans[:3, 2] = np.cross(ex, ey)  # ez
+
+=== 367 23shades-0593-aadbehbcf ===
+{"dataset_id": "aadbehbcf", "repo_name": "mj000001/Object-Detection-And-Tracking", "filename": "detracking/detection/faster_rcnn/datasets/kittivoc.py", "comment_introducing_revision": "https://github.com/mj000001/Object-Detection-And-Tracking/commit/e6fde31224ff635df06910493c602da0f0d3f33b", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e6fde31224ff635df06910493c602da0f0d3f33b"}
+[comment_text]
+TODO: make fast_rcnn irrelevant
+[source_context]
+import cPickle
+import math
+import glob
+import uuid
+import scipy.io as sio
+import xml.etree.ElementTree as ET
+
+from .imdb import imdb
+from .imdb import ROOT_DIR
+import ds_utils
+from .voc_eval import voc_eval
+
+# TODO: make fast_rcnn irrelevant
+# >>>> obsolete, because it depends on sth outside of this project
+from ..fast_rcnn.config import cfg
+# <<<< obsolete
+
+
+class kittivoc(imdb):
+    def __init__(self, image_set, devkit_path=None):
+        imdb.__init__(self, 'kittivoc_' + image_set)
+        self._image_set = image_set
+        self._devkit_path = self._get_default_path() if devkit_path is None \
+                            else devkit_path
+        self._data_path = self._devkit_path
+
+=== 368 23shades-0721-aahdjfjcf ===
+{"dataset_id": "aahdjfjcf", "repo_name": "Shenggan/DeepCell-Keras", "filename": "deepcell/tifffile/tifffile.py", "comment_introducing_revision": "https://github.com/Shenggan/DeepCell-Keras/commit/e43b302cf0952a147a44dfd5af9cbbc053c94071", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e43b302cf0952a147a44dfd5af9cbbc053c94071"}
+[comment_text]
+TODO: test this
+[source_context]
+            value = struct.unpack(dtype, fh.read(struct.calcsize(dtype)))
+            if len(value) == 1:
+                value = value[0]
+
+    if offset:
+        fh.seek(pos + 4)
+
+    return name, value
+
+
+def read_uic_image_property(fh):
+    """Read UIC ImagePropertyEx tag from file and return as dict."""
+    # TODO: test this
+    size = struct.unpack('B', fh.read(1))[0]
+    name = struct.unpack('%is' % size, fh.read(size))[0][:-1]
+    flags, prop = struct.unpack('<IB', fh.read(5))
+    if prop == 1:
+        value = struct.unpack('II', fh.read(8))
+        value = value[0] / value[1]
+    else:
+        size = struct.unpack('B', fh.read(1))[0]
+        value = struct.unpack('%is' % size, fh.read(size))[0]
+    return dict(name=name, flags=flags, value=value)
+
+
+
+=== 369 23shades-0030-aaedcebdc ===
+{"dataset_id": "aaedcebdc", "repo_name": "microsoft/NimbusML", "filename": "src/python/nimbusml/pipeline.py", "comment_introducing_revision": "https://github.com/microsoft/NimbusML/commit/793739b8ab6b002bfccdbda2bedf6f915ce6125b", "comment_removing_revision": "https://github.com/microsoft/NimbusML/commit/a36a6c04dfb7b983bae5011d411542d57b46aad7", "source_context_status": "available", "source_context_commit": "793739b8ab6b002bfccdbda2bedf6f915ce6125b"}
+[comment_text]
+[todo]: this is a bug; predict_proba should not change
+[source_context]
+        # from ML.NET to Python.
+        # for binary classifiers
+        if 'Probability' in scores.columns:
+            positive_class_probs = \
+                scores.loc[:, scores.columns == 'Probability'].values
+            negative_class_probs = 1 - positive_class_probs
+            return np.column_stack(
+                (negative_class_probs, positive_class_probs))
+
+        # for multiclass, scores are probabilities
+        pcols = [i for i in scores.columns if i.startswith('Score.')]
+        if len(pcols) > 0:
+            # [todo]: this is a bug, predict_proba should not change
+            # internal state of pipeline.
+            # test check_dict_unchanged() detects that, commenting line
+            # for now
+            # self._add_classes([x.replace('Score.', '') for x in pcols])
+            return scores.loc[:, pcols].values
+
+        raise ValueError(
+            "Predictor did not generate probabilites." +
+            scores.columns)
+
+    @trace
+    def decision_function(self, X, verbose=0, **params):
+
+=== 370 23shades-0021-aadbhiccj ===
+{"dataset_id": "aadbhiccj", "repo_name": "dtrckd/pymake", "filename": "pymake/expe/format.py", "comment_introducing_revision": "https://github.com/dtrckd/pymake/commit/e41d7ca725cc1478d039460ede2e9936f80fd2e2", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e41d7ca725cc1478d039460ede2e9936f80fd2e2"}
+[comment_text]
+@todo integrate Frontend and Model to that workflow
+[source_context]
+        Table = table_mean + b' p2m ' + table_std
+
+        # Table formatting
+        Table = np.column_stack((row_headers, Table))
+        tablefmt = 'latex' # 'latex'
+        print()
+        print( tabulate(Table, headers=headers, tablefmt=tablefmt, floatfmt='.3f'))
+        del Table
+
+
+### Base Object
+#
+# @todo integrate Frontend and Model to that workflow
+#
+
+
+class BaseObject(object):
+    '''' Notes : Avoid method conflict by ALWAYS settings this class in last
+                 at class definitions.
+     '''
+    def __init__(self, name):
+        # Le ruban est infini...
+        #if name is None:
+        #    print(traceback.extract_stack()[-2])
+        #    fn,ln,func,text = traceback.extract_stack()[-2]
+
+=== 371 23shades-0217-aaidehfjf ===
+{"dataset_id": "aaidehfjf", "repo_name": "plstcharles/thelper", "filename": "thelper/data/pascalvoc.py", "comment_introducing_revision": "https://github.com/plstcharles/thelper/commit/5a5b1934e8578b059aa72001082a61e2dadd8d05", "comment_removing_revision": "https://github.com/plstcharles/thelper/commit/1e7b8de990cf1cebe820525196dbb71b2b6bd066", "source_context_status": "available", "source_context_commit": "5a5b1934e8578b059aa72001082a61e2dadd8d05"}
+[comment_text]
+TODO : gt maps are not currently transformed! (need refact w\/ dict keys)
+[source_context]
+                raise AssertionError("could not load image '%s' via opencv" % sample[self.image_path_key])
+            gt = None
+            if self.task_name == "segm":
+                gt = cv.imread(sample[self.gt_path_key])
+                if gt is None or gt.shape != image.shape:
+                    raise AssertionError("unexpected gt shape for sample '%s'" % sample[self.sample_name_key])
+                gt = self.encode_label_map(gt)
+        else:
+            image = sample[self.image_key]
+            gt = sample[self.gt_key]
+        if self.transforms:
+            image = self.transforms(image)
+            # TODO : gt maps are not currently transformed! (need refact w/ dict keys)
+        return {
+            self.sample_name_key: sample[self.sample_name_key],
+            self.image_path_key: sample[self.image_path_key],
+            self.gt_path_key: sample[self.gt_path_key],
+            self.image_key: image,
+            self.gt_key: gt,
+        }
+
+    def get_task(self):
+        """Returns the dataset task object that provides the i/o keys for parsing sample dicts."""
+        return self.task
+

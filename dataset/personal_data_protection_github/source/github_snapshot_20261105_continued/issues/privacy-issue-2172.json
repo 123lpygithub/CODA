@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-2172",
+  "issue_url": "https://github.com/nextcloud/server/issues/9739",
+  "source_issue_url": "https://github.com/nextcloud/server/issues/9739",
+  "api_url": "https://api.github.com/repos/nextcloud/server/issues/9739",
+  "title": "[Feature Request] something for the GDPR'ish compliance and something I would like",
+  "body": "As are many people in IT right now, I'm convinced I don't know if I'm GDPR ready, but I like it and want to be ready on principle. I think I understood that getting positive confirmation from users that they accept the Terms of Service and Privacy Policy is a requirement—as well as—the two agreements don't break the GDPR or other laws.\r\n\r\nHow about in the Theming settings for Admin, you add two new checkboxes for the `Legal notice link` and the `Privacy policy link` for **Required**? They would have corresponding checkboxes on the `/index.php/login` page adjacent to the **Legal notice** and **Privacy policy** links in the page footer to indicate acceptance; they would appear if the **Required** was checked. The fields for account sign-up or Username & Password would be deactivated until the user visiting the login page complied by checking the boxes to indicate they accept. Those values could be cookie stored so that each time a user returned, they would just login without re-checking them. Also on the Admin settings for the `Legal notice link` and the `Privacy policy link` would be a button to create a new random string to indicate that the ToS or PP had changed, and the new code wouldn't match the one in the cookie so the user would need to re-accept the changed document.\r\n\r\nAs for something I would like...<br />\r\nFirst off, it bugs me that the link attribute \"`target=`\" for `Web link`, `Legal notice link` and the `Privacy policy link` are all _`\"_blank\"`_ where I prefer _`\"_top\"`_ in my case. I looked around and didn't see where to hack it to my way.\r\n\r\nAnother thing that bugged me was, it was troublesome trying to make an aptly themed page for my ToS and PP. I stole the code from the login page via view source and then tinkered with it to make my pages. \r\n\r\n![screenshot_tos_2018-06-03_20-20-06](https://user-images.githubusercontent.com/28640985/40934967-91ededf0-6804-11e8-9777-0581923bc54b.png)\r\n\r\n![screenshot_pp_2018-06-03_20-20-17](https://user-images.githubusercontent.com/28640985/40934973-9650b35a-6804-11e8-810b-72fc90d4a948.png)\r\n\r\nI basically took out the `<form>` block for the login and put a `<textarea disabled readonly name=\"text???\">` block for the content right above the `<footer>` block. The style for mine comes from;\r\n\r\n```\r\n<style> \r\ntextarea {\r\n    width: 66.6%;\r\n    height: 456px;\r\n    padding: 12px 20px;\r\n    box-sizing: border-box;\r\n    border: 2px solid #ccc;\r\n    border-radius: 4px;\r\n    background-color: #8b50d8;\r\n    font-size: 16px;\r\n    color: white;\r\n    resize: none;\r\n}\r\n</style>\r\n```\r\nput just inside the `<head>` block. <br />\r\n_**CERTIANLY**_ you could do even better than that though. Perhaps you could have a place for the admin to dump the HTML content for the ToS and PP so instead of links to the pages, it's just right there repalcing the login block with the document (_or some pop-up thingie_). And if it's from a built in area, the revision control could be automated so that random string I mentioned above would happen if even a jot or a tittle were changed by the Admin.",
+  "author": "Participant 1",
+  "created_at": "2018-06-04T18:36:32Z",
+  "updated_at": "2019-08-18T18:15:58Z",
+  "state": "closed",
+  "closed_at": "2019-08-18T18:15:58Z",
+  "issue_fetched_at": "2026-10-18T23:11:39.604557+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T23:11:41.017774+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 394613500,
+      "url": "https://github.com/nextcloud/server/issues/9739#issuecomment-394613500",
+      "created_at": "2018-06-05T07:42:58Z",
+      "updated_at": "2018-06-05T07:42:58Z",
+      "author": "Participant 2",
+      "body": "cc @blizzz @jospoortvliet "
+    },
+    {
+      "id": 412080268,
+      "url": "https://github.com/nextcloud/server/issues/9739#issuecomment-412080268",
+      "created_at": "2018-08-10T13:21:23Z",
+      "updated_at": "2018-08-10T13:21:23Z",
+      "author": "Participant 3",
+      "body": "We're working on a solution to specifically ask for consent as a separate app. Normally, you only need that for user data storage that goes beyond what you need to provide the service to them. So for example, to log in they need a cookie, so you don't have to ask for consent for that cookie: you wouldn't be able to log them in otherwise. Just put it in the privacy policy.\r\n\r\nBut if you store a cookie to track them for advertising you need consent, which will be possible in Nextcloud 14.\r\n\r\nHave no opinions on the ```_blank``` vs ```_top``` ;-)"
+    },
+    {
+      "id": 521415172,
+      "url": "https://github.com/nextcloud/server/issues/9739#issuecomment-521415172",
+      "created_at": "2019-08-14T20:55:48Z",
+      "updated_at": "2019-08-14T20:55:48Z",
+      "author": "Participant 4",
+      "body": "cc @juliushaertl for theming. What do you think? :)"
+    },
+    {
+      "id": 522343333,
+      "url": "https://github.com/nextcloud/server/issues/9739#issuecomment-522343333",
+      "created_at": "2019-08-18T18:15:58Z",
+      "updated_at": "2019-08-18T18:15:58Z",
+      "author": "Participant 5",
+      "body": "This is more something for the terms of service app https://github.com/nextcloud/terms_of_service/\r\n\r\nRight now it will show the ToS after login, so if that doesn't suite your usecase a new feature request should be opened in the apps repo."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

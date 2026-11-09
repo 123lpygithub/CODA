@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0139-aaiiihajd",
+  "revision_url": "https://github.com/microsoft/MMdnn/commit/564595db1d31af6fdc89d69b06e55607bcfb06f7",
+  "filename": "tests/test_conversion_imagenet.py",
+  "commit": "564595db1d31af6fdc89d69b06e55607bcfb06f7",
+  "source_url": "https://raw.githubusercontent.com/microsoft/MMdnn/564595db1d31af6fdc89d69b06e55607bcfb06f7/tests/test_conversion_imagenet.py",
+  "fetched_at": "2026-11-05T06:12:00.533928+00:00",
+  "source_sha256": "5c8ad739884da7f099c10a3ae608962aadcb4d53662a34dc27920d7fe6160084",
+  "line_start": 315,
+  "line_end": 339,
+  "excerpt": "            'squeezenet'    : [CntkEmit, PytorchEmit]\n         },\n\n         'tensorflow' : {\n            'vgg19'        : [CntkEmit, TensorflowEmit, KerasEmit, PytorchEmit],\n            'inception_v1' : [TensorflowEmit, KerasEmit, PytorchEmit], # TODO: CntkEmit\n            'inception_v3' : [CntkEmit, TensorflowEmit, KerasEmit], # TODO: PytorchEmit\n            'resnet_v1_50' : [TensorflowEmit, KerasEmit, PytorchEmit], # TODO: CntkEmit\n            'resnet_v1_152' : [TensorflowEmit, KerasEmit, PytorchEmit], # TODO: CntkEmit\n            'resnet_v2_50' : [TensorflowEmit, KerasEmit, PytorchEmit], # TODO: CntkEmit\n            'resnet_v2_152' : [TensorflowEmit, KerasEmit, PytorchEmit], # TODO: CntkEmit\n            'mobilenet_v1_1.0' : [TensorflowEmit, KerasEmit],\n            # 'nasnet-a_large' : [TensorflowEmit, KerasEmit, PytorchEmit], # TODO\n         },\n    }\n\n\n    def _test_function(self, original_framework, parser):\n        ensure_dir(self.cachedir)\n        ensure_dir(self.tmpdir)\n\n        for network_name in self.test_table[original_framework].keys():\n            print(\"Test {} from {} start.\".format(network_name, original_framework), file=sys.stderr, flush=True)\n\n            # get original model prediction result",
+  "match_policy": "unique-release-normalized-v2"
+}

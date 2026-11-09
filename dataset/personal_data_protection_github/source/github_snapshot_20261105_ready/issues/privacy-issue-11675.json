@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11675",
+  "issue_url": "https://github.com/ntop/ntopng/issues/3182",
+  "source_issue_url": "https://github.com/ntop/ntopng/issues/3182",
+  "api_url": "https://api.github.com/repos/ntop/ntopng/issues/3182",
+  "title": "make geoip fails after GeoLite CCPA policy update",
+  "body": "Maxmind implemented CCPA and removed the free, direct access GeoIP download. A user should signup for a Maxmind user account for access databases.\r\n\r\n`--2020-01-02 05:10:19--  http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz\r\nResolving geolite.maxmind.com (geolite.maxmind.com)... failed: Name or service not known.\r\nwget: unable to resolve host address ‘geolite.maxmind.com’\r\n--2020-01-02 05:10:19--  http://geolite.maxmind.com/download/geoip/database/GeoLite2-ASN.tar.gz\r\nResolving geolite.maxmind.com (geolite.maxmind.com)... failed: Name or service not known.\r\nwget: unable to resolve host address ‘geolite.maxmind.com’\r\ntar (child): GeoLite2-ASN.tar.gz: Cannot open: No such file or directory\r\n`\r\nPlease remove g/make geoip and add a doc explaining download of geoip database manually.",
+  "author": "Participant 1",
+  "created_at": "2020-01-02T13:39:27Z",
+  "updated_at": "2020-01-07T09:34:34Z",
+  "state": "closed",
+  "closed_at": "2020-01-07T09:34:34Z",
+  "issue_fetched_at": "2026-10-19T01:11:09.158034+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:11:10.620759+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 570216321,
+      "url": "https://github.com/ntop/ntopng/issues/3182#issuecomment-570216321",
+      "created_at": "2020-01-02T14:04:03Z",
+      "updated_at": "2020-01-02T14:04:03Z",
+      "author": "Participant 2",
+      "body": "More information: https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases"
+    },
+    {
+      "id": 570547843,
+      "url": "https://github.com/ntop/ntopng/issues/3182#issuecomment-570547843",
+      "created_at": "2020-01-03T11:30:31Z",
+      "updated_at": "2020-01-03T11:30:31Z",
+      "author": "Participant 1",
+      "body": "A workaround for this is to install geoipupdate tool, create an account on Maxmind web, generate a token, download configuration file and copy it as /etc/GeoIP.conf.\r\n\r\nRun - geoipupdate -v -d /usr/local/src/ntopng/httpdocs/geoip/\r\n\r\ngmake install, no need to run gmake geoip."
+    },
+    {
+      "id": 571509008,
+      "url": "https://github.com/ntop/ntopng/issues/3182#issuecomment-571509008",
+      "created_at": "2020-01-07T09:34:34Z",
+      "updated_at": "2020-01-07T09:34:34Z",
+      "author": "Participant 3",
+      "body": "ntopng-data package now brings `geoipupdate` as dependency rather than geolocation databases. Instructions to continue using geolocation in ntop products are available at https://github.com/ntop/ntopng/blob/dev/doc/README.geolocation.md"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

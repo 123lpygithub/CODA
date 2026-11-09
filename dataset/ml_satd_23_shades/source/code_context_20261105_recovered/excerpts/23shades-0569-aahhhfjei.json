@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0569-aahhhfjei",
+  "revision_url": "https://github.com/Mariewelt/OpenChem/commit/a6e855145cc27c3705c70dc5a9c15f4dac855e82",
+  "filename": "openchem/models/MolecularRNN.py",
+  "commit": "a6e855145cc27c3705c70dc5a9c15f4dac855e82",
+  "source_url": "https://raw.githubusercontent.com/Mariewelt/OpenChem/a6e855145cc27c3705c70dc5a9c15f4dac855e82/openchem/models/MolecularRNN.py",
+  "fetched_at": "2026-11-05T06:13:13.902973+00:00",
+  "source_sha256": "9bbe6c75a68e5a8a89ef84fc1293400c2e0103e17f937b0771127c897c6a6521",
+  "line_start": 83,
+  "line_end": 107,
+  "excerpt": "        else:\n            batch_input = dict(\n                x=batch[\"x\"].to(device=device),\n                y=batch[\"y\"].to(device=device),\n                c_in=batch[\"c_in\"].to(device=device),\n                c_out=batch[\"c_out\"].to(device=device),\n                num_nodes=batch[\"num_nodes\"].to(device=device),\n            )\n        batch_target = [None]\n\n        return batch_input, batch_target\n\n    # TODO: implement required params\n    # def get_required_params(self):\n    #     return {}\n\n    def forward(self, inp, eval=False, **kwargs):\n        if self.use_external_crit and self.training:\n            # TODO: check if .eval() creates any problems with batchnorm, dropout, etc.\n            # generate batch\n            # self.eval()\n            with torch.no_grad():\n                inp, smiles = self.forward_test()\n            # self.train()\n            output = self.forward_train(inp, **kwargs)"
+}

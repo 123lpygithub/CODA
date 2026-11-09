@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0537-aaeidjjhd",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/bfb1018fa6d020a4127a9044fc2109360fe95548",
+  "filename": "hpat/hiframes_aggregate.py",
+  "commit": "bfb1018fa6d020a4127a9044fc2109360fe95548",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/bfb1018fa6d020a4127a9044fc2109360fe95548/hpat/hiframes_aggregate.py",
+  "fetched_at": "2026-11-05T06:13:09.120702+00:00",
+  "source_sha256": "877647271e989ad9779de9e183ec484ea6a3e3a6b6ff41e6b6b7a823e823a172",
+  "line_start": 740,
+  "line_end": 764,
+  "excerpt": "            options\n            )\n    preparfor_pass.run()\n    df_t_pass = hpat.hiframes_typed.HiFramesTyped(f_ir, typingctx, typemap, calltypes)\n    df_t_pass.run()\n    numba.rewrites.rewrite_registry.apply('after-inference', pm, f_ir)\n    parfor_pass = numba.parfor.ParforPass(f_ir, typemap,\n    calltypes, return_type, typingctx,\n    options, flags)\n    parfor_pass.run()\n    remove_dels(f_ir.blocks)\n    # make sure eval nodes are after the parfor for easier extraction\n    # TODO: extract an eval func more robustly\n    numba.parfor.maximize_fusion(f_ir, f_ir.blocks, False)\n    return f_ir, pm\n\ndef get_agg_func_struct(agg_func, in_col_typ, typingctx, targetctx):\n    \"\"\"find initialization, update, combine and final evaluation code of the\n    aggregation function. Currently assuming that the function is single block\n    and has one parfor.\n    \"\"\"\n    f_ir, pm = compile_to_optimized_ir(\n        agg_func, tuple([in_col_typ]), typingctx)\n\n    # TODO: support multiple top-level blocks"
+}

@@ -1,0 +1,23 @@
+{
+  "url": "https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/tunnel_community.py#L144",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "status": "partial",
+  "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+  "line_start": 132,
+  "line_end": 156,
+  "historical_evidence": true,
+  "revision": "b5f706ff681449b52c0b0d16abc51e7909c7c751",
+  "immutable_revision": true,
+  "retrieval_url": "https://raw.githubusercontent.com/Tribler/tribler/b5f706ff681449b52c0b0d16abc51e7909c7c751/Tribler/community/tunnel/tunnel_community.py",
+  "text": "\n    def __init__(self, community, handler):\n        super(StatsRequestCache, self).__init__(community.request_cache, u\"stats\")\n        self.handler = handler\n        self.community = community\n\n    def on_timeout(self):\n        pass\n\n\nclass TunnelExitSocket(DatagramProtocol, TaskManager):\n    \"\"\"\n    The TunnelExitSocket class is responsible for exiting data to the outside world.\n    Note that every relay in a circuits creates an instance of this class, however, the socket is only enabled\n    by the exit node.\n    \"\"\"\n\n    def __init__(self, circuit_id, community, sock_addr, mid=None):\n        self.tunnel_logger = logging.getLogger(self.__class__.__name__)\n        super(TunnelExitSocket, self).__init__()\n\n        self.port = None\n        self.sock_addr = sock_addr\n        self.circuit_id = circuit_id\n        self.community = community",
+  "source_sha256": "2cb3129a2099169180a7959f92ff0906d4ae13d196381336fd67bf12d86316cb",
+  "fetched_at": "2026-11-05T15:55:06.220745+00:00",
+  "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+  "history_query_url": "https://github.com/Tribler/tribler/commits/main/Tribler/community/tunnel/tunnel_community.py",
+  "history_response_sha256": "d19774025fe2a6166b14ccbda24ea09fcfa260e739c21513cc19640b2b42100c",
+  "history_entry_sha": "b5f706ff681449b52c0b0d16abc51e7909c7c751",
+  "history_commit_date": "2018-02-09T13:26:20.000+01:00"
+}

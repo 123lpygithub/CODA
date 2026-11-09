@@ -1,0 +1,49 @@
+{
+  "fetched_at": "2026-11-05T06:12:23.141132+00:00",
+  "source_sha256": "612e8d42bf1e4ff7145984f63e06e1916d26433249ff8381f7ef11a871f7ff0f",
+  "source_url": "https://raw.githubusercontent.com/OFAI/hub-toolbox-python3/758e9db9f90d8db12d63aef2f42b0cc0d796def9/hub_toolbox/SharedNN.py",
+  "artifact_id": "23shades-0256-aagcicecj",
+  "revision_url": "https://github.com/OFAI/hub-toolbox-python3/commit/758e9db9f90d8db12d63aef2f42b0cc0d796def9",
+  "filename": "hub_toolbox/SharedNN.py",
+  "commit": "758e9db9f90d8db12d63aef2f42b0cc0d796def9",
+  "status": "ambiguous",
+  "match_policy": "all-full-comment-candidates-at-exact-published-revision",
+  "candidates": [
+    {
+      "comment_line_start": 39,
+      "comment_line_end": 39,
+      "line_start": 27,
+      "line_end": 51,
+      "excerpt": "#==============================================================================\n\ndef _snns_init(D_, knn_, train_ind_, D_snn_):\n    global distance, knn, train_ind, D_snn\n    distance = D_\n    knn = knn_\n    train_ind = train_ind_\n    D_snn = D_snn_\n    return\n\ndef _snns_my_hood(i, k, sort_order):\n    di = distance[i, :]\n    # TODO change to np.partition for PERF\n    nn = np.argsort(di)[::sort_order]\n    knn[i, nn[0:k]] = True\n    return\n\ndef _snns_our_hood(i, k, metric):\n    knn_i = knn[i, :]\n    # using broadcasting\n    Dij = np.sum(np.logical_and(knn_i, knn[train_ind, :]), 1)\n    if metric == 'distance':\n        D_snn[i, :] = 1. - Dij / k\n    else: # metric == 'similarity':\n        D_snn[i, :] = Dij / k"
+    },
+    {
+      "comment_line_start": 150,
+      "comment_line_end": 150,
+      "line_start": 138,
+      "line_end": 162,
+      "excerpt": "                func=partial(_snns_my_hood, k=k, sort_order=sort_order),\n                iterable=range(n)):\n                pass # Handling inside function\n            for _ in pool.imap(\n                func=partial(_snns_our_hood, k=k, metric=metric),\n                iterable=n_ind):\n                pass # Handling inside function\n    else:\n        knn = np.zeros_like(distance, bool)\n        # find nearest neighbors for each point\n        for i in range(n):\n            di = distance[i, :]\n            # TODO change to np.partition for PERF\n            nn = np.argsort(di)[::sort_order]\n            knn[i, nn[0:k]] = True\n        D_snn = np.zeros_like(distance)\n        for i in n_ind:\n            knn_i = knn[i, :]\n            # using broadcasting\n            Dij = np.sum(np.logical_and(knn_i, knn[train_ind, :]), 1)\n            if metric == 'distance':\n                D_snn[i, :] = 1. - Dij / k\n            else: # metric == 'similarity':\n                D_snn[i, :] = Dij / k\n"
+    },
+    {
+      "comment_line_start": 313,
+      "comment_line_end": 313,
+      "line_start": 301,
+      "line_end": 325,
+      "excerpt": "# #                               SIMHUB IN\n# #============================================================================\n#==============================================================================\n\ndef _shi_init_knn(D_, knn_):\n    global distance, knn\n    distance = D_\n    knn = knn_\n    return\n\ndef _shi_hood(i, s, sort_order):\n    di = distance[i, :]\n    # TODO change to np.partition for PERF\n    nn = np.argsort(di)[::sort_order]\n    knn[i, nn[:s]] = True\n    return\n\ndef _shi_init_simhub(knn_, train_ind_, I_n_, D_shi_):\n    global knn, train_ind, I_n, D_shi\n    knn = knn_\n    train_ind = train_ind_\n    I_n = I_n_\n    D_shi = D_shi_\n    return\n"
+    },
+    {
+      "comment_line_start": 425,
+      "comment_line_end": 425,
+      "line_start": 413,
+      "line_end": 437,
+      "excerpt": "        with Pool(processes=n_jobs,\n                  initializer=_shi_init_knn,\n                  initargs=(distance, knn)) as pool:\n            for _ in pool.imap(\n                func=partial(_shi_hood, s=s, sort_order=sort_order),\n                iterable=range(n)):\n                pass\n    else:\n        knn = np.zeros_like(distance, bool)\n        # find nearest neighbors for each point\n        for i in range(n):\n            di = distance[i, :]\n            # TODO change to np.partition for PERF\n            nn = np.argsort(di)[::sort_order]\n            knn[i, nn[:s]] = True\n    del distance\n\n    # \"Occurence informativeness\"\n    occ_inf_knn = knn[:m, :].copy()\n    np.fill_diagonal(occ_inf_knn, True)\n    N_s = occ_inf_knn.sum(axis=0)\n    I_n = np.log(m / N_s)\n    del occ_inf_knn\n\n    # simhub calculation"
+    },
+    {
+      "comment_line_start": 567,
+      "comment_line_end": 567,
+      "line_start": 555,
+      "line_end": 579,
+      "excerpt": "    # Exclude self distances\n    if train_ind is None:\n        np.fill_diagonal(distance, exclude)\n    else:\n        for j, sample in enumerate(train_ind):\n            distance[sample, j] = exclude\n\n    knn = np.zeros_like(distance, bool)\n    \n    # find nearest neighbors for each point\n    for i in range(n):\n        di = distance[i, :]\n        # TODO change to np.partition for PERF\n        nn = np.argsort(di)[::sort_order]\n        knn[i, nn[:s]] = True\n    del distance\n\n    # Reverse nearest neighbor count\n    N_s = knn[:m, :].sum(axis=0)\n\n    if y is not None:\n        # Set of class labels\n        C = np.unique(y)\n\n        # Class specific reverse nearest neighbors"
+    }
+  ],
+  "ambiguity_note": "The released comment occurs at multiple source locations. These are all exact full-comment candidates; no location is selected or attributed uniquely to this case."
+}

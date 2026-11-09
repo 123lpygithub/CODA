@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0513-aajfeejjg",
+  "revision_url": "https://github.com/summanlp/textrank/commit/b083289977052807c2817a8664abf23aeff8d387",
+  "filename": "textrank/textrank_word.py",
+  "commit": "b083289977052807c2817a8664abf23aeff8d387",
+  "source_url": "https://raw.githubusercontent.com/summanlp/textrank/b083289977052807c2817a8664abf23aeff8d387/textrank/textrank_word.py",
+  "fetched_at": "2026-11-05T06:13:05.662860+00:00",
+  "source_sha256": "01b139baba1cac56be01fefe862f58c290ce2c4094eec9d2f94c90eab5f272e3",
+  "line_start": 124,
+  "line_end": 147,
+  "excerpt": "    for score, lemma in extracted_lemmas:\n        keyword = lemma_to_word[lemma]\n        if DEBUG:\n            keyword = \"({0:.4f}) : {1}\".format(score, keyword)\n        keywords.append(keyword)\n    return keywords\n\n\n\n\ndef get_test_graph(path):\n    \"\"\"Method to run test on the interpreter \"\"\"\n    # TODO: delete this method when no longer needed\n    with open(path) as file:\n        text = file.read()\n\n    tokens = clean_text_by_word(text)\n    split_text = list(tokenize_by_word(text))\n\n    # Creates the graph and adds the edges\n    graph = get_graph(tokens.values())\n    set_graph_edges(graph, tokens, split_text)\n\n    return graph"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0815-aajfiebah",
+  "revision_url": "https://github.com/probcomp/bayeslite/commit/13e96f1f8e692dbb81aa8c305641264ce3050646",
+  "filename": "src/compiler.py",
+  "commit": "13e96f1f8e692dbb81aa8c305641264ce3050646",
+  "source_url": "https://raw.githubusercontent.com/probcomp/bayeslite/13e96f1f8e692dbb81aa8c305641264ce3050646/src/compiler.py",
+  "fetched_at": "2026-11-05T06:13:59.194076+00:00",
+  "source_sha256": "3966ad2ff7b845ba73227f9fcf53ccfd208c9bda5f34ffe48befac176f965c5a",
+  "line_start": 214,
+  "line_end": 238,
+  "excerpt": "    elif isinstance(query, ast.EstBy):\n        compile_estimate_by(bdb, query, out)\n    elif isinstance(query, ast.InferExplicit):\n        if any(isinstance(c, ast.PredCol) for c in query.columns):\n            compile_infer_explicit_predict(bdb, query, out)\n        else:\n            named = True\n            compile_infer_explicit(bdb, query, named, out)\n    elif isinstance(query, ast.InferAuto):\n        compile_infer_auto(bdb, query, out)\n    elif isinstance(query, ast.Simulate):\n        compile_simulate(bdb, query, out)\n    # XXX Disable SimulateModels without CreateTab\n    elif isinstance(query, ast.SimulateModels):\n        raise BQLError(bdb, 'SIMULATE FROM MODELS needs CREATE TABLE.')\n    elif isinstance(query, ast.EstCols):\n        compile_estcols(bdb, query, out)\n    elif isinstance(query, ast.EstPairCols):\n        compile_estpaircols(bdb, query, out)\n    elif isinstance(query, ast.EstPairRow):\n        compile_estpairrow(bdb, query, out)\n    else:\n        assert False, 'Invalid query: %s' % (repr(query),)\n\ndef compile_subquery(bdb, query, _bql_compiler, out):"
+}

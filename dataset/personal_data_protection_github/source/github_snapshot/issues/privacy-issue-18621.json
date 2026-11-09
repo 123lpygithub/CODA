@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18621",
+  "issue_url": "https://github.com/monal-im/Monal/issues/34",
+  "source_issue_url": "https://github.com/monal-im/Monal/issues/34",
+  "api_url": "https://api.github.com/repos/monal-im/Monal/issues/34",
+  "title": "[QUESTION] Pictures are not displayed in-line",
+  "body": "I am using [Conversations ](www.conversations.im)(1.11.5) and chatting with two different partners, both using current version of Monal, all via jabber.de.\n- If I receive an Image, Conversations displays the received image without problems as **in-line**, doesn't matter if it comes from partner1 oder partner2\n- If I send an image to partner**1**, the image is displayed **in-line** in Monal, as it should be.\n- If I send an image to partner**2**, the image is just displayed **as a link** to the jabber.de server to click it in Monal.\n\nWhat is going on here? Obviously it CAN work, but why does'nt make it in both cases, using the nearly same conditions? Is there any hidden preference?\n",
+  "author": "Participant 1",
+  "created_at": "2016-04-11T12:37:52Z",
+  "updated_at": "2016-09-18T16:16:39Z",
+  "state": "closed",
+  "closed_at": "2016-09-18T16:16:39Z",
+  "issue_fetched_at": "2026-10-18T17:10:40.718389+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T17:10:42.135943+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 208320955,
+      "url": "https://github.com/monal-im/Monal/issues/34#issuecomment-208320955",
+      "created_at": "2016-04-11T12:42:04Z",
+      "updated_at": "2016-04-11T12:42:04Z",
+      "author": "Participant 2",
+      "body": "Monal doesn't display images online. This is at the moment an intentional design decision. I'll add an option to have inline display in the future but it will be opt in only. Inline display exposes your IP address (and therefore your location)  to the sender and has serious privacy issues. \n"
+    },
+    {
+      "id": 208325731,
+      "url": "https://github.com/monal-im/Monal/issues/34#issuecomment-208325731",
+      "created_at": "2016-04-11T12:53:56Z",
+      "updated_at": "2016-04-11T12:53:56Z",
+      "author": "Participant 1",
+      "body": "Thanks for fast answer.\nOK, after asking partner1 again, I have indeed to correct me: both have seen a link! Sorry.\n\nBut why is this connected with privacy issues?\nIs clicking the link to display it in a browser less intruding than letting Monal download it and displaying it? Is this a Monal-issue or an iOS specific or even a general one (which would mean you claim that Conversations make a \"serious privacy issue\" with in-line display of images....which I would doubt!)\nIs IP adress during XMPP conversations not anyway an anavoidable metadata (without TOR etc)?\n\nIn terms of privacy......I would say until Monal does not support OMEMO, it is a step to far to care about privacy with in-line images. Wouldn't you agree?\n\nThus, I strongly ask the feature of in-line displaying (opt-in or not) of images!\n"
+    },
+    {
+      "id": 208329725,
+      "url": "https://github.com/monal-im/Monal/issues/34#issuecomment-208329725",
+      "created_at": "2016-04-11T13:02:45Z",
+      "updated_at": "2016-04-11T13:02:45Z",
+      "author": "Participant 2",
+      "body": "In a one on one conversation, both people are talking to a server and not to each other so neither knows the others ip. The way the online image is detected, it makes a http head call automatically for every link to check if it is an image. This head call connects to a server automatically . Basically, if I wanted to know where someone was I would send a url unique to them. They don't even have to click it, just receiving the message would let me look in my logs to see their ip and location. At least with a click the recipient is aware that something is happening.  If you trust the other party it's not a big deal, receiving a random message, it's a problem. \n"
+    },
+    {
+      "id": 215432913,
+      "url": "https://github.com/monal-im/Monal/issues/34#issuecomment-215432913",
+      "created_at": "2016-04-28T14:01:47Z",
+      "updated_at": "2016-04-28T14:01:47Z",
+      "author": "Participant 1",
+      "body": "Already any progress for implementing the checkbox to display inline-images? And already future Monal-update at the horizon?\n\n@inputmice: Would you comment on anurodhp's privacy concerns above with automatic inline-display of images? I guess you wouldn't have it implemented to [Conversations](www.conversations.im), if it is really that insecure in terms of privacy, am I right?\n"
+    },
+    {
+      "id": 216180486,
+      "url": "https://github.com/monal-im/Monal/issues/34#issuecomment-216180486",
+      "created_at": "2016-05-02T09:48:42Z",
+      "updated_at": "2016-05-02T09:48:42Z",
+      "author": "Participant 3",
+      "body": "I'm trying to convince my buddies to use my private XMPP server and this is a major issue for iOS users. I'd love to see an opt-in option to see inline images!\n"
+    },
+    {
+      "id": 217565137,
+      "url": "https://github.com/monal-im/Monal/issues/34#issuecomment-217565137",
+      "created_at": "2016-05-06T21:39:33Z",
+      "updated_at": "2016-05-06T21:39:33Z",
+      "author": "Participant 4",
+      "body": "Yes opt-in would be nice! Inline is a must for most users.\n"
+    },
+    {
+      "id": 247856950,
+      "url": "https://github.com/monal-im/Monal/issues/34#issuecomment-247856950",
+      "created_at": "2016-09-18T16:16:39Z",
+      "updated_at": "2016-09-18T16:16:39Z",
+      "author": "Participant 2",
+      "body": "I have added a preference to enable this in the latest OS X beta (look on the left for a link)\nhttps://monal.im/blog/monal-osx-has-inline-images/\n\nAfter some testing, ill bring it to iOS. \n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0404-aahfghdbg",
+  "revision_url": "https://github.com/tensorflow/tensor2tensor/commit/210282baf89580a081ef6952264fb1ea50d22300",
+  "filename": "tensor2tensor/trax/optimizers/base.py",
+  "commit": "210282baf89580a081ef6952264fb1ea50d22300",
+  "source_url": "https://raw.githubusercontent.com/tensorflow/tensor2tensor/210282baf89580a081ef6952264fb1ea50d22300/tensor2tensor/trax/optimizers/base.py",
+  "fetched_at": "2026-11-05T06:12:49.659510+00:00",
+  "source_sha256": "e5b4bbbde9bfcc9ebda0fbccdab1c8b4c392773f3d8536acfea8c18342c53394",
+  "line_start": 231,
+  "line_end": 255,
+  "excerpt": "    m = (1 - b1) * grads + b1 * m  # First  moment estimate.\n    v = (1 - b2) * (grads ** 2) + b2 * v  # Second moment estimate.\n    mhat = m / (1 - b1 ** (step + 1))  # Bias correction.\n    vhat = v / (1 - b2 ** (step + 1))\n    params = params - (\n        learning_rate * mhat / (np.sqrt(vhat) + eps)).astype(params.dtype)\n    return params, (m, v)\n\n\nclass Adafactor(Optimizer):\n  \"\"\"Adafactor optimizer.\"\"\"\n\n  # TODO(levskaya): refactor to use newer RL friendly parameter passing.\n  def __init__(self,\n               learning_rate,\n               decay_rate=0.8,\n               beta1=0.0,\n               clipping_threshold=1.0,\n               factored=True,\n               multiply_by_parameter_scale=True,\n               epsilon1=1e-30,\n               epsilon2=1e-3):\n    \"\"\"Create the Adafactor optimizer.\n\n    Adafactor is described in https://arxiv.org/abs/1804.04235."
+}

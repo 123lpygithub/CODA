@@ -1,0 +1,100 @@
+CASE 476
+SOURCE ERROR IDS 476
+TASK DESCRIPTION
+def largest_prime_factor(n: int):
+    """Return the largest prime factor of n. Assume n > 1 and is not a prime.
+    >>> largest_prime_factor(13195)
+    29
+    >>> largest_prime_factor(2048)
+    2
+    """
+
+GENERATED CODE
+def largest_prime_factor(n: int):
+    """Return the largest prime factor of n. Assume n > 1 and is not a prime.
+    >>> largest_prime_factor(13195)
+    29
+    >>> largest_prime_factor(2048)
+    2
+    """
+    if n == 1:
+        return 1
+    if n % 2 == 0:
+        n //= 2
+    if n % 3 == 0:
+        n //= 3
+    if n % 5 == 0:
+        n //= 5
+    if n % 7 == 0:
+        n //= 7
+    if n % 11 == 0:
+        n //= 11
+    if n % 13 == 0:
+        n //= 13
+    if n % 17 == 0:
+        n //= 17
+    if n % 19 == 0:
+        n //= 19
+    if n % 23 == 0:
+        n //= 23
+    if n % 29 == 0:
+        n //= 29
+    if n % 31 == 0:
+        n //= 31
+    if n % 37 == 0:
+        n //= 37
+    if n % 41 == 0:
+        n //= 41
+    if n % 43 == 0:
+        n //= 43
+    if n % 47 == 0:
+        n //= 47
+    if n % 53 == 0:
+        n //= 53
+    if n % 59 == 0:
+        n //= 59
+    if n % 61 == 0:
+        n //= 61
+    if n % 67 == 0:
+        n //= 67
+    if n % 71 == 0:
+        n //= 71
+    if n % 73 == 0:
+        n //= 73
+    if n % 79 == 0:
+        n //= 79
+    if n % 83 == 0:
+        n //= 83
+    if n % 89 == 0:
+        n //= 89
+    if n % 97 == 0:
+        n //= 97
+    if n % 101 == 0:
+        n //= 101
+    if n % 103 == 0:
+        n //= 103
+    if n % 107 == 0:
+        n //= 107
+    if n % 109 == 0:
+        n //= 109
+    if n % 113
+
+REFERENCE CODE
+def largest_prime_factor(n: int):
+    """Return the largest prime factor of n. Assume n > 1 and is not a prime.
+    >>> largest_prime_factor(13195)
+    29
+    >>> largest_prime_factor(2048)
+    2
+    """
+    def is_prime(a):
+        return not (a < 2 or any(a % x == 0 for x in range(2, int(a ** 0.5) + 1)))
+
+    isprime = [True] * (n + 1)
+    for i in range(2, n + 1):
+        if isprime[i]:
+            for j in range(i + i, n, i):
+                isprime[j] = False
+    for i in range(n - 1, 0, -1):
+        if isprime[i] and n % i == 0:
+            return i

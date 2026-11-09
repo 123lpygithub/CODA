@@ -1,0 +1,97 @@
+# Copyright 2015 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//tools/grit/grit_rule.gni")
+import("//tools/grit/repack.gni")
+
+group("user_scripts_resources") {
+  public_deps = [
+    ":user_scripts_renderer_resources",
+  ]
+}
+
+grit("user_scripts_renderer_resources") {
+  source = "resources/user_scripts_renderer_resources.grd"
+  outputs = [
+    "grit/user_scripts_renderer_resources.h",
+    "user_scripts_renderer_resources.pak",
+  ]
+  grit_flags = [
+    "-E",
+    "mojom_root=" + rebase_path(root_gen_dir, root_build_dir),
+  ]
+}
+
+static_library("renderer") {
+  sources = [
+    "../common/constants.cc",
+    "../common/constants.h",
+    "../common/extension_id.h",
+    "../common/host_id.cc",
+    "../common/host_id.h",
+    "../common/script_constants.h",
+    "../common/url_pattern_set.cc",
+    "../common/url_pattern_set.h",
+    "../common/url_pattern.cc",
+    "../common/url_pattern.h",
+    "../common/user_script.cc",
+    "../common/user_script.h",
+    "../common/view_type.cc",
+    "../common/view_type.h",
+    "../common/extension_messages.cc",
+    "../common/extension_messages.h",
+    "../common/extension_message_generator.cc",
+    "../common/extension_message_generator.h",
+#    "dispatcher_delegate.cc",
+#    "dispatcher_delegate.h",
+    "extension_frame_helper.cc",
+    "extension_frame_helper.h",
+    "injection_host.cc",
+    "injection_host.h",
+#    "programmatic_script_injector.cc",
+#    "programmatic_script_injector.h",
+    "script_injection_manager.cc",
+    "script_injection_manager.h",
+    "script_injection_callback.cc",
+    "script_injection_callback.h",
+    "script_injection.cc",
+    "script_injection.h",
+    "script_injector.h",
+    "script_context.cc",
+    "script_context.h",
+    "scripts_run_info.cc",
+    "scripts_run_info.h",
+    "user_script_injector.cc",
+    "user_script_injector.h",
+    "user_script_set_manager.cc",
+    "user_script_set_manager.h",
+    "user_script_set.cc",
+    "user_script_set.h",
+#    "user_scripts_dispatcher_delegate.cc",
+#    "user_scripts_dispatcher_delegate.h",
+    "user_scripts_dispatcher.cc",
+    "user_scripts_dispatcher.h",
+    "user_scripts_renderer_client.cc",
+    "user_scripts_renderer_client.h",
+    "web_ui_injection_host.cc",
+    "web_ui_injection_host.h",
+  ]
+
+  #public_deps = [ "//components/user_scripts/core/proto" ]
+  deps = [
+    ":user_scripts_resources",
+    "//base",
+    #"//components/dom_distiller/content/common/mojom",
+    #"//components/dom_distiller/core",
+    #"//components/dom_distiller/core/mojom",
+    "//content/public/common",
+    "//content/public/renderer",
+    #"//gin",
+    "//mojo/public/cpp/bindings",
+    #"//services/service_manager/public/cpp",
+    #"//skia",
+    "//third_party/blink/public:blink_headers",
+    "//v8",
+  ]
+}

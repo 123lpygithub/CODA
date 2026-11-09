@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20596",
+  "issue_url": "https://github.com/ActiveLogin/ActiveLogin.Authentication/issues/156",
+  "source_issue_url": "https://github.com/ActiveLogin/ActiveLogin.Authentication/issues/156",
+  "api_url": "https://api.github.com/repos/ActiveLogin/ActiveLogin.Authentication/issues/156",
+  "title": "Add description on what cookies are used and what they do",
+  "body": "**Is your feature request related to a problem? Please describe.**\r\nIn EU, \"[the cookie law](https://www.cookielaw.org/the-cookie-law/)\" requires you to show info on what cookies you store and for what reason. We lack such documentation today and it makes it difficult to explain to the end user what cookies we store and for what reason.\r\n\r\n**What area is it related to**\r\nThis relates to the packages that might store cookies, and they are:\r\n\r\n- `ActiveLogin.Authentication.BankId.AspNetCore`\r\n- `ActiveLogin.Authentication.GrandId.AspNetCore`\r\n\r\n**Describe the solution you'd like**\r\nWrite documentation on the cookies used in `Readme.md`, and also a short notice in code.\r\n\r\n**Additional context**\r\nIn Active Login the only cookie we store, is a cookie containing the `AuthenticationProperties`, containing things like `RedirectUri`. But `AuthenticationProperties` also has a property bag where the user can set their own things, so could contain any kind of data depending on how it's used.\r\n\r\nThe `AuthenticationProperties` is set in the consuming code when doing the challenge, and a sample can be found in [AccountController.cs](https://github.com/ActiveLogin/ActiveLogin.Authentication/blob/master/samples/IdentityServer.ServerSample/Controllers/AccountController.cs#L42-L55):\r\n\r\n```csharp\r\npublic IActionResult ExternalLogin(string provider, string returnUrl)\r\n{\r\n    var props = new AuthenticationProperties\r\n    {\r\n        RedirectUri = Url.Action(nameof(ExternalLoginCallback)),\r\n        Items =\r\n        {\r\n            {\"returnUrl\", returnUrl},\r\n            {\"scheme\", provider}\r\n        }\r\n    };\r\n\r\n    return Challenge(props, provider);\r\n}\r\n```\r\n\r\nWe have followed the convention that Microsoft uses themselves, and stores the `AuthenticationProperties` in a state cookie. The name of them are by default this, but can be overridden.\r\n\r\n- `__ActiveLogin.BankIdState`\r\n- `__ActiveLogin.GrandIdState`\r\n\r\nLook at (for example) the [implementation for Twitter auth](https://github.com/aspnet/AspNetCore/blob/master/src/Security/Authentication/Twitter/src/TwitterHandler.cs#L141-L158) done by Microsoft to see where we got our inspiration. There seems to be little or no documentation on the exact approach here, only source code.\r\n\r\nNote, in addition ASP.NET Core Auth might issue cookies themselves, depending on how you configure your pipeline. But that's outside the scope of Active Login.",
+  "author": "Participant 1",
+  "created_at": "2019-11-09T14:13:38Z",
+  "updated_at": "2019-11-12T20:04:06Z",
+  "state": "closed",
+  "closed_at": "2019-11-12T20:04:06Z",
+  "issue_fetched_at": "2026-10-19T01:11:12.136531+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:11:13.557454+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 552133029,
+      "url": "https://github.com/ActiveLogin/ActiveLogin.Authentication/issues/156#issuecomment-552133029",
+      "created_at": "2019-11-09T20:09:41Z",
+      "updated_at": "2019-11-09T20:09:41Z",
+      "author": "Participant 2",
+      "body": "I’m not an expert on the cookie law, or how we use them in this library, but do we not fall under this category (my emphasis):\r\n\r\nExamples of cookies that generally do NOT require consent:\r\n- User input cookies, for the duration of a session\r\n- **Authentication cookies, for the duration of a session**\r\n- User-centric security cookies, used to detect authentication abuses and linked to the functionality explicitly requested by the user, for a limited persistent duration\r\n- Multimedia content player session cookies, such as flash player cookies, for the duration of a session\r\n- Load balancing session cookies and other technical cookies, for the duration of session\r\n- User interface customisation cookies, for a browser session or a few hours, when additional information in a prominent location is provided (e.g. “uses cookies” written next to the customisation feature)\r\n\r\nFrom: https://wikis.ec.europa.eu/display/WEBGUIDE/04.+Cookies\r\n\r\nIf the user chooses to use AuthenticationProperties to store sensitive data, then they are the ones that need to deal with the cookie law I would assume?\r\n\r\nMaybe it’s good practice to implement this anyway, but I am not sure we have to. How are similar libraries dealing with this, e.g. IdentityServer?"
+    },
+    {
+      "id": 552144221,
+      "url": "https://github.com/ActiveLogin/ActiveLogin.Authentication/issues/156#issuecomment-552144221",
+      "created_at": "2019-11-09T22:40:26Z",
+      "updated_at": "2019-11-09T22:40:26Z",
+      "author": "Participant 1",
+      "body": "Great finding @viktorvan!\r\n\r\nThe intention was not to display any message to the user, rather explain what our cookies do for developers, so they can decide whether or not they need to tell the users about it.\r\n\r\nWe had a developer asking about this info.\r\n\r\nVery good that auth cookies seems to be an exception to the EU thing."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

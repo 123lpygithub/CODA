@@ -1,0 +1,558 @@
+case_id,source_error_ids,task_id,source_model,codes,status,rationale
+141,141,0,InCoder-1B,C09;C17,coded,Only fixed pairs 0/1 and 2/3 checked; short lists index out of range and other close pairs missed.
+424,424,0,SantaCoder,C09;C08,coded,Only adjacent unsorted pairs checked and distance predicate reversed (> instead of <).
+1,1,1,CodeGen-16B,C01,coded,Executable implementation absent; only commented attempts remain.
+142,142,1,InCoder-1B,C05,coded,Whole balanced input compared to single parentheses instead of tracking character depth; valid input '()' returns no group. Re-enqueue on unbalanced ')' is outside the stated domain and is not coded as a termination defect.
+425,425,1,SantaCoder,C12,coded,Splitting at every closing parenthesis destroys balanced nested groups and closing delimiters.
+609,609,1,StarCoder,C01,coded,Pass-only body returns None instead of groups.
+143,143;144,2,InCoder-1B,C03;C15,coded,Undefined precision; int scaling does not compute fractional remainder.
+426,426,2,SantaCoder,C03,coded,math.floor referenced without math import in supplied program.
+2,2,3,CodeGen-16B,C07,coded,Tests individual withdrawals rather than accumulated account balance.
+145,145,3,InCoder-1B,C05,coded,Checks zero-valued entries at fixed lengths rather than cumulative negativity.
+427,427,3,SantaCoder,C07,coded,Tests individual negativity rather than prefix balance.
+146,146;147,4,InCoder-1B,C04,coded,Calls mean() on scalar x instead of computing sequence mean.
+428,428,4,SantaCoder,C07,coded,Uses first element as center rather than arithmetic mean.
+3,3,5,CodeGen-16B,C16;C09,coded,Delimiters placed at ends; final input element dropped.
+148,148,5,InCoder-1B,C14;C16,coded,Reorders input by parity and appends delimiters at end instead of interleaving.
+429,429,5,SantaCoder,C16,coded,Appends one trailing delimiter rather than separating adjacent elements.
+610,610,5,StarCoder,C16,coded,Groups even/odd positions around one delimiter instead of interleaving.
+4,4,6,CodeGen-16B,C01,coded,No executable function body beyond docstring/comments.
+149,149,6,InCoder-1B,C05,coded,Counts both opening and closing totals instead of maximum simultaneous nesting.
+430,430,6,SantaCoder,C02,coded,Repetitive stripping destroys input and ends in undefined pare; no returned depths.
+611,611,6,StarCoder,C01,coded,Pass-only body.
+150,150,7,InCoder-1B,C08,coded,Prefix test substitutes for substring containment.
+431,431,8,SantaCoder,C03,coded,reduce not imported/defined.
+612,612,8,StarCoder,C03,coded,reduce not imported/defined.
+151,151;152,9,InCoder-1B,C08;C10,coded,Emits only when count of record maxima equals sequence length; zero seed also invalid for negative-only input.
+432,432;433,9,SantaCoder,C07;C09,coded,Uses two-item window instead of full prefix and omits first output.
+5,5,10,CodeGen-16B,C03,coded,Undefined find_palindrome_prefix helper.
+153,153;154,10,InCoder-1B,C03,coded,Undefined palindrome helpers; output construction cannot run.
+434,434,10,SantaCoder,C10,coded,"Recurses on prefix then re-appends last character, reproducing original non-palindrome."
+613,613;614;615,10,StarCoder,C07,coded,Finds palindromic prefix instead of suffix needed for shortest append-only palindrome.
+155,155;156,11,InCoder-1B,C06;C16,coded,"Ignores b and returns binary rendering of a, not XOR."
+435,435,11,SantaCoder,C04,coded,Applies XOR to character strings without integer conversion.
+157,157;158,12,InCoder-1B,C14,coded,Ascending length sort selects shortest instead of longest.
+436,436,13,SantaCoder,C08,coded,Returns a when b divides a; should return b (and zero divisor unguarded).
+159,159;160,14,InCoder-1B,C05,coded,Splits words rather than constructing character prefixes.
+437,437;438,14,SantaCoder,C09,coded,Includes undesired empty prefix.
+616,616;617,14,StarCoder,C09,coded,Includes undesired empty prefix.
+161,161;162,15,InCoder-1B,C09;C16,coded,Excludes n and omits space separator.
+439,439;440,15,SantaCoder,C09;C16,coded,Excludes n and omits space separator.
+163,163,16,InCoder-1B,C12,coded,Case normalization missing before counting distinct characters.
+441,441,16,SantaCoder,C12,coded,Case normalization missing before counting distinct characters.
+6,6;7,17,CodeGen-16B,C12;C17,coded,Splits on note-internal | rather than spaces; also empty input becomes a note.
+164,164,17,InCoder-1B,C02,coded,Repeated replacements destroy tokens; no output construction or return.
+442,442,17,SantaCoder,C12;C04,coded,Splits at wrong delimiter and attempts decimal conversion of symbolic notes.
+618,618,17,StarCoder,C01,coded,Pass-only body.
+165,165,18,InCoder-1B,C09,coded,Advances by substring length and misses overlapping and unaligned matches.
+443,443,18,SantaCoder,C13,coded,str.count excludes overlapping matches required by specification.
+619,619,18,StarCoder,C13,coded,str.count excludes overlapping matches required by specification.
+8,8,19,CodeGen-16B,C04,coded,Converts spelled-out numerals using int instead of mapping names to values.
+166,166,19,InCoder-1B,C04;C16,coded,Converts number words using int and loses output spaces.
+444,444,19,SantaCoder,C14,coded,Lexicographic word ordering instead of numeric ordering.
+620,620,19,StarCoder,C14,coded,Lexicographic word ordering instead of numeric ordering.
+9,9,20,CodeGen-16B,C05,coded,Chooses extrema rather than minimum-distance pair.
+167,167,20,InCoder-1B,C05,coded,Tracks minimum and maximum instead of closest pair.
+445,445,20,SantaCoder,C05;C16,coded,Returns extrema of distances to first value instead of closest original values.
+621,621,20,StarCoder,C09,coded,Assumes two smallest sorted elements are closest; skips other adjacent gaps.
+168,168;169,21,InCoder-1B,C15;C14,coded,Multiplies by range without subtracting minimum; also sorts output order.
+446,446,21,SantaCoder,C15,coded,Omits subtracting minimum in affine rescaling.
+622,622,21,StarCoder,C15,coded,"Divides by maximum, omitting offset and range scaling."
+11,11;12,24,CodeGen-16B,C08,coded,Loop never runs because initial divisor 1 always divides n; returns 1.
+171,171;172,24,InCoder-1B,C08,coded,Advances while divisor divides n and returns first non-divisor.
+448,448,24,SantaCoder,C01,coded,Constant return 1 omits divisor search.
+173,173,25,InCoder-1B,C05,coded,"Appends quotients and input instead of prime divisors; tests only 2,3,5."
+449,449,25,SantaCoder,C05,coded,Appends 2 for odd n and subtracts 1 rather than factoring.
+626,626,25,StarCoder,C01,coded,Pass-only body.
+13,13,26,CodeGen-16B,C13;C14,coded,Retains one copy of repeated values rather than removing all repeated values.
+174,174,26,InCoder-1B,C13,coded,Deduplicates instead of excluding all values with frequency greater than one.
+328,328,26,GPT-3.5,C13,coded,Deduplicates instead of excluding all values with frequency greater than one.
+450,450,26,SantaCoder,C13;C14,coded,Set deduplication implements wrong multiplicity rule and discards order.
+627,627,26,StarCoder,C13;C14,coded,Set deduplication implements wrong multiplicity rule and discards order.
+175,175,27,InCoder-1B,C05,coded,Lowercases everything rather than flipping each character case.
+451,451,27,SantaCoder,C07;C08,coded,Applies one case transformation to whole string instead of flipping each character.
+176,176,30,InCoder-1B,C08,coded,Includes zero as positive.
+17,17,32,CodeGen-16B,C02,coded,Truncated repetitive coefficient rewriting; no executable root-finding result.
+177,177,32,InCoder-1B,C05,coded,Returns coefficient magnitude/infinity instead of a polynomial root.
+329,329,32,GPT-3.5,C05,coded,Applies quadratic formula to arbitrary odd-degree polynomial coefficients.
+393,393,32,GPT-4,C08,coded,"The strict sign-product branch discards an exact left-endpoint root: with coefficients [100,1], poly(-100)=0, but poly(a)*poly(c)<0 is false and a is advanced away from the root. Unchanged source returns 99.99999925494194 instead of -100. The official HumanEval/32 check also fails. Assign C08 for the incorrect equality/branch rule; do not add C17 for the same defect."
+452,452,32,SantaCoder,C08,coded,Returns None for required even coefficient count instead of finding root.
+631,631,32,StarCoder,C02,coded,Repeatedly removes coefficients with no root-solving or return.
+18,18,33,CodeGen-16B,C01,coded,Only comments; missing implementation.
+178,178;179,33,InCoder-1B,C07;C16,coded,Selects values divisible by three rather than positions and drops unaffected items.
+453,453,33,SantaCoder,C07;C14,coded,Sorts all elements then excludes positions divisible by three.
+632,632;633,33,StarCoder,C08;C07,coded,Preserves positions requiring sorting and changes other positions using whole-list order.
+19,19,36,CodeGen-16B,C13,coded,Counts numbers containing 7 rather than each occurrence of digit 7.
+180,180,36,InCoder-1B,C05,coded,Recurses on quotients/returns n; no enumeration or digit occurrence count.
+330,330,36,GPT-3.5,C13,coded,Counts qualifying numbers once even if multiple sevens occur.
+454,454;455;456,36,SantaCoder,C08;C06;C09,coded,Wrong divisibility residues; counts no digit sevens and includes n.
+634,634;635,36,StarCoder,C05,coded,Checks divisibility by 7 instead of occurrences of decimal digit 7.
+20,20,37,CodeGen-16B,C14;C16,coded,Sorts unaffected odd positions and concatenates groups instead of reinserting.
+181,181,37,InCoder-1B,C07;C16,coded,Confuses value parity with index parity and concatenates groups.
+457,457,37,SantaCoder,C14;C16,coded,Sorts entire list and discards odd positions.
+636,636;637,37,StarCoder,C08;C05,coded,Leaves even positions untouched and replaces odd values with minima.
+21,21,38,CodeGen-16B,C15,coded,Repeats forward rotation instead of inverse rotation.
+182,182,38,InCoder-1B,C02,coded,Truncated string/comprehension; cannot parse.
+458,458,38,SantaCoder,C15,coded,Uses forward transform instead of inverse cyclic transform.
+22,22,39,CodeGen-16B,C03;C07,coded,Undefined fib/is_prime helpers and tests nth Fibonacci rather than nth prime Fibonacci.
+183,183,39,InCoder-1B,C10;C06,coded,Wrong recurrence/seeds and no primality filtering.
+459,459;460,39,SantaCoder,C09,coded,Hardcodes first five examples and returns None thereafter.
+638,638,39,StarCoder,C02,coded,Truncated hardcoded table with values not matching prime Fibonacci sequence.
+23,23,40,CodeGen-16B,C08;C09,coded,Wrong equality for zero-sum and checks only consecutive sorted triples.
+184,184,40,InCoder-1B,C05,coded,Distinct-value count substituted for existence of zero-sum triple.
+461,461,40,SantaCoder,C07;C13,coded,Whole-list sum and unique-value count substituted for distinct-position triple search.
+24,24,41,CodeGen-16B,C08;C15,coded,Invents positive-even input constraints and returns n//2 instead of n squared.
+185,185,41,InCoder-1B,C02,coded,Truncated constant list; no collision calculation.
+331,331,41,GPT-3.5,C05;C09,coded,"Moves both groups same direction and checks only corresponding indices, not all pairs."
+462,462,41,SantaCoder,C01,coded,Constant zero ignores collisions.
+639,639,41,StarCoder,C15,coded,Halves n instead of counting n*n interactions.
+186,186,42,InCoder-1B,C05,coded,Appends 1 instead of incrementing each element.
+187,187,43,InCoder-1B,C05,coded,Distinct-value count substituted for zero-sum pair search.
+463,463,43,SantaCoder,C05,coded,Identical-value test substituted for zero-sum pair search.
+25,25,44,CodeGen-16B,C09,coded,"Supports only selected bases, missing valid base 3 etc."
+188,188;189,44,InCoder-1B,C15;C17,coded,Uses floating division in integer base conversion and emits empty result for zero.
+464,464,44,SantaCoder,C06,coded,Returns unchanged decimal string for required bases.
+190,190;191;192,46,InCoder-1B,C10;C11,coded,Wrong/missing recurrence base states; recurses into negatives and violates nonrecursive requirement.
+334,334;335;336,46,GPT-3.5,C10,coded,Starts recurrence too early and overwrites d before shifting old state.
+465,465;466;467,46,SantaCoder,C10;C11,coded,"Incorrect fib4(2), missing fib4(3), and forbidden recursive implementation."
+193,193;194,47,InCoder-1B,C06,coded,No even-length median averaging.
+468,468,47,SantaCoder,C03,coded,statistics referenced without import.
+27,27,49,CodeGen-16B,C15,coded,Odd exponent recurrence squares 2^(n-1) again rather than multiplying by two.
+195,195,50,InCoder-1B,C06,coded,"Decoder omits inverse shift, effectively identity for lowercase inputs."
+469,469,50,SantaCoder,C15,coded,Wrong alphabet offset sign in inverse modular shift.
+28,28,51,CodeGen-16B,C12,coded,Uppercase vowels not handled.
+470,470,51,SantaCoder,C12,coded,Uppercase vowels not handled.
+29,29,54,CodeGen-16B,C13,coded,"Requires raw lengths equal to set-intersection cardinality, contradicting ignored repetitions."
+196,196,54,InCoder-1B,C05,coded,Length equality substituted for character-set equality.
+471,471,54,SantaCoder,C13;C08,coded,One-sided set inclusion combined with raw length; multiplicities and extra characters mishandled.
+641,641,54,StarCoder,C13,coded,Compares character multiplicities rather than character sets.
+198,198,56,InCoder-1B,C06,coded,Balances total counts without checking invalid negative prefixes.
+199,199,57,InCoder-1B,C08;C06,coded,Only strictly increasing accepted; decreasing and equal-adjacent valid inputs rejected.
+474,474;475,57,SantaCoder,C06,coded,Decreasing monotonic case omitted.
+201,201,59,InCoder-1B,C08,coded,Returns first non-divisor rather than greatest prime divisor.
+476,476,59,SantaCoder,C02,coded,Truncated fixed-prime division chain; no valid complete factor computation.
+202,202,61,InCoder-1B,C08;C06,coded,Both filters count both bracket types; ordering and prefix balance unchecked.
+203,203;204,62,InCoder-1B,C15;C09,coded,Raises coefficients to index powers instead of multiplying by degree; retains constant position.
+477,477,62,SantaCoder,C15,coded,Squares coefficients instead of derivative degree multiplication/drop constant.
+205,205;206,63,InCoder-1B,C03;C10,coded,Undefined fibfibfib and wrong/missing recurrence base states.
+339,339;340;341,63,GPT-3.5,C10,coded,Wrong fibfib seeds and state shift cause recurrence mismatch.
+33,33;34,64,CodeGen-16B,C08;C12;C17,coded,Counts final ordinary vowel twice; omits terminal y and uppercase vowels; empty input indexing unsafe.
+207,207,64,InCoder-1B,C06,coded,Omits terminal y/Y vowel rule.
+479,479;480,64,SantaCoder,C08;C12,coded,Treats y as vowel in all positions and omits uppercase handling.
+645,645,64,StarCoder,C01,coded,Pass-only body.
+35,35,65,CodeGen-16B,C08,coded,"Reverses when shift equals digit count, which should preserve digits."
+208,208,65,InCoder-1B,C04,coded,Treats integer as sequence (__len__/slicing); ignores actual shift semantics.
+646,646,65,StarCoder,C14;C06,coded,Rotates left and omits reverse-on-oversized-shift rule.
+209,209,66,InCoder-1B,C06,coded,Sums all character codes without uppercase filter.
+36,36,67,CodeGen-16B,C07,coded,Parses second word apples as count instead of fourth token.
+210,210,67,InCoder-1B,C03,coded,Undefined fruit_distribution_helper.
+481,481,67,SantaCoder,C02,coded,Truncated example-specific branches ignore total n and general computation.
+211,211,68,InCoder-1B,C01,coded,Docstring-only function; no executable implementation.
+342,342,68,GPT-3.5,C02,coded,Truncated unterminated documentation; implementation absent.
+399,399,68,GPT-4,C02,coded,Truncated unterminated documentation; implementation absent.
+482,482,68,SantaCoder,C09;C14;C16,coded,Length-specific first-even choice instead of minimum; scalar instead of value/index list and missing long-list case.
+37,37,69,CodeGen-16B,C14,coded,Returns first eligible integer instead of greatest eligible integer.
+212,212;213,69,InCoder-1B,C03;C14;C06,coded,Undefined operator; maximizes frequency without eligibility or value criterion.
+483,483,69,SantaCoder,C01,coded,Pass-only body.
+647,647,69,StarCoder,C01,coded,Constant -1 omits search.
+38,38;39,70,CodeGen-16B,C13;C14,coded,Duplicates minimum at both ends and removes all equal minima; no alternating extrema.
+214,214;215,70,InCoder-1B,C14,coded,Descending order substitutes for alternating minimum/maximum order.
+484,484,70,SantaCoder,C14,coded,Descending order substitutes for alternating minimum/maximum order.
+648,648,70,StarCoder,C10;C13,coded,"Recurses on positional tail while also appending extrema, duplicating/removing wrong elements."
+40,40,71,CodeGen-16B,C06,coded,Missing invalid-triangle check before area computation.
+216,216,71,InCoder-1B,C01,coded,Docstring-only function.
+485,485,71,SantaCoder,C15,coded,Missing square root in Heron area formula.
+649,649,71,StarCoder,C03,coded,math referenced without import.
+41,41,72,CodeGen-16B,C03,coded,Undefined is_balanced helper.
+217,217,72,InCoder-1B,C01,coded,Docstring-only function.
+486,486,72,SantaCoder,C02,coded,Truncated fixed-length equal-element checks; ignores weight and palindrome symmetry.
+650,650,72,StarCoder,C03,coded,Undefined is_palindrome helper.
+42,42,73,CodeGen-16B,C01,coded,Pass-only body.
+218,218,73,InCoder-1B,C13,coded,Counts each mismatched mirrored pair twice.
+487,487,73,SantaCoder,C02,coded,Truncated fixed-length descending-order checks replace mirrored mismatch counting.
+651,651,73,StarCoder,C01,coded,Pass-only body.
+43,43,74,CodeGen-16B,C07,coded,Compares number of strings instead of total character count.
+219,219,74,InCoder-1B,C01,coded,Docstring-only body.
+400,400,74,GPT-4,C14,coded,Tie returns second list instead of first; CANNOT PARSE comment is not itself proof of parse error.
+488,488,74,SantaCoder,C05,coded,List-length equality substituted for total-character comparison.
+652,652,74,StarCoder,C07;C14,coded,Uses list length instead of total characters and tie favors second list.
+44,44,75,CodeGen-16B,C05,coded,Tests primality rather than product of three primes.
+220,220,75,InCoder-1B,C05,coded,Divisibility by three substituted for three prime factors.
+401,401,75,GPT-4,C13,coded,Divides by each prime only once; repeated prime factors omitted.
+489,489,75,SantaCoder,C08,coded,Rejects all in-domain a<100 and otherwise tests unrelated primality.
+653,653,75,StarCoder,C01,coded,Pass-only body.
+45,45,76,CodeGen-16B,C15,coded,Fixes exponent to n instead of searching integer exponent.
+221,221,76,InCoder-1B,C05;C17,coded,Divisibility substituted for power relation; zero base unguarded.
+343,343,76,GPT-3.5,C07,coded,"Reverses base/exponent roles, finding nth powers instead of powers of n."
+490,490,76,SantaCoder,C15,coded,Fixes exponent to x rather than checking existence.
+654,654,76,StarCoder,C15;C17,coded,Uses x/n as exponent without justification; zero base unguarded.
+46,46;47,77,CodeGen-16B,C15;C17,coded,Floating cube root tested for exact integrality; negative numbers produce complex arithmetic.
+222,222,77,InCoder-1B,C05,coded,Positive-even test substituted for perfect cube test.
+491,491,77,SantaCoder,C05;C17,coded,Rejects negative cubes and tests a cubed equals a instead of existence of integer cube root.
+655,655,77,StarCoder,C05,coded,Checks integrality of a cubed rather than whether a has an integer cube root.
+48,48,78,CodeGen-16B,C01,coded,Constant zero omits digit processing.
+223,223,78,InCoder-1B,C01,coded,Docstring-only body.
+492,492;493,78,SantaCoder,C03;C05;C04,coded,Undefined is_prime; decimal parse of hexadecimal string and whole-number prime counting substitute for prime-digit count.
+224,224;225,79,InCoder-1B,C06;C16,coded,No binary conversion or leading db marker.
+494,494;495,79,SantaCoder,C16;C17,coded,Missing trailing db marker and zero digit representation.
+49,49,80,CodeGen-16B,C07,coded,Global unique-count three substituted for every consecutive length-three window distinct.
+226,226,80,InCoder-1B,C08,coded,"Self-comparison letter==letter always true, so duplicate checks never occur."
+496,496;497,80,SantaCoder,C08;C12,coded,Invents length divisible by three and lowercasing; rejects only all-three-equal rather than any repeated pair.
+656,656,80,StarCoder,C08,coded,Rejects only three equal adjacent characters instead of any equal pair in window.
+50,50,81,CodeGen-16B,C01,coded,Pass-only body.
+227,227,81,InCoder-1B,C04,coded,Treats Python list as vectorized array with boolean masks; grade boundaries also wrong.
+498,498,81,SantaCoder,C08,coded,"Uses inclusive thresholds instead of strict ones, including grade zero."
+657,657,81,StarCoder,C01,coded,Pass-only body.
+51,51;52,82,CodeGen-16B,C17,coded,Treats length one as prime.
+499,499,82,SantaCoder,C08,coded,Restricts to length two lowercase alphabetic strings instead of prime length.
+658,658,82,StarCoder,C03,coded,Undefined is_prime helper.
+53,53,83,CodeGen-16B,C03,coded,Undefined ends_one_starts helper; recurrence unsupported.
+228,228,83,InCoder-1B,C05,coded,Counts digits of n instead of qualifying n-digit numbers.
+403,403;404,83,GPT-4,C15;C17,coded,Wrong one-digit base count and combinatorial formula includes invalid leading-zero possibilities.
+500,500,83,SantaCoder,C05,coded,Counts divisors of n instead of qualifying n-digit numbers.
+659,659,83,StarCoder,C07,coded,Enumerates integers up to n rather than n-digit integers.
+54,54,84,CodeGen-16B,C06,coded,Converts N directly to binary without summing decimal digits.
+229,229,84,InCoder-1B,C01,coded,Docstring-only body.
+344,344,84,GPT-3.5,C12,coded,Parses binary digit strings as decimal integers before summing.
+405,405,84,GPT-4,C07,coded,Sums binary digits of N instead of decimal digits.
+501,501,84,SantaCoder,C06,coded,Omits digit sum before binary conversion.
+660,660,84,StarCoder,C06,coded,Omits digit sum before binary conversion.
+55,55,85,CodeGen-16B,C06,coded,Missing even-value filter at odd positions.
+230,230,85,InCoder-1B,C06,coded,Missing even-value filter at odd positions.
+502,502;503,85,SantaCoder,C06,coded,Missing even-value filter at odd positions.
+661,661,85,StarCoder,C06,coded,Missing even-value filter at odd positions.
+56,56;57,86,CodeGen-16B,C07;C12,coded,Sorts word order by sorted spelling instead of sorting characters inside each word; collapses spaces.
+231,231,86,InCoder-1B,C02,coded,Truncated repetitive cleaning with undefined string; removes required case/punctuation and no sorted result.
+504,504;505;506,86,SantaCoder,C07;C16;C17,coded,Sorts words by first character instead of letters within words; removes spaces; empty tokens unsafe.
+662,662;663,86,StarCoder,C07;C16,coded,Sorts words instead of their characters and removes spaces.
+232,232,87,InCoder-1B,C05;C17,coded,Sorts rows and returns adjacent rows rather than matching coordinates; ragged/empty rows unsafe.
+346,346;347,87,GPT-3.5,C14,coded,"Last stable sort makes columns primary, overriding required primary row order."
+507,507,87,SantaCoder,C05;C17,coded,Treats rows as coordinate pairs instead of scanning matching cells; ragged rows unsafe.
+58,58,88,CodeGen-16B,C06,coded,"Always ascending, ignoring endpoint parity condition."
+233,233,88,InCoder-1B,C02,coded,"Fixed-index copy sequence without sort/return, unsafe on short lists."
+508,508;509,88,SantaCoder,C07;C13,coded,Uses total-sum parity instead of endpoints and overlapping recursive sublists duplicate elements.
+664,664,88,StarCoder,C06,coded,"Always ascending, ignoring required descending branch."
+59,59,89,CodeGen-16B,C02,coded,Repetitive map construction; no actual encrypted result returned.
+234,234,89,InCoder-1B,C16,coded,Returns nested function object rather than encrypted string.
+510,510;511,89,SantaCoder,C15,coded,Wrong codepoint arithmetic instead of four-place cyclic alphabet shift.
+665,665;666,89,StarCoder,C15,coded,No alphabet wraparound after four-character shift.
+60,60,90,CodeGen-16B,C13,coded,Second item in multiset instead of second distinct value.
+235,235,90,InCoder-1B,C01,coded,Docstring-only body.
+512,512;513,90,SantaCoder,C09;C14;C17,coded,"Only checks first two values, returns smaller, and fails singleton indexing."
+667,667,90,StarCoder,C13,coded,Second item in sorted multiset instead of second distinct value.
+61,61;62,91,CodeGen-16B,C07;C08,coded,Counts I-prefixed words anywhere instead of sentence-initial word I.
+236,236,91,InCoder-1B,C12;C08,coded,"Only period split, no whitespace trimming, and prefix rather than whole-word I test."
+348,348,91,GPT-3.5,C12;C13;C08,coded,"Concatenates three separate segmentations, causing duplicate counting; I prefix not whole word."
+406,406;407,91,GPT-4,C03;C08,coded,re missing import; startswith I accepts longer words.
+514,514;515,91,SantaCoder,C07;C08,coded,Counts I-prefixed words rather than sentence beginnings.
+668,668;669,91,StarCoder,C07;C08,coded,Counts I-prefixed words rather than sentence beginnings.
+63,63,92,CodeGen-16B,C06,coded,Missing integer-type requirement.
+237,237,92,InCoder-1B,C04,coded,zip on scalar numbers and invalid tuple unpacking; identity substituted for arithmetic relation.
+516,516,92,SantaCoder,C09;C06,coded,Only one sum permutation and no integer-type check.
+64,64,93,CodeGen-16B,C01,coded,Pass-only body.
+238,238,93,InCoder-1B,C02,coded,Truncated repetitive cleaning; destroys required case/spaces and no encoded result.
+349,349,93,GPT-3.5,C06,coded,Vowels shifted but their case never swapped.
+408,408,93,GPT-4,C06,coded,Vowels shifted but their case never swapped.
+517,517,93,SantaCoder,C02,coded,Sequential replacements corrupt original vowel mapping; lowercasing destroys original case; no return.
+670,670,93,StarCoder,C01,coded,Pass-only body.
+65,65,94,CodeGen-16B,C02,coded,Overwrites input with examples and ends in truncated list; no computation.
+239,239,94,InCoder-1B,C02,coded,Filters even values and arbitrary exclusions instead of primes; no return.
+518,518,94,SantaCoder,C06,coded,Selects maximum without primality filter.
+671,671,94,StarCoder,C03;C05,coded,Undefined is_prime; sums prime values instead of digits of largest prime.
+66,66,95,CodeGen-16B,C09;C08;C17,coded,"Returns after first key, rejects uppercase, and lacks non-string guard."
+240,240;241,95,InCoder-1B,C08;C17,coded,Checks lower/upper key membership instead of uniform case; accepts empty/non-string dictionaries.
+519,519,95,SantaCoder,C07,coded,"Allows each key independently lower or upper, missing same-case requirement across keys."
+672,672,95,StarCoder,C07,coded,Allows mixed lower and upper keys instead of uniform dictionary case.
+67,67,96,CodeGen-16B,C01,coded,Pass-only body.
+242,242,96,InCoder-1B,C02,coded,Truncated hardcoded sequence includes composites and ignores n.
+520,520,96,SantaCoder,C17,coded,Unconditionally initializes indices 0 and 1; n=0/1 raises IndexError.
+673,673,96,StarCoder,C01,coded,Pass-only body.
+68,68,97,CodeGen-16B,C07,coded,Multiplies whole operands instead of unit digits.
+243,243,97,InCoder-1B,C05,coded,Computes factorial products instead of unit-digit product.
+350,350,97,GPT-3.5,C15,coded,Modulo/multiplication precedence computes final product modulo ten; negative remainder not absolute digit.
+521,521,97,SantaCoder,C05;C17,coded,Sums aligned digit products instead of multiplying final digits; minus sign conversion unsafe.
+69,69,98,CodeGen-16B,C12,coded,"Uppercases before vowel check, so lowercase vowels incorrectly counted."
+244,244,98,InCoder-1B,C06,coded,Omits even-position filter.
+522,522,98,SantaCoder,C06,coded,Counts uppercase consonants and all positions.
+70,70,99,CodeGen-16B,C04;C15,coded,int on decimal string raises ValueError; formula also not nearest rounding.
+245,245,99,InCoder-1B,C16,coded,Returns lambda rather than rounded integer.
+523,523;524,99,SantaCoder,C15,coded,Bankers rounding differs from required ties away from zero.
+674,674;675,99,StarCoder,C15,coded,Bankers rounding differs from required ties away from zero.
+71,71,100,CodeGen-16B,C11,coded,Recursion increases n with no terminating base case.
+246,246;247,100,InCoder-1B,C10,coded,"Returns 0..n-1 instead of n,n+2,... ."
+351,351,100,GPT-3.5,C15,coded,Odd-n branch subtracts one and changes required parity.
+525,525,100,SantaCoder,C05,coded,Returns one halved value rather than n-level sequence.
+676,676,100,StarCoder,C01,coded,Pass-only body.
+72,72,101,CodeGen-16B,C12,coded,Only comma-space delimiter handled; standalone spaces/commas omitted.
+248,248,101,InCoder-1B,C12,coded,Only comma split; internal space-separated words remain unsplit.
+352,352,101,GPT-3.5,C12,coded,Comma requires following space; repeated spaces produce empty words.
+526,526,101,SantaCoder,C12,coded,Whitespace-only split leaves commas attached.
+677,677,101,StarCoder,C12,coded,Whitespace-only split leaves commas attached.
+73,73,102,CodeGen-16B,C14;C09,coded,Returns lower endpoint if even rather than largest eligible; misses interior even when both endpoints odd.
+249,249,102,InCoder-1B,C05,coded,Halves x and ignores y instead of selecting even within range.
+527,527;528,102,SantaCoder,C08;C03,coded,Valid-range condition reversed; undefined is_even helper.
+678,678,102,StarCoder,C08,coded,Requires both endpoints even and can accept reversed range; interior candidates omitted.
+74,74;75,103,CodeGen-16B,C15;C16,coded,Truncates instead of rounding and removes required 0b prefix.
+250,250,103,InCoder-1B,C05,coded,Encodes n alone with arbitrary padding instead of rounded average.
+353,353,103,GPT-3.5,C16,coded,Removes required 0b prefix.
+529,529;530,103,SantaCoder,C05,coded,Encodes n with width m instead of average and removes prefix.
+679,679,103,StarCoder,C15,coded,Truncates mean instead of rounding.
+76,76,104,CodeGen-16B,C04,coded,Applies numeric modulo to string digit without int conversion.
+251,251,104,InCoder-1B,C07;C08,coded,Tests whole-number evenness instead of absence of any even digit; polarity reversed.
+531,531,104,SantaCoder,C04;C13,coded,"Subtracts string digits from integer set, so no relevant filtering; deduplicates unnecessarily."
+77,77,105,CodeGen-16B,C01,coded,Constant empty list omits implementation.
+252,252;253,105,InCoder-1B,C06;C16,coded,No 1..9 filtering and string digits instead of number names.
+532,532;533,105,SantaCoder,C03;C04,coded,Undefined names and string-name membership against integers instead of mapping.
+680,680,105,StarCoder,C01,coded,Constant empty list omits implementation.
+78,78,106,CodeGen-16B,C01,coded,Constant [1] omits n-dependent construction.
+254,254;255;256;257,106,InCoder-1B,C10;C06,coded,Reads factorial[0] while list empty; omits odd-index sum branch.
+534,534;535,106,SantaCoder,C04;C16,coded,Returns nested/repeated lists via n*f instead of scalar factorial/sum per index.
+681,681,106,StarCoder,C06,coded,Returns 1 at even indices instead of factorial.
+79,79,107,CodeGen-16B,C03,coded,Undefined is_palindrome and is_even helpers.
+258,258,107,InCoder-1B,C02,coded,Truncated repeated appends; no counting result.
+536,536,107,SantaCoder,C06,coded,Counts parity without restricting to palindromic integers.
+80,80,108,CodeGen-16B,C12,coded,Drops negative sign instead of negating only first digit.
+259,259;260,108,InCoder-1B,C07,coded,Tests integer sign rather than signed digit sum.
+354,354,108,GPT-3.5,C12,coded,Drops sign instead of applying it to first digit.
+410,410,108,GPT-4,C07,coded,Applies sign to least-significant instead of most-significant digit.
+537,537,108,SantaCoder,C07,coded,Tests whole-number sign instead of signed digit sum.
+682,682,108,StarCoder,C03,coded,Undefined sum_digits helper.
+81,81,109,CodeGen-16B,C11,coded,Repeats rotations recursively with no exhaustion detection for unsortable cycle.
+261,261,109,InCoder-1B,C01,coded,Docstring-only body.
+355,355,109,GPT-3.5,C02,coded,Truncated unterminated docstring; no implementation.
+411,411,109,GPT-4,C08,coded,Uses local neighbor conditions that reject valid rotated sequences instead of wraparound order condition.
+538,538,109,SantaCoder,C02,coded,Truncated length-specific always-true branches ignore ordering.
+683,683,109,StarCoder,C09;C06,coded,Accesses arr[i+1] at last position; tests current sortedness rather than rotational sortedness.
+82,82,110,CodeGen-16B,C05,coded,Sum equality/evenness substituted for sufficient even-element supply.
+262,262,110,InCoder-1B,C05,coded,Requires equal lengths and aligned parity rather than available even-element count.
+539,539,110,SantaCoder,C05,coded,Swaps even-even aligned pairs then tests list equality instead of feasible odd-even exchanges.
+684,684,110,StarCoder,C05,coded,Parity of total sum substituted for all-even feasibility using second list.
+83,83,111,CodeGen-16B,C06,coded,Returns complete frequency table without filtering maximum-frequency letters.
+263,263,111,InCoder-1B,C02,coded,Truncated attribute expression; set.count invalid and frequencies discarded by set.
+356,356,111,GPT-3.5,C03;C16;C17,coded,"Undefined c at assignment, no returned result, and max(empty) unguarded."
+540,540,111,SantaCoder,C03;C06,coded,Counter undefined and result not filtered to maximal-frequency letters.
+685,685,111,StarCoder,C01,coded,Pass-only body.
+264,264,112,InCoder-1B,C12;C08,coded,"Deletes whole c substring from reversed s, lowercases, and compares against emptied c instead of palindrome."
+541,541,112,SantaCoder,C06;C07,coded,No deletion; compares original s to reversed c instead of filtered self-palindrome.
+686,686,112,StarCoder,C07,coded,Compares filtered string with reverse of unfiltered original.
+84,84;85,113,CodeGen-16B,C16,coded,Wrong template replacement positions and substitutes list index for count in parts.
+265,265;266,113,InCoder-1B,C06;C16,coded,Counts all digits instead of odd digits and returns counts without required textual template.
+357,357,113,GPT-3.5,C16,coded,Only substitutes placeholder position instead of every letter i; source-generated docstring conflicts with dataset task examples.
+542,542;543;544,113,SantaCoder,C07;C16,coded,Uses ordinal n instead of odd count and malformed template.
+687,687;688,113,StarCoder,C08;C16,coded,Counts nonzero digits instead of odd digits and wrong text substitutions.
+267,267;268,114,InCoder-1B,C07;C09,coded,"Searches decreasing pairs rather than contiguous subarray sums, omitting singletons/longer spans."
+358,358,114,GPT-3.5,C10,coded,"Keeps positive prefix via max(current_sum,0) instead of negative prefix for minimization."
+545,545,114,SantaCoder,C02,coded,Truncated fixed-length single-element minima; ignores multi-element subarray sums.
+689,689;690;691,114,StarCoder,C10,coded,Resets negative prefix instead of positive prefix when minimizing sums.
+87,87,115,CodeGen-16B,C05,coded,Counts individual water cells along recursive paths; capacity never determines per-well bucket rounding.
+269,269,115,InCoder-1B,C01,coded,Only import; no computation/return.
+359,359,115,GPT-3.5,C13,coded,Rounds after pooling all wells instead of separately per well.
+412,412,115,GPT-4,C13,coded,Pools wells before rounding and undercounts partial buckets.
+546,546,115,SantaCoder,C02,coded,"Uses scalar water values as nested coordinates; repeated incomplete maxima logic, no result."
+692,692,115,StarCoder,C01,coded,Pass-only implementation after import.
+270,270,116,InCoder-1B,C02,coded,Undefined count_ones and repetitive bit_length calls; no returned sorted array.
+547,547,116,SantaCoder,C14,coded,"Missing secondary numeric sort key for equal bit counts; task examples conflict with verbal bitcount order, reference supports verbal rule."
+88,88,117,CodeGen-16B,C01,coded,Constant empty result omits word selection.
+271,271,117,InCoder-1B,C07,coded,Uses word length instead of consonant count.
+548,548,117,SantaCoder,C07,coded,Uses word length instead of consonant count.
+693,693,117,StarCoder,C01,coded,Pass-only body.
+89,89;90,118,CodeGen-16B,C09;C06;C12;C16,coded,"Returns left consonant, not vowel; wrong scan direction, no right-neighbor test or uppercase handling."
+272,272,118,InCoder-1B,C02,coded,Separates vowels/consonants and repeats trimming; no adjacency search/return.
+549,549,118,SantaCoder,C07,coded,Chooses endpoint vowels explicitly excluded by contract.
+694,694;695,118,StarCoder,C06,coded,No consonant-neighbor test; may return final vowel excluded by task.
+91,91,119,CodeGen-16B,C09,coded,Only handles literal one-character pair instead of concatenated balanced strings in either order.
+273,273,119,InCoder-1B,C05,coded,Whole-string equality with single bracket replaces general balancing; wrong pairing rule.
+550,550,119,SantaCoder,C07;C09,coded,Treats each whole string as one bracket and does not try swapped concatenation.
+696,696,119,StarCoder,C01,coded,Pass-only body.
+92,92,120,CodeGen-16B,C01,coded,Pass-only body.
+274,274,120,InCoder-1B,C05,coded,Midpoint-based slicing ignores top-k requirement and requested cardinality.
+361,361,120,GPT-3.5,C14,coded,Returns selected largest elements in descending rather than ascending order.
+413,413,120,GPT-4,C14,coded,Returns largest elements descending rather than ascending.
+551,551;552,120,SantaCoder,C14;C17,coded,Selects smallest k; k=0 returns full list instead of empty.
+697,697,120,StarCoder,C14,coded,Largest elements returned descending rather than ascending.
+93,93,121,CodeGen-16B,C06,coded,Missing odd-value filter.
+275,275,121,InCoder-1B,C04;C06,coded,Indexes Python list with list of indices and omits even-position restriction.
+362,362,121,GPT-3.5,C07,coded,Uses odd positions instead of even positions.
+553,553,121,SantaCoder,C07;C06,coded,Uses odd positions and omits odd-value filter.
+698,698,121,StarCoder,C06,coded,Missing odd-value filter.
+276,276,122,InCoder-1B,C07;C06;C17,coded,Processes whole array without digit filtering and adds extra possibly out-of-bounds elements every k.
+363,363,122,GPT-3.5,C08,coded,Accepts exactly two positive digits instead of at most two including one-digit/negative values.
+554,554;555,122,SantaCoder,C06;C07,coded,Sums entire array with neither first-k nor digit constraint.
+699,699;700,122,StarCoder,C14;C06,coded,Sorts before selecting first k and omits digit filter.
+95,95,123,CodeGen-16B,C01,coded,Pass-only body.
+277,277,123,InCoder-1B,C02,coded,Repeated constants rather than Collatz updates; no return.
+556,556,123,SantaCoder,C05,coded,"Enumerates integers below n instead of Collatz sequence, also includes even values."
+701,701,123,StarCoder,C06;C09,coded,Appends all successors including even values and omits initial n when odd.
+278,278;279,124,InCoder-1B,C17;C06;C08,coded,"Parses malformed/empty input without guard, ignores month-specific day limits, invents year>=1900."
+364,364,124,GPT-3.5,C03;C08,coded,re undefined; unanchored regex may accept suffix then parsing fails; adds year restriction absent from listed rules.
+557,557;558;559,124,SantaCoder,C03;C07;C08,coded,re undefined; applies day bound to year and universal 29-day bound instead of per-month limits.
+97,97,125,CodeGen-16B,C06,coded,Only whitespace branch; comma/count fallback omitted.
+280,280,125,InCoder-1B,C05,coded,Word length filtering/lowercasing substitutes for conditional tokenization and letter ordinal count.
+365,365,125,GPT-3.5,C12;C15,coded,Uses raw ASCII parity rather than zero-based alphabet parity; recognizes only space not other whitespace.
+560,560,125,SantaCoder,C06,coded,"Only whitespace split, missing comma and character-count branches."
+702,702,125,StarCoder,C06,coded,"Only whitespace split, missing comma and character-count branches."
+98,98,126,CodeGen-16B,C06;C17,coded,Missing maximum-two-occurrences constraint; empty-list behavior differs from reference.
+281,281,126,InCoder-1B,C08,coded,Strict increase rejects permitted duplicate pairs.
+366,366,126,GPT-3.5,C08,coded,Rejects any duplicate although up to two copies permitted.
+561,561,126,SantaCoder,C06,coded,Missing multiplicity cap of two.
+703,703,126,StarCoder,C06,coded,Missing multiplicity cap of two.
+99,99,127,CodeGen-16B,C06,coded,"Only intersection existence, missing prime-length requirement."
+282,282,127,InCoder-1B,C05;C16,coded,Intersects endpoint sets rather than continuous intervals and returns boolean rather than YES/NO.
+367,367,127,GPT-3.5,C02,coded,Truncated if statement with no body.
+562,562,127,SantaCoder,C08;C06,coded,"Only interval equality accepted, ignores prime intersection length."
+704,704,127,StarCoder,C08;C06,coded,Tests containment rather than prime intersection length.
+100,100,128,CodeGen-16B,C03,coded,Undefined prod and sign helpers.
+283,283,128,InCoder-1B,C07;C15,coded,Computes signs of indices with reversed signs and sums them; ignores magnitudes and product.
+563,563;564,128,SantaCoder,C06,coded,Returns sum of absolute values without product-of-signs factor.
+705,705,128,StarCoder,C01,coded,Pass-only body.
+101,101,129,CodeGen-16B,C02,coded,No final returned path; assumes no revisits/top-left start and minimum sum instead of lexicographic k-cell path.
+284,284,129,InCoder-1B,C02,coded,Truncated fixed first-row appends instead of bounded grid path search.
+368,368;369,129,GPT-3.5,C03;C14;C09,coded,heapq undefined; orders by last cell rather than full path and globally forbids allowed revisits.
+415,415,129,GPT-4,C14,coded,Compares final path element instead of lexicographic sequence.
+565,565,129,SantaCoder,C05;C16,coded,"Returns minimum-sum scalar for monotone top-left path, ignoring k and required path sequence."
+706,706,129,StarCoder,C01,coded,Pass-only body.
+102,102;103,130,CodeGen-16B,C10,coded,Incorrect base outputs/cardinality and sum-of-prefix recurrence instead of parity-defined recurrence.
+285,285;286,130,InCoder-1B,C11;C04,coded,"Calls tri(n+1) without resolving even branch, causing unbounded recursion; concatenates lists."
+370,370;371;372,130,GPT-3.5,C10,coded,Wrong seeds/empty case and accesses future seq[i+1] before construction.
+566,566;567,130,SantaCoder,C10;C11,coded,Wrong seeds and list recursion involving n+1 causes unbounded recursion.
+707,707,130,StarCoder,C10;C09,coded,Off-by-one output length and ordinary tribonacci recurrence instead of specified alternating rule.
+104,104,131,CodeGen-16B,C08,coded,"Any even digit returns zero, instead of ignoring even digits unless all even."
+287,287,131,InCoder-1B,C03;C05,coded,Undefined reduce/operator and factorial range substitutes for odd digit product.
+568,568,131,SantaCoder,C10;C07,coded,"Multiplies whole prefixes with zero base, producing zero instead of odd-digit product."
+708,708,131,StarCoder,C01,coded,Constant zero omits digit analysis.
+105,105,132,CodeGen-16B,C05,coded,Tests whole-string balance instead of existence of nested valid subsequence.
+288,288,132,InCoder-1B,C03;C11,coded,"re undefined and recursive match can equal unchanged input, no progress."
+373,373,132,GPT-3.5,C08,coded,Residual unmatched-stack count substituted for nested-pair detection; rejects balanced nested example.
+416,416,132,GPT-4,C08,coded,"Requires entire residual stack empty, rejecting valid nested subsequence with trailing unmatched opens."
+569,569;570,132,SantaCoder,C05,coded,Tests full balance without nesting-depth requirement.
+709,709,132,StarCoder,C01,coded,Constant false omits analysis.
+106,106;107,133,CodeGen-16B,C15,coded,Squares before integer truncation instead of ceiling before square.
+289,289,133,InCoder-1B,C01,coded,Docstring-only body.
+571,571,133,SantaCoder,C06,coded,Missing ceiling step before squaring.
+710,710,133,StarCoder,C03,coded,math missing import.
+108,108,134,CodeGen-16B,C08;C17,coded,Uses absence of any space instead of preceding-space boundary; empty input unsafe.
+290,290,134,InCoder-1B,C02,coded,Truncated unterminated string.
+572,572,134,SantaCoder,C06;C17,coded,Omits standalone-character condition and empty guard.
+711,711;712,134,StarCoder,C08;C17,coded,Alphabetic and not alphanumeric predicate impossible; empty input unsafe.
+109,109;110,135,CodeGen-16B,C09;C17,coded,Wrong returned index and first instead of last descent; compares first with last and wrong singleton result.
+291,291,135,InCoder-1B,C02,coded,Truncated assignment; sorting would erase original descents.
+375,375,135,GPT-3.5,C09,coded,Returns preceding index i-1 rather than descent element i.
+573,573,135,SantaCoder,C01,coded,Pass-only body.
+713,713,135,StarCoder,C01,coded,Pass-only body.
+111,111,136,CodeGen-16B,C17,coded,All-zero nonempty list leaves both groups empty and calls min(empty).
+292,292,136,InCoder-1B,C05;C16;C17,coded,Compares group sizes and returns lists instead of signed extrema; empty positive index unsafe.
+574,574,136,SantaCoder,C07,coded,Uses whole-list extrema without sign-specific partition and mishandles singleton zero.
+714,714,136,StarCoder,C01,coded,Pass-only body.
+112,112,137,CodeGen-16B,C12,coded,No numeric parsing/decimal comma normalization; mixed-type comparison fails and strings sort lexically.
+293,293,137,InCoder-1B,C02,coded,Truncated expression with undefined numbers/cmp; returns callable instead of selected argument.
+376,376,137,GPT-3.5,C12;C16,coded,Rejects mixed types and returns normalized string rather than preserving original representation.
+575,575,137,SantaCoder,C12;C17,coded,Mixed types rejected; numeric strings compared lexically and equality returns b rather than None.
+715,715,137,StarCoder,C12,coded,Direct heterogeneous/lexical comparison instead of normalized numeric values.
+113,113,138,CodeGen-16B,C08,coded,Divisibility by four substituted for even n>=8.
+294,294,138,InCoder-1B,C08,coded,Minimum threshold four instead of eight.
+377,377,138,GPT-3.5,C08;C09,coded,Final sum equality is tautology; missing parity check and exclusive loop bounds reject minimal valid sum.
+576,576,138,SantaCoder,C05,coded,"Triangular-sum identity always true for positive n, unrelated to four even addends."
+716,716,138,StarCoder,C01,coded,Constant false omits computation.
+114,114;115,139,CodeGen-16B,C06,coded,Computes ordinary factorial instead of product of factorials.
+295,295,139,InCoder-1B,C06,coded,Ordinary factorial recurrence omits cumulative product of factorials.
+577,577,139,SantaCoder,C06,coded,Ordinary factorial instead of product of factorials.
+717,717,139,StarCoder,C06,coded,Ordinary factorial instead of product of factorials.
+116,116,140,CodeGen-16B,C01,coded,Returns input unchanged instead of replacing spaces.
+296,296;297,140,InCoder-1B,C03;C12,coded,"re undefined; collapses all whitespace to one underscore, omits long-run hyphen rule."
+578,578;579,140,SantaCoder,C03;C12,coded,re undefined; wrong run-length-dependent replacement.
+718,718;719,140,StarCoder,C03;C12,coded,re undefined; wrong run-length-dependent replacement.
+117,117;118,141,CodeGen-16B,C07,coded,Limits entire filename length to three instead of digit count.
+298,298;299,141,InCoder-1B,C03;C08;C16,coded,re undefined; pattern requires digit-only stem/two-letter suffix and returns match object instead of Yes/No.
+379,379,141,GPT-3.5,C08,coded,Regex character class is not extension alternation; unnecessarily restricts rest of stem to alphanumerics.
+580,580,141,SantaCoder,C02,coded,Truncated repetitive checks; total length substituted for digit count.
+720,720,141,StarCoder,C07,coded,Total filename length limited to three instead of digit count.
+119,119,142,CodeGen-16B,C08,coded,Squares indices divisible only by four instead of cubing.
+300,300,142,InCoder-1B,C01,coded,Docstring-only body.
+418,418,142,GPT-4,C08,coded,"Gives cube priority at indices divisible by both 3 and 4, contrary to required square priority."
+581,581;582,142,SantaCoder,C07;C06,coded,Uses element values instead of indices for branch choice and drops unchanged elements.
+721,721,142,StarCoder,C06,coded,Omits unchanged elements in sum.
+120,120,143,CodeGen-16B,C03,coded,Undefined is_prime helper.
+583,583;584,143,SantaCoder,C06;C14,coded,Sorts all words instead of filtering prime lengths in original order.
+722,722,143,StarCoder,C03,coded,Undefined is_prime helper.
+121,121,144,CodeGen-16B,C01,coded,Constant false omits fraction multiplication.
+301,301,144,InCoder-1B,C04,coded,Treats fraction string n as numeric and recurses with float x then calls split; no product integrality computation.
+585,585,144,SantaCoder,C01,coded,Pass-only body.
+122,122,145,CodeGen-16B,C12,coded,Converts minus sign with int; missing signed-leading-digit handling.
+302,302,145,InCoder-1B,C04;C07,coded,"Parses textual representation of whole list as digits, including brackets; loses original elements."
+380,380,145,GPT-3.5,C12,coded,Absolute digit sum ignores negative sign on first digit.
+420,420,145,GPT-4,C12,coded,Absolute digit sum ignores negative sign on first digit.
+586,586;587,145,SantaCoder,C12,coded,Converts minus sign with int; signed inputs fail.
+724,724,145,StarCoder,C12,coded,Absolute digit sum ignores signed first digit.
+123,123,146,CodeGen-16B,C06,coded,Missing first-digit oddness condition.
+303,303;304,146,InCoder-1B,C08;C06,coded,Checks even final digit and omits first-digit condition.
+588,588,146,SantaCoder,C06,coded,Missing first-digit oddness condition.
+725,725,146,StarCoder,C07,coded,Uses last two digits modulo100 instead of extracting first digit.
+124,124,147,CodeGen-16B,C05,coded,Sums individual values divisible by three instead of counting distinct-index triples.
+305,305,147,InCoder-1B,C15,coded,Wrong triple formula and modulo precedence; never constructs specified a[i].
+589,589,147,SantaCoder,C03;C05,coded,Undefined a; sums individual terms instead of counting triples.
+726,726,147,StarCoder,C05,coded,Counts divisible indices instead of qualifying triples.
+306,306,148,InCoder-1B,C01,coded,Case conversions only; no orbital range/return.
+590,590,148,SantaCoder,C01,coded,Pass-only body.
+727,727;728,148,StarCoder,C03,coded,Undefined planets and inconsistent string-index lookup; incorrect interval selection.
+125,125;126,149,CodeGen-16B,C14,coded,Missing alphabetical tie-break for equal lengths.
+307,307,149,InCoder-1B,C06;C14,coded,Includes odd-length strings and only lexicographic sorting.
+591,591;592,149,SantaCoder,C06;C14,coded,Missing odd-length filter and secondary alphabetical key.
+729,729,149,StarCoder,C14,coded,"The implementation sorts retained even-length strings alphabetically without the required primary length key. Official HumanEval/149 tests explicitly include mixed lengths: [""aaaa"",""bbbb"",""dd"",""cc""] must produce [""cc"",""dd"",""aaaa"",""bbbb""], whereas unchanged source returns [""aaaa"",""bbbb"",""cc"",""dd""]. It passes 6 of 7 official assertions; both supplied and upstream references pass all 7. Use the stated length-first rule, reference implementations and official tests to resolve the contradictory equal-length sentence. Assign C14; retain the specification conflict as a scope note."
+127,127,150,CodeGen-16B,C08,coded,Tests n==1 instead of primality.
+308,308,150,InCoder-1B,C08,coded,Tests divisibility by output value x instead of primality.
+593,593,150,SantaCoder,C08,coded,Evenness substituted for primality with wrong branch.
+730,730,150,StarCoder,C08,coded,Oddness substituted for primality; excludes two and includes composites/one.
+128,128,151,CodeGen-16B,C06,coded,Missing integer-type filter; fractional positive values can pass.
+309,309,151,InCoder-1B,C06,coded,Squares all values regardless of parity/type/sign.
+382,382;383,151,GPT-3.5,C15,coded,Adds unrequested factor of two to otherwise valid sum.
+594,594,151,SantaCoder,C06,coded,No oddness/type/sign filtering.
+731,731,151,StarCoder,C06,coded,Missing nonnegative integer restriction.
+310,310,152,InCoder-1B,C01,coded,Docstring-only body.
+129,129,153,CodeGen-16B,C01,coded,Pass-only body.
+311,311,153,InCoder-1B,C02,coded,Truncated repetitive conversions; destroys case information and no strength/result.
+595,595,153,SantaCoder,C14,coded,Uses string length instead of uppercase-minus-lowercase strength.
+732,732,153,StarCoder,C14;C10,coded,"Sorts strengths independently of extensions and selects minimum position, breaking association."
+130,130,154,CodeGen-16B,C09,coded,Only unrotated substring checked; required rotations omitted.
+312,312,154,InCoder-1B,C01,coded,Docstring-only body.
+596,596,154,SantaCoder,C07;C09,coded,Checks suffixes of a inside b rather than rotations of b inside a.
+733,733,154,StarCoder,C07;C09,coded,Rotates a once rather than all rotations of b.
+131,131,155,CodeGen-16B,C17,coded,Negative numbers and zero bypass digit loop.
+313,313;314;315,155,InCoder-1B,C15;C10,coded,"Divides by two instead of ten, wrong count seeds and polarity."
+385,385,155,GPT-3.5,C15,coded,Negates counts for negative input although counts remain nonnegative.
+597,597,155,SantaCoder,C04;C05,coded,Numeric modulo on character; sums digit values instead of counting parity.
+132,132;133,156,CodeGen-16B,C06,coded,"Missing subtractive Roman forms (iv,ix,xl,etc.)."
+316,316;317,156,InCoder-1B,C05;C03,coded,Returns decimal digits instead of Roman symbols; undefined i for 1000 branch.
+598,598;599,156,SantaCoder,C14,coded,Ascending dictionary iteration repeatedly consumes unit 1 instead of largest matching denomination.
+734,734,156,StarCoder,C01,coded,Pass-only body.
+318,318,157,InCoder-1B,C05,coded,Compares differences of side lengths instead of Pythagorean relation.
+600,600,157,SantaCoder,C05,coded,Tests triangle validity rather than right-angle property.
+735,735,157,StarCoder,C09,coded,Assumes c is hypotenuse; valid permutations omitted.
+134,134,158,CodeGen-16B,C01,coded,"Only commented example lists, no implementation."
+319,319,158,InCoder-1B,C04;C05,coded,Calls sort on dictionary; counts word frequencies rather than unique-character counts.
+601,601,158,SantaCoder,C05;C14,coded,Selects most frequent word instead of most distinct characters and required lexical tie-break.
+736,736,158,StarCoder,C01,coded,Pass-only body.
+135,135,159,CodeGen-16B,C01,coded,Pass-only body.
+320,320,159,InCoder-1B,C01,coded,Docstring-only body.
+386,386,159,GPT-3.5,C10,coded,Confuses additional need with total eaten; wrong available-stock and remaining accounting.
+602,602,159,SantaCoder,C05,coded,Compares already-eaten with additional need and returns unrelated quantities.
+737,737,159,StarCoder,C06,coded,No cap when requested food exceeds remaining stock.
+136,136,160,CodeGen-16B,C01,coded,Constant zero omits expression evaluation.
+321,321,160,InCoder-1B,C02,coded,Removes possibly absent operators and repeats appends; no expression construction/evaluation or return.
+387,387,160,GPT-3.5,C15,coded,"Evaluates left-to-right, ignoring precedence and exponent associativity."
+422,422,160,GPT-4,C15,coded,Evaluates left-to-right instead of arithmetic precedence/associativity.
+603,603,160,SantaCoder,C04,coded,Multiplies operator strings by operands instead of executing operations.
+738,738,160,StarCoder,C01,coded,Pass-only body.
+137,137,161,CodeGen-16B,C06,coded,Missing reverse branch when string has no letters.
+322,322,161,InCoder-1B,C06,coded,"Only lowercase-to-uppercase, no uppercase inversion or no-letter reversal."
+604,604;605,161,SantaCoder,C08;C06,coded,Lowercases all letters rather than swaps case; no no-letter reversal.
+739,739,161,StarCoder,C06,coded,Always reverses string instead of conditional case transformation.
+138,138,162,CodeGen-16B,C03,coded,hashlib missing import.
+323,323;324,162,InCoder-1B,C03;C17,coded,hashlib missing import and missing empty-string None branch.
+606,606,162,SantaCoder,C03,coded,hashlib missing import.
+740,740,162,StarCoder,C03,coded,hashlib missing import.
+139,139;140,163,CodeGen-16B,C12;C06,coded,No reversed-bound normalization and no restriction to single digits.
+325,325,163,InCoder-1B,C05,coded,Extracts digits of a instead of even digits in interval; ignores b.
+388,388;389,163,GPT-3.5,C07;C12,coded,Extracts digits inside range numbers instead of selecting digit-valued integers; reversed bounds unsupported.
+423,423,163,GPT-4,C06,coded,Missing single-digit upper limit.
+607,607;608,163,SantaCoder,C12;C06,coded,Missing bound normalization and digit-range cap.
+741,741;742,163,StarCoder,C12;C06,coded,Missing bound normalization and digit-range cap.

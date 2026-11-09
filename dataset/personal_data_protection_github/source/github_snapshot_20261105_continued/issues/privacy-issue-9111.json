@@ -1,0 +1,290 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-9111",
+  "issue_url": "https://github.com/magento/magento2/issues/5596",
+  "source_issue_url": "https://github.com/magento/magento2/issues/5596",
+  "api_url": "https://api.github.com/repos/magento/magento2/issues/5596",
+  "title": "Google Universal Analytics does not track when Cookie Restriction is enabled ",
+  "body": "## Steps to reproduce\n1. Install Magento v2.1 from `composer`.\n2. Configure the Admin Panel with a **valid Google analytics ID** and set mode to _'Universal Analytics' under 'Stores => Configuration => Sales => Google Api => Google Analytics'_\n3. Set cookie restriction mode to '**yes**' under '_Stores => Configuration => General => Web => Default Cookie Settings => Cookie Restriction Mode_.\n4. Clear all caches\n5. View any front end page\n6. Click the 'Allow Cookies' in the cookie restriction banner\n7. Wait for page to reload and use Google Analytics debug plugin to look for beacons sent to GA.\n   (https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna?hl=en) or view live tracking results in the Google analytics control panel.\n## Expected result\n1. Tracking Beacons are sent to GA (visible in the browser console is using the GA dEbug tool )\n   e.g. \n\n```\nInitializing Google Analytics.\nanalytics_debug.js:9 Running command: ga(\"create\", \"UA-<yourGAid>\", \"auto\")\nanalytics_debug.js:9 Creating new tracker: t0\nanalytics_debug.js:9 New visitor. Generating new clientId\nanalytics_debug.js:9 Auto cookieDomain found: \"sitedomain.com\"\nanalytics_debug.js:9 Running command: ga(\"send\", \"pageview\")\nanalytics_debug.js:9 Setting throttling cookie: \"_gat\"\nanalytics_debug.js:9 \nSent beacon:\nv=1&_v=j44d&a=1955779100&t=pageview&_s=1&dl=http%3A%2F%2Fsiteurl%2F&ul=en-us&de=UTF-8&dt=Home%20Page&sd=24-bit&sr=1050x1680&vp=1050x1050&je=0&fl=22.0%20r0&_u=AEAAAEABI~&jid=1985252792&cid=1406517672.1468336046&tid=UA-<yourGAid>&_r=1&z=1708727464\n\n\nanalytics_debug.js:9 _j1              (&jid) 1985252792\nanalytics_debug.js:9 adSenseId        (&a)   1955779100\nanalytics_debug.js:9 apiVersion       (&v)   1\nanalytics_debug.js:9 clientId         (&cid) 1406517672.1468336046\nanalytics_debug.js:9 encoding         (&de)  UTF-8\nanalytics_debug.js:9 flashVersion     (&fl)  22.0 r0\nanalytics_debug.js:9 hitType          (&t)   pageview\nanalytics_debug.js:9 javaEnabled      (&je)  0\nanalytics_debug.js:9 language         (&ul)  en-us\nanalytics_debug.js:9 location         (&dl)  http://####SITEURL###/\nanalytics_debug.js:9 screenColors     (&sd)  24-bit\nanalytics_debug.js:9 screenResolution (&sr)  1050x1680\nanalytics_debug.js:9 title            (&dt)  Home Page\nanalytics_debug.js:9 trackingId       (&tid) UA-<yourGAid>\nanalytics_debug.js:9 viewportSize     (&vp)  1050x1050\nanalytics_debug.js:9 Registered new plugin: ga(provide, \"render\", Function)\n```\n\nand\n\nLive Page tracking statistics to change in Google Analytics Web Console\n## Actual result\n1. No Beacon sent, shown in debug console or recorded in Google analytics.\n\nNB. This case is a duplicate of a **closed** but **unresolved** case: https://github.com/magento/magento2/issues/2518\n",
+  "author": "Participant 1",
+  "created_at": "2016-07-12T15:15:37Z",
+  "updated_at": "2020-03-18T17:13:32Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:32.920742+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:32.920742+00:00",
+    "2026-11-05T06:39:34.586527+00:00"
+  ],
+  "expected_comment_count": 32,
+  "retrieved_comment_count": 32,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 234567918,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-234567918",
+      "created_at": "2016-07-22T15:01:21Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "Same problem here. This needs to be reviewed why is not injecting the google analytics code...\n"
+    },
+    {
+      "id": 234927492,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-234927492",
+      "created_at": "2016-07-25T11:22:32Z",
+      "updated_at": "2016-07-25T11:23:51Z",
+      "author": "Participant 3",
+      "body": "Same here. The Analytics Code is just missing in the source code of the rendered page.\n\n A fix would be highly apperciated!\n"
+    },
+    {
+      "id": 234947390,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-234947390",
+      "created_at": "2016-07-25T13:05:41Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": "A quick fix is to copy the file:\n`vendor/magento/module-google-analytics/view/frontend/templates/ga.phtml`\nto your own theme:\n`app/design/frontend/{Vendor}/{theme}/Magento_GoogleAnalytics/templates/ga.phtml`\n\nAnd then replace this line:\n\n``` php\n<?php if (!$this->helper('Magento\\Cookie\\Helper\\Cookie')->isUserNotAllowSaveCookie()): ?>\n```\n\nwith:\n\n``` php\n<?php if (true): // !$this->helper('Magento\\Cookie\\Helper\\Cookie')->isUserNotAllowSaveCookie()): ?>\n```\n\nWatch out, this will _always_ output the GA code, even if the user hasn't accepted the cookie message. I'm ok with this, but you should probably check with your legal departement if this is ok to do or not.\n"
+    },
+    {
+      "id": 239767638,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-239767638",
+      "created_at": "2016-08-15T09:56:09Z",
+      "updated_at": null,
+      "author": "Participant 5",
+      "body": "@hostep - your fix is working... THX\nCan confirm the bug.\n"
+    },
+    {
+      "id": 244050696,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-244050696",
+      "created_at": "2016-09-01T11:24:51Z",
+      "updated_at": null,
+      "author": "Participant 6",
+      "body": "Confirmed here. We need the cookie allow feature thats why using true doesn't work for us. The root cause for this problem lies in `module-cookie/view/frontend/web/js/notices.js`, where the cookieValue is not saved as a JSON string. After confirming cookies the value just gets saved as \"[object Object]\", which cannot be interpreted by `_getAcceptedSaveCookiesWebsites` in `module-cookie/Helper/Cookie.php`\n\n![auswahl_052](https://cloud.githubusercontent.com/assets/584644/18165703/18d794ae-7047-11e6-99f1-fa2d0f27c035.png)\n![auswahl_053](https://cloud.githubusercontent.com/assets/584644/18165705/1e683af4-7047-11e6-8ca9-7a2b83d1f8d6.png)\n"
+    },
+    {
+      "id": 278618710,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-278618710",
+      "created_at": "2017-02-09T11:40:35Z",
+      "updated_at": null,
+      "author": "Participant 7",
+      "body": "Isn't this in breach of the EU cookie law? Web owners can remove the check themselves, but I don't think Magento should do it. "
+    },
+    {
+      "id": 288053001,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-288053001",
+      "created_at": "2017-03-21T11:39:38Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "This is still a problem. Any progress?"
+    },
+    {
+      "id": 293148252,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-293148252",
+      "created_at": "2017-04-11T04:43:02Z",
+      "updated_at": null,
+      "author": "Participant 9",
+      "body": "Still issue in latest version. @hostep fix works. But now its more a cookie notice, not restriction."
+    },
+    {
+      "id": 304652290,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-304652290",
+      "created_at": "2017-05-29T12:42:02Z",
+      "updated_at": null,
+      "author": "Participant 17",
+      "body": "Reopening, as fix for `2.1` is not available yet."
+    },
+    {
+      "id": 313850662,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-313850662",
+      "created_at": "2017-07-08T11:33:10Z",
+      "updated_at": null,
+      "author": "Participant 18",
+      "body": "Is this resolved yet? I'm creating a store in EU and I'm running into the same problem with Magento 2.1.7.\r\nI've lost overview somehow, so I'm only asking if it's worth waiting for the next update or if I finagle around it."
+    },
+    {
+      "id": 314043942,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-314043942",
+      "created_at": "2017-07-10T08:46:03Z",
+      "updated_at": "2017-07-10T08:46:14Z",
+      "author": "Participant 17",
+      "body": "@storepeinture Looks like the fix is currently available only in the `develop` branch, which is going to be 2.2."
+    },
+    {
+      "id": 314334730,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-314334730",
+      "created_at": "2017-07-11T06:00:16Z",
+      "updated_at": null,
+      "author": "Participant 19",
+      "body": "@ishakhsuvarov I applied the **stringify** change specified in commit a4daf56 but it still does not work."
+    },
+    {
+      "id": 314650864,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-314650864",
+      "created_at": "2017-07-12T05:22:36Z",
+      "updated_at": null,
+      "author": "Participant 17",
+      "body": "@coachdesign You may also try to apply PR magento/magento2#9711\r\nI am not totally sure on this one, but several different fixes may be needed to get it going."
+    },
+    {
+      "id": 317193221,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-317193221",
+      "created_at": "2017-07-22T16:08:40Z",
+      "updated_at": null,
+      "author": "Participant 20",
+      "body": "I can confirm this is, again, not implemented in 2.1.7. Reported over one year ago - and not fixed. 5 shops left on magento2 for our company - 13 switched and running now on other ecommerce systems at the moment as the magento team does not get the job done in fixing bugs since over one year. "
+    },
+    {
+      "id": 317328445,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-317328445",
+      "created_at": "2017-07-24T06:12:05Z",
+      "updated_at": null,
+      "author": "Participant 21",
+      "body": "It will never be fixed in any future 2.1 release. 2.1 receives only security fixes.\r\nYou shall upgrade to 2.2 ... which has lots of breaking changes but it's worth."
+    },
+    {
+      "id": 317337292,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-317337292",
+      "created_at": "2017-07-24T07:07:59Z",
+      "updated_at": "2017-07-24T07:08:19Z",
+      "author": "Participant 4",
+      "body": "@SchumacherFM: can you please stop spreading such news, this is definitely not true. 2.1 still receives bug fixes, just look at what's going on on the [2.1.8-preview branch](https://github.com/magento/magento2/commits/2.1.8-preview), you'll see a lot of bug fixes. They just need to start releasing it very soon as it has been almost 4 months since the last bugfix release...\r\n"
+    },
+    {
+      "id": 317379477,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-317379477",
+      "created_at": "2017-07-24T10:14:47Z",
+      "updated_at": null,
+      "author": "Participant 22",
+      "body": "Same here, how can such a bug couldn't be solved more than a year after being noticed ? \r\nDo anyone had tried with some cookie module with success ?"
+    },
+    {
+      "id": 317423905,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-317423905",
+      "created_at": "2017-07-24T13:34:14Z",
+      "updated_at": null,
+      "author": "Participant 22",
+      "body": "Used https://cookieconsent.insites.com/\r\nWorked like a charm out of the box."
+    },
+    {
+      "id": 317425379,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-317425379",
+      "created_at": "2017-07-24T13:39:30Z",
+      "updated_at": null,
+      "author": "Participant 20",
+      "body": "Hi @tommybds thanks for the link - i think we go for it too. The magento internal cookie notice is really crap. \r\n\r\nCould you maybe tell the community how you implemented this?\r\n\r\nWould be great!\r\n\r\nThanks!"
+    },
+    {
+      "id": 317428638,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-317428638",
+      "created_at": "2017-07-24T13:50:55Z",
+      "updated_at": null,
+      "author": "Participant 22",
+      "body": "Hello @andidhouse , you can generate a little script on my link, and choose the color or the text. Once you're done, copy the code and paste it in the html header of your website view in content->design->conf\r\nYou can see the effect here for exemple : https://tommy-bordas.fr/"
+    },
+    {
+      "id": 317442574,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-317442574",
+      "created_at": "2017-07-24T14:35:15Z",
+      "updated_at": null,
+      "author": "Participant 20",
+      "body": "Hi @tommybds thanks - i just wondered if it would make more sense to implement this directly into the template - but your solution works like expected.\r\n\r\nFrom SEO perspective i would not want to load two extra files (CSS and JS) from another server for the cookie notice. I try to get a developer today - i think it is simple to host both css and script on the magento server so this would be the best solution. Also the css is not really mobile friendly. \r\nThanks again!"
+    },
+    {
+      "id": 317447405,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-317447405",
+      "created_at": "2017-07-24T14:50:11Z",
+      "updated_at": null,
+      "author": "Participant 22",
+      "body": "Hi @andidhouse If you find a way to simplify the css let me know :)"
+    },
+    {
+      "id": 319220663,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-319220663",
+      "created_at": "2017-07-31T23:01:53Z",
+      "updated_at": null,
+      "author": "Participant 23",
+      "body": "Internal ticket to track issue progress: MAGETWO-69374"
+    },
+    {
+      "id": 327437772,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-327437772",
+      "created_at": "2017-09-06T10:04:28Z",
+      "updated_at": null,
+      "author": "Participant 24",
+      "body": "I've published a module https://github.com/magma/magento2-cookie-restriction-fix while we are waiting for a fix. It just replaces notices.js."
+    },
+    {
+      "id": 346550633,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-346550633",
+      "created_at": "2017-11-23T08:00:22Z",
+      "updated_at": null,
+      "author": "Participant 10",
+      "body": "I've upgraded to Magento 2.2.1 but the problem still persists."
+    },
+    {
+      "id": 356725453,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-356725453",
+      "created_at": "2018-01-10T20:24:22Z",
+      "updated_at": null,
+      "author": "Participant 11",
+      "body": "Hi Guys i have edited a little bit the fix of @hostep to be 100% sure that your Customers will not see Google Analytics if they have not accepted cookies.\r\nUnfortunately this helper doesn't work:\r\n`$this->helper('Magento\\Cookie\\Helper\\Cookie')->isUserNotAllowSaveCookie()`\r\nAnd the result is always \"true\" despite you have accepted or not cookies.\r\n\r\nAn easy fix is to copy the file:\r\n`vendor/magento/module-google-analytics/view/frontend/templates/ga.phtml`\r\nto your own theme:\r\n`app/design/frontend/{Vendor}/{theme}/Magento_GoogleAnalytics/templates/ga.phtml`\r\n\r\nAnd then replace this line:\r\n\r\n`<?php if (!$this->helper('Magento\\Cookie\\Helper\\Cookie')->isUserNotAllowSaveCookie()): ?>`\r\nwith:\r\n\r\n`<?php if (isset($_COOKIE[\"user_allowed_save_cookie\"])): // !$this->helper('Magento\\Cookie\\Helper\\Cookie')->isUserNotAllowSaveCookie()): ?>`\r\n\r\nUnder google analytics `<script>...</script>`, inside php if condition, you can also put other external javascript scripts that use cookies, for example a livechat that need the cookie policy accepted.\r\n"
+    },
+    {
+      "id": 380830447,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-380830447",
+      "created_at": "2018-04-12T14:43:08Z",
+      "updated_at": null,
+      "author": "Participant 12",
+      "body": "Im using Magento 2.2.2 and i can confirm this problem still exist so why the label that it's fixed in 2.2?x?!"
+    },
+    {
+      "id": 399928400,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-399928400",
+      "created_at": "2018-06-25T12:06:18Z",
+      "updated_at": null,
+      "author": "Participant 13",
+      "body": "@ NickyBass Can you tell if magento 2.2.2 this file: `vendor/magento/module-google-analytics/view/frontend/templates/ga.phtml` has this if statement as I have 2.2.2 and this file is as bellow:\r\n\r\n```\r\n<?php\r\n/**\r\n * Copyright © Magento, Inc. All rights reserved.\r\n * See COPYING.txt for license details.\r\n */\r\n\r\n// @codingStandardsIgnoreFile\r\n\r\n?>\r\n<?php /** @var $block \\Magento\\GoogleAnalytics\\Block\\Ga */ ?>\r\n<?php $accountId = $block->getConfig(\\Magento\\GoogleAnalytics\\Helper\\Data::XML_PATH_ACCOUNT) ?>\r\n<!-- BEGIN GOOGLE ANALYTICS CODE -->\r\n<script type=\"text/x-magento-init\">\r\n{\r\n    \"*\": {\r\n        \"Magento_GoogleAnalytics/js/google-analytics\": {\r\n            \"isCookieRestrictionModeEnabled\": <?= (int)$block->isCookieRestrictionModeEnabled() ?>,\r\n            \"currentWebsite\": <?= (int)$block->getCurrentWebsiteId() ?>,\r\n            \"cookieName\": \"<?= /* @escapeNotVerified */ \\Magento\\Cookie\\Helper\\Cookie::IS_USER_ALLOWED_SAVE_COOKIE ?>\",\r\n            \"ordersTrackingData\": <?= /* @escapeNotVerified */ json_encode($block->getOrdersTrackingData()) ?>,\r\n            \"pageTrackingData\": <?= /* @escapeNotVerified */ json_encode($block->getPageTrackingData($accountId)) ?>\r\n        }\r\n    }\r\n}\r\n</script>\r\n<!-- END GOOGLE ANALYTICS CODE -->\r\n```\r\n\r\nAlso if you look at magento core file here : https://github.com/magento/magento2/blob/2.2-develop/app/code/Magento/GoogleAnalytics/view/frontend/templates/ga.phtml\r\n\r\nThe if statement doesn't exist.\r\n\r\nThe cookie `user_allowed_save_cookie`  only add if the user click the accept button what is the fix so it adds the cookie `user_allowed_save_cookie` without click accept it?\r\n\r\nThanks;"
+    },
+    {
+      "id": 400250477,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-400250477",
+      "created_at": "2018-06-26T09:53:45Z",
+      "updated_at": null,
+      "author": "Participant 11",
+      "body": "@lano-vargas The fix i wrote was good for 2.1.x actually i don't have a solution for 2.2.2 i think the problem is varnish or the cache. "
+    },
+    {
+      "id": 410017474,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-410017474",
+      "created_at": "2018-08-02T18:06:43Z",
+      "updated_at": null,
+      "author": "Participant 14",
+      "body": "I have the same problem on 2.2.2. Any solution?"
+    },
+    {
+      "id": 512236693,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-512236693",
+      "created_at": "2019-07-17T12:40:34Z",
+      "updated_at": null,
+      "author": "Participant 15",
+      "body": "Have a related problem. My understanding is that GA doesn't need to be blocked in cookie restriction mode if you turn off data sharing, anonymize the IP, disable user ID function, disable sharing for ad purposes.\r\n\r\nSo how can I stop Magento 2.2.5 blocking GA in cookie restriction mode?"
+    },
+    {
+      "id": 600753721,
+      "url": "https://github.com/magento/magento2/issues/5596#issuecomment-600753721",
+      "created_at": "2020-03-18T17:09:54Z",
+      "updated_at": "2020-03-18T17:13:32Z",
+      "author": "Participant 16",
+      "body": "In notice.phtml\r\n\r\n> <?php if ($this->helper(\\Magento\\Cookie\\Helper\\Cookie::class)->isCookieRestrictionModeEnabled()): ?>\r\n> <?php $spanicd = base64_encode($block->getPrivacyPolicyLink()); ?>\r\n>     <div role=\"alertdialog\"\r\n>          tabindex=\"-1\"\r\n>          class=\"message global cookie\"\r\n>          id=\"notice-cookie-block\"\r\n>          style=\"display: none;\">\r\n>         <div role=\"document\" class=\"content\" tabindex=\"0\">\r\n>             <p>\r\n>                 <strong><?= $block->escapeHtml(__('We use cookies to make your experience better.')) ?></strong>\r\n>                 <span><?= $block->escapeHtml(__('To comply with the new e-Privacy directive, we need to ask for your consent to set the cookies.')) ?></span>\r\n> \t\t\t\t \r\n> \t\t\t\t<span><?= $block->escapeHtml(__('Google Analytics is active, if you want to desactivate it click')) ?></span>\r\n> \t\t\t\t<a href=\"<?= $this->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]) ?>?ga=1\" title=\"<?= $block->escapeHtml(__('Google Analytics')) ?>\">\r\n> \t\t\t\t\t<?= $block->escapeHtml(__('here')) ?>.\r\n> \t\t\t\t</a>\r\n>             </p>\r\n>             <div class=\"actions\">\r\n>                 <button id=\"btn-cookie-allow\" class=\"action allow primary\">\r\n>                     <span><?= $block->escapeHtml(__('Allow Cookies')) ?></span>\r\n>                 </button>\r\n>             </div>\r\n>         </div>\r\n>     </div>\r\n>     <script type=\"text/x-magento-init\">\r\n>         {\r\n>             \"#notice-cookie-block\": {\r\n>                 \"cookieNotices\": {\r\n>                     \"cookieAllowButtonSelector\": \"#btn-cookie-allow\",\r\n>                     \"cookieName\": \"<?= /* @noEscape */ \\Magento\\Cookie\\Helper\\Cookie::IS_USER_ALLOWED_SAVE_COOKIE ?>\",\r\n>                     \"cookieValue\": <?= /* @noEscape */ $this->helper(\\Magento\\Cookie\\Helper\\Cookie::class)->getAcceptedSaveCookiesWebsiteIds() ?>,\r\n>                     \"cookieLifetime\": <?= /* @noEscape */ $this->helper(\\Magento\\Cookie\\Helper\\Cookie::class)->getCookieRestrictionLifetime() ?>,\r\n>                     \"noCookiesUrl\": \"<?= $block->escapeJs($block->escapeUrl($block->getUrl('cookie/index/noCookies'))) ?>\"\r\n>                 }\r\n>             }\r\n>         }\r\n>     </script>\r\n> <?php endif; ?>`\r\n\r\n\r\nand in ga.phtml\r\n\r\n```\r\n<?php /** @var $block \\Magento\\GoogleAnalytics\\Block\\Ga */ ?>\r\n<?php $accountId = $block->getConfig(\\Magento\\GoogleAnalytics\\Helper\\Data::XML_PATH_ACCOUNT) ?>\r\n<!-- BEGIN GOOGLE ANALYTICS CODE -->\r\n<script type=\"text/x-magento-init\">\r\n{\r\n    \"*\": {\r\n        \"Magento_GoogleAnalytics/js/google-analytics\": {\r\n            \"isCookieRestrictionModeEnabled\": <?= (int)$block->isCookieRestrictionModeEnabled() ?>,\r\n            \"currentWebsite\": <?= (int)$block->getCurrentWebsiteId() ?>,\r\n            \"cookieName\": \"<?= /* @escapeNotVerified */ \\Magento\\Cookie\\Helper\\Cookie::IS_USER_ALLOWED_SAVE_COOKIE ?>\",\r\n            \"ordersTrackingData\": <?= /* @escapeNotVerified */ json_encode($block->getOrdersTrackingData()) ?>,\r\n            \"pageTrackingData\": <?= /* @escapeNotVerified */ json_encode($block->getPageTrackingData($accountId)) ?>\r\n        }\r\n    }\r\n}\r\n</script>\r\n<!-- END GOOGLE ANALYTICS CODE -->\r\n<?php\r\n$objectManager = \\Magento\\Framework\\App\\ObjectManager::getInstance();\r\n$cookieManager = $objectManager->get('Magento\\Framework\\Stdlib\\CookieManagerInterface');\r\n \r\nif($block->isCookieRestrictionModeEnabled() == 1 && $cookieManager->getCookie('user_allowed_save_cookie') === NULL): ?>\r\n\r\n<script type=\"text/javascript\">\r\n    require([\r\n        'jquery',\r\n        'jquery/jquery.cookie'\r\n    ], function ($) { \r\n\t\r\n        $(document).ready(function(){ \r\n            var check_cookie = $.cookie('ga_default'); // Get Cookie Value\r\n\t\t\r\n\t\t\tif(!check_cookie || check_cookie != '2'){\r\n\t\t\t\tvar date = new Date();\r\n\t\t\t\tvar minutes = 60;\r\n\t\t\t\tdate.setTime(date.getTime() + (minutes * 60 * 1000));\r\n\t\t\t\t$.cookie('ga_default', '', {path: '/', expires: -1}); // Expire Cookie\r\n\t\t\t\t$.cookie('ga_default', 'bar', {expires: date}); // Set Cookie Expiry Time\r\n\t\t\t\t$.cookie('ga_default', '1'); // Set Cookie Value\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tif(check_cookie == '1'){\r\n\t\t\t\twindow.dataLayer = window.dataLayer || [];\r\n\t\t\t\tfunction gtag(){dataLayer.push(arguments);}\r\n\t\t\t\tgtag('js', new Date());\r\n\t\t\t\tgtag('config', 'UA-44874885-2');\r\n\t\t\t}\r\n        });\r\n\t \r\n\t});\r\n</script>\r\n\t<?php if( $cookieManager->getCookie('ga_default') == 1): ?>\r\n\t\t<script async src=\"https://www.googletagmanager.com/gtag/js?id=UA-44874885-2\"></script>\r\n\t<?php endif; ?>\r\n\t<?php if($this->getRequest()->getParam('ga') == \"1\"): ?>\r\n\t\t<script type=\"text/javascript\">\r\n\t\t\trequire([\r\n\t\t\t\t'jquery',\r\n\t\t\t\t'jquery/jquery.cookie'\r\n\t\t\t], function ($) {\r\n\t\t\t\t$(document).ready(function(){ \r\n\t\t\t\t\t$.cookie('ga_default', '2');   \r\n\t\t\t\t});\r\n\t\t\t});\r\n\t\t</script>\r\n\t<?php endif; ?>\r\n<?php endif; ?>\r\n```"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original Markdown from GitHub's structured issue pages, including numbered timeline pages. Discussion complete only after pagination, comment-ID, expected-count and unchanged-issue checks. Closure timestamp is unavailable; linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/magento/magento2/issues/5596",
+  "closed_at_available": false,
+  "timeline_page_urls": [
+    "https://github.com/magento/magento2/issues/5596",
+    "https://github.com/magento/magento2/issues/5596?timeline_page=1"
+  ]
+}

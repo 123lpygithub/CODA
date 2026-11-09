@@ -1,0 +1,438 @@
+
+=== 432 23shades-0159-aajbiahbe ===
+{"dataset_id": "aajbiahbe", "repo_name": "anki/vector-python-sdk", "filename": "anki_vector/robot.py", "comment_introducing_revision": "https://github.com/anki/vector-python-sdk/commit/66aa0966ea388fe1739c468856ec5d13a4775827", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "66aa0966ea388fe1739c468856ec5d13a4775827"}
+[comment_text]
+self._audio = audio.AudioComponent(self) # TODO turn on
+[source_context]
+            robot.connect()
+            robot.anim.play_animation("anim_turn_left_01")
+            robot.disconnect()
+
+        :param timeout: The time to allow for a connection before a
+            :class:`anki_vector.exceptions.VectorTimeoutException` is raised.
+        """
+        self.conn.connect(timeout=timeout)
+        self.events.start(self.conn)
+
+        # Initialize components
+        self._anim = animation.AnimationComponent(self)
+        # self._audio = audio.AudioComponent(self) # TODO turn on
+        self._behavior = behavior.BehaviorComponent(self)
+        self._camera = camera.CameraComponent(self)
+        self._faces = faces.FaceComponent(self)
+        self._motors = motors.MotorComponent(self)
+        self._nav_map = nav_map.NavMapComponent(self)
+        self._screen = screen.ScreenComponent(self)
+        self._photos = photos.PhotographComponent(self)
+        self._proximity = proximity.ProximityComponent(self)
+        self._touch = touch.TouchComponent(self)
+        self._viewer = viewer.ViewerComponent(self)
+        self._vision = vision.VisionComponent(self)
+        self._world = world.World(self)
+
+=== 433 23shades-0106-aaefdgjbi ===
+{"dataset_id": "aaefdgjbi", "repo_name": "chainer/chainerrl", "filename": "chainerrl/replay_buffers/episodic.py", "comment_introducing_revision": "https://github.com/chainer/chainerrl/commit/57d1203413db6f4ed8d603e1775bb5e158a455bc", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "57d1203413db6f4ed8d603e1775bb5e158a455bc"}
+[comment_text]
+FIXME: The code works with EpisodicReplayBuffer
+[source_context]
+
+    def save(self, filename):
+        with open(filename, 'wb') as f:
+            pickle.dump((self.memory, self.episodic_memory), f)
+
+    def load(self, filename):
+        with open(filename, 'rb') as f:
+            memory = pickle.load(f)
+        if isinstance(memory, tuple):
+            self.memory, self.episodic_memory = memory
+        else:
+            # Load v0.2
+            # FIXME: The code works with EpisodicReplayBuffer
+            # but not with PrioritizedEpisodicReplayBuffer
+            self.memory = RandomAccessQueue(memory)
+            self.episodic_memory = RandomAccessQueue()
+
+            # Recover episodic_memory with best effort.
+            episode = []
+            for item in self.memory:
+                episode.append(item)
+                if item['is_state_terminal']:
+                    self.episodic_memory.append(episode)
+                    episode = []
+
+
+=== 434 23shades-0031-aagbibedf ===
+{"dataset_id": "aagbibedf", "repo_name": "drckf/paysage", "filename": "paysage/paysage/models.py", "comment_introducing_revision": "https://github.com/drckf/paysage/commit/b09b6c78761245e3662f3d3dcef5b8d1361d0aaf", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b09b6c78761245e3662f3d3dcef5b8d1361d0aaf"}
+[comment_text]
+\"\"\"   || #TODO: || class HopfieldModel(LatentModel): ||      ||     def __init__(self; nvis; nhid): ||         self.layers = {} ||         self.layers['visible'] = layers.IsingLayer(nvis) ||         self.layers['hidden'] = layers.GaussianLayer(nhid) ||          ||         self.params = {} ||         self.params['weights'] = numpy.random.normal(loc=0.0; scale=1.0; size=(self.layers['visible'].len; self.layers['hidden'].len)).astype(dtype=numpy.float32) ||         self.params['bias'] = numpy.ones_like(self.layers['visible'].loc)   ||  ||  || class HookeMachine(LatentModel): ||      ||     def __init__(self; nvis; nhid; vis_type='gauss'; hid_type='expo'):    ||         assert vis_type.lower() in ['gauss'; 'ising'] ||         assert hid_type.lower() in ['expo'; 'bern'] ||          ||         self.layers = {} ||         self.layers['visible'] = layers.get(vis_type)(nvis) ||         self.layers['hidden'] = layers.get(hid_type)(nhid) ||          ||         self.params = {} ||         self.params['weights'] = numpy.random.normal(loc=0.0; scale=1.0; size=(self.layers['visible'].len; self.layers['hidden'].len)).astype(dtype=numpy.float32) ||         self.params['bias'] = numpy.ones_like(self.layers['hidden'].loc)   ||         self.params['T'] = numpy.ones(1; dtype=numpy.float32) ||                  ||         self.deriv = {} ||         self.deriv['weights'] = numpy.zeros_like(self.params['weights']) ||         self.deriv['bias'] = numpy.zeros_like(self.params['bias']) ||         self.params['T'] = numpy.zeros_like(self.params['T']) ||          ||         self.set_vis(numpy.zeros_like(self.layers['visible'].loc)) ||          ||     def set_vis(self; vis): ||         self.vis = vis ||         self.diff = (self.params['weights'].T - vis).T ||         self.squared_dist = numpy.sum(self.diff ** 2; axis=0) ||         self.layers['hidden'].update_params(self.params['bias'] + self.squared_dist \/ (2 * self.params['T'])) ||         self.energy = -numpy.sum(numpy.log(self.layers['hidden'].partition_function()))         ||          ||     def visible_conditional_params(self; hid): ||         total = numpy.sum(hid) ||         loc = numpy.dot(self.params['weights']; hid) \/ total ||         scale = self.params['T'] \/ total * numpy.ones_like(self.layers['visible'].loc) ||         return (loc; scale) ||          ||     def update_visible_params(self; hid): ||         self.layers['visible'].update_params(*self.visible_conditional_params(hid)) ||          ||     def derivatives(self; vis; key): ||         self.update_hidden_params(vis) ||         hidden_mean = self.layers['hidden'].mean() ||         if key == 'bias': ||             # del H(v; k) \/ del b ||             return hidden_mean ||         elif key == 'weights': ||             # del H(v; k) \/ del W ||             return (self.difference(vis) * hidden_mean.T) \/ self.params['T'] ||         elif key == 'T': ||             # del H(v;k) \/ del T ||             return numpy.dot(hidden_mean.T; self.squared_distance(vis)) ||         else: ||             raise ValueError('unknown key: {}'.format(key)) ||     \"\"\"
+[source_context]
+    def marginal_energy(self, visible):
+        Z_hidden = self.layers['hidden'].partition_function(self.params['hidden_bias'] + numpy.dot(visible, self.params['weights']))
+        return -numpy.dot(self.params['visible_bias'], visible) - numpy.sum(numpy.log(Z_hid))
+
+    def derivatives(self, visible):
+        mean_hidden = self.layers['hidden'].mean(visible)
+        derivs = {}
+        self.derivs['visible_bias'] = -visible
+        self.derivs['hidden_bias'] = -mean_hidden
+        self.derivs['weights'] = -numpy.outer(visible, mean_hidden)
+        return derivs
+
+"""  
+#TODO:
+class HopfieldModel(LatentModel):
+    
+    def __init__(self, nvis, nhid):
+        self.layers = {}
+        self.layers['visible'] = layers.IsingLayer(nvis)
+        self.layers['hidden'] = layers.GaussianLayer(nhid)
+        
+        self.params = {}
+        self.params['weights'] = numpy.random.normal(loc=0.0, scale=1.0, size=(self.layers['visible'].len, self.layers['hidden'].len)).astype(dtype=numpy.float32)
+        self.params['bias'] = numpy.ones_like(self.layers['visible'].loc)  
+
+
+class HookeMachine(LatentModel):
+    
+    def __init__(self, nvis, nhid, vis_type='gauss', hid_type='expo'):   
+        assert vis_type.lower() in ['gauss', 'ising']
+        assert hid_type.lower() in ['expo', 'bern']
+        
+        self.layers = {}
+        self.layers['visible'] = layers.get(vis_type)(nvis)
+        self.layers['hidden'] = layers.get(hid_type)(nhid)
+        
+        self.params = {}
+        self.params['weights'] = numpy.random.normal(loc=0.0, scale=1.0, size=(self.layers['visible'].len, self.layers['hidden'].len)).astype(dtype=numpy.float32)
+        self.params['bias'] = numpy.ones_like(self.layers['hidden'].loc)  
+        self.params['T'] = numpy.ones(1, dtype=numpy.float32)
+                
+        self.deriv = {}
+        self.deriv['weights'] = numpy.zeros_like(self.params['weights'])
+        self.deriv['bias'] = numpy.zeros_like(self.params['bias'])
+        self.params['T'] = numpy.zeros_like(self.params['T'])
+        
+        self.set_vis(numpy.zeros_like(self.layers['visible'].loc))
+        
+    def set_vis(self, vis):
+        self.vis = vis
+        self.diff = (self.params['weights'].T - vis).T
+        self.squared_dist = numpy.sum(self.diff ** 2, axis=0)
+        self.layers['hidden'].update_params(self.params['bias'] + self.squared_dist / (2 * self.params['T']))
+        self.energy = -numpy.sum(numpy.log(self.layers['hidden'].partition_function()))        
+        
+    def visible_conditional_params(self, hid):
+        total = numpy.sum(hid)
+        loc = numpy.dot(self.params['weights'], hid) / total
+        scale = self.params['T'] / total * numpy.ones_like(self.layers['visible'].loc)
+        return (loc, scale)
+        
+    def update_visible_params(self, hid):
+        self.layers['visible'].update_params(*self.visible_conditional_params(hid))
+        
+    def derivatives(self, vis, key):
+        self.update_hidden_params(vis)
+        hidden_mean = self.layers['hidden'].mean()
+        if key == 'bias':
+            # del H(v, k) / del b
+            return hidden_mean
+        elif key == 'weights':
+            # del H(v, k) / del W
+            return (self.difference(vis) * hidden_mean.T) / self.params['T']
+        elif key == 'T':
+            # del H(v,k) / del T
+            return numpy.dot(hidden_mean.T, self.squared_distance(vis))
+        else:
+            raise ValueError('unknown key: {}'.format(key))
+    """
+    
+# ----- FUNCTIONS ----- #
+    
+@jit('float32[:](float32[:,:],float32[:,:],float32[:,:])',nopython=True)
+def batch_dot(vis, W, hid):
+    result = numpy.zeros(len(vis), dtype=numpy.float32)
+    for i in range(len(vis)):
+        result[i] = numpy.dot(vis[i], numpy.dot(W, hid[i]))
+    return result
+
+
+            
+
+=== 435 23shades-0118-aajcgbchf ===
+{"dataset_id": "aajcgbchf", "repo_name": "zvtvz/zvt", "filename": "zvt/reader/reader.py", "comment_introducing_revision": "https://github.com/zvtvz/zvt/commit/2f1fd57f65c6c7110c826320e78cfb8d74c33648", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "2f1fd57f65c6c7110c826320e78cfb8d74c33648"}
+[comment_text]
+FIXME:we suppose history data should be there at first
+[source_context]
+        whether got data
+        """
+        if not df_is_not_null(self.data_df):
+            self.load_data()
+            return False
+
+        df = self.data_df.reset_index(level='timestamp')
+        recorded_timestamps = df.groupby(level=0)['timestamp'].max()
+
+        self.logger.info('level:{},current_timestamps:\n{}'.format(self.level, recorded_timestamps))
+
+        changed = False
+        # FIXME:we suppose history data should be there at first
+        start_time = time.time()
+        for category, recorded_timestamp in recorded_timestamps.iteritems():
+            while True:
+                category_filter = [self.category_column == category]
+                if self.filters:
+                    filters = self.filters + category_filter
+                else:
+                    filters = category_filter
+
+                added = get_data(data_schema=self.data_schema, provider=self.provider, columns=self.columns,
+                                 start_timestamp=recorded_timestamp,
+                                 end_timestamp=to_timestamp, filters=filters, level=self.level)
+
+=== 436 23shades-0732-aahjacheg ===
+{"dataset_id": "aahjacheg", "repo_name": "JohnVinyard/zounds", "filename": "analyze/feature/constantq.py", "comment_introducing_revision": "https://github.com/JohnVinyard/zounds/commit/e6139c03415d43348f1e147006dc89b93d40b753", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e6139c03415d43348f1e147006dc89b93d40b753"}
+[comment_text]
+TODO: This is discarding phase. Is that ok?
+[source_context]
+        
+        atom_count = 0
+        for b in xrange(self._bins_per_octave):
+            bratio = b/self._bins_per_octave
+            fk = (fmin*2)**bratio
+            atom_size = np.round(self.qsr / fmin)
+            win = sqrt_blackman_harris(atom_size)
+            temp_kernel_bin = (win/atom_size) * \
+                np.exp((2*np.pi*1j*fk*np.arange(atom_size).T)/self._samplerate)
+            atom_offset = first_center - np.ceil(atom_size/2)
+            for a in xrange(self.atoms_per_frame):
+                shift = atom_offset + (a*self.atom_hop)
+                # TODO: This is discarding phase. Is that ok?
+                temp_kernel[shift: shift + atom_size] = temp_kernel_bin
+                atom_count += 1
+                spec_kernel = np.fft.fft(temp_kernel)
+                spec_kernel[np.abs(spec_kernel) <= self._thresh] = 0
+                spar_kernel.append(spec_kernel)
+                temp_kernel[:] = 0
+        
+        
+        spar_kernel = np.array(spar_kernel)
+        spar_kernel = spar_kernel.T / self.fftlen
+        wk = spar_kernel.copy()
+        wk = np.diag(np.dot(wk.T,wk))
+
+=== 437 23shades-0160-aajbibibf ===
+{"dataset_id": "aajbibibf", "repo_name": "anki/vector-python-sdk", "filename": "anki_vector/viewer.py", "comment_introducing_revision": "https://github.com/anki/vector-python-sdk/commit/270a14db4ab3b5519a4219202b3242fa108fbae3", "comment_removing_revision": "https://github.com/anki/vector-python-sdk/commit/82674d20df68c0a0a2dddb64c9af6739791c6d65", "source_context_status": "available", "source_context_commit": "270a14db4ab3b5519a4219202b3242fa108fbae3"}
+[comment_text]
+self._view_controller.update(self.robot) # TODO: <- sounds like this has something to do with keyboard input...
+[source_context]
+            This is called from the SDK process, and will pass the nav map data to the
+            3D viewer process.
+
+            We can safely capture any robot and world state here, and push to OpenGL
+            (main) process via a multiprocessing queue.
+        """
+        from .opengl import opengl_vector
+        world_frame = opengl_vector.WorldRenderFrame(self.robot)
+        try:
+            self._world_frame_queue.put(world_frame, False)
+        except mp.queues.Full:
+            pass
+        # self._view_controller.update(self.robot) # TODO: <- sounds like this has something to do with keyboard input...
+
+    def _on_nav_map_update(self, _, msg):
+        """Called from SDK process whenever the nav map is updated.
+
+        Note:
+
+            This is called from the SDK process, and will pass the nav map data to the
+            3D viewer process.
+
+            We can safely capture any robot and world state here, and push to OpenGL
+            (main) process via a multiprocessing queue.
+        """
+
+=== 438 23shades-0274-aaebjhccj ===
+{"dataset_id": "aaebjhccj", "repo_name": "alan-turing-institute/sktime", "filename": "sktime/utils/data_container.py", "comment_introducing_revision": "https://github.com/alan-turing-institute/sktime/commit/147e54c6bae653c1123d6ca897cf8ddb79d9b09a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "147e54c6bae653c1123d6ca897cf8ddb79d9b09a"}
+[comment_text]
+TODO currently we loose the time index; need to add it back to Xt after slicing in time
+[source_context]
+    """Select times from time series within cells of nested pandas DataFrame.
+
+    Parameters
+    ----------
+    X : nested pandas DataFrame or nested Series
+    times : numpy ndarray of times to select from time series
+
+    Returns
+    -------
+    Xt : pandas DataFrame
+        pandas DataFrame in nested format containing only selected times
+    """
+    # TODO currently we loose the time index, need to add it back to Xt after slicing in time
+    Xt = detabularise(tabularise(X).iloc[:, times])
+    Xt.columns = X.columns
+    return Xt
+
+
+def tabularize(X, return_array=False):
+    """Convert nested pandas DataFrames or Series with numpy arrays or pandas Series in cells into tabular
+    pandas DataFrame with primitives in cells, i.e. a data frame with the same number of rows as the input data and
+    as many columns as there are observations in the nested series. Requires series to be have the same index.
+
+    Parameters
+    ----------
+
+=== 439 23shades-0218-aajbfefjj ===
+{"dataset_id": "aajbfefjj", "repo_name": "Drakkar-Software/OctoBot", "filename": "trading/trader/trades_manager.py", "comment_introducing_revision": "https://github.com/Drakkar-Software/OctoBot/commit/5285addbb0f8b75bc4fd4f76ff804f2e39cf8cb4", "comment_removing_revision": "https://github.com/Drakkar-Software/OctoBot/commit/0a89073b076a4ee3dc433c6c50437366784b7122", "source_context_status": "available", "source_context_commit": "5285addbb0f8b75bc4fd4f76ff804f2e39cf8cb4"}
+[comment_text]
+TODO : market value
+[source_context]
+from trading.trader.portfolio import Portfolio, ExchangeConstantsTickersColumns
+
+
+class TradesManager:
+    def __init__(self, trader):
+        self.trader = trader
+        self.portfolio = trader.get_portfolio()
+        self.exchange = trader.get_exchange()
+        self.trades = []
+        self.profitability = 0
+        self.profitability_percent = 0
+
+        # TODO : market value
+        self.reported_market = "BTC"
+
+        self.currencies_prices = None
+        self.origin_portfolio = None
+        self.last_portfolio = None
+
+        self.portfolio_origin_value = 0
+        self.portfolio_current_value = 0
+        self.trades_value = 0
+
+        self.get_porfolio_origin_value()
+
+
+=== 440 23shades-0484-aabgdhcid ===
+{"dataset_id": "aabgdhcid", "repo_name": "yonghankim/Mask-RCNN", "filename": "mrcnn/model.py", "comment_introducing_revision": "https://github.com/yonghankim/Mask-RCNN/commit/5c00fe59229cfe636013c1e172c1b392d2bbb337", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "5c00fe59229cfe636013c1e172c1b392d2bbb337"}
+[comment_text]
+TODO: check if stride of 2 causes alignment issues if the featuremap
+[source_context]
+
+    feature_map: backbone features [batch, height, width, depth]
+    anchors_per_location: number of anchors per pixel in the feature map
+    anchor_stride: Controls the density of anchors. Typically 1 (anchors for
+                   every pixel in the feature map), or 2 (every other pixel).
+
+    Returns:
+        rpn_logits: [batch, H, W, 2] Anchor classifier logits (before softmax)
+        rpn_probs: [batch, H, W, 2] Anchor classifier probabilities.
+        rpn_bbox: [batch, H, W, (dy, dx, log(dh), log(dw))] Deltas to be
+                  applied to anchors.
+    """
+    # TODO: check if stride of 2 causes alignment issues if the featuremap
+    #       is not even.
+    # Shared convolutional base of the RPN
+    shared = KL.Conv2D(512, (3, 3), padding='same', activation='relu',
+                       strides=anchor_stride,
+                       name='rpn_conv_shared')(feature_map)
+
+    # Anchor Score. [batch, height, width, anchors per location * 2].
+    x = KL.Conv2D(2 * anchors_per_location, (1, 1), padding='valid',
+                  activation='linear', name='rpn_class_raw')(shared)
+
+    # Reshape to [batch, anchors, 2]
+    rpn_class_logits = KL.Lambda(
+
+=== 441 23shades-0419-aadheehad ===
+{"dataset_id": "aadheehad", "repo_name": "BerkeleyAutomation/gqcnn", "filename": "setup.py", "comment_introducing_revision": "https://github.com/BerkeleyAutomation/gqcnn/commit/dd6f949ee264964c77bd9e203c5df83256377e6e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "dd6f949ee264964c77bd9e203c5df83256377e6e"}
+[comment_text]
+TODO(vsatish): Figure out why this isn't printed.
+[source_context]
+
+    def run(self):
+        # Install Tensorflow dependency.
+        if not self.docker:
+            tf_dep = get_tf_dep()
+            subprocess.Popen([sys.executable, "-m", "pip", "install",
+                              tf_dep]).wait()
+        else:
+            # If we're using Docker, this will already have been installed
+            # explicitly through the correct `{cpu/gpu}_requirements.txt`;
+            # there is no way to check for CUDA/GPUs at Docker build time
+            # because there is no easy way to set the Nvidia runtime.
+            # TODO(vsatish): Figure out why this isn't printed.
+            skip_tf_msg = ("Omitting Tensorflow dependency because of Docker"
+                           " installation.")
+            logger.warning(skip_tf_msg)
+
+        # Run installation.
+        develop.run(self)
+
+
+class InstallCmd(install, object):
+    user_options_custom = [
+        ("docker", None, "installing in Docker"),
+    ]
+
+=== 442 23shades-0335-aagaceabd ===
+{"dataset_id": "aagaceabd", "repo_name": "SimGus/Chatette", "filename": "src/Generator.py", "comment_introducing_revision": "https://github.com/SimGus/Chatette/commit/52afc86871b3fdaab1c68b380a2c5a010f845dd3", "comment_removing_revision": "https://github.com/SimGus/Chatette/commit/6dfc6e878c6994ba7a1fc8449e353ec4af22d566", "source_context_status": "available", "source_context_commit": "52afc86871b3fdaab1c68b380a2c5a010f845dd3"}
+[comment_text]
+TODO remove this
+[source_context]
+                sub_generation = self.generate_unit(sub_unit_rule)
+                generated_entities.extend(sub_generation["entities"])
+                generated_str += sub_generation["text"]
+            # Add a space at the front if needed
+            if generated_str != "" and unit_rule["leading-space"] and \
+                not generated_str.startswith(' '):
+                    generated_str = ' '+generated_str
+
+            if '[' in generated_str:
+                print("PROBLEM in choice: "+generated_str)  # TODO remove this
+
+            if generated_str == "":
+                print("AAAA choice generated empty string")  # TODO remove this
+
+            return {
+                "text": generated_str,
+                "entities": generated_entities,
+            }
+        else:
+            # TODO keep track of already generated sentences (+max nb of attempts)
+            # Manage random generation
+            randgen_name = unit_rule["randgen"]
+            if randgen_name is not None:
+                if randgen_name not in self.generated_randgens:  # not yet tested
+                    percentage_gen = 50
+
+=== 443 23shades-0125-aaahbjjic ===
+{"dataset_id": "aaahbjjic", "repo_name": "Erotemic/netharn", "filename": "netharn/models/segnet.py", "comment_introducing_revision": "https://github.com/Erotemic/netharn/commit/ef932c663f51f5cb804a56ea4c63ff70c7d6bc31", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ef932c663f51f5cb804a56ea4c63ff70c7d6bc31"}
+[comment_text]
+hack; when inputs have more channels try pulling in only the
+[source_context]
+
+        assert len(vgg_layers) == len(merged_layers)
+
+        import torch
+        with torch.no_grad():
+            for internal, other in zip(merged_layers, vgg_layers):
+                assert isinstance(other, nn.Conv2d) and isinstance(internal, nn.Conv2d)
+                assert other.bias.size() == internal.bias.size()
+                ob, oc, ow, oh = other.weight.shape
+                ib, ic, iw, ih = internal.weight.shape
+                assert ob == ib and ow == iw and oh == ih
+                assert oc <= ic
+                # hack, when inputs have more channels try pulling in only the
+                # first parts
+                if oc == ic:
+                    internal.weight.data[:] = other.weight.data[:]
+                else:
+                    internal.weight.data[:, 0:oc, :, :] = other.weight.data[:]
+                internal.bias[:] = other.bias.data[:]
+
+    @classmethod
+    def _initializer_cls(cls):
+        """
+        Specify a custom initializer class for a FitHarness
+

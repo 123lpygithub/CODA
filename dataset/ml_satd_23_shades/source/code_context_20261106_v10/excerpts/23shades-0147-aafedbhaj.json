@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0147-aafedbhaj",
+  "revision_url": "https://github.com/lmcinnes/umap/commit/f3bd97de5fb0e1e7f8a4e52804afba71935dd434",
+  "filename": "umap/umap_.py",
+  "commit": "f3bd97de5fb0e1e7f8a4e52804afba71935dd434",
+  "source_url": "https://raw.githubusercontent.com/lmcinnes/umap/f3bd97de5fb0e1e7f8a4e52804afba71935dd434/umap/umap_.py",
+  "fetched_at": "2026-11-05T06:12:01.603915+00:00",
+  "source_sha256": "89c659a07cd21bf9dc6f814f4c24345bc774194493e95d7c83ed8e7f15331ef1",
+  "line_start": 1211,
+  "line_end": 1235,
+  "excerpt": "            The relevant attributes are ``target_metric`` and\n            ``target_metric_kwds``.\n        \"\"\"\n\n        # Handle other array dtypes (TODO: do this properly)\n        X = check_array(X, dtype=np.float32, accept_sparse='csr')\n        self._raw_data = X\n\n        if X.shape[0] <= self.n_neighbors:\n            # raise ValueError('n_neighbors must be smaller than the dataset '\n            #                  'size!')\n            if X.shape[0] == 1:\n                return np.array([0.0, 0.0])  # needed to sklearn comparability\n\n            warn('n_neighbors is larger than the dataset size; truncating to '\n                 'X.shape[0] - 1')\n            n_neighbors = X.shape[0] - 1\n        else:\n            n_neighbors = self.n_neighbors\n\n        if scipy.sparse.isspmatrix_csr(X) and not X.has_sorted_indices:\n            X.sort_indices()\n            self._sparse_data = True\n        else:\n            self._sparse_data = False"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0830-aajfigjji",
+  "revision_url": "https://github.com/probcomp/bayeslite/commit/499d14087f189381daf0afd0e9911b2fe40b7633",
+  "filename": "src/metamodels/crosscat.py",
+  "commit": "499d14087f189381daf0afd0e9911b2fe40b7633",
+  "source_url": "https://raw.githubusercontent.com/probcomp/bayeslite/499d14087f189381daf0afd0e9911b2fe40b7633/src/metamodels/crosscat.py",
+  "fetched_at": "2026-11-05T06:14:01.453823+00:00",
+  "source_sha256": "f539961b98857053fa17690e61c488e890f0aa54f2c3c913e7c7b7f121c2c3af",
+  "line_start": 1073,
+  "line_end": 1097,
+  "excerpt": "        [given_row_id, target_row_id], X_L_list, X_D_list = \\\n            self._crosscat_get_rows(bdb, generator_id, [rowid, target_rowid],\n                X_L_list, X_D_list)\n        similarity = self._crosscat.similarity(\n            M_c=self._crosscat_metadata(bdb, generator_id),\n            X_L_list=X_L_list,\n            X_D_list=X_D_list,\n            given_row_id=given_row_id,\n            target_row_id=target_row_id,\n            target_columns=[crosscat_cc_colno(bdb, generator_id, colno)\n                for colno in colnos],\n        )\n        # XXX Return a singleton list, since self._crosscat.similarity\n        # is already aggregating.\n        return [similarity]\n\n    def predict_confidence(self, bdb, generator_id, modelnos, rowid, colno,\n            numsamples=None):\n        modelno = self.get_modelno(bdb, modelnos)\n        if numsamples is None:\n            numsamples = 100    # XXXWARGHWTF\n        M_c = self._crosscat_metadata(bdb, generator_id)\n        row = core.bayesdb_generator_row_values(bdb, generator_id, rowid)\n        X_L_list = self._crosscat_latent_state(bdb, generator_id, modelno)\n        X_D_list = self._crosscat_latent_data(bdb, generator_id, modelno)",
+  "match_policy": "unique-release-normalized-v2"
+}

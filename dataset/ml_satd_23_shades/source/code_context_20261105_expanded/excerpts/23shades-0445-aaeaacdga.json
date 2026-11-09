@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0445-aaeaacdga",
+  "revision_url": "https://github.com/CartoDB/cartoframes/commit/65efe363612f3680f214a2b18a39240dc847727f",
+  "filename": "cartoframes.py",
+  "commit": "65efe363612f3680f214a2b18a39240dc847727f",
+  "source_url": "https://raw.githubusercontent.com/CartoDB/cartoframes/65efe363612f3680f214a2b18a39240dc847727f/cartoframes.py",
+  "fetched_at": "2026-11-05T06:12:55.884304+00:00",
+  "source_sha256": "fc0102cc1c51199de98ceac46fae099860b2d26d96fc4039c246201b8627cc81",
+  "line_start": 156,
+  "line_end": 180,
+  "excerpt": "    if isinstance(item, str):\n        return '\\'{}\\''.format(item)\n    elif isinstance(item, float):\n        if isnan(item):\n            return 'null'\n        return str(item)\n    return str(item)\n\ndef datatype_map(dtype):\n    \"\"\"\n       map NumPy types to PostgreSQL types\n    \"\"\"\n    # TODO: add datetype conversion\n    if 'float' in dtype:\n        return 'numeric'\n    elif 'int' in dtype:\n        return 'int'\n    elif 'bool' in dtype:\n        return 'boolean'\n    else:\n        return 'text'\n\n# TODO: make less buggy about the diff between NaNs and nulls\n# TODO: batch UPDATES into a transaction\n# TODO: if table metadata doesn't exist, error saying need to set 'create'"
+}

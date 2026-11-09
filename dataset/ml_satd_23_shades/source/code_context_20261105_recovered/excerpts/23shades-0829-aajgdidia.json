@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0829-aajgdidia",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/6712b5baaaddc729dbc5157bcf0a350377612acb",
+  "filename": "mne/preprocessing/maxwell.py",
+  "commit": "6712b5baaaddc729dbc5157bcf0a350377612acb",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/6712b5baaaddc729dbc5157bcf0a350377612acb/mne/preprocessing/maxwell.py",
+  "fetched_at": "2026-11-05T06:14:01.406375+00:00",
+  "source_sha256": "1890d8ac08a054bfe65403974cf2f36fe0f827cc21cb005328f824414b5b729c",
+  "line_start": 375,
+  "line_end": 399,
+  "excerpt": "                        % (t_proj.shape[1], start / raw_sss.info['sfreq'],\n                           stop / raw_sss.info['sfreq']))\n            in_data -= np.dot(np.dot(in_data, t_proj), t_proj.T)\n        raw_sss._data[meg_picks, start:stop] = in_data\n\n    # Update info\n    _update_sss_info(raw_sss, origin, int_order, ext_order, len(good_picks),\n                     coord_frame, sss_ctc, sss_cal, max_st, reg_moments)\n    logger.info('[done]')\n    return raw_sss\n\n\n@verbose  # XXX Remove\ndef _regularize(regularize, int_order, ext_order, coil_scale, S_decomp,\n                verbose=None):\n    \"\"\"Regularize a decomposition matrix\"\"\"\n    n_in, n_out = _get_n_moments([int_order, ext_order])\n    if regularize is not None:  # regularize='in'\n        logger.info('    Computing regularization')\n        in_removes, out_removes = _regularize_in(\n            int_order, ext_order, coil_scale, S_decomp)\n        logger.info('        Using %s/%s inside and %s/%s outside harmonic '\n                    'components' % (n_in - len(in_removes), n_in,\n                                    n_out - len(out_removes), n_out))\n        reg_in_moments = np.setdiff1d(np.arange(n_in), in_removes)"
+}

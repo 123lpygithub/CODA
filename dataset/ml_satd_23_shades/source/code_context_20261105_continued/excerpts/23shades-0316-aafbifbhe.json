@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0316-aafbifbhe",
+  "revision_url": "https://github.com/ecohealthalliance/EpiTator/commit/ca1d01680fbc076b4306a137e90e97015b011e76",
+  "filename": "annotator/annotator.py",
+  "commit": "ca1d01680fbc076b4306a137e90e97015b011e76",
+  "source_url": "https://raw.githubusercontent.com/ecohealthalliance/EpiTator/ca1d01680fbc076b4306a137e90e97015b011e76/annotator/annotator.py",
+  "fetched_at": "2026-11-05T06:12:32.603350+00:00",
+  "source_sha256": "d445c073d5b6e98c458ad8ccf067076e14f51d272d1da621eea588be4afcd97c",
+  "line_start": 81,
+  "line_end": 105,
+  "excerpt": "        \"\"\"Get all spans which have a given label\"\"\"\n        return filter(lambda span: span.label == label, self.spans)\n\n    def labels(self):\n        \"\"\"Get a list of all labels in this tier\"\"\"\n        return [span.label for span in self.spans]\n\n    def sort_spans(self):\n        \"\"\"Sort spans by order of start\"\"\"\n\n        self.spans.sort(key=lambda span: span.start)\n\n    # TODO needs testing\n    def filter_overlapping_spans(self, decider=None):\n        \"\"\"Remove the smaller of any overlapping spans. Takes an optional\n           decider function which takes two spans and returns False if span_a\n           should not be retained, True if span_a should be retained.\"\"\"\n\n        retained_spans = []\n        removed_spans_indexes = []\n\n        a_index = -1\n        for span_a in self.spans:\n            a_index += 1\n            retain_a = True"
+}

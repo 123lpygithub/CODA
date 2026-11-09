@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8243",
+  "issue_url": "https://github.com/pkp/pkp-lib/issues/4304",
+  "source_issue_url": "https://github.com/pkp/pkp-lib/issues/4304",
+  "api_url": "https://api.github.com/repos/pkp/pkp-lib/issues/4304",
+  "title": "Add the possibilty to extend privacy policy for plugins",
+  "body": "Hi everybody,\r\n\r\nI am working on a plugin that will provide the possibility to schedule messages about a new issue on Facebook. In order to get a Facebook application I have to add the relevant parts about cookies and Facebook to the privacy policy. I think that's no problem for me to do it by hand, but it would be challenging for journals when they would want to use the plugin themselves. Also I think there other plugins that would face the same issue.\r\n\r\nI thought about the situation that it would be great when plugins could provide the necessary information for the privacy policy. The best knowledge about the collection and use of personal information have the authors of the plugins. When the plugin would provide this knowledge journal managers would be able to use plugins that need you to extend your privacy policy without worrying that they might miss an important part for their privacy policy.\r\n\r\nI also have thought about other ways to achieve this. Like putting the information into the plugin documentation so that you can copy it into your privacy policy yourself. But I think in the case of plugin updates it might be forgotten to update the privacy policy after updating the plugin.\r\n\r\nTo solve this I would propose a change to `AboutSiteHandler.inc.php`. By adding a hook call right before the `$templateMgr->assign` plugins could add additional information to the privacy policy.\r\n\r\nWhat do you think?",
+  "author": "Participant 1",
+  "created_at": "2018-12-14T12:02:18Z",
+  "updated_at": "2022-08-30T09:51:40Z",
+  "state": "closed",
+  "closed_at": "2022-08-30T09:51:40Z",
+  "issue_fetched_at": "2026-10-18T18:10:35.544325+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T18:10:36.961418+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 475055654,
+      "url": "https://github.com/pkp/pkp-lib/issues/4304#issuecomment-475055654",
+      "created_at": "2019-03-20T22:35:38Z",
+      "updated_at": "2019-03-20T22:35:38Z",
+      "author": "Participant 2",
+      "body": "I would worry that having the plugin automatically augment the privacy policy would take control out of the hands of the Journal Manager, i.e. they wouldn't be able to arrange or modify the content how they liked (without modifying the code). My preference would be to put this into the documentation along with some suggested wording."
+    },
+    {
+      "id": 482631996,
+      "url": "https://github.com/pkp/pkp-lib/issues/4304#issuecomment-482631996",
+      "created_at": "2019-04-12T16:08:48Z",
+      "updated_at": "2019-04-12T16:08:48Z",
+      "author": "Participant 1",
+      "body": "I see your point. And I think you are right that you don't want take away power from the _Journal Managers_. The idea for suggested wording is a good start I think (and I will include suggested wording in the plugin).\r\n\r\nBut I also think that suggested wording will become a problem as soon as a plugin is updated and the _Privacy Statement_ no longer reflects what the plugin does in some way. In such a situation the _Journal Managers_ have to realize that the plugin has changed in a meaningful manner. And I'm not sure what would be the best way for a plugin developer to notify _Journal Managers_ about changes like that. Especially when you have a multi journal installation where every journal has its own _Privacy Statement_ but updates are done by the administrator.\r\n\r\nWhat would you think about an optional approach? So you can decide as a _Journal Manager_ if you want plugins to be able to extend your privacy policy automatically. This will enable the _Journal Managers_ that want to have control about the wording not to use the text provided by the plugin. But on the other hand _Journal Managers_ that don't want / aren't able to formulate an adequate _Privacy Statement_ can go with the text provided by the plugin."
+    },
+    {
+      "id": 482755700,
+      "url": "https://github.com/pkp/pkp-lib/issues/4304#issuecomment-482755700",
+      "created_at": "2019-04-12T23:54:08Z",
+      "updated_at": "2019-04-12T23:54:08Z",
+      "author": "Participant 2",
+      "body": "Alternately, what about facilitating the JM linking from the journal's privacy policy to a plugin-managed page that states the *plugin's* policy? If the JM is happy with the default wording, they just link to it; if not, they modify the link or insert their own text directly. (We could drive ourselves mad writing tools for this kind of thing and still never accommodate the approach everyone wants.)"
+    },
+    {
+      "id": 1231435219,
+      "url": "https://github.com/pkp/pkp-lib/issues/4304#issuecomment-1231435219",
+      "created_at": "2022-08-30T09:51:40Z",
+      "updated_at": "2022-08-30T09:51:40Z",
+      "author": "Participant 3",
+      "body": "Closing this as outdated. If you feel this is still important, please consider making a proposal in the [feature request category](https://forum.pkp.sfu.ca/c/feature-requests/8) of our community forum.\r\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

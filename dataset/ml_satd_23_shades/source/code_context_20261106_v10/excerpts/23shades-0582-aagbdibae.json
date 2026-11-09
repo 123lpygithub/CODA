@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0582-aagbdibae",
+  "revision_url": "https://github.com/euclidjda/deep-quant/commit/48ffbc1872511df18f1f744e067f2d7e452f7d60",
+  "filename": "scripts/utils/data_utils.py",
+  "commit": "48ffbc1872511df18f1f744e067f2d7e452f7d60",
+  "source_url": "https://raw.githubusercontent.com/euclidjda/deep-quant/48ffbc1872511df18f1f744e067f2d7e452f7d60/scripts/utils/data_utils.py",
+  "fetched_at": "2026-11-05T06:13:16.036212+00:00",
+  "source_sha256": "c7f6689d237a6b5ce614898be1bbe95cebe1b1fbc2ac96da37f6c8366d4f054b",
+  "line_start": 46,
+  "line_end": 70,
+  "excerpt": "    if os.path.isfile(tkrlist_filepath):\n        with open(tkrlist_filepath, 'r') as f:\n            reader = csv.reader(f)\n            lines = list(reader)\n\n        gvkeys = list()\n        for line in lines:\n            if line[1] == 'Nasdaq':\n                gvkeys.append('1'+line[0])\n            elif line[1] == 'NYSE':\n                gvkeys.append('2'+line[0])\n            else:\n                gvkeys.append('9'+line[0])  # TODO: is that best way to handle\n                                            # unrecognized market?\n\n    else:\n        gvkeys = list()\n        \n    return gvkeys\n\n\ndef shave_big_datafile(big_df_path, config):\n    \"\"\"\n    Shaves wanted data (in terms of tkrs and features only; the shaving by dates\n    is done by BatchGenerator's constructor), returns path to shaved .dat file."
+}

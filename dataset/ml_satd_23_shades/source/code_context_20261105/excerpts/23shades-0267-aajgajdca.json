@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0267-aajgajdca",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/4a6b955f53cf0580b9c46b896e4fc65f17a2c5a8",
+  "filename": "mne/fiff/realtime.py",
+  "commit": "4a6b955f53cf0580b9c46b896e4fc65f17a2c5a8",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/4a6b955f53cf0580b9c46b896e4fc65f17a2c5a8/mne/fiff/realtime.py",
+  "fetched_at": "2026-11-05T06:12:24.878461+00:00",
+  "source_sha256": "5df4b9be2f60ecb3ade4b850f8ecd6c709909881447076f3bafdf8b80305a1d9",
+  "line_start": 337,
+  "line_end": 361,
+  "excerpt": "#                                 tag.data = zeros(el_size/4, 1);\n#                                 for i = 1:el_size/4\n#                                     tag.data(i) = p_DataInputStream.readInt;%idata = fread(fid,dims(1)*dims(2),'int32=>int32');\n#                                 end\n                    if matrix_type == FIFF.FIFFT_FLOAT:\n                        tmp = self.m_ClientSock.recv(el_size)\n                        tag.data = np.fromstring(tmp, dtype='>f4') #fdata = fread(fid,dims(1)*dims(2),'single=>double');\n#                        tag.data = swapbytes(tag.data);\n                    else:\n                        raise Exception('Cannot handle a matrix of type %d yet' % matrix_type)\n\n\n                    # ToDo consider 3D case --> do that by using tag->size\n\n                    dims[0] = np.fromstring(self.m_ClientSock.recv(4), dtype='>i4')\n                    dims[1] = np.fromstring(self.m_ClientSock.recv(4), dtype='>i4')\n\n                    ndim = np.fromstring(self.m_ClientSock.recv(4), dtype='>i4')\n\n                    tag.data = tag.data.reshape(dims)\n                else:\n                    raise Exception('Cannot handle other than dense or sparse matrices yet')\n            else:\n                #\n                #   All other data types"
+}

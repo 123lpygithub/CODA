@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0165-aajaicjbh",
+  "revision_url": "https://github.com/HazyResearch/fonduer/commit/611d23a9e43d2539475a328138323b00e5fdc86b",
+  "filename": "fonduer/snorkel/learning/utils.py",
+  "commit": "611d23a9e43d2539475a328138323b00e5fdc86b",
+  "source_url": "https://raw.githubusercontent.com/HazyResearch/fonduer/611d23a9e43d2539475a328138323b00e5fdc86b/fonduer/snorkel/learning/utils.py",
+  "fetched_at": "2026-11-05T06:12:04.246074+00:00",
+  "source_sha256": "7ac510f646f69c8bca5ac237327b5470a51dc5ef2db609b3a46c54678e51bff2",
+  "line_start": 493,
+  "line_end": 517,
+  "excerpt": "        # index, last one is the score to sort by\n        # Note: the models may be returned out of order!\n        i_opt = np.argmax([s[-1] for s in run_stats])\n        k_opt = run_stats[i_opt][0]\n        model = self.model_class(**self.model_class_params)\n        model.load('{0}_{1}'.format(model.name, k_opt), save_dir=self.save_dir)\n\n        # Also save the best model as separate file\n        model.save(model_name=\"{0}_best\".format(model.name), \n            save_dir=self.save_dir)\n\n        # Return model and DataFrame of scores\n        # Test for categorical vs. binary in hack-ey way for now...\n        f_score = 'F-{0}'.format(beta)\n        categorical = (len(scores) == 2)\n        labels = ['Acc.'] if categorical else ['Prec.', 'Rec.', f_score]\n        sort_by = 'Acc.' if categorical else f_score\n        self.results = DataFrame.from_records(\n            run_stats, columns=[\"Model\"] + self.param_names + labels\n        ).sort_values(by=sort_by, ascending=False)\n        return model, self.results\n\n\nQUEUE_TIMEOUT = 3\n"
+}

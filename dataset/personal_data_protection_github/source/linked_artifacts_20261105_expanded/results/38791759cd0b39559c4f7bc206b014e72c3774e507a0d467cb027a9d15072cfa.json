@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/sveltejs/kit/blob/3f7af7ac72e390ffa1f59d780a41e5cf71dff852/sites/kit.svelte.dev/src/routes/edge.svg/%2Bserver.js#L123-L126",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "revision": "3f7af7ac72e390ffa1f59d780a41e5cf71dff852",
+  "immutable_revision": true,
+  "line_start": 111,
+  "line_end": 138,
+  "text": "\t\t\t\t>${label.toUpperCase()}</text>\n\t\t\t</g>`\n\t\t\t\t\t: ''\n\t\t\t}\n\t\t</svg>\n\t`;\n}\n\n/** @type {import('./$types').RequestHandler} */\nexport function GET({ request }) {\n\tconst h = request.headers;\n\n\tconst latitude = h.get('x-vercel-ip-latitude') ?? '';\n\tconst longitude = h.get('x-vercel-ip-longitude') ?? '';\n\tconst city = h.get('x-vercel-ip-city') ?? '';\n\tconst country = countries[h.get('x-vercel-ip-country')];\n\n\tconst svg = render(latitude, longitude, decodeURIComponent(city), country).replace(\n\t\t/\\d\\.\\d+/g,\n\t\t(match) => match.slice(0, 4)\n\t);\n\n\treturn new Response(svg, {\n\t\theaders: {\n\t\t\t'content-type': 'image/svg+xml',\n\t\t\t'cache-control': 'private, max-age=3600'\n\t\t}\n\t});",
+  "source_sha256": "dd061302dc62d82bcb6c2f194b3d307af50b53269ffdd30b03be246a752b14ac",
+  "fetched_at": "2026-11-05T06:21:13.588152+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/sveltejs/kit/3f7af7ac72e390ffa1f59d780a41e5cf71dff852/sites/kit.svelte.dev/src/routes/edge.svg/%2Bserver.js",
+  "status": "available"
+}

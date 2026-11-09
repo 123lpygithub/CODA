@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0479-aahhdgbbd",
+  "revision_url": "https://github.com/omimo/PyMO/commit/e1a5b1e261525394fe073af6462023aba5e0fac9",
+  "filename": "pymo/rotation_tools.py",
+  "commit": "e1a5b1e261525394fe073af6462023aba5e0fac9",
+  "source_url": "https://raw.githubusercontent.com/omimo/PyMO/e1a5b1e261525394fe073af6462023aba5e0fac9/pymo/rotation_tools.py",
+  "fetched_at": "2026-11-05T06:13:00.621558+00:00",
+  "source_sha256": "5ffa01538642228ef12c1e14f9f288f10ec82f577c00fc5a20107b40cb4d43ed",
+  "line_start": 44,
+  "line_end": 68,
+  "excerpt": "\n        Rz = np.asarray([[math.cos(gamma), -math.sin(gamma), 0],\n              [math.sin(gamma), math.cos(gamma), 0],\n              [0, 0, 1]])\n\n        self.rotmat = np.matmul(np.matmul(Rz, Ry), Rx)\n   \n    def _from_expmap(self, alpha, beta, gamma, params):\n        if (alpha == 0 and beta == 0 and gamma == 0):\n            self.rotmat = np.eye(3)\n            return\n\n        #TODO: Check exp map params\n\n        theta = np.linalg.norm([alpha, beta, gamma])\n\n        expmap = [alpha, beta, gamma] / theta\n\n        x = expmap[0]\n        y = expmap[1]\n        z = expmap[2]\n\n        s = math.sin(theta/2)\n        c = math.cos(theta/2)\n"
+}

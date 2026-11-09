@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0352-aaifjjgei",
+  "revision_url": "https://github.com/OpenMined/PySyft/commit/c2544d1f7e48cedf9508f7cce75ac57d9452507f",
+  "filename": "syft/execution/role.py",
+  "commit": "c2544d1f7e48cedf9508f7cce75ac57d9452507f",
+  "source_url": "https://raw.githubusercontent.com/OpenMined/PySyft/c2544d1f7e48cedf9508f7cce75ac57d9452507f/syft/execution/role.py",
+  "fetched_at": "2026-11-05T06:12:38.086783+00:00",
+  "source_sha256": "d7ffd4825b61a4f72e85563bb3c21642042e43e678efce3ee14de1cbd616dd98",
+  "line_start": 55,
+  "line_end": 79,
+  "excerpt": "        self.output_placeholder_ids = output_placeholder_ids or ()\n\n        # state_tensors are provided when plans are created using func2plan\n        if state_tensors:\n            # we want to make sure in that case that the state is empty\n            assert state is None\n            for tensor in state_tensors:\n                self.add_tensor_to_state(tensor)\n\n    def register_computation_inputs(self, args):\n        \"\"\" Takes input arguments for this role and generate placeholders.\n        \"\"\"\n        # TODO Should we be able to rebuild?\n        self.input_placeholder_ids = tuple(self.build_placeholders(arg).value for arg in args)\n\n    def register_computation_outputs(self, results):\n        \"\"\" Takes output tensors for this role and generate placeholders.\n        \"\"\"\n        results = (results,) if not isinstance(results, tuple) else results\n        self.output_placeholder_ids = tuple(\n            self.build_placeholders(result).value for result in results\n        )\n\n    def register_computation_action(self, traced_action):\n        \"\"\" Build placeholders and store action."
+}

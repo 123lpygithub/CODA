@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0220-aadcagfcc",
+  "revision_url": "https://github.com/mpkuse/cartwheel_train/commit/404ec4c091ba511ab70df27886ebe396cb1c1a02",
+  "filename": "CustomNets.py",
+  "commit": "404ec4c091ba511ab70df27886ebe396cb1c1a02",
+  "source_url": "https://raw.githubusercontent.com/mpkuse/cartwheel_train/404ec4c091ba511ab70df27886ebe396cb1c1a02/CustomNets.py",
+  "fetched_at": "2026-11-05T06:12:17.482735+00:00",
+  "source_sha256": "ec09622fcd458c778aad06ac1281f25bacefecdc013b6990a21fc7d37ee2b371",
+  "line_start": 77,
+  "line_end": 101,
+  "excerpt": "    # We use the Keras session graph in the call to the profiler.\n    flops = tf.profiler.profile(graph=K.get_session().graph,\n                                run_meta=run_meta, cmd='op', options=opts)\n    print 'Total floating point operations (FLOPS) : ', flops.total_float_ops\n    print 'Total floating point operations (GFLOPS) : %4.3f' %( flops.total_float_ops/1000.**3 )\n    # return flops.total_float_ops  # Prints the \"flops\" of the model.\n\n\n\n#--------------------------------------------------------------------------------\n# Data\n#--------------------------------------------------------------------------------\n# TODO : removal \ndef dataload_( n_tokyoTimeMachine, n_Pitssburg, nP, nN ):\n    D = []\n    if n_tokyoTimeMachine > 0 :\n        TTM_BASE = '/Bulk_Data/data_Akihiko_Torii/Tokyo_TM/tokyoTimeMachine/' #Path of Tokyo_TM\n        pr = TimeMachineRender( TTM_BASE )\n        print 'tokyoTimeMachine:: nP=', nP, '\\tnN=', nN\n        for s in range(n_tokyoTimeMachine):\n            a,_ = pr.step(nP=nP, nN=nN, return_gray=False, resize=(320,240), apply_distortions=False, ENABLE_IMSHOW=False)\n            if s%100 == 0:\n                print 'get a sample Tokyo_TM #%d of %d\\t' %(s, n_tokyoTimeMachine),\n                print a.shape\n            D.append( a )"
+}

@@ -1,0 +1,104 @@
+Coder ID:
+{coder_id}
+
+Open-coding Strategy:
+{coder_strategy}
+
+Research Question:
+{research_question}
+
+Analysis Scope:
+{analysis_scope}
+
+Use Case:
+{use_case}
+
+Frozen Analysis Protocol:
+{analysis_protocol}
+
+Artifact ID:
+{artifact_id}
+
+Artifact Content:
+{artifact_content}
+
+Context Packet:
+{context_packet_json}
+
+Return a JSON object with exactly these keys:
+- "provisional_codes": array of up to {max_codes} objects
+- "insufficient_context": boolean
+- "overall_uncertainty": English string
+- "overall_uncertainty_zh": Chinese version with the same meaning
+- "confidence_level": one of ["high", "medium", "low"]
+- "confidence_rationale": short English explanation of evidence-grounded reading stability
+- "confidence_rationale_zh": Chinese version with the same meaning
+- "confidence_factors" object with keys "evidence_support", "context_sufficiency",
+  "codebook_fit", and "interpretive_ambiguity"; every value must be exactly one of
+  ["high", "medium", "low", "not_applicable"], and codebook_fit must be
+  "not_applicable"
+- "notes": array of English strings
+- "notes_zh": Chinese versions in the same order
+
+Each provisional code object must contain exactly these keys:
+- "code_name": English code name
+- "code_name_zh": Chinese version with the same meaning
+- "short_definition": evidence-near English definition
+- "short_definition_zh": Chinese version with the same meaning
+- "observed_phenomenon": English evidence-near description made before category mapping
+- "observed_phenomenon_zh": Chinese version with the same meaning
+- "supporting_evidence_refs": array of evidence ids such as ["E1", "E2"]
+- "relationship_to_codebook": exactly "uncertain"
+- "linked_code_ids": exactly []
+- "alternative_interpretation": English string
+- "alternative_interpretation_zh": Chinese version with the same meaning
+- "uncertainty_note": English string
+- "uncertainty_note_zh": Chinese version with the same meaning
+- "proposed_codebook_action": exactly "no_change"
+- "proposed_codebook_target_ids": exactly []
+
+Constraints:
+- Before coding, state internally what single analytical question each code must answer.
+  Keep all peer codes on that axis. If the research question asks for semantic causes,
+  treat the affected construct or location as evidence; if it asks for structural or
+  syntactic locations, do not substitute a semantic root-cause category.
+- When comparative material is supplied, diagnose the behavioral divergence among the
+  requirement, implementation, failure evidence, and repair/reference behavior. Do not
+  classify an alternative implementation as wrong solely because it differs from the reference.
+- Before returning multiple codes, apply an independent-resolution test: would addressing
+  one observed issue leave the other issue present and require a different analytical
+  explanation? If not, keep one code and preserve the multiple manifestations in
+  observed_phenomenon.
+- Treat confidence as descriptive reading stability only, never a review threshold.
+- Set "insufficient_context" to true only when missing information prevents a
+  defensible evidence-near coding of the artifact's main visible phenomenon.
+  Missing execution traces, external environment details, author intent, or causal
+  explanation do not by themselves make context insufficient when the supplied
+  evidence still supports a stable descriptive code. Record those narrower caveats
+  in "overall_uncertainty" or the candidate's "uncertainty_note" instead.
+- If "insufficient_context" is true, "confidence_level" and
+  "context_sufficiency" cannot be "high".
+- For evidence_support, context_sufficiency, and interpretive_ambiguity, use only
+  "high", "medium", or "low". For interpretive_ambiguity, "high" means greater
+  ambiguity and "low" means little ambiguity.
+- Use "high" only when the evidence and context support a stable descriptive reading.
+- Use only evidence ids that appear in the context packet.
+- Keep observed_phenomenon concrete and close to the supplied evidence.
+- Make code_name and short_definition concise evidence-near provisional labels. Remove
+  incidental identifiers, literal values, exact locations, and equivalent surface syntax,
+  but retain the behavior, condition, object, and consequence supported by this artifact.
+- Do not deliberately broaden a candidate so that it can classify unknown future artifacts.
+  Stable reusable categories and their inclusion/exclusion boundaries are produced later
+  by the Induction Agent initially and the Comparison Agent during iteration.
+- Use this abstraction ladder: literal detail is too narrow; an evidence-near phenomenon
+  is the required stopping point; a reusable codebook category or parent theme is too broad
+  for this agent.
+- If several visible details are manifestations of one observed issue, return one
+  provisional code and summarize those details in observed_phenomenon.
+- Return separate provisional codes only when the independent-resolution test shows that
+  one issue could be resolved while another analytically distinct issue remains.
+- Every explanatory string must have its paired Chinese field with the same meaning.
+- Do not make reuse or codebook-change proposals. The Comparison Agent will decide
+  those after seeing both coder outputs and the current codebook.
+- If no defensible evidence-near concept can be proposed, return an empty array and explain why.
+- Do not output markdown.

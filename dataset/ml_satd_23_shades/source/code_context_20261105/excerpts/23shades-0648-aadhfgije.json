@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0648-aadhfgije",
+  "revision_url": "https://github.com/uchicago-cs/deepdish/commit/433c4cf64073f372ecd92bbef2d8d7d50555bc41",
+  "filename": "deepdish/tools/caffe/maker.py",
+  "commit": "433c4cf64073f372ecd92bbef2d8d7d50555bc41",
+  "source_url": "https://raw.githubusercontent.com/uchicago-cs/deepdish/433c4cf64073f372ecd92bbef2d8d7d50555bc41/deepdish/tools/caffe/maker.py",
+  "fetched_at": "2026-11-05T06:13:31.849742+00:00",
+  "source_sha256": "dd7d886c74daf74b045a4e3b27c38109a37c39249331b9143e85dbbfc344a5a7",
+  "line_start": 152,
+  "line_end": 176,
+  "excerpt": "    d['version'] = __version__\n    d['seed'] = seed\n    d['lr'] = lr0\n    d['momentum'] = momentum\n    batch = params.get('batch', 100)\n    #d['iter'] = (it * 100) // batch\n    d['device_id'] = device\n\n    d['decay'] = decay\n    d['snapshot'] = min(snapshot, params.get('snapshot', snapshot))\n    d['base_suffix'] = '_base' if base else ''\n    d['solver'] = params.get('solver_type', 'SGD')\n    # TODO: Read this 10000 from the datasets\n    d['test_iter'] = 100#00 // batch\n    d['test_interval'] = 1000#00 // batch\n    d['display'] = 400#00 // batch\n    d['gamma'] = params.get('gamma', 0.1)\n\n    steps = \"\"\n    cur_iter = 0\n    for iter in iters:\n        cur_iter += iter\n        steps += \"stepvalue: {}\\n\".format(cur_iter)\n\n    d['steps'] = steps"
+}

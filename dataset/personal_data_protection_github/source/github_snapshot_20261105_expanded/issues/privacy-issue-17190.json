@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-17190",
+  "issue_url": "https://github.com/StampyAI/stampy-ui/issues/81",
+  "source_issue_url": "https://github.com/StampyAI/stampy-ui/issues/81",
+  "api_url": "https://api.github.com/repos/StampyAI/stampy-ui/issues/81",
+  "title": "Set up analytics",
+  "body": "Set up an analytics platform so we can learn about which questions get clicks and start A/B testing.\r\n\r\nDesired features:\r\n1. Exclude EU for GDPR reasons (we don't want to have cookie notices)\r\n2. Ability to watch recorded user sessions (does not need to be a huge number)\r\n3. Collect statistics on how many times any given question is displayed and how many times it is clicked and opened (and the ratio between them) - also used for initial questions\r\n4. Collect statistics on the last question a user clicks before leaving\r\n5. Ability to run A/B tests on general site features (e.g. intro line)\r\n6. Statistics on average time on site, answers opened count, links clicked, etc\r\n7. Logging each search in the search bar (but cutting the half-typed ones when immediately followed by an extended string)\r\n8. Stats on what people clicked before clicking to a specific question (e.g. \"I'm convinced, how can I help?\")\r\n\r\n\r\nPerhaps one of these would work\r\nhttps://livesession.io/ \r\nhttps://logrocket.com/\r\nhttps://www.smartlook.com/\r\nhttps://mouseflow.com/\r\nhttps://www.inspectlet.com/\r\nhttps://watchthem.live/\r\nhttps://www.hotjar.com/\r\n\r\nOr something else.",
+  "author": "Participant 1",
+  "created_at": "2022-08-05T00:03:54Z",
+  "updated_at": "2022-09-06T16:22:58Z",
+  "state": "closed",
+  "closed_at": "2022-09-06T16:22:57Z",
+  "issue_fetched_at": "2026-10-19T01:11:47.754288+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:11:49.224009+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1216445048,
+      "url": "https://github.com/StampyAI/stampy-ui/issues/81#issuecomment-1216445048",
+      "created_at": "2022-08-16T10:18:58Z",
+      "updated_at": "2022-08-16T10:22:13Z",
+      "author": "Participant 2",
+      "body": "Looked in to this a bit, and it seems like point #1 might not really be a thing? (If someone knows of a way, please correct me). I can't find a simple \"turn off tracking for the EU\" option for any of the analytics platforms with session recordings.\r\n\r\nBased (limited) understanding / reading of GDPR, this is because all the session recording tools use cookies (since that's literally what tracks the session) and under GDPR cookie IDs are considered personal data (this is the bit I'm most unclear about)\r\n\r\nIt also doesn't seem to work to just enable tracking by region/ geo (via ip range etc), because a) VPNs and b) GDPR applies to EU citizens even when they are abroad.\r\n\r\nBest I can tell, the only way to avoid the cookie popup / privacy policy is to not use cookies, eg using server-side tracking via api calls that do not include personal data, but this necessarily prevents us from (at least) the session replay requirement.\r\n"
+    },
+    {
+      "id": 1216527750,
+      "url": "https://github.com/StampyAI/stampy-ui/issues/81#issuecomment-1216527750",
+      "created_at": "2022-08-16T11:48:10Z",
+      "updated_at": "2022-08-16T11:48:10Z",
+      "author": "Participant 1",
+      "body": "Seems plausible.\r\n\r\nDiscussed via DM and settled on server-side API, plus maybe later adding a thing to collect a tiny number of sessions and showing cookie notices to just those people."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

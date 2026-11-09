@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0572-aaachjhaj",
+  "revision_url": "https://github.com/ssydasheng/GPflow-Slim/commit/5d83d31893746a9e768ce94a1e90874eff0ce09a",
+  "filename": "gpflowSlim/likelihoods.py",
+  "commit": "5d83d31893746a9e768ce94a1e90874eff0ce09a",
+  "source_url": "https://raw.githubusercontent.com/ssydasheng/GPflow-Slim/5d83d31893746a9e768ce94a1e90874eff0ce09a/gpflowSlim/likelihoods.py",
+  "fetched_at": "2026-11-05T06:13:14.729580+00:00",
+  "source_sha256": "347a30988501197d71b162d4a3074e3cbe7c2f0f671f2055a8f4b088fcfbfedf",
+  "line_start": 479,
+  "line_end": 503,
+  "excerpt": "        else:\n            raise NotImplementedError\n\n    def conditional_mean(self, F):\n        return self.invlink(F)\n\n    def conditional_variance(self, F):\n        p = self.conditional_mean(F)\n        return p - tf.square(p)\n\nclass SwitchedLikelihood(Likelihood):\n    pass\n    #TODO: implement this\n# class SwitchedLikelihood(Likelihood):\n#     def __init__(self, likelihood_list):\n#         \"\"\"\n#         In this likelihood, we assume at extra column of Y, which contains\n#         integers that specify a likelihood from the list of likelihoods.\n#         \"\"\"\n#         Likelihood.__init__(self)\n#         for l in likelihood_list:\n#             assert isinstance(l, Likelihood)\n#         self.likelihood_list = ParamList(likelihood_list)\n#         self.num_likelihoods = len(self.likelihood_list)\n#"
+}

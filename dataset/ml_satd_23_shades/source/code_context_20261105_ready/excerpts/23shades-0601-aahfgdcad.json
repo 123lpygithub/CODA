@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0601-aahfgdcad",
+  "revision_url": "https://github.com/tensorflow/tensor2tensor/commit/150aad3be93c68f9424c0769e9e710c754ebaaea",
+  "filename": "tensor2tensor/rl/batch_dqn_agent_test.py",
+  "commit": "150aad3be93c68f9424c0769e9e710c754ebaaea",
+  "source_url": "https://raw.githubusercontent.com/tensorflow/tensor2tensor/150aad3be93c68f9424c0769e9e710c754ebaaea/tensor2tensor/rl/batch_dqn_agent_test.py",
+  "fetched_at": "2026-11-05T06:13:20.082432+00:00",
+  "source_sha256": "9a181490b6717721ff15e9a34aa27d848eb14aaaeef39f1b49bb24fb89867fa5",
+  "line_start": 25,
+  "line_end": 49,
+  "excerpt": "\nfrom tensor2tensor.rl import dopamine_connector\n\nimport tensorflow as tf\n\n\nslim = tf.contrib.slim\n\nFLAGS = flags.FLAGS\n\n\nclass BatchDQNAgentTest(tf.test.TestCase):\n  # TODO: maybe add testStepTrain (and possibly some other tests) from dopamine\n  # dqn_agent_test.py\n\n  def setUp(self):\n    self._test_subdir = os.path.join('/tmp/dopamine_tests', 'ckpts')\n    shutil.rmtree(self._test_subdir, ignore_errors=True)\n    os.makedirs(self._test_subdir)\n    self.num_actions = 4\n    self.min_replay_history = 6\n    self.update_period = 2\n    self.target_update_period = 4\n    self.epsilon_decay_period = 90\n    self.epsilon_train = 0.05"
+}

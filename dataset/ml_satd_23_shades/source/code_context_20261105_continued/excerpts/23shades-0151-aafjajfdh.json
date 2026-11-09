@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0151-aafjajfdh",
+  "revision_url": "https://github.com/AllenInstitute/mouse_connectivity_models/commit/49c965fd8bd0a66e441e7e0623d5848dbcabd3be",
+  "filename": "voxel_model/regionalized_model.py",
+  "commit": "49c965fd8bd0a66e441e7e0623d5848dbcabd3be",
+  "source_url": "https://raw.githubusercontent.com/AllenInstitute/mouse_connectivity_models/49c965fd8bd0a66e441e7e0623d5848dbcabd3be/voxel_model/regionalized_model.py",
+  "fetched_at": "2026-11-05T06:12:02.258149+00:00",
+  "source_sha256": "9ebaffe2abff10c4d4dbd03af1ed6e493f24a15125b21b431929ed0a30d5fc65",
+  "line_start": 71,
+  "line_end": 95,
+  "excerpt": "            return lex_ordered_unique_counts( key, self.ordering )\n        else:\n            return np.unique( key, return_counts=True)\n\n    def _get_region_matrix(self):\n        \"\"\"Produces the full regionalized connectivity\"\"\"\n\n        # get counts\n        source_regions, self.source_counts = self._get_unique_counts(\"source_key\")\n        target_regions, self.target_counts = self._get_unique_counts(\"target_key\")\n\n        # integrate target regions\n        # NOTE: probably more efficient to sort then stride by nt_regions\n        temp = np.empty( (target_regions.size, self.weights.shape[0]) )\n        for i, region in enumerate(target_regions):\n            cols = np.isin(self.target_key, region)\n\n            # same output as weights.dot(nodes[:,cols]).sum(axis=1)\n            # but much more memory efficient to compute sum first\n            temp[i,:] = self.weights.dot(\n                np.einsum('ji->j', self.nodes[:,cols])\n            )\n\n        # integrate source regions\n        # NOTE: probably more efficient to sort then stride by ns_regions"
+}

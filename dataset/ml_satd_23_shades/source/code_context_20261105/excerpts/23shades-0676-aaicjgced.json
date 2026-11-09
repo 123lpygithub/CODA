@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0676-aaicjgced",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/766ba9320878ecc854edfa37988aa09096ad4adb",
+  "filename": "sklearn/model_selection/_search.py",
+  "commit": "766ba9320878ecc854edfa37988aa09096ad4adb",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/766ba9320878ecc854edfa37988aa09096ad4adb/sklearn/model_selection/_search.py",
+  "fetched_at": "2026-11-05T06:13:36.933069+00:00",
+  "source_sha256": "af024225713b03cf9c93b8d205504932528888b7e5c044ae19844b345638efa8",
+  "line_start": 643,
+  "line_end": 667,
+  "excerpt": "            (train_score_dicts, test_score_dicts, test_sample_counts, fit_time,\n             score_time) = zip(*out)\n        else:\n            (test_score_dicts, test_sample_counts, fit_time,\n             score_time) = zip(*out)\n\n        # test_score_dicts and train_score dicts are lists of dictionaries and\n        # we make them into dict of lists\n        test_scores = _aggregate_score_dicts(test_score_dicts)\n        if self.return_train_score:\n            train_scores = _aggregate_score_dicts(train_score_dicts)\n\n        # TODO: replace by a dict in 0.21\n        results = (DeprecationDict() if self.return_train_score == 'warn'\n                   else {})\n\n        def _store(key_name, array, weights=None, splits=False, rank=False):\n            \"\"\"A small helper to store the scores/times to the cv_results_\"\"\"\n            # When iterated first by splits, then by parameters\n            # We want `array` to have `n_candidates` rows and `n_splits` cols.\n            array = np.array(array, dtype=np.float64).reshape(n_candidates,\n                                                              n_splits)\n            if splits:\n                for split_i in range(n_splits):\n                    # Uses closure to alter the results"
+}

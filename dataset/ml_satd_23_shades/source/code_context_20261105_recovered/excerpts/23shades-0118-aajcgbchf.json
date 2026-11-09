@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0118-aajcgbchf",
+  "revision_url": "https://github.com/zvtvz/zvt/commit/2f1fd57f65c6c7110c826320e78cfb8d74c33648",
+  "filename": "zvt/reader/reader.py",
+  "commit": "2f1fd57f65c6c7110c826320e78cfb8d74c33648",
+  "source_url": "https://raw.githubusercontent.com/zvtvz/zvt/2f1fd57f65c6c7110c826320e78cfb8d74c33648/zvt/reader/reader.py",
+  "fetched_at": "2026-11-05T06:11:56.852894+00:00",
+  "source_sha256": "ff2dab0691e86547417afd7395d4ff1d328723954a8db88685555ef0473d62d7",
+  "line_start": 174,
+  "line_end": 198,
+  "excerpt": "        whether got data\n        \"\"\"\n        if not df_is_not_null(self.data_df):\n            self.load_data()\n            return False\n\n        df = self.data_df.reset_index(level='timestamp')\n        recorded_timestamps = df.groupby(level=0)['timestamp'].max()\n\n        self.logger.info('level:{},current_timestamps:\\n{}'.format(self.level, recorded_timestamps))\n\n        changed = False\n        # FIXME:we suppose history data should be there at first\n        start_time = time.time()\n        for category, recorded_timestamp in recorded_timestamps.iteritems():\n            while True:\n                category_filter = [self.category_column == category]\n                if self.filters:\n                    filters = self.filters + category_filter\n                else:\n                    filters = category_filter\n\n                added = get_data(data_schema=self.data_schema, provider=self.provider, columns=self.columns,\n                                 start_timestamp=recorded_timestamp,\n                                 end_timestamp=to_timestamp, filters=filters, level=self.level)"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0757-aajdcfhjb",
+  "revision_url": "https://github.com/jupyter/nbdime/commit/c771cbf7150e1215991f232a864cf5ca3b0519bb",
+  "filename": "nbdime/diffing/notebooks.py",
+  "commit": "c771cbf7150e1215991f232a864cf5ca3b0519bb",
+  "source_url": "https://raw.githubusercontent.com/jupyter/nbdime/c771cbf7150e1215991f232a864cf5ca3b0519bb/nbdime/diffing/notebooks.py",
+  "fetched_at": "2026-11-05T06:13:48.225564+00:00",
+  "source_sha256": "5590e192ff49cb566476c9f1d8506145e263790ef7508f328e71e7bd27d33924",
+  "line_start": 81,
+  "line_end": 105,
+  "excerpt": "    \"Compare source and outputs of cells x,y exactly.\"\n    if x[\"cell_type\"] != y[\"cell_type\"]:\n        return False\n    if x[\"source\"] != y[\"source\"]:\n        return False\n    if x[\"cell_type\"] == \"code\" and x[\"outputs\"] != y[\"outputs\"]:\n        return False\n    return True\n\n\ndef diff_single_cells(a, b):\n    # TODO: Something smarter?\n    # TODO: Use google-diff-patch-match library to diff the sources?\n    # TODO: Handle output diffing with plugins? I.e. image diff, svg diff, json diff, etc.\n    from nbdime import diff\n    return diff(a, b)\n\n\ndef diff_cells(a, b):\n    \"Diff cell lists a and b.\"\n\n    # Predicates to compare cells in order of low-to-high precedence\n    predicates = [compare_cell_source_approximate,\n                  compare_cell_source_exact,\n                  compare_cell_source_and_outputs]"
+}

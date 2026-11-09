@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0510-aadjgaaid",
+  "revision_url": "https://github.com/analysiscenter/batchflow/commit/17f7532b26ef8c7215c21df5319021520d550bd4",
+  "filename": "dataset/preprocess.py",
+  "commit": "17f7532b26ef8c7215c21df5319021520d550bd4",
+  "source_url": "https://raw.githubusercontent.com/analysiscenter/batchflow/17f7532b26ef8c7215c21df5319021520d550bd4/dataset/preprocess.py",
+  "fetched_at": "2026-11-05T06:13:05.177756+00:00",
+  "source_sha256": "108c35440e185548beffdd401b97ac0f31f405da0e697abad4355e27777416d9",
+  "line_start": 1,
+  "line_end": 18,
+  "excerpt": "\"\"\" Preprocessing \"\"\"\n\n\ndef action(method):\n    \"\"\" Decorator for action methods in Batch classes \"\"\"\n    # TODO: decorator params: parallelization (e.g. threads, processes, async/await, greenlets,...)\n    # use __action for class-specific params\n    method._action = True # pylint: disable=protected-access\n    return method\n\n\nclass Preprocessing:\n    \"\"\" Preprocessing \"\"\"\n    def __init__(self, dataset):\n        self.dataset = dataset\n        self.action_list = []\n        self.batch_generator = None\n",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0576-aaeihdcgb",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/e0619659131a8647ad8e5738a776ce77d1ce5c9a",
+  "filename": "sdc/datatypes/series/boxing.py",
+  "commit": "e0619659131a8647ad8e5738a776ce77d1ce5c9a",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/e0619659131a8647ad8e5738a776ce77d1ce5c9a/sdc/datatypes/series/boxing.py",
+  "fetched_at": "2026-11-05T06:13:15.020812+00:00",
+  "source_sha256": "a172056eefdb587ae55a3a765b95b1bab7f66c603c19b1aa17ee7cf0712e2bb6",
+  "line_start": 30,
+  "line_end": 54,
+  "excerpt": "from .types import SeriesType\n\n\n@lower_constant(SeriesType)\ndef constant_Series(context, builder, ty, pyval):\n    \"\"\"\n    Create a constant Series.\n\n    See @unbox(SeriesType)\n    \"\"\"\n    series = cgutils.create_struct_proxy(ty)(context, builder)\n    series.data = _constant_Series_data(context, builder, ty, pyval)\n    # TODO: index and name\n    return series._getvalue()\n\n\ndef _constant_Series_data(context, builder, ty, pyval):\n    \"\"\"\n    Create a constant for Series data.\n\n    Mostly reuses constant creation for pandas arrays.\n    \"\"\"\n\n    from ..categorical.types import CategoricalDtypeType\n"
+}

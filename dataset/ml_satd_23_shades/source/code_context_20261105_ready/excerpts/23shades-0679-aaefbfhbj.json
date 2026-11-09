@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0679-aaefbfhbj",
+  "revision_url": "https://github.com/nyu-mll/jiant/commit/73c1b7e145b22196ff688fe041287104b92b6e5a",
+  "filename": "src/preprocess.py",
+  "commit": "73c1b7e145b22196ff688fe041287104b92b6e5a",
+  "source_url": "https://raw.githubusercontent.com/nyu-mll/jiant/73c1b7e145b22196ff688fe041287104b92b6e5a/src/preprocess.py",
+  "fetched_at": "2026-11-05T06:13:37.496147+00:00",
+  "source_sha256": "77d0de4ba3547e28e5bf84c9d4fa8b0e92d8db1674321afd9b5b180cb9e957fc",
+  "line_start": 472,
+  "line_end": 496,
+  "excerpt": "            for char in list(word):\n                char2freq[char] += 1\n        return\n\n    def update_target_vocab_freqs(sentence):\n        for word in sentence:\n            target2freq[word] += 1\n        return\n\n    for task in tasks:\n        log.info(\"\\tCounting words for task: '%s'\", task.name)\n        if isinstance(task, MTEnRuTask):\n            # TODO: replace this with MTTask\n            # rename MTEnRuTask to MTTask and regenerate indices, pickles\n            for src_sent, tgt_sent in task.get_sentences():\n                update_vocab_freqs(src_sent)\n                update_target_vocab_freqs(tgt_sent)\n        else:\n            for sentence in task.get_sentences():\n                update_vocab_freqs(sentence)\n\n    for task in tasks:\n        if hasattr(task, \"target_sentences\"):\n            for sentence in task.target_sentences:\n                update_target_vocab_freqs(sentence)"
+}

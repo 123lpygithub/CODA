@@ -1,0 +1,410 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11653",
+  "issue_url": "https://github.com/ampproject/amphtml/issues/24910",
+  "source_issue_url": "https://github.com/ampproject/amphtml/issues/24910",
+  "api_url": "https://api.github.com/repos/ampproject/amphtml/issues/24910",
+  "title": "Support for CCPA opt-outs",
+  "body": "## Describe the new feature or change to an existing feature you'd like to see\r\n\r\nOn January 1st, 2020 the CCPA comes into effect. One of the provisions of the law is that residents of California must be granted the ability to opt out of their data being sold. It is not immediately clear how to implement such functionality in AMP. Having looked at various approaches, at least the following items are potential issues or blockers:\r\n\r\n* `amp-geo` only works at a country level; in order to offer California-specific affordances (for those who choose to implement it that way) it would require the ability to also provide US state-level results (for instance by placing a separate state-specific `class`).\r\n* There can only be one `amp-consent` instance on page, so anyone already using `amp-consent` for other purposes, typically GDPR, cannot also use it for CCPA. (CCPA is an opt out mechanism, but this could be represented through a consent affordance triggered by a button, on which the options are reject and close). `amp-consent` was designed to support multiple instances but that seems to have never been implemented.\r\n* Both `amp-analytics` and `amp-ads` seem to support opt-in behaviour whereby they are off until an `amp-consent` is agreed to, but they do not seem to support opt-out behaviour in which they run until an opt out is effected (equivalent to an `amp-consent` reject) at which point they can be selectively disabled or modified. They would need to support that behaviour.\r\n* `amp-ads` does not currently appear to have the ability to pass the IAB flag to signal opted-out users.\r\n\r\nGiven the short time frame remaining, we would appreciate reassurance that the AMP team intends for it to be possible to run AMP legally in 2020.\r\n\r\n## Describe alternatives you've considered\r\n\r\nWe have tried to hack this together every which way and it does not seem possible to make it work.\r\n",
+  "author": "Participant 1",
+  "created_at": "2019-10-04T19:14:29Z",
+  "updated_at": "2019-12-17T13:36:14Z",
+  "state": "closed",
+  "closed_at": "2019-12-04T02:20:18Z",
+  "issue_fetched_at": "2026-10-18T20:11:14.332090+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T20:11:15.797343+00:00"
+  ],
+  "expected_comment_count": 48,
+  "retrieved_comment_count": 48,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 539622866,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-539622866",
+      "created_at": "2019-10-08T17:38:23Z",
+      "updated_at": "2019-10-08T17:38:23Z",
+      "author": "Participant 2",
+      "body": "/cc @ampproject/wg-analytics "
+    },
+    {
+      "id": 539680757,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-539680757",
+      "created_at": "2019-10-08T20:07:11Z",
+      "updated_at": "2019-10-08T20:07:11Z",
+      "author": "Participant 3",
+      "body": "@jeffjose is looking into this from the requirement point of view. "
+    },
+    {
+      "id": 539706150,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-539706150",
+      "created_at": "2019-10-08T21:11:16Z",
+      "updated_at": "2019-10-08T21:11:16Z",
+      "author": "Participant 4",
+      "body": "Hi @darobin, Thanks for starting this thread, and your detailed analysis on what's possible with AMP today.\r\n\r\nYou're right -- we can have better controls to support CCPA in AMP. We're kicking off an initiative to support CCPA affordances in AMP. We intend to give publishers such as yourself the mechanisms needed to have AMP pages compliant in 2020. \r\n\r\nI'll update this thread when I have more details to share.\r\n"
+    },
+    {
+      "id": 539707719,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-539707719",
+      "created_at": "2019-10-08T21:15:58Z",
+      "updated_at": "2019-10-08T21:15:58Z",
+      "author": "Participant 1",
+      "body": "Hi @jeffjose, thanks a lot for getting back to us! I hate to bug you but do you have a few more details beyond \"in 2020\"? The law comes into effect Jan 1st and we need time to adjust the code, test, deploy before that. Thanks!"
+    },
+    {
+      "id": 539708869,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-539708869",
+      "created_at": "2019-10-08T21:19:16Z",
+      "updated_at": "2019-10-08T21:19:16Z",
+      "author": "Participant 4",
+      "body": "Normally I'd shy away from giving deadlines, but optimistically we're trying to get a solution out by Nov 2019. Hopefully that gives you enough time to update your pages, test and deploy them."
+    },
+    {
+      "id": 543234054,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-543234054",
+      "created_at": "2019-10-17T15:38:33Z",
+      "updated_at": "2019-10-17T15:38:33Z",
+      "author": "Participant 4",
+      "body": "@darobin I pinged you on slack (amphtml.slack.com) with a question. Would you mind popping over there and taking a quick look?"
+    },
+    {
+      "id": 549142421,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-549142421",
+      "created_at": "2019-11-03T14:34:45Z",
+      "updated_at": "2019-11-03T14:34:55Z",
+      "author": "Participant 5",
+      "body": "@jeffjose, @darobin: were you able to catch-up on Slack?\r\n\r\nNovember is already upon us!"
+    },
+    {
+      "id": 549172914,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-549172914",
+      "created_at": "2019-11-03T20:02:07Z",
+      "updated_at": "2019-11-03T20:02:07Z",
+      "author": "Participant 4",
+      "body": "Yup! And we met few weeks back as well.\n\nOn Sun, Nov 3, 2019, 11:34 PM Tobie Langel <notifications@github.com> wrote:\n\n> @jeffjose <https://github.com/jeffjose>, @darobin\n> <https://github.com/darobin>: where you able to catch-up on Slack?\n>\n> November is already upon us!\n>\n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/ampproject/amphtml/issues/24910?email_source=notifications&email_token=AABKH5BD7UNQNXSGNI7AWF3QR3OQPA5CNFSM4I5TMADKYY3PNVWWK3TUL52HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEC5T7FI#issuecomment-549142421>,\n> or unsubscribe\n> <https://github.com/notifications/unsubscribe-auth/AABKH5F74BI7YAY4HCSGL4LQR3OQPANCNFSM4I5TMADA>\n> .\n>\n"
+    },
+    {
+      "id": 549173887,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-549173887",
+      "created_at": "2019-11-03T20:13:14Z",
+      "updated_at": "2019-11-03T20:13:14Z",
+      "author": "Participant 5",
+      "body": "That's great to hear. A summary of those conversations here would be useful to the community at large. :)"
+    },
+    {
+      "id": 549201876,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-549201876",
+      "created_at": "2019-11-04T01:32:51Z",
+      "updated_at": "2019-11-04T01:32:51Z",
+      "author": "Participant 4",
+      "body": "For sure.\n\nWe're still finalizing the design and once we have that locked down, I'll\nshare an update here. The gist of the meeting was talking thru how NYT was\nthinking about CCPA which wont be super-interesting to the wider community.\n\nOn Mon, Nov 4, 2019 at 5:13 AM Tobie Langel <notifications@github.com>\nwrote:\n\n> That's great to hear. A summary of those conversations here would be\n> useful to the community at large. :)\n>\n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/ampproject/amphtml/issues/24910?email_source=notifications&email_token=AABKH5DWNBZUWT6QWWVUXBTQR4WFZA5CNFSM4I5TMADKYY3PNVWWK3TUL52HS4DFVREXG43VMVBW63LNMVXHJKTDN5WW2ZLOORPWSZGOEC53U7Y#issuecomment-549173887>,\n> or unsubscribe\n> <https://github.com/notifications/unsubscribe-auth/AABKH5FXMVHT4ZBL54PMHYDQR4WFZANCNFSM4I5TMADA>\n> .\n>\n"
+    },
+    {
+      "id": 549211178,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-549211178",
+      "created_at": "2019-11-04T02:57:20Z",
+      "updated_at": "2019-11-04T02:57:20Z",
+      "author": "Participant 1",
+      "body": "We have mostly rehashed what is in the issue and ruled out alternative options. We're looking forward to seeing how that translates to implementation.\r\n\r\nFor clarity though, this is not an NYT issue, this is an issue for essentially everyone running AMP.\r\n\r\n@jeffjose You were asking about the actual enforcement date, we have received confirmation from the CA DoJ that it will indeed be Jan 1st. "
+    },
+    {
+      "id": 549233852,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-549233852",
+      "created_at": "2019-11-04T06:15:11Z",
+      "updated_at": "2019-11-04T06:20:05Z",
+      "author": "Participant 5",
+      "body": "> We're still finalizing the design and once we have that locked down, I'll\r\nshare an update here.\r\n\r\nIs there any reasons for this process not to happen in the open?\r\n\r\n> The gist of the meeting was talking thru how NYT was thinking about CCPA which wont be super-interesting to the wider community.\r\n\r\nThis is an issue that’s affecting pretty much everyone in the industry. Of course understanding how you're thinking about solving it is important to the wider community. It’s on the AC agenda today, for example.\r\n\r\nAs a rule of thumb, it’s safer to broadcast what’s going and allow the community to decide what’s of interest to them rather than to make assumptions about this. \r\n\r\nDesigning in the open is also a much better strategy to gather broader input and get more external contributors involved. "
+    },
+    {
+      "id": 549712695,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-549712695",
+      "created_at": "2019-11-05T08:18:53Z",
+      "updated_at": "2019-11-05T08:18:53Z",
+      "author": "Participant 3",
+      "body": "Good point on share the design ideas in the thread and get feedback. Thank you @tobie for the suggestion. \r\n\r\nTwo major challenges we are facing. \r\n\r\nChallenge 1. opt-out \r\nopt out is difficult because unlike opt-in decision, opt-out decision in theory should not be purged from storage. This is extremely difficult with AMP's limited localStorage space. AMP's localStorage is implemented by the AMP viewer, and it's up to the AMP viewer to purge unused storage entries without advance notice. We can improve the AMP viewer's implementation to support LRU logic and also expand the storage space for AMP, but this issue will still exist. \r\nClient side storage is preferred because otherwise there will always be a roundtrip delay to render any AMP pages (even if users are not from EEA or CA). We want to get publisher's feedback on the AMP localStorage limitation, and the risk of opt-out decision not being persisted.\r\n\r\nChallenge 2: Handle multiple consents.\r\nIn the case there are multiple user consents (GDPR and CCPA). It's should be up to publisher or CMP to decide what to respect. This may involve some complicate logic including interpreting consent string and return different result based on users geo location. AMP may provide a very conservative way to combine boolean based consent state. But for more advanced features, one idea is to have publishers use `<amp-script>` to combine multiple consent decisions. \r\n\r\nIdeas, feedback and requests are very welcomed! \r\n"
+    },
+    {
+      "id": 549768309,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-549768309",
+      "created_at": "2019-11-05T10:43:52Z",
+      "updated_at": "2019-11-05T10:43:52Z",
+      "author": "Participant 5",
+      "body": "/cc @ampproject/ac: if you're representing constituencies affected by CCPA opt-out requirements, please chime in. Thank you."
+    },
+    {
+      "id": 549769204,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-549769204",
+      "created_at": "2019-11-05T10:46:25Z",
+      "updated_at": "2019-11-05T10:46:25Z",
+      "author": "Participant 5",
+      "body": "Also adding @melsumner, @TedShuter, @aghassemi, @mjwettergreen, @jervay, and @msteffan (who I just realized weren't added yet to the @amproject/ac team).\r\n\r\n"
+    },
+    {
+      "id": 550520658,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-550520658",
+      "created_at": "2019-11-06T22:01:51Z",
+      "updated_at": "2019-11-06T22:01:51Z",
+      "author": "Participant 6",
+      "body": "Hey, chiming in from the perspective of The Washington Post:\r\n\r\nWe really need this ASAP. Thanks."
+    },
+    {
+      "id": 550521245,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-550521245",
+      "created_at": "2019-11-06T22:03:24Z",
+      "updated_at": "2019-11-06T22:03:24Z",
+      "author": "Participant 5",
+      "body": "@AramZS do you have feedback on the two challenges @zhouyx listed in https://github.com/ampproject/amphtml/issues/24910#issuecomment-549712695? "
+    },
+    {
+      "id": 551144318,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-551144318",
+      "created_at": "2019-11-07T16:03:22Z",
+      "updated_at": "2019-11-07T16:03:22Z",
+      "author": "Participant 1",
+      "body": "With respect to the two challenges that @zhouyx outlines:\r\n\r\n1. Complying with the law is actually more important than performance. As we said on the call, we see the localStorage version as a local optimisation but not a good overall solution. We want to be able to save opt outs on our end (so that we can sync across products) and to load from our data as well. So saving to and pulling from us would be ideal. If the `amp-consent` is keyed of geography, it should be possible to only load when in the applicable geography.\r\n\r\n2. This is actually pretty much the same decision. To the extent possible, the client side should not be making compliance decisions, that's just too many products to change. Combining multiple types of consent if and when multiple geographies apply is something that is great to centralise on the server and that AMP could simply load from."
+    },
+    {
+      "id": 551973914,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-551973914",
+      "created_at": "2019-11-08T20:12:46Z",
+      "updated_at": "2019-11-08T20:17:53Z",
+      "author": "Participant 6",
+      "body": "Responding to @tobie as requested: \r\n\r\n### Challenge 1. opt-out\r\n\r\nI agree with what is said above, we need to be able to have consistency in the opt-outs across platforms. If a user has opted-out on washingtonpost dot com, arrives on a WashPost AMP via Search and that AMP has `amp-access` or `amp-subscriptions` user IDs that are logged into our systems then we need to be able to make a decision on the logged-in users data before any possible tracking or ads are loaded. If the user is not logged in, and they log in via AMP and opt-out in AMP we need to receive a data payload that allows us to register that opt-out across all our systems. As such we have the following as requirements: \r\n\r\n- We must know if the user is logged in before anything that tracks them is loaded. \r\n- We must know if a logged-in user is opted out in our site (outside of AMP Cache/Viewer) before anything that tracks them is loaded. \r\n- We must know if a logged-in user has taken the action to opt-out from within AMP and be able to align that with their login inside our own systems. \r\n- If a non-logged-in user opts out on AMP's localStorage that opt-out should be stored persistently within AMP localStorage from that point forward and there should be an event registering that opt-out with our site along with the AMP reader id. \r\n- Finally I am pretty sure that if a non-logged-in user arrives on an AMP page it will need to send their AMP Reader ID to our API in order to assure we have not recorded a previous opt-out that would need to be retained. \r\n\r\nI think it would be reasonable to no longer 'phone-home' for that opt-out's status once it is set and sent to our API. \r\n\r\nIf we want to find the most performant option, a solution might be: once the user's opt-out is registered and for as long as it is persistent in the AMP Viewer's storage the opt-out is the user's assumed state without an additional phone-home on each load. \r\n\r\nHowever, we'd want to register changes in that status so an async call to a publisher-based endpoint on every AMP view after the load to check if logged-in users have retained their opt-out status since the last AMP visit would be required.\r\n\r\n### Challenge 2: Handle multiple consents.\r\n\r\nI agree this is a decision best made by checking the AMP Reader ID against our database. However, I'm not sure what situation would be the case in which there are multiple relevant consents. That said, as @darobin notes, `amp-consent` or whatever element gets used should be geographically aware enough to only handle these requests within their locale. The case of an EU user arriving on our AMP page while visiting CA is definitely something that seems impossible to resolve to legal satisfaction without a DB check.\r\n\r\nFurther, I'm not sure how it would work with `amp-script` as these two consents are very different and GDPR would likely override CCPA. It seems best to make a single API request that included the Reader ID, and expects a return of GDPR and CCPA consent info and makes a decision based on that? \r\n\r\nMore than the very specific question of CCPA vs GDPR we should assume more processes that have their own compliance parameters are likely to surface in the US and abroad and any system should be able to support not just two, but many potential consent situations. \r\n\r\n----\r\n\r\n### Additional questions:\r\n\r\nBeyond this question: AMP will also need to implement the IAB Consent Framework regardless of the state of consent, we will need to indicate that the CCPA IAB Consent framework is active, that we have displayed a compliant opt-out prompt and if the user has opted-out using their framework. We will also need that framework to explicitly signal that a user is not eligible for the opt-out process when they are outside the CCPA compliance area. The consent string of `1--` is needed on all ad HTTP requests (along with any other HTTP request to a potential user tracking service) so vendors can be sure we are checking for compliance and have determined a user is outside the zone. Further the system for a window level object and `postMessage` receiver will need to be in place. \r\n\r\nThis is work is required to be complete by January 1 2020. Our team has also determined this will indeed be the enforcement date. \r\n\r\nEDIT: Also: this will need to work in AMP Stories. "
+    },
+    {
+      "id": 552658140,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-552658140",
+      "created_at": "2019-11-11T23:07:39Z",
+      "updated_at": "2019-11-11T23:07:39Z",
+      "author": "Participant 3",
+      "body": "QQ on the opt-out,\r\nIf we go with client side storage. We understand there are two limitation. 1. AMP localStorage is not guaranteed to persisted for a minimum of one year. 2. opt out decision from AMP and non AMP is not synced. \r\n\r\nIf a one time off sync between localStorage and server storage is provided. That AMP will use the local stored value and then ping server to update the stored value. Is this approach acceptable? Thanks. "
+    },
+    {
+      "id": 552678388,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-552678388",
+      "created_at": "2019-11-12T00:25:29Z",
+      "updated_at": "2019-11-12T00:25:29Z",
+      "author": "Participant 3",
+      "body": "Another option we have considered is pure iframe based. That the `<amp-consent>` component will initiate an iframe at page load. Then it's up to the iframe to determine what consent is required, collect consents, merge multiple consents if applicable, and sent AMP runtime signal to block/unblock components. \r\nGood point about AMP story. All solutions don't work with AMP story out of the box. But we will work with the story team once the design has been finalized. "
+    },
+    {
+      "id": 552719495,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-552719495",
+      "created_at": "2019-11-12T03:35:21Z",
+      "updated_at": "2019-11-12T03:35:21Z",
+      "author": "Participant 1",
+      "body": "I think that using the locally stored value as a cache for the real value is acceptable, but in that case I would tend to think that it would need to be relatively short-lived (and predictable).\r\n\r\nI'm am not sure: what is the value in using an `iframe` as opposed to calling a remote API with the right parameters and letting it state what is active/inactive? It would seem to be heavier?"
+    },
+    {
+      "id": 553090680,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-553090680",
+      "created_at": "2019-11-12T20:03:09Z",
+      "updated_at": "2019-11-12T20:03:09Z",
+      "author": "Participant 3",
+      "body": "> I think that using the locally stored value as a cache for the real value is acceptable, but in that case I would tend to think that it would need to be relatively short-lived (and predictable).\r\n\r\nIn this case an API to update the local cached value can be provided. The local cached value can be updated every time the user visit the site, and the updated value will be used the next time the user visit the site again. \r\n\r\n> I'm am not sure: what is the value in using an iframe as opposed to calling a remote API with the right parameters and letting it state what is active/inactive? It would seem to be heavier?\r\n\r\nI agree that an iframe seems to be heavier. I proposed iframe instead of a CORS request because of four reasons.\r\n1. Iframe provides the flexibility. The iframe can handle showing different UIs, opt-in/opt-out user flow. \r\n2. AMP already support iframe solution for consent management platform. In the future, I assume many publishers will work with CMPs to collect their user consents. In such cases, iframe solution is preferred and easier to integrate with .\r\n3. To combine multiple consents together, using an iframe provides publishers with the most flexibility. Also given the iframe is already up, it saves the delay of another potential roundtrip request.\r\n4. To support the IAB consent string and its API client side, we need a service to interpret the consent string in the background. Which an iframe provided by a CMP sounds reasonable. \r\n\r\nHowever, we're only exploring the MVP solution right now. If the local storage one-time off solution is good with everyone, I would still propose the client side solution for MVP. Thank you"
+    },
+    {
+      "id": 553136144,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-553136144",
+      "created_at": "2019-11-12T22:00:26Z",
+      "updated_at": "2019-11-12T22:00:26Z",
+      "author": "Participant 3",
+      "body": "@AramZS and @darobin Can I please get your feedback on the client side one-time off storage solution. The config will be something like:\r\n```\r\n <amp-consent id='ABC' layout='nodisplay'>\r\n      <script type=\"application/json\">{\r\n        \"consents\": {\r\n          \"gdpr\": {\r\n            \"checkConsentHref\": \"http://localhost:8000/get-consent-v1\",\r\n            \"promptUI\": \"ui1\"\r\n          },\r\n          \"ccpa\": {\r\n            \"checkConsentHref\": \"http://localhost:8000/get-consent-ccpa\",\r\n            \"promptUI\": \"ui2\",\r\n            \"skipPrompt\": true\r\n          }\r\n        },\r\n        \"policy\": {\r\n          \"default\": {\r\n            \"waitFor\": {\r\n              \"gdpr\": {\r\n                \"timeout\": 2,\r\n                \"fallbackAction\": \"reject\"\r\n              },\r\n              \"ccpa\": {\r\n                \"timeout\": 0,\r\n                \"fallbackAction\": \"accept\"\r\n              }\r\n            }\r\n          }\r\n        },\r\n      }</script>\r\n      <div id=\"ui1\">\r\n        Hi EEA reader, can I collect data?\r\n        <button on=\"tap:ABC.accept\" role=\"button\">Accept</button>\r\n        <button on=\"tap:ABC.reject\" role=\"button\">Reject</button>\r\n        <button on=\"tap:ABC.dismiss\" role=\"button\">Dismiss</button>\r\n      </div>\r\n      <div id=\"ui2\">\r\n        Hi CA user, can I collect data?\r\n        <button on=\"tap:ABC.reject\" role=\"button\">Reject</button>\r\n        <button on=\"tap:ABC.dismiss\" role=\"button\">Dismiss</button>\r\n      </div>\r\n    </amp-consent>\r\n```\r\n"
+    },
+    {
+      "id": 553158084,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-553158084",
+      "created_at": "2019-11-12T23:04:34Z",
+      "updated_at": "2019-11-12T23:04:34Z",
+      "author": "Participant 3",
+      "body": "An alternative is the iframe solution. \r\n\r\nThen it will be pure up to publisher to send AMP with decisions on blocking or non blocking. The data flow will be something like this. \r\n![image](https://user-images.githubusercontent.com/5419904/68718280-9e0d7180-055d-11ea-93c7-f8fb136987e1.png)\r\n\r\nwhere you would have full control within the iframe. \r\n\r\n\r\nPlease let us know your ideas to the two options. It will help us make the design decision and start implementation asap. Thank you."
+    },
+    {
+      "id": 553166599,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-553166599",
+      "created_at": "2019-11-12T23:33:14Z",
+      "updated_at": "2019-11-12T23:33:14Z",
+      "author": "Participant 7",
+      "body": "@zhouyx thanks for the proposals. Could you explain a bit more about the geo detection for both proposals?"
+    },
+    {
+      "id": 553169293,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-553169293",
+      "created_at": "2019-11-12T23:44:21Z",
+      "updated_at": "2019-11-12T23:44:21Z",
+      "author": "Participant 3",
+      "body": "Sure. AMP will continue to provide geo detection for EEA through `<amp-geo>`. However no geo detection to detect California users will be provided for MVP. Publishers need to detect CA users either though the `checkConsentHref` endpoint, or directly within the iframe based on which proposal is adopted. "
+    },
+    {
+      "id": 553465480,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-553465480",
+      "created_at": "2019-11-13T15:55:11Z",
+      "updated_at": "2019-11-13T16:44:18Z",
+      "author": "Participant 6",
+      "body": "@zhouyx Just to be clear, the `checkConsentHref` will be called by the users' machine and not the AMP cache? And then we would be responsible for determining if that user, based on the request, is in the CA enforcement area? \r\n\r\nAlso, would the consent screen be able to trigger at different times for the EU and CA users? EU users need an immediate prompt, but CA users would be expected to trigger the opt-out process. \r\n\r\nWould we be able to specify a response to user initiated opt-outs via the API-based approach? (like 'You are not in CA so this does not apply')? "
+    },
+    {
+      "id": 553555874,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-553555874",
+      "created_at": "2019-11-13T19:14:14Z",
+      "updated_at": "2019-11-13T19:18:27Z",
+      "author": "Participant 6",
+      "body": "I wanted to update this thread with our current technical understanding of how we expect the IAB Framework to be implemented. The IAB spec is still a draft, so there may be changes there, but I expect this methodology will be close to the version we have Jan 1. We're building our implementation off this understanding of the framework and we would anticipate that AMP's would work similarly. https://github.com/AramZS/IAB-CCPA-Framework-Implementation-Notes  \r\n\r\nPlease let me know if you spot any issues or errors or places where your understanding of the framework implementation would differ so that we can be aware of that in advance. "
+    },
+    {
+      "id": 553575631,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-553575631",
+      "created_at": "2019-11-13T19:57:37Z",
+      "updated_at": "2019-11-13T19:57:37Z",
+      "author": "Participant 3",
+      "body": "> Just to be clear, the checkConsentHref will be called by the users' machine and not the AMP cache? And then we would be responsible for determining if that user, based on the request, is in the CA enforcement area?\r\n\r\nThat's correct\r\n\r\n> Also, would the consent screen be able to trigger at different times for the EU and CA users? EU users need an immediate prompt, but CA users would be expected to trigger the opt-out process.\r\n\r\nYes we have that in mvp scope\r\n\r\n> Would we be able to specify a response to user initiated opt-outs via the API-based approach? (like 'You are not in CA so this does not apply')?\r\n\r\nDetails is still under discussion. But we haven't included this design for this requirement yet. \r\n"
+    },
+    {
+      "id": 553576003,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-553576003",
+      "created_at": "2019-11-13T19:58:34Z",
+      "updated_at": "2019-11-13T19:58:34Z",
+      "author": "Participant 3",
+      "body": "We will cover this topic in today's design review that's happening in one hour. #25082\r\nPlease attend if you can. Thank you!"
+    },
+    {
+      "id": 553637337,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-553637337",
+      "created_at": "2019-11-13T22:38:57Z",
+      "updated_at": "2019-11-13T22:38:57Z",
+      "author": "Participant 3",
+      "body": "Thanks for the feedback from the design review. Here's the [design doc](https://docs.google.com/document/d/1tTNtpKZD6Z8lYCizEs5_P-hmaCqRs3wl41-x0aG6QTo/edit?usp=sharing)\r\n\r\nWe've came down to proposal #1 or #2. Please let us know what's your idea on the MVP design. THank you!\r\n"
+    },
+    {
+      "id": 553644219,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-553644219",
+      "created_at": "2019-11-13T23:01:47Z",
+      "updated_at": "2019-11-13T23:01:47Z",
+      "author": "Participant 5",
+      "body": "Please also find minutes from the design review here: https://github.com/ampproject/amphtml/issues/25082#issuecomment-553624002."
+    },
+    {
+      "id": 554116810,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-554116810",
+      "created_at": "2019-11-14T22:44:04Z",
+      "updated_at": "2019-11-14T22:44:04Z",
+      "author": "Participant 3",
+      "body": "Hi all, Thanks for joining the discussion in this thread and yesterday. \r\n\r\nAfter several round of discussions. The AMP team is leaning towards an iframe based solution for all future regulations support. There were a few good points raised by you\r\n1. Performance impact\r\nWe decided to adopt a stale while revalidate model to use cached consent decision to unblock rendering. \r\n2. Implementation difficulty, especially given the tight deadline\r\nWe understand that migrating to the iframe solution takes time. That's why we are proposing a temporary solution to CCPA. That we will add support to fetch consent decision directly from server. The reason we are able to do this is that there will be no promptUI support from AMP to CCPA. We expect publishers to handle and manage user opt-out on their own site. \r\n\r\nI've updated the design doc to include the short-term design. Please let us know if this work for you.  We are looking to start implementation right after we get a green light from all of you. Thank you.\r\n"
+    },
+    {
+      "id": 554123540,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-554123540",
+      "created_at": "2019-11-14T23:00:58Z",
+      "updated_at": "2019-11-14T23:00:58Z",
+      "author": "Participant 7",
+      "body": "@AramZS @darobin \r\nThis is the proposed [MVP spec](https://docs.google.com/document/d/1tTNtpKZD6Z8lYCizEs5_P-hmaCqRs3wl41-x0aG6QTo/edit#). Happy to meet in VC tmr to go through any questions you might have."
+    },
+    {
+      "id": 554602001,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-554602001",
+      "created_at": "2019-11-16T04:05:47Z",
+      "updated_at": "2019-11-18T21:54:19Z",
+      "author": "Participant 7",
+      "body": "We have a cleaner spec out [here](https://github.com/ampproject/amphtml/blob/lannka-consent-design/extensions/amp-consent/amp-consent.md). \r\n\r\nQuestions are welcome. "
+    },
+    {
+      "id": 556087036,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-556087036",
+      "created_at": "2019-11-20T16:31:52Z",
+      "updated_at": "2019-11-20T16:31:52Z",
+      "author": "Participant 6",
+      "body": "@lannka is the intent of the `sharedData` object to make the IAB CCPA uspString (or any other opt-out string) available to vendors? (So we would set `uspString: 1YN` for example into that object.)\r\n\r\nTo confirm: we would be sending a `accepted` message to AMP by default to have `data-block-on-consent` work properly in an opt-out environment? \r\n\r\nIt appears from the existing documentation that the `dismiss` action would block those elements waiting on consent? That is the correct behavior for the EU GDPR approach, but the opposite behavior is desired for the CCPA approach. \r\n\r\nI am unclear on how this process would work via user initiation in the case of CCPA. For GDPR we needed a consent wall, but for CCPA we want the user to initiate the opt-out. Is there a way to tell the element to trigger in some other way than on-load? I saw some mention of that in the documentation, but not a clear methodology. (For example, if we needed to design and implement a trigger link for the user to initiate opt-out, I'm not sure how to do that from your document.) \r\n\r\nFinally, I do have a concern about assuring that AMP extensions respect the `data-block-on-consent` parameter and pass that consent information downstream. Does the parameter initiate a check to require `getConsentPolicy` to execute from inside the element? This is not necessarily a blocker, but it is definitely a nice-to-have. \r\n"
+    },
+    {
+      "id": 556289130,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-556289130",
+      "created_at": "2019-11-20T19:33:23Z",
+      "updated_at": "2019-11-20T19:34:25Z",
+      "author": "Participant 7",
+      "body": "@AramZS thanks reviewing the spec. \r\n\r\nFor CCPA integration, you basically need 4 things:\r\n1) re-tag your AMP page with a new amp-consent configuration\r\n2) set up a server endpoint for consent state syncing\r\n3) provide a link on your AMP page to initiate the opt-out flow\r\n4) tag the page with `data-block-on-consent`\r\n\r\n\r\n(1)  amp-consent config\r\n```\r\ngeoOverride: {\r\n  \"us\": {\r\n      checkConsentHref: \"https://example.com/check-consent\",\r\n      consentRequired: \"remote\"\r\n   }\r\n}\r\n```\r\n\r\n(2) server endpoint\r\nYour `checkConsentHref` server endpoint should return a response like:\r\n```\r\n{\r\n  consentRequired: true/false, // depending on if the user is in CA\r\n  consentStateValue: \"accepted\" / \"rejected\", // depending on if user has opted out\r\n  consentString: \"1YN\", // the consent string that is accepted by the vendors used on the page\r\n  expireCache: true/false, // depending on if you want to leverage client cache to improve latency for the next visit.\r\n}\r\n```\r\nnote that `sharedData` is not designed to carry consent string, as it will never be cached locally. It's to pass along other arbitrary one-time data that are agreed between vendor and publisher.\r\n\r\n(3) opt-out flow\r\nyou need to add a link on your page that takes user to your own website to do the opt-out.\r\n\r\n(4) data-block-on-consent\r\nyou will likely tag all `amp-ad` with this attribute so that their instantiation will be blocked until either a) amp-geo says the user is not in regulated region b) your endpoint returned a response. \r\n\r\n\r\nLet me know if you have further questions. \r\n\r\n"
+    },
+    {
+      "id": 557379333,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-557379333",
+      "created_at": "2019-11-22T04:02:59Z",
+      "updated_at": "2019-11-22T04:02:59Z",
+      "author": "Participant 7",
+      "body": "FYI, the work is tracked here: #25623 \r\nWe plan to get all done before 12/3. Should be available in canary for testing in that week.\r\n\r\nGiven the tight timeline, I suggest who ever want to integrate can independently start the server endpoint work as listed in (2) & (3)."
+    },
+    {
+      "id": 558282781,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-558282781",
+      "created_at": "2019-11-25T18:31:58Z",
+      "updated_at": "2019-11-25T18:31:58Z",
+      "author": "Participant 6",
+      "body": "Our team is good with this approach and we have started to plan implementation.\r\n\r\nAs a heads up, the IAB has released a finalized version of their spec. I have updated my technical documentation as a result, you can see changes at: https://github.com/AramZS/IAB-CCPA-Framework-Implementation-Notes/pull/1/files "
+    },
+    {
+      "id": 561445373,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-561445373",
+      "created_at": "2019-12-04T02:20:18Z",
+      "updated_at": "2019-12-07T00:10:24Z",
+      "author": "Participant 7",
+      "body": "FYI, the new spec has been implemented and deployed to dev channel for testing. Let us know how it works.\r\n\r\nThere is one known issue, to be fixed soon: #25856 (update: already fixed)"
+    },
+    {
+      "id": 561672564,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-561672564",
+      "created_at": "2019-12-04T14:34:43Z",
+      "updated_at": "2019-12-04T14:34:43Z",
+      "author": "Participant 5",
+      "body": "@lannka Awesome. Where/how should folks report issues?"
+    },
+    {
+      "id": 561807114,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-561807114",
+      "created_at": "2019-12-04T19:40:38Z",
+      "updated_at": "2019-12-04T19:40:38Z",
+      "author": "Participant 7",
+      "body": "Firing separate issues would be preferred. Unless it's very relevant to this issue."
+    },
+    {
+      "id": 566269632,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-566269632",
+      "created_at": "2019-12-16T22:15:54Z",
+      "updated_at": "2019-12-16T22:48:49Z",
+      "author": "Participant 8",
+      "body": "Hi @lannka, we've implemented the steps you've outlined [here](https://github.com/ampproject/amphtml/issues/24910#issuecomment-556289130) and were wondering if you see anything wrong if our implementation. If it would be better to open a separate issue, let me know but seemed relevant. \r\n\r\nWe're testing on the dev channel within canary and our code looks like the following:\r\n\r\nGeo Config:\r\n```\r\n{\r\n  \"ISOCountryGroups\": {\r\n    \"eu\": [\"fr\", ... ],\r\n    \"us\": [\"us\"]\r\n  }\r\n}\r\n```\r\n\r\nConsent Config:\r\n```\r\n{\r\n  consents: {\r\n    \"my-consent\": {\r\n      promptIfUnknownForGeoGroup: \"eu\",\r\n      promptUI: \"consent-ui\",\r\n      geoOverride: {\r\n        us: {\r\n          consentRequired: \"remote\",\r\n          checkConsentHref: \"foobar.com\"\r\n        }\r\n     }\r\n   }\r\n  }\r\n}\r\n```\r\n\r\nOur amp-ads are tagged with:\r\n`data-block-on-consent=\"_till_responded\"`\r\n\r\nWe do see the AMP consent ui trigger for EU users, however it does not appear that the call is being made to our server endpoint at `checkConsentHref` for US users. See anything we might be missing? Thanks! cc @megapix"
+    },
+    {
+      "id": 566290124,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-566290124",
+      "created_at": "2019-12-16T23:10:43Z",
+      "updated_at": "2019-12-16T23:10:43Z",
+      "author": "Participant 7",
+      "body": "@baconjulie could you try:\r\n\r\n```\r\n{\r\n  consentInstantId: \"my-consent\";\r\n  promptUI: \"consent-ui\",\r\n  geoOverride: {\r\n    eu: {\r\n      consentRequired: true\r\n    }\r\n    us: {\r\n      consentRequired: \"remote\",\r\n      checkConsentHref: \"foobar.com\"\r\n    }\r\n  }\r\n}\r\n```\r\n\r\nThe new syntax is here: https://github.com/ampproject/amphtml/blob/master/extensions/amp-consent/amp-consent.md#consent-configuration\r\n\r\n/cc @zhouyx @micajuine-ho "
+    },
+    {
+      "id": 566537515,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-566537515",
+      "created_at": "2019-12-17T13:17:55Z",
+      "updated_at": "2019-12-17T13:17:55Z",
+      "author": "Participant 9",
+      "body": "Hi @baconjulie, just to echo what @lannka said: \r\nthe geoOverride key has to be a top level key in the inline config or else it will be lost. \r\n\r\nWe also recommend migrating your inline config to the newest version outlined in the spec above. \r\n\r\nPlease let us know if you have any other questions! "
+    },
+    {
+      "id": 566540981,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-566540981",
+      "created_at": "2019-12-17T13:27:45Z",
+      "updated_at": "2019-12-17T13:27:45Z",
+      "author": "Participant 8",
+      "body": "Hi @micajuine-ho @lannka I just tried this locally and it appears to make the call while still showing the consent ui for EU. Thanks a lot, appreciate your help!"
+    },
+    {
+      "id": 566543974,
+      "url": "https://github.com/ampproject/amphtml/issues/24910#issuecomment-566543974",
+      "created_at": "2019-12-17T13:36:13Z",
+      "updated_at": "2019-12-17T13:36:13Z",
+      "author": "Participant 9",
+      "body": "@baconjulie you will need to override the `promptUi` for the US geo config:\r\n\r\n```\r\n{\r\n  consentInstanceId: \"my-consent\";\r\n  promptUI: \"consent-ui\",\r\n  geoOverride: {\r\n    eu: {\r\n      consentRequired: true\r\n    }\r\n    us: {\r\n      consentRequired: \"remote\",\r\n      checkConsentHref: \"foobar.com\",\r\n      promptUI: null\r\n    }\r\n  }\r\n}\r\n```"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

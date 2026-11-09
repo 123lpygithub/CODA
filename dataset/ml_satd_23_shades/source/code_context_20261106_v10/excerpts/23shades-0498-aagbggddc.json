@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0498-aagbggddc",
+  "revision_url": "https://github.com/regel/loudml/commit/1c86d400cfb554c525371c472b5bb32240417783",
+  "filename": "loudml/metrics.py",
+  "commit": "1c86d400cfb554c525371c472b5bb32240417783",
+  "source_url": "https://raw.githubusercontent.com/regel/loudml/1c86d400cfb554c525371c472b5bb32240417783/loudml/metrics.py",
+  "fetched_at": "2026-11-05T06:13:03.629012+00:00",
+  "source_sha256": "5e4979d34320403a62a7108f4b36d37a542969b0d1aa1cca8fb6e34f7231fce0",
+  "line_start": 18,
+  "line_end": 42,
+  "excerpt": "    def read(self, filename):\n        try:\n            text = open(filename).read()\n        except IOError:\n            pass\n        else:\n            file = io.StringIO(\"[os-release]\\n\" + text)\n            self.readfp(file, filename)\n\n    def safe_get(self, section, val):\n        # Issue #208: /etc/os-release not always present\n        # On macOS it is: /System/Library/CoreServices/SystemVersion.plist\n        # TODO: consider more granular OS release extraction\n        try:\n            return self.get(section, val)\n        except NoSectionError:\n            return \"N/A\"\n\n\ndef send_metrics(config, storage, user_agent=\"loudmld\"):\n    \"\"\"\n    Send usage information to telemetry server\n\n     :param config:      telemetry configuration\n     :type  config:      dict"
+}

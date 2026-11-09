@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0840-aaeidjejd",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/133efc8f9cf1e182c273204df0e0fc44a3480955",
+  "filename": "hpat/hiframes.py",
+  "commit": "133efc8f9cf1e182c273204df0e0fc44a3480955",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/133efc8f9cf1e182c273204df0e0fc44a3480955/hpat/hiframes.py",
+  "fetched_at": "2026-11-05T06:14:04.039231+00:00",
+  "source_sha256": "5c29882932cef02cc67bc8674f5fa9d2dce83219de1770f9be180af82f3138bb",
+  "line_start": 730,
+  "line_end": 754,
+  "excerpt": "                        and stmt.value.op == 'call'):\n                    fdef = guard(get_definition, f_ir, stmt.value.func)\n                    if isinstance(fdef, ir.Global) and fdef.name == 'map_func':\n                        inline_closure_call(f_ir, _globals, block, i, func)\n                        break\n\n        f_ir.blocks[topo_order[-1]].body[-4].target = lhs\n        replace_arg_nodes(f_ir.blocks[topo_order[0]], [col_var])\n        return f_ir.blocks\n\n    def _get_map_output_typ(self, rhs, col_var, func, label):\n        # stich together all blocks before the current block for type inference\n        # XXX: does control flow affect type inference in Numba?\n        dummy_ir = self.func_ir.copy()\n        topo_order = find_topo_order(self.func_ir.blocks)\n        all_body = []\n        for l in topo_order:\n            if l == label:\n                break;\n            all_body += dummy_ir.blocks[l].body\n\n        # add nodes created for current block so far\n        all_body += self._working_body\n        dummy_ir.blocks = {0: ir.Block(col_var.scope, col_var.loc)}\n        dummy_ir.blocks[0].body = all_body"
+}

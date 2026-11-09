@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0181-aaggbcefi",
+  "revision_url": "https://github.com/criteo/tf-yarn/commit/7ddb8038a0b2ae572c116272a5ee551c7e5e680f",
+  "filename": "tf_skein/cluster.py",
+  "commit": "7ddb8038a0b2ae572c116272a5ee551c7e5e680f",
+  "source_url": "https://raw.githubusercontent.com/criteo/tf-yarn/7ddb8038a0b2ae572c116272a5ee551c7e5e680f/tf_skein/cluster.py",
+  "fetched_at": "2026-11-05T06:12:07.363774+00:00",
+  "source_sha256": "17d1adbbbb7e91a93c23f77e69cd4bd85b9607ce63fd7baf8b7fea04dcc2a852",
+  "line_start": 59,
+  "line_end": 83,
+  "excerpt": "    return {\n        \"HADOOP_HDFS_HOME\": \"/usr/lib/hadoop-hdfs\",\n        \"CLASSPATH\": hadoop_classpath.decode().strip(),\n        \"LD_LIBRARY_PATH\": \":\".join([\n            f\"{os.environ['JAVA_HOME']}/jre/lib/amd64/server\",\n            \"/usr/lib/hadoop-criteo/hadoop/lib/native\"\n        ])\n    }\n\n\ndef criteo_cuda_vars():\n    \"\"\"TODO\"\"\"\n    return {}  # TODO\n\n\nclass YARNCluster:\n    \"\"\"Multi-node cluster running on Skein.\n\n    The implementation allocates a service with the requested number\n    of instances for each distributed TensorFlow task type. Each\n    instance runs ``_dispatch_task`` which roughly does the following.\n\n    1. Find an an available TCP port and communicate the resulting\n       socket address (host/port pair) to other instances using the\n       \"init\" barrier. This is a synchronization point which ensures",
+  "match_policy": "unique-release-normalized-v2"
+}

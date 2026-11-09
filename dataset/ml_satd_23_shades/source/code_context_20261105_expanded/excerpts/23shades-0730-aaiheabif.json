@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0730-aaiheabif",
+  "revision_url": "https://github.com/flairNLP/flair/commit/49847e7fa3254b2cf09c8a87bbaaa08b197b3a0a",
+  "filename": "flair/models/sequence_tagger_model.py",
+  "commit": "49847e7fa3254b2cf09c8a87bbaaa08b197b3a0a",
+  "source_url": "https://raw.githubusercontent.com/flairNLP/flair/49847e7fa3254b2cf09c8a87bbaaa08b197b3a0a/flair/models/sequence_tagger_model.py",
+  "fetched_at": "2026-11-05T06:13:44.516529+00:00",
+  "source_sha256": "be0bdcc0a08ab0fff11bf2c9fc26a872a93123181b537d57258cfac4fad1f8eb",
+  "line_start": 381,
+  "line_end": 405,
+  "excerpt": "                [token.get_embedding() for token in sentence], 0\n            )\n\n            # get the tags in this sentence\n            tag_idx: List[int] = [\n                self.tag_dictionary.get_idx_for_item(token.get_tag(self.tag_type).value)\n                for token in sentence\n            ]\n            # add tags as tensor\n            tag = torch.tensor(tag_idx, device=flair.device)\n            tag_list.append(tag)\n\n        # TODO: this can only be removed once the implementations of word_dropout and locked_dropout have a batch_first mode\n        sentence_tensor = sentence_tensor.transpose_(0, 1)\n\n        # --------------------------------------------------------------------\n        # FF PART\n        # --------------------------------------------------------------------\n        if self.use_dropout > 0.0:\n            sentence_tensor = self.dropout(sentence_tensor)\n        if self.use_word_dropout > 0.0:\n            sentence_tensor = self.word_dropout(sentence_tensor)\n        if self.use_locked_dropout > 0.0:\n            sentence_tensor = self.locked_dropout(sentence_tensor)\n"
+}

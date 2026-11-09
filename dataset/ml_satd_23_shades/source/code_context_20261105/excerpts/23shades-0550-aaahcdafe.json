@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0550-aaahcdafe",
+  "revision_url": "https://github.com/Erotemic/netharn/commit/1e09e29d6dee0bee365e96f76eddbcad212817d5",
+  "filename": "netharn/examples/classification.py",
+  "commit": "1e09e29d6dee0bee365e96f76eddbcad212817d5",
+  "source_url": "https://raw.githubusercontent.com/Erotemic/netharn/1e09e29d6dee0bee365e96f76eddbcad212817d5/netharn/examples/classification.py",
+  "fetched_at": "2026-11-05T06:13:10.741317+00:00",
+  "source_sha256": "a36cedf13cb016131972a01cbc153a975f73e4fbabbb08cb9cab0b2ab6ff6343",
+  "line_start": 139,
+  "line_end": 163,
+  "excerpt": "        \"\"\"\n        Args:\n            inputs (Tensor | dict): Either the input images  (as a regulary\n                pytorch BxCxHxW Tensor) or a dictionary mapping input\n                modalities to the input imges.\n\n        Returns:\n             Dict[str, Tensor]: model output wrapped in a dictionary so its\n                 clear what the return type is. In this case \"energy\" is class\n                 probabilities **before** softmax / normalization is applied.\n        \"\"\"\n        if isinstance(inputs, dict):\n            # TODO: handle channel modalities later\n            assert len(inputs) == 1, (\n                'only support one value channel mode now')\n            im = ub.peek(inputs.values())\n        else:\n            im = inputs\n\n        im = self.input_norm(im)\n        class_energy = self.model(im)\n        outputs = {\n            'class_energy': class_energy,\n        }\n        return outputs"
+}

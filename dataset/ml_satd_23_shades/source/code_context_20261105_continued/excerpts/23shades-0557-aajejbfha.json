@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0557-aajejbfha",
+  "revision_url": "https://github.com/mila-iqia/babyai/commit/0fa771dcc8bc6849a82722080b600a2682abcb09",
+  "filename": "babyai/bot_advisor.py",
+  "commit": "0fa771dcc8bc6849a82722080b600a2682abcb09",
+  "source_url": "https://raw.githubusercontent.com/mila-iqia/babyai/0fa771dcc8bc6849a82722080b600a2682abcb09/babyai/bot_advisor.py",
+  "fetched_at": "2026-11-05T06:13:11.919523+00:00",
+  "source_sha256": "76d2af55352d2b11dd5b38c3e70b5f12d3610510d342f368b28c93e70c9b1154",
+  "line_start": 333,
+  "line_end": 357,
+  "excerpt": "\n            # If we are right in front of the object, then the subgoal is completed\n            # go back to the previous subgoal\n            if np.array_equal(obj_pos, self.fwd_pos):\n                return self.alternative.get_action()\n\n            # Look for a non-blocker path leading to the position\n            path, _, _ = self.bot.shortest_path(\n                lambda pos, cell: pos == obj_pos\n            )\n\n            if not path:\n                # TODO: here, and every time we use this 999 number, find a cleaner/better way\n                # Look for a blocker path leading to the position, with the condition that the blocker is as close to\n                # the target as possible (Hence the while loop)\n                next_search_dist = 999\n                while next_search_dist is not None:\n                    suggested_path, _, next_search_dist = self.bot.shortest_path(\n                        lambda pos, cell: pos == obj_pos,\n                        ignore_blockers=True,\n                        blocker_fn=lambda pos: self.bot.blocker_fn(pos, obj_pos, next_search_dist),\n                        distance_fn=lambda pos: self.bot.distance(pos, obj_pos)\n                    )\n                    if suggested_path:\n                        path = [elem for elem in suggested_path]",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0386-aaiehihbh",
+  "revision_url": "https://github.com/dmlc/dgl/commit/5567f4a4d91687ca6dd869ff01ab8615b4c1d65f",
+  "filename": "tests/mxnet/test_basics.py",
+  "commit": "5567f4a4d91687ca6dd869ff01ab8615b4c1d65f",
+  "source_url": "https://raw.githubusercontent.com/dmlc/dgl/5567f4a4d91687ca6dd869ff01ab8615b4c1d65f/tests/mxnet/test_basics.py",
+  "fetched_at": "2026-11-05T06:12:43.263657+00:00",
+  "source_sha256": "352d362feb682c20e3e3c46498ba4e71a409eee8bd6fa52b2aeb5d465b16c44c",
+  "line_start": 44,
+  "line_end": 68,
+  "excerpt": "def test_batch_setter_getter():\n    def _pfc(x):\n        return list(x.asnumpy()[:,0])\n    g = generate_graph()\n    # set all nodes\n    g.set_n_repr({'h' : mx.nd.zeros((10, D))})\n    assert _pfc(g.get_n_repr()['h']) == [0.] * 10\n    # pop nodes\n    assert _pfc(g.pop_n_repr('h')) == [0.] * 10\n    assert len(g.get_n_repr()) == 0\n    g.set_n_repr({'h' : mx.nd.zeros((10, D))})\n    # set partial nodes\n    # TODO we need to enable the test later.\n    '''\n    u = mx.nd.array([1, 3, 5], dtype='int64')\n    g.set_n_repr({'h' : mx.nd.ones((3, D))}, u)\n    assert _pfc(g.get_n_repr()['h']) == [0., 1., 0., 1., 0., 1., 0., 0., 0., 0.]\n    # get partial nodes\n    u = mx.nd.array([1, 2, 3], dtype='int64')\n    print(g.get_n_repr(u)['h'])\n    assert _pfc(g.get_n_repr(u)['h']) == [1., 0., 1.]\n    '''\n\n    '''\n    s, d, eid"
+}

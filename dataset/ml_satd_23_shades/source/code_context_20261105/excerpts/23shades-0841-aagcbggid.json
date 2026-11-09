@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0841-aagcbggid",
+  "revision_url": "https://github.com/carpedm20/SPIRAL-tensorflow/commit/05ddfdc20c73a61cde46594bd6b7b7a2e255a44b",
+  "filename": "envs/mnist.py",
+  "commit": "05ddfdc20c73a61cde46594bd6b7b7a2e255a44b",
+  "source_url": "https://raw.githubusercontent.com/carpedm20/SPIRAL-tensorflow/05ddfdc20c73a61cde46594bd6b7b7a2e255a44b/envs/mnist.py",
+  "fetched_at": "2026-11-05T06:14:03.312118+00:00",
+  "source_sha256": "9092b32c091a41408a869aea687dbd4ea0996db29696e94e5e25349c0b2220a7",
+  "line_start": 272,
+  "line_end": 296,
+  "excerpt": "        else:\n            mnist_dict = defaultdict(lambda: defaultdict(list))\n            for name in ['train', 'test', 'valid']:\n                for num in self.args.mnist_nums:\n                    filtered_data = \\\n                            mnist.train.images[mnist.train.labels == num]\n                    filtered_data = \\\n                            np.reshape(filtered_data, [-1, 28, 28])\n\n                    iterator = tqdm(filtered_data,\n                                    desc=\"[{}] Processing {}\".format(name, num))\n                    for idx, image in enumerate(iterator):\n                        # XXX: don't know which way would be the best\n                        resized_image = ut.io.imresize(\n                                image, [self.height, self.width],\n                                interp='cubic')\n                        mnist_dict[name][num].append(\n                                np.expand_dims(resized_image, -1))\n            ut.io.dump_pickle(pkl_path, mnist_dict)\n\n        mnist_dict = mnist_dict['train' if self.args.train else 'test']\n\n        data = []\n        for num in self.args.mnist_nums:\n            data.append(mnist_dict[int(num)])"
+}

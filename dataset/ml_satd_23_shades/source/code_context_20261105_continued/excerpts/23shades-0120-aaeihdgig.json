@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0120-aaeihdgig",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/4c855983d9cb8e45414af0b4ad64d52fd8853d68",
+  "filename": "sdc/extensions/indexes/range_index_ext.py",
+  "commit": "4c855983d9cb8e45414af0b4ad64d52fd8853d68",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/4c855983d9cb8e45414af0b4ad64d52fd8853d68/sdc/extensions/indexes/range_index_ext.py",
+  "fetched_at": "2026-11-05T06:11:57.073729+00:00",
+  "source_sha256": "fd2284969833c55f02e4341842c901ccc112d71f31c8d705bf06567c86a07b90",
+  "line_start": 412,
+  "line_end": 436,
+  "excerpt": "def pd_range_index_ne_overload(self, other):\n\n    self_is_range_index = isinstance(self, RangeIndexType)\n    other_is_range_index = isinstance(other, RangeIndexType)\n\n    if not (self_is_range_index and other_is_range_index\n            or (self_is_range_index and (check_is_numeric_array(other) or isinstance(other, types.Number)))\n            or ((check_is_numeric_array(self) or isinstance(self, types.Number) and other_is_range_index))):\n        return None\n\n    def pd_range_index_ne_impl(self, other):\n\n        eq_res = np.asarray(self == other)  # FIXME_Numba#5157: remove np.asarray and return as list\n        return list(~eq_res)\n\n    return pd_range_index_ne_impl\n\n\n@lower_builtin(operator.is_, RangeIndexType, RangeIndexType)\ndef pd_range_index_is_overload(context, builder, sig, args):\n\n    ty_lhs, ty_rhs = sig.args\n    if ty_lhs != ty_rhs:\n        return cgutils.false_bit\n"
+}

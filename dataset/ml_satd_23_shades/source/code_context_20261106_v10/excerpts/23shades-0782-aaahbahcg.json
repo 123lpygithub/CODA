@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0782-aaahbahcg",
+  "revision_url": "https://github.com/Erotemic/netharn/commit/54bb6c1f371c12649df97ed5b2c5f4710e97bd0a",
+  "filename": "netharn/examples/tests/test_yolo.py",
+  "commit": "54bb6c1f371c12649df97ed5b2c5f4710e97bd0a",
+  "source_url": "https://raw.githubusercontent.com/Erotemic/netharn/54bb6c1f371c12649df97ed5b2c5f4710e97bd0a/netharn/examples/tests/test_yolo.py",
+  "fetched_at": "2026-11-05T06:13:51.776339+00:00",
+  "source_sha256": "f97e0abdd0547b6580aa114531583364e747c68b2ccdfb2a8bae0143572f3efa",
+  "line_start": 827,
+  "line_end": 851,
+  "excerpt": "    #     labels = [torch.Tensor(x) for x in labels]\n    #     outputs = torch.Tensor(outputs)\n    #     postout = postprocess(outputs)\n    #     for y in harn._measure_confusion(postout, labels, inp_size):\n    #         batch_confusions.append(y)\n\n    if False:\n        from netharn.util import mplutil\n        mplutil.qtensure()  # xdoc: +SKIP\n        harn.visualize_prediction(batch, outputs, postout, thresh=.1)\n\n    y = pd.concat([pd.DataFrame(c) for c in batch_confusions])\n    # TODO: write out a few visualizations\n    num_classes = len(loader.dataset.label_names)\n    cls_labels = list(range(num_classes))\n\n    aps = nh.metrics.ave_precisions(y, cls_labels, method='voc2007')\n    aps = aps.rename(dict(zip(cls_labels, loader.dataset.label_names)), axis=0)\n    mean_ap = np.nanmean(aps['ap'])\n    max_ap = np.nanmax(aps['ap'])\n    print(aps)\n    print('mean_ap = {!r}'.format(mean_ap))\n    print('max_ap = {!r}'.format(max_ap))\n\n    aps = nh.metrics.ave_precisions(y[y.score > .01], cls_labels, method='voc2007')"
+}

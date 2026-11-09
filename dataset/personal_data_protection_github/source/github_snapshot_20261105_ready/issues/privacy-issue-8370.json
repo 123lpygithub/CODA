@@ -1,0 +1,74 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8370",
+  "issue_url": "https://github.com/dilame/instagram-private-api/issues/1345",
+  "source_issue_url": "https://github.com/dilame/instagram-private-api/issues/1345",
+  "api_url": "https://api.github.com/repos/dilame/instagram-private-api/issues/1345",
+  "title": "IgResponseError: POST /api/v1/direct_v2/threads/broadcast/link/ - 403 Forbidden; ",
+  "body": "# Bug Report\r\n\r\nRead the [Notes](#notes) and fill out the form.\r\n\r\n## Notes\r\nYour issue will be closed if you violate any rule below.\r\n - You need to include a meaningful section of your code\r\n  (not your entire project and not a single line).\r\n - Please **do not add screenshots** as they're not easy to work with.\r\n - Errors like `IgActionSpamError (feedback_required)`, `IgCheckpointError (challenge_required)`, `checkpont_required`, `login_required`\r\n    are \"common\" and there are multiple issues, [search here](https://github.com/dilame/instagram-private-api/issues).\r\n - You can delete this section after reading it.\r\n \r\n## Form\r\nPut an `[x]` if you meet the condition, else leave `[ ]`.\r\n#### Requirements\r\n - [x] I've searched the [Issues](https://github.com/dilame/instagram-private-api/issues)\r\n - [x] I've read the [basic concepts](https://github.com/dilame/instagram-private-api#basic-concepts)\r\n - [x] I'm using the latest version\r\n - [x] I've [debugged](https://github.com/dilame/instagram-private-api#debugging) my code using the `DEBUG` variable.\r\n#### Platform\r\n - [ ] I'm using Node.js version `YOUR_VERSION (node -v)`\r\n - [ ] I'm using electron\r\n - [ ] I'm using the browser `YOUR_BROWSER_AND_VERSION`\r\n - [ ] I'm using some other environment `YOUR_ENV`\r\n\r\n## Description\r\nA **specific** description of your bug, so it's understandable to anyone.\r\nIf you have pictures or videos to upload, please add a link like this: `[title](url)`.\r\n\r\n**YOUR DESCRIPTION HERE**\r\n\r\n## Code\r\nAdd a meaningful section of your code here. If you are using **TypeScript** replace `js` with `typescript`.\r\n\r\n```js\r\n/* tslint:disable:no-console */\r\nimport { DirectThreadEntity, IgApiClient } from '../src';\r\n\r\nconst ig = new IgApiClient();\r\n\r\nasync function login() {\r\n  // basic login-procedure\r\n  ig.state.generateDevice(process.env.IG_USERNAME);\r\n  ig.state.proxyUrl = process.env.IG_PROXY;\r\n  await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD);\r\n}\r\n\r\nasync function sendMessageLink(thread: DirectThreadEntity, message: string, links: string[]) {\r\n  return await thread.broadcastLink(message, links);\r\n}\r\n\r\n(async () => {\r\n  await login();\r\n\r\n  const thread = ig.entity.directThread(process.env.IG_THREAD_ID);\r\n\r\n  await sendMessageLink(thread, process.env.IG_MESSAGE, [process.env.IG_MESSAGE_LINK]);\r\n})();\r\n\r\n```\r\n\r\n## Error and Output\r\n/Users/davidesantangelo/Work/chorally/apis/instagram-private-api/dist/src/core/request.js:126\r\n        return new errors_1.IgResponseError(response);\r\n               ^\r\n\r\nIgResponseError: POST /api/v1/direct_v2/threads/broadcast/link/ - 403 Forbidden; \r\n    at Request.handleResponseError (/Users/davidesantangelo/Work/chorally/apis/instagram-private-api/dist/src/core/request.js:126:16)\r\n    at Request.send (/Users/davidesantangelo/Work/chorally/apis/instagram-private-api/dist/src/core/request.js:54:28)\r\n    at async DirectThreadRepository.broadcast (/Users/davidesantangelo/Work/chorally/apis/instagram-private-api/dist/src/repositories/direct-thread.repository.js:177:26)\r\n    at async DirectThreadEntity.broadcast (/Users/davidesantangelo/Work/chorally/apis/instagram-private-api/dist/src/entities/direct-thread.entity.js:192:26)\r\n    at async DirectThreadEntity.broadcastLink (/Users/davidesantangelo/Work/chorally/apis/instagram-private-api/dist/src/entities/direct-thread.entity.js:70:16)\r\n    at async sendMessage (/Users/davidesantangelo/Work/chorally/apis/instagram-private-api/dist/engine/send_text.js:11:12)\r\n    at async /Users/davidesantangelo/Work/chorally/apis/instagram-private-api/dist/engine/send_text.js:16:5\r\n\r\n```\r\nYOUR WELL FORMATTED ERROR\r\n```\r\n\r\n```\r\nYOUR OUTPUT GOES HERE\r\n```\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-12-28T07:59:30Z",
+  "updated_at": "2023-04-18T08:26:29Z",
+  "state": "closed",
+  "closed_at": "2020-12-28T09:50:19Z",
+  "issue_fetched_at": "2026-10-19T02:11:11.266614+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T02:11:12.720208+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 751654492,
+      "url": "https://github.com/dilame/instagram-private-api/issues/1345#issuecomment-751654492",
+      "created_at": "2020-12-28T09:50:11Z",
+      "updated_at": "2020-12-28T09:50:11Z",
+      "author": "Participant 2",
+      "body": "You're either in the EU or you're messaging an account in the EU and Facebook has disabled some functionality such as sending links due to the [ePrivacy directive](https://www.digitalinformationworld.com/2020/12/facebook-explains-problem-with.html)."
+    },
+    {
+      "id": 751735654,
+      "url": "https://github.com/dilame/instagram-private-api/issues/1345#issuecomment-751735654",
+      "created_at": "2020-12-28T14:46:50Z",
+      "updated_at": "2020-12-28T14:46:50Z",
+      "author": "Participant 1",
+      "body": "ok @Nerixyz but there is a way to skip url check and send message as text?"
+    },
+    {
+      "id": 751739971,
+      "url": "https://github.com/dilame/instagram-private-api/issues/1345#issuecomment-751739971",
+      "created_at": "2020-12-28T15:00:36Z",
+      "updated_at": "2020-12-28T15:00:36Z",
+      "author": "Participant 2",
+      "body": "This will be possible if #1334 is merged. But fow now you can use this:\r\n\r\n```ts\r\nconst sendText = (entity: DirectThreadEntity, test: string) => (entity as any).broadcast({\r\n  item: 'text',\r\n  form: {\r\n    text,\r\n  },\r\n});\r\n```\r\n_You can leave out the `as any` if you're not using Typescript._"
+    },
+    {
+      "id": 932756242,
+      "url": "https://github.com/dilame/instagram-private-api/issues/1345#issuecomment-932756242",
+      "created_at": "2021-10-02T13:55:48Z",
+      "updated_at": "2021-10-02T13:55:48Z",
+      "author": "Participant 3",
+      "body": "How did you solve it?"
+    },
+    {
+      "id": 974644032,
+      "url": "https://github.com/dilame/instagram-private-api/issues/1345#issuecomment-974644032",
+      "created_at": "2021-11-20T12:37:41Z",
+      "updated_at": "2021-11-20T12:37:41Z",
+      "author": "Participant 4",
+      "body": "@davidesantangelo did you solve it and how?"
+    },
+    {
+      "id": 1512670749,
+      "url": "https://github.com/dilame/instagram-private-api/issues/1345#issuecomment-1512670749",
+      "created_at": "2023-04-18T08:26:29Z",
+      "updated_at": "2023-04-18T08:26:29Z",
+      "author": "Participant 5",
+      "body": "@davidesantangelo Have you solved it yet"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

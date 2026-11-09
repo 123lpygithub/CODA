@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0806-aahjgiagj",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "filename": "tensorflow2.0/source/pkg_resources/__init__.py",
+  "commit": "44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/44d36f9e5045fd859ee188d74dc31f3921ad4796/tensorflow2.0/source/pkg_resources/__init__.py",
+  "fetched_at": "2026-11-05T06:13:55.232215+00:00",
+  "source_sha256": "a69f1bec0b286a17aca3eabc948312d6da50a7cf318c09188022115fe26c3e51",
+  "line_start": 630,
+  "line_end": 654,
+  "excerpt": "    def find(self, req):\n        \"\"\"Find a distribution matching requirement `req`\n\n        If there is an active distribution for the requested project, this\n        returns it as long as it meets the version requirement specified by\n        `req`.  But, if there is an active distribution for the project and it\n        does *not* meet the `req` requirement, ``VersionConflict`` is raised.\n        If there is no active distribution for the requested project, ``None``\n        is returned.\n        \"\"\"\n        dist = self.by_key.get(req.key)\n        if dist is not None and dist not in req:\n            # XXX add more info\n            raise VersionConflict(dist, req)\n        return dist\n\n    def iter_entry_points(self, group, name=None):\n        \"\"\"Yield entry point objects from `group` matching `name`\n\n        If `name` is None, yields all entry points in `group` from all\n        distributions in the working set, otherwise only ones matching\n        both `group` and `name` are yielded (in distribution order).\n        \"\"\"\n        return (\n            entry"
+}

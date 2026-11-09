@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0265-aaejhfaai",
+  "revision_url": "https://github.com/mondejar/ecg-classification/commit/5e2b68124276a7bb483dac41a5ed826bd855b058",
+  "filename": "python/train_SVM.py",
+  "commit": "5e2b68124276a7bb483dac41a5ed826bd855b058",
+  "source_url": "https://raw.githubusercontent.com/mondejar/ecg-classification/5e2b68124276a7bb483dac41a5ed826bd855b058/python/train_SVM.py",
+  "fetched_at": "2026-11-05T06:12:24.801789+00:00",
+  "source_sha256": "6849667835ba521f50bae6ddc57b943a1cdbf7e28a079274fd56836885d669cc",
+  "line_start": 101,
+  "line_end": 125,
+  "excerpt": "    ## Test SVM model\n    print(\"Testing model on MIT-BIH DS2: \" + model_svm_path + \"...\")\n\n    [eval_features, eval_labels] = load_mit_db('DS2', winL, winR, do_preprocess, maxRR, use_RR, norm_RR, compute_morph, db_path)\n    #np.savetxt('mit_db/DS2_labels.csv', eval_labels.astype(int), '%.0f') \n\n    # Normalization of the input data\n    # scaled: zero mean unit variance ( z-score )\n    eval_features_scaled = scaler.transform(eval_features)\n\n    # Let's test new data!\n    #predicts_ovo        = svm_model.decision_function(eval_features_scaled)\n    # TODO combine these values to get a final prediction!\n    #predicts_log_proba  = svm_model.predict_log_proba(eval_features_scaled)\n    #predicts_proba      = svm_model.predict_proba(eval_features_scaled)\n\n    predicts            = svm_model.predict(eval_features_scaled)\n\n    print(\"Evaluation\")\n    perf_measures = compute_AAMI_performance_measures(predicts, eval_labels)\n    \n    perf_measures_filename = create_svm_model_name('results/conf', winL, winR, do_preprocess, use_RR, norm_RR, compute_morph, use_weight_class)\n    # Write results and also predictions on DS2\n    write_AAMI_results( perf_measures, perf_measures_filename + '_Ijk_' + str(format(perf_measures.Ijk, '.2f')) + '.txt')\n    "
+}

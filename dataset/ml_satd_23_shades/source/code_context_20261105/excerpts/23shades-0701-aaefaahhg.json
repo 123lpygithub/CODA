@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0701-aaefaahhg",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/d6730264dad0df6e3e0ad1b085554994851d3dca",
+  "filename": "madmom/test/test_audio_spectrogram.py",
+  "commit": "d6730264dad0df6e3e0ad1b085554994851d3dca",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/d6730264dad0df6e3e0ad1b085554994851d3dca/madmom/test/test_audio_spectrogram.py",
+  "fetched_at": "2026-11-05T06:13:40.144912+00:00",
+  "source_sha256": "49da763759c3be4f9c0650db997b47fc1fe1229150607eca19dd0a2e1a924f77",
+  "line_start": 390,
+  "line_end": 414,
+  "excerpt": "        from madmom.audio.filters import MelFilterbank\n        result = FilteredSpectrogram(DATA_PATH + '/sample.wav',\n                                     filterbank=MelFilterbank)\n        dump = cPickle.dumps(result, protocol=cPickle.HIGHEST_PROTOCOL)\n        dump = cPickle.loads(dump)\n        self.assertTrue(np.allclose(result, dump))\n        # additional attributes\n        self.assertTrue(np.allclose(result.filterbank, dump.filterbank))\n\n    def test_methods(self):\n        result = FilteredSpectrogram(DATA_PATH + '/sample.wav')\n        self.assertIsInstance(result.diff(), SpectrogramDifference)\n        # TODO: should we return a LogarithmicFilteredSpectrogram?\n        self.assertIsInstance(result.log(), LogarithmicSpectrogram)\n\n\nclass TestFilteredSpectrogramProcessorClass(unittest.TestCase):\n\n    def test_types(self):\n        processor = FilteredSpectrogramProcessor()\n        self.assertIsInstance(processor, FilteredSpectrogramProcessor)\n        self.assertTrue(issubclass(processor.filterbank,\n                                   LogarithmicFilterbank))\n        self.assertIsInstance(processor.num_bands, int)\n        self.assertIsInstance(processor.fmin, float)"
+}

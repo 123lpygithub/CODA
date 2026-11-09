@@ -1,0 +1,344 @@
+
+=== 36 23shades-0525-aajbigiad ===
+{"dataset_id": "aajbigiad", "repo_name": "kakaobrain/torchgpipe", "filename": "torchgpipe/skip/portal.py", "comment_introducing_revision": "https://github.com/kakaobrain/torchgpipe/commit/ec8d3ec09e6fef3a032cb723b6667e1b9358df12", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ec8d3ec09e6fef3a032cb723b6667e1b9358df12"}
+[comment_text]
+TODO: does it make graph?
+[source_context]
+    tensor with copied one.
+    """
+    @staticmethod
+    def forward(ctx: Context,  # type: ignore
+                portal: Portal,
+                prev_stream: AbstractStream,
+                next_stream: AbstractStream,
+                phony: Tensor,
+                ) -> Tensor:
+        ctx.portal = portal
+
+        if portal.tensor is not None:
+            # TODO: does it make graph?
+            portal.tensor, = Copy.forward(ctx, prev_stream, next_stream, portal.tensor)
+
+        phony = get_phony(get_device(next_stream), requires_grad=False)
+        return phony.detach()
+
+    @staticmethod
+    def backward(ctx: Context,  # type: ignore
+                 grad_phony: Tensor,
+                 ) -> Tuple[None, None, None, None]:
+        portal = ctx.portal
+
+        if portal.grad is not None:
+
+=== 37 23shades-0193-aajfaiafb ===
+{"dataset_id": "aajfaiafb", "repo_name": "pyannote/pyannote-audio", "filename": "pyannote/audio/train/model.py", "comment_introducing_revision": "https://github.com/pyannote/pyannote-audio/commit/acbce7d9d4a05f11525ede654f6cc6ce4211f186", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "acbce7d9d4a05f11525ede654f6cc6ce4211f186"}
+[comment_text]
+TODO
+[source_context]
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# AUTHORS
+# Hervé BREDIN - http://herve.niderb.fr
+
+"""
+TODO
+"""
+
+from typing import Union
+from typing import List
+try:
+    from typing import Literal
+except ImportError as e:
+    from typing_extensions import Literal
+from pyannote.core import SlidingWindow
+
+RESOLUTION_FRAME = 'frame'
+RESOLUTION_CHUNK = 'chunk'
+
+=== 38 23shades-0598-aahiijgjf ===
+{"dataset_id": "aahiijgjf", "repo_name": "tslearn-team/tslearn", "filename": "tslearn/tests/test_estimators.py", "comment_introducing_revision": "https://github.com/tslearn-team/tslearn/commit/c46ad4e48e88027ab99f3010d2aec53d34580f9a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "c46ad4e48e88027ab99f3010d2aec53d34580f9a"}
+[comment_text]
+TODO: make this exception more specific
+[source_context]
+    list
+        Collection of estimators of the type specified in `type_filter`
+    """
+
+    def is_abstract(c):
+        if not(hasattr(c, '__abstractmethods__')):
+            return False
+        if not len(c.__abstractmethods__):
+            return False
+        return True
+
+    if type_filter not in ['all', 'classifier', 'transformer', 'cluster']:
+        # TODO: make this exception more specific
+        raise Exception("type_filter should be element of "
+                        "['all', 'classifier', 'transformer', 'cluster']")
+
+    # Walk through all the packages from our base_path and
+    # add all the classes to a list
+    all_classes = []
+    base_path = tslearn.__path__
+    for _, name, _ in pkgutil.walk_packages(path=base_path,
+                                            prefix='tslearn.'):
+        module = __import__(name, fromlist="dummy")
+        all_classes.extend(inspect.getmembers(module, inspect.isclass))
+
+
+=== 39 23shades-0608-aaidfjifi ===
+{"dataset_id": "aaidfjifi", "repo_name": "weiHelloWorld/accelerated_sampling_with_autoencoder", "filename": "MD_simulation_on_alanine_dipeptide/current_work/src/sample_with_classifier.py", "comment_introducing_revision": "https://github.com/weiHelloWorld/accelerated_sampling_with_autoencoder/commit/269e660823e8eb7d0854af43a21109a9e7867a07", "comment_removing_revision": "https://github.com/weiHelloWorld/accelerated_sampling_with_autoencoder/commit/97c7a618c17acd70bc9a450c4b149bcaf9242f38", "source_context_status": "available", "source_context_commit": "269e660823e8eb7d0854af43a21109a9e7867a07"}
+[comment_text]
+TODO: modify this later
+[source_context]
+        """
+        # first find two states closest to two ends respectively
+        ave_input_list = [np.average(self.get_input_from_pdbs([item]), axis=0)
+                          for item in self._all_states]
+        dis_to_end_states = [
+            [np.linalg.norm(ave_input_list[self._end_state_index[temp_index]] - item)
+                for item in ave_input_list] for temp_index in [0, 1]]
+        sorted_index = [np.argsort(item) for item in dis_to_end_states]
+        for temp_index in [0, 1]:
+            assert (dis_to_end_states[temp_index][sorted_index[temp_index][0]] < 1e-5)       # because distance to itself should be 0
+        two_states_closest_to_two_ends = [sorted_index[0][1], sorted_index[1][1]]          # why choose state with sorted_index = 1? since the distance to itself = 0
+        # then choose one end and the state closest to that end
+        chosen_end_state_index = 1   # TODO: modify this later
+        return two_states_closest_to_two_ends[chosen_end_state_index], self._end_state_index[chosen_end_state_index]
+
+    def sample_intermediate_between_two_states(self, state_index_1, state_index_2, folder):
+        pc_string = ['0'] * len(self._all_states)
+        pc_string[state_index_1] = pc_string[state_index_2] = '0.5'
+        pc_string = ','.join(pc_string)
+        kappa_string = ','.join(['500'] * len(self._all_states))
+        out_pdb = folder + '/out_%02d_between_%02d_%02d.pdb' % (len(self._all_states), state_index_1, state_index_2)
+        command = 'python ../src/biased_simulation.py 500 50000 0 %s none pc_0 --platform CPU ' % folder
+        command += '--output_pdb  %s ' % out_pdb
+        command += '--bias_method plumed_other --plumed_file temp_plumed.txt '
+        command += ' --plumed_add_string " AT=%s KAPPA=%s"' % (pc_string, kappa_string)
+
+=== 40 23shades-0340-aaebjbdgg ===
+{"dataset_id": "aaebjbdgg", "repo_name": "alan-turing-institute/sktime", "filename": "sktime/highlevel/tasks.py", "comment_introducing_revision": "https://github.com/alan-turing-institute/sktime/commit/7bba5e701ad58bbc3c62d6c703155a8afa2e507b", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "7bba5e701ad58bbc3c62d6c703155a8afa2e507b"}
+[comment_text]
+TODO replace whole pandas data container as input argument with separated metadata container
+[source_context]
+        This method is especially useful in orchestration where metadata may not be
+        available when specifying the task.
+
+        Parameters
+        ----------
+        metadata : pandas.DataFrame
+            Metadata container
+
+        Returns
+        -------
+        self : an instance of self
+        """
+        # TODO replace whole pandas data container as input argument with separated metadata container
+
+        # only set metadata if metadata is not already set, otherwise raise error
+        if self._metadata is not None:
+            raise AttributeError('Metadata is already set and can only be set once, create a new task for different '
+                                 'metadata')
+
+        # check for consistency of information provided in task with given metadata
+        self.check_data_compatibility(metadata)
+
+        # set default feature information (all columns but target) using metadata
+        if self.features is None:
+            self._features = metadata.columns.drop(self.target)
+
+=== 41 23shades-0415-aajahjjch ===
+{"dataset_id": "aajahjjch", "repo_name": "chainer/chainer", "filename": "chainerx/manipulation/shape.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/8f0d6bb122b8ca846ba89df94b8c170f100edaa2", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "8f0d6bb122b8ca846ba89df94b8c170f100edaa2"}
+[comment_text]
+TODO(sonots): Implement in C++
+[source_context]
+import chainerx
+
+# TODO(sonots): Implement in C++
+def ravel(a):
+    """Returns a flattened array.
+
+    It tries to return a view if possible, otherwise returns a copy.
+
+    Args:
+        a (~chainerx.ndarray): Array to be flattened.
+
+    Returns:
+        ~chainerx.ndarray: A flattened view of ``a`` if possible,
+        otherwise a copy.
+
+
+=== 42 23shades-0294-aaebjigjj ===
+{"dataset_id": "aaebjigjj", "repo_name": "alan-turing-institute/sktime", "filename": "sktime/utils/data_container.py", "comment_introducing_revision": "https://github.com/alan-turing-institute/sktime/commit/80df7efaa34a05db561ce362bd5072b2e45e9fbe", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "80df7efaa34a05db561ce362bd5072b2e45e9fbe"}
+[comment_text]
+TODO handle 1d series; not only 2d dataframes
+[source_context]
+    nested pandas DataFrame have the same index.
+
+    Parameters
+    ----------
+    X : nested pandas DataFrame
+        Input dataframe with time-series in cells.
+
+    Returns
+    -------
+    indexes : list of indixes
+        List of indixes with one index for each column
+    """
+    # TODO handle 1d series, not only 2d dataframes
+    # TODO assumes columns are typed (i.e. all rows for a given column have the same type)
+    # TODO only handles series columns, raises error for columns with primitives
+
+    indexes = []
+    # Check index for each column separately.
+    for c, col in enumerate(X.columns):
+
+        # Get index from first row, can be either pd.Series or np.array.
+        first_index = X.iloc[0, c].index if hasattr(X.iloc[0, c], 'index') else np.arange(X.iloc[c, 0].shape[0])
+
+        # Series must contain at least 2 observations, otherwise should be primitive.
+        if len(first_index) < 2:
+
+=== 43 23shades-0689-aaacjhcjh ===
+{"dataset_id": "aaacjhcjh", "repo_name": "proycon/gecco", "filename": "gecco/modules/spacing.py", "comment_introducing_revision": "https://github.com/proycon/gecco/commit/c35fcda531bc42cb6fdddbd8635efc34afe23bd9", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "c35fcda531bc42cb6fdddbd8635efc34afe23bd9"}
+[comment_text]
+TODO: run-on and split module
+[source_context]
+
+import sys
+import os
+import json
+import io
+import bz2
+import gzip
+from collections import OrderedDict
+from pynlpl.formats import folia
+from pynlpl.textprocessors import Windower
+from gecco.gecco import Module
+
+#TODO: run-on and split module
+
+
+=== 44 23shades-0488-aaahbjgif ===
+{"dataset_id": "aaahbjgif", "repo_name": "Erotemic/netharn", "filename": "examples/sseg_camvid.py", "comment_introducing_revision": "https://github.com/Erotemic/netharn/commit/ef932c663f51f5cb804a56ea4c63ff70c7d6bc31", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ef932c663f51f5cb804a56ea4c63ff70c7d6bc31"}
+[comment_text]
+TODO: clip polygons
+[source_context]
+
+        raw_dets = kwimage.Detections(
+            aids=aids,
+            boxes=boxes,
+            class_idxs=class_idxs,
+            segmentations=segmentations,
+            classes=self.classes,
+            datakeys=['aids'],
+        )
+
+        keep = []
+        for i, s in enumerate(raw_dets.data['segmentations']):
+            # TODO: clip polygons
+            m = s.to_mask(input_dims)
+            if m.area > 0:
+                keep.append(i)
+        dets = raw_dets.take(keep)
+
+        heatmap = dets.rasterize(bg_size=(1, 1), input_dims=input_dims,
+                                 soften=0, exclude=['diameter', 'class_probs', 'offset'])
+        return heatmap
+
+    def _colorized_labels(self, cidxs):
+        self.cx_to_color = np.array([
+            self.sampler.dset.name_to_cat[self.classes[cx]]['color']
+
+=== 45 23shades-0576-aaeihdcgb ===
+{"dataset_id": "aaeihdcgb", "repo_name": "IntelPython/sdc", "filename": "sdc/datatypes/series/boxing.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/e0619659131a8647ad8e5738a776ce77d1ce5c9a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e0619659131a8647ad8e5738a776ce77d1ce5c9a"}
+[comment_text]
+TODO: index and name
+[source_context]
+from .types import SeriesType
+
+
+@lower_constant(SeriesType)
+def constant_Series(context, builder, ty, pyval):
+    """
+    Create a constant Series.
+
+    See @unbox(SeriesType)
+    """
+    series = cgutils.create_struct_proxy(ty)(context, builder)
+    series.data = _constant_Series_data(context, builder, ty, pyval)
+    # TODO: index and name
+    return series._getvalue()
+
+
+def _constant_Series_data(context, builder, ty, pyval):
+    """
+    Create a constant for Series data.
+
+    Mostly reuses constant creation for pandas arrays.
+    """
+
+    from ..categorical.types import CategoricalDtypeType
+
+
+=== 46 23shades-0386-aaiehihbh ===
+{"dataset_id": "aaiehihbh", "repo_name": "dmlc/dgl", "filename": "tests/mxnet/test_basics.py", "comment_introducing_revision": "https://github.com/dmlc/dgl/commit/5567f4a4d91687ca6dd869ff01ab8615b4c1d65f", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "5567f4a4d91687ca6dd869ff01ab8615b4c1d65f"}
+[comment_text]
+TODO we need to enable the test later.
+[source_context]
+def test_batch_setter_getter():
+    def _pfc(x):
+        return list(x.asnumpy()[:,0])
+    g = generate_graph()
+    # set all nodes
+    g.set_n_repr({'h' : mx.nd.zeros((10, D))})
+    assert _pfc(g.get_n_repr()['h']) == [0.] * 10
+    # pop nodes
+    assert _pfc(g.pop_n_repr('h')) == [0.] * 10
+    assert len(g.get_n_repr()) == 0
+    g.set_n_repr({'h' : mx.nd.zeros((10, D))})
+    # set partial nodes
+    # TODO we need to enable the test later.
+    '''
+    u = mx.nd.array([1, 3, 5], dtype='int64')
+    g.set_n_repr({'h' : mx.nd.ones((3, D))}, u)
+    assert _pfc(g.get_n_repr()['h']) == [0., 1., 0., 1., 0., 1., 0., 0., 0., 0.]
+    # get partial nodes
+    u = mx.nd.array([1, 2, 3], dtype='int64')
+    print(g.get_n_repr(u)['h'])
+    assert _pfc(g.get_n_repr(u)['h']) == [1., 0., 1.]
+    '''
+
+    '''
+    s, d, eid
+
+=== 47 23shades-0208-aaeeciehh ===
+{"dataset_id": "aaeeciehh", "repo_name": "chainer/chainer-chemistry", "filename": "tests/dataset_tests/preprocessors_tests/test_weavenet_preprocessor.py", "comment_introducing_revision": "https://github.com/chainer/chainer-chemistry/commit/4bd35912e53d875330d2792911f6eedee62389d2", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "4bd35912e53d875330d2792911f6eedee62389d2"}
+[comment_text]
+TODO (nakago): test feature extraction behavior...
+[source_context]
+    atoms, adjs = dataset[index]
+    if use_fixed_atom_feature:
+        assert atoms.ndim == 2  # (atom, ch)
+        assert atoms.dtype == numpy.float32
+    else:
+        assert atoms.ndim == 1  # (atom, )
+        assert atoms.dtype == numpy.int32
+    # (atom from * atom to, ch)
+    assert adjs.ndim == 2
+    assert adjs.shape[0] == max_atoms * max_atoms
+    assert adjs.dtype == numpy.float32
+
+    # TODO (nakago): test feature extraction behavior...
+    atoms0, adjs0 = dataset[0]
+
+
+if __name__ == '__main__':
+    pytest.main([__file__, '-v', '-s'])

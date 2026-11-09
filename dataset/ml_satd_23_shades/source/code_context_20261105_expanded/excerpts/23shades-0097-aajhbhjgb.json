@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0097-aajhbhjgb",
+  "revision_url": "https://github.com/mozilla/TTS/commit/6906adc39ee54b0f03eb60433847c5732b32fc88",
+  "filename": "speaker_encoder/train.py",
+  "commit": "6906adc39ee54b0f03eb60433847c5732b32fc88",
+  "source_url": "https://raw.githubusercontent.com/mozilla/TTS/6906adc39ee54b0f03eb60433847c5732b32fc88/speaker_encoder/train.py",
+  "fetched_at": "2026-11-05T06:11:53.757572+00:00",
+  "source_sha256": "f5376936a81a00640f44f39c9778c2c162ea15093ee2560d4f8047808364c9ae",
+  "line_start": 183,
+  "line_end": 207,
+  "excerpt": "#             tb_logger.tb_eval_audios(\n#                 global_step, {\"ValAudio\": eval_audio}, c.audio[\"sample_rate\"])\n\n#             # compute average losses\n#             avg_loss /= (num_iter + 1)\n\n#             # Plot Validation Stats\n#             epoch_stats = {\"GE2Eloss\": avg_loss}\n#             tb_logger.tb_eval_stats(global_step, epoch_stats)\n#     return avg_loss\n\n\n# FIXME: move args definition/parsing inside of main?\ndef main(args):  # pylint: disable=redefined-outer-name\n    ap = AudioProcessor(**c.audio)\n    model = SpeakerEncoder(input_dim=40,\n                           proj_dim=128,\n                           lstm_dim=384,\n                           num_lstm_layers=3)\n    optimizer = RAdam(model.parameters(), lr=c.lr)\n    criterion = GE2ELoss(loss_method='softmax')\n\n    if args.restore_path:\n        checkpoint = torch.load(args.restore_path)\n        try:",
+  "match_policy": "unique-release-normalized-v2"
+}

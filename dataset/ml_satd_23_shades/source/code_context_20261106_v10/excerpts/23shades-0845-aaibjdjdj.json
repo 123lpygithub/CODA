@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0845-aaibjdjdj",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/a4ed78e23f83a0723e06157b4777cd3b4b382ac9",
+  "filename": "scikits/learn/base.py",
+  "commit": "a4ed78e23f83a0723e06157b4777cd3b4b382ac9",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/a4ed78e23f83a0723e06157b4777cd3b4b382ac9/scikits/learn/base.py",
+  "fetched_at": "2026-11-05T06:14:03.421873+00:00",
+  "source_sha256": "d58493def3ce5792273d817a1206b1df4c85eaed45ba3d640f15d25d4005ee18",
+  "line_start": 21,
+  "line_end": 45,
+  "excerpt": "    with the same parameters that has not been fit on any data.\n\n    Parameters\n    ============\n    estimator: estimator object, or list, tuple or set of objects\n        The estimator or group of estimators to be cloned\n    safe: boolean, optional\n        If safe is false, clone will fall back to a deepcopy on objects\n        that are not estimators.\n\n    \"\"\"\n    estimator_type = type(estimator)\n    # XXX: not handling dictionnaries\n    if estimator_type in (list, tuple, set, frozenset):\n         return estimator_type([clone(e, safe=safe) for e in estimator])\n    elif not hasattr(estimator, '_get_params'):\n        if not safe:\n            return copy.deepcopy(estimator)\n        else:\n            raise ValueError(\"Cannot clone object '%s' (type %s): \"\n                    \"it does not seem to be a scikit-learn estimator as \"\n                    \"it does not implement a '_get_params' methods.\"\n                    % (repr(estimator), type(estimator)))\n    klass = estimator.__class__\n    new_object_params = estimator._get_params(deep=False)"
+}

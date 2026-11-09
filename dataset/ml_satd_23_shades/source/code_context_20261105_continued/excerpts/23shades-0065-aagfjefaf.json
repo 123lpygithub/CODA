@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0065-aagfjefaf",
+  "revision_url": "https://github.com/NRCan/geo-deep-learning/commit/a0de42c0f89981cf65f0441cf69e813126887777",
+  "filename": "utils/NIR_modules.py",
+  "commit": "a0de42c0f89981cf65f0441cf69e813126887777",
+  "source_url": "https://raw.githubusercontent.com/NRCan/geo-deep-learning/a0de42c0f89981cf65f0441cf69e813126887777/utils/NIR_modules.py",
+  "fetched_at": "2026-11-05T06:11:49.234807+00:00",
+  "source_sha256": "b2879d2de92a2f8ab02d4d89c6f002669e9e8ce94fb1b04df790b527682d810b",
+  "line_start": 4,
+  "line_end": 28,
+  "excerpt": "import torchvision\nfrom torch import nn\nimport torchvision.models as models\nfrom models import common\n\n\nclass LayerExtractor(nn.Module):\n    def __init__(self, submodule, extracted_layer):\n        super(LayerExtractor, self).__init__()\n        # TODO: documentation\n        self.submodule = submodule\n        self.extracted_layer = extracted_layer\n        # Extract the output size of the layer to fit resize after the concatenation TODO put it in doc\n        self.out_channels = self.submodule.backbone.conv1.out_channels\n\n    def forward(self, x):\n        if self.extracted_layer == 'conv1': \n            # Extract all layers in the ResNet backbone and [:1] for the conv1\n            modules = list(self.submodule.backbone.children())[:1]\n            modules = nn.Sequential(*modules)\n            # Extract all the other layers following the layer of extraction\n            leftover = list(self.submodule.backbone.children())[1:]\n            classifier = list(self.submodule.classifier.children())[1]\n\n            leftover = nn.Sequential(*leftover)"
+}

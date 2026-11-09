@@ -1,0 +1,66 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3720",
+  "issue_url": "https://github.com/fightforthefuture/digital-climate-strike/issues/76",
+  "source_issue_url": "https://github.com/fightforthefuture/digital-climate-strike/issues/76",
+  "api_url": "https://api.github.com/repos/fightforthefuture/digital-climate-strike/issues/76",
+  "title": "Remove or disable google analytics (by default)",
+  "body": "Hey there,\r\n\r\nwhy do we want to support companies like google getting more user data?\r\nWe expect - or at least hope - that a lot of projects participate in the digital climate strike.\r\n\r\nWe\r\n\r\n* piss off admins who see the google analytics by default\r\n* give the data of users of websites, who previously didn't have google analytics, to google\r\n\r\nand for what?...",
+  "author": "Participant 1",
+  "created_at": "2019-09-10T19:49:46Z",
+  "updated_at": "2019-10-01T22:12:26Z",
+  "state": "closed",
+  "closed_at": "2019-10-01T22:12:26Z",
+  "issue_fetched_at": "2026-10-19T04:06:13.003697+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T04:06:14.433679+00:00"
+  ],
+  "expected_comment_count": 5,
+  "retrieved_comment_count": 5,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 530223147,
+      "url": "https://github.com/fightforthefuture/digital-climate-strike/issues/76#issuecomment-530223147",
+      "created_at": "2019-09-11T05:17:31Z",
+      "updated_at": "2019-09-11T05:17:31Z",
+      "author": "Participant 2",
+      "body": "I agree completely. Perhaps we should switch GA from opt-out to opt-in?"
+    },
+    {
+      "id": 530504793,
+      "url": "https://github.com/fightforthefuture/digital-climate-strike/issues/76#issuecomment-530504793",
+      "created_at": "2019-09-11T18:23:45Z",
+      "updated_at": "2019-09-11T18:29:39Z",
+      "author": "Participant 3",
+      "body": "Hey @NerdyProjects and @miloskroulik,\r\n\r\nFirst up, thanks for this feedback. I'm aligned with you on not wanting to send user data to Google on websites that previously did not have Google Analytics. We thought about this default when we implemented this feature and settled where we did for a number of reasons. I'll try to outline them as best I can, along with what I recommend instead of changing the default:\r\n\r\n- As you’re probably aware, this javascript widget is part of a much broader campaign to drive turnout on September 20th and raise massive, widespread public awareness about the Global Climate Strike. A critical data point for generating media coverage, promoting the strikes, and for using to convince large website targets is the total number of websites that have added the widget. For example, we can now say publicly that over 900 sites have added the banner. Without GA being on by default, we would be unaware of the vast majority of sites and lose this critical tactic from our campaign toolbelt. \r\n- Ancillary to this, GA has enabled us to follow up some of the large sites and ask them a) to post about it on social media, and b) join the participants list of the website (https://digital.globalclimatestrike.net/#participants). Not only have the websites we’ve spoken been delighted by this, but added more logos on the website provides legitimacy to the campaign and our outreach has been strengthened. Without GA we would be unlikely to have this feedback loop and opportunity. \r\n- Providing the option to disable balances these benefits with the real issue you mention about Google Analytics being added (intentionally, or unintentionally) to a website that doesn’t want it. \r\n- We have not and will not turn on any Google Advertising features that GA support (e.g Demographics and Interest reporting) and no Personally Identifiable Information (PII) is ever sent to Google. \r\n\r\nSo, instead of flipping the default on this, I think we should update the README to be super clear (with some bolding, for example) that the widget adds Google analytics by default, but it can be disabled in the options. We could even include the specific additional script tag they will need so folks can just copy and paste it.\r\n\r\nHow does that sound? I totally hear y’all on the downside with this - but am also hoping this provides a bit more transparency / thinking into why it’s on by default. "
+    },
+    {
+      "id": 530902578,
+      "url": "https://github.com/fightforthefuture/digital-climate-strike/issues/76#issuecomment-530902578",
+      "created_at": "2019-09-12T16:26:04Z",
+      "updated_at": "2019-09-12T16:26:04Z",
+      "author": "Participant 4",
+      "body": "I'd then either suggest running something self-hosted like Matomo or doing something simple as pinging the main server with a transparent POST request everytime the banner is shown.\r\n\r\nGoogle Analytics is not needed for this and having it enabled by default is not compliant with the EU's GDPR. The last thing you want is bringing webmasters trying to raise awareness into legal trouble. "
+    },
+    {
+      "id": 530954885,
+      "url": "https://github.com/fightforthefuture/digital-climate-strike/issues/76#issuecomment-530954885",
+      "created_at": "2019-09-12T18:43:51Z",
+      "updated_at": "2019-09-12T19:08:47Z",
+      "author": "Participant 3",
+      "body": "I've updated the README with a section about Google Analytics tracking as per my suggestion: https://github.com/fightforthefuture/digital-climate-strike/commit/0eb2621d0de84adbf9f8d88f99aa3b0e7486f7b9\r\n\r\n@krmax44 I hear you and agree it would be good to have this tracking self-hosted with Matamo. I created a Matomo account and an issue to migrate over to it (#77). Setting up a server (we don't currently have any running) would unlikely deliver on the acceptance criteria in the issue (or at least be a lot more difficult). \r\n\r\nBut I also want to provide additional transparency as to why I am not confident we should complete the ticket before Sept 20th:\r\n\r\n- We only have 8 days until the Global Climate Strike. The No.1 priority for this campaign is outreach to large websites, the No.2 priority is media/press and the No.3 priority is social media awareness. Our volunteer team is spread extremely thin and we just lost our developer who was leading on a lot of the tech. I can try to find some time to work on the ticket, but I'm not sure if I'll be able to. But that's why this is open source - so maybe someone can jump in! \r\n- Migrating to Matomo will break technical and human dependancies which will slow our team down. For example we would need to re-train volunteers to use Matomo and set up a new process to compare the event data with other data sources like we are now and has taken us numerous days to set up (E.g. form submissions here: https://digital.globalclimatestrike.net/#join-digital-strike)\r\n- We now have almost 2,000 websites who have added the widget - some of which have gone with a self-hosted solution and should be notified of these changes. Because of this and how close we are to the strikes, we want to keep changes to the widget code as minimal as possible and any change should be very carefully implemented and very extensively tested. We would want to test in all available languages / x-browser / operating system combinations. In general I'd be nervous about making this sort of change so late in the campaign. \r\n\r\nSo while the code changes might not be too complex, there will need to be quite a lot of non-code related work before we could consider it done, and we're spread super thin with widget updates being very low priority for our team. I hope that context is helpful in terms of my thinking around this. I really do want to support this community and campaign with the best possible approach that works for the most people - and most importantly, whatever makes the biggest impact (turnout, awareness) for the strikes.  Thanks :)\r\n\r\n"
+    },
+    {
+      "id": 537254663,
+      "url": "https://github.com/fightforthefuture/digital-climate-strike/issues/76#issuecomment-537254663",
+      "created_at": "2019-10-01T22:12:26Z",
+      "updated_at": "2019-10-01T22:12:26Z",
+      "author": "Participant 3",
+      "body": "Closing this because we have #77 issue as the longer term resolution. "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

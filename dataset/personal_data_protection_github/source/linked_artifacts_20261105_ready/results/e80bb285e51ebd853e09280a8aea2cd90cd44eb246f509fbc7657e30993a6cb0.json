@@ -1,0 +1,17 @@
+{
+  "url": "https://github.com/uazo/bromite/blob/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch#L495",
+  "kind": "file",
+  "cited_in": [
+    "comment_743747585",
+    "comment_744014542"
+  ],
+  "revision": "f6d9f2ebcc384c3e75d921fbb3f3bb309122096e",
+  "immutable_revision": true,
+  "line_start": 483,
+  "line_end": 507,
+  "text": "+# Copyright 2020 The Chromium Authors. All rights reserved.\n+# Use of this source code is governed by a BSD-style license that can be\n+# found in the LICENSE file.\n+\n+import(\"//build/config/android/rules.gni\")\n+\n+generate_jni(\"user_scripts_jni_headers\") {\n+  sources = [ \"java/src/org/chromium/components/user_scripts/UserScriptsBridge.java\" ]\n+}\n+\n+android_resources(\"java_resources\") {\n+  sources = [ \n+    \"java/res/xml/main_preferences_addon_userscripts.xml\",\n+    \"java/res/xml/userscripts_preferences.xml\",\n+    \"java/res/layout/accept_script_item.xml\",\n+    \"java/res/layout/accept_script_list.xml\",\n+    \"java/res/layout/scripts_preference.xml\",\n+    \"java/res/values/dimens.xml\"\n+   ]\n+\n+  deps = [\n+    # \":javascript_dialogs_strings_grd\",\n+    \"//components/browser_ui/strings/android:browser_ui_strings_grd\",\n+    \"//components/browser_ui/styles/android:java_resources\",\n+    \"//components/strings:components_strings_grd\",",
+  "source_sha256": "276f439d9063a502225c5681d5371a640e6d25b8a3d68d8ddc131ccca98d7e96",
+  "fetched_at": "2026-11-05T06:21:18.392521+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/uazo/bromite/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch",
+  "status": "available"
+}

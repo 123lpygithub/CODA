@@ -1,0 +1,98 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-2286",
+  "issue_url": "https://github.com/joomla/joomla-cms/issues/22212",
+  "source_issue_url": "https://github.com/joomla/joomla-cms/issues/22212",
+  "api_url": "https://api.github.com/repos/joomla/joomla-cms/issues/22212",
+  "title": "existing user saving agreement with privacy policy keeps getting privacy notice in neverending loop",
+  "body": "### Steps to reproduce the issue\r\nI used a backup of a live website installed 3.9.0 alpa, and after that beta.\r\nWhen I log into the frontend I get the edit profile page. This gives me notice to tick the box I agree in the field Privacy Policy, and save that by clicking the submit button.\r\n\r\n\r\n### Expected result\r\nThe result should be that in the backend my agreemeny is registered, and in the frontend I get the message Profile saved...\r\n\r\n\r\n### Actual result\r\nAll this happens, but also I get a notice telling me:\r\n\"Please confirm that you consent to this web site stronig your information etc.....\"\r\nAnd also the field Privacy Polici is there (in red) with the two responses I agree and No, with No tickt.\r\n\r\nWhen I tick I agree, I get in an neverending loop where the system registers my agreement, and still keeps presenting the notive and the field and keeps asking ...etc.\r\n\r\n\r\n### System information (as much as possible)\r\nThis is a real-life site. So I had Easy profile on, and Trombinoscope. Both deliver extra's in userregistration and contact presentation. I deleted both but cannot see any change in the issue after deleting them. However: perhaps they have triggered something when they were active. Perhaps noy. Both were there in the alpha and worke okay. So.\r\n\r\n\r\n\r\n\r\n### Additional comments\r\nThe profile has also the field Send notification for User Actions Log, this also presents two radio bittons, and this field works okay: when Yes is ticket the change takes hold aftre submitting the form. So the field type as such functions okay.\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-09-16T19:27:58Z",
+  "updated_at": "2018-10-31T06:22:15Z",
+  "state": "closed",
+  "closed_at": "2018-09-17T10:06:13Z",
+  "issue_fetched_at": "2026-10-18T18:10:41.452510+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T18:10:42.876006+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 421819157,
+      "url": "https://github.com/joomla/joomla-cms/issues/22212#issuecomment-421819157",
+      "created_at": "2018-09-16T19:35:06Z",
+      "updated_at": "2018-09-16T19:35:06Z",
+      "author": "Participant 2",
+      "body": "Is this only with an Administrator account? Or does it happen to a Registered user as well? If it's only Admin accounts that have the issue are you running a component that prevents editing of Administrator accounts from the front end?<hr /><sub>This comment was created with the <a href=\"https://github.com/joomla/jissues\">J!Tracker Application</a> at <a href=\"https://issues.joomla.org/tracker/joomla-cms/22212\">issues.joomla.org/tracker/joomla-cms/22212</a>.</sub>"
+    },
+    {
+      "id": 421845804,
+      "url": "https://github.com/joomla/joomla-cms/issues/22212#issuecomment-421845804",
+      "created_at": "2018-09-16T22:36:48Z",
+      "updated_at": "2018-09-16T22:36:48Z",
+      "author": "Participant 1",
+      "body": "It does happen to a registered user as well. (I made a new user set to rgeistred from the backen end. The new user after first login has to tocjt the privacy consent, and this triggers the same neverending loop in the same way.)<hr /><sub>This comment was created with the <a href=\"https://github.com/joomla/jissues\">J!Tracker Application</a> at <a href=\"https://issues.joomla.org/tracker/joomla-cms/22212\">issues.joomla.org/tracker/joomla-cms/22212</a>.</sub>"
+    },
+    {
+      "id": 421894073,
+      "url": "https://github.com/joomla/joomla-cms/issues/22212#issuecomment-421894073",
+      "created_at": "2018-09-17T05:37:39Z",
+      "updated_at": "2018-09-17T05:37:39Z",
+      "author": "Participant 3",
+      "body": "I can reproduce the issue on 2 live sites upgraded to Beta2. A registered user keeps being asked to confirm their consent. I switched the template to use Protostar to see if it could have been due to some template overrides but still not working as expected."
+    },
+    {
+      "id": 421930477,
+      "url": "https://github.com/joomla/joomla-cms/issues/22212#issuecomment-421930477",
+      "created_at": "2018-09-17T08:44:38Z",
+      "updated_at": "2018-09-17T08:44:38Z",
+      "author": "Participant 4",
+      "body": "I have this https://github.com/joomla/joomla-cms/issues/22173 maybe it is connected."
+    },
+    {
+      "id": 421944451,
+      "url": "https://github.com/joomla/joomla-cms/issues/22212#issuecomment-421944451",
+      "created_at": "2018-09-17T09:35:09Z",
+      "updated_at": "2018-09-17T09:35:09Z",
+      "author": "Participant 5",
+      "body": "This issue should be addressed by #22196 already. You can confirm that by look at #__privacy_consents table on your site database, change data type of subject field to varchar(255) and it will solve this issue (before, it was varchar(25) and data was not stored properly)"
+    },
+    {
+      "id": 421953328,
+      "url": "https://github.com/joomla/joomla-cms/issues/22212#issuecomment-421953328",
+      "created_at": "2018-09-17T10:06:14Z",
+      "updated_at": "2018-09-17T10:06:14Z",
+      "author": "Participant 6",
+      "body": "Set to \"closed\" on behalf of @franz-wohlkoenig by The <a href=\"https://github.com/joomla/jissues\">JTracker Application</a> at <a href=\"https://issues.joomla.org/tracker/joomla-cms/22212\">issues.joomla.org/joomla-cms/22212</a>"
+    },
+    {
+      "id": 421953449,
+      "url": "https://github.com/joomla/joomla-cms/issues/22212#issuecomment-421953449",
+      "created_at": "2018-09-17T10:06:44Z",
+      "updated_at": "2018-09-17T10:06:44Z",
+      "author": "Participant 7",
+      "body": "closed as having Pull Request #22196"
+    },
+    {
+      "id": 434518702,
+      "url": "https://github.com/joomla/joomla-cms/issues/22212#issuecomment-434518702",
+      "created_at": "2018-10-31T00:27:13Z",
+      "updated_at": "2018-10-31T00:27:13Z",
+      "author": "Participant 8",
+      "body": "Still happening for me, two different sites."
+    },
+    {
+      "id": 434574813,
+      "url": "https://github.com/joomla/joomla-cms/issues/22212#issuecomment-434574813",
+      "created_at": "2018-10-31T06:22:15Z",
+      "updated_at": "2018-10-31T06:22:15Z",
+      "author": "Participant 7",
+      "body": "@Healyhatman can you please open a new Issue as Comments on closed ones got low Notice. https://docs.joomla.org/Filing_bugs_and_issues#Reporting_bugs"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

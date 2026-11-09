@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0370-aafeghegj",
+  "revision_url": "https://github.com/aleju/imgaug/commit/fc9122db09b392671d1937b0cf53ce52b11d51dd",
+  "filename": "imgaug/parameters.py",
+  "commit": "fc9122db09b392671d1937b0cf53ce52b11d51dd",
+  "source_url": "https://raw.githubusercontent.com/aleju/imgaug/fc9122db09b392671d1937b0cf53ce52b11d51dd/imgaug/parameters.py",
+  "fetched_at": "2026-11-05T06:12:41.088597+00:00",
+  "source_sha256": "cc45257b4151b210de07e0749f08493be35c07e77654eebc995e59173418cc87",
+  "line_start": 408,
+  "line_end": 432,
+  "excerpt": "            #params_keys = set()\n            for sample in samples:\n                if isinstance(sample, StochasticParameter):\n                    key = str(sample)\n                    params_counter[key] += 1\n                    #params_keys.add(key)\n\n            # collect per parameter once the required number of samples\n            # iterate here over self.a to always use the same seed for\n            # the same parameter\n            # TODO this might fail if the same parameter is added\n            # multiple times to self.a?\n            # TODO this will fail if a parameter cant handle size=(N,)\n            param_to_samples = dict()\n            for i, param in enumerate(self.a):\n                key = str(param)\n                if key in params_counter:\n                    #print(\"[Choice] sampling %d from %s\" % (params_counter[key], key))\n                    param_to_samples[key] = param.draw_samples(\n                        size=(params_counter[key],),\n                        random_state=ia.new_random_state(seed+1+i)\n                    )\n\n            # assign the values sampled from the parameters to the `samples`\n            # array by replacing the respective parameter",
+  "match_policy": "unique-release-normalized-v2"
+}

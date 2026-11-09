@@ -1,0 +1,6 @@
+{
+  "url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/7ada25ae8c847192a5c91a317de9fa8aaaed2fad/examples/plot_gmm.py",
+  "source": "\"\"\"\nSimple Gaussian Mixture model plotting example\n\nTODO: use the faithful dataset\n\"\"\"\n\nimport numpy as np\nfrom scikits.learn import gmm, shortcuts\nfrom datetime import datetime\n\nn, m = 442, 2\n\nnp.random.seed(0)\n\nC = np.array([[0., -0.7], [3.5, .7]]) # rotation and scale matrix\n\nX = np.r_[np.dot(np.random.randn(n, 2), C),\n          np.random.randn(n, 2) + np.array([10,10])]\n\nclf = gmm.GMM(2, cvtype='full')\nclf.fit(X)\n\nshortcuts.plot_gmixture (X, clf.means, clf.covars, clf=clf)\n",
+  "fetched_at": "2026-11-05T06:11:44.352665+00:00",
+  "source_sha256": "ae3c2d72a0f6c332d56812db9ea797352e731b7e8d9fe98a65c76da6b8d5c458"
+}

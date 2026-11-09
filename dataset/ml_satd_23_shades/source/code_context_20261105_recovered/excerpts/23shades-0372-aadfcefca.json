@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0372-aadfcefca",
+  "revision_url": "https://github.com/sbl-sdsc/mmtf-pyspark/commit/53e3695d595ac06479389537975b374df17a6388",
+  "filename": "src/tests/orFilterTest.py",
+  "commit": "53e3695d595ac06479389537975b374df17a6388",
+  "source_url": "https://raw.githubusercontent.com/sbl-sdsc/mmtf-pyspark/53e3695d595ac06479389537975b374df17a6388/src/tests/orFilterTest.py",
+  "fetched_at": "2026-11-05T06:12:41.124010+00:00",
+  "source_sha256": "2005a631a4d336c2138c8db05331c8eb72a7326f0201310ab2a2c387ac17af20",
+  "line_start": 1,
+  "line_end": 24,
+  "excerpt": "#!/usr/bin/env python\n'''\nSimple example of reading an MMTF Hadoop Sequence file, filtering the entries \\\nby rFree,and counting the number of entries.\n\nAuthorship information:\n__author__ = \"Peter Rose\"\n__maintainer__ = \"Mars Huang\"\n__email__ = \"marshuang80@gmai.com:\n__status__ = \"Warning\"\n'''\n# TODO Traceback \"ResourceWarning: unclosed filecodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 25: ordinal not in range(128)\"\n# TODO No actual value for unit test\n\nimport unittest\nfrom pyspark import SparkConf, SparkContext\nfrom src.main.MmtfReader import downloadMmtfFiles\nfrom src.main.filters import orFilter,containsDnaChain, containsRnaChain\n\n# TODO Need mappers for this unit test to work\nclass testOrFilter(unittest.TestCase):\n\n    def setUp(self):\n        conf = SparkConf().setMaster(\"local[*]\").setAppName('testrFreeFilter')",
+  "match_policy": "unique-release-normalized-v2"
+}

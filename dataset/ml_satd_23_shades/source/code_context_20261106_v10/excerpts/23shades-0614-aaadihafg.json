@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0614-aaadihafg",
+  "revision_url": "https://github.com/sshleifer/object_detection_kitti/commit/5189270711000c1ea85e2de817aa25dfd3894a6d",
+  "filename": "pcl_rl/objective.py",
+  "commit": "5189270711000c1ea85e2de817aa25dfd3894a6d",
+  "source_url": "https://raw.githubusercontent.com/sshleifer/object_detection_kitti/5189270711000c1ea85e2de817aa25dfd3894a6d/pcl_rl/objective.py",
+  "fetched_at": "2026-11-05T06:13:24.732793+00:00",
+  "source_sha256": "32f0f768fa7afbfadf11dbc5075d1a97c42d4a158e7239035a6f3abf1a59d42c",
+  "line_start": 101,
+  "line_end": 125,
+  "excerpt": "  def __init__(self, learning_rate, clip_norm=5,\n               policy_weight=1.0, critic_weight=0.1,\n               tau=0.1, gamma=1.0, rollout=10,\n               eps_lambda=0.0, clip_adv=None):\n    super(ActorCritic, self).__init__(learning_rate, clip_norm=clip_norm)\n    self.policy_weight = policy_weight\n    self.critic_weight = critic_weight\n    self.tau = tau\n    self.gamma = gamma\n    self.rollout = rollout\n    self.clip_adv = clip_adv\n\n    self.eps_lambda = tf.get_variable(  # TODO: need a better way\n        'eps_lambda', [], initializer=tf.constant_initializer(eps_lambda))\n    self.new_eps_lambda = tf.placeholder(tf.float32, [])\n    self.assign_eps_lambda = self.eps_lambda.assign(\n        0.95 * self.eps_lambda + 0.05 * self.new_eps_lambda)\n\n  def get(self, rewards, pads, values, final_values,\n          log_probs, prev_log_probs, target_log_probs,\n          entropies, logits):\n    not_pad = 1 - pads\n    batch_size = tf.shape(rewards)[1]\n\n    entropy = not_pad * sum(entropies)"
+}

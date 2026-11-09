@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11995",
+  "issue_url": "https://github.com/mozilla-mobile/fenix/issues/12388",
+  "source_issue_url": "https://github.com/mozilla-mobile/fenix/issues/12388",
+  "api_url": "https://api.github.com/repos/mozilla-mobile/fenix/issues/12388",
+  "title": "Private mode links should not be prompted open in app",
+  "body": "### What is the user problem or growth opportunity you want to see solved?\nWhen I am trying to open any site in private mode which has respective app installed it shows a message to open in app however clicking on cancel does not allow to browse the site in browser. Like other browser the links should open normally in browser in private mode even through app is installed. If user wants he/she can click open in app after page loads. Please implement this feature... Too much irritating. \n\n### How do you know that this problem exists today? Why is this important?\nAsking a user to open in app and not allowing to browse simply defeat the purpose of private mode \n\n### Who will benefit from it?\nAll users\n\n![Screenshot](https://user-images.githubusercontent.com/58127841/86921889-60c4a800-c11b-11ea-8316-e5e9881fb687.jpg)UNITO-UNDERSCORE!20200708-182606!\n\n┆Issue is synchronized with this [Jira Task](https://mozilla-hub.atlassian.net/browse/FNXV2-3234)\n",
+  "author": "Participant 1",
+  "created_at": "2020-07-08T13:03:51Z",
+  "updated_at": "2022-12-26T06:33:24Z",
+  "state": "closed",
+  "closed_at": "2022-12-26T06:33:24Z",
+  "issue_fetched_at": "2026-10-18T20:11:20.978982+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T20:11:22.413146+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 657205044,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/12388#issuecomment-657205044",
+      "created_at": "2020-07-12T10:45:25Z",
+      "updated_at": "2020-07-12T10:45:25Z",
+      "author": "Participant 2",
+      "body": "This happens with the 'open links in apps' setting enabled - hitting cancel on the resulting prompt on a private tab will not load the webpage.\r\nConfirmed with Nightly 200710 06:01."
+    },
+    {
+      "id": 657206195,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/12388#issuecomment-657206195",
+      "created_at": "2020-07-12T10:58:17Z",
+      "updated_at": "2020-07-12T10:58:17Z",
+      "author": "Participant 1",
+      "body": "Ideally it should open the link in browser only for private mode like other chromium browsers if user wants he can click open in app option... "
+    },
+    {
+      "id": 659141464,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/12388#issuecomment-659141464",
+      "created_at": "2020-07-16T03:50:32Z",
+      "updated_at": "2020-07-16T03:55:22Z",
+      "author": "Participant 2",
+      "body": "@rocketsroger Please take a look at this issue. Fenix is currently opening the webpages in the respective apps even if the webpages are opened in the Private Browsing Mode. I think this behavior is a serious breach of user privacy preferences and the Private Browsing Mode itself.\r\n\r\nI think the webpages shouldn't open in app even if the \"Open links in app\" is enabled and only let the users open only if they want through 3-dot menu. What do you think?\r\n\r\nOf course, if the link _has_ to be opened in the app and then it should prompt in that case.\r\n \r\nThanks. :)"
+    },
+    {
+      "id": 659144369,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/12388#issuecomment-659144369",
+      "created_at": "2020-07-16T04:02:35Z",
+      "updated_at": "2020-07-16T04:02:35Z",
+      "author": "Participant 3",
+      "body": "> @rocketsroger Please take a look at this issue. Fenix is currently opening the webpages in the respective apps even if the webpages are opened in the Private Browsing Mode. I think this behavior is a serious breach of user privacy preferences and the Private Browsing Mode itself.\r\n\r\nTo confirm, you should see a prompt in private tab before it opens the external app, correct?\r\n\r\n> I think the webpages shouldn't open in app even if the \"Open links in app\" is enabled and only let the users open only if they want through 3-dot menu. What do you think?\r\n\r\nI agree.  If you turn off \"Open links in apps\" in settings, then external app can only be opened by user going through 3-dot menu.  The default \"Open links in apps\" should be off.  Can you please confirm?\r\n\r\nYes, I will definitely continue to work on this.  Thanks for bringing this to our attention.\r\n\r\n"
+    },
+    {
+      "id": 659161896,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/12388#issuecomment-659161896",
+      "created_at": "2020-07-16T05:08:47Z",
+      "updated_at": "2020-07-17T11:17:37Z",
+      "author": "Participant 2",
+      "body": "I have tested this again.\r\n\r\n>To confirm, you should see a prompt in private tab before it opens the external app, correct?\r\n\r\nYeah, I forgot there would be a prompt if the link is going to be opened in-app. The behavior is as intended and is working correctly.\r\n\r\n>I agree. If you turn off \"Open links in apps\" in settings, then external app can only be opened by user going through 3-dot menu. The default \"Open links in apps\" should be off. Can you please confirm?\r\n\r\nYeah, this too is working as expected. The default \"Open links in apps\" is in fact turned off by default. I already knew it but got confused by seeing the screenshots on this issue. Thanks for clearing the confusion. \r\n\r\n---\r\n\r\n\r\n**But**, Here's what this issue's reporter is saying: In Chrome browser's private browsing mode, lets say, for example, I searched for a laptop on Google search by typing \"Asus laptop Amazon\" then it'll bring me the search results, then I click one of the search results and now Chrome is opening that link in the browser itself and letting the user browser on Amazon website. \r\nNote: I have the Amazon app installed.\r\n\r\nbut in Fenix that link gets redirected and gets prompted to open the link in the installed  app when in private browsing mode and if I press on \"Cancel\" button the site stops loading and I have to load that link by going to 3-dot menu and clicking \"reload\" icon. And then I can browse the Amazon website in the Fenix itself.\r\n\r\n\r\nI think this behavior can be improved by letting the website automatically reload and open that link in the browser itself if the user clicks on the \"Cancel\" button or we can make the behavior just like Chrome browser. **Or** we can let the user decide by letting them long press on the link and open that link in the new tab where the link doesn't open in the app and instead gets directly loaded and opened in the browser itself without any prompts. This is how Chrome browser handles links when the links are opened by long pressing them and opening them in the new tab both in normal and Incognito browsing mode. This would also make the \"open links in app\" more flexible and will provide users with more choice if they want to open some links in the browser itself rather than letting Fenix open all the links open in app when the \"open link in apps\" is enabled. Do you think I should open a new issue asking this feature?\r\n\r\n\r\nPlease let me know what do you think.\r\n\r\n\r\n\r\n**Edit:** #12626 & #12624 I have gone ahead and opened these 2 issues related to the suggestions I made. Let me know what you think about them. \r\n\r\n@rocketsroger Please let me know if I  should open new issues for -- if we should make the behaviour like Chrome Browser when the user is in the Private Browsing Mode. I have seen Chrome browser opens most of the links when in the incognito mode in the browser itself. But I have also seen it promt me to open links in apps occasionally. Or what issue #12388 is asking will suffice. \r\n\r\nWaiting for your thoughts on this.\r\n\r\n\r\n Thank you. :)"
+    },
+    {
+      "id": 659464316,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/12388#issuecomment-659464316",
+      "created_at": "2020-07-16T14:51:53Z",
+      "updated_at": "2020-07-16T14:55:43Z",
+      "author": "Participant 3",
+      "body": "> **Edit:** #12626 & #12624 I have gone ahead and opened these 2 issues related to the suggestions I made. Let me know what you think about them.\r\n\r\nThanks for raising the issues.  I've assigned them to me and I'll look into them to improve the \"Open links in apps\" experience.  I understand that this functionality is very central to most users and it should provide privacy protection as well as convenience.  Thanks again for your contribution and I will definitely ask for your help when I start looking at the issues you created.\r\n\r\n"
+    },
+    {
+      "id": 1364932935,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/12388#issuecomment-1364932935",
+      "created_at": "2022-12-26T06:33:24Z",
+      "updated_at": "2022-12-26T06:33:24Z",
+      "author": "Participant 4",
+      "body": "Moved to bugzilla: https://bugzilla.mozilla.org/show_bug.cgi?id=1807544\n\nChange performed by the [Move to Bugzilla add-on](https://addons.mozilla.org/en-US/firefox/addon/move-to-bugzilla/)."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

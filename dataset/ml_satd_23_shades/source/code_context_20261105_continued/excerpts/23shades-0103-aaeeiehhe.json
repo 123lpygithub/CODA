@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0103-aaeeiehhe",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/fe838d1d4ee12c5d9cf57b678adc97fac0da9495",
+  "filename": "cp/audio/audio.py",
+  "commit": "fe838d1d4ee12c5d9cf57b678adc97fac0da9495",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/fe838d1d4ee12c5d9cf57b678adc97fac0da9495/cp/audio/audio.py",
+  "fetched_at": "2026-11-05T06:11:54.524040+00:00",
+  "source_sha256": "08a147b2ec2b35b60f80d5f08bced7dd19b195afb0b4696b8889f705aacdc649",
+  "line_start": 337,
+  "line_end": 361,
+  "excerpt": "            return signal_frame(self.signal, index, self.frame_size, self.hop_size, self.online)\n        # other index types are invalid\n        else:\n            raise TypeError(\"Invalid argument type.\")\n\n    # len() should return the number of frames, since it iterates over frames\n    def __len__(self):\n        return self.num_frames\n\n    @property\n    def num_frames(self):\n        \"\"\"Number of frames.\"\"\"\n        # FIXME: should 1 be added? the index 0 is the first sample, thus if the\n        # length would be exactly 1 hop_size, the length would only be 1 frame,\n        # although it should be 2?\n        return int(np.ceil((np.shape(self.signal)[0]) / self.hop_size))\n\n    @property\n    def fps(self):\n        \"\"\"Frames per second.\"\"\"\n        return float(self.sample_rate) / float(self.hop_size)\n\n    @fps.setter\n    def fps(self, fps):\n        \"\"\"Frames per second.\"\"\"",
+  "match_policy": "unique-release-normalized-v2"
+}

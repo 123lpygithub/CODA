@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0449-aajdcigce",
+  "revision_url": "https://github.com/jupyter/nbdime/commit/09568d382374ed9012618f840285780a52028594",
+  "filename": "nbdime/diffing/notebooks.py",
+  "commit": "09568d382374ed9012618f840285780a52028594",
+  "source_url": "https://raw.githubusercontent.com/jupyter/nbdime/09568d382374ed9012618f840285780a52028594/nbdime/diffing/notebooks.py",
+  "fetched_at": "2026-11-05T06:12:57.796984+00:00",
+  "source_sha256": "3a65bb35235efcf0974a0dabf0fd95192807f536320ee3f28f2be98bb399777a",
+  "line_start": 56,
+  "line_end": 80,
+  "excerpt": "\n    if isinstance(x, list):\n        x = \"\".join(x)\n    if isinstance(y, list):\n        y = \"\".join(y)\n\n    # TODO: Review whether this is wanted.\n    #       The motivation is to align tiny\n    #       strings in outputs such as a single number.\n    # Allow aligning short strings without comparison\n    nx = len(x)\n    ny = len(y)\n    shortlen = 10  # TODO: Add this to configuration framework\n    if nx < shortlen and ny < shortlen:\n        return True\n\n    return compare_strings_approximate(x, y, threshold=0.7)\n\n\ndef compare_text_strict(x, y):\n    # TODO: Doesn't have to be 100% equal here?\n    if isinstance(x, list):\n        x = \"\".join(x)\n    if isinstance(y, list):\n        y = \"\".join(y)"
+}

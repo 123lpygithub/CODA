@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0243-aafeihbhc",
+  "revision_url": "https://github.com/aleju/imgaug/commit/0004ab656077c6f3d51b65dcbc04cd62922deb2b",
+  "filename": "imgaug/augmenters/color.py",
+  "commit": "0004ab656077c6f3d51b65dcbc04cd62922deb2b",
+  "source_url": "https://raw.githubusercontent.com/aleju/imgaug/0004ab656077c6f3d51b65dcbc04cd62922deb2b/imgaug/augmenters/color.py",
+  "fetched_at": "2026-11-05T06:12:21.504696+00:00",
+  "source_sha256": "f9a5794665c9af2f46d20f87a7097eb23d9c4413d6d8ccfb23f2a6bed3e0f9a2",
+  "line_start": 153,
+  "line_end": 177,
+  "excerpt": "\n    def _augment_segmentation_maps(self, segmaps, random_state, parents, hooks):\n        return self._augment_nonimages(\n            segmaps, self.children.augment_segmentation_maps,\n            parents, hooks)\n\n    def _augment_keypoints(self, keypoints_on_images, random_state, parents,\n                           hooks):\n        return self._augment_nonimages(\n            keypoints_on_images, self.children.augment_keypoints, parents,\n            hooks)\n\n    # TODO add test for this\n    def _augment_polygons(self, polygons_on_images, random_state, parents,\n                          hooks):\n        return self._augment_nonimages(\n            polygons_on_images, self.children.augment_polygons, parents,\n            hooks)\n\n    def _augment_nonimages(self, augmentables, children_augfunc, parents,\n                           hooks):\n        if self._is_propagating(augmentables, hooks, parents):\n            augmentables = children_augfunc(\n                augmentables,\n                parents=parents + [self],"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0728-aadhcgicg",
+  "revision_url": "https://github.com/Pinafore/qb/commit/507a03a2f01c33ef93828598dfc8fe26e1b99e68",
+  "filename": "extractors/ir.py",
+  "commit": "507a03a2f01c33ef93828598dfc8fe26e1b99e68",
+  "source_url": "https://raw.githubusercontent.com/Pinafore/qb/507a03a2f01c33ef93828598dfc8fe26e1b99e68/extractors/ir.py",
+  "fetched_at": "2026-11-05T06:13:24.459631+00:00",
+  "source_sha256": "d631aac2c5e45ff40be9fb3f465171bec644dbeea10bf19691112497aed9f105",
+  "line_start": 82,
+  "line_end": 106,
+  "excerpt": "            text = \" \".join(text)\n        if not text:\n            return kNEG_INF\n\n        # Get the document\n        if self._query_hash != hash(text):\n            # print(\"New query for %s\" % text)\n            text_query, text_length = self.create_query(text)\n            try:\n                self._query_terms = [tuple(x.terms()) for x in text_query]\n                self._query_terms = [x[0] for x in self._query_terms]\n            except NotImplementedError:\n                # TODO: This branch happens when there's only one content word\n                # in the query.  Not sure it's being handled correctly.\n                # print(text_query)\n                self._query_terms = [(\"content\", text_query)]\n            self._query_hash = hash(text)\n\n            # Put the query words into the IDF lookup\n            self._idf = {}\n            with self._index.searcher(weighting=scoring.TF_IDF()) as r:\n                for field, word in self._query_terms:\n                    try:\n                        self._idf[word] = r.idf(field, word)\n                    except TypeError:"
+}

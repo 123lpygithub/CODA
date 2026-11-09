@@ -1,0 +1,122 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8971",
+  "issue_url": "https://github.com/kiprotect/klaro/issues/121",
+  "source_issue_url": "https://github.com/kiprotect/klaro/issues/121",
+  "api_url": "https://api.github.com/repos/kiprotect/klaro/issues/121",
+  "title": "How to support older browser like IE 9",
+  "body": "Hello,\r\n\r\nI like this cookie consent manager. But what do I need (polyfill, shims, addons), that Klaro will work on older browsers to.\r\nI would support Android 4.x, older iOS (iPhone 6) and InternetExplorer 9, 10 and 11. My websites (for local community) is also used by persons with older hard- and software.\r\n\r\nThe normal build step (descriped in Readme) does not include required parts for older systems.\r\nExample: Symbol, Map not defined, klaro.version unsupported, script.dataset (currentScript) null object ...\r\n\r\nRegards\r\nMichael",
+  "author": "Participant 1",
+  "created_at": "2019-11-17T21:04:58Z",
+  "updated_at": "2020-07-29T14:53:25Z",
+  "state": "closed",
+  "closed_at": "2020-07-29T14:53:25Z",
+  "issue_fetched_at": "2026-10-18T16:10:43.428339+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T16:10:44.766598+00:00"
+  ],
+  "expected_comment_count": 12,
+  "retrieved_comment_count": 12,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 555408072,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-555408072",
+      "created_at": "2019-11-19T09:15:51Z",
+      "updated_at": "2019-11-19T09:15:51Z",
+      "author": "Participant 2",
+      "body": "I also want to know that. It seems, that IE 11 has a problem with object.keys, which is being used."
+    },
+    {
+      "id": 555413846,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-555413846",
+      "created_at": "2019-11-19T09:29:25Z",
+      "updated_at": "2019-11-19T09:29:25Z",
+      "author": "Participant 2",
+      "body": "It is a little bit weird, that the cookie banner is appearing on the live website in IE11. But I cloned the project and ran `npm run make-dev` and IE11 throws an error."
+    },
+    {
+      "id": 555452315,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-555452315",
+      "created_at": "2019-11-19T10:54:32Z",
+      "updated_at": "2019-11-19T11:00:37Z",
+      "author": "Participant 1",
+      "body": "I've done little work:\r\n`npm install core-js` to include some dependencies like Map, Symbol and Array.functions.\r\n\r\nIn klaro.js (main src file) add:\r\n```\r\nimport 'core-js/es/array';\r\nimport 'core-js/es/map';\r\nimport 'core-js/es/symbol';\r\n\r\n```\r\n\r\nThis works for me on IE11 tested with Win10 Pro 64.\r\nBut not for IE10 and IE9. These browsers need polyfills for Promise, window.boat, document.currentScript, object functions and Set."
+    },
+    {
+      "id": 555456361,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-555456361",
+      "created_at": "2019-11-19T11:04:33Z",
+      "updated_at": "2019-11-19T11:08:38Z",
+      "author": "Participant 1",
+      "body": "I think for supporting all actual used browsers by my visitors I have to write my own Cookie Consent Manager, based on Klaro. Or use another Consent Manager, which supports the needed user agents. But none of others are so good and free as Klaro."
+    },
+    {
+      "id": 555498317,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-555498317",
+      "created_at": "2019-11-19T13:04:15Z",
+      "updated_at": "2019-11-19T13:05:56Z",
+      "author": "Participant 2",
+      "body": "Why should you write something own? Instead extending klaro would be a good thing.\r\nAn extra script with the needed polyfills for older browser would be good.\r\nOil.js is another good and free cookie consent manager.\r\n\r\nYour fix for IE 11 works here too, on IE11 Win10 Pro 64"
+    },
+    {
+      "id": 555514240,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-555514240",
+      "created_at": "2019-11-19T13:46:01Z",
+      "updated_at": "2019-11-19T13:46:44Z",
+      "author": "Participant 1",
+      "body": "> Why should you write something own? Instead extending klaro would be a good thing.\r\n> An extra script with the needed polyfills for older browser would be good.\r\n\r\nThat's the problem. I've done many tests with polyfills but all results in unknown exception or exception is not handled. And if other older browsers for example on older Android or iOS working with polyfills is not guaranteed\r\n\r\n> Oil.js is another good and free cookie consent manager.\r\n\r\nYes! I've seen this, but not still tried.\r\n\r\n> Your fix for IE 11 works here too, on IE11 Win10 Pro 64\r\n\r\nThat's nice to know\r\n\r\n"
+    },
+    {
+      "id": 555537093,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-555537093",
+      "created_at": "2019-11-19T14:39:25Z",
+      "updated_at": "2019-11-19T14:39:25Z",
+      "author": "Participant 2",
+      "body": "Well, sadly it still does not work correctly in IE11. It seems the klaro cookie is not being saved, and so on every reload of the page, the consent banner appears again, and all apps are checked :("
+    },
+    {
+      "id": 555559805,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-555559805",
+      "created_at": "2019-11-19T15:29:22Z",
+      "updated_at": "2019-11-19T15:29:22Z",
+      "author": "Participant 1",
+      "body": "Ok, I will test it later again. Perhabs some other 'polyfill' is missing. Did you get an error in the console?"
+    },
+    {
+      "id": 555562581,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-555562581",
+      "created_at": "2019-11-19T15:35:19Z",
+      "updated_at": "2019-11-19T15:38:23Z",
+      "author": "Participant 3",
+      "body": "It ist probably missing the polyfill for Set. Could you try https://github.com/KIProtect/klaro/pull/124? That worked for me on IE11. For IE10 allot more polyfills and propably some changes to the code are needed."
+    },
+    {
+      "id": 555569831,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-555569831",
+      "created_at": "2019-11-19T15:50:50Z",
+      "updated_at": "2019-11-19T15:50:50Z",
+      "author": "Participant 2",
+      "body": "I can confirm that #124 works in IE11 on Win10 Pro 64. Thank you :)"
+    },
+    {
+      "id": 556369308,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-556369308",
+      "created_at": "2019-11-20T20:43:13Z",
+      "updated_at": "2019-11-20T20:43:13Z",
+      "author": "Participant 1",
+      "body": "I've a solution for older browsers:\r\n`script.dataset` won't work on older browser. I've replaced with `script.getAttribute(\"data-name-of-attr\")` and `script.setAttribute(\"data-name-of-attr\", theValue)` in main file `klaro.js` and `consent-manger.js`. Some other minor changes have to be done too. I will fork klaro and put my changes on a separate branch soon as posible.\r\nMy modification works down to IE9."
+    },
+    {
+      "id": 665712871,
+      "url": "https://github.com/kiprotect/klaro/issues/121#issuecomment-665712871",
+      "created_at": "2020-07-29T14:53:25Z",
+      "updated_at": "2020-07-29T14:53:25Z",
+      "author": "Participant 4",
+      "body": "We just made the necessary changes to make Klaro compatible with IE10 & IE11 (and possibly IE9, thanks for your suggestions and contributions!"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

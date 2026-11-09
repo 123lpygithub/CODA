@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0231-aafchbajj",
+  "revision_url": "https://github.com/Rostlab/nalaf/commit/585f6ef53eb08bbaa5b2875b8f5aa9bfa82def9e",
+  "filename": "nala/features/tmvar.py",
+  "commit": "585f6ef53eb08bbaa5b2875b8f5aa9bfa82def9e",
+  "source_url": "https://raw.githubusercontent.com/Rostlab/nalaf/585f6ef53eb08bbaa5b2875b8f5aa9bfa82def9e/nala/features/tmvar.py",
+  "fetched_at": "2026-11-05T06:12:19.034830+00:00",
+  "source_sha256": "cd31201fad02e2182b1c8da9666d4edc0314a5ce3a3cfd5ef3ff660fa1b39534",
+  "line_start": 1,
+  "line_end": 24,
+  "excerpt": "from nala.features import FeatureGenerator\nimport re\n\n\nclass TmVarDefault(FeatureGenerator):\n    \"\"\"\n    Generates tmVar CRF features based on the value of the token itself.\n    * w[0] = the value of the words itself\n\n    Implements the abstract class FeatureGenerator.\n    \"\"\"\n    # TODO add introductory explanation\n    def __init__(self):\n        \"\"\"\n        Contains all regular expressions.\n        \"\"\"\n        self.reg_spec_chars = re.compile('.*[-;:,.>+_].*')\n        self.reg_chr_keys = re.compile('.*(q|p|q[0-9]+|p[0-9]+|qter|pter|XY|t).*')\n        self.reg_char_simple_bracket = re.compile('.*[\\(\\)].*')\n        self.reg_char_square_bracket = re.compile('.*[\\[\\]].*')\n        self.reg_char_curly_bracket = re.compile('.*[\\{\\}].*')\n        self.reg_char_slashes = re.compile('.*[\\/\\\\\\].*')\n        self.reg_mutat_type = re.compile('.*(del|ins|dup|tri|qua|con|delins|indel).*')\n        self.reg_frameshift_type = re.compile('.*(fs|fsX|fsx).*')"
+}

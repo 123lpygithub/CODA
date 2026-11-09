@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0111-aajdcgacj",
+  "revision_url": "https://github.com/jupyter/nbdime/commit/7ae62b8aa8553e31e5571e6dfdda108a6ed75579",
+  "filename": "nbdime/diffing/notebooks.py",
+  "commit": "7ae62b8aa8553e31e5571e6dfdda108a6ed75579",
+  "source_url": "https://raw.githubusercontent.com/jupyter/nbdime/7ae62b8aa8553e31e5571e6dfdda108a6ed75579/nbdime/diffing/notebooks.py",
+  "fetched_at": "2026-11-05T06:11:55.566734+00:00",
+  "source_sha256": "a61413bdc94c352ceb95fd59981a0be3dd67e539b37cbf0de4608f2a76968e44",
+  "line_start": 155,
+  "line_end": 179,
+  "excerpt": "            return False\n        # TODO: approximate mime-specific output data comparison?\n        if x[\"data\"] != y[\"data\"]:\n            return False\n\n    # NB! Ignoring metadata and execution count\n    return True\n\n\ndef diff_single_outputs(a, b, compare=\"ignored\"):\n    \"Diff a pair of output cells.\"\n    # TODO: Handle output diffing with plugins? I.e. image diff, svg diff, json diff, etc.\n    # FIXME: Use linebased diff of some types of outputs:\n    # if a.output_type in (\"execute_result\", \"display_data\"):\n    #    a.data.key if key.startswith('text/') or key in _non_text_split_mimes = {\n    #        'application/javascript','image/svg+xml'}\n    #    a.text\n    return diff(a, b)\n\n\ndef diff_outputs(a, b, compare=\"ignored\"):\n    \"Diff a pair of lists of outputs from within a single cell.\"\n    predicates = [compare_output_data_keys,\n                  compare_output_data]\n    return diff_sequence_multilevel(a, b, predicates, diff_single_outputs)"
+}

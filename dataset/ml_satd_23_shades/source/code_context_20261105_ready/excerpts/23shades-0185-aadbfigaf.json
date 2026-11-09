@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0185-aadbfigaf",
+  "revision_url": "https://github.com/xinshuoweng/Xinshuo_PyToolbox/commit/02c5283878b5f035c75ba9a3a2d38222f23c3920",
+  "filename": "xinshuo_images/python/image_processing.py",
+  "commit": "02c5283878b5f035c75ba9a3a2d38222f23c3920",
+  "source_url": "https://raw.githubusercontent.com/xinshuoweng/Xinshuo_PyToolbox/02c5283878b5f035c75ba9a3a2d38222f23c3920/xinshuo_images/python/image_processing.py",
+  "fetched_at": "2026-11-05T06:12:09.116226+00:00",
+  "source_sha256": "bf48ed60bb1d60c51cdeb9ee8646d92d8efe51c92cca27f1687c42eb557146b6",
+  "line_start": 530,
+  "line_end": 554,
+  "excerpt": "def vstack_images( images, gap ):\n\timages = [np.array(image) for image in images]\n\timagelist = []\n\tfor image in images:\n\t\tgap_shape = list(image.shape)\n\t\tgap_shape[0] = gap\n\t\timagelist.append(image)\n\t\timagelist.append(np.zeros(gap_shape).astype('uint8'))\n\timagelist = imagelist[:-1]\n\thstack = np.vstack( imagelist )\n\treturn Image.fromarray( hstack )\n\n# TODO\ndef find_peaks(heatmap, thre):\n    #filter = fspecial('gaussian', [3 3], 2)\n    #map_smooth = conv2(map, filter, 'same')\n    \n    # variable initialization    \n\n    map_smooth = np.array(heatmap)\n    map_smooth[map_smooth < thre] = 0.0\n\n\n    map_aug = np.zeros([map_smooth.shape[0]+2, map_smooth.shape[1]+2])\n    map_aug1 = np.zeros([map_smooth.shape[0]+2, map_smooth.shape[1]+2])"
+}

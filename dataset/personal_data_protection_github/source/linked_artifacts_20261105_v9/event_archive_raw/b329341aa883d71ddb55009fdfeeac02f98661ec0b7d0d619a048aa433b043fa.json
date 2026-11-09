@@ -1,0 +1,138 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27vector-im%2Friot-meta%27+AND+number%3D149+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='vector-im/riot-meta' AND number=149 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:32.954167+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "ilu33",
+        "created_at": "2018-04-26 15:02:58",
+        "updated_at": "2018-04-26 15:02:58",
+        "title": "GDPR compliance",
+        "body": "I've seen in issue#132 that @ara4n is aware of at least part of the problem but since GDPR is a difficult beast I thought a separate issue would be in order.\r\n\r\nGDPR compliance will be required by everyone hosting matrix/riot next month and I think that there are several issues. What I've seen so far:\r\n\r\n1. GDPR requires opt-in for every data collection, thus also riot-web analytics need to be changed to opt-in. At least there should be an easy way to change the default serverside. Since we are hosting riot we'd like to play it safe.\r\n\r\n2. Also everybody using riot/matrix needs to be informed about quite a lot of stuff before using the service. The service would not work without storing all that data but still the user has to be informed en detail  about what data is stored where and send where. This applies to matrix.org as well as to every home server. \r\n\r\n3. The user has to explicitly declare consent and the expressed consent hast to be stored with timestamp. I don't think there is a place atm with those consent tick boxes. It seems that upon creating an account with riot you can proceed without consenting to anything. At least I could on riot.im.\r\n\r\n4. Every user has the right to get a data dump about all information stored about him/her, every posting included!\r\n\r\n5. Every user has the right to delete his/her account, all data included!\r\n\r\nI'm aware that no. 4 and 5 are really difficult and maybe impossible. But no. 1-3 should be easy and tackled as soon as possible.\r\n\r\nThere's probably more which has to be done. Please note that GDPR affects every project, every organisation, everybody who's hosting a service, not just comercial services!\r\n",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-04-26 15:00:00",
+        "repo_name": "vector-im/riot-meta",
+        "number": 149
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "lampholder",
+        "created_at": "2018-05-03 11:09:23",
+        "updated_at": "2018-05-03 11:09:23",
+        "title": "GDPR compliance",
+        "body": "Hi @ilu33!\r\n\r\nThanks for creating a github issue for this!\r\n\r\nWe are devoting time to GDPR; the effort currently breaks up into a few distinct tracks:\r\n1. The activities that are related (at least primarily) to companies who have responsibility for running homeservers and related services (bridges, bots, integ servers etc) - such as the matrix.org one!\r\n2. Understanding the full impact of GDPR on the matrix protocol from a functional perspective. For example - is it necessary to erase usernames as well as message content? We are getting legal advice on this.\r\n3. The outcome of 2. will dictate what technical changes we _need_ to make; in the meantime we are investigating how any potential functional changes might be implemented technically. Until we know the outcome of 2. we are assuming the \"worst\" (i.e. most invasive) case of GDPR interpretation.\r\n\r\nWe’ve been putting together a hit list for point 1 currently which we’ll share so that others in a similar situation can take inspiration.\r\n\r\nWe will continue working with our lawyers on point 2 to nail down the specifics. On point 3. we are keen to involve the community - @richvdh is brainstorming possible technical solutions, and the details of this will be available to share in a blog post on matrix.org soon.",
+        "comment_id": 386260687,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-05-03 11:00:00",
+        "repo_name": "vector-im/riot-meta",
+        "number": 149
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ara4n",
+        "created_at": "2018-05-03 15:45:12",
+        "updated_at": "2018-05-03 15:45:12",
+        "title": "GDPR compliance",
+        "body": "https://github.com/matrix-org/synapse/issues/1941#issuecomment-384116450 has a bunch more info ftr.",
+        "comment_id": 386341160,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-05-03 15:00:00",
+        "repo_name": "vector-im/riot-meta",
+        "number": 149
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ara4n",
+        "created_at": "2018-05-18 14:38:07",
+        "updated_at": "2018-05-18 14:38:07",
+        "title": "GDPR compliance",
+        "body": "https://github.com/vector-im/riot-meta/projects/7 is the project dashboard for tracking progress here fwiw.",
+        "comment_id": 390228042,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-05-18 14:00:00",
+        "repo_name": "vector-im/riot-meta",
+        "number": 149
+      }
+    ],
+    "rows": 4,
+    "statistics": {
+      "elapsed": 0.022590891,
+      "rows_read": 279817,
+      "bytes_read": 10617519
+    }
+  },
+  "response_sha256": "d47a5b81c693d00f7c3e4d1e33329aabc549ec1ce7bd08801c9793d0ea19807d"
+}

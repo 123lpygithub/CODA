@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0589-aaeiafbcg",
+  "revision_url": "https://github.com/cltk/cltk/commit/e06de7a4263a923239c4cedd5469c35561c75444",
+  "filename": "src/cltkv1/embeddings/fasttext.py",
+  "commit": "e06de7a4263a923239c4cedd5469c35561c75444",
+  "source_url": "https://raw.githubusercontent.com/cltk/cltk/e06de7a4263a923239c4cedd5469c35561c75444/src/cltkv1/embeddings/fasttext.py",
+  "fetched_at": "2026-11-05T06:13:17.416853+00:00",
+  "source_sha256": "c9ca44f73f469ed14f3b2fdaa37224de15cde96ad7868e833caed356e20f3bac",
+  "line_start": 348,
+  "line_end": 372,
+  "excerpt": "    return bin_url, vec_url\n\n\ndef _mk_dirs_for_file(filepath):\n    \"\"\"Make all dirs specified for final file.\n\n    >>> _mk_dirs_for_file(\"~/new-dir/some-file.txt\")\n    \"\"\"\n    dirs = os.path.split(filepath)[0]\n    try:\n        os.makedirs(dirs)\n    except FileExistsError:\n        # TODO: Logg INFO level\n        pass\n\n\ndef _get_file_with_progress_bar(url: str, filepath: str):\n    \"\"\"Download file with a progress bar.\n\n    Source: https://stackoverflow.com/a/37573701\n\n    TODO: Look at \"Download Large Files with Tqdm Progress Bar\" here: https://medium.com/better-programming/python-progress-bars-with-tqdm-by-example-ce98dbbc9697\n    TODO: Confirm everything saves right\n    \"\"\"\n    _mk_dirs_for_file(filepath=filepath)"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0162-aaifgcjei",
+  "revision_url": "https://github.com/OpenMined/PySyft/commit/0a506107ff57dc2caff0cdfd20880d25446584eb",
+  "filename": "test/torch_test.py",
+  "commit": "0a506107ff57dc2caff0cdfd20880d25446584eb",
+  "source_url": "https://raw.githubusercontent.com/OpenMined/PySyft/0a506107ff57dc2caff0cdfd20880d25446584eb/test/torch_test.py",
+  "fetched_at": "2026-11-05T06:12:04.145612+00:00",
+  "source_sha256": "11c32a5742bf924f783410c2a09ae4ca30b75db41fde3d5720fd26e2a77d7367",
+  "line_start": 954,
+  "line_end": 978,
+  "excerpt": "        return x_mpc, y_mpc\n\n    def mpc_sum(self, n1, n2):\n        x_mpc, y_mpc = self.generate_mpc_number_pair(n1, n2)\n        sum_mpc = x_mpc + y_mpc\n        sum_mpc = sum_mpc.get()\n        assert torch.eq(sum_mpc, torch.LongTensor([n1 + n2])).all()\n\n    def test_mpc_sum(self):\n        self.mpc_sum(3, 5)\n        self.mpc_sum(4, 0)\n        self.mpc_sum(5, -5)\n        # self.mpc_sum(3, -5) TODO: Future work: how to handle gracefully minus numbers\n        self.mpc_sum(2 ** 24, 2 ** 12)\n\n    def mpc_mul(self, n1, n2):\n        x_mpc, y_mpc = self.generate_mpc_number_pair(n1, n2)\n        mul_mpc = x_mpc * y_mpc\n        mul_mpc = mul_mpc.get()\n        assert torch.eq(mul_mpc, torch.LongTensor([n1 * n2])).all(), (mul_mpc, 'should be', torch.LongTensor([n1 * n2]))\n\n    def test_mpc_mul(self):\n        self.mpc_mul(3, 5)\n        self.mpc_mul(4, 0)\n        #self.mpc_mul(5, -5) TODO: Future work: how to handle gracefully minus numbers",
+  "match_policy": "unique-release-normalized-v2"
+}

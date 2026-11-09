@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0783-aagbcgbif",
+  "revision_url": "https://github.com/proycon/clam/commit/05ae6db5d7d8fe67d32d4b00ead442d1fd68122c",
+  "filename": "common/metadata.py",
+  "commit": "05ae6db5d7d8fe67d32d4b00ead442d1fd68122c",
+  "source_url": "https://raw.githubusercontent.com/proycon/clam/05ae6db5d7d8fe67d32d4b00ead442d1fd68122c/common/metadata.py",
+  "fetched_at": "2026-11-05T06:13:51.732982+00:00",
+  "source_sha256": "3199975c6a5d144f243ab28b984dd927d9519353a7eeb554d776129205a45972",
+  "line_start": 433,
+  "line_end": 457,
+  "excerpt": "    def xml(self):\n        super(UnsetMetaField,self).xml('unset')\n        \n    def resolve(self, data):\n        if self.key in data and (not value or (value and data[self.key] == value)):\n            del data[self.key]\n\nclass CopyMetaField(AbstractMetaField):\n    def xml(self):\n        super(UnsetMetaField,self).xml('copy')\n    \n    def resolve(self, data):\n        #TODO: Write resolve method for CopyMetaField\n        raise NotImplemented\n        \nclass OutputTemplate(object):\n    def __init__(self, id, formatclass, label, *args, **kwargs)\n        assert (issubclass(formatclass, CLAMMetaData))\n        assert (not '/' in id and not '.' in id)\n        self.id = id\n        self.formatclass = formatclass\n        self.label = label\n\n        self.metafields = []\n        for metafield in args:"
+}

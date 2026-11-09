@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0688-aafibegea",
+  "revision_url": "https://github.com/ComputationalCryoEM/ASPIRE-Python/commit/f85cdd3bd1522c5334c17bdc52bad4847e7e9996",
+  "filename": "src/aspire/image/image.py",
+  "commit": "f85cdd3bd1522c5334c17bdc52bad4847e7e9996",
+  "source_url": "https://raw.githubusercontent.com/ComputationalCryoEM/ASPIRE-Python/f85cdd3bd1522c5334c17bdc52bad4847e7e9996/src/aspire/image/image.py",
+  "fetched_at": "2026-11-05T06:12:03.437978+00:00",
+  "source_sha256": "90d054e0e3f33187547d90df12dc9380d9b14268eed89e8a996de559401ab46f",
+  "line_start": 303,
+  "line_end": 327,
+  "excerpt": "        corresponding to viewing directions.\n\n        :return: Volume instance corresonding to the backprojected images.\n        \"\"\"\n\n        L = self.res\n\n        ensure(\n            self.n_images == rot_matrices.shape[0],\n            \"Number of rotation matrices must match the number of images\",\n        )\n\n        # TODO: rotated_grids might as well give us correctly shaped array in the first place\n        pts_rot = aspire.volume.rotated_grids(L, rot_matrices)\n        pts_rot = np.moveaxis(pts_rot, 1, 2)\n        pts_rot = m_reshape(pts_rot, (3, -1))\n\n        im_f = centered_fft2(self.data) / (L ** 2)\n        if L % 2 == 0:\n            im_f[:, 0, :] = 0\n            im_f[:, :, 0] = 0\n\n        im_f = im_f.flatten()\n\n        vol = anufft(im_f, pts_rot, (L, L, L), real=True) / L"
+}

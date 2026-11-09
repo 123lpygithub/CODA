@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0603-aahgegeef",
+  "revision_url": "https://github.com/BrikerMan/Kashgari/commit/9d1cb5ff1e0c2baeda33a763c0a55b26aea2053c",
+  "filename": "kashgari/tasks/classification/models.py",
+  "commit": "9d1cb5ff1e0c2baeda33a763c0a55b26aea2053c",
+  "source_url": "https://raw.githubusercontent.com/BrikerMan/Kashgari/9d1cb5ff1e0c2baeda33a763c0a55b26aea2053c/kashgari/tasks/classification/models.py",
+  "fetched_at": "2026-11-05T06:13:19.853081+00:00",
+  "source_sha256": "7fe49c214ebfefff67afcb2ad76790bde648857b642c6f673757988ebb83593d",
+  "line_start": 48,
+  "line_end": 72,
+  "excerpt": "                'decay': 0.0\n            }\n        },\n        'compile_params': {\n            'loss': 'categorical_crossentropy',\n            # 'optimizer': 'adam',\n            'metrics': ['accuracy']\n        }\n    }\n\n    def build_model(self):\n\n        # TODO: maybe refactor this\n        if self.multi_label:\n            self.hyper_parameters['compile_params']['loss'] = 'binary_crossentropy'\n            self.hyper_parameters['compile_params']['metrics'] = ['categorical_accuracy']\n            self.hyper_parameters['activation_layer']['activation'] = 'sigmoid'\n\n        base_model = self.embedding.model\n        conv1d_layer = Conv1D(**self.hyper_parameters['conv1d_layer'])(base_model.output)\n        max_pool_layer = GlobalMaxPooling1D(**self.hyper_parameters['max_pool_layer'])(conv1d_layer)\n        dense_1_layer = Dense(**self.hyper_parameters['dense_1_layer'])(max_pool_layer)\n        dense_2_layer = Dense(len(self.label2idx), **self.hyper_parameters['activation_layer'])(dense_1_layer)\n\n        model = Model(base_model.inputs, dense_2_layer)"
+}

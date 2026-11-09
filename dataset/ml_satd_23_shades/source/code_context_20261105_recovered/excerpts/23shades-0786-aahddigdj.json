@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0786-aahddigdj",
+  "revision_url": "https://github.com/brendanhasz/probflow/commit/721b59aa0d5484c3a3019dd16fe2d3c411191a8e",
+  "filename": "src/probflow/core.py",
+  "commit": "721b59aa0d5484c3a3019dd16fe2d3c411191a8e",
+  "source_url": "https://raw.githubusercontent.com/brendanhasz/probflow/721b59aa0d5484c3a3019dd16fe2d3c411191a8e/src/probflow/core.py",
+  "fetched_at": "2026-11-05T06:13:52.326442+00:00",
+  "source_sha256": "41d0fc12a491aa962070676c51954fa3e961bd382d09902f2a3ccc9dfd9513b8",
+  "line_start": 429,
+  "line_end": 453,
+  "excerpt": "        Also should have callbacks like let's to do early stopping etc\n        Also have a monitor param which somehow lets you monitor the value of parameters over training?\n        And make sure to make it sklearn-compatible (ie you can put it in a pipeline and everything)\n        should have a show_tensorboard option (default is False) https://www.tensorflow.org/guide/summaries_and_tensorboard\n\n\n        \"\"\"\n\n        # TODO: this should be an arg to fit...\n        dtype = tf.float32\n\n        # Set up the data for fitting\n        # TODO: x,y input should be able to be np arrays, pandas arrays, or tf dataset iterators\n        #y_vals = iterator...\n        #x_vals = iterator...\n        # N = number of datapoints (x.shape[0])\n        # first split into train and validation\n        #if x and y are arrays of the correct size (of the train data)\n        x_shape = list(x.shape)\n        y_shape = list(x.shape)\n        x_shape[0] = None\n        y_shape[0] = None\n        x_ph = tf.placeholder(dtype, x_shape)\n        y_ph = tf.placeholder(dtype, x_shape)\n        train_dataset = tf.data.Dataset.from_tensor_slices((x, y))",
+  "match_policy": "unique-release-normalized-v2"
+}

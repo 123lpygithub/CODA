@@ -1,0 +1,4208 @@
+From 760adf53dcb13d99bfba81590bb694575c4d0ed9 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 17:07:15 +0200
+Subject: [PATCH 01/29] Partial work - need to load config from somewhere
+
+---
+ default-templates/server/index.html |  9 +++++
+ lib/models/account-template.js      | 55 ++---------------------------
+ lib/server-config.js                |  7 +++-
+ lib/utils.js                        | 51 ++++++++++++++++++++++++++
+ 4 files changed, 69 insertions(+), 53 deletions(-)
+
+diff --git a/default-templates/server/index.html b/default-templates/server/index.html
+index c6fe861d1..73ee787a3 100644
+--- a/default-templates/server/index.html
++++ b/default-templates/server/index.html
+@@ -30,6 +30,15 @@ <h1>Welcome to the Solid Prototype</h1>
+ 
+     If you have not already done so, please create an account.
+   </p>
++
++
++  <section>
++    <h2>Server info</h2>
++    <dl>
++      <dt>Server name</dt>
++      <dd>{{serverName}}</dd>
++    </dl>
++  </section>
+ </div>
+ </body>
+ </html>
+diff --git a/lib/models/account-template.js b/lib/models/account-template.js
+index cb6ee37aa..d1e906a21 100644
+--- a/lib/models/account-template.js
++++ b/lib/models/account-template.js
+@@ -1,5 +1,7 @@
+ 'use strict'
+ 
++import { processHandlebarFile } from '../utils'
++
+ const fs = require('fs-extra')
+ const path = require('path')
+ const mime = require('mime-types')
+@@ -130,58 +132,7 @@ class AccountTemplate {
+    */
+   processAccount (accountPath) {
+     return this.readTemplateFiles(accountPath)
+-      .then(files => {
+-        return Promise.all(
+-          files.map((path) => { return this.processFile(path) })
+-        )
+-      })
+-  }
+-
+-  /**
+-   * Reads a file, processes it (performing template substitution), and saves
+-   * back the processed result.
+-   *
+-   * @param filePath {string}
+-   *
+-   * @return {Promise}
+-   */
+-  processFile (filePath) {
+-    return new Promise((resolve, reject) => {
+-      fs.readFile(filePath, 'utf8', (error, rawSource) => {
+-        if (error) { return reject(error) }
+-
+-        let output = this.processTemplate(rawSource)
+-
+-        fs.writeFile(filePath, output, (error) => {
+-          if (error) { return reject(error) }
+-          resolve()
+-        })
+-      })
+-    })
+-  }
+-
+-  /**
+-   * Performs a Handlebars string template substitution, and returns the
+-   * resulting string.
+-   *
+-   * @see https://www.npmjs.com/package/handlebars
+-   *
+-   * @param source {string} e.g. 'Hello, {{name}}'
+-   *
+-   * @return {string} Result, e.g. 'Hello, Alice'
+-   */
+-  processTemplate (source) {
+-    let template, result
+-
+-    try {
+-      template = Handlebars.compile(source)
+-      result = template(this.substitutions)
+-    } catch (error) {
+-      console.log('Error processing template: ', error)
+-      return source
+-    }
+-
+-    return result
++      .then(files => Promise.all(files.map(path => processHandlebarFile(path, this.substitutions))))
+   }
+ 
+   /**
+diff --git a/lib/server-config.js b/lib/server-config.js
+index a7dbba6fd..cfe210bbc 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -1,4 +1,6 @@
+ 'use strict'
++import { processHandlebarFile } from './utils'
++
+ /**
+  * Server config initialization utilities
+  */
+@@ -36,7 +38,7 @@ function ensureDirCopyExists (fromDir, toDir) {
+  *
+  * @param argv {Function} Express.js app object
+  */
+-function ensureWelcomePage (argv) {
++async function ensureWelcomePage (argv) {
+   let { multiuser, templates } = argv
+   let rootDir = path.resolve(argv.root)
+   let serverRootDir
+@@ -55,6 +57,9 @@ function ensureWelcomePage (argv) {
+   if (!fs.existsSync(existingIndexPage)) {
+     fs.mkdirp(serverRootDir)
+     fs.copySync(defaultIndexPage, existingIndexPage)
++    await processHandlebarFile(existingIndexPage, {
++      // Need to load config from somewhere
++    })
+     fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
+   }
+ }
+diff --git a/lib/utils.js b/lib/utils.js
+index 4015decfc..d2bae5fee 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -5,6 +5,7 @@ module.exports.pathBasename = pathBasename
+ module.exports.getFullUri = getFullUri
+ module.exports.hasSuffix = hasSuffix
+ module.exports.parse = parse
++module.exports.processHandlebarFile = processHandlebarFile
+ module.exports.serialize = serialize
+ module.exports.translate = translate
+ module.exports.stringToStream = stringToStream
+@@ -19,6 +20,8 @@ const path = require('path')
+ const $rdf = require('rdflib')
+ const from = require('from2')
+ const url = require('url')
++const Handlebars = require('handlebars')
++const debug = require('./debug').errors
+ 
+ /**
+  * Returns a fully qualified URL from an Express.js Request object.
+@@ -147,6 +150,54 @@ function parse (data, baseUri, contentType, callback) {
+   }
+ }
+ 
++/**
++ * Reads a file, processes it (performing template substitution), and saves
++ * back the processed result.
++ *
++ * @param filePath {string}
++ * @param substitutions {Object}
++ *
++ * @return {Promise}
++ */
++async function processHandlebarFile (filePath, substitutions) {
++  return new Promise((resolve, reject) => {
++    fs.readFile(filePath, 'utf8', (error, rawSource) => {
++      if (error) {
++        return reject(error)
++      }
++
++      const output = processHandlebarTemplate(rawSource, substitutions)
++
++      fs.writeFile(filePath, output, (error) => {
++        if (error) {
++          return reject(error)
++        }
++        resolve()
++      })
++    })
++  })
++}
++
++/**
++ * Performs a Handlebars string template substitution, and returns the
++ * resulting string.
++ *
++ * @see https://www.npmjs.com/package/handlebars
++ *
++ * @param source {string} e.g. 'Hello, {{name}}'
++ *
++ * @return {string} Result, e.g. 'Hello, Alice'
++ */
++function processHandlebarTemplate (source, substitutions) {
++  try {
++    const template = Handlebars.compile(source)
++    return template(substitutions)
++  } catch (error) {
++    debug(`Error processing template: ${error}`)
++    return source
++  }
++}
++
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+                 // target, kb, base, contentType, callback
+
+From b51e7c1192a42eb2b440e83e9b75a26d8fe06966 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 21:22:13 +0200
+Subject: [PATCH 02/29] Copying over whole directory
+
+Unsure about the affects on testing, so checking in now just in case
+---
+ lib/models/account-template.js                |  6 ++--
+ lib/server-config.js                          | 29 ++++++++-----------
+ lib/utils.js                                  | 23 +++++++++++----
+ .../integration/account-creation-oidc-test.js |  4 +--
+ test/integration/acl-oidc-test.js             |  3 +-
+ test/integration/acl-tls-test.js              |  3 +-
+ test/integration/auth-proxy-test.js           |  5 ++--
+ test/integration/authentication-oidc-test.js  |  6 ++--
+ test/integration/capability-discovery-test.js |  3 +-
+ test/integration/errors-oidc-test.js          |  3 +-
+ test/integration/params-test.js               |  3 +-
+ test/utils.js                                 |  4 +++
+ 12 files changed, 46 insertions(+), 46 deletions(-)
+
+diff --git a/lib/models/account-template.js b/lib/models/account-template.js
+index d1e906a21..a5c557b88 100644
+--- a/lib/models/account-template.js
++++ b/lib/models/account-template.js
+@@ -1,12 +1,10 @@
+ 'use strict'
+ 
+-import { processHandlebarFile } from '../utils'
+-
+ const fs = require('fs-extra')
+ const path = require('path')
+ const mime = require('mime-types')
+ const recursiveRead = require('recursive-readdir')
+-const Handlebars = require('handlebars')
++const utils = require('../utils')
+ 
+ const RDF_MIME_TYPES = require('../ldp').RDF_MIME_TYPES
+ const TEMPLATE_EXTENSIONS = [ '.acl', '.meta', '.json', '.hbs', '.handlebars' ]
+@@ -132,7 +130,7 @@ class AccountTemplate {
+    */
+   processAccount (accountPath) {
+     return this.readTemplateFiles(accountPath)
+-      .then(files => Promise.all(files.map(path => processHandlebarFile(path, this.substitutions))))
++      .then(files => Promise.all(files.map(path => utils.processHandlebarFile(path, this.substitutions))))
+   }
+ 
+   /**
+diff --git a/lib/server-config.js b/lib/server-config.js
+index cfe210bbc..c48b27cfb 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -1,5 +1,4 @@
+ 'use strict'
+-import { processHandlebarFile } from './utils'
+ 
+ /**
+  * Server config initialization utilities
+@@ -7,6 +6,7 @@ import { processHandlebarFile } from './utils'
+ 
+ const fs = require('fs-extra')
+ const path = require('path')
++const utils = require('./utils')
+ 
+ /**
+  * Ensures that a directory has been copied / initialized. Used to ensure that
+@@ -39,28 +39,23 @@ function ensureDirCopyExists (fromDir, toDir) {
+  * @param argv {Function} Express.js app object
+  */
+ async function ensureWelcomePage (argv) {
+-  let { multiuser, templates } = argv
+-  let rootDir = path.resolve(argv.root)
+-  let serverRootDir
+-
+-  if (multiuser) {
+-    serverRootDir = path.join(rootDir, argv.host.hostname)
+-  } else {
+-    serverRootDir = rootDir
+-  }
++  const { multiuser, templates } = argv
++  const rootDir = path.resolve(argv.root)
++  const serverRootDir = multiuser ? path.join(rootDir, argv.host.hostname) : rootDir
+ 
+-  let defaultIndexPage = path.join(templates.server, 'index.html')
+-  let existingIndexPage = path.join(serverRootDir, 'index.html')
+-  let defaultIndexPageAcl = path.join(templates.server, 'index.html.acl')
+-  let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
++  // let defaultIndexPage = path.join(templates.server, 'index.html')
++  const existingIndexPage = path.join(serverRootDir, 'index.html')
++  // let defaultIndexPageAcl = path.join(templates.server, 'index.html.acl')
++  // let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
+     fs.mkdirp(serverRootDir)
+-    fs.copySync(defaultIndexPage, existingIndexPage)
+-    await processHandlebarFile(existingIndexPage, {
++    await utils.copyTemplateDir(templates.server, serverRootDir)
++    await utils.processHandlebarFile(existingIndexPage, {
++      serverName: 'Tittentei'
+       // Need to load config from somewhere
+     })
+-    fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
++    // fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
+   }
+ }
+ 
+diff --git a/lib/utils.js b/lib/utils.js
+index d2bae5fee..9282845ad 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -5,7 +5,6 @@ module.exports.pathBasename = pathBasename
+ module.exports.getFullUri = getFullUri
+ module.exports.hasSuffix = hasSuffix
+ module.exports.parse = parse
+-module.exports.processHandlebarFile = processHandlebarFile
+ module.exports.serialize = serialize
+ module.exports.translate = translate
+ module.exports.stringToStream = stringToStream
+@@ -14,8 +13,10 @@ module.exports.debrack = debrack
+ module.exports.stripLineEndings = stripLineEndings
+ module.exports.fullUrlForReq = fullUrlForReq
+ module.exports.routeResolvedFile = routeResolvedFile
++module.exports.processHandlebarFile = processHandlebarFile
++module.exports.copyTemplateDir = copyTemplateDir
+ 
+-const fs = require('fs')
++const fs = require('fs-extra')
+ const path = require('path')
+ const $rdf = require('rdflib')
+ const from = require('from2')
+@@ -198,9 +199,19 @@ function processHandlebarTemplate (source, substitutions) {
+   }
+ }
+ 
++async function copyTemplateDir (templatePath, targetPath) {
++  return new Promise((resolve, reject) => {
++    fs.copy(templatePath, targetPath, (error) => {
++      if (error) { return reject(error) }
++
++      resolve()
++    })
++  })
++}
++
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+-                // target, kb, base, contentType, callback
++    // target, kb, base, contentType, callback
+     $rdf.serialize(null, graph, baseUri, contentType, function (err, result) {
+       if (err) {
+         console.log(err)
+@@ -222,9 +233,9 @@ function serialize (graph, baseUri, contentType, callback) {
+ function translate (stream, baseUri, from, to, callback) {
+   // Handle Turtle Accept header
+   if (to === 'text/turtle' ||
+-      to === 'text/n3' ||
+-      to === 'application/turtle' ||
+-      to === 'application/n3') {
++    to === 'text/n3' ||
++    to === 'application/turtle' ||
++    to === 'application/n3') {
+     to = 'text/turtle'
+   }
+ 
+diff --git a/test/integration/account-creation-oidc-test.js b/test/integration/account-creation-oidc-test.js
+index 43a9f066d..edff294c3 100644
+--- a/test/integration/account-creation-oidc-test.js
++++ b/test/integration/account-creation-oidc-test.js
+@@ -37,8 +37,8 @@ describe('AccountManager (OIDC account creation tests)', function () {
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+     fs.removeSync(path.join(dbPath, 'oidc/users/users'))
+-    fs.removeSync(path.join(rootPath, 'localhost/index.html'))
+-    fs.removeSync(path.join(rootPath, 'localhost/index.html.acl'))
++    fs.removeSync(path.join(rootPath, 'localhost'))
++    fs.removeSync(path.join(rootPath, 'localhost'))
+   })
+ 
+   var server = supertest(serverUri)
+diff --git a/test/integration/acl-oidc-test.js b/test/integration/acl-oidc-test.js
+index 1dff38fe6..d7d4060f3 100644
+--- a/test/integration/acl-oidc-test.js
++++ b/test/integration/acl-oidc-test.js
+@@ -86,8 +86,7 @@ describe('ACL with WebID+OIDC over HTTP', function () {
+ 
+   after(() => {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath, 'index.html'))
+-    fs.removeSync(path.join(rootPath, 'index.html.acl'))
++    fs.removeSync(path.join(rootPath))
+   })
+ 
+   const origin1 = 'http://example.org/'
+diff --git a/test/integration/acl-tls-test.js b/test/integration/acl-tls-test.js
+index ffcb79e0d..0f647bc2e 100644
+--- a/test/integration/acl-tls-test.js
++++ b/test/integration/acl-tls-test.js
+@@ -69,8 +69,7 @@ describe('ACL with WebID+TLS', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath, 'index.html'))
+-    fs.removeSync(path.join(rootPath, 'index.html.acl'))
++    fs.removeSync(path.join(rootPath))
+   })
+ 
+   function createOptions (path, user) {
+diff --git a/test/integration/auth-proxy-test.js b/test/integration/auth-proxy-test.js
+index f1062ce04..2baa941bc 100644
+--- a/test/integration/auth-proxy-test.js
++++ b/test/integration/auth-proxy-test.js
+@@ -3,7 +3,7 @@ const path = require('path')
+ const nock = require('nock')
+ const request = require('supertest')
+ const { expect } = require('chai')
+-const rm = require('../utils').rm
++const rmDir = require('../utils').rmDir
+ 
+ const USER = 'https://ruben.verborgh.org/profile/#me'
+ 
+@@ -32,8 +32,7 @@ describe('Auth Proxy', () => {
+       // Release back-end server
+       nock.cleanAll()
+       // Remove created index files
+-      rm('index.html')
+-      rm('index.html.acl')
++      rmDir()
+     })
+ 
+     describe('responding to /server/a', () => {
+diff --git a/test/integration/authentication-oidc-test.js b/test/integration/authentication-oidc-test.js
+index 665711eb3..95dbe7a4d 100644
+--- a/test/integration/authentication-oidc-test.js
++++ b/test/integration/authentication-oidc-test.js
+@@ -81,10 +81,8 @@ describe('Authentication API (OIDC)', () => {
+     alicePod.close()
+     bobPod.close()
+     fs.removeSync(path.join(aliceDbPath, 'oidc/users'))
+-    fs.removeSync(path.join(aliceRootPath, 'index.html'))
+-    fs.removeSync(path.join(aliceRootPath, 'index.html.acl'))
+-    fs.removeSync(path.join(bobRootPath, 'index.html'))
+-    fs.removeSync(path.join(bobRootPath, 'index.html.acl'))
++    fs.removeSync(path.join(aliceRootPath))
++    fs.removeSync(path.join(bobRootPath))
+   })
+ 
+   describe('Login page (GET /login)', () => {
+diff --git a/test/integration/capability-discovery-test.js b/test/integration/capability-discovery-test.js
+index 4ff44b43c..e5e7ecab7 100644
+--- a/test/integration/capability-discovery-test.js
++++ b/test/integration/capability-discovery-test.js
+@@ -48,8 +48,7 @@ describe('API', () => {
+ 
+   after(() => {
+     alicePod.close()
+-    fs.removeSync(path.join(aliceRootPath, 'index.html'))
+-    fs.removeSync(path.join(aliceRootPath, 'index.html.acl'))
++    fs.removeSync(path.join(aliceRootPath))
+   })
+ 
+   describe('Capability Discovery', () => {
+diff --git a/test/integration/errors-oidc-test.js b/test/integration/errors-oidc-test.js
+index 11386ffe1..31d1257e3 100644
+--- a/test/integration/errors-oidc-test.js
++++ b/test/integration/errors-oidc-test.js
+@@ -30,8 +30,7 @@ describe('OIDC error handling', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath, 'index.html'))
+-    fs.removeSync(path.join(rootPath, 'index.html.acl'))
++    fs.removeSync(path.join(rootPath))
+   })
+ 
+   const server = supertest(serverUri)
+diff --git a/test/integration/params-test.js b/test/integration/params-test.js
+index 71629b3a4..bc918868d 100644
+--- a/test/integration/params-test.js
++++ b/test/integration/params-test.js
+@@ -127,8 +127,7 @@ describe('LDNODE params', function () {
+ 
+     after(function () {
+       if (ldpHttpsServer) ldpHttpsServer.close()
+-      fs.removeSync(path.join(rootPath, 'index.html'))
+-      fs.removeSync(path.join(rootPath, 'index.html.acl'))
++      fs.removeSync(path.join(rootPath))
+     })
+ 
+     var server = supertest(serverUri)
+diff --git a/test/utils.js b/test/utils.js
+index f1f79ec6b..18a1566ec 100644
+--- a/test/utils.js
++++ b/test/utils.js
+@@ -11,6 +11,10 @@ exports.rm = function (file) {
+   return rimraf.sync(path.join(__dirname, '/resources/' + file))
+ }
+ 
++exports.rmDir = function (path = '') {
++  return rimraf.sync(path.join(__dirname, '/resources/' + path))
++}
++
+ exports.write = function (text, file) {
+   return fs.writeFileSync(path.join(__dirname, '/resources/' + file), text)
+ }
+
+From 6291c2e4e01acf212c7f66ac6baca37af6d7e53c Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 22:04:07 +0200
+Subject: [PATCH 03/29] Should not remove dirs in test...
+
+---
+ test/integration/account-creation-oidc-test.js |  5 ++---
+ test/integration/acl-oidc-test.js              |  4 ++--
+ test/integration/acl-tls-test.js               |  3 ++-
+ test/integration/auth-proxy-test.js            |  5 +++--
+ test/integration/authentication-oidc-test.js   |  5 +++--
+ test/integration/capability-discovery-test.js  |  4 ++--
+ test/integration/errors-oidc-test.js           |  4 ++--
+ test/integration/params-test.js                |  8 ++------
+ test/utils.js                                  | 15 ++++++++++-----
+ 9 files changed, 28 insertions(+), 25 deletions(-)
+
+diff --git a/test/integration/account-creation-oidc-test.js b/test/integration/account-creation-oidc-test.js
+index edff294c3..ed0d08846 100644
+--- a/test/integration/account-creation-oidc-test.js
++++ b/test/integration/account-creation-oidc-test.js
+@@ -2,7 +2,7 @@ const supertest = require('supertest')
+ // Helper functions for the FS
+ const $rdf = require('rdflib')
+ 
+-const { rm, read, checkDnsSettings } = require('../utils')
++const { rm, read, checkDnsSettings, cleanDir } = require('../utils')
+ const ldnode = require('../../index')
+ const path = require('path')
+ const fs = require('fs-extra')
+@@ -37,8 +37,7 @@ describe('AccountManager (OIDC account creation tests)', function () {
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+     fs.removeSync(path.join(dbPath, 'oidc/users/users'))
+-    fs.removeSync(path.join(rootPath, 'localhost'))
+-    fs.removeSync(path.join(rootPath, 'localhost'))
++    cleanDir(path.join(rootPath, 'localhost'))
+   })
+ 
+   var server = supertest(serverUri)
+diff --git a/test/integration/acl-oidc-test.js b/test/integration/acl-oidc-test.js
+index d7d4060f3..336fe2a70 100644
+--- a/test/integration/acl-oidc-test.js
++++ b/test/integration/acl-oidc-test.js
+@@ -2,7 +2,7 @@ const assert = require('chai').assert
+ const fs = require('fs-extra')
+ const request = require('request')
+ const path = require('path')
+-const { loadProvider, rm, checkDnsSettings } = require('../utils')
++const { loadProvider, rm, checkDnsSettings, cleanDir } = require('../utils')
+ const IDToken = require('@solid/oidc-op/src/IDToken')
+ 
+ const ldnode = require('../../index')
+@@ -86,7 +86,7 @@ describe('ACL with WebID+OIDC over HTTP', function () {
+ 
+   after(() => {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath))
++    cleanDir(rootPath)
+   })
+ 
+   const origin1 = 'http://example.org/'
+diff --git a/test/integration/acl-tls-test.js b/test/integration/acl-tls-test.js
+index 0f647bc2e..aedae7289 100644
+--- a/test/integration/acl-tls-test.js
++++ b/test/integration/acl-tls-test.js
+@@ -3,6 +3,7 @@ var fs = require('fs-extra')
+ var $rdf = require('rdflib')
+ var request = require('request')
+ var path = require('path')
++var { cleanDir } = require('../utils')
+ 
+ /**
+  * Note: this test suite requires an internet connection, since it actually
+@@ -69,7 +70,7 @@ describe('ACL with WebID+TLS', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath))
++    cleanDir(rootPath)
+   })
+ 
+   function createOptions (path, user) {
+diff --git a/test/integration/auth-proxy-test.js b/test/integration/auth-proxy-test.js
+index 2baa941bc..f1062ce04 100644
+--- a/test/integration/auth-proxy-test.js
++++ b/test/integration/auth-proxy-test.js
+@@ -3,7 +3,7 @@ const path = require('path')
+ const nock = require('nock')
+ const request = require('supertest')
+ const { expect } = require('chai')
+-const rmDir = require('../utils').rmDir
++const rm = require('../utils').rm
+ 
+ const USER = 'https://ruben.verborgh.org/profile/#me'
+ 
+@@ -32,7 +32,8 @@ describe('Auth Proxy', () => {
+       // Release back-end server
+       nock.cleanAll()
+       // Remove created index files
+-      rmDir()
++      rm('index.html')
++      rm('index.html.acl')
+     })
+ 
+     describe('responding to /server/a', () => {
+diff --git a/test/integration/authentication-oidc-test.js b/test/integration/authentication-oidc-test.js
+index 95dbe7a4d..21aeed093 100644
+--- a/test/integration/authentication-oidc-test.js
++++ b/test/integration/authentication-oidc-test.js
+@@ -10,6 +10,7 @@ const localStorage = require('localstorage-memory')
+ const URL = require('whatwg-url').URL
+ global.URL = URL
+ global.URLSearchParams = require('whatwg-url').URLSearchParams
++const { cleanDir } = require('../utils')
+ 
+ const supertest = require('supertest')
+ const chai = require('chai')
+@@ -81,8 +82,8 @@ describe('Authentication API (OIDC)', () => {
+     alicePod.close()
+     bobPod.close()
+     fs.removeSync(path.join(aliceDbPath, 'oidc/users'))
+-    fs.removeSync(path.join(aliceRootPath))
+-    fs.removeSync(path.join(bobRootPath))
++    cleanDir(aliceRootPath)
++    cleanDir(bobRootPath)
+   })
+ 
+   describe('Login page (GET /login)', () => {
+diff --git a/test/integration/capability-discovery-test.js b/test/integration/capability-discovery-test.js
+index e5e7ecab7..13cfd52f8 100644
+--- a/test/integration/capability-discovery-test.js
++++ b/test/integration/capability-discovery-test.js
+@@ -1,6 +1,6 @@
+ const Solid = require('../../index')
+ const path = require('path')
+-const fs = require('fs-extra')
++const { cleanDir } = require('../utils')
+ const supertest = require('supertest')
+ const expect = require('chai').expect
+ // In this test we always assume that we are Alice
+@@ -48,7 +48,7 @@ describe('API', () => {
+ 
+   after(() => {
+     alicePod.close()
+-    fs.removeSync(path.join(aliceRootPath))
++    cleanDir(aliceRootPath)
+   })
+ 
+   describe('Capability Discovery', () => {
+diff --git a/test/integration/errors-oidc-test.js b/test/integration/errors-oidc-test.js
+index 31d1257e3..a3202fca5 100644
+--- a/test/integration/errors-oidc-test.js
++++ b/test/integration/errors-oidc-test.js
+@@ -1,7 +1,7 @@
+ const supertest = require('supertest')
+ const ldnode = require('../../index')
+ const path = require('path')
+-const fs = require('fs-extra')
++const { cleanDir } = require('../utils')
+ const expect = require('chai').expect
+ 
+ describe('OIDC error handling', function () {
+@@ -30,7 +30,7 @@ describe('OIDC error handling', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath))
++    cleanDir(rootPath)
+   })
+ 
+   const server = supertest(serverUri)
+diff --git a/test/integration/params-test.js b/test/integration/params-test.js
+index bc918868d..f80ae2674 100644
+--- a/test/integration/params-test.js
++++ b/test/integration/params-test.js
+@@ -1,12 +1,8 @@
+ var assert = require('chai').assert
+ var supertest = require('supertest')
+ var path = require('path')
+-const fs = require('fs-extra')
+ // Helper functions for the FS
+-var rm = require('../utils').rm
+-var write = require('../utils').write
+-// var cp = require('./utils').cp
+-var read = require('../utils').read
++const { rm, write, read, cleanDir } = require('../utils')
+ 
+ var ldnode = require('../../index')
+ 
+@@ -127,7 +123,7 @@ describe('LDNODE params', function () {
+ 
+     after(function () {
+       if (ldpHttpsServer) ldpHttpsServer.close()
+-      fs.removeSync(path.join(rootPath))
++      cleanDir(rootPath)
+     })
+ 
+     var server = supertest(serverUri)
+diff --git a/test/utils.js b/test/utils.js
+index 18a1566ec..ae181f8cf 100644
+--- a/test/utils.js
++++ b/test/utils.js
+@@ -1,5 +1,4 @@
+-var fs = require('fs')
+-var fsExtra = require('fs-extra')
++var fs = require('fs-extra')
+ var rimraf = require('rimraf')
+ var path = require('path')
+ const OIDCProvider = require('@solid/oidc-op')
+@@ -11,8 +10,14 @@ exports.rm = function (file) {
+   return rimraf.sync(path.join(__dirname, '/resources/' + file))
+ }
+ 
+-exports.rmDir = function (path = '') {
+-  return rimraf.sync(path.join(__dirname, '/resources/' + path))
++exports.cleanDir = function (dirPath) {
++  fs.removeSync(path.join(dirPath, '.well-known/.acl'))
++  fs.removeSync(path.join(dirPath, 'favicon.ico'))
++  fs.removeSync(path.join(dirPath, 'favicon.ico.acl'))
++  fs.removeSync(path.join(dirPath, 'index.html'))
++  fs.removeSync(path.join(dirPath, 'index.html.acl'))
++  fs.removeSync(path.join(dirPath, 'robots.txt'))
++  fs.removeSync(path.join(dirPath, 'robots.txt.acl'))
+ }
+ 
+ exports.write = function (text, file) {
+@@ -20,7 +25,7 @@ exports.write = function (text, file) {
+ }
+ 
+ exports.cp = function (src, dest) {
+-  return fsExtra.copySync(
++  return fs.copySync(
+     path.join(__dirname, '/resources/' + src),
+     path.join(__dirname, '/resources/' + dest))
+ }
+
+From 43b06df6bcc08a46ccb5298a7fc3b1d961dbee54 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 01:01:24 +0200
+Subject: [PATCH 04/29] Added some info to server front page
+
+---
+ common/img/.gitkeep                 |  0
+ config.json-default                 |  7 ++++++-
+ default-templates/server/index.html | 12 ++++++++++--
+ lib/server-config.js                | 11 +++++++----
+ 4 files changed, 23 insertions(+), 7 deletions(-)
+ create mode 100644 common/img/.gitkeep
+
+diff --git a/common/img/.gitkeep b/common/img/.gitkeep
+new file mode 100644
+index 000000000..e69de29bb
+diff --git a/config.json-default b/config.json-default
+index 399752da0..125206bfd 100644
+--- a/config.json-default
++++ b/config.json-default
+@@ -9,5 +9,10 @@
+   "sslKey": "./cert.key",
+   "sslCert": "./cert.pem",
+   "multiuser": true,
+-  "corsProxy": "/proxy"
++  "corsProxy": "/proxy",
++  "server": {
++    "name": "",
++    "description": "",
++    "logo": ""
++  }
+ }
+diff --git a/default-templates/server/index.html b/default-templates/server/index.html
+index 73ee787a3..2574957a7 100644
+--- a/default-templates/server/index.html
++++ b/default-templates/server/index.html
+@@ -31,12 +31,20 @@ <h1>Welcome to the Solid Prototype</h1>
+     If you have not already done so, please create an account.
+   </p>
+ 
+-
+   <section>
++    {{#if serverLogo}}
++    <img src="{{serverLogo}}" />
++    {{/if}}
+     <h2>Server info</h2>
+     <dl>
+-      <dt>Server name</dt>
++      <dt>Name</dt>
+       <dd>{{serverName}}</dd>
++      {{#if serverDescription}}
++      <dt>Description</dt>
++      <dd>{{serverDescription}}</dd>
++      {{/if}}
++      <dt>Details</dt>
++      <dd>Running on {{serverVersion}} of <a href="https://solid.mit.edu/">Solid</a> (<a href="https://solid.inrupt.com/docs">Documentation</a>)</dd>
+     </dl>
+   </section>
+ </div>
+diff --git a/lib/server-config.js b/lib/server-config.js
+index c48b27cfb..2015a04a6 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -36,10 +36,10 @@ function ensureDirCopyExists (fromDir, toDir) {
+  * typically has links to account signup and login, and can be overridden by
+  * the server operator.
+  *
+- * @param argv {Function} Express.js app object
++ * @param argv {Object} Express.js app object
+  */
+ async function ensureWelcomePage (argv) {
+-  const { multiuser, templates } = argv
++  const { multiuser, templates, server, host, parent } = argv
+   const rootDir = path.resolve(argv.root)
+   const serverRootDir = multiuser ? path.join(rootDir, argv.host.hostname) : rootDir
+ 
+@@ -49,11 +49,14 @@ async function ensureWelcomePage (argv) {
+   // let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
++    console.log(argv)
+     fs.mkdirp(serverRootDir)
+     await utils.copyTemplateDir(templates.server, serverRootDir)
+     await utils.processHandlebarFile(existingIndexPage, {
+-      serverName: 'Tittentei'
+-      // Need to load config from somewhere
++      serverName: server ? server.name : host.hostname,
++      serverDescription: server ? server.description : '',
++      serverLogo: server ? server.logo : '',
++      serverVersion: parent._version
+     })
+     // fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
+   }
+
+From bb181999934108c690dcdd93130d98320f67c337 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 16:07:00 +0200
+Subject: [PATCH 05/29] A bit more refactoring
+
+I propose we put utils-methods into `lib/common`, and distinguish them a bit more than just `utils`
+---
+ lib/common/fs-utils.js         | 33 ++++++++++++++++++
+ lib/common/template-utils.js   | 38 +++++++++++++++++++++
+ lib/models/account-template.js | 14 +++-----
+ lib/server-config.js           |  7 ++--
+ lib/utils.js                   | 62 ----------------------------------
+ 5 files changed, 79 insertions(+), 75 deletions(-)
+ create mode 100644 lib/common/fs-utils.js
+ create mode 100644 lib/common/template-utils.js
+
+diff --git a/lib/common/fs-utils.js b/lib/common/fs-utils.js
+new file mode 100644
+index 000000000..083a2bdc0
+--- /dev/null
++++ b/lib/common/fs-utils.js
+@@ -0,0 +1,33 @@
++module.exports.copyTemplateDir = copyTemplateDir
++module.exports.processFile = processFile
++
++const fs = require('fs-extra')
++
++async function copyTemplateDir (templatePath, targetPath) {
++  return new Promise((resolve, reject) => {
++    fs.copy(templatePath, targetPath, (error) => {
++      if (error) { return reject(error) }
++
++      resolve()
++    })
++  })
++}
++
++async function processFile (filePath, manipulateSourceFn) {
++  return new Promise((resolve, reject) => {
++    fs.readFile(filePath, 'utf8', (error, rawSource) => {
++      if (error) {
++        return reject(error)
++      }
++
++      const output = manipulateSourceFn(rawSource)
++
++      fs.writeFile(filePath, output, (error) => {
++        if (error) {
++          return reject(error)
++        }
++        resolve()
++      })
++    })
++  })
++}
+diff --git a/lib/common/template-utils.js b/lib/common/template-utils.js
+new file mode 100644
+index 000000000..78bbb1479
+--- /dev/null
++++ b/lib/common/template-utils.js
+@@ -0,0 +1,38 @@
++module.exports.processHandlebarFile = processHandlebarFile
++
++const Handlebars = require('handlebars')
++const debug = require('../debug').errors
++const { processFile } = require('./fs-utils')
++
++/**
++ * Reads a file, processes it (performing template substitution), and saves
++ * back the processed result.
++ *
++ * @param filePath {string}
++ * @param substitutions {Object}
++ *
++ * @return {Promise}
++ */
++async function processHandlebarFile (filePath, substitutions) {
++  return processFile(filePath, (rawSource) => processHandlebarTemplate(rawSource, substitutions))
++}
++
++/**
++ * Performs a Handlebars string template substitution, and returns the
++ * resulting string.
++ *
++ * @see https://www.npmjs.com/package/handlebars
++ *
++ * @param source {string} e.g. 'Hello, {{name}}'
++ *
++ * @return {string} Result, e.g. 'Hello, Alice'
++ */
++function processHandlebarTemplate (source, substitutions) {
++  try {
++    const template = Handlebars.compile(source)
++    return template(substitutions)
++  } catch (error) {
++    debug(`Error processing template: ${error}`)
++    return source
++  }
++}
+diff --git a/lib/models/account-template.js b/lib/models/account-template.js
+index a5c557b88..dfedc916e 100644
+--- a/lib/models/account-template.js
++++ b/lib/models/account-template.js
+@@ -1,10 +1,10 @@
+ 'use strict'
+ 
+-const fs = require('fs-extra')
+ const path = require('path')
+ const mime = require('mime-types')
+ const recursiveRead = require('recursive-readdir')
+-const utils = require('../utils')
++const fsUtils = require('../common/fs-utils')
++const templateUtils = require('../common/template-utils')
+ 
+ const RDF_MIME_TYPES = require('../ldp').RDF_MIME_TYPES
+ const TEMPLATE_EXTENSIONS = [ '.acl', '.meta', '.json', '.hbs', '.handlebars' ]
+@@ -62,13 +62,7 @@ class AccountTemplate {
+    * @return {Promise}
+    */
+   static copyTemplateDir (templatePath, accountPath) {
+-    return new Promise((resolve, reject) => {
+-      fs.copy(templatePath, accountPath, (error) => {
+-        if (error) { return reject(error) }
+-
+-        resolve()
+-      })
+-    })
++    return fsUtils.copyTemplateDir(templatePath, accountPath)
+   }
+ 
+   /**
+@@ -130,7 +124,7 @@ class AccountTemplate {
+    */
+   processAccount (accountPath) {
+     return this.readTemplateFiles(accountPath)
+-      .then(files => Promise.all(files.map(path => utils.processHandlebarFile(path, this.substitutions))))
++      .then(files => Promise.all(files.map(path => templateUtils.processHandlebarFile(path, this.substitutions))))
+   }
+ 
+   /**
+diff --git a/lib/server-config.js b/lib/server-config.js
+index 2015a04a6..8ee5baa0f 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -6,7 +6,8 @@
+ 
+ const fs = require('fs-extra')
+ const path = require('path')
+-const utils = require('./utils')
++const templateUtils = require('./common/template-utils')
++const fsUtils = require('./common/fs-utils')
+ 
+ /**
+  * Ensures that a directory has been copied / initialized. Used to ensure that
+@@ -51,8 +52,8 @@ async function ensureWelcomePage (argv) {
+   if (!fs.existsSync(existingIndexPage)) {
+     console.log(argv)
+     fs.mkdirp(serverRootDir)
+-    await utils.copyTemplateDir(templates.server, serverRootDir)
+-    await utils.processHandlebarFile(existingIndexPage, {
++    await fsUtils.copyTemplateDir(templates.server, serverRootDir)
++    await templateUtils.processHandlebarFile(existingIndexPage, {
+       serverName: server ? server.name : host.hostname,
+       serverDescription: server ? server.description : '',
+       serverLogo: server ? server.logo : '',
+diff --git a/lib/utils.js b/lib/utils.js
+index 9282845ad..68fb59d55 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -13,16 +13,12 @@ module.exports.debrack = debrack
+ module.exports.stripLineEndings = stripLineEndings
+ module.exports.fullUrlForReq = fullUrlForReq
+ module.exports.routeResolvedFile = routeResolvedFile
+-module.exports.processHandlebarFile = processHandlebarFile
+-module.exports.copyTemplateDir = copyTemplateDir
+ 
+ const fs = require('fs-extra')
+ const path = require('path')
+ const $rdf = require('rdflib')
+ const from = require('from2')
+ const url = require('url')
+-const Handlebars = require('handlebars')
+-const debug = require('./debug').errors
+ 
+ /**
+  * Returns a fully qualified URL from an Express.js Request object.
+@@ -151,64 +147,6 @@ function parse (data, baseUri, contentType, callback) {
+   }
+ }
+ 
+-/**
+- * Reads a file, processes it (performing template substitution), and saves
+- * back the processed result.
+- *
+- * @param filePath {string}
+- * @param substitutions {Object}
+- *
+- * @return {Promise}
+- */
+-async function processHandlebarFile (filePath, substitutions) {
+-  return new Promise((resolve, reject) => {
+-    fs.readFile(filePath, 'utf8', (error, rawSource) => {
+-      if (error) {
+-        return reject(error)
+-      }
+-
+-      const output = processHandlebarTemplate(rawSource, substitutions)
+-
+-      fs.writeFile(filePath, output, (error) => {
+-        if (error) {
+-          return reject(error)
+-        }
+-        resolve()
+-      })
+-    })
+-  })
+-}
+-
+-/**
+- * Performs a Handlebars string template substitution, and returns the
+- * resulting string.
+- *
+- * @see https://www.npmjs.com/package/handlebars
+- *
+- * @param source {string} e.g. 'Hello, {{name}}'
+- *
+- * @return {string} Result, e.g. 'Hello, Alice'
+- */
+-function processHandlebarTemplate (source, substitutions) {
+-  try {
+-    const template = Handlebars.compile(source)
+-    return template(substitutions)
+-  } catch (error) {
+-    debug(`Error processing template: ${error}`)
+-    return source
+-  }
+-}
+-
+-async function copyTemplateDir (templatePath, targetPath) {
+-  return new Promise((resolve, reject) => {
+-    fs.copy(templatePath, targetPath, (error) => {
+-      if (error) { return reject(error) }
+-
+-      resolve()
+-    })
+-  })
+-}
+-
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+     // target, kb, base, contentType, callback
+
+From 034fad3a10b294f4833a4867e945abafc6d19cd1 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 17:37:59 +0200
+Subject: [PATCH 06/29] Added options to init stack
+
+---
+ bin/lib/init.js    | 67 ++++++++++++++++++++++++++++++----------------
+ bin/lib/options.js | 17 ++++++++++++
+ 2 files changed, 61 insertions(+), 23 deletions(-)
+
+diff --git a/bin/lib/init.js b/bin/lib/init.js
+index ff93595a8..83a809e82 100644
+--- a/bin/lib/init.js
++++ b/bin/lib/init.js
+@@ -31,29 +31,9 @@ module.exports = function (program) {
+       // Prompt to the user
+       inquirer.prompt(questions)
+         .then((answers) => {
+-          // setting email
+-          if (answers.useEmail) {
+-            answers.email = {
+-              host: answers['email-host'],
+-              port: answers['email-port'],
+-              secure: true,
+-              auth: {
+-                user: answers['email-auth-user'],
+-                pass: answers['email-auth-pass']
+-              }
+-            }
+-            delete answers['email-host']
+-            delete answers['email-port']
+-            delete answers['email-auth-user']
+-            delete answers['email-auth-pass']
+-          }
+-
+-          // clean answers
+-          Object.keys(answers).forEach((answer) => {
+-            if (answer.startsWith('use')) {
+-              delete answers[answer]
+-            }
+-          })
++          manipulateEmailSection(answers)
++          manipulateServerSection(answers)
++          cleanupAnswers(answers)
+ 
+           // write config file
+           const config = JSON.stringify(camelize(answers), null, '  ')
+@@ -71,3 +51,44 @@ module.exports = function (program) {
+         })
+     })
+ }
++
++function cleanupAnswers (answers) {
++  // clean answers
++  Object.keys(answers).forEach((answer) => {
++    if (answer.startsWith('use')) {
++      delete answers[answer]
++    }
++  })
++}
++
++function manipulateEmailSection (answers) {
++  // setting email
++  if (answers.useEmail) {
++    answers.email = {
++      host: answers['email-host'],
++      port: answers['email-port'],
++      secure: true,
++      auth: {
++        user: answers['email-auth-user'],
++        pass: answers['email-auth-pass']
++      }
++    }
++    delete answers['email-host']
++    delete answers['email-port']
++    delete answers['email-auth-user']
++    delete answers['email-auth-pass']
++  }
++}
++
++function manipulateServerSection (answers) {
++  answers.server = {
++    name: answers['server-name'],
++    description: answers['server-description'],
++    logo: answers['server-logo']
++  }
++  Object.keys(answers).forEach((answer) => {
++    if (answer.startsWith('server-')) {
++      delete answers[answer]
++    }
++  })
++}
+diff --git a/bin/lib/options.js b/bin/lib/options.js
+index e493f485a..cdc46b1c6 100644
+--- a/bin/lib/options.js
++++ b/bin/lib/options.js
+@@ -1,6 +1,7 @@
+ const fs = require('fs')
+ const path = require('path')
+ const validUrl = require('valid-url')
++const { URL } = require('url')
+ 
+ module.exports = [
+   // {
+@@ -317,6 +318,22 @@ module.exports = [
+       }
+       return true
+     }
++  },
++  {
++    name: 'server-name',
++    help: 'A name for your server (not required, but will be presented on your server\'s frontpage)',
++    prompt: true,
++    default: answers => new URL(answers.serverUri).hostname
++  },
++  {
++    name: 'server-description',
++    help: 'A description of your server (not required)',
++    prompt: true
++  },
++  {
++    name: 'server-logo',
++    help: 'A logo that represents you, your brand or your server (not required)',
++    prompt: true
+   }
+ ]
+ 
+
+From 31d35d1d30c8a5a23faf6023dc3f3f6c97b4874e Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 17:07:15 +0200
+Subject: [PATCH 07/29] Partial work - need to load config from somewhere
+
+---
+ default-templates/server/index.html |  9 +++++
+ lib/models/account-template.js      | 55 ++---------------------------
+ lib/server-config.js                |  7 +++-
+ lib/utils.js                        | 51 ++++++++++++++++++++++++++
+ 4 files changed, 69 insertions(+), 53 deletions(-)
+
+diff --git a/default-templates/server/index.html b/default-templates/server/index.html
+index c6fe861d1..73ee787a3 100644
+--- a/default-templates/server/index.html
++++ b/default-templates/server/index.html
+@@ -30,6 +30,15 @@ <h1>Welcome to the Solid Prototype</h1>
+ 
+     If you have not already done so, please create an account.
+   </p>
++
++
++  <section>
++    <h2>Server info</h2>
++    <dl>
++      <dt>Server name</dt>
++      <dd>{{serverName}}</dd>
++    </dl>
++  </section>
+ </div>
+ </body>
+ </html>
+diff --git a/lib/models/account-template.js b/lib/models/account-template.js
+index cb6ee37aa..d1e906a21 100644
+--- a/lib/models/account-template.js
++++ b/lib/models/account-template.js
+@@ -1,5 +1,7 @@
+ 'use strict'
+ 
++import { processHandlebarFile } from '../utils'
++
+ const fs = require('fs-extra')
+ const path = require('path')
+ const mime = require('mime-types')
+@@ -130,58 +132,7 @@ class AccountTemplate {
+    */
+   processAccount (accountPath) {
+     return this.readTemplateFiles(accountPath)
+-      .then(files => {
+-        return Promise.all(
+-          files.map((path) => { return this.processFile(path) })
+-        )
+-      })
+-  }
+-
+-  /**
+-   * Reads a file, processes it (performing template substitution), and saves
+-   * back the processed result.
+-   *
+-   * @param filePath {string}
+-   *
+-   * @return {Promise}
+-   */
+-  processFile (filePath) {
+-    return new Promise((resolve, reject) => {
+-      fs.readFile(filePath, 'utf8', (error, rawSource) => {
+-        if (error) { return reject(error) }
+-
+-        let output = this.processTemplate(rawSource)
+-
+-        fs.writeFile(filePath, output, (error) => {
+-          if (error) { return reject(error) }
+-          resolve()
+-        })
+-      })
+-    })
+-  }
+-
+-  /**
+-   * Performs a Handlebars string template substitution, and returns the
+-   * resulting string.
+-   *
+-   * @see https://www.npmjs.com/package/handlebars
+-   *
+-   * @param source {string} e.g. 'Hello, {{name}}'
+-   *
+-   * @return {string} Result, e.g. 'Hello, Alice'
+-   */
+-  processTemplate (source) {
+-    let template, result
+-
+-    try {
+-      template = Handlebars.compile(source)
+-      result = template(this.substitutions)
+-    } catch (error) {
+-      console.log('Error processing template: ', error)
+-      return source
+-    }
+-
+-    return result
++      .then(files => Promise.all(files.map(path => processHandlebarFile(path, this.substitutions))))
+   }
+ 
+   /**
+diff --git a/lib/server-config.js b/lib/server-config.js
+index a7dbba6fd..cfe210bbc 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -1,4 +1,6 @@
+ 'use strict'
++import { processHandlebarFile } from './utils'
++
+ /**
+  * Server config initialization utilities
+  */
+@@ -36,7 +38,7 @@ function ensureDirCopyExists (fromDir, toDir) {
+  *
+  * @param argv {Function} Express.js app object
+  */
+-function ensureWelcomePage (argv) {
++async function ensureWelcomePage (argv) {
+   let { multiuser, templates } = argv
+   let rootDir = path.resolve(argv.root)
+   let serverRootDir
+@@ -55,6 +57,9 @@ function ensureWelcomePage (argv) {
+   if (!fs.existsSync(existingIndexPage)) {
+     fs.mkdirp(serverRootDir)
+     fs.copySync(defaultIndexPage, existingIndexPage)
++    await processHandlebarFile(existingIndexPage, {
++      // Need to load config from somewhere
++    })
+     fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
+   }
+ }
+diff --git a/lib/utils.js b/lib/utils.js
+index 4015decfc..d2bae5fee 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -5,6 +5,7 @@ module.exports.pathBasename = pathBasename
+ module.exports.getFullUri = getFullUri
+ module.exports.hasSuffix = hasSuffix
+ module.exports.parse = parse
++module.exports.processHandlebarFile = processHandlebarFile
+ module.exports.serialize = serialize
+ module.exports.translate = translate
+ module.exports.stringToStream = stringToStream
+@@ -19,6 +20,8 @@ const path = require('path')
+ const $rdf = require('rdflib')
+ const from = require('from2')
+ const url = require('url')
++const Handlebars = require('handlebars')
++const debug = require('./debug').errors
+ 
+ /**
+  * Returns a fully qualified URL from an Express.js Request object.
+@@ -147,6 +150,54 @@ function parse (data, baseUri, contentType, callback) {
+   }
+ }
+ 
++/**
++ * Reads a file, processes it (performing template substitution), and saves
++ * back the processed result.
++ *
++ * @param filePath {string}
++ * @param substitutions {Object}
++ *
++ * @return {Promise}
++ */
++async function processHandlebarFile (filePath, substitutions) {
++  return new Promise((resolve, reject) => {
++    fs.readFile(filePath, 'utf8', (error, rawSource) => {
++      if (error) {
++        return reject(error)
++      }
++
++      const output = processHandlebarTemplate(rawSource, substitutions)
++
++      fs.writeFile(filePath, output, (error) => {
++        if (error) {
++          return reject(error)
++        }
++        resolve()
++      })
++    })
++  })
++}
++
++/**
++ * Performs a Handlebars string template substitution, and returns the
++ * resulting string.
++ *
++ * @see https://www.npmjs.com/package/handlebars
++ *
++ * @param source {string} e.g. 'Hello, {{name}}'
++ *
++ * @return {string} Result, e.g. 'Hello, Alice'
++ */
++function processHandlebarTemplate (source, substitutions) {
++  try {
++    const template = Handlebars.compile(source)
++    return template(substitutions)
++  } catch (error) {
++    debug(`Error processing template: ${error}`)
++    return source
++  }
++}
++
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+                 // target, kb, base, contentType, callback
+
+From a408b587465cf95e7d09f6b85bde9e8bd5635289 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 21:22:13 +0200
+Subject: [PATCH 08/29] Copying over whole directory
+
+Unsure about the affects on testing, so checking in now just in case
+---
+ lib/models/account-template.js                |  6 ++--
+ lib/server-config.js                          | 29 ++++++++-----------
+ lib/utils.js                                  | 23 +++++++++++----
+ .../integration/account-creation-oidc-test.js |  4 +--
+ test/integration/acl-oidc-test.js             |  3 +-
+ test/integration/acl-tls-test.js              |  3 +-
+ test/integration/auth-proxy-test.js           |  5 ++--
+ test/integration/authentication-oidc-test.js  |  6 ++--
+ test/integration/capability-discovery-test.js |  3 +-
+ test/integration/errors-oidc-test.js          |  3 +-
+ test/integration/params-test.js               |  3 +-
+ test/utils.js                                 |  4 +++
+ 12 files changed, 46 insertions(+), 46 deletions(-)
+
+diff --git a/lib/models/account-template.js b/lib/models/account-template.js
+index d1e906a21..a5c557b88 100644
+--- a/lib/models/account-template.js
++++ b/lib/models/account-template.js
+@@ -1,12 +1,10 @@
+ 'use strict'
+ 
+-import { processHandlebarFile } from '../utils'
+-
+ const fs = require('fs-extra')
+ const path = require('path')
+ const mime = require('mime-types')
+ const recursiveRead = require('recursive-readdir')
+-const Handlebars = require('handlebars')
++const utils = require('../utils')
+ 
+ const RDF_MIME_TYPES = require('../ldp').RDF_MIME_TYPES
+ const TEMPLATE_EXTENSIONS = [ '.acl', '.meta', '.json', '.hbs', '.handlebars' ]
+@@ -132,7 +130,7 @@ class AccountTemplate {
+    */
+   processAccount (accountPath) {
+     return this.readTemplateFiles(accountPath)
+-      .then(files => Promise.all(files.map(path => processHandlebarFile(path, this.substitutions))))
++      .then(files => Promise.all(files.map(path => utils.processHandlebarFile(path, this.substitutions))))
+   }
+ 
+   /**
+diff --git a/lib/server-config.js b/lib/server-config.js
+index cfe210bbc..c48b27cfb 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -1,5 +1,4 @@
+ 'use strict'
+-import { processHandlebarFile } from './utils'
+ 
+ /**
+  * Server config initialization utilities
+@@ -7,6 +6,7 @@ import { processHandlebarFile } from './utils'
+ 
+ const fs = require('fs-extra')
+ const path = require('path')
++const utils = require('./utils')
+ 
+ /**
+  * Ensures that a directory has been copied / initialized. Used to ensure that
+@@ -39,28 +39,23 @@ function ensureDirCopyExists (fromDir, toDir) {
+  * @param argv {Function} Express.js app object
+  */
+ async function ensureWelcomePage (argv) {
+-  let { multiuser, templates } = argv
+-  let rootDir = path.resolve(argv.root)
+-  let serverRootDir
+-
+-  if (multiuser) {
+-    serverRootDir = path.join(rootDir, argv.host.hostname)
+-  } else {
+-    serverRootDir = rootDir
+-  }
++  const { multiuser, templates } = argv
++  const rootDir = path.resolve(argv.root)
++  const serverRootDir = multiuser ? path.join(rootDir, argv.host.hostname) : rootDir
+ 
+-  let defaultIndexPage = path.join(templates.server, 'index.html')
+-  let existingIndexPage = path.join(serverRootDir, 'index.html')
+-  let defaultIndexPageAcl = path.join(templates.server, 'index.html.acl')
+-  let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
++  // let defaultIndexPage = path.join(templates.server, 'index.html')
++  const existingIndexPage = path.join(serverRootDir, 'index.html')
++  // let defaultIndexPageAcl = path.join(templates.server, 'index.html.acl')
++  // let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
+     fs.mkdirp(serverRootDir)
+-    fs.copySync(defaultIndexPage, existingIndexPage)
+-    await processHandlebarFile(existingIndexPage, {
++    await utils.copyTemplateDir(templates.server, serverRootDir)
++    await utils.processHandlebarFile(existingIndexPage, {
++      serverName: 'Tittentei'
+       // Need to load config from somewhere
+     })
+-    fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
++    // fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
+   }
+ }
+ 
+diff --git a/lib/utils.js b/lib/utils.js
+index d2bae5fee..9282845ad 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -5,7 +5,6 @@ module.exports.pathBasename = pathBasename
+ module.exports.getFullUri = getFullUri
+ module.exports.hasSuffix = hasSuffix
+ module.exports.parse = parse
+-module.exports.processHandlebarFile = processHandlebarFile
+ module.exports.serialize = serialize
+ module.exports.translate = translate
+ module.exports.stringToStream = stringToStream
+@@ -14,8 +13,10 @@ module.exports.debrack = debrack
+ module.exports.stripLineEndings = stripLineEndings
+ module.exports.fullUrlForReq = fullUrlForReq
+ module.exports.routeResolvedFile = routeResolvedFile
++module.exports.processHandlebarFile = processHandlebarFile
++module.exports.copyTemplateDir = copyTemplateDir
+ 
+-const fs = require('fs')
++const fs = require('fs-extra')
+ const path = require('path')
+ const $rdf = require('rdflib')
+ const from = require('from2')
+@@ -198,9 +199,19 @@ function processHandlebarTemplate (source, substitutions) {
+   }
+ }
+ 
++async function copyTemplateDir (templatePath, targetPath) {
++  return new Promise((resolve, reject) => {
++    fs.copy(templatePath, targetPath, (error) => {
++      if (error) { return reject(error) }
++
++      resolve()
++    })
++  })
++}
++
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+-                // target, kb, base, contentType, callback
++    // target, kb, base, contentType, callback
+     $rdf.serialize(null, graph, baseUri, contentType, function (err, result) {
+       if (err) {
+         console.log(err)
+@@ -222,9 +233,9 @@ function serialize (graph, baseUri, contentType, callback) {
+ function translate (stream, baseUri, from, to, callback) {
+   // Handle Turtle Accept header
+   if (to === 'text/turtle' ||
+-      to === 'text/n3' ||
+-      to === 'application/turtle' ||
+-      to === 'application/n3') {
++    to === 'text/n3' ||
++    to === 'application/turtle' ||
++    to === 'application/n3') {
+     to = 'text/turtle'
+   }
+ 
+diff --git a/test/integration/account-creation-oidc-test.js b/test/integration/account-creation-oidc-test.js
+index 43a9f066d..edff294c3 100644
+--- a/test/integration/account-creation-oidc-test.js
++++ b/test/integration/account-creation-oidc-test.js
+@@ -37,8 +37,8 @@ describe('AccountManager (OIDC account creation tests)', function () {
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+     fs.removeSync(path.join(dbPath, 'oidc/users/users'))
+-    fs.removeSync(path.join(rootPath, 'localhost/index.html'))
+-    fs.removeSync(path.join(rootPath, 'localhost/index.html.acl'))
++    fs.removeSync(path.join(rootPath, 'localhost'))
++    fs.removeSync(path.join(rootPath, 'localhost'))
+   })
+ 
+   var server = supertest(serverUri)
+diff --git a/test/integration/acl-oidc-test.js b/test/integration/acl-oidc-test.js
+index 1dff38fe6..d7d4060f3 100644
+--- a/test/integration/acl-oidc-test.js
++++ b/test/integration/acl-oidc-test.js
+@@ -86,8 +86,7 @@ describe('ACL with WebID+OIDC over HTTP', function () {
+ 
+   after(() => {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath, 'index.html'))
+-    fs.removeSync(path.join(rootPath, 'index.html.acl'))
++    fs.removeSync(path.join(rootPath))
+   })
+ 
+   const origin1 = 'http://example.org/'
+diff --git a/test/integration/acl-tls-test.js b/test/integration/acl-tls-test.js
+index ffcb79e0d..0f647bc2e 100644
+--- a/test/integration/acl-tls-test.js
++++ b/test/integration/acl-tls-test.js
+@@ -69,8 +69,7 @@ describe('ACL with WebID+TLS', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath, 'index.html'))
+-    fs.removeSync(path.join(rootPath, 'index.html.acl'))
++    fs.removeSync(path.join(rootPath))
+   })
+ 
+   function createOptions (path, user) {
+diff --git a/test/integration/auth-proxy-test.js b/test/integration/auth-proxy-test.js
+index f1062ce04..2baa941bc 100644
+--- a/test/integration/auth-proxy-test.js
++++ b/test/integration/auth-proxy-test.js
+@@ -3,7 +3,7 @@ const path = require('path')
+ const nock = require('nock')
+ const request = require('supertest')
+ const { expect } = require('chai')
+-const rm = require('../utils').rm
++const rmDir = require('../utils').rmDir
+ 
+ const USER = 'https://ruben.verborgh.org/profile/#me'
+ 
+@@ -32,8 +32,7 @@ describe('Auth Proxy', () => {
+       // Release back-end server
+       nock.cleanAll()
+       // Remove created index files
+-      rm('index.html')
+-      rm('index.html.acl')
++      rmDir()
+     })
+ 
+     describe('responding to /server/a', () => {
+diff --git a/test/integration/authentication-oidc-test.js b/test/integration/authentication-oidc-test.js
+index 665711eb3..95dbe7a4d 100644
+--- a/test/integration/authentication-oidc-test.js
++++ b/test/integration/authentication-oidc-test.js
+@@ -81,10 +81,8 @@ describe('Authentication API (OIDC)', () => {
+     alicePod.close()
+     bobPod.close()
+     fs.removeSync(path.join(aliceDbPath, 'oidc/users'))
+-    fs.removeSync(path.join(aliceRootPath, 'index.html'))
+-    fs.removeSync(path.join(aliceRootPath, 'index.html.acl'))
+-    fs.removeSync(path.join(bobRootPath, 'index.html'))
+-    fs.removeSync(path.join(bobRootPath, 'index.html.acl'))
++    fs.removeSync(path.join(aliceRootPath))
++    fs.removeSync(path.join(bobRootPath))
+   })
+ 
+   describe('Login page (GET /login)', () => {
+diff --git a/test/integration/capability-discovery-test.js b/test/integration/capability-discovery-test.js
+index 4ff44b43c..e5e7ecab7 100644
+--- a/test/integration/capability-discovery-test.js
++++ b/test/integration/capability-discovery-test.js
+@@ -48,8 +48,7 @@ describe('API', () => {
+ 
+   after(() => {
+     alicePod.close()
+-    fs.removeSync(path.join(aliceRootPath, 'index.html'))
+-    fs.removeSync(path.join(aliceRootPath, 'index.html.acl'))
++    fs.removeSync(path.join(aliceRootPath))
+   })
+ 
+   describe('Capability Discovery', () => {
+diff --git a/test/integration/errors-oidc-test.js b/test/integration/errors-oidc-test.js
+index 11386ffe1..31d1257e3 100644
+--- a/test/integration/errors-oidc-test.js
++++ b/test/integration/errors-oidc-test.js
+@@ -30,8 +30,7 @@ describe('OIDC error handling', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath, 'index.html'))
+-    fs.removeSync(path.join(rootPath, 'index.html.acl'))
++    fs.removeSync(path.join(rootPath))
+   })
+ 
+   const server = supertest(serverUri)
+diff --git a/test/integration/params-test.js b/test/integration/params-test.js
+index 71629b3a4..bc918868d 100644
+--- a/test/integration/params-test.js
++++ b/test/integration/params-test.js
+@@ -127,8 +127,7 @@ describe('LDNODE params', function () {
+ 
+     after(function () {
+       if (ldpHttpsServer) ldpHttpsServer.close()
+-      fs.removeSync(path.join(rootPath, 'index.html'))
+-      fs.removeSync(path.join(rootPath, 'index.html.acl'))
++      fs.removeSync(path.join(rootPath))
+     })
+ 
+     var server = supertest(serverUri)
+diff --git a/test/utils.js b/test/utils.js
+index f1f79ec6b..18a1566ec 100644
+--- a/test/utils.js
++++ b/test/utils.js
+@@ -11,6 +11,10 @@ exports.rm = function (file) {
+   return rimraf.sync(path.join(__dirname, '/resources/' + file))
+ }
+ 
++exports.rmDir = function (path = '') {
++  return rimraf.sync(path.join(__dirname, '/resources/' + path))
++}
++
+ exports.write = function (text, file) {
+   return fs.writeFileSync(path.join(__dirname, '/resources/' + file), text)
+ }
+
+From 9d6b23f059b07087eae86d0d398a7984049a2580 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 22:04:07 +0200
+Subject: [PATCH 09/29] Should not remove dirs in test...
+
+---
+ test/integration/account-creation-oidc-test.js |  5 ++---
+ test/integration/acl-oidc-test.js              |  4 ++--
+ test/integration/acl-tls-test.js               |  3 ++-
+ test/integration/auth-proxy-test.js            |  5 +++--
+ test/integration/authentication-oidc-test.js   |  5 +++--
+ test/integration/capability-discovery-test.js  |  4 ++--
+ test/integration/errors-oidc-test.js           |  4 ++--
+ test/integration/params-test.js                |  8 ++------
+ test/utils.js                                  | 15 ++++++++++-----
+ 9 files changed, 28 insertions(+), 25 deletions(-)
+
+diff --git a/test/integration/account-creation-oidc-test.js b/test/integration/account-creation-oidc-test.js
+index edff294c3..ed0d08846 100644
+--- a/test/integration/account-creation-oidc-test.js
++++ b/test/integration/account-creation-oidc-test.js
+@@ -2,7 +2,7 @@ const supertest = require('supertest')
+ // Helper functions for the FS
+ const $rdf = require('rdflib')
+ 
+-const { rm, read, checkDnsSettings } = require('../utils')
++const { rm, read, checkDnsSettings, cleanDir } = require('../utils')
+ const ldnode = require('../../index')
+ const path = require('path')
+ const fs = require('fs-extra')
+@@ -37,8 +37,7 @@ describe('AccountManager (OIDC account creation tests)', function () {
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+     fs.removeSync(path.join(dbPath, 'oidc/users/users'))
+-    fs.removeSync(path.join(rootPath, 'localhost'))
+-    fs.removeSync(path.join(rootPath, 'localhost'))
++    cleanDir(path.join(rootPath, 'localhost'))
+   })
+ 
+   var server = supertest(serverUri)
+diff --git a/test/integration/acl-oidc-test.js b/test/integration/acl-oidc-test.js
+index d7d4060f3..336fe2a70 100644
+--- a/test/integration/acl-oidc-test.js
++++ b/test/integration/acl-oidc-test.js
+@@ -2,7 +2,7 @@ const assert = require('chai').assert
+ const fs = require('fs-extra')
+ const request = require('request')
+ const path = require('path')
+-const { loadProvider, rm, checkDnsSettings } = require('../utils')
++const { loadProvider, rm, checkDnsSettings, cleanDir } = require('../utils')
+ const IDToken = require('@solid/oidc-op/src/IDToken')
+ 
+ const ldnode = require('../../index')
+@@ -86,7 +86,7 @@ describe('ACL with WebID+OIDC over HTTP', function () {
+ 
+   after(() => {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath))
++    cleanDir(rootPath)
+   })
+ 
+   const origin1 = 'http://example.org/'
+diff --git a/test/integration/acl-tls-test.js b/test/integration/acl-tls-test.js
+index 0f647bc2e..aedae7289 100644
+--- a/test/integration/acl-tls-test.js
++++ b/test/integration/acl-tls-test.js
+@@ -3,6 +3,7 @@ var fs = require('fs-extra')
+ var $rdf = require('rdflib')
+ var request = require('request')
+ var path = require('path')
++var { cleanDir } = require('../utils')
+ 
+ /**
+  * Note: this test suite requires an internet connection, since it actually
+@@ -69,7 +70,7 @@ describe('ACL with WebID+TLS', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath))
++    cleanDir(rootPath)
+   })
+ 
+   function createOptions (path, user) {
+diff --git a/test/integration/auth-proxy-test.js b/test/integration/auth-proxy-test.js
+index 2baa941bc..f1062ce04 100644
+--- a/test/integration/auth-proxy-test.js
++++ b/test/integration/auth-proxy-test.js
+@@ -3,7 +3,7 @@ const path = require('path')
+ const nock = require('nock')
+ const request = require('supertest')
+ const { expect } = require('chai')
+-const rmDir = require('../utils').rmDir
++const rm = require('../utils').rm
+ 
+ const USER = 'https://ruben.verborgh.org/profile/#me'
+ 
+@@ -32,7 +32,8 @@ describe('Auth Proxy', () => {
+       // Release back-end server
+       nock.cleanAll()
+       // Remove created index files
+-      rmDir()
++      rm('index.html')
++      rm('index.html.acl')
+     })
+ 
+     describe('responding to /server/a', () => {
+diff --git a/test/integration/authentication-oidc-test.js b/test/integration/authentication-oidc-test.js
+index 95dbe7a4d..21aeed093 100644
+--- a/test/integration/authentication-oidc-test.js
++++ b/test/integration/authentication-oidc-test.js
+@@ -10,6 +10,7 @@ const localStorage = require('localstorage-memory')
+ const URL = require('whatwg-url').URL
+ global.URL = URL
+ global.URLSearchParams = require('whatwg-url').URLSearchParams
++const { cleanDir } = require('../utils')
+ 
+ const supertest = require('supertest')
+ const chai = require('chai')
+@@ -81,8 +82,8 @@ describe('Authentication API (OIDC)', () => {
+     alicePod.close()
+     bobPod.close()
+     fs.removeSync(path.join(aliceDbPath, 'oidc/users'))
+-    fs.removeSync(path.join(aliceRootPath))
+-    fs.removeSync(path.join(bobRootPath))
++    cleanDir(aliceRootPath)
++    cleanDir(bobRootPath)
+   })
+ 
+   describe('Login page (GET /login)', () => {
+diff --git a/test/integration/capability-discovery-test.js b/test/integration/capability-discovery-test.js
+index e5e7ecab7..13cfd52f8 100644
+--- a/test/integration/capability-discovery-test.js
++++ b/test/integration/capability-discovery-test.js
+@@ -1,6 +1,6 @@
+ const Solid = require('../../index')
+ const path = require('path')
+-const fs = require('fs-extra')
++const { cleanDir } = require('../utils')
+ const supertest = require('supertest')
+ const expect = require('chai').expect
+ // In this test we always assume that we are Alice
+@@ -48,7 +48,7 @@ describe('API', () => {
+ 
+   after(() => {
+     alicePod.close()
+-    fs.removeSync(path.join(aliceRootPath))
++    cleanDir(aliceRootPath)
+   })
+ 
+   describe('Capability Discovery', () => {
+diff --git a/test/integration/errors-oidc-test.js b/test/integration/errors-oidc-test.js
+index 31d1257e3..a3202fca5 100644
+--- a/test/integration/errors-oidc-test.js
++++ b/test/integration/errors-oidc-test.js
+@@ -1,7 +1,7 @@
+ const supertest = require('supertest')
+ const ldnode = require('../../index')
+ const path = require('path')
+-const fs = require('fs-extra')
++const { cleanDir } = require('../utils')
+ const expect = require('chai').expect
+ 
+ describe('OIDC error handling', function () {
+@@ -30,7 +30,7 @@ describe('OIDC error handling', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath))
++    cleanDir(rootPath)
+   })
+ 
+   const server = supertest(serverUri)
+diff --git a/test/integration/params-test.js b/test/integration/params-test.js
+index bc918868d..f80ae2674 100644
+--- a/test/integration/params-test.js
++++ b/test/integration/params-test.js
+@@ -1,12 +1,8 @@
+ var assert = require('chai').assert
+ var supertest = require('supertest')
+ var path = require('path')
+-const fs = require('fs-extra')
+ // Helper functions for the FS
+-var rm = require('../utils').rm
+-var write = require('../utils').write
+-// var cp = require('./utils').cp
+-var read = require('../utils').read
++const { rm, write, read, cleanDir } = require('../utils')
+ 
+ var ldnode = require('../../index')
+ 
+@@ -127,7 +123,7 @@ describe('LDNODE params', function () {
+ 
+     after(function () {
+       if (ldpHttpsServer) ldpHttpsServer.close()
+-      fs.removeSync(path.join(rootPath))
++      cleanDir(rootPath)
+     })
+ 
+     var server = supertest(serverUri)
+diff --git a/test/utils.js b/test/utils.js
+index 18a1566ec..ae181f8cf 100644
+--- a/test/utils.js
++++ b/test/utils.js
+@@ -1,5 +1,4 @@
+-var fs = require('fs')
+-var fsExtra = require('fs-extra')
++var fs = require('fs-extra')
+ var rimraf = require('rimraf')
+ var path = require('path')
+ const OIDCProvider = require('@solid/oidc-op')
+@@ -11,8 +10,14 @@ exports.rm = function (file) {
+   return rimraf.sync(path.join(__dirname, '/resources/' + file))
+ }
+ 
+-exports.rmDir = function (path = '') {
+-  return rimraf.sync(path.join(__dirname, '/resources/' + path))
++exports.cleanDir = function (dirPath) {
++  fs.removeSync(path.join(dirPath, '.well-known/.acl'))
++  fs.removeSync(path.join(dirPath, 'favicon.ico'))
++  fs.removeSync(path.join(dirPath, 'favicon.ico.acl'))
++  fs.removeSync(path.join(dirPath, 'index.html'))
++  fs.removeSync(path.join(dirPath, 'index.html.acl'))
++  fs.removeSync(path.join(dirPath, 'robots.txt'))
++  fs.removeSync(path.join(dirPath, 'robots.txt.acl'))
+ }
+ 
+ exports.write = function (text, file) {
+@@ -20,7 +25,7 @@ exports.write = function (text, file) {
+ }
+ 
+ exports.cp = function (src, dest) {
+-  return fsExtra.copySync(
++  return fs.copySync(
+     path.join(__dirname, '/resources/' + src),
+     path.join(__dirname, '/resources/' + dest))
+ }
+
+From 9ef7beef0bd679bc8dc073345387b78f2b0af7e5 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 01:01:24 +0200
+Subject: [PATCH 10/29] Added some info to server front page
+
+---
+ common/img/.gitkeep                 |  0
+ config.json-default                 |  7 ++++++-
+ default-templates/server/index.html | 12 ++++++++++--
+ lib/server-config.js                | 11 +++++++----
+ 4 files changed, 23 insertions(+), 7 deletions(-)
+ create mode 100644 common/img/.gitkeep
+
+diff --git a/common/img/.gitkeep b/common/img/.gitkeep
+new file mode 100644
+index 000000000..e69de29bb
+diff --git a/config.json-default b/config.json-default
+index 399752da0..125206bfd 100644
+--- a/config.json-default
++++ b/config.json-default
+@@ -9,5 +9,10 @@
+   "sslKey": "./cert.key",
+   "sslCert": "./cert.pem",
+   "multiuser": true,
+-  "corsProxy": "/proxy"
++  "corsProxy": "/proxy",
++  "server": {
++    "name": "",
++    "description": "",
++    "logo": ""
++  }
+ }
+diff --git a/default-templates/server/index.html b/default-templates/server/index.html
+index 73ee787a3..2574957a7 100644
+--- a/default-templates/server/index.html
++++ b/default-templates/server/index.html
+@@ -31,12 +31,20 @@ <h1>Welcome to the Solid Prototype</h1>
+     If you have not already done so, please create an account.
+   </p>
+ 
+-
+   <section>
++    {{#if serverLogo}}
++    <img src="{{serverLogo}}" />
++    {{/if}}
+     <h2>Server info</h2>
+     <dl>
+-      <dt>Server name</dt>
++      <dt>Name</dt>
+       <dd>{{serverName}}</dd>
++      {{#if serverDescription}}
++      <dt>Description</dt>
++      <dd>{{serverDescription}}</dd>
++      {{/if}}
++      <dt>Details</dt>
++      <dd>Running on {{serverVersion}} of <a href="https://solid.mit.edu/">Solid</a> (<a href="https://solid.inrupt.com/docs">Documentation</a>)</dd>
+     </dl>
+   </section>
+ </div>
+diff --git a/lib/server-config.js b/lib/server-config.js
+index c48b27cfb..2015a04a6 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -36,10 +36,10 @@ function ensureDirCopyExists (fromDir, toDir) {
+  * typically has links to account signup and login, and can be overridden by
+  * the server operator.
+  *
+- * @param argv {Function} Express.js app object
++ * @param argv {Object} Express.js app object
+  */
+ async function ensureWelcomePage (argv) {
+-  const { multiuser, templates } = argv
++  const { multiuser, templates, server, host, parent } = argv
+   const rootDir = path.resolve(argv.root)
+   const serverRootDir = multiuser ? path.join(rootDir, argv.host.hostname) : rootDir
+ 
+@@ -49,11 +49,14 @@ async function ensureWelcomePage (argv) {
+   // let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
++    console.log(argv)
+     fs.mkdirp(serverRootDir)
+     await utils.copyTemplateDir(templates.server, serverRootDir)
+     await utils.processHandlebarFile(existingIndexPage, {
+-      serverName: 'Tittentei'
+-      // Need to load config from somewhere
++      serverName: server ? server.name : host.hostname,
++      serverDescription: server ? server.description : '',
++      serverLogo: server ? server.logo : '',
++      serverVersion: parent._version
+     })
+     // fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
+   }
+
+From 452d4ac515ad53f81b21e763cb1d0b7e8a6a4f4a Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 16:07:00 +0200
+Subject: [PATCH 11/29] A bit more refactoring
+
+I propose we put utils-methods into `lib/common`, and distinguish them a bit more than just `utils`
+---
+ lib/common/fs-utils.js         | 33 ++++++++++++++++++
+ lib/common/template-utils.js   | 38 +++++++++++++++++++++
+ lib/models/account-template.js | 14 +++-----
+ lib/server-config.js           |  7 ++--
+ lib/utils.js                   | 62 ----------------------------------
+ 5 files changed, 79 insertions(+), 75 deletions(-)
+ create mode 100644 lib/common/fs-utils.js
+ create mode 100644 lib/common/template-utils.js
+
+diff --git a/lib/common/fs-utils.js b/lib/common/fs-utils.js
+new file mode 100644
+index 000000000..083a2bdc0
+--- /dev/null
++++ b/lib/common/fs-utils.js
+@@ -0,0 +1,33 @@
++module.exports.copyTemplateDir = copyTemplateDir
++module.exports.processFile = processFile
++
++const fs = require('fs-extra')
++
++async function copyTemplateDir (templatePath, targetPath) {
++  return new Promise((resolve, reject) => {
++    fs.copy(templatePath, targetPath, (error) => {
++      if (error) { return reject(error) }
++
++      resolve()
++    })
++  })
++}
++
++async function processFile (filePath, manipulateSourceFn) {
++  return new Promise((resolve, reject) => {
++    fs.readFile(filePath, 'utf8', (error, rawSource) => {
++      if (error) {
++        return reject(error)
++      }
++
++      const output = manipulateSourceFn(rawSource)
++
++      fs.writeFile(filePath, output, (error) => {
++        if (error) {
++          return reject(error)
++        }
++        resolve()
++      })
++    })
++  })
++}
+diff --git a/lib/common/template-utils.js b/lib/common/template-utils.js
+new file mode 100644
+index 000000000..78bbb1479
+--- /dev/null
++++ b/lib/common/template-utils.js
+@@ -0,0 +1,38 @@
++module.exports.processHandlebarFile = processHandlebarFile
++
++const Handlebars = require('handlebars')
++const debug = require('../debug').errors
++const { processFile } = require('./fs-utils')
++
++/**
++ * Reads a file, processes it (performing template substitution), and saves
++ * back the processed result.
++ *
++ * @param filePath {string}
++ * @param substitutions {Object}
++ *
++ * @return {Promise}
++ */
++async function processHandlebarFile (filePath, substitutions) {
++  return processFile(filePath, (rawSource) => processHandlebarTemplate(rawSource, substitutions))
++}
++
++/**
++ * Performs a Handlebars string template substitution, and returns the
++ * resulting string.
++ *
++ * @see https://www.npmjs.com/package/handlebars
++ *
++ * @param source {string} e.g. 'Hello, {{name}}'
++ *
++ * @return {string} Result, e.g. 'Hello, Alice'
++ */
++function processHandlebarTemplate (source, substitutions) {
++  try {
++    const template = Handlebars.compile(source)
++    return template(substitutions)
++  } catch (error) {
++    debug(`Error processing template: ${error}`)
++    return source
++  }
++}
+diff --git a/lib/models/account-template.js b/lib/models/account-template.js
+index a5c557b88..dfedc916e 100644
+--- a/lib/models/account-template.js
++++ b/lib/models/account-template.js
+@@ -1,10 +1,10 @@
+ 'use strict'
+ 
+-const fs = require('fs-extra')
+ const path = require('path')
+ const mime = require('mime-types')
+ const recursiveRead = require('recursive-readdir')
+-const utils = require('../utils')
++const fsUtils = require('../common/fs-utils')
++const templateUtils = require('../common/template-utils')
+ 
+ const RDF_MIME_TYPES = require('../ldp').RDF_MIME_TYPES
+ const TEMPLATE_EXTENSIONS = [ '.acl', '.meta', '.json', '.hbs', '.handlebars' ]
+@@ -62,13 +62,7 @@ class AccountTemplate {
+    * @return {Promise}
+    */
+   static copyTemplateDir (templatePath, accountPath) {
+-    return new Promise((resolve, reject) => {
+-      fs.copy(templatePath, accountPath, (error) => {
+-        if (error) { return reject(error) }
+-
+-        resolve()
+-      })
+-    })
++    return fsUtils.copyTemplateDir(templatePath, accountPath)
+   }
+ 
+   /**
+@@ -130,7 +124,7 @@ class AccountTemplate {
+    */
+   processAccount (accountPath) {
+     return this.readTemplateFiles(accountPath)
+-      .then(files => Promise.all(files.map(path => utils.processHandlebarFile(path, this.substitutions))))
++      .then(files => Promise.all(files.map(path => templateUtils.processHandlebarFile(path, this.substitutions))))
+   }
+ 
+   /**
+diff --git a/lib/server-config.js b/lib/server-config.js
+index 2015a04a6..8ee5baa0f 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -6,7 +6,8 @@
+ 
+ const fs = require('fs-extra')
+ const path = require('path')
+-const utils = require('./utils')
++const templateUtils = require('./common/template-utils')
++const fsUtils = require('./common/fs-utils')
+ 
+ /**
+  * Ensures that a directory has been copied / initialized. Used to ensure that
+@@ -51,8 +52,8 @@ async function ensureWelcomePage (argv) {
+   if (!fs.existsSync(existingIndexPage)) {
+     console.log(argv)
+     fs.mkdirp(serverRootDir)
+-    await utils.copyTemplateDir(templates.server, serverRootDir)
+-    await utils.processHandlebarFile(existingIndexPage, {
++    await fsUtils.copyTemplateDir(templates.server, serverRootDir)
++    await templateUtils.processHandlebarFile(existingIndexPage, {
+       serverName: server ? server.name : host.hostname,
+       serverDescription: server ? server.description : '',
+       serverLogo: server ? server.logo : '',
+diff --git a/lib/utils.js b/lib/utils.js
+index 9282845ad..68fb59d55 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -13,16 +13,12 @@ module.exports.debrack = debrack
+ module.exports.stripLineEndings = stripLineEndings
+ module.exports.fullUrlForReq = fullUrlForReq
+ module.exports.routeResolvedFile = routeResolvedFile
+-module.exports.processHandlebarFile = processHandlebarFile
+-module.exports.copyTemplateDir = copyTemplateDir
+ 
+ const fs = require('fs-extra')
+ const path = require('path')
+ const $rdf = require('rdflib')
+ const from = require('from2')
+ const url = require('url')
+-const Handlebars = require('handlebars')
+-const debug = require('./debug').errors
+ 
+ /**
+  * Returns a fully qualified URL from an Express.js Request object.
+@@ -151,64 +147,6 @@ function parse (data, baseUri, contentType, callback) {
+   }
+ }
+ 
+-/**
+- * Reads a file, processes it (performing template substitution), and saves
+- * back the processed result.
+- *
+- * @param filePath {string}
+- * @param substitutions {Object}
+- *
+- * @return {Promise}
+- */
+-async function processHandlebarFile (filePath, substitutions) {
+-  return new Promise((resolve, reject) => {
+-    fs.readFile(filePath, 'utf8', (error, rawSource) => {
+-      if (error) {
+-        return reject(error)
+-      }
+-
+-      const output = processHandlebarTemplate(rawSource, substitutions)
+-
+-      fs.writeFile(filePath, output, (error) => {
+-        if (error) {
+-          return reject(error)
+-        }
+-        resolve()
+-      })
+-    })
+-  })
+-}
+-
+-/**
+- * Performs a Handlebars string template substitution, and returns the
+- * resulting string.
+- *
+- * @see https://www.npmjs.com/package/handlebars
+- *
+- * @param source {string} e.g. 'Hello, {{name}}'
+- *
+- * @return {string} Result, e.g. 'Hello, Alice'
+- */
+-function processHandlebarTemplate (source, substitutions) {
+-  try {
+-    const template = Handlebars.compile(source)
+-    return template(substitutions)
+-  } catch (error) {
+-    debug(`Error processing template: ${error}`)
+-    return source
+-  }
+-}
+-
+-async function copyTemplateDir (templatePath, targetPath) {
+-  return new Promise((resolve, reject) => {
+-    fs.copy(templatePath, targetPath, (error) => {
+-      if (error) { return reject(error) }
+-
+-      resolve()
+-    })
+-  })
+-}
+-
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+     // target, kb, base, contentType, callback
+
+From 175cec67a0316c0fa9ca04b345fd75b1b05ae089 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 17:37:59 +0200
+Subject: [PATCH 12/29] Added options to init stack
+
+---
+ bin/lib/init.js    | 67 ++++++++++++++++++++++++++++++----------------
+ bin/lib/options.js | 17 ++++++++++++
+ 2 files changed, 61 insertions(+), 23 deletions(-)
+
+diff --git a/bin/lib/init.js b/bin/lib/init.js
+index ff93595a8..83a809e82 100644
+--- a/bin/lib/init.js
++++ b/bin/lib/init.js
+@@ -31,29 +31,9 @@ module.exports = function (program) {
+       // Prompt to the user
+       inquirer.prompt(questions)
+         .then((answers) => {
+-          // setting email
+-          if (answers.useEmail) {
+-            answers.email = {
+-              host: answers['email-host'],
+-              port: answers['email-port'],
+-              secure: true,
+-              auth: {
+-                user: answers['email-auth-user'],
+-                pass: answers['email-auth-pass']
+-              }
+-            }
+-            delete answers['email-host']
+-            delete answers['email-port']
+-            delete answers['email-auth-user']
+-            delete answers['email-auth-pass']
+-          }
+-
+-          // clean answers
+-          Object.keys(answers).forEach((answer) => {
+-            if (answer.startsWith('use')) {
+-              delete answers[answer]
+-            }
+-          })
++          manipulateEmailSection(answers)
++          manipulateServerSection(answers)
++          cleanupAnswers(answers)
+ 
+           // write config file
+           const config = JSON.stringify(camelize(answers), null, '  ')
+@@ -71,3 +51,44 @@ module.exports = function (program) {
+         })
+     })
+ }
++
++function cleanupAnswers (answers) {
++  // clean answers
++  Object.keys(answers).forEach((answer) => {
++    if (answer.startsWith('use')) {
++      delete answers[answer]
++    }
++  })
++}
++
++function manipulateEmailSection (answers) {
++  // setting email
++  if (answers.useEmail) {
++    answers.email = {
++      host: answers['email-host'],
++      port: answers['email-port'],
++      secure: true,
++      auth: {
++        user: answers['email-auth-user'],
++        pass: answers['email-auth-pass']
++      }
++    }
++    delete answers['email-host']
++    delete answers['email-port']
++    delete answers['email-auth-user']
++    delete answers['email-auth-pass']
++  }
++}
++
++function manipulateServerSection (answers) {
++  answers.server = {
++    name: answers['server-name'],
++    description: answers['server-description'],
++    logo: answers['server-logo']
++  }
++  Object.keys(answers).forEach((answer) => {
++    if (answer.startsWith('server-')) {
++      delete answers[answer]
++    }
++  })
++}
+diff --git a/bin/lib/options.js b/bin/lib/options.js
+index e493f485a..cdc46b1c6 100644
+--- a/bin/lib/options.js
++++ b/bin/lib/options.js
+@@ -1,6 +1,7 @@
+ const fs = require('fs')
+ const path = require('path')
+ const validUrl = require('valid-url')
++const { URL } = require('url')
+ 
+ module.exports = [
+   // {
+@@ -317,6 +318,22 @@ module.exports = [
+       }
+       return true
+     }
++  },
++  {
++    name: 'server-name',
++    help: 'A name for your server (not required, but will be presented on your server\'s frontpage)',
++    prompt: true,
++    default: answers => new URL(answers.serverUri).hostname
++  },
++  {
++    name: 'server-description',
++    help: 'A description of your server (not required)',
++    prompt: true
++  },
++  {
++    name: 'server-logo',
++    help: 'A logo that represents you, your brand or your server (not required)',
++    prompt: true
+   }
+ ]
+ 
+
+From 1ba982bd44773689178e780f154de4a44daba5eb Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 17:46:10 +0200
+Subject: [PATCH 13/29] A little cleanup
+
+---
+ lib/server-config.js | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/lib/server-config.js b/lib/server-config.js
+index 8ee5baa0f..6da6d37ae 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -50,7 +50,6 @@ async function ensureWelcomePage (argv) {
+   // let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
+-    console.log(argv)
+     fs.mkdirp(serverRootDir)
+     await fsUtils.copyTemplateDir(templates.server, serverRootDir)
+     await templateUtils.processHandlebarFile(existingIndexPage, {
+
+From a5cccc6c08ab7d57b55cef62746d6561a6c9d6a2 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 21:12:53 +0200
+Subject: [PATCH 14/29] A bit more cleanup
+
+---
+ lib/server-config.js | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/lib/server-config.js b/lib/server-config.js
+index 8ee5baa0f..ea6f37635 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -43,14 +43,9 @@ async function ensureWelcomePage (argv) {
+   const { multiuser, templates, server, host, parent } = argv
+   const rootDir = path.resolve(argv.root)
+   const serverRootDir = multiuser ? path.join(rootDir, argv.host.hostname) : rootDir
+-
+-  // let defaultIndexPage = path.join(templates.server, 'index.html')
+   const existingIndexPage = path.join(serverRootDir, 'index.html')
+-  // let defaultIndexPageAcl = path.join(templates.server, 'index.html.acl')
+-  // let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
+-    console.log(argv)
+     fs.mkdirp(serverRootDir)
+     await fsUtils.copyTemplateDir(templates.server, serverRootDir)
+     await templateUtils.processHandlebarFile(existingIndexPage, {
+@@ -59,7 +54,6 @@ async function ensureWelcomePage (argv) {
+       serverLogo: server ? server.logo : '',
+       serverVersion: parent._version
+     })
+-    // fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
+   }
+ }
+ 
+
+From b70d90bed5399108257117f724ec6d2918ae5221 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 21:16:56 +0200
+Subject: [PATCH 15/29] Changed where version is taken from and presented
+
+---
+ default-templates/server/index.html | 2 +-
+ lib/server-config.js                | 5 +++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/default-templates/server/index.html b/default-templates/server/index.html
+index 2574957a7..8c6a4f3eb 100644
+--- a/default-templates/server/index.html
++++ b/default-templates/server/index.html
+@@ -44,7 +44,7 @@ <h2>Server info</h2>
+       <dd>{{serverDescription}}</dd>
+       {{/if}}
+       <dt>Details</dt>
+-      <dd>Running on {{serverVersion}} of <a href="https://solid.mit.edu/">Solid</a> (<a href="https://solid.inrupt.com/docs">Documentation</a>)</dd>
++      <dd>Running on <a href="https://solid.mit.edu/">Solid {{serverVersion}}</a> (<a href="https://solid.inrupt.com/docs">Documentation</a>)</dd>
+     </dl>
+   </section>
+ </div>
+diff --git a/lib/server-config.js b/lib/server-config.js
+index ea6f37635..78df260f2 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -40,10 +40,11 @@ function ensureDirCopyExists (fromDir, toDir) {
+  * @param argv {Object} Express.js app object
+  */
+ async function ensureWelcomePage (argv) {
+-  const { multiuser, templates, server, host, parent } = argv
++  const { multiuser, templates, server, host } = argv
+   const rootDir = path.resolve(argv.root)
+   const serverRootDir = multiuser ? path.join(rootDir, argv.host.hostname) : rootDir
+   const existingIndexPage = path.join(serverRootDir, 'index.html')
++  const packageData = require('../package.json')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
+     fs.mkdirp(serverRootDir)
+@@ -52,7 +53,7 @@ async function ensureWelcomePage (argv) {
+       serverName: server ? server.name : host.hostname,
+       serverDescription: server ? server.description : '',
+       serverLogo: server ? server.logo : '',
+-      serverVersion: parent._version
++      serverVersion: packageData.version
+     })
+   }
+ }
+
+From 8b3f8eab4fe9bc7fdf0d7e32affa99f50aa8eae0 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 17:07:15 +0200
+Subject: [PATCH 16/29] Partial work - need to load config from somewhere
+
+---
+ default-templates/server/index.html |  9 +++++
+ lib/models/account-template.js      | 55 ++---------------------------
+ lib/server-config.js                |  7 +++-
+ lib/utils.js                        | 51 ++++++++++++++++++++++++++
+ 4 files changed, 69 insertions(+), 53 deletions(-)
+
+diff --git a/default-templates/server/index.html b/default-templates/server/index.html
+index 877a74e96..94310af21 100644
+--- a/default-templates/server/index.html
++++ b/default-templates/server/index.html
+@@ -31,6 +31,15 @@ <h1>Welcome to the Solid Prototype</h1>
+     You are logged in as
+     <a href="#" id="profileLink"></a>.
+   </p>
++
++
++  <section>
++    <h2>Server info</h2>
++    <dl>
++      <dt>Server name</dt>
++      <dd>{{serverName}}</dd>
++    </dl>
++  </section>
+ </div>
+ <script src="/common/js/solid-auth-client.bundle.js"></script>
+ <script>
+diff --git a/lib/models/account-template.js b/lib/models/account-template.js
+index cb6ee37aa..d1e906a21 100644
+--- a/lib/models/account-template.js
++++ b/lib/models/account-template.js
+@@ -1,5 +1,7 @@
+ 'use strict'
+ 
++import { processHandlebarFile } from '../utils'
++
+ const fs = require('fs-extra')
+ const path = require('path')
+ const mime = require('mime-types')
+@@ -130,58 +132,7 @@ class AccountTemplate {
+    */
+   processAccount (accountPath) {
+     return this.readTemplateFiles(accountPath)
+-      .then(files => {
+-        return Promise.all(
+-          files.map((path) => { return this.processFile(path) })
+-        )
+-      })
+-  }
+-
+-  /**
+-   * Reads a file, processes it (performing template substitution), and saves
+-   * back the processed result.
+-   *
+-   * @param filePath {string}
+-   *
+-   * @return {Promise}
+-   */
+-  processFile (filePath) {
+-    return new Promise((resolve, reject) => {
+-      fs.readFile(filePath, 'utf8', (error, rawSource) => {
+-        if (error) { return reject(error) }
+-
+-        let output = this.processTemplate(rawSource)
+-
+-        fs.writeFile(filePath, output, (error) => {
+-          if (error) { return reject(error) }
+-          resolve()
+-        })
+-      })
+-    })
+-  }
+-
+-  /**
+-   * Performs a Handlebars string template substitution, and returns the
+-   * resulting string.
+-   *
+-   * @see https://www.npmjs.com/package/handlebars
+-   *
+-   * @param source {string} e.g. 'Hello, {{name}}'
+-   *
+-   * @return {string} Result, e.g. 'Hello, Alice'
+-   */
+-  processTemplate (source) {
+-    let template, result
+-
+-    try {
+-      template = Handlebars.compile(source)
+-      result = template(this.substitutions)
+-    } catch (error) {
+-      console.log('Error processing template: ', error)
+-      return source
+-    }
+-
+-    return result
++      .then(files => Promise.all(files.map(path => processHandlebarFile(path, this.substitutions))))
+   }
+ 
+   /**
+diff --git a/lib/server-config.js b/lib/server-config.js
+index a7dbba6fd..cfe210bbc 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -1,4 +1,6 @@
+ 'use strict'
++import { processHandlebarFile } from './utils'
++
+ /**
+  * Server config initialization utilities
+  */
+@@ -36,7 +38,7 @@ function ensureDirCopyExists (fromDir, toDir) {
+  *
+  * @param argv {Function} Express.js app object
+  */
+-function ensureWelcomePage (argv) {
++async function ensureWelcomePage (argv) {
+   let { multiuser, templates } = argv
+   let rootDir = path.resolve(argv.root)
+   let serverRootDir
+@@ -55,6 +57,9 @@ function ensureWelcomePage (argv) {
+   if (!fs.existsSync(existingIndexPage)) {
+     fs.mkdirp(serverRootDir)
+     fs.copySync(defaultIndexPage, existingIndexPage)
++    await processHandlebarFile(existingIndexPage, {
++      // Need to load config from somewhere
++    })
+     fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
+   }
+ }
+diff --git a/lib/utils.js b/lib/utils.js
+index c26d38dc8..3bc4725a2 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -5,6 +5,7 @@ module.exports.pathBasename = pathBasename
+ module.exports.getFullUri = getFullUri
+ module.exports.hasSuffix = hasSuffix
+ module.exports.parse = parse
++module.exports.processHandlebarFile = processHandlebarFile
+ module.exports.serialize = serialize
+ module.exports.translate = translate
+ module.exports.stringToStream = stringToStream
+@@ -19,6 +20,8 @@ const path = require('path')
+ const $rdf = require('rdflib')
+ const from = require('from2')
+ const url = require('url')
++const Handlebars = require('handlebars')
++const debug = require('./debug').errors
+ 
+ /**
+  * Returns a fully qualified URL from an Express.js Request object.
+@@ -147,6 +150,54 @@ function parse (data, baseUri, contentType, callback) {
+   }
+ }
+ 
++/**
++ * Reads a file, processes it (performing template substitution), and saves
++ * back the processed result.
++ *
++ * @param filePath {string}
++ * @param substitutions {Object}
++ *
++ * @return {Promise}
++ */
++async function processHandlebarFile (filePath, substitutions) {
++  return new Promise((resolve, reject) => {
++    fs.readFile(filePath, 'utf8', (error, rawSource) => {
++      if (error) {
++        return reject(error)
++      }
++
++      const output = processHandlebarTemplate(rawSource, substitutions)
++
++      fs.writeFile(filePath, output, (error) => {
++        if (error) {
++          return reject(error)
++        }
++        resolve()
++      })
++    })
++  })
++}
++
++/**
++ * Performs a Handlebars string template substitution, and returns the
++ * resulting string.
++ *
++ * @see https://www.npmjs.com/package/handlebars
++ *
++ * @param source {string} e.g. 'Hello, {{name}}'
++ *
++ * @return {string} Result, e.g. 'Hello, Alice'
++ */
++function processHandlebarTemplate (source, substitutions) {
++  try {
++    const template = Handlebars.compile(source)
++    return template(substitutions)
++  } catch (error) {
++    debug(`Error processing template: ${error}`)
++    return source
++  }
++}
++
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+                 // target, kb, base, contentType, callback
+
+From dac5acccc4f4541d11f2ca8b4b8ef38a811de2f8 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 21:22:13 +0200
+Subject: [PATCH 17/29] Copying over whole directory
+
+Unsure about the affects on testing, so checking in now just in case
+---
+ lib/models/account-template.js                |  6 ++--
+ lib/server-config.js                          | 29 ++++++++-----------
+ lib/utils.js                                  | 23 +++++++++++----
+ .../integration/account-creation-oidc-test.js |  4 +--
+ test/integration/acl-oidc-test.js             |  3 +-
+ test/integration/acl-tls-test.js              |  3 +-
+ test/integration/auth-proxy-test.js           |  5 ++--
+ test/integration/authentication-oidc-test.js  |  6 ++--
+ test/integration/capability-discovery-test.js |  3 +-
+ test/integration/errors-oidc-test.js          |  3 +-
+ test/integration/params-test.js               |  3 +-
+ test/utils.js                                 |  4 +++
+ 12 files changed, 46 insertions(+), 46 deletions(-)
+
+diff --git a/lib/models/account-template.js b/lib/models/account-template.js
+index d1e906a21..a5c557b88 100644
+--- a/lib/models/account-template.js
++++ b/lib/models/account-template.js
+@@ -1,12 +1,10 @@
+ 'use strict'
+ 
+-import { processHandlebarFile } from '../utils'
+-
+ const fs = require('fs-extra')
+ const path = require('path')
+ const mime = require('mime-types')
+ const recursiveRead = require('recursive-readdir')
+-const Handlebars = require('handlebars')
++const utils = require('../utils')
+ 
+ const RDF_MIME_TYPES = require('../ldp').RDF_MIME_TYPES
+ const TEMPLATE_EXTENSIONS = [ '.acl', '.meta', '.json', '.hbs', '.handlebars' ]
+@@ -132,7 +130,7 @@ class AccountTemplate {
+    */
+   processAccount (accountPath) {
+     return this.readTemplateFiles(accountPath)
+-      .then(files => Promise.all(files.map(path => processHandlebarFile(path, this.substitutions))))
++      .then(files => Promise.all(files.map(path => utils.processHandlebarFile(path, this.substitutions))))
+   }
+ 
+   /**
+diff --git a/lib/server-config.js b/lib/server-config.js
+index cfe210bbc..c48b27cfb 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -1,5 +1,4 @@
+ 'use strict'
+-import { processHandlebarFile } from './utils'
+ 
+ /**
+  * Server config initialization utilities
+@@ -7,6 +6,7 @@ import { processHandlebarFile } from './utils'
+ 
+ const fs = require('fs-extra')
+ const path = require('path')
++const utils = require('./utils')
+ 
+ /**
+  * Ensures that a directory has been copied / initialized. Used to ensure that
+@@ -39,28 +39,23 @@ function ensureDirCopyExists (fromDir, toDir) {
+  * @param argv {Function} Express.js app object
+  */
+ async function ensureWelcomePage (argv) {
+-  let { multiuser, templates } = argv
+-  let rootDir = path.resolve(argv.root)
+-  let serverRootDir
+-
+-  if (multiuser) {
+-    serverRootDir = path.join(rootDir, argv.host.hostname)
+-  } else {
+-    serverRootDir = rootDir
+-  }
++  const { multiuser, templates } = argv
++  const rootDir = path.resolve(argv.root)
++  const serverRootDir = multiuser ? path.join(rootDir, argv.host.hostname) : rootDir
+ 
+-  let defaultIndexPage = path.join(templates.server, 'index.html')
+-  let existingIndexPage = path.join(serverRootDir, 'index.html')
+-  let defaultIndexPageAcl = path.join(templates.server, 'index.html.acl')
+-  let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
++  // let defaultIndexPage = path.join(templates.server, 'index.html')
++  const existingIndexPage = path.join(serverRootDir, 'index.html')
++  // let defaultIndexPageAcl = path.join(templates.server, 'index.html.acl')
++  // let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
+     fs.mkdirp(serverRootDir)
+-    fs.copySync(defaultIndexPage, existingIndexPage)
+-    await processHandlebarFile(existingIndexPage, {
++    await utils.copyTemplateDir(templates.server, serverRootDir)
++    await utils.processHandlebarFile(existingIndexPage, {
++      serverName: 'Tittentei'
+       // Need to load config from somewhere
+     })
+-    fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
++    // fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
+   }
+ }
+ 
+diff --git a/lib/utils.js b/lib/utils.js
+index 3bc4725a2..1331a614f 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -5,7 +5,6 @@ module.exports.pathBasename = pathBasename
+ module.exports.getFullUri = getFullUri
+ module.exports.hasSuffix = hasSuffix
+ module.exports.parse = parse
+-module.exports.processHandlebarFile = processHandlebarFile
+ module.exports.serialize = serialize
+ module.exports.translate = translate
+ module.exports.stringToStream = stringToStream
+@@ -14,8 +13,10 @@ module.exports.debrack = debrack
+ module.exports.stripLineEndings = stripLineEndings
+ module.exports.fullUrlForReq = fullUrlForReq
+ module.exports.routeResolvedFile = routeResolvedFile
++module.exports.processHandlebarFile = processHandlebarFile
++module.exports.copyTemplateDir = copyTemplateDir
+ 
+-const fs = require('fs')
++const fs = require('fs-extra')
+ const path = require('path')
+ const $rdf = require('rdflib')
+ const from = require('from2')
+@@ -198,9 +199,19 @@ function processHandlebarTemplate (source, substitutions) {
+   }
+ }
+ 
++async function copyTemplateDir (templatePath, targetPath) {
++  return new Promise((resolve, reject) => {
++    fs.copy(templatePath, targetPath, (error) => {
++      if (error) { return reject(error) }
++
++      resolve()
++    })
++  })
++}
++
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+-                // target, kb, base, contentType, callback
++    // target, kb, base, contentType, callback
+     $rdf.serialize(null, graph, baseUri, contentType, function (err, result) {
+       if (err) {
+         console.log(err)
+@@ -222,9 +233,9 @@ function serialize (graph, baseUri, contentType, callback) {
+ function translate (stream, baseUri, from, to, callback) {
+   // Handle Turtle Accept header
+   if (to === 'text/turtle' ||
+-      to === 'text/n3' ||
+-      to === 'application/turtle' ||
+-      to === 'application/n3') {
++    to === 'text/n3' ||
++    to === 'application/turtle' ||
++    to === 'application/n3') {
+     to = 'text/turtle'
+   }
+ 
+diff --git a/test/integration/account-creation-oidc-test.js b/test/integration/account-creation-oidc-test.js
+index 43a9f066d..edff294c3 100644
+--- a/test/integration/account-creation-oidc-test.js
++++ b/test/integration/account-creation-oidc-test.js
+@@ -37,8 +37,8 @@ describe('AccountManager (OIDC account creation tests)', function () {
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+     fs.removeSync(path.join(dbPath, 'oidc/users/users'))
+-    fs.removeSync(path.join(rootPath, 'localhost/index.html'))
+-    fs.removeSync(path.join(rootPath, 'localhost/index.html.acl'))
++    fs.removeSync(path.join(rootPath, 'localhost'))
++    fs.removeSync(path.join(rootPath, 'localhost'))
+   })
+ 
+   var server = supertest(serverUri)
+diff --git a/test/integration/acl-oidc-test.js b/test/integration/acl-oidc-test.js
+index 1dff38fe6..d7d4060f3 100644
+--- a/test/integration/acl-oidc-test.js
++++ b/test/integration/acl-oidc-test.js
+@@ -86,8 +86,7 @@ describe('ACL with WebID+OIDC over HTTP', function () {
+ 
+   after(() => {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath, 'index.html'))
+-    fs.removeSync(path.join(rootPath, 'index.html.acl'))
++    fs.removeSync(path.join(rootPath))
+   })
+ 
+   const origin1 = 'http://example.org/'
+diff --git a/test/integration/acl-tls-test.js b/test/integration/acl-tls-test.js
+index ffcb79e0d..0f647bc2e 100644
+--- a/test/integration/acl-tls-test.js
++++ b/test/integration/acl-tls-test.js
+@@ -69,8 +69,7 @@ describe('ACL with WebID+TLS', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath, 'index.html'))
+-    fs.removeSync(path.join(rootPath, 'index.html.acl'))
++    fs.removeSync(path.join(rootPath))
+   })
+ 
+   function createOptions (path, user) {
+diff --git a/test/integration/auth-proxy-test.js b/test/integration/auth-proxy-test.js
+index f1062ce04..2baa941bc 100644
+--- a/test/integration/auth-proxy-test.js
++++ b/test/integration/auth-proxy-test.js
+@@ -3,7 +3,7 @@ const path = require('path')
+ const nock = require('nock')
+ const request = require('supertest')
+ const { expect } = require('chai')
+-const rm = require('../utils').rm
++const rmDir = require('../utils').rmDir
+ 
+ const USER = 'https://ruben.verborgh.org/profile/#me'
+ 
+@@ -32,8 +32,7 @@ describe('Auth Proxy', () => {
+       // Release back-end server
+       nock.cleanAll()
+       // Remove created index files
+-      rm('index.html')
+-      rm('index.html.acl')
++      rmDir()
+     })
+ 
+     describe('responding to /server/a', () => {
+diff --git a/test/integration/authentication-oidc-test.js b/test/integration/authentication-oidc-test.js
+index 665711eb3..95dbe7a4d 100644
+--- a/test/integration/authentication-oidc-test.js
++++ b/test/integration/authentication-oidc-test.js
+@@ -81,10 +81,8 @@ describe('Authentication API (OIDC)', () => {
+     alicePod.close()
+     bobPod.close()
+     fs.removeSync(path.join(aliceDbPath, 'oidc/users'))
+-    fs.removeSync(path.join(aliceRootPath, 'index.html'))
+-    fs.removeSync(path.join(aliceRootPath, 'index.html.acl'))
+-    fs.removeSync(path.join(bobRootPath, 'index.html'))
+-    fs.removeSync(path.join(bobRootPath, 'index.html.acl'))
++    fs.removeSync(path.join(aliceRootPath))
++    fs.removeSync(path.join(bobRootPath))
+   })
+ 
+   describe('Login page (GET /login)', () => {
+diff --git a/test/integration/capability-discovery-test.js b/test/integration/capability-discovery-test.js
+index 4ff44b43c..e5e7ecab7 100644
+--- a/test/integration/capability-discovery-test.js
++++ b/test/integration/capability-discovery-test.js
+@@ -48,8 +48,7 @@ describe('API', () => {
+ 
+   after(() => {
+     alicePod.close()
+-    fs.removeSync(path.join(aliceRootPath, 'index.html'))
+-    fs.removeSync(path.join(aliceRootPath, 'index.html.acl'))
++    fs.removeSync(path.join(aliceRootPath))
+   })
+ 
+   describe('Capability Discovery', () => {
+diff --git a/test/integration/errors-oidc-test.js b/test/integration/errors-oidc-test.js
+index 11386ffe1..31d1257e3 100644
+--- a/test/integration/errors-oidc-test.js
++++ b/test/integration/errors-oidc-test.js
+@@ -30,8 +30,7 @@ describe('OIDC error handling', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath, 'index.html'))
+-    fs.removeSync(path.join(rootPath, 'index.html.acl'))
++    fs.removeSync(path.join(rootPath))
+   })
+ 
+   const server = supertest(serverUri)
+diff --git a/test/integration/params-test.js b/test/integration/params-test.js
+index 71629b3a4..bc918868d 100644
+--- a/test/integration/params-test.js
++++ b/test/integration/params-test.js
+@@ -127,8 +127,7 @@ describe('LDNODE params', function () {
+ 
+     after(function () {
+       if (ldpHttpsServer) ldpHttpsServer.close()
+-      fs.removeSync(path.join(rootPath, 'index.html'))
+-      fs.removeSync(path.join(rootPath, 'index.html.acl'))
++      fs.removeSync(path.join(rootPath))
+     })
+ 
+     var server = supertest(serverUri)
+diff --git a/test/utils.js b/test/utils.js
+index f1f79ec6b..18a1566ec 100644
+--- a/test/utils.js
++++ b/test/utils.js
+@@ -11,6 +11,10 @@ exports.rm = function (file) {
+   return rimraf.sync(path.join(__dirname, '/resources/' + file))
+ }
+ 
++exports.rmDir = function (path = '') {
++  return rimraf.sync(path.join(__dirname, '/resources/' + path))
++}
++
+ exports.write = function (text, file) {
+   return fs.writeFileSync(path.join(__dirname, '/resources/' + file), text)
+ }
+
+From 91a8bf0ec28c5fedb6744f03f7e60597a74b1a1b Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 22:04:07 +0200
+Subject: [PATCH 18/29] Should not remove dirs in test...
+
+---
+ test/integration/account-creation-oidc-test.js |  5 ++---
+ test/integration/acl-oidc-test.js              |  4 ++--
+ test/integration/acl-tls-test.js               |  3 ++-
+ test/integration/auth-proxy-test.js            |  5 +++--
+ test/integration/authentication-oidc-test.js   |  5 +++--
+ test/integration/capability-discovery-test.js  |  4 ++--
+ test/integration/errors-oidc-test.js           |  4 ++--
+ test/integration/params-test.js                |  8 ++------
+ test/utils.js                                  | 15 ++++++++++-----
+ 9 files changed, 28 insertions(+), 25 deletions(-)
+
+diff --git a/test/integration/account-creation-oidc-test.js b/test/integration/account-creation-oidc-test.js
+index edff294c3..ed0d08846 100644
+--- a/test/integration/account-creation-oidc-test.js
++++ b/test/integration/account-creation-oidc-test.js
+@@ -2,7 +2,7 @@ const supertest = require('supertest')
+ // Helper functions for the FS
+ const $rdf = require('rdflib')
+ 
+-const { rm, read, checkDnsSettings } = require('../utils')
++const { rm, read, checkDnsSettings, cleanDir } = require('../utils')
+ const ldnode = require('../../index')
+ const path = require('path')
+ const fs = require('fs-extra')
+@@ -37,8 +37,7 @@ describe('AccountManager (OIDC account creation tests)', function () {
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+     fs.removeSync(path.join(dbPath, 'oidc/users/users'))
+-    fs.removeSync(path.join(rootPath, 'localhost'))
+-    fs.removeSync(path.join(rootPath, 'localhost'))
++    cleanDir(path.join(rootPath, 'localhost'))
+   })
+ 
+   var server = supertest(serverUri)
+diff --git a/test/integration/acl-oidc-test.js b/test/integration/acl-oidc-test.js
+index d7d4060f3..336fe2a70 100644
+--- a/test/integration/acl-oidc-test.js
++++ b/test/integration/acl-oidc-test.js
+@@ -2,7 +2,7 @@ const assert = require('chai').assert
+ const fs = require('fs-extra')
+ const request = require('request')
+ const path = require('path')
+-const { loadProvider, rm, checkDnsSettings } = require('../utils')
++const { loadProvider, rm, checkDnsSettings, cleanDir } = require('../utils')
+ const IDToken = require('@solid/oidc-op/src/IDToken')
+ 
+ const ldnode = require('../../index')
+@@ -86,7 +86,7 @@ describe('ACL with WebID+OIDC over HTTP', function () {
+ 
+   after(() => {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath))
++    cleanDir(rootPath)
+   })
+ 
+   const origin1 = 'http://example.org/'
+diff --git a/test/integration/acl-tls-test.js b/test/integration/acl-tls-test.js
+index 0f647bc2e..aedae7289 100644
+--- a/test/integration/acl-tls-test.js
++++ b/test/integration/acl-tls-test.js
+@@ -3,6 +3,7 @@ var fs = require('fs-extra')
+ var $rdf = require('rdflib')
+ var request = require('request')
+ var path = require('path')
++var { cleanDir } = require('../utils')
+ 
+ /**
+  * Note: this test suite requires an internet connection, since it actually
+@@ -69,7 +70,7 @@ describe('ACL with WebID+TLS', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath))
++    cleanDir(rootPath)
+   })
+ 
+   function createOptions (path, user) {
+diff --git a/test/integration/auth-proxy-test.js b/test/integration/auth-proxy-test.js
+index 2baa941bc..f1062ce04 100644
+--- a/test/integration/auth-proxy-test.js
++++ b/test/integration/auth-proxy-test.js
+@@ -3,7 +3,7 @@ const path = require('path')
+ const nock = require('nock')
+ const request = require('supertest')
+ const { expect } = require('chai')
+-const rmDir = require('../utils').rmDir
++const rm = require('../utils').rm
+ 
+ const USER = 'https://ruben.verborgh.org/profile/#me'
+ 
+@@ -32,7 +32,8 @@ describe('Auth Proxy', () => {
+       // Release back-end server
+       nock.cleanAll()
+       // Remove created index files
+-      rmDir()
++      rm('index.html')
++      rm('index.html.acl')
+     })
+ 
+     describe('responding to /server/a', () => {
+diff --git a/test/integration/authentication-oidc-test.js b/test/integration/authentication-oidc-test.js
+index 95dbe7a4d..21aeed093 100644
+--- a/test/integration/authentication-oidc-test.js
++++ b/test/integration/authentication-oidc-test.js
+@@ -10,6 +10,7 @@ const localStorage = require('localstorage-memory')
+ const URL = require('whatwg-url').URL
+ global.URL = URL
+ global.URLSearchParams = require('whatwg-url').URLSearchParams
++const { cleanDir } = require('../utils')
+ 
+ const supertest = require('supertest')
+ const chai = require('chai')
+@@ -81,8 +82,8 @@ describe('Authentication API (OIDC)', () => {
+     alicePod.close()
+     bobPod.close()
+     fs.removeSync(path.join(aliceDbPath, 'oidc/users'))
+-    fs.removeSync(path.join(aliceRootPath))
+-    fs.removeSync(path.join(bobRootPath))
++    cleanDir(aliceRootPath)
++    cleanDir(bobRootPath)
+   })
+ 
+   describe('Login page (GET /login)', () => {
+diff --git a/test/integration/capability-discovery-test.js b/test/integration/capability-discovery-test.js
+index e5e7ecab7..13cfd52f8 100644
+--- a/test/integration/capability-discovery-test.js
++++ b/test/integration/capability-discovery-test.js
+@@ -1,6 +1,6 @@
+ const Solid = require('../../index')
+ const path = require('path')
+-const fs = require('fs-extra')
++const { cleanDir } = require('../utils')
+ const supertest = require('supertest')
+ const expect = require('chai').expect
+ // In this test we always assume that we are Alice
+@@ -48,7 +48,7 @@ describe('API', () => {
+ 
+   after(() => {
+     alicePod.close()
+-    fs.removeSync(path.join(aliceRootPath))
++    cleanDir(aliceRootPath)
+   })
+ 
+   describe('Capability Discovery', () => {
+diff --git a/test/integration/errors-oidc-test.js b/test/integration/errors-oidc-test.js
+index 31d1257e3..a3202fca5 100644
+--- a/test/integration/errors-oidc-test.js
++++ b/test/integration/errors-oidc-test.js
+@@ -1,7 +1,7 @@
+ const supertest = require('supertest')
+ const ldnode = require('../../index')
+ const path = require('path')
+-const fs = require('fs-extra')
++const { cleanDir } = require('../utils')
+ const expect = require('chai').expect
+ 
+ describe('OIDC error handling', function () {
+@@ -30,7 +30,7 @@ describe('OIDC error handling', function () {
+ 
+   after(function () {
+     if (ldpHttpsServer) ldpHttpsServer.close()
+-    fs.removeSync(path.join(rootPath))
++    cleanDir(rootPath)
+   })
+ 
+   const server = supertest(serverUri)
+diff --git a/test/integration/params-test.js b/test/integration/params-test.js
+index bc918868d..f80ae2674 100644
+--- a/test/integration/params-test.js
++++ b/test/integration/params-test.js
+@@ -1,12 +1,8 @@
+ var assert = require('chai').assert
+ var supertest = require('supertest')
+ var path = require('path')
+-const fs = require('fs-extra')
+ // Helper functions for the FS
+-var rm = require('../utils').rm
+-var write = require('../utils').write
+-// var cp = require('./utils').cp
+-var read = require('../utils').read
++const { rm, write, read, cleanDir } = require('../utils')
+ 
+ var ldnode = require('../../index')
+ 
+@@ -127,7 +123,7 @@ describe('LDNODE params', function () {
+ 
+     after(function () {
+       if (ldpHttpsServer) ldpHttpsServer.close()
+-      fs.removeSync(path.join(rootPath))
++      cleanDir(rootPath)
+     })
+ 
+     var server = supertest(serverUri)
+diff --git a/test/utils.js b/test/utils.js
+index 18a1566ec..ae181f8cf 100644
+--- a/test/utils.js
++++ b/test/utils.js
+@@ -1,5 +1,4 @@
+-var fs = require('fs')
+-var fsExtra = require('fs-extra')
++var fs = require('fs-extra')
+ var rimraf = require('rimraf')
+ var path = require('path')
+ const OIDCProvider = require('@solid/oidc-op')
+@@ -11,8 +10,14 @@ exports.rm = function (file) {
+   return rimraf.sync(path.join(__dirname, '/resources/' + file))
+ }
+ 
+-exports.rmDir = function (path = '') {
+-  return rimraf.sync(path.join(__dirname, '/resources/' + path))
++exports.cleanDir = function (dirPath) {
++  fs.removeSync(path.join(dirPath, '.well-known/.acl'))
++  fs.removeSync(path.join(dirPath, 'favicon.ico'))
++  fs.removeSync(path.join(dirPath, 'favicon.ico.acl'))
++  fs.removeSync(path.join(dirPath, 'index.html'))
++  fs.removeSync(path.join(dirPath, 'index.html.acl'))
++  fs.removeSync(path.join(dirPath, 'robots.txt'))
++  fs.removeSync(path.join(dirPath, 'robots.txt.acl'))
+ }
+ 
+ exports.write = function (text, file) {
+@@ -20,7 +25,7 @@ exports.write = function (text, file) {
+ }
+ 
+ exports.cp = function (src, dest) {
+-  return fsExtra.copySync(
++  return fs.copySync(
+     path.join(__dirname, '/resources/' + src),
+     path.join(__dirname, '/resources/' + dest))
+ }
+
+From 5c1556265b0426e371f95d42b8848b50eb68d036 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 01:01:24 +0200
+Subject: [PATCH 19/29] Added some info to server front page
+
+---
+ common/img/.gitkeep                 |  0
+ config.json-default                 |  7 ++++++-
+ default-templates/server/index.html | 12 ++++++++++--
+ lib/server-config.js                | 11 +++++++----
+ 4 files changed, 23 insertions(+), 7 deletions(-)
+ create mode 100644 common/img/.gitkeep
+
+diff --git a/common/img/.gitkeep b/common/img/.gitkeep
+new file mode 100644
+index 000000000..e69de29bb
+diff --git a/config.json-default b/config.json-default
+index 399752da0..125206bfd 100644
+--- a/config.json-default
++++ b/config.json-default
+@@ -9,5 +9,10 @@
+   "sslKey": "./cert.key",
+   "sslCert": "./cert.pem",
+   "multiuser": true,
+-  "corsProxy": "/proxy"
++  "corsProxy": "/proxy",
++  "server": {
++    "name": "",
++    "description": "",
++    "logo": ""
++  }
+ }
+diff --git a/default-templates/server/index.html b/default-templates/server/index.html
+index 94310af21..ae8c2712e 100644
+--- a/default-templates/server/index.html
++++ b/default-templates/server/index.html
+@@ -32,12 +32,20 @@ <h1>Welcome to the Solid Prototype</h1>
+     <a href="#" id="profileLink"></a>.
+   </p>
+ 
+-
+   <section>
++    {{#if serverLogo}}
++    <img src="{{serverLogo}}" />
++    {{/if}}
+     <h2>Server info</h2>
+     <dl>
+-      <dt>Server name</dt>
++      <dt>Name</dt>
+       <dd>{{serverName}}</dd>
++      {{#if serverDescription}}
++      <dt>Description</dt>
++      <dd>{{serverDescription}}</dd>
++      {{/if}}
++      <dt>Details</dt>
++      <dd>Running on {{serverVersion}} of <a href="https://solid.mit.edu/">Solid</a> (<a href="https://solid.inrupt.com/docs">Documentation</a>)</dd>
+     </dl>
+   </section>
+ </div>
+diff --git a/lib/server-config.js b/lib/server-config.js
+index c48b27cfb..2015a04a6 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -36,10 +36,10 @@ function ensureDirCopyExists (fromDir, toDir) {
+  * typically has links to account signup and login, and can be overridden by
+  * the server operator.
+  *
+- * @param argv {Function} Express.js app object
++ * @param argv {Object} Express.js app object
+  */
+ async function ensureWelcomePage (argv) {
+-  const { multiuser, templates } = argv
++  const { multiuser, templates, server, host, parent } = argv
+   const rootDir = path.resolve(argv.root)
+   const serverRootDir = multiuser ? path.join(rootDir, argv.host.hostname) : rootDir
+ 
+@@ -49,11 +49,14 @@ async function ensureWelcomePage (argv) {
+   // let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
++    console.log(argv)
+     fs.mkdirp(serverRootDir)
+     await utils.copyTemplateDir(templates.server, serverRootDir)
+     await utils.processHandlebarFile(existingIndexPage, {
+-      serverName: 'Tittentei'
+-      // Need to load config from somewhere
++      serverName: server ? server.name : host.hostname,
++      serverDescription: server ? server.description : '',
++      serverLogo: server ? server.logo : '',
++      serverVersion: parent._version
+     })
+     // fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
+   }
+
+From 018790258ff20393a5ec8b58ba11c2181e8b246a Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 16:07:00 +0200
+Subject: [PATCH 20/29] A bit more refactoring
+
+I propose we put utils-methods into `lib/common`, and distinguish them a bit more than just `utils`
+---
+ lib/common/fs-utils.js         | 33 ++++++++++++++++++
+ lib/common/template-utils.js   | 38 +++++++++++++++++++++
+ lib/models/account-template.js | 14 +++-----
+ lib/server-config.js           |  7 ++--
+ lib/utils.js                   | 62 ----------------------------------
+ 5 files changed, 79 insertions(+), 75 deletions(-)
+ create mode 100644 lib/common/fs-utils.js
+ create mode 100644 lib/common/template-utils.js
+
+diff --git a/lib/common/fs-utils.js b/lib/common/fs-utils.js
+new file mode 100644
+index 000000000..083a2bdc0
+--- /dev/null
++++ b/lib/common/fs-utils.js
+@@ -0,0 +1,33 @@
++module.exports.copyTemplateDir = copyTemplateDir
++module.exports.processFile = processFile
++
++const fs = require('fs-extra')
++
++async function copyTemplateDir (templatePath, targetPath) {
++  return new Promise((resolve, reject) => {
++    fs.copy(templatePath, targetPath, (error) => {
++      if (error) { return reject(error) }
++
++      resolve()
++    })
++  })
++}
++
++async function processFile (filePath, manipulateSourceFn) {
++  return new Promise((resolve, reject) => {
++    fs.readFile(filePath, 'utf8', (error, rawSource) => {
++      if (error) {
++        return reject(error)
++      }
++
++      const output = manipulateSourceFn(rawSource)
++
++      fs.writeFile(filePath, output, (error) => {
++        if (error) {
++          return reject(error)
++        }
++        resolve()
++      })
++    })
++  })
++}
+diff --git a/lib/common/template-utils.js b/lib/common/template-utils.js
+new file mode 100644
+index 000000000..78bbb1479
+--- /dev/null
++++ b/lib/common/template-utils.js
+@@ -0,0 +1,38 @@
++module.exports.processHandlebarFile = processHandlebarFile
++
++const Handlebars = require('handlebars')
++const debug = require('../debug').errors
++const { processFile } = require('./fs-utils')
++
++/**
++ * Reads a file, processes it (performing template substitution), and saves
++ * back the processed result.
++ *
++ * @param filePath {string}
++ * @param substitutions {Object}
++ *
++ * @return {Promise}
++ */
++async function processHandlebarFile (filePath, substitutions) {
++  return processFile(filePath, (rawSource) => processHandlebarTemplate(rawSource, substitutions))
++}
++
++/**
++ * Performs a Handlebars string template substitution, and returns the
++ * resulting string.
++ *
++ * @see https://www.npmjs.com/package/handlebars
++ *
++ * @param source {string} e.g. 'Hello, {{name}}'
++ *
++ * @return {string} Result, e.g. 'Hello, Alice'
++ */
++function processHandlebarTemplate (source, substitutions) {
++  try {
++    const template = Handlebars.compile(source)
++    return template(substitutions)
++  } catch (error) {
++    debug(`Error processing template: ${error}`)
++    return source
++  }
++}
+diff --git a/lib/models/account-template.js b/lib/models/account-template.js
+index a5c557b88..dfedc916e 100644
+--- a/lib/models/account-template.js
++++ b/lib/models/account-template.js
+@@ -1,10 +1,10 @@
+ 'use strict'
+ 
+-const fs = require('fs-extra')
+ const path = require('path')
+ const mime = require('mime-types')
+ const recursiveRead = require('recursive-readdir')
+-const utils = require('../utils')
++const fsUtils = require('../common/fs-utils')
++const templateUtils = require('../common/template-utils')
+ 
+ const RDF_MIME_TYPES = require('../ldp').RDF_MIME_TYPES
+ const TEMPLATE_EXTENSIONS = [ '.acl', '.meta', '.json', '.hbs', '.handlebars' ]
+@@ -62,13 +62,7 @@ class AccountTemplate {
+    * @return {Promise}
+    */
+   static copyTemplateDir (templatePath, accountPath) {
+-    return new Promise((resolve, reject) => {
+-      fs.copy(templatePath, accountPath, (error) => {
+-        if (error) { return reject(error) }
+-
+-        resolve()
+-      })
+-    })
++    return fsUtils.copyTemplateDir(templatePath, accountPath)
+   }
+ 
+   /**
+@@ -130,7 +124,7 @@ class AccountTemplate {
+    */
+   processAccount (accountPath) {
+     return this.readTemplateFiles(accountPath)
+-      .then(files => Promise.all(files.map(path => utils.processHandlebarFile(path, this.substitutions))))
++      .then(files => Promise.all(files.map(path => templateUtils.processHandlebarFile(path, this.substitutions))))
+   }
+ 
+   /**
+diff --git a/lib/server-config.js b/lib/server-config.js
+index 2015a04a6..8ee5baa0f 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -6,7 +6,8 @@
+ 
+ const fs = require('fs-extra')
+ const path = require('path')
+-const utils = require('./utils')
++const templateUtils = require('./common/template-utils')
++const fsUtils = require('./common/fs-utils')
+ 
+ /**
+  * Ensures that a directory has been copied / initialized. Used to ensure that
+@@ -51,8 +52,8 @@ async function ensureWelcomePage (argv) {
+   if (!fs.existsSync(existingIndexPage)) {
+     console.log(argv)
+     fs.mkdirp(serverRootDir)
+-    await utils.copyTemplateDir(templates.server, serverRootDir)
+-    await utils.processHandlebarFile(existingIndexPage, {
++    await fsUtils.copyTemplateDir(templates.server, serverRootDir)
++    await templateUtils.processHandlebarFile(existingIndexPage, {
+       serverName: server ? server.name : host.hostname,
+       serverDescription: server ? server.description : '',
+       serverLogo: server ? server.logo : '',
+diff --git a/lib/utils.js b/lib/utils.js
+index 1331a614f..8797ac421 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -13,16 +13,12 @@ module.exports.debrack = debrack
+ module.exports.stripLineEndings = stripLineEndings
+ module.exports.fullUrlForReq = fullUrlForReq
+ module.exports.routeResolvedFile = routeResolvedFile
+-module.exports.processHandlebarFile = processHandlebarFile
+-module.exports.copyTemplateDir = copyTemplateDir
+ 
+ const fs = require('fs-extra')
+ const path = require('path')
+ const $rdf = require('rdflib')
+ const from = require('from2')
+ const url = require('url')
+-const Handlebars = require('handlebars')
+-const debug = require('./debug').errors
+ 
+ /**
+  * Returns a fully qualified URL from an Express.js Request object.
+@@ -151,64 +147,6 @@ function parse (data, baseUri, contentType, callback) {
+   }
+ }
+ 
+-/**
+- * Reads a file, processes it (performing template substitution), and saves
+- * back the processed result.
+- *
+- * @param filePath {string}
+- * @param substitutions {Object}
+- *
+- * @return {Promise}
+- */
+-async function processHandlebarFile (filePath, substitutions) {
+-  return new Promise((resolve, reject) => {
+-    fs.readFile(filePath, 'utf8', (error, rawSource) => {
+-      if (error) {
+-        return reject(error)
+-      }
+-
+-      const output = processHandlebarTemplate(rawSource, substitutions)
+-
+-      fs.writeFile(filePath, output, (error) => {
+-        if (error) {
+-          return reject(error)
+-        }
+-        resolve()
+-      })
+-    })
+-  })
+-}
+-
+-/**
+- * Performs a Handlebars string template substitution, and returns the
+- * resulting string.
+- *
+- * @see https://www.npmjs.com/package/handlebars
+- *
+- * @param source {string} e.g. 'Hello, {{name}}'
+- *
+- * @return {string} Result, e.g. 'Hello, Alice'
+- */
+-function processHandlebarTemplate (source, substitutions) {
+-  try {
+-    const template = Handlebars.compile(source)
+-    return template(substitutions)
+-  } catch (error) {
+-    debug(`Error processing template: ${error}`)
+-    return source
+-  }
+-}
+-
+-async function copyTemplateDir (templatePath, targetPath) {
+-  return new Promise((resolve, reject) => {
+-    fs.copy(templatePath, targetPath, (error) => {
+-      if (error) { return reject(error) }
+-
+-      resolve()
+-    })
+-  })
+-}
+-
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+     // target, kb, base, contentType, callback
+
+From be10930fc6352d0016af4ad1eb678c07a6664c75 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 17:37:59 +0200
+Subject: [PATCH 21/29] Added options to init stack
+
+---
+ bin/lib/init.js    | 67 ++++++++++++++++++++++++++++++----------------
+ bin/lib/options.js | 17 ++++++++++++
+ 2 files changed, 61 insertions(+), 23 deletions(-)
+
+diff --git a/bin/lib/init.js b/bin/lib/init.js
+index ff93595a8..83a809e82 100644
+--- a/bin/lib/init.js
++++ b/bin/lib/init.js
+@@ -31,29 +31,9 @@ module.exports = function (program) {
+       // Prompt to the user
+       inquirer.prompt(questions)
+         .then((answers) => {
+-          // setting email
+-          if (answers.useEmail) {
+-            answers.email = {
+-              host: answers['email-host'],
+-              port: answers['email-port'],
+-              secure: true,
+-              auth: {
+-                user: answers['email-auth-user'],
+-                pass: answers['email-auth-pass']
+-              }
+-            }
+-            delete answers['email-host']
+-            delete answers['email-port']
+-            delete answers['email-auth-user']
+-            delete answers['email-auth-pass']
+-          }
+-
+-          // clean answers
+-          Object.keys(answers).forEach((answer) => {
+-            if (answer.startsWith('use')) {
+-              delete answers[answer]
+-            }
+-          })
++          manipulateEmailSection(answers)
++          manipulateServerSection(answers)
++          cleanupAnswers(answers)
+ 
+           // write config file
+           const config = JSON.stringify(camelize(answers), null, '  ')
+@@ -71,3 +51,44 @@ module.exports = function (program) {
+         })
+     })
+ }
++
++function cleanupAnswers (answers) {
++  // clean answers
++  Object.keys(answers).forEach((answer) => {
++    if (answer.startsWith('use')) {
++      delete answers[answer]
++    }
++  })
++}
++
++function manipulateEmailSection (answers) {
++  // setting email
++  if (answers.useEmail) {
++    answers.email = {
++      host: answers['email-host'],
++      port: answers['email-port'],
++      secure: true,
++      auth: {
++        user: answers['email-auth-user'],
++        pass: answers['email-auth-pass']
++      }
++    }
++    delete answers['email-host']
++    delete answers['email-port']
++    delete answers['email-auth-user']
++    delete answers['email-auth-pass']
++  }
++}
++
++function manipulateServerSection (answers) {
++  answers.server = {
++    name: answers['server-name'],
++    description: answers['server-description'],
++    logo: answers['server-logo']
++  }
++  Object.keys(answers).forEach((answer) => {
++    if (answer.startsWith('server-')) {
++      delete answers[answer]
++    }
++  })
++}
+diff --git a/bin/lib/options.js b/bin/lib/options.js
+index e493f485a..cdc46b1c6 100644
+--- a/bin/lib/options.js
++++ b/bin/lib/options.js
+@@ -1,6 +1,7 @@
+ const fs = require('fs')
+ const path = require('path')
+ const validUrl = require('valid-url')
++const { URL } = require('url')
+ 
+ module.exports = [
+   // {
+@@ -317,6 +318,22 @@ module.exports = [
+       }
+       return true
+     }
++  },
++  {
++    name: 'server-name',
++    help: 'A name for your server (not required, but will be presented on your server\'s frontpage)',
++    prompt: true,
++    default: answers => new URL(answers.serverUri).hostname
++  },
++  {
++    name: 'server-description',
++    help: 'A description of your server (not required)',
++    prompt: true
++  },
++  {
++    name: 'server-logo',
++    help: 'A logo that represents you, your brand or your server (not required)',
++    prompt: true
+   }
+ ]
+ 
+
+From 577479d6d4a37cefcef1d0355fce0ce77f42e031 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 17:07:15 +0200
+Subject: [PATCH 22/29] Partial work - need to load config from somewhere
+
+---
+ lib/utils.js | 51 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
+
+diff --git a/lib/utils.js b/lib/utils.js
+index 8797ac421..08c28a15e 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -5,6 +5,7 @@ module.exports.pathBasename = pathBasename
+ module.exports.getFullUri = getFullUri
+ module.exports.hasSuffix = hasSuffix
+ module.exports.parse = parse
++module.exports.processHandlebarFile = processHandlebarFile
+ module.exports.serialize = serialize
+ module.exports.translate = translate
+ module.exports.stringToStream = stringToStream
+@@ -19,6 +20,8 @@ const path = require('path')
+ const $rdf = require('rdflib')
+ const from = require('from2')
+ const url = require('url')
++const Handlebars = require('handlebars')
++const debug = require('./debug').errors
+ 
+ /**
+  * Returns a fully qualified URL from an Express.js Request object.
+@@ -147,6 +150,54 @@ function parse (data, baseUri, contentType, callback) {
+   }
+ }
+ 
++/**
++ * Reads a file, processes it (performing template substitution), and saves
++ * back the processed result.
++ *
++ * @param filePath {string}
++ * @param substitutions {Object}
++ *
++ * @return {Promise}
++ */
++async function processHandlebarFile (filePath, substitutions) {
++  return new Promise((resolve, reject) => {
++    fs.readFile(filePath, 'utf8', (error, rawSource) => {
++      if (error) {
++        return reject(error)
++      }
++
++      const output = processHandlebarTemplate(rawSource, substitutions)
++
++      fs.writeFile(filePath, output, (error) => {
++        if (error) {
++          return reject(error)
++        }
++        resolve()
++      })
++    })
++  })
++}
++
++/**
++ * Performs a Handlebars string template substitution, and returns the
++ * resulting string.
++ *
++ * @see https://www.npmjs.com/package/handlebars
++ *
++ * @param source {string} e.g. 'Hello, {{name}}'
++ *
++ * @return {string} Result, e.g. 'Hello, Alice'
++ */
++function processHandlebarTemplate (source, substitutions) {
++  try {
++    const template = Handlebars.compile(source)
++    return template(substitutions)
++  } catch (error) {
++    debug(`Error processing template: ${error}`)
++    return source
++  }
++}
++
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+     // target, kb, base, contentType, callback
+
+From 7ce82136b016c54e7e5ab3c535bcd6c48dc1cff9 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 21:22:13 +0200
+Subject: [PATCH 23/29] Copying over whole directory
+
+Unsure about the affects on testing, so checking in now just in case
+---
+ lib/utils.js                        | 13 ++++++++++++-
+ test/integration/auth-proxy-test.js |  5 ++---
+ 2 files changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/lib/utils.js b/lib/utils.js
+index 08c28a15e..1331a614f 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -5,7 +5,6 @@ module.exports.pathBasename = pathBasename
+ module.exports.getFullUri = getFullUri
+ module.exports.hasSuffix = hasSuffix
+ module.exports.parse = parse
+-module.exports.processHandlebarFile = processHandlebarFile
+ module.exports.serialize = serialize
+ module.exports.translate = translate
+ module.exports.stringToStream = stringToStream
+@@ -14,6 +13,8 @@ module.exports.debrack = debrack
+ module.exports.stripLineEndings = stripLineEndings
+ module.exports.fullUrlForReq = fullUrlForReq
+ module.exports.routeResolvedFile = routeResolvedFile
++module.exports.processHandlebarFile = processHandlebarFile
++module.exports.copyTemplateDir = copyTemplateDir
+ 
+ const fs = require('fs-extra')
+ const path = require('path')
+@@ -198,6 +199,16 @@ function processHandlebarTemplate (source, substitutions) {
+   }
+ }
+ 
++async function copyTemplateDir (templatePath, targetPath) {
++  return new Promise((resolve, reject) => {
++    fs.copy(templatePath, targetPath, (error) => {
++      if (error) { return reject(error) }
++
++      resolve()
++    })
++  })
++}
++
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+     // target, kb, base, contentType, callback
+diff --git a/test/integration/auth-proxy-test.js b/test/integration/auth-proxy-test.js
+index f1062ce04..2baa941bc 100644
+--- a/test/integration/auth-proxy-test.js
++++ b/test/integration/auth-proxy-test.js
+@@ -3,7 +3,7 @@ const path = require('path')
+ const nock = require('nock')
+ const request = require('supertest')
+ const { expect } = require('chai')
+-const rm = require('../utils').rm
++const rmDir = require('../utils').rmDir
+ 
+ const USER = 'https://ruben.verborgh.org/profile/#me'
+ 
+@@ -32,8 +32,7 @@ describe('Auth Proxy', () => {
+       // Release back-end server
+       nock.cleanAll()
+       // Remove created index files
+-      rm('index.html')
+-      rm('index.html.acl')
++      rmDir()
+     })
+ 
+     describe('responding to /server/a', () => {
+
+From 934da817032118c9ce8a5cf83f8030584cf86417 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Tue, 16 Oct 2018 22:04:07 +0200
+Subject: [PATCH 24/29] Should not remove dirs in test...
+
+---
+ test/integration/auth-proxy-test.js | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/test/integration/auth-proxy-test.js b/test/integration/auth-proxy-test.js
+index 2baa941bc..f1062ce04 100644
+--- a/test/integration/auth-proxy-test.js
++++ b/test/integration/auth-proxy-test.js
+@@ -3,7 +3,7 @@ const path = require('path')
+ const nock = require('nock')
+ const request = require('supertest')
+ const { expect } = require('chai')
+-const rmDir = require('../utils').rmDir
++const rm = require('../utils').rm
+ 
+ const USER = 'https://ruben.verborgh.org/profile/#me'
+ 
+@@ -32,7 +32,8 @@ describe('Auth Proxy', () => {
+       // Release back-end server
+       nock.cleanAll()
+       // Remove created index files
+-      rmDir()
++      rm('index.html')
++      rm('index.html.acl')
+     })
+ 
+     describe('responding to /server/a', () => {
+
+From e7989a16ae16e5f5633521ef60b911f65a224344 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 16:07:00 +0200
+Subject: [PATCH 25/29] A bit more refactoring
+
+I propose we put utils-methods into `lib/common`, and distinguish them a bit more than just `utils`
+---
+ lib/utils.js | 62 ----------------------------------------------------
+ 1 file changed, 62 deletions(-)
+
+diff --git a/lib/utils.js b/lib/utils.js
+index 1331a614f..8797ac421 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -13,16 +13,12 @@ module.exports.debrack = debrack
+ module.exports.stripLineEndings = stripLineEndings
+ module.exports.fullUrlForReq = fullUrlForReq
+ module.exports.routeResolvedFile = routeResolvedFile
+-module.exports.processHandlebarFile = processHandlebarFile
+-module.exports.copyTemplateDir = copyTemplateDir
+ 
+ const fs = require('fs-extra')
+ const path = require('path')
+ const $rdf = require('rdflib')
+ const from = require('from2')
+ const url = require('url')
+-const Handlebars = require('handlebars')
+-const debug = require('./debug').errors
+ 
+ /**
+  * Returns a fully qualified URL from an Express.js Request object.
+@@ -151,64 +147,6 @@ function parse (data, baseUri, contentType, callback) {
+   }
+ }
+ 
+-/**
+- * Reads a file, processes it (performing template substitution), and saves
+- * back the processed result.
+- *
+- * @param filePath {string}
+- * @param substitutions {Object}
+- *
+- * @return {Promise}
+- */
+-async function processHandlebarFile (filePath, substitutions) {
+-  return new Promise((resolve, reject) => {
+-    fs.readFile(filePath, 'utf8', (error, rawSource) => {
+-      if (error) {
+-        return reject(error)
+-      }
+-
+-      const output = processHandlebarTemplate(rawSource, substitutions)
+-
+-      fs.writeFile(filePath, output, (error) => {
+-        if (error) {
+-          return reject(error)
+-        }
+-        resolve()
+-      })
+-    })
+-  })
+-}
+-
+-/**
+- * Performs a Handlebars string template substitution, and returns the
+- * resulting string.
+- *
+- * @see https://www.npmjs.com/package/handlebars
+- *
+- * @param source {string} e.g. 'Hello, {{name}}'
+- *
+- * @return {string} Result, e.g. 'Hello, Alice'
+- */
+-function processHandlebarTemplate (source, substitutions) {
+-  try {
+-    const template = Handlebars.compile(source)
+-    return template(substitutions)
+-  } catch (error) {
+-    debug(`Error processing template: ${error}`)
+-    return source
+-  }
+-}
+-
+-async function copyTemplateDir (templatePath, targetPath) {
+-  return new Promise((resolve, reject) => {
+-    fs.copy(templatePath, targetPath, (error) => {
+-      if (error) { return reject(error) }
+-
+-      resolve()
+-    })
+-  })
+-}
+-
+ function serialize (graph, baseUri, contentType, callback) {
+   try {
+     // target, kb, base, contentType, callback
+
+From cd056c4a4d21a589ddbbbe42931714dbba432435 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 17:46:10 +0200
+Subject: [PATCH 26/29] A little cleanup
+
+---
+ lib/server-config.js | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/lib/server-config.js b/lib/server-config.js
+index 8ee5baa0f..6da6d37ae 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -50,7 +50,6 @@ async function ensureWelcomePage (argv) {
+   // let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
+-    console.log(argv)
+     fs.mkdirp(serverRootDir)
+     await fsUtils.copyTemplateDir(templates.server, serverRootDir)
+     await templateUtils.processHandlebarFile(existingIndexPage, {
+
+From c6ef94a65f6ff3c568c2b425fc1545498609f18b Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 21:12:53 +0200
+Subject: [PATCH 27/29] A bit more cleanup
+
+---
+ lib/server-config.js | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/lib/server-config.js b/lib/server-config.js
+index 6da6d37ae..ea6f37635 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -43,11 +43,7 @@ async function ensureWelcomePage (argv) {
+   const { multiuser, templates, server, host, parent } = argv
+   const rootDir = path.resolve(argv.root)
+   const serverRootDir = multiuser ? path.join(rootDir, argv.host.hostname) : rootDir
+-
+-  // let defaultIndexPage = path.join(templates.server, 'index.html')
+   const existingIndexPage = path.join(serverRootDir, 'index.html')
+-  // let defaultIndexPageAcl = path.join(templates.server, 'index.html.acl')
+-  // let existingIndexPageAcl = path.join(serverRootDir, 'index.html.acl')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
+     fs.mkdirp(serverRootDir)
+@@ -58,7 +54,6 @@ async function ensureWelcomePage (argv) {
+       serverLogo: server ? server.logo : '',
+       serverVersion: parent._version
+     })
+-    // fs.copySync(defaultIndexPageAcl, existingIndexPageAcl)
+   }
+ }
+ 
+
+From ea3756654767b22bad64aee930b279ddf04fb960 Mon Sep 17 00:00:00 2001
+From: Arne Hassel <arne.hassel@gmail.com>
+Date: Wed, 17 Oct 2018 21:16:56 +0200
+Subject: [PATCH 28/29] Changed where version is taken from and presented
+
+---
+ default-templates/server/index.html | 2 +-
+ lib/server-config.js                | 5 +++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/default-templates/server/index.html b/default-templates/server/index.html
+index ae8c2712e..bf4f0cc47 100644
+--- a/default-templates/server/index.html
++++ b/default-templates/server/index.html
+@@ -45,7 +45,7 @@ <h2>Server info</h2>
+       <dd>{{serverDescription}}</dd>
+       {{/if}}
+       <dt>Details</dt>
+-      <dd>Running on {{serverVersion}} of <a href="https://solid.mit.edu/">Solid</a> (<a href="https://solid.inrupt.com/docs">Documentation</a>)</dd>
++      <dd>Running on <a href="https://solid.mit.edu/">Solid {{serverVersion}}</a> (<a href="https://solid.inrupt.com/docs">Documentation</a>)</dd>
+     </dl>
+   </section>
+ </div>
+diff --git a/lib/server-config.js b/lib/server-config.js
+index ea6f37635..78df260f2 100644
+--- a/lib/server-config.js
++++ b/lib/server-config.js
+@@ -40,10 +40,11 @@ function ensureDirCopyExists (fromDir, toDir) {
+  * @param argv {Object} Express.js app object
+  */
+ async function ensureWelcomePage (argv) {
+-  const { multiuser, templates, server, host, parent } = argv
++  const { multiuser, templates, server, host } = argv
+   const rootDir = path.resolve(argv.root)
+   const serverRootDir = multiuser ? path.join(rootDir, argv.host.hostname) : rootDir
+   const existingIndexPage = path.join(serverRootDir, 'index.html')
++  const packageData = require('../package.json')
+ 
+   if (!fs.existsSync(existingIndexPage)) {
+     fs.mkdirp(serverRootDir)
+@@ -52,7 +53,7 @@ async function ensureWelcomePage (argv) {
+       serverName: server ? server.name : host.hostname,
+       serverDescription: server ? server.description : '',
+       serverLogo: server ? server.logo : '',
+-      serverVersion: parent._version
++      serverVersion: packageData.version
+     })
+   }
+ }
+
+From 6e22f1aaa5572565699d16301a2d02afb9bf9b4d Mon Sep 17 00:00:00 2001
+From: Ted Thibodeau Jr <tthibodeau@openlinksw.com>
+Date: Thu, 25 Oct 2018 18:09:54 +0200
+Subject: [PATCH 29/29] Update bin/lib/options.js
+
+Co-Authored-By: megoth <arne.hassel@gmail.com>
+---
+ bin/lib/options.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/bin/lib/options.js b/bin/lib/options.js
+index cdc46b1c6..4efbf07d2 100644
+--- a/bin/lib/options.js
++++ b/bin/lib/options.js
+@@ -332,7 +332,7 @@ module.exports = [
+   },
+   {
+     name: 'server-logo',
+-    help: 'A logo that represents you, your brand or your server (not required)',
++    help: 'A logo that represents you, your brand, or your server (not required)',
+     prompt: true
+   }
+ ]

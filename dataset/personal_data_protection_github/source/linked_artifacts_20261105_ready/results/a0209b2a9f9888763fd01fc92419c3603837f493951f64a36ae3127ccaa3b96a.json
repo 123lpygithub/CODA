@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/DSpace/DSpace/blob/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java#L284",
+  "kind": "file",
+  "cited_in": [
+    "comment_908751436"
+  ],
+  "revision": "218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f",
+  "immutable_revision": true,
+  "line_start": 272,
+  "line_end": 296,
+  "text": "    }\n\n    /**\n     * Returns a solr input document containing common information about the statistics\n     * regardless if we are logging a search or a view of a DSpace object\n     *\n     * @param dspaceObject the object used.\n     * @param request      the current request context.\n     * @param currentUser  the current session's user.\n     * @return a solr input document\n     * @throws SQLException in case of a database exception\n     */\n    protected SolrInputDocument getCommonSolrDoc(DSpaceObject dspaceObject, HttpServletRequest request,\n                                                 EPerson currentUser) throws SQLException {\n        boolean isSpiderBot = request != null && SpiderDetector.isSpider(request);\n        if (isSpiderBot &&\n            !configurationService.getBooleanProperty(\"usage-statistics.logBots\", true)) {\n            return null;\n        }\n\n        SolrInputDocument doc1 = new SolrInputDocument();\n        // Save our basic info that we already have\n\n        if (request != null) {\n            String ip = clientInfoService.getClientIp(request);",
+  "source_sha256": "1b6f34fcdd143144c24e032f3f4f78df6b1cd08a089ccbc00ba18de9b3eaddfe",
+  "fetched_at": "2026-11-05T06:21:50.654638+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java",
+  "status": "available"
+}

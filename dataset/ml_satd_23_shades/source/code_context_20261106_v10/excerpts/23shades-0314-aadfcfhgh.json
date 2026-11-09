@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0314-aadfcfhgh",
+  "revision_url": "https://github.com/sbl-sdsc/mmtf-pyspark/commit/09c5b7ce1489e639a95fc16df7df243b1c5eda90",
+  "filename": "mmtfPyspark/src/main/datasets/UniProt.py",
+  "commit": "09c5b7ce1489e639a95fc16df7df243b1c5eda90",
+  "source_url": "https://raw.githubusercontent.com/sbl-sdsc/mmtf-pyspark/09c5b7ce1489e639a95fc16df7df243b1c5eda90/mmtfPyspark/src/main/datasets/UniProt.py",
+  "fetched_at": "2026-11-05T06:12:32.675757+00:00",
+  "source_sha256": "eb59f2c0c282c56875e983e3e2ebd5fb927a4fcbe2cb7b0fdd09206c4e4de0c8",
+  "line_start": 35,
+  "line_end": 59,
+  "excerpt": "import urllib.request\nimport gzip\nfrom pyspark.sql import SparkSession\n\nbaseUrl = \"ftp://ftp.uniprot.org/pub/databases/uniprot/\"\n\nSWISS_PROT = baseUrl + \"current_release/knowledgebase/complete/uniprot_sprot.fasta.gz\"\nTREMBL = baseUrl + \"current_release/knowledgebase/complete/uniprot_trembl.fasta.gz\"\nUNIREF50 = baseUrl + \"uniref/uniref50/uniref50.fasta.gz\"\nUNIREF90 = baseUrl + \"uniref/uniref90/uniref90.fasta.gz\"\nUNIREF100 = baseUrl + \"uniref/uniref100/uniref100.fasta.gz\"\n\n# TODO named tuple or enum\n:\ndef getUniprotDataset(dataType):\n    '''\n    Get Uniprot Dataset\n    '''\n\n    # Decalre string variables\n    db, uniqueIdentifier, entryName, proteinName, organismName, geneName, \\\n    proteinExistence, sequenceVersion, sequence = '','','','','','','','',''\n    firstLine = True\n\n    # Make temporary file"
+}

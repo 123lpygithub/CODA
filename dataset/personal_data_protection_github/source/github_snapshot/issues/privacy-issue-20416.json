@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20416",
+  "issue_url": "https://github.com/decidim/decidim/issues/9170",
+  "source_issue_url": "https://github.com/decidim/decidim/issues/9170",
+  "api_url": "https://api.github.com/repos/decidim/decidim/issues/9170",
+  "title": "Cookie policy: accept and reject",
+  "body": "Ref. GDPR02\r\n\r\n**Is your feature request related to a problem? Please describe.**\r\n\r\nAs a visitor when I visit a Decidim installation I could be tracked for analytics purposes, but it isn’t mentioned to me.\r\n\r\n**Describe the solution you’d like**\r\n\r\nWe must offer a way to accept this tracking or to reject it.\r\n\r\nRight now, the current behavior is a cookie warning that only shows the information that we use Cookies:\r\n \r\n\r\n![header](https://user-images.githubusercontent.com/717367/164201791-2592c33b-25f7-4cab-a675-46e6a0bb43fc.png)\r\n\r\nWe need to explain better what cookies do we use, why we’re using these cookies, and let the user choose which cookies they want to use.\r\n\r\n**Describe alternatives you’ve considered**\r\n\r\nThere are JavaScript libraries that already tackle this issue, as it’s a classic.\r\n\r\n1. Orejime\r\n![orejime01](https://user-images.githubusercontent.com/717367/164201764-1b5ac8a4-ed74-41a0-a074-1c1add844e38.png)\r\n![orejime02](https://user-images.githubusercontent.com/717367/164201768-04284076-7799-472f-916c-958862f7431d.png)\r\n\r\nhttps://orejime.netlify.app/  \r\n https://github.com/Quentinchampenois/decidim-module_cookies \r\n\r\n3. Cookie Consent\r\nhttps://github.com/osano/cookieconsent \r\nhttps://www.osano.com/cookieconsent/download/  \r\n\r\n**Additional context**\r\n Cookie Law European Union and GDPR.\r\nSee [discussion on MetaDecidim](https://meta.decidim.org/processes/roadmap/f/122/proposals/15215)\r\nSee [Metadecidim proposal](https://meta.decidim.org/processes/roadmap/f/122/proposals/16970) \r\n\r\nWe really like how this is solved in https://omastadi.hel.fi/  \r\n\r\n**Does this issue could impact on users private data?**\r\n Yes, it’s about cookies and improving the (optional) tracking mechanisms that implementers can have on Decidim.\r\n\r\n**Acceptance criteria**\r\n\r\n- [ ]  As an implementer when installing Decidim I have a way of enabling this setting as a module\r\n- [ ] As an implementer, I can configure which cookies are for which purpose and which are required for the app to work",
+  "author": "Participant 1",
+  "created_at": "2022-04-20T09:50:44Z",
+  "updated_at": "2022-06-08T07:33:49Z",
+  "state": "closed",
+  "closed_at": "2022-06-08T07:33:49Z",
+  "issue_fetched_at": "2026-10-18T23:10:41.543439+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T23:10:42.955579+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1108273359,
+      "url": "https://github.com/decidim/decidim/issues/9170#issuecomment-1108273359",
+      "created_at": "2022-04-25T08:51:45Z",
+      "updated_at": "2022-04-25T08:51:45Z",
+      "author": "Participant 2",
+      "body": "I realized there is another issue related to this which is related to the embedded content on the website. E.g. MetaDecidim has a lot of YouTube embedded videos on it:\r\nhttps://meta.decidim.org/conferences/DecidimFest21\r\n\r\nThe same also applies to other instances, such as Decidim.Barcelona, e.g. on this page:\r\nhttps://www.decidim.barcelona/assemblies/audiencia-santsmontjuic/f/3983/meetings/4607\r\n\r\nWhen you embed content from other sites, you will need to get consent from the user to use cookies before loading the content from the external website. In case of YouTube, you would need to get consent for the \"marketing\" cookie category (see below).\r\n\r\nWe are thinking to split this cookies task into two sub-tasks, of which we'll implement the first one in the current sprint:\r\n1. Creating a framework for getting consent for the cookies + hiding **all iframe embeds** before the user has given their full consent for all cookie categories\r\n2. Creating a way to define the \"cookie category\" for the iframe embeds when you add them to the site through the Quill editor\r\n\r\nThis second one would be part of the next sprint, i.e. a separate task after this initial implementation.\r\n\r\nFor the first task, we are considering the following approach:\r\n- Define 4 cookie categories under which all cookies will be defined to\r\n- Provide an editable section where the cookies can be documented for each of the categories\r\n- Disable all cookie-related functionality until the user has given their consent\r\n\r\nThe cookie categories are:\r\n1. Essential - Always enabled, forced (session cookie, cookie consent, load balancer related cookies, other infrastructure related cookies, etc.)\r\n2. Preferences - Optional (cookies related to the user preferences, something that would edit the website behavior based on the user preferences, an example could be enabling dark mode)\r\n3. Analytics and statistics - Optional (web analytics and other tracking cookies, excluding marketing related)\r\n4. Marketing - Optional (Facebook/Google remarketing cookies, YouTube cookies, etc.)\r\n\r\nFunctionality-wise we need to consider the following:\r\n- Disable all analytics scripts until the user has given their consent for the \"Analytics and statistics\" category\r\n- Disable all iframe embeds until the user has given their consent for **all cookie categories** (because we are not currently categorizing the iframe embeds)\r\n\r\nIn the follow-up task we would create a way to categorize the iframe embeds for these categories but it is outside of the scope for the cookie consent task itself.\r\n\r\nA common way to disable the iframe/video embeds is using the following kind of placeholder where the iframe would normally appear:\r\n![Iframe placeholder](https://user-images.githubusercontent.com/864340/165054189-bdf02eda-7886-446f-9dc9-8248bc52c6ad.png)\r\n\r\nIn Decidim we probably need to do that a bit more generic way, e.g. \"In order to see **this content**, you need to...\"."
+    },
+    {
+      "id": 1108277067,
+      "url": "https://github.com/decidim/decidim/issues/9170#issuecomment-1108277067",
+      "created_at": "2022-04-25T08:54:58Z",
+      "updated_at": "2022-04-25T08:54:58Z",
+      "author": "Participant 2",
+      "body": "And by the way, in general we are not only talking about \"cookies\" as these issues are normally presented, but the same applies for all data stored in the user device, including local storage, session storage, and other current or future means of storing data on the user's device."
+    },
+    {
+      "id": 1110742014,
+      "url": "https://github.com/decidim/decidim/issues/9170#issuecomment-1110742014",
+      "created_at": "2022-04-27T08:55:10Z",
+      "updated_at": "2022-04-27T08:55:10Z",
+      "author": "Participant 1",
+      "body": "Nice catch! With @carolromero we were also talking about the cookie page that we've seen in other platforms, but we didn't have time yet to fully develop the User Story, and it could go to other sprints too. "
+    },
+    {
+      "id": 1111869664,
+      "url": "https://github.com/decidim/decidim/issues/9170#issuecomment-1111869664",
+      "created_at": "2022-04-28T07:58:59Z",
+      "updated_at": "2022-04-28T07:58:59Z",
+      "author": "Participant 1",
+      "body": "As we've talked in our last meeting, just to let it in the same issue: \r\n\r\n1) We agree that this should also apply to all data stored in the user device (cookies, localStorage, sessionStorage, etc) \r\n2) In that case, although it'd be clear to talk about \"Data policy\", that approach has usability issues, so we'll keep referring to this to \"Cookie policy\". If in the future we see that other naming is better, then we can change it if so. "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

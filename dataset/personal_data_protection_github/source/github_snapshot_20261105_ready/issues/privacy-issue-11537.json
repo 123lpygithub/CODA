@@ -1,0 +1,61 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11537",
+  "issue_url": "https://github.com/prebid/prebid-server/issues/1272",
+  "source_issue_url": "https://github.com/prebid/prebid-server/issues/1272",
+  "api_url": "https://api.github.com/repos/prebid/prebid-server/issues/1272",
+  "title": "Privacy update: removing user.ext.eids",
+  "body": "I posted a [PBS Privacy FAQ](https://prebid.org/faq/prebid-server-faq.html#how-does-prebid-server-support-privay-signals) entry on prebid.org and realized that we had missed some other places where there are user IDs: user.ext.eids and user.ext.digitrust\r\n\r\nIn short, wherever we remove user.buyeruid, we should also remove user.id, user.ext.eids, and user.ext.digitrust\r\n\r\nRequest changes:\r\n\r\n1) Mobile ‘Limit Ad Tracking’ flag (and DNT HTTP header)\r\nIf PBS receives ‘device.lmt’ flag in the OpenRTB request, it should also remove user.id, user.ext.eids, and user.ext.digitrust\r\n\r\n2) GDPR TCF1 and TCF2\r\nWherever user.buyeruid is removed, also remove user.id, user.ext.eids, and user.ext.digitrust\r\n\r\n3) COPPA\r\nIf regs.coppa is set to ‘1’ on the OpenRTB request, also remove user.id, user.ext.eids, and user.ext.digitrust\r\n\r\n4) CCPA\r\nIf regs.ext.us_privacy is parsed to find that the user has opted-out of a “sale”, also remove user.id, user.ext.eids, and user.ext.digitrust",
+  "author": "Participant 1",
+  "created_at": "2020-04-23T14:10:57Z",
+  "updated_at": "2020-07-16T20:49:00Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:20:00.025896+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:20:00.025896+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 621990766,
+      "url": "https://github.com/prebid/prebid-server/issues/1272#issuecomment-621990766",
+      "created_at": "2020-04-30T17:20:50Z",
+      "updated_at": "2020-04-30T17:20:50Z",
+      "author": "Participant 2",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.\n"
+    },
+    {
+      "id": 622000960,
+      "url": "https://github.com/prebid/prebid-server/issues/1272#issuecomment-622000960",
+      "created_at": "2020-04-30T17:40:35Z",
+      "updated_at": "2020-04-30T17:40:35Z",
+      "author": "Participant 3",
+      "body": "Sounds good to me. We'll work on this next week for PBS-Go."
+    },
+    {
+      "id": 625415154,
+      "url": "https://github.com/prebid/prebid-server/issues/1272#issuecomment-625415154",
+      "created_at": "2020-05-07T18:12:03Z",
+      "updated_at": "2020-05-07T18:12:03Z",
+      "author": "Participant 2",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.\n"
+    },
+    {
+      "id": 659664271,
+      "url": "https://github.com/prebid/prebid-server/issues/1272#issuecomment-659664271",
+      "created_at": "2020-07-16T20:49:00Z",
+      "updated_at": "2020-07-16T20:49:00Z",
+      "author": "Participant 3",
+      "body": "This is complete in PBS-Go and PBS-Java."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/prebid/prebid-server/issues/1272",
+  "closed_at_available": false
+}

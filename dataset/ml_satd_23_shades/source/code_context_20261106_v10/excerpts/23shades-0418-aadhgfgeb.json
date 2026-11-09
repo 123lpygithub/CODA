@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0418-aadhgfgeb",
+  "revision_url": "https://github.com/blue-oil/blueoil/commit/d05e94d313cceac204fc9a7a6f15ddaf9bdf0fda",
+  "filename": "lmnet/lmnet/datasets/dataset_iterator.py",
+  "commit": "d05e94d313cceac204fc9a7a6f15ddaf9bdf0fda",
+  "source_url": "https://raw.githubusercontent.com/blue-oil/blueoil/d05e94d313cceac204fc9a7a6f15ddaf9bdf0fda/lmnet/lmnet/datasets/dataset_iterator.py",
+  "fetched_at": "2026-11-05T06:12:51.222766+00:00",
+  "source_sha256": "00c6ce7212ec78401f5319d827f82a4dc9929dfffb57f9c2429fa0e1f0696787",
+  "line_start": 72,
+  "line_end": 96,
+  "excerpt": "\n\ndef _xorshift32(r):\n    r = r ^ (r << 13 & 0xFFFFFFFF)\n    r = r ^ (r >> 17 & 0xFFFFFFFF)\n    r = r ^ (r << 5 & 0xFFFFFFFF)\n    return r & 0xFFFFFFFF\n\n\nclass _MultiProcessDatasetPrefetchThread(threading.Thread):\n    def __init__(self, dataset, result_queue, seed):\n        super().__init__()\n        # TODO(tokunaga): the number of processes should be configurable\n        self.seed = seed + 1  # seed must not be 0\n        self.support_getitem = hasattr(dataset, \"__getitem__\")\n        self.pool = Pool(processes=8, initializer=_prefetch_setup,\n                         initargs=(dataset, self.seed, not self.support_getitem))\n        self.result_queue = result_queue\n        self.batch_size = dataset.batch_size\n        self.dataset = dataset\n        self.data_ids = []\n        self.terminate = False\n        self.setDaemon(True)\n\n    def gen_ids(self):"
+}

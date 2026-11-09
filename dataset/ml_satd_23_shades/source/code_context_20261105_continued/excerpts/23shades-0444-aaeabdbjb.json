@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0444-aaeabdbjb",
+  "revision_url": "https://github.com/CartoDB/cartoframes/commit/605daee45607931501b060872764c51b1151815f",
+  "filename": "cartoframes/data/enrichment/enrichment_utils.py",
+  "commit": "605daee45607931501b060872764c51b1151815f",
+  "source_url": "https://raw.githubusercontent.com/CartoDB/cartoframes/605daee45607931501b060872764c51b1151815f/cartoframes/data/enrichment/enrichment_utils.py",
+  "fetched_at": "2026-11-05T06:12:55.763250+00:00",
+  "source_sha256": "9f4b75753d7f1c6e1573994f34825a372cc5e194071c7a9182dc7ce7a652b227",
+  "line_start": 1,
+  "line_end": 25,
+  "excerpt": "from collections import defaultdict\n\n\ndef copy_data_and_generate_enrichment_id(data, enrichment_id_column):\n    data_copy = data.copy()\n    data_copy[enrichment_id_column] = range(data_copy.shape[0])\n\n    return data_copy\n\n\ndef process_filters(filters_dict):\n    filters = ''\n    # TODO: Add data table ref in fields of filters\n    if filters_dict:\n        filters_list = list()\n\n        for key, value in filters_dict.items():\n            filters_list.append('='.join([\"{}\".format(key), \"'{}'\".format(value)]))\n\n        filters = ' AND '.join(filters_list)\n        filters = 'WHERE {filters}'.format(filters=filters)\n\n    return filters\n\n"
+}

@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14030",
+  "issue_url": "https://github.com/wso2/product-is/issues/2206",
+  "source_issue_url": "https://github.com/wso2/product-is/issues/2206",
+  "api_url": "https://api.github.com/repos/wso2/product-is/issues/2206",
+  "title": "require authentication from external IDP before linking a federated account",
+  "body": "Currently, a local account can be linked with a federated account via the dashboard without actually having access to that federated account.\r\n\r\nThis can cause issues if the user misspells, or otherwise incorrectly enters, their federated account name.  A user should be required to prove that they have access to both accounts before they can be linked (similarly to the way linking a local account already requires the other account's password).\r\n\r\nThe most serious intentional misuse of this function I can think of offhand is to self-register a bunch of accounts and then link them all to another user's federated account, which could cause confusion for that user.  I haven't thoroughly explored how permissions might be shared with federated accounts at this point, but that could certainly be an area of concern as well.",
+  "author": "Participant 1",
+  "created_at": "2018-01-30T01:00:43Z",
+  "updated_at": "2020-10-15T10:31:04Z",
+  "state": "closed",
+  "closed_at": "2018-10-23T17:32:56Z",
+  "issue_fetched_at": "2026-10-19T02:10:43.547419+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T02:10:45.004454+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 381670474,
+      "url": "https://github.com/wso2/product-is/issues/2206#issuecomment-381670474",
+      "created_at": "2018-04-16T16:44:04Z",
+      "updated_at": "2018-04-16T16:46:03Z",
+      "author": "Participant 1",
+      "body": "a possible more-aggressive misuse of this for spearphishing, under the assumption that IS is being used as an authN/Z layer for something allowing private details to be added:\r\n\r\n1. malicious user (M) knows target user (T)'s name as provided by an external SSO identity provider (X).  I'll assume T has not yet used the system protected by IS, but has used X before\r\n2. M links an account they control in IS to T's account in X\r\n3. T logs in via X, thinking someone (their admin / service provider / automatic provisioning) had set up the account link for them\r\n4. T enters private information (SSN, HIPAA/GDPR-protected info, etc)\r\n5. M now has access to this information\r\n\r\nPreventing step 2 in this chain would be the purpose of this request - I would argue it to be a relatively serious security hole."
+    },
+    {
+      "id": 419975390,
+      "url": "https://github.com/wso2/product-is/issues/2206#issuecomment-419975390",
+      "created_at": "2018-09-10T16:27:59Z",
+      "updated_at": "2018-09-10T16:27:59Z",
+      "author": "Participant 1",
+      "body": "it looks like it may be possible to disable linking from a local account to a federated account entirely (while still allowing the reverse, which requires a password) as of [this pull request](https://github.com/wso2/product-is/pull/3673/files) - which could be used as a temporary workaround for the issue."
+    },
+    {
+      "id": 428833808,
+      "url": "https://github.com/wso2/product-is/issues/2206#issuecomment-428833808",
+      "created_at": "2018-10-11T06:16:19Z",
+      "updated_at": "2018-10-23T17:44:53Z",
+      "author": "Participant 2",
+      "body": "https://github.com/wso2/product-is/pull/3673/files"
+    },
+    {
+      "id": 512329352,
+      "url": "https://github.com/wso2/product-is/issues/2206#issuecomment-512329352",
+      "created_at": "2019-07-17T15:25:23Z",
+      "updated_at": "2019-07-17T15:25:23Z",
+      "author": "Participant 1",
+      "body": "it looks like a full solution is being re-raised here: https://github.com/wso2/product-is/issues/3829"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

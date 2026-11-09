@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0459-aafafahih",
+  "revision_url": "https://github.com/HunterMcGushion/hyperparameter_hunter/commit/128979b7df521d6cd6cf5639c2f4fb7ace220640",
+  "filename": "tests/integration_tests/feature_engineering/test_both_stages_transform.py",
+  "commit": "128979b7df521d6cd6cf5639c2f4fb7ace220640",
+  "source_url": "https://raw.githubusercontent.com/HunterMcGushion/hyperparameter_hunter/128979b7df521d6cd6cf5639c2f4fb7ace220640/tests/integration_tests/feature_engineering/test_both_stages_transform.py",
+  "fetched_at": "2026-11-05T06:12:58.282784+00:00",
+  "source_sha256": "d48aaa908314ac682644185519a99af8df37d81f4c3cf57f5b5e5932dfa6a32d",
+  "line_start": 115,
+  "line_end": 139,
+  "excerpt": "    )\n\n\n@pytest.fixture\ndef engineer_experiment(request):\n    feature_engineer = FeatureEngineer(steps=request.param)\n    experiment = CVExperiment(\n        model_initializer=Ridge, model_init_params=dict(), feature_engineer=feature_engineer\n    )\n    return experiment\n\n\n# TODO: Basically identical to `test_intra_cv_target_transform` except for repeated KFold\n@pytest.mark.parametrize(\n    [\"engineer_experiment\", \"exp_train\", \"exp_oof\", \"exp_holdout\"],\n    [\n        [\n            None,\n            [(normal_train_inputs,) * 2, (normal_train_targets,) * 2],\n            [(normal_oof_inputs,) * 2, (normal_oof_targets,) * 2],\n            [(normal_holdout_inputs,) * 2, (normal_holdout_targets,) * 2],\n        ],\n        [\n            [my_quantile_transform],\n            ["
+}

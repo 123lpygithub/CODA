@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0698-aagdjigjj",
+  "revision_url": "https://github.com/hackingmaterials/automatminer/commit/c4c970804c4f567ecf1bdbf2619493197ebf3ba9",
+  "filename": "matbench/pipeline.py",
+  "commit": "c4c970804c4f567ecf1bdbf2619493197ebf3ba9",
+  "source_url": "https://raw.githubusercontent.com/hackingmaterials/automatminer/c4c970804c4f567ecf1bdbf2619493197ebf3ba9/matbench/pipeline.py",
+  "fetched_at": "2026-11-05T06:13:39.725968+00:00",
+  "source_sha256": "27aa027af1204dab422758338a124618ab9aebeea12f18d54e3a745fe6eb456b",
+  "line_start": 71,
+  "line_end": 95,
+  "excerpt": "                          scoring='neg_mean_absolute_error',\n                          feature_names=df.drop(self.target_key, axis=1).columns,\n                          n_jobs=8,\n                          verbosity=2)\n\n        X_train, X_test, y_train, y_test = train_test_split(\n            df.drop(self.target_key, axis=1).values, df[self.target_key],\n            test_size=self.test_frac)\n\n        tpot.fit(X_train, y_train)\n        validation_score = tpot.score(X_test, y_test)\n\n        # todo: should save tpot model here\n        return {\"top_model_scores\": tpot.get_top_models(return_scores=True),\n                \"best_model_validation_score\": validation_score}\n\n    def predict(self, predict_df):\n        \"\"\"\n        Using the data in df, makes predictions with an automated pipeline.\n\n        Args:\n            predict_df: The dataframe containing\n\n        Returns:\n            A MatbenchPipeline object"
+}

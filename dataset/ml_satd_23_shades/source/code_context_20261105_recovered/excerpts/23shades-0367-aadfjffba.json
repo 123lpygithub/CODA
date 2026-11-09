@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0367-aadfjffba",
+  "revision_url": "https://github.com/pyro-ppl/funsor/commit/eb7984677afa71a7373474a68b33a82ddfd3b766",
+  "filename": "funsor/domains.py",
+  "commit": "eb7984677afa71a7373474a68b33a82ddfd3b766",
+  "source_url": "https://raw.githubusercontent.com/pyro-ppl/funsor/eb7984677afa71a7373474a68b33a82ddfd3b766/funsor/domains.py",
+  "fetched_at": "2026-11-05T06:12:40.433052+00:00",
+  "source_sha256": "205cdf43f0d5edb9776980709f5b07c6e232618220ef9e032de6aab332dc4f01",
+  "line_start": 182,
+  "line_end": 206,
+  "excerpt": "\n\n@functools.singledispatch\ndef find_domain(op, *domains):\n    r\"\"\"\n    Finds the :class:`Domain` resulting when applying ``op`` to ``domains``.\n    :param callable op: An operation.\n    :param Domain \\*domains: One or more input domains.\n    \"\"\"\n    raise NotImplementedError\n\n\n@find_domain.register(ops.Op)  # TODO this is too general, register all ops\n@find_domain.register(ops.TransformOp)  # TODO too general, may be wrong for some\n@find_domain.register(ops.ReciprocalOp)\n@find_domain.register(ops.SigmoidOp)\n@find_domain.register(ops.TanhOp)\n@find_domain.register(ops.AtanhOp)\ndef _find_domain_pointwise_unary_transform(op, domain):\n    if isinstance(domain, ArrayType):\n        return Array[domain.dtype, domain.shape]\n    raise NotImplementedError\n\n\n@find_domain.register(ops.LogOp)",
+  "match_policy": "unique-release-normalized-v2"
+}

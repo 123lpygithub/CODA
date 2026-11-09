@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0201-aaffefhhb",
+  "revision_url": "https://github.com/ResponsiblyAI/responsibly/commit/6f5bff9c7ef0aa58d1b2e0c8a78d44db205b7c61",
+  "filename": "ethically/we/core.py",
+  "commit": "6f5bff9c7ef0aa58d1b2e0c8a78d44db205b7c61",
+  "source_url": "https://raw.githubusercontent.com/ResponsiblyAI/responsibly/6f5bff9c7ef0aa58d1b2e0c8a78d44db205b7c61/ethically/we/core.py",
+  "fetched_at": "2026-11-05T06:12:11.328688+00:00",
+  "source_sha256": "7759cf10a337b5e951604d0a1be36eae5a2de8e4af3cac17ca644686615b5665",
+  "line_start": 256,
+  "line_end": 280,
+  "excerpt": "                                    for word in equality_set_words]\n            center = np.mean(equality_set_vectors, axis=0)\n            (projected_center,\n             rejected_center) = project_reject_vector(center,\n                                                      self.direction)\n\n            for word, vector in zip(equality_set_words, equality_set_vectors):\n                projected_vector = project_vector(vector, self.direction)\n\n                projected_part = normalize(projected_vector - projected_center)\n                scaling = np.sqrt(1 - np.linalg.norm(rejected_center)**2)\n\n                # TODO - in the code it is different - why?\n                # equalized_vector = rejected_center + scaling * self.direction\n                # https://github.com/tolga-b/debiaswe/blob/10277b23e187ee4bd2b6872b507163ef4198686b/debiaswe/debias.py#L36-L37\n                equalized_vector = rejected_center + scaling * projected_part\n\n                update_word_vector(self.model, word, equalized_vector)\n\n        self.model.init_sims(replace=True)\n\n\n    def debias(self, method='hard', neutral_words=None, equality_sets=None,\n               inplace=True, verbose=False):\n        # pylint: disable=W0212"
+}

@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11513",
+  "issue_url": "https://github.com/fastify/fastify/issues/2416",
+  "source_issue_url": "https://github.com/fastify/fastify/issues/2416",
+  "api_url": "https://api.github.com/repos/fastify/fastify/issues/2416",
+  "title": "Move ip, ips and hostname from fields in Request to getters",
+  "body": "\r\n## 🚀 Feature Proposal\r\n\r\nIn https://github.com/fastify/fastify/blob/d06287a9a612d218d26e3a94b248b5035d5c44cb/lib/request.js#L27-L29 there are the `ip`, `ips` and `hostname` properties that are currently set to `null`. Those are 3 pointers of 64 bytes each that we are carrying around with no specific needs as most code does not need them.\r\n\r\nThose are defined and set in https://github.com/fastify/fastify/blob/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/route.js#L304-L315.\r\n\r\nI recommend that we move those definitions to getters similar to https://github.com/fastify/fastify/blob/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/request.js#L36-L58. In order to support the `trustProxy`, I recommend those definitions to be overridden with another `Object.defineProperty()`.\r\n\r\nNote that the logger use them: https://github.com/fastify/fastify/blob/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/logger.js#L54-L55",
+  "author": "Participant 1",
+  "created_at": "2020-07-16T13:55:22Z",
+  "updated_at": "2020-07-18T07:38:13Z",
+  "state": "closed",
+  "closed_at": "2020-07-18T07:38:12Z",
+  "issue_fetched_at": "2026-10-18T20:11:11.462745+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T20:11:12.866943+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 659431181,
+      "url": "https://github.com/fastify/fastify/issues/2416#issuecomment-659431181",
+      "created_at": "2020-07-16T13:59:24Z",
+      "updated_at": "2020-07-16T13:59:24Z",
+      "author": "Participant 2",
+      "body": "I'm okay with them being getters. But I want them to continue being present. They are used quite frequently by people that need to verify the advertised source of requests, e.g. those who need to comply with GDPR or CCPA."
+    },
+    {
+      "id": 659473879,
+      "url": "https://github.com/fastify/fastify/issues/2416#issuecomment-659473879",
+      "created_at": "2020-07-16T15:06:39Z",
+      "updated_at": "2020-07-16T15:06:39Z",
+      "author": "Participant 1",
+      "body": "They should not go anywhere."
+    },
+    {
+      "id": 659979543,
+      "url": "https://github.com/fastify/fastify/issues/2416#issuecomment-659979543",
+      "created_at": "2020-07-17T09:06:00Z",
+      "updated_at": "2020-07-17T09:06:00Z",
+      "author": "Participant 3",
+      "body": "I can work on a PR for this"
+    },
+    {
+      "id": 660003123,
+      "url": "https://github.com/fastify/fastify/issues/2416#issuecomment-660003123",
+      "created_at": "2020-07-17T09:46:58Z",
+      "updated_at": "2020-07-17T09:46:58Z",
+      "author": "Participant 4",
+      "body": "@paolochiodi go for it! 🚀 "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

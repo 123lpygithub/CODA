@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0217-aaidehfjf",
+  "revision_url": "https://github.com/plstcharles/thelper/commit/5a5b1934e8578b059aa72001082a61e2dadd8d05",
+  "filename": "thelper/data/pascalvoc.py",
+  "commit": "5a5b1934e8578b059aa72001082a61e2dadd8d05",
+  "source_url": "https://raw.githubusercontent.com/plstcharles/thelper/5a5b1934e8578b059aa72001082a61e2dadd8d05/thelper/data/pascalvoc.py",
+  "fetched_at": "2026-11-05T06:12:17.135578+00:00",
+  "source_sha256": "4b090b334a9008aee8637dbd74007f87a1345561fe842592a289c642a8206c90",
+  "line_start": 226,
+  "line_end": 250,
+  "excerpt": "                raise AssertionError(\"could not load image '%s' via opencv\" % sample[self.image_path_key])\n            gt = None\n            if self.task_name == \"segm\":\n                gt = cv.imread(sample[self.gt_path_key])\n                if gt is None or gt.shape != image.shape:\n                    raise AssertionError(\"unexpected gt shape for sample '%s'\" % sample[self.sample_name_key])\n                gt = self.encode_label_map(gt)\n        else:\n            image = sample[self.image_key]\n            gt = sample[self.gt_key]\n        if self.transforms:\n            image = self.transforms(image)\n            # TODO : gt maps are not currently transformed! (need refact w/ dict keys)\n        return {\n            self.sample_name_key: sample[self.sample_name_key],\n            self.image_path_key: sample[self.image_path_key],\n            self.gt_path_key: sample[self.gt_path_key],\n            self.image_key: image,\n            self.gt_key: gt,\n        }\n\n    def get_task(self):\n        \"\"\"Returns the dataset task object that provides the i/o keys for parsing sample dicts.\"\"\"\n        return self.task\n",
+  "match_policy": "unique-release-normalized-v2"
+}

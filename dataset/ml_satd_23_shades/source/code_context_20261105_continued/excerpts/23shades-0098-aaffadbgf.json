@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0098-aaffadbgf",
+  "revision_url": "https://github.com/DependableSystemsLab/TensorFI/commit/ed9ea0db1adb3ba5e8751139b42d3f11e68f32fa",
+  "filename": "TensorFI/injectFault.py",
+  "commit": "ed9ea0db1adb3ba5e8751139b42d3f11e68f32fa",
+  "source_url": "https://raw.githubusercontent.com/DependableSystemsLab/TensorFI/ed9ea0db1adb3ba5e8751139b42d3f11e68f32fa/TensorFI/injectFault.py",
+  "fetched_at": "2026-11-05T06:11:53.934415+00:00",
+  "source_sha256": "c06b1ffe5289f0ae6d9b7ff7ec151f36cbd3b09d21ec35b2c7cd32fe1bb32e98",
+  "line_start": 333,
+  "line_end": 357,
+  "excerpt": "\ndef injectFaultFill(a, b):\n\t\"Function to call injectFault on Shape nodes\"\n\tlogging.debug(\"Calling Operator Fill \" + getArgs(a, b))\n\tres = np.full(a, b)\n\tres = condPerturb(Ops.FILL, res)\n\tif logReturn: logging.debug(\"\\tReturning from Fill\" + str(res) )\n\treturn res\n\ndef injectFaultFloorMod(a, b):\n\t\"Function to call injectFault on FloorMod nodes\"\n\tlogging.debug(\"Calling Operator FloorMod \" + getArgs(a, b)) \n\t# FIXME: Need to check if mod is the equivalent of floorMod in NumPy\n\tres = np.mod(a, b)\n\tres = condPerturb(Ops.FLOORMOD, res)\n\tif logReturn: logging.debug(\"\\tReturning from FloorMod \" + str(res) )\n\treturn res\n\ndef injectFaultRange(start, stop, step, dtype = None):\n\t\"Function to call injectFault on Range nodes\"\n\tlogging.debug(\"Calling Operator Range \" + getArgs(start, stop, step))\n\tres = np.int32(np.arange(start, stop, step, dtype))\n\tres = condPerturb(Ops.RANGE, res)\n\tif logReturn: logging.debug(\"\\tReturning from Range \" + str(res) )\n\treturn res\t"
+}

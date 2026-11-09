@@ -1,0 +1,734 @@
+
+TASK 84
+def solve(N):
+    """Given a positive integer N, return the total sum of its digits in binary.
+    
+    Example
+        For N = 1000, the sum of digits will be 1 the output should be "1".
+        For N = 150, the sum of digits will be 6 the output should be "110".
+        For N = 147, the sum of digits will be 12 the output should be "1100".
+    
+    Variables:
+        @N integer
+             Constraints: 0 ≤ N ≤ 10000.
+    Output:
+         a string of binary number
+    """
+REFERENCE
+def solve(N):
+    
+    s = sum(map(lambda x: int(x), str(N)))
+    return bin(s)[2:]
+CASE 54 (CodeGen-16B; source ids=54)
+def solve(N):
+    
+    return bin(N)[2:]
+CASE 229 (InCoder-1B; source ids=229)
+def solve(N):
+CASE 344 (GPT-3.5; source ids=344)
+def solve(N):
+    
+    # Convert N to a string and then to a list of its digits
+    digits = list(str(N))
+    
+    # Convert each digit to binary and sum them up
+    binary_sum = sum(int(bin(int(d))[2:]) for d in digits)
+    
+    # Convert the binary sum to a string and return it
+    return bin(binary_sum)[2:]
+CASE 405 (GPT-4; source ids=405)
+def solve(N):
+    
+    # Convert the integer to binary and remove the '0b' prefix
+    binary_n = bin(N)[2:]
+
+    # Calculate the sum of digits in binary
+    sum_of_digits = sum(int(digit) for digit in binary_n)
+
+    # Convert the sum of digits to binary and return as a string
+    return bin(sum_of_digits)[2:]
+CASE 501 (SantaCoder; source ids=501)
+def solve(N):
+    
+    return bin(N)[2:]
+CASE 660 (StarCoder; source ids=660)
+def solve(N):
+    
+    return bin(N)[2:]
+
+TASK 85
+def add(lst):
+    """Given a non-empty list of integers lst. add the even elements that are at odd indices..
+
+
+    Examples:
+        add([4, 2, 6, 7]) ==> 2 
+    """
+REFERENCE
+def add(lst):
+    
+    s = 0
+    for i in range(1, len(lst), 2):
+        if lst[i] % 2 == 0:
+            s += lst[i]
+    return s
+CASE 55 (CodeGen-16B; source ids=55)
+def add(lst):
+    
+    return sum([lst[i] for i in range(1, len(lst), 2)])
+CASE 230 (InCoder-1B; source ids=230)
+def add(lst):
+    
+    return sum(lst[1::2])
+CASE 502 (SantaCoder; source ids=502,503)
+def add(lst):
+    
+    return sum(lst[i] for i in range(len(lst)) if i % 2 == 1)
+CASE 661 (StarCoder; source ids=661)
+def add(lst):
+    
+    return sum(lst[1::2])
+
+TASK 86
+def anti_shuffle(s):
+    """
+    Write a function that takes a string and returns an ordered version of it.
+    Ordered version of string, is a string where all words (separated by space)
+    are replaced by a new word where all the characters arranged in
+    ascending order based on ascii value.
+    Note: You should keep the order of words and blank spaces in the sentence.
+
+    For example:
+    anti_shuffle('Hi') returns 'Hi'
+    anti_shuffle('hello') returns 'ehllo'
+    anti_shuffle('Hello World!!!') returns 'Hello !!!Wdlor'
+    """
+REFERENCE
+def anti_shuffle(s):
+    
+    words = s.split(" ")
+    return " ".join(map(lambda x: "".join(sorted(x, key=lambda ch: ord(ch))), words))
+CASE 56 (CodeGen-16B; source ids=56,57)
+def anti_shuffle(s):
+    
+    return ' '.join(sorted(s.split(), key=lambda x: ''.join(sorted(x))))
+CASE 231 (InCoder-1B; source ids=231)
+def anti_shuffle(s):
+    
+    words = s.split()
+    words = [word.lower() for word in words]
+    words = [word for word in words if word.isalpha()]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word for word in words if word not in string.punctuation]
+    words = [word for word in words if word not in string.digits]
+    words = [word
+CASE 504 (SantaCoder; source ids=504,505,506)
+def anti_shuffle(s):
+    
+    return''.join(sorted(s.split(' '), key=lambda x: ord(x[0])))
+CASE 662 (StarCoder; source ids=662,663)
+def anti_shuffle(s):
+    
+    return''.join(sorted(s.split()))
+
+TASK 87
+def get_row(lst, x):
+    """
+    You are given a 2 dimensional data, as a nested lists,
+    which is similar to matrix, however, unlike matrices,
+    each row may contain a different number of columns.
+    Given lst, and integer x, find integers x in the list,
+    and return list of tuples, [(x1, y1), (x2, y2) ...] such that
+    each tuple is a coordinate - (row, columns), starting with 0.
+    Sort coordinates initially by rows in ascending order.
+    Also, sort coordinates of the row by columns in descending order.
+    
+    Examples:
+    get_row([
+      [1,2,3,4,5,6],
+      [1,2,3,4,1,6],
+      [1,2,3,4,5,1]
+    ], 1) == [(0, 0), (1, 4), (1, 0), (2, 5), (2, 0)]
+    get_row([], 1) == []
+    get_row([[], [1], [1, 2, 3]], 3) == [(2, 2)]
+    """
+REFERENCE
+def get_row(lst, x):
+    
+    res = []
+    for i, l in enumerate(lst):
+        for j in range(len(l) - 1, -1, -1):
+            if l[j] == x: res.append((i, j))
+    return res
+CASE 232 (InCoder-1B; source ids=232)
+def get_row(lst, x):
+    
+    lst = sorted(lst, key=lambda x: x[0])
+    lst = sorted(lst, key=lambda x: x[1])
+    return [(i, j) for i, j in zip(lst, lst[1:])]
+CASE 346 (GPT-3.5; source ids=346,347)
+def get_row(lst, x):
+    result = []
+    for i in range(len(lst)):
+        if x in lst[i]:
+            for j in range(len(lst[i])):
+                if lst[i][j] == x:
+                    result.append((i, j))
+    result.sort(key=lambda x: x[0])
+    result.sort(key=lambda x: x[1], reverse=True)
+    return result
+CASE 507 (SantaCoder; source ids=507)
+def get_row(lst, x):
+    
+    lst.sort(key=lambda x: x[0])
+    lst.sort(key=lambda x: x[1], reverse=True)
+    return [(lst[i][0], lst[i][1]) for i in range(len(lst)) if lst[i][1] == x]
+
+TASK 88
+def sort_array(array):
+    """
+    Given an array of non-negative integers, return a copy of the given array after sorting,
+    you will sort the given array in ascending order if the sum( first index value, last index value) is odd,
+    or sort it in descending order if the sum( first index value, last index value) is even.
+
+    Note:
+    * don't change the given array.
+
+    Examples:
+    * sort_array([]) => []
+    * sort_array([5]) => [5]
+    * sort_array([2, 4, 3, 0, 1, 5]) => [0, 1, 2, 3, 4, 5]
+    * sort_array([2, 4, 3, 0, 1, 5, 6]) => [6, 5, 4, 3, 2, 1, 0]
+    """
+REFERENCE
+def sort_array(array):
+    
+    if array == []: return []
+    return sorted(array, reverse=(array[0]+array[-1]) % 2 == 0)
+CASE 58 (CodeGen-16B; source ids=58)
+def sort_array(array):
+    
+    if len(array) < 2:
+        return array
+
+    pivot = array[0]
+    left = [x for x in array[1:] if x <= pivot]
+    right = [x for x in array[1:] if x > pivot]
+
+    return sort_array(left) + [pivot] + sort_array(right)
+CASE 233 (InCoder-1B; source ids=233)
+def sort_array(array):
+    
+    sorted_array = []
+    sorted_array.append(array[0])
+    sorted_array.append(array[1])
+    sorted_array.append(array[2])
+    sorted_array.append(array[3])
+    sorted_array.append(array[4])
+    sorted_array.append(array[5])
+    sorted_array.append(array[6])
+    sorted_array.append(array[7])
+    sorted_array.append(array[8])
+    sorted_array.append(array[9])
+    sorted_array.append(array[10])
+    sorted_array.append(array[11])
+    sorted_array.append(array[12])
+    sorted_array.append(array[13])
+    sorted_array.append(array[14])
+    sorted_array.append(array[15])
+    sorted_array.append(array[16])
+    sorted_array.append(array[17])
+    sorted_array.append(array[18])
+    sorted_array.append(array[19])
+    sorted_array.append(array[20])
+    sorted_array.append(array[21])
+    sorted_array.append(array[22])
+    sorted_array.append(array[23])
+    sorted_array.append(array[24])
+    sorted_array.append(array[25])
+    sorted_array.append(array[26])
+    sorted_array.append(array[27])
+    sorted_array.append(array[28])
+    sorted_array.append(array[29])
+    sorted_array.append(array[30])
+    sorted_array.append(array[31])
+    sorted_array.append(array[32])
+    sorted_array.append(array[33])
+    sorted_array.append(array[34])
+    sorted_array.append(array[35])
+    sorted_array.append(array[36])
+    sorted_array.append(array[37])
+    sorted_array.append(array[38])
+    sorted_array.append(array[39])
+    sorted_array.append(array[40])
+    sorted_array.append(array[41])
+    sorted_array.append(array[42])
+    sorted_array.append(array[43])
+    sorted_array.append(array[44])
+    sorted_array.append(array[45])
+    sorted_array.append(array[46])
+    sorted_array.append(array[47])
+    sorted_array.append(array[48])
+    sorted_array.append(array[49])
+    sorted_array.append(array[50])
+    sorted_array.append(array[51])
+    sorted_array.append(array[52])
+    sorted_array.append(array[53])
+    sorted_array.append(array[54])
+    sorted_array.append(array[55])
+    sorted_array.append(array[56])
+    sorted_array.append(array[57])
+    sorted_array.append(array[58])
+    sorted_array.append(array[59])
+    sorted_array.append(array[60])
+    sorted_array.append(array[61])
+    sorted_array.append(array[62])
+    sorted_array.append(array[63])
+CASE 508 (SantaCoder; source ids=508,509)
+def sort_array(array):
+    
+    if len(array) <= 1:
+        return array
+    if sum(array) % 2 == 0:
+        return sort_array(array[1:]) + [array[0]] + sort_array(array[0:-1])
+    return sort_array(array[0:-1]) + [array[0]] + sort_array(array[1:])
+CASE 664 (StarCoder; source ids=664)
+def sort_array(array):
+    
+    return sorted(array)
+
+TASK 89
+def encrypt(s):
+    """Create a function encrypt that takes a string as an argument and
+    returns a string encrypted with the alphabet being rotated. 
+    The alphabet should be rotated in a manner such that the letters 
+    shift down by two multiplied to two places.
+    For example:
+    encrypt('hi') returns 'lm'
+    encrypt('asdfghjkl') returns 'ewhjklnop'
+    encrypt('gf') returns 'kj'
+    encrypt('et') returns 'ix'
+    """
+REFERENCE
+def encrypt(s):
+    
+    d = 'abcdefghijklmnopqrstuvwxyz'
+    return "".join(map(lambda ch: chr((ord(ch) - ord("a") + 4) % 26 + ord("a")) if ch in d else ch, s))
+CASE 59 (CodeGen-16B; source ids=59)
+def encrypt(s):
+    
+    # create a list of the alphabet
+    alphabet = list('abcdefghijklmnopqrstuvwxyz')
+    # create a list of the alphabet shifted down by two
+    shifted_alphabet = alphabet[2:] + alphabet[:2]
+    # create a dictionary of the alphabet
+    alphabet_dict = dict(zip(alphabet, shifted_alphabet))
+    # create a list of the alphabet shifted down by two multiplied to two places
+    shifted_alphabet_dict = dict(zip(shifted_alphabet, alphabet))
+    # create a list of the alphabet shifted down by two multiplied to two places
+    shifted_alphabet_dict_two = dict(zip(shifted_alphabet, alphabet))
+    # create a list of the alphabet shifted down by two multiplied to two places
+    shifted_alphabet_dict_two_two = dict(zip(shifted_alphabet, alphabet))
+    # create a list of the alphabet shifted down by two multiplied to two places
+    shifted_alphabet_dict_two_two_two = dict(zip(shifted_alphabet, alphabet))
+    # create a list of the alphabet shifted down by two multiplied to two places
+    shifted_alphabet_dict_two_two_two_two = dict(zip(shifted_alphabet, alphabet))
+    # create a list of the alphabet shifted down by two multiplied to two places
+    shifted_alphabet_dict_two_two_two_two_two = dict(zip(shifted_alphabet, alphabet))
+    # create a list of the alphabet shifted down by two multiplied to two places
+    shifted_alphabet_dict_two_two_two_two_two_two = dict(zip(shifted_alphabet, alphabet))
+    # create a list of the alphabet shifted down by two multiplied to two places
+    shifted_alphabet_dict_two_two_two_two_two_two_two = dict(zip(shifted_alphabet, alphabet))
+    # create a list of the alphabet shifted down by two multiplied to two places
+    shifted_alphabet_dict_two_two_two_two_two_two_two_two = dict(zip(shifted_alphabet, alphabet))
+CASE 234 (InCoder-1B; source ids=234)
+def encrypt(s):
+    
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    
+    def encrypt(s):
+        rotated_alphabet = alphabet[alphabet.index(s)%len(alphabet)]
+        return rotated_alphabet + s
+    return encrypt
+CASE 510 (SantaCoder; source ids=510,511)
+def encrypt(s):
+    
+    return ''.join([chr((ord(c) - 2) * 2 + 65) for c in s])
+CASE 665 (StarCoder; source ids=665,666)
+def encrypt(s):
+    
+    return ''.join(chr(ord(c) + 2 * 2) for c in s)
+
+TASK 90
+def next_smallest(lst):
+    """
+    You are given a list of integers.
+    Write a function next_smallest() that returns the 2nd smallest element of the list.
+    Return None if there is no such element.
+    
+    next_smallest([1, 2, 3, 4, 5]) == 2
+    next_smallest([5, 1, 4, 3, 2]) == 2
+    next_smallest([]) == None
+    next_smallest([1, 1]) == None
+    """
+REFERENCE
+def next_smallest(lst):
+    
+    if len(lst) <= 1: return None
+    sorted_list = sorted(lst)
+    for x in sorted_list:
+        if x != sorted_list[0]:
+            return x
+CASE 60 (CodeGen-16B; source ids=60)
+def next_smallest(lst):
+    
+    if len(lst) < 2:
+        return None
+    
+    lst.sort()
+    return lst[1]
+CASE 235 (InCoder-1B; source ids=235)
+def next_smallest(lst):
+CASE 512 (SantaCoder; source ids=512,513)
+def next_smallest(lst):
+    
+    if len(lst) == 0:
+        return None
+    else:
+        return lst[0] if lst[0] < lst[1] else lst[1]
+CASE 667 (StarCoder; source ids=667)
+def next_smallest(lst):
+    
+    if len(lst) < 2:
+        return None
+    else:
+        return sorted(lst)[1]
+
+TASK 91
+def is_bored(S):
+    """
+    You'll be given a string of words, and your task is to count the number
+    of boredoms. A boredom is a sentence that starts with the word "I".
+    Sentences are delimited by '.', '?' or '!'.
+   
+    For example:
+    >>> is_bored("Hello world")
+    0
+    >>> is_bored("The sky is blue. The sun is shining. I love this weather")
+    1
+    """
+REFERENCE
+def is_bored(S):
+    
+    sentences = map(lambda x: x.strip(), ((S.replace("?", ".")).replace("!", ".")).split("."))
+    return len([s for s in sentences if s.startswith("I ")])
+CASE 61 (CodeGen-16B; source ids=61,62)
+def is_bored(S):
+    
+    return sum(1 for word in S.split() if word.startswith('I'))
+CASE 236 (InCoder-1B; source ids=236)
+def is_bored(S):
+    
+    bored = 0
+    for word in S.split('.'):
+        if word.startswith('I'):
+            bored += 1
+    return bored
+CASE 348 (GPT-3.5; source ids=348)
+def is_bored(S):
+    
+    sentences = S.split('.')
+    sentences += S.split('?')
+    sentences += S.split('!')
+    count = 0
+    for sentence in sentences:
+        if sentence.strip().startswith('I'):
+            count += 1
+    return count
+CASE 406 (GPT-4; source ids=406,407)
+def is_bored(S):
+    
+    # Split the input string into sentences
+    sentences = [s.strip() for s in re.split('[.!?]', S)]
+
+    # Count the number of sentences that start with "I"
+    boredoms = sum(1 for s in sentences if s.startswith("I"))
+
+    return boredoms
+CASE 514 (SantaCoder; source ids=514,515)
+def is_bored(S):
+    
+    return len([w for w in S.split() if w.startswith("I")])
+CASE 668 (StarCoder; source ids=668,669)
+def is_bored(S):
+    
+    return sum(1 for word in S.split() if word.startswith("I"))
+
+TASK 92
+def any_int(x, y, z):
+    '''
+    Create a function that takes 3 numbers.
+    Returns true if one of the numbers is equal to the sum of the other two, and all numbers are integers.
+    Returns false in any other cases.
+    
+    Examples
+    any_int(5, 2, 7) ➞ True
+    
+    any_int(3, 2, 2) ➞ False
+
+    any_int(3, -2, 1) ➞ True
+    
+    any_int(3.6, -2.2, 2) ➞ False
+  
+
+    
+    '''
+REFERENCE
+def any_int(x, y, z):
+    
+    if type(x) != int or type(y) != int or type(z) != int: return False
+    return x == y + z or y == x + z or z == y + x
+CASE 63 (CodeGen-16B; source ids=63)
+def any_int(x, y, z):
+    
+    if x == y + z or y == x + z or z == x + y:
+        return True
+    else:
+        return False
+CASE 237 (InCoder-1B; source ids=237)
+def any_int(x, y, z):
+    
+    return all(x is y or x is z for x, y in zip(x, y, z))
+CASE 516 (SantaCoder; source ids=516)
+def any_int(x, y, z):
+    
+    return x + y == z
+
+TASK 93
+def encode(message):
+    """
+    Write a function that takes a message, and encodes in such a 
+    way that it swaps case of all letters, replaces all vowels in 
+    the message with the letter that appears 2 places ahead of that 
+    vowel in the english alphabet. 
+    Assume only letters. 
+    
+    Examples:
+    >>> encode('test')
+    'TGST'
+    >>> encode('This is a message')
+    'tHKS KS C MGSSCGG'
+    """
+REFERENCE
+def encode(message):
+    
+    def switch_case(ch):
+        if ord("A") <= ord(ch) <= ord("Z"):
+            return chr(ord(ch) + 32)
+        elif ord("a") <= ord(ch) <= ord("z"):
+            return chr(ord(ch) - 32)
+        else:
+            return ch
+    
+    def vowel_change(ch):
+        return ch if ch not in "aeiouAEIOU" else chr(ord(ch) + 2)
+    
+    m = "".join(map(switch_case, message))
+    return "".join(map(vowel_change, m))
+CASE 64 (CodeGen-16B; source ids=64)
+def encode(message):
+    
+    pass
+CASE 238 (InCoder-1B; source ids=238)
+def encode(message):
+    
+    
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    
+    message = message.lower()
+    
+    message = message.replace(' ', '')
+    message = message.replace('.', '')
+    message = message.replace(',', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message = message.replace(':', '')
+    message = message.replace(';', '')
+    message = message.replace('?', '')
+    message = message.replace('!', '')
+    message =
+CASE 349 (GPT-3.5; source ids=349)
+def encode(message):
+    vowels = 'aeiouAEIOU'
+    encoded_message = ''
+    for letter in message:
+        if letter.isalpha():
+            if letter in vowels:
+                encoded_message += chr(ord(letter) + 2)
+            else:
+                if letter.islower():
+                    encoded_message += letter.upper()
+                else:
+                    encoded_message += letter.lower()
+        else:
+            encoded_message += letter
+    return encoded_message
+CASE 408 (GPT-4; source ids=408)
+def encode(message):
+    
+    vowels = 'aeiouAEIOU'
+    encoded_message = ''
+    
+    for char in message:
+        if char.isalpha():
+            if char in vowels:
+                if char.islower():
+                    encoded_message += chr(((ord(char) - ord('a') + 2) % 26) + ord('a'))
+                else:
+                    encoded_message += chr(((ord(char) - ord('A') + 2) % 26) + ord('A'))
+            else:
+                encoded_message += char.swapcase()
+        else:
+            encoded_message += char
+    
+    return encoded_message
+CASE 517 (SantaCoder; source ids=517)
+def encode(message):
+    
+    vowels = 'aeiouAEIOU'
+    message = message.lower()
+    message = message.replace('a', 'e')
+    message = message.replace('e', 'a')
+    message = message.replace('i', 'o')
+    message = message.replace('o', 'i')
+    message = message.replace('u', 'A')
+    message = message.replace('A', 'U')
+    message = message.replace('y', 'Y')
+    message = message.replace('Y', 'Y')
+    message = message.replace('s', 'S')
+    message = message.replace('S', 'S')
+    message = message.replace('g', 'G')
+    message = message.replace('G', 'G')
+    message = message.replace('c', 'C')
+    message = message.replace('C', 'C')
+    message = message.replace('f', 'F')
+    message = message.replace('F', 'F')
+    message = message.replace('d', 'D')
+    message = message.replace('D', 'D')
+    message = message.replace('h', 'H')
+    message = message.replace('H', 'H')
+    message = message.replace('k', 'K')
+    message = message.replace('K', 'K')
+    message = message.replace('m', 'M')
+    message = message.replace('M', 'M')
+    message = message.replace('w', 'W')
+    message = message.replace('W', 'W')
+    message = message.replace('v', 'V')
+    message = message.replace('V', 'V')
+    message = message.replace('b', 'B')
+    message = message.replace('B', 'B')
+    message = message.replace('p', 'P')
+    message = message.replace('P', 'P')
+    message = message.replace('x', 'X')
+    message = message.replace('X', 'X')
+    message = message.replace('z', 'Z')
+    message = message.replace('Z', 'Z')
+    message = message.replace('j', 'J')
+    message = message.replace('J', 'J')
+    message = message.replace('q', 'Q')
+    message = message.replace('Q', 'Q')
+    message = message.replace('r', 'R')
+    message
+CASE 670 (StarCoder; source ids=670)
+def encode(message):
+    
+    pass

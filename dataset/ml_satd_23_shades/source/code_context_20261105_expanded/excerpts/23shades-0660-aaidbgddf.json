@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0660-aaidbgddf",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/6852e31da88a94262c8a6a82a6ad00a34ddc385b",
+  "filename": "sklearn/ensemble/_gb.py",
+  "commit": "6852e31da88a94262c8a6a82a6ad00a34ddc385b",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/6852e31da88a94262c8a6a82a6ad00a34ddc385b/sklearn/ensemble/_gb.py",
+  "fetched_at": "2026-11-05T06:13:34.083622+00:00",
+  "source_sha256": "16c4c0913d786e7c912ebec48f0c7ab8e25e23787e795733d4bae51cd1311b7c",
+  "line_start": 752,
+  "line_end": 776,
+  "excerpt": "        # n_classes will be equal to 1 in the binary classification or the\n        # regression case.\n        n_estimators, n_classes = self.estimators_.shape\n        leaves = np.zeros((X.shape[0], n_estimators, n_classes))\n\n        for i in range(n_estimators):\n            for j in range(n_classes):\n                estimator = self.estimators_[i, j]\n                leaves[:, i, j] = estimator.apply(X, check_input=False)\n\n        return leaves\n\n    # TODO: Remove in 1.2\n    # mypy error: Decorated property not supported\n    @deprecated(  # type: ignore\n        \"Attribute n_features_ was deprecated in version 1.0 and will be \"\n        \"removed in 1.2. Use 'n_features_in_' instead.\"\n    )\n    @property\n    def n_features_(self):\n        return self.n_features_in_\n\n\nclass GradientBoostingClassifier(ClassifierMixin, BaseGradientBoosting):\n    \"\"\"Gradient Boosting for classification."
+}

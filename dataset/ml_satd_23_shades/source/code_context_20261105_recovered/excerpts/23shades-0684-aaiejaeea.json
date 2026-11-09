@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0684-aaiejaeea",
+  "revision_url": "https://github.com/dmlc/dgl/commit/3192beb42dc9a31bdfd1d5947484c49224072914",
+  "filename": "python/dgl/model_zoo/chem/jtnn/mpn.py",
+  "commit": "3192beb42dc9a31bdfd1d5947484c49224072914",
+  "source_url": "https://raw.githubusercontent.com/dmlc/dgl/3192beb42dc9a31bdfd1d5947484c49224072914/python/dgl/model_zoo/chem/jtnn/mpn.py",
+  "fetched_at": "2026-11-05T06:13:38.112602+00:00",
+  "source_sha256": "6a279090ddf4cb906e93d8ccb4f909413d8ee77c294296ad6009249cdd9f5a26",
+  "line_start": 136,
+  "line_end": 160,
+  "excerpt": "        self.n_passes = 0\n\n    def forward(self, mol_graph):\n        n_samples = mol_graph.batch_size\n\n        mol_line_graph = mol_graph.line_graph(backtracking=False, shared=True)\n\n        n_nodes = mol_graph.number_of_nodes()\n        n_edges = mol_graph.number_of_edges()\n\n        mol_graph = self.run(mol_graph, mol_line_graph)\n\n        # TODO: replace with unbatch or readout\n        g_repr = mean_nodes(mol_graph, 'h')\n\n        self.n_samples_total += n_samples\n        self.n_nodes_total += n_nodes\n        self.n_edges_total += n_edges\n        self.n_passes += 1\n\n        return g_repr\n\n    def run(self, mol_graph, mol_line_graph):\n        n_nodes = mol_graph.number_of_nodes()\n"
+}

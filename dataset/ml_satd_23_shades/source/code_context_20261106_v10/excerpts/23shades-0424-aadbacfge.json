@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0424-aadbacfge",
+  "revision_url": "https://github.com/nicolay-r/sentiment-pcnn/commit/8bbd218843932fadd9758351f96bc80ad2170ea9",
+  "filename": "neutrals.py",
+  "commit": "8bbd218843932fadd9758351f96bc80ad2170ea9",
+  "source_url": "https://raw.githubusercontent.com/nicolay-r/sentiment-pcnn/8bbd218843932fadd9758351f96bc80ad2170ea9/neutrals.py",
+  "fetched_at": "2026-11-05T06:12:52.060163+00:00",
+  "source_sha256": "2859b451f4308e02c7561ff1f80cd634f35c29381ad5ceedfeeba880c78a1bbf",
+  "line_start": 24,
+  "line_end": 48,
+  "excerpt": "        # Filter if there is a sentiment relation\n        if sentiment_opins is not None:\n            if sentiment_opins.has_opinion_by_synonyms(o):\n                return\n\n        if neutral_opins.has_opinion_by_synonyms(o):\n            return\n\n        added.add(o.create_value_id())\n        neutral_opins.add_opinion(o)\n\n    def is_ignored(entity):\n        # TODO. Move ignored entities into core.\n        return env.stemmer.lemmatize_to_str(entity.value) in IGNORED_ENTITIES\n\n    def get_entity_synonyms(entity):\n        return synonyms.get_synonyms_list(entity.value), \\\n               synonyms.get_synonym_group_index(entity.value)\n\n    added = set()\n    c = OpinionCollection(opinions=None, synonyms=synonyms)\n\n    for i in range(E.shape[0]):\n        for j in range(E.shape[1]):\n"
+}

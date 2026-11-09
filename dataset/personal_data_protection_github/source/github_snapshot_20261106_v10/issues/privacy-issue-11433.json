@@ -1,0 +1,122 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11433",
+  "issue_url": "https://github.com/ampproject/amphtml/issues/28996",
+  "source_issue_url": "https://github.com/ampproject/amphtml/issues/28996",
+  "api_url": "https://api.github.com/repos/ampproject/amphtml/issues/28996",
+  "title": "Support for CCPA Implementation",
+  "body": "Hi Team,\r\nI need to implement CCPA on my website, I mean in AMP pages and AMP Story Pages, I am attaching two demo file of my implementation, Please can you confirm the implementation are right or not.\r\nPFA\r\n[CCPA_Implementation.zip](https://github.com/ampproject/amphtml/files/4818205/CCPA_Implementation.zip)\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-06-23T08:44:23Z",
+  "updated_at": "2020-06-26T04:00:32Z",
+  "state": "closed",
+  "closed_at": "2020-06-23T17:52:04Z",
+  "issue_fetched_at": "2026-10-18T20:11:08.225023+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T20:11:09.648700+00:00"
+  ],
+  "expected_comment_count": 12,
+  "retrieved_comment_count": 12,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 648320015,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-648320015",
+      "created_at": "2020-06-23T17:52:01Z",
+      "updated_at": "2020-06-23T17:52:35Z",
+      "author": "Participant 2",
+      "body": "@abhiz10  They look good to me, based up on blocking for eea and preset-us-ca."
+    },
+    {
+      "id": 648681309,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-648681309",
+      "created_at": "2020-06-24T08:36:48Z",
+      "updated_at": "2020-06-24T20:19:55Z",
+      "author": "Participant 1",
+      "body": "Thanks, @micajuine-ho so I can use custom list list \"mylist\" in Story HTML, and one div using the same id in as I mentioned in AMPHtml ?"
+    },
+    {
+      "id": 649011372,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-649011372",
+      "created_at": "2020-06-24T19:09:02Z",
+      "updated_at": "2020-06-24T19:09:02Z",
+      "author": "Participant 2",
+      "body": "@abhiz10 The amp-consent integration with amp-geo works across stories and amphtml."
+    },
+    {
+      "id": 649053449,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-649053449",
+      "created_at": "2020-06-24T20:28:38Z",
+      "updated_at": "2020-06-24T20:38:32Z",
+      "author": "Participant 1",
+      "body": "Actually What I meant to ask, that \r\nIn AMP HTML:\r\nI am using the same [\"promptUI\":\"consentDialog\"] for both \"eea\" and \"usca\" is that ok to use the same \"promptUI\" Id for both?\r\nAs I'm using only one  \"div id=\"consentDialog\"\" block to show the same message for both \"eea\" and \"usca\"\r\nAMP Geo:\r\n        <script type=\"application/json\">\r\n            {\r\n            \"ISOCountryGroups\": {\r\n            \"eea\": [\"preset-eea\"],\r\n            \"usca\":[\"preset-us-ca\"]\r\n            }\r\n            }\r\n        </script>\r\nAMP-Consent:\r\n        <script type=\"application/json\">\r\n            {\r\n            \"consentInstanceId\":\"world-wide-consent\",\r\n            \"consentRequired\":false,\r\n            \"geoOverride\":{\r\n            \"eea\":{\r\n            \"promptUI\":\"consentDialog\",\r\n            \"consentRequired\":true\r\n            },\r\n            \"usca\":{\r\n            \"consentRequired\":true,\r\n            \"promptUI\":\"consentDialog\"\r\n            }\r\n            }\r\n            }\r\n        </script>...."
+    },
+    {
+      "id": 649056802,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-649056802",
+      "created_at": "2020-06-24T20:35:39Z",
+      "updated_at": "2020-06-24T20:37:40Z",
+      "author": "Participant 1",
+      "body": "And, while in AMP Stories also I'm using only one div in consent, but create my custom array: \"mylist\" in amp-geo and in consent is mentioned \"promptIfUnknownForGeoGroup\": \"mylist\".\r\nAMP-Geo:\r\n<script type=\"application/json\">\r\n            {\r\n            \"ISOCountryGroups\": {\r\n            \"eea\": [\"preset-eea\"],\r\n\r\n             \"usca\":[\"preset-us-ca\"],\r\n\r\n\t     \"mylist\":[\"preset-eea\",\"preset-us-ca\",\"in\"]\r\n            }\r\n            }\r\n        </script>\r\n AMP-Consent:\r\n            <script type=\"application/json\">\r\n               {\r\n               \"consents\": {\r\n               \"storyConsent\": {\r\n               \"promptIfUnknownForGeoGroup\": \"mylist\",\r\n               \"promptUI\": \"storyConsentUi\"\r\n               }\r\n               }\r\n               }\r\n            </script>\r\n\r\n"
+    },
+    {
+      "id": 649060652,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-649060652",
+      "created_at": "2020-06-24T20:42:51Z",
+      "updated_at": "2020-06-24T20:45:02Z",
+      "author": "Participant 1",
+      "body": "Actually there is an issue what I'm facing with AMP-Stories that I can't use this script in AMP-Stories format its show me error in console: error.js:204 Cannot convert undefined or null to object \r\n<script type=\"application/json\">\r\n{\r\n\"consentInstanceId\":\"world-wide-consent\",\r\n\"consentRequired\":false,\r\n\"geoOverride\":{\r\n\"eea\":{\r\n\"promptUI\":\"consentDialog\",\r\n\"consentRequired\":true\r\n},\r\n\"usca\":{\r\n\"consentRequired\":true,\r\n\"promptUI\":\"consentDialog\"\r\n}\r\n}\r\n}\r\n</script>"
+    },
+    {
+      "id": 649064554,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-649064554",
+      "created_at": "2020-06-24T20:51:07Z",
+      "updated_at": "2020-06-24T20:53:05Z",
+      "author": "Participant 1",
+      "body": "[Story_AMPConsent_CCPA_Error.zip](https://github.com/ampproject/amphtml/files/4827861/Story_AMPConsent_CCPA_Error.zip)\r\nIn this, I had used this script <script type=\"application/json\"> { \"consentInstanceId\":\"world-wide-consent\", \"consentRequired\":false, \"geoOverride\":{ \"eea\":{ \"promptUI\":\"consentDialog\", \"consentRequired\":true }, \"usca\":{ \"consentRequired\":true, \"promptUI\":\"consentDialog\" } } } </script>\r\nShowing me error in console: error.js:204 Cannot convert undefined or null to object"
+    },
+    {
+      "id": 649069063,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-649069063",
+      "created_at": "2020-06-24T21:00:58Z",
+      "updated_at": "2020-06-24T21:00:58Z",
+      "author": "Participant 1",
+      "body": "@micajuine-ho Can you check all the implementation once regarding my concerns, please, it would be a great help\r\n"
+    },
+    {
+      "id": 649750927,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-649750927",
+      "created_at": "2020-06-25T18:39:27Z",
+      "updated_at": "2020-06-25T18:58:29Z",
+      "author": "Participant 2",
+      "body": "> I am using the same [\"promptUI\":\"consentDialog\"] for both \"eea\" and \"usca\" is that ok to use the same \"promptUI\" Id for both?\r\n\r\nYes that is fine.\r\n\r\n> Can you check all the implementation once regarding my concerns, please, it would be a great help\r\n\r\nThe script for the amp-consent should include a 'consents' object (required for amp-consent-story):\r\n\r\n```\r\n{\r\n  \"consentInstanceId\": \"world-wide-consent\",\r\n  \"consents\": {\r\n    \"world-wide-consent\": {}\r\n  },\r\n  \"consentRequired\": false,\r\n  \"geoOverride\": {\r\n    \"eea\": {\r\n      \"promptUI\": \"consentDialog\",\r\n      \"consentRequired\": true\r\n    },\r\n    \"usca\": {\r\n      \"consentRequired\": true,\r\n      \"promptUI\": \"consentDialog\"\r\n    }\r\n  }\r\n}\r\n```"
+    },
+    {
+      "id": 649862175,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-649862175",
+      "created_at": "2020-06-25T23:11:03Z",
+      "updated_at": "2020-06-25T23:11:03Z",
+      "author": "Participant 1",
+      "body": "@micajuine-ho thank you so much"
+    },
+    {
+      "id": 649900757,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-649900757",
+      "created_at": "2020-06-26T01:39:42Z",
+      "updated_at": "2020-06-26T01:39:42Z",
+      "author": "Participant 2",
+      "body": "@abhiz10 FYI this is actually a bug, and it is on my radar to fix. There should be no changes necessary on your end."
+    },
+    {
+      "id": 649946250,
+      "url": "https://github.com/ampproject/amphtml/issues/28996#issuecomment-649946250",
+      "created_at": "2020-06-26T04:00:18Z",
+      "updated_at": "2020-06-26T04:00:32Z",
+      "author": "Participant 1",
+      "body": "@micajuine-ho Ok, Thanks"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

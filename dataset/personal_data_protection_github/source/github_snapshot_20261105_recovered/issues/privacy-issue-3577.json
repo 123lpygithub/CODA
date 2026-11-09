@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3577",
+  "issue_url": "https://github.com/bible-technology/scripture-burrito/issues/91",
+  "source_issue_url": "https://github.com/bible-technology/scripture-burrito/issues/91",
+  "api_url": "https://api.github.com/repos/bible-technology/scripture-burrito/issues/91",
+  "title": "Should we include user information?",
+  "body": "I apologise if this has been discussed before; I could not find an issue for it.\r\n\r\nCurrently the spec specifically refers to users who have produced/uploaded the burrito, by name and by unique identifier.  I am not really a fan of this, for several reasons, but willing to be convinced otherwise.\r\n\r\nFirstly, including personally identifiable information may mean that burritos are affected by data protection regulations such as GDPR, which may place legal limits on the ability to transfer burritos to servers in other countries.  IANAL, so I do not know how far-reaching the implications are (and I might be completely wrong on this).\r\n\r\nSecondly, from a purely conceptual level I am not sure that it should be considered in-scope for the burrito metadata to say something that is not descriptive of the contents but rather of the person who created it.  Including the name and version of the software that generated it is useful because it may say something meaningful about the contents thereof, but the identity of the person who did it does not.  (And when burritos are offered for wider distribution, people who publish burritos on behalf of their organisation may not even want their personal names attached.)\r\n\r\nThirdly, I can't see how it's *useful*.  The fact that identifiers are system-specific, and privacy considerations mean that user information cannot just be queried by an arbitrary party from a public API without the user's consent, effectively means that a system is likely storing this purely for its own consumption, but a system that needs this will likely already be storing its own event log accompanying the actual metadata.  But, this is purely my own speculation, so it would be valuable for others to weigh in.",
+  "author": "Participant 1",
+  "created_at": "2019-11-20T13:50:43Z",
+  "updated_at": "2020-02-27T16:08:45Z",
+  "state": "closed",
+  "closed_at": "2020-02-27T16:08:45Z",
+  "issue_fetched_at": "2026-10-18T13:10:53.410201+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T13:10:54.808952+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 556149864,
+      "url": "https://github.com/bible-technology/scripture-burrito/issues/91#issuecomment-556149864",
+      "created_at": "2019-11-20T17:35:35Z",
+      "updated_at": "2019-11-20T17:35:35Z",
+      "author": "Participant 2",
+      "body": "I can confirm that having the archivist name often turns out to be in DBL, for example to work out how things ended up the way they did. This works without user ids because there's only one DBL. Giving user ids may or not enable DBL to identify the user - it might well do so if the user is in the Registry. But, in all cases, it tells me that I can't assume org-x's John Smith is DBL's John Smith, and that's something.\r\n\r\nFor GDPR I'd have thought that the name of the user is more of the problem than a somewhat opaque user id (unless someone is using SS numbers as keys or something.)\r\n\r\nWe should probably make these fields optional though."
+    },
+    {
+      "id": 557492284,
+      "url": "https://github.com/bible-technology/scripture-burrito/issues/91#issuecomment-557492284",
+      "created_at": "2019-11-22T11:11:18Z",
+      "updated_at": "2019-11-22T11:11:18Z",
+      "author": "Participant 1",
+      "body": "Is it often the case in DBL's situation that the uploader may be a different person than the person who produced the bundle?  I'm wondering whether it might perhaps be sufficient for DBL to record the uploader name alongside the bundle based on their authentication credentials.\r\n\r\nFor the record, GDPR is quite broad when it determines the meaning of personal data; even including the hair colour of the burrito producer would already become tricky.  Identifiers fall under it because they indirectly refer to a personal identity and can be used to track that individual.  Article 4 is unambiguous about this (emphasis mine):\r\n> ‘Personal data’ means any information relating to an identified or identifiable natural person (‘data subject’); an identifiable natural person is one who can be identified, **directly or indirectly**, in particular by reference to an identifier such as a name, an **identification number**, location data, an **online identifier** or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person.\r\n\r\nThis would mean that burritos do fall under data protection laws, and anyone processing burritos containing references to EU citizens and sharing them with third parties would have to abide by the stipulations of the GDPR, such as requiring explicit (and withdrawable) consent to share them with specifically enumerated third-party recipients of the data for specifically enumerated purposes.\r\n\r\nThis is not the responsibility of the SBWG but of whoever produces and processes burritos, so we could simply make these fields optional and not concern ourselves further with it, but these considerations may add a practical barrier to the usefulness of this field."
+    },
+    {
+      "id": 557494185,
+      "url": "https://github.com/bible-technology/scripture-burrito/issues/91#issuecomment-557494185",
+      "created_at": "2019-11-22T11:17:31Z",
+      "updated_at": "2019-11-22T11:17:31Z",
+      "author": "Participant 2",
+      "body": "We added a second user identifier because the project archivist may not be the person uploading to DBL. (The total number of users who have uploaded to DBL is just over 100, with the vast majority of entries being uploaded by less than 20 users - these figures are orders of magnitude lower than the number of archivists who have prepared projects now in DBL.)\r\n\r\nI think it's good to flag GDPR but I agree that we should not make GDPR compliance a SB problem. In some cases, SBs may never be seen by anyone but the owner, in others they could potentially appear all over the place. So GDPR seems to me to be partly an ecosystem question rather than a data representation question. I would imagine that a DBL approach to this would be to extend the current \"strip on export\" mechanisms used to provide specific users with a suitable subset of information."
+    },
+    {
+      "id": 588991074,
+      "url": "https://github.com/bible-technology/scripture-burrito/issues/91#issuecomment-588991074",
+      "created_at": "2020-02-20T12:13:51Z",
+      "updated_at": "2020-02-20T12:13:51Z",
+      "author": "Participant 2",
+      "body": "I feel like we've settled this issue for now, the answer being something like \"Yes, sometimes, optionally\", so can we close this?"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

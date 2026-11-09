@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0197-aadbceejg",
+  "revision_url": "https://github.com/Ciaran1981/geospatial-learn/commit/3973e2d7092f21a8f6827c279117df638b6a5d9a",
+  "filename": "build/lib/geospatial_learn/learning.py",
+  "commit": "3973e2d7092f21a8f6827c279117df638b6a5d9a",
+  "source_url": "https://raw.githubusercontent.com/Ciaran1981/geospatial-learn/3973e2d7092f21a8f6827c279117df638b6a5d9a/build/lib/geospatial_learn/learning.py",
+  "fetched_at": "2026-11-05T06:12:10.668121+00:00",
+  "source_sha256": "667c91314a1e0d0e97d7b069e05d18d5498eaf076e592e6898f7fce58e4038b2",
+  "line_start": 996,
+  "line_end": 1020,
+  "excerpt": "    so that has been prioritised rather than raster IO\n    \"\"\"\n    if FMT == None:\n        FMT = 'Gtiff'\n        fmt = 'tif'\n    if FMT == 'HFA':\n        fmt = '.img'\n    if FMT == 'KEA':\n        fmt = '.kea'\n    if FMT == 'Gtiff':\n        fmt = '.tif'\n        \n    # TODO - a list of classes would be better eliminating the need for the one\n    # class param\n    \n    inDataset = gdal.Open(inputImage)\n    x_pixels = inDataset.RasterXSize  # number of pixels in x\n    y_pixels = inDataset.RasterYSize  # number of pixels in y\n    geotransform = inDataset.GetGeoTransform()\n    PIXEL_SIZE = geotransform[1]  # size of the pixel...they are square so thats ok.\n    #if not would need w x h\n    x_min = geotransform[0]\n    y_max = geotransform[3]\n    # x_min & y_max are like the \"top left\" corner.\n    projection = inDataset.GetProjection()"
+}

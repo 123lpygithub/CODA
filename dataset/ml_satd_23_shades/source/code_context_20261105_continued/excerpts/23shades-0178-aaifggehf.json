@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0178-aaifggehf",
+  "revision_url": "https://github.com/OpenMined/PySyft/commit/92901387678318831f0159cc8ec6a629d6c1658d",
+  "filename": "syft/core/frameworks/torch/tensor.py",
+  "commit": "92901387678318831f0159cc8ec6a629d6c1658d",
+  "source_url": "https://raw.githubusercontent.com/OpenMined/PySyft/92901387678318831f0159cc8ec6a629d6c1658d/syft/core/frameworks/torch/tensor.py",
+  "fetched_at": "2026-11-05T06:12:07.012944+00:00",
+  "source_sha256": "9881d6c691e3c69d9ec10f037806956ce617e7a16fd014f0e70b8576d1b8df85",
+  "line_start": 1480,
+  "line_end": 1504,
+  "excerpt": "        return (self.child.cumsum(*args, *kwargs) / 10 ** self.precision_fractional)\n\n    def mm(self, other):\n        response = self.child.mm(other.child)\n        return response\n\n    def argmax(self):\n        return self.very_slow_argmax()\n\n    def very_slow_argmax(self):\n        # there are a TON of things about this that are stupidly slow\n        # but unfortunately there are bugs elsewhere that I don't have\n        # time to fix. TODO: optimize the crap out of this\n\n        self = self.wrap(True)\n\n        my_shape = list(self.get_shape())\n        assert len(my_shape) == 2\n\n        max_vals = self[:, 0:1]\n        for i in range(1, my_shape[1]):\n            new_vals = self[:, i:i + 1]\n            gate = (max_vals > new_vals)\n            left = (gate * max_vals)\n"
+}

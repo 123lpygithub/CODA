@@ -1,0 +1,24 @@
+{"artifact_id": "301", "code_ids": ["CE09"], "open_codes": ["首位为 1 的计数公式错误"], "memo": "返回 2*10**(n-1)-10**(n-2)，n=1 返回 2（应为 1），且公式没有正确刻画首位与末位都为 1 的 n 位数个数。"}
+{"artifact_id": "302", "code_ids": ["CE05"], "open_codes": ["对二进制位求和"], "memo": "先把 N 转成二进制，再对二进制字符串的 0/1 位求和；目标是十进制各位数字之和。"}
+{"artifact_id": "303", "code_ids": ["CE05"], "open_codes": ["用 I 前缀代替 I 空格"], "memo": "用 startswith('I') 统计，'It'、'If' 等也会被计入；契约要求句子以 'I ' 开头。"}
+{"artifact_id": "304", "code_ids": ["CE09"], "open_codes": ["元音加 2 未处理回绕"], "memo": "对元音直接加 2，未处理 z/Z 回绕；大小写保持正确。"}
+{"artifact_id": "305", "code_ids": ["CE09"], "open_codes": ["负号加在最低位"], "memo": "对负数先取绝对值，再把最低位当作首位取负；实际应在最高位加负号。"}
+{"artifact_id": "306", "code_ids": ["CE06"], "open_codes": ["旋转判定漏边界组合"], "memo": "只统计相邻下降点并检查少数固定下标组合，未枚举所有右移次数，可能漏掉合法旋转。"}
+{"artifact_id": "307", "code_ids": ["CE05"], "open_codes": ["按总水量一次取整"], "memo": "把所有行的水量总和除以容量后一次取整，未按每一行分别取整再求和。"}
+{"artifact_id": "308", "code_ids": ["CE13"], "open_codes": ["返回顺序未恢复升序"], "memo": "降序排序后取前 k 个，元素集合正确但返回顺序仍是降序；契约要求升序。"}
+{"artifact_id": "309", "code_ids": ["CE06"], "open_codes": ["DFS 只比较末元素"], "memo": "DFS 在候选路径中只比较 path[-1] 的末元素，未按完整路径字典序比较，可能选错最小路径。"}
+{"artifact_id": "310", "code_ids": ["CE05"], "open_codes": ["检查配对而非嵌套深度"], "memo": "用栈检查括号是否配对并返回 nested and not stack，只能说明出现过嵌套，未验证是否存在合法的深度 >=2 子串。"}
+{"artifact_id": "311", "code_ids": ["CE07"], "open_codes": ["多重条件分支互斥错误"], "memo": "i%3==0 and i%4!=0 才平方，导致同时为 3 与 4 的倍数时落入立方分支；契约要求先判 i%3==0 即平方。"}
+{"artifact_id": "312", "code_ids": ["CE05", "CE14"], "open_codes": ["负数首位符号丢失"], "memo": "用 abs(num) 求各位和，负数首位符号未计入；tie-break 用 nums.index 也会破坏稳定顺序。"}
+{"artifact_id": "313", "code_ids": ["CE05"], "open_codes": ["从左到右无优先级"], "memo": "逐个运算符从左到右直接计算，未按 **、*、//、+、- 的优先级构造并求值表达式。"}
+{"artifact_id": "314", "code_ids": ["CE06"], "open_codes": ["未限制小于 10"], "memo": "枚举 a..b 并保留偶数，未把上界限制为 min(b+1,10)。"}
+{"artifact_id": "315", "code_ids": ["CE07"], "open_codes": ["比较方向反了"], "memo": "用 abs(...) > threshold 判接近，把远离阈值误判为接近；应先排序或比较相邻差 < threshold。"}
+{"artifact_id": "316", "code_ids": ["CE04"], "open_codes": ["按右括号切分"], "memo": "用 split(')') 切分，丢失右括号并破坏嵌套结构，返回的片段不是平衡括号组。"}
+{"artifact_id": "317", "code_ids": ["CE05"], "open_codes": ["用 floor 代替 int 截断"], "memo": "number - math.floor(number) 对负数会返回非小数部分；契约要求 number - int(number)，即向零截断。"}
+{"artifact_id": "318", "code_ids": ["CE05"], "open_codes": ["只判单个操作数为负"], "memo": "用 any(operation < 0) 判断是否存在负操作数，未累计余额；先存后取也可能整体低于零但无单项为负。"}
+{"artifact_id": "319", "code_ids": ["CE05"], "open_codes": ["以首元素为中心"], "memo": "计算各元素与 numbers[0] 的绝对差，未先求均值；中心点被替换成首元素。"}
+{"artifact_id": "320", "code_ids": ["CE08", "CE06"], "open_codes": ["只在末尾加分隔符"], "memo": "返回原列表再追加一个分隔符，未在每对相邻元素之间插入。"}
+{"artifact_id": "321", "code_ids": ["CE01", "CE02"], "open_codes": ["反复 replace 后截断"], "memo": "反复删除括号与空格，没有计算深度，且源码截断。"}
+{"artifact_id": "322", "code_ids": ["CE03"], "open_codes": ["调用 reduce 未导入"], "memo": "调用 reduce 但没有导入 functools.reduce，函数无法运行。"}
+{"artifact_id": "323", "code_ids": ["CE06"], "open_codes": ["窗口只有两个元素且漏首项"], "memo": "range 从 1 开始并取 numbers[i-1:i+1]，只比较相邻两项，漏掉首元素，也未计算前缀最大值。"}
+{"artifact_id": "324", "code_ids": ["CE05", "CE09"], "open_codes": ["递归删尾后补尾"], "memo": "递归去掉末字符再补回同一末字符，无法构造回文；且没有按最长回文后缀补前缀逆序。"}

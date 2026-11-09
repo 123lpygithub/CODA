@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20480",
+  "issue_url": "https://github.com/ExpressionEngine/ExpressionEngine/issues/955",
+  "source_issue_url": "https://github.com/ExpressionEngine/ExpressionEngine/issues/955",
+  "api_url": "https://api.github.com/repos/ExpressionEngine/ExpressionEngine/issues/955",
+  "title": "Update EE6 to remove all persistent cookies in default state",
+  "body": "**Is your feature request related to a problem? Please describe.**\r\nEE mostly uses session based cookies, but sets a number of \"Strictly Necessary\" cookies that are \"persistent\" beyond the session.  These are flash (1 day), last_activity (1 year), last_visit (1 year), remember (2 weeks),  visitor_consents (1 year).\r\n\r\nThe presence of these persistent cookies trips a wire in GDPR - for each of these cookies it is necessary for the developer to provide justification for the need for the persistent cookie and report that the cookie cannot be linked to user activity.  Sometimes these justifications are not heard sympathetically - if the 'strictly necessary' determination is not accepted then these cookies must only be set if a visitor to the site from a GDPR country actively consents.\r\n\r\nThere is no mechanism in EE either to adjust the duration of these cookies, or to link their creation to active consent.\r\n\r\n**Describe the solution you'd like**\r\nAn option in EE CP to set the duration of all cookies to be session based by default.\r\n\r\nIf there are functional benefits to be gained by making any of the cookies have a longer life, this should be a choice that can be made by users and set using the consent features of EE.\r\n\r\n**Describe alternatives you've considered**\r\nThere are no alternative solutions right now.\r\n\r\n**Teachability, Documentation, Adoption, Migration Strategy**\r\nHow this gets documented depends on the solution that is adopted.\r\nProvided switching to session duration cookies is not something that breaks EE, there should be no migration issues.\r\n",
+  "author": "Participant 1",
+  "created_at": "2021-03-23T18:56:58Z",
+  "updated_at": "2021-06-03T12:58:18Z",
+  "state": "closed",
+  "closed_at": "2021-06-03T12:58:18Z",
+  "issue_fetched_at": "2026-10-19T00:11:28.724089+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T00:11:30.225779+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 806157312,
+      "url": "https://github.com/ExpressionEngine/ExpressionEngine/issues/955#issuecomment-806157312",
+      "created_at": "2021-03-24T20:14:42Z",
+      "updated_at": "2021-03-24T20:14:42Z",
+      "author": "Participant 2",
+      "body": "Yes the cookie issue is becoming more and more important in meeting various laws across the globe. More and more governments are introducing privacy/cookie laws of various strengths so we need the ability to be able to micro manage all EE cookies to meet requirements.\r\n\r\nIdeally a fresh EE install wouldn't set any cookies by default (aside from CP related cookies which fall under strictly necessary), we'd then be able to enable them as needed with parameters as JCogs suggests, either via the Consent module or implied consent (which can sometimes be fine). \r\n\r\nWe need to stay as current as possible with laws. If EE doesn't adapt here it could soon prevent new developers coming on board?"
+    },
+    {
+      "id": 806293981,
+      "url": "https://github.com/ExpressionEngine/ExpressionEngine/issues/955#issuecomment-806293981",
+      "created_at": "2021-03-25T01:34:19Z",
+      "updated_at": "2021-03-25T01:34:19Z",
+      "author": "Participant 1",
+      "body": "building on @blue-dreamer comment there may be a case for EE to put itself at the extreme end of the compliance spectrum since it seems different countries enforce privacy regulations differently - discussion in Slack suggests that GDPR in Belgium and Germany is more stringently enforced than in UK - e.g. apparently logs of all consent decisions (even ones where consent is anonymously declined) are required. Not sure how we find / define the boundary conditions, but probably makes sense for an assumption of 'implement the more private case as a default' and 'keep better logs' options should be general principles to inform decisions."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

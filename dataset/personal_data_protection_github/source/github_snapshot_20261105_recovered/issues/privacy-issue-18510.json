@@ -1,0 +1,114 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18510",
+  "issue_url": "https://github.com/nextcloud/mail/issues/171",
+  "source_issue_url": "https://github.com/nextcloud/mail/issues/171",
+  "api_url": "https://api.github.com/repos/nextcloud/mail/issues/171",
+  "title": "Privacy - Auto-Complete with emails from the instance",
+  "body": "I run a shared instance.\r\nwhen people put an email in the \"to\" field, they get suggestion from the full instance.\r\n\r\nI think it might good to have a parameter that would deactivate this feature.\r\n(This is currently a privacy issue for me)\r\n\r\nAs reported here:\r\nhttps://forum.indie.host/t/question-about-the-webmail/172",
+  "author": "Participant 1",
+  "created_at": "2016-10-31T10:55:43Z",
+  "updated_at": "2018-01-24T12:02:05Z",
+  "state": "closed",
+  "closed_at": "2018-01-24T12:01:58Z",
+  "issue_fetched_at": "2026-10-18T22:11:07.736787+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T22:11:09.239901+00:00"
+  ],
+  "expected_comment_count": 11,
+  "retrieved_comment_count": 11,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 257266337,
+      "url": "https://github.com/nextcloud/mail/issues/171#issuecomment-257266337",
+      "created_at": "2016-10-31T11:01:50Z",
+      "updated_at": "2016-10-31T11:01:50Z",
+      "author": "Participant 2",
+      "body": "This should definitely not happen. The intention is that a user sees only addresses they have used themselves. Nothing should be shared there. https://github.com/nextcloud/mail/blob/0abf6d3110904cf2a0eac337fdb406e329372248/lib/db/collectedaddressmapper.php#L44-L51 _should_ scope the search to only find addresses that belong to the current user.\n"
+    },
+    {
+      "id": 258468666,
+      "url": "https://github.com/nextcloud/mail/issues/171#issuecomment-258468666",
+      "created_at": "2016-11-04T15:48:40Z",
+      "updated_at": "2016-11-04T15:48:40Z",
+      "author": "Participant 2",
+      "body": "On a second thought, do you know where the a auto-completed recipient came from? Was it a collected address from the DB, or maybe take from the contacts integration?\nI've tried with collected addresses and could not reproduce the described problem. \n"
+    },
+    {
+      "id": 265511565,
+      "url": "https://github.com/nextcloud/mail/issues/171#issuecomment-265511565",
+      "created_at": "2016-12-07T17:21:34Z",
+      "updated_at": "2016-12-07T17:21:34Z",
+      "author": "Participant 2",
+      "body": "Ping? :-)"
+    },
+    {
+      "id": 265687330,
+      "url": "https://github.com/nextcloud/mail/issues/171#issuecomment-265687330",
+      "created_at": "2016-12-08T08:56:05Z",
+      "updated_at": "2016-12-08T08:56:05Z",
+      "author": "Participant 1",
+      "body": "Thanks to keep an eye on this (sorry I was out of time..).\r\nIt is from the full database of users.\r\n\r\nBut I could actually reproduce the \"bug\" (Or misconfiguration) from the \"files\" app. When I hit share, it proposes me the full database too.\r\n\r\nThere is definetely something funny with my configuration, and not necessarly the mail app."
+    },
+    {
+      "id": 265693286,
+      "url": "https://github.com/nextcloud/mail/issues/171#issuecomment-265693286",
+      "created_at": "2016-12-08T09:24:48Z",
+      "updated_at": "2016-12-08T09:24:48Z",
+      "author": "Participant 2",
+      "body": "> But I could actually reproduce the \"bug\" (Or misconfiguration) from the \"files\" app. When I hit share, it proposes me the full database too.\r\n\r\nCould you please file an issue at https://github.com/nextcloud/server/issues/new?\r\n\r\n> There is definetely something funny with my configuration, and not necessarly the mail app.\r\n\r\nCould you maybe try to reproduce this bug on a fresh installation? I was unable to reproduce this here."
+    },
+    {
+      "id": 311078092,
+      "url": "https://github.com/nextcloud/mail/issues/171#issuecomment-311078092",
+      "created_at": "2017-06-26T14:35:59Z",
+      "updated_at": "2017-06-26T14:35:59Z",
+      "author": "Participant 3",
+      "body": "I have the same problem, but only in the email app. \r\nIt seems that the mail client searches in the \"accounts\"-table as well as in the 'mail_collected_adresses' table.\r\n\r\nThat's bad because there are users on my system who must not see each other.\r\n\r\nI checked it in NC 11.03, mail version 0.6.4 and did a quick check on a newly installed NC 12 same mail version, the result was the same.\r\nIs there a way to search only the table mail_collected_addresses and not include the system accounts ?\r\nThanks in advance"
+    },
+    {
+      "id": 311126832,
+      "url": "https://github.com/nextcloud/mail/issues/171#issuecomment-311126832",
+      "created_at": "2017-06-26T17:28:11Z",
+      "updated_at": "2017-06-26T17:28:11Z",
+      "author": "Participant 2",
+      "body": "@HeikoBei sounds like what I've fixed in https://github.com/nextcloud/server/pull/4757 (the contacts menu uses the same data source as the auto completion here)."
+    },
+    {
+      "id": 311312167,
+      "url": "https://github.com/nextcloud/mail/issues/171#issuecomment-311312167",
+      "created_at": "2017-06-27T09:59:24Z",
+      "updated_at": "2017-06-27T09:59:24Z",
+      "author": "Participant 3",
+      "body": "I see, the changes were made in NC 12.\r\n\r\nI'm still using NC 11.0.3 therefore I made the modifications to apps/dav/appinfo/app.php the way you did in https://github.com/nextcloud/server/pull/4757.\r\n\r\nNow I don't have autocompletion at all in the mail module, but that's ok for now.\r\nAs soon as I find the time to do the update to NC 12, the problem will be fixed anyway.\r\n\r\nThanks Christoph\r\n\r\n\r\n"
+    },
+    {
+      "id": 311316533,
+      "url": "https://github.com/nextcloud/mail/issues/171#issuecomment-311316533",
+      "created_at": "2017-06-27T10:19:03Z",
+      "updated_at": "2017-06-27T10:19:03Z",
+      "author": "Participant 2",
+      "body": "I'm closing this issue now since it has been resolved. Note that NC12 is required though."
+    },
+    {
+      "id": 360108610,
+      "url": "https://github.com/nextcloud/mail/issues/171#issuecomment-360108610",
+      "created_at": "2018-01-24T11:57:16Z",
+      "updated_at": "2018-01-24T11:57:16Z",
+      "author": "Participant 1",
+      "body": "@ChristophWurst the autocompletion is unchecked and I see again the issue.\r\n\r\nrunning NC 12.0.4 and mail 0.7.9\r\n\r\nWondering what happened lately? (I confirm that it was fixed with removing autocompletion)"
+    },
+    {
+      "id": 360109666,
+      "url": "https://github.com/nextcloud/mail/issues/171#issuecomment-360109666",
+      "created_at": "2018-01-24T12:01:58Z",
+      "updated_at": "2018-01-24T12:01:58Z",
+      "author": "Participant 2",
+      "body": "@pierreozoux please file a new ticket for this regression. Thanks!"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

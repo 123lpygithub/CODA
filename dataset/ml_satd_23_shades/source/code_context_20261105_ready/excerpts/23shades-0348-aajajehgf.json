@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:bf9a7d98332d1ba76073e97930f76db975915b9c/raw/",
+  "source_sha256": "cc130429b43a104e31da2c62a7f401ee1049f112bb806f7309723921a0f9ca8b",
+  "fetched_at": "2026-11-05T06:43:06.089641+00:00",
+  "archive_directory": "674ff50c1277bdaf5da5f1aa6961f78ac11cc867",
+  "git_blob_sha1": "bf9a7d98332d1ba76073e97930f76db975915b9c",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/a2fa1f1c7dfc3ce628b9e60c11fbba56fe4f5ead/",
+  "artifact_id": "23shades-0348-aajajehgf",
+  "revision_url": "https://github.com/HealthCatalyst/healthcareai-py/commit/a2fa1f1c7dfc3ce628b9e60c11fbba56fe4f5ead",
+  "filename": "healthcareai/tests/test_trainer.py",
+  "commit": "a2fa1f1c7dfc3ce628b9e60c11fbba56fe4f5ead",
+  "line_start": 32,
+  "line_end": 56,
+  "excerpt": "                                                        impute=True,\n                                                        verbose=False)\n\n    def test_knn(self):\n        trained_knn = self.classification_trainer.knn()\n\n        result = trained_knn.metrics\n        self.assertIsInstance(trained_knn, TrainedSupervisedModel)\n\n        helpers.assertBetween(self, 0.5, 0.8, result['roc_auc'])\n        helpers.assertBetween(self, 0.79, 0.95, result['accuracy'])\n\n    # TODO see if there is a way to make this test work - it fails on travisCI because of this:\n    # TODO > _tkinter.TclError: no display name and no $DISPLAY environment variable\n    @unittest.skipIf(\"SKIP_MSSQL_TESTS\" in os.environ and os.environ[\"SKIP_MSSQL_TESTS\"] == \"true\",\n                     \"Skipping this on Travis CI.\")\n    def test_random_forest_classification(self):\n        # Force plot to save to prevent blocking\n        trained_random_forest = self.classification_trainer.random_forest_classification(save_plot=True)\n        result = trained_random_forest.metrics\n        self.assertIsInstance(trained_random_forest, TrainedSupervisedModel)\n\n        helpers.assertBetween(self, 0.65, 0.9, result['roc_auc'])\n        helpers.assertBetween(self, 0.8, 0.95, result['accuracy'])\n",
+  "match_policy": "unique-release-normalized-v2"
+}

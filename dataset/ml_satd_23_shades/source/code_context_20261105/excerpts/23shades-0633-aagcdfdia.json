@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0633-aagcdfdia",
+  "revision_url": "https://github.com/clusterking/clusterking/commit/7d376ccfa9b9934f1155f80440cfc446c67c866c",
+  "filename": "clusterking/data/dfmd.py",
+  "commit": "7d376ccfa9b9934f1155f80440cfc446c67c866c",
+  "source_url": "https://raw.githubusercontent.com/clusterking/clusterking/7d376ccfa9b9934f1155f80440cfc446c67c866c/clusterking/data/dfmd.py",
+  "fetched_at": "2026-11-05T06:13:29.056222+00:00",
+  "source_sha256": "68d1b41eb3935614da6d596ef29e3a0e3bc6a310179b691ef025a7dd4196d230",
+  "line_start": 91,
+  "line_end": 115,
+  "excerpt": "        self.md.update(json.loads(md_json))\n\n    # **************************************************************************\n    # Writing\n    # **************************************************************************\n\n    def write(self, path: Union[str, PurePath]):\n        # fixme: handle overwrite?\n        path = Path(path)\n        # fixme: Do we have to care about non existing directories?\n        engine = sqlalchemy.create_engine('sqlite:///' + str(path))\n        self.df.to_sql(\"df\", engine, if_exists=\"replace\")\n        # todo: perhaps it's better to use pickle in the future?\n        md_json = json.dumps(self.md, sort_keys=True, indent=4)\n        md_df = pd.DataFrame({\"md\": [md_json]})\n        md_df.to_sql(\"md\", engine, if_exists=\"replace\")\n\n    def copy(self, deep=True):\n        \"\"\" Make a copy of this object.\n\n        Args:\n            deep: Make a deep copy (default True). If this is disabled, any\n                change to the copy will also affect the original.\n\n        Returns:"
+}

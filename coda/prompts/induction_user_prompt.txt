@@ -1,0 +1,101 @@
+Research Question:
+{research_question}
+
+Analysis Scope:
+{analysis_scope}
+
+Use Case:
+{use_case}
+
+Frozen Analysis Protocol:
+{analysis_protocol}
+
+Initialization batch:
+{batch_index}
+
+Induction stage:
+{induction_stage}
+
+For incremental_batch, compare the new observations with the existing draft and return
+the complete revised draft. Earlier evidence is available through the supplied draft;
+do not invent comparisons with original cases that were not supplied in this call.
+For global_consolidation, all initial-coding cases are supplied. Re-examine the entire
+draft against those observations, including categories inherited from earlier batches.
+Do not merely concatenate or rename the accumulated entries. For a single-batch sample,
+perform this same consolidation before returning its first complete codebook.
+
+Existing provisional draft from earlier initialization batches:
+{existing_draft_codebook}
+
+New independent initial-coding cases:
+{initial_coding_cases}
+
+Validation feedback from the previous draft (empty on the first pass):
+{validation_feedback}
+
+When feedback is present, revise the complete draft only where the reported evidence,
+overlap, relevance, or boundary issue is supported by the supplied cases. Record each
+response in change_log; do not silently discard low-frequency grounded concepts.
+
+Before returning the draft, perform a granularity audit:
+1. Perform an analytical-axis audit: verify that every peer code answers the same kind of
+   question required by the research question. Keep location, symptom, cause, and repair
+   information in evidence summaries or memos when they are not the selected coding axis.
+2. Treat every incoming provisional code as an observation-level candidate rather than a
+   requested codebook entry. Compare its evidence with other observations before deciding
+   whether it supports a reusable category.
+3. Consolidate observations that differ only by identifiers, literal values, APIs,
+   implementation location, or equivalent local manifestations; preserve those details in
+   criteria, evidence summaries, or analytic memos.
+4. Keep separate codes only when the distinction changes a future inclusion/exclusion
+   decision or answers a separately useful part of the research question.
+5. For multiple candidates from one artifact, verify that they represent independently
+   meaningful units rather than multiple edits or locations caused by one issue.
+6. Do not reduce categories merely to reach a smaller count.
+7. Perform a parent-abstraction check after consolidation. For every possible parent,
+   name at least two distinct child categories, verify that each child would still classify
+   some future cases differently, and verify that supplied artifacts ground their shared
+   abstraction. Set parent_code_id only when all checks pass; otherwise leave the categories
+   separate and record the possible hierarchy in analytic_memos.
+8. Verify that there is no accidental one-to-one promotion from source provisional labels
+   to codebook entries. Each returned category must be justified by its evidence and boundary,
+   not by the existence or wording of a coder candidate.
+9. Compare each proposed category with its closest semantic neighbor. Ask explicitly
+   whether a shared, more reusable definition can represent both while preserving the
+   distinctions needed by the research question. If yes, consolidate them directly and
+   preserve local differences as criteria, evidence, or memos. If no, state the observed
+   distinction that makes separate categories necessary. Do not just add a parent above
+   leaves that no longer need to be separate.
+10. Record substantive consolidation decisions and difficult keep-separate decisions in
+    analytic_memos, using the existing summary, artifact_ids, and source_code_names fields.
+    Identify the compared observations, shared abstraction or decisive boundary, and where
+    local details are retained. Do not add a memo for every routine pairwise comparison.
+
+Return a JSON object with exactly these keys:
+- "codes": the complete revised provisional codebook. {code_count_instruction}
+- "change_log": array of objects with "action" and "summary"
+- "analytic_memos": array of objects with "summary", "artifact_ids", and "source_code_names"
+
+Each code object must contain exactly these keys:
+- "code_id": stable lowercase-kebab-case id
+- "name": concise English name
+- "name_zh": Chinese version with the same meaning
+- "definition": boundary-aware English definition
+- "definition_zh": Chinese version with the same meaning
+- "inclusion_criteria": array of English criteria
+- "exclusion_criteria": array of English boundaries
+- "inclusion_criteria_zh": Chinese criteria with the same meaning and order
+- "exclusion_criteria_zh": Chinese boundaries with the same meaning and order
+- "representative_artifact_ids": array of real artifact ids from the supplied cases or draft
+- "boundary_artifact_ids": real supplied artifact ids that show an observed boundary or
+  counterexample; use [] when none was observed
+- "counterexample_status": exactly one of ["not_assessed", "no_observed_counterexample",
+  "observed_counterexample"]
+- "hypothetical_examples": optional model-proposed examples used only to clarify a definition;
+  use [] when unnecessary and never place these ids or descriptions in observed evidence fields
+- "evidence_summary": concise explanation grounded in those artifacts
+- "source_provisional_codes": names of independent provisional codes supporting this entry
+- "parent_code_id": another returned code id, or null. A parent referenced here must be
+  supported by at least two returned child codes and must satisfy the parent-abstraction check.
+
+Do not output markdown.

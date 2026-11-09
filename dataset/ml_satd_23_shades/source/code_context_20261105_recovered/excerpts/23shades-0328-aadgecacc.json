@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0328-aadgecacc",
+  "revision_url": "https://github.com/NLPatVCU/medaCy/commit/5be19816b063ad9663f01fd1ecb240f1387a6082",
+  "filename": "medacy/pipeline_components/feature_overlayers/metamap/metamap_all_types_component.py",
+  "commit": "5be19816b063ad9663f01fd1ecb240f1387a6082",
+  "source_url": "https://raw.githubusercontent.com/NLPatVCU/medaCy/5be19816b063ad9663f01fd1ecb240f1387a6082/medacy/pipeline_components/feature_overlayers/metamap/metamap_all_types_component.py",
+  "fetched_at": "2026-11-05T06:12:34.502972+00:00",
+  "source_sha256": "11d40893b1d34b50136b5be80e06b3311dd890db01eb919cf0b9dcc246be56f2",
+  "line_start": 59,
+  "line_end": 83,
+  "excerpt": "        elif os.path.isfile(doc._.file_name):\n            # Check if pre-metamapped file exists at expected location\n            txt_file_path = doc._.file_name\n            metamapped_path = _get_metamapped_path(txt_file_path)\n            if not os.path.isfile(metamapped_path):\n                warnings.warn(\n                    f\"No metamapped file was found for '{txt_file_path}'; attempting to run MetaMap over document (results in slower runtime); ensure MetaMap is running\")\n                metamap_json = self.metamap.map_text(str(doc))\n            else:\n                # This branch of the decision tree is reached if the file is already metamapped\n                metamap_json = self.metamap.load(metamapped_path)\n\n        # TODO refactor second part of if statement when implementing live model prediction\n        if metamap_json == '' or metamap_json['metamap'] is None:\n            if hasattr(doc._, 'file_name'):\n                warnings.warn(f\"MetaMap produced no output for given file: {doc._.file_name}\")\n            warnings.warn(\"MetaMap failed\")\n            return doc\n\n        mapped_terms = self.metamap.extract_mapped_terms(metamap_json)  # parse terms out of mappings dictionary\n\n        spans = []  # for displaying NER output with displacy\n\n        # Get all the semantic types in this input that haven't been seen yet\n        # Note that the regular expression uses single quotes instead of double quotes because"
+}

@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14025",
+  "issue_url": "https://github.com/strangerstudios/paid-memberships-pro/issues/530",
+  "source_issue_url": "https://github.com/strangerstudios/paid-memberships-pro/issues/530",
+  "api_url": "https://api.github.com/repos/strangerstudios/paid-memberships-pro/issues/530",
+  "title": "Save TOS accepted date somewhere.",
+  "body": "Something like this:\r\nhttps://gist.github.com/strangerstudios/9331183\r\n\r\nThink about saving to order notes instead and/or save to user meta in a data structure that saves each time they check the TOS box.\r\n\r\narray(\r\n  array('date'=>$timestamp, 'ip'=>$remote_addr, 'order_id'=>$order_id),\r\n  ...\r\n)\r\n",
+  "author": "Participant 1",
+  "created_at": "2017-10-03T15:17:07Z",
+  "updated_at": "2021-04-05T17:59:44Z",
+  "state": "closed",
+  "closed_at": "2021-04-05T17:59:44Z",
+  "issue_fetched_at": "2026-10-18T21:10:34.945496+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T21:10:36.379259+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 334241219,
+      "url": "https://github.com/strangerstudios/paid-memberships-pro/issues/530#issuecomment-334241219",
+      "created_at": "2017-10-04T18:05:49Z",
+      "updated_at": "2017-10-04T18:05:49Z",
+      "author": "Participant 2",
+      "body": "For this to make sense (be applicable as a legally valid means of tracking acceptance of the ToS), it will need to do more than simply track the fact that somebody clicked the checkbox. \r\n\r\nNot a lawyer, but from my corporate days, I recall it also needs to ask for positive confirmation of receipt of the ToS.\r\n\r\nA checkbox isn't enough, it has to be \"signed\" and agreed to, using one of the legally accepted electronic signature options and in the context of the ToS text. Thus it can't use the supplied user email from the email field as a \"signature\". Also can't use IP address either since the IP address is by no means not unique to the user who agreed. \r\n\r\nThen it has to be stored somewhere with a clear audit trail associated with it. \r\n\r\nAdding a timestamp and/or IP address is not going to cut it in a dispute. Not even close, unfortunately."
+    },
+    {
+      "id": 335443659,
+      "url": "https://github.com/strangerstudios/paid-memberships-pro/issues/530#issuecomment-335443659",
+      "created_at": "2017-10-10T11:31:27Z",
+      "updated_at": "2017-10-10T11:34:06Z",
+      "author": "Participant 3",
+      "body": "I've never received a confirmation by clicking agreeing to Terms and Conditions when checking out for a website?\r\n\r\nApparently, it's good enough that with the following (paraphrasing here):\r\n\r\n* The TOS is easily accessible at any time and the user can print it at any time.\r\n* If the user is forced to scroll down to the end of the TOS page before checking out, that's really good too.\r\n\r\nAlso if we store this data to the order upon checkout it should be sufficient though? I mean you're entering details at every checkout.\r\n\r\nMaybe we can include a link in confirmation email if TOS enabled too saying \"Thank you for signing up for your membership level etc. Here is a link to Terms Of Service which you agreed upon by signing up\"."
+    },
+    {
+      "id": 384321703,
+      "url": "https://github.com/strangerstudios/paid-memberships-pro/issues/530#issuecomment-384321703",
+      "created_at": "2018-04-25T15:07:54Z",
+      "updated_at": "2018-04-25T15:07:54Z",
+      "author": "Participant 4",
+      "body": "GDPR discussions have given us reason to revisit this. We need to at the very least track that the TOS was checked at checkout either in the order data or in user meta... with a timestamp and the page that was agreed to.\r\n\r\nIdeally:\r\n* we keep track of every such time that users check the box and submit.\r\n* prompt users to agree again if we don't have data for their checking or the TOS has changed\r\n* allow for other types of agreements besides the TOS"
+    },
+    {
+      "id": 813539496,
+      "url": "https://github.com/strangerstudios/paid-memberships-pro/issues/530#issuecomment-813539496",
+      "created_at": "2021-04-05T17:59:44Z",
+      "updated_at": "2021-04-05T17:59:44Z",
+      "author": "Participant 4",
+      "body": "We now save the date of consent into a user meta option at checkout. But we still need to ask for new consent and update it when the TOS is updated. Following up discussion of that here https://github.com/strangerstudios/paid-memberships-pro/issues/723"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

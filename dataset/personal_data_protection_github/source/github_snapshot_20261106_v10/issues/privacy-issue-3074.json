@@ -1,0 +1,77 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3074",
+  "issue_url": "https://github.com/ustaxcourt/ef-cms/issues/283",
+  "source_issue_url": "https://github.com/ustaxcourt/ef-cms/issues/283",
+  "api_url": "https://api.github.com/repos/ustaxcourt/ef-cms/issues/283",
+  "title": "Ensure user secrets are not logged.",
+  "body": "As the Court, so that we can maintain a secure system, we need to avoid logging information which may allow a log consumer from assuming the role of another user.\r\n\r\nAcceptance criteria\r\n\r\n- JWT tokens are not logged.\r\n- When a user is logged, only [what specifically allowed attributes?] are logged. \r\n- Any data sent outside of AWS, including to services like Honeybadger, does not contain personally identifiable information. \r\n\r\nAlso tracked at Flexion’s Production Prep items: \r\n- [Logging Security - High](https://trello.com/c/99udrlur/582-logging-security-high)\r\n- [HoneyBadger Logging - Low](https://trello.com/c/fTcLbTHu/586-honeybadger-logging-low)",
+  "author": "Participant 1",
+  "created_at": "2020-07-02T14:17:27Z",
+  "updated_at": "2025-10-15T19:51:03Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:20:11.350483+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:20:11.350483+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 665158260,
+      "url": "https://github.com/ustaxcourt/ef-cms/issues/283#issuecomment-665158260",
+      "created_at": "2020-07-28T17:00:14Z",
+      "updated_at": "2020-07-28T17:00:14Z",
+      "author": "Participant 1",
+      "body": "Groom with ustaxcourt/ef-cms-flexion#234. "
+    },
+    {
+      "id": 679290519,
+      "url": "https://github.com/ustaxcourt/ef-cms/issues/283#issuecomment-679290519",
+      "created_at": "2020-08-24T18:24:50Z",
+      "updated_at": "2020-08-24T18:25:40Z",
+      "author": "Participant 1",
+      "body": "We’ll need to clarify what is acceptable to write into logs — including PII, and what kinds. A useful artifact here will be what is acceptable to be written in logs — this should be documented in an accessible place to guide future development. "
+    },
+    {
+      "id": 680182385,
+      "url": "https://github.com/ustaxcourt/ef-cms/issues/283#issuecomment-680182385",
+      "created_at": "2020-08-25T18:00:56Z",
+      "updated_at": "2020-08-25T18:00:56Z",
+      "author": "Participant 1",
+      "body": "This issue will focus on low-hanging fruit, since we’ve already decided to not ship these logs to third parties outside of AWS. "
+    },
+    {
+      "id": 688972701,
+      "url": "https://github.com/ustaxcourt/ef-cms/issues/283#issuecomment-688972701",
+      "created_at": "2020-09-08T15:55:36Z",
+      "updated_at": "2020-09-22T15:16:08Z",
+      "author": "Participant 2",
+      "body": "Blocked by [#6408](https://github.com/flexion/ef-cms/issues/6408) in Flexion backlog. "
+    },
+    {
+      "id": 704420615,
+      "url": "https://github.com/ustaxcourt/ef-cms/issues/283#issuecomment-704420615",
+      "created_at": "2020-10-06T17:09:20Z",
+      "updated_at": "2020-10-06T17:12:55Z",
+      "author": "Participant 2",
+      "body": "Pre-MVP, access tokens and header.authorization bearer tokens. For anything else, we'll open a new ticket for post-MVP. "
+    },
+    {
+      "id": 722482479,
+      "url": "https://github.com/ustaxcourt/ef-cms/issues/283#issuecomment-722482479",
+      "created_at": "2020-11-05T16:21:39Z",
+      "updated_at": "2020-11-05T16:21:39Z",
+      "author": "Participant 1",
+      "body": "ustaxcourt/ef-cms-flexion#502 implemented filtering out access tokens and header.authorization bearer tokens, no data is sent to external services like Honeybadger from the Court’s environments. \r\n\r\nhttps://github.com/flexion/ef-cms/issues/6408 also includes some comments about AWS tokens, so that ticket likely includes additional work not captured here. \r\n\r\n> Pre-MVP, access tokens and header.authorization bearer tokens. For anything else, we'll open a new ticket for post-MVP.\r\n\r\nThis ticket is now complete."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/ustaxcourt/ef-cms/issues/283",
+  "closed_at_available": false
+}

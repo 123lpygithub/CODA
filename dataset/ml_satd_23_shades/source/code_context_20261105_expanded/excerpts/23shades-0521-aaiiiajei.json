@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0521-aaiiiajei",
+  "revision_url": "https://github.com/NervanaSystems/neon/commit/fbde68388bf372e53dcb4dd2269e639108590d88",
+  "filename": "neon/backends/nervanagpu.py",
+  "commit": "fbde68388bf372e53dcb4dd2269e639108590d88",
+  "source_url": "https://raw.githubusercontent.com/NervanaSystems/neon/fbde68388bf372e53dcb4dd2269e639108590d88/neon/backends/nervanagpu.py",
+  "fetched_at": "2026-11-05T06:13:07.002019+00:00",
+  "source_sha256": "d09d5d8a45b5599823d1b8f47e490e54c0e2fdfe910c20827cdb7bb5bed90cd8",
+  "line_start": 808,
+  "line_end": 832,
+  "excerpt": "        self.enable_winograd = enable_winograd\n        self.cache_dir = get_cache_dir()\n\n        self.use_pinned_mem = True\n\n    def consume(self, buf_index, hostlist, devlist):\n        assert 0 <= buf_index < 2, 'Can only double buffer'\n        self.ctx.push()\n\n        if devlist[buf_index] is None:\n            devlist[buf_index] = self.empty_like(hostlist[buf_index].T)\n\n        # TODO: do the transpose as a DataLoaderTransformer instead of in host\n        # memory like this\n        devlist[buf_index].set(hostlist[buf_index].T.copy())\n\n        self.ctx.pop()\n\n    def set_hist_buffers(self, hist_bins, hist_offset):\n        if (hist_bins != self.hist_bins or hist_offset != self.hist_offset):\n            self.hist_bins = hist_bins\n            self.hist_offset = hist_offset\n            self.hist_map = dict()\n            self.hist_idx = 0\n            self.hist_max = 4 * 4096"
+}

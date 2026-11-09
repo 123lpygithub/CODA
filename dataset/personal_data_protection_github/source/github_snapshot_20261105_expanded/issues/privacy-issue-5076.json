@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5076",
+  "issue_url": "https://github.com/OpenLiberty/openliberty.io/issues/83",
+  "source_issue_url": "https://github.com/OpenLiberty/openliberty.io/issues/83",
+  "api_url": "https://api.github.com/repos/OpenLiberty/openliberty.io/issues/83",
+  "title": "IP Anonymization in Google Analytics",
+  "body": "Integrate IP anonymization into Google Analytics due to the May 2018 General Data Protection Regulation for the European Union.\r\n\r\nGoogle article on IP anonymization in Google Analytics:\r\nhttps://support.google.com/analytics/answer/2763052?hl=en&ref_topic=2919631\r\n\r\nGoogle Analytics Anonymize IP API documentation:\r\nhttps://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#anonymizeIp",
+  "author": "Participant 1",
+  "created_at": "2017-12-04T18:13:32Z",
+  "updated_at": "2018-01-08T18:01:13Z",
+  "state": "closed",
+  "closed_at": "2018-01-08T18:01:12Z",
+  "issue_fetched_at": "2026-10-19T04:06:10.065629+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T04:06:11.487364+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 355419289,
+      "url": "https://github.com/OpenLiberty/openliberty.io/issues/83#issuecomment-355419289",
+      "created_at": "2018-01-04T22:37:49Z",
+      "updated_at": "2018-01-04T22:37:49Z",
+      "author": "Participant 2",
+      "body": "This is needed for GDPR compliance, with due date 15 Feb, 2018"
+    },
+    {
+      "id": 356044328,
+      "url": "https://github.com/OpenLiberty/openliberty.io/issues/83#issuecomment-356044328",
+      "created_at": "2018-01-08T18:01:13Z",
+      "updated_at": "2018-01-08T18:01:13Z",
+      "author": "Participant 1",
+      "body": "In Google Tag Manager, I have added the Google Analytics `anonymizeIp : true` property.  I verified that the IP anonymization property is enabled by looking for `aip=1` in the google analytics traffic on openliberty.io.\r\n\r\nExample of verification:\r\n1.  Open new tab in Chrome\r\n2.  Enable Chrome debug tools\r\n3.  In tools, open the Network tab\r\n4.  Go to openliberty.io\r\n5.  Filter the network data with the word `analytics`\r\n6.  Observe that the `collect` request has the `aip=1`, meaning IP addresses are anonymized.\r\n\r\n> The IP anonymization parameter looks like this: &aip=1\r\n> src: https://support.google.com/analytics/answer/2763052?hl=en&ref_topic=2919631"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

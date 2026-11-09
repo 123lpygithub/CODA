@@ -1,0 +1,7 @@
+{
+  "url": "https://raw.githubusercontent.com/fastify/fastify/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/request.js",
+  "final_url": "https://raw.githubusercontent.com/fastify/fastify/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/request.js",
+  "text": "'use strict'\n\nconst { emitWarning } = require('./warnings')\n\nfunction Request (id, params, req, query, headers, log, ip, ips, hostname) {\n  this.id = id\n  this.params = params\n  this.raw = req\n  this.query = query\n  this.headers = headers\n  this.log = log\n  this.body = null\n  this.ip = ip\n  this.ips = ips\n  this.hostname = hostname\n}\n\nfunction buildRequest (R) {\n  function _Request (id, params, req, query, headers, log, ip, ips, hostname) {\n    this.id = id\n    this.params = params\n    this.raw = req\n    this.query = query\n    this.headers = headers\n    this.log = log\n    this.body = null\n    this.ip = ip\n    this.ips = ips\n    this.hostname = hostname\n  }\n  _Request.prototype = new R()\n\n  return _Request\n}\n\nObject.defineProperties(Request.prototype, {\n  req: {\n    get () {\n      emitWarning('FSTDEP001')\n      return this.raw\n    }\n  },\n  url: {\n    get () {\n      return this.raw.url\n    }\n  },\n  method: {\n    get () {\n      return this.raw.method\n    }\n  },\n  connection: {\n    get () {\n      return this.raw.connection\n    }\n  }\n})\n\nmodule.exports = Request\nmodule.exports.buildRequest = buildRequest\n",
+  "fetched_at": "2026-11-05T06:21:23.981329+00:00",
+  "sha256": "719f3911237fc02cfd778316743721c031890e46a1129cf5c2e9ff8cdfa6b708"
+}

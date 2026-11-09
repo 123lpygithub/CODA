@@ -1,0 +1,15 @@
+{
+  "fetched_at": "2026-11-05T06:12:53.658648+00:00",
+  "source_sha256": "e89232cb37fc613495595775097539b4dc09be743ebb038716c66f95f92bdf5a",
+  "source_url": "https://raw.githubusercontent.com/Erotemic/netharn/a6562c56cb90a795f50be3ac5dc3989bac913183/netharn/metrics/assignment.py",
+  "artifact_id": "23shades-0429-aaahcadfb",
+  "revision_url": "https://github.com/Erotemic/netharn/commit/a6562c56cb90a795f50be3ac5dc3989bac913183",
+  "filename": "netharn/metrics/assignment.py",
+  "commit": "a6562c56cb90a795f50be3ac5dc3989bac913183",
+  "line_start": 360,
+  "line_end": 384,
+  "excerpt": "    else:\n        unused_y_weight = [1.0] * n\n\n    y_pred_raw.extend([-1] * n)\n    y_pred.extend([-1] * n)\n    y_true.extend(unused_y_true)\n    y_score.extend([0.0] * n)\n    y_iou.extend([-1] * n)\n    y_weight.extend(unused_y_weight)\n    y_pxs.extend([bg_px] * n)\n    y_txs.extend(unused_txs.tolist())\n\n    # TODO:\n    # Can we augment these vectors to balance these false negatives with\n    # implicit false positives?\n\n    BALANCE_FN = True\n    if BALANCE_FN:\n        # balance each false negatives with a false positive\n        # Note: doing this is more correct, but is also more expensive Upweight\n        # these True negative examples to capture the fact that there are\n        # effectively infinite true negatives.\n        w_factor = 10000000\n        y_pred_raw.extend(unused_y_true)\n        y_pred.extend(unused_y_true)",
+  "match_policy": "unique-full-comment-on-added-lines-of-exact-commit",
+  "match_diff_url": "https://github.com/Erotemic/netharn/commit/a6562c56cb90a795f50be3ac5dc3989bac913183.diff",
+  "match_diff_sha256": "918b33a5f4a1484755e775ff167f4e15e8a7865566a7ab317719f8a44fa93565"
+}

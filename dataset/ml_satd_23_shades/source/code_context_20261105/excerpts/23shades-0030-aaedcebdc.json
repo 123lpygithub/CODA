@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0030-aaedcebdc",
+  "revision_url": "https://github.com/microsoft/NimbusML/commit/793739b8ab6b002bfccdbda2bedf6f915ce6125b",
+  "filename": "src/python/nimbusml/pipeline.py",
+  "commit": "793739b8ab6b002bfccdbda2bedf6f915ce6125b",
+  "source_url": "https://raw.githubusercontent.com/microsoft/NimbusML/793739b8ab6b002bfccdbda2bedf6f915ce6125b/src/python/nimbusml/pipeline.py",
+  "fetched_at": "2026-11-05T06:11:43.630280+00:00",
+  "source_sha256": "df38c13d0c9fc8a26016b6ec667ec04a81c07cc5f184779873c92ee01ae3d09e",
+  "line_start": 1842,
+  "line_end": 1866,
+  "excerpt": "        # from ML.NET to Python.\n        # for binary classifiers\n        if 'Probability' in scores.columns:\n            positive_class_probs = \\\n                scores.loc[:, scores.columns == 'Probability'].values\n            negative_class_probs = 1 - positive_class_probs\n            return np.column_stack(\n                (negative_class_probs, positive_class_probs))\n\n        # for multiclass, scores are probabilities\n        pcols = [i for i in scores.columns if i.startswith('Score.')]\n        if len(pcols) > 0:\n            # [todo]: this is a bug, predict_proba should not change\n            # internal state of pipeline.\n            # test check_dict_unchanged() detects that, commenting line\n            # for now\n            # self._add_classes([x.replace('Score.', '') for x in pcols])\n            return scores.loc[:, pcols].values\n\n        raise ValueError(\n            \"Predictor did not generate probabilites.\" +\n            scores.columns)\n\n    @trace\n    def decision_function(self, X, verbose=0, **params):",
+  "match_policy": "unique-release-normalized-v2"
+}

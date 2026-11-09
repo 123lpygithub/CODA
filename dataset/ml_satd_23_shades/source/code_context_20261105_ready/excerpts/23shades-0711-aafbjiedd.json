@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0711-aafbjiedd",
+  "revision_url": "https://github.com/DIVA-DIA/DeepDIVA/commit/d9c48c532ad91cd2b27e6a584aa7d2f5f0bd0385",
+  "filename": "template/runner/process_activation/activation.py",
+  "commit": "d9c48c532ad91cd2b27e6a584aa7d2f5f0bd0385",
+  "source_url": "https://raw.githubusercontent.com/DIVA-DIA/DeepDIVA/d9c48c532ad91cd2b27e6a584aa7d2f5f0bd0385/template/runner/process_activation/activation.py",
+  "fetched_at": "2026-11-05T06:13:41.702061+00:00",
+  "source_sha256": "cd21f355fe785baf73b09a7ee5278a13c76d7e7e89e0afa76a7644a7a9703790",
+  "line_start": 322,
+  "line_end": 346,
+  "excerpt": "\n        if not no_cuda:\n            model = model.module\n\n        for l, layer in enumerate(model.children()):\n            data_input = layer(data_input)\n            layer_dim = data_input.dim()\n\n            layer_name = str(l + 1)\n            store[layer_name] = OrderedDict()\n\n            if not store_filters:\n                store[layer_name]['type'] = str(layer) # TODO: store something cleaner\n                store[layer_name]['dim'] = layer_dim\n                store[layer_name]['size'] = data_input.size()[1]\n\n            if store_filters:\n                numpy_filter = np.array([])\n                store[layer_name]['filters'] = OrderedDict()\n                \n                if layer_dim == 4:\n                    # dimension 1 is for the mini-batch\n                    for f in range(0, data_input.size()[1]):\n                        # mean\n                        fa = data_input[0, f].data.permute(0, 1).cpu().numpy()"
+}

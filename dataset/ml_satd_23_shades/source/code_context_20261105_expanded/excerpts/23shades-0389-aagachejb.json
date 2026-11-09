@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0389-aagachejb",
+  "revision_url": "https://github.com/SimGus/Chatette/commit/edfed6244ffa2d183c9ffb0a5c6b14a5bf57a2e4",
+  "filename": "chatette/refactor_units/generating_item.py",
+  "commit": "edfed6244ffa2d183c9ffb0a5c6b14a5bf57a2e4",
+  "source_url": "https://raw.githubusercontent.com/SimGus/Chatette/edfed6244ffa2d183c9ffb0a5c6b14a5bf57a2e4/chatette/refactor_units/generating_item.py",
+  "fetched_at": "2026-11-05T06:12:43.653501+00:00",
+  "source_sha256": "0eb5d2323acb99d32b5bcd6ef892fb8f5d806f497b2c67268755fd7356a00bd2",
+  "line_start": 118,
+  "line_end": 142,
+  "excerpt": "\n        if len(self._cached_examples) >= max_nb_possibilities:\n            return sample(self._cached_examples, nb_possibilities)\n        if nb_possibilities < float(max_nb_possibilities) / 5.0:  # QUESTION: is 5 a good idea?\n            return self._generate_n_strategy(nb_possibilities)\n        return sample_indulgent(self.generate_all(), nb_possibilities)\n    def _generate_n_strategy(self, n):\n        \"\"\"\n        Strategy to generate `n` examples without using the cache.\n        Returns the list of generated examples.\n        @pre: `n` <= `self.get_max_nb_possibilities()`\n        \"\"\"\n        # TODO wouldn't it be better with a set rather than a list?\n        generated_examples = []\n        loop_count = 0\n        while len(generated_examples) < n:\n            current_ex = self.generate_random()\n            add_example_no_dup(generated_examples, current_ex)\n            loop_count += 1\n            if loop_count > 10*n:  # QUESTION is that a good idea?\n                break\n        return generated_examples\n\n    # @abstractmethod\n    # def short_description(self):"
+}

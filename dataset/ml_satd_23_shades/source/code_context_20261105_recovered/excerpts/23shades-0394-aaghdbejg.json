@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0394-aaghdbejg",
+  "revision_url": "https://github.com/jhu-lcsr/costar_plan/commit/3f4f40fc3ce014154fc8c6a4be2bfe23d1289074",
+  "filename": "costar_google_brainrobotdata/grasp_metrics.py",
+  "commit": "3f4f40fc3ce014154fc8c6a4be2bfe23d1289074",
+  "source_url": "https://raw.githubusercontent.com/jhu-lcsr/costar_plan/3f4f40fc3ce014154fc8c6a4be2bfe23d1289074/costar_google_brainrobotdata/grasp_metrics.py",
+  "fetched_at": "2026-11-05T06:12:44.793501+00:00",
+  "source_sha256": "3959ff2dcb9606ce6b933c6e4a3cbb2e0cb06aab227166db57d03aab5d6b123b",
+  "line_start": 803,
+  "line_end": 827,
+  "excerpt": "def encode_xyz_qxyzw_to_xyz_aaxyz_nsc(xyz_qxyzw, rescale_meters=4, random_augmentation=False):\n    \"\"\" Encode a translation + quaternion pose to an encoded xyz, axis, and an angle as sin(theta) cos(theta)\n    \"\"\"\n    xyz = (xyz_qxyzw[:3] / rescale_meters) + 0.5\n    # print('xyz: ' + str(xyz))\n    rotation = Quaternion(xyz_qxyzw[3:])\n    # pose augmentation with no feedback or correspondingly adjusted transform poses\n    if random_augmentation:\n        # random rotation change\n        random = Quaternion.random()\n        # only take rotations less than 5 degrees\n        while random.angle() > np.pi / 36.:\n            # TODO(ahundt) make more efficient\n            random = Quaternion.random()\n        rotation = rotation * random\n        # random translation change of up to 0.5 cm\n        random = (np.random.random(3) - 0.5) / 10.\n        xyz = xyz + random\n\n    aaxyz_theta = rotation_to_xyz_theta(rotation)\n    # encode the unit axis vector into the [0,1] range\n    aaxyz = aaxyz_theta[:-1] / 2 + 0.5\n    nsc = encode_theta(aaxyz_theta[-1])\n    # print('nsc: ' + str(nsc))\n    xyz_aaxyz_nsc = np.concatenate([xyz, aaxyz, nsc], axis=-1)"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0515-aaegihjhc",
+  "revision_url": "https://github.com/chartbeat-labs/textacy/commit/01f423d807911dc93b419d4386e3a1b3b6f9be9c",
+  "filename": "textacy/resources/concept_net.py",
+  "commit": "01f423d807911dc93b419d4386e3a1b3b6f9be9c",
+  "source_url": "https://raw.githubusercontent.com/chartbeat-labs/textacy/01f423d807911dc93b419d4386e3a1b3b6f9be9c/textacy/resources/concept_net.py",
+  "fetched_at": "2026-11-05T06:13:05.736251+00:00",
+  "source_sha256": "3479012b0478237375a740ad3806b4826e5979fd391149a90791dd8d9b4b2354",
+  "line_start": 100,
+  "line_end": 124,
+  "excerpt": "                \"preparing data for '%s' relation; this may take a while...\", relation)\n            rows = io.read_csv(self.filepath, delimiter=\"\\t\", quoting=1)\n            with tqdm() as pbar:\n                for row in rows:\n                    pbar.update(1)\n                    _, rel_type, start_uri, end_uri, _ = row\n                    if rel_type < relation:\n                        continue\n                    elif rel_type > relation:\n                        break\n                    start_lang, start_term, start_sense = _parse_concept_uri(start_uri)\n                    end_lang, end_term, end_sense = _parse_concept_uri(end_uri)\n                    # TODO: determine if requiring same sense is too string, i.e.\n                    # start_sense == end_sense ?\n                    if start_lang == end_lang and start_term != end_term:\n                        rel_data[start_lang][start_term][start_sense].add(end_term)\n                        if is_symmetric:\n                            rel_data[start_lang][end_term][end_sense].add(start_term)\n            # make relation data json-able (i.e. cast set => list)\n            for terms in rel_data.values():\n                for senses in terms.values():\n                    for sense, rel_terms in senses.items():\n                        senses[sense] = list(rel_terms)\n            LOGGER.info(\"saving data for '%s' relation to %s\", relation, rel_fpath)\n            io.write_json(rel_data, rel_fpath, mode=\"wt\", encoding=\"utf-8\")",
+  "match_policy": "unique-release-normalized-v2"
+}

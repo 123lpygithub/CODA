@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0544-aaedabagi",
+  "revision_url": "https://github.com/naver/claf/commit/d9685792cfa23ae5bfbe82f3df8e3e65e12c8175",
+  "filename": "claf/machine/open_qa.py",
+  "commit": "d9685792cfa23ae5bfbe82f3df8e3e65e12c8175",
+  "source_url": "https://raw.githubusercontent.com/naver/claf/d9685792cfa23ae5bfbe82f3df8e3e65e12c8175/claf/machine/open_qa.py",
+  "fetched_at": "2026-11-05T06:13:09.890675+00:00",
+  "source_sha256": "3b6a3b3e17a152e15162cc2a3cb4418f16f7760f8c270aef545e90a9f804a3bd",
+  "line_start": 47,
+  "line_end": 71,
+  "excerpt": "        # Reasoning\n        # - Document Retrieval\n        # - Reading Comprehension Experiment\n        reasoning_config = self.config.reasoning\n\n        self.document_retrieval = self._load_document_retrieval(\n            reasoning_config.document_retrieval, tokenizers[\"word\"], basename=doc_name\n        )\n        self.rc_experiment = self.make_module(reasoning_config.reading_comprehension)\n        print(\"Ready ..! \\n\")\n\n    def _load_knowledge_base(self, config):\n        docs = read_wiki_articles(config.wiki)  # TODO: fix read whole wiki\n        doc_name = f\"{os.path.basename(config.wiki)}-{len(docs)}-articles\"\n        return docs, doc_name\n\n    def _load_document_retrieval(self, config, word_tokenizer, basename=\"docs\"):\n        dir_path = f\"doc-{config.type}-{config.name}-{word_tokenizer.cache_name}\"\n        doc_retrieval_path = os.path.join(dir_path, basename)\n\n        config.params = {\n            \"texts\": [doc.title for doc in self.docs],\n            \"word_tokenizer\": word_tokenizer,\n        }\n        document_retrieval = self.make_module(config)"
+}

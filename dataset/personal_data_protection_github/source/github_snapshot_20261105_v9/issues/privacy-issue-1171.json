@@ -1,0 +1,178 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-1171",
+  "issue_url": "https://github.com/sveltejs/kit/issues/8182",
+  "source_issue_url": "https://github.com/sveltejs/kit/issues/8182",
+  "api_url": "https://api.github.com/repos/sveltejs/kit/issues/8182",
+  "title": "kit.svelte.dev is not GDPR compliant",
+  "body": "### Describe the bug\n\n`kit.svelte.dev` is not complying to the [General Data Protection Regulation](https://gdpr-info.eu/) (GDPR), and if someone in Europe files a complaint, the Svelte team will have to deal with fines [\"up to $11.03 million or two percent of the company's annual revenue, whichever is greater.\"](https://www.spirion.com/blog/gdpr-fines-increase/#:~:text=A%20lower%2Dlevel%20GDPR%20violation,annual%20revenue%2C%20whichever%20is%20greater.)\n\n### Reproduction\n\n1. Go to https://kit.svelte.dev\r\n2. Scroll down to \"deploy anywhere.\"\r\n3. Depending on your location, you will see your exact location on the globe; that part of the website violates [GDPR Article 7](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679&from=FR#d1e2001-1-1) because the server uses geolocation data without the user's consent.\r\n   https://github.com/sveltejs/kit/blob/3f7af7ac72e390ffa1f59d780a41e5cf71dff852/sites/kit.svelte.dev/src/routes/edge.svg/%2Bserver.js#L123-L126\r\n\r\nHere is the result on my screen:\r\n\r\n![image](https://user-images.githubusercontent.com/104603218/207915427-eef01f16-4ced-44a9-8d1c-c6f158caee43.png)\r\n\n\n### Logs\n\n```Shell\nN/A\n```\n\n\n### System Info\n\n```Shell\nN/A\n```\n\n\n### Severity\n\nannoyance\n\n### Additional Information\n\n*(the above dropdown was left as is due to it being inapplicable to this type of issue)*\r\n\r\nI am sorry to be the bad cop here, especially after SvelteKit reaching v1. However, although I am not residing in Europe, it was necessary for me to report the issue, so the Svelte team, and possibly Vercel, could re-assess its best practices regarding user privacy. About a few months ago, I ran into an issue on Angular's issue tracker about [GDPR noncompliance](https://github.com/angular/angular/issues/45541), and [I said the following](https://github.com/angular/angular/issues/45541#issuecomment-1272337147) to try to stir up a faster response there after months of relative inactivity:\r\n\r\n> What is the explanation for this? Why is the [angular] team not responding to something that involves potential litigation? Just because Angular is a Google project does not mean Google's analytics can be used without consent.\r\n\r\nThe same thing applies here. Just because the SvelteKit website runs on Vercel does not mean it can use Vercel's geolocation APIs without consent.",
+  "author": "Participant 1",
+  "created_at": "2022-12-15T16:33:02Z",
+  "updated_at": "2022-12-17T01:21:10Z",
+  "state": "closed",
+  "closed_at": "2022-12-17T01:21:10Z",
+  "issue_fetched_at": "2026-10-18T16:11:15.025752+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T16:11:16.393236+00:00"
+  ],
+  "expected_comment_count": 19,
+  "retrieved_comment_count": 19,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1353377397,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1353377397",
+      "created_at": "2022-12-15T16:42:40Z",
+      "updated_at": "2022-12-15T16:50:57Z",
+      "author": "Participant 2",
+      "body": "The data is not stored anywhere, it's also not shared anywhere, it's already present without us having to do anything specifically like \"give me the IP address\", and it's only based on the IP address, not specific geolocation data. Does GDPR still apply in this situation then?"
+    },
+    {
+      "id": 1353415786,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1353415786",
+      "created_at": "2022-12-15T17:08:23Z",
+      "updated_at": "2022-12-15T17:08:23Z",
+      "author": "Participant 3",
+      "body": "The SvelteKit website does not come remotely close to violating GDPR, which applies to user data being \"processed\" (stored, sent, erased). Nothing is being processed here."
+    },
+    {
+      "id": 1353424707,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1353424707",
+      "created_at": "2022-12-15T17:14:00Z",
+      "updated_at": "2022-12-16T01:17:09Z",
+      "author": "Participant 1",
+      "body": "This [LinkedIn Pulse article](https://www.linkedin.com/pulse/data-transit-potential-gap-business-gdpr-compliance-paul-rosenthal) does say that sensitive data should be protected (even after using SSL/TLS) in transit, and, based on my own intuition, not doing so can leave a connection vulnerable to man-in-the middle attacks that could trigger a GDPR violation complaint from the affected parties or the EU itself."
+    },
+    {
+      "id": 1353468478,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1353468478",
+      "created_at": "2022-12-15T17:39:28Z",
+      "updated_at": "2022-12-15T17:39:28Z",
+      "author": "Participant 4",
+      "body": "I'm watching this closely because the GDPR is very complicated to understand details like this 🤔"
+    },
+    {
+      "id": 1353549249,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1353549249",
+      "created_at": "2022-12-15T18:45:16Z",
+      "updated_at": "2022-12-15T18:45:16Z",
+      "author": "Participant 5",
+      "body": "It's not being saved or used by svelte. Just showing it to you."
+    },
+    {
+      "id": 1353554642,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1353554642",
+      "created_at": "2022-12-15T18:50:19Z",
+      "updated_at": "2022-12-15T18:54:33Z",
+      "author": "Participant 6",
+      "body": "@IRod22 are you an EU lawyer with GDPR background? \r\nBecause I am and your legal analysis seems really extremely strict and extensive  and contrary to judiciary practice here in EU. "
+    },
+    {
+      "id": 1353624124,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1353624124",
+      "created_at": "2022-12-15T19:47:27Z",
+      "updated_at": "2022-12-15T19:47:27Z",
+      "author": "Participant 7",
+      "body": "Talking about getting geo location data, In my mind I thought it was using the browsers GeoLocation, but it's not, it's actually using Vercel's Edge Function Features... \r\n\r\nhttps://vercel.com/docs/concepts/edge-network/headers#x-vercel-ip-longitude\r\n\r\nThis means that kit.svelte.dev used vercel's features to track my location but vercel did not ask for permission for tracking my location.\r\n\r\nGDPR Article 7 Talks about `Conditions for consent` \r\n\r\n_(Take note of the word `processing`,  `data subject` and `personal data`)_\r\n\r\n> 1.   Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data.\r\n> 2.   If the data subject's consent is given in the context of a written declaration which also concerns other matters, the request for consent shall be presented in a manner which is clearly distinguishable from the other matters, in an intelligible and easily accessible form, using clear and plain language. Any part of such a declaration which constitutes an infringement of this Regulation shall not be binding.\r\n> 3.   The data subject shall have the right to withdraw his or her consent at any time. The withdrawal of consent shall not affect the lawfulness of processing based on consent before its withdrawal. Prior to giving consent, the data subject shall be informed thereof. It shall be as easy to withdraw as to give consent.\r\n> 4.   When assessing whether consent is freely given, utmost account shall be taken of whether, inter alia, the performance of a contract, including the provision of a service, is conditional on consent to the processing of personal data that is not necessary for the performance of that contract.\r\n\r\n\r\nImportant Definitions\r\n\r\n> ‘processing’ means any operation or set of operations which is performed on personal data or on sets of personal data, whether or not by automated means, such as collection, recording, organisation, structuring, storage, adaptation or alteration, retrieval, consultation, use, disclosure by transmission, dissemination or otherwise making available, alignment or combination, restriction, erasure or destruction;\r\n> ‘personal data’ means any information relating to an identified or identifiable natural person (‘data subject’); an identifiable natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data, an online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person;\r\n> ‘consent’ of the data subject means any freely given, specific, informed and unambiguous indication of the data subject's wishes by which he or she, by a statement or by a clear affirmative action, signifies agreement to the processing of personal data relating to him or her;\r\n\r\nBased on what I have read and understand, I could say that this issue does have it's reasons...."
+    },
+    {
+      "id": 1353663284,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1353663284",
+      "created_at": "2022-12-15T20:22:29Z",
+      "updated_at": "2022-12-15T20:22:29Z",
+      "author": "Participant 1",
+      "body": "@kvetoslavnovak, @524c, @yob-yob:\r\n\r\nI am not a lawyer, but I am thinking very strict because the implications of a GDPR violation are huge for an open source community even though it is supported by a relatively big company like Vercel.\r\n\r\n---\r\n\r\nAlso, I agree that the GDPR is hard to understand certain details, so for that reason, I think we need to take immediate action. I think the `/edge.svg` route needs to be rewritten to use an external API (such as getting a map of all CDNs for example) or be taken offline and replace the consuming component's code with pre-written SVG. Either way, immediate action needs to be taken because due to how quickly the v1 announcement can spread, the chances of a violation ***will*** increase."
+    },
+    {
+      "id": 1353669676,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1353669676",
+      "created_at": "2022-12-15T20:28:46Z",
+      "updated_at": "2022-12-15T20:28:46Z",
+      "author": "Participant 2",
+      "body": "Vercel doesn't have your geo location, it has a broad approximation of it based on your IP address, probably using general accessible IP-to-location databases. And without your IP no web server could respond to your requests."
+    },
+    {
+      "id": 1353696563,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1353696563",
+      "created_at": "2022-12-15T20:54:59Z",
+      "updated_at": "2022-12-15T20:54:59Z",
+      "author": "Participant 1",
+      "body": "@dummdidumm you are correct about using the IP address; however, some people may disagree with the additional processing because, in the case of the edge API, just knowing what city the user is in could definitely scare the user into thinking that the website knows their exact location. I do not think Vercel is that transparent about *how* IP addresses are processed either."
+    },
+    {
+      "id": 1353935802,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1353935802",
+      "created_at": "2022-12-16T00:21:14Z",
+      "updated_at": "2022-12-16T00:21:14Z",
+      "author": "Participant 8",
+      "body": "See `Lawfulness of processing` https://gdpr-info.eu/art-6-gdpr/ \r\n\r\n```\r\n(f) processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject\r\n```\r\n\r\nIt is commonly admitted that \"the biggest city near you\" isn't enough to identify anyone thus won't override any interest or right. "
+    },
+    {
+      "id": 1354038218,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1354038218",
+      "created_at": "2022-12-16T01:11:52Z",
+      "updated_at": "2022-12-16T01:14:59Z",
+      "author": "Participant 1",
+      "body": "I think we need a vote and some assistance from the community because we are getting two different answers from two different articles of the GDPR.\r\n\r\n---\r\n\r\n*(edited)*\r\n\r\n- Those who react with a :+1: are saying that the SvelteKit website is GDPR compliant.\r\n- Those who react with a :-1: are saying that the SvelteKit website is *not* GDPR compliant.\r\n- Those who react with a :confused: are saying that they are unsure whether the SvelteKit website is GDPR compliant or not.\r\n- Those who do not react a :+1:, :-1:, or :confused: are not participating.\r\n\r\nVotes will be collected at 2:30 AM UTC (8:30 PM CST). If anyone has additional info from the GDPR or legal experience, please tell us about it in the comments, so voters are better informed."
+    },
+    {
+      "id": 1354052020,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1354052020",
+      "created_at": "2022-12-16T01:31:25Z",
+      "updated_at": "2022-12-16T01:31:25Z",
+      "author": "Participant 4",
+      "body": "> @kvetoslavnovak, @524c, @yob-yob:\r\n> \r\n> I am not a lawyer, but I am thinking very strict because the implications of a GDPR violation are huge for an open source community even though it is supported by a relatively big company like Vercel.\r\n> \r\n> Also, I agree that the GDPR is hard to understand certain details, so for that reason, I think we need to take immediate action. I think the `/edge.svg` route needs to be rewritten to use an external API (such as getting a map of all CDNs for example) or be taken offline and replace the consuming component's code with pre-written SVG. Either way, immediate action needs to be taken because due to how quickly the v1 announcement can spread, the chances of a violation _**will**_ increase.\r\n\r\nLook, I just commented out of curiosity on the subject, but my opinion on this has no relevance. I'm sure the maintainers will know how to address the matter if they deem it necessary."
+    },
+    {
+      "id": 1355442724,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1355442724",
+      "created_at": "2022-12-16T19:03:52Z",
+      "updated_at": "2022-12-16T19:23:52Z",
+      "author": "Participant 6",
+      "body": "- `x-vercel-ip` clearly uses **only** Vercel edge server location data\r\n- data refer to a general location where Vercel edge server is located and not the location of the user him/herself\r\n- there is no processing of Vercel edge server location data (storing., sending) hence these data are not even possible to be erased from somewhere\r\n- the data about Vercel edge server location are only sent to the user in common https response communication\r\n- there is no usage of user`s browser geo-location data\r\n- there is  no usage of user`s IP address\r\n\r\n```Vercel edge server location  != user`s geo-location data or IP address```\r\n\r\nQuite appropriate analogy is a ZIP code of your city area used by post services vs.  an address of your street, building and flat number. And the ZIP code is even more detail compared to Vercel edge location.\r\n\r\nLike saying that `Date.prototype.toLocaleDateString()` method violates GDPR or server rendering the dark theme according to `window.matchMedia('prefers-color-scheme: dark');`.\r\n\r\nIf you for example are aware of the (in)famous German Google Fonts case, the problem was not the IP addresses being sent to Google Fonts service either so much as  Google storing  these IP addresses."
+    },
+    {
+      "id": 1355692778,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1355692778",
+      "created_at": "2022-12-16T21:54:15Z",
+      "updated_at": "2022-12-16T21:54:15Z",
+      "author": "Participant 1",
+      "body": "Everyone, I just got the results of a GDPR scan with [Sovy](https://www.sovy.com/gdpr-scan/), and the [report](https://hub.sovy.com/gdpr-scan/?siteid=bd1a897b-eb16-41a7-8567-3f45058afae3) is not pretty. Essentially, where 100% is fully compliant, the SvelteKit website got a 10% score because it violated 9 parts of the GDPR, and a few of those involve what is being discussed here.\r\n\r\n*(Note that the report will expire in **three** weeks)*"
+    },
+    {
+      "id": 1355725935,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1355725935",
+      "created_at": "2022-12-16T22:24:44Z",
+      "updated_at": "2022-12-16T22:24:44Z",
+      "author": "Participant 9",
+      "body": "Ohoh, it looks like Google is going to be in big trouble too.\r\nhttps://hub.sovy.com/gdpr-scan/?siteid=9daa1e4e-f785-4e36-8c8a-9e584b4f2084"
+    },
+    {
+      "id": 1355813228,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1355813228",
+      "created_at": "2022-12-16T23:29:06Z",
+      "updated_at": "2022-12-16T23:29:06Z",
+      "author": "Participant 10",
+      "body": "I ran this tool against their own website. Only 30%... :(\r\nhttps://hub.sovy.com/gdpr-scan/?siteid=4cf6d97f-b37b-4813-9943-1f5fa337616a\r\nI think maybe they could hire a company that offers GDPR help, like maybe https://www.sovy.com/?"
+    },
+    {
+      "id": 1355851164,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1355851164",
+      "created_at": "2022-12-17T00:03:49Z",
+      "updated_at": "2022-12-17T00:03:49Z",
+      "author": "Participant 11",
+      "body": "This guy is probably just trolling or trying to sell something haha. I mean this information can't even be used to personally identify someone so it doesn't even come under GDPR even if it was stored as it isn't even 100% accurate to where someone is."
+    },
+    {
+      "id": 1355907274,
+      "url": "https://github.com/sveltejs/kit/issues/8182#issuecomment-1355907274",
+      "created_at": "2022-12-17T01:21:10Z",
+      "updated_at": "2022-12-17T01:21:10Z",
+      "author": "Participant 1",
+      "body": "I'm closing this issue."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

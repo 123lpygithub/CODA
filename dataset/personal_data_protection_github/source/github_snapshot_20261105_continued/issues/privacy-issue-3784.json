@@ -1,0 +1,37 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3784",
+  "issue_url": "https://github.com/joomla/joomla-cms/issues/22977",
+  "source_issue_url": "https://github.com/joomla/joomla-cms/issues/22977",
+  "api_url": "https://api.github.com/repos/joomla/joomla-cms/issues/22977",
+  "title": "GDPR violation: can edit user profile without providing consent",
+  "body": "### Steps to reproduce the issue\r\n\r\n* Enable the System - Privacy Consent plugin\r\n* Log in to the frontend of the site as a user who has not yet provided consent\r\n* You are redirected to the profile edit page\r\n* Change any field but do NOT touch the consent (Privacy Policy) - leave it to No\r\n* Click on Save\r\n\r\n### Expected result\r\n\r\nNothing is saved because I have not provided my consent.\r\n\r\n### Actual result\r\n\r\nChanges are saved, including in third party plugin fields which ask for personally identifiable information such as phone numbers, addresses etc. This is a direct violation of the GDPR. You are storing my personally identifiable information with me having explicitly declined my consent!\r\n\r\n### System information (as much as possible)\r\n\r\nJoomla! 3.9.0. Everything else is absolutely irrelevant.\r\n\r\n### Additional comments\r\n\r\nObviously you could say that com_users should not save anything unless the Privacy Policy field is submitted and is set to Yes. There are some gotchas, both architectural and UX.\r\n\r\nThe only _reasonable_ way to fix it is to implement a captive login for consent using its own, special view in com_users which is the only view accessible without providing consent.",
+  "author": "Participant 1",
+  "created_at": "2018-11-09T12:08:05Z",
+  "updated_at": "2018-11-09T12:13:33Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:25.806679+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:25.806679+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 437342334,
+      "url": "https://github.com/joomla/joomla-cms/issues/22977#issuecomment-437342334",
+      "created_at": "2018-11-09T12:13:33Z",
+      "updated_at": "2018-11-09T12:13:33Z",
+      "author": "Participant 1",
+      "body": "Oh, nevermind. It's just the weird way you are handling the session. Changes to the fields are stored in the session, not in the database. Still, it's very confusing and it got me. \r\n\r\nAlso, the first time I saw that page I couldn't understand what I'm supposed to do -- the field is lost in a sea of profile options. I still maintain that a captive login with a special view guiding the user to do one specific action is best but, hey, it's your software and your UX (or lack thereof). I have already a workaround for my site to prevent confusing my users so all is good as far as I'm concerned."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/joomla/joomla-cms/issues/22977",
+  "closed_at_available": false
+}

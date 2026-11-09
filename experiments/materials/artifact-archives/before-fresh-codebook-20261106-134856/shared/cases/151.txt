@@ -1,0 +1,47 @@
+CASE 151
+SOURCE ERROR IDS 151, 152
+TASK DESCRIPTION
+from typing import List, Tuple
+
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    """ From a given list of integers, generate a list of rolling maximum element found until given moment
+    in the sequence.
+    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
+    [1, 2, 3, 3, 3, 4, 4]
+    """
+
+GENERATED CODE
+from typing import List, Tuple
+
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    """ From a given list of integers, generate a list of rolling maximum element found until given moment
+    in the sequence.
+    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
+    [1, 2, 3, 3, 3, 4, 4]
+    """
+    rolling_max_list = []
+    rolling_max_index = 0
+    rolling_max_value = 0
+    for number in numbers:
+        if number > rolling_max_value:
+            rolling_max_value = number
+            rolling_max_index = rolling_max_index + 1
+        if rolling_max_index == len(numbers):
+            rolling_max_list.append(rolling_max_value)
+            rolling_max_value = 0
+            rolling_max_index = 0
+    return rolling_max_list
+
+REFERENCE CODE
+from typing import List, Tuple
+
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    """ From a given list of integers, generate a list of rolling maximum element found until given moment
+    in the sequence.
+    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
+    [1, 2, 3, 3, 3, 4, 4]
+    """
+    return [max(numbers[:(i+1)]) for i in range(len(numbers))]

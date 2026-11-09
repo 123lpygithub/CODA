@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0743-aahgffjcf",
+  "revision_url": "https://github.com/PetrochukM/PyTorch-NLP/commit/0cdbcfbe4a5508e902d60152001b29fb0f331fe4",
+  "filename": "lib/checkpoint.py",
+  "commit": "0cdbcfbe4a5508e902d60152001b29fb0f331fe4",
+  "source_url": "https://raw.githubusercontent.com/PetrochukM/PyTorch-NLP/0cdbcfbe4a5508e902d60152001b29fb0f331fe4/lib/checkpoint.py",
+  "fetched_at": "2026-11-05T06:13:46.296171+00:00",
+  "source_sha256": "92f32e464a0ae7f2a8188d2a409e630e6010318326394ef654202b3f72670b43",
+  "line_start": 29,
+  "line_end": 53,
+  "excerpt": "\n        # http://pytorch.org/docs/master/torch.html?highlight=torch%20load#torch.load\n        def remap(storage, loc):\n            if 'cuda' in loc and self.device >= 0:\n                return storage.cuda(device=self.device)\n            return storage\n\n        data = torch.load(self.checkpoint_path, map_location=remap, pickle_module=dill)\n        # https://stackoverflow.com/questions/2535917/copy-kwargs-to-self\n        for (k, v) in data.items():\n            setattr(self, k, v)\n\n        # TODO: This should be recusive looking for any module with flatten_parameters\n        if hasattr(self.model, 'flatten_parameters'):\n            self.model.flatten_parameters()  # make RNN parameters contiguous\n\n    @classmethod\n    def recent(cls, log_directory, device=None):\n        \"\"\"\n        Load a checkpoint or returns `None` if log_directory has no checkpoint.\n\n        Args:\n            log_directory (str or None): Lastest checkpoint is loaded from log_directory\n            device (int)\n        \"\"\""
+}

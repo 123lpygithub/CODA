@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0183-aagabbjac",
+  "revision_url": "https://github.com/polyaxon/polyaxon-client/commit/872d901d040155fb53e8f2ae904b3eb5d8fd8250",
+  "filename": "polyaxon_client/project.py",
+  "commit": "872d901d040155fb53e8f2ae904b3eb5d8fd8250",
+  "source_url": "https://raw.githubusercontent.com/polyaxon/polyaxon-client/872d901d040155fb53e8f2ae904b3eb5d8fd8250/polyaxon_client/project.py",
+  "fetched_at": "2026-11-05T06:12:08.142991+00:00",
+  "source_sha256": "84ce94d1cc58cb48909281caf6955bb19fdd88480c7ea6acaba84ec7e0685df1",
+  "line_start": 147,
+  "line_end": 160,
+  "excerpt": "            response = self.get(request_url, params=self.get_page(page=page))\n            projects_dict = response.json()\n            return [ExperimentConfig.from_dict(spec)\n                    for spec in projects_dict.get(\"results\", [])]\n        except PolyaxonException as e:\n            logger.info(\"Error while retrieving projects: {}\".format(e.message))\n            if isinstance(e, AuthenticationError):\n                # exit now since there is nothing we can do without login\n                sys.exit(1)\n            return []\n\n    def add_tensorboard(self, uuid):\n        # TODO\n        pass"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0318-aaejhfaed",
+  "revision_url": "https://github.com/mondejar/ecg-classification/commit/ad7ef2cd12b64034b12a46355fce8a74c36367eb",
+  "filename": "python/basic_fusion.py",
+  "commit": "ad7ef2cd12b64034b12a46355fce8a74c36367eb",
+  "source_url": "https://raw.githubusercontent.com/mondejar/ecg-classification/ad7ef2cd12b64034b12a46355fce8a74c36367eb/python/basic_fusion.py",
+  "fetched_at": "2026-11-05T06:12:33.037107+00:00",
+  "source_sha256": "4450b10f114c0c75241270dd981d183f21b7c9c2c5c1c55cb0aed25ba4561162",
+  "line_start": 37,
+  "line_end": 61,
+  "excerpt": "    prob_ovo_wvl = np.loadtxt(model_wvl)\n    prob_ovo_HOS_myDesc = np.loadtxt(model_HOS_myDesc)\n    \n    # Compute sigmoid of the probs!\n    #prob_ovo_RR_sig         = compute_sig_probs(prob_ovo_RR)\n    #prob_ovo_wvl_sig        = compute_sig_probs(prob_ovo_wvl)\n    #prob_ovo_HOS_myDesc_sig = compute_sig_probs(prob_ovo_HOS_myDesc)\n\n    predict, prob_ovo_RR_sig = voting_ovo(prob_ovo_RR)\n    predict, prob_ovo_wvl_sig = voting_ovo(prob_ovo_wvl)\n    predict, prob_ovo_HOS_myDesc_sig = voting_ovo(prob_ovo_HOS_myDesc)\n\n    # TODO normalice to make sum up to 1?\n\n    # Combine the predictions!\n    print(\"Product Rule\")\n\n    # product rule!\n    probs_prod_rule = np.zeros(prob_ovo_RR_sig.shape)\n    predictions_prod_rule = np.zeros(len(prob_ovo_RR_sig))\n\n    for p in range(len(prob_ovo_RR_sig)):\n        probs_prod_rule[p,:] = prob_ovo_RR_sig[p] * prob_ovo_wvl_sig[p] * prob_ovo_HOS_myDesc_sig[p]\n        predictions_prod_rule[p] = np.argmax(probs_prod_rule[p])\n"
+}

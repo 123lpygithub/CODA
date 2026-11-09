@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0263-aadbfihhc",
+  "revision_url": "https://github.com/xinshuoweng/Xinshuo_PyToolbox/commit/3427695b8c784069ebc80c3e0fd522f8b6e40b15",
+  "filename": "xinshuo_math/python/math_geometry.py",
+  "commit": "3427695b8c784069ebc80c3e0fd522f8b6e40b15",
+  "source_url": "https://raw.githubusercontent.com/xinshuoweng/Xinshuo_PyToolbox/3427695b8c784069ebc80c3e0fd522f8b6e40b15/xinshuo_math/python/math_geometry.py",
+  "fetched_at": "2026-11-05T06:12:25.053300+00:00",
+  "source_sha256": "43117ab9e29d35c64d735fc33ca3a9891f93a797f3bab0ff0ab35a00c75cd2c2",
+  "line_start": 27,
+  "line_end": 51,
+  "excerpt": "    if debug:\n        assert pts1.shape == pts2.shape, 'the shape of two points is not equal'\n        assert is2dptsarray(pts1) and is2dptsarray(pts2), 'the input points are not correct'\n\n    # calculate the distance\n    eculidean_list = np.zeros((pts1.shape[1], ), dtype='float32')\n    num_pts = pts1.shape[1]\n    ave_euclidean = 0\n    for pts_index in xrange(num_pts):\n        pts1_tmp = pts1[:, pts_index]\n        pts2_tmp = pts2[:, pts_index]\n        n = float(pts_index + 1)\n        distance_tmp = math.sqrt((pts1_tmp[0] - pts2_tmp[0])**2 + (pts1_tmp[1] - pts2_tmp[1])**2)               # TODO check the start\n        ave_euclidean = (n-1) / n * ave_euclidean + distance_tmp / n\n        eculidean_list[pts_index] = distance_tmp\n\n    return ave_euclidean, eculidean_list.tolist()\n\n# TODO: check\ndef get_line(pts, slope, debug=True):\n    '''\n    # slope is the angle in degree, this function takes a point and a\n    '''\n    if debug:\n        print('debug mode is on during get_line function. Please turn off after debuging')"
+}

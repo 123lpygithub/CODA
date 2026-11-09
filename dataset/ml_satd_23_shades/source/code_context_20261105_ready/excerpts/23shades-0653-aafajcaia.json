@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0653-aafajcaia",
+  "revision_url": "https://github.com/stephenhky/PyShortTextCategorization/commit/54bd20392b9489be3f0c21e52d06d16e55ac6525",
+  "filename": "shorttext/classifiers/bow/topic/SkLearnClassification.py",
+  "commit": "54bd20392b9489be3f0c21e52d06d16e55ac6525",
+  "source_url": "https://raw.githubusercontent.com/stephenhky/PyShortTextCategorization/54bd20392b9489be3f0c21e52d06d16e55ac6525/shorttext/classifiers/bow/topic/SkLearnClassification.py",
+  "fetched_at": "2026-11-05T06:13:32.518337+00:00",
+  "source_sha256": "650907d3a0e43f474d1a33cbc5546bb4a4bff5cdef04d7ff9f5437ed4d13ef13",
+  "line_start": 142,
+  "line_end": 166,
+  "excerpt": "        \"\"\"\n        self.topicmodeler.loadmodel(nameprefix)\n        self.classifier = joblib.load(nameprefix+'.pkl')\n        self.classlabels = self.topicmodeler.classlabels\n\n    def save_compact_model(self, name):\n        topicmodel_info = self.topicmodeler.get_info()\n        cio.save_compact_model(name, self.savemodel, 'topic_sklearn',\n                               topicmodel_info['suffices']+['.pkl'],\n                               {'classifier': 'topic_skilearn', 'topicmodel': topicmodel_info['classifier']})\n\n    def load_compact_model(self, name):\n        # TODO: refine\n        topicmodel_info = self.topicmodeler.get_info()\n        cio.load_compact_model(name, self.loadmodel, 'topic_sklearn',\n                               {'classifier': 'topic_sklearn', 'topicmodel': None})\n\ndef train_gensim_topicvec_sklearnclassifier(classdict,\n                                            nb_topics,\n                                            sklearn_classifier,\n                                            preprocessor=textpreprocess.standard_text_preprocessor_1(),\n                                            topicmodel_algorithm='lda',\n                                            toweigh=True,\n                                            normalize=True,\n                                            gensim_paramdict={},"
+}

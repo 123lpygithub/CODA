@@ -1,0 +1,237 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-12010",
+  "issue_url": "https://github.com/darktable-org/darktable/issues/13077",
+  "source_issue_url": "https://github.com/darktable-org/darktable/issues/13077",
+  "api_url": "https://api.github.com/repos/darktable-org/darktable/issues/13077",
+  "title": "JXL exporting all metadata",
+  "body": "**Did you buy darktable from an application store ?**\r\nNo, self compile\r\n\r\n\r\n**Describe the bug/issue**\r\nI did a self compile to test JXL (adding the libjxl-devel dependency). Exporting worked, but the metadata was not showing in Geeqie. I used exiftool and the jxl image shows the metadata, so the issue is with Geeqie.\r\n\r\nBut looking at the exiftool I noticed the image had the hierarchical tags. I do not select that in my exports. I exported the same image in jpg format and the exiftool did not have the hierarchical tags. I then turned off all export metadata and exported jpg and jxl formats. The jxl had all the metadata information (develop, EXIF, author, tags), the jpg did not. \r\n\r\n\r\n**To Reproduce**\r\n- In export preferences, turn off all metadata exports.\r\n- Export an image in jxl and jpg.\r\n- Evaluate the images using Exiftool\r\n\r\n\r\n**Expected behavior**\r\nExport metadata per the preference settings\r\n\r\n\r\n**Platform**\r\n_Please fill as much information as possible in the list given below. Please state \"unknown\" where you do not know the answer and remove any sections that are not applicable _\r\n\r\n* darktable version : 4.1.0+1163~g788ffba4a\r\n* OS                : Fedora 37 KDE X11\r\n* Memory            : 16GB\r\n* Graphics card     : Nvidia RTX 3060 12Gb\r\n* Graphics driver   : 520.56.06\r\n* OpenCL installed  : Yes\r\n* OpenCL activated  : Yes\r\n\r\n**Additional context**\r\n\r\nI also noticed an issue with the jpg exporting metadata (when the box is unchecked and EXIF is checked). I will do a separate issue once I investigate it further. \r\n",
+  "author": "Participant 1",
+  "created_at": "2022-12-05T00:46:41Z",
+  "updated_at": "2022-12-09T22:31:08Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:20:15.824790+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:20:15.824790+00:00"
+  ],
+  "expected_comment_count": 38,
+  "retrieved_comment_count": 26,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 1336784103,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1336784103",
+      "created_at": "2022-12-05T05:53:03Z",
+      "updated_at": "2022-12-05T05:53:34Z",
+      "author": "Participant 2",
+      "body": "Unfortunately, it was either this or no metadata ever for AVIF, JPEG XL, and EXR. This is because exiv2 dt usually leverages for other formats does not have write support for these, so their native embedded methods are used regardless of setting.\r\n\r\nNot impossible to fix, but requires some work."
+    },
+    {
+      "id": 1336892874,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1336892874",
+      "created_at": "2022-12-05T07:46:38Z",
+      "updated_at": "2022-12-05T07:46:38Z",
+      "author": "Participant 3",
+      "body": "If this will not be fixed before the release, it should at least be described in the release notes. Metadata can contain sensitive and private information (such as geolocation), so this drawback is quite serious. dt may receive unfavorable user reactions if a warning about this feature is not published."
+    },
+    {
+      "id": 1337037255,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1337037255",
+      "created_at": "2022-12-05T09:42:01Z",
+      "updated_at": "2022-12-05T09:42:01Z",
+      "author": "Participant 2",
+      "body": "Sure, a big warning is for sure warranted because of potential privacy issues. @TurboGit "
+    },
+    {
+      "id": 1337079786,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1337079786",
+      "created_at": "2022-12-05T10:14:09Z",
+      "updated_at": "2022-12-05T10:14:09Z",
+      "author": "Participant 4",
+      "body": "Release notes is not a good place for such notice (well, as the only place). It has to be clearly indicated in the GUI. Or maybe disable metadata export until exiv2 gains support for these formats."
+    },
+    {
+      "id": 1337267398,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1337267398",
+      "created_at": "2022-12-05T12:33:53Z",
+      "updated_at": "2022-12-05T12:33:53Z",
+      "author": "Participant 1",
+      "body": "Hmm, I see the issue. I know that we are close to 4.2, but I don't love the idea of just disabling either. I think the best course of action would be to have a selection in the export module itself:\r\n\r\n- include metadata? (No, per preferences, all)\r\n\r\nFor the formats not supported, we disable the ability to select per preferences. \r\n\r\nAnd yes it does have a minor impact to documentation. "
+    },
+    {
+      "id": 1337450547,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1337450547",
+      "created_at": "2022-12-05T14:19:33Z",
+      "updated_at": "2022-12-05T14:19:33Z",
+      "author": "Participant 4",
+      "body": "I think it's a good idea, because it will also help with discoverability of the metadata preferences dialog (a lot of people miss it completely)."
+    },
+    {
+      "id": 1337477501,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1337477501",
+      "created_at": "2022-12-05T14:34:26Z",
+      "updated_at": "2022-12-05T14:34:26Z",
+      "author": "Participant 2",
+      "body": "> For the formats not supported, we disable the ability to select per preferences.\r\n\r\n[The current export code interface only has `ignore_exif` which is hard-coded to FALSE](https://github.com/darktable-org/darktable/blob/6c13deb2f6b1404f6b3e9e9046b35bbccc31109d/src/common/imageio.c#L712), so that could be maybe re-purposed. But we don't have a way to control XMP writing separately for these other formats, other than to say - if you disable Exif, you won't get XMP either (i.e. all in, or all out)."
+    },
+    {
+      "id": 1339992423,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1339992423",
+      "created_at": "2022-12-06T20:53:13Z",
+      "updated_at": "2022-12-06T20:53:13Z",
+      "author": "Participant 1",
+      "body": "@TurboGit any guidance on how to handle this? let it be for 4.2 with a Known Issue section to the release notes? "
+    },
+    {
+      "id": 1340844286,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1340844286",
+      "created_at": "2022-12-07T11:39:56Z",
+      "updated_at": "2022-12-07T11:39:56Z",
+      "author": "Participant 5",
+      "body": "@kmilos : Do you think it is possible to disable all tags from being exported?\r\n\r\nIf not, I'll add a warning in the release notes for sure and we'll re-discuss this for 4.4.\r\n\r\n"
+    },
+    {
+      "id": 1340845467,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1340845467",
+      "created_at": "2022-12-07T11:41:06Z",
+      "updated_at": "2022-12-07T11:41:06Z",
+      "author": "Participant 2",
+      "body": "Sorry, it's not obvious to me right now, and unfortunately I don't have time to look into it."
+    },
+    {
+      "id": 1340867981,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1340867981",
+      "created_at": "2022-12-07T12:02:53Z",
+      "updated_at": "2022-12-07T12:02:53Z",
+      "author": "Participant 4",
+      "body": "> If not, I'll add a warning in the release notes for sure and we'll re-discuss this for 4.4.\r\n\r\nI want to repeat my opinion, that release notes is not a place for such warning. It has to be clear from the GUI that privacy settings aren't being honored for these formats."
+    },
+    {
+      "id": 1340883933,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1340883933",
+      "created_at": "2022-12-07T12:16:46Z",
+      "updated_at": "2022-12-07T12:16:46Z",
+      "author": "Participant 3",
+      "body": "> I want to repeat my opinion, that release notes is not a place for such warning. It has to be clear from the GUI that privacy settings aren't being honored for these formats.\r\n\r\nI second that. It would be much better for us if the user could not blame us for leaking their private information because we did not properly warn them.\r\n"
+    },
+    {
+      "id": 1340911091,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1340911091",
+      "created_at": "2022-12-07T12:41:43Z",
+      "updated_at": "2022-12-07T12:41:43Z",
+      "author": "Participant 5",
+      "body": "> It has to be clear from the GUI that privacy settings aren't being honored for these formats.\r\n\r\nSadly too late for changing the GUI at this stage or it would have been to be super safe!"
+    },
+    {
+      "id": 1340919314,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1340919314",
+      "created_at": "2022-12-07T12:49:19Z",
+      "updated_at": "2022-12-07T12:49:19Z",
+      "author": "Participant 4",
+      "body": "I'm sorry, but this is a very weak argument. There is a real problem and I'm not comfortable with making a release with such known flaw. The binaries I build for macOS are signed, meaning I bear some responsibility for them. I will consider either postponing the build of macOS DMG packages until this issue is properly fixed, or maybe disabling support for the affected formats in my builds."
+    },
+    {
+      "id": 1340925098,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1340925098",
+      "created_at": "2022-12-07T12:54:36Z",
+      "updated_at": "2022-12-07T12:54:36Z",
+      "author": "Participant 5",
+      "body": "> I'm sorry, but this is a very weak argument.\r\n\r\nOk, so next question who volunteer to do this change? I'm really short in time, full freeze in 7 days."
+    },
+    {
+      "id": 1341553444,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1341553444",
+      "created_at": "2022-12-07T20:30:17Z",
+      "updated_at": "2022-12-07T20:30:17Z",
+      "author": "Participant 2",
+      "body": "@gi-man Can we somehow try to get even more specific than that? What do you mean by \"metadata\"? For example, I see how XMP is disabled, but I don't see how some Exif can be disabled for any format?"
+    },
+    {
+      "id": 1341586652,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1341586652",
+      "created_at": "2022-12-07T20:57:09Z",
+      "updated_at": "2022-12-07T20:57:09Z",
+      "author": "Participant 1",
+      "body": "I see how this can be confusing. By metadata, I mean the fields in the module called metadata editor (eg. Creator, Rights...)\r\n\r\nHere is the exiftool export of the same file in png. First file is with nothing selected in preferences, the second (_01) is only selecting _metadata_ in preferences and the third (_02) is selecting _Exif_ in preferences and the fourth (_03) is selecting both _EXIF_ and _metadata_.\r\n\r\nFull Exiftool:\r\nhttps://pastebin.com/UpP5XQQs\r\n\r\nExiftool -Rights \r\n======== IMG_4733_01.png  Rights : Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)\r\n======== IMG_4733_02.png\r\n======== IMG_4733_03.png  Rights : Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)\r\n======== IMG_4733.png\r\n\r\nExiftool -Creator\r\n======== IMG_4733_01.png Creator                         : Playraw\r\n======== IMG_4733_02.png \r\n======== IMG_4733_03.png Creator                         : Playraw\r\n======== IMG_4733.png\r\n\r\n"
+    },
+    {
+      "id": 1341667209,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1341667209",
+      "created_at": "2022-12-07T22:19:08Z",
+      "updated_at": "2022-12-07T22:20:35Z",
+      "author": "Participant 2",
+      "body": "Thanks. I have now poked some more, and it's messy:\r\n\r\nFirst, all available Exif data is written to file indiscriminately by all format->write_image() methods (using either the native method API or via libexiv2).\r\n\r\nThen, right after, dt_exif_xmp_attatch_export() actually re-writes both filtered Exif and XMP metadata according to export preferences, but only if the format supports writing via libexiv2 (currently JPEG, JPEG 2000, PNG, TIFF, and WebP).\r\n\r\nAs there is no easy way to control the first step in this contorted scheme, we can only indiscrimately skip any metadata for other formats. The first step only potentially controls Exif, but unfortunately not XMP, so it's all in or all out. Quite a bit of refactoring would be needed to fully fix this IMHO."
+    },
+    {
+      "id": 1342312951,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1342312951",
+      "created_at": "2022-12-08T09:11:35Z",
+      "updated_at": "2022-12-08T09:13:53Z",
+      "author": "Participant 2",
+      "body": "I just pushed a potential minimal workaround (all in/all out):\r\n\r\nIf you deselect all metadata export boxes, there will be NO metadata added to AVIF/EXR/JPEG XL.\r\n\r\nBut as soon as you select one, ALL metadata (Exif, XMP) will be added.\r\n\r\nSo there is no fine grain metadata control for these formats (at the moment), but at least there is a way now to exclude any metadata if one is concerned about privacy to not block the release."
+    },
+    {
+      "id": 1342322771,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1342322771",
+      "created_at": "2022-12-08T09:16:25Z",
+      "updated_at": "2022-12-08T09:16:25Z",
+      "author": "Participant 4",
+      "body": "Yeah..., that's not how it should work. Better logic would be if user deselects at least one metadata export box, then no metadata is exported. It's better to withhold more information than less for the privacy. Use-case to have in mind is simple:\r\n1). User doesn't want to expose some private information, let's say location metadata.\r\n2). He de-selects that type of metadata in the export preferences.\r\n3). He expects that exported images don't contain geographic location.\r\n4). If the that type of metadata is still there it's a breach of privacy."
+    },
+    {
+      "id": 1342328367,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1342328367",
+      "created_at": "2022-12-08T09:18:44Z",
+      "updated_at": "2022-12-08T09:18:44Z",
+      "author": "Participant 2",
+      "body": "@parafin Feel free to propose the exact flag formula then at https://github.com/darktable-org/darktable/pull/13100/files#diff-87de7f037e0b9077b2b2185b65385f39f810970578e36a9c49db720af0eb719aR1111"
+    },
+    {
+      "id": 1342356269,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1342356269",
+      "created_at": "2022-12-08T09:31:06Z",
+      "updated_at": "2022-12-08T09:31:06Z",
+      "author": "Participant 4",
+      "body": "Changing DT_META_NONE there to anything else will probably make this logic the same even for formats that do support fine-grained metadata export?\r\nOtherwise I guess you could introduce DT_META_ALL to dt_metadata_id enum with a bitmask of all currently-existing flags and do a flags == DT_META_ALL comparison."
+    },
+    {
+      "id": 1342371735,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1342371735",
+      "created_at": "2022-12-08T09:40:22Z",
+      "updated_at": "2022-12-08T09:49:15Z",
+      "author": "Participant 2",
+      "body": "> Changing DT_META_NONE there to anything else will probably make this logic the same even for formats that do support fine-grained metadata export?\r\n\r\nIndeed, that will potentially create a new problem. I guess we could also check `format->mime` at this point as well..."
+    },
+    {
+      "id": 1342433795,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1342433795",
+      "created_at": "2022-12-08T10:10:42Z",
+      "updated_at": "2022-12-08T10:11:29Z",
+      "author": "Participant 2",
+      "body": "Ok, I have now flipped this to opt-in rather than opt-out for AVIF/EXR/JPEG XL.\r\n\r\nI'm not sure about the \"omit hierarchy\" checkbox though?\r\n\r\n![image](https://user-images.githubusercontent.com/4973094/206419859-40ed9f56-7fc4-44e4-8c65-10b39b4df5f0.png)\r\n"
+    },
+    {
+      "id": 1342468013,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1342468013",
+      "created_at": "2022-12-08T10:20:57Z",
+      "updated_at": "2022-12-08T10:20:57Z",
+      "author": "Participant 6",
+      "body": "C001. Will check ASAP."
+    },
+    {
+      "id": 1344849687,
+      "url": "https://github.com/darktable-org/darktable/issues/13077#issuecomment-1344849687",
+      "created_at": "2022-12-09T22:30:43Z",
+      "updated_at": "2022-12-09T22:30:43Z",
+      "author": "Participant 5",
+      "body": "Fixed."
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/darktable-org/darktable/issues/13077",
+  "closed_at_available": false
+}

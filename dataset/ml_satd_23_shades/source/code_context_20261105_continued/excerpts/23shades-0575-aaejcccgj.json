@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0575-aaejcccgj",
+  "revision_url": "https://github.com/kornia/kornia/commit/7976f384889e79b8f5aef3bc9a3c495961e60db6",
+  "filename": "kornia/filters/blur.py",
+  "commit": "7976f384889e79b8f5aef3bc9a3c495961e60db6",
+  "source_url": "https://raw.githubusercontent.com/kornia/kornia/7976f384889e79b8f5aef3bc9a3c495961e60db6/kornia/filters/blur.py",
+  "fetched_at": "2026-11-05T06:13:14.765806+00:00",
+  "source_sha256": "c1ed8d44e833fcab5eaee09bc0107c7534f3d91fc220561da3fc0f41c71e240d",
+  "line_start": 55,
+  "line_end": 78,
+  "excerpt": "\n    def __repr__(self) -> str:\n        return self.__class__.__name__ +\\\n            '(kernel_size=' + str(self.kernel_size) + ', ' +\\\n            'normalized=' + str(self.normalized) + ', ' + \\\n            'border_type=' + self.border_type + ')'\n\n    def forward(self, input: torch.Tensor):  # type: ignore\n        return kornia.filter2D(input, self.kernel, self.border_type)\n\n\n# functiona api\n# TODO: In terms of functional API, there should not be any initialization of an nn.Module.\n#       This logic is reversed.\n\ndef box_blur(input: torch.Tensor,\n             kernel_size: Tuple[int, int],\n             border_type: str = 'reflect',\n             normalized: bool = True) -> torch.Tensor:\n    r\"\"\"Blurs an image using the box filter.\n\n    See :class:`~kornia.filters.BoxBlur` for details.\n    \"\"\"\n    return BoxBlur(kernel_size, border_type, normalized)(input)",
+  "match_policy": "unique-release-normalized-v2"
+}

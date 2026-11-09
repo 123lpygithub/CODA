@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0330-aaheeahhj",
+  "revision_url": "https://github.com/nltk/nltk/commit/b631c3096c580f51793be947af3d5d71ffde5ccf",
+  "filename": "nltk_lite/contrib/classifier/decisionstump.py",
+  "commit": "b631c3096c580f51793be947af3d5d71ffde5ccf",
+  "source_url": "https://raw.githubusercontent.com/nltk/nltk/b631c3096c580f51793be947af3d5d71ffde5ccf/nltk_lite/contrib/classifier/decisionstump.py",
+  "fetched_at": "2026-11-05T06:12:34.743313+00:00",
+  "source_sha256": "87ecc094777d162e80adf8402fd7766d9e7da362c70b516a17515828da6cc617",
+  "line_start": 10,
+  "line_end": 34,
+  "excerpt": "# This software is distributed under GPL, for license information see LICENSE.TXT\n\nfrom math import log\n\nclass DecisionStump:\n    def __init__(self, attribute, klass):\n        self.attribute = attribute\n        \"\"\"\n        counts is a dictionary in which \n        each key is an attribute value\n        and each value is a dictionary of class frequencies for that attribute value\n        \"\"\"\n        #TODO refactor to use nltk_lite.probability.FreqDist for self.counts\n        self.counts, self.children = {}, {} #it has children only in decision trees\n        self.root = dictionary_of_values(klass)\n        for value in attribute.values:\n            self.counts[value] = dictionary_of_values(klass)\n            \n    def update_count(self, instance):\n        attr_value = instance.value(self.attribute)\n        self.counts[attr_value][instance.klass_value] += 1\n        self.root[instance.klass_value] += 1\n    \n    def error(self):\n        count_for_each_attr_value = self.counts.values()"
+}

@@ -1,0 +1,352 @@
+
+TASK 49 IDs 27
+SPEC
+Return 2^n modulo p (be aware of numerics).
+    >>> modp(3, 5)
+    3
+    >>> modp(1101, 101)
+    2
+    >>> modp(0, 101)
+    1
+    >>> modp(3, 11)
+    8
+    >>> modp(100, 101)
+    1
+REF
+def modp(n: int, p: int):
+    (res, x) = (1, 2)
+    while n != 0:
+        if n % 2 == 1:
+            res = res * x % p
+        x = x * x % p
+        n //= 2
+    return res % p
+CASE 27
+def modp(n: int, p: int):
+    if n == 0:
+        return 1
+    elif n % 2 == 0:
+        return modp(n // 2, p) ** 2 % p
+    else:
+        return modp(n - 1, p) ** 2 * 2 % p
+
+TASK 50 IDs 195,469
+SPEC
+returns encoded string by shifting every character by 5 in the alphabet.
+takes as input string encoded with encode_shift function. Returns decoded string.
+REF
+def encode_shift(s: str):
+    return ''.join([chr((ord(ch) + 5 - ord('a')) % 26 + ord('a')) for ch in s])
+
+def decode_shift(s: str):
+    return ''.join([chr((ord(ch) - ord('a') - 5 + 26) % 26 + ord('a')) for ch in s])
+CASE 195
+def encode_shift(s: str):
+    return ''.join([chr((ord(ch) + 5 - ord('a')) % 26 + ord('a')) for ch in s])
+
+def decode_shift(s: str):
+    return ''.join([chr((ord(ch) - ord('a')) % 26 + ord('a')) for ch in s])
+CASE 469
+def encode_shift(s: str):
+    return ''.join([chr((ord(ch) + 5 - ord('a')) % 26 + ord('a')) for ch in s])
+
+def decode_shift(s: str):
+    return ''.join([chr((ord(ch) - 5 + ord('a')) % 26 + ord('a')) for ch in s])
+
+TASK 51 IDs 28,470
+SPEC
+remove_vowels is a function that takes string and returns string without vowels.
+    >>> remove_vowels('')
+    ''
+    >>> remove_vowels("abcdef\nghijklm")
+    'bcdf\nghjklm'
+    >>> remove_vowels('abcdef')
+    'bcdf'
+    >>> remove_vowels('aaaaa')
+    ''
+    >>> remove_vowels('aaBAA')
+    'B'
+    >>> remove_vowels('zbcd')
+    'zbcd'
+REF
+def remove_vowels(text):
+    return ''.join(list(filter(lambda ch: ch not in 'aeiouAEIOU', text)))
+CASE 28
+def remove_vowels(text):
+    vowels = 'aeiou'
+    return ''.join([i for i in text if i not in vowels])
+CASE 470
+def remove_vowels(text):
+    vowels = 'aeiou'
+    return ''.join([char for char in text if char not in vowels])
+
+TASK 54 IDs 29,196,471,641
+SPEC
+Check if two words have the same characters.
+    >>> same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc')
+    True
+    >>> same_chars('abcd', 'dddddddabc')
+    True
+    >>> same_chars('dddddddabc', 'abcd')
+    True
+    >>> same_chars('eabcd', 'dddddddabc')
+    False
+    >>> same_chars('abcd', 'dddddddabce')
+    False
+    >>> same_chars('eabcdzzzz', 'dddzzzzzzzddddabc')
+    False
+REF
+def same_chars(s0: str, s1: str):
+    return set(s0) == set(s1)
+CASE 29
+def same_chars(s0: str, s1: str):
+    return len(set(s0) & set(s1)) == len(s0) == len(s1)
+CASE 196
+def same_chars(s0: str, s1: str):
+    return len(s0) == len(s1)
+CASE 471
+def same_chars(s0: str, s1: str):
+    return len(set(s0) & set(s1)) == len(s0)
+CASE 641
+def same_chars(s0: str, s1: str):
+    return sorted(s0) == sorted(s1)
+
+TASK 56 IDs 198
+SPEC
+brackets is a string of "<" and ">".
+    return True if every opening bracket has a corresponding closing bracket.
+
+    >>> correct_bracketing("<")
+    False
+    >>> correct_bracketing("<>")
+    True
+    >>> correct_bracketing("<<><>>")
+    True
+    >>> correct_bracketing("><<>")
+    False
+REF
+def correct_bracketing(brackets: str):
+    cnt = 0
+    for x in brackets:
+        if x == '<':
+            cnt += 1
+        if x == '>':
+            cnt -= 1
+        if cnt < 0:
+            return False
+    return cnt == 0
+CASE 198
+def correct_bracketing(brackets: str):
+    opening_brackets = [b for b in brackets if b == '<']
+    closing_brackets = [b for b in brackets if b == '>']
+    return len(opening_brackets) == len(closing_brackets)
+
+TASK 57 IDs 199,474
+SPEC
+Return True is list elements are monotonically increasing or decreasing.
+    >>> monotonic([1, 2, 4, 20])
+    True
+    >>> monotonic([1, 20, 4, 10])
+    False
+    >>> monotonic([4, 1, 0, -10])
+    True
+REF
+def monotonic(l: list):
+    (inc, dec) = (True, True)
+    for i in range(len(l) - 1):
+        if l[i] > l[i + 1]:
+            inc = False
+        if l[i] < l[i + 1]:
+            dec = False
+    return inc or dec
+CASE 199
+def monotonic(l: list):
+    return all((x < y for (x, y) in zip(l, l[1:])))
+CASE 474
+def monotonic(l: list):
+    return all((l[i] <= l[i + 1] for i in range(len(l) - 1)))
+
+TASK 59 IDs 201,476
+SPEC
+Return the largest prime factor of n. Assume n > 1 and is not a prime.
+    >>> largest_prime_factor(13195)
+    29
+    >>> largest_prime_factor(2048)
+    2
+REF
+def largest_prime_factor(n: int):
+
+    def is_prime(a):
+        return not (a < 2 or any((a % x == 0 for x in range(2, int(a ** 0.5) + 1))))
+    isprime = [True] * (n + 1)
+    for i in range(2, n + 1):
+        if isprime[i]:
+            for j in range(i + i, n, i):
+                isprime[j] = False
+    for i in range(n - 1, 0, -1):
+        if isprime[i] and n % i == 0:
+            return i
+CASE 201
+def largest_prime_factor(n: int):
+    if n < 2:
+        return n
+    factor = 1
+    while n % factor == 0:
+        factor += 1
+    return factor
+CASE 476
+def largest_prime_factor(n: int):
+    [docstring shown in task]
+    if n == 1:
+        return 1
+    if n % 2 == 0:
+        n //= 2
+    if n % 3 == 0:
+        n //= 3
+    if n % 5 == 0:
+        n //= 5
+    if n % 7 == 0:
+        n //= 7
+    if n % 11 == 0:
+        n //= 11
+    if n % 13 == 0:
+        n //= 13
+    if n % 17 == 0:
+        n //= 17
+    if n % 19 == 0:
+        n //= 19
+    if n % 23 == 0:
+        n //= 23
+    if n % 29 == 0:
+        n //= 29
+    if n % 31 == 0:
+        n //= 31
+    if n % 37 == 0:
+        n //= 37
+    if n % 41 == 0:
+        n //= 41
+    if n % 43 == 0:
+        n //= 43
+    if n % 47 == 0:
+        n //= 47
+    if n % 53 == 0:
+        n //= 53
+    if n % 59 == 0:
+        n //= 59
+    if n % 61 == 0:
+        n //= 61
+    if n % 67 == 0:
+        n //= 67
+    if n % 71 == 0:
+        n //= 71
+    if n % 73 == 0:
+        n //= 73
+    if n % 79 == 0:
+        n //= 79
+    if n % 83 == 0:
+        n //= 83
+    if n % 89 == 0:
+        n //= 89
+    if n % 97 == 0:
+        n //= 97
+    if n % 101 == 0:
+        n //= 101
+    if n % 103 == 0:
+        n //= 103
+    if n % 107 == 0:
+        n //= 107
+    if n % 109 == 0:
+        n //= 109
+    if n % 113
+
+TASK 61 IDs 202
+SPEC
+brackets is a string of "(" and ")".
+    return True if every opening bracket has a corresponding closing bracket.
+
+    >>> correct_bracketing("(")
+    False
+    >>> correct_bracketing("()")
+    True
+    >>> correct_bracketing("(()())")
+    True
+    >>> correct_bracketing(")(()")
+    False
+REF
+def correct_bracketing(brackets: str):
+    cnt = 0
+    for x in brackets:
+        if x == '(':
+            cnt += 1
+        if x == ')':
+            cnt -= 1
+        if cnt < 0:
+            return False
+    return cnt == 0
+CASE 202
+def correct_bracketing(brackets: str):
+    opening_brackets = [bracket for bracket in brackets if bracket in '()']
+    closing_brackets = [bracket for bracket in brackets if bracket in ')](']
+    return len(opening_brackets) == len(closing_brackets)
+
+TASK 62 IDs 203,477
+SPEC
+xs represent coefficients of a polynomial.
+    xs[0] + xs[1] * x + xs[2] * x^2 + ....
+     Return derivative of this polynomial in the same form.
+    >>> derivative([3, 1, 2, 4, 5])
+    [1, 4, 12, 20]
+    >>> derivative([1, 2, 3])
+    [2, 6]
+REF
+def derivative(xs: list):
+    return [xs[i] * i for i in range(1, len(xs))]
+CASE 203
+def derivative(xs: list):
+    return [x ** i for (i, x) in enumerate(xs)]
+CASE 477
+def derivative(xs: list):
+    return [x * x for x in xs]
+
+TASK 63 IDs 205,339
+SPEC
+The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:
+    fibfib(0) == 0
+    fibfib(1) == 0
+    fibfib(2) == 1
+    fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3).
+    Please write a function to efficiently compute the n-th element of the fibfib number sequence.
+    >>> fibfib(1)
+    0
+    >>> fibfib(5)
+    4
+    >>> fibfib(8)
+    24
+REF
+def fibfib(n: int):
+    if n == 0 or n == 1:
+        return 0
+    elif n == 2:
+        return 1
+    (a, b, c) = (0, 0, 1)
+    for _ in range(3, n + 1):
+        (a, b, c) = (b, c, a + b + c)
+    return c
+CASE 205
+def fibfib(n: int):
+    if n <= 1:
+        return n
+    return fibfibfib(n - 1) + fibfib(n - 2) + fibfib(n - 3)
+CASE 339
+def fibfib(n: int):
+    if n == 0:
+        return 0
+    elif n == 1 or n == 2:
+        return 1
+    else:
+        (a, b, c) = (1, 1, 0)
+        for i in range(3, n + 1):
+            c = a + b + c
+            (b, a) = (a, b)
+            a = c
+        return c

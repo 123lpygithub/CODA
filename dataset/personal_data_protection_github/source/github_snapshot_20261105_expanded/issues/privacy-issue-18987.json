@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18987",
+  "issue_url": "https://github.com/moby/moby/issues/36909",
+  "source_issue_url": "https://github.com/moby/moby/issues/36909",
+  "api_url": "https://api.github.com/repos/moby/moby/issues/36909",
+  "title": "[EU GDPR] [Feature Request] Provide log rotation option based on time",
+  "body": "**Description**\r\n\r\nFor the EU GDPR and other privacy laws, keeping logs only a limited amount of time (rather than a limited amount of overall data, like docker's `--log-opt max-buffer-size` allows) is essential to avoid fines for unnecessarily keeping sensitive data beyond a reasonable time window required for potential investigation of technical incidents.\r\n\r\nSince this will affect a lot of those people who are using the docker engine directly (rather than an orchestrator like kubernetes) to run containers and manage their logs, I propose an option is added to handle this, e.g. `--log-opt max-buffer-days` or something. To handle this, docker would internally need to separate the log by days, so it can throw away not only based on overall log size but also based on age.\r\n\r\nSorry if such an option already exists, I made this ticket because I wasn't able to find it.\r\n\r\nEdit: please note detailed \"throw away granularity\"/small interval, or a super exact throw away time (beyond not exceeding the interval) is really not required for this option to fulfill this use case. So I don't think any advanced detail intervals or making sure it's not thrown away a day *early* in some corner cases is important, and the simplest implementation that doesn't have horrible performance is probably good enough.",
+  "author": "Participant 1",
+  "created_at": "2018-04-20T02:53:08Z",
+  "updated_at": "2024-10-09T08:27:38Z",
+  "state": "closed",
+  "closed_at": "2018-04-21T19:17:40Z",
+  "issue_fetched_at": "2026-10-18T22:11:47.636008+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T23:10:20.628002+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 383183866,
+      "url": "https://github.com/moby/moby/issues/36909#issuecomment-383183866",
+      "created_at": "2018-04-20T18:31:04Z",
+      "updated_at": "2018-04-20T18:31:22Z",
+      "author": "Participant 2",
+      "body": "This is a duplicate of #36853, I've updated the title with `[EU GDPR]`."
+    },
+    {
+      "id": 383321588,
+      "url": "https://github.com/moby/moby/issues/36909#issuecomment-383321588",
+      "created_at": "2018-04-21T19:17:40Z",
+      "updated_at": "2018-04-21T19:17:40Z",
+      "author": "Participant 3",
+      "body": "Yes, let's consolidate on the original.\r\nThanks!"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

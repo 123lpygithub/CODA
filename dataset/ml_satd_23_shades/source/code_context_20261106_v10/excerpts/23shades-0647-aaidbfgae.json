@@ -1,0 +1,35 @@
+{
+  "fetched_at": "2026-11-05T06:13:31.755962+00:00",
+  "source_sha256": "9d9dd8464f9ee611ee3941cd55067f08b7d1960e5bc4224f351252cbb399fac1",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/2218ec46227c92301ac6837c4a8ae9b8dc5d3960/sklearn/cross_decomposition/_pls.py",
+  "artifact_id": "23shades-0647-aaidbfgae",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/2218ec46227c92301ac6837c4a8ae9b8dc5d3960",
+  "filename": "sklearn/cross_decomposition/_pls.py",
+  "commit": "2218ec46227c92301ac6837c4a8ae9b8dc5d3960",
+  "status": "ambiguous",
+  "match_policy": "all-full-comment-candidates-at-exact-published-revision",
+  "candidates": [
+    {
+      "comment_line_start": 446,
+      "comment_line_end": 446,
+      "line_start": 434,
+      "line_end": 458,
+      "excerpt": "    def x_std_(self):\n        return self._x_std\n\n    @deprecated(  # type: ignore\n        \"Attribute y_std_ was deprecated in version 0.24 and \"\n        \"will be removed in 1.1 (renaming of 0.26).\")\n    @property\n    def y_std_(self):\n        return self._y_std\n\n    @property\n    def x_scores_(self):\n        # TODO: raise error in 1.1 instead\n        if not isinstance(self, PLSRegression):\n            pass\n            warnings.warn(\n                \"Attribute x_scores_ was deprecated in version 0.24 and \"\n                \"will be removed in 1.1 (renaming of 0.26). Use \"\n                \"est.transform(X) on the training data instead.\",\n                FutureWarning\n            )\n        return self._x_scores\n\n    @property\n    def y_scores_(self):"
+    },
+    {
+      "comment_line_start": 459,
+      "comment_line_end": 459,
+      "line_start": 447,
+      "line_end": 471,
+      "excerpt": "        if not isinstance(self, PLSRegression):\n            pass\n            warnings.warn(\n                \"Attribute x_scores_ was deprecated in version 0.24 and \"\n                \"will be removed in 1.1 (renaming of 0.26). Use \"\n                \"est.transform(X) on the training data instead.\",\n                FutureWarning\n            )\n        return self._x_scores\n\n    @property\n    def y_scores_(self):\n        # TODO: raise error in 1.1 instead\n        if not isinstance(self, PLSRegression):\n            warnings.warn(\n                \"Attribute y_scores_ was deprecated in version 0.24 and \"\n                \"will be removed in 1.1 (renaming of 0.26). Use \"\n                \"est.transform(X) on the training data instead.\",\n                FutureWarning\n            )\n        return self._y_scores\n\n    def _more_tags(self):\n        return {'poor_score': True,\n                'requires_y': False}"
+    }
+  ],
+  "ambiguity_note": "The released comment occurs at multiple source locations. These are all exact full-comment candidates; no location is selected or attributed uniquely to this case. Additional commit verification: The verified published-commit diff adds two copies of the exact comment, so introduction history does not disambiguate their locations.",
+  "commit_verification": {
+    "url": "https://api.github.com/repos/scikit-learn/scikit-learn/commits/2218ec46227c92301ac6837c4a8ae9b8dc5d3960",
+    "response_sha256": "5593818a43cf679438600f0f5f124c7ff2de12a66b16d96d2076c8c80591397c",
+    "file": "verification/23shades-0647-aaidbfgae.json",
+    "sha256": "d46ddf7ad40c1704e2fe77c8ae96a268e2c8108de3449516f3c1925537e60724",
+    "note": "The verified published-commit diff adds two copies of the exact comment, so introduction history does not disambiguate their locations."
+  }
+}

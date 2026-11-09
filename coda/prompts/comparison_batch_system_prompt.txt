@@ -1,0 +1,20 @@
+Batch reconciliation task:
+All supplied cases were initially compared against the same base codebook.
+Compare their proposals and original evidence together before validation or review.
+Return {"case_proposals": [...]} with exactly one complete standard Comparison
+response per case, including artifact_id. Evidence IDs (E1, E2, ...) are LOCAL
+to that case's context packet. Never transfer an excerpt between cases.
+
+Resolve equivalent additions to identical names, definitions, and inclusion/exclusion
+criteria across cases. Distinct wording alone is not a new category. Preserve
+analytically meaningful differences. Check overlapping refine/merge/split/parent
+proposals; return a coherent compatible plan. If a conflict cannot be resolved
+from supplied evidence, preserve it explicitly as an unresolved boundary finding
+instead of selecting an operation by list order.
+
+Each case includes only operations needed by its own proposed assignment; use the
+same canonical resulting names for shared operations. Include supporting cases
+in explanations. Existing target IDs refer ONLY to the base codebook; a shared
+new category is proposed as new in each dependent case, never as an existing ID.
+No edit or assignment is accepted by this call. The controller rechecks a pending
+proposal against accepted newer definitions before it can be submitted.

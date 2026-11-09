@@ -1,0 +1,23 @@
+{
+  "url": "https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/Socks5/server.py#L104",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "status": "partial",
+  "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+  "line_start": 92,
+  "line_end": 116,
+  "historical_evidence": true,
+  "revision": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+  "immutable_revision": true,
+  "retrieval_url": "https://raw.githubusercontent.com/Tribler/tribler/46f5abde70b44c84bfa8310febbf1ab170e982f0/Tribler/community/tunnel/Socks5/server.py",
+  "text": "\n    def __init__(self, socksserver, selection_strategy, hops):\n        self._logger = logging.getLogger(self.__class__.__name__)\n        self.socksserver = socksserver\n        self.selection_strategy = selection_strategy\n        self.hops = hops\n\n        self._udp_socket = None\n        self.state = ConnectionState.BEFORE_METHOD_REQUEST\n        self.buffer = ''\n\n        self.destinations = {}\n\n    def dataReceived(self, data):\n        self.buffer = self.buffer + data\n        while len(self.buffer) > 0:\n            # We are at the initial state, so we expect a handshake request.\n            if self.state == ConnectionState.BEFORE_METHOD_REQUEST:\n                if not self._try_handshake():\n                    break  # Not enough bytes so wait till we got more\n\n            # We are connected so the\n            elif self.state == ConnectionState.CONNECTED:\n                if not self._try_request():\n                    break  # Not enough bytes so wait till we got more",
+  "source_sha256": "3c0c818202ef34ca929de6c26de2d600c492d3151236dc6b5bc67b03c91f1a36",
+  "fetched_at": "2026-11-05T15:54:55.888020+00:00",
+  "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+  "history_query_url": "https://github.com/Tribler/tribler/commits/main/Tribler/community/tunnel/Socks5/server.py",
+  "history_response_sha256": "9aca4bbecdfaef779ecf4d10776084ca2c48a7bc0467cc6339dbeee025f2260d",
+  "history_entry_sha": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+  "history_commit_date": "2017-06-12T12:45:46.000+02:00"
+}

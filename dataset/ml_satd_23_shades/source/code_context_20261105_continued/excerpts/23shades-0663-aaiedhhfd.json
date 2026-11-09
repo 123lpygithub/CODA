@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0663-aaiedhhfd",
+  "revision_url": "https://github.com/pytorch/ignite/commit/1313d16008f425581edf186758151cffda140fce",
+  "filename": "ignite/engine/engine.py",
+  "commit": "1313d16008f425581edf186758151cffda140fce",
+  "source_url": "https://raw.githubusercontent.com/pytorch/ignite/1313d16008f425581edf186758151cffda140fce/ignite/engine/engine.py",
+  "fetched_at": "2026-11-05T06:13:36.576555+00:00",
+  "source_sha256": "fdd5b245a1213d72cef0ddd4c29ec7078e6621b5321a39c4aac98a31887cf8a7",
+  "line_start": 696,
+  "line_end": 720,
+  "excerpt": "                    self._dataloader_iter = iter(self.state.dataloader)\n\n                    should_exit = True\n\n                    continue\n\n                self.state.batch = batch\n                self.state.iteration += 1\n                self._fire_event(Events.ITERATION_STARTED)\n                self.state.output = self._process_function(self, self.state.batch)\n                self._fire_event(Events.ITERATION_COMPLETED)\n\n                # TODO: remove refs on batch to avoid high mem consumption ? -> need verification\n                # self.state.batch = batch = None\n\n                if self.should_terminate or self.should_terminate_single_epoch:\n                    self.should_terminate_single_epoch = False\n                    self._manual_seed(self.state.seed, self.state.iteration // iter_counter)\n                    self._dataloader_iter = iter(self.state.dataloader)\n                    break\n\n                if iter_counter == self.state.epoch_length:\n                    break\n\n        except BaseException as e:"
+}

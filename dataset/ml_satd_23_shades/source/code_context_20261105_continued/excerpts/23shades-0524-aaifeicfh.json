@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0524-aaifeicfh",
+  "revision_url": "https://github.com/microsoft/nni/commit/8c8db3746c9ef6b526497c973277bab4b458d4ed",
+  "filename": "nni/retiarii/nn/pytorch/api.py",
+  "commit": "8c8db3746c9ef6b526497c973277bab4b458d4ed",
+  "source_url": "https://raw.githubusercontent.com/microsoft/nni/8c8db3746c9ef6b526497c973277bab4b458d4ed/nni/retiarii/nn/pytorch/api.py",
+  "fetched_at": "2026-11-05T06:13:07.250105+00:00",
+  "source_sha256": "646f41302a2e34bd8b8f8f6f8ff79e37180e54a254ad94f29f2351454caf60bc",
+  "line_start": 230,
+  "line_end": 254,
+  "excerpt": "        self._label = label if label is not None else f'valuechoice_{uid()}'\n\n    @property\n    def label(self):\n        return self._label\n\n    def forward(self):\n        warnings.warn('You should not run forward of this module directly.')\n        return self.candidates[0]\n\n\nclass Placeholder(nn.Module):\n    # TODO: docstring\n\n    def __init__(self, label, related_info):\n        add_record(id(self), related_info)\n        self.label = label\n        self.related_info = related_info\n        super(Placeholder, self).__init__()\n\n    def forward(self, x):\n        return x\n\n    def __del__(self):\n        del_record(id(self))"
+}

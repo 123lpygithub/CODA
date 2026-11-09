@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4253",
+  "issue_url": "https://github.com/datenanfragen/website/issues/388",
+  "source_issue_url": "https://github.com/datenanfragen/website/issues/388",
+  "api_url": "https://api.github.com/repos/datenanfragen/website/issues/388",
+  "title": "Generator doesn't work if \"Remember identification data\" is disabled: t.signature is null",
+  "body": "A user reported that they used the wizard and were greeted with the below error upon clicking \"Done adding companies\" and being redirected to the generator.\r\n\r\n```js\r\n{\r\n\"type\": \"unhandledrejection\",\r\n\"error\": {\r\n\"message\": \"t.signature is null\",\r\n\"name\": \"TypeError\",\r\n\"stack\":\r\n\"value@https://www.datarequests.org/js/generator.gen.js:29:41101\\nn/<@https://www.datarequests.org/js/generator.gen.js:29:75824\\nn/</<@https://www.datarequests.org/js/generator.gen.js:29:70764\\n\"\r\n},\r\n\"defaultPrevented\": false,\r\n\"eventPhase\": 2,\r\n\"isTrusted\": true,\r\n\"returnValue\": true,\r\n\"code_version\": \"1.0.0\",\r\n\"user_agent\": \"<redacted>\",\r\n\"url\": {\r\n\"href\":\r\n\"https://www.datarequests.org//generator#!from=wizard&companies=<redacted>\",\r\n\"origin\": \"https://www.datarequests.org\",\r\n\"protocol\": \"https:\",\r\n\"host\": \"www.datarequests.org\",\r\n\"hostname\": \"www.datarequests.org\",\r\n\"port\": \"\",\r\n\"pathname\": \"//generator\",\r\n\"search\": \"\",\r\n\"hash\":\r\n\"#!from=wizard&companies=<redacted>\"\r\n}\r\n}\r\n``` ",
+  "author": "Participant 1",
+  "created_at": "2020-09-01T18:45:09Z",
+  "updated_at": "2020-09-02T10:57:14Z",
+  "state": "closed",
+  "closed_at": "2020-09-02T10:57:13Z",
+  "issue_fetched_at": "2026-10-19T04:05:02.165858+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T04:05:03.590664+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 685070239,
+      "url": "https://github.com/datenanfragen/website/issues/388#issuecomment-685070239",
+      "created_at": "2020-09-01T18:59:26Z",
+      "updated_at": "2020-09-01T18:59:26Z",
+      "author": "Participant 1",
+      "body": "If we just try to follow these steps (go to the wizard, add some companies, click \"Done\" to be redirected to the generator, we are not able to reproduce the error. Luckily, the debug information is quite helpful in this case. It allows us to deduce two important facts:\r\n\r\n* The error occurred in this line:\r\n\r\n  https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Utility/RequestLetter.js#L122\r\n\r\n  We can see that from the stack trace. The error occurred in `generator.gen.js`, line 29, column 41101. While not exactly pleasant, even the minified JS allows us to find out the actual position in the code. We are assigning to the `.signature.name` property of some object. In the line before, we are calling `formatData()` on some object. And in the line after, we are constructing an objects with properties like `erase_some` and `has_fields`. This only happens in `propsFromRequest()`.\r\n\r\n  ![image](https://user-images.githubusercontent.com/4048809/91893840-4410a080-ec84-11ea-8c7d-011f5d002d60.png)\r\n* The user has custom privacy controls and has at least disabled \"Save selected companies in the wizard\". Otherwise, the wizard companies would not be passed via the URL but rather saved in localForage.\r\n\r\nNow we need to do some experimenting. Even disabling \"Save selected companies in the wizard\" is not enough. It turns out, that actually disabling \"Remember identification data\" is necessary to reproduce the error.  \r\nThis does make sense, the signature is (usually) taken from the saved ID data. It seems like we forgot to handle the case where the saved ID data is disabled."
+    },
+    {
+      "id": 685078840,
+      "url": "https://github.com/datenanfragen/website/issues/388#issuecomment-685078840",
+      "created_at": "2020-09-01T19:16:15Z",
+      "updated_at": "2020-09-01T19:16:15Z",
+      "author": "Participant 1",
+      "body": "Further, we can see that the generator doesn't work at all if \"Remember identification data\" is disabled, making this a pretty serious issue.\r\n\r\nThis highlights a problem with our current tests: We didn't think to test if things still work with modified privacy controls. Quite an oversight! I have opened #389 to change that."
+    },
+    {
+      "id": 685078945,
+      "url": "https://github.com/datenanfragen/website/issues/388#issuecomment-685078945",
+      "created_at": "2020-09-01T19:16:27Z",
+      "updated_at": "2020-09-01T19:16:27Z",
+      "author": "Participant 1",
+      "body": "So, let's follow the money:\r\n\r\n* `RequestLetter.propsFromRequest()` is only called in one place:\r\n\r\n  https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Components/RequestGeneratorBuilder.js#L431\r\n\r\n  This is in the `renderLetter()` function of the `RequestGeneratorBuilder` which is in fact called when we enter the generator, so we seem to be on the right track here.\r\n* We are interested in the `request_object` parameter, which is the first argument. In this case, we are passing `this.state.request`.\r\n* Since the error happens immediately after opening the generator, we can assume that the state will not have changed yet. So, what are we initializing the `this.state.request` to?\r\n\r\n  https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Components/RequestGeneratorBuilder.js#L24\r\n\r\n  A new `Request` object.\r\n* This isn't the source of the issue, though, as the `signature` property is correctly initialized here:\r\n\r\n  https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/DataType/Request.js#L64\r\n* Thus, we need to look for places where `this.state.request.signature` is modified without user interaction.\r\n* The culprit is in the call to `this.resetInitialConditions()`, which happens soon after initializing the state.\r\n* Here, we try to load the saved ID data and set the state accordingly:\r\n\r\n  https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Components/RequestGeneratorBuilder.js#L81-L94\r\n* And our initial suspicion is confirmed: We are indiscriminately setting `prev.request.signature = res.signature;` without checking whether there even is a `res.signature`. Luckily, that is very easy to fix."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

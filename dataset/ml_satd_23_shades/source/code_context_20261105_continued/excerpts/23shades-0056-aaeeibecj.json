@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0056-aaeeibecj",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/426aced9d6acc50e909b59c75a68e4d40655b44c",
+  "filename": "cp/audio/spectrogram.py",
+  "commit": "426aced9d6acc50e909b59c75a68e4d40655b44c",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/426aced9d6acc50e909b59c75a68e4d40655b44c/cp/audio/spectrogram.py",
+  "fetched_at": "2026-11-05T06:11:47.517133+00:00",
+  "source_sha256": "e8d26ab7fb5666ace806606f75025f2b5706212feefc1c6120229c015515888e",
+  "line_start": 88,
+  "line_end": 112,
+  "excerpt": "            fft_signal = np.append(signal[seek:], zeros)\n        elif seek < 0:\n            # start before the actual audio start, pad zeros accordingly\n            zeros = np.zeros(-seek)\n            fft_signal = np.append(zeros, signal[0:seek + window_size])\n        else:\n            # normal read operation\n            fft_signal = signal[seek:seek + window_size]\n        # multiply the signal with the window function\n        fft_signal = np.multiply(fft_signal, window)\n        # only shift and perform complex DFT if needed\n        if phase:\n            # circular shift the signal (needed for correct phase)\n            #fft_signal = fft.fftshift(fft_signal)  # slower!\n            fft_signal = np.append(fft_signal[window_size / 2:], fft_signal[:window_size / 2])\n        # perform DFT\n        stft[frame] = fft.fft(fft_signal, fft_size)[:fft_bins]\n        # next frame\n    # return\n    return stft\n\n\ndef stft_strided(signal, window, hop_size, phase=True):\n    \"\"\"\n    This function is only for completeness. It is faster in rare circumstances."
+}

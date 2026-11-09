@@ -1,0 +1,154 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18442",
+  "issue_url": "https://github.com/hashicorp/terraform/issues/11331",
+  "source_issue_url": "https://github.com/hashicorp/terraform/issues/11331",
+  "api_url": "https://api.github.com/repos/hashicorp/terraform/issues/11331",
+  "title": "aws_iam_policy_attachment not idempotent",
+  "body": "### Terraform Version\r\nTerraform v0.8.4\r\n\r\n### Affected Resource(s)\r\n- aws_iam_policy_attachment\r\n\r\n### Description\r\n\r\nSo what's happening is that I run my terraform config from a clean state (nothing set up) and it sets up everything correctly.  However, if I run it again, when I'd expect it to exit with nothing to do, this happens:\r\n\r\n```\r\n~ module.api_server_instance_profile.aws_iam_policy_attachment.policy_to_profile_attachment.2\r\n    roles.#:          \"2\" => \"1\"\r\n    roles.2808959860: \"api-server\" => \"api-server\"\r\n    roles.397096961:  \"bastion\" => \"\"\r\n\r\n~ module.bastion_instance_profile.aws_iam_policy_attachment.policy_to_profile_attachment\r\n    roles.#:          \"2\" => \"1\"\r\n    roles.2808959860: \"api-server\" => \"\"\r\n    roles.397096961:  \"bastion\" => \"bastion\"\r\n```\r\n\r\nThen I run `apply` again and it does this:\r\n\r\n```\r\n~ module.api_server_instance_profile.aws_iam_policy_attachment.policy_to_profile_attachment.2\r\n    roles.#:          \"0\" => \"1\"\r\n    roles.2808959860: \"\" => \"api-server\"\r\n\r\n~ module.bastion_instance_profile.aws_iam_policy_attachment.policy_to_profile_attachment\r\n    roles.#:         \"0\" => \"1\"\r\n    roles.397096961: \"\" => \"bastion\"\r\n```\r\n\r\nThen I run it again and it does the first one.  It just keeps going back and forth like that.\r\n\r\n### Debug Output\r\nI've generated the debug output for the `plan` when it should be doing nothing, but instead removes the policy attachment.\r\n\r\nI'm not willing to paste this publicly but if you give me an email address to send it to, I have it in a secret gist.\r\n\r\n### Expected Behavior\r\nNothing.\r\n\r\n### Actual Behavior\r\nSee \"Description\" above\r\n\r\n### Steps to Reproduce\r\n1. `terraform apply`\r\n\r\n### Important Factoids\r\nThis has been happening for a very long time.  I think since the resource was introduced.\r\n\r\n### References\r\nNone that I could find",
+  "author": "Participant 1",
+  "created_at": "2017-01-21T22:34:19Z",
+  "updated_at": "2020-04-11T02:23:03Z",
+  "state": "closed",
+  "closed_at": "2017-01-30T18:30:11Z",
+  "issue_fetched_at": "2026-10-18T22:10:54.108466+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T22:10:55.525521+00:00"
+  ],
+  "expected_comment_count": 16,
+  "retrieved_comment_count": 16,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 274303573,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-274303573",
+      "created_at": "2017-01-22T02:38:25Z",
+      "updated_at": "2017-01-22T02:38:25Z",
+      "author": "Participant 2",
+      "body": "Hi @thegranddesign, thanks for the issue!\r\n\r\nUnderstandable that for privacy concerns you don't want to paste any debug output. Would it be possible, however, to write a small config file that successfully reproduces the issue? It would be a huge help in debugging the issue further. Thanks!"
+    },
+    {
+      "id": 274304609,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-274304609",
+      "created_at": "2017-01-22T03:06:08Z",
+      "updated_at": "2017-01-22T03:06:08Z",
+      "author": "Participant 1",
+      "body": "@grubernaut I'm currently under the gun for a deadline.  Can I send the debug log to your email on your Github profile?  Which log level would you prefer?"
+    },
+    {
+      "id": 274358037,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-274358037",
+      "created_at": "2017-01-22T20:45:37Z",
+      "updated_at": "2017-01-22T20:45:57Z",
+      "author": "Participant 2",
+      "body": "@thegranddesign the email in my github profile would work just fine, and the default `TRACE` log level would be great. I'll work on creating a reproduction case tomorrow, but it may also be cause from the configuration. It looks like, from the output pasted, that you're attempting to use `count` with the `aws_iam_policy_attachment` resource, so I'll start there. Thanks!"
+    },
+    {
+      "id": 274363301,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-274363301",
+      "created_at": "2017-01-22T22:01:22Z",
+      "updated_at": "2017-01-22T22:01:22Z",
+      "author": "Participant 1",
+      "body": "I'm almost certain that that is the issue. I can send you relevant configs as well when I send the trace. "
+    },
+    {
+      "id": 274824799,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-274824799",
+      "created_at": "2017-01-24T14:50:53Z",
+      "updated_at": "2017-01-24T14:50:53Z",
+      "author": "Participant 2",
+      "body": "@thegranddesign just checking in on this again. I believe this issue is directly related to using `count` with the `aws_iam_policy_attachment` resource. Noting that we do have this warning shown on the resource documentation:\r\n> The aws_iam_policy_attachment resource is only meant to be used once for each managed policy. All of the users/roles/groups that a single policy is being attached to should be declared by a single aws_iam_policy_attachment resource.\r\n\r\nHowever, I could see a use case for using `count` if the resource was written as such:\r\n```\r\nvariable \"policies\" { default = [\"policy_arn_1\", \"policy_arn_2\"] }\r\n\r\nresource \"aws_iam_policy_attachment\" \"test-attach\" {\r\n    count = \"${length(var.policies)}\"\r\n    name = \"test-attachment-${count.index}\"\r\n    users = [\"${aws_iam_user.user.name}\"]\r\n    roles = [\"${aws_iam_role.role.name}\"]\r\n    groups = [\"${aws_iam_group.group.name}\"]\r\n    policy_arn = \"${element(split(\",\", var.policies), count.index)}\"\r\n}\r\n```\r\nI was unable to reproduce the error using the above config though. "
+    },
+    {
+      "id": 274849342,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-274849342",
+      "created_at": "2017-01-24T16:09:51Z",
+      "updated_at": "2017-01-24T16:09:51Z",
+      "author": "Participant 1",
+      "body": "@grubernaut I'm preparing for a big meeting which is why I haven't gotten you my config yet. Give me just a couple more days. I appreciate you tackling this. \n\nYes, that is my use case. The only difference other than my config being much more complicated is that I'm still passing in as a string and splitting on commas. There was a bug in the array passing that kept me from using that for the time being. "
+    },
+    {
+      "id": 274849921,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-274849921",
+      "created_at": "2017-01-24T16:11:36Z",
+      "updated_at": "2017-01-24T16:11:36Z",
+      "author": "Participant 2",
+      "body": "@thegranddesign okay awesome! Thanks"
+    },
+    {
+      "id": 275537479,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-275537479",
+      "created_at": "2017-01-26T22:42:56Z",
+      "updated_at": "2017-01-26T22:42:56Z",
+      "author": "Participant 1",
+      "body": "@grubernaut sent!  Thank you!"
+    },
+    {
+      "id": 275791756,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-275791756",
+      "created_at": "2017-01-27T22:25:21Z",
+      "updated_at": "2017-01-27T22:25:21Z",
+      "author": "Participant 2",
+      "body": "@thegranddesign awesome, I'll be digging into these shortly. Thanks!"
+    },
+    {
+      "id": 276148009,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-276148009",
+      "created_at": "2017-01-30T18:30:11Z",
+      "updated_at": "2017-01-30T18:30:11Z",
+      "author": "Participant 2",
+      "body": "@thegranddesign I was able to reproduce the error you're experiencing. \r\nGiven the following configuration, and assuming the module at the specified filepath attaches the supplied policies (Preconfigured AWS Policies) to generated iam_roles:\r\n```\r\nmodule \"api_server_instance_profile\" {\r\n  source = \"./modules/instance_profile\"\r\n\r\n  name = \"api-server\"\r\n  policy_ids = \"arn:aws:iam::aws:policy/IAMUserChangePassword,arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM,arn:aws:iam::aws:policy/service-role/AWSConfigRole,arn:aws:iam::aws:policy/AmazonAPIGatewa\\\r\nyAdministrator,arn:aws:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess,arn:aws:iam::aws:policy/AmazonAppStreamReadOnlyAccess\"\r\n  policy_count = 6\r\n}\r\n\r\nmodule \"bastion_instance_profile\" {\r\n  source = \"./modules/instance_profile\"\r\n  name = \"bastion\"\r\n  policy_ids = \"arn:aws:iam::aws:policy/IAMUserChangePassword\"\r\n  policy_count = 1\r\n}\r\n```\r\n\r\nI am able to continuously reproduce the error you are experiencing. However, if I change the list of policy id's passed in the second module declaration, to use policies that were not already attached in the first module's declaration, I can no longer get the issue to reproduce.\r\n\r\nEx:\r\n```\r\nmodule \"api_server_instance_profile\" {\r\n  source = \"./modules/instance_profile\"\r\n\r\n  name = \"api-server\"\r\n  policy_ids = \"arn:aws:iam::aws:policy/IAMUserChangePassword,arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM,arn:aws:iam::aws:policy/service-role/AWSConfigRole,arn:aws:iam::aws:policy/AmazonAPIGatewa\\\r\nyAdministrator,arn:aws:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess,arn:aws:iam::aws:policy/AmazonAppStreamReadOnlyAccess\"\r\n  policy_count = 6\r\n}\r\n\r\nmodule \"bastion_instance_profile\" {\r\n  source = \"./modules/instance_profile\"\r\n  name = \"bastion\"\r\n  policy_ids = \"arn:aws:iam::aws:policy/AmazonZocaloFullAccess\"\r\n  policy_count = 1\r\n}\r\n```\r\n\r\nThis is because an `iam_policy` can only have at max 1 policy attachment resource bound to it, as the `iam_policy_attachment` resource will manage every attachment on that policy. This is why we were experiencing the diff between policy attachments for each attachment resource. \r\n\r\nTo sum up, in order to fix the issue we need to ensure that each `iam_policy` has only one `iam_policy_attachment` attached to it. This may result in multiple policies that have the same content but different names, or restructuring the policy_attachment resource to maintain the 1-1 relationship between an `iam_policy` and the `iam_policy_attachment` resources.\r\n\r\nClosing as not a bug, but happy to discuss further. Thanks!"
+    },
+    {
+      "id": 294213086,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-294213086",
+      "created_at": "2017-04-14T18:50:18Z",
+      "updated_at": "2017-04-14T18:50:18Z",
+      "author": "Participant 3",
+      "body": "@grubernaut It looks like the current way to use `aws_iam_policy_attachment` is to attach every resource that wants to use the policy, but isn't it supposed to be the other way around? For resources like `aws_iam_policy`, I believe what most people would do is to create the policy in a central place, and reference this policy when creating role/group in another terraform configuration. I feel like `aws_iam_policy_attachment` should be declared the same way as `aws_iam_role_policy_attachment` with the only difference that this time the policy attached is a managed policy instead of an inline policy."
+    },
+    {
+      "id": 305916754,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-305916754",
+      "created_at": "2017-06-02T21:46:00Z",
+      "updated_at": "2017-06-02T21:46:31Z",
+      "author": "Participant 1",
+      "body": "@grubernaut I've attempted to do things the way you mentioned multiple times but I keep coming back to this.\r\n\r\nBasically I think that @moudixtc is right and `aws_iam_policy_attachment` is designed backwards from how most people would use it.\r\n\r\nThis means that there's simply no way for module authors to allow users of their module to pass in policy ARNs and hide the complexity of wiring up the resources the module creates and the policies the users have passed in."
+    },
+    {
+      "id": 305927999,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-305927999",
+      "created_at": "2017-06-02T23:02:18Z",
+      "updated_at": "2017-06-02T23:02:18Z",
+      "author": "Participant 4",
+      "body": "Hello! \r\n\r\nCan someone please provide for us a complete reproduction configuration (ideally using modules and no secret things exposed). I'd like to take a better look at what's happening here and hopefully provide additional guidance. \r\n\r\n`aws_iam_policy_attachment` is specifically and intentionally  designed to behave the way it is here. I can see how it may be confusing at first though. It is designed to explicitly control who/what/where a role is attached. It's mission statement could be summed up as \"I have a policy, I want it to be attached to these things, and only these things.\" Having two `aws_iam_policy_attachment` with this mission statement for the same policy naturally conflict. \r\n\r\nFrom reading above it doesn't sound like that's your intent. If I understand, you want to construct modules to accept a policy as input and attach it to a variable amount of things. For that you need to use `aws_iam_role_policy_attachment`. \r\n\r\nA full example that I can look at and apply ourselves would better help us get on the same page and hopefully provide direction forward. \r\n\r\nThanks!"
+    },
+    {
+      "id": 306217409,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-306217409",
+      "created_at": "2017-06-05T15:25:04Z",
+      "updated_at": "2017-06-05T15:25:04Z",
+      "author": "Participant 3",
+      "body": "@catsby I can be wrong, but I remember that at the time of my comment, `aws_iam_role_policy_attachment` only supports inline policies, and not managed policies. `aws_iam_role_policy_attachment` now works exactly as I intend to use it. Thanks."
+    },
+    {
+      "id": 306620785,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-306620785",
+      "created_at": "2017-06-06T21:20:27Z",
+      "updated_at": "2017-06-06T21:20:27Z",
+      "author": "Participant 1",
+      "body": "I switched as well and it works great for roles."
+    },
+    {
+      "id": 612300786,
+      "url": "https://github.com/hashicorp/terraform/issues/11331#issuecomment-612300786",
+      "created_at": "2020-04-11T02:23:02Z",
+      "updated_at": "2020-04-11T02:23:02Z",
+      "author": "Participant 5",
+      "body": "I'm going to lock this issue because it has been closed for _30 days_ ⏳. This helps our maintainers find and focus on the active issues.\n\nIf you have found a problem that seems similar to this, please open a new issue and complete the issue template so we can capture all the details necessary to investigate further.\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

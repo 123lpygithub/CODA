@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0277-aahiiefbi",
+  "revision_url": "https://github.com/kengz/SLM-Lab/commit/8f5f62f14e777cf2f88fe71360581be95d643163",
+  "filename": "slm_lab/agent/__init__.py",
+  "commit": "8f5f62f14e777cf2f88fe71360581be95d643163",
+  "source_url": "https://raw.githubusercontent.com/kengz/SLM-Lab/8f5f62f14e777cf2f88fe71360581be95d643163/slm_lab/agent/__init__.py",
+  "fetched_at": "2026-11-05T06:12:26.739747+00:00",
+  "source_sha256": "317af1f0f3fb42e8dd21153376ee3a0d343431d493e43bc60abe0b7b7f9346a4",
+  "line_start": 72,
+  "line_end": 96,
+  "excerpt": "        # TODO also spec needs to specify AEB space and bodies\n        util.set_attr(self, spec)\n\n    def set_env(self, env):\n        '''\n        Make env visible to agent.\n        TODO make consistent with AEB space\n        '''\n        self.env = env\n        # TODO do body num here\n        # analogously, do other dim counts as needed from env\n        self.body_num = 1\n        # TODO delegate a copy of variable like action_dim to agent too\n\n    def reset(self):\n        return\n\n    def act_discrete(self, state):\n        '''Implement discrete action, or throw NotImplementedError'''\n        action = np.random.randint(\n            0, self.env.get_action_dim(), size=(self.body_num))\n        return action\n\n    def act_continuous(self, state):\n        '''Implement continuous action, or throw NotImplementedError'''"
+}

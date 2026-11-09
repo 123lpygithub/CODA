@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0694-aaidhabjj",
+  "revision_url": "https://github.com/manuwhs/Trapyng/commit/df8c673a0b2963d29f4402c83912b5c8320475db",
+  "filename": "TradingClasses/Coliseum/CTrailingStop.py",
+  "commit": "df8c673a0b2963d29f4402c83912b5c8320475db",
+  "source_url": "https://raw.githubusercontent.com/manuwhs/Trapyng/df8c673a0b2963d29f4402c83912b5c8320475db/TradingClasses/Coliseum/CTrailingStop.py",
+  "fetched_at": "2026-11-05T06:13:39.263635+00:00",
+  "source_sha256": "159c523e87bf91e4e5053a8212aea21147e931b4bab6a33836862fb6f3a9b957",
+  "line_start": 36,
+  "line_end": 60,
+  "excerpt": "                                [\"period\", period], [\"maxPullback\",maxPullback]])\n        self.maxPullback = maxPullback\n        self.timeDataObj = self.pf.symbols[SymbolName].TDs[period]\n        self.dates = self.timeDataObj.get_dates()\n        self.BUYSELL = BUYSELL\n        # TODO: Preprocess datetome so that it fits in a given interval\n        self.init_datetime = datetime\n        \n    # These are the parameters of the simulated entry.\n    # The time and price where we entered the market.\n    # It does not have to be same as when the EntrySignal\n    # was activated due to slipage\n        # TODO: Set interval for the original date ?\n        \n    def set_outsideMAs(self, MA_slow, MA_fast, dates):\n        self.MA_slow = MA_slow\n        self.MA_fast = MA_fast\n        self.dates = dates\n     \n    #### BackTesting functions #######\n     \n    def get_TradeSignals(self):\n        pLow = self.timeDataObj.get_timeSeries([\"Low\"])\n        pHigh = self.timeDataObj.get_timeSeries([\"High\"])\n"
+}

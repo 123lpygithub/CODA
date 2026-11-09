@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/prebid/Prebid.js/blob/3513d38c120072380c0f4a2376b95f50bb957224/modules/deepintentBidAdapter.js#L121",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "revision": "3513d38c120072380c0f4a2376b95f50bb957224",
+  "immutable_revision": true,
+  "line_start": 109,
+  "line_end": 133,
+  "text": "  if (bid.params && bid.params.custom) {\n    return {\n      deepintent: bid.params.custom\n\n    }\n  } else {\n    return {}\n  }\n}\nfunction buildUser(bid) {\n  if (bid && bid.params && bid.params.user) {\n    return {\n      id: bid.params.user.id && typeof bid.params.user.id == 'string' ? bid.params.user.id : undefined,\n      buyeruid: bid.params.user.buyeruid && typeof bid.params.user.buyeruid == 'string' ? bid.params.user.buyeruid : undefined,\n      yob: bid.params.user.yob && typeof bid.params.user.yob == 'number' ? bid.params.user.yob : null,\n      gender: bid.params.user.gender && typeof bid.params.user.gender == 'string' ? bid.params.user.gender : undefined,\n      keywords: bid.params.user.keywords && typeof bid.params.user.keywords == 'string' ? bid.params.user.keywords : undefined,\n      customdata: bid.params.user.customdata && typeof bid.params.user.customdata == 'string' ? bid.params.user.customdata : undefined\n    }\n  }\n}\n\nfunction buildBanner(bid) {\n  if (utils.deepAccess(bid, 'mediaTypes.banner')) {\n    // Get Sizes from MediaTypes Object, Will always take first size, will be overrided by params for exact w,h",
+  "source_sha256": "b92c2f0f536437692e4c744af42bd199dc8a6b6d1682536acd33de7703c72571",
+  "fetched_at": "2026-11-05T06:21:30.880666+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/prebid/Prebid.js/3513d38c120072380c0f4a2376b95f50bb957224/modules/deepintentBidAdapter.js",
+  "status": "available"
+}

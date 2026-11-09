@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0417-aajefdiii",
+  "revision_url": "https://github.com/dmlc/gluon-nlp/commit/01122db3867722db061566a79e843a08f9134431",
+  "filename": "scripts/question_answering/run_squad.py",
+  "commit": "01122db3867722db061566a79e843a08f9134431",
+  "source_url": "https://raw.githubusercontent.com/dmlc/gluon-nlp/01122db3867722db061566a79e843a08f9134431/scripts/question_answering/run_squad.py",
+  "fetched_at": "2026-11-05T06:12:51.128952+00:00",
+  "source_sha256": "15427e1761c6dd3a3fba5d0b7bfafad2f58f2939f80dbcdf7c9d4feb60d65d80",
+  "line_start": 119,
+  "line_end": 143,
+  "excerpt": "                        'because the start and end predictions are not conditioned on one another.'\n                        ' default is 30')\n    parser.add_argument('--predict_lower_bound', type=int, default=None,\n                        help='the lower bound of the parameters to be predicted'\n                        'default is the final step')\n    parser.add_argument('--param_checkpoint', type=str, default=None,\n                        help='The parameter checkpoint for evaluating the model')\n    args = parser.parse_args()\n    return args\n\n\nclass SquadDatasetProcessor:\n    # TODO(sxjscience) Consider to combine the NamedTuple and batchify functionality.\n    ChunkFeature = namedtuple('ChunkFeature',\n                              ['qas_id',\n                               'data',\n                               'valid_length',\n                               'segment_ids',\n                               'masks',\n                               'is_impossible',\n                               'gt_start',\n                               'gt_end',\n                               'context_offset',\n                               'chunk_start',\n                               'chunk_length'])"
+}

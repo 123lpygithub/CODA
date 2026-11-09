@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0489-aaiiigjef",
+  "revision_url": "https://github.com/microsoft/MMdnn/commit/ad6ae75dceaa3ffaae89a12615ce96bf4c37ba07",
+  "filename": "tests/test_conversion_imagenet.py",
+  "commit": "ad6ae75dceaa3ffaae89a12615ce96bf4c37ba07",
+  "source_url": "https://raw.githubusercontent.com/microsoft/MMdnn/ad6ae75dceaa3ffaae89a12615ce96bf4c37ba07/tests/test_conversion_imagenet.py",
+  "fetched_at": "2026-11-05T06:13:02.059063+00:00",
+  "source_sha256": "7e58ad69342aa46843facff67b806ea12f89001940575f1c765033088c261a83",
+  "line_start": 348,
+  "line_end": 372,
+  "excerpt": "            'imagenet1k-resnext-101-64x4d' : [CntkEmit, TensorflowEmit, PytorchEmit], # Keras is too slow\n            'imagenet1k-resnext-50'        : [CntkEmit, TensorflowEmit, KerasEmit, PytorchEmit],\n        },\n        'caffe' : {\n            'vgg19'         : [CntkEmit, TensorflowEmit, KerasEmit, PytorchEmit],\n            'alexnet'       : [CntkEmit],\n            'inception_v1'  : [CntkEmit, TensorflowEmit, KerasEmit, PytorchEmit],\n            'resnet152'     : [CntkEmit, TensorflowEmit, KerasEmit, PytorchEmit],\n            'squeezenet'    : [CntkEmit, PytorchEmit],\n        },\n\n        'tensorflow' : {\n            'inception_v1' : [TensorflowEmit, KerasEmit, PytorchEmit], # TODO: CntkEmit\n        }\n    }\n\n\n    def _test_function(self, original_framework, parser):\n        ensure_dir(self.cachedir)\n        ensure_dir(self.tmpdir)\n\n        for network_name in self.test_table[original_framework].keys():\n            print(\"Testing {} model {} start.\".format(original_framework, network_name))\n\n            # get original model prediction result"
+}

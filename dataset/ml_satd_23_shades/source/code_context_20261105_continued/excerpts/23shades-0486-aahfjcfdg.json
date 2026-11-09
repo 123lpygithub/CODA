@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0486-aahfjcfdg",
+  "revision_url": "https://github.com/RaRe-Technologies/gensim/commit/1ae13385995ec4a16ed5bbe149b89fb2137b6a8b",
+  "filename": "gensim/models/ldaseqmodel.py",
+  "commit": "1ae13385995ec4a16ed5bbe149b89fb2137b6a8b",
+  "source_url": "https://raw.githubusercontent.com/RaRe-Technologies/gensim/1ae13385995ec4a16ed5bbe149b89fb2137b6a8b/gensim/models/ldaseqmodel.py",
+  "fetched_at": "2026-11-05T06:13:01.944158+00:00",
+  "source_sha256": "59d92c0d56bee85d417fbbac4e0832d0cebcd2fe90629908fcdcf6798e0abaa2",
+  "line_start": 940,
+  "line_end": 964,
+  "excerpt": "        # influence_term = 0\n        digsum = digamma(gamma_sum)\n\n        model = \"DTM\"\n        for k in range(0, num_topics):\n            # below code only to be used in DIM mode\n            # if ldapost.doc_weight is not None and (model == \"DIM\" or model == \"fixed\"):\n            #     influence_topic = ldapost.doc_weight[k]\n            #     influence_term = - ((influence_topic * influence_topic + sigma_l * sigma_l) / 2.0 / (sigma_d * sigma_d))\n\n            e_log_theta_k = digamma(self.gamma[k]) - digsum\n            lhood_term = (self.lda.alpha[k] - self.gamma[k]) * e_log_theta_k + gammaln(self.gamma[k]) - gammaln(self.lda.alpha[k])\n            # TODO: check why there's an IF\n            n = 0\n            for word_id, count in self.doc:\n                if self.phi[n][k] > 0:\n                    lhood_term += count * self.phi[n][k] * (e_log_theta_k + self.lda.topics[word_id][k] - self.log_phi[n][k])\n                n += 1\n            self.lhood[k] = lhood_term\n            lhood += lhood_term\n            # in case of DIM add influence term\n            # lhood += influence_term\n\n        return lhood\n"
+}

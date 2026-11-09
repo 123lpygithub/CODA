@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0772-aahcfeahc",
+  "revision_url": "https://github.com/mlflow/mlflow/commit/77ebf43f8ff523ceb5b511a6e182c103be2d989f",
+  "filename": "mlflow/sklearn/__init__.py",
+  "commit": "77ebf43f8ff523ceb5b511a6e182c103be2d989f",
+  "source_url": "https://raw.githubusercontent.com/mlflow/mlflow/77ebf43f8ff523ceb5b511a6e182c103be2d989f/mlflow/sklearn/__init__.py",
+  "fetched_at": "2026-11-05T06:13:50.085257+00:00",
+  "source_sha256": "9fa660adc1a1565f66de589e18a92d56decc1e89f69ac1ef8633a2b358846481",
+  "line_start": 620,
+  "line_end": 644,
+  "excerpt": "            \"Autologging utilities may not work properly on scikit-learn < {} \".format(\n                _MIN_SKLEARN_VERSION\n            )\n            + \"(current version: {})\".format(sklearn.__version__),\n            stacklevel=2,\n        )\n\n    def fit_mlflow(self, func_name, *args, **kwargs):\n        should_start_run = mlflow.active_run() is None\n        if should_start_run:\n            try_mlflow_log(mlflow.start_run)\n\n        # TODO: We should not log nested estimator parameters for\n        # parameter search estimators (GridSearchCV, RandomizedSearchCV)\n\n        # Chunk and truncate model parameters to avoid hitting the log_batch API limit\n        for chunk in _chunk_dict(self.get_params(deep=True), chunk_size=MAX_PARAMS_TAGS_PER_BATCH):\n            truncated = _truncate_dict(chunk, MAX_ENTITY_KEY_LENGTH, MAX_PARAM_VAL_LENGTH)\n            try_mlflow_log(mlflow.log_params, truncated)\n\n        try_mlflow_log(\n            mlflow.set_tags,\n            {\n                \"estimator_name\": self.__class__.__name__,\n                \"estimator_class\": self.__class__.__module__ + \".\" + self.__class__.__name__,"
+}

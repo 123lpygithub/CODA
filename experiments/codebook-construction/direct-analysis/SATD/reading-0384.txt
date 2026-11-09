@@ -1,0 +1,351 @@
+
+=== 384 23shades-0227-aagfchifa ===
+{"dataset_id": "aagfchifa", "repo_name": "AllenCellModeling/pytorch_integrated_cell", "filename": "data_providers/DataProvider3Dh5.py", "comment_introducing_revision": "https://github.com/AllenCellModeling/pytorch_integrated_cell/commit/06e10c1324f68e5a1e9b348e576f86df259fa6b5", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "06e10c1324f68e5a1e9b348e576f86df259fa6b5"}
+[comment_text]
+TODO add checking to make sure number of keys in h5 file matches number of lines in csv file
+[source_context]
+        if self.opts['verbose']:
+            print('reading csv manifest')
+        csv_df = pd.read_csv(csv_path)
+        
+        h5_files = [os.path.splitext(os.path.basename(file))[0][0:-5] + '.h5' for file in csv_df['save_cell_reg_path']]
+        # os.path.splitext(os.path.basename(csv_df['save_cell_reg_path'][0]))[0][0:-5] + '.hf'
+        # h5_files = csv_df.save_dir + os.sep + h5_files
+        
+        csv_df['h5_file'] = h5_files
+        
+        # check which rows in csv are valid, based on all the channels i want being present
+        if self.opts['check_files'] is not None:
+                    # TODO add checking to make sure number of keys in h5 file matches number of lines in csv file
+            if self.opts['verbose']:
+                print('Making h5 files')
+
+            for index in tqdm(range(0, csv_df.shape[0]), desc='loading images into h5 files', ascii=True):
+                is_good_row = True
+
+                row = csv_df.loc[index]
+
+                h5_path = self.image_parent + os.sep + row.save_dir + os.sep + row.h5_file
+                if not os.path.exists(h5_path):
+                    
+                    try:
+
+=== 385 23shades-0303-aahciidhf ===
+{"dataset_id": "aahciidhf", "repo_name": "pyro-ppl/pyro", "filename": "pyro/infer/tracegraph_kl_qp.py", "comment_introducing_revision": "https://github.com/pyro-ppl/pyro/commit/ded6eda6df2d1e94ee5a373b89fa696c9c49bb46", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ded6eda6df2d1e94ee5a373b89fa696c9c49bb46"}
+[comment_text]
+TODO init this somewhere else in a more principled way
+[source_context]
+    A Tracegraph and Poutine-based implementation of SVI
+    """
+    def __init__(self, model,
+                 guide,
+                 optim_step_fct,
+                 model_fixed=False,
+                 guide_fixed=False, *args, **kwargs):
+        """
+        Call parent class initially, then setup the poutines to run
+        """
+        # initialize
+        super(TraceGraph_KL_QP, self).__init__()
+        # TODO init this somewhere else in a more principled way
+        self.sites = None
+
+        self.model = model
+        self.guide = guide
+        self.optim_step_fct = optim_step_fct
+        self.model_fixed = model_fixed
+        self.guide_fixed = guide_fixed
+
+    def __call__(self, *args, **kwargs):
+        return self.step(*args, **kwargs)
+
+    def step(self, *args, **kwargs):
+
+=== 386 23shades-0630-aaeigcjfb ===
+{"dataset_id": "aaeigcjfb", "repo_name": "IntelPython/sdc", "filename": "sdc/hiframes/pd_series_type.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/b57c9adebb90fe95458d2c2238928d2e38c3ee9c", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b57c9adebb90fe95458d2c2238928d2e38c3ee9c"}
+[comment_text]
+TODO: other types?
+[source_context]
+    if isinstance(dtype, PDCategoricalDtype):
+        return CategoricalArray(dtype)
+
+    # use recarray data layout for series of tuples
+    if isinstance(dtype, types.BaseTuple):
+        if any(not isinstance(t, types.Number) for t in dtype.types):
+            # TODO: support more types. what types can be in recarrays?
+            raise ValueError("series tuple dtype {} includes non-numerics".format(dtype))
+        np_dtype = np.dtype(
+            ','.join(str(t) for t in dtype.types), align=True)
+        dtype = from_dtype(np_dtype)
+
+    # TODO: other types?
+    # regular numpy array
+    return types.Array(dtype, 1, 'C')
+
+=== 387 23shades-0132-aaeiefagi ===
+{"dataset_id": "aaeiefagi", "repo_name": "IntelPython/sdc", "filename": "hpat/hiframes/pd_dataframe_ext.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/3544f2243917d9a3676fd1d3137902f5c7a6fa99", "comment_removing_revision": "https://github.com/IntelPython/sdc/commit/7ed468bd12027045b159e03c08dcfbb30684e510", "source_context_status": "available", "source_context_commit": "3544f2243917d9a3676fd1d3137902f5c7a6fa99"}
+[comment_text]
+index is Array type (TODO: Index obj)
+[source_context]
+    str_arr_payload_type, StringArrayType, GetItemStringArray)
+from hpat.hiframes.pd_timestamp_ext import pandas_timestamp_type, datetime_date_type
+from hpat.hiframes.pd_categorical_ext import PDCategoricalDtype, get_categories_int_type
+from hpat.hiframes.rolling import supported_rolling_funcs
+import datetime
+
+
+class DataFrameType(types.Type):  # TODO: IterableType over column names
+    """Temporary type class for DataFrame objects.
+    """
+    def __init__(self, data=None, index=None, columns=None):
+        # data is tuple of Array types
+        # index is Array type (TODO: Index obj)
+        # columns is tuple of strings
+
+        self.data = data
+        if index is None:
+            index = types.none
+        self.index = index
+        self.columns = columns
+        super(DataFrameType, self).__init__(
+            name="dataframe({}, {}, {})".format(data, index, columns))
+
+    def copy(self):
+        # XXX is copy necessary?
+
+=== 388 23shades-0358-aajajbadj ===
+{"dataset_id": "aajajbadj", "repo_name": "HealthCatalyst/healthcareai-py", "filename": "hcpytools/develop_supervised_model.py", "comment_introducing_revision": "https://github.com/HealthCatalyst/healthcareai-py/commit/39002d735f4e8d32729496eefff353014e5cc68c", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "39002d735f4e8d32729496eefff353014e5cc68c"}
+[comment_text]
+TODO switch similar statements to work inplace (w\/o making a copy)
+[source_context]
+            print('\nDataframe after removing DTS columns:')
+            print(df.head())
+            print('\nNow either doing imputation or dropping rows with NULLs...')
+
+        if impute:
+            df = DataFrameImputer().fit_transform(df)
+            # This class comes from here: http://stackoverflow.com/a/25562948/5636012
+            if debug:
+                print('\ndf after doing imputation:')
+                print(df.shape)
+                print(df.head())
+        else:
+            #TODO switch similar statements to work inplace (w/o making a copy)
+            df = df.dropna(axis=0, how='any', inplace=True)
+            print('\ndf after dropping rows with NULLS:')
+            print(df.shape)
+            print(df.head())
+
+        # Convert predicted col to 0/1 (otherwise won't work with GridSearchCV)
+        # Note that this makes it such that hcpytools only handles N/Y in pred column
+        if modeltype == 'classification':
+            # Turning off warning around replace
+            pd.options.mode.chained_assignment = None  # default='warn'
+            # TODO: put try/catch here when type = class and numeric predictor is selected
+            df[predictedcol].replace(['Y','N'],[1,0], inplace=True)
+
+=== 389 23shades-0526-aagejejha ===
+{"dataset_id": "aagejejha", "repo_name": "nengo/nengo-dl", "filename": "nengo_dl/tensor_graph.py", "comment_introducing_revision": "https://github.com/nengo/nengo-dl/commit/5da45781a5cea40efb89b79b2cddc61842f03478", "comment_removing_revision": "https://github.com/nengo/nengo-dl/commit/29e2e1c0d07c249ed638005440df0fcf7b39b65b", "source_context_status": "available", "source_context_commit": "5da45781a5cea40efb89b79b2cddc61842f03478"}
+[comment_text]
+TODO: don't make these a constant initializer because we
+[source_context]
+                name="base_params/%s_%s" % (v.dtype, "_".join(str(x) for x in v.shape)),
+            )
+
+        logger.debug("created base param variables")
+        logger.debug([str(x) for x in self.signals.base_params.values()])
+
+        # variables to save the internal state of simulation between runs
+        # note: place these on CPU because they'll only be accessed once at the
+        # beginning of the simulation loop, and they can be quite large
+        with tf.device("/cpu:0"):
+            for k, v in self.base_arrays_init[False].items():
+                self.signals.saved_state[k] = self.add_weight(
+                    # TODO: don't make these a constant initializer because we
+                    #  don't want to store those large arrays in the graph def
+                    #  (double check that this is still a problem in TF2.0)
+                    initializer=tf.initializers.constant(v),
+                    shape=v.shape,
+                    dtype=v.dtype,
+                    trainable=False,
+                    name="saved_state/%s_%s"
+                    % (v.dtype, "_".join(str(x) for x in v.shape)),
+                )
+
+        logger.debug("created saved state variables")
+        logger.debug([str(x) for x in self.signals.saved_state.values()])
+
+=== 390 23shades-0838-aaeidjach ===
+{"dataset_id": "aaeidjach", "repo_name": "IntelPython/sdc", "filename": "hpat/pd_timestamp_ext.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/2b201a664e5fec7c122293426bb81a50084ac390", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "2b201a664e5fec7c122293426bb81a50084ac390"}
+[comment_text]
+XXX: code for timestamp series getitem in regular Numba
+[source_context]
+
+@unbox(TimestampSeriesType)
+def unbox_timestamp_series(typ, val, c):
+    getvalues = c.pyapi.object_getattr_string(val, "values")
+    return unbox_array(types.Array(dtype=types.NPDatetime('ns'), ndim=1, layout='C'), getvalues, c)
+
+@typeof_impl.register(pd.Series)
+def typeof_pd_timestamp_series(val, c):
+    if len(val) > 0 and isinstance(val[0], pd.Timestamp):
+        return timestamp_series_type
+
+
+# XXX: code for timestamp series getitem in regular Numba
+
+# @infer
+# class GetItemTimestampSeries(AbstractTemplate):
+#     key = "getitem"
+#
+#     def generic(self, args, kws):
+#         assert not kws
+#         [ary, idx] = args
+#         if isinstance(ary, TimestampSeriesType):
+#             if isinstance(idx, types.SliceType):
+#                 return signature(timestamp_series_type, *args)
+#             else:
+
+=== 391 23shades-0076-aajfajibh ===
+{"dataset_id": "aajfajibh", "repo_name": "pyannote/pyannote-audio", "filename": "pyannote/audio/embedding/approaches/contrastive_loss.py", "comment_introducing_revision": "https://github.com/pyannote/pyannote-audio/commit/55bcf77105abbaa9f775cc7f6e03b993e60d1c09", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "55bcf77105abbaa9f775cc7f6e03b993e60d1c09"}
+[comment_text]
+FIXME homogeneize the meaning of margin parameter
+[source_context]
+    TODO
+    """
+
+    def __init__(self, duration: float = 1.0,
+                       per_turn: int = 1,
+                       per_label: int = 1,
+                       per_fold: int = 32,
+                       per_epoch: float = None,
+                       label_min_duration: float = 0.,
+                       # FIXME create a Literal type for metric
+                       # FIXME maybe in pyannote.core.utils.distance
+                       metric: str = 'cosine',
+                       # FIXME homogeneize the meaning of margin parameter
+                       # FIXME it has a different meaning in ArcFace, right?
+                       margin: float = 0.2):
+
+        super().__init__(duration=duration,
+                         per_turn=per_turn,
+                         per_label=per_label,
+                         per_fold=per_fold,
+                         per_epoch=per_epoch,
+                         label_min_duration=label_min_duration)
+
+        self.metric = metric
+        self.margin = margin
+
+=== 392 23shades-0316-aafbifbhe ===
+{"dataset_id": "aafbifbhe", "repo_name": "ecohealthalliance/EpiTator", "filename": "annotator/annotator.py", "comment_introducing_revision": "https://github.com/ecohealthalliance/EpiTator/commit/ca1d01680fbc076b4306a137e90e97015b011e76", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ca1d01680fbc076b4306a137e90e97015b011e76"}
+[comment_text]
+TODO needs testing
+[source_context]
+        """Get all spans which have a given label"""
+        return filter(lambda span: span.label == label, self.spans)
+
+    def labels(self):
+        """Get a list of all labels in this tier"""
+        return [span.label for span in self.spans]
+
+    def sort_spans(self):
+        """Sort spans by order of start"""
+
+        self.spans.sort(key=lambda span: span.start)
+
+    # TODO needs testing
+    def filter_overlapping_spans(self, decider=None):
+        """Remove the smaller of any overlapping spans. Takes an optional
+           decider function which takes two spans and returns False if span_a
+           should not be retained, True if span_a should be retained."""
+
+        retained_spans = []
+        removed_spans_indexes = []
+
+        a_index = -1
+        for span_a in self.spans:
+            a_index += 1
+            retain_a = True
+
+=== 393 23shades-0183-aagabbjac ===
+{"dataset_id": "aagabbjac", "repo_name": "polyaxon/polyaxon-client", "filename": "polyaxon_client/project.py", "comment_introducing_revision": "https://github.com/polyaxon/polyaxon-client/commit/872d901d040155fb53e8f2ae904b3eb5d8fd8250", "comment_removing_revision": "https://github.com/polyaxon/polyaxon-client/commit/602ffc554db8fb2dc9f3d32964c2c8e24faf9137", "source_context_status": "available", "source_context_commit": "872d901d040155fb53e8f2ae904b3eb5d8fd8250"}
+[comment_text]
+TODO
+[source_context]
+            response = self.get(request_url, params=self.get_page(page=page))
+            projects_dict = response.json()
+            return [ExperimentConfig.from_dict(spec)
+                    for spec in projects_dict.get("results", [])]
+        except PolyaxonException as e:
+            logger.info("Error while retrieving projects: {}".format(e.message))
+            if isinstance(e, AuthenticationError):
+                # exit now since there is nothing we can do without login
+                sys.exit(1)
+            return []
+
+    def add_tensorboard(self, uuid):
+        # TODO
+        pass
+
+=== 394 23shades-0661-aaidbgfgc ===
+{"dataset_id": "aaidbgfgc", "repo_name": "scikit-learn/scikit-learn", "filename": "sklearn/ensemble/tests/test_forest.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/b9d6db81ec2e75ec40404db49f97999a08f00c55", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b9d6db81ec2e75ec40404db49f97999a08f00c55"}
+[comment_text]
+TODO: Remove in v1.2
+[source_context]
+)
+def test_n_features_deprecation(Estimator):
+    # Check that we raise the proper deprecation warning if accessing
+    # `n_features_`.
+    X = np.array([[1, 2], [3, 4]])
+    y = np.array([1, 0])
+    est = Estimator().fit(X, y)
+
+    with pytest.warns(FutureWarning, match="n_features_ was deprecated"):
+        est.n_features_
+
+
+# TODO: Remove in v1.2
+def test_mse_deprecated():
+    est1 = RandomForestRegressor(criterion="mse", random_state=0)
+
+    with pytest.warns(FutureWarning,
+                      match="Criterion 'mse' was deprecated"):
+        est1.fit(X, y)
+
+    est2 = RandomForestRegressor(criterion="squared_error", random_state=0)
+    est2.fit(X, y)
+    assert_allclose(est1.predict(X), est2.predict(X))
+
+
+
+=== 395 23shades-0594-aafbjgjcd ===
+{"dataset_id": "aafbjgjcd", "repo_name": "DIVA-DIA/DeepDIVA", "filename": "template/setup.py", "comment_introducing_revision": "https://github.com/DIVA-DIA/DeepDIVA/commit/15bf822ea885ec4364ae28b07a4c74f2b3a573d0", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "15bf822ea885ec4364ae28b07a4c74f2b3a573d0"}
+[comment_text]
+TODO: make it save a zipfile instead of a tarfile.
+[source_context]
+
+    # Get all files types in DeepDIVA as specified in FILE_TYPES
+    code_files = [item for item in files if item.endswith(tuple(FILE_TYPES))]
+
+    tmp_dir = tempfile.mkdtemp()
+
+    for item in code_files:
+        dest = os.path.join(tmp_dir, 'DeepDIVA', item.split('DeepDIVA')[1][1:])
+        if not os.path.exists(os.path.dirname(dest)):
+            os.makedirs(os.path.dirname(dest))
+        shutil.copy(item, dest)
+
+    # TODO: make it save a zipfile instead of a tarfile.
+    with tarfile.open(os.path.join(output_folder, 'DeepDIVA.tar.gz'), 'w:gz') as tar:
+        tar.add(tmp_dir, arcname='DeepDIVA')
+
+    # Clean up all temporary files
+    shutil.rmtree(tmp_dir)
+
+    return
+
+
+
+
+

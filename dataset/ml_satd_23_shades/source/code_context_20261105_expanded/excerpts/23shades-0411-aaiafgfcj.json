@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0411-aaiafgfcj",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "filename": "tensorflow2.0/source/tensorflow_estimator/python/estimator/estimator.py",
+  "commit": "44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/44d36f9e5045fd859ee188d74dc31f3921ad4796/tensorflow2.0/source/tensorflow_estimator/python/estimator/estimator.py",
+  "fetched_at": "2026-11-05T06:12:50.372965+00:00",
+  "source_sha256": "6c2069163495a3b5c3b9bdc7852fc84534a7e14f2f969718e6af2a2af8ab7380",
+  "line_start": 1529,
+  "line_end": 1553,
+  "excerpt": "        estimator_spec = self._eval_distribution.extended.call_for_each_replica(\n            self._call_model_fn,\n            args=(features, labels, ModeKeys.EVAL, config))\n        eval_metric_ops = _verify_and_create_loss_metric(\n            estimator_spec.eval_metric_ops, estimator_spec.loss,\n            self._eval_distribution)\n        update_op, eval_dict = _extract_metric_update_ops(\n            eval_metric_ops, self._eval_distribution)\n        ctx.set_non_tensor_output(name='estimator_spec', output=estimator_spec)\n        ctx.set_non_tensor_output(name='eval_dict', output=eval_dict)\n        return update_op\n\n      # TODO(priyag): Fix eval step hook to account for steps_per_run.\n      ctx = self._eval_distribution.extended.experimental_run_steps_on_iterator(\n          step_fn, iterator, iterations=steps_per_run_variable)\n      update_op = ctx.run_op\n      eval_dict = ctx.non_tensor_outputs['eval_dict']\n      grouped_estimator_spec = ctx.non_tensor_outputs['estimator_spec']\n    else:\n      features, labels = estimator_util.parse_iterator_result(\n          iterator.get_next())\n      grouped_estimator_spec = (\n          self._eval_distribution.extended.call_for_each_replica(\n              self._call_model_fn,\n              args=(features, labels, ModeKeys.EVAL, config)))"
+}

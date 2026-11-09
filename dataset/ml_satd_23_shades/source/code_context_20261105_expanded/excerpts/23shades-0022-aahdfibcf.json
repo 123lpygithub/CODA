@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0022-aahdfibcf",
+  "revision_url": "https://github.com/emlynjdavies/PySilCam/commit/f66685dde4f18d1f1cf9a137e0d48397c12933c3",
+  "filename": "pysilcam/silcamgui/interactive_summary.py",
+  "commit": "f66685dde4f18d1f1cf9a137e0d48397c12933c3",
+  "source_url": "https://raw.githubusercontent.com/emlynjdavies/PySilCam/f66685dde4f18d1f1cf9a137e0d48397c12933c3/pysilcam/silcamgui/interactive_summary.py",
+  "fetched_at": "2026-11-05T06:11:41.984870+00:00",
+  "source_sha256": "2b2a880f3fd9a0eec89d3a5d7fbd5122121ae9f43d87a6cbe680358ddfcb9d0a",
+  "line_start": 109,
+  "line_end": 133,
+  "excerpt": "        self.layout.addWidget(self.canvas)\n        self.layout.setStretchFactor(self.canvas, 1)\n        self.setLayout(self.layout)\n\n        self.configfile = \"/mnt/PDrive/PJ/MiniTowerSilCamConfig.ini\"\n        self.stats_filename = \"/mnt/PDrive/PJ/Oseberg2017OilOnly0.25mmNozzle2-STATS.csv\"\n        self.canvas.draw()\n\n    def setup_figure(self, config_file, stats_csv_file):\n        settings = PySilcamSettings(config_file)\n        self.av_window = pd.Timedelta(seconds=settings.PostProcess.window_size)\n\n        # @todo nrows is for testing only!\n        stats = pd.read_csv(stats_csv_file, nrows=10000, parse_dates=['timestamp'])\n\n        u = stats['timestamp'].unique()\n        u = pd.to_datetime(u)\n        sample_volume = scpp.get_sample_volume(settings.PostProcess.pix_size,\n                                               path_length=settings.PostProcess.path_length)\n\n        dias, bin_lims = scpp.get_size_bins()\n        vd_oil = np.zeros((len(u), len(dias)))\n        vd_gas = np.zeros_like(vd_oil)\n        vd_total = np.zeros_like(vd_oil)\n        d50_gas = np.zeros(len(u))"
+}

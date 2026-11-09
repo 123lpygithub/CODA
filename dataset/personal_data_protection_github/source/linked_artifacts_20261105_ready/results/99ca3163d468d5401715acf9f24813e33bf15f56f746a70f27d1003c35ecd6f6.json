@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Utility/RequestLetter.js#L122",
+  "kind": "file",
+  "cited_in": [
+    "comment_685070239"
+  ],
+  "revision": "d97ed79e7082db0cad9b2229f886c3e24d5638bf",
+  "immutable_revision": true,
+  "line_start": 110,
+  "line_end": 134,
+  "text": "            this.props.signature['name'];\n        return email;\n    }\n\n    /**\n     * @param {Request} request_object\n     * @param {String} template\n     * @param {Object} flags\n     */\n    static propsFromRequest(request_object, template, flags = {}) {\n        const id_data = RequestLetter.formatData(request_object.id_data);\n        const rectification_data = RequestLetter.formatData(request_object.rectification_data);\n        request_object.signature['name'] = id_data.name;\n\n        flags = {\n            erase_some: !request_object.erase_all,\n            has_fields: !!id_data.formatted,\n            erase_all: request_object.erase_all,\n            data_portability: request_object.data_portability,\n            runs: request_object.recipient_runs ? request_object.recipient_runs.length > 0 : false\n        };\n        const variables = {\n            id_data: id_data.formatted,\n            rectification_data: rectification_data.formatted,\n            erasure_data: '<italic>' + request_object.erasure_data + '</italic>',",
+  "source_sha256": "5441b2ab6f41ea96d64542d3adce98569c3145e62dd19144a73f2b4d4c51d52a",
+  "fetched_at": "2026-11-05T06:21:53.547650+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/datenanfragen/website/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Utility/RequestLetter.js",
+  "status": "available"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0262-aafciifib",
+  "revision_url": "https://github.com/DigitalSlideArchive/HistomicsTK/commit/d252eeb3478d843b03d0bf3de83aaa350031805b",
+  "filename": "server/docker_resource.py",
+  "commit": "d252eeb3478d843b03d0bf3de83aaa350031805b",
+  "source_url": "https://raw.githubusercontent.com/DigitalSlideArchive/HistomicsTK/d252eeb3478d843b03d0bf3de83aaa350031805b/server/docker_resource.py",
+  "fetched_at": "2026-11-05T06:12:23.970324+00:00",
+  "source_sha256": "b61567a185d3f66fee8577773cab90bf0eeecbfe111c5fbdb0c03c480db34931",
+  "line_start": 94,
+  "line_end": 118,
+  "excerpt": "\n    @access.admin\n    @describeRoute(\n        Description('Add a to the list of images to be loaded by histomics tk')\n            .notes(\"\"\"Must be a system administrator to call this. If the value\n                   passed is a valid JSON object, it will be parsed and stored\n                   as an object.\"\"\")\n            .param('name', 'The name or a list of names  of the '\n                           'docker images to be loaded ', required=True)\n            .errorResponse('You are not a system administrator.', 403)\n            .errorResponse('Failed to set system setting.', 500)\n        )\n    # TODO check the local cache and cloud for different images of same name\n    # TODO how to handle newer images(take the latest or require a confirmation)\n    # TODO use image id to confirm equivalence need v2 manifest schema on cloud\n    # TODO how to handle duplicate clis\n    # TODO have an event update (create cli instances)\n    # TODO check if the new images exist\n    def appendImage(self, params):\n        \"\"\"Validates the new images to be added (if they exist or not) and then\n        attempts to collect xml data to be cached. a job is then called to update\n        the histomicstk.docker_images settings with the new information\n        \"\"\"\n        self.requireParams(('name',), params)\n        name = params['name']"
+}

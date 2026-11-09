@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0311-aadbcjahd",
+  "revision_url": "https://github.com/Ciaran1981/geospatial-learn/commit/872a216cf30365e60b6c35583b9df27b6fd9d4b8",
+  "filename": "build/lib/geospatial_learn/data.py",
+  "commit": "872a216cf30365e60b6c35583b9df27b6fd9d4b8",
+  "source_url": "https://raw.githubusercontent.com/Ciaran1981/geospatial-learn/872a216cf30365e60b6c35583b9df27b6fd9d4b8/build/lib/geospatial_learn/data.py",
+  "fetched_at": "2026-11-05T06:12:32.117274+00:00",
+  "source_sha256": "ef5ee69e1c1d9fd2c1688be3e994d17ff99e0facfee7d8693cba73eb632d18c1",
+  "line_start": 6,
+  "line_end": 30,
+  "excerpt": "Description\n-----------\nA series of tools for the download and preprocessing of sentinel data (mainly S2). \n\n\n\"\"\"\nimport subprocess #import call #Popen, PIPE, STDOUT\nimport json\nimport glob2\nimport os\nfrom tqdm import tqdm\n#from sentinelsat import sentinel\n# TODO maybe improve this so it doesn't use a global\ntry:\n    from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt\nexcept:\n    ImportError \n    print('using older version of sentinelsat')\n    oldsat = True\n    from sentinelsat.sentinel import SentinelAPI, get_coordinates\n\n#import os\nimport gdal, ogr\n#import select\n#import shapefile"
+}

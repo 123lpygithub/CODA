@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/yakyak/yakyak/blob/master/src/ui/views/notifications.coffee#L15",
+  "kind": "file",
+  "cited_in": [
+    "comment_234466144"
+  ],
+  "revision": "master",
+  "immutable_revision": false,
+  "line_start": 3,
+  "line_end": 27,
+  "text": "shell    = require('electron').shell\npath     = require 'path'\ni18n     = require 'i18n'\nfs       = require 'fs'\napp = require('electron').app\n\n{nameof, getProxiedName, fixlink, notificationCenterSupportsSound} = require '../util'\n\n# conv_id markers for call notifications\ncallNeedAnswer = {}\n\nnotifierSupportsSound = notificationCenterSupportsSound()\n\n# Custom sound for new message notifications\naudioFile = path.join YAKYAK_ROOT_DIR, '..', 'media',\n'new_message.ogg'\naudioEl = new Audio(audioFile)\naudioEl.volume = .4\n\nmodule.exports = (models) ->\n    {conv, notify, entity, viewstate} = models\n    tonot = notify.popToNotify()\n\n    visibleFocused = await ipc.invoke 'mainwindow:isvisibleandfocused'\n    quietIf = (c, chat_id) -> visibleFocused or conv.isQuiet(c) or entity.isSelf(chat_id)",
+  "source_sha256": "81b9161d47b6e0d689a956eacb650803cfc861887e43084ae46fd163c448cc87",
+  "fetched_at": "2026-11-05T06:21:29.827336+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/yakyak/yakyak/master/src/ui/views/notifications.coffee",
+  "status": "available"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0594-aafbjgjcd",
+  "revision_url": "https://github.com/DIVA-DIA/DeepDIVA/commit/15bf822ea885ec4364ae28b07a4c74f2b3a573d0",
+  "filename": "template/setup.py",
+  "commit": "15bf822ea885ec4364ae28b07a4c74f2b3a573d0",
+  "source_url": "https://raw.githubusercontent.com/DIVA-DIA/DeepDIVA/15bf822ea885ec4364ae28b07a4c74f2b3a573d0/template/setup.py",
+  "fetched_at": "2026-11-05T06:13:18.277747+00:00",
+  "source_sha256": "3568902c66dfba74dc7588c758a2ddbdf043edd0491085ea6939ff0f86b4bf7c",
+  "line_start": 496,
+  "line_end": 520,
+  "excerpt": "\n    # Get all files types in DeepDIVA as specified in FILE_TYPES\n    code_files = [item for item in files if item.endswith(tuple(FILE_TYPES))]\n\n    tmp_dir = tempfile.mkdtemp()\n\n    for item in code_files:\n        dest = os.path.join(tmp_dir, 'DeepDIVA', item.split('DeepDIVA')[1][1:])\n        if not os.path.exists(os.path.dirname(dest)):\n            os.makedirs(os.path.dirname(dest))\n        shutil.copy(item, dest)\n\n    # TODO: make it save a zipfile instead of a tarfile.\n    with tarfile.open(os.path.join(output_folder, 'DeepDIVA.tar.gz'), 'w:gz') as tar:\n        tar.add(tmp_dir, arcname='DeepDIVA')\n\n    # Clean up all temporary files\n    shutil.rmtree(tmp_dir)\n\n    return\n\n\n\n\n"
+}

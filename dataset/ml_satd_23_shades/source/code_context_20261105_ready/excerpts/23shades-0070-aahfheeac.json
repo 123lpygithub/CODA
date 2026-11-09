@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0070-aahfheeac",
+  "revision_url": "https://github.com/RaRe-Technologies/gensim/commit/93f61d5e5d813f81baac2727e1d85bedb3cf79e6",
+  "filename": "src/gensim/models/lsi_worker.py",
+  "commit": "93f61d5e5d813f81baac2727e1d85bedb3cf79e6",
+  "source_url": "https://raw.githubusercontent.com/RaRe-Technologies/gensim/93f61d5e5d813f81baac2727e1d85bedb3cf79e6/src/gensim/models/lsi_worker.py",
+  "fetched_at": "2026-11-05T06:11:49.425429+00:00",
+  "source_sha256": "5a53487d2f0a547b3a345bf128d157b5cbcb10c104131308142dfa4ed691339b",
+  "line_start": 82,
+  "line_end": 106,
+  "excerpt": "        Once the job is finished, the dispatcher is notified that it should collect\n        the results, broadcast them to other workers etc., and eventually tell\n        this worker to request another job by calling this function again.\n        \n        Note that callback.collect_result is also called asynchronously (\"one-way\").\n        \"\"\"\n        if not self.initialized:\n            raise RuntimeError(\"worker %s must be initialized before receiving jobs\" % self.name)\n        self.process_updates()\n        job = self.callback.get_job(self.my_id) # blocks until a new job is available from the dispatcher\n        self.process_updates() # call process_updates again, to stay as up-to-date as possible\n        logger.debug(\"worker %s received a new job\" % self.my_id)\n        result = job # FIXME\n        import time, random\n        time.sleep(random.random() * 3.0)\n        self.result = result\n        self.jobs_done += 1\n        self.callback.collect_result(self.my_id)\n#endclass Worker\n\n\ndef main():\n    ns = Pyro.naming.locateNS()\n    with Pyro.core.Daemon() as daemon:\n        worker = Worker()"
+}

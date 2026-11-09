@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0705-aajdcfhfa",
+  "revision_url": "https://github.com/jupyter/nbdime/commit/77aa8633b1a6bc453a6b1222eecf00ac6be2f196",
+  "filename": "nbdime/diffing/notebooks.py",
+  "commit": "77aa8633b1a6bc453a6b1222eecf00ac6be2f196",
+  "source_url": "https://raw.githubusercontent.com/jupyter/nbdime/77aa8633b1a6bc453a6b1222eecf00ac6be2f196/nbdime/diffing/notebooks.py",
+  "fetched_at": "2026-11-05T06:13:40.776855+00:00",
+  "source_sha256": "907d650f7b1e239994b1bbb0e6fe6e79629da9be5a15b13983fed3271c14e0c3",
+  "line_start": 18,
+  "line_end": 42,
+  "excerpt": "#, INSERT, DELETE, REPLACE,\nfrom ..dformat import decompress_diff\n\nfrom .comparing import strings_are_similar\nfrom .sequences import diff_sequence\nfrom .generic import diff, diff_lists\nfrom .snakes import compute_snakes_multilevel\n\n__all__ = [\"diff_notebooks\"]\n\n\ndef diff_single_cells(a, b):\n    # TODO: Something smarter?\n    # TODO: Use google-diff-patch-match library to diff the sources?\n    # TODO: Handle output diffing with plugins? I.e. image diff, svg diff, json diff, etc.\n    from nbdime import diff\n    return diff(a, b)\n\n\ndef compare_cell_source_approximate(x, y):\n    \"Compare source of cells x,y with approximate heuristics.\"\n    if x[\"cell_type\"] != y[\"cell_type\"]:\n        return False\n    # TODO: Use google-diff-patch-match library\n    # TODO: Initially try difflib ratio"
+}

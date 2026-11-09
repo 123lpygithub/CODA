@@ -1,0 +1,355 @@
+
+=== 276 23shades-0272-aagjifffj ===
+{"dataset_id": "aagjifffj", "repo_name": "apayne19/DoubleAuctionMarket", "filename": "spot_market_period.py", "comment_introducing_revision": "https://github.com/apayne19/DoubleAuctionMarket/commit/e63ddcdb29251de8e25967bf1f39c7c290e97581", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e63ddcdb29251de8e25967bf1f39c7c290e97581"}
+[comment_text]
+TODO create graphs of average earnings per period\uFFFF
+[source_context]
+        plt.plot(x, y2)
+        plt.title("Market Surpluses")
+        plt.xlabel("Period")
+        plt.ylabel("Surplus")
+        plt.grid(True)
+        plt.show()'''
+    data = [go.Bar(
+        x=np.array(periods_list),
+        y=np.array(act_surplus))]
+
+    py.offline.plot(data)
+
+# TODO create graphs of average earnings per period
+
+=== 277 23shades-0581-aaeieedge ===
+{"dataset_id": "aaeieedge", "repo_name": "IntelPython/sdc", "filename": "hpat/hiframes/boxing.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/7f8f9489e355e519221c4222dec3bc9181762c12", "comment_removing_revision": "https://github.com/IntelPython/sdc/commit/e9b3308d09c79db3253cc57b878972c062bdb9d5", "source_context_status": "available", "source_context_commit": "7f8f9489e355e519221c4222dec3bc9181762c12"}
+[comment_text]
+TODO: is incref required?
+[source_context]
+        # TODO: datetime.date, DatetimeIndex?
+        if dtype == string_type:
+            arr_obj = box_str_arr(arr_typ, arr, c)
+        elif isinstance(dtype, PDCategoricalDtype):
+            arr_obj = box_categorical_series_dtype_fix(dtype, arr, c, class_obj)
+            context.nrt.incref(builder, arr_typ, arr)
+        elif dtype == types.List(string_type):
+            arr_obj = box_list(list_string_array_type, arr, c)
+            context.nrt.incref(builder, arr_typ, arr)  # TODO required?
+            # pyapi.print_object(arr_obj)
+        else:
+            arr_obj = box_array(arr_typ, arr, c)
+            # TODO: is incref required?
+            context.nrt.incref(builder, arr_typ, arr)
+        name_str = context.insert_const_string(c.builder.module, cname)
+        cname_obj = pyapi.string_from_string(name_str)
+        pyapi.object_setitem(res, cname_obj, arr_obj)
+        # pyapi.decref(arr_obj)
+        pyapi.decref(cname_obj)
+
+    pyapi.decref(class_obj)
+    pyapi.gil_release(gil_state)    # release GIL
+    return res
+
+@box(PandasDataFrameType)
+
+=== 278 23shades-0427-aajdaiegb ===
+{"dataset_id": "aajdaiegb", "repo_name": "RobotLocomotion/pytorch-dense-correspondence", "filename": "modules/dense_correspondence_manipulation/change_detection/convertPlyToVtp.py", "comment_introducing_revision": "https://github.com/RobotLocomotion/pytorch-dense-correspondence/commit/6b19e18c5d3798fead186621d56fd3ff330e1a31", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6b19e18c5d3798fead186621d56fd3ff330e1a31"}
+[comment_text]
+TODO:
+[source_context]
+import os
+from director import ioUtils
+from director import vtkNumpy as vnp
+
+
+if __name__ == '__main__':
+
+    filename = sys.argv[1]
+    outputFilename = os.path.splitext(filename)[0] + '.vtp'
+
+    polyData = ioUtils.readPolyData(filename)
+
+    # TODO:
+    # This should just be fixed in ioUtils.readPolyData, but for now
+    # there is a workaround for an issue with the ply reader.
+    # The output of the ply reader has points but not vertex cells,
+    # so create a new polydata with vertex cells and copy the cells over.
+    points = vnp.getNumpyFromVtk(polyData, 'Points')
+    newPolyData = vnp.numpyToPolyData(points, createVertexCells=True)
+    polyData.SetVerts(newPolyData.GetVerts())
+
+    print 'writing:', outputFilename
+    ioUtils.writePolyData(polyData, outputFilename)
+
+=== 279 23shades-0833-aajggbgdc ===
+{"dataset_id": "aajggbgdc", "repo_name": "mne-tools/mne-python", "filename": "mne/source_estimate.py", "comment_introducing_revision": "https://github.com/mne-tools/mne-python/commit/376c2bdc067636c38488b1f7e3502d1b4e558efc", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "376c2bdc067636c38488b1f7e3502d1b4e558efc"}
+[comment_text]
+XXX this should be supported someday
+[source_context]
+            stc = SourceEstimate(data, vertices=vertices, tmin=tmin,
+                                 tstep=tstep, subject=subject)
+    elif src_type in ('volume', 'discrete'):
+        if vector:
+            data = data.reshape((-1, 3, data.shape[-1]))
+            klass = VolVectorSourceEstimate
+        else:
+            klass = VolSourceEstimate
+        stc = klass(data, vertices=vertices, tmin=tmin, tstep=tstep,
+                    subject=subject)
+    elif src_type == 'mixed':
+        # make a mixed source estimate
+        if vector:  # XXX this should be supported someday
+            raise RuntimeError('Vector source estimates for mixed source '
+                               'spaces are not supported yet')
+        stc = MixedSourceEstimate(data, vertices=vertices, tmin=tmin,
+                                  tstep=tstep, subject=subject)
+    else:
+        raise ValueError('vertices has to be either a list with one or more '
+                         'arrays or an array')
+    return stc
+
+
+def _verify_source_estimate_compat(a, b):
+    """Make sure two SourceEstimates are compatible for arith. operations."""
+
+=== 280 23shades-0801-aaigijhgj ===
+{"dataset_id": "aaigijhgj", "repo_name": "chainer/chainer", "filename": "tests/chainer_tests/functions_tests/array_tests/test_repeat.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/6931f3eddf561dd00fff9ef0fb83716914ca090d", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6931f3eddf561dd00fff9ef0fb83716914ca090d"}
+[comment_text]
+Workaround NumPy 1.9 issue.
+[source_context]
+import unittest
+
+import numpy
+
+from chainer import functions
+from chainer import testing
+
+
+def _repeat(arr, repeats, axis=None):
+    # Workaround NumPy 1.9 issue.
+    if isinstance(repeats, tuple) and len(repeats) == 1:
+        repeats = repeats[0]
+    return numpy.repeat(arr, repeats, axis)
+
+
+@testing.parameterize(*testing.product({
+    # repeats is any of (int, bool or tuple) and
+    # axis is any of (int or None).
+    'params': (
+        # Repeats 1-D array
+        testing.product({
+            'shape': [(2,)],
+
+=== 281 23shades-0519-aajfiibhb ===
+{"dataset_id": "aajfiibhb", "repo_name": "konlpy/konlpy", "filename": "konlpy/utils.py", "comment_introducing_revision": "https://github.com/konlpy/konlpy/commit/4113a80ad7b9cf65e9d1ec9ac23ab214b2eef9bc", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "4113a80ad7b9cf65e9d1ec9ac23ab214b2eef9bc"}
+[comment_text]
+TODO: do not replace unless explicitly noticed + add 'only hangul' option
+[source_context]
+        (u'‘', u"'"), # \u2018
+        (u'’', u"'"), # \u2019
+        (u'“', u'"'), # \u201c
+        (u'”', u'"'), # \u201d
+        (u'「', u'<'), # \u300c
+        (u'」', u'>')] # \u300d
+
+def concat(phrase):
+    return phrase.replace(os.linesep, ' ')
+
+def select(phrase):
+    # FIXME: last eojeol gets truncated (hotfixed)
+    # TODO: do not replace unless explicitly noticed + add 'only hangul' option
+    for a, b in replace_set:
+        phrase = phrase.replace(a, b)
+    return phrase + ' .'
+
+def preprocess(phrase):
+    return select(concat(phrase))
+
+def char2hex(c):
+    # u'음' -> '0xc74c'
+    return hex(ord(c))
+
+def hex2char(h):
+
+=== 282 23shades-0565-aajfdefij ===
+{"dataset_id": "aajfdefij", "repo_name": "theislab/scanpy", "filename": "scanpy/utils.py", "comment_introducing_revision": "https://github.com/theislab/scanpy/commit/9d76eba7ce4027dab47d76f63314d81213ffe989", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "9d76eba7ce4027dab47d76f63314d81213ffe989"}
+[comment_text]
+TODO: implement diffxpy method
+[source_context]
+
+def unique_categories(categories):
+    """Pass array-like categories, return sorted cleaned unique categories."""
+    categories = np.unique(categories)
+    categories = np.setdiff1d(categories, np.array(settings.categories_to_ignore))
+    categories = np.array(natsorted(categories, key=lambda v: v.upper()))
+    return categories
+
+# --------------------------------------------------------------------------------
+# Plotting data helpers
+# --------------------------------------------------------------------------------
+
+@singledispatch  # TODO: implement diffxpy method
+def rank_genes_groups_df(
+    adata: AnnData,
+    group: str,  # Can this be something other than a str?
+    *,
+    genes: Optional[Iterable[str]] = None,  # TODO: Implement
+    key: str = "rank_genes_groups",
+    pval_cutoff: Optional[float] = 0.05,
+    logfc_cutoff: Optional[float] = None,
+    gene_symbols: Optional[str] = None
+) -> pd.DataFrame:
+    """
+    Get `rank_genes_groups` results in the form of a :class:`pd.DataFrame`.
+
+=== 283 23shades-0093-aaffafejc ===
+{"dataset_id": "aaffafejc", "repo_name": "DependableSystemsLab/TensorFI", "filename": "TensorFI/injectFault.py", "comment_introducing_revision": "https://github.com/DependableSystemsLab/TensorFI/commit/4341e8bf34ff969a43d1ca84862cd85675e6a601", "comment_removing_revision": "https://github.com/DependableSystemsLab/TensorFI/commit/bbe9a6b138598bf4b36da3f022bb02307b84ed3c", "source_context_status": "available", "source_context_commit": "4341e8bf34ff969a43d1ca84862cd85675e6a601"}
+[comment_text]
+FIXME: Implement this functionality
+[source_context]
+	# FIXME: Implement this functionality
+	logging.debug("Calling Operator TruncatedNormal") # + str(a))
+	raise NotImplementedError("TruncatedNormal")
+
+def injectFaultRandomUniformInt(a):
+	"Function to call injectFault on Random Uniform Int"
+	# FIXME: Implement this functionality
+	logging.debug("Calling Operator RandomUniformInt")
+	raise NotImplementedError("RandomUniformInt")
+
+def injectFaultRandomUniform(a):
+	"Function to call injectFault on Random Uniform"
+	# FIXME: Implement this functionality
+	logging.debug("Calling Operator RandomUniform")
+	raise NotImplementedError("RandomUniform")
+	
+def injectFaultRandomStandardNormal(a):
+	"Function to call injectFault on Random Standard Normal"
+	# FIXME: Implement this functionality
+	logging.debug("Calling Operator RandomStandardNormal")
+	raise NotImplementedError("RandomStandardNormal")
+
+def injectFaultRefSwitch(a):
+	"Function to call injectFault on RefSwitch"
+	# FIXME: Implement this functionality
+
+=== 284 23shades-0442-aabgdbaje ===
+{"dataset_id": "aabgdbaje", "repo_name": "rmalav15/Super-SloMo", "filename": "data_loader.py", "comment_introducing_revision": "https://github.com/rmalav15/Super-SloMo/commit/db6e050566391a6ec41b643f873c5aaa8ae88f25", "comment_removing_revision": "https://github.com/rmalav15/Super-SloMo/commit/1af154900e0ecafc953e9c3a2295ff842fa0eb7b", "source_context_status": "available", "source_context_commit": "db6e050566391a6ec41b643f873c5aaa8ae88f25"}
+[comment_text]
+TODO: add backward images also.
+[source_context]
+            raise ValueError('No training video available.')
+
+        if len(self.video_names) < self.batch_size:
+            print("Reducing batch size to: ", len(self.video_names))  # todo: Replace with logger
+            self.batch_size = len(self.video_names)
+
+    def getTrainData(self):
+
+        Data = collections.namedtuple('Data', 'paths_LR, paths_HR, inputs, targets, image_count, steps_per_epoch')
+        image_paths_lists = [[os.path.join(path, imageName) for imageName in os.listdir(path)] for path in
+                             self.image_dirs]
+        image_paths_lists = pad_function(image_paths_lists)
+        # TODO: add backward images also.
+        image_paths_lists_deep_copy_list = [random.sample(image_paths_lists, len(image_paths_lists)) for _ in
+                                            range(self.batch_size)]
+
+        with tf.variable_scope('data_loader'):
+            # This  makes shallow copy
+            # images_paths_list_tensor = tf.convert_to_tensor(image_paths_lists, dtype=tf.string)
+            # images_paths_list_tensor_list = [tf.random.shuffle(tf.identity(images_paths_list_tensor)) for _ in
+            #                                  range(self.batch_size)]
+
+            images_paths_list_tensor_list = [tf.convert_to_tensor(shuffled_image_paths_lists, dtype=tf.string) for
+                                             shuffled_image_paths_lists in image_paths_lists_deep_copy_list]
+            batch_images_path_list = tf.train.slice_input_producer(images_paths_list_tensor_list)
+
+=== 285 23shades-0855-aaeachbce ===
+{"dataset_id": "aaeachbce", "repo_name": "mozilla/bugbug", "filename": "scripts/test_scheduling_history_retriever.py", "comment_introducing_revision": "https://github.com/mozilla/bugbug/commit/2e097ffb7f4ecf2339b41d8dfe9012a10c749cd2", "comment_removing_revision": "https://github.com/mozilla/bugbug/commit/0b4540372211e48dfcff5567c85e3ef07fa662c0", "source_context_status": "available", "source_context_commit": "2e097ffb7f4ecf2339b41d8dfe9012a10c749cd2"}
+[comment_text]
+XXX: We re-cache now just to make sure all items get a mozci version.
+[source_context]
+
+            if adr.config.cache.has(key) and push.revs[0] not in to_regenerate:
+                num_cached += 1
+                cached = adr.config.cache.get(key)
+                if cached:
+                    # XXX: We have to support items in the cache that were added
+                    # before the mozci version was stored. We can drop the if
+                    # when all items have been switched over.
+                    value, mozci_version = (
+                        cached if isinstance(cached, tuple) else (cached, 0)
+                    )
+                    push_data.append(value)
+                    # XXX: We re-cache now just to make sure all items get a mozci version.
+                    # We will remove this soon.
+                    adr.config.cache.forever(key, (value, mozci_version))
+            else:
+                logger.info(f"Analyzing {push.rev} at the {runnable} level...")
+
+                try:
+                    if runnable == "label":
+                        runnables = push.task_labels
+                    elif runnable == "group":
+                        runnables = push.group_summaries.keys()
+
+                    value = [
+
+=== 286 23shades-0161-aagcbdejg ===
+{"dataset_id": "aagcbdejg", "repo_name": "yzou2/CBST", "filename": "data/cityscapesscripts/annotation/cityscapesLabelTool.py", "comment_introducing_revision": "https://github.com/yzou2/CBST/commit/10ff3a8f96ba43ff134952f96eabe56a07e0f4f0", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "10ff3a8f96ba43ff134952f96eabe56a07e0f4f0"}
+[comment_text]
+self.clearChanges() #TODO perhaps?
+[source_context]
+
+    # Clear the current labels
+    def clearAnnotation(self):
+        self.annotation = None
+        self.clearChanges()
+        self.deselectAllObjects()
+        self.clearPolygon()
+        self.config.currentLabelFile = ""
+
+    def clearCorrections(self):
+        self.correctionXML = None
+        self.corrections  = []
+        #self.clearChanges() #TODO perhaps?
+        #self.clearPolygon()
+        self.config.currentCorrectionFile = ""
+
+    # Get the filename where to load/save labels
+    # Returns empty string if not possible
+    # Set the createDirs to true, if you want to create needed directories
+    def getLabelFilename( self , createDirs = False ):
+        # We need the name of the current city
+        if not self.config.cityName:
+            return ""
+        # And we need to have a directory where labels should be searched
+        if not self.config.labelPath:
+
+=== 287 23shades-0731-aafiggaje ===
+{"dataset_id": "aafiggaje", "repo_name": "BorgwardtLab/P-WL", "filename": "grid_search_pwl.py", "comment_introducing_revision": "https://github.com/BorgwardtLab/P-WL/commit/78b52d4db371d19a8d6690842bb2297cb4742b65", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "78b52d4db371d19a8d6690842bb2297cb4742b65"}
+[comment_text]
+TODO: this flag is somewhat redundant given the flag above; need
+[source_context]
+        pd.DataFrame(cv_results).to_csv(args.result_file, index=False)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('FILES', nargs='+', help='Input graphs (in some supported format)')
+    parser.add_argument('-b', '--balanced', action='store_true', help='Make random forest classifier balanced')
+    parser.add_argument('-d', '--dataset', help='Name of data set')
+    parser.add_argument('-l', '--labels', type=str, help='Labels file', required=True)
+    parser.add_argument('-n', '--num-iterations', default=3, type=int, help='Number of Weisfeiler-Lehman iterations')
+    parser.add_argument('-f', '--filtration', type=str, default='sublevel', help='Filtration type')
+    parser.add_argument('-c', '--use-cycle-persistence', action='store_true', default=False, help='Indicates whether cycle persistence should be calculated or not')
+    parser.add_argument('-o', '--use-original-features', action='store_true', default=False, help='Indicates that original features should be used as well')
+    # TODO: this flag is somewhat redundant given the flag above; need
+    # to ensure that it is seen as an 'override', i.e. if this is set,
+    # *no* other ways of calculating features can be used.
+    parser.add_argument('-u', '--use-uniform-metric', action='store_true', default=False, help='Use uniform metric for weight assignment')
+    parser.add_argument('-r', '--result-file',
+                        default='grid_search_results/results_PWL.csv', help='File in which to store results')
+
+    args = parser.parse_args()
+
+    logging.basicConfig(
+        level=logging.DEBUG,
+        filename='{}_{:02d}.log'.format(args.dataset, args.num_iterations)
+    )

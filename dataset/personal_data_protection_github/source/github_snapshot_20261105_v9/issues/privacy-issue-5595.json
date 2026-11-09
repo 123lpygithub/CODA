@@ -1,0 +1,218 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5595",
+  "issue_url": "https://github.com/chamilo/chamilo-lms/issues/2555",
+  "source_issue_url": "https://github.com/chamilo/chamilo-lms/issues/2555",
+  "api_url": "https://api.github.com/repos/chamilo/chamilo-lms/issues/2555",
+  "title": "EUGDPR: Admin report on withdrawal of consent",
+  "body": "If users withdraw their consent to store data, information should be stored to report about it so the admin knows it happened, from whom (although this is arguably an issue) and when.\r\n\r\nStoring this info in track_e_default should be enough to generate the report afterwards.\r\n\r\nThe report should available in a new \"Personal Data Privacy\" block on the admin page.\r\n\r\nThe interface should also receive \"requests for erasure\" (right to be forgotten) and enable the admin to take action (with e-mail reminders because it cannot take longer than a month).\r\n\r\nParticularly specific information about the right to be forgotten available here: https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/\r\nOur admin page should point there or to the closest equivalent on the EU website to allow for the admin to be informed before taking a decision.",
+  "author": "Participant 1",
+  "created_at": "2018-06-07T21:48:50Z",
+  "updated_at": "2018-08-08T08:06:11Z",
+  "state": "closed",
+  "closed_at": "2018-08-08T08:06:10Z",
+  "issue_fetched_at": "2026-10-19T04:06:06.378912+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T04:06:07.811095+00:00"
+  ],
+  "expected_comment_count": 24,
+  "retrieved_comment_count": 24,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 409913330,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-409913330",
+      "created_at": "2018-08-02T12:45:02Z",
+      "updated_at": "2018-08-02T12:45:02Z",
+      "author": "Participant 2",
+      "body": "> If users withdraw their consent to store data, information should be stored to report about it so the admin knows it happened, from whom (although this is arguably an issue) and when.\r\n\r\nRight now the only way to use the platform is to accept it, otherwise the user can't continue.\r\nI'm talking about this page:\r\n\r\n![selection_007](https://user-images.githubusercontent.com/158935/43584406-984d6504-9662-11e8-9e08-8b849d2efe12.png)\r\n"
+    },
+    {
+      "id": 409961487,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-409961487",
+      "created_at": "2018-08-02T15:11:14Z",
+      "updated_at": "2018-08-02T15:11:14Z",
+      "author": "Participant 3",
+      "body": "On the personal data page https://11.chamilo.org/main/social/personal_data.php there is a bloc at the bottom with \"Permissions you gave us\". In this bloc there is legal accepted with the last line being a button \"Delete legal agreement\" that link to https://11.chamilo.org/main/social/personal_data.php?action=delete_legal&user_id=65\r\n\r\nWhen the user click on this button the legal extra field should be updated to remove acceptance. There should be a registry of this removal of acceptance in the track_e_default table and the user should be disconnected from Chamilo because he can not have access anymore. Then when he will log again the terms and conditions should be presented to him as if he did not accept them yet.\r\n\r\nOn the administration page of Admin report on withdrawal of consent there should be the list of user that withdraw their consent and the date at which they did it.\r\n\r\n"
+    },
+    {
+      "id": 409964486,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-409964486",
+      "created_at": "2018-08-02T15:20:04Z",
+      "updated_at": "2018-08-02T15:20:04Z",
+      "author": "Participant 1",
+      "body": "Yes it's a withdrawal (so he accepted it first, then decides he doesn't want to anymore).\r\nIt's actually a bit more complicated than just removing it: it should be considered as a *request* for removal (not sure how we can handle that) so the admin gets notified (by e-mail and internal messaging) that a user asked for withdrawal, and then takes one of 4 manual actions:\r\n - contact the user by message + e-mail (to get more info)\r\n - remove terms and conditions acceptance\r\n - anonymize the user\r\n - delete the user\r\n\r\nWhen the user withdraws consent, he should actually have the opportunity to explain why (so we avoid option 1 above in most cases).\r\nI haven't thought that through yet, but I imagine adding *another* extra_field (or 2 including the justification) could do the trick?"
+    },
+    {
+      "id": 410211333,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410211333",
+      "created_at": "2018-08-03T10:18:59Z",
+      "updated_at": "2018-08-03T10:18:59Z",
+      "author": "Participant 3",
+      "body": "To be clear on what is expected I'll try to explain the use cases.\r\n\r\n### 1) Request for withdrawal of consent\r\n\r\nA user goes to  the personal data page https://11.chamilo.org/main/social/personal_data.php there is a bloc at the bottom with \"Permissions you gave us\". In this bloc there is legal accepted with the last line being a button \"Delete legal agreement\" that links to https://11.chamilo.org/main/social/personal_data.php?action=delete_legal&user_id=65\r\n\r\nOn top of this button there should be a text box with a text saying \"Explain why yoiu want to delete your legal agreement that will lead to you not being able to connect to the plateform anymore.\" The user should be able to write it's reason in the text bloc.\r\n\r\nWhen clicking on the button \"Delete legal agreement\" then we store in an extra field called \"request_for_legal_agreement_consent_removal\" that this user asked for removal and we store in an extra field called \"request_for_legal_agreement_consent_removal_justification\" the text that the user entered in the text box.\r\nWe register the request in track_e_default.\r\nWe also send an email to $_configuration['data_protection_officer_email'] if it's set in the configuration file or if it is not set we send in chamilo's mailbox to all the admin on the plateform.\r\n\r\nThis mail has\r\n* for title : \"Request for legal consent removal\" \r\n* for content : the user \"USERNAME\" ask for consent removal with the following justification : [Include the content of   request_for_legal_agreement_consent_removal_justification]\r\nTo manage request go to [Link to the Admin report on withdrawal of consent]\r\n\r\nThere should be the same workflow for a user to request erasure. So instead of a button for delete legal agreement there should be a button for \"Erase account\" with a test box, so with 2 other extra fields.\r\n\r\n\r\n### Admin report on withdrawal of consent\r\n\r\nThe report should available in a new \"Personal Data Privacy\" block on the admin page.\r\n\r\nOn this page we show a list of user that have asked for removal of legal agreement or for erasure of account, that means that have the extra field request_for_legal_agreement_consent_removal to 1 or the equivalent for erasure of account.\r\n\r\nFor each user we show their names and email and a column with the name of the request (could be delete agreement or account removal, or both) and in the action column we have 4 options : \r\n* contact the user by message + e-mail (opens a message in Chamilo messaging)\r\n* remove terms and conditions acceptance (this removes the legal_accept extra field for this user) we register in track_e_default that the terms have been removed for this user).\r\n* anonymize the user (This is the same option as the one in the admin user list : https://11.chamilo.org/main/admin/user_list.php?action=anonymize&user_id=29&users_direction=ASC&users_page_nr=1&users_per_page=20&users_column=2&sec_token=60d5a85cb489570754781cf120d7d045&sec_token=60d5a85cb489570754781cf120d7d045) and register the action in track_e_default\r\n* delete the user (same action as in the admin user list and register the action in track_e_default)\r\n\r\nOn the bottom of the report we should add this information and link :\r\nParticularly specific information about the right to be forgotten available here: https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/\r\n\r\n### Cron for reminder\r\n\r\nAdd a cron to check:\r\n*  if a user has requested for removal of legal agreement since 1 week and none of the 3 options (Remove terms and conditions acceptance, Anonymize user or Delete user) has been taken, than send an email  to $_configuration['data_protection_officer_email'] if it's set in the configuration file or if it is not set we send in chamilo's mailbox to all the admin on the plateform to indicate that it has been 1 week since a user requested for concent withdrawal and a link to the admin report page.\r\n* do the same if a user has requested for removal since 2 weeks, 3 weeks and 4 weeks.\r\n* Same for account erasure request\r\n\r\n\r\n"
+    },
+    {
+      "id": 410252911,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410252911",
+      "created_at": "2018-08-03T13:28:22Z",
+      "updated_at": "2018-08-03T13:28:22Z",
+      "author": "Participant 2",
+      "body": "Question:\r\n\r\nA user can send \"Delete legal agreement\" and also send for a \"Erase account\"?\r\n"
+    },
+    {
+      "id": 410253858,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410253858",
+      "created_at": "2018-08-03T13:30:47Z",
+      "updated_at": "2018-08-03T13:30:47Z",
+      "author": "Participant 2",
+      "body": "I added all the workflow except the crons and the \"Erase account\" button."
+    },
+    {
+      "id": 410261526,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410261526",
+      "created_at": "2018-08-03T13:55:36Z",
+      "updated_at": "2018-08-03T13:55:36Z",
+      "author": "Participant 3",
+      "body": ">Question:\r\n>A user can send \"Delete legal agreement\" and also send for a \"Erase account\"?\r\nYes the user can request 2 things : \r\n* Request to delete legal agreement\r\n* Request to erase account\r\n\r\nSo there should be 2 buttons.\r\n"
+    },
+    {
+      "id": 410267882,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410267882",
+      "created_at": "2018-08-03T14:18:20Z",
+      "updated_at": "2018-08-03T14:18:20Z",
+      "author": "Participant 3",
+      "body": "There is a problem, I've connected with user amann/amann on https://11.chamilo.org/main/social/personal_data.php\r\nAnd I clicked on the button to ask for legal agreement removal.\r\nThe admin received a notification, and the user is correctly in the list on the page https://11.chamilo.org/main/admin/user_list_consent.php\r\n\r\nThen I logged out of Chamilo with amann and logged in again. I've been redirected to the legal agreement, whereas no action has been taken yet. For the moment Amann asked for removal but the admin did not yet removed it. So Amann should still have access to the plateform until the admin accept the removal "
+    },
+    {
+      "id": 410268465,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410268465",
+      "created_at": "2018-08-03T14:20:15Z",
+      "updated_at": "2018-08-03T14:20:15Z",
+      "author": "Participant 3",
+      "body": "On the admin report https://11.chamilo.org/main/admin/user_list_consent.php there should be a column with the name of the user request (Delete legal agreement or Erase account) the name of the request should be a link to show the justification text entered by the user."
+    },
+    {
+      "id": 410643649,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410643649",
+      "created_at": "2018-08-06T09:18:06Z",
+      "updated_at": "2018-08-06T09:18:22Z",
+      "author": "Participant 2",
+      "body": "I just added what you mentioned in your comments (No cron yet)."
+    },
+    {
+      "id": 410687199,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410687199",
+      "created_at": "2018-08-06T12:12:26Z",
+      "updated_at": "2018-08-06T12:12:26Z",
+      "author": "Participant 3",
+      "body": "When the user click on delete legal agreement he is added correctly to the list and he can still have access until the admin removes the legal agreement. Once the admin removes the legal agreement then the user disappear from the list and on next login the user has to accept the terms and condition again, so all good for this.\r\n\r\nOn the page https://11.chamilo.org/main/admin/user_list_consent.php there is the column with RequestType which is correct but we are missing the link on the request type to be able to se the explanation of why the user ask for deletion of legal agreement.\r\n\r\nThere is also a problem, I just created an account test2555 and went on the page https://11.chamilo.org/main/social/personal_data.php, I entered a text in the box \"ExplanationDeleteAccount\" and validated by clicking on \"DeleteAccount.\r\n\r\nThen as admin I went to https://11.chamilo.org/main/admin/user_list_consent.php and I have to registry for user test2555, one to delete legal agreement and the other to delete account, when there should be only one to delete account. Once you click on delete the account then the 2 request of this user disappear.\r\n\r\nSo there is 2 things to do : \r\n* When a user clicks on delete account there should be only a request for delete account and not for terms removal.\r\n* In the list of user requesting there should be a link on the request type to see the justification of the request."
+    },
+    {
+      "id": 410689287,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410689287",
+      "created_at": "2018-08-06T12:21:04Z",
+      "updated_at": "2018-08-06T12:21:04Z",
+      "author": "Participant 2",
+      "body": "> When a user clicks on delete account there should be only a request for delete account and not for terms removal.\r\n\r\nThis is a new request. I will do it.\r\n\r\n> In the list of user requesting there should be a link on the request type to see the justification of the request.\r\n\r\nYou can go to the user_edit.php page you will see the explanation. If you want I can add it as a column, but the explanation can be long text, are you sure about this change?\r\n"
+    },
+    {
+      "id": 410734990,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410734990",
+      "created_at": "2018-08-06T14:50:58Z",
+      "updated_at": "2018-08-06T14:50:58Z",
+      "author": "Participant 3",
+      "body": "I created a user test2555d, the logged as this user and went to the personal data page https://11.chamilo.org/main/social/personal_data.php. I've put a text in the box for delete legal agreement explanation and click on the delete legal agreement button.\r\n\r\nThe user appear on the admin report list and I can see in the user edit page the content of the explanation box.\r\n\r\nThen as user test2555d I went again on the personal data page and this time I put a text in the Explanation for delete account box and clicked on the Delete Account button.\r\n\r\nOn the admin report page there is no more the delete agreement request, only the delete account request. The problem that I reported before is that when the user only click on the delete account then the 2 request where generated when only one request should be generated. But if the user requested before to delete legal agreement  then this request should still appear, it should not be deleted.\r\n\r\nand when we go on the user edit page there is no field for Request for delete user account explanation, so I can not see it as an admin. For this last problem maybe it is just that the extra field is not created on 11.chamilo.org"
+    },
+    {
+      "id": 410950437,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410950437",
+      "created_at": "2018-08-07T06:40:39Z",
+      "updated_at": "2018-08-07T06:40:39Z",
+      "author": "Participant 2",
+      "body": "Ahhh ok, it should be fixed now. Both issues."
+    },
+    {
+      "id": 410953113,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410953113",
+      "created_at": "2018-08-07T06:53:30Z",
+      "updated_at": "2018-08-07T06:53:30Z",
+      "author": "Participant 3",
+      "body": "Ok, it's all good now for this.\r\nI just realized that we should show in the admin report the date when the user did the request. Since there is a limit of 4 weeks to take into account the request.\r\n\r\n@jmontoyaa can you add a column in the admin report with the date of when the user sent the request.\r\n\r\nThen the only missing part of this task would be the cron."
+    },
+    {
+      "id": 410965595,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410965595",
+      "created_at": "2018-08-07T07:44:40Z",
+      "updated_at": "2018-08-07T07:44:40Z",
+      "author": "Participant 2",
+      "body": "> if a user has requested for removal of legal agreement since 1 week and none of the 3 options (Remove terms and conditions acceptance, Anonymize user or Delete user) has been taken\r\n\r\nIf admin executes any of this 3 actions, all the extra fields values should be removed/clean for that user?\r\n\r\nrequest_for_legal_agreement_consent_removal_justification\r\nrequest_for_legal_agreement_consent_removal\r\nrequest_for_delete_account_justification\r\nrequest_for_delete_account"
+    },
+    {
+      "id": 410967023,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410967023",
+      "created_at": "2018-08-07T07:50:18Z",
+      "updated_at": "2018-08-07T07:50:18Z",
+      "author": "Participant 3",
+      "body": ">If admin executes any of this 3 actions, all the extra fields values should be removed/clean for that user?\r\n>request_for_legal_agreement_consent_removal_justification\r\n>request_for_legal_agreement_consent_removal\r\n>request_for_delete_account_justification\r\n>request_for_delete_account\r\n\r\nI would say yes because if an action is taken I guess the DPO or the Admin will have taken the correct action for the user.\r\n"
+    },
+    {
+      "id": 410984472,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410984472",
+      "created_at": "2018-08-07T08:53:48Z",
+      "updated_at": "2018-08-07T08:53:48Z",
+      "author": "Participant 2",
+      "body": "I added the cron, new lang variables are needed:\r\n```\r\n\r\n$subject = get_lang('UserRequestWaitingForAction');\r\n$content = sprintf(\r\n                get_lang('TheUserXIsWaitingForAnActionGoHereX'),\r\n                $userInfo['complete_name'],\r\n                $link\r\n            );\r\n```\r\n"
+    },
+    {
+      "id": 410991638,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-410991638",
+      "created_at": "2018-08-07T09:18:41Z",
+      "updated_at": "2018-08-07T09:18:41Z",
+      "author": "Participant 3",
+      "body": "All good for the new column in the report. I will check the cron later and add all the missing translations on translate.chamilo.org"
+    },
+    {
+      "id": 411074177,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-411074177",
+      "created_at": "2018-08-07T14:22:30Z",
+      "updated_at": "2018-08-07T14:22:30Z",
+      "author": "Participant 3",
+      "body": "I've added translations for : \r\n* UserRequestWaitingForAction = \"A user is waiting for an action about its personal data request\"\r\n* TheUserXIsWaitingForAnActionGoHereX = \"The user %s is waiting for an action about it's personal data request. \\n\\n To manage personal data requests you can follow this link : %s\"\r\n* RequestType = \"Request type\"\r\n* DeleteAccount = \"Delete account\"\r\n* RequestDate= \"Request date\"\r\n* RemoveTerms = \"Remove legal agreement\"\r\n* InformationRightToBeForgottenText = \"You can find more information about the user's right to erasure on the following links : </br></br><a href=\\\"https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/\\\">https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/</a></br><a href=\\\"https://gdpr-info.eu/art-17-gdpr/\\\">https://gdpr-info.eu/art-17-gdpr/</a>\"\r\n* ExplanationDeleteLegal =\"Explain in this box why you want your legal agreement removed\"\r\n* ExplanationDeleteAccount= \" Explain in this box why you want your account deleted \"\r\n* WhyYouWantToDeleteYourLegalAgreement= \"You can ask below for your legal agreement to be deleted or your account to be deleted.</br>In the case of the legal agreement, once deleted you will have to accept it again on next login to be able to access the plateform and recover your access.</br>In the case of an account deletion then your account will be deleted with all your course subscription and all the information related to your account.</br> So choose the option you want carefully.\""
+    },
+    {
+      "id": 411074674,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-411074674",
+      "created_at": "2018-08-07T14:23:50Z",
+      "updated_at": "2018-08-07T14:23:50Z",
+      "author": "Participant 3",
+      "body": "@aragonc we would need an icon for the [=RemoveTerms=] option in the action list on page https://11.chamilo.org/main/admin/user_list_consent.php?\r\n"
+    },
+    {
+      "id": 411099936,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-411099936",
+      "created_at": "2018-08-07T15:34:22Z",
+      "updated_at": "2018-08-07T15:34:22Z",
+      "author": "Participant 1",
+      "body": "Regarding deletion of the extra fields: OK for now to delete them. Maybe in the future we will be asked to keep some info about the request itself, but this seems contradictory to the fact that the user may ask for his/her data to be removed :smile: "
+    },
+    {
+      "id": 411192428,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-411192428",
+      "created_at": "2018-08-07T20:32:56Z",
+      "updated_at": "2018-08-08T02:28:33Z",
+      "author": "Participant 1",
+      "body": "@NicoDucou I've fixed that, but URLs should *always* be out of the translation term, because they tend to change over time (not based on the language but based on some regulation change or external site change).\r\nOnce they have been translated, it is *very* difficult to go and change all the different versions of the translated string.\r\nIn this case I understand the intent is to give a different URL for each language, but I think that's a bad ID. We can point to the neutral second link only."
+    },
+    {
+      "id": 411323133,
+      "url": "https://github.com/chamilo/chamilo-lms/issues/2555#issuecomment-411323133",
+      "created_at": "2018-08-08T08:06:10Z",
+      "updated_at": "2018-08-08T08:06:10Z",
+      "author": "Participant 1",
+      "body": "I've moved things around a bit and placed a temporary icon for RemoveTerms but @aragonc showed me a first idea of icon, he will send it later on.\r\nI'm closing this task prematurely. I will ensure the only step missing (the icon) is sent in a few hours."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

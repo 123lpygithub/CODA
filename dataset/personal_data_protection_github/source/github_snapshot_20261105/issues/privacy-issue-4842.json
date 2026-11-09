@@ -1,0 +1,23 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4842",
+  "issue_url": "https://github.com/e-valuation/EvaP/issues/1327",
+  "source_issue_url": "https://github.com/e-valuation/EvaP/issues/1327",
+  "api_url": "https://api.github.com/repos/e-valuation/EvaP/issues/1327",
+  "title": "Anonymization script: scramble evaluation results",
+  "body": "This is a follow up to #1287. We came up with the idea of scrambling evaluation results as a part of the anonymization. Quote from @janno42:\r\n\r\n\"then @karyon and i discussed that it is better to randomize answers because there might be the following case: users who have access to production might find unpublished courses in the anonymized data and can find results there based on answer distribution of other courses and de-anonymizing contributor's names. this is a very special case and there wouldn't be much data available as a course is only then not published if less than two participants voted for it - but nevertheless there might be data leaked.\r\nso we decided that answer counters should be set randomly on anonymization. the answer count per question should (roughly) stay the same during the process and it must be made sure that the answer count never exceeds the number of voters in the course.\"\r\n\r\nWe had two implementations flying around in that debate:\r\n- One summed up the answer count, iterated over the RatingAnswerCounters and then took a random number between 0 and the remaining answers and assigned it to the current counter. This can be found [here](https://github.com/fsr-de/EvaP/pull/1287/commits/2c20342a61409f560aeea93a0d77e2bec9a5ee42#diff-8966c64d41a29b22e8ee43d34675dc33R220) but is biased towards giving higher vote counts to the answer counters we are looking at earlier\r\n- The other one was given [here](https://github.com/fsr-de/EvaP/pull/1287#pullrequestreview-218545677). Basically, give every counter a random number between 0 and the count of votes, then divide by a factor so that the vote count matches the earlier result again. In order to keep the count of votes equal, one would have to then distribute the error evenly to the counters. This will give more uniform results but has more clean up to do.",
+  "author": "Participant 1",
+  "created_at": "2019-03-29T19:19:44Z",
+  "updated_at": "2019-04-08T18:48:32Z",
+  "state": "closed",
+  "closed_at": "2019-04-08T18:48:32Z",
+  "issue_fetched_at": "2026-10-19T02:10:49.813135+00:00",
+  "comments_fetched_at": [],
+  "expected_comment_count": 0,
+  "retrieved_comment_count": 0,
+  "comments_complete": true,
+  "comments": [],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

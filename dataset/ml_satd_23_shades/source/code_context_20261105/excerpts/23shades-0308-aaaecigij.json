@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0308-aaaecigij",
+  "revision_url": "https://github.com/roscisz/TensorHive/commit/df2a450668e111855b8cd2299146b040711a186c",
+  "filename": "tensorhive/core/monitors/GPUMonitor.py",
+  "commit": "df2a450668e111855b8cd2299146b040711a186c",
+  "source_url": "https://raw.githubusercontent.com/roscisz/TensorHive/df2a450668e111855b8cd2299146b040711a186c/tensorhive/core/monitors/GPUMonitor.py",
+  "fetched_at": "2026-11-05T06:12:31.284691+00:00",
+  "source_sha256": "f6e2d9b66e7ccbd88d4dda0f5e4fcabd613c46296b97975ba35f0b584338887d",
+  "line_start": 29,
+  "line_end": 53,
+  "excerpt": "        return 'GPU'\n\n    @property\n    def gathered_data(self) -> Dict:\n        '''Getter for the protected, inherited variable'''\n        return self._gathered_data\n\n    @gathered_data.setter\n    def gathered_data(self, new_value) -> None:\n        '''Setter for the protected, inherited variable'''\n        self._gathered_data = new_value\n\n    # TODO Make separate class for it\n    def _parse_lines(self, lines: List) -> Dict:\n        '''Assumes that header is present'''\n        assert (lines and len(lines) > 1), f'Cannot parse result: {lines}'\n        header: str = lines[0]\n        parameter_keys: List[str] = header.split(', ')\n        results_for_gpus: List[str] = lines[1:]\n\n        gpus_info = []\n        for single_gpu_result_line in results_for_gpus:\n            parameter_values: List[str] = single_gpu_result_line.split(', ')\n            gpu_info = dict(zip(parameter_keys, parameter_values))\n            gpus_info.append(gpu_info)"
+}

@@ -1,0 +1,77 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-12255",
+  "issue_url": "https://github.com/asciidoctor/asciidoctor/issues/2515",
+  "source_issue_url": "https://github.com/asciidoctor/asciidoctor/issues/2515",
+  "api_url": "https://api.github.com/repos/asciidoctor/asciidoctor/issues/2515",
+  "title": "please provide a solution to turn off Google fonts in HTML ",
+  "body": "Hi,\r\n\r\nFrom a privacy point of view it would be good to be able to not load fonts from Google.\r\nCould you provide an option to deactivate this?\r\nThis is recognized as a privacy breach in Debian. See \r\nhttps://bugs.debian.org/cgi-bin/bugreport.cgi?bug=877546\r\n\r\nIndirectly, this would also somehow provide a workaround for #1867.\r\n\r\nThanks!",
+  "author": "Participant 1",
+  "created_at": "2017-12-18T21:42:58Z",
+  "updated_at": "2024-01-29T19:21:02Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:20:00.340814+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:20:00.340814+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 352668112,
+      "url": "https://github.com/asciidoctor/asciidoctor/issues/2515#issuecomment-352668112",
+      "created_at": "2017-12-19T08:02:54Z",
+      "updated_at": "2017-12-19T08:02:54Z",
+      "author": "Participant 2",
+      "body": "Web fonts are used in the default stylesheet.\r\nIf you don't want to use Web fonts you can use a custom stylesheet:\r\n\r\n.test.adoc\r\n```adoc\r\n= Test\r\n```\r\n\r\n.plain.css\r\n```\r\n/* empty */\r\n```\r\n\r\nThe generated file will be: \r\n\r\n```html\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n<meta charset=\"UTF-8\">\r\n<!--[if IE]><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><![endif]-->\r\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n<meta name=\"generator\" content=\"Asciidoctor 1.5.7.dev\">\r\n<title>Test</title>\r\n<style>\r\n\r\n</style>\r\n</head>\r\n<body class=\"article\">\r\n<div id=\"header\">\r\n<h1>Test</h1>\r\n</div>\r\n<div id=\"content\">\r\n\r\n</div>\r\n<div id=\"footer\">\r\n<div id=\"footer-text\">\r\nLast updated 2017-12-19 08:58:55 CET\r\n</div>\r\n</div>\r\n</body>\r\n</html>\r\n```"
+    },
+    {
+      "id": 352695396,
+      "url": "https://github.com/asciidoctor/asciidoctor/issues/2515#issuecomment-352695396",
+      "created_at": "2017-12-19T09:59:05Z",
+      "updated_at": "2017-12-19T09:59:05Z",
+      "author": "Participant 3",
+      "body": "Actually, there is a way to turn them off. Just unset the `webfonts` attribute.\r\n\r\n```\r\nasciidoctor -a webfonts! document.adoc\r\n```\r\n\r\nor\r\n\r\n```\r\n= Document Title\r\n:!webfonts:\r\n```\r\n\r\nThe stylesheet will then fallback to system fonts.\r\n\r\nThis built-in attribute is documented in the user manual."
+    },
+    {
+      "id": 352880875,
+      "url": "https://github.com/asciidoctor/asciidoctor/issues/2515#issuecomment-352880875",
+      "created_at": "2017-12-19T20:44:32Z",
+      "updated_at": "2017-12-19T20:44:32Z",
+      "author": "Participant 1",
+      "body": "thanks @Mogztter and @mojavelinux for your answers. Next time I'll do a more extensive search in the documentation before forwarding such a bug.\r\nI can thus close this (non)issue. Thanks again."
+    },
+    {
+      "id": 352903343,
+      "url": "https://github.com/asciidoctor/asciidoctor/issues/2515#issuecomment-352903343",
+      "created_at": "2017-12-19T22:16:53Z",
+      "updated_at": "2017-12-19T22:16:53Z",
+      "author": "Participant 3",
+      "body": ":+1: "
+    },
+    {
+      "id": 1914593870,
+      "url": "https://github.com/asciidoctor/asciidoctor/issues/2515#issuecomment-1914593870",
+      "created_at": "2024-01-29T12:27:49Z",
+      "updated_at": "2024-01-29T12:27:49Z",
+      "author": "Participant 4",
+      "body": "IMO this should be the default, especially with Google Fonts violating the GDPR. "
+    },
+    {
+      "id": 1915402879,
+      "url": "https://github.com/asciidoctor/asciidoctor/issues/2515#issuecomment-1915402879",
+      "created_at": "2024-01-29T19:20:55Z",
+      "updated_at": "2024-01-29T19:20:55Z",
+      "author": "Participant 3",
+      "body": "A majority of users prefer and rely on this feature, so the default will not be changed. But the attribute provided should be more than sufficient for users to opt out. The default is not being changed."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/asciidoctor/asciidoctor/issues/2515",
+  "closed_at_available": false
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0154-aajdcgijh",
+  "revision_url": "https://github.com/jupyter/nbdime/commit/025a4ff28e30a879226f08cc6303624b9d50347c",
+  "filename": "nbdime/merging/notebooks.py",
+  "commit": "025a4ff28e30a879226f08cc6303624b9d50347c",
+  "source_url": "https://raw.githubusercontent.com/jupyter/nbdime/025a4ff28e30a879226f08cc6303624b9d50347c/nbdime/merging/notebooks.py",
+  "fetched_at": "2026-11-05T06:12:02.430814+00:00",
+  "source_sha256": "4ac397c352e9fe8128c83011fff0c07e15198bbd70da71eb8808261f27af2e03",
+  "line_start": 7,
+  "line_end": 31,
+  "excerpt": "\nimport nbformat\n\nfrom .generic import merge_with_diff\nfrom .autoresolve import autoresolve\n#from ..patching import patch\nfrom ..diffing.notebooks import diff_notebooks\n\n\n# Strategies for handling conflicts  TODO: Implement these and refine further!\ngeneric_conflict_strategies = (\n    \"fail\",             # Unexpected: crash and burn in case of conflict\n    \"mergetool\",        # Pass on diff to external difftool (TODO: store in global metadata at end instead of in separate diff dicts?)\n    \"use-base\",         # Keep base value in case of conflict\n    \"use-local\",        # Use local value in case of conflict\n    \"use-remote\",       # Use remote value in case of conflict\n    \"clear\",            # Discard value in case of conflict\n    \"record-conflict\",  # Valid for metadata only: produce new metadata with conflicts recorded for external inspection\n    \"inline-source\",    # Valid for source only: produce new source with inline diff markers\n    \"inline-outputs\",   # Valid for outputs only: produce new outputs with inline diff markers\n    \"join\",             # Join values in case of conflict, don't insert new markers.\n    )\n\n\ndef autoresolve_notebook_conflicts(merged, local_diffs, remote_diffs, args):"
+}

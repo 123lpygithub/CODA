@@ -1,0 +1,168 @@
+{
+  "artifact_id": "privacy-issue-1016",
+  "source_issue_url": "https://github.com/DSpace/DSpace/issues/7002",
+  "issue_snapshot_sha256": "f17a3f8ad141ae9c4b5603c590e761691354a5a65377ae0d6108a6be793af2d6",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/DSpace/DSpace/blob/dspace-6_x/dspace/config/dspace.cfg#L1933",
+      "kind": "file",
+      "cited_in": [
+        "comment_908751412"
+      ],
+      "revision": "dspace-6_x",
+      "immutable_revision": false,
+      "line_start": 1921,
+      "line_end": 1945,
+      "text": "# for each community/collection to see if their metadata has been modified. This\n# can be expensive for repositories with a large community tree. To help solve\n# this problem you can set the cache to be assumed valued for a specific set of time.\n# The downside of this is that new or editing communities/collections may not show up\n# the website for a period of time.\n#xmlui.community-list.cache = 12 hours\n\n# Optionally you may configure Manakin to take advantage of metadata stored as a\n# bitstream. These metadata files should be inside the \"METADATA\" bundle and named\n# either MODS.xml or METS.xml. If either of the following options are turned on then\n# these files will be made available to the theme when rendering an item.\n#xmlui.bitstream.mods = true\n#xmlui.bitstream.mets = true\n\n# If you would like to use Google Analytics to track general website statistics then\n# use the following parameter to provide your Analytics key. First sign up for an\n# account at http://analytics.google.com, then create an entry for your repository\n# website. Analytics will give you a snipet of JavaScript code to place on your site,\n# inside that snipet is your Google Analytics key usually found in this line:\n# _uacct = \"UA-XXXXXXX-X\"\n# Take this key (just the UA-XXXXXX-X part) and place it here in this parameter.\n#xmlui.google.analytics.key=UA-XXXXXX-X\n\n# Assign how many page views will be recorded and displayed in the control panel's\n# activity viewer. The activity tab allows an administrator to debug problems in a",
+      "source_sha256": "bb32b82c507e0d64970f93425efd21d64722a8740e8d9abffc2d19dc13362a0e",
+      "fetched_at": "2026-11-05T06:21:49.327923+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/dspace-6_x/dspace/config/dspace.cfg",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/DSpace/DSpace/blob/dspace-5_x/dspace-services/src/main/resources/config/dspace-defaults.cfg#L23",
+      "kind": "file",
+      "cited_in": [
+        "comment_908751413"
+      ],
+      "revision": "dspace-5_x",
+      "immutable_revision": false,
+      "line_start": 11,
+      "line_end": 23,
+      "text": "caching.use.clustering = false\n\n### Default Activator classes\n#activator.class.default.user = org.dspace.providers.user.DatabaseUserProvider\n\n## Mapping Service Activator\n# note that the mapping service must be called \"default.MappingService\"\n#activator.class.default.MappingService = org.dspace.services.mapping.DatabaseIdEidMapping;default.MappingService\n#activator.class.default.MappingService = org.dspace.services.mapping.MemoryMappingService;default.MappingService\n\n### Default Activators\n\nxmlui.google.analytics.key = UA-554232-12",
+      "source_sha256": "bbab7110f39378cb60d68518aa0a1561ba15389871dda3e0b9b67f4b164a0217",
+      "fetched_at": "2026-11-05T06:21:49.557181+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/dspace-5_x/dspace-services/src/main/resources/config/dspace-defaults.cfg",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/DSpace/DSpace/blob/dspace-5_x/dspace-jspui/src/main/webapp/WEB-INF/spring/applicationContext.xml#L38",
+      "kind": "file",
+      "cited_in": [
+        "comment_908751416"
+      ],
+      "revision": "dspace-5_x",
+      "immutable_revision": false,
+      "line_start": 26,
+      "line_end": 50,
+      "text": "    \t<property name=\"eventService\" >\n    \t\t<ref bean=\"dspace.eventService\"/>\n    \t</property>\n    </bean>\n       \n    <!-- Inject the SolrLoggerUsageEventListener into the EventService  -->\n    <bean class=\"org.dspace.statistics.SolrLoggerUsageEventListener\">\n        <property name=\"eventService\" >\n            <ref bean=\"dspace.eventService\"/>\n        </property>\n    </bean>\n\n    <!-- Google Analytics recording  -->\n    <bean class=\"org.dspace.google.GoogleRecorderEventListener\">\n        <property name=\"eventService\" >\n            <ref bean=\"dspace.eventService\"/>\n        </property>\n    </bean>\n\n    <!-- \n    Uncomment to enable TabFileUsageEventListener \n    <bean class=\"org.dspace.app.statistics.TabFileUsageEventListener\">\n    \t<property name=\"eventService\" >\n    \t\t<ref bean=\"dspace.eventService\"/>\n    \t</property>",
+      "source_sha256": "bbcc70753ccca7fe1f854008bd64a4efc1efd216b47cb636b5339a3b37f6300e",
+      "fetched_at": "2026-11-05T06:21:49.617547+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/dspace-5_x/dspace-jspui/src/main/webapp/WEB-INF/spring/applicationContext.xml",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/DSpace/DSpace/blob/dspace-5_x/dspace-api/src/main/java/org/dspace/google/GoogleRecorderEventListener.java#L59",
+      "kind": "file",
+      "cited_in": [
+        "comment_908751416"
+      ],
+      "revision": "dspace-5_x",
+      "immutable_revision": false,
+      "line_start": 47,
+      "line_end": 71,
+      "text": "        // httpclient is threadsafe so we only need one.\n        httpclient = HttpClients.createDefault();\n    }\n\n    public void receiveEvent(Event event) {\n        if((event instanceof UsageEvent))\n        {\n            log.debug(\"Usage event received \" + event.getName());\n\n            // This is a wee bit messy but these keys should be combined in future.\n            analyticsKey = new DSpace().getConfigurationService().getProperty(\"jspui.google.analytics.key\");\n            if (analyticsKey == null ) {\n                analyticsKey = new DSpace().getConfigurationService().getProperty(\"xmlui.google.analytics.key\");\n            }\n\n            if (analyticsKey != null ) {\n                try {\n                    UsageEvent ue = (UsageEvent)event;\n                    if(UsageEvent.Action.VIEW == ue.getAction() && (Constants.BITSTREAM == ue.getObject().getType())) {\n                        bitstreamDownload(ue);\n                    }\n                }\n                catch(Exception e)\n                {\n                    log.error(e.getMessage());",
+      "source_sha256": "f852c3c983ec7f6114047a86ba6f4bc53b75fc9f193e1591cccc8c89dfdbd4b9",
+      "fetched_at": "2026-11-05T06:21:49.861876+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/dspace-5_x/dspace-api/src/main/java/org/dspace/google/GoogleRecorderEventListener.java",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/DSpace/DSpace/blob/dspace-5_x/dspace-api/src/main/java/org/dspace/statistics/SolrLogger.java#L402",
+      "kind": "file",
+      "cited_in": [
+        "comment_908751418"
+      ],
+      "revision": "dspace-5_x",
+      "immutable_revision": false,
+      "line_start": 390,
+      "line_end": 414,
+      "text": "            }\n        }\n\n        if(dspaceObject != null){\n            doc1.addField(\"id\", dspaceObject.getID());\n            doc1.addField(\"type\", dspaceObject.getType());\n            storeParents(doc1, dspaceObject);\n        }\n        // Save the current time\n        doc1.addField(\"time\", DateFormatUtils.format(new Date(), DATE_FORMAT_8601));\n        if (currentUser != null)\n        {\n            doc1.addField(\"epersonid\", currentUser.getID());\n        }\n\n        return doc1;\n    }\n\n    private static SolrInputDocument getCommonSolrDoc(DSpaceObject dspaceObject, String ip, String userAgent, String xforwardedfor, EPerson currentUser) throws SQLException {\n        boolean isSpiderBot = SpiderDetector.isSpider(ip);\n        if(isSpiderBot &&\n                !ConfigurationManager.getBooleanProperty(\"usage-statistics\", \"logBots\", true))\n        {\n            return null;\n        }",
+      "source_sha256": "c4c307b67532750891f572afe835eb846aeb3f82c7682d9d5e203835ebf6f071",
+      "fetched_at": "2026-11-05T06:21:50.555551+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/dspace-5_x/dspace-api/src/main/java/org/dspace/statistics/SolrLogger.java",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/DSpace/DSpace/blob/dspace-5_x/dspace-api/src/main/java/org/dspace/statistics/SolrLogger.java#L490",
+      "kind": "file",
+      "cited_in": [
+        "comment_908751418"
+      ],
+      "revision": "dspace-5_x",
+      "immutable_revision": false,
+      "line_start": 478,
+      "line_end": 502,
+      "text": "            }\n        }\n\n        if(dspaceObject != null){\n            doc1.addField(\"id\", dspaceObject.getID());\n            doc1.addField(\"type\", dspaceObject.getType());\n            storeParents(doc1, dspaceObject);\n        }\n        // Save the current time\n        doc1.addField(\"time\", DateFormatUtils.format(new Date(), DATE_FORMAT_8601));\n        if (currentUser != null)\n        {\n            doc1.addField(\"epersonid\", currentUser.getID());\n        }\n\n        return doc1;\n    }\n\n    \n    public static void postSearch(DSpaceObject resultObject, HttpServletRequest request, EPerson currentUser,\n                                 List<String> queries, int rpp, String sortBy, String order, int page, DSpaceObject scope) {\n        try\n        {\n            SolrInputDocument solrDoc = getCommonSolrDoc(resultObject, request, currentUser);\n            if (solrDoc == null) return;",
+      "source_sha256": "c4c307b67532750891f572afe835eb846aeb3f82c7682d9d5e203835ebf6f071",
+      "fetched_at": "2026-11-05T06:21:50.603596+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/dspace-5_x/dspace-api/src/main/java/org/dspace/statistics/SolrLogger.java",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/DSpace/DSpace/blob/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java#L284",
+      "kind": "file",
+      "cited_in": [
+        "comment_908751436"
+      ],
+      "revision": "218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f",
+      "immutable_revision": true,
+      "line_start": 272,
+      "line_end": 296,
+      "text": "    }\n\n    /**\n     * Returns a solr input document containing common information about the statistics\n     * regardless if we are logging a search or a view of a DSpace object\n     *\n     * @param dspaceObject the object used.\n     * @param request      the current request context.\n     * @param currentUser  the current session's user.\n     * @return a solr input document\n     * @throws SQLException in case of a database exception\n     */\n    protected SolrInputDocument getCommonSolrDoc(DSpaceObject dspaceObject, HttpServletRequest request,\n                                                 EPerson currentUser) throws SQLException {\n        boolean isSpiderBot = request != null && SpiderDetector.isSpider(request);\n        if (isSpiderBot &&\n            !configurationService.getBooleanProperty(\"usage-statistics.logBots\", true)) {\n            return null;\n        }\n\n        SolrInputDocument doc1 = new SolrInputDocument();\n        // Save our basic info that we already have\n\n        if (request != null) {\n            String ip = clientInfoService.getClientIp(request);",
+      "source_sha256": "1b6f34fcdd143144c24e032f3f4f78df6b1cd08a089ccbc00ba18de9b3eaddfe",
+      "fetched_at": "2026-11-05T06:21:50.654638+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/DSpace/DSpace/blob/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java#L361",
+      "kind": "file",
+      "cited_in": [
+        "comment_908751436"
+      ],
+      "revision": "218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f",
+      "immutable_revision": true,
+      "line_start": 349,
+      "line_end": 373,
+      "text": "            doc1.addField(\"type\", dspaceObject.getType());\n            storeParents(doc1, dspaceObject);\n        }\n        // Save the current time\n        doc1.addField(\"time\", DateFormatUtils.format(new Date(), DATE_FORMAT_8601));\n        if (currentUser != null) {\n            doc1.addField(\"epersonid\", currentUser.getID());\n        }\n\n        return doc1;\n    }\n\n    protected SolrInputDocument getCommonSolrDoc(DSpaceObject dspaceObject, String ip, String userAgent,\n                                                 String xforwardedfor, EPerson currentUser) throws SQLException {\n        boolean isSpiderBot = SpiderDetector.isSpider(ip);\n        if (isSpiderBot &&\n            !configurationService.getBooleanProperty(\"usage-statistics.logBots\", true)) {\n            return null;\n        }\n\n        SolrInputDocument doc1 = new SolrInputDocument();\n        // Save our basic info that we already have\n\n        ip = clientInfoService.getClientIp(ip, xforwardedfor);\n        doc1.addField(\"ip\", ip);",
+      "source_sha256": "1b6f34fcdd143144c24e032f3f4f78df6b1cd08a089ccbc00ba18de9b3eaddfe",
+      "fetched_at": "2026-11-05T06:21:50.941415+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/DSpace/DSpace/blob/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java#L506",
+      "kind": "file",
+      "cited_in": [
+        "comment_908751436"
+      ],
+      "revision": "218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f",
+      "immutable_revision": true,
+      "line_start": 494,
+      "line_end": 518,
+      "text": "            if (usageWorkflowEvent.getOldState() != null) {\n                solrDoc.addField(\"previousWorkflowStep\", usageWorkflowEvent.getOldState());\n            }\n            if (usageWorkflowEvent.getGroupOwners() != null) {\n                for (int i = 0; i < usageWorkflowEvent.getGroupOwners().length; i++) {\n                    Group group = usageWorkflowEvent.getGroupOwners()[i];\n                    solrDoc.addField(\"owner\", \"g\" + group.getID());\n                }\n            }\n            if (usageWorkflowEvent.getEpersonOwners() != null) {\n                for (int i = 0; i < usageWorkflowEvent.getEpersonOwners().length; i++) {\n                    EPerson ePerson = usageWorkflowEvent.getEpersonOwners()[i];\n                    solrDoc.addField(\"owner\", \"e\" + ePerson.getID());\n                }\n            }\n\n            solrDoc.addField(\"workflowItemId\", usageWorkflowEvent.getWorkflowItem().getID());\n\n            EPerson submitter = ((Item) usageWorkflowEvent.getObject()).getSubmitter();\n            if (submitter != null) {\n                solrDoc.addField(\"submitter\", submitter.getID());\n            }\n            solrDoc.addField(\"statistics_type\", StatisticsType.WORKFLOW.text());\n            if (usageWorkflowEvent.getActor() != null) {\n                solrDoc.addField(\"actor\", usageWorkflowEvent.getActor().getID());",
+      "source_sha256": "1b6f34fcdd143144c24e032f3f4f78df6b1cd08a089ccbc00ba18de9b3eaddfe",
+      "fetched_at": "2026-11-05T06:21:51.245950+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/DSpace/DSpace/blob/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java#L514",
+      "kind": "file",
+      "cited_in": [
+        "comment_908751436"
+      ],
+      "revision": "218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f",
+      "immutable_revision": true,
+      "line_start": 502,
+      "line_end": 526,
+      "text": "            }\n            if (usageWorkflowEvent.getEpersonOwners() != null) {\n                for (int i = 0; i < usageWorkflowEvent.getEpersonOwners().length; i++) {\n                    EPerson ePerson = usageWorkflowEvent.getEpersonOwners()[i];\n                    solrDoc.addField(\"owner\", \"e\" + ePerson.getID());\n                }\n            }\n\n            solrDoc.addField(\"workflowItemId\", usageWorkflowEvent.getWorkflowItem().getID());\n\n            EPerson submitter = ((Item) usageWorkflowEvent.getObject()).getSubmitter();\n            if (submitter != null) {\n                solrDoc.addField(\"submitter\", submitter.getID());\n            }\n            solrDoc.addField(\"statistics_type\", StatisticsType.WORKFLOW.text());\n            if (usageWorkflowEvent.getActor() != null) {\n                solrDoc.addField(\"actor\", usageWorkflowEvent.getActor().getID());\n            }\n\n            solr.add(solrDoc);\n        } catch (Exception e) {\n            //Log the exception, no need to send it through, the workflow shouldn't crash because of this !\n            log.error(e.getMessage(), e);\n        }\n",
+      "source_sha256": "1b6f34fcdd143144c24e032f3f4f78df6b1cd08a089ccbc00ba18de9b3eaddfe",
+      "fetched_at": "2026-11-05T06:21:51.525994+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java",
+      "status": "available"
+    }
+  ]
+}

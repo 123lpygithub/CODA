@@ -1,0 +1,178 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8872",
+  "issue_url": "https://github.com/EclipseFdn/open-vsx.org/issues/220",
+  "source_issue_url": "https://github.com/EclipseFdn/open-vsx.org/issues/220",
+  "api_url": "https://api.github.com/repos/EclipseFdn/open-vsx.org/issues/220",
+  "title": "Cookie Settings Not Easily Discoverable",
+  "body": "Once you accept or decline cookies, the bar minimizes to below the Github logo and repository name in the footer on the bottom left. It appears to look like a design element of the footer, and it is not obvious that you should hover it it to expand it and click to launch.\r\n\r\n<img width=\"197\" alt=\"Screenshot 2020-11-18 at 12 22 07\" src=\"https://user-images.githubusercontent.com/114116/99525314-ed208a80-2999-11eb-9790-b9554a4ed490.png\">\r\n\r\nI see it works the same way on eclipse.org, so it is by design. And the fix might not be here, but in the cookie module being used. However I thought I would call it out anyway.",
+  "author": "Participant 1",
+  "created_at": "2020-11-18T11:26:28Z",
+  "updated_at": "2022-06-10T13:44:18Z",
+  "state": "closed",
+  "closed_at": "2022-06-10T13:44:18Z",
+  "issue_fetched_at": "2026-10-19T02:10:37.335099+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T02:10:38.789582+00:00"
+  ],
+  "expected_comment_count": 19,
+  "retrieved_comment_count": 19,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 729617553,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-729617553",
+      "created_at": "2020-11-18T11:27:03Z",
+      "updated_at": "2020-11-18T11:27:03Z",
+      "author": "Participant 1",
+      "body": "cc/ @chrisguindon if this has ever been flagged before, and if you have any thoughts on it."
+    },
+    {
+      "id": 729791630,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-729791630",
+      "created_at": "2020-11-18T16:23:50Z",
+      "updated_at": "2020-11-18T16:23:50Z",
+      "author": "Participant 2",
+      "body": "@brianking Thanks for indirectly reporting a bug!\r\n\r\nThe badge should NOT be visible if we have a link to manage cookies on the page. I am currently working on a fix.\r\n\r\nOur solution is to hide the minimized badge if there is a link on the page to manage cookies. That link must include the .toolbar-manage-cookies class.\r\n\r\n"
+    },
+    {
+      "id": 729816466,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-729816466",
+      "created_at": "2020-11-18T17:03:30Z",
+      "updated_at": "2020-11-18T17:05:52Z",
+      "author": "Participant 2",
+      "body": "@brianking We created a fix for this issue here:\r\nhttps://github.com/EclipseFdn/solstice-assets/pull/194\r\n\r\nI hope to deploy this on www.eclipse.org later today.\r\n\r\nThe following code will display the banner whenever someone clicks on an HTML element with the class .toolbar-manage-cookies:\r\nhttps://github.com/EclipseFdn/solstice-assets/blob/master/js/solstice.js#L171\r\n\r\nThe open-vsx website will need to implement something similar if they wish to hide the badge. Our code assumes that the site has jQuery. This will need to be re-written if they are not using that framework.\r\n\r\nThe badge is our fallback solution if the manage cookie link is missing from the page as we need to make sure that people can opt-out or opt-in at any time.\r\n\r\nPlease let me know if you have any questions about this."
+    },
+    {
+      "id": 729915221,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-729915221",
+      "created_at": "2020-11-18T19:50:30Z",
+      "updated_at": "2020-11-18T19:50:30Z",
+      "author": "Participant 1",
+      "body": "Thanks Chris. I'll leave it in the hands of @spoenemann to decide if the fix can be taken here."
+    },
+    {
+      "id": 729919661,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-729919661",
+      "created_at": "2020-11-18T19:59:17Z",
+      "updated_at": "2020-11-18T19:59:17Z",
+      "author": "Participant 2",
+      "body": "@brianking Sounds good! This is now live on eclipse.org."
+    },
+    {
+      "id": 737163207,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-737163207",
+      "created_at": "2020-12-02T11:11:58Z",
+      "updated_at": "2020-12-02T11:11:58Z",
+      "author": "Participant 3",
+      "body": "I disabled the \"Cookie settings\" bar for now. Is it really necessary to allow users to revise their choice on cookies?"
+    },
+    {
+      "id": 737312517,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-737312517",
+      "created_at": "2020-12-02T15:42:30Z",
+      "updated_at": "2020-12-02T15:42:30Z",
+      "author": "Participant 2",
+      "body": "Yes, users should be able to revoke at any time.\n\nOn Wed, Dec 2, 2020 at 6:12 AM Miro Spönemann <notifications@github.com>\nwrote:\n\n> I disabled the \"Cookie settings\" bar for now. Is it really necessary to\n> allow users to revise their choice on cookies?\n>\n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/eclipse/open-vsx.org/issues/220#issuecomment-737163207>,\n> or unsubscribe\n> <https://github.com/notifications/unsubscribe-auth/AAG2H5V2REN2FYJ6KJDVMB3SSYOI5ANCNFSM4TZ25YLQ>\n> .\n>\n\n\n-- \nChristopher Guindon\nManager, Web Development | Eclipse Foundation, Inc.\nEclipse Foundation: The Platform for Open Innovation and Collaboration\nTwitter: @chrisguindon\n"
+    },
+    {
+      "id": 748992126,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-748992126",
+      "created_at": "2020-12-21T14:09:07Z",
+      "updated_at": "2020-12-21T14:09:07Z",
+      "author": "Participant 1",
+      "body": "Ok so from what I can see, a 'Manage Cookies' link is outstanding to add here. As the footer is already crowded, I propose we add it to the user menu similar to how eclipse.org does it."
+    },
+    {
+      "id": 754696574,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-754696574",
+      "created_at": "2021-01-05T15:12:14Z",
+      "updated_at": "2021-01-05T15:12:14Z",
+      "author": "Participant 2",
+      "body": "I agree. I think we should include it as we will probably want to add Google Analytics on the site to get some stats about how our users are using the site"
+    },
+    {
+      "id": 788874372,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-788874372",
+      "created_at": "2021-03-02T12:30:17Z",
+      "updated_at": "2021-03-02T12:30:17Z",
+      "author": "Participant 4",
+      "body": "Hi, I can add an optional field in page settings for additional menu items to be rendered below the user name. So such a 'Manage Cookies' Button could be shown there, but only if the user is logged in. I guess the button should also be visible if the user is not logged in. I think about where to show the link in this case. To offer optional space to the right of the avatar (as it is almost on eclipse.org) is not a good solution in my eyes as there is no general need for such slots there. \r\nCorrect me if I am wrong. I am happy about your thoughts.  "
+    },
+    {
+      "id": 788901979,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-788901979",
+      "created_at": "2021-03-02T13:17:48Z",
+      "updated_at": "2021-03-02T13:17:48Z",
+      "author": "Participant 4",
+      "body": "I talked with @spoenemann about it and we both think that the \"Manage Cookies\" Button would be best in footer. Since it is crowded as @brianking already mentioned we'd propose to generally hide some footer items in a dropdown (or is i called dropup in this case? :-) ) like it is for smaller window sizes."
+    },
+    {
+      "id": 789764882,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-789764882",
+      "created_at": "2021-03-03T14:45:27Z",
+      "updated_at": "2021-03-03T14:45:27Z",
+      "author": "Participant 4",
+      "body": "@spoenemann @brianking it seems as if I do not have the permission to push here. Can you fix that? Thanks!"
+    },
+    {
+      "id": 789782004,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-789782004",
+      "created_at": "2021-03-03T15:07:23Z",
+      "updated_at": "2021-03-03T15:07:23Z",
+      "author": "Participant 2",
+      "body": "@jbicker From what I can tell, you do have write access to this repo."
+    },
+    {
+      "id": 789887582,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-789887582",
+      "created_at": "2021-03-03T17:04:15Z",
+      "updated_at": "2021-03-03T17:04:15Z",
+      "author": "Participant 4",
+      "body": "> @jbicker From what I can tell, you do have write access to this repo.\r\n\r\nAh yes, thanks. Works from local VSCode. Need authorization token for Gitpod.\r\n\r\nAnyway I created https://github.com/EclipseFdn/open-vsx.org/pull/394 as a draft.\r\nThere is one question regarding the banner script: \r\nare the respective handlers removed after first consent action? Because I am not able to use it a second time."
+    },
+    {
+      "id": 795508228,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-795508228",
+      "created_at": "2021-03-10T14:35:53Z",
+      "updated_at": "2021-03-10T14:35:58Z",
+      "author": "Participant 2",
+      "body": "@jbicker This seems to work well on eclipse.org. You can't replicate that same behavior here?"
+    },
+    {
+      "id": 799412639,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-799412639",
+      "created_at": "2021-03-15T13:18:55Z",
+      "updated_at": "2021-03-15T13:18:55Z",
+      "author": "Participant 2",
+      "body": "> @jbicker This seems to work well on eclipse.org. You can't replicate that same behavior here?\r\n\r\n@autumnfound If you have time this week, can you take a look at helping @jbicker solve this issue."
+    },
+    {
+      "id": 1148664782,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-1148664782",
+      "created_at": "2022-06-07T13:20:26Z",
+      "updated_at": "2022-06-07T13:22:58Z",
+      "author": "Participant 2",
+      "body": "@linkfang can you please create a \"Manage Cookies\" link in the footer toolbar that triggers our cookie consent banner when clicked on?\r\n\r\nI believe the project is using our javascript script code. If so, you simply need to create a link with the class .toolbar-manage-cookies.  \r\n\r\nSee source:\r\nhttps://gitlab.eclipse.org/eclipsefdn/it/webdev/solstice-assets/-/blob/master/js/privacy/eclipsefdn.cookie-consent.js#L36"
+    },
+    {
+      "id": 1150206405,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-1150206405",
+      "created_at": "2022-06-08T17:38:26Z",
+      "updated_at": "2022-06-08T17:38:26Z",
+      "author": "Participant 5",
+      "body": "@chrisguindon we need this first before we can get info on visitors and downloads, right? \r\n\r\nDo you want me to open a separate ticket for enabling the tracking?"
+    },
+    {
+      "id": 1150239870,
+      "url": "https://github.com/EclipseFdn/open-vsx.org/issues/220#issuecomment-1150239870",
+      "created_at": "2022-06-08T18:15:41Z",
+      "updated_at": "2022-06-08T18:16:01Z",
+      "author": "Participant 2",
+      "body": "@kineticsquid Indeed. We need to allow users to revoke our cookie consent banner before we can enable Google Analytics for the site.\r\n\r\n+1 For creating a separate issue for installing GA. You can assign that one to me."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0253-aaebaidgd",
+  "revision_url": "https://github.com/persephone-tools/persephone/commit/5639a034f99afacdca9cf2c1cf8219abe651bc86",
+  "filename": "src/datasets/na.py",
+  "commit": "5639a034f99afacdca9cf2c1cf8219abe651bc86",
+  "source_url": "https://raw.githubusercontent.com/persephone-tools/persephone/5639a034f99afacdca9cf2c1cf8219abe651bc86/src/datasets/na.py",
+  "fetched_at": "2026-11-05T06:12:22.378303+00:00",
+  "source_sha256": "39ea30858e186c5b26e9bb14b3e8aeb2c4a8a4d2617ff1703bb4f367dc7d337e",
+  "line_start": 416,
+  "line_end": 440,
+  "excerpt": "    def __init__(self, feat_type, target_type=\"phonemes_and_tones\", max_samples=1000):\n        super().__init__(feat_type, target_type)\n\n        if target_type == \"phonemes_and_tones\":\n            self.phonemes = PHONES.union(set(TONES))\n        elif target_type == \"phonemes\":\n            self.phonemes = PHONES\n        elif target_type == \"tones\":\n            self.phonemes = TONES\n        else:\n            raise Exception(\"target_type %s not implemented.\" % target_type)\n\n        # TODO Change self.phonemes field to self.tgt_labels, and related\n        # variables names that might represent tones as well, or just tones.\n        self.target_set = self.phonemes\n\n        input_dir = os.path.join(TGT_DIR, \"wav\")\n        prefixes = [os.path.join(input_dir, fn.strip(\".wav\"))\n                    for fn in os.listdir(input_dir) if fn.endswith(\".wav\")]\n        untranscribed_dir = os.path.join(TGT_DIR, \"untranscribed_wav\")\n        #self.untranscribed_prefixes = [os.path.join(\n        #    untranscribed_dir, fn.strip(\".wav\"))\n        #    for fn in os.listdir(untranscribed_dir) if fn.endswith(\".wav\")]\n\n        if max_samples:",
+  "match_policy": "unique-release-normalized-v2"
+}

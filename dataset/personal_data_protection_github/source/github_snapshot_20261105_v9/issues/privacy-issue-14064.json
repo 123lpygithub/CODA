@@ -1,0 +1,138 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14064",
+  "issue_url": "https://github.com/silverstripe/silverstripe-framework/issues/7791",
+  "source_issue_url": "https://github.com/silverstripe/silverstripe-framework/issues/7791",
+  "api_url": "https://api.github.com/repos/silverstripe/silverstripe-framework/issues/7791",
+  "title": "Prepare for GDPR compliance",
+  "body": "On 25 May 2018, the [EU General Data Protection Regulation (GDPR)](https://www.eugdpr.org/) will come into enforcement. SilverStripe should decide to what extent it should change the core code to accommodate this change, to what extent it can provide advice about best practices, and to what extent it is left up to the individual site owners.\r\n\r\nIn addition, best practices can be established for what data is stored by default, what is done with that data, and how it is stored, processed, and disclosed.\r\n\r\nAt minimum a blogpost or docs update that addressed potential areas to look at or config settings to tweak would be a great bout of confidence for the community.",
+  "author": "Participant 1",
+  "created_at": "2018-01-23T16:15:30Z",
+  "updated_at": "2019-10-21T05:22:56Z",
+  "state": "closed",
+  "closed_at": "2019-10-21T05:22:55Z",
+  "issue_fetched_at": "2026-10-18T21:10:46.446712+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T21:10:47.859216+00:00"
+  ],
+  "expected_comment_count": 14,
+  "retrieved_comment_count": 14,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 359846189,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-359846189",
+      "created_at": "2018-01-23T16:25:18Z",
+      "updated_at": "2018-01-23T16:25:18Z",
+      "author": "Participant 2",
+      "body": "As a starting point, it's probably worth considering what the core system actually stores that falls under the regulation.   From what I can see, the following are the only issues:\r\n\r\nMember table: Name, Email, etc.\r\nLoginAttempt table:  IP, Email\r\n\r\nAs I understand it, the critical things we need for GDPR are statements about the use of the data, and means to expire it, etc.\r\n\r\nFor the second of the two, the simplest way to deal with it would be to take it out of the equation altogether.  If it were possible to disable the loginattempt logging with a configuration option, that solves the issue.   If the loginattempt data is needed, then some mechanism to expire/purge it periodically (maybe an add-on) would help.\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 360844488,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-360844488",
+      "created_at": "2018-01-26T17:08:02Z",
+      "updated_at": "2018-01-26T17:08:02Z",
+      "author": "Participant 3",
+      "body": "a good place to start: https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr"
+    },
+    {
+      "id": 361095937,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-361095937",
+      "created_at": "2018-01-28T21:05:16Z",
+      "updated_at": "2018-01-28T21:05:16Z",
+      "author": "Participant 4",
+      "body": "I agree that GDPR compliance itself is critical (we've started reviewing our own systems like SilverStripe Platform and silverstripe.com/org back in November). But in the context of our open source software, my understaning is that the software itself is neither a \"Data Processor\" nor a \"Data Controller\". It really depends on what you build with it. I agree that some documentation about potential privacy impacts emerging from our software would be nice. But unless somebody thinks we need to change our APIs or system behaviour, it's not `impact/critical`. I'll raise a GDPR blog post with our marketing team! :)"
+    },
+    {
+      "id": 361121246,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-361121246",
+      "created_at": "2018-01-29T02:10:34Z",
+      "updated_at": "2018-01-29T02:10:34Z",
+      "author": "Participant 4",
+      "body": "Regarding `LoginAttempt`, there's been [recent changes](https://github.com/silverstripe/silverstripe-framework/commit/f1dd3d6f03eb1d94c29c495994a1da9176a758d9#diff-41b85a1c8dd9a73784e8b33811f10130) to only store the email hash rather than email address itself. For existing users with matching email addresses on the attempt, we're still [associating](https://github.com/silverstripe/silverstripe-framework/blob/d876e36424918909b65c0c53d4d682d50aadcf7b/src/Security/MemberAuthenticator/MemberAuthenticator.php#L165) IPs to members though, so are effectively storing personally identifable information. \r\n\r\nYou can turn off login recording via `Security.login_recording: false`. But in its default behaviour, it means that any website might need a privacy statement for CMS users, even if you're not collecting data from visitors or providing other login-based services. Maybe \"business applications\" like the CMS are exempt from GDPR, if the CMS user is employed by the \"data controller\" organisation? "
+    },
+    {
+      "id": 361278212,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-361278212",
+      "created_at": "2018-01-29T15:19:50Z",
+      "updated_at": "2018-01-29T15:19:50Z",
+      "author": "Participant 3",
+      "body": "Also `login_recording` is implicitly on when `lock_out_after_incorrect_logins` is set"
+    },
+    {
+      "id": 372480475,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-372480475",
+      "created_at": "2018-03-12T22:13:43Z",
+      "updated_at": "2018-03-12T22:13:43Z",
+      "author": "Participant 4",
+      "body": "@dhensby Do you want to have a crack at summarising what personally identifiable data SilverStripe CMS stores by default, e.g. as part of https://docs.silverstripe.org/en/4/developer_guides/security/secure_coding/, or as another \"privacy\" page in that section? "
+    },
+    {
+      "id": 380991944,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-380991944",
+      "created_at": "2018-04-13T01:23:52Z",
+      "updated_at": "2018-04-13T01:23:52Z",
+      "author": "Participant 4",
+      "body": "I've got a few early stage ideas on how to improve the product:\r\n\r\n * Allow batch deletion of user form submissions (data minimisation)\r\n * Add instructions to userforms CMS UI about collecting personal data\r\n * Collect consent for existing users on login\r\n * Clear out IPs from Login Attempt tables\r\n * Delete login attempts with email/IP when deleting user\r\n\r\nFor now, I've sent a docs PR at https://github.com/silverstripe/silverstripe-framework/pull/8003"
+    },
+    {
+      "id": 390124714,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-390124714",
+      "created_at": "2018-05-18T07:48:04Z",
+      "updated_at": "2018-05-18T07:48:04Z",
+      "author": "Participant 5",
+      "body": "Given that most people use Google Anaytics or similar one thing that you may want to include is that the `LostPasswordHandler` by default redirects to a URL that contains the users email address which is PII and will end up in Analytics software https://github.com/silverstripe/silverstripe-framework/blob/af2c3886b90bcb2c2964633c9dcc33c91d960140/src/Security/MemberAuthenticator/LostPasswordHandler.php#L264-L273"
+    },
+    {
+      "id": 390143145,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-390143145",
+      "created_at": "2018-05-18T09:00:00Z",
+      "updated_at": "2018-05-18T09:00:00Z",
+      "author": "Participant 6",
+      "body": "Excellent point @christopherdarling. Ultimately that’s going to depend on how people implement their analytics snippets, but I suspect that many people put it directly in `Page.ss` meaning `Security` URLs will include tracking code.\r\n\r\nPerhaps we should move the email to the session, rather than the URL?"
+    },
+    {
+      "id": 390144587,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-390144587",
+      "created_at": "2018-05-18T09:05:00Z",
+      "updated_at": "2018-05-18T09:05:00Z",
+      "author": "Participant 5",
+      "body": "Yeah, I think that's most likely the case. It's certainly how most of my sites have been implemented at least.\r\n\r\nMoving to session sounds a good suggestion"
+    },
+    {
+      "id": 390145150,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-390145150",
+      "created_at": "2018-05-18T09:07:06Z",
+      "updated_at": "2018-05-18T09:07:06Z",
+      "author": "Participant 3",
+      "body": "What do we need the email for at all in this context? To say we sent an email to: [insert email]? We can just remove that feature completely, it's not really needed"
+    },
+    {
+      "id": 390145727,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-390145727",
+      "created_at": "2018-05-18T09:09:16Z",
+      "updated_at": "2018-05-18T09:09:16Z",
+      "author": "Participant 5",
+      "body": "@dhensby  I'd agree with that, it wouldn't bother me if it were removed."
+    },
+    {
+      "id": 390530871,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-390530871",
+      "created_at": "2018-05-21T01:38:33Z",
+      "updated_at": "2018-05-21T01:38:33Z",
+      "author": "Participant 4",
+      "body": "Created ticket for email issue: https://github.com/silverstripe/silverstripe-framework/issues/8080"
+    },
+    {
+      "id": 544353436,
+      "url": "https://github.com/silverstripe/silverstripe-framework/issues/7791#issuecomment-544353436",
+      "created_at": "2019-10-21T05:22:55Z",
+      "updated_at": "2019-10-21T05:22:55Z",
+      "author": "Participant 4",
+      "body": "> Given that most people use Google Anaytics or similar one thing that you may want to include is that the LostPasswordHandler by default redirects to a URL that contains the users email address which is PII and will end up in Analytics software\r\n\r\nJust following up on this, that's been resolved for a while through https://github.com/silverstripe/silverstripe-framework/commit/560fe9820a51eb3001dafdc1e34806434392a3e3#diff-a01f0c31fe0157e58576a47bffd12adc.\r\n\r\nI can't see any specific action left on this ticket, closing. "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

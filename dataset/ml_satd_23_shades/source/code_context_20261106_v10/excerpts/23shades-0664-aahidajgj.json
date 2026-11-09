@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0664-aahidajgj",
+  "revision_url": "https://github.com/PyTorchLightning/pytorch-lightning/commit/c53edce1a1bada7be97c40c8c6d6ae3caca56f4a",
+  "filename": "pytorch_lightning/trainer/connectors/data_connector.py",
+  "commit": "c53edce1a1bada7be97c40c8c6d6ae3caca56f4a",
+  "source_url": "https://raw.githubusercontent.com/PyTorchLightning/pytorch-lightning/c53edce1a1bada7be97c40c8c6d6ae3caca56f4a/pytorch_lightning/trainer/connectors/data_connector.py",
+  "fetched_at": "2026-11-05T06:13:34.962645+00:00",
+  "source_sha256": "bfeb68bb7d5dc02944851e2c9829c2b304634e8e5c0e8823d60229150d8b4ec8",
+  "line_start": 91,
+  "line_end": 115,
+  "excerpt": "        self.attach_datamodule(model, datamodule)\n        self._validate_data_hooks(model)\n\n    def __enforce_datamodule_dataloader_override(self, train_dataloader, val_dataloaders, datamodule):\n        # If you supply a datamodule you can't supply train_dataloader or val_dataloaders\n        if (train_dataloader is not None or val_dataloaders is not None) and datamodule is not None:\n            raise MisconfigurationException(\n                'You cannot pass train_dataloader or val_dataloaders to trainer.fit if you supply a datamodule'\n            )\n\n    def _validate_data_hooks(self, model):\n        # Raise Misconfiguration exception since these hooks are not supported in DP mode\n        # TODO: Remove this blocker once batch transfer to device is integrated in Lightning for DP mode.\n        batch_transfer_hooks = ('on_before_batch_transfer', 'transfer_batch_to_device', 'on_after_batch_transfer')\n        for hook in batch_transfer_hooks:\n            if self.trainer.accelerator_connector.use_dp and is_overridden(hook, model):\n                raise MisconfigurationException(f'Overriding `{hook}` is not supported in DP mode.')\n\n    def attach_dataloaders(\n        self,\n        model,\n        train_dataloader: Optional[Union[DataLoader, List[DataLoader]]] = None,\n        val_dataloaders: Optional[Union[DataLoader, List[DataLoader]]] = None,\n        test_dataloaders: Optional[Union[DataLoader, List[DataLoader]]] = None,\n        predict_dataloaders: Optional[Union[DataLoader, List[DataLoader]]] = None,"
+}

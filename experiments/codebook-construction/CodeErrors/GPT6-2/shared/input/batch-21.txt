@@ -1,0 +1,1125 @@
+TASK 114
+TASK DESCRIPTION
+def minSubArraySum(nums):
+    """
+    Given an array of integers nums, find the minimum sum of any non-empty sub-array
+    of nums.
+    Example
+    minSubArraySum([2, 3, 4, 1, 2, 4]) == 1
+    minSubArraySum([-1, -2, -3]) == -6
+    """
+REFERENCE IMPLEMENTATION
+def minSubArraySum(nums):
+    """
+    Given an array of integers nums, find the minimum sum of any non-empty sub-array
+    of nums.
+    Example
+    minSubArraySum([2, 3, 4, 1, 2, 4]) == 1
+    minSubArraySum([-1, -2, -3]) == -6
+    """
+    if all(x >= 0 for x in nums): return min(nums)
+    s, ans = 0, 0
+    for x in nums:
+        s += x
+        ans = min(ans, s)
+        if s >= 0: s = 0
+    return ans
+
+ARTIFACT 267 | SOURCE RECORDS 267,268
+COMPLETE GENERATED CODE
+import math
+
+def minSubArraySum(nums):
+    """
+    Given an array of integers nums, find the minimum sum of any non-empty sub-array
+    of nums.
+    Example
+    minSubArraySum([2, 3, 4, 1, 2, 4]) == 1
+    minSubArraySum([-1, -2, -3]) == -6
+    """
+    ans = float('inf')
+    for i in range(len(nums)):
+        for j in range(i+1, len(nums)):
+            if nums[j] < nums[i]:
+                ans = min(ans, nums[i] + nums[j])
+    return ans
+
+ARTIFACT 358 | SOURCE RECORDS 358
+COMPLETE GENERATED CODE
+import math
+
+def minSubArraySum(nums):
+    """
+    Given an array of integers nums, find the minimum sum of any non-empty sub-array
+    of nums.
+    Example
+    minSubArraySum([2, 3, 4, 1, 2, 4]) == 1
+    minSubArraySum([-1, -2, -3]) == -6
+    """
+    min_sum = math.inf
+    current_sum = 0
+    for num in nums:
+        current_sum += num
+        min_sum = min(min_sum, current_sum)
+        current_sum = max(current_sum, 0)
+    return min_sum
+
+ARTIFACT 545 | SOURCE RECORDS 545
+COMPLETE GENERATED CODE
+import math
+
+def minSubArraySum(nums):
+    """
+    Given an array of integers nums, find the minimum sum of any non-empty sub-array
+    of nums.
+    Example
+    minSubArraySum([2, 3, 4, 1, 2, 4]) == 1
+    minSubArraySum([-1, -2, -3]) == -6
+    """
+    if not nums:
+        return 0
+    if len(nums) == 1:
+        return nums[0]
+    if len(nums) == 2:
+        return min(nums[0], nums[1])
+    if len(nums) == 3:
+        return min(nums[0], min(nums[1], nums[2]))
+    if len(nums) == 4:
+        return min(nums[0], min(nums[1], min(nums[2], nums[3])))
+    if len(nums) == 5:
+        return min(nums[0], min(nums[1], min(nums[2], min(nums[3], nums[4]))))
+    if len(nums) == 6:
+        return min(nums[0], min(nums[1], min(nums[2], min(nums[3], min(nums[4], nums[5])))))
+    if len(nums) == 7:
+        return min(nums[0], min(nums[1], min(nums[2], min(nums[3], min(nums[4], min(nums[5], nums[6]))))))
+    if len(nums) == 8:
+        return min(nums[0], min(nums[1], min(nums[2], min(nums[3], min(nums[4], min(nums[5], min(nums[6], nums[7]))))))
+    if len(nums) == 9:
+        return min(nums[0], min(nums[1], min(nums[2], min(nums[3], min(nums[4], min(nums[5], min(nums[6], min(nums[7], nums[8]))))))))
+    if len(nums) == 10:
+        return min(nums[0], min(nums[1], min(nums[2], min(nums[3], min(nums[4], min(nums[5], min(nums[6], min(nums[7], min(nums[8], nums[9])))))))))
+    if len(nums) == 11:
+        return min(nums[0], min(nums[1], min(nums[2], min(nums[3], min(nums[4], min(nums[5], min(nums[6], min(nums[7], min(nums
+
+ARTIFACT 689 | SOURCE RECORDS 689,690,691
+COMPLETE GENERATED CODE
+import math
+
+def minSubArraySum(nums):
+    """
+    Given an array of integers nums, find the minimum sum of any non-empty sub-array
+    of nums.
+    Example
+    minSubArraySum([2, 3, 4, 1, 2, 4]) == 1
+    minSubArraySum([-1, -2, -3]) == -6
+    """
+    if len(nums) == 0:
+        return 0
+    min_sum = math.inf
+    current_sum = 0
+    for num in nums:
+        current_sum += num
+        min_sum = min(min_sum, current_sum)
+        if current_sum < 0:
+            current_sum = 0
+    return min_sum
+
+TASK 115
+TASK DESCRIPTION
+import math
+
+def max_fill(grid, capacity):
+    """
+    You are given a rectangular grid of wells. Each row represents a single well,
+    and each 1 in a row represents a single unit of water.
+    Each well has a corresponding bucket that can be used to extract water from it, 
+    and all buckets have the same capacity.
+    Your task is to use the buckets to empty the wells.
+    Output the number of times you need to lower the buckets.
+
+    Example 1:
+        Input: 
+            grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]
+            bucket_capacity : 1
+        Output: 6
+
+    Example 2:
+        Input: 
+            grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]
+            bucket_capacity : 2
+        Output: 5
+    
+    Example 3:
+        Input: 
+            grid : [[0,0,0], [0,0,0]]
+            bucket_capacity : 5
+        Output: 0
+
+    Constraints:
+        * all wells have the same length
+        * 1 <= grid.length <= 10^2
+        * 1 <= grid[:,1].length <= 10^2
+        * grid[i][j] -> 0 | 1
+        * 1 <= capacity <= 10
+    """
+REFERENCE IMPLEMENTATION
+import math
+
+def max_fill(grid, capacity):
+    """
+    You are given a rectangular grid of wells. Each row represents a single well,
+    and each 1 in a row represents a single unit of water.
+    Each well has a corresponding bucket that can be used to extract water from it, 
+    and all buckets have the same capacity.
+    Your task is to use the buckets to empty the wells.
+    Output the number of times you need to lower the buckets.
+
+    Example 1:
+        Input: 
+            grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]
+            bucket_capacity : 1
+        Output: 6
+
+    Example 2:
+        Input: 
+            grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]
+            bucket_capacity : 2
+        Output: 5
+    
+    Example 3:
+        Input: 
+            grid : [[0,0,0], [0,0,0]]
+            bucket_capacity : 5
+        Output: 0
+
+    Constraints:
+        * all wells have the same length
+        * 1 <= grid.length <= 10^2
+        * 1 <= grid[:,1].length <= 10^2
+        * grid[i][j] -> 0 | 1
+        * 1 <= capacity <= 10
+    """
+    lens = list(map(len, grid))
+    for l in grid:
+        for x in l:
+            assert x == 0 or x == 1, "invalid inputs"
+    ans = 0    
+    for l in grid:
+        ans += math.ceil(sum(l) / capacity)
+    return ans
+
+ARTIFACT 87 | SOURCE RECORDS 87
+COMPLETE GENERATED CODE
+def max_fill(grid, capacity):
+    import math
+    """
+    You are given a rectangular grid of wells. Each row represents a single well,
+    and each 1 in a row represents a single unit of water.
+    Each well has a corresponding bucket that can be used to extract water from it, 
+    and all buckets have the same capacity.
+    Your task is to use the buckets to empty the wells.
+    Output the number of times you need to lower the buckets.
+
+    Example 1:
+        Input: 
+            grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]
+            bucket_capacity : 1
+        Output: 6
+
+    Example 2:
+        Input: 
+            grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]
+            bucket_capacity : 2
+        Output: 5
+    
+    Example 3:
+        Input: 
+            grid : [[0,0,0], [0,0,0]]
+            bucket_capacity : 5
+        Output: 0
+
+    Constraints:
+        * all wells have the same length
+        * 1 <= grid.length <= 10^2
+        * 1 <= grid[:,1].length <= 10^2
+        * grid[i][j] -> 0 | 1
+        * 1 <= capacity <= 10
+    """
+    # O(n^2) time | O(n) space
+    def max_fill_helper(grid, capacity, row, col):
+        if row == len(grid):
+            return 0
+        if col == len(grid[0]):
+            return max_fill_helper(grid, capacity, row + 1, 0)
+        if grid[row][col] == 0:
+            return max(max_fill_helper(grid, capacity, row, col + 1), max_fill_helper(grid, capacity, row + 1, col))
+        return max_fill_helper(grid, capacity - grid[row][col], row, col + 1) + 1
+    
+    return max_fill_helper(grid, capacity, 0, 0)
+
+ARTIFACT 269 | SOURCE RECORDS 269
+COMPLETE GENERATED CODE
+def max_fill(grid, capacity):
+    import math
+    """
+    You are given a rectangular grid of wells. Each row represents a single well,
+    and each 1 in a row represents a single unit of water.
+    Each well has a corresponding bucket that can be used to extract water from it, 
+    and all buckets have the same capacity.
+    Your task is to use the buckets to empty the wells.
+    Output the number of times you need to lower the buckets.
+
+    Example 1:
+        Input: 
+            grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]
+            bucket_capacity : 1
+        Output: 6
+
+    Example 2:
+        Input: 
+            grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]
+            bucket_capacity : 2
+        Output: 5
+    
+    Example 3:
+        Input: 
+            grid : [[0,0,0], [0,0,0]]
+            bucket_capacity : 5
+        Output: 0
+
+    Constraints:
+        * all wells have the same length
+        * 1 <= grid.length <= 10^2
+        * 1 <= grid[:,1].length <= 10^2
+        * grid[i][j] -> 0 | 1
+        * 1 <= capacity <= 10
+    """
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+ARTIFACT 359 | SOURCE RECORDS 359
+COMPLETE GENERATED CODE
+# CANNOT PARSE CODE SNIPPET
+def max_fill(grid, bucket_capacity):
+    import math
+    
+    # Calculate the total amount of water in the wells
+    total_water = sum(sum(row) for row in grid)
+    
+    # Calculate the number of times the buckets need to be lowered
+    num_buckets = math.ceil(total_water / bucket_capacity)
+    
+    return num_buckets
+
+ARTIFACT 412 | SOURCE RECORDS 412
+COMPLETE GENERATED CODE
+def max_fill(grid, capacity):
+    import math
+
+    def count_water_units(grid):
+        count = 0
+        for row in grid:
+            count += row.count(1)
+        return count
+
+    water_units = count_water_units(grid)
+    bucket_count = math.ceil(water_units / capacity)
+
+    return bucket_count
+
+ARTIFACT 546 | SOURCE RECORDS 546
+COMPLETE GENERATED CODE
+def max_fill(grid, capacity):
+    import math
+    """
+    You are given a rectangular grid of wells. Each row represents a single well,
+    and each 1 in a row represents a single unit of water.
+    Each well has a corresponding bucket that can be used to extract water from it, 
+    and all buckets have the same capacity.
+    Your task is to use the buckets to empty the wells.
+    Output the number of times you need to lower the buckets.
+
+    Example 1:
+        Input: 
+            grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]
+            bucket_capacity : 1
+        Output: 6
+
+    Example 2:
+        Input: 
+            grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]
+            bucket_capacity : 2
+        Output: 5
+    
+    Example 3:
+        Input: 
+            grid : [[0,0,0], [0,0,0]]
+            bucket_capacity : 5
+        Output: 0
+
+    Constraints:
+        * all wells have the same length
+        * 1 <= grid.length <= 10^2
+        * 1 <= grid[:,1].length <= 10^2
+        * grid[i][j] -> 0 | 1
+        * 1 <= capacity <= 10
+    """
+    # 1. find the max row
+    max_row = max(grid, key=lambda x: len(x))[0]
+    # 2. find the max column
+    max_col = max(grid, key=lambda x: len(x))[1]
+    # 3. find the max value
+    max_value = max(grid, key=lambda x: x[max_row][max_col])
+    # 4. find the max row and column
+    max_row = max_value[0]
+    max_col = max_value[1]
+    # 5. find the max value
+    max_value = max(grid, key=lambda x: x[max_row][max_col])
+    # 6. find the max row and column
+    max_row = max_value[0]
+    max_col = max_value[1]
+    # 7. find the max value
+    max_value = max(grid, key=lambda x: x[max_row][max_col])
+    # 8. find the max row and column
+    max_row = max_value[0]
+    max_col = max_value[1]
+    # 9. find the max value
+    max_value = max(grid, key=lambda x: x[max_row][max_col])
+    # 10. find the max row and column
+    max_row = max_value[0]
+    max_col = max_value[1]
+    # 11. find the max value
+    max_value = max(grid, key=lambda x: x[max_row][max_col])
+    # 12. find the max row and column
+    max_row = max_value[0]
+    max_col = max_value[1]
+    # 13. find the max value
+    max_value = max(grid, key=lambda x: x[max_row][max_col])
+    # 14. find the max row and column
+    max_row = max_value[0]
+    max_col = max_value[1]
+    # 15. find the max value
+    max_value = max(grid, key=lambda x: x[max_row][max_col])
+    # 16. find the max row and column
+    max_row = max_
+
+ARTIFACT 692 | SOURCE RECORDS 692
+COMPLETE GENERATED CODE
+def max_fill(grid, capacity):
+    import math
+    """
+    You are given a rectangular grid of wells. Each row represents a single well,
+    and each 1 in a row represents a single unit of water.
+    Each well has a corresponding bucket that can be used to extract water from it, 
+    and all buckets have the same capacity.
+    Your task is to use the buckets to empty the wells.
+    Output the number of times you need to lower the buckets.
+
+    Example 1:
+        Input: 
+            grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]
+            bucket_capacity : 1
+        Output: 6
+
+    Example 2:
+        Input: 
+            grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]
+            bucket_capacity : 2
+        Output: 5
+    
+    Example 3:
+        Input: 
+            grid : [[0,0,0], [0,0,0]]
+            bucket_capacity : 5
+        Output: 0
+
+    Constraints:
+        * all wells have the same length
+        * 1 <= grid.length <= 10^2
+        * 1 <= grid[:,1].length <= 10^2
+        * grid[i][j] -> 0 | 1
+        * 1 <= capacity <= 10
+    """
+    # TODO: Solve this problem
+    pass
+
+TASK 116
+TASK DESCRIPTION
+def sort_array(arr):
+    """
+    In this Kata, you have to sort an array of non-negative integers according to
+    number of ones in their binary representation in ascending order.
+    For similar number of ones, sort based on decimal value.
+
+    It must be implemented like this:
+    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]
+    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]
+    >>> sort_array([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]
+    """
+REFERENCE IMPLEMENTATION
+def sort_array(arr):
+    """
+    In this Kata, you have to sort an array of non-negative integers according to
+    number of ones in their binary representation in ascending order.
+    For similar number of ones, sort based on decimal value.
+
+    It must be implemented like this:
+    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]
+    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]
+    >>> sort_array([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]
+    """
+    from functools import cmp_to_key
+    def cmp(x: int, y: int) -> int:
+        x1 = len(list(filter(lambda ch: ch == "1", bin(x))))
+        y1 = len(list(filter(lambda ch: ch == "1", bin(y))))
+        if x1 != y1: return x1 - y1
+        return x - y
+    return sorted(arr, key=cmp_to_key(cmp))
+
+ARTIFACT 270 | SOURCE RECORDS 270
+COMPLETE GENERATED CODE
+def sort_array(arr):
+    """
+    In this Kata, you have to sort an array of non-negative integers according to
+    number of ones in their binary representation in ascending order.
+    For similar number of ones, sort based on decimal value.
+
+    It must be implemented like this:
+    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]
+    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]
+    >>> sort_array([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]
+    """
+    ones_count = count_ones(arr)
+    ones_count = ones_count.most_common()[0][0]
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length()
+    ones_count = ones_count.bit_length() - 1
+    ones_count = ones_count.bit_length
+
+ARTIFACT 547 | SOURCE RECORDS 547
+COMPLETE GENERATED CODE
+def sort_array(arr):
+    """
+    In this Kata, you have to sort an array of non-negative integers according to
+    number of ones in their binary representation in ascending order.
+    For similar number of ones, sort based on decimal value.
+
+    It must be implemented like this:
+    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]
+    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]
+    >>> sort_array([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]
+    """
+    return sorted(arr, key=lambda x: bin(x).count('1'))
+
+TASK 117
+TASK DESCRIPTION
+def select_words(s, n):
+    """Given a string s and a natural number n, you have been tasked to implement 
+    a function that returns a list of all words from string s that contain exactly 
+    n consonants, in order these words appear in the string s.
+    If the string s is empty then the function should return an empty list.
+    Note: you may assume the input string contains only letters and spaces.
+    Examples:
+    select_words("Mary had a little lamb", 4) ==> ["little"]
+    select_words("Mary had a little lamb", 3) ==> ["Mary", "lamb"]
+    select_words("simple white space", 2) ==> []
+    select_words("Hello world", 4) ==> ["world"]
+    select_words("Uncle sam", 3) ==> ["Uncle"]
+    """
+REFERENCE IMPLEMENTATION
+def select_words(s, n):
+    """Given a string s and a natural number n, you have been tasked to implement 
+    a function that returns a list of all words from string s that contain exactly 
+    n consonants, in order these words appear in the string s.
+    If the string s is empty then the function should return an empty list.
+    Note: you may assume the input string contains only letters and spaces.
+    Examples:
+    select_words("Mary had a little lamb", 4) ==> ["little"]
+    select_words("Mary had a little lamb", 3) ==> ["Mary", "lamb"]
+    select_words("simple white space", 2) ==> []
+    select_words("Hello world", 4) ==> ["world"]
+    select_words("Uncle sam", 3) ==> ["Uncle"]
+    """
+    ans = []
+    for word in s.split(" "):
+        if word != "":
+            c_cnt = len(list(filter(lambda ch: ch not in "aeiouAEIOU", word)))
+            if c_cnt == n: ans.append(word)
+    return ans
+
+ARTIFACT 88 | SOURCE RECORDS 88
+COMPLETE GENERATED CODE
+def select_words(s, n):
+    """Given a string s and a natural number n, you have been tasked to implement 
+    a function that returns a list of all words from string s that contain exactly 
+    n consonants, in order these words appear in the string s.
+    If the string s is empty then the function should return an empty list.
+    Note: you may assume the input string contains only letters and spaces.
+    Examples:
+    select_words("Mary had a little lamb", 4) ==> ["little"]
+    select_words("Mary had a little lamb", 3) ==> ["Mary", "lamb"]
+    select_words("simple white space", 2) ==> []
+    select_words("Hello world", 4) ==> ["world"]
+    select_words("Uncle sam", 3) ==> ["Uncle"]
+    """
+    # your code here
+    return []
+
+ARTIFACT 271 | SOURCE RECORDS 271
+COMPLETE GENERATED CODE
+def select_words(s, n):
+    """Given a string s and a natural number n, you have been tasked to implement 
+    a function that returns a list of all words from string s that contain exactly 
+    n consonants, in order these words appear in the string s.
+    If the string s is empty then the function should return an empty list.
+    Note: you may assume the input string contains only letters and spaces.
+    Examples:
+    select_words("Mary had a little lamb", 4) ==> ["little"]
+    select_words("Mary had a little lamb", 3) ==> ["Mary", "lamb"]
+    select_words("simple white space", 2) ==> []
+    select_words("Hello world", 4) ==> ["world"]
+    select_words("Uncle sam", 3) ==> ["Uncle"]
+    """
+    words = s.split()
+    words = [word for word in words if len(word) == n]
+    return words
+
+ARTIFACT 548 | SOURCE RECORDS 548
+COMPLETE GENERATED CODE
+def select_words(s, n):
+    """Given a string s and a natural number n, you have been tasked to implement 
+    a function that returns a list of all words from string s that contain exactly 
+    n consonants, in order these words appear in the string s.
+    If the string s is empty then the function should return an empty list.
+    Note: you may assume the input string contains only letters and spaces.
+    Examples:
+    select_words("Mary had a little lamb", 4) ==> ["little"]
+    select_words("Mary had a little lamb", 3) ==> ["Mary", "lamb"]
+    select_words("simple white space", 2) ==> []
+    select_words("Hello world", 4) ==> ["world"]
+    select_words("Uncle sam", 3) ==> ["Uncle"]
+    """
+    return [w for w in s.split() if len(w) == n and w.isalpha()]
+
+ARTIFACT 693 | SOURCE RECORDS 693
+COMPLETE GENERATED CODE
+def select_words(s, n):
+    """Given a string s and a natural number n, you have been tasked to implement 
+    a function that returns a list of all words from string s that contain exactly 
+    n consonants, in order these words appear in the string s.
+    If the string s is empty then the function should return an empty list.
+    Note: you may assume the input string contains only letters and spaces.
+    Examples:
+    select_words("Mary had a little lamb", 4) ==> ["little"]
+    select_words("Mary had a little lamb", 3) ==> ["Mary", "lamb"]
+    select_words("simple white space", 2) ==> []
+    select_words("Hello world", 4) ==> ["world"]
+    select_words("Uncle sam", 3) ==> ["Uncle"]
+    """
+    # Your code here
+    pass
+
+TASK 118
+TASK DESCRIPTION
+def get_closest_vowel(word):
+    """You are given a word. Your task is to find the closest vowel that stands between 
+    two consonants from the right side of the word (case sensitive).
+    
+    Vowels in the beginning and ending doesn't count. Return empty string if you didn't
+    find any vowel met the above condition. 
+
+    You may assume that the given string contains English letter only.
+
+    Example:
+    get_closest_vowel("yogurt") ==> "u"
+    get_closest_vowel("FULL") ==> "U"
+    get_closest_vowel("quick") ==> ""
+    get_closest_vowel("ab") ==> ""
+    """
+REFERENCE IMPLEMENTATION
+def get_closest_vowel(word):
+    """You are given a word. Your task is to find the closest vowel that stands between 
+    two consonants from the right side of the word (case sensitive).
+    
+    Vowels in the beginning and ending doesn't count. Return empty string if you didn't
+    find any vowel met the above condition. 
+
+    You may assume that the given string contains English letter only.
+
+    Example:
+    get_closest_vowel("yogurt") ==> "u"
+    get_closest_vowel("FULL") ==> "U"
+    get_closest_vowel("quick") ==> ""
+    get_closest_vowel("ab") ==> ""
+    """
+    def is_vowel(ch: str) -> bool:
+        return ch in "aeiouAEIOU"
+    for i in range(len(word) - 2, 0, -1):
+        if is_vowel(word[i]) and not is_vowel(word[i-1]) and not is_vowel(word[i+1]):
+            return word[i]
+    return ""
+
+ARTIFACT 89 | SOURCE RECORDS 89,90
+COMPLETE GENERATED CODE
+def get_closest_vowel(word):
+    """You are given a word. Your task is to find the closest vowel that stands between 
+    two consonants from the right side of the word (case sensitive).
+    
+    Vowels in the beginning and ending doesn't count. Return empty string if you didn't
+    find any vowel met the above condition. 
+
+    You may assume that the given string contains English letter only.
+
+    Example:
+    get_closest_vowel("yogurt") ==> "u"
+    get_closest_vowel("FULL") ==> "U"
+    get_closest_vowel("quick") ==> ""
+    get_closest_vowel("ab") ==> ""
+    """
+    vowels = set('aeiou')
+    for i in range(len(word) - 1):
+        if word[i] not in vowels and word[i + 1] in vowels:
+            return word[i]
+    return ''
+
+ARTIFACT 272 | SOURCE RECORDS 272
+COMPLETE GENERATED CODE
+def get_closest_vowel(word):
+    """You are given a word. Your task is to find the closest vowel that stands between 
+    two consonants from the right side of the word (case sensitive).
+    
+    Vowels in the beginning and ending doesn't count. Return empty string if you didn't
+    find any vowel met the above condition. 
+
+    You may assume that the given string contains English letter only.
+
+    Example:
+    get_closest_vowel("yogurt") ==> "u"
+    get_closest_vowel("FULL") ==> "U"
+    get_closest_vowel("quick") ==> ""
+    get_closest_vowel("ab") ==> ""
+    """
+    vowels = "aeiou"
+    
+    vowel_left = ""
+    vowel_right = ""
+    
+    for char in word:
+        if char in vowels:
+            vowel_left += char
+        else:
+            vowel_right += char
+    
+    vowel_left = vowel_left.lower()
+    vowel_right = vowel_right.lower()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    vowel_left = vowel_left.strip()
+    vowel_right = vowel_right.strip()
+    
+    
+
+ARTIFACT 549 | SOURCE RECORDS 549
+COMPLETE GENERATED CODE
+def get_closest_vowel(word):
+    """You are given a word. Your task is to find the closest vowel that stands between 
+    two consonants from the right side of the word (case sensitive).
+    
+    Vowels in the beginning and ending doesn't count. Return empty string if you didn't
+    find any vowel met the above condition. 
+
+    You may assume that the given string contains English letter only.
+
+    Example:
+    get_closest_vowel("yogurt") ==> "u"
+    get_closest_vowel("FULL") ==> "U"
+    get_closest_vowel("quick") ==> ""
+    get_closest_vowel("ab") ==> ""
+    """
+    vowels = "aeiouAEIOU"
+    if word[0] in vowels and word[-1] in vowels:
+        return word[0]
+    elif word[0] in vowels:
+        return word[0]
+    elif word[-1] in vowels:
+        return word[-1]
+    else:
+        return ""
+
+ARTIFACT 694 | SOURCE RECORDS 694,695
+COMPLETE GENERATED CODE
+def get_closest_vowel(word):
+    """You are given a word. Your task is to find the closest vowel that stands between 
+    two consonants from the right side of the word (case sensitive).
+    
+    Vowels in the beginning and ending doesn't count. Return empty string if you didn't
+    find any vowel met the above condition. 
+
+    You may assume that the given string contains English letter only.
+
+    Example:
+    get_closest_vowel("yogurt") ==> "u"
+    get_closest_vowel("FULL") ==> "U"
+    get_closest_vowel("quick") ==> ""
+    get_closest_vowel("ab") ==> ""
+    """
+    vowels = "aeiouAEIOU"
+    for i in range(len(word) - 1, 0, -1):
+        if word[i] in vowels:
+            return word[i]
+    return ""

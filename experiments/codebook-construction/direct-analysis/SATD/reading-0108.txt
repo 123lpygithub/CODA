@@ -1,0 +1,368 @@
+
+=== 108 23shades-0058-aaahbfbhe ===
+{"dataset_id": "aaahbfbhe", "repo_name": "Erotemic/netharn", "filename": "netharn/fit_harn.py", "comment_introducing_revision": "https://github.com/Erotemic/netharn/commit/26924a149f6bc51dc19a3f1b2ca04897cd5287a1", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "26924a149f6bc51dc19a3f1b2ca04897cd5287a1"}
+[comment_text]
+DEPRICATE? I don't think this is needed anymore
+[source_context]
+            harn.error('NON-FINITE WEIGHTS: {}'.format(ub.repr2(bad_layers, nl=1)))
+            raise TrainingDiverged(
+                'NON-FINITE WEIGHTS weights.sum() = {!r}'.format(weight_sum))
+
+
+@register_mixin
+class CoreCallbacks:
+    """
+    We encourage you to overwrite these methods
+    """
+
+    def _tovar(harn, data):
+        # DEPRICATE? I don't think this is needed anymore
+        # handle cases when labels are unstructured
+        if isinstance(data, list):
+            # handle one level of nesting
+            return [harn.xpu.variable(d) for d in data]
+        else:
+            return harn.xpu.variable(data)
+
+    def after_initialize(harn):
+        """
+        Perform a custom initialization step (not usually needed)
+        """
+        pass
+
+=== 109 23shades-0403-aaggciajj ===
+{"dataset_id": "aaggciajj", "repo_name": "ucam-smt/sgnmt", "filename": "cam/sgnmt/predictors/tf_t2t.py", "comment_introducing_revision": "https://github.com/ucam-smt/sgnmt/commit/40168e809d8268fdb028665ea56b6f7d8ce5cf89", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "40168e809d8268fdb028665ea56b6f7d8ce5cf89"}
+[comment_text]
+TODO(fstahlberg): Move to config
+[source_context]
+                                               single_cpu_thread,
+                                               max_terminal_id,
+                                               pop_id)
+        if not model_name or not problem_name or not hparams_set_name:
+            logging.fatal(
+                "Please specify t2t_model, t2t_problem, and t2t_hparams_set!")
+            raise AttributeError
+        if trg_vocab_size >= EditT2TPredictor.POS_FACTOR:
+            logging.fatal("Target vocabulary size (%d) must be less than %d!"
+                          % (trg_vocab_size, EditT2TPredictor.POS_FACTOR))
+            raise AttributeError
+        self.beam_size = max(1, beam_size // 10) + 1
+        self.batch_size = 2048 # TODO(fstahlberg): Move to config
+        self.initial_trg_sentences = None
+        if trg_test_file: 
+            self.initial_trg_sentences = []
+            with open(trg_test_file) as f:
+                for line in f:
+                    self.initial_trg_sentences.append(utils.oov_to_unk(
+                       [int(w) for w in line.strip().split()] + [utils.EOS_ID],
+                       self.trg_vocab_size, self._t2t_unk_id))
+        predictor_graph = tf.Graph()
+        with predictor_graph.as_default() as g:
+            hparams = trainer_lib.create_hparams(hparams_set_name)
+            self._add_problem_hparams(hparams, problem_name)
+
+=== 110 23shades-0506-aaeieejja ===
+{"dataset_id": "aaeieejja", "repo_name": "IntelPython/sdc", "filename": "hpat/compiler.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/3544f2243917d9a3676fd1d3137902f5c7a6fa99", "comment_removing_revision": "https://github.com/IntelPython/sdc/commit/2c0548e2ec51fc4d7db1381f3772423aa84680e0", "source_context_status": "available", "source_context_commit": "3544f2243917d9a3676fd1d3137902f5c7a6fa99"}
+[comment_text]
+TODO: dataframe pass needed?
+[source_context]
+    """HPAT pipeline without the distributed pass (used in rolling kernels)
+    """
+    def define_pipelines(self, pm):
+        name = 'hpat_seq'
+        pm.create_pipeline(name)
+        self.add_preprocessing_stage(pm)
+        self.add_with_handling_stage(pm)
+        self.add_pre_typing_stage(pm)
+        pm.add_stage(self.stage_inline_pass, "inline funcs")
+        pm.add_stage(self.stage_df_pass, "convert DataFrames")
+        pm.add_stage(self.stage_repeat_inline_closure, "repeat inline closure")
+        self.add_typing_stage(pm)
+        # TODO: dataframe pass needed?
+        pm.add_stage(self.stage_dataframe_pass, "typed dataframe pass")
+        pm.add_stage(self.stage_df_typed_pass, "typed hiframes pass")
+        pm.add_stage(self.stage_pre_parfor_pass, "Preprocessing for parfors")
+        if not self.flags.no_rewrites:
+            pm.add_stage(self.stage_nopython_rewrites, "nopython rewrites")
+        if self.flags.auto_parallel.enabled:
+            pm.add_stage(self.stage_parfor_pass, "convert to parfors")
+        # pm.add_stage(self.stage_distributed_pass, "convert to distributed")
+        pm.add_stage(self.stage_lower_parfor_seq, "parfor seq lower")
+        pm.add_stage(self.stage_ir_legalization,
+                "ensure IR is legal prior to lowering")
+        self.add_lowering_stage(pm)
+
+=== 111 23shades-0379-aaecjdbfd ===
+{"dataset_id": "aaecjdbfd", "repo_name": "openml/openml-python", "filename": "openml/flows/flow.py", "comment_introducing_revision": "https://github.com/openml/openml-python/commit/4882cda9f29535eda784d4437076ff4e244a3a73", "comment_removing_revision": "https://github.com/openml/openml-python/commit/52d01402e7316e3ff09bcc578716ef75f82d5ade", "source_context_status": "available", "source_context_commit": "4882cda9f29535eda784d4437076ff4e244a3a73"}
+[comment_text]
+TODO update these - the sklearn transformation class should be able
+[source_context]
+
+    """
+    def __init__(self, model, flow_id=None, uploader=None,
+                 description=None, creator=None, components=None,
+                 parameters=None, contributor=None, tag=None):
+        self.flow_id = flow_id
+        self.upoader = uploader
+        self.description = description
+        self.creator = creator
+        self.tag = tag
+        self.model = model
+
+        # TODO update these - the sklearn transformation class should be able
+        # to do this!
+        self.source = "FIXME DEFINE PYTHON FLOW"
+        self.name = (model.__module__ + "." +
+                     model.__class__.__name__)
+        self.external_version = 'sklearn_' + sklearn.__version__
+
+        if components is None:
+            components = []
+        self.components = components
+        if parameters is None:
+            parameters = []
+        self.parameters = parameters
+
+=== 112 23shades-0786-aahddigdj ===
+{"dataset_id": "aahddigdj", "repo_name": "brendanhasz/probflow", "filename": "src/probflow/core.py", "comment_introducing_revision": "https://github.com/brendanhasz/probflow/commit/721b59aa0d5484c3a3019dd16fe2d3c411191a8e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "721b59aa0d5484c3a3019dd16fe2d3c411191a8e"}
+[comment_text]
+TODO: x;y input should be able to be np arrays; pandas arrays; or tf dataset iterators
+[source_context]
+        Also should have callbacks like let's to do early stopping etc
+        Also have a monitor param which somehow lets you monitor the value of parameters over training?
+        And make sure to make it sklearn-compatible (ie you can put it in a pipeline and everything)
+        should have a show_tensorboard option (default is False) https://www.tensorflow.org/guide/summaries_and_tensorboard
+
+
+        """
+
+        # TODO: this should be an arg to fit...
+        dtype = tf.float32
+
+        # Set up the data for fitting
+        # TODO: x,y input should be able to be np arrays, pandas arrays, or tf dataset iterators
+        #y_vals = iterator...
+        #x_vals = iterator...
+        # N = number of datapoints (x.shape[0])
+        # first split into train and validation
+        #if x and y are arrays of the correct size (of the train data)
+        x_shape = list(x.shape)
+        y_shape = list(x.shape)
+        x_shape[0] = None
+        y_shape[0] = None
+        x_ph = tf.placeholder(dtype, x_shape)
+        y_ph = tf.placeholder(dtype, x_shape)
+        train_dataset = tf.data.Dataset.from_tensor_slices((x, y))
+
+=== 113 23shades-0485-aafhihfed ===
+{"dataset_id": "aafhihfed", "repo_name": "tugstugi/mongolian-speech-recognition", "filename": "train.py", "comment_introducing_revision": "https://github.com/tugstugi/mongolian-speech-recognition/commit/ce775775ef949cac4345e7dfbf8dce1f9b0e254e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ce775775ef949cac4345e7dfbf8dce1f9b0e254e"}
+[comment_text]
+TODO: check whether the model is QuartzNet
+[source_context]
+    from warpctc_pytorch import CTCLoss
+
+    criterion = CTCLoss(blank=0, size_average=False, length_average=False)
+else:
+    from torch.nn import CTCLoss
+
+    criterion = CTCLoss(blank=0, reduction='sum', zero_infinity=True)
+
+decoder = GreedyDecoder(labels=vocab)
+
+# freeze first n encoder layers of QuartzNet
+if args.freeze != 0:
+    # TODO: check whether the model is QuartzNet
+    idx = 0
+    for idx, parameter in enumerate(model.encoder[:args.freeze].parameters()):
+        parameter.requires_grad = False
+    if args.local_rank == 0:
+        print("freezing %i n layers of total %i encoder layers" % (idx + 1, len(model.encoder)))
+
+
+if args.optim == 'sgd':
+    optimizer = torch.optim.SGD(filter(lambda p: p.requires_grad, model.parameters()),
+                                lr=args.lr, momentum=0.9, weight_decay=args.weight_decay)
+elif args.optim == 'novograd':
+    optimizer = Novograd(filter(lambda p: p.requires_grad, model.parameters()),
+
+=== 114 23shades-0179-aafehjdhc ===
+{"dataset_id": "aafehjdhc", "repo_name": "aleju/imgaug", "filename": "imgaug/augmentables/segmaps.py", "comment_introducing_revision": "https://github.com/aleju/imgaug/commit/2e0e798d843f9db5a9b6721b9fdccf1d05afbd89", "comment_removing_revision": "https://github.com/aleju/imgaug/commit/35c5d75acecabb001f48e225dd2e418588d0b854", "source_context_status": "available", "source_context_commit": "2e0e798d843f9db5a9b6721b9fdccf1d05afbd89"}
+[comment_text]
+TODO
+[source_context]
+        # i.e. anything where all masks/channels have zero-like values
+        # for int, we assume that the background class is explicitly given and has the index 0
+        if self.input_was[0] in ["bool", "float"]:
+            result = 1 + channelwise_max_idx
+        else:  # integer mask was provided
+            result = channelwise_max_idx
+        if background_threshold is not None and background_threshold > 0:
+            probs = np.amax(self.arr, axis=2)
+            result[probs < background_threshold] = background_class_id
+
+        return result.astype(np.int32)
+
+    # TODO
+    # def get_arr_bool(self, allow_overlapping=False, threshold=0.5, background_threshold=0.01, background_class_id=0):
+    #    raise NotImplementedError()
+
+    def draw(self, size=None, background_threshold=0.01, background_class_id=None, colors=None,
+             return_foreground_mask=False):
+        """
+        Render the segmentation map as an RGB image.
+
+        Parameters
+        ----------
+        size : None or float or iterable of int or iterable of float, optional
+            Size of the rendered RGB image as ``(height, width)``.
+
+=== 115 23shades-0530-aajacfjji ===
+{"dataset_id": "aajacfjji", "repo_name": "chainer/chainer", "filename": "chainer/graph_optimizations/static_graph.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/22c5d798e356e820acc9687225e306031a213679", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "22c5d798e356e820acc9687225e306031a213679"}
+[comment_text]
+todo: enable the following line instead once the
+[source_context]
+                    # array reference from 'args'.
+                    in_list[ind] = None
+
+        outputs_hooks = []
+        if 'outputs' in kwargs:
+            out_list = kwargs['outputs']
+            assert isinstance(out_list, list)
+            for ind, x in enumerate(out_list):
+                if _is_xp(x):
+                    unique_ind = self.get_unique_index_from_array(x)
+                    if unique_ind is None:
+                        self.unique_arrays.append(x)
+                        # todo: enable the following line instead once the
+                        # auto-intializing hooks are added. This will further
+                        # reduce memory usage.
+                        # self.unique_arrays.append(None)
+                        self.unique_array_infos.append(ArrayInfo(x))
+                        unique_ind = len(self.unique_arrays) - 1
+                        self.array_id_to_unique_index[id(x)] = unique_ind
+                    outputs_hooks.append((ind, unique_ind))
+                    # Now that the hook has been added, we can delete
+                    # array reference from 'args'.
+                    out_list[ind] = None
+
+        # A list of hooks (each is a tuple) that will be used to set
+
+=== 116 23shades-0122-aahjceiih ===
+{"dataset_id": "aahjceiih", "repo_name": "ryfeus/gcf-packs", "filename": "pandas_numpy/sources/numpy/ma/core.py", "comment_introducing_revision": "https://github.com/ryfeus/gcf-packs/commit/255a05a5980efb8b096c283d79872d0695886161", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "255a05a5980efb8b096c283d79872d0695886161"}
+[comment_text]
+Force shrinking of the mask if needed (and possible)
+[source_context]
+                # With full version
+                else:
+                    _data._mask = np.zeros(_data.shape, dtype=mdtype)
+            # Check whether we missed something
+            elif isinstance(data, (tuple, list)):
+                try:
+                    # If data is a sequence of masked array
+                    mask = np.array([getmaskarray(m) for m in data],
+                                    dtype=mdtype)
+                except ValueError:
+                    # If data is nested
+                    mask = nomask
+                # Force shrinking of the mask if needed (and possible)
+                if (mdtype == MaskType) and mask.any():
+                    _data._mask = mask
+                    _data._sharedmask = False
+            else:
+                _data._sharedmask = not copy
+                if copy:
+                    _data._mask = _data._mask.copy()
+                    # Reset the shape of the original mask
+                    if getmask(data) is not nomask:
+                        data._mask.shape = data.shape
+        else:
+            # Case 2. : With a mask in input.
+
+=== 117 23shades-0035-aahfiaifg ===
+{"dataset_id": "aahfiaifg", "repo_name": "RaRe-Technologies/gensim", "filename": "gensim/corpora/csvcorpus.py", "comment_introducing_revision": "https://github.com/RaRe-Technologies/gensim/commit/cf2693a3bf528a77b9c1de50d71208beedd67f68", "comment_removing_revision": "https://github.com/RaRe-Technologies/gensim/commit/ac27b5c67be3f37c81720deca45f8ed242079810", "source_context_status": "available", "source_context_commit": "cf2693a3bf528a77b9c1de50d71208beedd67f68"}
+[comment_text]
+\"\"\" || Corpus in CSV format. TODO: still serializes to SVMLight format; feel free to change this. || \"\"\"
+[source_context]
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2013 Zygmunt Zając <zygmunt@fastml.com>
+# Licensed under the GNU LGPL v2.1 - http://www.gnu.org/licenses/lgpl.html
+
+"""
+Corpus in CSV format. TODO: still serializes to SVMLight format, feel free to change this.
+"""
+
+
+from __future__ import with_statement
+
+import logging
+import csv
+
+from gensim.corpora import IndexedCorpus
+from gensim.corpora import SvmLightCorpus
+
+logger = logging.getLogger('gensim.corpora.csvcorpus')
+
+
+=== 118 23shades-0706-aaidjfjdb ===
+{"dataset_id": "aaidjfjdb", "repo_name": "biolab/orange3", "filename": "Orange/canvas/canvas/editlinksdialog.py", "comment_introducing_revision": "https://github.com/biolab/orange3/commit/cae097749e098191b6789e0bc4ca68b85851c749", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "cae097749e098191b6789e0bc4ca68b85851c749"}
+[comment_text]
+TODO: specifiy if the geometry should be set relative to the
+[source_context]
+
+        self.setOwnedByLayout(True)
+        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+
+        if item is not None:
+            self.setItem(item)
+
+    def setItem(self, item):
+        self.__item = item
+        self.setGraphicsItem(item)
+
+    def setGeometry(self, rect):
+        # TODO: specifiy if the geometry should be set relative to the
+        # bounding rect top left corner
+        if self.__item:
+            self.__item.setPos(rect.topLeft())
+
+        QGraphicsLayoutItem.setGeometry(self, rect)
+
+    def sizeHint(self, which, constraint):
+        if self.__item:
+            return self.__item.boundingRect().size()
+        else:
+            return QGraphicsLayoutItem.sizeHint(self, which, constraint)
+
+
+=== 119 23shades-0805-aajfiefig ===
+{"dataset_id": "aajfiefig", "repo_name": "probcomp/bayeslite", "filename": "src/bql.py", "comment_introducing_revision": "https://github.com/probcomp/bayeslite/commit/1e408b1dbec1389bb13cb9b3c9bacaceaf0d10b7", "comment_removing_revision": "https://github.com/probcomp/bayeslite/commit/a74cc551c599b73fe8ffae1a2914585bbfc69657", "source_context_status": "available", "source_context_commit": "1e408b1dbec1389bb13cb9b3c9bacaceaf0d10b7"}
+[comment_text]
+XXX Accept at least the name of the population
+[source_context]
+            # Set up schema and create the new table.
+            qn = sqlite3_quote_name(phrase.name)
+            def map_name(selcol):
+                if not isinstance(selcol, ast.SelColExp):
+                    raise NotImplementedError(
+                        'Computed or wildcard variable lists')
+                if not isinstance(selcol.expression, ast.ExpCol):
+                    # XXX Do this by compiling this rather than
+                    # executing it directly.
+                    raise NotImplementedError(
+                        'Functions of simulations in CREATE TABLE AS.')
+                if selcol.expression.table is not None:
+                    # XXX Accept at least the name of the population
+                    # in question.
+                    raise NotImplementedError(
+                        'Explicit tables in SIMULATE.')
+                return selcol.name if selcol.name is not None else \
+                    selcol.expression.column
+            qcns = map(map_name, phrase.simulation.columns)
+            temp = 'TEMP' if phrase.temp else ''
+            bdb.sql_execute('''
+                CREATE %s TABLE %s (%s)
+            ''' % (temp, qn, str.join(',', qcns)))
+            # Retrieve the rows.
+            rows = simulate_models_rows(bdb, phrase.simulation)

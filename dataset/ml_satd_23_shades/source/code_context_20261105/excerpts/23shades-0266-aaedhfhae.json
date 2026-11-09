@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0266-aaedhfhae",
+  "revision_url": "https://github.com/menpo/menpo/commit/96ea5bfc92a5f1adfa02539e13697f272cb3daa6",
+  "filename": "menpo/transform/homogeneous/rotation.py",
+  "commit": "96ea5bfc92a5f1adfa02539e13697f272cb3daa6",
+  "source_url": "https://raw.githubusercontent.com/menpo/menpo/96ea5bfc92a5f1adfa02539e13697f272cb3daa6/menpo/transform/homogeneous/rotation.py",
+  "fetched_at": "2026-11-05T06:12:24.824884+00:00",
+  "source_sha256": "ee4829f5a58d5728fe592655d7c66b43ec346aff06709020704039a4513b14e2",
+  "line_start": 240,
+  "line_end": 264,
+  "excerpt": "        evec_with_real_eval = np.real_if_close(evec[:, real_eval_mask])\n        error = 1e-7\n        below_margin = np.abs(real_eval) < (1 + error)\n        above_margin = (1 - error) < np.abs(real_eval)\n        re_unit_eval_mask = np.logical_and(below_margin, above_margin)\n        evec_with_real_unitary_eval = evec_with_real_eval[:, re_unit_eval_mask]\n        # all the eigenvectors with real unitary eigenvalues are now all\n        # equally 'valid' if multiple remain that probably means that this\n        # rotation is actually a no op (i.e. rotate by 360 degrees about any\n        #  axis is an invariant transform) but need to check this. For now,\n        # just take the first\n        if evec_with_real_unitary_eval.shape[1] != 1:\n            # TODO confirm that multiple eigenvalues of 1 means the rotation\n            #  does nothing\n            return None, None\n        axis = evec_with_real_unitary_eval[:, 0]\n        axis /= np.sqrt((axis ** 2).sum())  # normalize to unit vector\n        # to find the angle of rotation, build a new unit vector perpendicular\n        # to the axis, and see how it rotates\n        axis_temp_vector = axis - np.random.rand(axis.size)\n        perpendicular_vector = np.cross(axis, axis_temp_vector)\n        perpendicular_vector /= np.sqrt((perpendicular_vector ** 2).sum())\n        transformed_vector = np.dot(self.rotation_matrix,\n                                    perpendicular_vector)\n        angle_of_rotation = np.arccos("
+}

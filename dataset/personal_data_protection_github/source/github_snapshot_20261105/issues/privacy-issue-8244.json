@@ -1,0 +1,218 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8244",
+  "issue_url": "https://github.com/monero-project/monero/issues/6688",
+  "source_issue_url": "https://github.com/monero-project/monero/issues/6688",
+  "api_url": "https://api.github.com/repos/monero-project/monero/issues/6688",
+  "title": "Separate coinbase and non-coinbase rings",
+  "body": "# Summary\r\n\r\nMonero should add a consensus rule to require spends of coinbase outputs to select only other coinbase output decoys, and for transactions to require rings with at least 1 non-coinbase output to only contain non-coinbase outputs. Wallets should select only coinbase rings when spending coinbase, and only non-coinbase when spending non-coinbase. There are a variety of other related improvements to improve privacy.\r\n\r\n# Problem\r\n\r\nUsers currently include coinbase outputs in their rings, which are distinguishable from non-coinbase outputs. The vast majority of users do not conceivably spend coinbase outputs. This reduces the effective anonymity set by 1-2 outputs per ring. We are wasting about 15% of the rings in most transactions.\r\n\r\nIn addition to spends of coinbase outputs not aligning with conceivable user behavior, many public mining pools reveal blocks they mine and transactions paid to miners. With this information, these coinbase outputs may be considered heuristically dead for these other reasons. @sneurlax made a tool that looked at this public mining pool information for some common pools to trace heuristically dead coinbase outputs: https://github.com/sneurlax/xmreuse. I used these lists when running the Monero Blackball (Spent Output) tool at https://moneroblackball.com.\r\n\r\n[More background](https://medium.com/@JEhrenhofer/lets-stop-using-coinbase-outputs-da672ca75d43?source=friends_link&sk=48cac958597ddc4be004bbb5d5f59f95)\r\n\r\n# Fix\r\n\r\n**Consensus changes**: Require rings to either contain all coinbase outputs or all non-coinbase outputs. If rings have 1 or more outputs of a different type, reject the transaction.\r\n\r\n**Wallet changes**: When spending coinbase outputs, select only coinbase outputs as decoys. When spending non-coinbase outputs, select only non-coinbase outputs as decoys.\r\n\r\n**Advanced wallet changes**: When spending a coinbase-only ring, send a warning, strongly recommending that users \"churn\" their funds before spending to an address not known to the wallet. If there is a coinbase output in the wallet's possession, warn that users who care about privacy should churn these outputs before spending. Ideally, there would be a wallet `churn-coinbase` spend option in that churns all of the coinbase outputs to the main wallet address. This should be accomplished by running a command in the CLI, or by a prominent button in the GUI or other wallets. Wallets should prominently display when there are unspent coinbase outputs and encourage a churn of them. Wallets should prioritize spending of non-coinbase outputs to others.\r\n\r\n# Benefits\r\n\r\nUsers will no longer spend Monero with coinbase outputs as non-plausible decoys. Their effective ringsize will be greater by about 15%. This doesn't cost any efficiency.\r\n\r\nUsers will be warned when spending coinbase funds so that they are less likely to make spends with lessened privacy.\r\n\r\n# Neutral\r\n\r\nPublic pools that already share information about what blocks they mine are unaffected. Users of mining pools, both public and private, are unaffected. Private pools *should* be mostly unaffected if they only pay miners.\r\n\r\n# Downsides\r\n\r\nPrivate pools should churn coinbase outputs if sending these to non-miners. Solo miners should churn coinbase outputs before sending them to someone else. Coinbase outputs, which are more likely to be deducible than non-coinbase outputs, are concentrated in rings; this is another argument in support of churning before sending coins to non-miners.\r\n\r\n# Configurable Items, Related Items, and Areas for Improvement\r\n\r\n## Selection algorithm\r\n\r\nSarang Noether looked at the spend histories of deducible, pre-RCT Monero outputs. The coinbase spends largely match up with non-coinbase spends:\r\n\r\n![image](https://user-images.githubusercontent.com/12520755/85618857-04479000-b627-11ea-8f14-94622a2af3e5.png)\r\n\r\nHe also broke them out by 200k block chunks. While there are some differences over time, these differences are relatively small.\r\n\r\n![image](https://user-images.githubusercontent.com/12520755/85618952-29d49980-b627-11ea-9d32-78306f609477.png)\r\n\r\nFurthermore, the data is relatively old (and it's not possible to get newer data; go Monero privacy!). It would be best to have more recent data on Bitcoin coinbase spends.\r\n\r\nWe have an option to adjust the selection algorithms to treat coinbase and non-coinbase outputs separately. Given the data above however, I argue there is no significant reason to do this. If we learn of a strong reason to adjust, I think that's something we can approach when we get there.\r\n\r\n## Wallet spends\r\n\r\nWe can optionally prevent wallets from spending coinbase outputs to others' addresses. However, this can not be enforced by consensus, and it would negatively impact mining pools who use this software.\r\n\r\n## Ringsize\r\n\r\nRingsize can now be adjusted separately for coinbase and non-coinbase rings. Since information on coinbase outputs are often publicly shared, they are more likely to be deducible than non-coinbase outputs. However, if users already are assuming that these outputs will be deducible anyway, we may be able to drop the ringsize to make the blockchain more efficient.\r\n\r\nBack when I wrote my article \"Let's Stop Using Coinbase Outputs,\" I estimated that about 90% of outputs were directly deducible. With ringsize 11 and all-coinbase rings, a further ~35% of these remaining 10% would be deducible by chain reaction. Decreasing this proportion to 1% would take ringsize ~45. Ringsize 11 provides protection up to cases where ~60-65% of outputs are deducible.\r\n\r\nOptions are:\r\n\r\n* Drop the coinbase ringsize to 1 or 3 for efficiency. Mostly write off coinbase outputs as a lost cause.\r\n\r\n* Keep it the same\r\n\r\n* Increase it knowing that coinbase outputs are a deducible bloodbath if we really feel that we need to protect coinbase outputs. It will cost us.\r\n\r\nNote that if we drop the coinbase ringsize to 1 or 3, we can increase the non-coinbase ringsize by 1-3 at \"no net cost.\" Something to think about. It's difficult to justify giving special privacy protections to coinbase outputs when pools make the info public anyway. If their funds ever are at risk of being blacklisted by other miners or of any other consequence that comes with potential graph traceability, then all they need to do is not make their own info public anymore. That being said, setting the ringsize to at least 3 is probably justified, even if there are large chain reaction impacts. It at least makes certain types of analysis on non-public pools more difficult at an extremely small cost. Pools will also likely appreciate slightly smaller transaction fees.\r\n\r\n## Different pool selection algorithms\r\n\r\nI opened up this issue about a year ago, focusing on mining pool transaction payouts https://github.com/monero-project/monero/issues/5222. The selection algorithm can be improved to reduce the deducibility of non-coinbase outputs. While related, these are different proposals and are not mutually exclusive.\r\n\r\n## Pool outreach\r\n\r\nIn any case, pools should be informed about the way that they are sharing information to the public in a way that may be detrimental to the network. We should encourage pools to keep certain sensitive information private. Pools should only reveal payments to the miners involved in the specific payments, not to all miners or to the general public.",
+  "author": "Participant 1",
+  "created_at": "2020-06-24T20:28:27Z",
+  "updated_at": "2022-07-20T21:00:36Z",
+  "state": "closed",
+  "closed_at": "2022-07-20T21:00:36Z",
+  "issue_fetched_at": "2026-10-19T04:04:47.192911+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T04:04:48.707757+00:00"
+  ],
+  "expected_comment_count": 24,
+  "retrieved_comment_count": 24,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 649091820,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-649091820",
+      "created_at": "2020-06-24T21:50:11Z",
+      "updated_at": "2020-06-24T21:50:11Z",
+      "author": "Participant 2",
+      "body": "Love the concept of 100% post-coinbase outputs. I wonder if this problem will go away once we have Triptych or whatever that allows large 128 or 512 ringsizes. Who cares if 1 out of 512 is wasted?"
+    },
+    {
+      "id": 649195352,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-649195352",
+      "created_at": "2020-06-25T03:36:18Z",
+      "updated_at": "2020-06-25T03:36:30Z",
+      "author": "Participant 3",
+      "body": "> I wonder if this problem will go away once we have Triptych or whatever that allows large 128 or 512 ringsizes. Who cares if 1 out of 512 is wasted?\r\n\r\nI'm also of this boat. \r\n\r\nis that a phrase?\r\n\r\n"
+    },
+    {
+      "id": 649242878,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-649242878",
+      "created_at": "2020-06-25T06:11:42Z",
+      "updated_at": "2020-06-25T06:11:42Z",
+      "author": "Participant 4",
+      "body": "> We are wasting about 15% of the rings in most transactions.\r\n\r\nMy immediate reaction: So what? On the other side of the equation we have coin with a complexity that is already about a magnitude higher than BTC and all its descendants. And this proposal looks to me like making it even more complicated. More rules, more code, more chances for bugs, in the worst case new angles for analysis of patterns in transactions, even if only for pool-related transactions.\r\n\r\nComplexity is one of the worst enemies of security.\r\n"
+    },
+    {
+      "id": 649634112,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-649634112",
+      "created_at": "2020-06-25T15:42:50Z",
+      "updated_at": "2020-06-25T15:42:50Z",
+      "author": "Participant 1",
+      "body": "@SomaticFanatic @Gingeropolous \r\n\r\n> I wonder if this problem will go away once we have Triptych or whatever that allows large 128 or 512 ringsizes. Who cares if 1 out of 512 is wasted?\r\n\r\nIt's more accurate to say it scales, so it would more accurately be about 15% of 512, or ~75 decoys wasted."
+    },
+    {
+      "id": 649666066,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-649666066",
+      "created_at": "2020-06-25T16:12:23Z",
+      "updated_at": "2020-06-25T16:15:41Z",
+      "author": "Participant 5",
+      "body": "> It's more accurate to say it scales, so it would more accurately be about 15% of 512, or ~75 decoys wasted.\r\n\r\nit's not a mathematical or a cryptography problem here,  its more of a problem of appearances. It \"scales\" on 512 ringsize? Can someone prove to me that 511 mixins provide more obscurity than 435? For the current ringsize maybe it does pose a problem but for such an enormous amount of mixins (above 500) it provides reasonable statistical uncertainty about the tx spending a coinbase or a \"normal\" output (without changing at all the current methodology) \r\nEDIT: as i get it your proposal actually marks txs spending coinbase reducing obscurity\r\n"
+    },
+    {
+      "id": 649823552,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-649823552",
+      "created_at": "2020-06-25T21:20:29Z",
+      "updated_at": "2020-06-25T21:20:29Z",
+      "author": "Participant 1",
+      "body": "@sumogr these drawbacks are only relevant to solo miners and private pool operators who make direct payments to entities other than their miners. If we argue that, say, ringsize 256 isn't practically any worse than 512, then we can reduce the ringsize to save efficiency. Maybe you can think about this proposal as allowing the ringsize to remain smaller since there is less waste?"
+    },
+    {
+      "id": 649827954,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-649827954",
+      "created_at": "2020-06-25T21:30:41Z",
+      "updated_at": "2020-06-25T21:30:41Z",
+      "author": "Participant 5",
+      "body": "> @sumogr these drawbacks are only relevant to solo miners and private pool operators who make direct payments to entities other than their miners. If we argue that, say, ringsize 256 isn't practically any worse than 512, then we can reduce the ringsize to save efficiency. Maybe you can think about this proposal as allowing the ringsize to remain smaller since there is less waste?\r\n\r\nLet's first agree about the optimal ringsize magnitude then   "
+    },
+    {
+      "id": 650179186,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-650179186",
+      "created_at": "2020-06-26T13:28:41Z",
+      "updated_at": "2020-06-26T13:28:41Z",
+      "author": "Participant 1",
+      "body": "@sumogr I strongly believe that this is unnecessary. It's well-known that ringsizes smaller than 100 provide limited protection against EAE attacks and other targeted attacks, especially without churning. Trying to broaden the scope of this proposal to account for an \"optimal ringsize\" makes no sense. The optimal ringsize applies on a case by case basis against specific attacks. For example, ringsize 7 was selected specifically to address chain split attacks. Furthermore, the optimal ringsize assumes that the outputs are conceivable decoys. Situations in which transactions have coinbase outputs could (will) lessen the privacy for these transactions at a given ringsize. So even if we decided we need 127 decoys to sufficienctly cover every attack we can think of, ringize 128 with a bunch of coinbase decoys doesn't get us there, since the effective ringsize is closer to 108. See? This proposal provides benefits to the vast majority of users, regardless of the ringsize we select."
+    },
+    {
+      "id": 650193085,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-650193085",
+      "created_at": "2020-06-26T13:55:24Z",
+      "updated_at": "2020-06-26T14:15:48Z",
+      "author": "Participant 5",
+      "body": "> @sumogr I strongly believe that this is unnecessary. It's well-known that ringsizes smaller than 100 provide limited protection against EAE attacks and other targeted attacks, especially without churning. Trying to broaden the scope of this proposal to account for an \"optimal ringsize\" makes no sense. The optimal ringsize applies on a case by case basis against specific attacks. For example, ringsize 7 was selected specifically to address chain split attacks. Furthermore, the optimal ringsize assumes that the outputs are conceivable decoys. Situations in which transactions have coinbase outputs could (will) lessen the privacy for these transactions at a given ringsize. So even if we decided we need 127 decoys to sufficienctly cover every attack we can think of, ringize 128 with a bunch of coinbase decoys doesn't get us there, since the effective ringsize is closer to 108. See? This proposal provides benefits to the vast majority of users, regardless of the ringsize we select.\r\n\r\nI didnt try to broaden it, the ringsize magnitude after triptych is directly equivalent to your  `Maybe you can think about this proposal as allowing the ringsize to remain smaller since there is less waste?` You replied indirectly to that, that according to your opinion a ringsize of 128 will be sufficient enough to cover all vectors. However coinbase outputs are valid outputs that even though their statistical probability of appearing on the chain is of course very low, they still appear. The best way of ruining a high entropy system is by starting organising things into groups and no matter how improbable your statistical groups are their result in entropy can be  disproportionate. It is just my feeling, real numbers will settle this.  (Edit: By the way i neither agree or disagree with the proposal, i am just voicing my thoughts)"
+    },
+    {
+      "id": 650635341,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-650635341",
+      "created_at": "2020-06-27T21:49:31Z",
+      "updated_at": "2020-06-27T21:52:45Z",
+      "author": "Participant 6",
+      "body": "@SamsungGalaxyPlayer +1 for taking this problem seriously and seeking a solution. This will be a definite improvement for non-coinbase transactional privacy, in my opinion.\r\n\r\nI also agree with SGP that, with current tech, expanding ring size won’t help in EAE scenarios, without making rings infeasibly large."
+    },
+    {
+      "id": 650841928,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-650841928",
+      "created_at": "2020-06-29T00:08:32Z",
+      "updated_at": "2020-06-29T00:08:32Z",
+      "author": "Participant 7",
+      "body": "If we go in this direction, for the sake of fungibility and protecting miners, I would recommend that all new rings include one of these outputs that was created in an all-coinbase transaction. Then every transaction looks like it is fresh out of the pool (--> fungible) and every Monero transaction has a plausible blank slate. (As opposed to right now, where we can pick an arbitrary output from the blockchain, and scan backwards through the transaction tree to identify a lower bound on the age of the coins in terms of time or hops to the most recent coinbase)"
+    },
+    {
+      "id": 651206131,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-651206131",
+      "created_at": "2020-06-29T15:49:48Z",
+      "updated_at": "2020-06-29T15:49:48Z",
+      "author": "Participant 1",
+      "body": "@Mitchellpkt while that is one option, I believe fungibility will be reasonably protected since these outputs will be included in many rings anyway (since mining is a relatively large portion of network activity) and because mining is quite accessible and available to a wide number of people. The complexity of finding 1-from-coinbase outputs seems excessive to me as a consensus rule.\r\n\r\n1-from-coinbase outputs are spent by mining pools, miners on mining pools, and anyone else who is a recipient of a payment from a mining pool (which should be a very small number). My intuition is that the number of miners reasonably hides user behaviors already, even with rings as small as 11. Furthermore, this is already a current issue with 1-from-coinbase, and the situation is improved with separated rings because it increases the likelihood these outputs will be selected as decoys by other users who appear reasonably likely to spend them."
+    },
+    {
+      "id": 651265664,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-651265664",
+      "created_at": "2020-06-29T17:44:33Z",
+      "updated_at": "2020-06-29T17:44:33Z",
+      "author": "Participant 8",
+      "body": ":+1: to `Drop the coinbase ringsize to 1 or 3 for efficiency. Mostly write off coinbase outputs as a lost cause.` and :+1: in general to separating coinbase + non-coinbase rings\r\n"
+    },
+    {
+      "id": 652953584,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-652953584",
+      "created_at": "2020-07-02T11:34:20Z",
+      "updated_at": "2020-07-02T11:34:20Z",
+      "author": "Participant 3",
+      "body": "> The vast majority of users do not conceivably spend coinbase outputs.\r\n\r\nMy problem with this proposition lies here: it assumes that the current network composition remains static over time. \r\n\r\nGranted, its possible to switch this selection if the network composition changes, but time inching forward increases the probability of ossification. "
+    },
+    {
+      "id": 653118039,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-653118039",
+      "created_at": "2020-07-02T16:53:45Z",
+      "updated_at": "2020-07-02T16:53:45Z",
+      "author": "Participant 1",
+      "body": "@Gingeropolous do we reasonably expect that the proportion of users who spend coinbase outputs will increase meaningfully? While this is _technically_ possible, I would take nearly any bet against this."
+    },
+    {
+      "id": 653295388,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-653295388",
+      "created_at": "2020-07-03T02:07:28Z",
+      "updated_at": "2020-07-03T02:07:28Z",
+      "author": "Participant 3",
+      "body": "it could ... ? I mean, what if somehow the satoshi dream comes true with monero and people run their own nodes to be their own bank and they solo mine to join the lottery? like I said, we could revert the changes then I guess, but perhaps then the pool ops are like \"no, we're more important than the solo miners because..... \" and they cause a kerfuffle.\r\n\r\nit seems designing for a specific use case. Sure, right now its the primary way things are done, but that sure as hell isn't the best way to do things, and whether we're still primarily pool mining in 40 years is unknown. "
+    },
+    {
+      "id": 655074802,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-655074802",
+      "created_at": "2020-07-07T19:26:45Z",
+      "updated_at": "2020-07-07T19:26:45Z",
+      "author": "Participant 1",
+      "body": "I view the status quo that favors solo miners significantly as designing for a specific use case more in practice."
+    },
+    {
+      "id": 657674590,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-657674590",
+      "created_at": "2020-07-13T16:56:23Z",
+      "updated_at": "2020-07-13T16:56:23Z",
+      "author": "Participant 1",
+      "body": "Discussed in logs posted here https://github.com/monero-project/meta/issues/485#issuecomment-657674105"
+    },
+    {
+      "id": 669055454,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-669055454",
+      "created_at": "2020-08-05T08:22:25Z",
+      "updated_at": "2020-08-05T08:22:25Z",
+      "author": "Participant 9",
+      "body": "My thoughts on this is that while this a very valid issue, I cannot agree with the proposed fix. In order to place this into perspective it important to consider the actual impact on non coinbase transactions. We first take a look at the trend in non coin base transactions https://bitinfocharts.com/comparison/monero-transactions.html#log. When we consider that current non coinbase transactions have a minimum of 2 outputs we have coin base outputs are about 5% of total outputs, If the selection is algorithm is weighted towards current transactions then one would expect at most about 5% of compromised coinbase outputs in a ring. With a ring size of 11 the typical variance would be 0, 1, or 2 in most cases. The mitigation to this I see is to increase the ring size following out current sequence of primes: 13, 17, 19 etc with each hard fork as an interim solution until Triptych, Arcturus or a similar solution allowing for much larger rings can be used on the main chain. Increasing the ring size gradually is a way to mitigate the impact of increased transaction size and verification time, by taking advantage of improvements in bandwidth and processing power. With is in mind I have included an option in my fee and scaling recommendations for https://github.com/monero-project/research-lab/issues/70, should the community wish to increase the ring size along the above lines as an interim solution. Increasing the ring size together with overall trend in adoption will mitigate this issue over time. I must say that this issue was way more serious even a year ago than it is today. Furthermore it was orders of magnitude worse in 2016 etc. \r\n\r\nWhen one considers the trend in adoption together with the strong possibility of a significant increase in the ring size, even if my proposed interim mitigation is not accepted, I cannot support increasing the number of exposed coinbase outputs, from solo miners, private pools etc., that would result from separating coinbase and non coinbase rings. \r\n\r\n"
+    },
+    {
+      "id": 669400405,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-669400405",
+      "created_at": "2020-08-05T18:51:42Z",
+      "updated_at": "2020-08-05T18:52:30Z",
+      "author": "Participant 9",
+      "body": "Just to clarify the 5% figure is an estimate based upon recent non coinbase transaction numbers from https://bitinfocharts.com/comparison/monero-transactions.html#log For example for 2020/08/02 the figure for non coinbase transactions is 7512. With each non coinbase transaction having at least 2 outputs this produces 15024 outputs vs 720 coinbase outputs per day for a ratio of 4.8%. If we take for example the figure for 2020/04/29, for non coinbase transactions is of 14500, one gets 2.5% while the corresponding figure for say 2019/03/10, of 1532, would produce a figure of 23.5%. For the smaller numbers the variance is actually larger, since the choice becomes 0, (0%) 1(10%), 2 (20%) etc. Increasing the ring size mitigates this not only by decreasing the average but also by decreasing the variance. In the 5% case increasing the ring size to say 21 would decrease the variance to 0 (0%), 1 (5%), 2(10%) , 3 (15%) etc. "
+    },
+    {
+      "id": 671400273,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-671400273",
+      "created_at": "2020-08-10T14:46:45Z",
+      "updated_at": "2020-08-10T14:46:45Z",
+      "author": "Participant 10",
+      "body": "If we have to design an entire ruleset for one website/platform that would mean monero's privacy is brittle, and inflexible which I don't think it is. Coinbase will most likely eventually be replaced/overshadowed I think if you see a problem with a large KYC/transparent exchange you need to figure out the underlying problem rather than focus on the immediate one, but I'm new around here so Idk."
+    },
+    {
+      "id": 671406564,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-671406564",
+      "created_at": "2020-08-10T14:57:36Z",
+      "updated_at": "2020-08-10T14:57:36Z",
+      "author": "Participant 4",
+      "body": "@Impulse2020 : Little misunderstanding, this is not about Coinbase the exchange, it's about coinbase transactions, the transactions that create new coins out of thin air, once in every block ..."
+    },
+    {
+      "id": 680158430,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-680158430",
+      "created_at": "2020-08-25T17:16:35Z",
+      "updated_at": "2020-08-25T17:16:35Z",
+      "author": "Participant 10",
+      "body": "@rbrunner7: Ah whoops my ADD got a little ahead of me ^^; back to lurking I go"
+    },
+    {
+      "id": 1190753103,
+      "url": "https://github.com/monero-project/monero/issues/6688#issuecomment-1190753103",
+      "created_at": "2022-07-20T21:00:29Z",
+      "updated_at": "2022-07-20T21:00:29Z",
+      "author": "Participant 1",
+      "body": "> The vast majority of users do not conceivably spend coinbase outputs.\n\nThis is no longer the case! Thank p2pool for changing this.\n\np2pool is only about 5-10% of the hashrate, so it doesn't completely solve the problem. However, it helps challenge a heuristic, and it generates a TON more outputs than a centralized mining pool would to make a lot of noise in practice.\n\nPreviously, only mining pools (and lucky solo miners) could spend coinbase outputs. Miners were subjected to \"first output after coinbase\" outputs paid by the pool.\n\nNow, normal people can realistically claim to spend coinbase outputs received from p2pool mining.\n\n---\n\nThis can be revisited, but I'm closing this issue since it's largely no longer needed now. However, people need to keep pushing for p2pool adoption to be much higher than 5-10% :)"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

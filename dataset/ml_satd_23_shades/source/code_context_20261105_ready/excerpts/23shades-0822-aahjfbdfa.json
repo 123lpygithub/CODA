@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0822-aahjfbdfa",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/255a05a5980efb8b096c283d79872d0695886161",
+  "filename": "pandas_numpy/sources/setuptools/dist.py",
+  "commit": "255a05a5980efb8b096c283d79872d0695886161",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/255a05a5980efb8b096c283d79872d0695886161/pandas_numpy/sources/setuptools/dist.py",
+  "fetched_at": "2026-11-05T06:14:00.338132+00:00",
+  "source_sha256": "d63de4b8d10669a0335b3d222d622dc7388dc894d90bc3207137cc67853859eb",
+  "line_start": 519,
+  "line_end": 543,
+  "excerpt": "\n    def finalize_options(self):\n        _Distribution.finalize_options(self)\n        if self.features:\n            self._set_global_opts_from_features()\n\n        for ep in pkg_resources.iter_entry_points('distutils.setup_keywords'):\n            value = getattr(self, ep.name, None)\n            if value is not None:\n                ep.require(installer=self.fetch_build_egg)\n                ep.load()(self, ep.name, value)\n        if getattr(self, 'convert_2to3_doctests', None):\n            # XXX may convert to set here when we can rely on set being builtin\n            self.convert_2to3_doctests = [\n                os.path.abspath(p)\n                for p in self.convert_2to3_doctests\n            ]\n        else:\n            self.convert_2to3_doctests = []\n\n    def get_egg_cache_dir(self):\n        egg_cache_dir = os.path.join(os.curdir, '.eggs')\n        if not os.path.exists(egg_cache_dir):\n            os.mkdir(egg_cache_dir)\n            windows_support.hide_file(egg_cache_dir)"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0455-aaeiibiib",
+  "revision_url": "https://github.com/fastnlp/fastNLP/commit/e1e0661debb8a649ebad7c2837dcd7d3d65a6151",
+  "filename": "fastNLP/core/fieldarray.py",
+  "commit": "e1e0661debb8a649ebad7c2837dcd7d3d65a6151",
+  "source_url": "https://raw.githubusercontent.com/fastnlp/fastNLP/e1e0661debb8a649ebad7c2837dcd7d3d65a6151/fastNLP/core/fieldarray.py",
+  "fetched_at": "2026-11-05T06:12:57.514950+00:00",
+  "source_sha256": "18bf0ee3bd9ef0ec48433390502c23401635011a5c90524720b070e4dee20f8c",
+  "line_start": 11,
+  "line_end": 35,
+  "excerpt": "\n        :param str name: the name of the FieldArray\n        :param list content: a list of int, float, or other objects.\n        :param int padding_val: the integer for padding. Default: 0.\n        :param bool is_target: If True, this FieldArray is used to compute loss.\n        :param bool is_input: If True, this FieldArray is used to the model input.\n        \"\"\"\n        self.name = name\n        self.content = content\n        self.padding_val = padding_val\n        self.is_target = is_target\n        self.is_input = is_input\n        # TODO: auto detect dtype\n        self.dtype = None\n\n    def __repr__(self):\n        return \"FieldArray {}: {}\".format(self.name, self.content.__repr__())\n\n    def append(self, val):\n        self.content.append(val)\n\n    def __getitem__(self, name):\n        return self.get(name)\n\n    def __setitem__(self, name, val):"
+}

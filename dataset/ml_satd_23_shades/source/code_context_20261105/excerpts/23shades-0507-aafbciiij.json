@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0507-aafbciiij",
+  "revision_url": "https://github.com/yuanming-hu/exposure/commit/00eac4157ba675547b00b6b05d0dd0c2149bbe85",
+  "filename": "net.py",
+  "commit": "00eac4157ba675547b00b6b05d0dd0c2149bbe85",
+  "source_url": "https://raw.githubusercontent.com/yuanming-hu/exposure/00eac4157ba675547b00b6b05d0dd0c2149bbe85/net.py",
+  "fetched_at": "2026-11-05T06:13:04.905063+00:00",
+  "source_sha256": "01abdfc58b65efa5b2369a7940efbbaadd738fbf18df20996fa5db0115d55e21",
+  "line_start": 760,
+  "line_end": 784,
+  "excerpt": "        print(spec_files)\n\n        # Use a fixed noise\n        batch_size = 1\n        for fn in spec_files:\n            print('Processing input {}'.format(fn))\n\n            from util import read_tiff16, linearize_ProPhotoRGB\n            if fn.endswith('.tif') or fn.endswith('.tiff'):\n                image = read_tiff16(fn)\n                high_res_image = linearize_ProPhotoRGB(image)\n            else:\n                # TODO: deal with png and jpeg files better - they are probably not RAW.\n                print('Warning: sRGB color space jpg and png images may not work perfectly. See README for details. (image {})'.format(fn))\n                image = cv2.imread(fn)\n                high_res_image = np.power(image, 1 / 2.2) # Linearize\n\n            noises = [\n                self.memory.get_noise(batch_size)\n                for _ in range(self.cfg.test_steps)\n            ]\n            fn = fn.split('/')[-1]\n\n            def get_dir():\n                if output_dir is not None:"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0598-aahiijgjf",
+  "revision_url": "https://github.com/tslearn-team/tslearn/commit/c46ad4e48e88027ab99f3010d2aec53d34580f9a",
+  "filename": "tslearn/tests/test_estimators.py",
+  "commit": "c46ad4e48e88027ab99f3010d2aec53d34580f9a",
+  "source_url": "https://raw.githubusercontent.com/tslearn-team/tslearn/c46ad4e48e88027ab99f3010d2aec53d34580f9a/tslearn/tests/test_estimators.py",
+  "fetched_at": "2026-11-05T06:13:19.567372+00:00",
+  "source_sha256": "6b102f6be2988b5c6cd2165a38b5efe8dc1487947df726286da83bfca6786eec",
+  "line_start": 46,
+  "line_end": 70,
+  "excerpt": "    list\n        Collection of estimators of the type specified in `type_filter`\n    \"\"\"\n\n    def is_abstract(c):\n        if not(hasattr(c, '__abstractmethods__')):\n            return False\n        if not len(c.__abstractmethods__):\n            return False\n        return True\n\n    if type_filter not in ['all', 'classifier', 'transformer', 'cluster']:\n        # TODO: make this exception more specific\n        raise Exception(\"type_filter should be element of \"\n                        \"['all', 'classifier', 'transformer', 'cluster']\")\n\n    # Walk through all the packages from our base_path and\n    # add all the classes to a list\n    all_classes = []\n    base_path = tslearn.__path__\n    for _, name, _ in pkgutil.walk_packages(path=base_path,\n                                            prefix='tslearn.'):\n        module = __import__(name, fromlist=\"dummy\")\n        all_classes.extend(inspect.getmembers(module, inspect.isclass))\n"
+}

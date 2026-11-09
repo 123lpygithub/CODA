@@ -1,0 +1,394 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14048",
+  "issue_url": "https://github.com/nextcloud/spreed/issues/257",
+  "source_issue_url": "https://github.com/nextcloud/spreed/issues/257",
+  "api_url": "https://api.github.com/repos/nextcloud/spreed/issues/257",
+  "title": "TURN-TLS support",
+  "body": "It seems you only support UDP and TCP. However there is another transport mechanism called TURN-TLS, which wraps the whole thing into another TLS layer. This should be the last fallback for ugly company firewalls or so, which do deep package inspection and block non-HTTPS traffic on port 443.",
+  "author": "Participant 1",
+  "created_at": "2017-03-13T19:51:03Z",
+  "updated_at": "2021-02-25T19:23:31Z",
+  "state": "closed",
+  "closed_at": "2021-02-25T15:19:46Z",
+  "issue_fetched_at": "2026-10-18T15:10:42.685816+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T15:10:44.073075+00:00"
+  ],
+  "expected_comment_count": 46,
+  "retrieved_comment_count": 46,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 289305371,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-289305371",
+      "created_at": "2017-03-26T18:43:35Z",
+      "updated_at": "2017-03-26T18:43:35Z",
+      "author": "Participant 2",
+      "body": "@nextcloud/spreed what do you think?"
+    },
+    {
+      "id": 303426421,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-303426421",
+      "created_at": "2017-05-23T15:01:10Z",
+      "updated_at": "2017-05-23T15:01:10Z",
+      "author": "Participant 3",
+      "body": "Firefox appears to have [added support for this in v53.](https://bugzilla.mozilla.org/show_bug.cgi?id=1056934)"
+    },
+    {
+      "id": 408832332,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-408832332",
+      "created_at": "2018-07-30T11:29:07Z",
+      "updated_at": "2018-07-30T11:29:07Z",
+      "author": "Participant 4",
+      "body": "@fancycode any idea what would need to be done on our end?\r\nCoTurn seems to support it:\r\n> TLS (per RFC 5766 and RFC 6062): TLS1.0/TLS1.1/TLS1.2; ECDHE is supported."
+    },
+    {
+      "id": 408866490,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-408866490",
+      "created_at": "2018-07-30T13:39:35Z",
+      "updated_at": "2018-07-30T13:39:48Z",
+      "author": "Participant 5",
+      "body": "It *should* be enough to also return `turns:` urls here:\r\nhttps://github.com/nextcloud/spreed/blob/d69d88bcd42e5953d4a82eb78ba26a912d96f507/lib/Config.php#L69\r\n\r\nNeeds some testing though."
+    },
+    {
+      "id": 487169701,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-487169701",
+      "created_at": "2019-04-26T19:13:31Z",
+      "updated_at": "2019-04-26T20:29:37Z",
+      "author": "Participant 6",
+      "body": "@fancycode @nickvergessen \r\nI just faced the TURNS TLS question as well. Many guides state to enable TLS support in coTURN settings (my own HowTo as well), but actually coTURN allows to access plain on \"tls-listening-port\" as well (and the other way round), so it's up to the client to request via `turn://` or `turns://` and the coTURN settings do not matter at all, besides TLS cert required of course.\r\n\r\nSo if spreed/talk accesses via `turn://` only, then setting up TLS in coTURN has absolutely no effect (for Nextcloud Talk). So I need to update my HowTo 🙈: https://help.nextcloud.com/t/howto-setup-nextcloud-talk-with-turn-server/30794\r\n\r\nTURN is such an essential part of getting Nextcloud Talk working throughout NAT and that it is never accessed via TLS (TURNS) is important to know to not give users a wrong impression about the connection type. So I think it would be beneficial to have these infos (e.g. based on the HowTo) to a more prominent/official place. What do you think?\r\n\r\nAnd of course if applying TURNS is really that easy, it would be perfect to have a toggle within Talk app settings.\r\n_____________\r\nSide note: https://github.com/coturn/coturn/issues/33\r\n- Security benefit of TURNS is very limited (WebRTC encrypted anyway).\r\n- But it allows passing firewalls that allow transport layer encrypted requests only."
+    },
+    {
+      "id": 641851825,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-641851825",
+      "created_at": "2020-06-10T08:50:04Z",
+      "updated_at": "2020-06-10T08:51:35Z",
+      "author": "Participant 7",
+      "body": "@fancycode @nickvergessen:\r\nReally if patching the \"turn\" in the spreed app to \"turns\" is enough for enabling tls for turn, then I cannot imagine a single reason why you don't let the user/admin enter the protocol in the config page. I mean someone being able to config a turn-server should be able to name the protocol, not?\r\nSo simply, redo the code:\r\nif no protocol given, add \"turn\", else use given protocol. compatible and simple.\r\n\r\n"
+    },
+    {
+      "id": 641861984,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-641861984",
+      "created_at": "2020-06-10T09:05:54Z",
+      "updated_at": "2020-06-10T09:05:54Z",
+      "author": "Participant 4",
+      "body": "Feel free to send in a PR.\r\nBut also make sure you read https://github.com/aszlig/avonc/commit/09743c237c480addff7f0aaf235180ade1fdeb6e before."
+    },
+    {
+      "id": 641888758,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-641888758",
+      "created_at": "2020-06-10T09:48:10Z",
+      "updated_at": "2020-06-10T09:48:10Z",
+      "author": "Participant 7",
+      "body": "Honestly, the mentioned comment is really not intelligent in its logic. The author admits that there _are_ in fact cases where you need TLS encrypted turn traffic. But he comes to the conclusion: \"don't bother if you don't have to.\" well, what else? We all are only bothered by problems if we have to solve them. Ok, some of us do it all for fun, as stated in the book ..."
+    },
+    {
+      "id": 641896234,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-641896234",
+      "created_at": "2020-06-10T10:01:03Z",
+      "updated_at": "2020-06-10T10:02:52Z",
+      "author": "Participant 6",
+      "body": "> then I cannot imagine a single reason why you don't let the user/admin enter the protocol in the config page\r\n\r\nSimplicity would be a reason. And that TURNS does not add a security benefit but the overhead of doubled encryption only, which as well might introduce other issues or reports about bad performance, high CPU usage, incompatibility with certain WebRTC clients and such. Some users tend to add high security options where possible, but in this case it probably introduces issues only. What is your reason for aiming it?\r\n\r\nFor the rare mentioned cases where it might be \"required\" (meaning it does not work with plain TURN but only TURNS), if the firewall does not allow any on signalling level unencrypted connections, regardless of port, it might be reasonable to wait for/collect these cases first, before opening a possibly problematic option that might require docs rework and a differentiation when it comes to hardware recommendations/requirements for multi-peer scenarios.\r\n\r\nBut yeah, generally I would support the option, at least to allow testing it, it's performance impact and such, which allows then to give a clear hint in the docs."
+    },
+    {
+      "id": 641917998,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-641917998",
+      "created_at": "2020-06-10T10:41:55Z",
+      "updated_at": "2020-06-10T10:52:44Z",
+      "author": "Participant 7",
+      "body": "How about this untested patch then:\r\n\r\n(Explanation: we assume a syntax like \"stun://stunserver.domain:port\" or \"turn://turnserver.domain:port\" or of course \"turns://turnserver.domain:port\" because the signaling server is spelled in the same way. But obviously \"://\" is not needed in the urls, so we use \":\" compatible to original syntax. I have no idea if the correct spelling can contain \"://\")\r\n\r\n[patch.txt](https://github.com/nextcloud/spreed/files/4757962/patch.txt)\r\n\r\n"
+    },
+    {
+      "id": 641926724,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-641926724",
+      "created_at": "2020-06-10T10:59:38Z",
+      "updated_at": "2020-06-10T10:59:38Z",
+      "author": "Participant 7",
+      "body": "@MichaIng\r\nThis is the reason why my patch looks like it does: \r\n- no change in running configs needed, compatible to current docs\r\n- additional possibilities to configure something with a syntax that is similar to signal server, so in fact it is a \"streamlining\" of config options that had differing syntax before (for no obvious reasons)\r\n"
+    },
+    {
+      "id": 641943382,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-641943382",
+      "created_at": "2020-06-10T11:35:15Z",
+      "updated_at": "2020-06-10T11:35:15Z",
+      "author": "Participant 6",
+      "body": "LGTM. Would be nice if you could open a PR with this patch, to get some more attention and allow testing and discussion about the implementation.\r\n\r\nGenerally I am not sure if it is best to allow setting the protocol freely, or add a selection menu instead, like it is the case for UDP/TCP selection. It depends a bid about how the clients handle it, if they usually throw meaningful error messages, if Nextcloud otherwise should check syntax and such. I am as well not sure about `turn:domain.org` vs `turn://domain.org`, which one is common and which one \"only\" works. Would be good to either allow the common scheme or both or work around it via selection menu and plain domain in text field."
+    },
+    {
+      "id": 641955583,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-641955583",
+      "created_at": "2020-06-10T11:58:57Z",
+      "updated_at": "2020-06-10T12:02:11Z",
+      "author": "Participant 7",
+      "body": "Honestly, I am no fan of the selection list, not even the UDP/TCP list. janus, to name an example, knows udp,tcp,tls on the same config options.\r\nAnd remember that there may well be a path component that the user can mess up freely - I know, because I did myself in the signaling server config. You cannot make such a config option fool-proof, where it is simply necessary for the admin to know and understand what he is doing. \r\n\r\nRegarding PR:\r\nThe patch is dead simple. I hoped that someone just takes it for inclusion - as long as it really works (remember \"untested\"). I don't even use git ;-)\r\n"
+    },
+    {
+      "id": 642239779,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-642239779",
+      "created_at": "2020-06-10T20:27:59Z",
+      "updated_at": "2020-06-10T20:37:01Z",
+      "author": "Participant 6",
+      "body": "> janus, to name an example, knows udp,tcp,tls on the same config options.\r\n\r\nHmm, actually it's `TCP` <> `TLS` and  `UDP` <> `DTLS`, which coTURN supports, so TCP and UDP each with their encrypted counterpart, having `TLS` as only 3rd option breaks TCP vs UDP selection and basically it makes sense to allow both concurrently as well.\r\n\r\n> You cannot make such a config option fool-proof, where it is simply necessary for the admin to know and understand what he is doing.\r\n\r\nYes that must be evaluated by the spreed devs basically. As long as the docs are clear, that is all fine to me.\r\n\r\n> I don't even use git ;-)\r\n\r\nBut you have a GitHub account so you can just edit the file via web UI, which creates a fork and branch automatically (don't forget the [sign-off](https://stackoverflow.com/a/14044024)) and offers you to send the commit as PR automatically. The best way to push ideas which did not get enough developer attention otherwise 😃. Probably I find time this weekend to test it in general. The exact implementation (selection or free text field or something different) can be discussed when it basically works fine."
+    },
+    {
+      "id": 642245917,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-642245917",
+      "created_at": "2020-06-10T20:40:32Z",
+      "updated_at": "2020-06-10T20:40:32Z",
+      "author": "Participant 7",
+      "body": "It must be mentioned that coturn is in fact saving nextclouds' a** in this topic. Since there is no possibility currently to change nextcloud to use turns or stuns it is handy that coturn makes no difference on _every_ port if it the user is using \"s\"-variants or not. If you follow the good practice to protect the TLS port(s) of coturn with nginx (or httpd) you will fail miserably with nextcloud as both cannot forward TLS and non-TLS connections on the same port.\r\nAnother good reason for the my patch..."
+    },
+    {
+      "id": 642248746,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-642248746",
+      "created_at": "2020-06-10T20:46:20Z",
+      "updated_at": "2020-06-10T20:50:31Z",
+      "author": "Participant 6",
+      "body": "> If you follow the good practice to protect the TLS port(s) of coturn with nginx (or httpd)\r\n\r\n<s>Why is this good practice? From all that was discussed about that topic it is just an overhead without security benefit.</s>\r\n\r\nAh sorry probably I misunderstood, do you mean enabling TLS via webserver proxy?"
+    },
+    {
+      "id": 642542120,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-642542120",
+      "created_at": "2020-06-11T09:54:15Z",
+      "updated_at": "2020-06-11T09:54:15Z",
+      "author": "Participant 7",
+      "body": "Yes, of course you can do both ways, \"tls-through\" and \"tls-endpoint\" config is possible with the webservers. \"tls-endpoint\" (webserver terminating the tls session and giving the data in a non-tls connection to turn) is probably safer."
+    },
+    {
+      "id": 642566811,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-642566811",
+      "created_at": "2020-06-11T10:49:22Z",
+      "updated_at": "2020-06-11T10:49:42Z",
+      "author": "Participant 6",
+      "body": "However, as you say it's \"good practice\", it sounds like you say that encrypted TURN requests add any security benefit. But as long as all discussion about that state that it does **not**, generally I would say that encrypting it only adds unnecessary overhead, hence is **bad practice** and should only be used if it is really **impossible** to use TURN otherwise. And this was my earlier argument against adding the feature without making **clear statements and recommendations** about that point. So I am still wondering why you want to encrypt your TURN requests instead of simply making the plain TLS and/or UDP TURN ports accessible directly.\r\n\r\nBut at least implementing the ability to test TURNS is still a good thing IMO, so don't understand me wrong in this point 😉."
+    },
+    {
+      "id": 643635814,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-643635814",
+      "created_at": "2020-06-13T15:05:39Z",
+      "updated_at": "2020-06-13T15:05:39Z",
+      "author": "Participant 1",
+      "body": "AFAIK the reason for TURN-TLS is just to circumvent crazy (ccoperate) firewalls that do DPI (deep package inspection) or so and thus would block the \"usual\" protocol. "
+    },
+    {
+      "id": 657333671,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-657333671",
+      "created_at": "2020-07-13T03:03:54Z",
+      "updated_at": "2020-07-13T03:03:54Z",
+      "author": "Participant 8",
+      "body": "Reading through this thread. Original start, March 2017, and last post Jun 13 2020.\r\n\r\nClearly there's ways to add this functionality without breaking in-place configurations, or other such things.\r\n\r\nThere are those of us that want TLS for TURN and related traffic. Let us decide if the performance impact is acceptable or not, do not make that decision for us. There are those of us where security is paramount, and we do not want to give any inch on any sort of DPI, or other forms of inspection.\r\n\r\nSo, what's it going to be, are we going to bicker about this for another 3 years, or is this going to get implemented already?\r\n\r\nI'm genuinely disappointed to discover this has yet to be implemented. At the bare minimum as an option. nextCloud is touted as a secure platform, with aspects of GDPR and HIPAA compliance. Why even give up yet another angle it can be more secure?\r\n\r\nJust please put it in already. I for one want to use it immediately."
+    },
+    {
+      "id": 657540396,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-657540396",
+      "created_at": "2020-07-13T12:48:24Z",
+      "updated_at": "2020-07-13T12:48:24Z",
+      "author": "Participant 6",
+      "body": "Please read through this and linked issues again and you'll see that there is no security benefit. I just had a conversation with another TURN server coder which just verified that TURNS/TLS is used to pass through strict firewalls only, nothing else.\r\n\r\nI know that some (including myself) \"try\" to increase security wherever they can, don't ask me about the encryption key sizes, ciphers etc I use, 100% ssllabs.com etc. But to derive priority for coders it is good to get clarification about what REALLY increases security and which step just gives you the illusion while implying downsides and takes your time away from much more important security aspects. Especially for Nextcloud devs it simply makes sense FOR security reasons to not waste time on illusions, decreasing user experience on the other end, while there are other REAL security aspects to enhance/work on.\r\n\r\nIf you want to waste your time in this (sorry for wording, no offence, I'm doing this myself), then apply the patch that was posted above already and simply try it out, pushing this topic forward, but do not blame Nextcloud coders for acting reasonable in this regards."
+    },
+    {
+      "id": 657544607,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-657544607",
+      "created_at": "2020-07-13T12:57:32Z",
+      "updated_at": "2020-07-13T12:57:32Z",
+      "author": "Participant 4",
+      "body": "> I'm genuinely disappointed to discover this has yet to be implemented.\r\n\r\nA patch was given above. Feel free to turn it into a Pull Request and send it in as an opt in solution."
+    },
+    {
+      "id": 657615014,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-657615014",
+      "created_at": "2020-07-13T15:05:29Z",
+      "updated_at": "2020-07-13T15:05:29Z",
+      "author": "Participant 7",
+      "body": "This is about the only project I know where you give it a working patch and it is not picked up, only because someone does not want to have such a simple \"feature\" (obviously political). So it is no wonder for me why other things that should have been done since months/years are not making steps forward, too. Amongst which is a useable moderator UI for managing sound on/off, declaring one stream as primary (big view) for _all_ participants, recording of the primary stream, just about everything one would call conference management..."
+    },
+    {
+      "id": 657677699,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-657677699",
+      "created_at": "2020-07-13T17:02:29Z",
+      "updated_at": "2020-07-13T17:35:26Z",
+      "author": "Participant 6",
+      "body": "I said before (and Nick now) that turning a request and/or patch into a PR is the best way to get attention, as its triggering CI builds/tests which checks general compatibility + making it easy to clone and test as well. I really appreciate that you published the patch already, however do not blame devs of an open source project to not follow a request where until now not a single user has proven to \"require\" it for the only purpose it serves (firewall). I don't know what you mean by \"political\" but from all qualified input I got I would call it \"reasonable\" or \"rational\".\r\n\r\nAlso throwing now a bunch of feature requests inside doesn't help. There are always more requests and wishes then developers time to pick up. One has to set priorities and when setting them too far into new feature direction, people blaming for now taking care about bug fix and fine tune existing features (I read such all the time), now we have it the other way round. Really, such statements are totally ignorant and ungrateful and unmotivating, especially when taking into account the large progress and many feature integration that has been made with Nextcloud Talk recently, at in opinion.\r\n\r\nPlease guys remember this is free and open source GPL software and [what it means](https://github.com/nextcloud/spreed/blob/master/COPYING#L589-L596), see the [very regular](https://github.com/nextcloud/spreed/commits/master) work that Nick and others put inside, respect the priorities of those who are actively investing time, otherwise invest your own time to bring things into a PR, else collect votes, but do not blame 🙏 ☮️."
+    },
+    {
+      "id": 657704502,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-657704502",
+      "created_at": "2020-07-13T17:57:07Z",
+      "updated_at": "2020-07-13T17:57:07Z",
+      "author": "Participant 7",
+      "body": "Strange to see you neglect to count me as the user who needed the patch. I did it exactly because I needed it. And we (meaning several people around me) use it since that day. Interesting how people interpret democracy according to their respective personal policy. I write software since the 80s last century. So please do not try to divert \"user\" from \"dev\" in the way you do. Because mostly today this only means \"not paid\" in comparison to \"paid\" for the project. This is not my project. Originally GPL was all about being able to contribute some lines of code with the idea that others may need it now or some time later. Which is why I doubt you are \"offering\" the true spirit of GPL in your words.\r\n"
+    },
+    {
+      "id": 657877377,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-657877377",
+      "created_at": "2020-07-13T23:39:21Z",
+      "updated_at": "2020-07-14T12:15:52Z",
+      "author": "Participant 6",
+      "body": "> I did it exactly because I needed it.\r\n\r\nOkay sorry then, I asked you for your reason somewhere above and misinterpreted the missing answer. If your patch is even tested then, why not open a PR? Of course I could grab in and do it (with your permission) but it makes much more sense if you do it yourself, adding your test results/experience, notes and ideas to it, having the correct snippet author in commit history etc. 🚀.\r\n\r\n> So please do not try to divert \"user\" from \"dev\" in the way you do. Because mostly today this only means \"not paid\" in comparison to \"paid\" for the project.\r\n\r\nWith \"developers\" I mean the ones who pick up others requests and which you address with your criticism to not pick up your(s), totally regardless if paid or spare time contributors, applying for this the same as for hobbyists projects, and regardless how ready the code for commit already is.\r\n\r\n> Interesting how people interpret democracy according to their respective personal policy.\r\n> ...\r\n> Originally GPL was all about being able to contribute some lines of code with the idea that others may need it now or some time later. Which is why I doubt you are \"offering\" the true spirit of GPL in your words.\r\n\r\nGPL is not democratic (probably the project-internal team is organised democratic partly), it gives you the right to do what you want but it does explicitly not give you the right to get what you want or even what most want, which is why I think your criticism is inappropriate and definitely contra-productive."
+    },
+    {
+      "id": 658033438,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-658033438",
+      "created_at": "2020-07-14T08:00:42Z",
+      "updated_at": "2020-07-14T12:15:59Z",
+      "author": "Participant 7",
+      "body": "Really, if I had to do all the steps for a project I ever contributed some lines I'd probably need to double my lifetime. Those are only few lines with absolutely nothing irritating or complicated in it. Whoever feels like it can take them and include them in the project. The irritating fact for me in the whole issue is that the discussion about this null-code is a lot longer and more time-consuming than the code itself.\r\nThe immanent strength of GPL is that everybody can code something in a project and if the maintainer is wise he will include everything that _works_. And the simple reason is that a GPL project is meant to survive its maintainers by far. That is the true nature of the thing. Whereas closed sources often die with its maintainers, GPL is able to live on. This means it is mostly not useful to try to stamp a project with only the maintainers' view of things. Be open-minded and try to accept things beyond your own horizon. Being able to contribute is the most democratic right one can have.\r\n"
+    },
+    {
+      "id": 658101860,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-658101860",
+      "created_at": "2020-07-14T10:25:26Z",
+      "updated_at": "2020-07-14T12:16:05Z",
+      "author": "Participant 6",
+      "body": "> Really, if I had to do all the steps for a project I ever contributed some lines I'd probably need to double my lifetime.\r\n\r\nBut you blame others for now doing all this steps for you? Note that sending a PR for CI tests, review, documentation etc is common practice across Nextcloud projects for all code commits.\r\n\r\n> if the maintainer is wise he will include everything that works\r\n\r\nOkay then we have fundamental different opinions on what is wise and how quality software should be developed.\r\n\r\n> The irritating fact for me in the whole issue is that the discussion about this null-code is a lot longer and more time-consuming than the code itself.\r\n\r\nYeah you're right, I'm just too discussion affine and bullhead by times, no need to discuss further, the GPL/meta topic I mean.\r\n\r\nHowever the exact final TURNS implementation will, I guess, be still part of discussion, meaning free text entry vs selection, menu or checkbox, if/how fallbacks are handled and such, as its likely not \"include everything that works\".\r\n\r\nProbably I'm able to run some tests during the weekend, as well to measure CPU/performance impact. Also not sure if I will directly take your code as is for my PR then, as I would do it differently in detail, and might take again some days as I have do dig into PHP code (I'm no PHP coder, and this is spare time/hobby work). So again fastest is if you do it and add your test results/experience from first hand."
+    },
+    {
+      "id": 658123256,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-658123256",
+      "created_at": "2020-07-14T11:18:13Z",
+      "updated_at": "2020-07-14T12:16:11Z",
+      "author": "Participant 7",
+      "body": "Uh, please don't name \"qualitiy software\" and nextcloud related in the same context.\r\nThere is a ton of stuff that was obviously not tested before its inclusion. If you need a prominent example: nextcloud talk app destroys the video if you turn your mobile to one side. It is really not possible to not see this in a single 1-minute-test.\r\nI mean, sure nextcloud is mostly ok, but it is not what one would call \"quality software\". \r\nAnd there must be some people in the project with the same opinion. Else we would have seen NC19 in the stable update repo, nevertheless it is distributed as standalone archive.\r\nListen, NC is quite ok and has taken big steps compared to OC. But there are issues, quite some of them if we believe in the github issue tracker...\r\n"
+    },
+    {
+      "id": 658139467,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-658139467",
+      "created_at": "2020-07-14T12:00:03Z",
+      "updated_at": "2020-07-14T12:16:31Z",
+      "author": "Participant 6",
+      "body": "... edited to not further drive this OOT conversation, lets keep this productive."
+    },
+    {
+      "id": 721946509,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-721946509",
+      "created_at": "2020-11-04T20:04:28Z",
+      "updated_at": "2020-11-04T20:04:28Z",
+      "author": "Participant 9",
+      "body": "I wonder if the static-auth-secret is transferred in an encrypted way if turn is configured without tls. Does anyone know? Especially if the nextcloud talk server and coturn are not in the same network."
+    },
+    {
+      "id": 722349743,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-722349743",
+      "created_at": "2020-11-05T12:33:12Z",
+      "updated_at": "2020-11-05T12:33:12Z",
+      "author": "Participant 6",
+      "body": "Good question, at least hashed, hopefully?"
+    },
+    {
+      "id": 722954525,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-722954525",
+      "created_at": "2020-11-06T08:43:15Z",
+      "updated_at": "2020-11-06T08:43:15Z",
+      "author": "Participant 5",
+      "body": "Coturn describes how the shared secret is used:\r\nhttps://github.com/coturn/coturn/wiki/turnserver#turn-rest-api\r\n\r\nTLDR: it's used in a hmac to generate a temporary password for a temporary username. It's never transmitted."
+    },
+    {
+      "id": 735782145,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-735782145",
+      "created_at": "2020-11-30T13:22:23Z",
+      "updated_at": "2020-11-30T13:22:23Z",
+      "author": "Participant 10",
+      "body": "This issue has been automatically closed because there has been no response to our request for more information. With only the information that is currently in the issue, we don't have enough information to take action. Please reach out if you have or find the answers we need so that we can investigate further.\n"
+    },
+    {
+      "id": 735804176,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-735804176",
+      "created_at": "2020-11-30T14:02:36Z",
+      "updated_at": "2020-11-30T14:02:36Z",
+      "author": "Participant 8",
+      "body": "What? Re open! This is needed!"
+    },
+    {
+      "id": 735928240,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-735928240",
+      "created_at": "2020-11-30T17:27:22Z",
+      "updated_at": "2020-11-30T17:27:22Z",
+      "author": "Participant 11",
+      "body": "Agreed, please re-open.\r\n\r\nMy concern is not about security, I agree that TLS isn't necessary here from a security perspective. The primary problem is firewall traversal, which is why TURN gets used in the first place.\r\n\r\nThere are an increasing number of firewalls that restrict traffic on ports other than 80 and 443. There's also an increasing trend in firewalls to add deep packet inspection (there are even open-source solutions, I'm running one at home now), which makes TLS absolutely required to get through on port 443. \r\n\r\nThere's not a lot of point in adding a specific mechanism to let you penetrate firewalls, if it can't penetrate firewalls..."
+    },
+    {
+      "id": 735994668,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-735994668",
+      "created_at": "2020-11-30T19:32:11Z",
+      "updated_at": "2020-11-30T19:32:11Z",
+      "author": "Participant 10",
+      "body": "This issue has been automatically closed because there has been no response to our request for more information. With only the information that is currently in the issue, we don't have enough information to take action. Please reach out if you have or find the answers we need so that we can investigate further.\n"
+    },
+    {
+      "id": 736000674,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-736000674",
+      "created_at": "2020-11-30T19:44:13Z",
+      "updated_at": "2020-11-30T19:44:13Z",
+      "author": "Participant 6",
+      "body": "I removed the \"needs info\" tag to satisfy **no-response** bot. It is clear in which (rare but existing) cases TLS-encrypted TURN support is required. Finally someone should simply open a PR as suggestion and GUI-related aspects (which was discussed above, protocol selection vs free input field) can be discussed in the PR based on actual tests, look&feel."
+    },
+    {
+      "id": 739607729,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-739607729",
+      "created_at": "2020-12-07T01:15:24Z",
+      "updated_at": "2020-12-07T01:15:24Z",
+      "author": "Participant 11",
+      "body": "PR Submitted.\r\n\r\nThe change allows specifying `turn:` or `turns:` in the TURN server name (defaults to `turn:` if not specified). This works for both TURN-TLS and TURN-DTLS (on UDP connections).\r\n\r\nIt's based on @joe-average-user's patch above, but uses `turns:turn.example.com` rather than `turns://turn.example.com` (the latter is not a legal TURN URL per the relevant RFCs), was updated to match code refactoring in the config handling, and includes fixups for the CSP headers and the 'test' button in the UI.\r\n\r\nTested on a TURN server that only allows TURN-TLS on port 443."
+    },
+    {
+      "id": 739642035,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-739642035",
+      "created_at": "2020-12-07T03:32:47Z",
+      "updated_at": "2020-12-07T03:32:47Z",
+      "author": "Participant 7",
+      "body": "Great! thank you for supporting the issue.\r\n"
+    },
+    {
+      "id": 750523473,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-750523473",
+      "created_at": "2020-12-23T22:57:36Z",
+      "updated_at": "2020-12-23T22:57:36Z",
+      "author": "Participant 12",
+      "body": "Hello, so can we encrypt turn communications in Nextcloud or not? What's the state on this issue?\r\n\r\n1. I configured coturn, but it is now exposed to the internet. As I understand it, Nextcloud sends a secret to it unencrypted through the wire. Anybody able to capture this secret can hijack the turn server, if I understand correctly.\r\n\r\n1. Then, what about the video and voice conversations in Talk, are those encrypted?\r\n\r\nCan anybody comment on the 2 points above?"
+    },
+    {
+      "id": 750555885,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-750555885",
+      "created_at": "2020-12-23T23:24:33Z",
+      "updated_at": "2020-12-23T23:24:33Z",
+      "author": "Participant 11",
+      "body": "@luminous706: The secret is not sent over the wire. It's used to compute a one-way hash which is sent in its place. You don't need an encrypted connection to protect the secret as it can't be recreated from the hash.\r\n\r\nFurthermore, the browsers use end-to-end encryption for the voice and video channels, so those are encrypted regardless of whether a TURN server is used or not. \r\n\r\nAdding encryption at the TURN layer double encrypts the traffic, which isn't generally necessary and usually just adds overhead.\r\n\r\nThe primary benefit to using TLS or DTLS for the TURN connection is to allow traversing firewalls that otherwise try to block WebRTC traffic. Many firewalls block all UDP traffic, for those you fall-back to using TCP. Others block all traffic except on a few well-known ports, for those you shift the TURN server to a well-known and allowed port, like 443[*]. Some advanced firewalls perform deep-packet-inspection to try to determine what kind data the traffic really is, regardless of the port. For those, you wrap the WebRTC traffic inside an encrypted tunnel, e.g. TLS or DTLS. A TLS connection on port 443 is basically indistinguishable from `https:` traffic (except by doing traffic analysis and taking an educated guess) so gets through most firewalls and web proxies.\r\n\r\nYou can use Nextcloud Talk as it is today without worrying about your TURN server being compromised or your conversations  listened to. This feature is used to make connections when operating on hostile networks that will otherwise block your connections completely, e.g. coffee shop WiFi, hotels, locked-down enterprise networks, etc.\r\n\r\n[*] Sharing port 443 with a web server on the same IP address can be done, but is not easy, using TLS can help there too."
+    },
+    {
+      "id": 785692402,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-785692402",
+      "created_at": "2021-02-25T07:45:42Z",
+      "updated_at": "2021-02-25T07:45:42Z",
+      "author": "Participant 13",
+      "body": "Wasn't this fixed by #5086?"
+    },
+    {
+      "id": 785979880,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-785979880",
+      "created_at": "2021-02-25T15:19:46Z",
+      "updated_at": "2021-02-25T15:19:46Z",
+      "author": "Participant 6",
+      "body": "There is still #4715 which may change details as add STUNS support as well, but yes this request is definitely addressed already and I hence mark it as closed."
+    },
+    {
+      "id": 786134080,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-786134080",
+      "created_at": "2021-02-25T19:08:10Z",
+      "updated_at": "2021-02-25T19:08:10Z",
+      "author": "Participant 11",
+      "body": "FWIW, I consider this partially fixed. #5086 did add support for `turns:`, but the current behavior of selecting a turn server at random makes it unreliable. E.g. when a user is in situations where `turns:` is required to transit a firewall, they may not get it if multiple ports and protocols are specified at the server. If you only specify a single `turns:` server you'll be fine, but wont get the best performance. \r\n\r\n#4715 did address that, but there's still a desire for the random selection for load balancing purposes. #5086 also introduced enough conflicts that I'm likely to simply close #4715 and start with a fresh approach at resolving the random selection issue. \r\n\r\nIMO this issue should remain closed. I'll file a new issue about the random server selection."
+    },
+    {
+      "id": 786143119,
+      "url": "https://github.com/nextcloud/spreed/issues/257#issuecomment-786143119",
+      "created_at": "2021-02-25T19:23:31Z",
+      "updated_at": "2021-02-25T19:23:31Z",
+      "author": "Participant 6",
+      "body": "@plinss \r\nIf I understood [the discussion in your PR](https://github.com/nextcloud/spreed/pull/4715#issuecomment-753997048) correctly, the ordering/prioritisation of multiple TURN server is outside of control of Nextcloud, but in the hands of the client software. So if no high performance backend is used, probably only a single TURN server can reasonably be used, a single TURNS server, if required. When a high performance backend is used, it can handle communication between TURN servers.\r\n\r\nI still did not fully understand if/how multiple clients could share a call when connecting to different TURN severs (each getting a list and deciding client-side which one to pick), when no high performance backend is involved, or if e.g. Coturn can be configured communicate with other TURN servers. Let's make it an own issue, since this one is bloated with the question whether or not to implement TURNS support at all 👍."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

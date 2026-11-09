@@ -1,0 +1,21 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:191024c4fc5ab8593bcd68eb94fc2d9f37673f15/raw/",
+  "source_sha256": "c8af7b95b215410a0dbe8034f50ffad4cb4d82e4ef7dfc612e527e5306d81e61",
+  "fetched_at": "2026-11-05T06:49:16.056133+00:00",
+  "archive_directory": "0248e94fb29ef98027b1113d7ce7f1e7835e136b",
+  "git_blob_sha1": "191024c4fc5ab8593bcd68eb94fc2d9f37673f15",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/6852207c4da900cb4173ffce86a281bcc013dcac/",
+  "published_commit": "cbc817a66f9a72ff9db42e71f173ce04795d6e5e",
+  "revision_relation": "direct-parent-before-published-commit",
+  "revision_note": "The published introducing-commit pointer deletes this exact comment. The source is from its verified direct parent, where the full comment uniquely matches.",
+  "artifact_id": "23shades-0010-aaaedagad",
+  "revision_url": "https://github.com/roscisz/TensorHive/commit/cbc817a66f9a72ff9db42e71f173ce04795d6e5e",
+  "filename": "tensorhive/core/services/FoobarService.py",
+  "commit": "6852207c4da900cb4173ffce86a281bcc013dcac",
+  "line_start": 90,
+  "line_end": 114,
+  "excerpt": "            gevent.sleep(self.interval - execution_time)\n\n    def save_summary(self, path: PosixPath) -> bool:\n        '''\n        Makes a simple digest of given log file by calculating average resource usage.\n        Returns wheter summary was successfully persisted or not.\n        '''\n        try:\n            # 1. Prepare summary\n            with path.open(mode='r') as file:\n                log_contents = json.load(file)\n                summary = {\n                    # TODO May want to rewrite name, index, uuid, etc.\n                    'gpu_util_avg': avg(log_contents['metrics']['gpu_util']['values']),\n                    'mem_util_avg': avg(log_contents['metrics']['mem_util']['values'])\n                }\n\n            # 2. Persist summary\n            summary_file_path = path.parent / 'summary_{old_name}'.format(old_name=path.name)\n            with summary_file_path.open(mode='w') as file:\n                json.dump(summary, file)\n        except Exception as e:\n            log.error(e)\n            return False\n        else:",
+  "match_policy": "unique-full-comment-in-verified-parent-before-deletion",
+  "match_diff_url": "https://github.com/roscisz/TensorHive/commit/cbc817a66f9a72ff9db42e71f173ce04795d6e5e.diff",
+  "match_diff_sha256": "3f89386f91cc8f3adad1c4d6434de54b18cd88769cdfba39a56abd07aa07a5a6"
+}

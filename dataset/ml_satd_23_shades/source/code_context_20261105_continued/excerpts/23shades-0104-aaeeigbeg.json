@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0104-aaeeigbeg",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/bd58e056474f02de462d8692a59ff582149f9294",
+  "filename": "madmom/audio/filterbank.py",
+  "commit": "bd58e056474f02de462d8692a59ff582149f9294",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/bd58e056474f02de462d8692a59ff582149f9294/madmom/audio/filterbank.py",
+  "fetched_at": "2026-11-05T06:11:54.817510+00:00",
+  "source_sha256": "3dc8eec96eb4cfe9449f10d23dc105e80729e64f7626cf5e0538f03338b02caa",
+  "line_start": 453,
+  "line_end": 477,
+  "excerpt": "    :returns:           filterbank\n\n    Note: Each filter is by 3 frequencies. Thus the frequencies array must\n          contain the first starting frequency, all center frequencies and the\n          last stopping frequency.\n\n    \"\"\"\n    factor = (sample_rate / 2.0) / fft_bins\n    # map the frequencies to the spectrogram bins\n    frequencies = np.round(np.asarray(frequencies) / factor).astype(int)\n    # filter out all frequencies outside the valid range\n    frequencies = frequencies[frequencies < fft_bins]\n    # FIXME: skip the DC bin 0?\n\n    filters = {}\n    for start, center, stop in band_bins(frequencies, omit_duplicates, overlap):\n        # create the filter\n        kwargs = {'width': stop - start, 'center': center - start, 'norm': norm}\n        filters[band] = [(filter_type(**kwargs), start)]\n\n    # no normalisation here, since each filter is already normalised\n    return multi_filterbank(filters, fft_bins, len(filters), norm=False)\n\n\ndef harmonic_filterbank(filter_type, fundamentals, num_harmonics, fft_bins, sample_rate,"
+}

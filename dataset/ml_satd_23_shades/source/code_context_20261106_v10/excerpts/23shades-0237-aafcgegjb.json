@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0237-aafcgegjb",
+  "revision_url": "https://github.com/SPFlow/SPFlow/commit/a7dc907e37d84eef38cee63ee69a4e53abf155bb",
+  "filename": "src/spn/algorithms/LearningWrappers.py",
+  "commit": "a7dc907e37d84eef38cee63ee69a4e53abf155bb",
+  "source_url": "https://raw.githubusercontent.com/SPFlow/SPFlow/a7dc907e37d84eef38cee63ee69a4e53abf155bb/src/spn/algorithms/LearningWrappers.py",
+  "fetched_at": "2026-11-05T06:12:19.965512+00:00",
+  "source_sha256": "2ffbbdc4ee7105e3f574f75f8bbb5e94c65384ae702b5f6140b6ce2581778081",
+  "line_start": 141,
+  "line_end": 163,
+  "excerpt": "    if leaves is None:\n        leaves = create_conditional_leaf\n\n    def learn(data, ds_context, scope, cols, rows, min_instances_slice, threshold, ohe):\n        split_cols = None\n        if cols == \"ci\":\n            split_cols = getCIGroups(data, scope, threshold)\n        else:\n            raise ValueError, 'invalid independence test'\n        if rows == \"rand_hp\":\n            split_rows = get_split_rows_binary_random_partition(ohe=ohe)\n        else:\n            #todo add other clustering?\n            raise ValueError, 'invalid clustering method'\n\n        nextop = get_next_operation(min_instances_slice)\n\n        return learn_structure(data, ds_context, split_rows, split_cols, leaves, nextop, scope)\n\n    if memory:\n        learn = memory.cache(learn)\n\n    return learn(data, ds_context, scope, cols, rows, min_instances_slice, threshold, ohe)"
+}

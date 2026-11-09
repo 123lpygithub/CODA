@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0740-aagdjibjh",
+  "revision_url": "https://github.com/hackingmaterials/automatminer/commit/6e12e0561636142975a339bf7ae1e384aa59ced8",
+  "filename": "matbench/preprocess.py",
+  "commit": "6e12e0561636142975a339bf7ae1e384aa59ced8",
+  "source_url": "https://raw.githubusercontent.com/hackingmaterials/automatminer/6e12e0561636142975a339bf7ae1e384aa59ced8/matbench/preprocess.py",
+  "fetched_at": "2026-11-05T06:13:45.635135+00:00",
+  "source_sha256": "6c369f03531ab8275ca19a98822ee24edad3a29e9e82735f89e6ca1a907aabbe",
+  "line_start": 72,
+  "line_end": 96,
+  "excerpt": "            pca = PCA(n_components=n_features_to_select)\n            x = pca.fit_transform(features)\n            # Todo: I don't know if there is a way to get labels for these - AD\n            pcacols = [\"PCA feature {}\".format(i) for i in x.shape[1]]\n            features = pd.DataFrame(columns=pcacols, data=x,\n                                    index=features.index)\n\n        if target_key is not None:\n            if not is_numeric_dtype(targets.values):\n                targets = targets.astype(str, copy=False)\n\n        # Boolean casting to ints\n        # TODO: This might not work with numpy types, haven't checked - AD\n        for col in list(features.columns[features.dtypes == bool]):\n            features[col] = features[col].apply(int)\n        features = pd.get_dummies(features).apply(pd.to_numeric)\n        features[target_key] = targets\n        return features\n\n    def prune_correlated_features(self, df, target, R_max=0.95):\n        \"\"\"\n        A feature selection method that remove those that are cross correlated by\n        more than threshold. target must be specified!\n\n        Args:",
+  "match_policy": "unique-release-normalized-v2"
+}

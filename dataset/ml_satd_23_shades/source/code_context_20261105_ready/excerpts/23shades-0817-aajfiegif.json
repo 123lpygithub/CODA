@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0817-aajfiegif",
+  "revision_url": "https://github.com/probcomp/bayeslite/commit/27e21b9824512fb4697b95b2f2b65fb1b6fb45bd",
+  "filename": "src/bqlvtab.py",
+  "commit": "27e21b9824512fb4697b95b2f2b65fb1b6fb45bd",
+  "source_url": "https://raw.githubusercontent.com/probcomp/bayeslite/27e21b9824512fb4697b95b2f2b65fb1b6fb45bd/src/bqlvtab.py",
+  "fetched_at": "2026-11-05T06:13:59.306465+00:00",
+  "source_sha256": "e31302cf82884e9062882b8866e00d422c7bb0d41d2012d7b2df7e98fef290bf",
+  "line_start": 153,
+  "line_end": 177,
+  "excerpt": "            self._conditions = None\n        if indexnum & (1 << Mutinf.NSAMPLES):\n            self._nsamples = constraintargs[count.next()]\n        else:\n            self._nsamples = None\n        self._rowid = 0\n        target_vars = json.loads(self._target_vars)\n        reference_vars = json.loads(self._reference_vars)\n        conditions_strkey = {} if self._conditions is None else \\\n            json.loads(self._conditions)\n        conditions = \\\n            {int(k): v for k, v in sorted(conditions_strkey.iteritems())}\n        # XXX Expose this API better from bqlfn.\n        mis = bqlfn._bql_column_mutual_information(\n            self._bdb, self._population_id, None,\n            target_vars, reference_vars, self._nsamples,\n            *_flatten2(conditions.iteritems()))\n        self._mi = _flatten2(mis)\n\n\n### Utilities\n\ndef _flatten2(xss):\n    return [x for xs in xss for x in xs]\n"
+}

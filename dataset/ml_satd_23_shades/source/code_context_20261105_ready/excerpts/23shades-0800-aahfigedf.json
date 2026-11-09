@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0800-aahfigedf",
+  "revision_url": "https://github.com/RaRe-Technologies/gensim/commit/02f91b8d31e4f68c73272b70b9a8349f18038cfd",
+  "filename": "gensim/test/test_word2vec.py",
+  "commit": "02f91b8d31e4f68c73272b70b9a8349f18038cfd",
+  "source_url": "https://raw.githubusercontent.com/RaRe-Technologies/gensim/02f91b8d31e4f68c73272b70b9a8349f18038cfd/gensim/test/test_word2vec.py",
+  "fetched_at": "2026-11-05T06:13:54.130142+00:00",
+  "source_sha256": "e619dade3cf04605120502f5a54a03c2940fb81736d5452899620e8904acc648",
+  "line_start": 348,
+  "line_end": 369,
+  "excerpt": "                self.assertEqual(words, utils.to_unicode(orig.readline()).split())\n\n    def testLineSentenceWorksWithNormalFile(self):\n        \"\"\"Does LineSentence work with a file object argument, rather than filename?\"\"\"\n        with utils.smart_open(datapath('head500.noblanks.cor')) as orig:\n            with utils.smart_open(datapath('head500.noblanks.cor')) as fin:\n                sentences = word2vec.LineSentence(fin)\n                for words in sentences:\n                    self.assertEqual(words, utils.to_unicode(orig.readline()).split())\n#endclass TestWord2VecSentenceIterators\n\nif not hasattr(TestWord2VecModel, 'assertLess'):\n    # workaround for python 2.6\n    def assertLess(self, a, b, msg=None):\n        self.assertTrue(a < b, msg=msg)\n\n    setattr(TestWord2VecModel, 'assertLess', assertLess)\n\nif __name__ == '__main__':\n    logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.DEBUG)\n    logging.info(\"using optimization %s\" % word2vec.FAST_VERSION)\n    unittest.main()"
+}

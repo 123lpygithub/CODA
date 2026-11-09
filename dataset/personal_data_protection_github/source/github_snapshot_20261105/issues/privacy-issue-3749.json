@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3749",
+  "issue_url": "https://github.com/saleor/saleor/issues/4039",
+  "source_issue_url": "https://github.com/saleor/saleor/issues/4039",
+  "api_url": "https://api.github.com/repos/saleor/saleor/issues/4039",
+  "title": "Implement customer events",
+  "body": "Once we get #4018 merged, we will want to implement the following as customer events:\r\n\r\n\tModel changes\r\n\t\t- [ ] Add a CustomerEvent model and types\r\n\r\n\tNew Customer Events\r\n\t\t- [ ] the order was placed\r\n\t\t- [ ] a note was added to the order\r\n\t\t- [ ] downloaded digital link\r\n\r\n\tNew Staff Events\r\n\t\t- [ ] A customer was deleted\r\n\r\n\tGraphQL Changes\r\n\t\t- [ ] A countable object from the CustomerEvent model\r\n\t\t- [ ] A `events` field in `customer`",
+  "author": "Participant 1",
+  "created_at": "2019-04-29T11:49:05Z",
+  "updated_at": "2019-05-21T07:55:40Z",
+  "state": "closed",
+  "closed_at": "2019-05-21T07:55:40Z",
+  "issue_fetched_at": "2026-10-18T13:10:56.214196+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T13:10:58.872160+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 487550087,
+      "url": "https://github.com/saleor/saleor/issues/4039#issuecomment-487550087",
+      "created_at": "2019-04-29T11:52:49Z",
+      "updated_at": "2019-04-29T11:52:49Z",
+      "author": "Participant 1",
+      "body": "IIRC we are allowed to log the customer's name during its deletion, even if they asked us to remove their data as it's not an information that could directly be used to identify a single person, a full name can return multiple persons (depending of the scope, of course). I'm believing it's fine for the GDPR as long we don't have any other information about this customer, other than their name. But I'm unsure.\r\n\r\nWe discussed about this issue during our previous meeting, and it was mentioned that @patrys may have an answer to bring us. What do you think about this matter?\r\n\r\nWe still have, of course, the issue of the orders; but that's another matter."
+    },
+    {
+      "id": 487574671,
+      "url": "https://github.com/saleor/saleor/issues/4039#issuecomment-487574671",
+      "created_at": "2019-04-29T13:14:28Z",
+      "updated_at": "2019-04-29T13:14:28Z",
+      "author": "Participant 2",
+      "body": "We are allowed to process a person's name as part of an order for the purpose of fulfilling a contract. We can do so even if the user requests that their data is deleted, otherwise it would be possible for me to demand that my data is erased from an unpaid invoice. We can use the buyer's data for as long as it's required: to process payments, dispatch packages for shipping, process complaints, returns, refunds, etc.\r\n\r\nWe can not use the information for any other purpose once the contract is fulfilled unless the user explicitly consents to such use (and that consent can be forfeited by requesting erasure). To me, that means we should probably avoid storing the information outside of the context where it's absolutely necessary for reasons required by law (order details, invoices, etc.). For events, it's probably safer to say \"notified the customer\" instead of \"sent email to john.doe@example.com\". We can't reasonably claim that it's absolutely necessary for us to put the name there for the purpose of fulfilling the contractual requirements (delivering purchased goods or services).\r\n\r\nAs for whether someone's full name constitutes personally identifiable information that really depends on the person. The regulation states that it applies to information that makes it reasonably easy to identify an individual. \"Queen Elisabeth II\", \"Arnold Schwarzenegger\", \"Danny DeVito\", \"Taylor Swift\" are all easily identifiable based on the name alone."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,122 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-12082",
+  "issue_url": "https://github.com/signalapp/Signal-Desktop/issues/4369",
+  "source_issue_url": "https://github.com/signalapp/Signal-Desktop/issues/4369",
+  "api_url": "https://api.github.com/repos/signalapp/Signal-Desktop/issues/4369",
+  "title": "Groups persist on Desktop after leaving one on Mobile",
+  "body": "- [ X] I have searched open and closed issues for duplicates\r\nIt's a resurgence of #3235 and #2202 with the latest version iOS and MacOS clients.\r\n\r\n---\r\n\r\n### Bug Description\r\n\r\nI left a group on mobile and it behaves appropriately (cannot send or receive messages, disappearing messages expire on time). But when I use the desktop client, the group is not only present, but I can still send and receive messages.\r\n\r\n### Steps to Reproduce\r\n1. Leave group on mobile device (iOS, iPhone 11). \r\n2. Open desktop client, click on group.\r\n\r\nActual Result:\r\n1. See latest messages (recent, prior to disappearing) in desktop client.\r\n2. Send messages to group that I left. \r\n\r\nExpected Result:\r\n- To not be able to see any new messages from the group I departed.\r\n- To not be able to send any messages from the group I departed.\r\n\r\n### Screenshots\r\n\r\nExcluded for privacy.\r\n\r\n### Platform Info\r\n\r\nSignal Version:\r\n\r\nDesktop: v1.34.2\r\nMobile: 3.10.5.3\r\n\r\n\r\nOperating System:\r\n\r\nmacOS Catalina 10.15.5\r\n\r\nLinked Device Version:\r\n\r\niOS 13.5\r\n\r\n### Link to Debug Log\r\nhttps://debuglogs.org/63939213a1002d3bf846836bbdae5995d76d13ced2c399a3d5ceedd6114664c9\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-06-21T22:02:35Z",
+  "updated_at": "2021-10-03T04:10:20Z",
+  "state": "closed",
+  "closed_at": "2021-10-03T04:10:20Z",
+  "issue_fetched_at": "2026-10-18T20:11:33.292597+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T20:11:34.730364+00:00"
+  ],
+  "expected_comment_count": 12,
+  "retrieved_comment_count": 12,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 647745463,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-647745463",
+      "created_at": "2020-06-22T20:12:21Z",
+      "updated_at": "2020-06-22T20:12:21Z",
+      "author": "Participant 2",
+      "body": "In your repo steps, how long was it between step 1 and step 2? Multiple days? Hours?\r\n\r\nWhat happens if you open up Preferences and click the 'Import Now' button?"
+    },
+    {
+      "id": 647752221,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-647752221",
+      "created_at": "2020-06-22T20:27:08Z",
+      "updated_at": "2020-06-22T20:27:08Z",
+      "author": "Participant 1",
+      "body": "> In your repo steps, how long was it between step 1 and step 2? Multiple days? Hours?\r\n\r\nIt took 18-24 hours between steps 1 and 2.  \r\n\r\n> What happens if you open up Preferences and click the 'Import Now' button?\r\n\r\nThe same group appears and I can still interact with it and see group activity.\r\n\r\n"
+    },
+    {
+      "id": 647781750,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-647781750",
+      "created_at": "2020-06-22T21:36:12Z",
+      "updated_at": "2020-06-22T21:36:12Z",
+      "author": "Participant 2",
+      "body": "When you say 'see group activity' you mean that others are still sending message to you in that group, and you receive them? If so, it suggests that your attempt to leave the group was incomplete on your phone. Nobody should still be sending messages to you if they believe that you've left the group.\r\n\r\nI'd recommend that you have someone re-add you to the group, then leave again. It would give your \"I'm leaving\" message another chance to hit all devices, including your paired desktop device."
+    },
+    {
+      "id": 647853329,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-647853329",
+      "created_at": "2020-06-23T01:32:51Z",
+      "updated_at": "2020-06-23T01:32:51Z",
+      "author": "Participant 1",
+      "body": "> When you say 'see group activity' you mean that others are still sending messages to you in that group, and you receive them? \r\n\r\nNot directly (there's a lot of chatter in the group), but I do get new messages from the group on desktop. I was readded and tried to drop again, but the same thing happens - mobile does exactly what it's supposed to and I see that I've left the group, but on desktop it's as if nothing happened."
+    },
+    {
+      "id": 648136139,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-648136139",
+      "created_at": "2020-06-23T13:10:46Z",
+      "updated_at": "2020-06-23T13:10:46Z",
+      "author": "Participant 3",
+      "body": "Hey, @sheatsb -- can we also get a debug log from your primary mobile device?"
+    },
+    {
+      "id": 649420965,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-649420965",
+      "created_at": "2020-06-25T09:28:45Z",
+      "updated_at": "2020-06-25T09:29:03Z",
+      "author": "Participant 1",
+      "body": "Here ya go: https://debuglogs.org/8bb41b898d4bb61a0478f66e67962c6200e24e025402fac75eb1cfcc9e1dba3f.zip"
+    },
+    {
+      "id": 651449901,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-651449901",
+      "created_at": "2020-06-30T00:52:37Z",
+      "updated_at": "2020-06-30T00:52:37Z",
+      "author": "Participant 2",
+      "body": "@sheatsb Unfortunately, that log does not have the important moment in it - the moment when you left the group, sending a message to all of the group members and your linked devices. Next time you leave the group (have someone re-add you then you can try again), please check beforehand to ensure that logging is enabled. Thanks!"
+    },
+    {
+      "id": 657086643,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-657086643",
+      "created_at": "2020-07-11T16:04:31Z",
+      "updated_at": "2020-07-11T16:04:31Z",
+      "author": "Participant 4",
+      "body": "Wanted to report the same issue, but from the other side. I am part of a group with three members. Unbeknownst to any of us, a fourth member who left the group months ago has continued receiving our messages on their desktop client.\r\n\r\nThere is no indication in the app that this fourth party is still receiving messages. This is a total breach of the privacy of the group, since there's no way to audit who our messages are being sent to.\r\n\r\nI'm happy to provide whatever logs may be needed to help diagnose. Thanks!"
+    },
+    {
+      "id": 657724137,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-657724137",
+      "created_at": "2020-07-13T18:37:51Z",
+      "updated_at": "2020-07-13T18:37:51Z",
+      "author": "Participant 2",
+      "body": "@jellopuddingstick What do you see when you go to group members on your devices? What do you see on the details screen for messages sent to that group? You'll want to go device by device, because I suspect that there are just a few errant devices which believe that this removed member is still part of the group."
+    },
+    {
+      "id": 657724710,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-657724710",
+      "created_at": "2020-07-13T18:39:00Z",
+      "updated_at": "2020-07-13T18:39:00Z",
+      "author": "Participant 2",
+      "body": "Also, one technique to address this is to open a device that has the right group membership, and update the group title. Then all group devices will get a new message which describes group membership, and should update their local membership list."
+    },
+    {
+      "id": 927223457,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-927223457",
+      "created_at": "2021-09-26T03:35:46Z",
+      "updated_at": "2021-09-26T03:35:46Z",
+      "author": "Participant 5",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.\n"
+    },
+    {
+      "id": 932859310,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/4369#issuecomment-932859310",
+      "created_at": "2021-10-03T04:10:19Z",
+      "updated_at": "2021-10-03T04:10:19Z",
+      "author": "Participant 5",
+      "body": "This issue has been closed due to inactivity.\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

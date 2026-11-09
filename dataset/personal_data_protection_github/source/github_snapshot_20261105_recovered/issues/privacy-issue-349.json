@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-349",
+  "issue_url": "https://github.com/canonical/ubuntu.com/issues/8691",
+  "source_issue_url": "https://github.com/canonical/ubuntu.com/issues/8691",
+  "api_url": "https://api.github.com/repos/canonical/ubuntu.com/issues/8691",
+  "title": "ubuntu.com/security/cve bullies you into accepting cookies",
+  "body": "## Summary\r\n\r\nubuntu.com/security/cve gives you the option to accept cookies or \"Manage your tracker settings\". When you click the button to manage tracker settings, there are 2 optional sliders and a button labeled \"Save preferences\". If you leave both the \"Performance\" and \"Functionality\" sliders in the off position and click \"Save preferences\", it seems that preferences are not saved. The next page you visit will again prompt you to accept cookies.\r\n\r\n## Process\r\n1) Visit ubuntu.com/security/cve\r\n2) When prompted, click the \"Manage your tracker settings\" button.\r\n3) Ensure both the Performance and Functionality sliders are in the off position (default).\r\n4) Click the \"Save preferences\" button.\r\n5) Click a link to any CVE.\r\n\r\n## Current and expected result\r\n\r\n**Current result:** Even though I saved my tracker settings with Performance and Functionality turned off, I am prompted to either accept all cookies or manage my tracker settings.\r\n\r\n**Expected result:** If I leave Performance and Functionality settings disabled and click \"Save preferences\", I expect my preferences to be saved. I expect when I visit subsequent pages I'll not be incessantly prompted to allow the site to collect more information from me.\r\n\r\n## Browser details\r\nFirefox 82.0 (64-bit)\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-11-06T13:44:57Z",
+  "updated_at": "2020-11-10T09:20:12Z",
+  "state": "closed",
+  "closed_at": "2020-11-10T09:20:11Z",
+  "issue_fetched_at": "2026-10-18T17:11:23.172223+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T17:11:24.621836+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 723187576,
+      "url": "https://github.com/canonical/ubuntu.com/issues/8691#issuecomment-723187576",
+      "created_at": "2020-11-06T16:56:59Z",
+      "updated_at": "2020-11-06T16:56:59Z",
+      "author": "Participant 2",
+      "body": "@mssalvatore Thanks for filing this issue. I am using the same browser but do not get the same behaviour. See below:\r\n![Peek 2020-11-06 16-55](https://user-images.githubusercontent.com/1413534/98393336-0b5cc100-2051-11eb-823d-f62220aa4756.gif)\r\n"
+    },
+    {
+      "id": 723994953,
+      "url": "https://github.com/canonical/ubuntu.com/issues/8691#issuecomment-723994953",
+      "created_at": "2020-11-09T12:55:07Z",
+      "updated_at": "2020-11-09T12:55:07Z",
+      "author": "Participant 1",
+      "body": "@anthonydillon Interesting. I tried in a private browsing window and the website behaves as it does in your recording. I'm still seeing the behavior in my regular browsing window, however.\r\n\r\nMy cookies look slightly different from yours.\r\n\r\n![cookies](https://user-images.githubusercontent.com/19957806/98543595-bbecdf80-2260-11eb-83e9-ae4a12b4d690.png)\r\n\r\nSaving preferences does not change the value of the cookie for the /security path."
+    },
+    {
+      "id": 724021322,
+      "url": "https://github.com/canonical/ubuntu.com/issues/8691#issuecomment-724021322",
+      "created_at": "2020-11-09T13:42:58Z",
+      "updated_at": "2020-11-09T13:42:58Z",
+      "author": "Participant 2",
+      "body": "@mssalvatore thanks for the screenshot of your cookies. I have found the issue and have a fix proposed to the cookie-policy module. Sorry about this but should be resolved shortly. \r\n\r\nIf you would like a short term fix you can simply delete your cookie with the `/security` path. That will allow the script to use the value of the root path cookie. "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

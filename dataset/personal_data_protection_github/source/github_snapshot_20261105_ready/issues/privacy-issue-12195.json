@@ -1,0 +1,74 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-12195",
+  "issue_url": "https://github.com/uTox/uTox/issues/1274",
+  "source_issue_url": "https://github.com/uTox/uTox/issues/1274",
+  "api_url": "https://api.github.com/repos/uTox/uTox/issues/1274",
+  "title": "Implement all required points in the Tox Client Standard",
+  "body": "https://hcoop.net/~docelic/tcs_full.html",
+  "author": "Participant 1",
+  "created_at": "2018-09-02T16:07:46Z",
+  "updated_at": "2019-05-29T00:11:50Z",
+  "state": "closed",
+  "closed_at": "2019-05-26T23:12:02Z",
+  "issue_fetched_at": "2026-10-18T20:11:40.889863+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T21:10:14.518611+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 421821585,
+      "url": "https://github.com/uTox/uTox/issues/1274#issuecomment-421821585",
+      "created_at": "2018-09-16T19:50:56Z",
+      "updated_at": "2018-09-16T19:50:56Z",
+      "author": "Participant 2",
+      "body": "No, a lot of the points in the TCS that we ignore is because they're stupid points, or not uTox's job"
+    },
+    {
+      "id": 495310726,
+      "url": "https://github.com/uTox/uTox/issues/1274#issuecomment-495310726",
+      "created_at": "2019-05-23T17:27:14Z",
+      "updated_at": "2019-05-23T17:27:14Z",
+      "author": "Participant 3",
+      "body": "Which points are stupid?"
+    },
+    {
+      "id": 496038795,
+      "url": "https://github.com/uTox/uTox/issues/1274#issuecomment-496038795",
+      "created_at": "2019-05-26T23:12:02Z",
+      "updated_at": "2019-05-26T23:12:02Z",
+      "author": "Participant 2",
+      "body": "The one's we haven't implemented :D"
+    },
+    {
+      "id": 496043155,
+      "url": "https://github.com/uTox/uTox/issues/1274#issuecomment-496043155",
+      "created_at": "2019-05-27T00:19:30Z",
+      "updated_at": "2019-05-27T00:19:30Z",
+      "author": "Participant 3",
+      "body": "_Here is what is marked as **NO** at the [URL above...](https://hcoop.net/~docelic/tcs_full.html)_\r\n\r\n**Avoiding False Security:**\r\n1.0.2 - Warning user IP may be exposed when proxy is set\r\n1.0.3 - Enforcing proxy when force proxy is set\r\n\r\n**Standardizing Avatar Usage:**\r\n2.2.6 - Standardizing expectation of square avatars\r\n2.2.10 - Broadcast avatar removal to honor user intent\r\n2.2.11 - Conforming to expected use of avatars\r\n\r\n**Avoiding Group Spam:**\r\n3.2.1 - Explicit acceptance of group chat inclusion\r\n3.2.2 - Defaulting auto-accept of group inclusion to false\r\n\r\n**Avoiding Data Loss:**\r\n3.2.3 - Warning user of data loss before leaving a group\r\n\r\n**Ensuring Honoring Privacy:**\r\n3.3.3 - Defaulting auto-answering calls to false\r\n\r\n**Avoiding Shared System Privacy Breach:**\r\n4.0.2 - Defaulting to message persistence to false\r\n5.0.1 - Exposing the option to encrypt .tox data file\r\n\r\n**Providing Easy Data Access:**\r\n5.0.2 - Exposing the option to decrypt encrypted profile data\r\n5.0.3 - Storing profile data in standard locations\r\n\r\n_I don't understand how these are against the goals for uTox. - What am I missing?_"
+    },
+    {
+      "id": 496694963,
+      "url": "https://github.com/uTox/uTox/issues/1274#issuecomment-496694963",
+      "created_at": "2019-05-28T21:22:20Z",
+      "updated_at": "2019-05-28T21:22:20Z",
+      "author": "Participant 2",
+      "body": "An IP isn't protected information. And if you have a threat model where it is, you need to be tunneling everything through an onion router.\r\n\r\nAvatars shouldn't be standardized, clients should make a best effort, to display whatever it gets.\r\n\r\nIIRC, that was fixed\r\n\r\nThat's a problem that needs to be fixed with toxcore, not uTox\r\n\r\nuTox dosen't auto answer calls -_-\r\n\r\nNo, message persistence is a feature, not a bug\r\n\r\nThat is an option\r\n\r\nalready done.\r\n\r\nThe info from  is BADLY out dated, and in some places simply wrong.\r\n\r\nThe goals for uTox are to be usable for sane humans... Paranoid/security nerds need not apply, and shouldn't be the ones writing standards. That being my original issue with TCS.\r\n\r\n"
+    },
+    {
+      "id": 496735280,
+      "url": "https://github.com/uTox/uTox/issues/1274#issuecomment-496735280",
+      "created_at": "2019-05-29T00:10:04Z",
+      "updated_at": "2019-05-29T00:11:50Z",
+      "author": "Participant 3",
+      "body": "_Not sure what some of your statements where addressing since they lack any references._\r\n\r\nHere's my best guess at matching your replies...\r\n\r\n**Avoiding False Security:**\r\n> An IP isn't protected information. And if you have a threat model where it is, you need to be tunneling everything through an onion router.\r\n\r\nBut proxying is another means to obscure an IP and should warn the user if it the data is not going through the proxy as expected. Shouldn't we imply proxy services be desired if a proxy was entered? Based on that implication, isn't it fair to notify that the proxy is not being forced? _(granted, 1.0.2 is worded a little strange)_\r\n\r\n_1.0.3 does not seem to be addressed..._\r\n\r\n**Standardizing Avatar Usage:**\r\n> Avatars shouldn't be standardized, clients should make a best effort, to display whatever it gets.\r\n\r\nAvatars may not be standard and the app SHOULD show what it gets. But most apps do EXPECT a 1:1 ratio for avatars. Is it really unreasonable to warn the user that their new avatar is not a standard size?\r\n\r\n_2.2.10 and 2.2.11 do not seem to be addressed..._\r\n\r\n**Avoiding Group Spam:**\r\n> IIRC, that was fixed\r\n\r\nSo [the page](https://hcoop.net/~docelic/tcs_full.html) has it wrong on 3.2.1 and 3.2.2?\r\n\r\n**Avoiding Data Loss:**\r\n> That's a problem that needs to be fixed with toxcore, not uTox\r\n\r\nSo ToxCore needs to show the client an alert before leaving a group?\r\nThat doesn't seem like the job of ToxCore to do anything related to the user interface...\r\n\r\n**Ensuring Honoring Privacy:**\r\n> uTox dosen't auto answer calls -_-\r\n\r\nSo 3.3.3 is also erroneously reported?\r\n\r\n**Avoiding Shared System Privacy Breach:**\r\n> No, message persistence is a feature, not a bug\r\n\r\nSo defaulting to message persistence to off **is not an option** because you want them to persist?\r\n\r\n> That is an option\r\n\r\nSo 5.0.1 are erroneously reported?\r\n\r\n**Providing Easy Data Access:**\r\n> already done.\r\n\r\nSo 5.0.2 and 5.0.3 are erroneously reported too?\r\n\r\n- - - -\r\n**Conclusion:**\r\n> The info from is BADLY out dated, and in some places simply wrong.\r\n\r\nSo the **items marked wrong** are:\r\n\r\n- 3.2.1 - Explicit acceptance of group chat inclusion\r\n- 3.2.2 - Defaulting auto-accept of group inclusion to false\r\n- 3.3.3 - Defaulting auto-answering calls to false\r\n- 5.0.1 - Exposing the option to encrypt .tox data file\r\n- 5.0.2 - Exposing the option to decrypt encrypted profile data\r\n- 5.0.3 - Storing profile data in standard locations\r\n\r\nAnd the  **items considers stupid** are:\r\n\r\n- 1.0.2 - Warning user IP may be exposed when proxy is set but not forced\r\n- 1.0.3 - Enforcing ONLY proxy use when force proxy is set\r\n- 2.2.6 - Standardizing expectation of square avatars\r\n- 2.2.10 - Broadcast avatar removal to honor user intent\r\n- 2.2.11 - Conforming to expected use of avatars\r\n- 3.2.3 - Warning user of data loss before leaving a group\r\n- 4.0.2 - Defaulting to message persistence to false\r\n\r\n_Did I parse your message correctly?_ :-D\r\n\r\n- - - -\r\n\r\n**Commentary:**\r\n> The goals for uTox are to be usable for sane humans... Paranoid/security nerds need not apply, and shouldn't be the ones writing standards. That being my original issue with TCS.\r\n\r\n_I'm confused by this because it seemed that Tox was created precisely for paranoid security nerds..._\r\n\r\n> From **[About Tox](https://tox.chat/about.html):** \r\n> Tox began a few years ago, in the wake of Edward Snowden's leaks regarding NSA spying activity. The idea was to create an instant messaging application that ran without requiring the use of central servers. The system would be distributed, peer-to-peer, and end-to-end encrypted, with no way to disable any of the encryption features; at the same time, the application would be easily usable by the layperson with no practical knowledge of cryptography or distributed systems. \r\n\r\n- Based on the above description it seems that forcing proxy use (when set by user) and avoiding unencrypted persistent messages (by default) and broadcasting the unset of user's avatars - _these are really expected features of Tox clients..._\r\n\r\n- As for the non-security nerd stuff, warning user of unintentional consequences (on leaving groups or when not using a set proxy) and responding to avatar changes in a normal way - _these seem fair and reasonable to me..._\r\n\r\n- It seems unfair to dismiss sane defaults for a security-focused instant messenger or to dismiss layperson's expectations of usage as unreasonable. But I guess this is all a matter of perspective...\r\n\r\n- I'm also surprised to learn that a Tox client hates security nerds. I guess that's allowed. Just unexpected...\r\n\r\n_Thanks for the in-depth response! Cheers!_"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

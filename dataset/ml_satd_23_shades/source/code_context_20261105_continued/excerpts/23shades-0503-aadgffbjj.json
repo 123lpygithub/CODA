@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0503-aadgffbjj",
+  "revision_url": "https://github.com/sorgerlab/indra/commit/a5cb891e9aa09d2899180c07e7d7e49f7cde03cc",
+  "filename": "indra/sources/signor.py",
+  "commit": "a5cb891e9aa09d2899180c07e7d7e49f7cde03cc",
+  "source_url": "https://raw.githubusercontent.com/sorgerlab/indra/a5cb891e9aa09d2899180c07e7d7e49f7cde03cc/indra/sources/signor.py",
+  "fetched_at": "2026-11-05T06:13:04.295619+00:00",
+  "source_sha256": "97bea69c20da80b6561800f8a371240d16d355820887c6fbc4660c9fa81e5688",
+  "line_start": 281,
+  "line_end": 305,
+  "excerpt": "\n        # For modifications, we create the modification statement as well as\n        # the appropriate active form.\n        if mech_stmt_type and issubclass(mech_stmt_type, Modification):\n            if not row.RESIDUE:\n                # Modification\n                mod_stmt = mech_stmt_type(agent_a, agent_b, None, None,\n                                          evidence=evidence)\n                stmts.append(mod_stmt)\n                # ActiveForm\n                af_agent = deepcopy(agent_b)\n                af_agent.mods = mod_stmt._get_mod_condition()\n                # TODO: Currently this turns any upregulation associated with\n                # the modification into an ActiveForm (even up-regulations\n                # associated with increased amounts). This should be updated\n                # once we have a statement type relating Agent states to\n                # effects on amounts.\n                if row.EFFECT.startswith('up'):\n                    stmts.append(ActiveForm(af_agent, 'activity', True))\n            else:\n                # Modification\n                residues = _parse_residue_positions(row.RESIDUE)\n                mod_stmts = [mech_stmt_type(agent_a, agent_b, res[0], res[1],\n                                            evidence=evidence)\n                             for res in residues]"
+}

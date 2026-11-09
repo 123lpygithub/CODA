@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0618-aaebbbhhb",
+  "revision_url": "https://github.com/NVIDIA/Dataset_Utilities/commit/d496c98c6fef5bb548660bb0857a14e0a431dc93",
+  "filename": "nvdu/viz/camera.py",
+  "commit": "d496c98c6fef5bb548660bb0857a14e0a431dc93",
+  "source_url": "https://raw.githubusercontent.com/NVIDIA/Dataset_Utilities/d496c98c6fef5bb548660bb0857a14e0a431dc93/nvdu/viz/camera.py",
+  "fetched_at": "2026-11-05T06:13:25.624478+00:00",
+  "source_sha256": "5f2e7f063b4f88d603b37a5cc5807174d8e47bcc9faf787a467af21873d7c72b",
+  "line_start": 28,
+  "line_end": 52,
+  "excerpt": "    def __init__(self, cam_intrinsic_settings = CameraIntrinsicSettings(), scene_object = None):\n        super(Camera, self).__init__(scene_object)\n\n        self.camera_matrix = Matrix44.identity()\n        self.projection_matrix = Matrix44.identity()\n\n        self.set_instrinsic_settings(cam_intrinsic_settings)\n\n    def draw(self):\n        # glClipControl(GL_LOWER_LEFT, GL_ZERO_TO_ONE)\n        glMatrixMode(GL_PROJECTION)\n        glLoadIdentity()\n        # TODO: Need to invert the CameraToWorld matrix => WorldToCamera matrix\n        # transform_matrix = self.relative_transform.to_matrix()\n        # glMultMatrixf(get_opengl_matrixf(transform_matrix))\n\n        # self.build_perspective_projection_matrix()\n        \n        # print(\"on_draw - camera_fov: {}\".format(self.camera_fov))\n        # print(\"camera - on_draw - projection_matrix: {}\".format(self.projection_matrix))\n\n        glMultMatrixf(get_opengl_matrixf(self.projection_matrix))\n\n        # Scale up the scene so the objects really close to the camera doesn't get clipped by the near plane\n        # glScalef(100.0, 100.0, 100.0)"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0274-aaebjhccj",
+  "revision_url": "https://github.com/alan-turing-institute/sktime/commit/147e54c6bae653c1123d6ca897cf8ddb79d9b09a",
+  "filename": "sktime/utils/data_container.py",
+  "commit": "147e54c6bae653c1123d6ca897cf8ddb79d9b09a",
+  "source_url": "https://raw.githubusercontent.com/alan-turing-institute/sktime/147e54c6bae653c1123d6ca897cf8ddb79d9b09a/sktime/utils/data_container.py",
+  "fetched_at": "2026-11-05T06:12:26.231769+00:00",
+  "source_sha256": "a98caa46e900a5018b934568fdf70a36a0ce7e9106d720a70671a01dd1dbe711",
+  "line_start": 8,
+  "line_end": 32,
+  "excerpt": "    \"\"\"Select times from time series within cells of nested pandas DataFrame.\n\n    Parameters\n    ----------\n    X : nested pandas DataFrame or nested Series\n    times : numpy ndarray of times to select from time series\n\n    Returns\n    -------\n    Xt : pandas DataFrame\n        pandas DataFrame in nested format containing only selected times\n    \"\"\"\n    # TODO currently we loose the time index, need to add it back to Xt after slicing in time\n    Xt = detabularise(tabularise(X).iloc[:, times])\n    Xt.columns = X.columns\n    return Xt\n\n\ndef tabularize(X, return_array=False):\n    \"\"\"Convert nested pandas DataFrames or Series with numpy arrays or pandas Series in cells into tabular\n    pandas DataFrame with primitives in cells, i.e. a data frame with the same number of rows as the input data and\n    as many columns as there are observations in the nested series. Requires series to be have the same index.\n\n    Parameters\n    ----------",
+  "match_policy": "unique-release-normalized-v2"
+}

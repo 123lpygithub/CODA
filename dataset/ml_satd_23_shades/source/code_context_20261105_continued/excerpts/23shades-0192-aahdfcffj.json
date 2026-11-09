@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0192-aahdfcffj",
+  "revision_url": "https://github.com/Ekim-Yurtsever/DeepTL-Lane-Change-Classification/commit/6e00cefa11a3f5f5aac59741b95f93d311356b83",
+  "filename": "dataset.py",
+  "commit": "6e00cefa11a3f5f5aac59741b95f93d311356b83",
+  "source_url": "https://raw.githubusercontent.com/Ekim-Yurtsever/DeepTL-Lane-Change-Classification/6e00cefa11a3f5f5aac59741b95f93d311356b83/dataset.py",
+  "fetched_at": "2026-11-05T06:12:09.607906+00:00",
+  "source_sha256": "dbed511f7f123ecf256012a5d17cf7ad6037754dc573349c37b382f2311be8bb",
+  "line_start": 87,
+  "line_end": 111,
+  "excerpt": "                    elif option == 'all frames':\n                        self.video_features[int(foldername) - 1, counter, :] = np.loadtxt(feature_file, delimiter=',')\n\n    def read_image_data(self, data_dir, scaling='no scaling', scale_x=0.1, scale_y=0.1):\n\n        if scaling == 'scale':\n            self.image_seq = self.load_images_from_folder(data_dir, scaling='scale', scale_x=scale_x, scale_y=scale_y)\n\n        else:\n            self.image_seq = self.load_images_from_folder(data_dir)\n\n    def read_can_data(self, data_dir):\n        # todo\n        self.can_seq = []\n\n    def read_risk_data(self, file_path):\n        df = pd.read_csv(file_path, header=None, usecols=[5], names=['risk_score'])\n        self.risk_scores = df['risk_score'].tolist()\n\n    def convert_risk_to_one_hot(self, risk_threshold=0.05):\n        indexes = [i[0] for i in sorted(enumerate(self.risk_scores), key=lambda x: x[1])]\n        top_risky_threshold = int(len(indexes) * risk_threshold)\n        self.risk_one_hot = np.zeros([len(indexes), 2])\n\n        for counter, index in enumerate(indexes[::-1]):"
+}

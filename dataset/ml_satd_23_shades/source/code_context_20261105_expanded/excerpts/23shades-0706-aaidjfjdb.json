@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0706-aaidjfjdb",
+  "revision_url": "https://github.com/biolab/orange3/commit/cae097749e098191b6789e0bc4ca68b85851c749",
+  "filename": "Orange/canvas/canvas/editlinksdialog.py",
+  "commit": "cae097749e098191b6789e0bc4ca68b85851c749",
+  "source_url": "https://raw.githubusercontent.com/biolab/orange3/cae097749e098191b6789e0bc4ca68b85851c749/Orange/canvas/canvas/editlinksdialog.py",
+  "fetched_at": "2026-11-05T06:13:40.918014+00:00",
+  "source_sha256": "0a271a5cce685189c3c9c5a45c3be7ec4f69802d4c9a18fd9792a398dbab7d08",
+  "line_start": 598,
+  "line_end": 622,
+  "excerpt": "\n        self.setOwnedByLayout(True)\n        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)\n\n        if item is not None:\n            self.setItem(item)\n\n    def setItem(self, item):\n        self.__item = item\n        self.setGraphicsItem(item)\n\n    def setGeometry(self, rect):\n        # TODO: specifiy if the geometry should be set relative to the\n        # bounding rect top left corner\n        if self.__item:\n            self.__item.setPos(rect.topLeft())\n\n        QGraphicsLayoutItem.setGeometry(self, rect)\n\n    def sizeHint(self, which, constraint):\n        if self.__item:\n            return self.__item.boundingRect().size()\n        else:\n            return QGraphicsLayoutItem.sizeHint(self, which, constraint)\n"
+}

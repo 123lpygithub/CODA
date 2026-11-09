@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0284-aaecghbgf",
+  "revision_url": "https://github.com/KhronosGroup/NNEF-Tools/commit/aece55fe73a13434743ca4e5da3c88fc6eaea984",
+  "filename": "converter/nnef_converters/tf_converters/nnef_to_tf/converters.py",
+  "commit": "aece55fe73a13434743ca4e5da3c88fc6eaea984",
+  "source_url": "https://raw.githubusercontent.com/KhronosGroup/NNEF-Tools/aece55fe73a13434743ca4e5da3c88fc6eaea984/converter/nnef_converters/tf_converters/nnef_to_tf/converters.py",
+  "fetched_at": "2026-11-05T06:12:27.706065+00:00",
+  "source_sha256": "2caa168a8fc11461665d502d1d6da2c413b632897bbca2181b2a68c71db3e022",
+  "line_start": 908,
+  "line_end": 932,
+  "excerpt": "\n    tfop = dog.OperationNode(\"tf.nn.local_response_normalization\")\n    tfop.add_arg(\"input\", converter.get_tfdn_safe(nnefop.args[\"input\"]))\n    tfop.add_arg(\"depth_radius\", depth_radius)\n    tfop.add_arg(\"bias\", nnefop.args[\"bias\"])\n    tfop.add_arg(\"alpha\", alpha)\n    tfop.add_arg(\"beta\", nnefop.args[\"beta\"])\n    tfop.add_result(\"result\", converter.make_tfdn(nnefop.result))\n    converter.add_tfop(tfop, nnefop)\n\n\ndef convert_l2_normalization(nnefop, converter):\n    # TODO epsilon and bias are not really the same, is this a problem?\n    tfop = dog.OperationNode(\"tf.nn.l2_normalize\")\n    tfop.add_arg(\"x\", converter.get_tfdn_safe(nnefop.args[\"input\"]))\n    tfop.add_arg(tf_compat.l2_normalize_arg_axis, nnefop.args[\"axes\"])\n    tfop.add_arg(\"epsilon\", nnefop.args[\"bias\"])\n    tfop.add_result(\"result\", converter.make_tfdn(nnefop.result))\n    converter.add_tfop(tfop, nnefop)\n\n\ndef convert_batch_normalization(nnefop, converter):\n    tfop = dog.OperationNode(\"tf.nn.batch_normalization \")\n    tfop.add_arg(\"x\", converter.get_tfdn_safe(nnefop.args[\"input\"]))\n    tfop.add_arg(\"mean\", converter.get_tfdn_safe(nnefop.args[\"mean\"]))",
+  "match_policy": "unique-release-normalized-v2"
+}

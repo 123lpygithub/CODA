@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0242-aafegjcei",
+  "revision_url": "https://github.com/aleju/imgaug/commit/6da1af45453cef0784277792b540df94c4b0920c",
+  "filename": "tests/test.py",
+  "commit": "6da1af45453cef0784277792b540df94c4b0920c",
+  "source_url": "https://raw.githubusercontent.com/aleju/imgaug/6da1af45453cef0784277792b540df94c4b0920c/tests/test.py",
+  "fetched_at": "2026-11-05T06:12:23.953657+00:00",
+  "source_sha256": "d66a5c56164cc1d8c783d3b80f1bd2d1f3a12e6eb005f0c39cdfe74169d25ab8",
+  "line_start": 4179,
+  "line_end": 4203,
+  "excerpt": "    except Exception as exc:\n        assert \"Expected \" in str(exc)\n        got_exception = True\n    assert got_exception\n\n    # get_parameters()\n    matrix = np.int32([[1]])\n    aug = iaa.Convolve(matrix=matrix)\n    params = aug.get_parameters()\n    assert np.array_equal(params[0], matrix)\n    assert params[1] == \"constant\"\n\n    # TODO add test for keypoints once their handling was improved in Convolve\n\n\ndef test_Sharpen():\n    reseed()\n\n    def _compute_sharpened_base_img(lightness, m):\n        base_img_sharpened = np.zeros((3, 3), dtype=np.float32)\n        k = 1\n        # note that cv2 uses reflection padding by default\n        base_img_sharpened[0, 0] = (m[1, 1] + lightness)/k * 10 + 4 * (m[0, 0]/k) * 10 + 4 * (m[2, 2]/k) * 20\n        base_img_sharpened[0, 2] = base_img_sharpened[0, 0]\n        base_img_sharpened[2, 0] = base_img_sharpened[0, 0]"
+}

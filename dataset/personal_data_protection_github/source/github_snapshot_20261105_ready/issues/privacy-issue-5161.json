@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5161",
+  "issue_url": "https://github.com/Dallinger/Dallinger/issues/87",
+  "source_issue_url": "https://github.com/Dallinger/Dallinger/issues/87",
+  "api_url": "https://api.github.com/repos/Dallinger/Dallinger/issues/87",
+  "title": "change anonymization to occur on export",
+  "body": "_From @thomasmorgan on June 12, 2015 16:32_\n\nwe can allow the databases to include workerIDs whilst running, however, to protect identities we can replace them all with indexes upon export. This way Wallace can use worker ids while running\n\n_Copied from original issue: berkeley-cocosci/Wallace#187_\n",
+  "author": "Participant 1",
+  "created_at": "2016-09-12T22:43:57Z",
+  "updated_at": "2017-02-08T22:21:36Z",
+  "state": "closed",
+  "closed_at": "2017-02-08T22:21:36Z",
+  "issue_fetched_at": "2026-10-18T14:10:57.189579+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T14:10:58.524752+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 246519090,
+      "url": "https://github.com/Dallinger/Dallinger/issues/87#issuecomment-246519090",
+      "created_at": "2016-09-12T22:43:57Z",
+      "updated_at": "2016-09-12T22:43:57Z",
+      "author": "Participant 1",
+      "body": "_From @thomasmorgan on July 10, 2015 18:49_\n\ndoes the command_line.py code have access to the database? If so this is nice and easy. When the export command is called, it can check if anonymization is on and if it is replaces the participant_uuid of every Node with it's hash. Then it exports the tables as per usual.\n\nThis would remove a query from Rogers as well so would bring a small speed boost when running.\n"
+    },
+    {
+      "id": 246519091,
+      "url": "https://github.com/Dallinger/Dallinger/issues/87#issuecomment-246519091",
+      "created_at": "2016-09-12T22:43:57Z",
+      "updated_at": "2016-09-12T22:43:57Z",
+      "author": "Participant 1",
+      "body": "_From @suchow on July 26, 2016 21:52_\n\n@thomasmorgan Do you know the status of this?\n"
+    },
+    {
+      "id": 246519095,
+      "url": "https://github.com/Dallinger/Dallinger/issues/87#issuecomment-246519095",
+      "created_at": "2016-09-12T22:43:59Z",
+      "updated_at": "2016-09-12T22:43:59Z",
+      "author": "Participant 1",
+      "body": "_From @thomasmorgan on July 26, 2016 22:17_\n\nno, you were going to handle removal of the relevant columns from the csvs\nright?\n\nOn 26 July 2016 at 14:52, Jordan Suchow notifications@github.com wrote:\n\n> @thomasmorgan https://github.com/thomasmorgan Do you know the status of\n> this?\n> \n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub\n> https://github.com/berkeley-cocosci/Wallace/issues/187#issuecomment-235417329,\n> or mute the thread\n> https://github.com/notifications/unsubscribe-auth/AIHR8VirfSx7qxgc3UXbHQ9fmi7TFguDks5qZoGvgaJpZM4FBMTD\n> .\n"
+    },
+    {
+      "id": 278481152,
+      "url": "https://github.com/Dallinger/Dallinger/issues/87#issuecomment-278481152",
+      "created_at": "2017-02-08T22:21:36Z",
+      "updated_at": "2017-02-08T22:21:36Z",
+      "author": "Participant 2",
+      "body": "Done in `development`. The default is to replace PII with number indices. The `--no-scrub` flag allows you to export the data w/ worker ids intact."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

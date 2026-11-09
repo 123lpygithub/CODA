@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0206-aaegahgbf",
+  "revision_url": "https://github.com/optuna/optuna/commit/d8b705f944a20ab62fe78abf2f7391a45ff52fba",
+  "filename": "optuna/integration/lightgbm_tuner/optimize.py",
+  "commit": "d8b705f944a20ab62fe78abf2f7391a45ff52fba",
+  "source_url": "https://raw.githubusercontent.com/optuna/optuna/d8b705f944a20ab62fe78abf2f7391a45ff52fba/optuna/integration/lightgbm_tuner/optimize.py",
+  "fetched_at": "2026-11-05T06:12:15.420660+00:00",
+  "source_sha256": "15a60f1b593ffac0170b2c889fb116028c480e12113cbc40cdf34d3dbaeb33be",
+  "line_start": 51,
+  "line_end": 75,
+  "excerpt": "\nclass _GridSamplerUniform1D(optuna.samplers.BaseSampler):\n    def __init__(self, param_name, param_values):\n        # type: (str, Any) -> None\n\n        self.param_name = param_name\n        self.param_values = tuple(param_values)\n        self.value_idx = 0\n\n    def sample_relative(self, study, trial, search_space):\n        # type: (Study, FrozenTrial, Dict[str, BaseDistribution]) -> Dict[str, float]\n\n        # todo (g-votte): Take care of distributed optimization.\n        assert self.value_idx < len(self.param_values)\n        param_value = self.param_values[self.value_idx]\n        self.value_idx += 1\n        return {self.param_name: param_value}\n\n    def sample_independent(self, study, trial, param_name, param_distribution):\n        # type: (Study, FrozenTrial, str, BaseDistribution) -> None\n\n        raise ValueError(\n            \"Suggest method is called for an invalid parameter: {}.\".format(param_name)\n        )\n"
+}

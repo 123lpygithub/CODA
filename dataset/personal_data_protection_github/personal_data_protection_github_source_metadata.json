@@ -1,0 +1,40 @@
+{
+  "paper": {
+    "title": "The whos, whats, and whys of issues related to personal data and data protection in open-source projects on GitHub",
+    "arxiv": "2304.06367",
+    "doi": "10.48550/arxiv.2304.06367"
+  },
+  "source": {
+    "zenodo_record": "https://doi.org/10.5281/zenodo.10730369",
+    "version_record": "https://doi.org/10.5281/zenodo.10730370",
+    "archive_url": "https://zenodo.org/api/records/10730370/files/aieng-lab/replication-kit-gh-privacy-issues-v1.0.zip/content",
+    "archive_file": "replication-kit-gh-privacy-issues-v1.0.zip",
+    "license": "CC BY 4.0 (Zenodo record); Apache-2.0 in the replication-kit archive",
+    "archive_sha256": "b2c20ca7e035cca2e6e538de942b47757573f282112e3a84ed53dd3b44de5d8f",
+    "coded_issue_data_sha256": "a0d9d4fccee7c2d444ab25d46ccadedbf5bb8cef5709a94cf9f0a9b2c18b979c"
+  },
+  "adaptation": {
+    "candidate_rows_in_coded_issue_data": 1761,
+    "record_count": 652,
+    "selection": "is_privacy_related == true",
+    "agent_visible_label_columns": [],
+    "reference_label_columns": [
+      "trigger_rater_2",
+      "privacy_issue_rater_2",
+      "consent_interaction_rater_2",
+      "resolution_rater_2",
+      "reason_rater_2_category"
+    ],
+    "original_release_material": "The released CSV contains issue titles, metadata and separate human coding fields, not issue bodies or comments.",
+    "supplemental_evidence": {
+      "directory": "source/github_snapshot",
+      "manifest": "source/github_snapshot/manifest.json",
+      "preparation_script": "scripts/prepare_privacy_issue_discussions.py",
+      "source": "GitHub REST API issue and issue-comment endpoints",
+      "reproducibility": "Per-response retrieval timestamps, ETags and raw responses; per-issue normalized snapshots with SHA-256 checksums; offline adapter; resumable collection.",
+      "scope": "Current retrievable body and issue comments, not a reconstruction of the original study's historical evidence. Linked pages, attachments, review comments and event timelines are not fetched.",
+      "missing_evidence_policy": "Retain all 652 original sample IDs; mark complete, partial or metadata_only in agent-facing content. Unavailable requests remain documented in the snapshot manifest; never infer missing discussion or silently drop cases."
+    },
+    "content_limitation": "Supplemental evidence may differ from the original study's material because issues and comments can be edited, deleted or unavailable. Hidden reference labels describe the original study and cannot automatically be treated as gold labels for the retrieved discussions."
+  }
+}

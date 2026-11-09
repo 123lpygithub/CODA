@@ -1,0 +1,371 @@
+
+=== 12 23shades-0446-aaedjcbec ===
+{"dataset_id": "aaedjcbec", "repo_name": "menpo/menpo", "filename": "menpo/shape/mesh/base.py", "comment_introducing_revision": "https://github.com/menpo/menpo/commit/4b96d25862d0f5f73441694843ee1113162b977d", "comment_removing_revision": "https://github.com/menpo/menpo/commit/d7f64272fe62b64bbf680678647ce73c3395616b", "source_context_status": "available", "source_context_commit": "4b96d25862d0f5f73441694843ee1113162b977d"}
+[comment_text]
+TODO: add inheritance from Graph once implemented
+[source_context]
+    ----------
+    points : ``(n_points, n_dims)`` `ndarray`
+        The array representing the points.
+    trilist : ``(M, 3)`` `ndarray` or `None`, optional
+        The triangle list. If `None`, a Delaunay triangulation of
+        the points will be used instead.
+    copy: `bool`, optional
+        If ``False``, the points will not be copied on assignment.
+        Any trilist will also not be copied.
+        In general this should only be used if you know what you are doing.
+    """
+    def __init__(self, points, trilist=None, copy=True):
+        # TODO: add inheritance from Graph once implemented
+        super(TriMesh, self).__init__(points, copy=copy)
+        if trilist is None:
+            global Delaunay
+            if Delaunay is None:
+                from scipy.spatial import Delaunay  # expensive
+            trilist = Delaunay(points).simplices
+        if not copy:
+            if not trilist.flags.c_contiguous:
+                warn('The copy flag was NOT honoured. A copy HAS been made. '
+                     'Please ensure the data you pass is C-contiguous.')
+                trilist = np.array(trilist, copy=True, order='C')
+        else:
+
+=== 13 23shades-0439-aaeeicdeh ===
+{"dataset_id": "aaeeicdeh", "repo_name": "CPJKU/madmom", "filename": "cp/audio/audio.py", "comment_introducing_revision": "https://github.com/CPJKU/madmom/commit/651eb857a793a7d7dda07c4319eb382dd2b32ddf", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "651eb857a793a7d7dda07c4319eb382dd2b32ddf"}
+[comment_text]
+TODO: add a complete frame_size; to cover the whole audio signal?
+[source_context]
+            return signal_frame(self.signal, index, self.frame_size, self.hop_size, self.online)
+        # other index types are invalid
+        else:
+            raise TypeError("Invalid argument type.")
+
+    # len() should return the number of frames, since it iterates over frames
+    def __len__(self):
+        return self.num_frames
+
+    @property
+    def num_frames(self):
+        """Number of frames."""
+        # TODO: add a complete frame_size, to cover the whole audio signal?
+        # modifications to signal_frame() needed
+        #return int(np.ceil(((np.shape(self.signal)[0]) + self.frame_size) / self.hop_size))
+        return int(np.ceil((np.shape(self.signal)[0]) / self.hop_size))
+
+    @property
+    def fps(self):
+        """Frames per second."""
+        return float(self.wav.samplerate) / float(self.hop_size)
+
+    @property
+    def overlap_factor(self):
+        """Overlap factor of two adjacent frames."""
+
+=== 14 23shades-0794-aahdadjbj ===
+{"dataset_id": "aahdadjbj", "repo_name": "deepmind/pysc2", "filename": "pysc2/bin/play_vs_agent.py", "comment_introducing_revision": "https://github.com/deepmind/pysc2/commit/803de8a0f707efc3967fde683836c202c73215af", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "803de8a0f707efc3967fde683836c202c73215af"}
+[comment_text]
+unused
+[source_context]
+  create.player_setup.add(type=sc_pb.Participant)
+
+  controller = host_proc.controller
+  controller.save_map(map_inst.path, map_inst.data(run_config))
+  controller.create_game(create)
+
+  print("-" * 80)
+  print("Join host: play_vs_agent --map %s --host %s --host_port %s "
+        "--lan_port %s" % (FLAGS.map, FLAGS.host, client_proc.port, start_port))
+  print("-" * 80)
+
+  join = sc_pb.RequestJoinGame()
+  join.shared_port = 0  # unused
+  join.server_ports.game_port = ports.pop()
+  join.server_ports.base_port = ports.pop()
+  join.client_ports.add(game_port=ports.pop(), base_port=ports.pop())
+
+  join.race = sc2_env.Race[FLAGS.user_race]
+  if FLAGS.render:
+    join.options.raw = True
+    join.options.score = True
+    if FLAGS.feature_screen_size and FLAGS.feature_minimap_size:
+      fl = join.options.feature_layer
+      fl.width = 24
+      fl.resolution.x = FLAGS.feature_screen_size
+
+=== 15 23shades-0605-aaeiedgej ===
+{"dataset_id": "aaeiedgej", "repo_name": "IntelPython/sdc", "filename": "hpat/hiframes_typed.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/94e11baba6f73d6b0118ff88a4b25aef983978b5", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "94e11baba6f73d6b0118ff88a4b25aef983978b5"}
+[comment_text]
+TODO: min
+[source_context]
+                    if isinstance(func_def, ir.Expr) and func_def.op == 'make_function':
+                        return [assign]
+                    if isinstance(func_def, ir.Global) and isinstance(func_def.value, StencilFunc):
+                        return [assign]
+                    warnings.warn(
+                        "function call couldn't be found for initial analysis")
+                    return [assign]
+                else:
+                    func_name, func_mod = fdef
+
+                # replace _get_type_max_value(arr.dtype) since parfors
+                # arr.dtype transformation produces invalid code for dt64
+                # TODO: min
+                if fdef == ('_get_type_max_value', 'hpat.hiframes_typed'):
+                    if self.typemap[rhs.args[0].name] == types.DType(types.NPDatetime('ns')):
+                        return self._replace_func(
+                            lambda: hpat.pd_timestamp_ext.integer_to_dt64(
+                                numba.targets.builtins.get_type_max_value(
+                                    numba.types.int64)), [])
+                    return self._replace_func(
+                        lambda d: numba.targets.builtins.get_type_max_value(
+                                    d), rhs.args)
+
+                if fdef == ('h5_read_dummy', 'hpat.pio_api'):
+                    ndim = guard(find_const, self.func_ir, rhs.args[1])
+
+=== 16 23shades-0768-aaahbfbgd ===
+{"dataset_id": "aaahbfbgd", "repo_name": "Erotemic/netharn", "filename": "netharn/fit_harn.py", "comment_introducing_revision": "https://github.com/Erotemic/netharn/commit/26924a149f6bc51dc19a3f1b2ca04897cd5287a1", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "26924a149f6bc51dc19a3f1b2ca04897cd5287a1"}
+[comment_text]
+TODO: we could probably default the monitor to something reasonable
+[source_context]
+        train_info_fpath = join(harn.train_dpath, 'train_info.json')
+        util.write_json(train_info_fpath, harn.train_info)
+
+        harn._setup_loggers()
+
+        harn._setup_modules()
+
+        assert harn.model is not None, 'model is a required module'
+
+        # TODO: we might simply default to SGD
+        assert harn.optimizer is not None, 'optimizer is a required module'
+
+        # TODO: we could probably default the monitor to something reasonable
+        assert harn.monitor is not None, 'monitor is a required module'
+
+        try:
+            if reset:
+                raise CannotResume
+            harn.resume_from_previous_snapshots()
+        except CannotResume:
+            harn.reset_weights()
+
+        if harn.train_dpath:
+            harn.info(' * harn.train_dpath = {!r}'.format(harn.train_dpath))
+            harn.info(' * harn.nice_dpath  = {!r}'.format(harn.nice_dpath))
+
+=== 17 23shades-0327-aadagfcdg ===
+{"dataset_id": "aadagfcdg", "repo_name": "VSainteuf/izitorch", "filename": "izitorch/trainRack.py", "comment_introducing_revision": "https://github.com/VSainteuf/izitorch/commit/d002311ca3e3fd0c8f05395629e99935b09f75ad", "comment_removing_revision": "https://github.com/VSainteuf/izitorch/commit/4a5865fd99abe0fa83a04f5ffa6054c8c5a78ad2", "source_context_status": "available", "source_context_commit": "d002311ca3e3fd0c8f05395629e99935b09f75ad"}
+[comment_text]
+TODO random seed as an option
+[source_context]
+            pm = True
+        else:
+            pm = False
+
+        if self.dataset is not None:
+            self.train_dataset = self.dataset
+            self.test_dataset = self.dataset
+
+        print('Splitting dataset')
+
+        indices = list(range(len(self.train_dataset)))
+        if self.args.shuffle:
+            np.random.seed(1)  # TODO random seed as an option
+            np.random.shuffle(indices)
+
+        if self.args.kfold != 0:
+            kf = model_selection.KFold(n_splits=self.args.kfold, random_state=1, shuffle=False)
+            indices_seq = list(kf.split(list(range(len(indices)))))
+            print('Preparing {}-fold cross validation'.format(self.args.kfold))
+            print('Train: {} samples, Test : {} samples'.format(len(indices_seq[0][0]), len(indices_seq[0][1])))
+
+        else:
+            ntrain = int(np.floor(self.args.train_ratio * len(self.train_dataset)))
+            ntest = len(self.train_dataset) - ntrain
+            print('Train: {} samples, Test : {} samples'.format(ntrain, ntest))
+
+=== 18 23shades-0230-aahjecdhj ===
+{"dataset_id": "aahjecdhj", "repo_name": "ryfeus/gcf-packs", "filename": "pandas_numpy/sources/pandas/tests/io/test_excel.py", "comment_introducing_revision": "https://github.com/ryfeus/gcf-packs/commit/255a05a5980efb8b096c283d79872d0695886161", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "255a05a5980efb8b096c283d79872d0695886161"}
+[comment_text]
+TODO add index to xls file
+[source_context]
+                                   index_col=0, parse_cols='A:D')
+
+        # TODO add index to xls, read xls ignores index name ?
+        tm.assert_frame_equal(df2, df1, check_names=False)
+        tm.assert_frame_equal(df3, df1, check_names=False)
+        tm.assert_frame_equal(df4, df1, check_names=False)
+
+        df1 = dfref.reindex(columns=['B', 'C'])
+        df2 = self.get_exceldf('test1', ext, 'Sheet1', index_col=0,
+                               usecols='A,C,D')
+        df3 = self.get_exceldf('test1', ext, 'Sheet2', skiprows=[1],
+                               index_col=0, usecols='A,C,D')
+        # TODO add index to xls file
+        tm.assert_frame_equal(df2, df1, check_names=False)
+        tm.assert_frame_equal(df3, df1, check_names=False)
+
+        df1 = dfref.reindex(columns=['B', 'C'])
+        df2 = self.get_exceldf('test1', ext, 'Sheet1', index_col=0,
+                               usecols='A,C:D')
+        df3 = self.get_exceldf('test1', ext, 'Sheet2', skiprows=[1],
+                               index_col=0, usecols='A,C:D')
+        tm.assert_frame_equal(df2, df1, check_names=False)
+        tm.assert_frame_equal(df3, df1, check_names=False)
+
+    def test_excel_stop_iterator(self, ext):
+
+=== 19 23shades-0336-aafehbbbf ===
+{"dataset_id": "aafehbbbf", "repo_name": "aleju/imgaug", "filename": "imgaug/imgaug.py", "comment_introducing_revision": "https://github.com/aleju/imgaug/commit/6340236eb2d9c32e8b6f8a8e097f01fdfaa3a535", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6340236eb2d9c32e8b6f8a8e097f01fdfaa3a535"}
+[comment_text]
+TODO rename sizes to size?
+[source_context]
+    font = ImageFont.truetype(DEFAULT_FONT_FP, size)
+    context = ImageDraw.Draw(img)
+    context.text((x, y), text, fill=tuple(color), font=font)
+    img_np = np.asarray(img)
+    img_np.setflags(write=True)  # PIL/asarray returns read only array
+
+    if img_np.dtype != input_dtype:
+        img_np = img_np.astype(input_dtype)
+
+    return img_np
+
+
+# TODO rename sizes to size?
+def imresize_many_images(images, sizes=None, interpolation=None):
+    """
+    Resize many images to a specified size.
+
+    Parameters
+    ----------
+    images : (N,H,W,C) ndarray
+        Array of the images to resize.
+        Expected to usually be of dtype uint8.
+
+    sizes : float or iterable of two ints or iterable of two floats
+        The new size of the images, given either as a fraction (a single float)
+
+=== 20 23shades-0360-aajecehjc ===
+{"dataset_id": "aajecehjc", "repo_name": "deepchem/deepchem", "filename": "deepchem/utils/test/test_vina_utils.py", "comment_introducing_revision": "https://github.com/deepchem/deepchem/commit/e392516f0073ae2ff5cab0701a4103a83928270f", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e392516f0073ae2ff5cab0701a4103a83928270f"}
+[comment_text]
+TODO test more formats for ligand
+[source_context]
+"""
+Test Autodock Vina Utility Functions.
+"""
+import os
+import numpy as np
+import unittest
+from deepchem.utils import vina_utils
+from deepchem.utils import rdkit_util
+
+class TestVinaUtils(unittest.TestCase):
+
+  def setUp(self):
+    # TODO test more formats for ligand
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    self.docked_ligands = os.path.join(current_dir,
+                                     '1jld_ligand_docked.pdbqt')
+
+  def test_load_docked_ligand(self):
+    docked_ligands = vina_utils.load_docked_ligands(self.docked_ligands)
+    assert len(docked_ligands) == 9
+
+    for ligand in docked_ligands:
+      xyz = rdkit_util.get_xyz_from_mol(ligand)
+      assert np.count_nonzero(xyz) > 0
+
+=== 21 23shades-0247-aahiiegaf ===
+{"dataset_id": "aahiiegaf", "repo_name": "kengz/SLM-Lab", "filename": "slm_lab/env/__init__.py", "comment_introducing_revision": "https://github.com/kengz/SLM-Lab/commit/f7c257ebab143ec83f1e1ffbe8dc49e3b43a628e", "comment_removing_revision": "https://github.com/kengz/SLM-Lab/commit/cd3704616759710b50062abf3b8e8041b4b7c95f", "source_context_status": "available", "source_context_commit": "f7c257ebab143ec83f1e1ffbe8dc49e3b43a628e"}
+[comment_text]
+TODO anticipate multi-agents for AEB space
+[source_context]
+
+        # TODO expose brain methods properly to env
+        default_brain = self.u_env.brain_names[0]
+        brain = self.u_env.brains[default_brain]
+        ext_fn_list = util.get_fn_list(brain)
+        for fn in ext_fn_list:
+            setattr(self, fn, getattr(brain, fn))
+
+    def set_agent(self, agent):
+        '''
+        Make agent visible to env.
+        '''
+        # TODO anticipate multi-agents for AEB space
+        self.agent = agent
+
+    def reset(self):
+        # TODO need AEB space resolver
+        default_brain = self.u_env.brain_names[0]
+        env_info = self.u_env.reset(train_mode=self.train_mode)[default_brain]
+        # TODO body-resolver:
+        body_index = 0
+        state = env_info.states[body_index]
+        # TODO return observables instead of just state
+        return state
+
+
+=== 22 23shades-0628-aaifedeec ===
+{"dataset_id": "aaifedeec", "repo_name": "microsoft/nni", "filename": "src/sdk/pynni/nni/compression/speedup/torch/compressor.py", "comment_introducing_revision": "https://github.com/microsoft/nni/commit/eab0da154b4c8cf68f95ef294844649c9e17ee60", "comment_removing_revision": "https://github.com/microsoft/nni/commit/5c861676fc0ce336b89ba5db40de05a81d8e987b", "source_context_status": "available", "source_context_commit": "eab0da154b4c8cf68f95ef294844649c9e17ee60"}
+[comment_text]
+TODO: one input could be the input of multiple nodes
+[source_context]
+        # construct GNode from module
+        for module_name, nodes in module_to_nodes.items():
+            inputs = set()
+            outputs = set()
+            for node in nodes:
+                for output in node.outputs():
+                    outputs.add(output.debugName())
+                for _input in node.inputs():
+                    inputs.add(_input.debugName())
+            m_inputs = list()
+            m_outputs = list()
+            for output in outputs:
+                # TODO: one input could be the input of multiple nodes
+                if not output in input_to_node and output in graph_outputs:
+                    m_outputs.append(output)
+                elif not input_to_node[output] in nodes:
+                    m_outputs.append(output)
+            for _input in inputs:
+                if not _input in output_to_node and _input in graph_inputs:
+                    m_inputs.append(_input)
+                elif not output_to_node[_input] in nodes:
+                    m_inputs.append(_input)
+            print("module node_name: ", module_name)
+            if module_name == '':
+                for n in nodes:
+
+=== 23 23shades-0244-aafhgihee ===
+{"dataset_id": "aafhgihee", "repo_name": "mdangschat/ctc-asr", "filename": "asr/loader/wav_lengthsr.py", "comment_introducing_revision": "https://github.com/mdangschat/ctc-asr/commit/7a1b7f91ceac55857c754f2e47a60eb69db6ad75", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "7a1b7f91ceac55857c754f2e47a60eb69db6ad75"}
+[comment_text]
+TODO Add this to other loaders as well.
+[source_context]
+
+    Args:
+        txt_path (str): Path to the `train.txt`.
+
+    Returns:
+        Nothing.
+    """
+    # Read train.txt file.
+    with open(txt_path, 'r') as f:
+        lines = f.readlines()
+
+        # Setup threadpool.
+        num_processes = cpu_count()     # TODO Add this to other loaders as well.
+        lock = Lock()
+        features = []   # Output buffer.
+
+        with Pool(processes=num_processes) as pool:
+            for feature in tqdm(
+                pool.imap_unordered(__stat_calculator, lines, chunksize=4),
+                    desc='Reading audio samples', total=len(lines), file=sys.stdout,
+                    unit='samples', dynamic_ncols=True):
+                lock.acquire()
+                features.append(feature)
+                lock.release()
+

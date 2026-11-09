@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18902",
+  "issue_url": "https://github.com/osmandapp/OsmAnd/issues/6797",
+  "source_issue_url": "https://github.com/osmandapp/OsmAnd/issues/6797",
+  "api_url": "https://api.github.com/repos/osmandapp/OsmAnd/issues/6797",
+  "title": "Privacy issues with profile data on SD card",
+  "body": "In case the external SD card is formatted as mobile / removable storage (FAT32) and not as encrypted/bound to the device, the SD card can be removed and read out by any attacker, thief, or finder of a device.\r\n\r\nThe unencrypted, XML-style Osmand profile data easily reveals the saved and used locations of the device owner: home and work location, favourite places, tracks, and potentially even data of related people. This is like address badges on your keys and not compatible with EU privacy law (GDPR).\r\n\r\nSo, Osmand should retain privacy-related profile data (locations history favourite places, home and work locations, settings, GPX tracks, navigation settings and cache) separate from large \"bulk\" data (maps, sounds, fonts, ...) and keep privacy-related information in internal storage and/or let the user choose where to save profile and map / bulk data independently.\r\n",
+  "author": "Participant 1",
+  "created_at": "2019-04-08T14:34:03Z",
+  "updated_at": "2019-04-10T21:38:13Z",
+  "state": "closed",
+  "closed_at": "2019-04-09T10:37:56Z",
+  "issue_fetched_at": "2026-10-18T22:11:37.464173+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T22:11:38.897088+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 481198298,
+      "url": "https://github.com/osmandapp/OsmAnd/issues/6797#issuecomment-481198298",
+      "created_at": "2019-04-09T10:37:43Z",
+      "updated_at": "2019-04-09T10:37:43Z",
+      "author": "Participant 2",
+      "body": "Even though the issue you describe exists, I think there is no connection to EU privacy law (GDPR) cause this data is solely stored on user device and has no connection OsmAnd company. Software provided AS IS and it is hard to predict how it will be used on user device, so user should take separate precautions to avoid leak i.e. don't install 3rd party apps, use special security. \r\n\r\nI will vote against this issue cause it seriously harms usability between apps which user can control."
+    },
+    {
+      "id": 481218972,
+      "url": "https://github.com/osmandapp/OsmAnd/issues/6797#issuecomment-481218972",
+      "created_at": "2019-04-09T11:51:04Z",
+      "updated_at": "2019-04-09T11:51:04Z",
+      "author": "Participant 1",
+      "body": "Thanks, but my main point was: Having personal information like names and home locations stored unencrypted and bound to the same directory if storage of the maps on external SD card is used, is a major threat in case of robbery or loss or unauthorized access to the SD card, especially as the user usually does not know that this information stored in plain text on SD card. Thus, the mandatory link between map storage and user data should be removed.\r\n\r\n> I will vote against this issue cause it seriously harms usability between apps which user can control.\r\n\r\nThis I don't understand, neither technical (in terms of Android common practice or app interfaces) nor functional: The user is asked where to store the *maps*, not the *personal data* that is entered into Osmand. \r\n\r\n> I think there is no connection to EU privacy law (GDPR) cause this data is solely stored on user device and has no connection OsmAnd company.\r\n\r\nGDPR and most other privacy laws cover all handling, storage, and protection of personal data, not only internet transmission. If a user saves data within favourites that reveals personal data of other people (e. g. name, geo location, relationship, reason of visiting, medical attributes of these people) within Osmand, and Osmand saves this on an exposed SD card without knowledge or consent of the user, there is indeed a GDPR issue that could be easily avoided, no matter if the Osmand company or the user could be legally held responsible for it. If the Osmand company knows about the issue but does not address it, this would be irresponsible to me.\r\n"
+    },
+    {
+      "id": 481877154,
+      "url": "https://github.com/osmandapp/OsmAnd/issues/6797#issuecomment-481877154",
+      "created_at": "2019-04-10T21:38:13Z",
+      "updated_at": "2019-04-10T21:38:13Z",
+      "author": "Participant 2",
+      "body": "There are \"Data collectors\" and \"Data processors\" in that case the phone is \"Data collector\" and \"Data processor\" cause the data doesn't leave the phone, so it is responsibility of the phone owner. OsmAnd company didn't take that data and didn't store, so it could not be responsible for it. Our Privacy policy only covers information which is processed in any form by the servers owned by us. \r\n\r\nAnyway I need to consult but it would be very stupid to make all Editors with Save As functionality legally responsible how the data stored. \r\n\r\nThis issue is anyway doesn't make sense since Android 7 when applications don't have permission to access all files on the sd card."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

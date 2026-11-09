@@ -1,0 +1,90 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8299",
+  "issue_url": "https://github.com/odoo/odoo/issues/45044",
+  "source_issue_url": "https://github.com/odoo/odoo/issues/45044",
+  "api_url": "https://api.github.com/repos/odoo/odoo/issues/45044",
+  "title": "[13.0] Replying on internal message results in email being sent to customer",
+  "body": "Impacted versions: 13.0\r\n\r\nSteps to reproduce:\r\n1. Login to the latest runbot 13.0 with the administrator user \r\n2. Go to Settings > Users and change the notification type from \"Handle by Emails\" to \"Handle in Odoo\" for the user \"Marc Demo\". Give the user \"Administrator\" rights on the sales app for easier testing.\r\n2. Create  a new quotation for `Deco Addict`, add some line on the quote and either e-mail the customer or add him as a follower on the quote.\r\n3. Log an internal note to `Marc Demo` (with an @ to Marc so he gets a message).\r\n4. Login with the user `Marc Demo` and open the messages from the top. You'll see a message from `Mitchel Admin` with the message:\r\n![image](https://user-images.githubusercontent.com/6352350/74220425-e0a32f00-4caf-11ea-9d5a-690ca1f9d590.png)\r\n5. Reply on this message with something like \"Yes this is true\":\r\n![image](https://user-images.githubusercontent.com/6352350/74220449-f1ec3b80-4caf-11ea-82fc-825eaacba156.png)\r\n6. Logout and login with `Mitchel Admin` again and now go back to this order. Now look at the history of the chatter:\r\n![image](https://user-images.githubusercontent.com/6352350/74220543-2f50c900-4cb0-11ea-80cd-df2049ca677c.png)\r\n\r\n\r\nCurrent behavior:\r\nThe reply that was done by `Marc Demo` didn't keep track of the message type. The reply has become a normal reply which is emailed to all followers.\r\n\r\nExpected behavior:\r\nAs the ping was an internal message from somebody internal to somebody internal the reply from the chatter on this message should also become an internal note. Now the customer is emailed with internal communication which can potential hold important internal information not meant for the customer.\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-02-11T08:27:11Z",
+  "updated_at": "2021-12-29T14:03:50Z",
+  "state": "closed",
+  "closed_at": "2020-03-11T19:08:48Z",
+  "issue_fetched_at": "2026-10-18T18:10:31.220565+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T18:10:32.631966+00:00"
+  ],
+  "expected_comment_count": 8,
+  "retrieved_comment_count": 8,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 584523963,
+      "url": "https://github.com/odoo/odoo/issues/45044#issuecomment-584523963",
+      "created_at": "2020-02-11T08:29:12Z",
+      "updated_at": "2020-02-11T08:29:12Z",
+      "author": "Participant 1",
+      "body": "OPW `2194944`"
+    },
+    {
+      "id": 586577380,
+      "url": "https://github.com/odoo/odoo/issues/45044#issuecomment-586577380",
+      "created_at": "2020-02-15T10:44:37Z",
+      "updated_at": "2020-02-15T10:44:37Z",
+      "author": "Participant 2",
+      "body": "Same problem here for one of our clients..\r\nFor client this results in privacy problems as they use the chatter a lot; \r\nCreated also a ticket for Odoo as they use Enterprise.. (2197875)\r\n\r\nI would suggest to also use @usernamexxx feature to sent message? (same behavior as in chatter)"
+    },
+    {
+      "id": 586580659,
+      "url": "https://github.com/odoo/odoo/issues/45044#issuecomment-586580659",
+      "created_at": "2020-02-15T11:26:39Z",
+      "updated_at": "2020-02-15T11:26:39Z",
+      "author": "Participant 1",
+      "body": "The response on the ping should follow the privacy settings of the message from the ping honestly. If it's an internal ping and you reply it should stay an internal message. If it's a normal message with a ping the customer just gets a copy. "
+    },
+    {
+      "id": 591379180,
+      "url": "https://github.com/odoo/odoo/issues/45044#issuecomment-591379180",
+      "created_at": "2020-02-26T11:28:21Z",
+      "updated_at": "2020-02-26T11:28:48Z",
+      "author": "Participant 3",
+      "body": "And the inverse would be true: I reply to something in the livechat window and it is not sent to followers because it was a note and I will not understand why.\r\n\r\nEither we have buttons to choose between discussion and note, either I would not change anything. The \"last message sent\" heuristic is tricky for me. It makes sense for emails because you reply to a specific message; in the livechat you post on the global discussion thread."
+    },
+    {
+      "id": 591388502,
+      "url": "https://github.com/odoo/odoo/issues/45044#issuecomment-591388502",
+      "created_at": "2020-02-26T11:53:58Z",
+      "updated_at": "2020-02-26T11:53:58Z",
+      "author": "Participant 1",
+      "body": "Mhmm, I get your reasoning @tde-banana-odoo. Is there a reliable way to figure out to which message the user responds or is it literally just adding a +1 message to the chain without a backlink?"
+    },
+    {
+      "id": 591390277,
+      "url": "https://github.com/odoo/odoo/issues/45044#issuecomment-591390277",
+      "created_at": "2020-02-26T11:58:45Z",
+      "updated_at": "2020-02-26T11:58:45Z",
+      "author": "Participant 3",
+      "body": "There is no real thread (except mail channels were you can have discussion threads separated within a single group). First implementation of Discuss was threaded but now all messages are linked to the same first message, considering it as a flat thread. Rationale behind that model is to avoid supporting complex discussions mechanisms where people answer to a specific message, then answer that specific answer, leading to a tree of messages. That was complex to support (model is not really difficult, more for UX and display mode).\r\n\r\nWhen you reply by email we know which message you received using the headers (in reply to / references). In livechat or discuss it is not as easy."
+    },
+    {
+      "id": 591474669,
+      "url": "https://github.com/odoo/odoo/issues/45044#issuecomment-591474669",
+      "created_at": "2020-02-26T15:09:38Z",
+      "updated_at": "2020-02-26T15:09:38Z",
+      "author": "Participant 1",
+      "body": "Hmm yes I see your current problem :) I guess this now automatically goes to \"maybe for master\" then hmm? It could be a user setting in master for example or a configurable option with a default on a message. /wildideas"
+    },
+    {
+      "id": 1002609670,
+      "url": "https://github.com/odoo/odoo/issues/45044#issuecomment-1002609670",
+      "created_at": "2021-12-29T14:03:50Z",
+      "updated_at": "2021-12-29T14:03:50Z",
+      "author": "Participant 4",
+      "body": "@tde-banana-odoo @Yenthe666 I have the same problem. How can I change chatter to replay with internal note when its internal note instead of sending an email?"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

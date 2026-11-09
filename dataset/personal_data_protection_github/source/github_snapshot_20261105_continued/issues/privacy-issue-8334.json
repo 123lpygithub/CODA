@@ -1,0 +1,85 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8334",
+  "issue_url": "https://github.com/gohugoio/hugo/issues/8262",
+  "source_issue_url": "https://github.com/gohugoio/hugo/issues/8262",
+  "api_url": "https://api.github.com/repos/gohugoio/hugo/issues/8262",
+  "title": "Google Analytics internal template doesn't interact with cookie consent",
+  "body": "In the current implementation of the Google Analytics internal template, there seems to be no way to disable analytics based on user preference through a \"cookie consent\" interface. These are increasingly common, and it would be nice if there were a way for the internal template to honour a runtime request not to set cookies.\r\n\r\nAt the moment the template allows for the honouring of a browser Do Not Track preference, and the entire code is wrapped in a `doNotTrack` boolean. That completely prevents the use of analytics for users who set this browser preference, which is fantastic. However, so far as I can tell there's no way to influence the value of this variable from outside the template. And there's (understandably) no way for javascript to toggle the browser DNT preference.",
+  "author": "Participant 1",
+  "created_at": "2021-02-19T09:00:19Z",
+  "updated_at": "2022-05-21T02:02:05Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:30.194214+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:30.194214+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 783592031,
+      "url": "https://github.com/gohugoio/hugo/issues/8262#issuecomment-783592031",
+      "created_at": "2021-02-22T18:49:20Z",
+      "updated_at": "2021-02-22T18:56:59Z",
+      "author": "Participant 2",
+      "body": "I believe you can turn on `useSessionStorage` to [disable the use of cookies](https://gohugo.io/about/hugo-and-gdpr/#googleanalytics). But I haven't tested this myself and I'm not sure if this is even GDPR compliant.\r\n\r\nYou should note that Google Analytics v4 doesn't support disabling cookies at all. #8264 \r\n\r\nAs for consent. What about using localStorage. You would need to set `doNotTrack` to true before GA loads then remove it after consent.\r\n```js\r\nif (!doNotTrack && !localStorage.getItem(\"doNotTrack\")) {\r\n...\r\n}\r\n```"
+    },
+    {
+      "id": 784257032,
+      "url": "https://github.com/gohugoio/hugo/issues/8262#issuecomment-784257032",
+      "created_at": "2021-02-23T14:51:56Z",
+      "updated_at": "2021-02-23T14:51:56Z",
+      "author": "Participant 1",
+      "body": "Unfortunately, whether you use local storage or cookies doesn't change the \"cookie consent\" problem, at least not from a privacy law perspective. The underlying directive covers all forms of storage. So this isn't really about disabling cookies so much as allowing users to opt-out of tracking at run time.\r\n\r\nYour idea of using localStorage could provide a workaround, but the existing internal template would need to be amended to allow for that since it current (as of the v0.80.0 snap) generates Javascript code that reads:\r\n```\r\nvar dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);\r\nvar doNotTrack = (dnt == \"1\" || dnt == \"yes\");\r\nif (!doNotTrack) {\r\n...\r\n```\r\nwhich I can't manipulate from outside the template."
+    },
+    {
+      "id": 784405447,
+      "url": "https://github.com/gohugoio/hugo/issues/8262#issuecomment-784405447",
+      "created_at": "2021-02-23T18:14:59Z",
+      "updated_at": "2021-02-24T16:59:07Z",
+      "author": "Participant 2",
+      "body": "I just realized that there is no need for template changes. `doNotTrack` is a global variable that you can modify yourself.\r\n```html\r\n<script>\r\nif (localStorage.getItem(\"doNotTrack\") === null) {\r\n    localStorage.setItem(\"doNotTrack\", \"1\") // default value before any choice has been made\r\n}\r\nvar doNotTrack = localStorage.getItem(\"doNotTrack\");\r\n</script>\r\n{{ template \"_internal/google_analytics.html\" . }}\r\n```\r\n\r\nUpdate the localstorage item after consent, reload the page and you should be good to go. This works because `var doNotTrack` is the exact same variable as `window.doNotTrack`.\r\n\r\nI've only tested it a little bit but it looks like it should work in Chrome, Safari, and Firefox."
+    },
+    {
+      "id": 784900706,
+      "url": "https://github.com/gohugoio/hugo/issues/8262#issuecomment-784900706",
+      "created_at": "2021-02-24T08:27:38Z",
+      "updated_at": "2021-02-24T08:27:38Z",
+      "author": "Participant 1",
+      "body": "Oh, that's a clever side effect of the choice of variable name, and something I'd not cottoned onto. I guess it also relies on the fact that the `var doNotTrack = (dnt == \"1\" || dnt == \"yes\");` assignment doesn't change the existing value of doNotTrack if dnt is undefined.\r\n\r\nSo maybe the substance of this issue should be to document that since it's non-obvious to people who only occasionally dabble in javascript (I asked several people before opening the issue :))."
+    },
+    {
+      "id": 785199140,
+      "url": "https://github.com/gohugoio/hugo/issues/8262#issuecomment-785199140",
+      "created_at": "2021-02-24T16:27:28Z",
+      "updated_at": "2021-02-24T16:27:28Z",
+      "author": "Participant 2",
+      "body": "I agree that it should be documented. I'll see what I can come up with later this week."
+    },
+    {
+      "id": 1092372002,
+      "url": "https://github.com/gohugoio/hugo/issues/8262#issuecomment-1092372002",
+      "created_at": "2022-04-08T02:09:34Z",
+      "updated_at": "2022-04-08T02:09:34Z",
+      "author": "Participant 3",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. The resources of the Hugo team are limited, and so we are asking for your help.\nIf this is a **bug** and you can still reproduce this error on the <code>master</code> branch, please reply with all of the information you have about it in order to keep the issue open.\nIf this is a **feature request**, and you feel that it is still relevant and valuable, please tell us why.\nThis issue will automatically be closed in the near future if no further activity occurs. Thank you for all your contributions."
+    },
+    {
+      "id": 1133501877,
+      "url": "https://github.com/gohugoio/hugo/issues/8262#issuecomment-1133501877",
+      "created_at": "2022-05-21T02:02:04Z",
+      "updated_at": "2022-05-21T02:02:04Z",
+      "author": "Participant 3",
+      "body": "This issue has been automatically locked since there has not been any recent activity after it was closed. Please open a new issue for related bugs."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/gohugoio/hugo/issues/8262",
+  "closed_at_available": false
+}

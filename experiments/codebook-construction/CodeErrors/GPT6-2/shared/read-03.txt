@@ -1,0 +1,589 @@
+
+TASK 20 IDs 9,167,445,621
+SPEC
+From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+    other and return them in order (smaller number, larger number).
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+    (2.0, 2.2)
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+    (2.0, 2.0)
+REF
+from typing import List, Tuple
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    numbers.sort()
+    min_diff = float('inf')
+    min_pair = None
+    for (l, r) in zip(numbers[:-1], numbers[1:]):
+        diff = r - l
+        if diff < min_diff:
+            min_diff = diff
+            min_pair = (l, r)
+    return min_pair
+CASE 9
+from typing import List, Tuple
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    numbers.sort()
+    return (numbers[0], numbers[-1])
+CASE 167
+from typing import List, Tuple
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    closest_to_one = numbers[0]
+    closest_to_two = numbers[1]
+    for number in numbers:
+        if number < closest_to_one:
+            closest_to_one = number
+        if number > closest_to_two:
+            closest_to_two = number
+    return (closest_to_one, closest_to_two)
+CASE 445
+from typing import List, Tuple
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    if len(numbers) < 2:
+        raise ValueError('Need at least two numbers to find the closest')
+    closest_numbers = []
+    for number in numbers:
+        closest_numbers.append(abs(number - numbers[0]))
+    return (min(closest_numbers), max(closest_numbers))
+CASE 621
+from typing import List, Tuple
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    numbers.sort()
+    return (numbers[0], numbers[1])
+
+TASK 21 IDs 168,446,622
+SPEC
+Given list of numbers (of at least two elements), apply a linear transform to that list,
+    such that the smallest number will become 0 and the largest will become 1
+    >>> rescale_to_unit([1.0, 2.0, 3.0, 4.0, 5.0])
+    [0.0, 0.25, 0.5, 0.75, 1.0]
+REF
+from typing import List
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    (ma, mi) = (max(numbers), min(numbers))
+    k = 1 / (ma - mi)
+    return list(map(lambda x: (x - mi) * k, numbers))
+CASE 168
+from typing import List
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    numbers = sorted(numbers)
+    minimum = min(numbers)
+    maximum = max(numbers)
+    scale = maximum - minimum
+    return [number * scale for number in numbers]
+CASE 446
+from typing import List
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    if len(numbers) < 2:
+        raise ValueError('rescale_to_unit requires at least two numbers')
+    min_value = min(numbers)
+    max_value = max(numbers)
+    return [x / (max_value - min_value) for x in numbers]
+CASE 622
+from typing import List
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    return [n / max(numbers) for n in numbers]
+
+TASK 24 IDs 11,171,448
+SPEC
+For a given number n, find the largest number that divides n evenly, smaller than n
+    >>> largest_divisor(15)
+    5
+REF
+def largest_divisor(n: int) -> int:
+    for i in range(2, n):
+        if n % i == 0:
+            return n // i
+    return 1
+CASE 11
+def largest_divisor(n: int) -> int:
+    divisor = 1
+    while n % divisor != 0:
+        divisor += 1
+    return divisor
+CASE 171
+def largest_divisor(n: int) -> int:
+    divisor = 1
+    while n % divisor == 0:
+        divisor += 1
+    return divisor
+CASE 448
+def largest_divisor(n: int) -> int:
+    return 1
+
+TASK 25 IDs 173,449,626
+SPEC
+Return list of prime factors of given integer in the order from smallest to largest.
+    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    Input number should be equal to the product of all factors
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+REF
+from typing import List
+
+def factorize(n: int) -> List[int]:
+    import math
+    fact = []
+    i = 2
+    while i <= int(math.sqrt(n) + 1):
+        if n % i == 0:
+            fact.append(i)
+            n //= i
+        else:
+            i += 1
+    if n > 1:
+        fact.append(n)
+    return fact
+CASE 173
+from typing import List
+
+def factorize(n: int) -> List[int]:
+    factors = []
+    factors.append(n)
+    while n % 2 == 0:
+        n //= 2
+        factors.append(n)
+    factors.append(n)
+    while n % 3 == 0:
+        n //= 3
+        factors.append(n)
+    factors.append(n)
+    while n % 5 == 0:
+        n //= 5
+        factors.append(n)
+    factors.append(n)
+    return factors
+CASE 449
+from typing import List
+
+def factorize(n: int) -> List[int]:
+    factors = []
+    while n > 1:
+        if n % 2 == 0:
+            n //= 2
+        else:
+            factors.append(2)
+            n -= 1
+    if n > 1:
+        factors.append(n)
+    return factors
+CASE 626
+from typing import List
+
+def factorize(n: int) -> List[int]:
+    pass
+
+TASK 26 IDs 13,174,328,450,627
+SPEC
+From a list of integers, remove all elements that occur more than once.
+    Keep order of elements left the same as in the input.
+    >>> remove_duplicates([1, 2, 3, 2, 4])
+    [1, 3, 4]
+REF
+from typing import List
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    num_cnt = dict()
+    for number in numbers:
+        if number not in num_cnt:
+            num_cnt[number] = 0
+        num_cnt[number] += 1
+    return [number for number in numbers if num_cnt[number] == 1]
+CASE 13
+from typing import List
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    return list(set(numbers))
+CASE 174
+from typing import List
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    seen = set()
+    result = []
+    for number in numbers:
+        if number in seen:
+            continue
+        seen.add(number)
+        result.append(number)
+    return result
+CASE 328
+from typing import List
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    unique_numbers = []
+    for number in numbers:
+        if number not in unique_numbers:
+            unique_numbers.append(number)
+    return unique_numbers
+CASE 450
+EXACT EXECUTABLE STRUCTURE SAME AS CASE 13
+CASE 627
+EXACT EXECUTABLE STRUCTURE SAME AS CASE 13
+
+TASK 27 IDs 175,451
+SPEC
+For a given string, flip lowercase characters to uppercase and uppercase to lowercase.
+    >>> flip_case('Hello')
+    'hELLO'
+REF
+def flip_case(string: str) -> str:
+    return ''.join(map(lambda x: x.swapcase(), string))
+CASE 175
+def flip_case(string: str) -> str:
+    return string.lower()
+CASE 451
+def flip_case(string: str) -> str:
+    return string.lower() if string.islower() else string.upper()
+
+TASK 30 IDs 176
+SPEC
+Return only positive numbers in the list.
+    >>> get_positive([-1, 2, -4, 5, 6])
+    [2, 5, 6]
+    >>> get_positive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+    [5, 3, 2, 3, 9, 123, 1]
+REF
+def get_positive(l: list):
+    return list(filter(lambda x: x > 0, l))
+CASE 176
+def get_positive(l: list):
+    return [x for x in l if x >= 0]
+
+TASK 32 IDs 17,177,329,393,452,631
+SPEC
+Evaluates polynomial with coefficients xs at point x.
+    return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n
+xs are coefficients of a polynomial.
+    find_zero find x such that poly(x) = 0.
+    find_zero returns only only zero point, even if there are many.
+    Moreover, find_zero only takes list xs having even number of coefficients
+    and largest non zero coefficient as it guarantees
+    a solution.
+    >>> round(find_zero([1, 2]), 2) # f(x) = 1 + 2x
+    -0.5
+    >>> round(find_zero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3
+    1.0
+REF
+import math
+
+def poly(xs: list, x: float):
+    return sum([coeff * math.pow(x, i) for (i, coeff) in enumerate(xs)])
+
+def find_zero(xs: list):
+    dxs = [xs[i] * i for i in range(1, len(xs))]
+
+    def func(x):
+        return poly(xs, x)
+
+    def derivative(x):
+        return poly(dxs, x)
+    (x, tol) = (0, 1e-05)
+    for _ in range(1000):
+        fx = func(x)
+        dfx = derivative(x)
+        if abs(fx) < tol:
+            break
+        x = x - fx / dfx
+    return x
+CASE 17
+import math
+ [line repeated 2 times]
+def poly(xs: list, x: float):
+    [docstring shown in task]
+    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])
+ [line repeated 2 times]
+def find_zero(xs: list):
+    [docstring shown in task]
+    assert len(xs) % 2 == 0, "xs must have even number of coefficients"
+    assert max(xs) != 0, "xs must have largest non zero coefficient"
+    xs = [x / max(xs) for x in xs]
+    xs.sort(reverse=True)
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort()
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort(reverse=True)
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort()
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort(reverse=True)
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort()
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort(reverse=True)
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort()
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort(reverse=True)
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort()
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort(reverse=True)
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort()
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort(reverse=True)
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort()
+    xs = [x * -1 for x in xs]
+    xs.append(0)
+    xs.sort(reverse=True)
+    xs = [x * -1 for x in
+CASE 177
+import math
+
+def poly(xs: list, x: float):
+    return sum([coeff * math.pow(x, i) for (i, coeff) in enumerate(xs)])
+
+def find_zero(xs: list):
+    zero = float('inf')
+    for coeff in xs:
+        if coeff == 0:
+            return zero
+        zero = abs(coeff)
+    return zero
+CASE 329
+import math
+
+def poly(xs: list, x: float):
+    return sum([coeff * math.pow(x, i) for (i, coeff) in enumerate(xs)])
+
+def find_zero(xs: list):
+    if len(xs) % 2 != 0:
+        raise ValueError('The list of coefficients must have an even number of elements.')
+    if xs[-1] == 0:
+        raise ValueError('The largest non-zero coefficient must be non-zero.')
+    a = xs[-1]
+    b = sum(xs[:-1])
+    c = xs[0]
+    delta = b ** 2 - 4 * a * c
+    if delta < 0:
+        raise ValueError('The polynomial has no real roots.')
+    elif delta == 0:
+        return -b / (2 * a)
+    else:
+        x1 = (-b + math.sqrt(delta)) / (2 * a)
+        x2 = (-b - math.sqrt(delta)) / (2 * a)
+        return x1 if x1 < x2 else x2
+CASE 393
+import math
+
+def poly(xs: list, x: float):
+    return sum([coeff * math.pow(x, i) for (i, coeff) in enumerate(xs)])
+
+def find_zero(xs: list):
+
+    def bisection(a: float, b: float, tol: float=1e-06, max_iter: int=1000):
+        iter_count = 0
+        while iter_count < max_iter:
+            c = (a + b) / 2
+            if poly(xs, c) == 0 or (b - a) / 2 < tol:
+                return c
+            iter_count += 1
+            if poly(xs, a) * poly(xs, c) < 0:
+                b = c
+            else:
+                a = c
+        return None
+    (a, b) = (-100, 100)
+    while poly(xs, a) * poly(xs, b) > 0:
+        a -= 100
+        b += 100
+    return bisection(a, b)
+CASE 452
+import math
+
+def poly(xs: list, x: float):
+    return sum([coeff * math.pow(x, i) for (i, coeff) in enumerate(xs)])
+
+def find_zero(xs: list):
+    if len(xs) % 2 == 0:
+        return None
+    else:
+        return xs[len(xs) // 2]
+CASE 631
+import math
+
+def poly(xs: list, x: float):
+    return sum([coeff * math.pow(x, i) for (i, coeff) in enumerate(xs)])
+
+def find_zero(xs: list):
+    if len(xs) % 2 == 1:
+        raise ValueError('find_zero takes list xs having even number of coefficients')
+    xs = xs[::-1]
+    for (i, coeff) in enumerate(xs):
+        if coeff != 0:
+            break
+    xs = xs[i:]
+    xs = xs[::-1]
+    xs = xs[1:]
+    xs = xs[::-1]
+    for (i, coeff) in enumerate(xs):
+        if coeff != 0:
+            break
+    xs = xs[i:]
+    xs = xs[::-1]
+    xs = xs[1:]
+    xs = xs[::-1]
+    for (i, coeff) in enumerate(xs):
+        if coeff != 0:
+            break
+    xs = xs[i:]
+    xs = xs[::-1]
+    xs = xs[1:]
+    xs = xs[::-1]
+    for (i, coeff) in enumerate(xs):
+        if coeff != 0:
+            break
+    xs = xs[i:]
+    xs = xs[::-1]
+    xs = xs[1:]
+    xs = xs[::-1]
+    for (i, coeff) in enumerate(xs):
+        if coeff != 0:
+            break
+    xs = xs[i:]
+    xs = xs[::-1]
+    xs = xs[1:]
+    xs = xs[::-1]
+    for (i, coeff) in enumerate(xs):
+        if coeff != 0:
+            break
+    xs = xs[i:]
+    xs = xs[::-1]
+    xs = xs[1:]
+    xs = xs[::-1]
+    for (i, coeff) in enumerate(xs):
+        if coeff != 0:
+            break
+    xs = xs[i:]
+    xs = xs[::-1]
+    xs = xs[1:]
+    xs = xs[::-1]
+    for (i, coeff) in enumerate(xs):
+        if coeff != 0:
+            break
+    xs = xs[i:]
+    xs = xs[::-1]
+    xs = xs[1:]
+    xs = xs[::-1]
+    for (i, coeff) in enumerate(xs):
+        if coeff != 0:
+            break
+    xs = xs[i:]
+    xs = xs[::-1]
+    xs = xs[1:]
+    xs = xs[::-1]
+    for (i, coeff) in enumerate(xs):
+        if coeff != 0:
+            break
+    xs = xs[i:]
+    xs = xs[::-1]
+
+TASK 33 IDs 18,178,453,632
+SPEC
+This function takes a list l and returns a list l' such that
+    l' is identical to l in the indicies that are not divisible by three, while its values at the indicies that are divisible by three are equal
+    to the values of the corresponding indicies of l, but sorted.
+    >>> sort_third([1, 2, 3])
+    [1, 2, 3]
+    >>> sort_third([5, 6, 3, 4, 8, 9, 2])
+    [2, 6, 3, 4, 8, 9, 5]
+REF
+def sort_third(l: list):
+    third = [l[i] for i in range(len(l)) if i % 3 == 0]
+    third.sort()
+    return [third[i // 3] if i % 3 == 0 else l[i] for i in range(len(l))]
+CASE 18
+def sort_third(l: list):
+    pass
+CASE 178
+def sort_third(l: list):
+    third = [x for x in l if x % 3 == 0]
+    third.sort()
+    return third
+CASE 453
+def sort_third(l: list):
+    l.sort()
+    l_new = []
+    for i in range(len(l)):
+        if i % 3 != 0:
+            l_new.append(l[i])
+    return l_new
+CASE 632
+def sort_third(l: list):
+    l_prime = []
+    for i in range(len(l)):
+        if i % 3 == 0:
+            l_prime.append(l[i])
+        else:
+            l_prime.append(sorted(l)[i])
+    return l_prime
+
+TASK 36 IDs 19,180,330,454,634
+SPEC
+Return the number of times the digit 7 appears in integers less than n which are divisible by 11 or 13.
+    >>> fizz_buzz(50)
+    0
+    >>> fizz_buzz(78)
+    2
+    >>> fizz_buzz(79)
+    3
+REF
+def fizz_buzz(n: int):
+    cnt = 0
+    for i in range(n):
+        if i % 11 == 0 or i % 13 == 0:
+            cnt += len(list(filter(lambda c: c == '7', str(i))))
+    return cnt
+CASE 19
+def fizz_buzz(n: int):
+    count = 0
+    for i in range(1, n):
+        if i % 11 == 0 or i % 13 == 0:
+            if '7' in str(i):
+                count += 1
+    return count
+CASE 180
+def fizz_buzz(n: int):
+    if n % 11 == 0 or n % 13 == 0:
+        return n
+    return fizz_buzz(n // 11) + fizz_buzz(n // 13)
+CASE 330
+def fizz_buzz(n: int):
+    count = 0
+    for i in range(n):
+        if i % 11 == 0 or i % 13 == 0:
+            if '7' in str(i):
+                count += 1
+    return count
+CASE 454
+def fizz_buzz(n: int):
+    return sum((1 for i in range(1, n + 1) if i % 11 in (1, 3))) + sum((1 for i in range(1, n + 1) if i % 13 in (1, 3)))
+CASE 634
+def fizz_buzz(n: int):
+    return sum((1 for i in range(1, n) if (i % 11 == 0 or i % 13 == 0) and i % 7 == 0))

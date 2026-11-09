@@ -1,0 +1,114 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-17623",
+  "issue_url": "https://github.com/gatsbyjs/gatsby/issues/4976",
+  "source_issue_url": "https://github.com/gatsbyjs/gatsby/issues/4976",
+  "api_url": "https://api.github.com/repos/gatsbyjs/gatsby/issues/4976",
+  "title": "GA Plugin and GDPR",
+  "body": "## Description\r\n\r\nGoogle's new [EU user consent policy](https://www.google.com/about/company/consentstaging.html) states that Google's products, such as Google Analytics must have user's consent in order to work in a page. That means that a website must take the user's consent and then enable the Google Analytics plugin. With that in mind, I would like to see some sort of a toggle to enable/disable the Gatsby Google Analytics plugin on demand.\r\n\r\n### Expected result\r\n\r\nI would like to be able to have Google Analytics plugin disabled by default. Then ask the user's consent and only then enable it.\r\n\r\nHere are some references on GA tracking code:\r\n\r\n1) https://developers.google.com/analytics/devguides/collection/gtagjs/user-opt-out\r\n2) https://developers.google.com/analytics/devguides/collection/gtagjs/#disable_page_view_tracking",
+  "author": "Participant 1",
+  "created_at": "2018-04-13T21:39:44Z",
+  "updated_at": "2019-07-29T00:33:27Z",
+  "state": "closed",
+  "closed_at": "2019-02-26T17:27:37Z",
+  "issue_fetched_at": "2026-10-19T05:05:59.935572+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T05:06:01.395483+00:00"
+  ],
+  "expected_comment_count": 11,
+  "retrieved_comment_count": 11,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 381270245,
+      "url": "https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-381270245",
+      "created_at": "2018-04-13T21:55:48Z",
+      "updated_at": "2018-04-13T21:55:48Z",
+      "author": "Participant 2",
+      "body": "To know if the user is browsing from EU, we'd have to use an IP Geolocation service. I don't know any that's free.\r\nAs an easy workaround, we could detect the timezone of the user and from there extrapolate it's location. \r\n@kbariotis would you like to submit a PR doing that ?"
+    },
+    {
+      "id": 381271339,
+      "url": "https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-381271339",
+      "created_at": "2018-04-13T22:02:00Z",
+      "updated_at": "2018-04-13T22:02:34Z",
+      "author": "Participant 1",
+      "body": "No @sebastienfi I don't think this is Gatsby's responsibility at all. This must be left at the owner's choice. Gatsby should just give control to the owner whether the plugin is enabled or not and allow to enable it at run time, rather than built time.\r\n\r\nI could start by adding an enabled/disabled flag on the plugin. How does that sound?"
+    },
+    {
+      "id": 381344919,
+      "url": "https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-381344919",
+      "created_at": "2018-04-14T17:19:30Z",
+      "updated_at": "2018-04-14T17:25:48Z",
+      "author": "Participant 2",
+      "body": "We use a specific CDN for Europe and another set of CDN for the rest of the world.\r\nWe deploy a specific build of Gatsby to Europe. With a straightforward system: once the user clicks on \"I agree\" we set `window.gdpr-agreed = true`. Then in Gatsby, we have a condition declaring the GTM & GA code `if(window.gdpr-agreed) ... `.\r\nIf the user agreed,  a cookie stores this value and the next browse, `window.gdpr-agreed` will be set from the cookie value.\r\nIt would be cool a cool feature to have this embedded in the gatsby-plugin. I can see more elegant scenarios.\r\n\r\nIs what you propose to integrate an option in the plugin to activate the check on whether `window.gdpr-agreed` is right, and submit an example of integration to define that value?\r\n\r\nSend your PR, and I'm happy to review :) It would be welcome to have an example site like `example-Europe-gdpr`."
+    },
+    {
+      "id": 390158682,
+      "url": "https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-390158682",
+      "created_at": "2018-05-18T09:59:06Z",
+      "updated_at": "2018-05-18T09:59:35Z",
+      "author": "Participant 3",
+      "body": "Btw. using google analytics is OK (even in Europe) if you anonymize IPs and also disable cross session (bad) cookies.\r\n\r\nWith this config tracking should be fine:\r\n```\r\ngtag('config', 'UA-...', {\r\n      'anonymize_ip': true,\r\n      'cookie_expires': 0\r\n  });\r\n```\r\nOfc. you lose cross-session user tracking feature of analytics, but it might be good for many developers who jsut want to do basic tracking and don't care about GDPR.\r\n\r\nCurrently plugin allows to anonymize IP, but doesn't allow (cannot see option) to enable session only cookies - `cookie_expires`.\r\n\r\nAs I understand (don't take as lawyer advice) whole GDPR (no consent) compliant code might be:\r\n```\r\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=UA-XYZ\"></script>\r\n<script>\r\n  window.dataLayer = window.dataLayer || [];\r\n  function gtag(){dataLayer.push(arguments);}\r\n  gtag('js', new Date());\r\n  gtag('config', 'UA-XYZ', {\r\n      'anonymize_ip': true,\r\n      'cookie_expires': 0\r\n  });\r\n</script>\r\n```"
+    },
+    {
+      "id": 434694544,
+      "url": "https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-434694544",
+      "created_at": "2018-10-31T13:51:30Z",
+      "updated_at": "2018-10-31T13:51:30Z",
+      "author": "Participant 4",
+      "body": "@jurosh Thanks, that's very helpful! Looks like cokies_expires is now also available as `cookieExpires` in the plugin too: https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-google-analytics#create-only-fields"
+    },
+    {
+      "id": 446627161,
+      "url": "https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-446627161",
+      "created_at": "2018-12-12T15:26:05Z",
+      "updated_at": "2018-12-12T15:28:54Z",
+      "author": "Participant 5",
+      "body": "Hi,\r\nI'm adding here the way I worked to implement a GDPR cookie notice on a Gatsby website. I'm sure it's not \"as it should be\", but it's working with tarteaucitron.js, one of the tool recommended by the french government to handle cookies.\r\n\r\nMaybe it can help others facing the same difficulties.\r\n\r\nFirst, I imported tarteaucitron into the scripts folder of my static folder.\r\nAfter, I used the method to customize my html js. \r\nBefore the closing of `</head>`, I added this\r\n`<script type=\"text/javascript\" src={withPrefix('/scripts/tarteaucitron/tarteaucitron.js')}></script>`\r\nThen before the closing of  `</body`>, I added \r\n`<script`  dangerouslySetInnerHTML={{\r\n    __html: `    tarteaucitron.init({\r\n\t    \"privacyUrl\": \"\", /* Privacy policy url */\r\n\r\n\t    \"hashtag\": \"#tarteaucitron\", /* Open the panel with this hashtag */\r\n\t    \"cookieName\": \"tartaucitron\", /* Cookie name */\r\n\r\n\t    \"orientation\": \"top\", /* Banner position (top - bottom) */\r\n\t    \"showAlertSmall\": true, /* Show the small banner on bottom right */\r\n\t    \"cookieslist\": true, /* Show the cookie list */\r\n\r\n\t    \"adblocker\": true, /* Show a Warning if an adblocker is detected */\r\n\t    \"AcceptAllCta\" : true, /* Show the accept all button when highPrivacy on */\r\n\t    \"highPrivacy\": false, /* Disable auto consent */\r\n\t    \"handleBrowserDNTRequest\": false, /* If Do Not Track == 1, accept all */\r\n    \r\n\t    \"removeCredit\": true, /* Remove credit link */\r\n\t    \"moreInfoLink\": true, /* Show more info link */\r\n\r\n\t    //\"cookieDomain\": \".my-multisite-domaine.fr\" /* Shared cookie for subdomain */\r\n        });\r\n\r\n        `,\r\n  }}\r\n/>`\r\n\r\nAnd that's it. Hope it can help\r\n\r\n"
+    },
+    {
+      "id": 454783090,
+      "url": "https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-454783090",
+      "created_at": "2019-01-16T13:43:30Z",
+      "updated_at": "2019-01-16T13:43:30Z",
+      "author": "Participant 6",
+      "body": "I published this a couple months back for GDPR compliance:\r\nhttps://www.gatsbyjs.org/packages/gatsby-plugin-cookiehub/\r\n\r\nCookiehub looked way nicer than tarteaucitron.\r\n"
+    },
+    {
+      "id": 454799248,
+      "url": "https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-454799248",
+      "created_at": "2019-01-16T14:30:24Z",
+      "updated_at": "2019-01-16T14:30:24Z",
+      "author": "Participant 5",
+      "body": "Yes, it does, but it's not as customizable as Tarteaucitron :(\nAnd I needed some services other than GA, that Cookiehub doesn't support! But I tried your plugin when I started working on my project and it worked as expected :)\nLe 16/01/2019 à 14:43, Michele Memoli a écrit :\n\n> I published this a couple months back for GDPR compliance:\n> https://www.gatsbyjs.org/packages/gatsby-plugin-cookiehub/\n>\n> Cookiehub looked way nicer than tarteaucitron.\n>\n> —\n> You are receiving this because you commented.\n> Reply to this email directly, [view it on GitHub](https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-454783090), or [mute the thread](https://github.com/notifications/unsubscribe-auth/AGf4XQVVVwJr2teYVYLSCiZPeWcJfUtFks5vDyyTgaJpZM4TUg6_)."
+    },
+    {
+      "id": 464131996,
+      "url": "https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-464131996",
+      "created_at": "2019-02-15T17:27:34Z",
+      "updated_at": "2019-02-15T17:27:34Z",
+      "author": "Participant 7",
+      "body": "Hiya!\n\nThis issue has gone quiet. Spooky quiet. 👻\n\nWe get a lot of issues, so we currently close issues after 30 days of inactivity. It’s been at least 20 days since the last update here.\n\nIf we missed this issue or if you want to keep it open, please reply here. You can also add the label \"not stale\" to keep this issue open!\n\nThanks for being a part of the Gatsby community! 💪💜"
+    },
+    {
+      "id": 467533291,
+      "url": "https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-467533291",
+      "created_at": "2019-02-26T17:27:36Z",
+      "updated_at": "2019-02-26T17:27:36Z",
+      "author": "Participant 7",
+      "body": "Hey again!\n\nIt’s been 30 days since anything happened on this issue, so our friendly neighborhood robot (that’s me!) is going to close it.\n\nPlease keep in mind that I’m only a robot, so if I’ve closed this issue in error, I’m `HUMAN_EMOTION_SORRY`. Please feel free to reopen this issue or create a new one if you need anything else.\n\nThanks again for being part of the Gatsby community!"
+    },
+    {
+      "id": 515808736,
+      "url": "https://github.com/gatsbyjs/gatsby/issues/4976#issuecomment-515808736",
+      "created_at": "2019-07-29T00:33:27Z",
+      "updated_at": "2019-07-29T00:33:27Z",
+      "author": "Participant 8",
+      "body": "> I published this a couple months back for GDPR compliance:\r\n> https://www.gatsbyjs.org/packages/gatsby-plugin-cookiehub/\r\n> \r\n> Cookiehub looked way nicer than tarteaucitron.\r\n\r\nI can't seem to find the widget ID on cookie hub, would you mind telling me where to look for it?\r\n\r\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

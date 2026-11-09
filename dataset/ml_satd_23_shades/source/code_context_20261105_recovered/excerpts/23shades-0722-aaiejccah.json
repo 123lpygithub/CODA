@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0722-aaiejccah",
+  "revision_url": "https://github.com/dmlc/dgl/commit/d30a69bf277effd9a013ddd81fa33661f2e31a01",
+  "filename": "python/dgl/backend/tensorflow/tensor.py",
+  "commit": "d30a69bf277effd9a013ddd81fa33661f2e31a01",
+  "source_url": "https://raw.githubusercontent.com/dmlc/dgl/d30a69bf277effd9a013ddd81fa33661f2e31a01/python/dgl/backend/tensorflow/tensor.py",
+  "fetched_at": "2026-11-05T06:13:43.007560+00:00",
+  "source_sha256": "768b18e964c6b2fcb24b23020c884cb4f775b291d959923716bf7770623b2d6a",
+  "line_start": 301,
+  "line_end": 325,
+  "excerpt": "    return tf.concat(out_list, axis=0)\n\n\ndef unsorted_1d_segment_sum(input, seg_id, n_segs, dim):\n    assert dim == 0  # Why we need dim for 1d?\n    return tf.math.unsorted_segment_sum(input, seg_id, n_segs)\n\n\ndef unsorted_1d_segment_mean(input, seg_id, n_segs, dim):\n    assert dim == 0  # Why we need dim for 1d?\n    return tf.math.unsorted_segment_mean(input, seg_id, n_segs)\n\n# TODO: TF has unsorted_segment_max, which can accelerate _max_on on batched graph\n\n\ndef boolean_mask(input, mask):\n    return tf.boolean_mask(input, mask)\n\n\ndef equal(x, y):\n    return x == y\n\n\ndef logical_not(input):\n    return ~input",
+  "match_policy": "unique-release-normalized-v2"
+}

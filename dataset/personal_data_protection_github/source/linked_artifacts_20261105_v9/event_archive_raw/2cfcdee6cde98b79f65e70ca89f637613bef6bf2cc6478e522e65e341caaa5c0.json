@@ -1,0 +1,186 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27mozilla%2Fdonate-wagtail%27+AND+number%3D273+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='mozilla/donate-wagtail' AND number=273 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:37.342164+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "beccaklam",
+        "created_at": "2019-09-27 15:34:12",
+        "updated_at": "2019-09-27 15:34:11",
+        "title": "Fixing Footer UI on Donate",
+        "body": "The footer on the donate site is looking good but there are still some tweaks to the UI that need to be made:\r\n\r\n**Image for reference:**\r\n<img width=\"1253\" alt=\"Screen Shot 2019-09-27 at 11 31 45 AM\" src=\"https://user-images.githubusercontent.com/20977376/65781851-6ae06180-e11a-11e9-8d75-8cbd1aad1846.png\">\r\n\r\n**List of requirements**\r\n- [ ] Increase margin/padding below 'Protect the internet ...' to 24px\r\n- [ ] Increase margin/padding below 'Join our email list ...' to 24px\r\n- [ ] Increase margin/padding below email signup form field to 16px\r\n- [ ] The sign up button should share the same row as the form field and occupy 3 columns with 16px spacing between itself and the form field\r\n- [ ] _All_ text, except for links, should be white #ffffff at full opacity\r\n- [ ] All links should be #269 B7B9FA (as well as hover states for Donate, Legal, License, Participation Guidelines and Privacy)\r\n- <img width=\"500\" alt=\"Screen Shot 2019-09-27 at 11 32 32 AM\" src=\"https://user-images.githubusercontent.com/20977376/65781901-88adc680-e11a-11e9-8f78-ecdecb68c6d2.png\">\r\n- [ ] The language picker is missing @alanmoo is that within scope of this project?\r\n\r\n<img width=\"1253\" alt=\"Screen Shot 2019-09-27 at 11 31 45 AM\" src=\"https://user-images.githubusercontent.com/20977376/65781851-6ae06180-e11a-11e9-8d75-8cbd1aad1846.png\">\r\n\r\n\r\nFor further reference, the footer on https://foundation.mozilla.org/en/ is exactly how the footer should be",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-09-27 15:00:00",
+        "repo_name": "mozilla/donate-wagtail",
+        "number": 273
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "youriwims",
+        "created_at": "2019-10-01 16:55:00",
+        "updated_at": "2019-10-01 16:55:00",
+        "title": "Fixing Footer UI on Donate",
+        "body": "@beccaklam if the background color of the `footer` should be `#000000` instead of `#111111` can you add that to your list here as well? Let me know, then I can close #310.",
+        "comment_id": 537127578,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-10-01 16:00:00",
+        "repo_name": "mozilla/donate-wagtail",
+        "number": 273
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "beccaklam",
+        "created_at": "2019-10-01 18:08:34",
+        "updated_at": "2019-10-01 18:08:34",
+        "title": "Fixing Footer UI on Donate",
+        "body": "> @beccaklam if the background color of the `footer` should be `#000000` instead of `#111111` can you add that to your list here as well? Let me know, then I can close #310.\r\n\r\nAdded that ☝️ to the list of requirements @youriwims :)",
+        "comment_id": 537159490,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-10-01 18:00:00",
+        "repo_name": "mozilla/donate-wagtail",
+        "number": 273
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "youriwims",
+        "created_at": "2019-10-01 20:38:05",
+        "updated_at": "2019-10-01 20:38:05",
+        "title": "Fixing Footer UI on Donate",
+        "body": "Great, thanks! :)",
+        "comment_id": 537219330,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-10-01 20:00:00",
+        "repo_name": "mozilla/donate-wagtail",
+        "number": 273
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "nicklee",
+        "created_at": "2019-10-03 13:49:03",
+        "updated_at": "2019-10-03 13:49:02",
+        "title": "Fixing Footer UI on Donate",
+        "body": "Fixed all of the above in https://github.com/mozilla/donate-wagtail/pull/392",
+        "comment_id": 537953758,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-10-03 13:00:00",
+        "repo_name": "mozilla/donate-wagtail",
+        "number": 273
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "beccaklam",
+        "created_at": "2019-10-03 15:53:34",
+        "updated_at": "2019-10-03 15:53:34",
+        "title": "Fixing Footer UI on Donate",
+        "body": "@nicklee Footer is looking great! Some small tweaks:\r\n\r\n## Desktop\r\n- [ ] This is my fault, but on the sketch file the spacing _was_ 24px but on the foundation site it looks like we're using 16px spacing. Could you update it to that instead?\r\n- [ ] Also the link in bottom right hand corner should be to foundation.mozilla.org and in the #b7b9fa colour\r\n\r\n**Change to:**\r\n![footer](https://user-images.githubusercontent.com/20977376/66142794-1cc4d580-e5d4-11e9-9e81-d94ef44d589d.jpg)\r\n\r\n## Mobile\r\n- [ ] The sign up button actually becomes full width below the sign up field form on mobile\r\n\r\n**Current:**\r\n![Screen Shot 2019-10-03 at 11 52 30 AM](https://user-images.githubusercontent.com/20977376/66142920-4da50a80-e5d4-11e9-9087-fd820df31f27.png)\r\n\r\n**Change to:**\r\n![Screen Shot 2019-10-03 at 11 48 03 AM](https://user-images.githubusercontent.com/20977376/66142940-572e7280-e5d4-11e9-895e-cf3378a6fd0e.png)\r\n",
+        "comment_id": 538006684,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-10-03 15:00:00",
+        "repo_name": "mozilla/donate-wagtail",
+        "number": 273
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "KalobTaulien",
+        "created_at": "2021-03-31 16:44:28",
+        "updated_at": "2021-03-31 16:44:28",
+        "title": "Fixing Footer UI on Donate",
+        "body": "The footer on the donate site is looking good but there are still some tweaks to the UI that need to be made:\r\n\r\n**Image for reference:**\r\n<img width=\"1253\" alt=\"Screen Shot 2019-09-27 at 11 31 45 AM\" src=\"https://user-images.githubusercontent.com/20977376/65781851-6ae06180-e11a-11e9-8d75-8cbd1aad1846.png\">\r\n\r\n**List of requirements**\r\n- [x] background colour for the footer should be #000000 instead of #111111\r\n- [x] Increase margin/padding below 'Protect the internet ...' to 24px\r\n- [x] Increase margin/padding below 'Join our email list ...' to 24px\r\n- [x] Increase margin/padding below email signup form field to 16px\r\n- [x] The sign up button should share the same row as the form field and occupy 3 columns with 16px spacing between itself and the form field\r\n- [x] _All_ text, except for links, should be white #ffffff at full opacity\r\n- [x] All links should be #269 B7B9FA (as well as hover states for Donate, Legal, License, Participation Guidelines and Privacy)\r\n- <img width=\"500\" alt=\"Screen Shot 2019-09-27 at 11 32 32 AM\" src=\"https://user-images.githubusercontent.com/20977376/65781901-88adc680-e11a-11e9-8f78-ecdecb68c6d2.png\">\r\n- [ ] The language picker is missing @alanmoo is that within scope of this project?\r\n\r\n<img width=\"1253\" alt=\"Screen Shot 2019-09-27 at 11 31 45 AM\" src=\"https://user-images.githubusercontent.com/20977376/65781851-6ae06180-e11a-11e9-8d75-8cbd1aad1846.png\">\r\n\r\n\r\nFor further reference, the footer on https://foundation.mozilla.org/en/ is exactly how the footer should be",
+        "comment_id": 0,
+        "comments": 5,
+        "state": "closed",
+        "closed_at": "2021-03-31 16:44:28",
+        "file_time": "2021-03-31 16:00:00",
+        "repo_name": "mozilla/donate-wagtail",
+        "number": 273
+      }
+    ],
+    "rows": 7,
+    "statistics": {
+      "elapsed": 0.027296549,
+      "rows_read": 272729,
+      "bytes_read": 8100113
+    }
+  },
+  "response_sha256": "dd18f4e602a3817a84b27e025446a6c99f043fc379e9aa1a30229beeab54f75c"
+}

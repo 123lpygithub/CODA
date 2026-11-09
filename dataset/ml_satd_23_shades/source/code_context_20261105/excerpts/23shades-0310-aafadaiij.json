@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0310-aafadaiij",
+  "revision_url": "https://github.com/hahnyuan/nn_tools/commit/703705d917c2028542e998ad7997cfe94f43e5da",
+  "filename": "pytorch_to_caffe.py",
+  "commit": "703705d917c2028542e998ad7997cfe94f43e5da",
+  "source_url": "https://raw.githubusercontent.com/hahnyuan/nn_tools/703705d917c2028542e998ad7997cfe94f43e5da/pytorch_to_caffe.py",
+  "fetched_at": "2026-11-05T06:12:31.596833+00:00",
+  "source_sha256": "75382c7d1f60422c33c0fe70c9f9d33a9cc48409266dc1443b2ea03ec6e23ab8",
+  "line_start": 132,
+  "line_end": 156,
+  "excerpt": "    x = raw(input, kernel_size, stride, padding, dilation,ceil_mode, return_indices)\n    _pool('max',input, x, kernel_size, stride, padding,ceil_mode)\n    return x\n\ndef _avg_pool2d(raw,input, kernel_size, stride = None, padding = 0, ceil_mode = False, count_include_pad = True):\n    x = raw(input, kernel_size, stride, padding, ceil_mode, count_include_pad)\n    _pool('ave',input, x, kernel_size, stride, padding,ceil_mode)\n    return x\n\ndef _max(raw,*args):\n    x=raw(*args)\n    if len(args)==1:\n        # TODO max in one tensor\n        assert NotImplementedError\n    else:\n        bottom_blobs=[]\n        for arg in args:\n            bottom_blobs.append(log.blobs(arg))\n        layer_name=log.add_layer(name='max')\n        top_blobs=log.add_blobs([x],name='max_blob')\n        layer=caffe_net.Layer_param(name=layer_name,type='Eltwise',\n                                    bottom=bottom_blobs,top=top_blobs)\n        layer.param.eltwise_param.operation =2\n        log.cnet.add_layer(layer)\n    return x"
+}

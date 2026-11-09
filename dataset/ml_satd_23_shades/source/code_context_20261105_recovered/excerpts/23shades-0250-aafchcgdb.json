@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0250-aafchcgdb",
+  "revision_url": "https://github.com/Rostlab/nalaf/commit/5f1fee7ed3d3dadc03e515a70928f566a6aa0715",
+  "filename": "nala/learning/taggers.py",
+  "commit": "5f1fee7ed3d3dadc03e515a70928f566a6aa0715",
+  "source_url": "https://raw.githubusercontent.com/Rostlab/nalaf/5f1fee7ed3d3dadc03e515a70928f566a6aa0715/nala/learning/taggers.py",
+  "fetched_at": "2026-11-05T06:12:21.834469+00:00",
+  "source_sha256": "64f3f06871578db21a659032f69af3d9fbcfe9d4e993113c48ce08d5e0c607a6",
+  "line_start": 21,
+  "line_end": 45,
+  "excerpt": "\n    Optionally the implementation may perform normalization of the predicted entities.\n    In that case:\n    * set the meta attribute performs_normalization = True\n    * set the meta attribute normalization_database\n    * set the fields normalized_id and normalized text for each Annotation object you create\n\n    :type performs_normalization: bool\n    :type normalization_database: str\n    :type predicts_classes: list[str]\n    \"\"\"\n\n    # todo change normalizazion_database to normalise option\n    def __init__(self, predicts_classes):\n        self.performs_normalization = False\n        \"\"\"whether this tagger also performs normalization\"\"\"\n        self.normalization_database = ''\n        \"\"\"additional info about the normalization database, e.g. URL\"\"\"\n        self.predicts_classes = predicts_classes\n        \"\"\"a list of class IDs that this tagger can predict\"\"\"\n\n    @abc.abstractmethod\n    def tag(self, dataset):\n        \"\"\"\n        :type dataset: nala.structures.data.Dataset"
+}

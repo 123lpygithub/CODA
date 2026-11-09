@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0130-aaijaggcb",
+  "revision_url": "https://github.com/cleverhans-lab/cleverhans/commit/4030b196152161cb0cf62d7559634fe91bcb3c0f",
+  "filename": "cleverhans/attacks/fast_gradient_method.py",
+  "commit": "4030b196152161cb0cf62d7559634fe91bcb3c0f",
+  "source_url": "https://raw.githubusercontent.com/cleverhans-lab/cleverhans/4030b196152161cb0cf62d7559634fe91bcb3c0f/cleverhans/attacks/fast_gradient_method.py",
+  "fetched_at": "2026-11-05T06:11:58.656227+00:00",
+  "source_sha256": "ae86e631c6db7908579482d055b0db1f93bced2c1eb2d5cb020bd6412ba185de",
+  "line_start": 198,
+  "line_end": 222,
+  "excerpt": "  Solves for the optimal input to a linear function under a norm constraint.\n\n  Optimal_perturbation = argmax_{eta, ||eta||_{ord} < eps} dot(eta, grad)\n\n  :param grad: tf tensor containing a batch of gradients\n  :param eps: float scalar specifying size of constraint region\n  :param ord: int specifying order of norm\n  :returns:\n    tf tensor containing optimal perturbation\n  \"\"\"\n\n  # In Python 2, the `list` call in the following line is redundant / harmless.\n  # In Python 3, the `list` call is needed to convert the iterator returned by `range` into a list.\n  red_ind = list(range(1, len(grad.get_shape())))\n  avoid_zero_div = 1e-12\n  if ord == np.inf:\n    # Take sign of gradient\n    optimal_perturbation = tf.sign(grad)\n    # The following line should not change the numerical results.\n    # It applies only because `optimal_perturbation` is the output of\n    # a `sign` op, which has zero derivative anyway.\n    # It should not be applied for the other norms, where the\n    # perturbation has a non-zero derivative.\n    optimal_perturbation = tf.stop_gradient(optimal_perturbation)\n  elif ord == 1:",
+  "match_policy": "unique-release-normalized-v2"
+}

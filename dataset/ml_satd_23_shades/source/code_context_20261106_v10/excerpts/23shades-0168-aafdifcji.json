@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0168-aafdifcji",
+  "revision_url": "https://github.com/pierluigiferrari/ssd_keras/commit/f59e42d777c073b8eeb31e20dbd1a0f9f77a1270",
+  "filename": "keras_ssd512.py",
+  "commit": "f59e42d777c073b8eeb31e20dbd1a0f9f77a1270",
+  "source_url": "https://raw.githubusercontent.com/pierluigiferrari/ssd_keras/f59e42d777c073b8eeb31e20dbd1a0f9f77a1270/keras_ssd512.py",
+  "fetched_at": "2026-11-05T06:12:05.769918+00:00",
+  "source_sha256": "e536e68ca8911f4e00681abfffa016c8d74a1525918cf3c0f2b0d83462a915f3",
+  "line_start": 216,
+  "line_end": 240,
+  "excerpt": "    if steps is None:\n        steps = [None] * n_predictor_layers\n    if offsets is None:\n        offsets = [None] * n_predictor_layers\n\n    # Input image format\n    img_height, img_width, img_channels = image_size[0], image_size[1], image_size[2]\n\n    ### Build the actual network.\n\n    x = Input(shape=(img_height, img_width, img_channels))\n\n    # The following identity layer is only needed so that subsequent two lambda layers can be optional.\n    x1 = Lambda(lambda z: z,\n                output_shape=(img_height, img_width, img_channels),\n                name='idendity_layer')(x)\n    if not (subtract_mean is None):\n        x1 = Lambda(lambda z: z - np.array(subtract_mean),\n                   output_shape=(img_height, img_width, img_channels),\n                   name='input_mean_normalization')(x1)\n    if not (divide_by_stddev is None):\n        x1 = Lambda(lambda z: z / np.array(divide_by_stddev),\n                   output_shape=(img_height, img_width, img_channels),\n                   name='input_stddev_normalization')(x1)\n    if swap_channels and (img_channels == 3):"
+}

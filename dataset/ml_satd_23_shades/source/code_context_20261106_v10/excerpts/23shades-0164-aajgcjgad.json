@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0164-aajgcjgad",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/15a4f1799ffbb4bad4c24b38768f3fe09d1ca1bd",
+  "filename": "mne/preprocessing/tests/test_maxwell.py",
+  "commit": "15a4f1799ffbb4bad4c24b38768f3fe09d1ca1bd",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/15a4f1799ffbb4bad4c24b38768f3fe09d1ca1bd/mne/preprocessing/tests/test_maxwell.py",
+  "fetched_at": "2026-11-05T06:12:05.569510+00:00",
+  "source_sha256": "3cd7b2775c07edfc251a1482f8495364110ba317ab5c889043db907ede08fb8f",
+  "line_start": 123,
+  "line_end": 138,
+  "excerpt": "    raw_sss = maxwell.maxwell_filter(raw)\n\n    # Test io on processed data\n    tempdir = _TempDir()\n    test_outname = op.join(tempdir, 'test_raw_sss.fif')\n    raw_sss.save(test_outname)\n    raw_sss_loaded = Raw(test_outname, preload=True, proj=False,\n                         allow_maxshield=True)\n    # Some numerical imprecision since save uses 'single' fmt\n    assert_allclose(raw_sss_loaded._data[:, :], raw_sss._data[:, :],\n                    rtol=1e-6, atol=1e-20)\n\n    # Test covariance calculation XXX add this\n\n\nrun_tests_if_main()"
+}

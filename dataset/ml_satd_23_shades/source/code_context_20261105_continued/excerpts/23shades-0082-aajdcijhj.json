@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0082-aajdcijhj",
+  "revision_url": "https://github.com/jupyter/nbdime/commit/cccd9420f1df13010ab640b941288be044cf0907",
+  "filename": "nbdime/merging/generic.py",
+  "commit": "cccd9420f1df13010ab640b941288be044cf0907",
+  "source_url": "https://raw.githubusercontent.com/jupyter/nbdime/cccd9420f1df13010ab640b941288be044cf0907/nbdime/merging/generic.py",
+  "fetched_at": "2026-11-05T06:11:52.000985+00:00",
+  "source_sha256": "a6904d48945b9880cf8f453dd41dbee945d75a5bf40648d177a01bbf4bc9b84c",
+  "line_start": 364,
+  "line_end": 388,
+  "excerpt": "        op_addrange(begin, inlined),\n        op_removerange(begin, end-begin),\n    ]\n    return [MergeDecision(\n        common_path=prefix,\n        action=\"custom\",\n        conflict=True,\n        local_diff=local_diff,\n        remote_diff=remote_diff,\n        custom_diff=custom_diff,\n    )]\ndef resolve_strategy_inline_source(base_path, base, unresolved_conflicts, decisions):\n    pass # FIXME XXX: Implement by rewriting functions above copied from autoresolve.py, search for resolve_strategy_inline_source above in this file\n\n\ndef wrap_subconflicts(key, subconflicts):\n    unresolved_conflicts = []\n    for conf in subconflicts:\n        (path, ld, rd, strategy) = conf\n        assert path[-1] == key\n        path = path[:-1]\n        ld = [op_patch(key, ld)]\n        rd = [op_patch(key, rd)]\n        unresolved_conflicts.append((path, ld, rd, strategy))\n    return unresolved_conflicts",
+  "match_policy": "unique-release-normalized-v2"
+}

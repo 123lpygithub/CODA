@@ -1,0 +1,370 @@
+
+=== 648 23shades-0848-aahiefidd ===
+{"dataset_id": "aahiefidd", "repo_name": "PythonOT/POT", "filename": "ot/utils.py", "comment_introducing_revision": "https://github.com/PythonOT/POT/commit/55840f6bccadd79caf722d86f06da857e3045453", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "55840f6bccadd79caf722d86f06da857e3045453"}
+[comment_text]
+XXX: should we rather test if instance of estimator?
+[source_context]
+            # This is set in utils/__init__.py but it gets overwritten
+            # when running under python3 somehow.
+            warnings.simplefilter("always", DeprecationWarning)
+            try:
+                with warnings.catch_warnings(record=True) as w:
+                    value = getattr(self, key, None)
+                if len(w) and w[0].category == DeprecationWarning:
+                    # if the parameter is deprecated, don't show it
+                    continue
+            finally:
+                warnings.filters.pop(0)
+
+            # XXX: should we rather test if instance of estimator?
+            if deep and hasattr(value, 'get_params'):
+                deep_items = value.get_params().items()
+                out.update((key + '__' + k, val) for k, val in deep_items)
+            out[key] = value
+        return out
+
+    def set_params(self, **params):
+        """Set the parameters of this estimator.
+
+        The method works on simple estimators as well as on nested objects
+        (such as pipelines). The latter have parameters of the form
+        ``<component>__<parameter>`` so that it's possible to update each
+
+=== 649 23shades-0019-aaigjhibg ===
+{"dataset_id": "aaigjhibg", "repo_name": "chainer/chainer", "filename": "tests/chainerx_tests/unit_tests/routines_tests/test_math.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/3555e1304175e4ff42be818b20b2d6cfa78eeac8", "comment_removing_revision": "https://github.com/chainer/chainer/commit/400a249aad12fb9f5bec7e9fb209d42e1839abdb", "source_context_status": "available", "source_context_commit": "3555e1304175e4ff42be818b20b2d6cfa78eeac8"}
+[comment_text]
+((); 0); # TODO(sonots): Fix compatibility
+[source_context]
+    def generate_inputs(self):
+        return numpy.arange(self.size, dtype=numpy.int32) + 1,
+
+    def forward_xp(self, inputs, xp):
+        x, = inputs
+        return x.sum(),
+
+
+@chainerx.testing.numpy_chainerx_array_equal(
+    accept_error=(chainerx.DimensionError, ValueError))
+@pytest.mark.parametrize('keepdims', [False, True])
+@pytest.mark.parametrize('shape,axis', [
+    # ((), 0), # TODO(sonots): Fix compatibility
+    ((), 1),
+    ((), (1,)),
+    ((2,), 2),
+    ((2,), (2,)),
+    ((2,), (-2,)),
+    ((2, 3,), (-3,)),
+    ((2, 3,), (-3, -4)),
+    ((2, 3,), (0, 0)),
+    ((2, 3,), (-1, -1)),
+    ((2, 3,), (0, 1, 1)),
+    ((2, 3,), (0, -2)),
+])
+
+=== 650 23shades-0185-aadbfigaf ===
+{"dataset_id": "aadbfigaf", "repo_name": "xinshuoweng/Xinshuo_PyToolbox", "filename": "xinshuo_images/python/image_processing.py", "comment_introducing_revision": "https://github.com/xinshuoweng/Xinshuo_PyToolbox/commit/02c5283878b5f035c75ba9a3a2d38222f23c3920", "comment_removing_revision": "https://github.com/xinshuoweng/Xinshuo_PyToolbox/commit/b6845566526a7b535c218ced1b4d0ee88cbe6394", "source_context_status": "available", "source_context_commit": "02c5283878b5f035c75ba9a3a2d38222f23c3920"}
+[comment_text]
+TODO
+[source_context]
+def vstack_images( images, gap ):
+	images = [np.array(image) for image in images]
+	imagelist = []
+	for image in images:
+		gap_shape = list(image.shape)
+		gap_shape[0] = gap
+		imagelist.append(image)
+		imagelist.append(np.zeros(gap_shape).astype('uint8'))
+	imagelist = imagelist[:-1]
+	hstack = np.vstack( imagelist )
+	return Image.fromarray( hstack )
+
+# TODO
+def find_peaks(heatmap, thre):
+    #filter = fspecial('gaussian', [3 3], 2)
+    #map_smooth = conv2(map, filter, 'same')
+    
+    # variable initialization    
+
+    map_smooth = np.array(heatmap)
+    map_smooth[map_smooth < thre] = 0.0
+
+
+    map_aug = np.zeros([map_smooth.shape[0]+2, map_smooth.shape[1]+2])
+    map_aug1 = np.zeros([map_smooth.shape[0]+2, map_smooth.shape[1]+2])
+
+=== 651 23shades-0711-aafbjiedd ===
+{"dataset_id": "aafbjiedd", "repo_name": "DIVA-DIA/DeepDIVA", "filename": "template/runner/process_activation/activation.py", "comment_introducing_revision": "https://github.com/DIVA-DIA/DeepDIVA/commit/d9c48c532ad91cd2b27e6a584aa7d2f5f0bd0385", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "d9c48c532ad91cd2b27e6a584aa7d2f5f0bd0385"}
+[comment_text]
+TODO: store something cleaner
+[source_context]
+
+        if not no_cuda:
+            model = model.module
+
+        for l, layer in enumerate(model.children()):
+            data_input = layer(data_input)
+            layer_dim = data_input.dim()
+
+            layer_name = str(l + 1)
+            store[layer_name] = OrderedDict()
+
+            if not store_filters:
+                store[layer_name]['type'] = str(layer) # TODO: store something cleaner
+                store[layer_name]['dim'] = layer_dim
+                store[layer_name]['size'] = data_input.size()[1]
+
+            if store_filters:
+                numpy_filter = np.array([])
+                store[layer_name]['filters'] = OrderedDict()
+                
+                if layer_dim == 4:
+                    # dimension 1 is for the mini-batch
+                    for f in range(0, data_input.size()[1]):
+                        # mean
+                        fa = data_input[0, f].data.permute(0, 1).cpu().numpy()
+
+=== 652 23shades-0191-aafijfbah ===
+{"dataset_id": "aafijfbah", "repo_name": "Roboy/tss18-robotsinmusicalimprovisation", "filename": "LIVE/LiveInput_ClassCompliant.py", "comment_introducing_revision": "https://github.com/Roboy/tss18-robotsinmusicalimprovisation/commit/a1f6a8b56f80369f5290f3e9a1112de3384a98f1", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "a1f6a8b56f80369f5290f3e9a1112de3384a98f1"}
+[comment_text]
+TODO
+[source_context]
+    def open_inport(self, callback_function):
+        avail_ports = mido.get_input_names()
+        ports_dict = {i: avail_ports[i] for i in range(len(avail_ports))}
+        print("These input ports are available: ", ports_dict)
+        if self.port == None:
+            port_num = int(input("Which port would you like to use? "))
+            self.in_port = mido.open_input(ports_dict[port_num], callback=callback_function)
+        else:
+            self.in_port = mido.open_input(port, callback=callback_function)
+        print("Using input port: ", self.in_port)
+
+    def open_outport(self):
+        # TODO
+        self.out_port = mido.open_output("Robot port", virtual=True)
+
+    def reset_clock(self):
+        self.start_time = time.time()
+        self.current_tick = -1
+        self.metronome = 0
+        self.counter_metronome = 0
+
+    def reset_sequence(self):
+        self.sequence = []
+
+    def clock(self):
+
+=== 653 23shades-0468-aagaidebh ===
+{"dataset_id": "aagaidebh", "repo_name": "davidsbatista/BREDS", "filename": "Snowball/Pattern.py", "comment_introducing_revision": "https://github.com/davidsbatista/BREDS/commit/61d2b6e3d8853a341c89fd28a1f75e546d9a0a69", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "61d2b6e3d8853a341c89fd28a1f75e546d9a0a69"}
+[comment_text]
+TODO: calculate this centroid\"
+[source_context]
+        self.update_confidence()
+
+    @staticmethod
+    def centroid(self):
+        print "tuples in cluster", len(self.tuples)
+        if len(self.tuples) == 1:
+            t = next(iter(self.tuples))
+            self.centroid_bef = t.bef_vector
+            self.centroid_bet = t.bet_vector
+            self.centroid_aft = t.aft_vector
+        else:
+            print "Calculate centroid"
+            # TODO: calculate this centroid"
+            for t in self.tuples:
+                print t
+
+
+
+
+
+
+
+
+
+
+
+=== 654 23shades-0666-aahicgcid ===
+{"dataset_id": "aahicgcid", "repo_name": "PyTorchLightning/pytorch-lightning", "filename": "pytorch_lightning/core/lightning.py", "comment_introducing_revision": "https://github.com/PyTorchLightning/pytorch-lightning/commit/f878a2699f2b323196be2cb5f7a95bf10956c6d5", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "f878a2699f2b323196be2cb5f7a95bf10956c6d5"}
+[comment_text]
+TODO: remove this method in v1.3.0.
+[source_context]
+            self._hparams = AttributeDict()
+        return self._hparams
+
+    @property
+    def hparams_initial(self) -> AttributeDict:
+        if not hasattr(self, "_hparams_initial"):
+            return AttributeDict()
+        # prevent any change
+        return copy.deepcopy(self._hparams_initial)
+
+    @hparams.setter
+    def hparams(self, hp: Union[dict, Namespace, Any]):
+        # TODO: remove this method in v1.3.0.
+        rank_zero_warn(
+            "The setter for self.hparams in LightningModule is deprecated since v1.1.0 and will be"
+            " removed in v1.3.0. Replace the assignment `self.hparams = hparams` with "
+            " `self.save_hyperparameters()`.",
+            DeprecationWarning
+        )
+        hparams_assignment_name = self.__get_hparams_assignment_variable()
+        self._hparams_name = hparams_assignment_name
+        self._set_hparams(hp)
+        # this resolves case when user does not uses `save_hyperparameters` and do hard assignement in init
+        if not hasattr(self, "_hparams_initial"):
+            self._hparams_initial = copy.deepcopy(self._hparams)
+
+=== 655 23shades-0713-aaahbbdbf ===
+{"dataset_id": "aaahbbdbf", "repo_name": "Erotemic/netharn", "filename": "netharn/hyperparams.py", "comment_introducing_revision": "https://github.com/Erotemic/netharn/commit/54bb6c1f371c12649df97ed5b2c5f4710e97bd0a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "54bb6c1f371c12649df97ed5b2c5f4710e97bd0a"}
+[comment_text]
+TODO: submit a PR to imgaug that registers parameters
+[source_context]
+        elif isinstance(hyper.augment, ub.odict):
+            # already specified in json format
+            try:
+                ub.hash_data(hyper.augment)
+            except TypeError:
+                raise TypeError('NOT IN ORDERED JSON FORMAT hyper.augment={}'.format(hyper.augment))
+            augment_json = hyper.augment
+        else:
+            try:
+                import imgaug
+
+                def imgaug_json_id(aug):
+                    # TODO: submit a PR to imgaug that registers parameters
+                    # with classes
+                    if isinstance(aug, tuple):
+                        return [imgaug_json_id(item) for item in aug]
+                    elif isinstance(aug, imgaug.parameters.StochasticParameter):
+                        return str(aug)
+                    else:
+                        try:
+                            info = ub.odict()
+                            info['__class__'] = aug.__class__.__name__
+                            params = aug.get_parameters()
+                            if params:
+                                info['params'] = [imgaug_json_id(p) for p in params]
+
+=== 656 23shades-0792-aagigaiii ===
+{"dataset_id": "aagigaiii", "repo_name": "OpenNMT/OpenNMT-py", "filename": "train.py", "comment_introducing_revision": "https://github.com/OpenNMT/OpenNMT-py/commit/073de7e33cf6506ea421fc997024c44e97861c6c", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b4aa622e0c4cd16db62ea42c5e59f35b50eefc79"}
+[comment_text]
+too much memory. A lazy load would be better; but later
+[source_context]
+    print('decoder: ', dec)
+
+
+def load_dataset(data_type):
+    assert data_type in ["train", "valid"]
+
+    print("Loading %s data from '%s'" % (data_type, opt.data))
+
+    pts = glob.glob(opt.data + '.' + data_type + '.[0-9]*.pt')
+    if pts:
+        # Multiple onmt.io.*Dataset's, coalesce all.
+        # torch.load loads them imemediately, which might eat up
+        # too much memory. A lazy load would be better, but later
+        # when we create data iterator, it still requires these
+        # data to be loaded. So it seams we don't have a good way
+        # to avoid this now.
+        pts = [(int(re.match('.*?([0-9]+).*?', pt).group(1)), pt)
+               for pt in pts]
+        pts = sorted(pts)
+        datasets = []
+        for _, pt in pts:
+            datasets.append(torch.load(pt))
+        dataset = onmt.io.ONMTDatasetBase.coalesce_datasets(datasets)
+    else:
+        # Only one onmt.io.*Dataset, simple!
+[source_context_revision_note]
+The published introducing-commit pointer deletes this exact comment. The source is from its verified direct parent, where the full comment uniquely matches.
+
+=== 657 23shades-0151-aafjajfdh ===
+{"dataset_id": "aafjajfdh", "repo_name": "AllenInstitute/mouse_connectivity_models", "filename": "voxel_model/regionalized_model.py", "comment_introducing_revision": "https://github.com/AllenInstitute/mouse_connectivity_models/commit/49c965fd8bd0a66e441e7e0623d5848dbcabd3be", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "49c965fd8bd0a66e441e7e0623d5848dbcabd3be"}
+[comment_text]
+NOTE: probably more efficient to sort then stride by nt_regions
+[source_context]
+            return lex_ordered_unique_counts( key, self.ordering )
+        else:
+            return np.unique( key, return_counts=True)
+
+    def _get_region_matrix(self):
+        """Produces the full regionalized connectivity"""
+
+        # get counts
+        source_regions, self.source_counts = self._get_unique_counts("source_key")
+        target_regions, self.target_counts = self._get_unique_counts("target_key")
+
+        # integrate target regions
+        # NOTE: probably more efficient to sort then stride by nt_regions
+        temp = np.empty( (target_regions.size, self.weights.shape[0]) )
+        for i, region in enumerate(target_regions):
+            cols = np.isin(self.target_key, region)
+
+            # same output as weights.dot(nodes[:,cols]).sum(axis=1)
+            # but much more memory efficient to compute sum first
+            temp[i,:] = self.weights.dot(
+                np.einsum('ji->j', self.nodes[:,cols])
+            )
+
+        # integrate source regions
+        # NOTE: probably more efficient to sort then stride by ns_regions
+
+=== 658 23shades-0220-aadcagfcc ===
+{"dataset_id": "aadcagfcc", "repo_name": "mpkuse/cartwheel_train", "filename": "CustomNets.py", "comment_introducing_revision": "https://github.com/mpkuse/cartwheel_train/commit/404ec4c091ba511ab70df27886ebe396cb1c1a02", "comment_removing_revision": "https://github.com/mpkuse/cartwheel_train/commit/d62c86276491e3d0495366e1f2c47a21e723267f", "source_context_status": "available", "source_context_commit": "404ec4c091ba511ab70df27886ebe396cb1c1a02"}
+[comment_text]
+TODO : removal
+[source_context]
+    # We use the Keras session graph in the call to the profiler.
+    flops = tf.profiler.profile(graph=K.get_session().graph,
+                                run_meta=run_meta, cmd='op', options=opts)
+    print 'Total floating point operations (FLOPS) : ', flops.total_float_ops
+    print 'Total floating point operations (GFLOPS) : %4.3f' %( flops.total_float_ops/1000.**3 )
+    # return flops.total_float_ops  # Prints the "flops" of the model.
+
+
+
+#--------------------------------------------------------------------------------
+# Data
+#--------------------------------------------------------------------------------
+# TODO : removal 
+def dataload_( n_tokyoTimeMachine, n_Pitssburg, nP, nN ):
+    D = []
+    if n_tokyoTimeMachine > 0 :
+        TTM_BASE = '/Bulk_Data/data_Akihiko_Torii/Tokyo_TM/tokyoTimeMachine/' #Path of Tokyo_TM
+        pr = TimeMachineRender( TTM_BASE )
+        print 'tokyoTimeMachine:: nP=', nP, '\tnN=', nN
+        for s in range(n_tokyoTimeMachine):
+            a,_ = pr.step(nP=nP, nN=nN, return_gray=False, resize=(320,240), apply_distortions=False, ENABLE_IMSHOW=False)
+            if s%100 == 0:
+                print 'get a sample Tokyo_TM #%d of %d\t' %(s, n_tokyoTimeMachine),
+                print a.shape
+            D.append( a )
+
+=== 659 23shades-0577-aafjgijbb ===
+{"dataset_id": "aafjgijbb", "repo_name": "UiO-CS/tf-wavelets", "filename": "tfwavelets/dwtcoeffs.py", "comment_introducing_revision": "https://github.com/UiO-CS/tf-wavelets/commit/0f9b62707e12eaf5cebfea0771b55127266e4e27", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "0f9b62707e12eaf5cebfea0771b55127266e4e27"}
+[comment_text]
+TODO: Indexing not thoroughly tested
+[source_context]
+    matrix_size = n+padding
+    filter_matrix = np.zeros((matrix_size, matrix_size), dtype=np.float32)
+    negative = coeffs[-(zero+1):] # negative indexed filter coeffs (and 0)
+    positive = coeffs[:-(zero+1)] # filter coeffs with strictly positive indeces
+
+    filter_matrix[0, :len(negative)] = negative
+    filter_matrix[0, -len(positive):] = positive
+
+    for i in range(1, matrix_size):
+        filter_matrix[i,:] = np.roll(filter_matrix[i-1,:], 1)
+
+
+    # TODO: Indexing not thoroughly tested
+    num_pos = len(positive)
+    num_neg = len(negative)
+    top_left = filter_matrix[:num_pos, :(num_pos+num_neg-1)]
+    top_right = filter_matrix[:num_pos, -num_pos:]
+    bottom_left = filter_matrix[-num_neg+1:, :num_neg-1]
+    bottom_right = filter_matrix[-num_neg+1:, -(num_pos+num_neg-1):]
+
+    return(top_left, top_right, bottom_left, bottom_right)

@@ -1,0 +1,23 @@
+{
+  "url": "https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/Socks5/server.py#L191",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "status": "partial",
+  "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+  "line_start": 179,
+  "line_end": 203,
+  "historical_evidence": true,
+  "revision": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+  "immutable_revision": true,
+  "retrieval_url": "https://raw.githubusercontent.com/Tribler/tribler/46f5abde70b44c84bfa8310febbf1ab170e982f0/Tribler/community/tunnel/Socks5/server.py",
+  "text": "\n        try:\n            if request.cmd == conversion.REQ_CMD_UDP_ASSOCIATE:\n                self.on_udp_associate_request(self, request)\n\n            elif request.cmd == conversion.REQ_CMD_BIND:\n                response = conversion.encode_reply(0x05, conversion.REP_SUCCEEDED, 0x00,\n                                                   conversion.ADDRESS_TYPE_IPV4, \"127.0.0.1\", 1081)\n\n                self.transport.write(response)\n                self.state = ConnectionState.PROXY_REQUEST_ACCEPTED\n\n            elif request.cmd == conversion.REQ_CMD_CONNECT:\n                self._logger.info(\"TCP req to %s:%d support it. Returning HOST UNREACHABLE\",\n                                  *request.destination)\n\n                response = conversion.encode_reply(0x05, conversion.REP_HOST_UNREACHABLE, 0x00,\n                                                   conversion.ADDRESS_TYPE_IPV4, \"0.0.0.0\", 0)\n                self.transport.write(response)\n\n            else:\n                self.deny_request(request, \"CMD not recognized\")\n\n        except:\n            response = conversion.encode_reply(0x05, conversion.REP_COMMAND_NOT_SUPPORTED, 0x00,",
+  "source_sha256": "3c0c818202ef34ca929de6c26de2d600c492d3151236dc6b5bc67b03c91f1a36",
+  "fetched_at": "2026-11-05T15:54:55.888020+00:00",
+  "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+  "history_query_url": "https://github.com/Tribler/tribler/commits/main/Tribler/community/tunnel/Socks5/server.py",
+  "history_response_sha256": "9aca4bbecdfaef779ecf4d10776084ca2c48a7bc0467cc6339dbeee025f2260d",
+  "history_entry_sha": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+  "history_commit_date": "2017-06-12T12:45:46.000+02:00"
+}

@@ -1,0 +1,23 @@
+{
+  "url": "https://github.com/jitsi/lib-jitsi-meet/blob/master/modules/RTC/JitsiLocalTrack.js#L514",
+  "kind": "file",
+  "cited_in": [
+    "comment_689471510"
+  ],
+  "status": "partial",
+  "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+  "line_start": 502,
+  "line_end": 526,
+  "historical_evidence": true,
+  "revision": "154817b64091a9462c9f2a47f2ce3032c90eaf01",
+  "immutable_revision": true,
+  "retrieval_url": "https://raw.githubusercontent.com/jitsi/lib-jitsi-meet/154817b64091a9462c9f2a47f2ce3032c90eaf01/modules/RTC/JitsiLocalTrack.js",
+  "text": "        if (!device && this._realDeviceId === 'default') { // the default device has been changed.\n            // If the default device was 'A' and the default device is changed to 'B' the label for the track will\n            // remain 'Default - A' but the label for the device in the device list will be updated to 'A'. That's\n            // why in order to match it we need to remove the 'Default - ' part.\n            const label = (track.label || '').replace('Default - ', '');\n\n            device = devices.find(d => d.kind === kind && d.label === label);\n        }\n\n        if (device) {\n            this._realDeviceId = device.deviceId;\n        } else {\n            this._realDeviceId = undefined;\n        }\n    }\n\n    /**\n     * Sets the stream property of JitsiLocalTrack object and sets all stored handlers to it.\n     *\n     * @param {MediaStream} stream - The new MediaStream.\n     * @private\n     * @returns {void}\n     */\n    _setStream(stream) {\n        super._setStream(stream);",
+  "source_sha256": "ef76d29b6964dd6af4720b7be45ce0903f77a104906e5ecd13f29d30fbe9e7c0",
+  "fetched_at": "2026-11-05T15:55:47.648382+00:00",
+  "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+  "history_query_url": "https://github.com/jitsi/lib-jitsi-meet/commits/master/modules/RTC/JitsiLocalTrack.js",
+  "history_response_sha256": "33f8e2010044c44a692e14ff0ed2d033aa7512711b5d26cbb23a4cf32340854b",
+  "history_entry_sha": "154817b64091a9462c9f2a47f2ce3032c90eaf01",
+  "history_commit_date": "2025-04-01T15:58:02.000+02:00"
+}

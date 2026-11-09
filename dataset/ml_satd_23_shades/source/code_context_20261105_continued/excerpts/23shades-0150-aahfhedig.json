@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0150-aahfhedig",
+  "revision_url": "https://github.com/RaRe-Technologies/gensim/commit/93f61d5e5d813f81baac2727e1d85bedb3cf79e6",
+  "filename": "src/gensim/models/lsi_dispatcher.py",
+  "commit": "93f61d5e5d813f81baac2727e1d85bedb3cf79e6",
+  "source_url": "https://raw.githubusercontent.com/RaRe-Technologies/gensim/93f61d5e5d813f81baac2727e1d85bedb3cf79e6/src/gensim/models/lsi_dispatcher.py",
+  "fetched_at": "2026-11-05T06:12:01.729624+00:00",
+  "source_sha256": "4b3cae6d1adb1ea4a8fc9c72b224fde577f66cb2bb67994c26ba7cf6bc1d05ab",
+  "line_start": 159,
+  "line_end": 183,
+  "excerpt": "\n\n\ndef main(maxsize):\n    ns = Pyro.naming.locateNS()\n    with Pyro.core.Daemon() as daemon:\n        dispatcher = Dispatcher(maxsize = maxsize)\n        uri = daemon.register(dispatcher)\n        \n        # prepare callback object for the workers\n        callback = Pyro.core.Proxy(uri)\n        callback._pyroOneway.add(\"collect_result\") # make sure we transfer control back to dispatcher asynchronously\n        callback._pyroOneway.add(\"process\") # not needed, but why not...\n        dispatcher.initialize(callback)\n        \n        name = 'gensim.dispatcher'\n        ns.remove(name)\n        ns.register(name, uri)\n        logger.info(\"dispatcher is ready at URI %s\" % uri)\n        daemon.requestLoop()\n    \n\n\nif __name__ == '__main__':\n    logger.info(\"running %s\" % \" \".join(sys.argv))",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Components/RequestGeneratorBuilder.js#L81-L94",
+  "kind": "file",
+  "cited_in": [
+    "comment_685078945"
+  ],
+  "revision": "d97ed79e7082db0cad9b2229f886c3e24d5638bf",
+  "immutable_revision": true,
+  "line_start": 69,
+  "line_end": 106,
+  "text": "                // may have already called `setBatch()` and thus set `this.state.batch` *and* shifted it.\n                // Re-calling this code (due to the async nature of the `then` block, it may well run later) would\n                // result in skipping the first company (see #253). Instead, we only want to prepare batch mode here if\n                // it was enabled through the URL (i.e. `batch_companies` is set).\n                if (batch_companies?.length > 0) {\n                    this.setCompanyBySlug(this.state.batch.shift()).then(this.renderLetter);\n                }\n            }\n            this.renderLetter();\n        });\n    }\n\n    resetInitialConditions = async () => {\n        await initializeFields(this.state.request.id_data).then(res => {\n            this.setState(prev => {\n                prev.request.id_data = res.new_fields;\n                prev.request.signature = res.signature;\n\n                const name = res.new_fields.filter(i => i.type === 'name')[0];\n                const address = res.new_fields.filter(i => i.type === 'address')[0];\n                if (name) prev.request.custom_data.name = name.value;\n                if (address) prev.request.custom_data.sender_address = address.value;\n\n                return prev;\n            });\n        });\n\n        const { response_to, response_type } = PARAMETERS;\n\n        // This is a response to a previous request (warning or complaint).\n        if (Privacy.isAllowed(PRIVACY_ACTIONS.SAVE_MY_REQUESTS) && response_to && response_type) {\n            // Just for the looks: Switch the view before fetching the template\n            this.setState(prev => {\n                prev.request.type = 'custom';\n                return prev;\n            });\n\n            await Promise.all([",
+  "source_sha256": "c4ff3cd474401fc85590df94466f9e86a459d172dbcc46b6b1528485a06afe55",
+  "fetched_at": "2026-11-05T06:21:54.088176+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/datenanfragen/website/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Components/RequestGeneratorBuilder.js",
+  "status": "available"
+}

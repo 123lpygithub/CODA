@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0177-aahgdgida",
+  "revision_url": "https://github.com/explosion/spaCy/commit/09f68bc641e7e9f0cdae3c5f89490cb0731ce999",
+  "filename": "spacy/language.py",
+  "commit": "09f68bc641e7e9f0cdae3c5f89490cb0731ce999",
+  "source_url": "https://raw.githubusercontent.com/explosion/spaCy/09f68bc641e7e9f0cdae3c5f89490cb0731ce999/spacy/language.py",
+  "fetched_at": "2026-11-05T06:12:06.601766+00:00",
+  "source_sha256": "60854700fcf0bd89e8f05796efefd00ca4e8e299b43e1ec7b175d8648e5d33c8",
+  "line_start": 37,
+  "line_end": 61,
+  "excerpt": "    @classmethod\n    def create_lemmatizer(cls, nlp=None):\n        if nlp is None or nlp.path is None:\n            return Lemmatizer({}, {}, {})\n        else:\n            return Lemmatizer.load(nlp.path)\n\n    @classmethod\n    def create_vocab(cls, nlp=None):\n        lemmatizer = cls.create_lemmatizer(nlp)\n        if nlp is None or nlp.path is None:\n            lex_attr_getters = dict(cls.lex_attr_getters)\n            # This is very messy, but it's the minimal working fix to Issue #639.\n            # This defaults stuff needs to be refactored (again)\n            lex_attr_getters[IS_STOP] = lambda string: string.lower() in cls.stop_words\n            return Vocab(lex_attr_getters=lex_attr_getters, tag_map=cls.tag_map,\n                         lemmatizer=lemmatizer)\n        else:\n            return Vocab.load(nlp.path, lex_attr_getters=cls.lex_attr_getters,\n                             tag_map=cls.tag_map, lemmatizer=lemmatizer)\n    \n    @classmethod\n    def add_vectors(cls, nlp=None):\n        if nlp is None or nlp.path is None:\n            return False",
+  "match_policy": "unique-release-normalized-v2"
+}

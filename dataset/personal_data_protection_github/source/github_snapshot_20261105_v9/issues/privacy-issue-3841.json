@@ -1,0 +1,194 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3841",
+  "issue_url": "https://github.com/YOURLS/YOURLS/issues/2386",
+  "source_issue_url": "https://github.com/YOURLS/YOURLS/issues/2386",
+  "api_url": "https://api.github.com/repos/YOURLS/YOURLS/issues/2386",
+  "title": "Add option to stop saving personally identifiable information YOURLS does not need/use",
+  "body": "As far as I can tell by looking in the user interface, as stored in the\r\ndb, ip_address, and user_agent are unused and click_time is only used to\r\nthe day, but stored is seconds. Without that data, the data stored in\r\nthe db is pretty safe to call not personally identifiable, which is what\r\nI want, and seems like a good config option that other users would want.\r\n\r\nI know there is an option to not store anything in yourls_log, but the\r\ndata that appears to be actually used, like country, and day of click,\r\nis generally not personally identifiable, so I should be able to keep\r\nthat data.\r\n\r\nAlso, after implementing this, a way to remove old data would be good\r\ntoo.\r\n\r\n### Technical details regarding my environment\r\n\r\n* YOURLS version: 1.7.2\r\n  * Plugins enabled: none\r\n* PHP version: doesn't matter\r\n\r\n### Bug description \r\n\r\n**What is the current behavior?**\r\n\r\n<!-- Describe the current behavior -->\r\n\r\nsee above\r\n\r\n**What is the expected or desired behavior?**\r\n\r\nsee above\r\n\r\n### Reproducible bug summary \r\n\r\nsee above.\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-04-15T02:05:26Z",
+  "updated_at": "2018-05-28T11:40:38Z",
+  "state": "closed",
+  "closed_at": "2018-04-15T08:43:24Z",
+  "issue_fetched_at": "2026-10-18T17:10:56.990893+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T17:10:58.408732+00:00"
+  ],
+  "expected_comment_count": 21,
+  "retrieved_comment_count": 21,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 381374634,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-381374634",
+      "created_at": "2018-04-15T02:05:29Z",
+      "updated_at": "2018-04-15T02:05:29Z",
+      "author": "Participant 2",
+      "body": "Hey @ian-kelling, thanks for opening an issue!\n\nUnfortunately, it seems you are missing information from the [issue template](https://github.com/YOURLS/YOURLS/blob/master/.github/ISSUE_TEMPLATE.md).\nMake sure it has all the necessary details as described in our [contribution guidelines](https://github.com/YOURLS/YOURLS/blob/master/.github/CONTRIBUTING.md).\n"
+    },
+    {
+      "id": 381390238,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-381390238",
+      "created_at": "2018-04-15T08:43:24Z",
+      "updated_at": "2018-04-15T08:43:24Z",
+      "author": "Participant 3",
+      "body": "The general philosophy of the project is not to add options. Where possible we're more prone to *remove* options, actually, and let users adapt YOURLS behaviour to their liking with plugins."
+    },
+    {
+      "id": 381447067,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-381447067",
+      "created_at": "2018-04-15T23:34:38Z",
+      "updated_at": "2018-04-15T23:35:20Z",
+      "author": "Participant 1",
+      "body": "If it's not an option, it should be the default then.  This should\r\nbe reopened.\r\n\r\nLook at what a, maybe the, most popular free software for traffic\r\nanalysis does for ip address privacy: https://matomo.org/docs/privacy/\r\n\r\nThe current situation is frankly a horrible default for privacy and\r\nshould never have been made that way in the first place, and it's still worth\r\ncorrecting.\r\n\r\nAfaik, what I've suggested is not possible with the plugin api.\r\n"
+    },
+    {
+      "id": 381491877,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-381491877",
+      "created_at": "2018-04-16T06:22:28Z",
+      "updated_at": "2018-04-16T06:22:28Z",
+      "author": "Participant 3",
+      "body": "Doesn't https://github.com/ubicoo/yourls-pseudonymize achieve what you're writing about ?\r\n\r\nIf not, I'm all open to reviewing a pull request that would anonymize data, but otherwise I'm afraid this won't be anywhere near the top of things that should be fixed or improved in YOURLS. Contributions welcome!"
+    },
+    {
+      "id": 381536732,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-381536732",
+      "created_at": "2018-04-16T09:26:03Z",
+      "updated_at": "2018-04-21T08:39:41Z",
+      "author": "Participant 4",
+      "body": "With the coming law regarding data collection ([GDPR/RGPD](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation)), I've to admit that YOURLS is not compliant at all out the box. IP collection, location gathering, etc. which are, merged with timestamp data, personally identifiable information.\r\n\r\nI remember me suggesting to move location resolution in a plugin (#1585), this is a new ***strong*** argument.\r\nRegarding IP, this is more complicated, but yes, it should be dropped or moved to anonymized fingerprints."
+    },
+    {
+      "id": 382350435,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-382350435",
+      "created_at": "2018-04-18T11:07:57Z",
+      "updated_at": "2018-04-18T11:07:57Z",
+      "author": "Participant 5",
+      "body": "Just wondering if anyone knows how the big names are handling this?  One big draw of all shorteners is the data collected.  What do Google and Bitly do? Did they stop collecting this kind of data? It seems many YOURLS data collection features are in some way copied from the big boys."
+    },
+    {
+      "id": 384389962,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-384389962",
+      "created_at": "2018-04-25T18:34:08Z",
+      "updated_at": "2018-04-25T18:34:08Z",
+      "author": "Participant 1",
+      "body": "@ozh https://github.com/sas101/yourls-pseudonymize is good but it\r\ndoesn't do enough. It would need to drop more ipv6 and ipv4 data, reduce\r\ntime resolution, get rid of user agent.  But I guess I was wrong about\r\nwhat is possible with a plugin. Also, the YOURLS plugin list has 0\r\nplugins, and google searches didn't lead me to that plugin. So, I didn't\r\nknow about that plugin at all.\r\n\r\nRight now for GPDR, my best guess is to turn on the option to not store\r\nanything in yourls_log, archive the YOURLS html pages that show\r\naggregate analysis, then wipe out yourls_log. Then I will look and wait\r\nfor a url shortener which can do more analysis while only storing\r\naggregate data and not personally identifiable data. It's not something\r\nI have the time to implement myself.\r\n"
+    },
+    {
+      "id": 384390306,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-384390306",
+      "created_at": "2018-04-25T18:35:14Z",
+      "updated_at": "2018-04-25T18:35:14Z",
+      "author": "Participant 1",
+      "body": "*GDPR (i don't use the post edit features because it requires nonfree javascript)"
+    },
+    {
+      "id": 384391363,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-384391363",
+      "created_at": "2018-04-25T18:38:38Z",
+      "updated_at": "2018-04-25T18:38:38Z",
+      "author": "Participant 1",
+      "body": "Oh, and one of my coworkers pointed out, I was probably wrong about\r\nYOURLS not using ip data. It probably uses it to identify visitors for\r\ndeduplication. Is that right? It shouldn't be too hard to just turn that\r\noff and still collect number of visitors per day and the country they\r\nare from.\r\n"
+    },
+    {
+      "id": 384562342,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-384562342",
+      "created_at": "2018-04-26T08:45:14Z",
+      "updated_at": "2018-04-26T08:45:14Z",
+      "author": "Participant 3",
+      "body": "I think IP is just used for country detection. There's no computing of visitors vs visits, although a stat plugin could really tap into this."
+    },
+    {
+      "id": 384601201,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-384601201",
+      "created_at": "2018-04-26T11:08:33Z",
+      "updated_at": "2018-04-26T11:08:33Z",
+      "author": "Participant 3",
+      "body": "IP of URL submitter is also stored but I think that's out of the scope (if concerned people could just display on their public interface a warning like \"if you shorten a URL your IP will be stored and you're OK with this\")"
+    },
+    {
+      "id": 384629141,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-384629141",
+      "created_at": "2018-04-26T12:49:29Z",
+      "updated_at": "2018-04-26T12:49:29Z",
+      "author": "Participant 4",
+      "body": "> if concerned people could just display on their public interface a warning like \"if you shorten a URL your IP will be stored and you're OK with this\"\r\n\r\nHa ha, good try, but that does not match GDPR rules! 😉 \r\nIn all cases, IP storage is avoidable by doing all IP-processing before putting it in the DB, i.e. on the fly."
+    },
+    {
+      "id": 391443081,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-391443081",
+      "created_at": "2018-05-23T18:02:54Z",
+      "updated_at": "2018-05-23T18:02:54Z",
+      "author": "Participant 6",
+      "body": "What about this? https://github.com/fenuz/yourls-anonymize-log"
+    },
+    {
+      "id": 391657595,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-391657595",
+      "created_at": "2018-05-24T09:54:44Z",
+      "updated_at": "2018-05-24T09:54:44Z",
+      "author": "Participant 7",
+      "body": "@Teki: Thanks, this is a quick hack, which overrides the filter for getting IPs and user agents and makes them return empty strings. Alas, geolocation is not possible any more and so no country code will be stored. But it is in my opinion enough to anonymize YOURLS, since a precise click time is no personal data without IP and/or user agent."
+    },
+    {
+      "id": 391665332,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-391665332",
+      "created_at": "2018-05-24T10:24:22Z",
+      "updated_at": "2018-05-24T10:24:22Z",
+      "author": "Participant 6",
+      "body": "To get rid of the Referer I also added this to anonymize-log:\r\n\r\n```PHP\r\nfunction anonymized_logging_redirect( $value, $keyword ) {\r\n\tglobal $ydb;\r\n\t$table = YOURLS_DB_TABLE_LOG;\r\n\t\r\n\t$now      = date( 'Y-m-d H:i:s' );\r\n\t$keyword  = yourls_escape( yourls_sanitize_string( $keyword ) );\r\n\t\r\n\treturn $ydb->query( \"INSERT INTO `$table` (click_time, shorturl, referrer, user_agent, ip_address, country_code) VALUES ('$now', '$keyword', '', '', '', '')\" );\r\n}\r\n\r\nyourls_add_filter('shunt_log_redirect', 'anonymized_logging_redirect');\r\n```\r\n\r\n"
+    },
+    {
+      "id": 391702213,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-391702213",
+      "created_at": "2018-05-24T12:49:04Z",
+      "updated_at": "2018-05-24T12:49:04Z",
+      "author": "Participant 7",
+      "body": "Cool, this is perfect. But you don't need to add it to anonymize-log since you override the database insert which actually logs the redirect data and now stores only blank fields except for the time and the keyword. This would also have the advantage of generating and storing the country code.\r\n\r\nAdditionally, one could make the timestamp more inexact, like the OP suggested."
+    },
+    {
+      "id": 391818808,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-391818808",
+      "created_at": "2018-05-24T18:43:13Z",
+      "updated_at": "2018-05-24T18:43:13Z",
+      "author": "Participant 6",
+      "body": "I added it to the Plug-in because I don't want to alter the core."
+    },
+    {
+      "id": 392109940,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-392109940",
+      "created_at": "2018-05-25T16:22:40Z",
+      "updated_at": "2018-05-25T16:22:40Z",
+      "author": "Participant 7",
+      "body": "Of course you should not alter the core. I meant your code is already a complete working plug-in (without meta header), so you don't need to *add* it to anonymize-log, but you can simply *overwrite* it."
+    },
+    {
+      "id": 392163550,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-392163550",
+      "created_at": "2018-05-25T19:55:38Z",
+      "updated_at": "2018-05-25T19:55:38Z",
+      "author": "Participant 6",
+      "body": "But then adding new short URLs would still record IP addresses. "
+    },
+    {
+      "id": 392465635,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-392465635",
+      "created_at": "2018-05-28T08:58:08Z",
+      "updated_at": "2018-05-28T08:58:08Z",
+      "author": "Participant 7",
+      "body": "Which IP is stored where? Adding a new short URL stores my (admin) IP address, yes. But I don't see where IP addresses by using (old or new) short ULRs are stored. Could you please elaborate?\r\n\r\nWhile typing I've got an idea what you could mean. If you let users add short URLs then their IPs would be logged in the table 'yourls_url'. Therefore, you have to hook additionally to the action \"insert_link\" (https://github.com/YOURLS/YOURLS/blob/master/includes/functions.php#L163) an remove the storing of the IP address.\r\n\r\nSince I am not letting any users add links I don't need to do this. But for the sake of completeness it should be added to the plug-in, when storing country codes."
+    },
+    {
+      "id": 392504255,
+      "url": "https://github.com/YOURLS/YOURLS/issues/2386#issuecomment-392504255",
+      "created_at": "2018-05-28T11:40:38Z",
+      "updated_at": "2018-05-28T11:40:38Z",
+      "author": "Participant 6",
+      "body": "That's exactly what I meant. If you are the only one who can add links it doesn't matter for you. "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

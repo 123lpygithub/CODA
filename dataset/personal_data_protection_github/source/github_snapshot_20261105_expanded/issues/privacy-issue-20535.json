@@ -1,0 +1,23 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20535",
+  "issue_url": "https://github.com/GoogleChrome/workbox/issues/2703",
+  "source_issue_url": "https://github.com/GoogleChrome/workbox/issues/2703",
+  "api_url": "https://api.github.com/repos/GoogleChrome/workbox/issues/2703",
+  "title": "Update Workbox to compile with `data retention` gdpr laws",
+  "body": "We have websites that are hosted in Europe and we try our best to comply with GDPR laws.\r\n\r\nWith regards to storing cookie data, we are not allowed to store the cookie data `forever`.\r\n\r\nThe GDPR law states that `Data Retention` has to be set to a certain period and **not allowed to last forever**.\r\n\r\nFor example if you look at Google Analytics they changed their policy to **required** for users to select the data retention period. This period went up to a max period of 50 months for the old GA and the new GA4 is set to a max of 14 months.\r\n\r\nLink: https://support.google.com/analytics/answer/7667196?hl=en\r\n\r\nStoring data in a cache via a service worker I think would be under GDPR laws. We can easily store personal or tracking information via a service worker, intentionally or unintentionally.\r\n\r\nTherefore the api found here: \r\nhttps://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-expiration.ExpirationPlugin#ExpirationPlugin\r\n\r\nWould probably fail under GDPR laws - because the data retention can be set to forever. \r\n\r\nTwo options to fix this could be:\r\n\r\n### 1. Change `maxAgeSeconds` to be required\r\n\r\n#### Would fail GDPR\r\n\r\n```js\r\nworkbox.routing.registerRoute(\r\n    new RegExp(\"https://www.google-analytics.com/(.*)\"),\r\n    new workbox.strategies.CacheFirst({\r\n        cacheName: \"ga\",\r\n        plugins: [\r\n            new workbox.expiration.ExpirationPlugin({\r\n                maxEntries: 50,\r\n            }),\r\n            new workbox.cacheableResponse.CacheableResponsePlugin({\r\n                statuses: [0, 200],\r\n            }),\r\n        ],\r\n    })\r\n);\r\n```\r\n\r\n#### Would pass GDPR\r\n\r\n```js\r\nworkbox.routing.registerRoute(\r\n    new RegExp(\"https://www.google-analytics.com/(.*)\"),\r\n    new workbox.strategies.CacheFirst({\r\n        cacheName: \"ga\",\r\n        plugins: [\r\n            new workbox.expiration.ExpirationPlugin({\r\n                maxEntries: 50,\r\n                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days\r\n            }),\r\n            new workbox.cacheableResponse.CacheableResponsePlugin({\r\n                statuses: [0, 200],\r\n            }),\r\n        ],\r\n    })\r\n);\r\n```\r\n\r\n### 2. Add a max data retention to the `maxAgeSeconds` description and api\r\n\r\n![Untitled](https://user-images.githubusercontent.com/57409060/102131030-816ef780-3e49-11eb-9c17-2de85c2da566.png)\r\n\r\n> The maximum age of an entry before it's treated as stale and removed. The maximum allowed data retention limit is set up to a 3 year period, to specify a shorter time scale use `maxAgeSeconds`.\r\n\r\nAbove description to be worded correctly by admins but gives a rough idea of what I'm suiggesting.\r\n\r\np.s. It would be even better to allow the website users to be able to set the `data retention` period for the service worker cache. This is what we do for all the other pieces of code running on our websites.\r\n\r\n> Disclaimer: I'm not a lawyer, I'm just a developer. But the logic of what I'm saying here would make sense!\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-12-14T14:58:56Z",
+  "updated_at": "2021-02-11T12:45:56Z",
+  "state": "closed",
+  "closed_at": "2021-02-11T12:45:56Z",
+  "issue_fetched_at": "2026-10-19T04:05:21.335616+00:00",
+  "comments_fetched_at": [],
+  "expected_comment_count": 0,
+  "retrieved_comment_count": 0,
+  "comments_complete": true,
+  "comments": [],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0061-aagfgggge",
+  "revision_url": "https://github.com/IBM/mi-prometheus/commit/d08f53cd37acdf8721ab196292df2bc6651e5ba9",
+  "filename": "workers/classic_trainer.py",
+  "commit": "d08f53cd37acdf8721ab196292df2bc6651e5ba9",
+  "source_url": "https://raw.githubusercontent.com/IBM/mi-prometheus/d08f53cd37acdf8721ab196292df2bc6651e5ba9/workers/classic_trainer.py",
+  "fetched_at": "2026-11-05T06:11:48.565094+00:00",
+  "source_sha256": "2e56ea86b0307c35d56e814a1691b7987320ec1cd0a25ba928c1d33e8f824b3b",
+  "line_start": 300,
+  "line_end": 324,
+  "excerpt": "\n                # Terminal conditions.\n                # I - the loss is < threshold (only when curriculum learning is finished if set.)\n                # We check that condition only in validation step!\n                if self.curric_done or not self.must_finish_curriculum:\n\n                    # Check the Full Validation loss.\n                    if (self.validation_stat_agg[\"loss\"] < self.loss_stop):\n                        termination_cause = \"Full Validation Loss want below Loss Stop threshold (model converged)\"\n                        break\n\n                # II. Early stopping is set and loss hasn't improved by delta in n epochs.\n                # early_stopping(index=epoch, avg_valid_loss). (TODO: coming in next release)\n                # termination_cause = 'Early Stopping.'\n\n                # IV. The epoch number limit has been reached, condition is already made in for loop.\n\n            '''\n            End of main training and validation loop. Perform final full validation.\n            '''\n            self.logger.info('Training finished because {}'.format(termination_cause))\n            # Check visualization flag - turn on visualization for last validation if needed.\n            if (self.flags.visualize == 3):\n                self.app_state.visualize = True\n            else:",
+  "match_policy": "unique-release-normalized-v2"
+}

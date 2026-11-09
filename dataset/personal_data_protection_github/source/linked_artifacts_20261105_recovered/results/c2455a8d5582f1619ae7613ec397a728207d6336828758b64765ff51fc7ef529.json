@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/nextcloud/notifications/blob/stable13/js/app.js#L107",
+  "kind": "file",
+  "cited_in": [
+    "comment_441234398"
+  ],
+  "revision": "stable13",
+  "immutable_revision": false,
+  "line_start": 95,
+  "line_end": 119,
+  "text": "\n\t\t\t// Initial call to the notification endpoint\n\t\t\tthis.initialFetch();\n\n\t\t\t// Bind the button click event\n\t\t\tOC.registerMenu(this.$button, this.$container);\n\t\t\tthis.$button.on('click', _.bind(this._onNotificationsButtonClick, this));\n\n\t\t\tthis.$container.on('click', '.action-button', _.bind(this._onClickAction, this));\n\t\t\tthis.$container.on('click', '.notification-delete', _.bind(this._onClickDismissNotification, this));\n\n\t\t\t// Setup the background checker\n\t\t\tif (oc_config.session_keepalive) {\n\t\t\t\tthis.interval = setInterval(_.bind(this.backgroundFetch, this), this.pollInterval);\n\t\t\t}\n\t\t},\n\n\t\t/**\n\t\t * Handles the notification dismiss click event\n\t\t * @param {Event} event\n\t\t */\n\t\t_onClickDismissNotification: function(event) {\n\t\t\tevent.preventDefault();\n\t\t\tvar self = this,\n\t\t\t\t$target = $(event.target),",
+  "source_sha256": "819474c6bbe23c0bf6e16b2e0402d4137238316d23e88e2ac51e3bb5d7b0da94",
+  "fetched_at": "2026-11-05T06:21:29.884204+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/nextcloud/notifications/stable13/js/app.js",
+  "status": "available"
+}

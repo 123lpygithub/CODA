@@ -1,0 +1,138 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27MicrosoftDocs%2Fmicrosoft-365-docs%27+AND+number%3D2560+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='MicrosoftDocs/microsoft-365-docs' AND number=2560 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T06:45:14.749856+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "andysalvadors",
+        "created_at": "2020-08-07 15:49:38",
+        "updated_at": "2020-08-07 15:49:37",
+        "title": "ccpa",
+        "body": "\r\n[Enter feedback here]\r\n\r\n\r\n---\r\n#### Document Details\r\n\r\n⚠ *Do not edit this section. It is required for docs.microsoft.com ➟ GitHub issue linking.*\r\n\r\n* ID: eac49698-fb03-c04b-e420-c7e54f8daa06\r\n* Version Independent ID: b0202a29-7010-7689-0600-438b3da8bc2e\r\n* Content: [California Consumer Privacy Act (CCPA) FAQ - Microsoft 365 Compliance](https://docs.microsoft.com/en-us/microsoft-365/compliance/ccpa-faq?view=o365-worldwide)\r\n* Content Source: [microsoft-365/compliance/ccpa-faq.md](https://github.com/MicrosoftDocs/microsoft-365-docs/blob/public/microsoft-365/compliance/ccpa-faq.md)\r\n* Product: **microsoft-365-enterprise**\r\n* GitHub Login: @robmazz\r\n* Microsoft Alias: **robmazz**",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-08-07 15:00:00",
+        "repo_name": "MicrosoftDocs/microsoft-365-docs",
+        "number": 2560
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "msbemba",
+        "created_at": "2020-08-10 04:53:48",
+        "updated_at": "2020-08-10 04:53:47",
+        "title": "ccpa",
+        "body": "@andysalvadors The FAQ seems to be up to date and in fact, we recently updated the document in March. Could you please clarify what exactly is missing or needs modification in the document?\r\n\r\nThanks\r\nSri",
+        "comment_id": 671161018,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-08-10 04:00:00",
+        "repo_name": "MicrosoftDocs/microsoft-365-docs",
+        "number": 2560
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "yogkumgit",
+        "created_at": "2020-08-19 13:18:55",
+        "updated_at": "2020-08-19 13:18:55",
+        "title": "ccpa",
+        "body": "@msbemba Thank you very much for the contribution.  @andysalvadors We appreciate any feedback that improves the content in the Microsoft docs but we haven't had any response from you so we are going to close this issue.  \r\nPlease feel free to re-open this issue if you see an improvement is required in the specific area of this documentation. We will certainly update this documentation with that valuable information. Thanks again, for taking out some time to open the issue. Appreciate and encourage you to do the same in future also.\r\n",
+        "comment_id": 676343811,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-08-19 13:00:00",
+        "repo_name": "MicrosoftDocs/microsoft-365-docs",
+        "number": 2560
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "yogkumgit",
+        "created_at": "2020-08-19 13:18:58",
+        "updated_at": "2020-08-19 13:18:58",
+        "title": "ccpa",
+        "body": "\r\n[Enter feedback here]\r\n\r\n\r\n---\r\n#### Document Details\r\n\r\n⚠ *Do not edit this section. It is required for docs.microsoft.com ➟ GitHub issue linking.*\r\n\r\n* ID: eac49698-fb03-c04b-e420-c7e54f8daa06\r\n* Version Independent ID: b0202a29-7010-7689-0600-438b3da8bc2e\r\n* Content: [California Consumer Privacy Act (CCPA) FAQ - Microsoft 365 Compliance](https://docs.microsoft.com/en-us/microsoft-365/compliance/ccpa-faq?view=o365-worldwide)\r\n* Content Source: [microsoft-365/compliance/ccpa-faq.md](https://github.com/MicrosoftDocs/microsoft-365-docs/blob/public/microsoft-365/compliance/ccpa-faq.md)\r\n* Product: **microsoft-365-enterprise**\r\n* GitHub Login: @robmazz\r\n* Microsoft Alias: **robmazz**",
+        "comment_id": 0,
+        "comments": 2,
+        "state": "closed",
+        "closed_at": "2020-08-19 13:18:58",
+        "file_time": "2020-08-19 13:00:00",
+        "repo_name": "MicrosoftDocs/microsoft-365-docs",
+        "number": 2560
+      }
+    ],
+    "rows": 4,
+    "statistics": {
+      "elapsed": 0.027376969,
+      "rows_read": 305372,
+      "bytes_read": 7850102
+    }
+  },
+  "response_sha256": "8d6c5d9e31b763ca113d000c28ae473b2560dc84fe4f3fdc7924c4c5458f8beb"
+}

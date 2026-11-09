@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0707-aaeiefjai",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/e7bb1eaf03011be44c1569ae9caa0262c19458e5",
+  "filename": "hpat/hiframes/pd_series_ext.py",
+  "commit": "e7bb1eaf03011be44c1569ae9caa0262c19458e5",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/e7bb1eaf03011be44c1569ae9caa0262c19458e5/hpat/hiframes/pd_series_ext.py",
+  "fetched_at": "2026-11-05T06:13:41.149325+00:00",
+  "source_sha256": "b51f0b899a8fdcb0f5f6e537c078863c09fa97f660cd0e8eca9f29c10d484ffc",
+  "line_start": 775,
+  "line_end": 799,
+  "excerpt": "        # TODO: dt_index\n        if in_arr == string_array_type:\n            # XXX fails due in overload\n            # compile_internal version results in symbol not found!\n            # sig = self.context.resolve_function_type(\n            #     operator.getitem, (in_arr, in_idx), kws)\n            # HACK to get avoid issues for now\n            if isinstance(in_idx, (types.Integer, types.IntegerLiteral)):\n                sig = string_type(in_arr, in_idx)\n            else:\n                sig = GetItemStringArray.generic(self, (in_arr, in_idx), kws)\n        elif in_arr == list_string_array_type:\n            # TODO: split view\n            # mimic array indexing for list\n            if (isinstance(in_idx, types.Array) and in_idx.ndim == 1\n                    and isinstance(\n                        in_idx.dtype, (types.Integer, types.Boolean))):\n                sig = signature(in_arr, in_arr, in_idx)\n            else:\n                sig = numba.typing.collections.GetItemSequence.generic(\n                    self, (in_arr, in_idx), kws)\n        else:\n            out = get_array_index_type(in_arr, in_idx)\n            sig = signature(out.result, in_arr, out.index)\n"
+}

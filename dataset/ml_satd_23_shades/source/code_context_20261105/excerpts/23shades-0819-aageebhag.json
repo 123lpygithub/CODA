@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0819-aageebhag",
+  "revision_url": "https://github.com/textgain/grasp/commit/15e28ab3b62ea81343dd2297a6ae36cd0849a599",
+  "filename": "grasp.py",
+  "commit": "15e28ab3b62ea81343dd2297a6ae36cd0849a599",
+  "source_url": "https://raw.githubusercontent.com/textgain/grasp/15e28ab3b62ea81343dd2297a6ae36cd0849a599/grasp.py",
+  "fetched_at": "2026-11-05T06:13:59.888284+00:00",
+  "source_sha256": "4d38653656ac7c9a63af14b77f2a0eb3756300eb00bc1d65b465831e06810ce5",
+  "line_start": 3291,
+  "line_end": 3315,
+  "excerpt": "        return g\n\n    def sp(self, n1, n2):\n        \"\"\" Returns the shortest path from n1 to n2.\n        \"\"\"\n        return shortest_path(self, n1, n2)\n\n    def hops(self, n1, n2):\n        return len(self.sp(n1, n2)) - 2\n\n    def __contains__(self, v):\n        if isinstance(v, Edge):\n            return self.edge(v.node1, v.node2) is not None # XXX ignores weight & type\n        else:\n            return dict.__contains__(self, v)\n\n    def __or__(self, g):\n        return union(self, g)\n\n    def __and__(self, g):\n        return intersection(self, g)\n\n    def __sub__(self, g):\n        return difference(self, g)\n"
+}

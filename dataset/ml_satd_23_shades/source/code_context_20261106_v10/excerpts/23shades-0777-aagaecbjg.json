@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0777-aagaecbjg",
+  "revision_url": "https://github.com/kororo/excelcy/commit/632ef093fb8f8ba8eca5ee4043ba84b0950d104b",
+  "filename": "excelcy/excelcy.py",
+  "commit": "632ef093fb8f8ba8eca5ee4043ba84b0950d104b",
+  "source_url": "https://raw.githubusercontent.com/kororo/excelcy/632ef093fb8f8ba8eca5ee4043ba84b0950d104b/excelcy/excelcy.py",
+  "fetched_at": "2026-11-05T06:13:50.798027+00:00",
+  "source_sha256": "5701ccee7198baca9ba5a0455a831e0d3d8a9304560d141f2e525bec36765597",
+  "line_start": 187,
+  "line_end": 211,
+  "excerpt": "            nlp.to_disk(self.storage.nlp_path)\n            nlp = spacy.load(name=self.storage.nlp_path)\n        return nlp\n\n    def _discover_text(self, source: Source):\n        \"\"\"\n        Apply Sentence Boundary Detection, described here https://spacy.io/usage/linguistic-features#sbd\n        :param source: The source value with kind=text\n        \"\"\"\n        # this is based on SBD described here\n        doc = self.nlp(source.value)\n        for sentence in doc.sents:\n            # TODO: would be good to add ref from source\n            self.storage.train.add(text=sentence)\n\n    def _discover_textract(self, source: Source):\n        \"\"\"\n        Apply textract parsing, described here http://textract.readthedocs.io/en/stable/\n        :param source: The source value with kind=textract\n        \"\"\"\n        # TODO: add textract check\n        import textract\n        # process it\n        text = textract.process(self.resolve_path(file_path=source.value), language=self.storage.config.source_language)\n        # create new source and pass it to text processor"
+}

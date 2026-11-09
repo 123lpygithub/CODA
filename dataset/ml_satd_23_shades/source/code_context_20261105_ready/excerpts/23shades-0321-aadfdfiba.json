@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0321-aadfdfiba",
+  "revision_url": "https://github.com/sbl-sdsc/mmtf-pyspark/commit/c5a83bce18a726ee128bd3365b35bea0633da746",
+  "filename": "mmtfPyspark/utils/codec.py",
+  "commit": "c5a83bce18a726ee128bd3365b35bea0633da746",
+  "source_url": "https://raw.githubusercontent.com/sbl-sdsc/mmtf-pyspark/c5a83bce18a726ee128bd3365b35bea0633da746/mmtfPyspark/utils/codec.py",
+  "fetched_at": "2026-11-05T06:12:33.416442+00:00",
+  "source_sha256": "aeeee3c2f041a0aac2ada2bf79a3587bdd4077480e9d1b0f4192c44c500ffaf5",
+  "line_start": 276,
+  "line_end": 300,
+  "excerpt": "\n    return y[:count + 1]\n\n\n# In[13]:\n\n\nNULL_BYTE = '\\x00'\nnb = NULL_BYTE.encode('ascii')\nCHAIN_LEN = 4\n\n\n# TODO optimize this method\ndef encode_chain_list(in_strings):\n    \"\"\"Convert a list of strings to a list of byte arrays.\n    :param in_strings: the input strings\n    :return the encoded list of byte arrays\"\"\"\n    out_bytes = b\"\"\n    for in_s in in_strings:\n        out_bytes += in_s.encode('ascii')\n        for i in range(CHAIN_LEN - len(in_s)):\n            out_bytes += nb\n    return out_bytes\n\n    # In[14]:"
+}

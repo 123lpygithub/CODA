@@ -1,0 +1,88 @@
+{
+  "artifact_id": "privacy-issue-4253",
+  "source_issue_url": "https://github.com/datenanfragen/website/issues/388",
+  "issue_snapshot_sha256": "c611dfb0dc9396d7c9f94936592cc4ae05a2cdc142967a075b336b44eeed8028",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Utility/RequestLetter.js#L122",
+      "kind": "file",
+      "cited_in": [
+        "comment_685070239"
+      ],
+      "revision": "d97ed79e7082db0cad9b2229f886c3e24d5638bf",
+      "immutable_revision": true,
+      "line_start": 110,
+      "line_end": 134,
+      "text": "            this.props.signature['name'];\n        return email;\n    }\n\n    /**\n     * @param {Request} request_object\n     * @param {String} template\n     * @param {Object} flags\n     */\n    static propsFromRequest(request_object, template, flags = {}) {\n        const id_data = RequestLetter.formatData(request_object.id_data);\n        const rectification_data = RequestLetter.formatData(request_object.rectification_data);\n        request_object.signature['name'] = id_data.name;\n\n        flags = {\n            erase_some: !request_object.erase_all,\n            has_fields: !!id_data.formatted,\n            erase_all: request_object.erase_all,\n            data_portability: request_object.data_portability,\n            runs: request_object.recipient_runs ? request_object.recipient_runs.length > 0 : false\n        };\n        const variables = {\n            id_data: id_data.formatted,\n            rectification_data: rectification_data.formatted,\n            erasure_data: '<italic>' + request_object.erasure_data + '</italic>',",
+      "source_sha256": "5441b2ab6f41ea96d64542d3adce98569c3145e62dd19144a73f2b4d4c51d52a",
+      "fetched_at": "2026-11-05T06:21:53.547650+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/datenanfragen/website/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Utility/RequestLetter.js",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Components/RequestGeneratorBuilder.js#L431",
+      "kind": "file",
+      "cited_in": [
+        "comment_685078945"
+      ],
+      "revision": "d97ed79e7082db0cad9b2229f886c3e24d5638bf",
+      "immutable_revision": true,
+      "line_start": 419,
+      "line_end": 443,
+      "text": "            sender.country\n        ];\n        if (this.state.request.type === 'custom') {\n            this.letter.setProps({\n                subject: this.state.request.custom_data.subject,\n                content: this.state.request.custom_data.content,\n                signature: { ...this.state.request.signature, name: this.state.request.custom_data.name },\n                recipient_address: this.state.request.recipient_address,\n                sender_address: sender_address,\n                information_block: RequestLetter.makeInformationBlock(this.state.request),\n                reference_barcode: RequestLetter.barcodeFromText(this.state.request.reference)\n            });\n        } else this.letter.setProps(RequestLetter.propsFromRequest(this.state.request, this.state.template_text));\n\n        switch (this.state.request.transport_medium) {\n            case 'fax': // fallthrough intentional\n            case 'letter':\n                this.setState({ download_active: false });\n                this.letter.initiatePdfGeneration(\n                    (this.state.suggestion?.slug ||\n                        slugify(this.state.request.recipient_address.split('\\n', 1)[0] || 'custom-recipient')) +\n                        `_${this.state.request.type}_${this.state.request.reference}.pdf`\n                );\n                break;\n            case 'email': {",
+      "source_sha256": "c4ff3cd474401fc85590df94466f9e86a459d172dbcc46b6b1528485a06afe55",
+      "fetched_at": "2026-11-05T06:21:54.088176+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/datenanfragen/website/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Components/RequestGeneratorBuilder.js",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Components/RequestGeneratorBuilder.js#L24",
+      "kind": "file",
+      "cited_in": [
+        "comment_685078945"
+      ],
+      "revision": "d97ed79e7082db0cad9b2229f886c3e24d5638bf",
+      "immutable_revision": true,
+      "line_start": 12,
+      "line_end": 36,
+      "text": "import Modal, { showModal, dismissModal } from './Modal';\nimport SvaFinder from './SvaFinder';\nimport { download, clearUrlParameters } from '../Utility/browser';\nimport Template from 'letter-generator/Template';\nimport UserRequests from '../my-requests';\nimport ActionButton from './Generator/ActionButton';\n\nexport default class RequestGeneratorBuilder extends preact.Component {\n    constructor(props) {\n        super(props);\n\n        this.state = {\n            request: new Request(),\n            suggestion: null,\n            template_text: '',\n\n            batch: [],\n\n            blob_url: '',\n            download_filename: '',\n            download_active: false,\n\n            response_request: {},\n\n            fill_fields: [],",
+      "source_sha256": "c4ff3cd474401fc85590df94466f9e86a459d172dbcc46b6b1528485a06afe55",
+      "fetched_at": "2026-11-05T06:21:54.309727+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/datenanfragen/website/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Components/RequestGeneratorBuilder.js",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/DataType/Request.js#L64",
+      "kind": "file",
+      "cited_in": [
+        "comment_685078945"
+      ],
+      "revision": "d97ed79e7082db0cad9b2229f886c3e24d5638bf",
+      "immutable_revision": true,
+      "line_start": 52,
+      "line_end": 76,
+      "text": "        this.recipient_address = '';\n        /**\n         * The email address of the request recipient.\n         * @type {String}\n         */\n        this.email = '';\n        /**\n         * The signature to be included after the content in pdfmake format. If not left blank, this can be:\n         *     - `{ type: 'text', name: 'Name' }` to just add the name\n         *     - `{ type: 'image', name: 'Name', value: 'base64-encoded image' }` to include an image and the name\n         *         underneath\n         */\n        this.signature = { type: 'text', value: '' };\n        /**\n         * The user-defined part of the information block.\n         * @type {String}\n         */\n        this.information_block = '';\n        /**\n         * @type {String}\n         */\n        this.language = LOCALE;\n\n        /**\n         * The 'Get data in a machine-readable format' flag for access requests.",
+      "source_sha256": "b20ccdb03a152fdf1a6257df608f09481fe70703f136b38e9396c2978974a571",
+      "fetched_at": "2026-11-05T06:21:55.128022+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/datenanfragen/website/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/DataType/Request.js",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/datenanfragen/website/blob/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Components/RequestGeneratorBuilder.js#L81-L94",
+      "kind": "file",
+      "cited_in": [
+        "comment_685078945"
+      ],
+      "revision": "d97ed79e7082db0cad9b2229f886c3e24d5638bf",
+      "immutable_revision": true,
+      "line_start": 69,
+      "line_end": 106,
+      "text": "                // may have already called `setBatch()` and thus set `this.state.batch` *and* shifted it.\n                // Re-calling this code (due to the async nature of the `then` block, it may well run later) would\n                // result in skipping the first company (see #253). Instead, we only want to prepare batch mode here if\n                // it was enabled through the URL (i.e. `batch_companies` is set).\n                if (batch_companies?.length > 0) {\n                    this.setCompanyBySlug(this.state.batch.shift()).then(this.renderLetter);\n                }\n            }\n            this.renderLetter();\n        });\n    }\n\n    resetInitialConditions = async () => {\n        await initializeFields(this.state.request.id_data).then(res => {\n            this.setState(prev => {\n                prev.request.id_data = res.new_fields;\n                prev.request.signature = res.signature;\n\n                const name = res.new_fields.filter(i => i.type === 'name')[0];\n                const address = res.new_fields.filter(i => i.type === 'address')[0];\n                if (name) prev.request.custom_data.name = name.value;\n                if (address) prev.request.custom_data.sender_address = address.value;\n\n                return prev;\n            });\n        });\n\n        const { response_to, response_type } = PARAMETERS;\n\n        // This is a response to a previous request (warning or complaint).\n        if (Privacy.isAllowed(PRIVACY_ACTIONS.SAVE_MY_REQUESTS) && response_to && response_type) {\n            // Just for the looks: Switch the view before fetching the template\n            this.setState(prev => {\n                prev.request.type = 'custom';\n                return prev;\n            });\n\n            await Promise.all([",
+      "source_sha256": "c4ff3cd474401fc85590df94466f9e86a459d172dbcc46b6b1528485a06afe55",
+      "fetched_at": "2026-11-05T06:21:54.088176+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/datenanfragen/website/d97ed79e7082db0cad9b2229f886c3e24d5638bf/src/Components/RequestGeneratorBuilder.js",
+      "status": "available"
+    }
+  ]
+}

@@ -1,0 +1,706 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-240",
+  "issue_url": "https://github.com/bromite/bromite/issues/792",
+  "source_issue_url": "https://github.com/bromite/bromite/issues/792",
+  "api_url": "https://api.github.com/repos/bromite/bromite/issues/792",
+  "title": "User scripts component",
+  "body": "### Is your feature request related to privacy?\r\n\r\nNo, but it could become\r\n\r\n### Is there a patch available for this feature somewhere?\r\n\r\nNo.\r\n\r\n### Describe the solution you would like\r\n\r\nas some users have said, I also find privacy pop-ups boring, especially google ones, since in my phone they are quite lagged\r\n\r\n### Describe alternatives you have considered\r\n\r\ninitially I thought about reusing the Inject-scripts-for-AMP-tracking-ads-and-video.patch but then I saw that there is the possibility to activate the support for userscripts, which is somehow better because it leaves no trace in the dom, as opposed to that patch.\r\n\r\nas a personal test (and also a bit of a challenge) I tried to reactivate user scripts in bromite (https://www.chromium.org/developers/design-documents/user-scripts) taking them from the extensions and moving them to a new one component, managing to make them work (https://github.com/uazo/bromite/blob/gitpages/userscripts_v2.7z my work)\r\nObviously, as my first test, there is no ui (and by the way it could be quite long to implement it), we could think to proceed in steps.\r\n\r\nI wanted to understand if there was interest and, if so, if we wanted to discuss how to implement it, also considering the security aspects, updates and possible integration with chromium developer tools.\r\n\r\ncurrent state:\r\n- [x] base code + reading from folder\r\n  - [x] add details for unmatch header\r\n  - [x] bug DOCUMENT_START not work\r\n- [x] preferences (enable/disable)\r\n  - [x] add link to help page (actually https://github.com/bromite/bromite/wiki/UserScripts)\r\n- [x] ui management (enable/disable/remove script) \r\n  - [x] consider changing proguard settings for R (see https://stackoverflow.com/a/2889844)\r\n  - [x] add icons (enable/disable)\r\n  - [x] disable add button if feature is disabled\r\n  - [x] bug enable/disable need restart\r\n- [x] add script from file dialog\r\n  - [x] remove excessive permissions prompt from filedialog (camera + audio)\r\n  - [x] check how to transform a content:// (URI) to file:// (PATH)\r\n  - [x] get real script filename from a content://\r\n  - [x] when importing from file, skip non ascii chars used in description to prevent [FATAL:web_string.cc(112)] Check failed: ContainsOnlyASCII()\r\n  - [x] reload list after add and show toast with error (check how works CallByNative)\r\n  - [x] check if a file is real user script (es refuse txt without javascript)\r\n- [x] understand if installation from download makes sense (entry point https://source.chromium.org/chromium/chromium/src/+/master:chrome/android/java/src/org/chromium/chrome/browser/download/DownloadUtils.java;l=360), actually we have to download the file\r\n  - [x] check how to request permission from the user\r\n  - [x] not working\r\n- [x] add feature flag\r\n- [x] consider if we want to add a way to prevent crash in the startup\r\n- [ ] code cleaning\r\n  - [x] remove unused code\r\n  - [x] remove unused BrowserContextHandle from bridge\r\n  - [ ] try to simply rendering code\r\n  - [x] change all ifdef removing extension word\r\n  - [x] add a flag for logging\r\n  - [x] add file name to pickle (file) so we can log script name at injection time\r\n  - [x] check compiling webview\r\n- [ ] ui management (2)\r\n  - [ ] script details\r\n  - [ ] disable in incognito\r\n  - [x] view source script\r\n  - [ ] check if we can use an \"interstitial\" page to install a userscript\r\n  - [ ] localize error strings\r\n- [ ] security verification\r\n  - [ ] consider whether to use a sha256 to verify a possible modification of the file without the user's knowledge (if we give the possibility to choose the scripts folder)\r\n  - [x] check if we can deny network access to injected scripts (check ScriptContext)\r\n  - [x] permit only content:// from pickerui\r\n  - [x] block install intent from outside --> no, ask user\r\n- [ ] understand if it makes sense to use zip files (for adding css directly, userscripts.js doesn't support them directly) code https://source.chromium.org/chromium/chromium/src/+/master:components/services/unzip/public/cpp/unzip.cc\r\n- [ ] understand if self-updating makes sense\r\n  - [ ] check how the source can be verified (script is unsigned by default)\r\n  - [ ] or enable include metadata support\r\n- [ ] add management in devtools (like snippets, code https://source.chromium.org/chromium/chromium/src/+/master:third_party/devtools-frontend/src/front_end/snippets/ScriptSnippetFileSystem.js)\r\n  - [ ] add flag for \"fall-back\" in devtools (code https://source.chromium.org/chromium/chromium/src/+/master:chrome/browser/android/devtools_server.cc)\r\n- [ ] add test cases\r\n- [x] try with v88\r\n- [x] try with v89\r\n- [x] try with v90\r\n- [x] try with v91\r\n- [x] bug  [FATAL:utf_string_conversions.cc(338)] Check failed: IsStringASCII(utf16). Tampermonkey • Userscript Sources\r\n- [x] handling unicode scripts",
+  "author": "Participant 1",
+  "created_at": "2020-10-30T08:16:25Z",
+  "updated_at": "2022-05-28T09:02:37Z",
+  "state": "closed",
+  "closed_at": "2022-05-28T09:02:26Z",
+  "issue_fetched_at": "2026-10-18T17:11:26.075980+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T17:11:27.555228+00:00"
+  ],
+  "expected_comment_count": 85,
+  "retrieved_comment_count": 85,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 719893509,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-719893509",
+      "created_at": "2020-10-31T06:40:33Z",
+      "updated_at": "2020-10-31T06:40:33Z",
+      "author": "Participant 2",
+      "body": "> I tried to reactivate user scripts\r\n> taking them from the extensions and moving them to a new component\r\n\r\nWhat is the status of this feature upstream? is `--enable-user-scripts` still working?"
+    },
+    {
+      "id": 719906019,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-719906019",
+      "created_at": "2020-10-31T09:00:01Z",
+      "updated_at": "2020-10-31T09:00:01Z",
+      "author": "Participant 1",
+      "body": "That switch was removed on 2009-11-24\r\nhttps://source.chromium.org/chromium/chromium/src/+/faed6e1304f7ba31ed12d42ea3dc694021690afd\r\n\r\nbut that code is alive (see for example https://source.chromium.org/chromium/chromium/src/+/6d96d3d1cb83d433c2b6a7c2f29c15900296f3c8)\r\nsince it is used for declarative scripts used by extensions"
+    },
+    {
+      "id": 719928674,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-719928674",
+      "created_at": "2020-10-31T12:42:03Z",
+      "updated_at": "2020-10-31T12:42:03Z",
+      "author": "Participant 2",
+      "body": "How would this work on Android? I have checked your 7z file but since it is not a patch I cannot see exactly what you changed without extracting it on a branch.\r\n\r\n> possible integration with chromium developer tools.\r\n\r\nWhat integration do you mean here?"
+    },
+    {
+      "id": 719934376,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-719934376",
+      "created_at": "2020-10-31T13:31:09Z",
+      "updated_at": "2020-10-31T13:31:09Z",
+      "author": "Participant 1",
+      "body": "> I cannot see exactly what you changed without extracting it on a branch.\r\n\r\nit's because I haven't changed anything, it's all new, taking code from extensions and removing the superfluous, they are not active in android.\r\nit is a new component, like those already found in the base code. I preferred this way, given the need to keep maintenance easy, it is something we can discuss.\r\n\r\n> How would this work on Android?\r\n\r\ntechnically the component attaches itself to the rendering process (it is the default behavior of any existing component) and, responding to events in chromium, injects javascript code declaring when and what.\r\nthe browser process, via mojo, sends the scripts to the rendering engine, since it cannot access the disk to retrieve any scripts.\r\nall things I've already found, of course, credit to google teams.\r\n\r\nOf all this, I haven't done this last thing yet, but the code already provides for it. for now i just statically declared the scripts, you can see it in `components\\user_scripts\\content\\renderer\\user_script_set_manager.cc`\r\n\r\nWhat can be injected is visible here https://source.chromium.org/chromium/chromium/src/+/master:extensions/common/user_script.h while here https://source.chromium.org/chromium/chromium/src/+/master:extensions/browser/extension_user_script_loader.cc and here https://source.chromium.org/chromium/chromium/src/+/master:extensions/common/manifest_handlers/content_scripts_handler.cc the classes that loads from file.\r\n\r\n> What integration do you mean here?\r\n\r\nI mean that it would also be possible to think of adding the control of user scripts through the chromium developer tools, to make their development easier. this is just an idea, I don't know how to do it yet.\r\n"
+    },
+    {
+      "id": 720136083,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-720136083",
+      "created_at": "2020-11-01T19:04:36Z",
+      "updated_at": "2020-11-01T19:04:36Z",
+      "author": "Participant 2",
+      "body": "It is a quite big change, almost comparable to extensions support. I would have to rely on your to maintain it in future versions if it were to be merged.\r\n\r\nI understand the integration with developer tools (I guess you mean via remote debugging), but what about Android regular users? It would need some UI to load/activate/disable such user scripts?"
+    },
+    {
+      "id": 721120816,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-721120816",
+      "created_at": "2020-11-03T13:39:25Z",
+      "updated_at": "2020-11-03T13:39:25Z",
+      "author": "Participant 1",
+      "body": "> I guess you mean via remote debugging\r\n\r\nyes, I mean that.\r\n\r\n> but what about Android regular users? It would need some UI to load/activate/disable such user scripts?\r\n\r\nyes, they would have to be developed.\r\nin the next few days I will prepare a proposal to discuss.\r\n\r\n> I would have to rely on your to maintain it in future versions if it were to be merged.\r\n\r\nlet's talk about. my idea is to minimize the interventions: developing a new component, the maintenance is the opposite of what you are used to, so it is not a patch from the chromium code, but it is a patch to the chromium code.\r\nI hope I have explained myself, the language does not help me.\r\n"
+    },
+    {
+      "id": 721299264,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-721299264",
+      "created_at": "2020-11-03T18:22:45Z",
+      "updated_at": "2020-11-03T18:23:24Z",
+      "author": "Participant 2",
+      "body": "I understand the idea of a component; still, you will see that even with components maintenance is a burden.\r\n\r\n@uazo you can already create a PR rather than a 7z archive?"
+    },
+    {
+      "id": 723296983,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-723296983",
+      "created_at": "2020-11-06T20:59:06Z",
+      "updated_at": "2020-11-06T20:59:06Z",
+      "author": "Participant 1",
+      "body": "> you can already create a PR rather than a 7z archive?\r\n\r\nyou can see it here.\r\n\r\nhttps://github.com/uazo/bromite/blob/enable-user-scripts/build/patches/add-user-scripts.patch\r\n\r\nsorry for the delay, but I had the branch blocked by the other patches."
+    },
+    {
+      "id": 723516986,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-723516986",
+      "created_at": "2020-11-08T01:20:17Z",
+      "updated_at": "2020-11-08T01:20:17Z",
+      "author": "Participant 2",
+      "body": "> you can see it here.\r\n> \r\n> https://github.com/uazo/bromite/blob/enable-user-scripts/build/patches/add-user-scripts.patch\r\n\r\nI have not had time to test this yet, but what are the incomplete parts you can individuate?"
+    },
+    {
+      "id": 731749716,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-731749716",
+      "created_at": "2020-11-22T13:36:08Z",
+      "updated_at": "2020-11-23T04:36:43Z",
+      "author": "Participant 3",
+      "body": "@uazo , could you put there support and for UserStyles (User CSS) also, please ?\r\n"
+    },
+    {
+      "id": 739478197,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-739478197",
+      "created_at": "2020-12-06T09:36:45Z",
+      "updated_at": "2020-12-06T09:48:04Z",
+      "author": "Participant 1",
+      "body": "version 3 [wip]:\r\nhttps://github.com/uazo/bromite/blob/112c6d8aa511f2d6b50245374fc127ea7c777d1b/build/patches/wip-user-scripts-v3.patch\r\n\r\nAdded:\r\n- use of folder `snippets` for userscripts under app folder\r\n\r\ncurrently for all files in that folder parse and use them if they are correct. any error messages are in the log.\r\n\r\nwhat is missing:\r\n- ui\r\n- security verification: consider whether to use a sha256 to verify a possible modification of the file without the user's knowledge\r\n- understand if it makes sense to use zip files (for adding css directly, .userscripts.js doesn't support them)\r\n- understand if installation from download is possible\r\n- understand if self-updating makes sense\r\n- add management in devtools\r\n- code cleaning\r\n"
+    },
+    {
+      "id": 741164415,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-741164415",
+      "created_at": "2020-12-08T22:47:24Z",
+      "updated_at": "2020-12-08T22:47:24Z",
+      "author": "Participant 2",
+      "body": "> * security verification: consider whether to use a sha256 to verify a possible modification of the file without the user's knowledge\r\n\r\nThis is not necessary: Android has sandboxing, no other app can modify another app's files.\r\n\r\n> * understand if installation from download is possible\r\n\r\nThe AdBlock updater in Bromite already stores files locally, it could be used as a reference.\r\n\r\n> * understand if self-updating makes sense\r\n\r\nThis should be considered only later on, when there is an UI.\r\n\r\n> * ui\r\n\r\nThis might take a lot of time, I would look at it last. We still do not have #811 "
+    },
+    {
+      "id": 741620718,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-741620718",
+      "created_at": "2020-12-09T08:35:39Z",
+      "updated_at": "2020-12-09T08:35:39Z",
+      "author": "Participant 1",
+      "body": "> This is not necessary: Android has sandboxing, no other app can modify another app's files.\r\n\r\nyes, but I thought so in case we wanted to leave the user the possibility to choose the scripts folder, so that eventually he could choose to do a sync\r\n\r\n> The AdBlock updater in Bromite already stores files locally, it could be used as a reference.\r\n\r\nnot quite like that, I wanted to use this\r\nhttps://source.chromium.org/chromium/chromium/src/+/master:chrome/browser/download/chrome_download_manager_delegate.cc;l=659\r\n\r\n> This should be considered only later on, when there is an UI.\r\n\r\nSure\r\n\r\n> This might take a lot of time, I would look at it last. We still do not have #811\r\n\r\nuhm, I'm working on it now because it's a key part. it is not very long (with cut&paste cr code), of course if each test did not take 10 minutes between compiling and installing it would be better! let's see, a new pc is coming.\r\n\r\nit's the tests that worry me more and memory management for any leaks\r\n"
+    },
+    {
+      "id": 742121672,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-742121672",
+      "created_at": "2020-12-09T23:10:04Z",
+      "updated_at": "2020-12-09T23:11:48Z",
+      "author": "Participant 2",
+      "body": "> so that eventually he could choose to do a sync\r\n\r\nI do not think that it is possible. Android 11 implements even stronger sandboxing between apps/OS.\r\n\r\n\r\n\r\n> it's the tests that worry me more and memory management for any leaks\r\n\r\nThere is surely ways to detect leaks in Chromium; see https://www.chromium.org/developers/testing/leaksanitizer and https://www.chromium.org/developers/leak-detection\r\n\r\nIf you componentize the code properly you can even test it stand-alone, outside of Chromium (and then use anything you want, valgrind etc)."
+    },
+    {
+      "id": 742795249,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-742795249",
+      "created_at": "2020-12-10T20:59:00Z",
+      "updated_at": "2020-12-10T20:59:00Z",
+      "author": "Participant 2",
+      "body": "@uazo is this related/useful? https://bugs.chromium.org/p/chromium/issues/detail?id=1054624"
+    },
+    {
+      "id": 743721131,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-743721131",
+      "created_at": "2020-12-12T08:03:17Z",
+      "updated_at": "2020-12-12T08:03:17Z",
+      "author": "Participant 1",
+      "body": ">  is this related/useful? https://bugs.chromium.org/p/chromium/issues/detail?id=1054624\r\n\r\nnot currently, for what I'm doing. I don't directly use the api of the extensions but only their logic.\r\nBut it's interesting how you got there: is there any way to register for notifications to a specific bug area? it would also be useful if it were by file or by directory.\r\n\r\nin the meantime I ask you: I just can't fully understand the logic behind of `base::BindOnce()` that is driving me crazy, any suggestions of where to look for good documentation? I didn't find much in the code.\r\n\r\nAnoher thing, would you be inclined to modify the proguard settings excluding R?\r\nif, instead of changing the preferences every time directly in the xml, we change `SettingsUtils.addPreferencesFromResource()` and through the reflections we search for all the xml in R that ended in \".addon.xml\", we would not have overlaps between different patches.\r\nit's just an idea but in debug (without proguard) i tried and it works: please wait for me to put up the updated patch so I can show you the code (as soon as I understand how the hell it works BindOnce!)\r\n\r\n"
+    },
+    {
+      "id": 743737699,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-743737699",
+      "created_at": "2020-12-12T10:45:57Z",
+      "updated_at": "2020-12-12T10:45:57Z",
+      "author": "Participant 2",
+      "body": "> But it's interesting how you got there: is there any way to register for notifications to a specific bug area? it would also be useful if it were by file or by directory.\r\n\r\nI found this one while looking for something else; you can create saved queries in the Chromium issue tracker and get email notifications for them.\r\n\r\n\r\n\r\n> in the meantime I ask you: I just can't fully understand the logic behind of `base::BindOnce()` that is driving me crazy, any suggestions of where to look for good documentation? I didn't find much in the code.\r\n\r\nI am not an expert but it seems to be a way to invoke a function only once, based on its pointer. See\r\nhttps://github.com/chromium/chromium/blob/87.0.4280.106/base/callback.h#L30 and then below there is the documentation for `Then`:\r\n```\r\n  // Then() returns a new OnceCallback that receives the same arguments as\r\n  // |this|, and with the return type of |then|. The returned callback will:\r\n  // 1) Run the functor currently bound to |this| callback.\r\n  // 2) Run the |then| callback with the result from step 1 as its single\r\n  //    argument.\r\n  // 3) Return the value from running the |then| callback.\r\n  //\r\n  // Since this method generates a callback that is a replacement for `this`,\r\n  // `this` will be consumed and reset to a null callback to ensure the\r\n  // originally-bound functor can be run at most once.\r\n```\r\n\r\n\r\n\r\n> Anoher thing, would you be inclined to modify the proguard settings excluding R?\r\n\r\nYou mean something like this? https://stackoverflow.com/a/2889844\r\n\r\n> instead of changing the preferences every time directly in the xml, we change `SettingsUtils.addPreferencesFromResource()` and through the reflections we search for all the xml in R that ended in \".addon.xml\", we would not have overlaps between different patches.\r\n\r\nIt will bloat a bit the APK, but that is not a big concern. Do we have many XML issues with patches?\r\n\r\n\r\n\r\n> it's just an idea but in debug (without proguard) i tried and it works: please wait for me to put up the updated patch so I can show you the code (as soon as I understand how the hell it works BindOnce!)\r\n\r\nOk."
+    },
+    {
+      "id": 743746540,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-743746540",
+      "created_at": "2020-12-12T12:07:37Z",
+      "updated_at": "2020-12-12T12:07:37Z",
+      "author": "Participant 1",
+      "body": "some screenshot:\r\n\r\n| **Settings:**  | **Enable/Disable script:** |\r\n| ------------- | ------------- |\r\n| ![image](https://user-images.githubusercontent.com/29201891/101983252-1cb17280-3c7a-11eb-953f-03f0b8f85794.png)  |  ![image](https://user-images.githubusercontent.com/29201891/101983268-44083f80-3c7a-11eb-9ca2-8885136f4e18.png) |\r\n\r\n**File Picker:**\r\n![image](https://user-images.githubusercontent.com/29201891/101983257-32269c80-3c7a-11eb-9d2f-43f0a2074388.png)\r\n\r\n**Sample for https://greasyfork.org/it/scripts/34613-youtube-multi-downloader-v6-0-youtubeconverter-io-mp3-fhd-mp4-hd-sd-m4a-3gp:**\r\n![image](https://user-images.githubusercontent.com/29201891/101983318-a6614000-3c7a-11eb-9154-877a184595fd.png)\r\n"
+    },
+    {
+      "id": 743747585,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-743747585",
+      "created_at": "2020-12-12T12:18:13Z",
+      "updated_at": "2020-12-12T12:18:13Z",
+      "author": "Participant 1",
+      "body": "> I found this one while looking for something else; you can create saved queries in the Chromium issue tracker and get email notifications for them.\r\n\r\nthanks, I'll try.\r\n\r\n> be a way to invoke a function only once, based on its pointer\r\n\r\nyes, what I didn't understand is how. for now I found that it actually creates a function that allows the regeneration of parameters within the other thread: what I did not understand in fact is why some types of parameters accepted them and others did not, and I solved it by understanding that certain parameters can be recreated only if defined as constants. here i miss the basics of c ++, it has changed a lot since my university days.\r\n\r\n> You mean something like this? https://stackoverflow.com/a/2889844\r\n\r\nYes perfect! I just have to figure out where it is in the source ...\r\n\r\n> Do we have many XML issues with patches?\r\n\r\nactually and just to simplify switching between different releases. the fewer interventions I can do in the source code base, the better, right?\r\n\r\n> instead of changing the preferences every time directly in the xml, we change SettingsUtils.addPreferencesFromResource()\r\n\r\nSee here:\r\nhttps://github.com/uazo/bromite/blob/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch#L230\r\nhttps://github.com/uazo/bromite/blob/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch#L435\r\nhttps://github.com/uazo/bromite/blob/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch#L495\r\n"
+    },
+    {
+      "id": 744014542,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-744014542",
+      "created_at": "2020-12-13T14:18:46Z",
+      "updated_at": "2020-12-13T14:18:46Z",
+      "author": "Participant 2",
+      "body": "> what I did not understand in fact is why some types of parameters accepted them and others did not\r\n\r\nThey are constraints created by the template. Since the function is run by another thread only some operations are allowed, to not have memory leaks or invalid access between threads.\r\n\r\n\r\n\r\n> actually and just to simplify switching between different releases. the fewer interventions I can do in the source code base, the better, right?\r\n> See here:\r\n> https://github.com/uazo/bromite/blob/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch#L230\r\n> https://github.com/uazo/bromite/blob/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch#L435\r\n> https://github.com/uazo/bromite/blob/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch#L495\r\n\r\nThere are pros/cons; the addon XML would also have linting checks applied? About missing resources etc"
+    },
+    {
+      "id": 744039713,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-744039713",
+      "created_at": "2020-12-13T17:22:39Z",
+      "updated_at": "2020-12-13T17:22:39Z",
+      "author": "Participant 1",
+      "body": "> the addon XML would also have linting checks applied?\r\n\r\nYes"
+    },
+    {
+      "id": 855424028,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-855424028",
+      "created_at": "2021-06-06T16:21:13Z",
+      "updated_at": "2021-06-06T16:21:13Z",
+      "author": "Participant 3",
+      "body": "@uazo , many thanks for keeping work on it!!!\r\nand you meaned support for UserCSS, we're looking for this much also!!!\r\n"
+    },
+    {
+      "id": 856550202,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-856550202",
+      "created_at": "2021-06-08T08:00:43Z",
+      "updated_at": "2021-06-08T08:00:43Z",
+      "author": "Participant 1",
+      "body": "> many thanks for keeping work on it!!!\r\n\r\nthanks, sooner or later it will see the light!\r\n\r\n> and you meaned support for UserCSS\r\n\r\nthe function is already present, consider that a userscript can easily inject all the css it wants"
+    },
+    {
+      "id": 883801776,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-883801776",
+      "created_at": "2021-07-21T00:50:30Z",
+      "updated_at": "2021-07-31T04:53:59Z",
+      "author": "Participant 3",
+      "body": "@uazo , yes, i know about that..\r\nbut, may be right and more secure, if .css will be loaded more natural way, without using the userscript for that ?\r\n"
+    },
+    {
+      "id": 950378855,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-950378855",
+      "created_at": "2021-10-24T19:14:38Z",
+      "updated_at": "2021-10-24T19:14:38Z",
+      "author": "Participant 2",
+      "body": "@uazo we should leave this open for the remaining items in the TODO list? Or some of them are obsolete?"
+    },
+    {
+      "id": 950381039,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-950381039",
+      "created_at": "2021-10-24T19:28:50Z",
+      "updated_at": "2021-10-24T19:28:50Z",
+      "author": "Participant 2",
+      "body": "Also: I have put the example script in https://github.com/bromite/bromite/wiki/UserScripts but will it work everywhere? I see it contains `IT.it`"
+    },
+    {
+      "id": 950383527,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-950383527",
+      "created_at": "2021-10-24T19:45:20Z",
+      "updated_at": "2021-10-24T19:45:20Z",
+      "author": "Participant 1",
+      "body": "I don't know, consider it just an example.\r\n\r\n> we should leave this open for the remaining items in the TODO list?\r\n\r\ntomorrow I'll tell you."
+    },
+    {
+      "id": 951627746,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-951627746",
+      "created_at": "2021-10-26T07:11:31Z",
+      "updated_at": "2021-10-26T07:11:31Z",
+      "author": "Participant 1",
+      "body": "I was thinking about it, there is nothing obsolete, but I would like to understand if it is worth it, that is to wait for user feedback.\r\nmaybe we could close this and eventually open the single points left later.\r\n\r\nthe most critical point that is not indicated here is about the automatic tests: I have made some evaluations on this and some tests in the development, but the results do not satisfy me.\r\nthe reason is that the tests as done by chromium, are fine if they are used by other developers to understand if their modifications break logic, but we do not need it because they do not cover the possibility that our code is no longer invoked.\r\nthat is, I can develop tests on the changes I make, but I cannot develop tests that check if my code is invoked, unless it emulates a user and his ui events.\r\nI have seen that it is possible to drive chromium from the outside, however I have not yet analyzed how much I can manage, but I think this is the best way to go, it would simplify the development of the tests and their results.\r\n\r\nI saw that @wchen342 is engaged on the same front in brave, can I ask you what conclusion did you come to?"
+    },
+    {
+      "id": 952337613,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-952337613",
+      "created_at": "2021-10-26T21:22:43Z",
+      "updated_at": "2021-10-26T21:22:43Z",
+      "author": "Participant 2",
+      "body": "Fixed in `94.0.4606.109`.\r\n\r\nI will leave it open for now."
+    },
+    {
+      "id": 952805282,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-952805282",
+      "created_at": "2021-10-27T11:05:40Z",
+      "updated_at": "2021-10-27T11:05:40Z",
+      "author": "Participant 4",
+      "body": "chrome://flags#enable-user-scripts\r\nThere isn't any flag to enable users scripts in Version 94.0.4606.109"
+    },
+    {
+      "id": 952807035,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-952807035",
+      "created_at": "2021-10-27T11:07:43Z",
+      "updated_at": "2021-10-27T11:07:43Z",
+      "author": "Participant 1",
+      "body": "no, there is no additional flag.\r\nhas been removed in favor of the single switch in the settings"
+    },
+    {
+      "id": 952810530,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-952810530",
+      "created_at": "2021-10-27T11:11:35Z",
+      "updated_at": "2021-10-27T11:11:35Z",
+      "author": "Participant 4",
+      "body": "https://github.com/bromite/bromite/wiki/UserScripts \r\nThe method to enable userscripts is old in wiki,do update it..."
+    },
+    {
+      "id": 962661755,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-962661755",
+      "created_at": "2021-11-07T18:48:58Z",
+      "updated_at": "2021-11-07T18:53:22Z",
+      "author": "Participant 3",
+      "body": "@uazo , could you make user styles (user css) work out-of-the-box either please ? ..injection each time it into user.js is very uncomfortable((\r\n\r\nand if using js globally switched off, i suppose user js (scripts) wont work , but user css (styles) should work normally !!!\r\n"
+    },
+    {
+      "id": 963352258,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-963352258",
+      "created_at": "2021-11-08T16:44:09Z",
+      "updated_at": "2021-11-08T16:44:09Z",
+      "author": "Participant 1",
+      "body": "I had searched long ago for specifics to follow, finding nothing.\r\ndo you have any sites that talk about how a \"usercss\" file (which is not an extension) is made?"
+    },
+    {
+      "id": 968454388,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-968454388",
+      "created_at": "2021-11-15T02:10:25Z",
+      "updated_at": "2021-11-15T02:10:25Z",
+      "author": "Participant 3",
+      "body": "it seems there're two file names, providing user .css :\r\n.user.css (stylish one) and .user.styl (stylus one)\r\n\r\nbasics here:\r\ngithub.com/openstyles/stylus/wiki/UserCSS\r\n\r\nmore detail info here:\r\ngithub.com/openstyles/stylus/wiki/Writing-UserCSS\r\n"
+    },
+    {
+      "id": 969111333,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-969111333",
+      "created_at": "2021-11-15T16:57:36Z",
+      "updated_at": "2021-11-15T16:57:36Z",
+      "author": "Participant 2",
+      "body": "This feature is left open to implement the remainder described in the issue description; @uazo there is no intent to develop anything related to UserCSS and please do not.\r\n\r\n@DI555 you can use the existing functionality of user scripts that works only with Javascript, we will not change Bromite to support UserCSS and then chase the infinite bugs due to that."
+    },
+    {
+      "id": 974766145,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-974766145",
+      "created_at": "2021-11-21T07:03:28Z",
+      "updated_at": "2021-11-21T07:03:28Z",
+      "author": "Participant 5",
+      "body": "This is a great useful feature.\r\nHowever, at present, it seems that multibyte characters in the code are replaced with blanks."
+    },
+    {
+      "id": 976453031,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-976453031",
+      "created_at": "2021-11-23T12:13:12Z",
+      "updated_at": "2021-11-23T12:13:12Z",
+      "author": "Participant 1",
+      "body": "> it seems that multibyte characters in the code are replaced with blanks.\r\n\r\ncould you give us some examples?"
+    },
+    {
+      "id": 977137110,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-977137110",
+      "created_at": "2021-11-23T20:24:07Z",
+      "updated_at": "2021-11-23T20:24:07Z",
+      "author": "Participant 5",
+      "body": "@uezo Thank you for your reply.  \r\nThe issue of multibyte characters being replaced by blanks is described below with sample code.\r\n\r\n- The \"name\" and \"description\" of the script displayed in the script management page will be displayed correctly, including multibyte characters.\r\n- In the script code displayed by \"View source\" from the script management page, multibyte characters will be blank.\r\n- In the script that is actually executed, multibyte characters will be blank.\r\n\r\n```\r\n// ==UserScript==\r\n// @name ⚠test⚠ multibyte characters display.\r\n// @version 0.1.00\r\n// @description ⚠test⚠ en: This is test script. Bromite is a great FLOSS product 👍/ja :これはテスト用スクリプトです。ブロマイトは素晴らしいFLOSS製品です 👍\r\n// @run-at document-end\r\n// ==/UserScript==\r\n'use strict';\r\n(() => {\r\n  alert('English: [This is test script. Bromite is a great FLOSS product 👍]\\nJapanese: [これはテスト用スクリプトです。ブロマイトは素晴らしいFLOSS製品です 👍]\\n');\r\n  document.body.insertAdjacentHTML('beforeend','<div id=\"test-message-container\" style=\"position:fixed;top:0;height:50px;width:100vw;background:#e33a;display:grid;place-items:center;justify-content:center;z-index:10000;\"><p>Thumbs Up Emoji:[👍]</p></div>');\r\n}\r\n)();\r\n```"
+    },
+    {
+      "id": 984550240,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-984550240",
+      "created_at": "2021-12-02T11:41:50Z",
+      "updated_at": "2021-12-02T11:41:50Z",
+      "author": "Participant 2",
+      "body": "I wonder whether it is a problem of the file being downloaded and decoded/re-encoded before writing with incorrect encoding, or loaded with incorrect encoding as an user script."
+    },
+    {
+      "id": 984647261,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-984647261",
+      "created_at": "2021-12-02T13:52:35Z",
+      "updated_at": "2021-12-02T13:52:35Z",
+      "author": "Participant 1",
+      "body": "instead I seem to remember doing it on purpose, out of laziness :) it's been a while...\r\nbecause managing unicode strings from native code seemed complex to me. but only lately in chromium I have seen that something has changed about it, but I have not checked yet ..."
+    },
+    {
+      "id": 984720846,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-984720846",
+      "created_at": "2021-12-02T15:14:32Z",
+      "updated_at": "2021-12-02T15:14:32Z",
+      "author": "Participant 6",
+      "body": "for me i test my script and not work with bromite but work with other software support userscript\n\n![Screenshot_20211202-161304.jpg](https://user-images.githubusercontent.com/41585567/144449394-fbaba8df-9306-46a3-83de-26336e751236.jpg)\n\n![Screenshot_20211202-161256.jpg](https://user-images.githubusercontent.com/41585567/144449419-db83b77a-9098-400e-bf7e-78e9938edb48.jpg)\n\n\n![Screenshot_20211202-161248.jpg](https://user-images.githubusercontent.com/41585567/144449440-a11a2831-710c-47df-bd37-7784e69fddf6.jpg)"
+    },
+    {
+      "id": 984732196,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-984732196",
+      "created_at": "2021-12-02T15:26:44Z",
+      "updated_at": "2021-12-02T15:26:44Z",
+      "author": "Participant 1",
+      "body": "@Disqu3-mirOir-qt is correct, content scripts do not run in the scope of the current page (see https://developer.chrome.com/docs/extensions/mv3/content_scripts/#isolated_world)\r\ntry using the run-at clause as described [here](https://github.com/bromite/bromite/wiki/UserScripts)\r\nunlike other browsers, userscripts in bromite are more similar to chrome extensions, if you search on the internet you will find all the details "
+    },
+    {
+      "id": 985041756,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-985041756",
+      "created_at": "2021-12-02T22:09:51Z",
+      "updated_at": "2021-12-02T22:09:51Z",
+      "author": "Participant 2",
+      "body": "> instead I seem to remember doing it on purpose, out of laziness :) it's been a while...\r\n> because managing unicode strings from native code seemed complex to me. but only lately in chromium I have seen that something has changed about it, but I have not checked yet ...\r\n\r\nPlease add it to the issue TODOs then?"
+    },
+    {
+      "id": 986001636,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-986001636",
+      "created_at": "2021-12-04T09:57:57Z",
+      "updated_at": "2021-12-04T09:57:57Z",
+      "author": "Participant 7",
+      "body": "I'm not 100% sure about this, but it seems like only one script is run when multiple ones would match.\r\n\r\nE.g. add the [I don't care about cookies](https://github.com/xarantolus/bromite-userscripts/blob/main/block/idcac.user.js?raw=true) and [Generalized Cookie Prompt Accept/Block](https://github.com/xarantolus/bromite-userscripts/blob/main/block/accept-cookie-prompts.user.js?raw=true) from [this repo](https://github.com/xarantolus/bromite-userscripts/) to Bromite. Then visit any page (e.g. google.com). Both scripts would log output (containing the script names) when loaded, but only one script seems to run/logs to the console. Now when I go to settings and disable the script that just ran, then go back to the page and reload it, the other script will run.\r\nSo to me this looks like both scripts work individually, but when both are enabled, only one script runs. The same is also true for pages that match even more scripts, only one script gets executed."
+    },
+    {
+      "id": 986007865,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-986007865",
+      "created_at": "2021-12-04T10:50:19Z",
+      "updated_at": "2021-12-04T10:50:19Z",
+      "author": "Participant 5",
+      "body": "＠xarantolus \r\nI have confirmed the same behavior.\r\n\r\nAlso, when multiple scripts with different execution timings (@run-at) are enabled, the script that is executed first seems to be executed at the remaining timings.\r\n\r\nSteps to Reproduce:\r\nEnable only the three test scripts shown [here](https://zerobin.net/?7c249f874aed15a4#5d0Iqp40dqFMn70SZah/f9h/63krVVnx+7XCWn/tvN4=) and reload the page. We should see \"alert 1\" appear three times (at document-start and document-end and document-idle)."
+    },
+    {
+      "id": 986017558,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-986017558",
+      "created_at": "2021-12-04T12:12:27Z",
+      "updated_at": "2021-12-04T12:12:27Z",
+      "author": "Participant 1",
+      "body": "ok, thank you all, I will check and let you know."
+    },
+    {
+      "id": 986298503,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-986298503",
+      "created_at": "2021-12-05T20:54:17Z",
+      "updated_at": "2021-12-05T20:54:17Z",
+      "author": "Participant 8",
+      "body": "It's not that important but it would be nice to have a flag to change the default CSP set in line 10497 of the userscript patch. For some of my userscripts to work I had to recompile bromite with a different CSP allowing eval."
+    },
+    {
+      "id": 990044106,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-990044106",
+      "created_at": "2021-12-09T17:04:57Z",
+      "updated_at": "2021-12-09T17:04:57Z",
+      "author": "Participant 1",
+      "body": "I fixed all the problems, soon I send a pull.\r\n\r\n> it would be nice to have a flag to change the default CSP ...  with a different CSP allowing eval.\r\n\r\nI currently use this `script-src 'self'; object-src 'self'` as indicated https://source.chromium.org/chromium/chromium/src/+/main:extensions/common/manifest_handlers/csp_info.cc;l=66\r\n\r\n```\r\n// The default CSP to be used in order to prevent remote scripts.\r\n```\r\n\r\nI don't know if it is appropriate to also add `unsafe-eval`\r\n\r\n@ncaat you can try to check if it works for you https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function#difference_between_function_constructor_and_function_declaration ?\r\n"
+    },
+    {
+      "id": 990392512,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-990392512",
+      "created_at": "2021-12-09T23:18:20Z",
+      "updated_at": "2021-12-09T23:18:20Z",
+      "author": "Participant 8",
+      "body": "@uazo without `'unsafe-eval'` all methods that create code from strings are blocked: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src#unsafe_eval_expressions\r\nI think it's already sandboxed so maybe it's fine to add `'unsafe-eval'`? I'm not sure though. Regardless it would still be nice to have a flag in chrome://flags to be able to change the CSP without recompiling."
+    },
+    {
+      "id": 990677288,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-990677288",
+      "created_at": "2021-12-10T07:19:54Z",
+      "updated_at": "2021-12-10T07:19:54Z",
+      "author": "Participant 1",
+      "body": "> all methods that create code from strings are blocked\r\n\r\nah, ok.\r\n\r\n> I think it's already sandboxed so maybe it's fine to add 'unsafe-eval'? Regardless it would still be nice to have a flag in chrome://flags to be able to change the CSP without recompiling.\r\n\r\nit is not possible to manually change strings, since `chrome://flags` does not allow user input other than urls.\r\nbut I can insert an on/off flag that activates the evals, @csagan5 do you agree? the current extension code uses the page csp, that was my addition"
+    },
+    {
+      "id": 999003956,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-999003956",
+      "created_at": "2021-12-21T18:32:56Z",
+      "updated_at": "2021-12-21T18:32:56Z",
+      "author": "Participant 2",
+      "body": "> I can insert an on/off flag that activates the evals, @csagan5 do you agree? the current extension code uses the page csp, that was my addition\r\n\r\nIt is not a trivial difference; with a different CSP that means you allow any code dynamically generated by a domain controlled by the author of the script to end up running in your webpages. It would be perfect to steal credentials; while instead with the current CSP only the code in the `user.js` file is the one that runs.\r\n\r\nIf this option is introduced then we might end up with most of the scripts being created needing `unsafe-eval`, leading to a generally relaxed security measure. What would be the response when people start to get hacked this way?\r\n\r\nPerhaps if you can think of a way to grant it to specific scripts, that would be better; but the observation above still applies: my offering an option to remove the sandbox we are encouraging lax security."
+    },
+    {
+      "id": 999136172,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-999136172",
+      "created_at": "2021-12-21T22:26:40Z",
+      "updated_at": "2021-12-21T22:26:40Z",
+      "author": "Participant 8",
+      "body": "@csagan5 any userscript can steal your data. You definitely shouldn't run any scripts that you haven't either written yourself or thoroughly checked. The flag would also be deactivated by default. My script uses eval() to execute user input as part of a javascript console for mobile. To still benefit from the better security I could deactivate the flag after I'm done. There aren't a lot of things that need eval to work so I don't think many scripts would use it. I think the PR is fine as it is."
+    },
+    {
+      "id": 1001053615,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1001053615",
+      "created_at": "2021-12-25T18:01:40Z",
+      "updated_at": "2021-12-25T18:01:40Z",
+      "author": "Participant 2",
+      "body": "@ncaat I have already explained the difference, see previous message. We are not going to have a flag to enable `eval()` for all scripts."
+    },
+    {
+      "id": 1007226274,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1007226274",
+      "created_at": "2022-01-07T08:30:13Z",
+      "updated_at": "2022-01-07T08:30:13Z",
+      "author": "Participant 1",
+      "body": "> It is not a trivial difference; with a different CSP that means you allow any code dynamically generated by a domain controlled by the author of the script to end up running in your webpages\r\n\r\nokay, i will remove the flag, i trust your views on safety.\r\n\r\n> Perhaps if you can think of a way to grant it to specific scripts, that would be better;\r\n\r\nI will do so.\r\n"
+    },
+    {
+      "id": 1015503915,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1015503915",
+      "created_at": "2022-01-18T15:07:29Z",
+      "updated_at": "2022-01-18T15:07:29Z",
+      "author": "Participant 1",
+      "body": "@ncaat I added the flag to allow evals, manageable from the interface.\r\nin the meantime you can find it here https://github.com/uazo/bromite/blob/master-v97/build/patches/Experimental-user-scripts-support.patch"
+    },
+    {
+      "id": 1039260143,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1039260143",
+      "created_at": "2022-02-14T16:02:42Z",
+      "updated_at": "2022-02-14T16:02:42Z",
+      "author": "Participant 2",
+      "body": "> @csagan5 any userscript can steal your data. You definitely shouldn't run any scripts that you haven't either written yourself or thoroughly checked.\r\n\r\nThe `eval` capability is to allow a script which you have not yet read, nor possibly can, because it can be sourced from a third-party website. This is a substantial difference.\r\n\r\nCurrent scenario: you can read the script that you are going to execute, fully.\r\nScenario with eval: you never know what script is going to be executed.\r\n\r\nSo, this is not the same: it is exactly the opposite security-wise and the equivalent [ActiveX](https://en.wikipedia.org/wiki/ActiveX) on Android.\r\n\r\n@uazo since it was not agreed  to add this feature I will not add it for v97 and it is not sure that we will ever add it, I am sorry that you did all the work already before a decision was taken here."
+    },
+    {
+      "id": 1039276732,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1039276732",
+      "created_at": "2022-02-14T16:16:03Z",
+      "updated_at": "2022-02-14T16:16:03Z",
+      "author": "Participant 1",
+      "body": "> since it was not agreed to add this feature I will not add it for v97 and it is not sure that we will ever add it\r\n\r\nno problem, I figured having a flag for userscript was fine. \r\n\r\n> Scenario with eval: you never know what script is going to be executed.\r\n\r\nHowever, this may not be true, having evals active does not necessarily mean insecure...\r\n\r\n> because it can be sourced from a third-party website.\r\n\r\nHow? userscript are isolated should not have the ability to exchange data with other scripts and I could deny access to the network with `connect-src` csp.\r\n"
+    },
+    {
+      "id": 1039299446,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1039299446",
+      "created_at": "2022-02-14T16:36:07Z",
+      "updated_at": "2022-02-14T16:36:07Z",
+      "author": "Participant 2",
+      "body": "> > Scenario with eval: you never know what script is going to be executed.\r\n> \r\n> However, this may not be true, having evals active does not necessarily mean insecure...\r\n\r\nIt does: even if the script cannot access internet it will be able to access the current page. I can send you on a specially crafted page and then load the script to be evaluated from the DOM of such page."
+    },
+    {
+      "id": 1039306673,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1039306673",
+      "created_at": "2022-02-14T16:42:45Z",
+      "updated_at": "2022-02-14T16:42:45Z",
+      "author": "Participant 1",
+      "body": "> I can send you on a specially crafted page and then load the script to be evaluated from the DOM of such page.\r\n\r\nok, you are right"
+    },
+    {
+      "id": 1039481291,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1039481291",
+      "created_at": "2022-02-14T19:41:31Z",
+      "updated_at": "2022-02-14T19:41:31Z",
+      "author": "Participant 8",
+      "body": "@csagan5 while I agree that it can impact security so can simply having javascript enabled. It's often a trade-off between functionality and security. IMO the decision should be made by the users to decide for themselves whether they think it's worth it. Adding the option to enable eval with it being disabled by default doesn't impact the security of someone who doesn't activate it."
+    },
+    {
+      "id": 1039494524,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1039494524",
+      "created_at": "2022-02-14T19:57:24Z",
+      "updated_at": "2022-02-14T19:57:24Z",
+      "author": "Participant 2",
+      "body": "@ncaat I have already explained why allowing such functionality creates a slippery slope; feel free to study how `eval()` is allowed (or not) in GreaseMonkey, TamperMonkey etc\r\n\r\n@uazo we should close this issue once all the tasks in the issue description are addressed, so that separate issues can be created over time (and not discussed here, which makes it extremely difficult to follow and to reference in future)"
+    },
+    {
+      "id": 1039502721,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1039502721",
+      "created_at": "2022-02-14T20:06:01Z",
+      "updated_at": "2022-02-14T20:06:01Z",
+      "author": "Participant 8",
+      "body": "@csagan5 GreaseMonkey and TamperMonkey scripts can even disable their sandbox."
+    },
+    {
+      "id": 1039511623,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1039511623",
+      "created_at": "2022-02-14T20:15:04Z",
+      "updated_at": "2022-02-14T20:15:04Z",
+      "author": "Participant 2",
+      "body": "> @csagan5 GreaseMonkey and TamperMonkey scripts can even disable their sandbox.\r\n\r\nIf you are looking for a definitive answer: UserScripts in Bromite will not support `unsafe-eval`.\r\n\r\nLet's continue discussing on this issue the remaining planned features/fixes and for future discussions we should have a separate issue."
+    },
+    {
+      "id": 1040032883,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1040032883",
+      "created_at": "2022-02-15T09:13:00Z",
+      "updated_at": "2022-02-15T09:13:00Z",
+      "author": "Participant 1",
+      "body": "> UserScripts in Bromite will not support unsafe-eval.\r\n\r\nhowever, I think I will do so.\r\neither I make two different versions or if for @csagan5 is good for bromite, it will not be possible to activate it in any way because the code will not be included in the build through a gn flags."
+    },
+    {
+      "id": 1040151137,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1040151137",
+      "created_at": "2022-02-15T11:16:59Z",
+      "updated_at": "2022-02-15T11:16:59Z",
+      "author": "Participant 2",
+      "body": "> however, I think I will do so.\r\n\r\nAnyone can compile any Chromium variant with any patches, in fact I would like to encourage more people to do so; but it will not be Bromite.\r\n\r\n@uazo rather than GN flags I have been thinking to add other patches under `patches/contrib`; please make a PR to add it there on top of v97. This way we have the official Bromite patches and any other patch there, separately. The bottom bar or even @nikolowry's patch could be there."
+    },
+    {
+      "id": 1041220159,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1041220159",
+      "created_at": "2022-02-16T08:08:00Z",
+      "updated_at": "2022-02-16T08:08:00Z",
+      "author": "Participant 1",
+      "body": "> I have been thinking to add other patches under patches/contrib\r\n\r\nuhm.. don't be offended but why should I put patches that bromite doesn't want in the bromite repo? I would be too tied to your times (and I repeat, do not be offended). perhaps a possible link in the readme is better, or another repo a little more open: among other things, this solution would allow, by acting on the deps, to combine it with the build process.\r\n\r\n> rather than GN flags\r\n\r\ncan you explain me better? the official bromite patch and a patch of the patch? it seems to me more complex to maintain than a flag"
+    },
+    {
+      "id": 1042460372,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1042460372",
+      "created_at": "2022-02-17T00:56:51Z",
+      "updated_at": "2022-02-17T00:56:51Z",
+      "author": "Participant 2",
+      "body": "Feel free to proceed as you like; I will not accept patches with GN flags for this.\r\n\r\n> why should I put patches that bromite doesn't want in the bromite repo?\r\n\r\nFor visibility, others building Bromite might be interested; `contrib` patches (intended as community contributions) is a well-known concept for Debian packages and similar."
+    },
+    {
+      "id": 1061485664,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1061485664",
+      "created_at": "2022-03-08T07:27:27Z",
+      "updated_at": "2022-03-08T07:27:27Z",
+      "author": "Participant 1",
+      "body": "fixed in [99.0.4844.55](https://github.com/bromite/bromite/commit/f645da9e44acdecb6040021b0428ff663fdda376)\r\n"
+    },
+    {
+      "id": 1061755094,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1061755094",
+      "created_at": "2022-03-08T13:05:02Z",
+      "updated_at": "2022-03-08T13:05:02Z",
+      "author": "Participant 2",
+      "body": "@uazo there are no other fixes needed for this? The issue has still some open TODOs."
+    },
+    {
+      "id": 1061815754,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1061815754",
+      "created_at": "2022-03-08T14:07:37Z",
+      "updated_at": "2022-03-08T14:07:37Z",
+      "author": "Participant 1",
+      "body": "> The issue has still some open TODOs.\r\n\r\nI remembered wrongly, hadn't we said to open others so as not to get confused?"
+    },
+    {
+      "id": 1061886116,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1061886116",
+      "created_at": "2022-03-08T15:15:36Z",
+      "updated_at": "2022-03-08T15:15:36Z",
+      "author": "Participant 2",
+      "body": "There are none opened before closing the issue?"
+    },
+    {
+      "id": 1062648912,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1062648912",
+      "created_at": "2022-03-09T07:59:37Z",
+      "updated_at": "2022-03-09T07:59:37Z",
+      "author": "Participant 7",
+      "body": "I'm not entirely sure if this is an issue with the User scripts component itself, but it appears to only happen when it's enabled (and currently only with one script): when opening any page in Bromite, then switching to another app/the launcher, then switching back to Bromite, the page just freezes for 20+ seconds. To be more precise, only the displayed web page freezes, the home button and the URL bar continue to work.\r\n\r\nI am pretty sure that the script does not contain any infinite loops, however it does contain quite large objects (several megabytes).\r\n\r\nSteps to reproduce:\r\n1. Enable *only* [this cosmetic filter script](https://github.com/bromite/bromite/files/8212564/cosmetic.user.zip) in User Script settings\r\n2. Visit any webpage, the script is injected and works fine (it logs to the browser console)\r\n3. Switch to another app (or the launcher)\r\n4. Switch back to Bromite\r\n5. The page is now frozen and doesn't work anymore.\r\n     * The URL bar and home page button of Bromite still work\r\n     * Tapping any element on the page (e.g. text inputs) will lead to the page being unfrozen (not sure if interaction is required for unfreezing), but only after a significant (more than 20 seconds) delay\r\n\r\nI took a [performance profile](https://github.com/bromite/bromite/files/8212666/Profile-20220309T083923.zip), it shows a \"Long task\" taking 24 seconds while the page is frozen. So basically at around 5 seconds I switched back to Bromite and then it started freezing."
+    },
+    {
+      "id": 1062658770,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1062658770",
+      "created_at": "2022-03-09T08:12:02Z",
+      "updated_at": "2022-03-09T08:12:02Z",
+      "author": "Participant 1",
+      "body": "is reproducible, thanks for reporting. the behavior is similar to that described in #1837"
+    },
+    {
+      "id": 1062892782,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1062892782",
+      "created_at": "2022-03-09T12:54:50Z",
+      "updated_at": "2022-03-09T12:54:50Z",
+      "author": "Participant 1",
+      "body": "@xarantolus could you tell me if you detect the same problem in incognito mode?"
+    },
+    {
+      "id": 1063113737,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1063113737",
+      "created_at": "2022-03-09T16:30:07Z",
+      "updated_at": "2022-03-09T16:30:35Z",
+      "author": "Participant 7",
+      "body": "It seems like it does not happen at all in incognito mode, the script is injected and everything works fine.\r\nIn \"normal mode\" it also freezes when adding a new tab (and doing the steps), but when adding a new incognito tab it does not freeze."
+    },
+    {
+      "id": 1063132759,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1063132759",
+      "created_at": "2022-03-09T16:48:46Z",
+      "updated_at": "2022-03-09T16:48:46Z",
+      "author": "Participant 1",
+      "body": "perfect.\r\nthe problem is the following: every time you open android recents, for some reason I don't understand, chromium generates a temporary mhtml page in `cache/Offline Pages/archives`.\r\nin your case, with your userscript, the page weighs 1.5 mb and the system is then slowed down. without the userscript the saved mhtml page weighs 385kb, the system freezes anyway, but it is more difficult to perceive.\r\n\r\n@csagan5 technically the points are \r\n\r\n[RecentTabHelper::WebContentsWasHidden()](https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/offline_pages/recent_tab_helper.cc;l=303;drc=58a9db5dc15b120154849f793ccde830ea8cfc27;bpv=1;bpt=1)\r\n[RecentTabHelper::ContinueSnapshotAfterPurge()](https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/offline_pages/recent_tab_helper.cc;l=457;drc=58a9db5dc15b120154849f793ccde830ea8cfc27;bpv=1;bpt=1)\r\n\r\nif you want to take a look at it. I honestly don't understand why that code, whereas the saving requested by the user is done from another point in the code.\r\nin my version of [Add-history-support-in-incognito-mode.patch](https://github.com/uazo/bromite/blob/next/v99/build/patches/Add-history-support-in-incognito-mode.patch#L1594) I have already removed it for always incognito mode (it is among the things that I have to pull) without finding functions that stop working.\r\n\r\n"
+    },
+    {
+      "id": 1063879343,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1063879343",
+      "created_at": "2022-03-10T10:04:55Z",
+      "updated_at": "2022-03-10T10:04:55Z",
+      "author": "Participant 1",
+      "body": "I figured out what that code is for.\r\nsubstantially chromium, when the device goes offline, automatically uses the self-generated pages from the disk cache instead of simply indicating \"No internet connection\". removing that call, only bfcache is used and not the one on disk."
+    },
+    {
+      "id": 1063939231,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1063939231",
+      "created_at": "2022-03-10T11:10:56Z",
+      "updated_at": "2022-03-10T11:10:56Z",
+      "author": "Participant 2",
+      "body": "> substantially chromium, when the device goes offline, automatically uses the self-generated pages from the disk cache instead of simply indicating \"No internet connection\". removing that call, only bfcache is used and not the one on disk.\r\n\r\nOne could check the commits of when this was introduced to learn more.\r\nFew questions:\r\n* does it work equally when it is removed? (if page still has all the pieces in the `bfcache`)\r\n* is this the same as #1837? I assume not\r\n* you would remove this also for normal mode to fix this specific UserScripts issue?\r\n\r\nPerhaps it is intended as a privacy feature because the `bfcache` will not contain the 'No-Cache' resources, like trackers, which would then be fetched again when accessing recents in order to be able to render a thumbnail."
+    },
+    {
+      "id": 1063958853,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1063958853",
+      "created_at": "2022-03-10T11:31:30Z",
+      "updated_at": "2022-03-10T11:31:30Z",
+      "author": "Participant 1",
+      "body": "> One could check the commits of when this was introduced to learn more.\r\n\r\nyes, seen from there and from open bugs\r\n\r\n> does it work equally when it is removed? (if page still has all the pieces in the bfcache)\r\n\r\nyes, if page still has all the pieces in the bfcache but the bfcache is more limited than the disk cache and may not be active depending on the amount of memory in the device.\r\n\r\n> is this the same as https://github.com/bromite/bromite/issues/1837? I assume not\r\n\r\nI hoped so, but no, I have already installed on my device the version without that call and the freeze indicated by that issue happens the same.\r\n\r\n> you would remove this also for normal mode to fix this specific UserScripts issue?\r\n\r\nit depends on what we want to do, for me there is no problem in eliminating it.\r\nactually the fundamental problem is that userscript, it shouldn't change the html that much if there is no need.\r\nin fact the cache saves the html not the script, and the script modifies the page heavily.\r\n\r\n> Perhaps it is intended as a privacy feature\r\n\r\nI do not think so.\r\nyou know, for me the bfcache has some privacy problems, it would have to be checked, I don't have the elements yet to be able to say for sure. fundamentally it seems to me that it keeps in memory the state of the renderprocess when the navigation is cross domain: my concern is that the state of the javascript variables is also kept making it useless, but only for example, to delete cookies intra-session if the value is kept in a js variable.\r\nthis would render extensions like autodelete cookies (which I have installed on my desktop) useless. think about a search: I click on a site, cookie autodelete deletes the cookies of the search provider but when I go back, the search engine does not use the cookie but a variable and here it has understood who I am anyway.\r\n"
+    },
+    {
+      "id": 1064137650,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1064137650",
+      "created_at": "2022-03-10T14:43:39Z",
+      "updated_at": "2022-03-10T14:43:39Z",
+      "author": "Participant 2",
+      "body": "> > you would remove this also for normal mode to fix this specific UserScripts issue?\r\n> \r\n> it depends on what we want to do, for me there is no problem in eliminating it.\r\n\r\nConsidering that we do not fully understand why it is there, I would not remove it until we do. Perhaps it is a mechanism to avoid bloating the `bfcache`. And since this is a specific example of an user script changing the DOM/HTML a lot, I would not change anything yet.\r\n\r\n> for me the bfcache has some privacy problems, it would have to be checked, I don't have the elements yet to be able to say for sure. fundamentally it seems to me that it keeps in memory the state of the renderprocess when the navigation is cross domain: my concern is that the state of the javascript variables is also kept making it useless, but only for example, to delete cookies intra-session if the value is kept in a js variable.\r\n> this would render extensions like autodelete cookies (which I have installed on my desktop) useless. think about a search: I click on a site, cookie autodelete deletes the cookies of the search provider but when I go back, the search engine does not use the cookie but a variable and here it has understood who I am anyway.\r\n\r\nSo the scenario you are explaining is:\r\n1. visit page\r\n2. have it go in the `bfcache` (visiting another page for example)\r\n3. delete all cookies\r\n4. press back\r\n5. verify that a Javascript-stored value from the `bfcache` still contains the original cookie/session ID\r\n\r\nI think this is working as intended because \"clearing cookies\" does not include \"destroy my currently loaded pages\". In this case the `bfcache` corresponds (roughly) to a page loaded in another tab: why would you want it to be destroyed when clearing cookies?\r\nA \"fix\" could be to truncate the `bfcache` when cookies are erased, but that would lead to page reloading when you go back (or forward).\r\n\r\nHow does this behave in incognito? e.g. is the `bfcache` in incognito showing any different behavior? Probably not."
+    },
+    {
+      "id": 1064157008,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1064157008",
+      "created_at": "2022-03-10T15:02:27Z",
+      "updated_at": "2022-03-10T15:02:27Z",
+      "author": "Participant 1",
+      "body": "> So the scenario you are explaining is:\r\n> visiting another page for example\r\n\r\nbfcache works only for cross site navigation, i.e. it is used forwards or backwards only if the domain changes. browsing between the same site does not use bfcache, from what I understood\r\n\r\n> why would you want it to be destroyed when clearing cookies?\r\n> A \"fix\" could be to truncate the bfcache when cookies are erased\r\n\r\nactually using cookie is the first thing that came to my mind, but the scenario you assume is correct\r\n\r\n> How does this behave in incognito? e.g. is the bfcache in incognito showing any different behavior? Probably not.\r\n\r\nI don't know yet"
+    },
+    {
+      "id": 1066498724,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1066498724",
+      "created_at": "2022-03-14T08:21:16Z",
+      "updated_at": "2022-03-14T08:21:16Z",
+      "author": "Participant 9",
+      "body": "@uazo Thanks for your work!\r\n\r\nSome minor issues:\r\n- When opening the script from `Downloads`, the user script will fail to add, it just show a error `Cannot open script source.` instead. see https://imgur.com/a/LGTWULz\r\n- When selecting a file from the picker in the settings, instead show the file name on the confirm dialog, it show a pretty long string `content://com.android.providers.downloads.documents/xxx`. see https://imgur.com/a/FkXVjV2\r\n- After I add the script finally, the file name is shown on the top of script description, but it is duplicate. It would be better to show the script name `Remove Google Consent` instead. see https://imgur.com/a/EDIYke6"
+    },
+    {
+      "id": 1082970797,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1082970797",
+      "created_at": "2022-03-30T10:54:29Z",
+      "updated_at": "2022-03-30T10:54:29Z",
+      "author": "Participant 2",
+      "body": "@uazo I will report here some things to check from the other \"discussion\", only the relevant technical part:\r\n* the error message could be improved? by specifying the reason for failure to open script source\r\n* SAF is mandatory since Android 11, correct? there is no other way for any app to request storage access with user interactions"
+    },
+    {
+      "id": 1140216774,
+      "url": "https://github.com/bromite/bromite/issues/792#issuecomment-1140216774",
+      "created_at": "2022-05-28T09:02:26Z",
+      "updated_at": "2022-05-28T09:02:26Z",
+      "author": "Participant 2",
+      "body": "I will close this issue; @uazo please file new feature requests for the unchecked TODO items if you plan to add support for more features."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

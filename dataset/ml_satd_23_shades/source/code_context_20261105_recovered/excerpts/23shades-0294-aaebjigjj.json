@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0294-aaebjigjj",
+  "revision_url": "https://github.com/alan-turing-institute/sktime/commit/80df7efaa34a05db561ce362bd5072b2e45e9fbe",
+  "filename": "sktime/utils/data_container.py",
+  "commit": "80df7efaa34a05db561ce362bd5072b2e45e9fbe",
+  "source_url": "https://raw.githubusercontent.com/alan-turing-institute/sktime/80df7efaa34a05db561ce362bd5072b2e45e9fbe/sktime/utils/data_container.py",
+  "fetched_at": "2026-11-05T06:12:29.037710+00:00",
+  "source_sha256": "3795157e9532e94f1cc763e7f0ef15ec7aeeb6f0e4219fdc77532d5659729fbb",
+  "line_start": 7,
+  "line_end": 31,
+  "excerpt": "    nested pandas DataFrame have the same index.\n\n    Parameters\n    ----------\n    X : nested pandas DataFrame\n        Input dataframe with time-series in cells.\n\n    Returns\n    -------\n    indexes : list of indixes\n        List of indixes with one index for each column\n    \"\"\"\n    # TODO handle 1d series, not only 2d dataframes\n    # TODO assumes columns are typed (i.e. all rows for a given column have the same type)\n    # TODO only handles series columns, raises error for columns with primitives\n\n    indexes = []\n    # Check index for each column separately.\n    for c, col in enumerate(X.columns):\n\n        # Get index from first row, can be either pd.Series or np.array.\n        first_index = X.iloc[0, c].index if hasattr(X.iloc[0, c], 'index') else np.arange(X.iloc[c, 0].shape[0])\n\n        # Series must contain at least 2 observations, otherwise should be primitive.\n        if len(first_index) < 2:",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0078-aaecffjjg",
+  "revision_url": "https://github.com/NeuroTechX/moabb/commit/650416ba49ed33aa4142219d48c2d357e12a1e03",
+  "filename": "moabb/datasets/Weibo2014.py",
+  "commit": "650416ba49ed33aa4142219d48c2d357e12a1e03",
+  "source_url": "https://raw.githubusercontent.com/NeuroTechX/moabb/650416ba49ed33aa4142219d48c2d357e12a1e03/moabb/datasets/Weibo2014.py",
+  "fetched_at": "2026-11-05T06:11:50.735277+00:00",
+  "source_sha256": "5ce03a9939060c5e87d3133206e59899aeb6bf9826b0e0a3f4e238355f91cf29",
+  "line_start": 114,
+  "line_end": 138,
+  "excerpt": "                       verify_compressed_data_integrity=False)\n        montage = mne.channels.read_montage('standard_1005')\n        ch_names = ['Fp1', 'Fpz', 'Fp2', 'AF3', 'AF4', 'F7', 'F5', 'F3', 'F1',\n                    'Fz', 'F2', 'F4', 'F6', 'F8', 'FT7', 'FC5', 'FC3', 'FC1',\n                    'FCz', 'FC2', 'FC4', 'FC6', 'FT8', 'T7', 'C5', 'C3', 'C1',\n                    'Cz', 'C2', 'C4', 'C6', 'T8', 'TP7', 'CP5', 'CP3', 'CP1',\n                    'CPz', 'CP2', 'CP4', 'CP6', 'TP8', 'P7', 'P5', 'P3', 'P1',\n                    'Pz', 'P2', 'P4', 'P6', 'P8', 'PO7', 'PO5', 'PO3', 'POz',\n                    'PO4', 'PO6', 'PO8', 'CB1', 'O1', 'Oz', 'O2', 'CB2', 'VEO',\n                    'HEO']\n\n        ch_types = ['eeg'] * 62 + ['eog'] * 2\n        # FIXME not sure what are those CB1 / CB2\n        ch_types[57] = 'misc'\n        ch_types[61] = 'misc'\n        info = mne.create_info(ch_names=ch_names + ['STIM014'],\n                               ch_types=ch_types + ['stim'],\n                               sfreq=200, montage=None)\n        # until we get the channel names montage is None\n        event_ids = data['label'].ravel()\n        raw_data = np.transpose(data['data'], axes=[2, 0, 1])\n        # de-mean each trial\n        raw_data = raw_data - np.mean(raw_data, axis=2, keepdims=True)\n        raw_events = np.zeros((raw_data.shape[0], 1, raw_data.shape[2]))\n        raw_events[:, 0, 0] = event_ids",
+  "match_policy": "unique-release-normalized-v2"
+}

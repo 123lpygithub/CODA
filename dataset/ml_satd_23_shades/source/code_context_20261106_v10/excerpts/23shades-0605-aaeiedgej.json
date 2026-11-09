@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0605-aaeiedgej",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/94e11baba6f73d6b0118ff88a4b25aef983978b5",
+  "filename": "hpat/hiframes_typed.py",
+  "commit": "94e11baba6f73d6b0118ff88a4b25aef983978b5",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/94e11baba6f73d6b0118ff88a4b25aef983978b5/hpat/hiframes_typed.py",
+  "fetched_at": "2026-11-05T06:13:20.593688+00:00",
+  "source_sha256": "0758a4ade20463ad39906dfa6aafbd4e27504710f3b5d679fe549b9057a0bcb8",
+  "line_start": 293,
+  "line_end": 317,
+  "excerpt": "                    if isinstance(func_def, ir.Expr) and func_def.op == 'make_function':\n                        return [assign]\n                    if isinstance(func_def, ir.Global) and isinstance(func_def.value, StencilFunc):\n                        return [assign]\n                    warnings.warn(\n                        \"function call couldn't be found for initial analysis\")\n                    return [assign]\n                else:\n                    func_name, func_mod = fdef\n\n                # replace _get_type_max_value(arr.dtype) since parfors\n                # arr.dtype transformation produces invalid code for dt64\n                # TODO: min\n                if fdef == ('_get_type_max_value', 'hpat.hiframes_typed'):\n                    if self.typemap[rhs.args[0].name] == types.DType(types.NPDatetime('ns')):\n                        return self._replace_func(\n                            lambda: hpat.pd_timestamp_ext.integer_to_dt64(\n                                numba.targets.builtins.get_type_max_value(\n                                    numba.types.int64)), [])\n                    return self._replace_func(\n                        lambda d: numba.targets.builtins.get_type_max_value(\n                                    d), rhs.args)\n\n                if fdef == ('h5_read_dummy', 'hpat.pio_api'):\n                    ndim = guard(find_const, self.func_ir, rhs.args[1])"
+}

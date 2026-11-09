@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0273-aaebjbbei",
+  "revision_url": "https://github.com/alan-turing-institute/sktime/commit/2bb99c51adbebeaa2c143440a2c8cb8fda1ae1ae",
+  "filename": "sktime/forecasting/tests/test_ARIMA.py",
+  "commit": "2bb99c51adbebeaa2c143440a2c8cb8fda1ae1ae",
+  "source_url": "https://raw.githubusercontent.com/alan-turing-institute/sktime/2bb99c51adbebeaa2c143440a2c8cb8fda1ae1ae/sktime/forecasting/tests/test_ARIMA.py",
+  "fetched_at": "2026-11-05T06:12:25.913333+00:00",
+  "source_sha256": "430eb62d309bc9514a1c0c9cccf0e5c6b0f0b1760388629938bd1173d837ca79",
+  "line_start": 4,
+  "line_end": 28,
+  "excerpt": "\nfrom sktime.forecasting.forecasters import ARIMAForecaster\nfrom sktime.datasets import load_shampoo_sales\nfrom sktime.datasets import load_longley\n\n__author__ = \"Markus Löning\"\n\n\n# forecast horizons\nFHS = ([1], np.arange(1, 5))\n\n\n# TODO currently tests only run fit/predict and compare length of predicted series\n@pytest.mark.parametrize(\"fh\", FHS)\ndef test_ARIMAForecaster_univariate(fh):\n    y = load_shampoo_sales()\n\n    max_fh = np.max(fh)\n    m = len(y.iloc[0])\n    cutoff = m - max_fh\n\n    y_train = pd.Series([y.iloc[0].iloc[:cutoff]])\n    y_test = pd.Series([y.iloc[0].iloc[cutoff:]])\n\n    m = ARIMAForecaster()",
+  "match_policy": "unique-release-normalized-v2"
+}

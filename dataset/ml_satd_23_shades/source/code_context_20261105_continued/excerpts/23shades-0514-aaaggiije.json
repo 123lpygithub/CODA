@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0514-aaaggiije",
+  "revision_url": "https://github.com/sinhrks/daskperiment/commit/07d90da1a5803a59a36c576e8f2e87c87cf24e8d",
+  "filename": "daskperiment/environment/environment.py",
+  "commit": "07d90da1a5803a59a36c576e8f2e87c87cf24e8d",
+  "source_url": "https://raw.githubusercontent.com/sinhrks/daskperiment/07d90da1a5803a59a36c576e8f2e87c87cf24e8d/daskperiment/environment/environment.py",
+  "fetched_at": "2026-11-05T06:13:05.677954+00:00",
+  "source_sha256": "877cbb17b4d527a111418239321862dc8a8bc97af8c99487119c96b7f0232be4",
+  "line_start": 111,
+  "line_end": 125,
+  "excerpt": "                raise ValueError(msg)\n\n            try:\n                env = self._load_single_environment(env, trial_id)\n            except TrialIDNotFoundError:\n                msg = ('Unable to load saved environment: '\n                       '(key: {}, trial id: {})')\n                logger.error(msg.format(env.key, trial_id))\n                raise\n            return env.output_detail()\n\n    def get_python_packages(self, trial_id=None):\n        # TODO: deprecate?\n        return self.get_environment(trial_id=trial_id,\n                                    category='requirements')"
+}

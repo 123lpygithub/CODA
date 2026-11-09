@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0084-aajdcifej",
+  "revision_url": "https://github.com/jupyter/nbdime/commit/ffb0b75dec0fa181d7c577d3c50d13c7240fd60b",
+  "filename": "nbdime/diffing/notebooks.py",
+  "commit": "ffb0b75dec0fa181d7c577d3c50d13c7240fd60b",
+  "source_url": "https://raw.githubusercontent.com/jupyter/nbdime/ffb0b75dec0fa181d7c577d3c50d13c7240fd60b/nbdime/diffing/notebooks.py",
+  "fetched_at": "2026-11-05T06:11:52.273745+00:00",
+  "source_sha256": "f8616d535b071658455b20d49cde5f0ae681e2017a80386e519c5a1dcf61d128",
+  "line_start": 81,
+  "line_end": 105,
+  "excerpt": "\ndef compare_mime_bundles_high_accuracy(x, y):\n    # Get the simple and cheap stuff out of the way\n    if x is None and y is None:\n        return True\n    if x is None or y is None:\n        return False\n\n    # This only checks that the same mime types are present\n    if set(x.keys()) != set(y.keys()):\n        return False\n\n    # FIXME: Allow some diff, e.g. on repr style text in text/plain\n    dd = diff_mime_bundle(x, y)\n\n    for e in dd:\n        # Fail comparison for adds and removes\n        if e.op != DiffOp.PATCH:\n            return False\n\n        # Treat some types of difference specifically\n        if e.key == \"text/plain\":\n            if re_repr.match(x[e.key]) and re_repr.match(y[e.key]):\n                continue\n",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0280-aafacjcgb",
+  "revision_url": "https://github.com/brightmart/ai_law/commit/a6468f23dbec210e89fb872dcec6fcc153b2ce78",
+  "filename": "predictor/HAN_model.py",
+  "commit": "a6468f23dbec210e89fb872dcec6fcc153b2ce78",
+  "source_url": "https://raw.githubusercontent.com/brightmart/ai_law/a6468f23dbec210e89fb872dcec6fcc153b2ce78/predictor/HAN_model.py",
+  "fetched_at": "2026-11-05T06:12:27.748751+00:00",
+  "source_sha256": "503cfa905d1364198fad686043430e5b153bdd4777a9af1850f7189f7af95344",
+  "line_start": 279,
+  "line_end": 303,
+  "excerpt": "        \"\"\"\n        pooling followed with two layers of conv, used by deep pyramid cnn.\n        pooling-->conv-->conv-->skip connection\n        conv:[batch_size,total_sequence_length,embed_size,hpcnn_number_filters]\n        :return:[batch_size,total_sequence_length/2,embed_size/2,hpcnn_number_filters]\n        \"\"\"\n        with tf.variable_scope(\"pooling_two_conv_\" + str(layer_index)):\n            # 1. pooling:max-pooling with size 3 and stride 2==>reduce shape to half\n            pooling = tf.nn.max_pool(conv, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding='SAME',name=\"pool\")  # [batch_size,total_sequence_length/2,embed_size/2,hpcnn_number_filters]\n            print(layer_index, \"dpcnn_pooling_two_conv.pooling:\", pooling)\n\n            # 2. two layer of conv\n            conv = self.dpcnn_two_layers_conv(pooling,double_num_filters=False) #TODO double num_filters\n            # print(\"dpcnn_pooling_two_conv.layer_index\", layer_index, \"conv:\", conv)\n\n            # 3. skip connection and activation\n            conv = conv + pooling\n            b = tf.get_variable(\"b-poolcnn%s\" % self.hpcnn_number_filters, [self.hpcnn_number_filters])\n            conv = tf.nn.relu(tf.nn.bias_add(conv, b),\"relu-poolcnn\")  # shape:[batch_size,total_sequence_length/2,embed_size/2,hpcnn_number_filters]\n        return conv\n\n    def dpcnn_two_layers_conv(self, inputs,double_num_filters=False):\n        \"\"\"\n        two layers of conv\n        inputs:[batch_size,total_sequence_length,embed_size,dimension]. e.g.(128, 400, 64,1)-->[128,200,32,250]"
+}

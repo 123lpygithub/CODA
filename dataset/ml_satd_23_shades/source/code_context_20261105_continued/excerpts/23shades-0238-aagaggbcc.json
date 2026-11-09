@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0238-aagaggbcc",
+  "revision_url": "https://github.com/araffin/srl-zoo/commit/9523719a3757bd73f99de9385affc5388ec288ab",
+  "filename": "evaluation/utils.py",
+  "commit": "9523719a3757bd73f99de9385affc5388ec288ab",
+  "source_url": "https://raw.githubusercontent.com/araffin/srl-zoo/9523719a3757bd73f99de9385affc5388ec288ab/evaluation/utils.py",
+  "fetched_at": "2026-11-05T06:12:20.351575+00:00",
+  "source_sha256": "66387989d815ecdeac48ca04d546767921a52581383e1ca2fd34e936ea300979",
+  "line_start": 587,
+  "line_end": 611,
+  "excerpt": "        return DEFAULT_DATASET\n    else:\n        sys.exit('get_movie_test_set_for_data_folder has not defined a set for: {}'.format(data_folder))\n\n\ndef remove_dataset_name(string):\n    for dataset in ALL_DATASETS:\n        if string.endswith(dataset):\n            return string[:(len(string) - len(dataset))]\n\n\ndef get_immediate_subdirectories_path(given_path,\n                                      containing_pattern_in_name=''):  # TODO add param for relative path vs just folder names\n    return [name for name in os.listdir(given_path)\n            if os.path.isdir(os.path.join(given_path, name)) and containing_pattern_in_name in os.path.join(given_path,\n                                                                                                            name)]\n\n\ndef get_immediate_files_in_path(given_path, containing_pattern_in_name=''):\n    return [os.path.join(given_path, name) for name in os.listdir(given_path)\n            if os.path.isfile(os.path.join(given_path, name)) and containing_pattern_in_name in os.path.join(given_path,\n                                                                                                             name)]\n\n\n# 50 lines, 49 images (1 repeated by error) IMAGES TEST SET HANDPICKED TO SHOW VISUAL VARIABILITY"
+}

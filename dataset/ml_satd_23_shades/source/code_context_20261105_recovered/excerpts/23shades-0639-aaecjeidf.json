@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0639-aaecjeidf",
+  "revision_url": "https://github.com/openml/openml-python/commit/9568cf0543267c27383efef2c3e2d4ef6312d6da",
+  "filename": "tests/test_runs/test_run_functions.py",
+  "commit": "9568cf0543267c27383efef2c3e2d4ef6312d6da",
+  "source_url": "https://raw.githubusercontent.com/openml/openml-python/9568cf0543267c27383efef2c3e2d4ef6312d6da/tests/test_runs/test_run_functions.py",
+  "fetched_at": "2026-11-05T06:13:30.462452+00:00",
+  "source_sha256": "1af80e2394f7976e5b7f86aeb1e5bf9b91294a5c3b7435febc52cc0ac6e5bb91",
+  "line_start": 915,
+  "line_end": 931,
+  "excerpt": "            task = openml.tasks.get_task(task_id)\n            clf1 = sklearn.pipeline.Pipeline(steps=[\n                ('imputer', sklearn.preprocessing.Imputer()), ('estimator', GaussianNB())\n            ])\n            clf2 = sklearn.pipeline.Pipeline(steps=[\n                ('imputer', sklearn.preprocessing.Imputer()), ('estimator', HardNaiveBayes())\n            ])\n\n            arff_content1, arff_header1, _, _, _ = _run_task_get_arffcontent(clf1, task, task.class_labels)\n            arff_content2, arff_header2, _, _, _ = _run_task_get_arffcontent(clf2, task, task.class_labels)\n\n            # verifies last two arff indices (predict and correct)\n            # TODO: programmatically check wether these are indeed features (predict, correct)\n            predictionsA = np.array(arff_content1)[:, -2:-1]\n            predictionsB = np.array(arff_content2)[:, -2:-1]\n\n            np.testing.assert_array_equal(predictionsA, predictionsB)",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,117 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3079",
+  "issue_url": "https://github.com/fecgov/fec-cms/issues/3070",
+  "source_issue_url": "https://github.com/fecgov/fec-cms/issues/3070",
+  "api_url": "https://api.github.com/repos/fecgov/fec-cms/issues/3070",
+  "title": "[Tenable] Cookie Without SameSite Flag Detected (revisit when we upgrade to Django 2.1)",
+  "body": "### 1. Cookie Without SameSite Flag Detected\r\nWhen the SameSite flag is set on a cookie, the browser will prevent it from being sent along with cross-site requests. This can help prevent Cross-Site Request Forgery (CSRF) attacks. |\r\nRemediation path: If the cookie contains sensitive information, then the server should ensure that the cookie has the SameSite flag set. This flag can have two values: strict or lax. With the strict value the cookie will only be sent if the request originates from the same website. With the lax value the cookie will only be sent for GET requests.\r\nReferences: https://www.owasp.org/index.php/SameSite\r\n### ~2. Cookie Without Secure Flag Detected~\r\n~When the `secure` flag is set on a cookie, the browser will prevent it from being sent over a clear text channel (HTTP) and only allow it to be sent when an encrypted channel is used (HTTPS). The scanner discovered that a cookie was set by the server without the secure flag being set. Although the initial setting of this cookie was via an HTTPS connection, any HTTP link to the same server will result in the cookie being sent in clear text. Note that if the cookie does not contain sensitive information, the risk of this vulnerability is mitigated.~\r\n~Remediation path: If the cookie contains sensitive information, then the server should ensure that the cookie has the `secure` flag set.~\r\n~References:~\r\n~https://www.owasp.org/index.php/SecureFlag~\r\n\r\nMoved #2 to #3102 ",
+  "author": "Participant 1",
+  "created_at": "2019-07-21T11:38:07Z",
+  "updated_at": "2021-03-03T23:55:15Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:18:54.006594+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:18:54.006594+00:00"
+  ],
+  "expected_comment_count": 11,
+  "retrieved_comment_count": 11,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 517415672,
+      "url": "https://github.com/fecgov/fec-cms/issues/3070#issuecomment-517415672",
+      "created_at": "2019-08-01T18:59:30Z",
+      "updated_at": "2019-08-01T18:59:30Z",
+      "author": "Participant 2",
+      "body": "@lbeaufort is there more information about this? Are the cookies in question being set on a specific page or section of the site? What's the name of those cookies? As far as I can see, the cookies that we set _are_ secure, though we're using Google Analytics that may be setting simpler cookies even though we're requesting that it use the secure options."
+    },
+    {
+      "id": 517429347,
+      "url": "https://github.com/fecgov/fec-cms/issues/3070#issuecomment-517429347",
+      "created_at": "2019-08-01T19:42:00Z",
+      "updated_at": "2019-08-01T19:42:27Z",
+      "author": "Participant 1",
+      "body": "Sorry the message is so vague, it's what I was sent. Here's the only other helpful data I could dig out from the report, let me know if this helps at all:\r\n\r\n- (URL of `prod` cloud.gov app, not proxy url - let me know if you need this) returned a cookie named `'csrftoken'` that does not set the `SameSite` cookie flag correctly\r\n- (URL of `prod` cloud.gov app, not proxy url - let me know if you need this)  returned cookie `'_gat_GSA_ENOR0'` without the `Secure` flag set."
+    },
+    {
+      "id": 518247418,
+      "url": "https://github.com/fecgov/fec-cms/issues/3070#issuecomment-518247418",
+      "created_at": "2019-08-05T14:03:20Z",
+      "updated_at": "2019-08-05T14:03:20Z",
+      "author": "Participant 2",
+      "body": "Was working on this last week. Doesn't seem crucial for our cookie use (e.g., PII) but @patphongs advised to check with Michael. Will reach out to him."
+    },
+    {
+      "id": 519239835,
+      "url": "https://github.com/fecgov/fec-cms/issues/3070#issuecomment-519239835",
+      "created_at": "2019-08-07T19:36:52Z",
+      "updated_at": "2019-08-07T19:36:52Z",
+      "author": "Participant 2",
+      "body": "It looks like we may not be able to address #1 until we upgrade to at least Django 2.1 when the SameSite capability was added: https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SESSION_COOKIE_SAMESITE"
+    },
+    {
+      "id": 519239971,
+      "url": "https://github.com/fecgov/fec-cms/issues/3070#issuecomment-519239971",
+      "created_at": "2019-08-07T19:37:17Z",
+      "updated_at": "2019-08-07T19:37:17Z",
+      "author": "Participant 2",
+      "body": "I have an email out to GSA about #2"
+    },
+    {
+      "id": 519522131,
+      "url": "https://github.com/fecgov/fec-cms/issues/3070#issuecomment-519522131",
+      "created_at": "2019-08-08T13:39:15Z",
+      "updated_at": "2019-08-08T13:39:15Z",
+      "author": "Participant 2",
+      "body": "It looks like we may need to mark these two different issues as known / won't fix.\r\n\r\n#1 - We can fix it after we upgrade to Django 2.1 but it's not a big issue for us since we aren't offering users anything near logins and we aren't collecting PII\r\n\r\n#2- I got a reply from Freddie at DAP that the cookie doesn't contain PII (and, not being _our_ cookie, we can't really change anything about it):\r\n\r\n> \"The cookie you mention does not contain sensitive information. The information stored in that cookie is only used for Google Analytics and according to GA360 terms of service does not contain any personally identifiable information.\""
+    },
+    {
+      "id": 519540529,
+      "url": "https://github.com/fecgov/fec-cms/issues/3070#issuecomment-519540529",
+      "created_at": "2019-08-08T14:24:00Z",
+      "updated_at": "2019-08-08T14:24:00Z",
+      "author": "Participant 2",
+      "body": "Moving #2 to #3102 "
+    },
+    {
+      "id": 519642046,
+      "url": "https://github.com/fecgov/fec-cms/issues/3070#issuecomment-519642046",
+      "created_at": "2019-08-08T18:46:50Z",
+      "updated_at": "2019-08-08T18:46:50Z",
+      "author": "Participant 3",
+      "body": "Blocked until we upgrade to Django 2.1. Leaving in the `blocked` pipeline for now. "
+    },
+    {
+      "id": 594730350,
+      "url": "https://github.com/fecgov/fec-cms/issues/3070#issuecomment-594730350",
+      "created_at": "2020-03-04T18:27:48Z",
+      "updated_at": "2020-03-05T01:54:27Z",
+      "author": "Participant 4",
+      "body": "Django was recently upgraded to LTS v2.2.10  and deployed to `dev` space on **02/28/2020**.  With the latest upgrade, the CSRF token will be set to `Lax` by default (for GET requests) which means the browser will not  send the cookie cross-domain with unsafe requests (like POST).\r\nI verified that the CSRF token is now being set to `Lax` in both  `dev` and `stage` spaces. We should see this token set in Production after 11.5 release(03/10/2020).\r\n\r\nThe CSRF token is NOW set after the Django upgrade. We can close this issue.\r\n\r\n **Django v2.2 documentation**:\r\n:https://docs.djangoproject.com/en/2.2/ref/settings/#session-cookie-samesite\r\n\r\ncc @rfultz @patphongs @lbeaufort "
+    },
+    {
+      "id": 706739210,
+      "url": "https://github.com/fecgov/fec-cms/issues/3070#issuecomment-706739210",
+      "created_at": "2020-10-11T17:32:19Z",
+      "updated_at": "2020-10-11T17:32:19Z",
+      "author": "Participant 5",
+      "body": "@lbeaufort @pkfec @patphongs this was reopened so I'm moving it from Sprint 11.6 to \"no milestone\" and adding \"Needs prioritization\"."
+    },
+    {
+      "id": 790162159,
+      "url": "https://github.com/fecgov/fec-cms/issues/3070#issuecomment-790162159",
+      "created_at": "2021-03-03T23:55:15Z",
+      "updated_at": "2021-03-03T23:55:15Z",
+      "author": "Participant 6",
+      "body": "Samesite flag is set on the CSRF token, this is remediated."
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/fecgov/fec-cms/issues/3070",
+  "closed_at_available": false
+}

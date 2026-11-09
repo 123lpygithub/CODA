@@ -1,0 +1,160 @@
+{
+  "artifact_id": "privacy-issue-4804",
+  "source_issue_url": "https://github.com/Tribler/tribler/issues/2681",
+  "issue_snapshot_sha256": "7189ef2cb9690fb3c1e07f15bb1353fc75d9d8433eb5d0cda3da3fcb173941d3",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/Socks5/server.py#L191",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "status": "partial",
+      "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+      "line_start": 179,
+      "line_end": 203,
+      "historical_evidence": true,
+      "revision": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+      "immutable_revision": true,
+      "retrieval_url": "https://raw.githubusercontent.com/Tribler/tribler/46f5abde70b44c84bfa8310febbf1ab170e982f0/Tribler/community/tunnel/Socks5/server.py",
+      "text": "\n        try:\n            if request.cmd == conversion.REQ_CMD_UDP_ASSOCIATE:\n                self.on_udp_associate_request(self, request)\n\n            elif request.cmd == conversion.REQ_CMD_BIND:\n                response = conversion.encode_reply(0x05, conversion.REP_SUCCEEDED, 0x00,\n                                                   conversion.ADDRESS_TYPE_IPV4, \"127.0.0.1\", 1081)\n\n                self.transport.write(response)\n                self.state = ConnectionState.PROXY_REQUEST_ACCEPTED\n\n            elif request.cmd == conversion.REQ_CMD_CONNECT:\n                self._logger.info(\"TCP req to %s:%d support it. Returning HOST UNREACHABLE\",\n                                  *request.destination)\n\n                response = conversion.encode_reply(0x05, conversion.REP_HOST_UNREACHABLE, 0x00,\n                                                   conversion.ADDRESS_TYPE_IPV4, \"0.0.0.0\", 0)\n                self.transport.write(response)\n\n            else:\n                self.deny_request(request, \"CMD not recognized\")\n\n        except:\n            response = conversion.encode_reply(0x05, conversion.REP_COMMAND_NOT_SUPPORTED, 0x00,",
+      "source_sha256": "3c0c818202ef34ca929de6c26de2d600c492d3151236dc6b5bc67b03c91f1a36",
+      "fetched_at": "2026-11-05T15:54:55.888020+00:00",
+      "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+      "history_query_url": "https://github.com/Tribler/tribler/commits/main/Tribler/community/tunnel/Socks5/server.py",
+      "history_response_sha256": "9aca4bbecdfaef779ecf4d10776084ca2c48a7bc0467cc6339dbeee025f2260d",
+      "history_entry_sha": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+      "history_commit_date": "2017-06-12T12:45:46.000+02:00"
+    },
+    {
+      "url": "https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/Socks5/server.py#L25",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "status": "partial",
+      "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+      "line_start": 13,
+      "line_end": 37,
+      "historical_evidence": true,
+      "revision": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+      "immutable_revision": true,
+      "retrieval_url": "https://raw.githubusercontent.com/Tribler/tribler/46f5abde70b44c84bfa8310febbf1ab170e982f0/Tribler/community/tunnel/Socks5/server.py",
+      "text": "    Enumeration of possible SOCKS5 connection states\n    \"\"\"\n\n    BEFORE_METHOD_REQUEST = 'BEFORE_METHOD_REQUEST'\n    METHOD_REQUESTED = 'METHOD_REQUESTED'\n    CONNECTED = 'CONNECTED'\n    PROXY_REQUEST_RECEIVED = 'PROXY_REQUEST_RECEIVED'\n    PROXY_REQUEST_ACCEPTED = 'PROXY_REQUEST_ACCEPTED'\n    TCP_RELAY = 'TCP_RELAY'\n\n\nclass SocksUDPConnection(DatagramProtocol):\n\n    def __init__(self, socksconnection, remote_udp_address):\n        self._logger = logging.getLogger(self.__class__.__name__)\n        self.socksconnection = socksconnection\n\n        if remote_udp_address != (\"0.0.0.0\", 0):\n            self.remote_udp_address = remote_udp_address\n        else:\n            self.remote_udp_address = None\n\n        self.listen_port = reactor.listenUDP(0, self)\n\n    def get_listen_port(self):",
+      "source_sha256": "3c0c818202ef34ca929de6c26de2d600c492d3151236dc6b5bc67b03c91f1a36",
+      "fetched_at": "2026-11-05T15:54:55.888020+00:00",
+      "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+      "history_query_url": "https://github.com/Tribler/tribler/commits/main/Tribler/community/tunnel/Socks5/server.py",
+      "history_response_sha256": "9aca4bbecdfaef779ecf4d10776084ca2c48a7bc0467cc6339dbeee025f2260d",
+      "history_entry_sha": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+      "history_commit_date": "2017-06-12T12:45:46.000+02:00"
+    },
+    {
+      "url": "https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/Socks5/server.py#L104",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "status": "partial",
+      "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+      "line_start": 92,
+      "line_end": 116,
+      "historical_evidence": true,
+      "revision": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+      "immutable_revision": true,
+      "retrieval_url": "https://raw.githubusercontent.com/Tribler/tribler/46f5abde70b44c84bfa8310febbf1ab170e982f0/Tribler/community/tunnel/Socks5/server.py",
+      "text": "\n    def __init__(self, socksserver, selection_strategy, hops):\n        self._logger = logging.getLogger(self.__class__.__name__)\n        self.socksserver = socksserver\n        self.selection_strategy = selection_strategy\n        self.hops = hops\n\n        self._udp_socket = None\n        self.state = ConnectionState.BEFORE_METHOD_REQUEST\n        self.buffer = ''\n\n        self.destinations = {}\n\n    def dataReceived(self, data):\n        self.buffer = self.buffer + data\n        while len(self.buffer) > 0:\n            # We are at the initial state, so we expect a handshake request.\n            if self.state == ConnectionState.BEFORE_METHOD_REQUEST:\n                if not self._try_handshake():\n                    break  # Not enough bytes so wait till we got more\n\n            # We are connected so the\n            elif self.state == ConnectionState.CONNECTED:\n                if not self._try_request():\n                    break  # Not enough bytes so wait till we got more",
+      "source_sha256": "3c0c818202ef34ca929de6c26de2d600c492d3151236dc6b5bc67b03c91f1a36",
+      "fetched_at": "2026-11-05T15:54:55.888020+00:00",
+      "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+      "history_query_url": "https://github.com/Tribler/tribler/commits/main/Tribler/community/tunnel/Socks5/server.py",
+      "history_response_sha256": "9aca4bbecdfaef779ecf4d10776084ca2c48a7bc0467cc6339dbeee025f2260d",
+      "history_entry_sha": "46f5abde70b44c84bfa8310febbf1ab170e982f0",
+      "history_commit_date": "2017-06-12T12:45:46.000+02:00"
+    },
+    {
+      "url": "https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/tunnel_community.py#L144",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "status": "partial",
+      "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+      "line_start": 132,
+      "line_end": 156,
+      "historical_evidence": true,
+      "revision": "b5f706ff681449b52c0b0d16abc51e7909c7c751",
+      "immutable_revision": true,
+      "retrieval_url": "https://raw.githubusercontent.com/Tribler/tribler/b5f706ff681449b52c0b0d16abc51e7909c7c751/Tribler/community/tunnel/tunnel_community.py",
+      "text": "\n    def __init__(self, community, handler):\n        super(StatsRequestCache, self).__init__(community.request_cache, u\"stats\")\n        self.handler = handler\n        self.community = community\n\n    def on_timeout(self):\n        pass\n\n\nclass TunnelExitSocket(DatagramProtocol, TaskManager):\n    \"\"\"\n    The TunnelExitSocket class is responsible for exiting data to the outside world.\n    Note that every relay in a circuits creates an instance of this class, however, the socket is only enabled\n    by the exit node.\n    \"\"\"\n\n    def __init__(self, circuit_id, community, sock_addr, mid=None):\n        self.tunnel_logger = logging.getLogger(self.__class__.__name__)\n        super(TunnelExitSocket, self).__init__()\n\n        self.port = None\n        self.sock_addr = sock_addr\n        self.circuit_id = circuit_id\n        self.community = community",
+      "source_sha256": "2cb3129a2099169180a7959f92ff0906d4ae13d196381336fd67bf12d86316cb",
+      "fetched_at": "2026-11-05T15:55:06.220745+00:00",
+      "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+      "history_query_url": "https://github.com/Tribler/tribler/commits/main/Tribler/community/tunnel/tunnel_community.py",
+      "history_response_sha256": "d19774025fe2a6166b14ccbda24ea09fcfa260e739c21513cc19640b2b42100c",
+      "history_entry_sha": "b5f706ff681449b52c0b0d16abc51e7909c7c751",
+      "history_commit_date": "2018-02-09T13:26:20.000+01:00"
+    },
+    {
+      "url": "https://github.com/devos50/tribler/commit/71402bff2db51e2e14d671642907d6c9069de5d7",
+      "kind": "commit",
+      "cited_in": [
+        "body"
+      ],
+      "text": "From 71402bff2db51e2e14d671642907d6c9069de5d7 Mon Sep 17 00:00:00 2001\nFrom: Martijn de Vos <mdmartijndevos@gmail.com>\nDate: Wed, 24 Aug 2016 17:41:53 +0200\nSubject: [PATCH] Added support for HTTP tunnelling\n\n---\n Tribler/community/tunnel/Socks5/server.py    | 37 ++++++++++++++++--\n Tribler/community/tunnel/conversion.py       |  1 +\n Tribler/community/tunnel/tunnel_community.py | 40 +++++++++++++++++---\n Tribler/community/web/__init__.py            |  3 ++\n Tribler/community/web/web_community.py       | 11 ++++++\n 5 files changed, 83 insertions(+), 9 deletions(-)\n create mode 100644 Tribler/community/web/__init__.py\n create mode 100644 Tribler/community/web/web_community.py\n\ndiff --git a/Tribler/community/tunnel/Socks5/server.py b/Tribler/community/tunnel/Socks5/server.py\nindex 6cd764cc92..4ff3ecd8d9 100644\n--- a/Tribler/community/tunnel/Socks5/server.py\n+++ b/Tribler/community/tunnel/Socks5/server.py\n@@ -102,18 +102,39 @@ def __init__(self, socksserver, selection_strategy, hops):\n \n     def dataReceived(self, data):\n         self.buffer = self.buffer + data\n+        print self.buffer.encode('hex')\n         while len(self.buffer) > 0:\n             # We are at the initial state, so we expect a handshake request.\n             if self.state == ConnectionState.BEFORE_METHOD_REQUEST:\n+                print \"state = before method request\"\n                 if not self._try_handshake():\n                     break  # Not enough bytes so wait till we got more\n \n             # We are connected so the\n             elif self.state == ConnectionState.CONNECTED:\n+                print \"state = connected\"\n                 if not self._try_request():\n                     break  # Not enough bytes so wait till we got more\n             else:\n-                self.logger.error(\"Throwing away buffer, not in CONNECTED or BEFORE_METHOD_REQUEST state\")\n+                print self.state\n+                print \"throwing away :(\"\n+                self._logger.error(\"Throwing away buffer, not in CONNECTED or BEFORE_METHOD_REQUEST state\")\n+\n+                # HACK - will send data\n+                print self.web_request.destination\n+                circuit = self.select(self.web_request.destination)\n+\n+                if not circuit:\n+                    self._logger.debug(\n+                        \"No circuits available\")\n+                elif circuit.state != CIRCUIT_STATE_READY:\n+                    self._logger.debug(\n+                        \"Circuit is not ready\")\n+                else:\n+                    self._logger.debug(\"Sending data over circuit destined for %r:%r\", *self.web_request.destination)\n+                    print \"will tunnelz\"\n+                    circuit.tunnel_data(self.web_request.destination, self.buffer)\n+\n                 self.buffer = ''\n \n     def _try_handshake(self):\n@@ -174,8 +195,10 @@ def _try_request(self):\n \n         assert isinstance(request, conversion.Request)\n         self.state = ConnectionState.PROXY_REQUEST_RECEIVED\n+        print \"state proxy request received\"\n \n         try:\n+            print request.cmd\n             if request.cmd == conversion.REQ_CMD_UDP_ASSOCIATE:\n                 self.on_udp_associate_request(self, request)\n \n@@ -190,8 +213,12 @@ def _try_request(self):\n                 self._logger.info(\"TCP req to %s:%d support it. Returning HOST UNREACHABLE\",\n                                   *request.destination)\n \n-                response = conversion.encode_reply(0x05, conversion.REP_HOST_UNREACHABLE, 0x00,\n-                                                   conversion.ADDRESS_TYPE_IPV4, \"0.0.0.0\", 0)\n+                #response = conversion.encode_reply(0x05, conversion.REP_HOST_UNREACHABLE, 0x00,\n+                #                                   conversion.ADDRESS_TYPE_IPV4, \"0.0.0.0\", 0)\n+                # TODO Martijn: hacky?\n+                self.web_request = request\n+                response = conversion.encode_reply(0x05, conversion.REP_SUCCEEDED, 0x00,\n+                                                   conversion.ADDRESS_TYPE_IPV4, \"127.0.0.1\", 1081)\n                 self.transport.write(response)\n \n             else:\n@@ -274,6 +301,9 @@ def on_incoming_from_tunnel(self, community, circuit, origin, data, force=False)\n         if circuit in self.destinations.values() or force:\n             self.destinations[origin] = circuit\n \n+            print \"udp socket: %s\" % self._udp_socket\n+            self.transport.write(data)\n+\n             if self._udp_socket:\n                 socks5_data = conversion.encode_udp_packet(\n                     0, 0, conversion.ADDRESS_TYPE_IPV4, origin[0], origin[1], data)\n@@ -345,4 +375,5 @@ def on_incoming_from_tunnel(self, community, circuit, origin, data, force=False)\n \n         if not any([session.on_incoming_from_tunnel(community, circuit, origin, data, force)\n                     for session in self.sessions if session.hops == session_hops]):\n+            print \"origin: %s:%d\" % origin\n             self._logger.warning(\"No session accepted this data from %s:%d\", *origin)\ndiff --git a/Tribler/community/tunnel/conversion.py b/Tribler/community/tunnel/conversion.py\nindex 34bb2674e9..bdaa461daa 100644\n--- a/Tribler/community/tunnel/conversion.py\n+++ b/Tribler/community/tunnel/conversion.py\n@@ -551,6 +551,7 @@ def could_be_dispersy(data):\n \n     @staticmethod\n     def is_allowed(data):\n+        return True\n         return (TunnelConversion.could_be_utp(data) or\n                 TunnelConversion.could_be_udp_tracker(data) or\n                 TunnelConversion.could_be_dht(data) or\ndiff --git a/Tribler/community/tunnel/tunnel_community.py b/Tribler/community/tunnel/tunnel_community.py\nindex 6baa074a75..d41f27c662 100644\n--- a/Tribler/community/tunnel/tunnel_community.py\n+++ b/Tribler/community/tunnel/tunnel_community.py\n@@ -1,15 +1,18 @@\n # Written by Egbert Bouman\n-\n+import httplib\n import random\n+import socket\n+import ssl\n import time\n from collections import defaultdict\n from cryptography.exceptions import InvalidTag\n+from twisted.internet.endpoints import TCP4ClientEndpoint, connectProtocol\n from twisted.internet.error import MessageLengthError\n \n from twisted.internet.defer import maybeDeferred, succeed\n \n from twisted.internet import reactor\n-from twisted.internet.protocol import DatagramProtocol\n+from twisted.internet.protocol import DatagramProtocol, Protocol\n from twisted.internet.task import LoopingCall\n \n from Tribler.Core.Utilities.encoding import decode, encode\n@@ -144,16 +147,36 @@ def on_error(failure):\n                 def on_ip_address(ip_address):\n                     self.tunnel_logger.debug(\"Resolved hostname %s to ip_address %s\", destination[0], ip_address)\n                     try:\n-                        self.transport.write(data, (ip_address, destination[1]))\n                         self.community.increase_bytes_sent(self, len(data))\n                     except (AttributeError, MessageLengthError) as exception:\n                         self.tunnel_logger.error(\n                             \"Failed to write data to transport: %s. Destination: %r error was: %r\",\n                             exception, destination, exception)\n \n-                resolve_ip_address_deferred = reactor.resolve(destination[0])\n-                resolve_ip_address_deferred.addCallbacks(on_ip_address, on_error)\n-                self.register_task(\"resolving_%r\" % destination[0], resolve_ip_address_deferred)\n+                #resolve_ip_address_deferred = reactor.resolve(destination[0])\n+                #resolve_ip_address_deferred.addCallbacks(on_ip_address, on_error)\n+                #self.register_task(\"resolving_%r\" % destination[0], resolve_ip_address_deferred)\n+\n+                print \"about to create connection <<<\"\n+                print \"destination: %s, %s\" % destination\n+                context = ssl.create_default_context()\n+                conn = context.wrap_socket(socket.socket(socket.AF_INET), server_hostname=destination[0])\n+                conn.connect((destination[0], destination[1]))\n+                conn.write(data)\n+\n+                all_data = \"\"\n+                read_data = conn.read()\n+                while read_data:\n+                    print \"reading datazZ\"\n+                    all_data += read_data\n+                    #if len(read_data) < 1024:\n+                    #    break\n+                    read_data = conn.read()\n+                conn.close()\n+\n+                print \"RECEIVED DATA: %d\" % len(all_data)\n+                print all_data.encode('hex')\n+                self.community.send_data([Candidate(self.sock_addr, False)], self.circuit_id, ('0.0.0.0', 0), destination, all_data)\n             else:\n                 self.tunnel_logger.error(\"dropping forbidden packets from exit socket with circuit_id %d\",\n                                          self.circuit_id)\n@@ -1137,6 +1160,7 @@ def on_extended(self, messages):\n     def on_data(self, sock_addr, packet):\n         # If its our circuit, the messenger is the candidate assigned to that circuit and the DATA's destination\n         # is set to the zero-address then the packet is from the outside world and addressed to us from.\n+        print \"GOT DATA BACK (FINAL)\"\n \n         message_type = u'data'\n         circuit_id = TunnelConversion.get_circuit_id(packet, message_type)\n@@ -1144,6 +1168,7 @@ def on_data(self, sock_addr, packet):\n         self.tunnel_logger.debug(\"Got data (%d) from %s\", circuit_id, sock_addr)\n \n         if self.is_relay(circuit_id):\n+            print \"will relay\"\n             self.relay_packet(circuit_id, message_type, packet)\n \n         else:\n@@ -1164,12 +1189,15 @@ def on_data(self, sock_addr, packet):\n                 circuit.beat_heart()\n                 self.increase_bytes_received(circuit, len(packet))\n \n+                print \"back packet: %s\" % packet.encode('hex')\n+\n                 if TunnelConversion.could_be_dispersy(data):\n                     self.tunnel_logger.debug(\"Giving incoming data packet to dispersy\")\n                     self.dispersy.on_incoming_packets([(Candidate(origin, False),\n                                                         data[TUNNEL_PREFIX_LENGHT:])],\n                                                       False, source=u\"circuit_%d\" % circuit_id)\n                 else:\n+                    print \"going to socks5\"\n                     anon_seed = circuit.ctype == CIRCUIT_TYPE_RP\n                     self.socks_server.on_incoming_from_tunnel(self, circuit, origin, data, anon_seed)\n \ndiff --git a/Tribler/community/web/__init__.py b/Tribler/community/web/__init__.py\nnew file mode 100644\nindex 0000000000..4d8a115670\n--- /dev/null\n+++ b/Tribler/community/web/__init__.py\n@@ -0,0 +1,3 @@\n+\"\"\"\n+This community contains the implementation for a web browser.\n+\"\"\"\ndiff --git a/Tribler/community/web/web_community.py b/Tribler/community/web/web_community.py\nnew file mode 100644\nindex 0000000000..7304c15d23\n--- /dev/null\n+++ b/Tribler/community/web/web_community.py\n@@ -0,0 +1,11 @@\n+from Tribler.community.tunnel.hidden_community import HiddenTunnelCommunity\n+\n+\n+class WebCommunity(HiddenTunnelCommunity):\n+\n+    @classmethod\n+    def get_master_members(cls, dispersy):\n+        master_key = \"3081a7301006072a8648ce3d020106052b81040027038192000400a2bf0a058e1c7149635af7377c2db206ae4061841117be52bec79abd93c7e7a04d31e2a8f91b6695ea5b425850deee47373cf4558147dabf440dd348338ee640910f89c7d3cd9e01e3d9a1305023709b2dd062ace94f10fe601b118d0e3921fea20ed67167ad2bb6fe5a24b5023fc9ad19c8c5ec012fd2711dc5b0138a1a897453d172a41de276a24af8742b3927a0\"\n+        master_key_hex = master_key.decode(\"HEX\")\n+        master = dispersy.get_member(public_key=master_key_hex)\n+        return [master]\n",
+      "source_sha256": "9720890e2fe44d93ed0df8d957b2f8dd9ebb711e1afa967c1801366db6abf89e",
+      "fetched_at": "2026-11-05T07:21:59.951901+00:00",
+      "retrieval_url": "https://github.com/devos50/tribler/commit/71402bff2db51e2e14d671642907d6c9069de5d7.patch",
+      "status": "available",
+      "revision": "71402bff2db51e2e14d671642907d6c9069de5d7",
+      "immutable_revision": true,
+      "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+    },
+    {
+      "url": "https://github.com/Tribler/tribler/blob/69445f0537d8e87bd01d2ca8bdc94a69c9819503/Tribler/community/tunnel/conversion.py#L553",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "revision": "69445f0537d8e87bd01d2ca8bdc94a69c9819503",
+      "immutable_revision": true,
+      "line_start": 541,
+      "line_end": 557,
+      "text": "            decoded = bdecode(data)\n            if isinstance(decoded, dict) and decoded.get('y') in ['q', 'r', 'e']:\n                return True\n        except:\n            pass\n        return False\n\n    @staticmethod\n    def could_be_dispersy(data):\n        return data[:TUNNEL_PREFIX_LENGHT] == TUNNEL_PREFIX and len(data) >= (23 + TUNNEL_PREFIX_LENGHT)\n\n    @staticmethod\n    def is_allowed(data):\n        return (TunnelConversion.could_be_utp(data) or\n                TunnelConversion.could_be_udp_tracker(data) or\n                TunnelConversion.could_be_dht(data) or\n                TunnelConversion.could_be_dispersy(data))",
+      "source_sha256": "366311546d504d92b85e54520b30dfa146ca86060ef418215b1e48efa1b0d3e2",
+      "fetched_at": "2026-11-05T07:21:59.328835+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/Tribler/tribler/69445f0537d8e87bd01d2ca8bdc94a69c9819503/Tribler/community/tunnel/conversion.py",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/Tribler/py-ipv8/blob/master/ipv8/messaging/anonymization/tunnel.py#L42-L83",
+      "kind": "file",
+      "cited_in": [
+        "comment_377301040"
+      ],
+      "revision": "master",
+      "immutable_revision": false,
+      "line_start": 30,
+      "line_end": 95,
+      "text": "PEER_FLAG_SPEED_TEST = 8\n\n# Data circuits are general purpose circuits for exiting data\nCIRCUIT_TYPE_DATA = \"DATA\"\n\n# The other circuits are supposed to end in a connectable node, not allowed to exit\n# anything else than IPv8 messages, used for setting up end-to-end circuits\nCIRCUIT_TYPE_IP_SEEDER = \"IP_SEEDER\"\nCIRCUIT_TYPE_RP_SEEDER = \"RP_SEEDER\"\nCIRCUIT_TYPE_RP_DOWNLOADER = \"RP_DOWNLOADER\"\n\nCIRCUIT_STATE_READY = \"READY\"\nCIRCUIT_STATE_EXTENDING = \"EXTENDING\"\nCIRCUIT_STATE_CLOSING = \"CLOSING\"\n\nCIRCUIT_ID_PORT = 1024\nPING_INTERVAL = 7.5\n\n# Reasons for sending destroy messages. Code 0 must not be used for legacy reasons.\nDESTROY_REASON_UNKNOWN = 1\nDESTROY_REASON_SHUTDOWN = 2\nDESTROY_REASON_UNNEEDED = 4\n\n\n@dataclass\nclass Hop:\n    \"\"\"\n    Hop contains all information needed to add/remove a single layer of\n    onion encryption and send it to the next target.\n    \"\"\"\n\n    peer: Peer\n    keys: SessionKeys | None = None\n    flags: list[int] | None = None\n    dh_first_part: bytes | None = None\n    dh_secret: PrivateKey | None = None\n\n    @property\n    def address(self) -> Address:\n        \"\"\"\n        Get the address of this hop.\n        \"\"\"\n        return self.peer.address\n\n    @property\n    def public_key(self) -> PublicKey:\n        \"\"\"\n        Get the public key instance of the hop.\n        \"\"\"\n        return self.peer.public_key\n\n    @property\n    def public_key_bin(self) -> bytes:\n        \"\"\"\n        The hop's public_key bytes.\n        \"\"\"\n        return self.peer.public_key.key_to_bin()\n\n    @property\n    def mid(self) -> bytes:\n        \"\"\"\n        Get the SHA-1 of the hop's public key.\n        \"\"\"\n        return self.peer.mid\n\n",
+      "source_sha256": "3ebbfda5c142063a0f33862240ef09e84f585a008b247ad5b4eb77e824d4cd1a",
+      "fetched_at": "2026-11-05T07:22:00.274380+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/Tribler/py-ipv8/master/ipv8/messaging/anonymization/tunnel.py",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/Tribler/tribler/issues/5262",
+      "kind": "issue",
+      "cited_in": [
+        "comment_660308207"
+      ],
+      "text": "{\n  \"format\": \"coda-github-issue-snapshot\",\n  \"format_version\": 1,\n  \"artifact_id\": \"privacy-issue-linked-5262\",\n  \"issue_url\": \"https://github.com/Tribler/tribler/issues/5262\",\n  \"source_issue_url\": \"https://github.com/Tribler/tribler/issues/5262\",\n  \"api_url\": \"https://api.github.com/repos/Tribler/tribler/issues/5262\",\n  \"title\": \"DNS leak?\",\n  \"body\": \"Some of our users showed concern about their system's resolver leaking DNS queries when checking trackers, etc. We should investigate it.\",\n  \"author\": \"Participant 1\",\n  \"created_at\": \"2020-04-01T10:56:11Z\",\n  \"updated_at\": \"2020-10-17T10:14:59Z\",\n  \"state\": \"closed\",\n  \"closed_at\": null,\n  \"issue_fetched_at\": \"2026-11-05T07:22:02.181611+00:00\",\n  \"comments_fetched_at\": [\n    \"2026-11-05T07:22:02.181611+00:00\"\n  ],\n  \"expected_comment_count\": 9,\n  \"retrieved_comment_count\": 9,\n  \"comments_complete\": true,\n  \"comments\": [\n    {\n      \"id\": 607181002,\n      \"url\": \"https://github.com/Tribler/tribler/issues/5262#issuecomment-607181002\",\n      \"created_at\": \"2020-04-01T10:58:14Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 2\",\n      \"body\": \"Isn't this fixed in 7.5?\"\n    },\n    {\n      \"id\": 607184569,\n      \"url\": \"https://github.com/Tribler/tribler/issues/5262#issuecomment-607184569\",\n      \"created_at\": \"2020-04-01T11:07:00Z\",\n      \"updated_at\": \"2020-04-01T11:07:14Z\",\n      \"author\": \"Participant 1\",\n      \"body\": \"DHT leak is fixed in 7.5. This one is talking about DNS hostnames for trackers, which are served by the system's resolver.\"\n    },\n    {\n      \"id\": 607188058,\n      \"url\": \"https://github.com/Tribler/tribler/issues/5262#issuecomment-607188058\",\n      \"created_at\": \"2020-04-01T11:15:24Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 2\",\n      \"body\": \"Oh my bad, I thought that was also anonymized now.\"\n    },\n    {\n      \"id\": 607189096,\n      \"url\": \"https://github.com/Tribler/tribler/issues/5262#issuecomment-607189096\",\n      \"created_at\": \"2020-04-01T11:17:58Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 3\",\n      \"body\": \"Torrent checking is not anonymous, only `DownloadManager.get_metainfo` is.\"\n    },\n    {\n      \"id\": 607190635,\n      \"url\": \"https://github.com/Tribler/tribler/issues/5262#issuecomment-607190635\",\n      \"created_at\": \"2020-04-01T11:21:36Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 2\",\n      \"body\": \"Should we create a feature to only use anonymized DHT lookups?\"\n    },\n    {\n      \"id\": 607193317,\n      \"url\": \"https://github.com/Tribler/tribler/issues/5262#issuecomment-607193317\",\n      \"created_at\": \"2020-04-01T11:27:53Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 3\",\n      \"body\": \"DHT lookups all rely on `get_metainfo`, so they shouldn't leak. To fix any leakage in `TorrentChecker`, we need to allow it to use a SOCKS5 proxy, and also allow TCP scrape requests in the `TunnelCommunity`.\"\n    },\n    {\n      \"id\": 607196743,\n      \"url\": \"https://github.com/Tribler/tribler/issues/5262#issuecomment-607196743\",\n      \"created_at\": \"2020-04-01T11:35:40Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 2\",\n      \"body\": \"> To fix any leakage in TorrentChecker, we need to allow it to use a SOCKS5 proxy, and also allow TCP scrape requests in the TunnelCommunity.\\r\\n\\r\\nSeems like a reasonable feature for `7.6` to me.\"\n    },\n    {\n      \"id\": 607212301,\n      \"url\": \"https://github.com/Tribler/tribler/issues/5262#issuecomment-607212301\",\n      \"created_at\": \"2020-04-01T12:12:09Z\",\n      \"updated_at\": \"2020-04-01T12:21:29Z\",\n      \"author\": \"Participant 3\",\n      \"body\": \"I was thinking that maybe we should just allow all HTTP requests that have a bencoded response. This would automatically allow both scrape and announce requests to TCP trackers while avoiding tracker specific logic/messages in the `TunnelCommunity`.\"\n    },\n    {\n      \"id\": 607230873,\n      \"url\": \"https://github.com/Tribler/tribler/issues/5262#issuecomment-607230873\",\n      \"created_at\": \"2020-04-01T12:52:38Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 1\",\n      \"body\": \"@egbertbouman , sounds like a (relatively) simple and robust solution.\"\n    }\n  ],\n  \"evidence_status\": \"complete\",\n  \"scope\": \"Retrieval-time original Markdown from GitHub's structured issue pages, including numbered timeline pages. Discussion complete only after pagination, comment-ID, expected-count and unchanged-issue checks. Closure timestamp is unavailable; linked material is stored separately.\",\n  \"retrieval_method\": \"GitHub public issue page embedded original Markdown\",\n  \"retrieval_url\": \"https://github.com/Tribler/tribler/issues/5262\",\n  \"closed_at_available\": false,\n  \"timeline_page_urls\": [\n    \"https://github.com/Tribler/tribler/issues/5262\"\n  ]\n}",
+      "status": "available",
+      "fetched_at": "2026-11-05T07:22:02.181611+00:00",
+      "retrieved_comment_count": 9,
+      "expected_comment_count": 9,
+      "reason": ""
+    }
+  ]
+}

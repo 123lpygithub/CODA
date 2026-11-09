@@ -1,0 +1,146 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-2874",
+  "issue_url": "https://github.com/arp242/goatcounter/issues/310",
+  "source_issue_url": "https://github.com/arp242/goatcounter/issues/310",
+  "api_url": "https://api.github.com/repos/arp242/goatcounter/issues/310",
+  "title": "Show State/Province Locations",
+  "body": "I stumbled upon GoatCounter yesterday and am very impressed. (So long Matomo.) The only missing information I noticed is location by state/province. In Canada, USA, China etc, I think it's useful to be able to see what state people are visiting from.",
+  "author": "Participant 1",
+  "created_at": "2020-06-19T16:14:08Z",
+  "updated_at": "2022-10-17T14:45:43Z",
+  "state": "closed",
+  "closed_at": "2021-03-31T16:27:58Z",
+  "issue_fetched_at": "2026-10-19T03:10:56.330118+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T03:10:57.782204+00:00"
+  ],
+  "expected_comment_count": 15,
+  "retrieved_comment_count": 15,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 647025676,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-647025676",
+      "created_at": "2020-06-20T17:42:58Z",
+      "updated_at": "2020-06-20T17:42:58Z",
+      "author": "Participant 2",
+      "body": "I am in the same situation. There is another issue (#56) that notes that location data is recorded, but not in the UI. Is there a way to at least get raw data in the meantime?"
+    },
+    {
+      "id": 647029909,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-647029909",
+      "created_at": "2020-06-20T18:24:20Z",
+      "updated_at": "2020-06-20T18:24:20Z",
+      "author": "Participant 3",
+      "body": "The GeoIP database comes in two forms: \"cities\" and \"countries\". It currently uses the Countries database which is about 1.8M (2.4M in the source code), which is a bit large bit still small enough to include in the source code. The Cities version is 29M, which would be >30M in the source code – which is too large IMO. Right now GoatCounter can run without any external dependencies, which is a nice feature I rather like, and I'd rather not lose that. One way to fix that is to create out own GeoDB file with just the data we need, which would vastly reduce the filesize for both cases.\r\n\r\nAnother issue is that we need to be kind-of careful not to record too much specific Personally Identifiable Information (PII). A Country name is probably okay since it's not *that* identifiable, but once you get down to city levels if becomes a lot more identifiable. Recording US states is probably okay, since it's a big country comparable to the EU, but for something like Ireland I'd rather not record the county – just \"Ireland\" is more than specific enough. So we'd need some special-fu logic there too instead of just \"record it all\".\r\n\r\nAnd for a lot of people splitting out various US states provides little value, and may even be undesirable. Not sure how to best manage this UI-wise.\r\n\r\nAll-in-all, it's not a \"oh, let me just do this in 2 hours\"-kind of feature if we want to do it right. As always, I'm happy to accept patches but I think it's unlikely I'll work on this in the short term.\r\n\r\n> Is there a way to at least get raw data in the meantime?\r\n\r\nThere is no \"raw data\" for this; it gets the location from the GeoIP DB based on the IP address, and the IP address is never stored. There is no way to get more specific information for past requests."
+    },
+    {
+      "id": 685028792,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-685028792",
+      "created_at": "2020-09-01T17:48:28Z",
+      "updated_at": "2020-09-01T17:48:28Z",
+      "author": "Participant 4",
+      "body": "An important issue. Seeing \"United States\" is not very informative, as informative as seeing \"Europe\" or \"EU.\" Being able to drill-down to City level would be great."
+    },
+    {
+      "id": 686224348,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-686224348",
+      "created_at": "2020-09-03T03:14:23Z",
+      "updated_at": "2020-09-03T03:14:23Z",
+      "author": "Participant 3",
+      "body": "Like I mentioned @gabrielgggg, I think City level is too fine-grained both for reasons of privacy and UX, but yeah, US state would be good. I think the easiest way forward for this would be to create a new GeoIP database based on the \"Cities\" version but groups the cities by US state. I looked at this a while ago, but the tooling for all of this is a bit meh: they got some Perl library for this which can be used for this, but I'm not super familiar with Perl so all in all a bit time-consuming to get right."
+    },
+    {
+      "id": 751657728,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-751657728",
+      "created_at": "2020-12-28T10:01:20Z",
+      "updated_at": "2020-12-28T10:01:20Z",
+      "author": "Participant 3",
+      "body": "Alright, this is now added: it records the region for every location, e.g. US state, which can be viewed by clicking on a country in the chart. Since this information wasn't collected before today and we have no way to get it, it will be \"unknown\" for entries before today.\r\n\r\nBecause some people may not want to collect this detailed information like I said before, you can enable/disable this in the \"data collection\" section on the settings that I added a few days ago; it's enabled by default.\r\n\r\nThis issue is still open as there's one part left to do: I want to be able to add a new (optional) dashboard chart which shows the regions for a particular country, so you can just add \"View regions for US\"; this requires a bit of work on the dashboard settings screen and I'll finish that up later this week.\r\n\r\nAs I mentioned, the expanded \"City\" version of the database is much larger than the Country (>60M), so you need to use `-geodb GeoLite2-City.mmdb` if you want to use this in a self-hosted installation. I looked a bit at creating a custom version which includes Country + Region information but not \"City\" and some other stuff we don't use, but I couldn't really get the Perl library to work, so 🤷‍♂️ Maybe I'll try again later."
+    },
+    {
+      "id": 752273574,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-752273574",
+      "created_at": "2020-12-29T23:20:43Z",
+      "updated_at": "2020-12-29T23:20:43Z",
+      "author": "Participant 1",
+      "body": "Awesome! I’ll try it it out. Thanks for your efforts!"
+    },
+    {
+      "id": 752993357,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-752993357",
+      "created_at": "2020-12-31T15:54:30Z",
+      "updated_at": "2020-12-31T15:54:30Z",
+      "author": "Participant 2",
+      "body": "Thanks, I'm looking forward to checking it out. I think it'll be really helpful!"
+    },
+    {
+      "id": 800783292,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-800783292",
+      "created_at": "2021-03-17T04:24:30Z",
+      "updated_at": "2021-03-17T04:24:30Z",
+      "author": "Participant 3",
+      "body": "I think I'll add a new setting: \"Collect regions for the following countries only\".\r\n\r\nA good default would probably be:\r\n\r\n    US,RU,CH\r\n\r\nFor the US, Russia, and (mainland) China.\r\n\r\nMaybe some others as well?"
+    },
+    {
+      "id": 801103173,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-801103173",
+      "created_at": "2021-03-17T13:58:52Z",
+      "updated_at": "2021-03-17T13:58:52Z",
+      "author": "Participant 1",
+      "body": "Looking around a map, you could also add Canada, Brazil, Argentina, Australia, France, India, Germany, Poland, Japan, and/or Nigeria if you want. Those places all seem to have some form of states/provinces. "
+    },
+    {
+      "id": 801202756,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-801202756",
+      "created_at": "2021-03-17T16:01:05Z",
+      "updated_at": "2021-03-17T16:01:05Z",
+      "author": "Participant 3",
+      "body": "It's not so much about \"having provinces\", but rather \"do many people want to know the province for this, and what are the trade-offs with privacy?\"\r\n\r\nFor the US, China, and Russia this seems like a fairly decent trade-off as they're such huge countries. For Germany or France? I'm not so sure."
+    },
+    {
+      "id": 801373361,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-801373361",
+      "created_at": "2021-03-17T19:46:42Z",
+      "updated_at": "2021-03-17T19:46:42Z",
+      "author": "Participant 1",
+      "body": "That's a fair point. You could limit it to countries with [more than 100 million people](https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population)? Germany and France also seem highly populated to me but for my use I was just looking for US and China. :smile: "
+    },
+    {
+      "id": 801508843,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-801508843",
+      "created_at": "2021-03-17T23:32:55Z",
+      "updated_at": "2021-03-17T23:32:55Z",
+      "author": "Participant 3",
+      "body": "Yeah, maybe; but they're also far smaller (in terms of surface area) and have quite a different government structure especially from the US (with states having quite a lot of legal power).\r\n\r\nAnyway, remember this is just a *default* for new accounts; people can customize this as they see fit, including just tracking regions for all countries. Overall I'd prefer to be a little bit on the conservative side with this."
+    },
+    {
+      "id": 811166662,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-811166662",
+      "created_at": "2021-03-31T15:41:35Z",
+      "updated_at": "2021-03-31T15:41:35Z",
+      "author": "Participant 1",
+      "body": "Am I missing a flag to direct goatcounter to use a custom GeoIP database or does it need to be built from source to work? Fedora has the geolite databases packaged so ideally I will use those."
+    },
+    {
+      "id": 811172461,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-811172461",
+      "created_at": "2021-03-31T15:49:23Z",
+      "updated_at": "2021-03-31T15:49:23Z",
+      "author": "Participant 3",
+      "body": "You need to use the `-geodb` flag @cwmke – the countries\" database is built in the binary as it's small enough, but with ~35M the cities one is too large. I don't know which database Fedora ships, but if it's a mmdb file it should work. Otherwise you can download it for free from the Maxmind website.\r\n\r\nYou need to be using v2.0.0 for this by the way."
+    },
+    {
+      "id": 811210923,
+      "url": "https://github.com/arp242/goatcounter/issues/310#issuecomment-811210923",
+      "created_at": "2021-03-31T16:27:58Z",
+      "updated_at": "2021-03-31T16:27:58Z",
+      "author": "Participant 1",
+      "body": "Perfect! This resolves the issue so I'll close it. Many thanks!"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

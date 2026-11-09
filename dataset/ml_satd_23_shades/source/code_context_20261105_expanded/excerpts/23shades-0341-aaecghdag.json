@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0341-aaecghdag",
+  "revision_url": "https://github.com/KhronosGroup/NNEF-Tools/commit/aece55fe73a13434743ca4e5da3c88fc6eaea984",
+  "filename": "converter/nnef_converters/tf_converters/tf_to_nnef/converters.py",
+  "commit": "aece55fe73a13434743ca4e5da3c88fc6eaea984",
+  "source_url": "https://raw.githubusercontent.com/KhronosGroup/NNEF-Tools/aece55fe73a13434743ca4e5da3c88fc6eaea984/converter/nnef_converters/tf_converters/tf_to_nnef/converters.py",
+  "fetched_at": "2026-11-05T06:12:36.798510+00:00",
+  "source_sha256": "9856318a1ab0a6a64462563650a4edb811f6f8d7d6fadd6e603e707d82f435e4",
+  "line_start": 975,
+  "line_end": 999,
+  "excerpt": "    paddings = tfop.args[\"paddings\"]\n    rank = len(dog.get_shape_safe(tfdn_tensor))\n\n    if isinstance(paddings, np.ndarray):\n        paddings = paddings.tolist()\n    elif isinstance(paddings, tuple):\n        paddings = np.array(paddings).tolist()\n\n    if tfop.args[\"constant_values\"] != 0:\n        utils.print_error(\n            \"Only tf.pad constant_values=0 is supported, got: {}, resetting to 0.\".format(tfop.args[\"constant_values\"]))\n\n    nnefop = dog.OperationNode(\"box\")  # TODO replace with pad when implemented\n    nnefop.add_arg(\"input\", converter.get_nnefdn(tfdn_tensor))\n    nnefop.add_arg(\"size\", [1] * rank)\n    nnefop.add_arg(\"border\", converter.nnef_border(tfop.args[\"mode\"]))\n    nnefop.add_arg(\"padding\", converter.nnef_padding(paddings, rank))\n    nnefop.add_result(\"output\", converter.make_nnefdn(tfop.result, 'pad'))\n\n    converter.add_nnefop(nnefop, tfop)\n\n\nDefaultConverters = {\n    tf.Variable: (convert_variable, 'variable'),\n    tf.get_variable: (convert_variable, 'variable'),"
+}

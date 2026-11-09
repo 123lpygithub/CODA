@@ -1,0 +1,85 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11473",
+  "issue_url": "https://github.com/IQSS/dataverse/issues/7496",
+  "source_issue_url": "https://github.com/IQSS/dataverse/issues/7496",
+  "api_url": "https://api.github.com/repos/IQSS/dataverse/issues/7496",
+  "title": "Dataverse violates the GDPR by sending user information to Google without consent",
+  "body": "Dataverse violates the GDPR because it doesn't ask the user for consent before sending visitor information to Google Tag Manager and setting a cookie on the visitor's browser. You should use some kind of popup to ask for consent, and only then load  the Google Tag Manager.\r\n\r\nFor example, a popup like this works very well: https://github.com/chiiya/haven/\r\n\r\nI noticed this behavior in Dataverse 5.2, but I suppose it's the same in all.",
+  "author": "Participant 1",
+  "created_at": "2020-12-28T11:03:59Z",
+  "updated_at": "2021-01-05T14:27:28Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:01.518651+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:01.518651+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 754050786,
+      "url": "https://github.com/IQSS/dataverse/issues/7496#issuecomment-754050786",
+      "created_at": "2021-01-04T15:45:11Z",
+      "updated_at": "2021-01-04T15:45:11Z",
+      "author": "Participant 2",
+      "body": "Hi @alanorth, thanks for creating this issue. This is a Dataverse-installation specific issue, as some installations may not be subject to GDPR. \r\n\r\nThere are some installations that provide the workflow that you describe (ex. https://data.aussda.at/) and it would be interesting to figure out if there's some opportunity for adding common code to https://github.com/gdcc for installations that need to support GDPR (for those installations that are subject to it).  \r\n\r\ncc: @qqmyers @skasberger \r\n\r\n"
+    },
+    {
+      "id": 754206666,
+      "url": "https://github.com/IQSS/dataverse/issues/7496#issuecomment-754206666",
+      "created_at": "2021-01-04T20:41:31Z",
+      "updated_at": "2021-01-04T20:41:31Z",
+      "author": "Participant 1",
+      "body": "@djbrooke to be frank: we shouldn't be sending information about our users to third parties without their consent—whether we are subject to GDPR or not. It's just the right thing to do!\r\n\r\nAs for a solution: I am not well versed in the Dataverse ecosystem, though I don't think we should need any custom code. We only need to replace the explicit call to Google Analytics to one that asks the user before setting cookies or sending hits. The [solution I linked](https://github.com/chiiya/haven/) is JavaScript and you literally just need to include it. Does Dataverse make site configuration available programmatically? If so, then you can template the JavaScript initiation to substitute the analytics ID, popup message, link etc that the site admin would configure in settings.\r\n\r\nP.S. the popup at aussdata.at is a bad example in my opinion because it uses jargon, dark patterns, and is too complex. We should be using _very_ simple language with an easy option to reject. Do you remember how GitHub did it for a few days in 2020-12, which only lasted a few days until they [abandoned the popup altogether](https://github.blog/2020-12-17-no-cookie-for-you/)? They said \"We are going to track you. Is that OK? Yes / No.\" Here's a good example on our [academic repository](https://cgspace.cgiar.org/). It really doesn't have to be complicated..."
+    },
+    {
+      "id": 754236879,
+      "url": "https://github.com/IQSS/dataverse/issues/7496#issuecomment-754236879",
+      "created_at": "2021-01-04T21:41:29Z",
+      "updated_at": "2021-01-04T21:56:09Z",
+      "author": "Participant 2",
+      "body": "Thanks @alanorth for the detailed response. If it's discussion about best practice vs. GDPR violation can you update the title to reflect this? A few thoughts:\r\n\r\n- Over the last few releases, the project has made some good progress in making it easier to programmatically configure (thanks to @poikilotherm), so this may be an opportunity to use those newfound powers. \r\n- As you mention, there are varying opinions on what should and should not be in that popup. This highlights why this is such a challenging area to work in and meet the needs across the various community use cases, and why we're pushing these decisions down to the individual installations\r\n- I know you mentioned GA specifically, but I wonder if Make Data Count and Matomo also need some consideration here, since Dataverse supports integration with both. \r\n\r\nIt'll be good to get some additional thoughts here. Thanks again!\r\n"
+    },
+    {
+      "id": 754245921,
+      "url": "https://github.com/IQSS/dataverse/issues/7496#issuecomment-754245921",
+      "created_at": "2021-01-04T21:58:53Z",
+      "updated_at": "2021-01-04T21:58:53Z",
+      "author": "Participant 3",
+      "body": "@alanorth thanks for bringing this issue to our attention. Dataverse installations have complete control over the code for Google Analytics (or other services like Matomo). We ask installations to put the code in a file called \"analytics-code.html\" and then configure Dataverse to use it. I'll include a screenshot of the details below from https://guides.dataverse.org/en/5.3/installation/config.html#web-analytics-code\r\n\r\n<img width=\"721\" alt=\"Screen Shot 2021-01-04 at 4 48 05 PM\" src=\"https://user-images.githubusercontent.com/21006/103582934-d0d69f80-4eac-11eb-90a3-f527d28f26fe.png\">\r\n\r\nThat said, I'm wondering what the \"definition of done\" is for this issue. Should the Dataverse guides suggest that Haven tool you mentioned? Should the guides provide some guidance on GDPR generally? Like @djbrooke said, some installations of Dataverse such as https://data.aussda.at have cookie warnings (screenshot below). Again, I think we don't get a lot of complaints about this because there's a lot of flexibility in what installations put in that analytics-code.html file (as well as the header and the footer).\r\n\r\n<img width=\"1132\" alt=\"Screen Shot 2021-01-04 at 4 55 37 PM\" src=\"https://user-images.githubusercontent.com/21006/103583501-cbc62000-4ead-11eb-9566-1d47a4ec99dd.png\">\r\n"
+    },
+    {
+      "id": 754293341,
+      "url": "https://github.com/IQSS/dataverse/issues/7496#issuecomment-754293341",
+      "created_at": "2021-01-04T23:49:46Z",
+      "updated_at": "2021-01-04T23:49:46Z",
+      "author": "Participant 4",
+      "body": "We at AUSSDA pass the cookie snippet as custom header. In general, it would be great to have an own endpoint for this, cause the order of Javascript calls is relevant for this.  Cookiebot for example must be the first call in <head>. Matomo does not matter as far as i know."
+    },
+    {
+      "id": 754566009,
+      "url": "https://github.com/IQSS/dataverse/issues/7496#issuecomment-754566009",
+      "created_at": "2021-01-05T11:01:21Z",
+      "updated_at": "2021-01-05T11:01:21Z",
+      "author": "Participant 1",
+      "body": "> Dataverse installations have complete control over the code for Google Analytics (or other services like Matomo). We ask installations to put the code in a file called \"analytics-code.html\" and then configure Dataverse to use it.\r\n\r\n@pdurbin Ah! I did not know that. I will tell my site admin to look into it. I think this issue can be closed.\r\n\r\n<hr />\r\n\r\nMy personal opinion is that GDPR (or CCPA, etc) compliance doesn't have to be hard if you honestly respect your users. Most web developers and or project managers simply do not understand, do not care, or use adblockers since 2002. The compliance popups that have become the norm are abhorrent because they are purposefully confusing with dark patterns and language. I am a computer scientist with thirty+ years on the Internet and _even I_ have to read them carefully. There should be a simple \"reject\" option at the very front. And until the user actively consents you should not send a page hit or set a cookie. It's the right thing to do. Dataverse is in the realm of open source, open data, open government, academic research, etc... not startups and for-profit corporations. Sorry. ;)"
+    },
+    {
+      "id": 754668226,
+      "url": "https://github.com/IQSS/dataverse/issues/7496#issuecomment-754668226",
+      "created_at": "2021-01-05T14:27:28Z",
+      "updated_at": "2021-01-05T14:27:28Z",
+      "author": "Participant 2",
+      "body": "Thanks @alanorth for kicking off the discussion, I'll close this. As I mentioned and @pdurbin better explained, we allow the configuration so that individual installations can make the decisions that are right for them and their users. "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/IQSS/dataverse/issues/7496",
+  "closed_at_available": false
+}

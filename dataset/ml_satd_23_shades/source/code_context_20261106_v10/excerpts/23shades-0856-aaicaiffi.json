@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0856-aaicaiffi",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/025ce377d5018e369546945db0bda0081d760741",
+  "filename": "scikits/learn/decomposition/sparse_pca.py",
+  "commit": "025ce377d5018e369546945db0bda0081d760741",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/025ce377d5018e369546945db0bda0081d760741/scikits/learn/decomposition/sparse_pca.py",
+  "fetched_at": "2026-11-05T06:14:05.896141+00:00",
+  "source_sha256": "eb655df10ce33b15401cdaa6e1581ea78fc17987c030dd63c97684ec901e9507",
+  "line_start": 4,
+  "line_end": 28,
+  "excerpt": "\nimport numpy as np\nfrom numpy.lib.stride_tricks import as_strided\nfrom scipy import linalg\n\nfrom ..linear_model import Lasso, lars_path\nfrom ..externals.joblib import Parallel, delayed\nfrom ..base import BaseEstimator, TransformerMixin\n\n\n##################################\n# Utilities to spread load on CPUs\n# XXX: where should this be?\ndef _gen_even_slices(n, n_packs):\n    \"\"\"Generator to create n_packs slices going up to n.\n\n    Examples\n    ========\n\n    >>> list(_gen_even_slices(10, 1))\n    [slice(0, 10, None)]\n    >>> list(_gen_even_slices(10, 10)) #doctest: +ELLIPSIS\n    [slice(0, 1, None), slice(1, 2, None), ..., slice(9, 10, None)]\n    >>> list(_gen_even_slices(10, 5)) #doctest: +ELLIPSIS\n    [slice(0, 2, None), slice(2, 4, None), ..., slice(8, 10, None)]"
+}

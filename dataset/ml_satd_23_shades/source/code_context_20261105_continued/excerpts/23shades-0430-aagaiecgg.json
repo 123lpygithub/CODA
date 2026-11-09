@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0430-aagaiecgg",
+  "revision_url": "https://github.com/davidsbatista/BREDS/commit/64e5e0da3a67df7ade4e5a0b5bee9f4ee66fb57c",
+  "filename": "BREDS/Pattern.py",
+  "commit": "64e5e0da3a67df7ade4e5a0b5bee9f4ee66fb57c",
+  "source_url": "https://raw.githubusercontent.com/davidsbatista/BREDS/64e5e0da3a67df7ade4e5a0b5bee9f4ee66fb57c/BREDS/Pattern.py",
+  "fetched_at": "2026-11-05T06:12:53.235894+00:00",
+  "source_sha256": "76cd5f1880425eabb838616f1420099a327529059118d6b59ca87ca95c355906",
+  "line_start": 47,
+  "line_end": 71,
+  "excerpt": "        elif self.positive == 0:\n            self.confidence = 0\n\n    def update_confidence(self):\n        if self.positive > 0 or self.negative > 0:\n            self.confidence = float(self.positive) / float(self.positive + self.negative)\n\n    def add_tuple(self, t):\n        self.tuples.add(t)\n\n    def add_pattern(self, p):\n        pass\n        #TODO:\n\n    def merge_patterns(self):\n        for t in self.tuples:\n            for p in t.patterns_words:\n                self.patterns_words.add(p)\n\n    def calculate_single_vector(self, config):\n        self.merge_patterns()\n        pattern_vector = zeros(config.vec_dim)\n        for p in self.patterns_words:\n            tokens = PunktWordTokenizer().tokenize(p)\n            vector_p = Word2VecWrapper.pattern2vector(tokens, config)"
+}

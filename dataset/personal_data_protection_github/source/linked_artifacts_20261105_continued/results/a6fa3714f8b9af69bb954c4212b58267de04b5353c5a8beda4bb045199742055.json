@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/darktable-org/darktable/blob/6c13deb2f6b1404f6b3e9e9046b35bbccc31109d/src/common/imageio.c#L712",
+  "kind": "file",
+  "cited_in": [
+    "comment_1337477501"
+  ],
+  "revision": "6c13deb2f6b1404f6b3e9e9046b35bbccc31109d",
+  "immutable_revision": true,
+  "line_start": 700,
+  "line_end": 724,
+  "text": "                      dt_iop_color_intent_t icc_intent, dt_imageio_module_storage_t *storage,\n                      dt_imageio_module_data_t *storage_params, int num, int total, dt_export_metadata_t *metadata)\n{\n  if(strcmp(format->mime(format_params), \"x-copy\") == 0)\n    /* This is a just a copy, skip process and just export */\n    return format->write_image(format_params, filename, NULL, icc_type, icc_filename, NULL, 0, imgid, num, total, NULL,\n                               export_masks);\n  else\n  {\n    const gboolean is_scaling =\n      dt_conf_is_equal(\"plugins/lighttable/export/resizing\", \"scaling\");\n\n    return dt_imageio_export_with_flags(imgid, filename, format, format_params, FALSE, FALSE, high_quality, upscale, is_scaling,\n                                        FALSE, NULL, copy_metadata, export_masks, icc_type, icc_filename, icc_intent,\n                                        storage, storage_params, num, total, metadata, -1);\n  }\n}\n\n// internal function: to avoid exif blob reading + 8-bit byteorder flag + high-quality override\nint dt_imageio_export_with_flags(const int32_t imgid, const char *filename,\n                                 dt_imageio_module_format_t *format, dt_imageio_module_data_t *format_params,\n                                 const gboolean ignore_exif, const gboolean display_byteorder,\n                                 const gboolean high_quality, const gboolean upscale, gboolean is_scaling, const gboolean thumbnail_export,\n                                 const char *filter, const gboolean copy_metadata, const gboolean export_masks,\n                                 dt_colorspaces_color_profile_type_t icc_type, const gchar *icc_filename,",
+  "source_sha256": "a0ea2dc3ff0f814eb6234bc705aebdeb739afa29d5d1b1f2d428075b4cc13154",
+  "fetched_at": "2026-11-05T07:22:03.561043+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/darktable-org/darktable/6c13deb2f6b1404f6b3e9e9046b35bbccc31109d/src/common/imageio.c",
+  "status": "available"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0798-aaidjgdji",
+  "revision_url": "https://github.com/biolab/orange3/commit/cae097749e098191b6789e0bc4ca68b85851c749",
+  "filename": "Orange/canvas/preview/scanner.py",
+  "commit": "cae097749e098191b6789e0bc4ca68b85851c749",
+  "source_url": "https://raw.githubusercontent.com/biolab/orange3/cae097749e098191b6789e0bc4ca68b85851c749/Orange/canvas/preview/scanner.py",
+  "fetched_at": "2026-11-05T06:13:53.867981+00:00",
+  "source_sha256": "cf37aef1b903b9893ba2b9249b88bbc5d813ccb504224a757cc465d198ffdbfd",
+  "line_start": 90,
+  "line_end": 114,
+  "excerpt": "    tmp_scene.deleteLater()\n    return svg\n\n\ndef scan_update(item):\n    \"\"\"Given a preview item, scan the scheme file ('item.path') and update the\n    items contents.\n\n    \"\"\"\n\n    path = unicode(item.path())\n\n    # workaround for bugs.python.org/issue11159\n    path = path.encode(sys.getfilesystemencoding())\n\n    try:\n        title, desc, svg = preview_parse(path)\n    except SAXParseException, ex:\n        log.error(\"%r is malformed (%r)\", path, ex)\n        item.setEnabled(False)\n        item.setSelectable(False)\n        return\n\n    if not svg:\n        try:",
+  "match_policy": "unique-release-normalized-v2"
+}

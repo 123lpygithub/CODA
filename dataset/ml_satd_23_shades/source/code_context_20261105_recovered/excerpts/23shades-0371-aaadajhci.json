@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0371-aaadajhci",
+  "revision_url": "https://github.com/yonkshi/text2imageNet/commit/28cf797566877a80db00e33e4311f70ab7b241b2",
+  "filename": "lenet/tensorcv/predicts/base.py",
+  "commit": "28cf797566877a80db00e33e4311f70ab7b241b2",
+  "source_url": "https://raw.githubusercontent.com/yonkshi/text2imageNet/28cf797566877a80db00e33e4311f70ab7b241b2/lenet/tensorcv/predicts/base.py",
+  "fetched_at": "2026-11-05T06:12:41.016258+00:00",
+  "source_sha256": "ebf6cf04a013c8c0f9e30b8b0dfbae69096233aedc78c2343c2d3662913a5744",
+  "line_start": 32,
+  "line_end": 56,
+  "excerpt": "        each predictions, and load pre-trained parameters.\n\n        Args:\n            config (PridectConfig): the config used for this predictor\n        \"\"\"\n        assert_type(config, PridectConfig)\n        self._config = config\n        self._model = config.model\n\n        self._input = config.dataflow\n        self._result_dir = config.result_dir\n\n        # TODO to be modified\n        self._model.set_is_training(False)\n        self._model.create_graph()\n        self._restore_vars = self._config.restore_vars\n\n        # pass saving directory to predictions\n        for pred in self._config.predictions:\n            pred.setup(self._result_dir)\n\n        hooks = [Prediction2Hook(pred) for pred in self._config.predictions]\n\n        self.sess = self._config.session_creator.create_session()\n        self.hooked_sess = tf.train.MonitoredSession("
+}

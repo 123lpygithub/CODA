@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0606-aahicghci",
+  "revision_url": "https://github.com/PyTorchLightning/pytorch-lightning/commit/ce9179591dc3414aa0ff59007ea46f30fa9ddbee",
+  "filename": "tests/trainer/test_trainer.py",
+  "commit": "ce9179591dc3414aa0ff59007ea46f30fa9ddbee",
+  "source_url": "https://raw.githubusercontent.com/PyTorchLightning/pytorch-lightning/ce9179591dc3414aa0ff59007ea46f30fa9ddbee/tests/trainer/test_trainer.py",
+  "fetched_at": "2026-11-05T06:13:20.597488+00:00",
+  "source_sha256": "80384812aaa37f9358a2af45fefe39e8773532e0c5b41ea38f9c7372c9c32472",
+  "line_start": 1323,
+  "line_end": 1347,
+  "excerpt": "                use_dp=False,\n                use_ddp=False,\n                use_ddp2=True,\n                num_gpus=2,\n                on_gpu=True,\n                use_single_gpu=False,\n                num_processes=1,\n            ),\n            marks=[pytest.mark.skipif(torch.cuda.device_count() < 2, reason=\"Multiple GPUs needed\")],\n        ),\n    ],\n)\n# Todo: mock nb Gpus so all these tests can run on any device\n# todo: think about simplification, that the the expected will be just a list use_xxx which shall be true...\ndef test_trainer_config(trainer_kwargs, expected):\n    trainer = Trainer(**trainer_kwargs)\n    assert trainer.use_dp is expected[\"use_dp\"], 'for input: %s' % trainer_kwargs\n    assert trainer.use_ddp is expected[\"use_ddp\"], 'for input: %s' % trainer_kwargs\n    assert trainer.use_ddp2 is expected[\"use_ddp2\"], 'for input: %s' % trainer_kwargs\n    assert trainer.num_gpus == expected[\"num_gpus\"], 'for input: %s' % trainer_kwargs\n    assert trainer.on_gpu is expected[\"on_gpu\"], 'for input: %s' % trainer_kwargs\n    assert trainer.use_single_gpu is expected[\"use_single_gpu\"], 'for input: %s' % trainer_kwargs\n    assert trainer.num_processes == expected[\"num_processes\"], 'for input: %s' % trainer_kwargs\n\n"
+}

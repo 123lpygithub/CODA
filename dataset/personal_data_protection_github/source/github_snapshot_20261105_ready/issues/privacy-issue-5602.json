@@ -1,0 +1,618 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5602",
+  "issue_url": "https://github.com/mastodon/mastodon/issues/7280",
+  "source_issue_url": "https://github.com/mastodon/mastodon/issues/7280",
+  "api_url": "https://api.github.com/repos/mastodon/mastodon/issues/7280",
+  "title": "GDPR Compliance?",
+  "body": "Hello! [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) kicks in next month and I'm just wondering if there's anything that I need to do to make mastodon.technology GDPR-compliant. I've looked and haven't found any other discussions so I thought I'd ask here. Thanks!\r\n\r\n* * * *\r\n\r\n- [x] I searched or browsed the repo’s other issues to ensure this is not a duplicate.\r\n- [x] This bug happens on a [tagged release](https://github.com/tootsuite/mastodon/releases) and not on `master` (If you're a user, don't worry about this).\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-04-28T17:32:46Z",
+  "updated_at": "2023-10-15T06:40:00Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:55.227469+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:55.227469+00:00",
+    "2026-11-05T06:39:44.336692+00:00"
+  ],
+  "expected_comment_count": 73,
+  "retrieved_comment_count": 73,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 385193030,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385193030",
+      "created_at": "2018-04-28T17:36:28Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@ashfurrow I'm working on GDPR compliance for 2 social platforms outside of Mastodon.  I can tell you it's NOT easy.  But here's the basic gist of what you'll need.\r\n\r\n* A very good privacy policy, explaining what PII you collect on EU citizens and how it's used (PII is ip/email/name/browser fingerprint/etc)\r\n* A mechanism to allow the user to exercise their \"Right to be forgotten\".  (i.e. being able to wipe all of their information from your platform as well as anything federated)\r\n* A mechanism to allow the user to export all of their information/details/tracking info (similar to LI/FB does) in a easy to read format (ie csv)\r\n\r\nI'm working on an implementation that addresses these things in my Mastodon fork.  If you'd like to see progress, let me know and I'll add you or DM you on .technology.\r\n\r\n"
+    },
+    {
+      "id": 385193178,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385193178",
+      "created_at": "2018-04-28T17:38:22Z",
+      "updated_at": "2018-04-28T17:38:41Z",
+      "author": "Participant 3",
+      "body": "I dont know if we can offer legal advice to mastodon administrators. it gets us into a tricky legal territory, because it could be mistaken for practicing law without a license which we definitely have NO qualifications for. \r\n\r\nI have no idea what GDPR compliance needs. If people want to propose changes to the export or deletion implementation then we would welcome them, but we do *have* all of these features.\r\n\r\n(except for logs which are obviously inaccessible by mastodon, such as nginx logs)"
+    },
+    {
+      "id": 385193343,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385193343",
+      "created_at": "2018-04-28T17:40:31Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "To be clear, I'm not looking for legal advice per se. I'm raising the question \"is Mastodon GDPR compliant?\""
+    },
+    {
+      "id": 385193348,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385193348",
+      "created_at": "2018-04-28T17:40:38Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@nightpool yes, I'm not a lawyer, nor am I offering legal advice.  However I've been doing GDPR implementations for the last year so I'm happy to answer questions.  \r\n\r\nAs for logs, it's as simple as a daily purge/rotate schedule (nginx logs).  Just a cron job."
+    },
+    {
+      "id": 385193361,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385193361",
+      "created_at": "2018-04-28T17:40:48Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@ashfurrow in its current state, no."
+    },
+    {
+      "id": 385193601,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385193601",
+      "created_at": "2018-04-28T17:44:41Z",
+      "updated_at": "2018-04-28T17:52:46Z",
+      "author": "Participant 3",
+      "body": "the question \"is mastodon gdpr compliant\" is inherently a legal question. that's the point I'm making.\r\n\r\nIf you're offering a firm yes or no on that question, you're inherently giving legal advice."
+    },
+    {
+      "id": 385193739,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385193739",
+      "created_at": "2018-04-28T17:46:37Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "@nynhex if you could elaborate on what you mean by that, I would be happy to read it. We have already all of the features you mention, so i'm curious what parts of the GDPR you think mastodon currently doesn't satisfy."
+    },
+    {
+      "id": 385193776,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385193776",
+      "created_at": "2018-04-28T17:47:06Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@nightpool yeah, I understood.  \r\n\r\nAnyhow, for anyone interested in GDPR I encourage you to read this site.  May 25th is the deadline to fall into compliance.  [EU GDPR](https://www.gdpreu.org)"
+    },
+    {
+      "id": 385194122,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385194122",
+      "created_at": "2018-04-28T17:52:28Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@nightpool A user could expect to be able to ask this question here, too. I phrased my initial question poorly, but I don't appreciate being dismissed."
+    },
+    {
+      "id": 385194126,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385194126",
+      "created_at": "2018-04-28T17:52:30Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": ">i'm curious what parts of the GDPR you think mastodon currently doesn't satisfy.\r\n\r\nI am seconding this. We do have all the features you listed. What's lacking?"
+    },
+    {
+      "id": 385194184,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385194184",
+      "created_at": "2018-04-28T17:53:30Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "@ashfurrow i'm not dismissing the question. I'm happy to have the discussion, but i'm saying that we cannot give a firm yes or no answer here."
+    },
+    {
+      "id": 385194247,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385194247",
+      "created_at": "2018-04-28T17:54:23Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "Okay, thanks. "
+    },
+    {
+      "id": 385197319,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385197319",
+      "created_at": "2018-04-28T18:41:18Z",
+      "updated_at": "2018-04-29T18:26:57Z",
+      "author": "Participant 3",
+      "body": "Okay, here's some preliminary conclusions after reading the definition of personal data by the GDPR:\r\n\r\nThese are preliminary, i'm not an expert, and if you believe or are concerned you may be subject to the GDPR (see below for jurisdiction) you should seek legal representation for advice. I could be wildly off base.\r\n\r\n>‘personal data’ means any information relating to an identified or identifiable natural person (‘data subject’); an identifiable natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data, an online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person;\r\n\r\n> Natural persons may be associated with online identifiers provided by their devices, applications, tools and protocols, such as internet protocol addresses, cookie identifiers or other identifiers such as radio frequency identification tags. This may leave traces which, in particular when combined with unique identifiers and other information received by the servers, may be used to create profiles of the natural persons and identify them.\r\n\r\nWe do not store or solicit users real names, local data, identification numbers. We do store IP addresses but *only* to protect against malicious server usage and NOT in combination with any other unique identifiers (except account ids) or information received by servers. and the IP address associated with your account is ALWAYS visible in the security pane.\r\n\r\nI don't think storing an IP address counts as an identifiable natural person because large groups of natural people can share the same IP address and a single natural person can trivially have scores of IP addresses, and the same is true for mastodon accounts. If we expected all natural person to normally have at most 1 mastodon account or for no natural persons to normally share the same mastodon account, these together may be identifiable, but we don't, really. \r\n\r\nIf we think that storing an IP address does count as an identifiable natural person (which is probably going to be the common jurisprudence if not explicitly required by the law) then the other rights, such as right to erasure and right of access does come into play. I haven't looked into those yet.\r\n\r\n------\r\n\r\nAnother question is \"who falls under the jurisdiction of the GDPR\"? Websites that **intend** to offer services to EU residents. Here's the language:\r\n\r\n> Whereas the mere accessibility of the controller’s, processor’s or an intermediary’s website in the Union, of an email address or of other contact details, or the use of a language generally used in the third country where the controller is established, is insufficient to ascertain such intention, factors such as the use of a language or a currency generally used in one or more Member States with the possibility of ordering goods and services in that other language, or the mentioning of customers or users who are in the Union, may make it apparent that the controller envisages offering goods or services to data subjects in the Union.\r\n\r\nThe website that nynhex linked breaks it down as such:\r\n\r\n - May be insufficient evidence\r\n   - The firm’s website is accessible to EU residents\r\n   - The firm’s email or other contact details is accessible to EU residents\r\n   - The firm is located in a non-EU state that speaks the same language as an EU state\r\n - May be sufficient evidence\r\n   - The firm markets its goods and services in the same language as that which is generally used in an \r\n   - EU member state\r\n   - The firm lists prices in EU member state currencies (the Euro, British pound sterling, Swiss franc, etc.)\r\n   - The firm cites EU customers or users\r\n\r\nI'm not convinced that mastodon.technology (although it, like all mastodon instances, provides localizations in all languages including those used in EU member states) falls under this category because it does not seek out or promote EU customers and users. (and is run from New York)\r\n\r\nSo even the jurisdiction of the GDPR on many mastodon instances is probably suspect."
+    },
+    {
+      "id": 385197550,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385197550",
+      "created_at": "2018-04-28T18:44:43Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@nightpool Storing IP is PII even if it's shared.  Again, I'm not a lawyer but I have 3 legal teams backing me on this for my work and IP storage was definitely an issue.  The problem with GDPR is that it can be interpreted in so many different ways.\r\n\r\nMy advice to anyone running an instance is to consult a lawyer.  I'm off this thread. ☮️ "
+    },
+    {
+      "id": 385197619,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385197619",
+      "created_at": "2018-04-28T18:45:46Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "@nynhex Okay. If you do make changes to mastodon to add more exporting or removal then you should make sure to make us aware of those changes so you we can integrate them upstream."
+    },
+    {
+      "id": 385271036,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385271036",
+      "created_at": "2018-04-29T18:25:49Z",
+      "updated_at": "2018-04-29T18:32:47Z",
+      "author": "Participant 7",
+      "body": "**I'm also not a lawyer (there seems to be a lot of not-lawyers) here**. Also I'm EU resident. \r\n\r\nIP is considered PII, it seems, however Article 6 par 1, states: \r\n\r\n> (d) processing is necessary in order to protect the vital interests of the data subject or of another natural person;\r\n> (f) processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data, in particular where the data subject is a child.\r\n\r\nAnd I guess if IP's are used for fraud detection and or multiple login attempts blocking it falls into these categories, *if* logs are stored for a *reasonable* amount of time (and IPs don't get to other systems). Using IP's for de-anonymisation and creating shadow profiles would be illegal though. (Still bear in mind it is not-a-lawyer). \r\n\r\nReading *data portability* section it seems that Mastodon has had it built in from the start (purpose of this article seems to be to allow futute federation and/or moving data from and to other services). Only problem I see is that no login logs (with IP's) are in this export data. \r\n\r\nIf you want to consult a lawyer, I think that asking for funds to do this from members of mastodon.technology would get a good response. I see a lot of EU folks there! \r\n\r\n"
+    },
+    {
+      "id": 385271829,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385271829",
+      "created_at": "2018-04-29T18:38:11Z",
+      "updated_at": "2018-04-29T18:39:29Z",
+      "author": "Participant 3",
+      "body": "the question was not if IP collection was allowed but whether it qualifies as connecting the other mastodon data to \"an identifiable natural person\" (thus triggering the other requirements of the GDPR).\r\n\r\nI think a close analysis of the way mastodon uses IP information implies that we don't have any data on \"identifiable natural persons\" but i do accept that this is probably not going to be the standard interpretation, and we're better erring on the side of caution and assuming mastodon instances that ARE subject to the jurisdiction of the GDPR (most american-run instances *probably* aren't? and many more european ones probably fall under \"personal data collection\"? it's complicated) will have to abide by the other rights of export and data deletion. (i haven't looked in to the specific details on those yet)"
+    },
+    {
+      "id": 385273377,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385273377",
+      "created_at": "2018-04-29T19:01:53Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "Skimmed over the \"online identifier\" bit from the text? That term is super vague."
+    },
+    {
+      "id": 385273414,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385273414",
+      "created_at": "2018-04-29T19:02:22Z",
+      "updated_at": null,
+      "author": "Participant 9",
+      "body": "Why not wait and see?"
+    },
+    {
+      "id": 385374796,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385374796",
+      "created_at": "2018-04-30T11:42:31Z",
+      "updated_at": null,
+      "author": "Participant 10",
+      "body": "I do believe a huge question to consider here:  Are non-EU instances, who recieve PII from EU instances, impacted by the GDPR?\r\n\r\nSince I don't have the resources to get legal support for my instance, at this point, I'm considering blacklisting any EU IP address, until the question is resolved."
+    },
+    {
+      "id": 385376837,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385376837",
+      "created_at": "2018-04-30T11:53:10Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": "The above post is the exact reason why we should be discussing this and not just waiting, because people are gonna make hasty decisions. A week ago or so @mal0ki sent an e-mail to the EFF asking for them to publish a legal resource for GDPR compliance for ActivityPub servers, so far no response.\r\n\r\nAnyway, instances do not exchange PIIs. Only public profiles and posts."
+    },
+    {
+      "id": 385385992,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385385992",
+      "created_at": "2018-04-30T12:36:58Z",
+      "updated_at": null,
+      "author": "Participant 10",
+      "body": "Public posts/pictures/etc are considered PII as far as I know."
+    },
+    {
+      "id": 385386878,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385386878",
+      "created_at": "2018-04-30T12:40:48Z",
+      "updated_at": null,
+      "author": "Participant 10",
+      "body": "Also, I do not know of a way to ensure a right to be forgotten for EU residents who have shipped PII to my server, either.  I mean, I'm sure there is some way to purge all toots/DMs via a pgsql query, but again, what would the impact be on the rest of the DB structure?"
+    },
+    {
+      "id": 385387550,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385387550",
+      "created_at": "2018-04-30T12:43:41Z",
+      "updated_at": "2018-04-30T12:43:58Z",
+      "author": "Participant 10",
+      "body": "And to support pictures/media/toots being PII:\r\n\r\n> \r\n> What constitutes personal data?\r\n> Any information related to a natural person or ‘Data Subject’, that can be used to directly or indirectly identify the person. It can be anything from a name, a photo, an email address, bank details, posts on social networking websites, medical information, or a computer IP address.\r\n\r\nSource: https://www.eugdpr.org/gdpr-faqs.html"
+    },
+    {
+      "id": 385391518,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385391518",
+      "created_at": "2018-04-30T13:01:48Z",
+      "updated_at": null,
+      "author": "Participant 9",
+      "body": "We need a way to store the posts on clients and synchronize them with a p2p mechanism."
+    },
+    {
+      "id": 385453379,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385453379",
+      "created_at": "2018-04-30T16:32:02Z",
+      "updated_at": null,
+      "author": "Participant 11",
+      "body": "Is GDPR compliance even relevant for instances that are run by individuals on an \"as is\" basis?\r\n\r\nTheir [FAQ](https://www.eugdpr.org/gdpr-faqs.html) states:\r\n\r\n> The GDPR not only applies to _organisations_ located within the EU but it will also apply to _organisations_ located outside of the EU if they offer goods or services to, or monitor the behaviour of, EU data subjects. It applies to all _companies_ processing and holding the personal data of data subjects residing in the European Union, regardless of the _company’s_ location.\r\n\r\nand\r\n\r\n> _Organizations_ can be fined up to 4% of _annual global turnover_ for breaching GDPR or €20 Million. This is the maximum fine that can be imposed for the most serious infringements e.g.not having sufficient customer consent to process data or violating the core of Privacy by Design concepts. There is a tiered approach to fines e.g. a _company_ can be fined 2% for not having their records in order (article 28), not notifying the supervising authority and data subject about a breach or not conducting impact assessment.\r\n\r\nEmphasis on the terms `organisation`, `company` and ` annual global turnover`"
+    },
+    {
+      "id": 385625490,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385625490",
+      "created_at": "2018-05-01T08:35:51Z",
+      "updated_at": null,
+      "author": "Participant 12",
+      "body": "I emailed the EFF the other day, and have now received a reply. \r\n\r\nThey are directing me to this for resources: https://www.twobirds.com/~/media/pdfs/gdpr-pdfs/bird--bird--guide-to-the-general-data-protection-regulation.pdf?la=en \r\n\r\nBut also, saying that they can help provide us with an attorney to figure this stuff out. I'll talk more with @Gargron about this today (or tomorrow, as it's Mayday)"
+    },
+    {
+      "id": 385647996,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385647996",
+      "created_at": "2018-05-01T11:08:40Z",
+      "updated_at": null,
+      "author": "Participant 10",
+      "body": "So, it does appear non-organizations (Natural persons) who run instances are exempted:\r\n\r\n> \r\n> by a natural person as part of a “purely personal or household\r\n> activity”. This covers correspondence and the holding of\r\n> address books – but it also now covers social networking and\r\n> online activities undertaken for social and domestic purposes.\r\n> It represents a possible widening of the exemption from the\r\n> principles set out in Bodil Lindqvist (C-101/01), before the\r\n> advent of social media. In this case, the CJEU noted that\r\n> sharing data with the Internet at large “so that those data are\r\n> made accessible to an indefinite number of people” could not\r\n> fall within this exemption, which it stated should be limited\r\n> to activities “carried out in the course of the private or family\r\n> life of individuals”. Note also that the GDPR will remain\r\n> applicable to controllers and processors who “provide the\r\n> means for processing” which falls within this exemption.\r\n\r\nHowever, if the instance is owned/operated by an organization (Cooperative, non-profit, or other such corporate structure) would be expected to comply."
+    },
+    {
+      "id": 385674642,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385674642",
+      "created_at": "2018-05-01T13:48:22Z",
+      "updated_at": null,
+      "author": "Participant 13",
+      "body": "Curious to see what outcome this will have. Having been halfway through GDPR by now too, I think the most important thing should be trying not to fall into a category of organization structure that has to comply. Otherwise it could get difficult as, no matter which features the software itself might (not) have, bottom line seems that most of GDPR actually is about how the organization operating the software works. You don't per se need software that is able to support a \"right to be forgotten\" it'll just makes things easier. Manually deleting things would be perfect too. But if, in example,  running a mastodon instance on some shared infrastructure,  you would also have to figure out if any of your hosting providers systems or team members could have access to relevant data and make sure they comply with GDPR too - provider HTPP proxy / loadbalancer in front of your infrastructure that is able to 'identify'' actual users?\r\n\r\nBest outcome here possibly would be a basic set of rules and guidelines for instance admins on how to behave."
+    },
+    {
+      "id": 385886825,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385886825",
+      "created_at": "2018-05-02T07:20:49Z",
+      "updated_at": null,
+      "author": "Participant 14",
+      "body": "**IANAL.**\r\n\r\nQuoting someone from a discussion on Mastodon:\r\n\r\n> Who is the designated data controller for federated information?\r\n> It must be each individual instance, but the user did not agree to any data sharing with each instance.\r\n\r\nMastodon is a federated network by design and by signing up to an instance that is connected to other instances by design, you *must* agree to your data being sent to an *indefnite* number of other instances as an effect of the functioning of the federated system. This is simply how things work. If the user is not okay with that, they may join a service that is not connected to other nodes by design and therefore has a centralized entity for controlling data, such as an \"offline\" Mastodon instance whose responsibilities are traceable to a single organization, or a centralized service, such as Facebook.\r\n\r\nAs for the risk of unsolicited data-sharing, for any Mastodon instance, either that Mastodon instance is disconnected from the network to avoid sharing data, which defies Mastodon's whole purpose, or the designated data controller of that instance is going to be burdened with sharing information with an indefinite amount of other instances and therefore an indefinite amount of other people - and that seems like something punishable by GDPR. \r\n\r\nTo anyone more skilled in law than me - is the above statement a real risk? This law does not seem to take federated networks into account. It implies that there exists a centralized data controller for a decentralized network, which is an impossibility."
+    },
+    {
+      "id": 385898543,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385898543",
+      "created_at": "2018-05-02T08:11:50Z",
+      "updated_at": null,
+      "author": "Participant 5",
+      "body": "@phoe I agree with your analysis. And you're right that the european authorities considered only centralized services, federation is completely unthinkable for them.\r\n\r\nNow, practically speaking, my guess (IANAL, etc) is that there is not a lot of risk, short term. The data protection authorities will have a lot of work to do with traditional corporations, I don't think they will care about a small federation. It does not mean we should deny the reality (like the people who claim that IP addresses or public posts are not personal data, despite many years of legal evidence) but we should not panic either.\r\n\r\nReminder: most provisions of the GDPR were in most western european data protection laws, often for years. This is not a novelty. See for instance https://github.com/tootsuite/mastodon/issues/6474\r\n"
+    },
+    {
+      "id": 385906733,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385906733",
+      "created_at": "2018-05-02T08:44:23Z",
+      "updated_at": null,
+      "author": "Participant 11",
+      "body": "phoe: “Mastodon is a federated network by design and by signing up to an instance that is connected to other instances by design, you must agree to your data being sent to an indefnite number of other instances as an effect of the functioning of the federated system.”\r\n\r\nAbsolutely. However, the terms of service should probably reflect this. Looking at a couple of terms of service at random I see things like this from mastodon.xyz's: “We do not sell, trade, or otherwise transfer to outside parties your personally identifiable information.” I'd suggest that this should be re-written to indicate that they do transfer PII to other instances in the federation and to users of their own instance and of federated instances.\r\n\r\nMaybe it would be best if it was specific about what PII was transferred in that way: user name, toots, follows, what else?, but not, e.g., IP address, password, sign in/out times, … I assume."
+    },
+    {
+      "id": 385969206,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385969206",
+      "created_at": "2018-05-02T12:59:54Z",
+      "updated_at": null,
+      "author": "Participant 5",
+      "body": "It is also very important to keep in mind that being compliant with the GDPR is only a part of the general issue (although an important part for the instance admin who doesn't want legal troubles). The big goal is to protect the privacy of users (unlike Facebook, Twitter, etc). "
+    },
+    {
+      "id": 385974334,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-385974334",
+      "created_at": "2018-05-02T13:17:50Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": ">Maybe it would be best if it was specific about what PII was transferred in that way: user name, toots, follows, what else?, but not, e.g., IP address, password, sign in/out times, … I assume.\r\n\r\nNew privacy policy in master reflects this.\r\n\r\n>“Mastodon is a federated network by design and by signing up to an instance that is connected to other instances by design, you must agree to your data being sent to an indefnite number of other instances as an effect of the functioning of the federated system.”\r\n\r\nIt's not quite indefinite. For follower-only and direct messages, only the recipients will receive them, and therefore making sure they're deleted is straightforward. Public posts that can be accessed and cached from anywhere, not so much, **but**: Public blog posts cannot be PII. (IANAL etc but it would not make sense)"
+    },
+    {
+      "id": 386055940,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386055940",
+      "created_at": "2018-05-02T17:26:17Z",
+      "updated_at": "2018-05-02T17:26:50Z",
+      "author": "Participant 15",
+      "body": "I wonder if there is a guideline for email providers somewhere. I think their situation is comparable to the situation of other federated services."
+    },
+    {
+      "id": 386064938,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386064938",
+      "created_at": "2018-05-02T17:54:29Z",
+      "updated_at": null,
+      "author": "Participant 16",
+      "body": "@Gargron I would strongly recommend seeking legal advice, as a \"privacy policy\" is no longer sufficient for conformance with the GDPR, as my company recently found out. The software itself isn't the problem, but the hosting.\r\n\r\nDue to the nature of this being a federated service, it is likely that all mastodon nodes will be considered both controllers and processors according to the GDPR, and as a result will require specific phrasing that constitutes a data processing agreement.\r\n\r\nI am not a lawyer but one did very much upset me about this recently. This is a massive kick in the face for Facebook, but unfortunately the kicks don't stop there. Fortunately, this is a proportionality-based regulation so unless egregious abuse occurs, it seems unlikely we will receive a Facebook-grade punishment.\r\n\r\nA fairly useful site for GDPR stuffs I've been reading has been this: https://www.netskope.com/blog/gdpr-data-processing-agreements/"
+    },
+    {
+      "id": 386103824,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386103824",
+      "created_at": "2018-05-02T20:05:47Z",
+      "updated_at": null,
+      "author": "Participant 11",
+      "body": "Gargron: “but: Public blog posts cannot be PII. (IANAL etc but it would not make sense)”.\r\n\r\nThe legislation (`http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN` Article 4 (page L 119/33)) says “For the purposes of this Regulation: 1) ‘personal data’ means any information relating to an identified or identifiable natural person (‘data subject’); …”.\r\n\r\nRead straightforwardly, that would mean that a toot is personal data: it's information and it relates to an identifiable natural person. If a toot isn't personal data then that definition needs to be tightened up.\r\n\r\nObviously public toots don't need to be kept private but the right to be forgotten bit could well apply, it seems to me, in that somebody could expect to have their old toots deleted on request. Across the fediverse? After their original instance went out of existence?"
+    },
+    {
+      "id": 386104496,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386104496",
+      "created_at": "2018-05-02T20:08:16Z",
+      "updated_at": "2018-05-02T20:09:59Z",
+      "author": "Participant 4",
+      "body": "@ed-davies Is a Guardian article \"information relating to an identified or identifiable natural person\"? Since it's written by an author? Does the right to be forgotten extend to newspaper articles? Medium articles? WordPress blog posts?\r\n\r\nAll of those can be cached by Google, Archive.org, and a variety of news aggregators. Such caching is roughly equivalent to federation for the purposes of this discussion."
+    },
+    {
+      "id": 386108579,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386108579",
+      "created_at": "2018-05-02T20:22:34Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "An article from 2015: \"Telegraph stories affected by EU 'right to be forgotten'\"\r\nhttps://www.telegraph.co.uk/technology/google/11036257/Telegraph-stories-affected-by-EU-right-to-be-forgotten.html\r\nSnippet: \"EU ruling demands Google removes links to content deemed 'inadequate, irrelevant or no longer relevant' following complaint from anyone named in it. Here we will maintain an up-to-date list of Telegraph content which has been removed from search results\"\r\n\r\nAn article from February: \"'Right to be forgotten' claimant wants to rewrite history, says Google\"\r\nhttps://www.theguardian.com/technology/2018/feb/27/right-to-be-forgotten-claimant-wants-to-rewrite-history-says-google"
+    },
+    {
+      "id": 386110282,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386110282",
+      "created_at": "2018-05-02T20:28:34Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": "That's specifically about search results linking to news stories, not the news stories themselves. (Also strictly speaking \"right to be forgotten\" is a different legal topic than GDPR, though there are similar effects)"
+    },
+    {
+      "id": 386114441,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386114441",
+      "created_at": "2018-05-02T20:43:12Z",
+      "updated_at": null,
+      "author": "Participant 16",
+      "body": "Right to be forgotten was replaced with \"right to erasure\" in this regulation. "
+    },
+    {
+      "id": 386174608,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386174608",
+      "created_at": "2018-05-03T02:13:10Z",
+      "updated_at": "2018-05-03T02:20:59Z",
+      "author": "Participant 3",
+      "body": "The idea that federated mastodon posts constitute Personal Data is absolutely ridiculous and doesn't hold up to the facts. While it's important to be talking about these concepts this conversation seems to have devolved into straight-up FUD.\r\n\r\n>The GDPR applies to data from which a living individual\r\nis identified or identifiable (by anyone), whether directly or\r\nindirectly. The Directive’s test of ‘all means reasonably likely\r\nto be used’ to identify is retained.\r\n>\r\n>The GDPR’s recitals highlight that certain categories of online\r\ndata may be personal – online identifiers, device identifiers,\r\ncookie IDs and IP addresses are referenced. In October\r\n2016 the CJEU provided long awaited clarity on the status of\r\ndynamic IP addresses in the case of Patrick Breyer v Germany\r\n(C-582/14), holding that an IP address is personal data when\r\nheld by an ISP, but does not constitute personal data if held by\r\na party that does not have the “means likely reasonably to be\r\nused to identify the individual”. \r\n\r\nYou HAVE to be able to draw a full link from \"a mastodon post\" to \"a specific natural person\" for it to count as **identifiable** data. That's the key word here. Mastodon users do not count as natural people, I would have to create a chain of data back to a real-world identity before it becomes personal information. While some people do post their full names on mastodon or take other actions to render themselves identifiable, this is a rare case and can be handled by instance admins on a case-by-case basis, not something that needs an automated process.\r\n\r\nNow, again, IANAL, and if there's information contrary to this from a **reliable** source (the eugpdr.org FAQ is very informal and was taken out of context) i'd love to hear about it. But until I hear otherwise, talking about federated owners being liable for content **sent** to them by remote users is just fearmongering, plain and simple."
+    },
+    {
+      "id": 386177955,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386177955",
+      "created_at": "2018-05-03T02:41:04Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "\"Mastodon users do not count as natural people\" is a questionable statement. One could argue that GDPR doesn't apply to ANY social service where people are allowed to use fake information.\r\n\r\nI'm not so certain that the responsibilities of data controllers end just because platform usage is voluntary or because it was the user's choice to share sensitive data. Are you?\r\n\r\nUntil we see definitive proof of that, dismissing people's concerns as FUD seems misleading at best, dangerous at worst."
+    },
+    {
+      "id": 386181940,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386181940",
+      "created_at": "2018-05-03T03:18:13Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "Just get a lawyer. Call it a day. "
+    },
+    {
+      "id": 386202905,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386202905",
+      "created_at": "2018-05-03T06:34:50Z",
+      "updated_at": null,
+      "author": "Participant 12",
+      "body": "> Just get a lawyer. Call it a day. \r\n\r\n@nynhex we are talking with the EFF and getting an attorney through them. (As was said more than once earlier in this very thread). "
+    },
+    {
+      "id": 386219404,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386219404",
+      "created_at": "2018-05-03T08:05:01Z",
+      "updated_at": null,
+      "author": "Participant 17",
+      "body": "here's an article from a german lawyer debunking some of the gdpr myths: http://www.rechtzweinull.de/archives/2558-mein-erster-dgsvo-rant-zu-viele-mythen-und-gefaehrliches-halbwissen-zum-neuen-europaeischen-datenschutzrecht.html might come in handy"
+    },
+    {
+      "id": 386232655,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386232655",
+      "created_at": "2018-05-03T09:02:42Z",
+      "updated_at": "2018-05-03T09:02:47Z",
+      "author": "Participant 18",
+      "body": "Hi, fla (developer not lawyer) from [diaspora*](https://diasporafoundation.org) here. As you guess, we're facing the exact same questions. I worked on GDPR for the last 2 weeks at work, and from what I know, questions like \r\n\r\n>To be clear, I'm not looking for legal advice per se. I'm raising the question \"is Mastodon GDPR compliant?\"\r\n\r\nDoes make any sense. The question is \"Is the service provider compliant?\". Of course, that implies checking the software, but asking if Mastodon as a whole is compliant would be the same than asking if email is compliant. GMail could be compliant when Yahoo could not. So that question is down to every instance. And as you already figured out, it looks like instances run by individuals are not concerned. I don't know for Mastodon, but for diaspora*, this represents >90% of the nodes."
+    },
+    {
+      "id": 386234465,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386234465",
+      "created_at": "2018-05-03T09:10:19Z",
+      "updated_at": null,
+      "author": "Participant 12",
+      "body": "Thank you @Flaburgan this is helpful indeed. So I guess social.coop would have more to worry about than single providers? \r\n\r\nAnd I guess the mastodon-hosting services (eg. MaaStodon and masto.host) would need to think about it on a completely other level. \r\n\r\nI still think it's worth to note what we can do _on a software level_ and what guidelines we can provide for people spinning up an instance. I feel that that is within our sphere of responsibility. \r\n\r\n@nightpool has volunteered to take lead and speak with the attorney that EFF will help us get in touch with. And also provide such a guideline. :+1: "
+    },
+    {
+      "id": 386234876,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386234876",
+      "created_at": "2018-05-03T09:12:00Z",
+      "updated_at": null,
+      "author": "Participant 12",
+      "body": "And because I didn't want to go on and on in the same comment: \r\n\r\nI just came over this on mastodon: \r\n\r\nhttps://toot.berlin/@jan/99952462338961444\r\nhttps://plan.io/blog/gdpr-requirements-needed-for-compliance/"
+    },
+    {
+      "id": 386789244,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386789244",
+      "created_at": "2018-05-05T08:20:48Z",
+      "updated_at": null,
+      "author": "Participant 19",
+      "body": "I really wonder why this discussion is happening here and not there\r\n\r\nhttps://discourse.joinmastodon.org/search?q=gdpr"
+    },
+    {
+      "id": 386814623,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-386814623",
+      "created_at": "2018-05-05T15:47:56Z",
+      "updated_at": null,
+      "author": "Participant 12",
+      "body": "@hellekin because most people congregate here, so sometimes the question ends up here, and we don't want to cut people off by telling them to go somewhere else to talk about it. \r\n\r\nIt's messy and confusing, I know. "
+    },
+    {
+      "id": 390138035,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-390138035",
+      "created_at": "2018-05-18T08:40:49Z",
+      "updated_at": null,
+      "author": "Participant 20",
+      "body": "Hi,\r\n\r\nNice to see this thread.\r\n\r\nI am wondering if there are any generic technical propositions to implement GDPR operations on social web?\r\n\r\nIf not maybe we can start to (open issues) and implement some basics rules such as:\r\n\r\n1/ right to be forgotten:\r\nHTTP DELETE on http://host/@user/\r\n\r\n2/ archive data\r\nHTTP GET on http://host/@user/archive/\r\n(eventually use header for specifying formats)\r\n\r\nMy question is not mastodon specific but I see this project as a very good candidate for experimenting, and showcase a pattern that other projects could replicate.\r\n\r\nRegards\r\n\r\nPing me if interested:\r\nhttps://mastodon.social/@rzr"
+    },
+    {
+      "id": 390874430,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-390874430",
+      "created_at": "2018-05-22T06:11:57Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "@rzr Because the Right to be Erasure (the GDPR's version of the right to be forgotten) and the right to data transparency are legal issues, not primarily technical, there are a lot of specific carveouts and nuances that I don't think a uniform client API is designed to provide. While part of our GDPR work will be building more tools to support admins in fulfilling these obligations, we can't do everything in Mastodon on our own—it needs to be backed up by a human operator. Nginx logs are a clear and easy example: any right to erasure request made on mastodon data may need to include log data stored in various systems that mastodon shouldn't have access to, as well as from backups of mastodon."
+    },
+    {
+      "id": 391731017,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-391731017",
+      "created_at": "2018-05-24T14:15:48Z",
+      "updated_at": null,
+      "author": "Participant 21",
+      "body": "I have a few thoughts here, but IANAL.\r\n\r\nOne thing that we could do is give users a settings page which lists all instances that your instance is federated with, and give a way to \"opt-out\" of having any of those instances be able to read your information, likewise, when we federate, we should be federating:\r\n\r\n- instance URL\r\n- instance contact\r\n- instance ToS/Privacy Policy\r\n\r\nSuch that in the list of federated instances, users can clearly find and read the information about who and how the federated instances use their information.\r\n\r\nAs for access of PII, I think through the admin panel we should hide the IP Addresses and Emails, and then only reveal them based on active selection, perhaps with the entry of the account password, and upon revealing that information, add an event to the audit log: \"Moderator A viewed User B's email address at Date\"\r\n\r\nFurthermore, at the database level, we should use symmetric encryption to prevent users' emails from being read by SQL queries. I'm not sure if there's anything that we can do to prevent reading the emails via Rails Console (perhaps an accessor that generates the audit log event?)\r\n\r\nLikewise, we should log audit events for searches of users by email and IP address."
+    },
+    {
+      "id": 391885081,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-391885081",
+      "created_at": "2018-05-24T22:26:44Z",
+      "updated_at": null,
+      "author": "Participant 22",
+      "body": "Some additional info on debunking GDPR myths came up recently with regards to another project (the SKS key servers for distributing OpenPGP keys), I believe this message may fill in a lot of blanks for people.  Especially those of us outside of the EU who may not be familiar with the preceding laws and organisations involved:\r\n\r\nhttps://lists.gnupg.org/pipermail/gnupg-devel/2018-May/033708.html\r\n\r\nCoupled with this follow-up recommendation:\r\n\r\nhttps://lists.gnupg.org/pipermail/gnupg-devel/2018-May/033709.html\r\n\r\nThe entire thread begins here:\r\n\r\nhttps://lists.gnupg.org/pipermail/gnupg-devel/2018-May/033704.html\r\n\r\nAnd is indexed here:\r\n\r\nhttps://lists.gnupg.org/pipermail/gnupg-devel/2018-May/thread.html\r\n"
+    },
+    {
+      "id": 392245725,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-392245725",
+      "created_at": "2018-05-26T08:16:25Z",
+      "updated_at": "2018-05-26T08:16:36Z",
+      "author": "Participant 6",
+      "body": "At the moment the Mastodon ToS states that IPs are retained for up to 12 months in mastodon and to my knowledge this is affecting the \"last login ip\" field in the administration interface.\r\n\r\nI would recommend that atleast a config option is added to reduce this amount, defaulting to 7 or 14 days at maximum, 12 months is definitely not compliant nor do I want to store user IPs for that long.\r\n\r\nAdditionally as german administrator I will need to have an option to add an *always visible link* to my imprint. Currently the \"about this instance\" link which I abuse for an imprint requires 2 clicks when the \"getting started\" section is visible, which is not compliant with german law to my knowledge. Since I do have a dedicated site for the imprint, I would like an option to add custom links always visible to the user somewhere on the page, preferably the bottom.\r\n\r\nExample:\r\n\r\n![selection_860](https://user-images.githubusercontent.com/1774339/40574146-cf670d26-60cd-11e8-80c6-3097ce3dbe8a.png)\r\n"
+    },
+    {
+      "id": 392905427,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-392905427",
+      "created_at": "2018-05-29T19:11:33Z",
+      "updated_at": null,
+      "author": "Participant 23",
+      "body": "I'm a bit late to this thread, but I'd like to point out that it's a bit far-fetched to say individuals running Mastodon instances are in the clear because GDPR doesn't apply to them. It's true that there is an exemption for \"[data processed] by a natural person in the course of a purely personal or household activity\", but what the language is trying to cover is something like keeping a personal address book. There's some further clarification in [Recital 18](https://gdpr-info.eu/recitals/no-18/):\r\n> This Regulation does not apply to the processing of personal data by a natural person in the course of a purely personal or household activity and thus with no connection to a professional or commercial activity. Personal or household activities could include correspondence and the holding of addresses, or social networking and online activity undertaken within the context of such activities. However, this Regulation applies to controllers or processors which provide the means for processing personal data for such personal or household activities.\r\n\r\nThere's also some [case law](http://curia.europa.eu/juris/document/document.jsf?text=&docid=48382&pageIndex=0&doclang=en&mode=lst&dir=&occ=first&part=1&cid=322419) from the European Court of Justice where they looked at a similar section in the Data Protection Directive (which is kind of a predecessor of the GDPR):\r\n\r\n> As regards the exception provided for in the second indent of Article 3(2) of Directive 95/46 [the one with \"purely personal or household activity\"], the 12th recital in the preamble to that directive, which concerns that exception, cites, as examples of the processing of data carried out by a natural person in the exercise of activities which are exclusively personal or domestic, correspondence and the holding of records of addresses.\r\n\r\n> That exception must therefore be interpreted as relating only to activities which are carried out in the course of private or family life of individuals, which is clearly not the case with the processing of personal data consisting in publication on the internet so that those data are made accessible to an indefinite number of people.\r\n\r\nOn the bright side, [Recital 148](https://gdpr-info.eu/recitals/no-148/) should somewhat limit the fines for individuals, stating:\r\n> In a case of a minor infringement or if the fine likely to be imposed would constitute a disproportionate burden to a natural person, a reprimand may be issued instead of a fine.\r\n\r\n(IANAL etc. etc.)"
+    },
+    {
+      "id": 392983746,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-392983746",
+      "created_at": "2018-05-29T23:47:01Z",
+      "updated_at": null,
+      "author": "Participant 11",
+      "body": "@mal0ki @nightpool anything new from the EFF/Lawyer?\r\nAll the \"IANAL\" takes on GDPR in here are nice but not really helpful in the end."
+    },
+    {
+      "id": 394174986,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394174986",
+      "created_at": "2018-06-03T16:46:17Z",
+      "updated_at": null,
+      "author": "Participant 5",
+      "body": "@sn0w Layers are not magicians. They cannot predict the outcome of future legal actions, specially since the GDPR is complex, and recent (there are not yet relevant cases). EFF's lawyers can always give an advice but, from my experience with lawyers in the field of digital networks 1) it won't be crystal-clear 2) it will contain a lot of \"may be\" 3) it could be wrong, or, more precisely, an actual judge may do something unexpected"
+    },
+    {
+      "id": 394182880,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394182880",
+      "created_at": "2018-06-03T18:50:10Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "I'm not a lawyer, however I have just completed GDPR compliance with the assistance of our EU legal team at work.  While I agree lawyers are not magicians, I will say it's important to engage with lawyers who specialize in EU law and regulation.  It cost us an astronomical feed to get into compliance, but the feed was a pittance compared to not being in compliance.\r\n\r\nI'm happy to share what I've learned as I've been researching and studying GDPR and EU law for the last 12 months, but again IANAL."
+    },
+    {
+      "id": 394184078,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394184078",
+      "created_at": "2018-06-03T19:08:55Z",
+      "updated_at": "2018-06-03T19:10:52Z",
+      "author": "Participant 3",
+      "body": "I have more updates and have been learning a lot from open source communities who already looked into this issue. unfortunately I didn't finish in time for May 25th and I was on vacation last week, so stuff is still forthcoming. I'm happy people are still interested in this issue though, I'll try to get back to it tomorrow when i have some time.\r\n\r\nafter my preliminary research though, I don't expect any major changes are needed for compliance, which is why it's been pretty low priority. it's just a matter of getting a document together that better informs admins."
+    },
+    {
+      "id": 394203180,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394203180",
+      "created_at": "2018-06-04T00:03:46Z",
+      "updated_at": "2018-06-04T00:04:13Z",
+      "author": "Participant 2",
+      "body": "@tscs37 Fork it?  I've already forked 2.4.0 and am retooling internals to do this."
+    },
+    {
+      "id": 394231391,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394231391",
+      "created_at": "2018-06-04T04:30:45Z",
+      "updated_at": null,
+      "author": "Participant 6",
+      "body": "@nynhex Sadly not an option, I don't understand Ruby, I have no idea where I would even begin making such a patch. Any patch I do end up producing eventually will be bandaid, not a proper and maintainable solution, so it would be great if there was a upstream option."
+    },
+    {
+      "id": 394396226,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394396226",
+      "created_at": "2018-06-04T15:27:54Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@nightpool Thanks for the update, looking forward to hearing more. Thank you for your work on this."
+    },
+    {
+      "id": 394421130,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394421130",
+      "created_at": "2018-06-04T16:42:13Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@tscs37 Not a problem.  Once I finish my fork with this scrub feature (actually going to strip out IPs 100%), I'll link you to my fork and you are free to test it against your prod dataset."
+    },
+    {
+      "id": 394423481,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394423481",
+      "created_at": "2018-06-04T16:50:20Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "@nynhex @tscs37 IPs for local users are retained for 12 months which is compliant and justified processing for network security and moderation purposes, as per Recital 49. https://gdpr-info.eu/recitals/no-49/"
+    },
+    {
+      "id": 394423938,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394423938",
+      "created_at": "2018-06-04T16:51:58Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "(this is extremely common practice for resisting spam/DoS attacks and mastodon is following industry best practices here)"
+    },
+    {
+      "id": 394425376,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394425376",
+      "created_at": "2018-06-04T16:56:42Z",
+      "updated_at": null,
+      "author": "Participant 6",
+      "body": "I don't think there is a reason to keep an IP for 12 months, most home connections recycle IPs after a day and any spammer can easily recycle IPs. Additionally under german law (TKG §97) I'm not allowed to keep an IP for longer than 6 months, longer only if I need it for billing purposes.\r\n\r\nI would argue that at minimum the time limit should be configurable."
+    },
+    {
+      "id": 394427672,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394427672",
+      "created_at": "2018-06-04T17:04:31Z",
+      "updated_at": null,
+      "author": "Participant 6",
+      "body": "Actually, reading through some related paragraphs, notably §15 Abs. 8 TMG I might not even be able to store an IP for abuse purposes unless I have a well founded reason on basis of abuse already, so there should be an option to completely disable it.\r\n\r\nThe GDPR does not apply there as the local law in my jurisdiction is more strict but others might have similar concerns."
+    },
+    {
+      "id": 394437516,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394437516",
+      "created_at": "2018-06-04T17:38:09Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@nightpool understood, however if I choose to wipe IP addresses from my fork, it's my choice.  Besides I already have DDoS mitigation in place and if I really want to track IP's I have app nodes aggregating to ELK.  "
+    },
+    {
+      "id": 394449308,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394449308",
+      "created_at": "2018-06-04T18:16:46Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "for sure. But there's no real benefit that not storing IP addresses there gives you if you're already storing them in logs. "
+    },
+    {
+      "id": 394457024,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394457024",
+      "created_at": "2018-06-04T18:42:29Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@nightpool I already have a log purge function built into my fork on a system level.  "
+    },
+    {
+      "id": 394457624,
+      "url": "https://github.com/mastodon/mastodon/issues/7280#issuecomment-394457624",
+      "created_at": "2018-06-04T18:44:35Z",
+      "updated_at": null,
+      "author": "Participant 6",
+      "body": "@nightpool I don't store IP addresses in logs other than the firewall where I purge them once the connection is closed."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original Markdown from GitHub's structured issue pages, including numbered timeline pages. Discussion complete only after pagination, comment-ID, expected-count and unchanged-issue checks. Closure timestamp is unavailable; linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/mastodon/mastodon/issues/7280",
+  "closed_at_available": false,
+  "timeline_page_urls": [
+    "https://github.com/mastodon/mastodon/issues/7280",
+    "https://github.com/mastodon/mastodon/issues/7280?timeline_page=1"
+  ]
+}

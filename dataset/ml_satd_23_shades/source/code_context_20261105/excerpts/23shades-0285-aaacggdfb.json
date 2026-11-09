@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0285-aaacggdfb",
+  "revision_url": "https://github.com/GilesStrong/lumin/commit/23ece2386dca29edf85a83b9b1f7159e5a612274",
+  "filename": "lumin/nn/interpretation/features.py",
+  "commit": "23ece2386dca29edf85a83b9b1f7159e5a612274",
+  "source_url": "https://raw.githubusercontent.com/GilesStrong/lumin/23ece2386dca29edf85a83b9b1f7159e5a612274/lumin/nn/interpretation/features.py",
+  "fetched_at": "2026-11-05T06:12:27.624128+00:00",
+  "source_sha256": "603c067598b1173f5d03f572c2722c768111f7f886f718fea8e501d52437cd79",
+  "line_start": 38,
+  "line_end": 62,
+  "excerpt": "    Returns:\n        Pandas DataFrame containing mean importance and associated uncertainty for each feature\n\n    Examples::\n        >>> fi = get_nn_feat_importance(model, train_fy)\n        >>>\n        >>> fi = get_nn_feat_importance(model, train_fy, savename='feat_import')\n        >>>\n        >>> fi = get_nn_feat_importance(model, train_fy,\n        ...                             eval_metric=AMS(n_total=100000))\n    '''\n\n    # TODO extend to work over matrix data\n\n    feats = fy.cont_feats + fy.cat_feats\n    scores = []\n    fold_bar = progress_bar(range(fy.n_folds), parent=pb_parent)\n    for fold_idx in fold_bar:  # Average over folds\n        val_fold = fy.get_fold(fold_idx)\n        if val_fold['weights'] is not None: val_fold['weights'] /= val_fold['weights'].sum()\n        targs = val_fold['targets']\n        weights = val_fold['weights']\n        if eval_metric is None: nom = model.evaluate(val_fold['inputs'], targs, weights=weights)\n        else:                   nom = eval_metric.evaluate(fy, fold_idx, model.predict(val_fold['inputs']))\n        tmp = []"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0846-aabgahibh",
+  "revision_url": "https://github.com/samuelstjean/nlsam/commit/3cba285b1f5b37ce1c02de760390147ce9f8ffe3",
+  "filename": "nlsam/spams_third_party/myscipy_rand.py",
+  "commit": "3cba285b1f5b37ce1c02de760390147ce9f8ffe3",
+  "source_url": "https://raw.githubusercontent.com/samuelstjean/nlsam/3cba285b1f5b37ce1c02de760390147ce9f8ffe3/nlsam/spams_third_party/myscipy_rand.py",
+  "fetched_at": "2026-11-05T06:14:03.896677+00:00",
+  "source_sha256": "16f9cd3f20f9fc8f7fca472ce9261b3afb5ab92e6611428cf31f3e95e20c586d",
+  "line_start": 33,
+  "line_end": 57,
+  "excerpt": "    if mn > np.iinfo(tp).max:\n        msg = \"\"\"\\\nTrying to generate a random sparse matrix such as the product of dimensions is\ngreater than %d - this is not supported on this machine\n\"\"\"\n        raise ValueError(msg % np.iinfo(tp).max)\n\n    # Number of non zero values\n    k = long(density * m * n)\n\n    # Generate a few more values than k so that we can get unique values\n    # afterwards.\n    # XXX: one could be smarter here\n    mlow = 5\n    fac = 1.02\n    gk = min(k + mlow, fac * k)\n\n    def _gen_unique_rand(_gk):\n        id = np.random.rand(_gk)\n        return np.unique(np.floor(id * mn))[:k]\n\n    id = _gen_unique_rand(gk)\n    while id.size < k:\n        gk *= 1.05\n        id = _gen_unique_rand(gk)"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0827-aaeiedacj",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/ffd198eb22dfbe8a2dbb395cb468aaff7593f014",
+  "filename": "hpat/hiframes.py",
+  "commit": "ffd198eb22dfbe8a2dbb395cb468aaff7593f014",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/ffd198eb22dfbe8a2dbb395cb468aaff7593f014/hpat/hiframes.py",
+  "fetched_at": "2026-11-05T06:14:01.063745+00:00",
+  "source_sha256": "de9dd4943c0f8e3a9f8979655adeb12879409dc81cc9fb6b1b7e0ec1c6fbb9eb",
+  "line_start": 1119,
+  "line_end": 1143,
+  "excerpt": "        if not isinstance (window, ir.Var):\n            window_var = ir.Var(lhs.scope, mk_unique_var(\"window\"), lhs.loc)\n            nodes.append(ir.Assign(ir.Const(window, lhs.loc), window_var, lhs.loc))\n            window = window_var\n        # TODO: get 'on' arg for offset case\n        if out_colnames is None:\n            out_colnames = list(self.df_vars[df_var.name].keys())\n            # TODO: remove index col for offset case\n\n        if func_name in ('cov', 'corr'):\n            if len(rhs.args) != 1:\n                raise ValueError(\"rolling {} requires one argument (other)\".format(func_name))\n            # XXX pandas only accepts variable window cov/corr\n            # when both inputs have time index\n            if on_arr is not None:\n                raise ValueError(\"variable window rolling {} not supported yet.\".format(func_name))\n            # TODO: support variable window rolling cov/corr which is only\n            # possible in pandas with time index\n\n        # output column map, create dataframe if multiple outputs\n        if len(out_colnames) == 1 and explicit_select:\n            df_col_map = {out_colnames[0]: lhs}\n        else:\n            df_col_map = ({col: ir.Var(lhs.scope, mk_unique_var(col), lhs.loc)\n                                for col in out_colnames})",
+  "match_policy": "unique-release-normalized-v2"
+}

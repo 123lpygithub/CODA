@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3947",
+  "issue_url": "https://github.com/steemit/steem/issues/1632",
+  "source_issue_url": "https://github.com/steemit/steem/issues/1632",
+  "api_url": "https://api.github.com/repos/steemit/steem/issues/1632",
+  "title": "Feature Request: The option to make a post or comment anonymous",
+  "body": "These anonymous posts/comments can either be ignored while calculating the rewards or all rewards going to these comments/posts may added to the total pool. (I don't know if there will be any difference between the effects of these two implementations on the total rewards)\n\nI know there are methods to create anonymous accounts, but this feature might be necessary in future, when the social/political messages made are against powerful groups. Also it can bring in many advantages to Steemit which the anonymity provides to Reddit. ",
+  "author": "Participant 1",
+  "created_at": "2017-10-09T12:53:54Z",
+  "updated_at": "2017-10-12T08:23:48Z",
+  "state": "closed",
+  "closed_at": "2017-10-09T20:07:50Z",
+  "issue_fetched_at": "2026-10-18T13:11:11.705457+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T13:11:13.058757+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 335271639,
+      "url": "https://github.com/steemit/steem/issues/1632#issuecomment-335271639",
+      "created_at": "2017-10-09T20:07:50Z",
+      "updated_at": "2017-10-09T20:07:50Z",
+      "author": "Participant 2",
+      "body": "The blockchain already supports this. The blockchain does not require any personally identifiable information to use. Numerous individuals have set up accounts that anyone can use for anonymous use. I don't believe we need a special type of account specifically for this."
+    },
+    {
+      "id": 335429115,
+      "url": "https://github.com/steemit/steem/issues/1632#issuecomment-335429115",
+      "created_at": "2017-10-10T10:23:12Z",
+      "updated_at": "2017-10-10T10:23:12Z",
+      "author": "Participant 1",
+      "body": "The proposal is __not__  for a special kind of account but for special kinds of posts/comments for which there would be no record of the author. The accounts created by the current methods are not anonymous but __pseudonymous__.\n\nThe problems with pseudonymous accounts are,\n\n- The moment you identify the person, you can identify all his posts/comments.\n- Any hint from one post/comment can exposes the real identity.\n- Even a transaction of Steem can be traced back.\n\nThe anonymous posts/comments would not have any record of the author. And there wouldn't be any rewards connected to them. Thus the author cannot be identified."
+    },
+    {
+      "id": 335481836,
+      "url": "https://github.com/steemit/steem/issues/1632#issuecomment-335481836",
+      "created_at": "2017-10-10T14:00:14Z",
+      "updated_at": "2017-10-10T14:00:24Z",
+      "author": "Participant 2",
+      "body": "If an account has a null authority (no keys, or threshold 0), then it can post without a signature. Yes, there is a name associated with it, but anyone can use it. So it is anonymous. Several users have set up accounts like this in the past. If you are asking for comments that are not even traced on the blockchain, then this is not the repository you are looking for because this is only for things on the blockchain.\r\n\r\nThe problem with no author being listed on a comment is that we have no way of rate limiting via Steem Power (no account means no Steem Power). It opens up an attack vector against the blockchain.\r\n\r\nIf there is a reason why the null authority scheme does not work, I would be interested to hear it, but I believe all of the tools to implement what you want already exist."
+    },
+    {
+      "id": 336057261,
+      "url": "https://github.com/steemit/steem/issues/1632#issuecomment-336057261",
+      "created_at": "2017-10-12T08:23:48Z",
+      "updated_at": "2017-10-12T08:23:48Z",
+      "author": "Participant 1",
+      "body": "Null authority account, works fine.\r\nStill it is just a work around at user level. A much user friendly solution can be created at front-end level. But still the best solution, in my opinion, would be to implement it at the API level. (This API can internally use one, null authority account with high bandwidth or a pool of null authority accounts with normal bandwidths)"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

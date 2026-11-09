@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0247-aahiiegaf",
+  "revision_url": "https://github.com/kengz/SLM-Lab/commit/f7c257ebab143ec83f1e1ffbe8dc49e3b43a628e",
+  "filename": "slm_lab/env/__init__.py",
+  "commit": "f7c257ebab143ec83f1e1ffbe8dc49e3b43a628e",
+  "source_url": "https://raw.githubusercontent.com/kengz/SLM-Lab/f7c257ebab143ec83f1e1ffbe8dc49e3b43a628e/slm_lab/env/__init__.py",
+  "fetched_at": "2026-11-05T06:12:21.161326+00:00",
+  "source_sha256": "60e627e617ac27c5ddbd973bb2dbffd393c82cbc44848b40e86b17f5e782e110",
+  "line_start": 109,
+  "line_end": 133,
+  "excerpt": "\n        # TODO expose brain methods properly to env\n        default_brain = self.u_env.brain_names[0]\n        brain = self.u_env.brains[default_brain]\n        ext_fn_list = util.get_fn_list(brain)\n        for fn in ext_fn_list:\n            setattr(self, fn, getattr(brain, fn))\n\n    def set_agent(self, agent):\n        '''\n        Make agent visible to env.\n        '''\n        # TODO anticipate multi-agents for AEB space\n        self.agent = agent\n\n    def reset(self):\n        # TODO need AEB space resolver\n        default_brain = self.u_env.brain_names[0]\n        env_info = self.u_env.reset(train_mode=self.train_mode)[default_brain]\n        # TODO body-resolver:\n        body_index = 0\n        state = env_info.states[body_index]\n        # TODO return observables instead of just state\n        return state\n"
+}

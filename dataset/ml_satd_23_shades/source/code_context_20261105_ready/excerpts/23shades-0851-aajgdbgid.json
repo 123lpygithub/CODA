@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0851-aajgdbgid",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/ef2ca5bdebd29944243e423466633d3fb8833160",
+  "filename": "mne/decoding/base.py",
+  "commit": "ef2ca5bdebd29944243e423466633d3fb8833160",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/ef2ca5bdebd29944243e423466633d3fb8833160/mne/decoding/base.py",
+  "fetched_at": "2026-11-05T06:14:04.747771+00:00",
+  "source_sha256": "860d5b0895f62951a66eba5acc804ce2f6194759e4752c3e42507fccce67ef51",
+  "line_start": 25,
+  "line_end": 49,
+  "excerpt": "            return []\n\n        # introspect the constructor arguments to find the model parameters\n        # to represent\n        args, varargs, kw, default = inspect.getargspec(init)\n        if varargs is not None:\n            raise RuntimeError(\"scikit-learn estimators should always \"\n                               \"specify their parameters in the signature\"\n                               \" of their __init__ (no varargs).\"\n                               \" %s doesn't follow this convention.\"\n                               % (cls, ))\n        # Remove 'self'\n        # XXX: This is going to fail if the init is a staticmethod, but\n        # who would do this?\n        args.pop(0)\n        args.sort()\n        return args\n\n    def get_params(self, deep=True):\n        \"\"\"Get parameters for this estimator.\n        Parameters\n        ----------\n        deep: boolean, optional\n            If True, will return the parameters for this estimator and\n            contained subobjects that are estimators.",
+  "match_policy": "unique-release-normalized-v2"
+}

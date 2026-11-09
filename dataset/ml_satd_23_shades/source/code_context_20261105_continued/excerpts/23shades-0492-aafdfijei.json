@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0492-aafdfijei",
+  "revision_url": "https://github.com/DeepLabCut/DeepLabCut/commit/e5c3384897b39e3e33ca440ffef9a7830bb02a70",
+  "filename": "deeplabcut/pose_estimation_tensorflow/nnet/predict_multianimal.py",
+  "commit": "e5c3384897b39e3e33ca440ffef9a7830bb02a70",
+  "source_url": "https://raw.githubusercontent.com/DeepLabCut/DeepLabCut/e5c3384897b39e3e33ca440ffef9a7830bb02a70/deeplabcut/pose_estimation_tensorflow/nnet/predict_multianimal.py",
+  "fetched_at": "2026-11-05T06:13:03.222844+00:00",
+  "source_sha256": "f4d116c61b81765fbc0206e2d80931d612ee1acce3783100ac806de142cecfff",
+  "line_start": 105,
+  "line_end": 129,
+  "excerpt": "\n                        # distscalarproduct[c1i,c2i]=dy*v[1]+dx*v[0] #scalar product [v unit vector dx,dy in pixel coordinats from partaffinitymap]\n                        dist[c1i, c2i] = np.sqrt(dy ** 2 + dx ** 2)\n\n            Distances[l] = {}\n            Distances[l][\"m1\"] = dist\n            # Distances[l]['m2'] = distscalarproduct\n            Distances[l][\"distance\"] = L2distance\n\n    return Distances\n\n\n# TODO: compute all the grids etc. once for the video analysis method\n# (and then just pass on the variables)\ndef pos_from_grid_raw(gridpos, stride, halfstride):\n    return gridpos * stride + halfstride\n\n\ndef make_nms_grid(nms_radius):\n    nms_radius = int(np.ceil(nms_radius))\n    size = np.arange(2 * nms_radius + 1)\n    xx, yy = np.meshgrid(size, size)\n    dist_grid = np.where(\n        (xx - nms_radius) ** 2 + (yy - nms_radius) ** 2 <= nms_radius ** 2, 1, 0\n    )"
+}

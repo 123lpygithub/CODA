@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0592-aadageajc",
+  "revision_url": "https://github.com/tea1528/Non-Local-NN-Pytorch/commit/e5d1de02a476326f46b01f76716f78bdb414aa2c",
+  "filename": "3D_experiment/spatial_transforms.py",
+  "commit": "e5d1de02a476326f46b01f76716f78bdb414aa2c",
+  "source_url": "https://raw.githubusercontent.com/tea1528/Non-Local-NN-Pytorch/e5d1de02a476326f46b01f76716f78bdb414aa2c/3D_experiment/spatial_transforms.py",
+  "fetched_at": "2026-11-05T06:13:17.723508+00:00",
+  "source_sha256": "410e1703b5c9ccfc1b5504649bce7cce930b05c166469baa9dd0a9971cca8c05",
+  "line_start": 103,
+  "line_end": 127,
+  "excerpt": "\n    def __init__(self, mean, std):\n        self.mean = mean\n        self.std = std\n\n    def __call__(self, tensor):\n        \"\"\"\n        Args:\n            tensor (Tensor): Tensor image of size (C, H, W) to be normalized.\n        Returns:\n            Tensor: Normalized image.\n        \"\"\"\n        # TODO: make efficient\n        for t, m, s in zip(tensor, self.mean, self.std):\n            t.sub_(m).div_(s)\n        return tensor\n\n    def randomize_parameters(self):\n        pass\n\n\nclass Scale(object):\n    \"\"\"Rescale the input PIL.Image to the given size.\n    Args:\n        size (sequence or int): Desired output size. If size is a sequence like"
+}

@@ -1,0 +1,98 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3146",
+  "issue_url": "https://github.com/sqlfluff/sqlfluff/issues/164",
+  "source_issue_url": "https://github.com/sqlfluff/sqlfluff/issues/164",
+  "api_url": "https://api.github.com/repos/sqlfluff/sqlfluff/issues/164",
+  "title": "Enhancement: Allow adding organization-specific SQL rules using a plugin layer.",
+  "body": "At Mailchimp, we have certain tables that contain sensitive information. In order to access this information safely, we have a few options:\r\n* Instead of accessing the table directly, use a predefined view that filters out sensitive information\r\n* If using the table directly, use a recommended set of filters, e.g. \r\n\r\n```\r\nWHERE\r\n  LOWER(TRIM(email)) NOT IN (\r\n  SELECT\r\n    email\r\n  FROM\r\n    opted_out_emails)\r\n```\r\n\r\nInitially, I think we'd simply check each query individually. In that case, I think it'd be great if we were able to implement these checks as classes similar to those in `src/sqlfluff/rules`. I was thinking a plug-in architecture could be good for this.\r\n\r\nFarther in the future, I could imagine doing more sophisticated analysis, such as looking across queries (either CTEs within a single query, or separate queries). In this case, I'm not sure how that would work, but perhaps we'd want to just use SQLFluff as a library, not using the command line. There is _potentially_ a tool idea there as well -- having a tool to output the parse tree in a neutral format like JSON, etc.",
+  "author": "Participant 1",
+  "created_at": "2020-02-05T13:35:29Z",
+  "updated_at": "2021-02-23T09:04:45Z",
+  "state": "closed",
+  "closed_at": "2021-02-23T09:04:45Z",
+  "issue_fetched_at": "2026-10-19T02:10:46.449420+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T02:10:47.919071+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 583891675,
+      "url": "https://github.com/sqlfluff/sqlfluff/issues/164#issuecomment-583891675",
+      "created_at": "2020-02-09T20:50:25Z",
+      "updated_at": "2020-02-09T20:50:25Z",
+      "author": "Participant 2",
+      "body": "Well *that* is a very interesting idea! I'd not thought that far out.\r\n\r\nOutputting the query as parsed JSON wouldn't be too hard - but I'm more curious about importing sqlfluff as a library and then extending it. Have you got any more detailed ideas about what that might look like?"
+    },
+    {
+      "id": 583893112,
+      "url": "https://github.com/sqlfluff/sqlfluff/issues/164#issuecomment-583893112",
+      "created_at": "2020-02-09T21:04:37Z",
+      "updated_at": "2020-02-09T21:04:37Z",
+      "author": "Participant 1",
+      "body": "I think the ideal case is to define SQLFluff as a plugin host, similar to the recent work I did on `diff-quality`. Then other packages could register themselves as defining SQLFluff plugins. Then SQLFluff could easily \"discover\" those packages and import them. Given the way rules are defined with a decorator, e.g.:\r\n\r\n```\r\n@std_rule_set.register\r\nclass Rule_L001(BaseCrawler):\r\n```\r\n\r\nI think simply having SQLFluff import those libraries would be enough to incorporate them into the list of checks. There might be some additional considerations to make sure the class names or other identifying information doesn't \"collide\" with built-in checks. But overall, I think it wouldn't be that big of a change.\r\n\r\nI only thought of this idea recently when someone on our Security team was looking at some of our queries and asked, did you remember to use \"safe\" table X rather than unsafe table Y. This could be a common type of requirements at other companies, and being able to handle this would add a lot of value to the tool. General code quality is nice, but security and confidentiality are very important. "
+    },
+    {
+      "id": 584300563,
+      "url": "https://github.com/sqlfluff/sqlfluff/issues/164#issuecomment-584300563",
+      "created_at": "2020-02-10T19:10:27Z",
+      "updated_at": "2020-02-10T19:10:27Z",
+      "author": "Participant 1",
+      "body": "@alanmcruickshank: If it would be helpful in clarifying the proposed approach, I'd be happy to spend a few hours creating a proof of concept. The amount of code and work will be small enough that if it looks like a bad idea, we can replan in another direction.\r\n\r\nFWIW, the `pluggy` package I used in `diff-quality` was \"spun out\" of the popular PyTest test framework. I have used it on two projects now, and I think it's some pretty elegant \"glue\". 😄 "
+    },
+    {
+      "id": 683467859,
+      "url": "https://github.com/sqlfluff/sqlfluff/issues/164#issuecomment-683467859",
+      "created_at": "2020-08-30T20:38:48Z",
+      "updated_at": "2020-08-30T20:38:48Z",
+      "author": "Participant 2",
+      "body": "I think implementing a [pluggly](https://pypi.org/project/pluggy/) style plugin layer for sqlfluff would be awesome to add custom rules. We would totally use that at tails too for some dependency checks."
+    },
+    {
+      "id": 718827299,
+      "url": "https://github.com/sqlfluff/sqlfluff/issues/164#issuecomment-718827299",
+      "created_at": "2020-10-29T15:24:46Z",
+      "updated_at": "2020-10-29T15:24:46Z",
+      "author": "Participant 3",
+      "body": "Totally agree.\r\nPlugins are a great feature for this kind of project. Because every organization has an additional set of checks.\r\nDo you have a timeline for when are you going to release it?\r\n"
+    },
+    {
+      "id": 718988018,
+      "url": "https://github.com/sqlfluff/sqlfluff/issues/164#issuecomment-718988018",
+      "created_at": "2020-10-29T20:00:50Z",
+      "updated_at": "2020-10-29T20:00:50Z",
+      "author": "Participant 4",
+      "body": "@valerii-vorobiov In theory the _beta_ version of organization rules is now possible. Check out #514 which added functionality for users to add their own custom rules, using the `sqlfluff` crawler. \r\n\r\nDo you think something like this meets your needs?"
+    },
+    {
+      "id": 734318946,
+      "url": "https://github.com/sqlfluff/sqlfluff/issues/164#issuecomment-734318946",
+      "created_at": "2020-11-26T14:09:59Z",
+      "updated_at": "2020-11-26T14:09:59Z",
+      "author": "Participant 2",
+      "body": "This is not going to be part of the 0.4.0 release which should happen in the next few weeks.\r\n\r\nThis *is* however going to be one of the next big features I'd like to tackle. If people are happy to share, I'd love to have some examples here of the kinds of things that we'd like to do with plugins so that we have some easy targets to start with."
+    },
+    {
+      "id": 735934888,
+      "url": "https://github.com/sqlfluff/sqlfluff/issues/164#issuecomment-735934888",
+      "created_at": "2020-11-30T17:39:22Z",
+      "updated_at": "2020-12-03T15:04:14Z",
+      "author": "Participant 1",
+      "body": "Possible use cases for our organization:\r\n* On BigQuery, we prefer `USING` over `JOIN` for brevity and readability reasons, in spite of the general recommendation adopted for SQLFluff core, so we'd flag places where it could be used.\r\n* For privacy reasons, queries should avoid using certain of our internal tables, preferring related views that have been \"cleaned\" of users who have \"opted out\" from a GDPR/privacy perspective. If they do access these tables, they must `JOIN` with other tables to \"manually\" apply these filters.\r\n* (This one is still vague) If the result of a query reads from tables known to contain PII (personally identifiable information), it **must** retain the specific fields (e.g. `user_id`) that allow the output data to be tied back to the source. Maintaining this \"lineage\" / backtracking info is critical in order to allow this data to later be scanned, filtered, and purged of information for users who have said \"stop using my data for machine learning projects\". This is a legal requirement for ours and many other businesses.\r\n* If a query accesses an \"external\" table (i.e. from another GCP \"project\"), that table reference must be \"frozen\" to a particular date and time using the BigQuery `FOR SYSTEM_TIME AS OF` syntax. This policy assures that query results are reproducible even if the underlying table data changes\r\n  * backfills\r\n  * a job for day X runs on day X+1 due to lag\r\n  * a job fails and is retried\r\n\r\nThese are the ideas that are \"top of mind\". If it'd be helpful, I could take a closer look at some of our projects for other possible ideas. "
+    },
+    {
+      "id": 745670108,
+      "url": "https://github.com/sqlfluff/sqlfluff/issues/164#issuecomment-745670108",
+      "created_at": "2020-12-16T00:20:51Z",
+      "updated_at": "2020-12-16T00:20:51Z",
+      "author": "Participant 4",
+      "body": "Another use case: https://github.com/sqlfluff/sqlfluff/pull/514#issuecomment-745636097"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

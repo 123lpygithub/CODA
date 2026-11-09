@@ -1,0 +1,122 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4261",
+  "issue_url": "https://github.com/status-im/status-legacy/issues/11035",
+  "source_issue_url": "https://github.com/status-im/status-mobile/issues/11035",
+  "api_url": "https://api.github.com/repos/status-im/status-legacy/issues/11035",
+  "title": "Allow choosing to not use a mailserver",
+  "body": "# Problem\nFrom a privacy perspective, it's important, for the user to be able to opt out of using a mailserver to collect history (i.e. messages sent while you were offline). \n\n## Implementation\nDesigns to be added (@errorists can you please add the final design in the comments?)\n\n## Acceptance Criteria\nUser is able to disable use of a mailserver\n\n## Notes\nGiving the user control makes a stronger case in terms of privacy policy that the user controls their personal data (IP address)\n\n## Future Steps",
+  "author": "Participant 1",
+  "created_at": "2020-08-05T07:42:44Z",
+  "updated_at": "2020-10-20T13:27:00Z",
+  "state": "closed",
+  "closed_at": "2020-10-16T10:13:58Z",
+  "issue_fetched_at": "2026-10-18T18:10:57.793164+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T18:10:59.200056+00:00"
+  ],
+  "expected_comment_count": 12,
+  "retrieved_comment_count": 12,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 669046302,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-669046302",
+      "created_at": "2020-08-05T08:03:14Z",
+      "updated_at": "2020-08-05T08:03:14Z",
+      "author": "Participant 2",
+      "body": "Designs can be found [here](https://www.figma.com/file/TNCyHKtR3sx5EL6YznFWUa4O/Profile?node-id=4717%3A9087), I renamed all instances of `mailserver` to `history node` there following Hester's comments. The lowest hanging fruit type scope way to do this is to add the switch to Enable / Disable like on the designs."
+    },
+    {
+      "id": 691448919,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-691448919",
+      "created_at": "2020-09-12T08:54:40Z",
+      "updated_at": "2020-09-12T11:32:20Z",
+      "author": "Participant 3",
+      "body": "@hesterbruikman\r\nI'm working on this bounty and have created the [UI (code pushed to my forked branch)](https://github.com/status-im/status-react/compare/develop...shivekkhurana:shivekkhurana/history-nodes-ui). It:\r\n- Adds new element for disabling mail server\r\n- Converts the Auto selection checkbox to switch\r\n- Filters the servers that are visible depending on auto selection state\r\n\r\nI now need to handle the disable history, which I'm guessing is an API call. Is there any documentation where I can check the API spec? Or any sample code that's already in place? \r\n\r\nThanks \r\n\r\n@errorists \r\nThe new UI looks polished, but there are two issues I faced:\r\n- ~Server selection UI uses radio buttons on the right, but in the current UI radio buttons are on the left . Are you hoping for a global change where radio buttons show up on the right?~ I found an implementation of radio buttons on right side. Will make changes to the UI. \r\n- The Automatic Selection Switch was designed with bold title. However the component available doesn't allow for that (I might be wrong here). I have taken the liberty to adjust the designs, however this is not final and I'm open to implement changes if you suggest:\r\n\r\n![Screenshot 2020-09-12 at 2 20 48 PM](https://user-images.githubusercontent.com/1925158/92991742-8dbe7e00-f503-11ea-9e8e-fe046b918e64.png)\r\n\r\n![Screenshot 2020-09-12 at 2 20 59 PM](https://user-images.githubusercontent.com/1925158/92991705-5c45b280-f503-11ea-8af3-093ab1fce8ee.png)\r\n "
+    },
+    {
+      "id": 691478711,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-691478711",
+      "created_at": "2020-09-12T12:13:08Z",
+      "updated_at": "2020-09-12T12:13:08Z",
+      "author": "Participant 4",
+      "body": "Hi Shivek,\n\nThanks for being so prompt with the task. \n\nCan any of these two links help? If you can't find the information you need in the technical documentation, please let me know so I can flag to the team. \n\nhttps://status.im/developer_tools/status_web_api.html\n\nhttps://status.im/developer_tools/status_extras/index.html"
+    },
+    {
+      "id": 691479662,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-691479662",
+      "created_at": "2020-09-12T12:21:22Z",
+      "updated_at": "2020-09-12T12:21:22Z",
+      "author": "Participant 3",
+      "body": "I checked the links you sent, but I don't think it will help.\r\nI'm not even sure if I need to make an API call or not. "
+    },
+    {
+      "id": 691616237,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-691616237",
+      "created_at": "2020-09-13T05:19:34Z",
+      "updated_at": "2020-09-13T05:20:52Z",
+      "author": "Participant 5",
+      "body": "This file contains a list of JSON RPC calls available from within JS side of `status-react` repo currently:\r\nhttps://github.com/status-im/status-react/blob/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/ethereum/json_rpc.cljs#L12-L216\r\nHere is the source of those API calls within the `status-go` repo:\r\nhttps://github.com/status-im/status-go/blob/develop/services/ext/api.go\r\nThese calls are an extension of the default JSON RPC API provided by `go-ethereum`:\r\nhttps://eth.wiki/json-rpc/API\r\nMy bet would be on the `wakuext_updateMailservers` call, but not sure:\r\nhttps://github.com/status-im/status-react/blob/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/ethereum/json_rpc.cljs#L152\r\nhttps://github.com/status-im/status-go/blob/8f83c5f462de854fa9b616273ccfdd4b0bda4748/services/ext/api.go#L415-L425\r\n\r\nIt might be that there is no call that will fit your needs and this change will require adding it to `status-go`.\r\n@cammellos or @Samyoul would be the people to talk about this if that's the case."
+    },
+    {
+      "id": 691649547,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-691649547",
+      "created_at": "2020-09-13T10:02:02Z",
+      "updated_at": "2020-09-13T10:02:02Z",
+      "author": "Participant 3",
+      "body": "Thanks for the input @jakubgs. \r\n\r\nWhat is the difference between `wakuext_` and `shhext_` calls? \r\n\r\nThe function responsible for updating the MailServer expects a list:\r\nhttps://github.com/status-im/status-go/blob/8f83c5f462de854fa9b616273ccfdd4b0bda4748/services/ext/api.go#L415-L425\r\n\r\nI'll try to send an empty list to check if it works. But a confirmation from the backend team will be helpful. I have no clue how the system works and am just guessing that selecting 0 mailservers will stop the sync process.\r\n\r\nAlso, having seen the API, does anyone thinks that renaming to \"Mailserver\" to \"History Nodes\" will create confusion or is everyone okay with incremental renaming?   \r\n\r\n"
+    },
+    {
+      "id": 691670511,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-691670511",
+      "created_at": "2020-09-13T13:19:02Z",
+      "updated_at": "2020-09-13T13:19:02Z",
+      "author": "Participant 6",
+      "body": "Hi @shivekkhurana \r\nthanks for looking at this issue.\r\n\r\n> What is the difference between wakuext_ and shhext_ calls?\r\nThe difference between `wakuext_` and `shhext_` is based on whether you have `waku` or `whisper` enabled.\r\n\r\nFor the purpose of this task you probably don't need to call `updateMailservers`, it is only used once you are connected to one and signal to `status-go` that we want to receive message confirmations (I can elaborate on it, but you don't need to be worried about this in this task) from those mailservers.\r\n\r\nEssentially you need to make sure that `connect-to-mailserver` ( https://github.com/status-im/status-react/blob/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/mailserver/core.cljs#L221 ) is never called (or better, is called but noops), if the user has not enabled mailservers.\r\nOnce you do that, it might show some \"connecting...\" dialog as the app expects to be connected to a mailserver, and that's something that should not be shown if the user has not enabled mailservers.\r\n\r\n\r\n> Also, having seen the API, does anyone thinks that renaming to \"Mailserver\" to \"History Nodes\" will create confusion or is everyone okay with incremental renaming?\r\nThis is a hotly debated topic :) I don't have a strong opinion myself, I defer to UX on the call cc @hesterbruikman @errorists \r\n\r\nThis also will require some changes on status-go, as the setting needs to be persisted, I can help you out with that (of course you are free to work on it if you wish), for now you can pick a variable name and just update the re-frame db (similarly to what we do with `syncing-on-mobile-network?` for example).\r\n\r\nHope this is helpful, and ask any question, we're happy to help (you can ping us on discord as well if you want to have a quick chat)."
+    },
+    {
+      "id": 691928900,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-691928900",
+      "created_at": "2020-09-14T09:13:34Z",
+      "updated_at": "2020-09-14T09:13:39Z",
+      "author": "Participant 2",
+      "body": "@shivekkhurana \r\n> The Automatic Selection Switch was designed with bold title\r\n\r\nit's a Font weight: 500 and that's the default if you use a List Item component with a subtitle present, like the one on the design. Looks fine on the screenshots"
+    },
+    {
+      "id": 691952079,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-691952079",
+      "created_at": "2020-09-14T10:00:01Z",
+      "updated_at": "2020-09-14T10:00:01Z",
+      "author": "Participant 3",
+      "body": "Thanks guys. I have fixed the UI to match @errorists designs and made the `use-history-nodes?` switch work:\r\n- Radio buttons instead of icons on left\r\n- Switch instead of checkbox\r\n- `Add` button with round border instead of just the `add` symbol\r\n- Use history switch state is saved only locally\r\n- Use history is not functional, only the UI works\r\n\r\n|||\r\n|---|---|\r\n|![Screenshot 2020-09-14 at 3 25 26 PM](https://user-images.githubusercontent.com/1925158/93072118-99927780-f69e-11ea-98b7-e393c085f7db.png)|![Screenshot 2020-09-14 at 3 25 20 PM](https://user-images.githubusercontent.com/1925158/93072122-9ac3a480-f69e-11ea-9d7a-d071d5147a20.png)|\r\n|![Screenshot 2020-09-14 at 3 25 34 PM](https://user-images.githubusercontent.com/1925158/93072103-94cdc380-f69e-11ea-8888-ab8c9838fa7c.png)||\r\n\r\n\r\n🔗 [My branch](https://github.com/status-im/status-react/compare/develop...shivekkhurana:shivekkhurana/history-nodes-ui)\r\n"
+    },
+    {
+      "id": 691973195,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-691973195",
+      "created_at": "2020-09-14T10:44:43Z",
+      "updated_at": "2020-09-14T10:44:43Z",
+      "author": "Participant 2",
+      "body": "@shivekkhurana looks good! nice work on the UI"
+    },
+    {
+      "id": 692504327,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-692504327",
+      "created_at": "2020-09-15T06:47:59Z",
+      "updated_at": "2020-09-15T06:47:59Z",
+      "author": "Participant 6",
+      "body": "@shivekkhurana I have updated status-go,\r\nyou can run the latest version by:\r\n```\r\nmake shell\r\nscripts/update-status-go.sh 'feature/use-mailservers'\r\n```\r\nAnd then restart the stack (it will re-compile status-go, so it might take some time)\r\n\r\nThe last thing left to do is to actually prevent https://github.com/status-im/status-react/blob/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/mailserver/core.cljs#L221 \r\nthis function to be called when the settings are on.\r\nAmazing work on the UI!\r\nLet me know if there's any issue/question."
+    },
+    {
+      "id": 692505059,
+      "url": "https://github.com/status-im/status-legacy/issues/11035#issuecomment-692505059",
+      "created_at": "2020-09-15T06:49:39Z",
+      "updated_at": "2020-09-15T06:49:39Z",
+      "author": "Participant 6",
+      "body": "Ah, I have also named the variable `use-mailservers? instead of `use-history-nodes?` for consistency, but we can keep `History nodes` on the translation if that's preferred by ux"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

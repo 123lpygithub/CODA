@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0359-aajebahia",
+  "revision_url": "https://github.com/deepchem/deepchem/commit/7a53caec37602bff2870d30a5c5dd6162fec693b",
+  "filename": "deepchem/feat/tests/test_rdkit_grid_features.py",
+  "commit": "7a53caec37602bff2870d30a5c5dd6162fec693b",
+  "source_url": "https://raw.githubusercontent.com/deepchem/deepchem/7a53caec37602bff2870d30a5c5dd6162fec693b/deepchem/feat/tests/test_rdkit_grid_features.py",
+  "fetched_at": "2026-11-05T06:12:38.938609+00:00",
+  "source_sha256": "d91daef5feaa89d294566b29b4bca8e8c99fe4ce0630ff49910cc41044141ef5",
+  "line_start": 8,
+  "line_end": 32,
+  "excerpt": "np.random.seed(123)\n\nfrom rdkit.Chem import MolFromMolFile\n\nfrom deepchem.feat import rdkit_grid_featurizer as rgf\n\n\nclass TestHelperFunctions(unittest.TestCase):\n  \"\"\"\n  Test functions defined in rdkit_grid_featurizer module.\n  \"\"\"\n  def setUp(self):\n    # TODO test more formats for ligand\n    current_dir = os.path.dirname(os.path.realpath(__file__))\n    package_dir = os.path.dirname(os.path.dirname(current_dir))\n    self.protein_file = os.path.join(package_dir, 'dock', 'tests', '1jld_protein.pdb')\n    self.ligand_file = os.path.join(package_dir, 'dock', 'tests', '1jld_ligand.sdf')\n\n  def test_get_ligand_filetype(self):\n\n    supported_extensions = ['mol2', 'sdf', 'pdb', 'pdbqt']\n    # some users might try to read smiles with this function\n    unsupported_extensions = ['smi', 'ism']\n\n    for extension in supported_extensions:"
+}

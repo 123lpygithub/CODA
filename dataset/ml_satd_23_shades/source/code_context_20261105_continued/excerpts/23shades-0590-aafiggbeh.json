@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0590-aafiggbeh",
+  "revision_url": "https://github.com/BorgwardtLab/P-WL/commit/b21ab8816e9a1db8f5da1dcb06d35935c8473311",
+  "filename": "p-wl_unlabelled.py",
+  "commit": "b21ab8816e9a1db8f5da1dcb06d35935c8473311",
+  "source_url": "https://raw.githubusercontent.com/BorgwardtLab/P-WL/b21ab8816e9a1db8f5da1dcb06d35935c8473311/p-wl_unlabelled.py",
+  "fetched_at": "2026-11-05T06:13:17.436471+00:00",
+  "source_sha256": "72164163e16107c46514012ef71ff6a6c1fd5835a99c0ea21a1814bb093a930d",
+  "line_start": 41,
+  "line_end": 65,
+  "excerpt": "\n    logger.info('Read {} graphs and {} labels'.format(len(graphs), len(labels)))\n\n    assert len(graphs) == len(labels)\n\n    prop = WeisfeilerLehmanAttributePropagation()\n    attributes_per_iteration = prop.transform(\n        graphs,\n        'degree',\n        args.num_iterations\n    )\n\n    # TODO: make configurable\n    use_vertex_weights = False\n\n    if use_vertex_weights:\n        pdc = PersistenceDiagramCalculator(vertex_attribute='degree')\n    else:\n        pdc = PersistenceDiagramCalculator()\n\n    # Stores *all* persistence diagrams because they will be used to\n    # represent the data set later on.\n    persistence_diagrams_per_iteration = collections.defaultdict(list)\n\n    for iteration in sorted(attributes_per_iteration.keys()):",
+  "match_policy": "unique-release-normalized-v2"
+}

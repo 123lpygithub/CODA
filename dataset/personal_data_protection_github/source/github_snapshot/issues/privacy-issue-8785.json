@@ -1,0 +1,130 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8785",
+  "issue_url": "https://github.com/confio/tgrade-app/issues/419",
+  "source_issue_url": "https://github.com/confio/tgrade-app/issues/419",
+  "api_url": "https://api.github.com/repos/confio/tgrade-app/issues/419",
+  "title": "Cookie banner appears after reload",
+  "body": "## Steps\r\n- accept cookies / do not accept cookies\r\n- reload the page\r\n\r\n## current\r\n- cookie banner appears\r\n\r\n## expected\r\n- browser recognizes, that the user has chosen, as long as the user doesn't clear cookies\r\n\r\n## Related issue \r\n#420 ",
+  "author": "Participant 1",
+  "created_at": "2022-02-25T10:12:37Z",
+  "updated_at": "2022-03-21T12:02:13Z",
+  "state": "closed",
+  "closed_at": "2022-03-21T12:02:13Z",
+  "issue_fetched_at": "2026-10-18T18:11:25.635031+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T18:11:27.116396+00:00"
+  ],
+  "expected_comment_count": 13,
+  "retrieved_comment_count": 13,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1060822162,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1060822162",
+      "created_at": "2022-03-07T15:38:28Z",
+      "updated_at": "2022-03-07T15:38:28Z",
+      "author": "Participant 1",
+      "body": "I don't think we should do this until we have a button or something that lets us show the banner again. This is because apparently [\"GDPR requires that the consent provided for the collection, processing, storing of data is reversible\"](https://www.cookieyes.com/change-cookie-consent-using-cookieyes)."
+    },
+    {
+      "id": 1060833507,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1060833507",
+      "created_at": "2022-03-07T15:49:28Z",
+      "updated_at": "2022-03-07T15:49:28Z",
+      "author": "Participant 2",
+      "body": "Could you put a hyperlink/button below the `connect wallet`/`address` which says `cookies` and when the user clicks the banner appears?"
+    },
+    {
+      "id": 1060844987,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1060844987",
+      "created_at": "2022-03-07T15:59:17Z",
+      "updated_at": "2022-03-07T15:59:17Z",
+      "author": "Participant 1",
+      "body": "> Could you put a hyperlink/button below the `connect wallet`/`address` which says `cookies` and when the user clicks the banner appears?\r\n\r\nSince the Connect wallet button is pushed to the bottom it would be much feasible to put it below Address generator."
+    },
+    {
+      "id": 1061566709,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1061566709",
+      "created_at": "2022-03-08T09:18:03Z",
+      "updated_at": "2022-03-08T09:18:03Z",
+      "author": "Participant 1",
+      "body": "I have added a \"Cookies\" button that shows the banner in #469, but I believe the \"disable appear after reload\" needs to be done from the CookieYes dashboard. I don't know if anyone has access to the dashboard besides @ks-victor."
+    },
+    {
+      "id": 1061706304,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1061706304",
+      "created_at": "2022-03-08T12:03:53Z",
+      "updated_at": "2022-03-08T12:03:53Z",
+      "author": "Participant 3",
+      "body": "> I have added a \"Cookies\" button that shows the banner in #469, but I believe the \"disable appear after reload\" needs to be done from the CookieYes dashboard. I don't know if anyone has access to the dashboard besides @ks-victor.\r\n\r\nmy idea maybe we can have some `confio.slab` page with description of how to get into it (for the future reference)"
+    },
+    {
+      "id": 1063712806,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1063712806",
+      "created_at": "2022-03-10T06:35:06Z",
+      "updated_at": "2022-03-10T06:55:06Z",
+      "author": "Participant 4",
+      "body": "I cannot reproduce this error on try.tgrade.finance - so it actually works :D\r\n\r\nWe only have a paid account for try. and just \"misuse\" the cookie banner on the staging environment. Hence it only sets cookie on try. and not on staging and hence you experience this issue on staging. (and FYI: there is no \"disable appear after reload\" option).\r\n\r\nThe banner can be located on different places on the screen so that it doesn't cover key functionality. "
+    },
+    {
+      "id": 1064001951,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1064001951",
+      "created_at": "2022-03-10T12:27:07Z",
+      "updated_at": "2022-03-10T12:27:54Z",
+      "author": "Participant 1",
+      "body": "I just deployed the latest version of the code to [dapp.tgrade.finance](https://dapp.tgrade.finance) in order to check the functionality of the cookie banner, the cookies button, and the correct storage of Google Analytics' cookies.\r\n\r\nI have tested that:\r\n- The cookie banner does not show on reload.\r\n- The cookie banner can be shown if the user clicks on the Cookies button.\r\n- The Google Analytics cookies get stored or deleted depending on the user accepting or rejecting, and this can be modified as many times as desired by using the Cookies button."
+    },
+    {
+      "id": 1068924920,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1068924920",
+      "created_at": "2022-03-16T09:42:44Z",
+      "updated_at": "2022-03-16T09:42:44Z",
+      "author": "Participant 3",
+      "body": "- [x] The cookie banner does not show on reload after Accepting it once\r\n- [x] The cookie banner does not show on reload after Rejecting it once\r\n- [x] The cookie banner can be shown if the user clicks on the “Cookies” button\r\n- [x] The Google Analytics cookies get stored or deleted depending on the user accepting or rejecting, and this can be modified as many times as desired by using the Cookies button.\r\n\r\n\r\n- [x] Chrome ✅ \r\n- [x] Firefox ✅ \r\n- [ ] Safari 🔴 \r\n\r\n\r\n**Safari**\r\ncookie state does not change to \"NO\" after clicking on \"Reject All\" button\r\n\r\nhttps://user-images.githubusercontent.com/13170022/158561389-08f1c58c-b462-4e4b-a468-eb881345e012.mp4\r\n\r\n@ks-victor @daniellarita if there is no priority to check in Safari this ticket is verified\r\n\r\n\r\n"
+    },
+    {
+      "id": 1068933489,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1068933489",
+      "created_at": "2022-03-16T09:52:04Z",
+      "updated_at": "2022-03-16T09:52:04Z",
+      "author": "Participant 5",
+      "body": "For data privacy reasons it should have a wider range than Tgrade itself. "
+    },
+    {
+      "id": 1069026797,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1069026797",
+      "created_at": "2022-03-16T11:31:25Z",
+      "updated_at": "2022-03-16T11:31:25Z",
+      "author": "Participant 4",
+      "body": "@Ebazhanov it seems like that a refresh click is required before it works. "
+    },
+    {
+      "id": 1069029371,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1069029371",
+      "created_at": "2022-03-16T11:34:15Z",
+      "updated_at": "2022-03-16T12:00:53Z",
+      "author": "Participant 3",
+      "body": "@ks-victor  true, maybe it is specific behavior of Safari and cookies service which we are using, I reported it because in case if user will not refresh, the state will not be changed.\r\ndo not know how it is critical, it is just my observation"
+    },
+    {
+      "id": 1069443069,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1069443069",
+      "created_at": "2022-03-16T18:37:17Z",
+      "updated_at": "2022-03-16T18:40:20Z",
+      "author": "Participant 4",
+      "body": "@Ebazhanov thx. Appreciated. Let’s leave it at that for the moment. We hardly have any Safari traffic anyway. If @Danielle is fine with it, I would suggest closing this one. \r\n\r\n@BirgitPohl  in which way?"
+    },
+    {
+      "id": 1073810775,
+      "url": "https://github.com/confio/tgrade-app/issues/419#issuecomment-1073810775",
+      "created_at": "2022-03-21T12:02:13Z",
+      "updated_at": "2022-03-21T12:02:13Z",
+      "author": "Participant 1",
+      "body": "It was closed when Kain set the new domain"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0600-aafhihecd",
+  "revision_url": "https://github.com/tugstugi/mongolian-speech-recognition/commit/e7f65ff754a5d69bbdf6e42fbd2c1c3ebb64d992",
+  "filename": "models/senet.py",
+  "commit": "e7f65ff754a5d69bbdf6e42fbd2c1c3ebb64d992",
+  "source_url": "https://raw.githubusercontent.com/tugstugi/mongolian-speech-recognition/e7f65ff754a5d69bbdf6e42fbd2c1c3ebb64d992/models/senet.py",
+  "fetched_at": "2026-11-05T06:13:19.117796+00:00",
+  "source_sha256": "6dc2e02370a8cba08bf050cf8f164b4c488440f4e4230dc27524f2617b31309f",
+  "line_start": 114,
+  "line_end": 138,
+  "excerpt": "            else:\n                block.add_module(name_,\n                                 Bottleneck(out_channels, out_channels, pool_stride, self.cardinality, self.base_width,\n                                            self.expansion))\n        return block\n\n    def forward(self, x):\n        # B, F, T -> B, 1, F, T\n        x = x.unsqueeze(1)\n\n        x = self.conv_1_3x3.forward(x)\n        x = F.relu(self.bn_1.forward(x), inplace=True)\n        # TODO: maxpool?\n        #print(x.shape)\n        x = F.max_pool2d(x, (2,2))\n        x = self.stage_1.forward(x)\n        #print(x.shape)\n        x = self.stage_2.forward(x)\n        #print(x.shape)\n        #x = self.stage_3.forward(x)\n        #print(3, x.shape)\n        #x = F.avg_pool2d(x, (2, 1), 1)\n        #print(x.shape)\n\n        x = x.squeeze(2)"
+}

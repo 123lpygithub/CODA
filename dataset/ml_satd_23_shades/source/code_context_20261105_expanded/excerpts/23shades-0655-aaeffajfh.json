@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0655-aaeffajfh",
+  "revision_url": "https://github.com/Accenture/AmpliGraph/commit/68324ec3acecff31f67828ffafc1f6fc1d0948ed",
+  "filename": "ampligraph/latent_features/models.py",
+  "commit": "68324ec3acecff31f67828ffafc1f6fc1d0948ed",
+  "source_url": "https://raw.githubusercontent.com/Accenture/AmpliGraph/68324ec3acecff31f67828ffafc1f6fc1d0948ed/ampligraph/latent_features/models.py",
+  "fetched_at": "2026-11-05T06:13:34.024031+00:00",
+  "source_sha256": "e6f608f3fe7c0f6bfbfc70cc2ce8ccc489b8ddf426335bb63cda5d15df3f7ffa",
+  "line_start": 3694,
+  "line_end": 3718,
+  "excerpt": "        except KeyError:\n            msg = 'x_valid must be passed for early fitting.'\n            logger.error(msg)\n            raise KeyError(msg)\n\n        self.early_stopping_criteria = self.early_stopping_params.get('criteria', DEFAULT_CRITERIA_EARLY_STOPPING)\n\n        if self.early_stopping_criteria not in ['hits10', 'hits1', 'hits3', 'mrr']:\n            msg = 'Unsupported early stopping criteria.'\n            logger.error(msg)\n            raise ValueError(msg)\n\n        # TODO: Remove corruption entities\n        self.eval_config['corruption_entities'] = self.early_stopping_params.get('corruption_entities',\n                                                                                 DEFAULT_CORRUPTION_ENTITIES)\n\n        if isinstance(self.eval_config['corruption_entities'], list):\n            # convert from list of raw triples to entity indices\n            logger.debug('Using the supplied entities for generation of corruptions for early stopping')\n            self.eval_config['corruption_entities'] = np.asarray([idx for uri, idx in self.ent_to_idx.items()\n                                                                  if uri in self.eval_config['corruption_entities']])\n        elif self.eval_config['corruption_entities'] == 'all':\n            logger.debug('Using all entities for generation of corruptions for early stopping')\n        elif self.eval_config['corruption_entities'] == 'batch':\n            logger.debug('Using batch entities for generation of corruptions for early stopping')"
+}

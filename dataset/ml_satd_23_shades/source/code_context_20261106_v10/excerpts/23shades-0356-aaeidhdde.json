@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0356-aaeidhdde",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/a5554ac1a0c7708c66be74d798ddc0e75dac2e85",
+  "filename": "hpat/distributed_analysis.py",
+  "commit": "a5554ac1a0c7708c66be74d798ddc0e75dac2e85",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/a5554ac1a0c7708c66be74d798ddc0e75dac2e85/hpat/distributed_analysis.py",
+  "fetched_at": "2026-11-05T06:12:38.648981+00:00",
+  "source_sha256": "6df77f226a9325b213f19dcc2a560cac4e26d10edb1a077f48c7ed7d6eaabfb0",
+  "line_start": 259,
+  "line_end": 283,
+  "excerpt": "\n    def _isarray(self, varname):\n        return (varname in self.typemap\n            and isinstance(self.typemap[varname], numba.types.npytypes.Array))\n\n    def _is_call(self, func_var, call_list):\n        if func_var not in self._call_table:\n            return False\n        return self._call_table[func_var]==call_list\n\n\ndef get_stencil_accesses(body, par_index_var):\n    # TODO support recursive parfor, multi-D, mutiple body blocks\n    const_table = {}\n    stencil_accesses = {}\n\n    for block in body.values():\n        for stmt in block.body:\n            if isinstance(stmt, ir.Assign) and isinstance(stmt.value, ir.Const):\n                lhs = stmt.target.name\n                const_table[lhs] = stmt.value.value\n            if isinstance(stmt, ir.Assign) and isinstance(stmt.value, ir.Expr):\n                lhs = stmt.target.name\n                rhs = stmt.value\n                if (rhs.op == 'binop' and rhs.fn == '+' and",
+  "match_policy": "unique-release-normalized-v2"
+}

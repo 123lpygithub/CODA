@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0680-aadhbjgee",
+  "revision_url": "https://github.com/Epistimio/orion/commit/630245fdf6574b2e984619ea6a910d1309a171f3",
+  "filename": "tests/unittests/core/io/test_experiment_builder.py",
+  "commit": "630245fdf6574b2e984619ea6a910d1309a171f3",
+  "source_url": "https://raw.githubusercontent.com/Epistimio/orion/630245fdf6574b2e984619ea6a910d1309a171f3/tests/unittests/core/io/test_experiment_builder.py",
+  "fetched_at": "2026-11-05T06:13:37.516794+00:00",
+  "source_sha256": "123140ceae61f429fc6643f43ff7ddfe05b41e95b90329300f4c9e798e1e7223",
+  "line_start": 308,
+  "line_end": 332,
+  "excerpt": "\n        with pytest.raises(ValueError) as exc_info:\n            experiment_builder.build_view(name)\n        assert \"No experiment with given name 'supernaekei' and version '*'\" in str(exc_info.value)\n\n        exp = experiment_builder.build(name, space=space, max_trials=max_trials)\n\n    assert exp._init_done is True\n    assert exp.name == name\n    assert exp.configuration['refers'] == {'adapter': [], 'parent_id': None, 'root_id': exp._id}\n    assert exp.metadata['datetime'] == random_dt\n    assert exp.metadata['user'] == 'tsirif'\n    # TODO: Replace when space in db\n    assert 'space' not in exp.configuration\n    # assert exp.configuration['space'] == space\n    assert exp.max_trials == max_trials\n    assert not exp.is_done\n    assert exp.algorithms.configuration == {'random': {'seed': None}}\n\n\ndef test_build_no_commandline_config():\n    \"\"\"Try building experiment with no commandline configuration.\"\"\"\n    with OrionState(experiments=[], trials=[]) as cfg:\n        with pytest.raises(NoConfigurationError):\n            experiment_builder.build('supernaekei')"
+}

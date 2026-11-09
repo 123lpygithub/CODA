@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0123-aagfeiiaj",
+  "revision_url": "https://github.com/IBM/mi-prometheus/commit/3f75fb42badda8c66d79ae2db7ca69c874cac703",
+  "filename": "models/encoder_solver/mae2s_model.py",
+  "commit": "3f75fb42badda8c66d79ae2db7ca69c874cac703",
+  "source_url": "https://raw.githubusercontent.com/IBM/mi-prometheus/3f75fb42badda8c66d79ae2db7ca69c874cac703/models/encoder_solver/mae2s_model.py",
+  "fetched_at": "2026-11-05T06:11:57.344725+00:00",
+  "source_sha256": "89d38d9dd5840bc576f3c531d60722e225ae7807ab6f5a5d27114d7039031785",
+  "line_start": 54,
+  "line_end": 78,
+  "excerpt": "\n        # Save/load encoder.\n        self.save_encoder = params.get('save_encoder', False)\n        self.load_encoder = params.get('load_encoder', '') # Path+filename to encoder.\n\n        # Create the Encoder cell.\n        self.encoder = MAECell(params)\n\n        # Load and freeze encoder - if required.\n        if self.load_encoder != '':\n            self.encoder.load_state_dict(torch.load(self.load_encoder, map_location=lambda storage, loc: storage))\n            logger.info(\"Encoder imported from {}\".format(self.load_encoder))  \n            # Freeze weights - TODO: NOT IMPLEMENTED!\n            self.encoder.freeze()  \n\n        # Create the Solver for first task.\n        self.solver1 = MASCell(params)\n\n        # Create the Solver for the second task.\n        #self.solver2 = MASCell(params)\n\n        # Operation modes.\n        self.modes = Enum('Modes', ['Encode', 'Solve1', 'Solve2'])\n\n"
+}

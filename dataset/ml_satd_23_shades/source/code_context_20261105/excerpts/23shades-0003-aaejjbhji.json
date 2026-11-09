@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0003-aaejjbhji",
+  "revision_url": "https://github.com/loli/medpy/commit/183b17ee92f1aacef8db4d7e24db4cfa4fd79d03",
+  "filename": "src/medpy/graphcut/generate.py",
+  "commit": "183b17ee92f1aacef8db4d7e24db4cfa4fd79d03",
+  "source_url": "https://raw.githubusercontent.com/loli/medpy/183b17ee92f1aacef8db4d7e24db4cfa4fd79d03/src/medpy/graphcut/generate.py",
+  "fetched_at": "2026-11-05T06:11:36.143970+00:00",
+  "source_sha256": "f4d3159b4faf7a3201efb773c21f6397345123121df7e4fe19d3e22a280a0613",
+  "line_start": 162,
+  "line_end": 186,
+  "excerpt": "    logger.info('Computing inter-node edge weights...')\n    Wr = boundary_term(label_image, boundary_term_args)\n    graph.set_nweights(Wr)\n    \n    return graph\n\ndef __regional_term(label_image, regions, bounding_boxes, regional_term_args):\n    \"\"\"Fake regional_term function with the appropriate signature.\"\"\"\n    return {}\n\ndef __boundary_term(label_image, boundary_term_args):\n    \"\"\"Fake regional_term function with the appropriate signature.\"\"\"\n    # !TODO: An empty dictionary would actually also do here ... despite the fact that \n    # supplying no boundary term contradicts the whole graph cut idea.\n    \n    # compute the edges between all regions\n    edges = __compute_edges(label_image)\n    # return a dict with the edges as keys and 0s as values (behaves like no edge exists between the regions)\n    return dict.fromkeys(edges, (0, 0))\n    \n\ndef __compute_edges(label_image):\n    \"\"\"\n    Computes the region neighbourhood defined by a star shaped n-dimensional structuring\n    element (as returned by scipy.ndimage.generate_binary_structure(ndim, 1)) for the"
+}

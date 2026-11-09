@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0456-aaicfaced",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/2feb067d358050cd7a18e6589a70b6c890645429",
+  "filename": "sklearn/random_projection.py",
+  "commit": "2feb067d358050cd7a18e6589a70b6c890645429",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/2feb067d358050cd7a18e6589a70b6c890645429/sklearn/random_projection.py",
+  "fetched_at": "2026-11-05T06:12:57.613590+00:00",
+  "source_sha256": "692f33aea6939850bc19f79648c2044701d4f62dcda1fa88e3b2a4ab8bdfb830",
+  "line_start": 202,
+  "line_end": 226,
+  "excerpt": "    # build the CSR structure by concatenating the rows\n    data, indices = np.concatenate(data), np.concatenate(indices)\n    r = sp.csr_matrix((data, indices, indptr),\n                      shape=(n_components, n_features))\n    return math.sqrt(1 / density) / math.sqrt(n_components) * r\n\n\ndef hashing_dot(A, n_components, density, seed=0, dense_output=True):\n    \"\"\"Implicit dot product by a random sparse matrix using a hash function\"\"\"\n    max_hash_pos = density * float(np.iinfo(np.uint32).max)\n    max_hash_neg = max_hash_pos / 2\n    weight = math.sqrt(1 / density) / math.sqrt(n_components)\n    # TODO: avoid conversion of sparse matrices to CSR by adding support for\n    # other formats?\n    A = atleast2d_or_csr(A)\n    n_samples, n_features = A.shape\n\n    if not sp.issparse(A):\n        out = np.zeros((n_samples, n_components), A.dtype)\n        for i in range(n_samples):\n            seed_i = murmurhash3_32(i, seed=seed, positive=True)\n            for j in range(n_features):\n                h = murmurhash3_32(j, seed=seed_i, positive=True)\n                out_row = h % n_samples\n                out_col = h % n_components"
+}

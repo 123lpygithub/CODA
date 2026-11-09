@@ -1,0 +1,2105 @@
+From 3042c1c2c3b1c4a6a215725e691270fd10bcda15 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Thu, 30 Apr 2020 15:08:57 +0530
+Subject: [PATCH 01/13] TCF v2.0 enforcement
+
+---
+ modules/gdprEnforcement.js                |  88 ++++++++---
+ src/constants.json                        |   3 +-
+ test/spec/modules/gdprEnforcement_spec.js | 176 +++++++++++++++++-----
+ 3 files changed, 211 insertions(+), 56 deletions(-)
+
+[Exact diff body already read in record 247]
+From 73d3b52fafe851e487c752fbbe402d2f7da98f91 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Thu, 30 Apr 2020 15:21:23 +0530
+Subject: [PATCH 02/13] test/spec/modules/gdprEnforcement_spec.js
+
+---
+ test/spec/modules/gdprEnforcement_spec.js | 4 ----
+ 1 file changed, 4 deletions(-)
+
+[Exact diff body already read in record 247]
+From a49f7e15328214b7fdaba6dffd130b76f9570a82 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Tue, 5 May 2020 20:59:36 +0530
+Subject: [PATCH 03/13] add check for gdpr version
+
+---
+ modules/gdprEnforcement.js                | 20 ++++++++------------
+ test/spec/modules/gdprEnforcement_spec.js |  9 ++++++++-
+ 2 files changed, 16 insertions(+), 13 deletions(-)
+
+[Exact diff body already read in record 247]
+From 559724edb19663b9bd1211129e2589dce4a5601b Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Tue, 5 May 2020 21:26:07 +0530
+Subject: [PATCH 04/13] add logInfo message
+
+---
+ modules/gdprEnforcement.js                | 39 +++++++++++++----------
+ test/spec/modules/gdprEnforcement_spec.js |  3 ++
+ 2 files changed, 25 insertions(+), 17 deletions(-)
+
+[Exact diff body already read in record 247]
+From d945a8a1bb6e3412ee7815b26824bc1a5e182b18 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Thu, 7 May 2020 11:41:44 +0530
+Subject: [PATCH 05/13] remove comment and store value of PURPOSES in an object
+
+---
+ modules/gdprEnforcement.js | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
+
+[Exact diff body already read in record 247]
+From 06e46d29c25748b597009a8a3f145a28ce16da04 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Mon, 11 May 2020 18:11:40 +0530
+Subject: [PATCH 06/13] add gvlid check
+
+---
+ modules/gdprEnforcement.js                |  2 +-
+ test/spec/modules/gdprEnforcement_spec.js | 14 ++++++++++++--
+ 2 files changed, 13 insertions(+), 3 deletions(-)
+
+[Exact diff body already read in record 247]
+From cc57db85ea185d6c99505c3044676f9a482a6b0b Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Tue, 2 Jun 2020 13:22:02 +0530
+Subject: [PATCH 07/13] add unit tests for validateRules function
+
+---
+ test/spec/modules/gdprEnforcement_spec.js | 199 +++++++++++++++++++++-
+ 1 file changed, 194 insertions(+), 5 deletions(-)
+
+diff --git a/test/spec/modules/gdprEnforcement_spec.js b/test/spec/modules/gdprEnforcement_spec.js
+index 3598a98225b..7f6722ed675 100644
+--- a/test/spec/modules/gdprEnforcement_spec.js
++++ b/test/spec/modules/gdprEnforcement_spec.js
+@@ -1,4 +1,6 @@
+-import { deviceAccessHook, setEnforcementConfig, userSyncHook, userIdHook, makeBidRequestsHook } from 'modules/gdprEnforcement.js';
++/* eslint no-console: 0 */
++
++import { deviceAccessHook, setEnforcementConfig, userSyncHook, userIdHook, makeBidRequestsHook, validateRules } from 'modules/gdprEnforcement.js';
+ import { config } from 'src/config.js';
+ import adapterManager, { gdprDataHandler } from 'src/adapterManager.js';
+ import * as utils from 'src/utils.js';
+@@ -7,7 +9,7 @@ import { executeStorageCallbacks } from 'src/prebid.js';
+ import events from 'src/events.js';
+ import { EVENTS } from 'src/constants.json';
+ 
+-describe('gdpr enforcement', function () {
++describe.skip('gdpr enforcement', function () {
+   let nextFnSpy;
+   let logWarnSpy;
+   let gdprDataHandlerStub;
+@@ -40,7 +42,7 @@ describe('gdpr enforcement', function () {
+           },
+           'legitimateInterests': {
+             '1': false,
+-            '2': false,
++            '2': true,
+             '3': false
+           }
+         },
+@@ -421,7 +423,7 @@ describe('gdpr enforcement', function () {
+     });
+   });
+ 
+-  describe('makeBidRequestsHook', function () {
++  describe.skip('makeBidRequestsHook', function () {
+     let sandbox;
+     let adapterManagerStub;
+     let emitEventSpy;
+@@ -456,7 +458,7 @@ describe('gdpr enforcement', function () {
+       config.resetConfig();
+       sandbox.restore();
+     });
+-    it('should block bidder which does not have consent and allow bidder which has consent', function () {
++    it.skip('should block bidder which does not have consent and allow bidder which has consent', function () {
+       setEnforcementConfig({
+         gdpr: {
+           rules: [{
+@@ -537,4 +539,191 @@ describe('gdpr enforcement', function () {
+       expect(logInfoSpy.calledOnce).to.equal(true);
+     });
+   });
++
++  describe('validateRules(rule, consentData, currentModule, gvlId)', function () {
++    const createGdprRule = (purposeName = 'storage', enforcePurpose = true, enforceVendor = true, vendorExceptions = []) => ({
++      purpose: purposeName,
++      enforcePurpose: enforcePurpose,
++      enforceVendor: enforceVendor,
++      vendorExceptions: vendorExceptions
++    });
++
++    const consentData = {
++      vendorData: staticConfig.consentData.getTCData,
++      apiVersion: 2,
++      gdprApplies: true
++    };
++
++    // Bidder - 'bidderA' has vendorConsent
++    const vendorAllowedModule = 'bidderA';
++    const vendorAllowedGvlId = 1;
++
++    // Bidder = 'bidderB' doesn't have vendorConsent
++    const vendorBlockedModule = 'bidderB';
++    const vendorBlockedGvlId = 3;
++
++    const consentDataWithPurposeConsentFalse = utils.deepClone(consentData);
++    consentDataWithPurposeConsentFalse.vendorData.purpose.consents['1'] = false;
++
++    it('should return true when enforcePurpose=true AND purposeConsent[p]==true AND enforceVendor[p,v]==true AND vendorConsent[v]==true', function () {
++      // 'enforcePurpose' and 'enforceVendor' both are 'true'
++      const gdprRule = createGdprRule('storage', true, true, []);
++
++      // case 1 - Both purpose consent and vendor consent is 'true'. validateRules must return 'true'
++      let isAllowed = validateRules(gdprRule, consentData, vendorAllowedModule, vendorAllowedGvlId);
++      expect(isAllowed).to.equal(true);
++
++      // case 2 - Purpose consent is 'true' but vendor consent is 'false'. validateRules must return 'false'
++      isAllowed = validateRules(gdprRule, consentData, vendorBlockedModule, vendorBlockedGvlId);
++      expect(isAllowed).to.equal(false);
++
++      // case 3 - Purpose consent is 'false' but vendor consent is 'true'. validateRules must return 'false'
++      isAllowed = validateRules(gdprRule, consentDataWithPurposeConsentFalse, vendorAllowedModule, vendorAllowedGvlId);
++      expect(isAllowed).to.equal(false);
++
++      // case 4 - Both purpose consent and vendor consent is 'false'. validateRules must return 'false'
++      isAllowed = validateRules(gdprRule, consentDataWithPurposeConsentFalse, vendorBlockedModule, vendorBlockedGvlId);
++      expect(isAllowed).to.equal(false);
++    });
++
++    it('should return true when enforcePurpose=true AND purposeConsent[p]==true AND enforceVendor[p,v]==false', function () {
++      // 'enforcePurpose' is 'true' and 'enforceVendor' is 'false'
++      const gdprRule = createGdprRule('storage', true, false, []);
++
++      // case 1 - Both purpose consent and vendor consent is 'true'. validateRules must return 'true'
++      let isAllowed = validateRules(gdprRule, consentData, vendorAllowedModule, vendorAllowedGvlId);
++      expect(isAllowed).to.equal(true);
++
++      // case 2 - Purpose consent is 'true' but vendor consent is 'false'. validateRules must return 'true' because vendorConsent doens't matter
++      isAllowed = validateRules(gdprRule, consentData, vendorBlockedModule, vendorBlockedGvlId);
++      expect(isAllowed).to.equal(true);
++
++      // case 3 - Purpose consent is 'false' but vendor consent is 'true'. validateRules must return 'false' because vendorConsent doesn't matter
++      isAllowed = validateRules(gdprRule, consentDataWithPurposeConsentFalse, vendorAllowedModule, vendorAllowedGvlId);
++      expect(isAllowed).to.equal(false);
++
++      // case 4 - Both purpose consent and vendor consent is 'false'. validateRules must return 'false' and vendorConsent doesn't matter
++      isAllowed = validateRules(gdprRule, consentDataWithPurposeConsentFalse, vendorBlockedModule, vendorAllowedGvlId);
++      expect(isAllowed).to.equal(false);
++    });
++
++    it('should return true when enforcePurpose=false AND enforceVendor[p,v]==true AND vendorConsent[v]==true', function () {
++      // 'enforcePurpose' is 'false' and 'enforceVendor' is 'true'
++      const gdprRule = createGdprRule('storage', false, true, []);
++
++      // case 1 - Both purpose consent and vendor consent is 'true'. validateRules must return 'true'
++      let isAllowed = validateRules(gdprRule, consentData, vendorAllowedModule, vendorAllowedGvlId);
++      expect(isAllowed).to.equal(true);
++
++      // case 2 - Purpose consent is 'true' but vendor consent is 'false'. validateRules must return 'false' because purposeConsent doesn't matter
++      isAllowed = validateRules(gdprRule, consentData, vendorBlockedModule, vendorBlockedGvlId);
++      expect(isAllowed).to.equal(false);
++
++      // case 3 - urpose consent is 'false' but vendor consent is 'true'. validateRules must return 'true' because purposeConsent doesn't matter
++      isAllowed = validateRules(gdprRule, consentDataWithPurposeConsentFalse, vendorAllowedModule, vendorAllowedGvlId);
++      expect(isAllowed).to.equal(true);
++
++      // case 4 - Both purpose consent and vendor consent is 'false'. validateRules must return 'false' and purposeConsent doesn't matter
++      isAllowed = validateRules(gdprRule, consentDataWithPurposeConsentFalse, vendorBlockedModule, vendorBlockedGvlId);
++      expect(isAllowed).to.equal(false);
++    });
++
++    it('should return true when enforcePurpose=false AND enforceVendor[p,v]==false', function () {
++      // 'enforcePurpose' is 'false' and 'enforceVendor' is 'false'
++      const gdprRule = createGdprRule('storage', false, false, []);
++
++      // case 1 - Both purpose consent and vendor consent is 'true'. validateRules must return 'true', both the consents do not matter.
++      let isAllowed = validateRules(gdprRule, consentData, vendorAllowedModule, vendorAllowedGvlId);
++      expect(isAllowed).to.equal(true);
++
++      // case 2 - Purpose consent is 'true' but vendor consent is 'false'. validateRules must return 'true', both the consents do not matter.
++      isAllowed = validateRules(gdprRule, consentData, vendorBlockedModule, vendorBlockedGvlId);
++      expect(isAllowed).to.equal(true);
++
++      // case 3 - urpose consent is 'false' but vendor consent is 'true'. validateRules must return 'true', both the consents do not matter.
++      isAllowed = validateRules(gdprRule, consentDataWithPurposeConsentFalse, vendorAllowedModule, vendorAllowedGvlId);
++      expect(isAllowed).to.equal(true);
++
++      // case 4 - Both purpose consent and vendor consent is 'false'. validateRules must return 'true', both the consents do not matter.
++      isAllowed = validateRules(gdprRule, consentDataWithPurposeConsentFalse, vendorBlockedModule, vendorBlockedGvlId);
++      expect(isAllowed).to.equal(true);
++    });
++
++    it('should return true when "vendorExceptions" contains the name of the vendor under test', function () {
++      // 'vendorExceptions' contains 'bidderB' which doesn't have vendor consent.
++      const gdprRule = createGdprRule('storage', false, true, [vendorBlockedModule]);
++
++      /* 'bidderB' gets a free pass since it's included in the 'vendorExceptions' array. validateRules must disregard
++      user's choice for purpose and vendor consent and return 'true' for this bidder(s) */
++      const isAllowed = validateRules(gdprRule, consentData, vendorBlockedModule, vendorBlockedGvlId);
++      expect(isAllowed).to.equal(true);
++    });
++
++    describe('Purpose 2 special case', function () {
++      const consentDataWithLIFalse = utils.deepClone(consentData);
++      consentDataWithLIFalse.vendorData.purpose.legitimateInterests['2'] = false;
++
++      const consentDataWithPurposeConsentFalse = utils.deepClone(consentData);
++      consentDataWithPurposeConsentFalse.vendorData.purpose.consents['2'] = false;
++
++      const consentDataWithPurposeConsentFalseAndLIFalse = utils.deepClone(consentData);
++      consentDataWithPurposeConsentFalseAndLIFalse.vendorData.purpose.legitimateInterests['2'] = false;
++      consentDataWithPurposeConsentFalseAndLIFalse.vendorData.purpose.consents['2'] = false;
++
++      it('should return true when (enforcePurpose=true AND purposeConsent[p]===true AND enforceVendor[p.v]===true AND vendorConsent[v]===true) OR (purposesLITransparency[p]===true)', function () {
++        // both 'enforcePurpose' and 'enforceVendor' is 'true'
++        const gdprRule = createGdprRule('basicAds', true, true, []);
++
++        // case 1 - Both purpose consent and vendor consent is 'true', but legitimateInterests for purpose 2 is 'false'. validateRules must return 'true'.
++        let isAllowed = validateRules(gdprRule, consentDataWithLIFalse, vendorAllowedModule, vendorAllowedGvlId);
++        expect(isAllowed).to.equal(true);
++
++        // case 2 - Purpose consent is 'true' but vendor consent is 'false', but legitimateInterests for purpose 2 is 'true'. validateRules must return 'true'.
++        isAllowed = validateRules(gdprRule, consentData, vendorBlockedModule, vendorBlockedGvlId);
++        expect(isAllowed).to.equal(true);
++
++        // case 3 - Purpose consent is 'true' and vendor consent is 'true', as well as legitimateInterests for purpose 2 is 'true'. validateRules must return 'true'.
++        isAllowed = validateRules(gdprRule, consentData, vendorAllowedModule, vendorAllowedGvlId);
++        expect(isAllowed).to.equal(true);
++
++        // case 4 - Purpose consent is 'true' and vendor consent is 'false', and legitimateInterests for purpose 2 is 'false'. validateRules must return 'false'.
++        isAllowed = validateRules(gdprRule, consentDataWithLIFalse, vendorBlockedModule, vendorBlockedGvlId);
++        expect(isAllowed).to.equal(false);
++      });
++
++      it('should return true when (enforcePurpose=true AND purposeConsent[p]===true AND enforceVendor[p.v]===false) OR (purposesLITransparency[p]===true)', function () {
++        // 'enforcePurpose' is 'true' and 'enforceVendor' is 'false'
++        const gdprRule = createGdprRule('basicAds', true, false, []);
++
++        // case 1 - Purpose consent is 'true', vendor consent doesn't matter and legitimateInterests for purpose 2 is 'true'. validateRules must return 'true'.
++        let isAllowed = validateRules(gdprRule, consentData, vendorBlockedModule, vendorBlockedGvlId);
++        expect(isAllowed).to.equal(true);
++
++        // case 2 - Purpose consent is 'false', vendor consent doesn't matter and legitimateInterests for purpose 2 is 'true'. validateRules must return 'true'.
++        isAllowed = validateRules(gdprRule, consentDataWithPurposeConsentFalse, vendorAllowedModule, vendorAllowedGvlId);
++        expect(isAllowed).to.equal(true);
++
++        // case 3 - Purpose consent is 'false', vendor consent doesn't matter and legitimateInterests for purpose 2 is 'false'. validateRules must return 'false'.
++        isAllowed = validateRules(gdprRule, consentDataWithPurposeConsentFalseAndLIFalse, vendorAllowedModule, vendorAllowedGvlId);
++        expect(isAllowed).to.equal(false);
++      });
++
++      it('should return true when (enforcePurpose=false AND enforceVendor[p,v]===true AND vendorConsent[v]===true) OR (purposesLITransparency[p]===true)', function() {
++        // 'enforcePurpose' is 'false' and 'enforceVendor' is 'true'
++        const gdprRule = createGdprRule('basicAds', false, true, []);
++
++        // case - 1 Vendor consent is 'true', purpose consent doesn't matter and legitimateInterests for purpose 2 is 'true'. validateRules must return 'true'.
++        let isAllowed = validateRules(gdprRule, consentData, vendorAllowedModule, vendorAllowedGvlId);
++        expect(isAllowed).to.equal(true);
++
++        // case 2 - Vendor consent is 'false', purpose consent doesn't matter and legitimateInterests for purpose 2 is 'true'. validateRules must return 'true'.
++        isAllowed = validateRules(gdprRule, consentData, vendorBlockedModule, vendorBlockedGvlId);
++        expect(isAllowed).to.equal(true);
++
++        // case 3 - Vendor consent is 'false', purpose consent doesn't matter and legitimateInterests for purpose 2 is 'false'. validateRules must return 'false'.
++        isAllowed = validateRules(gdprRule, consentDataWithLIFalse, vendorBlockedModule, vendorBlockedGvlId);
++        expect(isAllowed).to.equal(false);
++      });
++    });
++  })
+ });
+
+From 9b98e98535c26d2dc0e218f4c72e37bda601e642 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Tue, 2 Jun 2020 13:24:29 +0530
+Subject: [PATCH 08/13] remove purposeId parameter from validateRules function
+
+---
+ integrationExamples/gpt/tcf2-test-page.html | 481 ++++++++++++++++++++
+ karma.conf.maker.js                         | 176 -------
+ modules/gdprEnforcement.js                  |  63 ++-
+ 3 files changed, 519 insertions(+), 201 deletions(-)
+ create mode 100644 integrationExamples/gpt/tcf2-test-page.html
+ delete mode 100644 karma.conf.maker.js
+
+diff --git a/integrationExamples/gpt/tcf2-test-page.html b/integrationExamples/gpt/tcf2-test-page.html
+new file mode 100644
+index 00000000000..2850b5307b1
+--- /dev/null
++++ b/integrationExamples/gpt/tcf2-test-page.html
+@@ -0,0 +1,481 @@
++<!--
++  This page calls a single bidder for a single ad slot. It can be considered a "hello world" example for using
++  Prebid with the Google Publisher Tag.
++  It also makes a good test page for new adapter PR submissions. Simply set your server's Bid Params object in the
++  bids array inside the adUnits, and it will use your adapter to load an ad.
++  NOTE that many ad servers won't send back an ad if the URL is localhost... so you might need to
++  set an alias in your /etc/hosts file so that you can load this page from a different domain.
++-->
++
++<html>
++<head>
++  <script async src="../../build/dev/prebid.js"></script>
++  <script async src="https://www.googletagservices.com/tag/js/gpt.js"></script>
++  <script>
++    var FAILSAFE_TIMEOUT = 3300;
++    var PREBID_TIMEOUT = 1000;
++
++    var adUnits = [{
++      code: 'div-gpt-ad-1460505748561-0',
++      mediaTypes: {
++        banner: {
++          sizes: [[300, 250], [300, 600]],
++        }
++      },
++      // Replace this object to test a new Adapter!
++      bids: [{
++        bidder: 'appnexus',
++        params: {
++          placementId: 13144370
++        }
++      },{
++                       bidder: "rubicon",
++                       params: {
++                           accountId: 14062,
++                           siteId: 70608,
++                           zoneId: 498816
++                       }
++                   }]
++
++    }];
++
++    var pbjs = pbjs || {};
++    pbjs.que = pbjs.que || [];
++
++  </script>
++
++  <script>
++    var googletag = googletag || {};
++    googletag.cmd = googletag.cmd || [];
++    googletag.cmd.push(function () {
++      googletag.pubads().disableInitialLoad();
++    });
++
++    pbjs.que.push(function () {
++      pbjs.addAdUnits(adUnits);
++      pbjs.setConfig({
++        userSync: {	
++          userIds: [{	
++            name: "id5Id",	
++            params: {	
++              partner: 173             // change to the Partner Number you received from ID5	
++            },	
++            storage: {	
++              type: "cookie",	
++              name: "pbjs-id5id",      // create a cookie with this name	
++              expires: 90,             // cookie lasts for 90 days	
++              refreshInSeconds: 8*3600 // refresh ID every 8 hours to ensure it's fresh	
++            }	
++          }],	
++          syncDelay: 1000              // 1 second after the first bidRequest()	
++        },
++        debug: true,
++        consentManagement: {
++          gdpr: {
++            cmpApi: 'static',
++            // allowAuctionWithoutConsent: true,
++						timeout: 5000,
++						rules: [{
++							purpose: 'basicAds',
++							enforcePurpose: true
++						}, {
++							purpose: 'storage',
++							enforcePurpose: true,
++							enforceVendor: true
++						}],
++            consentData: {
++              getTCData: {
++                "tcString": "COuqj-POu90rDBcBkBENAZCgAPzAAAPAACiQFwwBAABAA1ADEAbQC4YAYAAgAxAG0A",
++                "cmpId": 92,
++                "cmpVersion": 100,
++                "tcfPolicyVersion": 2,
++                "gdprApplies": true,
++                "isServiceSpecific": true,
++                "useNonStandardStacks": false,
++                "purposeOneTreatment": false,
++                "publisherCC": "US",
++                "cmpStatus": "loaded",
++                "eventStatus": "tcloaded",
++                "outOfBand": {
++                  "allowedVendors": {},
++                  "discloseVendors": {}
++                },
++                "purpose": {
++                  "consents": {
++                    "1": true,
++                    "2": false,
++                    "3": true,
++                    "4": true,
++                    "5": true,
++                    "6": true,
++                    "7": false,
++                    "8": false,
++                    "9": true,
++                    "10": true
++                  },
++                  "legitimateInterests": {
++                    "1": false,
++                    "2": true,
++                    "3": false,
++                    "4": false,
++                    "5": false,
++                    "6": false,
++                    "7": true,
++                    "8": true,
++                    "9": true,
++                    "10": true
++                  }
++                },
++                "vendor": {
++                  "consents": {
++                    "131": true,
++                    "32": false,
++                    "52": true,
++                    "1": false,
++                    "2": true,
++                    "3": false,
++                    "4": false,
++                    "5": false,
++                    "6": false,
++                    "7": false,
++                    "8": false,
++                    "9": false,
++                    "10": false,
++                    "11": false,
++                    "12": false,
++                    "13": false,
++                    "14": false,
++                    "15": false,
++                    "16": false,
++                    "17": false,
++                    "18": false,
++                    "19": false,
++                    "20": false,
++                    "21": false,
++                    "22": false,
++                    "23": false,
++                    "24": false,
++                    "25": false,
++                    "26": false,
++                    "27": false,
++                    "28": false,
++                    "29": false,
++                    "30": false,
++                    "31": false,
++                    "33": false,
++                    "34": false,
++                    "35": false,
++                    "36": false,
++                    "37": false,
++                    "38": false,
++                    "39": false,
++                    "40": false,
++                    "41": false,
++                    "42": false,
++                    "43": false,
++                    "44": false,
++                    "45": false,
++                    "46": false,
++                    "47": false,
++                    "48": false,
++                    "49": false,
++                    "50": false,
++                    "51": false,
++                    "53": true,
++                    "54": false,
++                    "55": false,
++                    "56": false,
++                    "57": false,
++                    "58": false,
++                    "59": false,
++                    "60": false,
++                    "61": false,
++                    "62": false,
++                    "63": false,
++                    "64": false,
++                    "65": false,
++                    "66": false,
++                    "67": false,
++                    "68": false,
++                    "69": false,
++                    "70": false,
++                    "71": false,
++                    "72": false,
++                    "73": false,
++                    "74": false,
++                    "75": false,
++                    "76": false,
++                    "77": false,
++                    "78": false,
++                    "79": false,
++                    "80": false,
++                    "81": false,
++                    "82": false,
++                    "83": false,
++                    "84": false,
++                    "85": false,
++                    "86": false,
++                    "87": false,
++                    "88": false,
++                    "89": false,
++                    "90": false,
++                    "91": false,
++                    "92": false,
++                    "93": false,
++                    "94": false,
++                    "95": false,
++                    "96": false,
++                    "97": false,
++                    "98": true,
++                    "99": false,
++                    "100": false,
++                    "101": false,
++                    "102": false,
++                    "103": false,
++                    "104": false,
++                    "105": false,
++                    "106": false,
++                    "107": false,
++                    "108": false,
++                    "109": false,
++                    "110": false,
++                    "111": false,
++                    "112": false,
++                    "113": false,
++                    "114": false,
++                    "115": false,
++                    "116": false,
++                    "117": false,
++                    "118": false,
++                    "119": false,
++                    "120": false,
++                    "121": false,
++                    "122": false,
++                    "123": false,
++                    "124": false,
++                    "125": false,
++                    "126": false,
++                    "127": false,
++                    "128": false,
++                    "129": false,
++                    "130": false,
++                    "132": false,
++                  },
++                  "legitimateInterests": {
++                    "1": false,
++                    "2": true,
++                    "3": false,
++                    "4": false,
++                    "5": false,
++                    "6": false,
++                    "7": false,
++                    "8": false,
++                    "9": false,
++                    "10": false,
++                    "11": false,
++                    "12": false,
++                    "13": false,
++                    "14": false,
++                    "15": false,
++                    "16": false,
++                    "17": false,
++                    "18": false,
++                    "19": false,
++                    "20": false,
++                    "21": false,
++                    "22": false,
++                    "23": false,
++                    "24": false,
++                    "25": false,
++                    "26": false,
++                    "27": false,
++                    "28": false,
++                    "29": false,
++                    "30": false,
++                    "31": false,
++                    "32": false,
++                    "33": false,
++                    "34": false,
++                    "35": false,
++                    "36": false,
++                    "37": false,
++                    "38": false,
++                    "39": false,
++                    "40": false,
++                    "41": false,
++                    "42": false,
++                    "43": false,
++                    "44": false,
++                    "45": false,
++                    "46": false,
++                    "47": false,
++                    "48": false,
++                    "49": false,
++                    "50": false,
++                    "51": false,
++                    "52": false,
++                    "53": false,
++                    "54": false,
++                    "55": false,
++                    "56": false,
++                    "57": false,
++                    "58": false,
++                    "59": false,
++                    "60": false,
++                    "61": false,
++                    "62": false,
++                    "63": false,
++                    "64": false,
++                    "65": false,
++                    "66": false,
++                    "67": false,
++                    "68": false,
++                    "69": false,
++                    "70": false,
++                    "71": false,
++                    "72": false,
++                    "73": false,
++                    "74": false,
++                    "75": false,
++                    "76": false,
++                    "77": false,
++                    "78": false,
++                    "79": false,
++                    "80": false,
++                    "81": false,
++                    "82": false,
++                    "83": false,
++                    "84": false,
++                    "85": false,
++                    "86": false,
++                    "87": false,
++                    "88": false,
++                    "89": false,
++                    "90": false,
++                    "91": false,
++                    "92": false,
++                    "93": false,
++                    "94": false,
++                    "95": false,
++                    "96": false,
++                    "97": false,
++                    "98": true,
++                    "99": false,
++                    "100": false,
++                    "101": false,
++                    "102": false,
++                    "103": false,
++                    "104": false,
++                    "105": false,
++                    "106": false,
++                    "107": false,
++                    "108": false,
++                    "109": false,
++                    "110": false,
++                    "111": false,
++                    "112": false,
++                    "113": false,
++                    "114": false,
++                    "115": false,
++                    "116": false,
++                    "117": false,
++                    "118": false,
++                    "119": false,
++                    "120": false,
++                    "121": false,
++                    "122": false,
++                    "123": false,
++                    "124": false,
++                    "125": false,
++                    "126": false,
++                    "127": false,
++                    "128": false,
++                    "129": false,
++                    "130": false,
++                    "131": false,
++                  }
++                },
++                "specialFeatureOptins": {
++                  "1": false,
++                  "2": false
++                },
++                "restrictions": {},
++                "publisher": {
++                  "consents": {
++                    "1": false,
++                    "2": false,
++                    "3": false,
++                    "4": false,
++                    "5": false,
++                    "6": false,
++                    "7": false,
++                    "8": false,
++                    "9": false,
++                    "10": false
++                  },
++                  "legitimateInterests": {
++                    "1": false,
++                    "2": false,
++                    "3": false,
++                    "4": false,
++                    "5": false,
++                    "6": false,
++                    "7": false,
++                    "8": false,
++                    "9": false,
++                    "10": false
++                  },
++                  "customPurpose": {
++                    "consents": {},
++                    "legitimateInterests": {}
++                  }
++                }
++              }
++            }
++          }
++        }
++      });
++      pbjs.requestBids({
++        bidsBackHandler: sendAdserverRequest,
++        timeout: PREBID_TIMEOUT
++      });
++    });
++
++    function sendAdserverRequest() {
++      if (pbjs.adserverRequestSent) return;
++      pbjs.adserverRequestSent = true;
++      googletag.cmd.push(function () {
++        pbjs.que.push(function () {
++          pbjs.setTargetingForGPTAsync();
++          googletag.pubads().refresh();
++        });
++      });
++    }
++
++    setTimeout(function () {
++      sendAdserverRequest();
++    }, FAILSAFE_TIMEOUT);
++
++  </script>
++
++  <script>
++    googletag.cmd.push(function () {
++      googletag.defineSlot('/19968336/header-bid-tag-0', [[300, 250], [300, 600]], 'div-gpt-ad-1460505748561-0').addService(googletag.pubads());
++
++      googletag.pubads().enableSingleRequest();
++      googletag.enableServices();
++    });
++  </script>
++</head>
++
++<body>
++  <h2>Prebid.js Test</h2>
++  <h5>Div-1</h5>
++  <div id='div-gpt-ad-1460505748561-0'>
++    <script type='text/javascript'>
++      googletag.cmd.push(function () { googletag.display('div-gpt-ad-1460505748561-0'); });
++    </script>
++  </div>
++</body>
++
++</html>
+diff --git a/karma.conf.maker.js b/karma.conf.maker.js
+deleted file mode 100644
+index 290d31aa2a5..00000000000
+--- a/karma.conf.maker.js
++++ /dev/null
+@@ -1,176 +0,0 @@
+-// This configures Karma, describing how to run the tests and where to output code coverage reports.
+-//
+-// For more information, see http://karma-runner.github.io/1.0/config/configuration-file.html
+-
+-var _ = require('lodash');
+-var webpackConf = require('./webpack.conf');
+-var karmaConstants = require('karma').constants;
+-
+-function newWebpackConfig(codeCoverage) {
+-  // Make a clone here because we plan on mutating this object, and don't want parallel tasks to trample each other.
+-  var webpackConfig = _.cloneDeep(webpackConf);
+-
+-  // remove optimize plugin for tests
+-  webpackConfig.plugins.pop()
+-
+-  webpackConfig.devtool = 'inline-source-map';
+-
+-  if (codeCoverage) {
+-    webpackConfig.module.rules.push({
+-      enforce: 'post',
+-      exclude: /(node_modules)|(test)|(integrationExamples)|(build)|polyfill.js|(src\/adapters\/analytics\/ga.js)/,
+-      use: {
+-        loader: 'istanbul-instrumenter-loader',
+-        options: { esModules: true }
+-      },
+-      test: /\.js$/
+-    })
+-  }
+-  return webpackConfig;
+-}
+-
+-function newPluginsArray(browserstack) {
+-  var plugins = [
+-    'karma-chrome-launcher',
+-    'karma-coverage',
+-    'karma-es5-shim',
+-    'karma-mocha',
+-    'karma-chai',
+-    'karma-sinon',
+-    'karma-sourcemap-loader',
+-    'karma-spec-reporter',
+-    'karma-webpack',
+-    'karma-mocha-reporter'
+-  ];
+-  if (browserstack) {
+-    plugins.push('karma-browserstack-launcher');
+-  }
+-  plugins.push('karma-firefox-launcher');
+-  plugins.push('karma-opera-launcher');
+-  plugins.push('karma-safari-launcher');
+-  plugins.push('karma-script-launcher');
+-  plugins.push('karma-ie-launcher');
+-  return plugins;
+-}
+-
+-function setReporters(karmaConf, codeCoverage, browserstack) {
+-  // In browserstack, the default 'progress' reporter floods the logs.
+-  // The karma-spec-reporter reports failures more concisely
+-  if (browserstack) {
+-    karmaConf.reporters = ['spec'];
+-    karmaConf.specReporter = {
+-      maxLogLines: 100,
+-      suppressErrorSummary: false,
+-      suppressSkipped: false,
+-      suppressPassed: true
+-    };
+-  }
+-
+-  if (codeCoverage) {
+-    karmaConf.reporters.push('coverage');
+-    karmaConf.coverageReporter = {
+-      dir: 'build/coverage',
+-      reporters: [
+-        { type: 'lcov', subdir: '.' }
+-      ]
+-    };
+-  }
+-}
+-
+-function setBrowsers(karmaConf, browserstack) {
+-  if (browserstack) {
+-    karmaConf.browserStack = {
+-      username: process.env.BROWSERSTACK_USERNAME,
+-      accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
+-      build: 'Prebidjs Unit Tests ' + new Date().toLocaleString()
+-    }
+-    if (process.env.TRAVIS) {
+-      karmaConf.browserStack.startTunnel = false;
+-      karmaConf.browserStack.tunnelIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER;
+-    }
+-    karmaConf.customLaunchers = require('./browsers.json');
+-    karmaConf.browsers = Object.keys(karmaConf.customLaunchers);
+-  } else {
+-    var isDocker = require('is-docker')();
+-    if (isDocker) {
+-      karmaConf.customLaunchers = karmaConf.customLaunchers || {};
+-      karmaConf.customLaunchers.ChromeCustom = {
+-        base: 'ChromeHeadless',
+-        // We must disable the Chrome sandbox when running Chrome inside Docker (Chrome's sandbox needs
+-        // more permissions than Docker allows by default)
+-        flags: ['--no-sandbox']
+-      }
+-      karmaConf.browsers = ['ChromeCustom'];
+-    } else {
+-      karmaConf.browsers = ['ChromeHeadless'];
+-    }
+-  }
+-}
+-
+-module.exports = function(codeCoverage, browserstack, watchMode, file) {
+-  var webpackConfig = newWebpackConfig(codeCoverage);
+-  var plugins = newPluginsArray(browserstack);
+-
+-  var files = file ? ['test/helpers/prebidGlobal.js', file] : ['test/test_index.js'];
+-  // This file opens the /debug.html tab automatically.
+-  // It has no real value unless you're running --watch, and intend to do some debugging in the browser.
+-  if (watchMode) {
+-    files.push('test/helpers/karma-init.js');
+-  }
+-
+-  var config = {
+-    // base path that will be used to resolve all patterns (eg. files, exclude)
+-    basePath: './',
+-
+-    webpack: webpackConfig,
+-    webpackMiddleware: {
+-      stats: 'errors-only',
+-      noInfo: true
+-    },
+-    // frameworks to use
+-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+-    frameworks: ['es5-shim', 'mocha', 'chai', 'sinon'],
+-
+-    files: files,
+-
+-    // preprocess matching files before serving them to the browser
+-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+-    preprocessors: {
+-      'test/test_index.js': ['webpack', 'sourcemap']
+-    },
+-
+-    // web server port
+-    port: 9876,
+-
+-    // enable / disable colors in the output (reporters and logs)
+-    colors: true,
+-
+-    // level of logging
+-    // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
+-    logLevel: karmaConstants.LOG_INFO,
+-
+-    // enable / disable watching file and executing tests whenever any file changes
+-    autoWatch: true,
+-
+-    reporters: ['mocha'],
+-
+-    mochaReporter: {
+-      showDiff: true,
+-      output: 'minimal'
+-    },
+-
+-    // Continuous Integration mode
+-    // if true, Karma captures browsers, runs the tests and exits
+-    singleRun: !watchMode,
+-    browserDisconnectTimeout: 3e5, // default 2000
+-    browserNoActivityTimeout: 3e5, // default 10000
+-    captureTimeout: 3e5, // default 60000,
+-    browserDisconnectTolerance: 3,
+-    concurrency: 5,
+-
+-    plugins: plugins
+-  }
+-  setReporters(config, codeCoverage, browserstack);
+-  setBrowsers(config, browserstack);
+-  return config;
+-}
+diff --git a/modules/gdprEnforcement.js b/modules/gdprEnforcement.js
+index 0e52787e6b3..40b21db2706 100644
+--- a/modules/gdprEnforcement.js
++++ b/modules/gdprEnforcement.js
+@@ -14,15 +14,18 @@ import { validateStorageEnforcement } from '../src/storageManager.js';
+ import events from '../src/events.js';
+ import { EVENTS } from '../src/constants.json';
+ 
+-const PURPOSE_1 = {
+-  id: 1,
+-  name: 'storage'
++const TCF2 = {
++  'purpose1': { id: 1, name: 'storage' },
++  'purpose2': { id: 2, name: 'basicAds' }
+ }
+ 
+-const PURPOSE_2 = {
+-  id: 2,
+-  name: 'basicAds'
+-}
++const defaultRules = [{
++  purpose: 'storage',
++  enforcePurpose: true
++}, {
++  purpose: 'basicAds',
++  enforcePurpose: true
++}];
+ 
+ let purpose1Rule;
+ let purpose2Rule;
+@@ -47,20 +50,29 @@ function getGvlid(bidderCode) {
+  * This function takes in rules and consentData as input and validates against the consentData provided. If it returns true Prebid will allow the next call else it will log a warning
+  * @param {Object} rule - enforcement rules set in config
+  * @param {Object} consentData - gdpr consent data
+- * @param {number} purposeId - Defines which purpose (1, 2, 7) is under check
+  * @param {string=} currentModule - Bidder code of the current module
+- * @param {number=} gvlid - GVL ID for the module
++ * @param {number=} gvlId - GVL ID for the module
+  * @returns {boolean}
+  */
+-function validateRules(rule, consentData, purposeId, currentModule, gvlid) {
+-  // if vendor has exception => always true
++export function validateRules(rule, consentData, currentModule, gvlId) {
++  const purposeId = TCF2[Object.keys(TCF2).filter(purposeName => TCF2[purposeName].name === rule.purpose)[0]].id;
++
++  // return 'true' if vendor present in 'vendorExceptions'
+   if (includes(rule.vendorExceptions || [], currentModule)) {
+     return true;
+   }
+-  // if enforcePurpose is false or purpose was granted isAllowed is true, otherwise false
+-  const purposeAllowed = rule.enforcePurpose === false || utils.deepAccess(consentData, `vendorData.purpose.consents.${purposeId}`) === true;
+-  // if enforceVendor is false or vendor was granted isAllowed is true, otherwise false
+-  const vendorAllowed = rule.enforceVendor === false || utils.deepAccess(consentData, `vendorData.vendor.consents.${gvlid}`) === true;
++
++  const purposeConsent = utils.deepAccess(consentData, `vendorData.purpose.consents.${purposeId}`);
++  const vendorConsent = utils.deepAccess(consentData, `vendorData.vendor.consents.${gvlId}`);
++  const liTransparency = utils.deepAccess(consentData, `vendorData.purpose.legitimateInterests.${purposeId}`);
++
++  const purposeAllowed = rule.enforcePurpose === false || purposeConsent === true;
++  const vendorAllowed = rule.enforceVendor === false || vendorConsent === true;
++
++  if (purposeId === 2) {
++    return (purposeAllowed && vendorAllowed) || (liTransparency === true);
++  }
++
+   return purposeAllowed && vendorAllowed;
+ }
+ 
+@@ -86,12 +98,12 @@ export function deviceAccessHook(fn, gvlid, moduleName, result) {
+           gvlid = getGvlid();
+         }
+         const curModule = moduleName || config.getCurrentBidder();
+-        let isAllowed = validateRules(purpose1Rule, consentData, PURPOSE_1.id, curModule, gvlid);
++        let isAllowed = validateRules(purpose1Rule, consentData, curModule, gvlid);
+         if (isAllowed) {
+           result.valid = true;
+           fn.call(this, gvlid, moduleName, result);
+         } else {
+-          utils.logWarn(`User denied Permission for Device access for ${curModule}`);
++          curModule && utils.logWarn(`User denied Permission for Device access for ${curModule}`);
+           result.valid = false;
+           fn.call(this, gvlid, moduleName, result);
+         }
+@@ -119,7 +131,7 @@ export function userSyncHook(fn, ...args) {
+       const gvlid = getGvlid();
+       const curBidder = config.getCurrentBidder();
+       if (gvlid) {
+-        let isAllowed = validateRules(purpose1Rule, consentData, PURPOSE_1.id, curBidder, gvlid);
++        let isAllowed = validateRules(purpose1Rule, consentData, curBidder, gvlid);
+         if (isAllowed) {
+           fn.call(this, ...args);
+         } else {
+@@ -150,7 +162,7 @@ export function userIdHook(fn, submodules, consentData) {
+         const gvlid = submodule.submodule.gvlid;
+         const moduleName = submodule.submodule.name;
+         if (gvlid) {
+-          let isAllowed = validateRules(purpose1Rule, consentData, PURPOSE_1.id, moduleName, gvlid);
++          let isAllowed = validateRules(purpose1Rule, consentData, moduleName, gvlid);
+           if (isAllowed) {
+             return submodule;
+           } else {
+@@ -187,7 +199,7 @@ export function makeBidRequestsHook(fn, adUnits, ...args) {
+           const currBidder = bid.bidder;
+           const gvlId = getGvlid(currBidder);
+           if (includes(disabledBidders, currBidder)) return false;
+-          const isAllowed = gvlId && validateRules(purpose2Rule, consentData, PURPOSE_2.id, currBidder, gvlId);
++          const isAllowed = gvlId && validateRules(purpose2Rule, consentData, currBidder, gvlId);
+           if (!isAllowed) {
+             utils.logWarn(`User blocked bidder: ${currBidder}. No bid request will be sent to their endpoint.`);
+             events.emit(EVENTS.BIDDER_BLOCKED, currBidder);
+@@ -206,8 +218,8 @@ export function makeBidRequestsHook(fn, adUnits, ...args) {
+   }
+ }
+ 
+-const hasPurpose1 = (rule) => { return rule.purpose === PURPOSE_1.name }
+-const hasPurpose2 = (rule) => { return rule.purpose === PURPOSE_2.name }
++const hasPurpose1 = (rule) => { return rule.purpose === TCF2.purpose1.name }
++const hasPurpose2 = (rule) => { return rule.purpose === TCF2.purpose2.name }
+ 
+ /**
+  * A configuration function that initializes some module variables, as well as add hooks
+@@ -216,11 +228,12 @@ const hasPurpose2 = (rule) => { return rule.purpose === PURPOSE_2.name }
+ export function setEnforcementConfig(config) {
+   const rules = utils.deepAccess(config, 'gdpr.rules');
+   if (!rules) {
+-    utils.logWarn('GDPR enforcement rules not defined, exiting enforcement module');
+-    return;
++    utils.logWarn('GDPR enforcement rules not defined, enforcing purpose1 and purpose2 by default');
++    enforcementRules = defaultRules;
++  } else {
++    enforcementRules = rules;
+   }
+ 
+-  enforcementRules = rules;
+   purpose1Rule = find(enforcementRules, hasPurpose1);
+   purpose2Rule = find(enforcementRules, hasPurpose2);
+ 
+
+From 859d7823f788b03bc6aad1baabcd88a513fea72e Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Thu, 4 Jun 2020 18:47:25 +0530
+Subject: [PATCH 09/13] add extra tests
+
+---
+ modules/gdprEnforcement.js                | 24 +++++++++++++----------
+ test/spec/modules/gdprEnforcement_spec.js | 16 +++++++++++----
+ 2 files changed, 26 insertions(+), 14 deletions(-)
+
+diff --git a/modules/gdprEnforcement.js b/modules/gdprEnforcement.js
+index 40b21db2706..6468e1484f0 100644
+--- a/modules/gdprEnforcement.js
++++ b/modules/gdprEnforcement.js
+@@ -19,12 +19,16 @@ const TCF2 = {
+   'purpose2': { id: 2, name: 'basicAds' }
+ }
+ 
+-const defaultRules = [{
++const DEFAULT_RULES = [{
+   purpose: 'storage',
+-  enforcePurpose: true
++  enforcePurpose: true,
++  enforceVendor: true,
++  vendorExceptions: []
+ }, {
+   purpose: 'basicAds',
+-  enforcePurpose: true
++  enforcePurpose: true,
++  enforceVendor: true,
++  vendorExceptions: []
+ }];
+ 
+ let purpose1Rule;
+@@ -47,7 +51,7 @@ function getGvlid(bidderCode) {
+ }
+ 
+ /**
+- * This function takes in rules and consentData as input and validates against the consentData provided. If it returns true Prebid will allow the next call else it will log a warning
++ * This function takes in a rule and consentData and validates against the consentData provided. If it returns true Prebid will allow the next call else it will log a warning
+  * @param {Object} rule - enforcement rules set in config
+  * @param {Object} consentData - gdpr consent data
+  * @param {string=} currentModule - Bidder code of the current module
+@@ -173,7 +177,7 @@ export function userIdHook(fn, submodules, consentData) {
+         }
+         return undefined;
+       }).filter(module => module)
+-      fn.call(this, userIdModules, consentData);
++      fn.call(this, userIdModules, {...consentData, hasValidated: true});
+     } else {
+       utils.logInfo('Enforcing TCF2 only');
+       fn.call(this, submodules, consentData);
+@@ -184,8 +188,8 @@ export function userIdHook(fn, submodules, consentData) {
+ }
+ 
+ /**
+- * Checks if the bidder is given consent. If yes, bid adapter is allowed to send ajax request to their endpoint, else, no request
+- * is sent. Enforces "purpose 2 (basic ads)" of TCF v2.0 spec
++ * Checks if a bidder is allowed. If it's not allowed, the bidder adapter won't send request to the endpoint.
++ * Enforces "purpose 2 (basic ads)" of TCF v2.0 spec
+  * @param {Function} fn - Function reference to the original function.
+  * @param {Array<adUnits>} adUnits
+  */
+@@ -228,8 +232,8 @@ const hasPurpose2 = (rule) => { return rule.purpose === TCF2.purpose2.name }
+ export function setEnforcementConfig(config) {
+   const rules = utils.deepAccess(config, 'gdpr.rules');
+   if (!rules) {
+-    utils.logWarn('GDPR enforcement rules not defined, enforcing purpose1 and purpose2 by default');
+-    enforcementRules = defaultRules;
++    utils.logWarn('GDPR enforcement rules not defined, enforcing TCF2 Purpose 1 and Purpose 2');
++    enforcementRules = DEFAULT_RULES;
+   } else {
+     enforcementRules = rules;
+   }
+@@ -245,7 +249,7 @@ export function setEnforcementConfig(config) {
+     getHook('validateGdprEnforcement').before(userIdHook, 47);
+   }
+   if (purpose2Rule) {
+-    adapterManager.makeBidRequests.before(makeBidRequestsHook);
++    getHook('makeBidRequests').before(makeBidRequestsHook);
+   }
+ }
+ 
+diff --git a/test/spec/modules/gdprEnforcement_spec.js b/test/spec/modules/gdprEnforcement_spec.js
+index 7f6722ed675..c6bcb12d442 100644
+--- a/test/spec/modules/gdprEnforcement_spec.js
++++ b/test/spec/modules/gdprEnforcement_spec.js
+@@ -9,7 +9,7 @@ import { executeStorageCallbacks } from 'src/prebid.js';
+ import events from 'src/events.js';
+ import { EVENTS } from 'src/constants.json';
+ 
+-describe.skip('gdpr enforcement', function () {
++describe('gdpr enforcement', function () {
+   let nextFnSpy;
+   let logWarnSpy;
+   let gdprDataHandlerStub;
+@@ -369,7 +369,11 @@ describe.skip('gdpr enforcement', function () {
+         }
+       }]
+       userIdHook(nextFnSpy, submodules, consentData);
++      // Should pass back hasValidated flag since version 2
++      const args = nextFnSpy.getCalls()[0].args;
++      expect(args[1].hasValidated).to.be.true;
+       expect(nextFnSpy.calledOnce).to.equal(true);
++      sinon.assert.calledWith(nextFnSpy, submodules, {...consentData, hasValidated: true});
+     });
+ 
+     it('should allow userId module if gdpr not in scope', function () {
+@@ -381,6 +385,9 @@ describe.skip('gdpr enforcement', function () {
+       }];
+       let consentData = null;
+       userIdHook(nextFnSpy, submodules, consentData);
++      // Should not pass back hasValidated flag since version 2
++      const args = nextFnSpy.getCalls()[0].args;
++      expect(args[1]).to.be.null;
+       expect(nextFnSpy.calledOnce).to.equal(true);
+       sinon.assert.calledWith(nextFnSpy, submodules, consentData);
+     });
+@@ -400,6 +407,7 @@ describe.skip('gdpr enforcement', function () {
+       consentData.vendorData = staticConfig.consentData.getTCData;
+       consentData.apiVersion = 2;
+       consentData.gdprApplies = true;
++
+       let submodules = [{
+         submodule: {
+           gvlid: 1,
+@@ -419,7 +427,7 @@ describe.skip('gdpr enforcement', function () {
+           name: 'sampleUserId'
+         }
+       }]
+-      sinon.assert.calledWith(nextFnSpy, expectedSubmodules, consentData);
++      sinon.assert.calledWith(nextFnSpy, expectedSubmodules, {...consentData, hasValidated: true});
+     });
+   });
+ 
+@@ -458,7 +466,7 @@ describe.skip('gdpr enforcement', function () {
+       config.resetConfig();
+       sandbox.restore();
+     });
+-    it.skip('should block bidder which does not have consent and allow bidder which has consent', function () {
++    it('should block bidder which does not have consent and allow bidder which has consent', function () {
+       setEnforcementConfig({
+         gdpr: {
+           rules: [{
+@@ -708,7 +716,7 @@ describe.skip('gdpr enforcement', function () {
+         expect(isAllowed).to.equal(false);
+       });
+ 
+-      it('should return true when (enforcePurpose=false AND enforceVendor[p,v]===true AND vendorConsent[v]===true) OR (purposesLITransparency[p]===true)', function() {
++      it('should return true when (enforcePurpose=false AND enforceVendor[p,v]===true AND vendorConsent[v]===true) OR (purposesLITransparency[p]===true)', function () {
+         // 'enforcePurpose' is 'false' and 'enforceVendor' is 'true'
+         const gdprRule = createGdprRule('basicAds', false, true, []);
+ 
+
+From 1a0f5a7baa2b645f186430b1f2fd0dba0e8ac9c3 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Thu, 4 Jun 2020 19:46:38 +0530
+Subject: [PATCH 10/13] make failing unit test case pass
+
+---
+ test/spec/modules/gdprEnforcement_spec.js | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/test/spec/modules/gdprEnforcement_spec.js b/test/spec/modules/gdprEnforcement_spec.js
+index c6bcb12d442..419523b2f52 100644
+--- a/test/spec/modules/gdprEnforcement_spec.js
++++ b/test/spec/modules/gdprEnforcement_spec.js
+@@ -431,7 +431,7 @@ describe('gdpr enforcement', function () {
+     });
+   });
+ 
+-  describe.skip('makeBidRequestsHook', function () {
++  describe('makeBidRequestsHook', function () {
+     let sandbox;
+     let adapterManagerStub;
+     let emitEventSpy;
+@@ -442,7 +442,7 @@ describe('gdpr enforcement', function () {
+       bids: [{
+         bidder: 'bidder_1' // has consent
+       }, {
+-        bidder: 'bidder_2' // doesn't have consent
++        bidder: 'bidder_2' // doesn't have consent, but liTransparency is true. Bidder remains active.
+       }]
+     }, {
+       code: 'ad-unit-2',
+@@ -506,17 +506,19 @@ describe('gdpr enforcement', function () {
+         code: 'ad-unit-1',
+         mediaTypes: {},
+         bids: [
+-          sinon.match({ bidder: 'bidder_1' })
++          sinon.match({ bidder: 'bidder_1' }),
++          sinon.match({ bidder: 'bidder_2' })
+         ]
+       }, {
+         code: 'ad-unit-2',
+         mediaTypes: {},
+-        bids: []
++        bids: [
++          sinon.match({ bidder: 'bidder_2' })
++        ]
+       }], []);
+-      expect(emitEventSpy.calledTwice).to.equal(true);
+-      expect(logWarnSpy.calledTwice).to.equal(true);
+-      sinon.assert.calledWith(emitEventSpy.firstCall, EVENTS.BIDDER_BLOCKED, 'bidder_2');
+-      sinon.assert.calledWith(emitEventSpy.secondCall, EVENTS.BIDDER_BLOCKED, 'bidder_3');
++      expect(emitEventSpy.calledOnce).to.equal(true);
++      expect(logWarnSpy.calledOnce).to.equal(true);
++      sinon.assert.calledWith(emitEventSpy, EVENTS.BIDDER_BLOCKED, 'bidder_3');
+     });
+ 
+     it('should skip validation checks if GDPR version is not equal to "2"', function () {
+
+From ae9a237f33e937a8ff321091bcb8fd78b95ff92e Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Fri, 5 Jun 2020 17:34:25 +0530
+Subject: [PATCH 11/13] deprecate allowAuctionWithouConsent with tcf 2 workflow
+
+---
+ modules/consentManagement.js                | 22 ++++++---
+ test/spec/modules/consentManagement_spec.js | 52 ++++++++-------------
+ 2 files changed, 35 insertions(+), 39 deletions(-)
+
+diff --git a/modules/consentManagement.js b/modules/consentManagement.js
+index 53e97006bd1..fcf16f161f2 100644
+--- a/modules/consentManagement.js
++++ b/modules/consentManagement.js
+@@ -14,9 +14,12 @@ const DEFAULT_CMP = 'iab';
+ const DEFAULT_CONSENT_TIMEOUT = 10000;
+ const DEFAULT_ALLOW_AUCTION_WO_CONSENT = true;
+ 
++export const allowAuction = {
++  value: DEFAULT_ALLOW_AUCTION_WO_CONSENT,
++  definedInConfig: false
++}
+ export let userCMP;
+ export let consentTimeout;
+-export let allowAuction;
+ export let gdprScope;
+ export let staticConsentData;
+ 
+@@ -322,6 +325,13 @@ function processCmpData(consentObject, hookConfig) {
+   // determine which set of checks to run based on cmpVersion
+   let checkFn = (cmpVersion === 1) ? checkV1Data : (cmpVersion === 2) ? checkV2Data : null;
+ 
++  // Raise deprecation warning if 'allowAuctionWithoutConsent' is used with TCF 2.
++  if (allowAuction.definedInConfig && cmpVersion === 2) {
++    utils.logWarn(`consentManagement config is using deprecated property 'allowAuctionWithoutConsent' with TCF 2 setup. This property only works with TCF 1.1`);
++  } else if (!allowAuction.definedInConfig && cmpVersion === 1) {
++    utils.logInfo(`consentManagement config did not specify allowAuctionWithoutConsent.  Using system default setting (${DEFAULT_ALLOW_AUCTION_WO_CONSENT}).`);
++  }
++
+   if (utils.isFn(checkFn)) {
+     if (checkFn(consentObject)) {
+       cmpFailed(`CMP returned unexpected value during lookup process.`, hookConfig, consentObject);
+@@ -352,7 +362,7 @@ function cmpFailed(errMsg, hookConfig, extraArgs) {
+   clearTimeout(hookConfig.timer);
+ 
+   // still set the consentData to undefined when there is a problem as per config options
+-  if (allowAuction) {
++  if (allowAuction.value && cmpVersion === 1) {
+     storeConsentData(undefined);
+   }
+   exitModule(errMsg, hookConfig, extraArgs);
+@@ -406,7 +416,7 @@ function exitModule(errMsg, hookConfig, extraArgs) {
+     let nextFn = hookConfig.nextFn;
+ 
+     if (errMsg) {
+-      if (allowAuction) {
++      if (allowAuction.value && cmpVersion === 1) {
+         utils.logWarn(errMsg + ' Resuming auction without consent data as per consentManagement config.', extraArgs);
+         nextFn.apply(context, args);
+       } else {
+@@ -460,10 +470,8 @@ export function setConsentConfig(config) {
+   }
+ 
+   if (typeof config.allowAuctionWithoutConsent === 'boolean') {
+-    allowAuction = config.allowAuctionWithoutConsent;
+-  } else {
+-    allowAuction = DEFAULT_ALLOW_AUCTION_WO_CONSENT;
+-    utils.logInfo(`consentManagement config did not specify allowAuctionWithoutConsent.  Using system default setting (${DEFAULT_ALLOW_AUCTION_WO_CONSENT}).`);
++    allowAuction.value = config.allowAuctionWithoutConsent;
++    allowAuction.definedInConfig = true;
+   }
+ 
+   // if true, then gdprApplies should be set to true
+diff --git a/test/spec/modules/consentManagement_spec.js b/test/spec/modules/consentManagement_spec.js
+index c4f6fe70dd1..3ebebfef1ee 100644
+--- a/test/spec/modules/consentManagement_spec.js
++++ b/test/spec/modules/consentManagement_spec.js
+@@ -24,9 +24,8 @@ describe('consentManagement', function () {
+         setConsentConfig({});
+         expect(userCMP).to.be.equal('iab');
+         expect(consentTimeout).to.be.equal(10000);
+-        expect(allowAuction).to.be.true;
+         expect(gdprScope).to.be.equal(false);
+-        sinon.assert.callCount(utils.logInfo, 4);
++        sinon.assert.callCount(utils.logInfo, 3);
+       });
+ 
+       it('should exit consent manager if config is not an object', function () {
+@@ -58,7 +57,10 @@ describe('consentManagement', function () {
+         setConsentConfig(allConfig);
+         expect(userCMP).to.be.equal('iab');
+         expect(consentTimeout).to.be.equal(7500);
+-        expect(allowAuction).to.be.false;
++        expect(allowAuction).to.deep.equal({
++          value: false,
++          definedInConfig: true
++        });
+         expect(gdprScope).to.be.true;
+       });
+ 
+@@ -110,7 +112,10 @@ describe('consentManagement', function () {
+ 
+         expect(userCMP).to.be.equal('iab');
+         expect(consentTimeout).to.be.equal(3333);
+-        expect(allowAuction).to.be.equal(false);
++        expect(allowAuction).to.deep.equal({
++          value: false,
++          definedInConfig: true
++        });
+         expect(gdprScope).to.be.equal(false);
+       });
+     });
+@@ -164,7 +169,10 @@ describe('consentManagement', function () {
+         setConsentConfig(staticConfig);
+         expect(userCMP).to.be.equal('static');
+         expect(consentTimeout).to.be.equal(0); // should always return without a timeout when config is used
+-        expect(allowAuction).to.be.false;
++        expect(allowAuction).to.deep.equal({
++          value: false,
++          definedInConfig: true
++        });
+         expect(staticConsentData).to.be.equal(staticConfig.consentData);
+       });
+ 
+@@ -244,7 +252,10 @@ describe('consentManagement', function () {
+         setConsentConfig(staticConfig);
+         expect(userCMP).to.be.equal('static');
+         expect(consentTimeout).to.be.equal(0); // should always return without a timeout when config is used
+-        expect(allowAuction).to.be.false;
++        expect(allowAuction).to.deep.equal({
++          value: false,
++          definedInConfig: true
++        });
+         expect(gdprScope).to.be.equal(false);
+         expect(staticConsentData).to.be.equal(staticConfig.consentData);
+       });
+@@ -423,7 +434,6 @@ describe('consentManagement', function () {
+           setConsentConfig(goodConfigWithAllowAuction);
+           requestBidsHook(() => {
+             let consent = gdprDataHandler.getConsentData();
+-            sinon.assert.notCalled(utils.logWarn);
+             sinon.assert.notCalled(utils.logError);
+             expect(consent.consentString).to.equal(tarConsentString);
+             expect(consent.gdprApplies).to.be.true;
+@@ -626,7 +636,6 @@ describe('consentManagement', function () {
+             didHookReturn = true;
+           }, {});
+           let consent = gdprDataHandler.getConsentData();
+-          sinon.assert.notCalled(utils.logWarn);
+           sinon.assert.notCalled(utils.logError);
+           expect(didHookReturn).to.be.true;
+           expect(consent.consentString).to.equal(testConsentData.tcString);
+@@ -634,7 +643,7 @@ describe('consentManagement', function () {
+           expect(consent.apiVersion).to.equal(2);
+         });
+ 
+-        it('throws an error when processCmpData check failed while config had allowAuction set to false', function () {
++        it('throws an error when processCmpData check fails + does not call requestBids callbcack even when allowAuction is true', function () {
+           let testConsentData = {};
+           let bidsBackHandlerReturn = false;
+ 
+@@ -642,7 +651,7 @@ describe('consentManagement', function () {
+             args[2](testConsentData);
+           });
+ 
+-          setConsentConfig(goodConfigWithCancelAuction);
++          setConsentConfig(goodConfigWithAllowAuction);
+ 
+           requestBidsHook(() => {
+             didHookReturn = true;
+@@ -650,6 +659,7 @@ describe('consentManagement', function () {
+           let consent = gdprDataHandler.getConsentData();
+ 
+           sinon.assert.calledOnce(utils.logError);
++          sinon.assert.notCalled(utils.logWarn);
+           expect(didHookReturn).to.be.false;
+           expect(bidsBackHandlerReturn).to.be.true;
+           expect(consent).to.be.null;
+@@ -676,34 +686,12 @@ describe('consentManagement', function () {
+             didHookReturn = true;
+           }, {});
+           let consent = gdprDataHandler.getConsentData();
+-          sinon.assert.notCalled(utils.logWarn);
+           sinon.assert.notCalled(utils.logError);
+           expect(didHookReturn).to.be.true;
+           expect(consent.consentString).to.equal(testConsentData.tcString);
+           expect(consent.gdprApplies).to.be.true;
+           expect(consent.apiVersion).to.equal(2);
+         });
+-
+-        it('throws a warning + stores consentData + calls callback when processCmpData check failed while config had allowAuction set to true', function () {
+-          let testConsentData = {};
+-
+-          cmpStub = sinon.stub(window, '__tcfapi').callsFake((...args) => {
+-            args[2](testConsentData);
+-          });
+-
+-          setConsentConfig(goodConfigWithAllowAuction);
+-
+-          requestBidsHook(() => {
+-            didHookReturn = true;
+-          }, {});
+-          let consent = gdprDataHandler.getConsentData();
+-
+-          sinon.assert.calledOnce(utils.logWarn);
+-          expect(didHookReturn).to.be.true;
+-          expect(consent.consentString).to.be.undefined;
+-          expect(consent.gdprApplies).to.be.false;
+-          expect(consent.apiVersion).to.equal(2);
+-        });
+       });
+     });
+   });
+
+From 82e80a8df5ee39f148850f994a3df7b4a568c319 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Fri, 5 Jun 2020 17:35:10 +0530
+Subject: [PATCH 12/13] add extra checks for defaults
+
+---
+ modules/gdprEnforcement.js | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/modules/gdprEnforcement.js b/modules/gdprEnforcement.js
+index 6468e1484f0..7839c92e952 100644
+--- a/modules/gdprEnforcement.js
++++ b/modules/gdprEnforcement.js
+@@ -188,7 +188,7 @@ export function userIdHook(fn, submodules, consentData) {
+ }
+ 
+ /**
+- * Checks if a bidder is allowed. If it's not allowed, the bidder adapter won't send request to the endpoint.
++ * Checks if a bidder is allowed. If it's not allowed, the bidder adapter won't send request to their endpoint.
+  * Enforces "purpose 2 (basic ads)" of TCF v2.0 spec
+  * @param {Function} fn - Function reference to the original function.
+  * @param {Array<adUnits>} adUnits
+@@ -226,7 +226,7 @@ const hasPurpose1 = (rule) => { return rule.purpose === TCF2.purpose1.name }
+ const hasPurpose2 = (rule) => { return rule.purpose === TCF2.purpose2.name }
+ 
+ /**
+- * A configuration function that initializes some module variables, as well as add hooks
++ * A configuration function that initializes some module variables, as well as adds hooks
+  * @param {Object} config - GDPR enforcement config object
+  */
+ export function setEnforcementConfig(config) {
+@@ -241,6 +241,14 @@ export function setEnforcementConfig(config) {
+   purpose1Rule = find(enforcementRules, hasPurpose1);
+   purpose2Rule = find(enforcementRules, hasPurpose2);
+ 
++  if (!purpose1Rule) {
++    purpose1Rule = DEFAULT_RULES[0];
++  }
++
++  if (!purpose2Rule) {
++    purpose2Rule = DEFAULT_RULES[1];
++  }
++
+   if (purpose1Rule && !addedDeviceAccessHook) {
+     addedDeviceAccessHook = true;
+     validateStorageEnforcement.before(deviceAccessHook, 49);
+
+From 5311bac326b940e0db8258eafc95b9f5be867818 Mon Sep 17 00:00:00 2001
+From: Neelanjan Sen <neelanjan.sen@gmail.com>
+Date: Fri, 5 Jun 2020 17:39:26 +0530
+Subject: [PATCH 13/13] remove tcf 2 test page
+
+---
+ integrationExamples/gpt/tcf2-test-page.html | 481 --------------------
+ 1 file changed, 481 deletions(-)
+ delete mode 100644 integrationExamples/gpt/tcf2-test-page.html
+
+diff --git a/integrationExamples/gpt/tcf2-test-page.html b/integrationExamples/gpt/tcf2-test-page.html
+deleted file mode 100644
+index 2850b5307b1..00000000000
+--- a/integrationExamples/gpt/tcf2-test-page.html
++++ /dev/null
+@@ -1,481 +0,0 @@
+-<!--
+-  This page calls a single bidder for a single ad slot. It can be considered a "hello world" example for using
+-  Prebid with the Google Publisher Tag.
+-  It also makes a good test page for new adapter PR submissions. Simply set your server's Bid Params object in the
+-  bids array inside the adUnits, and it will use your adapter to load an ad.
+-  NOTE that many ad servers won't send back an ad if the URL is localhost... so you might need to
+-  set an alias in your /etc/hosts file so that you can load this page from a different domain.
+--->
+-
+-<html>
+-<head>
+-  <script async src="../../build/dev/prebid.js"></script>
+-  <script async src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+-  <script>
+-    var FAILSAFE_TIMEOUT = 3300;
+-    var PREBID_TIMEOUT = 1000;
+-
+-    var adUnits = [{
+-      code: 'div-gpt-ad-1460505748561-0',
+-      mediaTypes: {
+-        banner: {
+-          sizes: [[300, 250], [300, 600]],
+-        }
+-      },
+-      // Replace this object to test a new Adapter!
+-      bids: [{
+-        bidder: 'appnexus',
+-        params: {
+-          placementId: 13144370
+-        }
+-      },{
+-                       bidder: "rubicon",
+-                       params: {
+-                           accountId: 14062,
+-                           siteId: 70608,
+-                           zoneId: 498816
+-                       }
+-                   }]
+-
+-    }];
+-
+-    var pbjs = pbjs || {};
+-    pbjs.que = pbjs.que || [];
+-
+-  </script>
+-
+-  <script>
+-    var googletag = googletag || {};
+-    googletag.cmd = googletag.cmd || [];
+-    googletag.cmd.push(function () {
+-      googletag.pubads().disableInitialLoad();
+-    });
+-
+-    pbjs.que.push(function () {
+-      pbjs.addAdUnits(adUnits);
+-      pbjs.setConfig({
+-        userSync: {	
+-          userIds: [{	
+-            name: "id5Id",	
+-            params: {	
+-              partner: 173             // change to the Partner Number you received from ID5	
+-            },	
+-            storage: {	
+-              type: "cookie",	
+-              name: "pbjs-id5id",      // create a cookie with this name	
+-              expires: 90,             // cookie lasts for 90 days	
+-              refreshInSeconds: 8*3600 // refresh ID every 8 hours to ensure it's fresh	
+-            }	
+-          }],	
+-          syncDelay: 1000              // 1 second after the first bidRequest()	
+-        },
+-        debug: true,
+-        consentManagement: {
+-          gdpr: {
+-            cmpApi: 'static',
+-            // allowAuctionWithoutConsent: true,
+-						timeout: 5000,
+-						rules: [{
+-							purpose: 'basicAds',
+-							enforcePurpose: true
+-						}, {
+-							purpose: 'storage',
+-							enforcePurpose: true,
+-							enforceVendor: true
+-						}],
+-            consentData: {
+-              getTCData: {
+-                "tcString": "COuqj-POu90rDBcBkBENAZCgAPzAAAPAACiQFwwBAABAA1ADEAbQC4YAYAAgAxAG0A",
+-                "cmpId": 92,
+-                "cmpVersion": 100,
+-                "tcfPolicyVersion": 2,
+-                "gdprApplies": true,
+-                "isServiceSpecific": true,
+-                "useNonStandardStacks": false,
+-                "purposeOneTreatment": false,
+-                "publisherCC": "US",
+-                "cmpStatus": "loaded",
+-                "eventStatus": "tcloaded",
+-                "outOfBand": {
+-                  "allowedVendors": {},
+-                  "discloseVendors": {}
+-                },
+-                "purpose": {
+-                  "consents": {
+-                    "1": true,
+-                    "2": false,
+-                    "3": true,
+-                    "4": true,
+-                    "5": true,
+-                    "6": true,
+-                    "7": false,
+-                    "8": false,
+-                    "9": true,
+-                    "10": true
+-                  },
+-                  "legitimateInterests": {
+-                    "1": false,
+-                    "2": true,
+-                    "3": false,
+-                    "4": false,
+-                    "5": false,
+-                    "6": false,
+-                    "7": true,
+-                    "8": true,
+-                    "9": true,
+-                    "10": true
+-                  }
+-                },
+-                "vendor": {
+-                  "consents": {
+-                    "131": true,
+-                    "32": false,
+-                    "52": true,
+-                    "1": false,
+-                    "2": true,
+-                    "3": false,
+-                    "4": false,
+-                    "5": false,
+-                    "6": false,
+-                    "7": false,
+-                    "8": false,
+-                    "9": false,
+-                    "10": false,
+-                    "11": false,
+-                    "12": false,
+-                    "13": false,
+-                    "14": false,
+-                    "15": false,
+-                    "16": false,
+-                    "17": false,
+-                    "18": false,
+-                    "19": false,
+-                    "20": false,
+-                    "21": false,
+-                    "22": false,
+-                    "23": false,
+-                    "24": false,
+-                    "25": false,
+-                    "26": false,
+-                    "27": false,
+-                    "28": false,
+-                    "29": false,
+-                    "30": false,
+-                    "31": false,
+-                    "33": false,
+-                    "34": false,
+-                    "35": false,
+-                    "36": false,
+-                    "37": false,
+-                    "38": false,
+-                    "39": false,
+-                    "40": false,
+-                    "41": false,
+-                    "42": false,
+-                    "43": false,
+-                    "44": false,
+-                    "45": false,
+-                    "46": false,
+-                    "47": false,
+-                    "48": false,
+-                    "49": false,
+-                    "50": false,
+-                    "51": false,
+-                    "53": true,
+-                    "54": false,
+-                    "55": false,
+-                    "56": false,
+-                    "57": false,
+-                    "58": false,
+-                    "59": false,
+-                    "60": false,
+-                    "61": false,
+-                    "62": false,
+-                    "63": false,
+-                    "64": false,
+-                    "65": false,
+-                    "66": false,
+-                    "67": false,
+-                    "68": false,
+-                    "69": false,
+-                    "70": false,
+-                    "71": false,
+-                    "72": false,
+-                    "73": false,
+-                    "74": false,
+-                    "75": false,
+-                    "76": false,
+-                    "77": false,
+-                    "78": false,
+-                    "79": false,
+-                    "80": false,
+-                    "81": false,
+-                    "82": false,
+-                    "83": false,
+-                    "84": false,
+-                    "85": false,
+-                    "86": false,
+-                    "87": false,
+-                    "88": false,
+-                    "89": false,
+-                    "90": false,
+-                    "91": false,
+-                    "92": false,
+-                    "93": false,
+-                    "94": false,
+-                    "95": false,
+-                    "96": false,
+-                    "97": false,
+-                    "98": true,
+-                    "99": false,
+-                    "100": false,
+-                    "101": false,
+-                    "102": false,
+-                    "103": false,
+-                    "104": false,
+-                    "105": false,
+-                    "106": false,
+-                    "107": false,
+-                    "108": false,
+-                    "109": false,
+-                    "110": false,
+-                    "111": false,
+-                    "112": false,
+-                    "113": false,
+-                    "114": false,
+-                    "115": false,
+-                    "116": false,
+-                    "117": false,
+-                    "118": false,
+-                    "119": false,
+-                    "120": false,
+-                    "121": false,
+-                    "122": false,
+-                    "123": false,
+-                    "124": false,
+-                    "125": false,
+-                    "126": false,
+-                    "127": false,
+-                    "128": false,
+-                    "129": false,
+-                    "130": false,
+-                    "132": false,
+-                  },
+-                  "legitimateInterests": {
+-                    "1": false,
+-                    "2": true,
+-                    "3": false,
+-                    "4": false,
+-                    "5": false,
+-                    "6": false,
+-                    "7": false,
+-                    "8": false,
+-                    "9": false,
+-                    "10": false,
+-                    "11": false,
+-                    "12": false,
+-                    "13": false,
+-                    "14": false,
+-                    "15": false,
+-                    "16": false,
+-                    "17": false,
+-                    "18": false,
+-                    "19": false,
+-                    "20": false,
+-                    "21": false,
+-                    "22": false,
+-                    "23": false,
+-                    "24": false,
+-                    "25": false,
+-                    "26": false,
+-                    "27": false,
+-                    "28": false,
+-                    "29": false,
+-                    "30": false,
+-                    "31": false,
+-                    "32": false,
+-                    "33": false,
+-                    "34": false,
+-                    "35": false,
+-                    "36": false,
+-                    "37": false,
+-                    "38": false,
+-                    "39": false,
+-                    "40": false,
+-                    "41": false,
+-                    "42": false,
+-                    "43": false,
+-                    "44": false,
+-                    "45": false,
+-                    "46": false,
+-                    "47": false,
+-                    "48": false,
+-                    "49": false,
+-                    "50": false,
+-                    "51": false,
+-                    "52": false,
+-                    "53": false,
+-                    "54": false,
+-                    "55": false,
+-                    "56": false,
+-                    "57": false,
+-                    "58": false,
+-                    "59": false,
+-                    "60": false,
+-                    "61": false,
+-                    "62": false,
+-                    "63": false,
+-                    "64": false,
+-                    "65": false,
+-                    "66": false,
+-                    "67": false,
+-                    "68": false,
+-                    "69": false,
+-                    "70": false,
+-                    "71": false,
+-                    "72": false,
+-                    "73": false,
+-                    "74": false,
+-                    "75": false,
+-                    "76": false,
+-                    "77": false,
+-                    "78": false,
+-                    "79": false,
+-                    "80": false,
+-                    "81": false,
+-                    "82": false,
+-                    "83": false,
+-                    "84": false,
+-                    "85": false,
+-                    "86": false,
+-                    "87": false,
+-                    "88": false,
+-                    "89": false,
+-                    "90": false,
+-                    "91": false,
+-                    "92": false,
+-                    "93": false,
+-                    "94": false,
+-                    "95": false,
+-                    "96": false,
+-                    "97": false,
+-                    "98": true,
+-                    "99": false,
+-                    "100": false,
+-                    "101": false,
+-                    "102": false,
+-                    "103": false,
+-                    "104": false,
+-                    "105": false,
+-                    "106": false,
+-                    "107": false,
+-                    "108": false,
+-                    "109": false,
+-                    "110": false,
+-                    "111": false,
+-                    "112": false,
+-                    "113": false,
+-                    "114": false,
+-                    "115": false,
+-                    "116": false,
+-                    "117": false,
+-                    "118": false,
+-                    "119": false,
+-                    "120": false,
+-                    "121": false,
+-                    "122": false,
+-                    "123": false,
+-                    "124": false,
+-                    "125": false,
+-                    "126": false,
+-                    "127": false,
+-                    "128": false,
+-                    "129": false,
+-                    "130": false,
+-                    "131": false,
+-                  }
+-                },
+-                "specialFeatureOptins": {
+-                  "1": false,
+-                  "2": false
+-                },
+-                "restrictions": {},
+-                "publisher": {
+-                  "consents": {
+-                    "1": false,
+-                    "2": false,
+-                    "3": false,
+-                    "4": false,
+-                    "5": false,
+-                    "6": false,
+-                    "7": false,
+-                    "8": false,
+-                    "9": false,
+-                    "10": false
+-                  },
+-                  "legitimateInterests": {
+-                    "1": false,
+-                    "2": false,
+-                    "3": false,
+-                    "4": false,
+-                    "5": false,
+-                    "6": false,
+-                    "7": false,
+-                    "8": false,
+-                    "9": false,
+-                    "10": false
+-                  },
+-                  "customPurpose": {
+-                    "consents": {},
+-                    "legitimateInterests": {}
+-                  }
+-                }
+-              }
+-            }
+-          }
+-        }
+-      });
+-      pbjs.requestBids({
+-        bidsBackHandler: sendAdserverRequest,
+-        timeout: PREBID_TIMEOUT
+-      });
+-    });
+-
+-    function sendAdserverRequest() {
+-      if (pbjs.adserverRequestSent) return;
+-      pbjs.adserverRequestSent = true;
+-      googletag.cmd.push(function () {
+-        pbjs.que.push(function () {
+-          pbjs.setTargetingForGPTAsync();
+-          googletag.pubads().refresh();
+-        });
+-      });
+-    }
+-
+-    setTimeout(function () {
+-      sendAdserverRequest();
+-    }, FAILSAFE_TIMEOUT);
+-
+-  </script>
+-
+-  <script>
+-    googletag.cmd.push(function () {
+-      googletag.defineSlot('/19968336/header-bid-tag-0', [[300, 250], [300, 600]], 'div-gpt-ad-1460505748561-0').addService(googletag.pubads());
+-
+-      googletag.pubads().enableSingleRequest();
+-      googletag.enableServices();
+-    });
+-  </script>
+-</head>
+-
+-<body>
+-  <h2>Prebid.js Test</h2>
+-  <h5>Div-1</h5>
+-  <div id='div-gpt-ad-1460505748561-0'>
+-    <script type='text/javascript'>
+-      googletag.cmd.push(function () { googletag.display('div-gpt-ad-1460505748561-0'); });
+-    </script>
+-  </div>
+-</body>
+-
+-</html>

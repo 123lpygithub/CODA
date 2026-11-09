@@ -1,0 +1,14 @@
+{
+  "url": "https://github.com/bbc/simorgh/blob/56b6a8d4c7d90297c6191c217a21f5856acbc3c9/src/app/containers/CookieBanner/index.jsx",
+  "kind": "file",
+  "cited_in": [
+    "comment_466352213"
+  ],
+  "revision": "56b6a8d4c7d90297c6191c217a21f5856acbc3c9",
+  "immutable_revision": true,
+  "text": "import React, { Fragment, useState, useEffect } from 'react';\nimport Cookie from 'js-cookie';\nimport { ServiceContextConsumer } from '../../contexts/ServiceContext';\nimport CookieBannerComponent from '../../components/CookieBanner';\n\nconst PRIVACY_COOKIE = 'ckns_privacy';\nconst EXPLICIT_COOKIE = 'ckns_explicit';\nconst POLICY_COOKIE = 'ckns_policy';\n\nconst setPolicyCookieIfUnset = value => {\n  if (!Cookie.get(POLICY_COOKIE)) {\n    Cookie.set(POLICY_COOKIE, value);\n  }\n};\n\nconst CookieBanner = () => {\n  const [privacy, setPrivacy] = useState(false);\n  const [cookie, setCookie] = useState(false);\n\n  useEffect(() => {\n    if (typeof document !== 'undefined') {\n      if (!privacy && Cookie.get(PRIVACY_COOKIE) !== '1') {\n        setPrivacy(true);\n        Cookie.set(PRIVACY_COOKIE, '1');\n      }\n\n      if (!cookie && Cookie.get(EXPLICIT_COOKIE) !== '1') {\n        setCookie(true);\n        Cookie.set(EXPLICIT_COOKIE, '0');\n      }\n    }\n  }, []);\n\n  const privacyAllowAction = () => {\n    setPrivacy(false);\n  };\n\n  const privacyDenyAction = () => {\n    setPrivacy(false);\n  };\n\n  const cookieAllowAction = () => {\n    setCookie(false);\n    Cookie.set(EXPLICIT_COOKIE, '1');\n    setPolicyCookieIfUnset('111');\n  };\n\n  const cookieDenyAction = () => {\n    setPolicyCookieIfUnset('000');\n  };\n\n  return (\n    <ServiceContextConsumer>\n      {({ translations, privacyInfoUrl, cookieSettingsUrl }) => {\n        const { privacyBanner, consentBanner } = translations;\n\n        return (\n          <Fragment>\n            {privacy ? (\n              <CookieBannerComponent\n                {...privacyBanner}\n                rejectUrl={privacyInfoUrl}\n                allowAction={privacyAllowAction}\n                denyAction={privacyDenyAction}\n              />\n            ) : null}\n            {!privacy && cookie ? (\n              <CookieBannerComponent\n                {...consentBanner}\n                rejectUrl={cookieSettingsUrl}\n                allowAction={cookieAllowAction}\n                denyAction={cookieDenyAction}\n              />\n            ) : null}\n          </Fragment>\n        );\n      }}\n    </ServiceContextConsumer>\n  );\n};\n\nexport default CookieBanner;\n",
+  "source_sha256": "e8768db5088c457680dde96d32f132b0f20a365fb984f55347892778afcf3591",
+  "fetched_at": "2026-11-05T06:21:43.412194+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/bbc/simorgh/56b6a8d4c7d90297c6191c217a21f5856acbc3c9/src/app/containers/CookieBanner/index.jsx",
+  "status": "available"
+}

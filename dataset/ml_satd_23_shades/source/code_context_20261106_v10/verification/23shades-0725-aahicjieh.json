@@ -1,0 +1,22 @@
+{
+  "artifact_id": "23shades-0725-aahicjieh",
+  "status": "retrieved",
+  "url": "https://api.github.com/repos/PyTorchLightning/pytorch-lightning/commits/cb67e1d0b29e1da251c064c78220aa78b44e0620",
+  "parents": [
+    {
+      "sha": "e7c6e9d43d4f592ba25e5c418d85832018fff73c",
+      "url": "https://api.github.com/repos/Lightning-AI/pytorch-lightning/commits/e7c6e9d43d4f592ba25e5c418d85832018fff73c",
+      "html_url": "https://github.com/Lightning-AI/pytorch-lightning/commit/e7c6e9d43d4f592ba25e5c418d85832018fff73c"
+    }
+  ],
+  "matching_files": [
+    {
+      "filename": "pytorch_lightning/trainer/trainer.py",
+      "previous_filename": null,
+      "status": "modified",
+      "patch": "@@ -598,9 +598,6 @@ def train(self):\n                 if self.max_steps and self.max_steps <= self.global_step:\n                     return\n \n-                # update LR schedulers\n-                self.optimizer_connector.update_learning_rates(interval='epoch')\n-\n                 # early stopping\n                 met_min_epochs = epoch >= self.min_epochs - 1\n                 met_min_steps = self.global_step >= self.min_steps if self.min_steps else True\n@@ -626,7 +623,7 @@ def train(self):\n             # hook\n             self.train_loop.on_train_end()\n \n-    def run_evaluation(self, max_batches=None):\n+    def run_evaluation(self, max_batches=None, on_epoch=False):\n \n         # used to know if we are logging for val, test + reset cached results\n         self._set_wide_running_stage(RunningStage.TESTING if self.testing else RunningStage.EVALUATING)\n@@ -639,7 +636,7 @@ def run_evaluation(self, max_batches=None):\n         dataloaders, max_batches = self.evaluation_loop.get_evaluation_dataloaders(max_batches)\n \n         # check if we want to skip this evaluation\n-        if self.evaluation_loop.should_skip_evaluation(dataloaders, max_batches):\n+        if self.evaluation_loop.should_skip_evaluation(max_batches):\n             return [], []\n \n         # ref model\n@@ -705,6 +702,10 @@ def run_evaluation(self, max_batches=None):\n         # hook\n         self.evaluation_loop.on_evaluation_epoch_end()\n \n+        # update epoch-level lr_schedulers\n+        if on_epoch:\n+            self.optimizer_connector.update_learning_rates(interval='epoch')\n+\n         # hook\n         self.evaluation_loop.on_evaluation_end()\n ",
+      "raw_url": "https://github.com/Lightning-AI/pytorch-lightning/raw/cb67e1d0b29e1da251c064c78220aa78b44e0620/pytorch_lightning%2Ftrainer%2Ftrainer.py"
+    }
+  ],
+  "sha256": "8317fcd2ba774a274bbd8c15ecb5ee412e7c69975d2266a944f41e4217dae2be"
+}

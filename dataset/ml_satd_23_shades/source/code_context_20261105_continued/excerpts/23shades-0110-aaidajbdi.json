@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0110-aaidajbdi",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/9c62eee695cdcd75c6fd23d02334b8d0c241ddde",
+  "filename": "sklearn/tree/tests/test_export.py",
+  "commit": "9c62eee695cdcd75c6fd23d02334b8d0c241ddde",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/9c62eee695cdcd75c6fd23d02334b8d0c241ddde/sklearn/tree/tests/test_export.py",
+  "fetched_at": "2026-11-05T06:11:55.600723+00:00",
+  "source_sha256": "b1e536ef7b7f5e287c92a3dc22548bcad91d04591162aca0034cda387e63d775",
+  "line_start": 441,
+  "line_end": 461,
+  "excerpt": "    clf.fit(X, y)\n\n    # Test export code\n    feature_names = ['first feat', 'sepal_width']\n    nodes = plot_tree(clf, feature_names=feature_names)\n    assert len(nodes) == 3\n    assert nodes[0].get_text() == (\"first feat <= 0.0\\ngini = 0.5\\n\"\n                                   \"samples = 6\\nvalue = [3, 3]\")\n    assert nodes[1].get_text() == \"gini = 0.0\\nsamples = 3\\nvalue = [3, 0]\"\n    assert nodes[2].get_text() == \"gini = 0.0\\nsamples = 3\\nvalue = [0, 3]\"\n\n\n# FIXME: to be removed in 0.25\ndef test_plot_tree_rotate_deprecation(pyplot):\n    tree = DecisionTreeClassifier()\n    tree.fit(X, y)\n    # test that a warning is raised when rotate is used.\n    match = (\"'rotate' has no effect and is deprecated in 0.23. \"\n             \"It will be removed in 0.25.\")\n    with pytest.warns(FutureWarning, match=match):\n        plot_tree(tree, rotate=True)"
+}

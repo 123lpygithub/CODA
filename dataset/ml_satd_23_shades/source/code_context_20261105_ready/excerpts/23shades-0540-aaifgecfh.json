@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0540-aaifgecfh",
+  "revision_url": "https://github.com/OpenMined/PySyft/commit/ae4edd3b7503599384125b7bf6f37243a59bd5f6",
+  "filename": "test/torch_test.py",
+  "commit": "ae4edd3b7503599384125b7bf6f37243a59bd5f6",
+  "source_url": "https://raw.githubusercontent.com/OpenMined/PySyft/ae4edd3b7503599384125b7bf6f37243a59bd5f6/test/torch_test.py",
+  "fetched_at": "2026-11-05T06:13:09.553145+00:00",
+  "source_sha256": "6eb02ff647fbb541ff4e5c38b166124ab1ee4d0a8dcf25d56d0955e0dd6719cb",
+  "line_start": 199,
+  "line_end": 223,
+  "excerpt": "        x = sy._PlusIsMinusTensor().on(x)\n        y = sy._PlusIsMinusTensor().on(y)\n        x.send(bob)\n        y.send(bob)\n\n        z = x.add(y).sum()\n        z.backward()\n\n        # cut chain for the equality check\n        x.get()\n        x.child = x.child.child\n\n        # TODO: figure out why some machines prefer one of these options\n        # while others prefer the other\n        try:\n            target = sy._PlusIsMinusTensor().on(torch.FloatTensor([1, 1]))\n            target.child = target.child.child\n            assert torch.equal(x.grad.data, target)\n        except:\n            target = sy._PlusIsMinusTensor().on(torch.FloatTensor([1, 1]))\n            target.child = target.child\n            assert torch.equal(x.grad.data, target)\n\n\nclass TestTorchTensor(TestCase):"
+}

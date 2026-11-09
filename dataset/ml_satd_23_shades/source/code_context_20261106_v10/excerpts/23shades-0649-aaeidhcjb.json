@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0649-aaeidhcjb",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/c3e6af78f6f24f3a2777df82fc078dd2f95cf61b",
+  "filename": "hpat/hiframes_api.py",
+  "commit": "c3e6af78f6f24f3a2777df82fc078dd2f95cf61b",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/c3e6af78f6f24f3a2777df82fc078dd2f95cf61b/hpat/hiframes_api.py",
+  "fetched_at": "2026-11-05T06:13:32.378964+00:00",
+  "source_sha256": "b3a044b3dfb831890a8c2bcb81067ddc58aa567f3ad4f73fba3011a40d4b662e",
+  "line_start": 66,
+  "line_end": 90,
+  "excerpt": "    for _, col_var in df_out_vars.items():\n        # output dist might not be assigned yet\n        if col_var.name in array_dists:\n            out_dist = Distribution(min(out_dist.value, array_dists[col_var.name].value))\n    for _, col_var in df_out_vars.items():\n        array_dists[col_var.name] = out_dist\n\n    return\n\ndistributed_analysis.distributed_analysis_extensions[Filter] = filter_distributed_analysis\n\ndef filter_distributed_run(filter_node, typemap, calltypes):\n    # TODO: rebalance if output distributions are 1D instead of 1D_Var\n    df_vars = filter_node.df_vars\n    df_in_vars = df_vars[filter_node.df_in]\n    df_out_vars = df_vars[filter_node.df_out]\n    loc = filter_node.loc\n    bool_arr = filter_node.bool_arr\n\n    out = []\n    for col_name, col_in_var in df_in_vars.items():\n        col_out_var = df_out_vars[col_name]\n        # using getitem like Numba for filtering arrays\n        # TODO: generate parfor\n        getitem_call = ir.Expr.getitem(col_in_var, bool_arr, loc)"
+}

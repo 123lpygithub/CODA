@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0009-aagdfgjig",
+  "revision_url": "https://github.com/hypnosapos/cartpole-rl-remote/commit/caff687ce87569179ed5385976f859ef7762c47f",
+  "filename": "src/qlearning_agent.py",
+  "commit": "caff687ce87569179ed5385976f859ef7762c47f",
+  "source_url": "https://raw.githubusercontent.com/hypnosapos/cartpole-rl-remote/caff687ce87569179ed5385976f859ef7762c47f/src/qlearning_agent.py",
+  "fetched_at": "2026-11-05T06:11:39.732620+00:00",
+  "source_sha256": "0064f6d4963784776d95ef41874b865ec73badcf9bd2ffbd44ccf633df021541",
+  "line_start": 22,
+  "line_end": 46,
+  "excerpt": "    @abc.abstractmethod\n    def build_model(self):\n        return None\n\n    def select_action(self, state, do_train=True):\n        if do_train and np.random.rand() <= self.epsilon:\n            return random.randrange(self.action_size)\n        elif do_train and np.random.rand() > self.epsilon:\n            return np.argmax(self.model.predict(state)[0])\n        else:\n            print('Calling remote model...')\n\n            ## TODO Change to call remote model\n            return np.argmax(self.model.predict(state)[0])\n\n\n    def record(self, state, action, reward, next_state, done):\n        self.memory.append((state, action, reward, next_state, done))\n\n    def replay(self):\n        if len(self.memory) < self.batch_size:\n            return 0\n\n        minibatch = random.sample(self.memory, self.batch_size)\n        for state, action, reward, next_state, done in minibatch:"
+}

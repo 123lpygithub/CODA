@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0491-aadggcdfe",
+  "revision_url": "https://github.com/sorgerlab/indra/commit/9142079bfccbaa0c39bef34c80e053b773b6750f",
+  "filename": "indra/db/client.py",
+  "commit": "9142079bfccbaa0c39bef34c80e053b773b6750f",
+  "source_url": "https://raw.githubusercontent.com/sorgerlab/indra/9142079bfccbaa0c39bef34c80e053b773b6750f/indra/db/client.py",
+  "fetched_at": "2026-11-05T06:13:02.480188+00:00",
+  "source_sha256": "a1205783f48c05112f713e1919522deed1abc1731a267e7e50a2ae7d45588c31",
+  "line_start": 31,
+  "line_end": 55,
+  "excerpt": "    contents : list[str]\n        A list of reader outputs that match the query criteria\n    \"\"\"\n    if ref_type == 'tcid':\n        clauses = [db.Readings.text_content_id == tcid]\n    else:\n        clauses = [db.TextContent.text_ref_id == db.TextRef.id,\n                   db.Readings.text_content_id == db.TextContent.id]\n        if ref_type == 'pmid':\n            ref_col = db.TextRef.pmid\n        elif ref_type == 'pmcid':\n            ref_col = db.TextRef.pmcid\n        # TODO: complete the list here\n        clauses.append(ref_col.like(ref_id))\n    if reader:\n        clauses.append(db.Readings.reader == reader.capitalize())\n    if reader_version:\n        clauses.append(db.Readings.reader_version == reader_version)\n\n    res = db.filter_query(db.Readings, *clauses).all()\n    contents = [zlib.decompress(r.bytes, zlib.MAX_WBITS + 16).decode('utf-8')\n                for r in res]\n    return contents\n\n"
+}

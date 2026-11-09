@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0588-aaeiaghhj",
+  "revision_url": "https://github.com/cltk/cltk/commit/3bd6dd6d4acd171f5fdda568c74a178b6cc78b25",
+  "filename": "src/cltkv1/embeddings/embeddings.py",
+  "commit": "3bd6dd6d4acd171f5fdda568c74a178b6cc78b25",
+  "source_url": "https://raw.githubusercontent.com/cltk/cltk/3bd6dd6d4acd171f5fdda568c74a178b6cc78b25/src/cltkv1/embeddings/embeddings.py",
+  "fetched_at": "2026-11-05T06:13:31.606534+00:00",
+  "source_sha256": "fcaeb9aa819debc327de9aa84b03e6c5e55721c2be7a6b7ad8cb5d84416bb318",
+  "line_start": 76,
+  "line_end": 100,
+  "excerpt": "            \"san\": \"sa\",  # Sanskrit\n            \"xno\": \"ang\",  # Anglo-Saxon\n        }\n\n        self._check_input_params()\n\n        # load model once all checks OK\n        self.model_fp = self._build_fasttext_filepath()\n        if not self._is_model_present() or self.overwrite:\n            self.download_fasttext_models()\n        elif self._is_model_present() and not self.overwrite:\n            message = f\"Model for '{self.iso_code}' / '{self.training_set}' / '{self.model_type}' already present at '{self.model_fp}' and ``overwrite=False``.\"\n            # TODO: Log message\n        self.model = self._load_model()\n\n    def _is_model_present(self):\n        \"\"\"Check if model in an otherwise valid filepath.\"\"\"\n\n        if os.path.isfile(self.model_fp):\n            return True\n        else:\n            return False\n\n    def _check_input_params(self):\n        \"\"\"Look at combination of parameters give to class"
+}

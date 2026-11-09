@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18769",
+  "issue_url": "https://github.com/nocodb/nocodb/issues/3059",
+  "source_issue_url": "https://github.com/nocodb/nocodb/issues/3059",
+  "api_url": "https://api.github.com/repos/nocodb/nocodb/issues/3059",
+  "title": "[Feature] Include google fonts / Prevent fonts to be loaded from google",
+  "body": "Hello,\r\n\r\ncould you integrate the fonts in your asset pipeline, so that no fonts will be loaded from Google?\r\n\r\nBackground: In germany it's not allowed to load fonts from google without asking the user before hand.\r\n\r\nThank you very much for your work. I really like your tool!\r\n",
+  "author": "Participant 1",
+  "created_at": "2022-08-09T20:40:00Z",
+  "updated_at": "2023-01-27T11:32:54Z",
+  "state": "closed",
+  "closed_at": "2023-01-27T11:32:54Z",
+  "issue_fetched_at": "2026-10-19T02:12:02.968169+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T03:10:36.701898+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1217445834,
+      "url": "https://github.com/nocodb/nocodb/issues/3059#issuecomment-1217445834",
+      "created_at": "2022-08-17T04:24:28Z",
+      "updated_at": "2022-08-17T04:25:30Z",
+      "author": "Participant 2",
+      "body": "To give some more information about it.\r\n\r\nIt's not about loading the google font, but the fact to send the user IP to google (which will store it) to load the font, making nocodb sharing private data which is against privacy law in many countries (including all the countries in Europe due to GDPR).\r\n\r\nhttps://complianz.io/google-fonts-and-gdpr-does-it-work/\r\n\r\nhttps://blog.runcloud.io/google-fonts-gdpr/\r\n\r\nhttps://thehackernews.com/2022/01/german-court-rules-websites-embedding.html\r\n\r\nSo yes it would be good practice to store the fonts as an asset to avoid having to ask consent / add the annoying popup."
+    },
+    {
+      "id": 1400521857,
+      "url": "https://github.com/nocodb/nocodb/issues/3059#issuecomment-1400521857",
+      "created_at": "2023-01-23T15:17:28Z",
+      "updated_at": "2023-01-23T15:17:28Z",
+      "author": "Participant 3",
+      "body": "When running the docker image locally with `NC_DISABLE_TELE=true` I'm also seeing calls to a google tracking endpoint (\"gstatic.com/.../cleardot.gif\") and a google docs form (\"docs.google.com/.../forms/...\").\r\n\r\nThat seems really shady and is definitely not GDPR compliant."
+    },
+    {
+      "id": 1400546240,
+      "url": "https://github.com/nocodb/nocodb/issues/3059#issuecomment-1400546240",
+      "created_at": "2023-01-23T15:31:56Z",
+      "updated_at": "2023-01-23T15:31:56Z",
+      "author": "Participant 4",
+      "body": "Could you help us with full path on cleardot.gif. We will 've the google form disabled or check what is going on there. That shouldn't be shown."
+    },
+    {
+      "id": 1406374539,
+      "url": "https://github.com/nocodb/nocodb/issues/3059#issuecomment-1406374539",
+      "created_at": "2023-01-27T11:32:53Z",
+      "updated_at": "2023-01-27T11:32:53Z",
+      "author": "Participant 5",
+      "body": "Fixed in ``v0.104.0``."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

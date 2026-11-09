@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0057-aajffjdic",
+  "revision_url": "https://github.com/tensorly/tensorly/commit/f1e7e392dd76e6418bdd2eb8b179417e4bb1970b",
+  "filename": "tensorly/contrib/spectral_tensor_train_decomposition.py",
+  "commit": "f1e7e392dd76e6418bdd2eb8b179417e4bb1970b",
+  "source_url": "https://raw.githubusercontent.com/tensorly/tensorly/f1e7e392dd76e6418bdd2eb8b179417e4bb1970b/tensorly/contrib/spectral_tensor_train_decomposition.py",
+  "fetched_at": "2026-11-05T06:11:47.606864+00:00",
+  "source_sha256": "b4f02b68f021f18fd97ed59a712d74eeb35d9d16a75cac541a7b2965aebfc27a",
+  "line_start": 175,
+  "line_end": 199,
+  "excerpt": "                self.Xs_space.append(grids[i])\n            else:\n                raise AttributeError(\"The grids argument must contain np.ndarray in the elements grids[:range_dim]\")\n        if self.range_dim == 0:\n            self.Xs_space.append(np.array([0]))\n\n        # Set the shape of the space\n        self.space_shape = tuple([len(x) for x in self.Xs_space])\n\n        # Initialize variables\n        self.Xs_params = np.empty(self.space_shape, dtype=list)\n\n        # Construct grids and weights if needed for parameter space\n        for point, val in np.ndenumerate(self.Xs_params):\n            self.Xs_params[point] = [None] * self.param_dim\n\n            for i, grid in enumerate(grids[self.range_dim:]):\n                if isinstance(grid, np.ndarray):\n                    self.Xs_params[point][i] = grid\n                else:\n                    raise AttributeError(\"The %d argument of grid is none of the types accepted.\" % i)\n\n    def build(self):\n        self.start_build_time = time.clock()\n"
+}

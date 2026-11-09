@@ -1,0 +1,46 @@
+Evaluate the frozen CODA packet below using the rubric. Do not use published
+reference labels as a gold standard. Keep codebook-level ratings separate from
+assignment-level ratings.
+
+Rubric:
+- clarity: 1-5, how clearly and consistently the codebook definitions can be understood.
+- category_boundaries: 1-5, how clearly definitions and inclusion/exclusion conditions distinguish categories.
+- meaningful_coverage: 1-5, how well the codebook covers relevant phenomena and important variation.
+- evidence_support: 0-2 for one artifact-code assignment: 0 unsupported/contradicted, 1 partly supported, 2 fully supported without unsupported technical or causal claims.
+- If evidence cannot be judged, use evidence_support status `unassessable` and omit score.
+
+Codebook anchors (2 and 4 lie between the adjacent anchors):
+- Clarity 1: vague or inconsistent definitions prevent reliable interpretation;
+  3: most definitions are understandable but some require substantial clarification;
+  5: labels and definitions are precise, consistent, and understandable in context.
+- Boundaries 1: categories repeatedly duplicate or conflate the same interpretation;
+  3: main distinctions are usable but some boundary cases remain ambiguous;
+  5: definitions and inclusion/exclusion conditions support clear distinctions,
+  including legitimate multiple coding.
+- Coverage 1: major relevant phenomena are absent or obscured by overly broad categories;
+  3: common phenomena are represented but relevant distinctions or less frequent
+  phenomena are missed; 5: categories represent relevant phenomena and important
+  variations found in the inspected material.
+Check the full original case, not only its cited excerpt. Do not reward category
+count; do not invent technical or causal claims. Justify scores with case,
+category and source identifiers. Evaluation judgments cannot update the workflow.
+
+Every row must contain `dimension`, `unit`, `score` when assessable, `status`,
+`rationale`, and the relevant artifact/code identifiers for assignment rows.
+Return:
+{{"scores":[{{"dimension":"clarity","unit":"codebook","score":1,"status":"assessable","rationale":"..."}}]}}
+
+Frozen packet:
+{packet_json}
+
+Follow the packet's `evaluation_scope`. Do not infer missing artifacts or
+invent assignments that are not represented by the supplied frozen records.
+- codebook_only: return exactly the three codebook ratings; inspect all supplied
+  original cases for meaningful coverage, without scoring assignments.
+- assignments_only: return exactly one evidence_support row for every
+  artifact/code pair in final_code_ids; do not return codebook ratings.
+- codebook_and_assignments: return both sets above.
+
+If scoring_assignment_targets is supplied, score exactly those artifact/code pairs
+instead of all final_code_ids. The complete record is context, not a request to
+score its other assignments. This fixed target list is shared by all evaluators.

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0339-aaifefdce",
+  "revision_url": "https://github.com/microsoft/nni/commit/e9f3cddf95e58ca17641db793c420a1b6e5424c0",
+  "filename": "src/sdk/pynni/nni/compression/torch/pruning/amc/channel_pruning_env.py",
+  "commit": "e9f3cddf95e58ca17641db793c420a1b6e5424c0",
+  "source_url": "https://raw.githubusercontent.com/microsoft/nni/e9f3cddf95e58ca17641db793c420a1b6e5424c0/src/sdk/pynni/nni/compression/torch/pruning/amc/channel_pruning_env.py",
+  "fetched_at": "2026-11-05T06:12:36.157567+00:00",
+  "source_sha256": "aeb936537986bcf7989e8ecf1cab127ba22847b4b6bbd1e3f349b1bc09a53cf9",
+  "line_start": 271,
+  "line_end": 295,
+  "excerpt": "            op.bias_mask = masks['bias_mask']\n\n        action = (m == 1).sum().item() / m.numel()\n        return action, d_prime, preserve_idx\n\n    def export_model(self):\n        while True:\n            self.export_layer(self.prunable_idx[self.cur_ind])\n            if self._is_final_layer():\n                break\n            self.cur_ind += 1\n\n    #TODO replace this speedup implementation with nni.compression.torch.ModelSpeedup\n    def export_layer(self, op_idx):\n        m_list = list(self.model.modules())\n        op = m_list[op_idx]\n        assert type(op) == PrunerModuleWrapper\n        w = op.module.weight.cpu().data\n        m = op.weight_mask.cpu().data\n        if type(op.module) == nn.Linear:\n            w = w.unsqueeze(-1).unsqueeze(-1)\n            m = m.unsqueeze(-1).unsqueeze(-1)\n\n        d_prime = (m.sum((0, 2, 3)) > 0).sum().item()\n        preserve_idx = np.nonzero((m.sum((0, 2, 3)) > 0).numpy())[0]"
+}

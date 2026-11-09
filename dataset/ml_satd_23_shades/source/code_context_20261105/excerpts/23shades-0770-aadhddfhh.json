@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0770-aadhddfhh",
+  "revision_url": "https://github.com/castorini/castor/commit/7d0a78d1a79ff982291e8b81b1be285961216459",
+  "filename": "kim_cnn/bucket.py",
+  "commit": "7d0a78d1a79ff982291e8b81b1be285961216459",
+  "source_url": "https://raw.githubusercontent.com/castorini/castor/7d0a78d1a79ff982291e8b81b1be285961216459/kim_cnn/bucket.py",
+  "fetched_at": "2026-11-05T06:13:49.891980+00:00",
+  "source_sha256": "d8b40285e825f02c9c8587bd35914a34d8fa9e429289a021e00d8f077a0b5040",
+  "line_start": 21,
+  "line_end": 45,
+  "excerpt": "    self._sents = None\n    self._target = None\n\n  def set_size(self, size):\n    self._size = size\n    self._data = []\n    self._sents = []\n    self._target = []\n\n  def add(self, example):\n    # TODO: After finalize, we can not add data anymore\n    if example.length > self._size: #and self._size != -1:\n      #  TODO: we may support size = -1 in the future\n      raise ValueError(\"Bucket of size %d received sequence of len %d\" % (self._size, example.length))\n    self._data.append(example.data['words'])\n    self._sents.append(example.sent['words'])\n    self._target.append(example.data['targets'])\n    return len(self._data)-1\n\n  def finalize(self):\n    if self._data is None:\n      raise ValueError(\"You need to set size before finalize it\")\n    if len(self._data) > 0:\n      shape = (len(self._data), self._size, len(self._data[-1][-1]))\n      data = np.zeros(shape, dtype=np.int64)"
+}

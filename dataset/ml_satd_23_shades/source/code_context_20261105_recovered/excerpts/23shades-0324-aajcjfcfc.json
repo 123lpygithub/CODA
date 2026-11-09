@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0324-aajcjfcfc",
+  "revision_url": "https://github.com/h2oai/h2o4gpu/commit/affc60b7371e71ee22a486e9680fd5c1f0044db1",
+  "filename": "src/interface_py/h2o4gpu/solvers/pca.py",
+  "commit": "affc60b7371e71ee22a486e9680fd5c1f0044db1",
+  "source_url": "https://raw.githubusercontent.com/h2oai/h2o4gpu/affc60b7371e71ee22a486e9680fd5c1f0044db1/src/interface_py/h2o4gpu/solvers/pca.py",
+  "fetched_at": "2026-11-05T06:12:33.847902+00:00",
+  "source_sha256": "7b8b8c695d3d6603bf2cac6056d4e5702331466845f69ced53b16f0ac6b9921c",
+  "line_start": 92,
+  "line_end": 116,
+  "excerpt": "        # self.mean_ = np.mean(X, axis=0)\n        # n_samples, n_features = X.shape\n        # total_var = np.var(X, ddof=1, axis=0)\n        # if self.n_components_ < min(n_features, n_samples):\n        #     self.noise_variance_ = \\\n        #         (total_var.sum() - self.explained_variance_.sum())\n        #     self.noise_variance_ /= \\\n        #         min(n_features, n_samples) - self.n_components\n        # else:\n        #     self.noise_variance_ = 0.\n\n        self._w = w\n        self._U, self._Q = svd_flip(U , Q) #TODO Port to cuda?\n        self._X = X\n        n = X.shape[1]\n        self.explained_variance = self.singular_values_ ** 2 / (n-1) #To match sci-kit #TODO Port to cuda?\n        self.explained_variance_ratio = explained_variance_ratio\n\n        X_transformed = U * w\n        return X_transformed\n\n    @property\n    def mean_(self):\n        return self.mean_\n",
+  "match_policy": "unique-release-normalized-v2"
+}

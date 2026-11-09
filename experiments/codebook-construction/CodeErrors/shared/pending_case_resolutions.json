@@ -1,0 +1,51 @@
+{
+  "result_label": "GPT6-1",
+  "revision": 2,
+  "reason": "Resolve the two remaining cases at user request using source inspection and newly retrieved official tests. No new induction round or category changes.",
+  "cases": [
+    {
+      "case_id": "393",
+      "previous_status": "unresolved",
+      "code_ids": [
+        "C08"
+      ],
+      "rationale": "The strict sign-product branch discards an exact left-endpoint root: with coefficients [100,1], poly(-100)=0, but poly(a)*poly(c)<0 is false and a is advanced away from the root. Unchanged source returns 99.99999925494194 instead of -100. The official HumanEval/32 check also fails. Assign C08 for the incorrect equality/branch rule; do not add C17 for the same defect.",
+      "decision_basis": "unchanged-source diagnostic plus official upstream tests; explicit specification precedence where conflicting",
+      "scope_note": "Endpoint equality is part of the stated polynomial input domain. The strict comparison/branch is the supported defect, rather than algorithm choice or an assumed resource limit.",
+      "evidence_additions": [
+        {
+          "field": "incorrect_code",
+          "line_start": 31,
+          "line_end": 31,
+          "quote": "            if poly(xs, a) * poly(xs, c) < 0:",
+          "sha256": "77773d5c585bff2191f71528a6624f2a61fbe1042ee37c9f5208d229d03a778d",
+          "path": "../shared/cases/393.txt"
+        }
+      ],
+      "verification_path": "../shared/pending_case_verification.json",
+      "upstream_task_path": "../shared/humaneval-evidence/32.json"
+    },
+    {
+      "case_id": "729",
+      "previous_status": "unresolved",
+      "code_ids": [
+        "C14"
+      ],
+      "rationale": "The implementation sorts retained even-length strings alphabetically without the required primary length key. Official HumanEval/149 tests explicitly include mixed lengths: [\"aaaa\",\"bbbb\",\"dd\",\"cc\"] must produce [\"cc\",\"dd\",\"aaaa\",\"bbbb\"], whereas unchanged source returns [\"aaaa\",\"bbbb\",\"cc\",\"dd\"]. It passes 6 of 7 official assertions; both supplied and upstream references pass all 7. Use the stated length-first rule, reference implementations and official tests to resolve the contradictory equal-length sentence. Assign C14; retain the specification conflict as a scope note.",
+      "decision_basis": "unchanged-source diagnostic plus official upstream tests; explicit specification precedence where conflicting",
+      "scope_note": "The equal-length sentence remains inconsistent. Classification follows the operational contract demonstrated by official upstream tests and both references; this does not claim the original study ran these exact tests.",
+      "evidence_additions": [
+        {
+          "field": "incorrect_code",
+          "line_start": 16,
+          "line_end": 16,
+          "quote": "    return sorted(list(filter(lambda x: len(x) % 2 == 0, lst)))",
+          "sha256": "3f8194edb08887748787d7e842650aedada28055c7db922062d3b0155512c4a9",
+          "path": "../shared/cases/729.txt"
+        }
+      ],
+      "verification_path": "../shared/pending_case_verification.json",
+      "upstream_task_path": "../shared/humaneval-evidence/149.json"
+    }
+  ]
+}

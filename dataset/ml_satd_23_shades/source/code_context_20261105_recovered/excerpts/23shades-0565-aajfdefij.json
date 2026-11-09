@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0565-aajfdefij",
+  "revision_url": "https://github.com/theislab/scanpy/commit/9d76eba7ce4027dab47d76f63314d81213ffe989",
+  "filename": "scanpy/utils.py",
+  "commit": "9d76eba7ce4027dab47d76f63314d81213ffe989",
+  "source_url": "https://raw.githubusercontent.com/theislab/scanpy/9d76eba7ce4027dab47d76f63314d81213ffe989/scanpy/utils.py",
+  "fetched_at": "2026-11-05T06:13:13.106233+00:00",
+  "source_sha256": "fd558f79e606df77de77829462fa0d145d29a45528b5dd802f4508b4a372d4cc",
+  "line_start": 578,
+  "line_end": 602,
+  "excerpt": "\ndef unique_categories(categories):\n    \"\"\"Pass array-like categories, return sorted cleaned unique categories.\"\"\"\n    categories = np.unique(categories)\n    categories = np.setdiff1d(categories, np.array(settings.categories_to_ignore))\n    categories = np.array(natsorted(categories, key=lambda v: v.upper()))\n    return categories\n\n# --------------------------------------------------------------------------------\n# Plotting data helpers\n# --------------------------------------------------------------------------------\n\n@singledispatch  # TODO: implement diffxpy method\ndef rank_genes_groups_df(\n    adata: AnnData,\n    group: str,  # Can this be something other than a str?\n    *,\n    genes: Optional[Iterable[str]] = None,  # TODO: Implement\n    key: str = \"rank_genes_groups\",\n    pval_cutoff: Optional[float] = 0.05,\n    logfc_cutoff: Optional[float] = None,\n    gene_symbols: Optional[str] = None\n) -> pd.DataFrame:\n    \"\"\"\n    Get `rank_genes_groups` results in the form of a :class:`pd.DataFrame`."
+}

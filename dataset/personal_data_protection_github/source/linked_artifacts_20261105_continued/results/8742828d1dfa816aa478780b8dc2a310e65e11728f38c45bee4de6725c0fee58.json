@@ -1,0 +1,17 @@
+{
+  "url": "https://github.com/status-im/status-go/blob/8f83c5f462de854fa9b616273ccfdd4b0bda4748/services/ext/api.go#L415-L425",
+  "kind": "file",
+  "cited_in": [
+    "comment_691616237",
+    "comment_691649547"
+  ],
+  "revision": "8f83c5f462de854fa9b616273ccfdd4b0bda4748",
+  "immutable_revision": true,
+  "line_start": 403,
+  "line_end": 437,
+  "text": "func (api *PublicAPI) SendPairInstallation(ctx context.Context) (*protocol.MessengerResponse, error) {\n\treturn api.service.messenger.SendPairInstallation(ctx)\n}\n\nfunc (api *PublicAPI) SyncDevices(ctx context.Context, name, picture string) error {\n\treturn api.service.messenger.SyncDevices(ctx, name, picture)\n}\n\nfunc (api *PublicAPI) SignMessageWithChatKey(ctx context.Context, message string) (types.HexBytes, error) {\n\treturn api.service.messenger.SignMessage(message)\n}\n\nfunc (api *PublicAPI) UpdateMailservers(enodes []string) error {\n\tnodes := make([]*enode.Node, len(enodes))\n\tfor i, rawurl := range enodes {\n\t\tnode, err := enode.ParseV4(rawurl)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tnodes[i] = node\n\t}\n\treturn api.service.UpdateMailservers(nodes)\n}\n\n// PushNotifications server endpoints\n\nfunc (api *PublicAPI) StartPushNotificationsServer() error {\n\terr := api.service.accountsDB.SaveSetting(\"push-notifications-server-enabled?\", true)\n\tif err != nil {\n\t\treturn err\n\t}\n\n\treturn api.service.messenger.StartPushNotificationsServer()\n}\n",
+  "source_sha256": "098c50035a790a1bfbb99e41726463b78d9e1ec67255c25b7ddc8e70625911cb",
+  "fetched_at": "2026-11-05T06:21:19.786440+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/status-im/status-go/8f83c5f462de854fa9b616273ccfdd4b0bda4748/services/ext/api.go",
+  "status": "available"
+}

@@ -1,0 +1,17 @@
+{
+  "url": "https://github.com/status-im/status-react/blob/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/mailserver/core.cljs#L221",
+  "kind": "file",
+  "cited_in": [
+    "comment_691670511",
+    "comment_692504327"
+  ],
+  "revision": "32cb09c9c68497ce152216067d2e00309baef686",
+  "immutable_revision": true,
+  "line_start": 209,
+  "line_end": 233,
+  "text": "      ;; user\n      :mailserver/update-mailservers [(waku/enabled? cofx) [address]]}\n     (when-not (or sym-key-id generating-sym-key?)\n       (generate-mailserver-symkey mailserver)))))\n\n(defn executing-gap-request?\n  [{:mailserver/keys [current-request fetching-gaps-in-progress]}]\n  (= (get fetching-gaps-in-progress (:chat-id current-request))\n     (select-keys\n      current-request\n      [:from :to :force-to? :topics :chat-id])))\n\n(fx/defn connect-to-mailserver\n  \"Add mailserver as a peer using `::add-peer` cofx and generate sym-key when\n   it doesn't exists\n   Peer summary will change and we will receive a signal from status go when\n   this is successful\n   A connection-check is made after `connection timeout` is reached and\n   mailserver-state is changed to error if it is not connected by then\"\n  {:events [:mailserver.ui/reconnect-mailserver-pressed]}\n  [{:keys [db] :as cofx}]\n  (let [{:keys [address]} (fetch-current db)\n        {:keys [peers-summary]} db\n        added?       (registered-peer? peers-summary address)\n        gap-request? (executing-gap-request? db)]",
+  "source_sha256": "4c8fdd0bfb5d1c06c1255ff21503f8d52db01e9ba37538ad39290dcfba2dc3b2",
+  "fetched_at": "2026-11-05T06:21:19.643812+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/status-im/status-react/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/mailserver/core.cljs",
+  "status": "available"
+}

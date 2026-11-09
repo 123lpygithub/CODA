@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0627-aaidgcaed",
+  "revision_url": "https://github.com/DreamingRaven/nemesyst/commit/eece98912460069ed02e6ca018cf222cdf2d691d",
+  "filename": "src/neuralNetwork.py",
+  "commit": "eece98912460069ed02e6ca018cf222cdf2d691d",
+  "source_url": "https://raw.githubusercontent.com/DreamingRaven/nemesyst/eece98912460069ed02e6ca018cf222cdf2d691d/src/neuralNetwork.py",
+  "fetched_at": "2026-11-05T06:13:27.858082+00:00",
+  "source_sha256": "4ad60935652d18ea1cb20214b100dc886e8d4d1e08a4a7d89409d35a08303e85",
+  "line_start": 224,
+  "line_end": 248,
+  "excerpt": "                dataBatch = self.nextDataset(self.args[\"batchSize\"])\n                for mongoDoc in dataBatch:\n                    data = pd.DataFrame(list(mongoDoc[\"data\"]))\n                    self._model_test(data=data, target=\"placeholder\")\n\n        else:\n            self.log(\"could not train, either model not generated or cursor does not exist\", 2)\n\n\n\n    def _model_train(self, data, target, id):\n        try:\n            #TODO: off by one ... you fool george, sort this out\n            expectShape = (1, self.args[\"timeSteps\"] + 1, self.args[\"dimensionality\"])\n\n            # check if shape meets expectations\n            if(data.shape == expectShape):\n                # self.log(str(data.shape) + \" == \" + str(expectShape), 3)\n                # self.log(str(data))\n                # self.log( \"\\n\" +\n                    # \"\\ttarget: \"     +         str(target)     + \"\\n\" +\n                    # \"\\tdataShape:\"   +         str(data.shape) + \"\\n\" +\n                    # \"\\tdesireShape:\" +         str(expectShape)+ \"\\n\"\n                # ,3)\n",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0112-aafafebib",
+  "revision_url": "https://github.com/vi3k6i5/GuidedLDA/commit/cf0b68234ce9333740bd967e8e10135f309dcfd9",
+  "filename": "guidedlda/guidedlda.py",
+  "commit": "cf0b68234ce9333740bd967e8e10135f309dcfd9",
+  "source_url": "https://raw.githubusercontent.com/vi3k6i5/GuidedLDA/cf0b68234ce9333740bd967e8e10135f309dcfd9/guidedlda/guidedlda.py",
+  "fetched_at": "2026-11-05T06:11:56.599131+00:00",
+  "source_sha256": "9af06bb4155118c3c34b85c120d0955d208cf0bb86546b4d6760619709fd83c3",
+  "line_start": 229,
+  "line_end": 253,
+  "excerpt": "\n        Parameters\n        ----------\n        X: array-like, shape (n_samples, n_features)\n            Training vector, where n_samples in the number of samples and\n            n_features is the number of features. Sparse matrix allowed.\n        \"\"\"\n        random_state = guidedlda.utils.check_random_state(self.random_state)\n        rands = self._rands.copy()\n\n        self._initialize(X, seed_topics, seed_confidence)\n        for it in range(self.n_iter):\n            # FIXME: using numpy.roll with a random shift might be faster\n            random_state.shuffle(rands)\n            if it % self.refresh == 0:\n                ll = self.loglikelihood()\n                logger.info(\"<{}> log likelihood: {:.0f}\".format(it, ll))\n                # keep track of loglikelihoods for monitoring convergence\n                self.loglikelihoods_.append(ll)\n            self._sample_topics(rands)\n        ll = self.loglikelihood()\n        logger.info(\"<{}> log likelihood: {:.0f}\".format(self.n_iter - 1, ll))\n        # note: numpy /= is integer division\n        self.components_ = (self.nzw_ + self.eta).astype(float)\n        self.components_ /= np.sum(self.components_, axis=1)[:, np.newaxis]"
+}

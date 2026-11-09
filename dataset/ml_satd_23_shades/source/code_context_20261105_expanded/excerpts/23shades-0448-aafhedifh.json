@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0448-aafhedifh",
+  "revision_url": "https://github.com/Coderik/portal-gun/commit/b35ef931f9da8784b65ec3c8266e4522dbc0c692",
+  "filename": "portal_gun/commands/volume.py",
+  "commit": "b35ef931f9da8784b65ec3c8266e4522dbc0c692",
+  "source_url": "https://raw.githubusercontent.com/Coderik/portal-gun/b35ef931f9da8784b65ec3c8266e4522dbc0c692/portal_gun/commands/volume.py",
+  "fetched_at": "2026-11-05T06:12:56.048688+00:00",
+  "source_sha256": "52c5ec11e028cf127d5c2e5478d69c8fb385d0d2e2fea68b8463843b265e0a49",
+  "line_start": 30,
+  "line_end": 54,
+  "excerpt": "\t\t\t\t\t\t\t\t   help='Set size (in Gb) for new volume.')\n\t\tparser_create.add_argument('-z', '--zone', dest='zone', default=None, help='Set availability zone for new volume.')\n\t\tparser_create.add_argument('-S', '--snapshot', dest='snapshot', default=None,\n\t\t\t\t\t\t\t\t   help='Set Id of a snapshot to create new volume from.')\n\t\tparser_create.set_defaults(actor=cls.create_volume)\n\t\t# TODO: add silent mode\n\t\t# TODO: add option for user-defined tags\n\n\t\tparser_list = subcommand_parsers.add_parser('list', help='List volumes')\n\t\tparser_list.set_defaults(actor=cls.list_volumes)\n\t\t# TODO: add option to list all, list only created by Portal Gun by default\n\n\t\t# TODO: add set-name (or rename), delete subcommands\n\n\tdef run(self):\n\t\tprint('Running `{}` command.'.format(self.cmd()))\n\n\t\t# Find, parse and validate configs\n\t\tprint('Checking configuration:')\n\t\tconfig = get_config(self._args)\n\t\tprint('Done.\\n')\n\n\t\t# Create AWS client\n\t\taws = AwsClient(config['aws_access_key'], config['aws_secret_key'], config['aws_region'])\n",
+  "match_policy": "unique-release-normalized-v2"
+}

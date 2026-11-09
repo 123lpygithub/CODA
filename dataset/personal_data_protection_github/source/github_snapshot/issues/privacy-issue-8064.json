@@ -1,0 +1,194 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8064",
+  "issue_url": "https://github.com/PrestaShop/PrestaShop/issues/28757",
+  "source_issue_url": "https://github.com/PrestaShop/PrestaShop/issues/28757",
+  "api_url": "https://api.github.com/repos/PrestaShop/PrestaShop/issues/28757",
+  "title": "Duplicated Invoice Number",
+  "body": "### Prerequisites\n\n- [X] I understand and accept the project's [code of conduct](https://github.com/PrestaShop/PrestaShop/blob/develop/CODE_OF_CONDUCT.md)\n- [X] I have already [searched in existing issues](https://github.com/PrestaShop/PrestaShop/issues?q=is%3Aissue+label%3ABug) and found no previous report of this bug.\n\n### Describe the bug and add screenshots\n\nIf several orders are placed at exactly the same time, the invoice number (in ps_order_invoive) will be duplicated. As a result, the customer will see an invoice from another customer. This is a big problem from a privacy point of view. Please urgently for a solution! \r\n\r\nThe problem occurs in the Order.php at the function setLastInvoiceNumber, because there the last number is queried and then +1 is added. With two simultaneous queries it happens that the same number is assigned twice. \r\n\r\n`if ($number) {\r\n            $sql .= (int) $number;\r\n       } else {\r\n            $getNumberSql = '(SELECT new_number FROM (SELECT (MAX(`number`) + 1) AS new_number\r\n                FROM `' . _DB_PREFIX_ . 'order_invoice`' . (Configuration::get('PS_INVOICE_RESET') ?\r\n                    ' WHERE DATE_FORMAT(`date_add`, \"%Y\") = ' . (int) date('Y') : '') . ') AS result)';\r\n           $getNumberSqlRow = Db::getInstance()->getRow($getNumberSql);\r\n           $newInvoiceNumber = $getNumberSqlRow['new_number'];\r\n           $sql .= $newInvoiceNumber;\r\n        }`\r\n\n\n### Expected behavior\n\nThe Order Invoice Number must be Unique!\n\n### Steps to reproduce\n\nPlace two Orders in the exact same time.\n\n### PrestaShop version(s) where the bug happened\n\n1.7.8.6\n\n### PHP version(s) where the bug happened\n\n_No response_\n\n### If your bug is related to a module, specify its name and its version\n\n_No response_",
+  "author": "Participant 1",
+  "created_at": "2022-06-15T08:03:55Z",
+  "updated_at": "2024-01-29T20:05:39Z",
+  "state": "closed",
+  "closed_at": "2022-07-19T16:17:11Z",
+  "issue_fetched_at": "2026-10-19T02:11:20.545747+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T02:11:22.013062+00:00"
+  ],
+  "expected_comment_count": 21,
+  "retrieved_comment_count": 21,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1156169476,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1156169476",
+      "created_at": "2022-06-15T08:36:57Z",
+      "updated_at": "2022-06-15T08:36:57Z",
+      "author": "Participant 2",
+      "body": "Hello @la-lisa \r\n\r\nYour issue is duplicate of this one #23025\r\nAnd as you can see in this comment https://github.com/PrestaShop/PrestaShop/issues/23025#issuecomment-768980463 I didn't manage to reproduce the issue.\r\nPlease check and feedback.\r\n\r\nThanks!"
+    },
+    {
+      "id": 1156232862,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1156232862",
+      "created_at": "2022-06-15T09:30:51Z",
+      "updated_at": "2022-06-15T09:35:46Z",
+      "author": "Participant 1",
+      "body": "As described above, it happens under certain circumstances when in the database the query` SELECT (MAX(number) + 1) AS new_number`, returns the same value. E.g. if the operations for the two different orders are executed almost at the same time, or one takes a little longer. \r\nIt's hard to recreate this problem under artificial circumstances, but we have this problem every month with a customer with a lot of orders - this is a privacy issue and needs to be fixed somehow. The issue exists and is not due to another module - we crosschecked it on a clean PS1.7.8.6 instance and the issue is there too.\r\n\r\nI can attach you a screenshot with the duplicated order numbers - but that will not help to reproduce the issue!"
+    },
+    {
+      "id": 1156737998,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1156737998",
+      "created_at": "2022-06-15T17:22:21Z",
+      "updated_at": "2022-06-15T17:22:21Z",
+      "author": "Participant 2",
+      "body": "Hello @la-lisa \r\n\r\n> The issue exists and is not due to another module - we crosschecked it on a clean PS1.7.8.6 instance and the issue is there too.\r\n\r\nSo, could you please provide a clear and concise steps to reproduce the issue and a screen record :pray: \r\nWaiting for your feedback.\r\n\r\nThanks!"
+    },
+    {
+      "id": 1165252925,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1165252925",
+      "created_at": "2022-06-24T06:39:49Z",
+      "updated_at": "2022-06-24T06:39:49Z",
+      "author": "Participant 1",
+      "body": "Steps:\r\n1. Customer 1 hits the \"Place Order\" Button in the Checkout - Order is placed in the backend (page is loading - payment actions are taken)\r\n2. Customer 2 hits the button during the loading Page of Customer 1 and his Order is placed and payment loads\r\n3. Customer 1 can view his Invoice - he sees the right one\r\n4. Customer 2 can view his Invoice - he sees the invoice of customer 1 because the invoice number (\"number\" colum in ps_order_invoice) is the same for both orders\r\n\r\nOr:\r\n1. Customer 1 hits the \"Place Order\" Button in the Checkout - Order is placed in the backend (page is loading - payment actions are taken)\r\n2. Employee of shop owner changes the status of a wirepayment order of Customer 2 during the page loading of customer 1, to \"Payment Accepted\" and an Invoice is generated.\r\n3. Customer 1 can view his Invoice - he sees the right one\r\n4. Customer 2 can view his Invoice - he sees the invoice of customer 1 because the invoice number (\"number\" colum in ps_order_invoice) is the same for both orders\r\n\r\nI will try to capture it in a screen recording the next week.\r\n\r\nBut as more people were reporting this same issue already, I think this is not only a problem of our system.\r\n"
+    },
+    {
+      "id": 1165650072,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1165650072",
+      "created_at": "2022-06-24T14:48:45Z",
+      "updated_at": "2022-06-24T14:48:45Z",
+      "author": "Participant 3",
+      "body": "Hello @la-lisa ,\r\n\r\nIn my case, I can't really reproduce your issue. It was tested on PS 1.7.8.6.\r\n\r\nMy 2 orders have been placed without issue. I can see the 2 emails to my 2 different customers. In my BO, the 2 orders have different reference and IDs.\r\n\r\nOrder 1 :\r\n<img width=\"524\" alt=\"Screenshot 2022-06-24 at 16 45 25\" src=\"https://user-images.githubusercontent.com/16019289/175559910-3274c1e2-e54b-455d-8886-b2cd6f16e5d9.png\">\r\n\r\n\r\nOrder 2 :\r\n<img width=\"530\" alt=\"Screenshot 2022-06-24 at 16 45 30\" src=\"https://user-images.githubusercontent.com/16019289/175559957-a6e7f0be-6537-4811-ad00-136bb780c91d.png\">\r\n\r\nIn the BO :\r\n<img width=\"1029\" alt=\"Screenshot 2022-06-24 at 16 46 38\" src=\"https://user-images.githubusercontent.com/16019289/175560068-a5d925c1-291b-4607-8ec3-170c13bbd153.png\">\r\n\r\nThere is just 1 sec of difference between the 2 orders. How is it in your case ? both have the exact same hour ?\r\n\r\nWaiting for your feedback.\r\nThanks"
+    },
+    {
+      "id": 1176157410,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1176157410",
+      "created_at": "2022-07-06T12:23:59Z",
+      "updated_at": "2022-07-06T12:23:59Z",
+      "author": "Participant 4",
+      "body": "@la-lisa, @florine2623 I can confirm occurrences of that issue too. In our shop's DB I discovered 94 cases of duplications and even a case of triple repetition. In a span of 3 years. \r\nAnd this issue is old one, not specific to 1.7.8.x. \r\nIn our case is 1.7.7.6, before middle 2021 it was 1.7.2.4.\r\n\r\n@florine2623 please don't ignore or close this issue like in case of [#23025](https://github.com/PrestaShop/PrestaShop/issues/23025)\r\nFrom ONE human physic perspective is not possible manually reproduce this, because orders should be performed in the same second. For this should be used some automation tests or request some assistance of a PS developer.\r\n\r\nIn my opinion this is CRITICAL issue, that in some cases may imply legal consequences for shop owners."
+    },
+    {
+      "id": 1176391340,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1176391340",
+      "created_at": "2022-07-06T15:52:22Z",
+      "updated_at": "2022-07-06T15:52:22Z",
+      "author": "Participant 5",
+      "body": "Hello @zubco \r\n\r\nThanks for your feedback.\r\nCould your please provide us a screen-record to help us to reproduce the issue.\r\n\r\nWaiting for your feedback.\r\n\r\nThank You!"
+    },
+    {
+      "id": 1179019023,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1179019023",
+      "created_at": "2022-07-08T13:56:17Z",
+      "updated_at": "2022-07-08T13:56:17Z",
+      "author": "Participant 4",
+      "body": "This issue is described also in #11115, 3 years old. With a lot of details.\r\n\r\nDon't want to be rude, but kind of issue is not one you can just reproduce by willing to \"record\".\r\nBut I am sure consequences of this issue is present in every DB of sites that runs on PrestaShop.\r\n\r\nQuotation from mentioned issue: \r\n> the logic of invoice number generation that is prone to race conditions issues\r\n\r\n"
+    },
+    {
+      "id": 1180018918,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1180018918",
+      "created_at": "2022-07-11T06:32:21Z",
+      "updated_at": "2022-07-11T06:32:21Z",
+      "author": "Participant 1",
+      "body": "@zubco thanks for helping me out here! The issue is really hard to reproduce.\r\n\r\nUnfortunatelly i can't provide a screenrecording because it is not that easy to reproduce alone. In #11115 there is a also a very precise description of the problem and one of you contributors already states that there is a problem with the MAX() call. "
+    },
+    {
+      "id": 1180361177,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1180361177",
+      "created_at": "2022-07-11T12:40:28Z",
+      "updated_at": "2022-07-11T12:40:28Z",
+      "author": "Participant 6",
+      "body": "hello @la-lisa,\r\n\r\nThank you for your feedback.\r\nI couldn't reproduce the issue. Invoice Number is not duplicate\r\n\r\nFresh install of 1.7.8.6, PHP 7.3.\r\nHere's my screenshots:\r\n\r\n![01-orders](https://user-images.githubusercontent.com/2854834/178265758-c9baf003-46c3-4788-9c8b-d9b33bcb0e67.png)\r\n\r\nOrder 1:\r\n\r\n![02-orders](https://user-images.githubusercontent.com/2854834/178265815-9677cc35-4adb-4c25-b6c1-4865113f62b0.png)\r\n\r\n![04-orders](https://user-images.githubusercontent.com/2854834/178265909-60b28808-2385-42b8-85bc-50fc09186f44.png)\r\n\r\nOrder 2:\r\n\r\n![03-orders](https://user-images.githubusercontent.com/2854834/178265835-a5fea130-b59b-467a-b497-c87392b07dea.png)\r\n![05-orders](https://user-images.githubusercontent.com/2854834/178265925-24d7cc44-63ef-4357-bfc3-d42221d5bf95.png)\r\n\r\nSorry again for this question but could you provide us a screenrecord please 🙏?\r\n\r\nWaiting for your feedback\r\n\r\nThank you\r\n\r\n"
+    },
+    {
+      "id": 1189006746,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1189006746",
+      "created_at": "2022-07-19T12:43:24Z",
+      "updated_at": "2022-07-19T12:43:24Z",
+      "author": "Participant 1",
+      "body": "@sLorenzini as I wrote above screenrecording is not possible. I cannot share customer data in a screenrecording. And the problem is not that easy to reproduce."
+    },
+    {
+      "id": 1189284260,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1189284260",
+      "created_at": "2022-07-19T16:17:11Z",
+      "updated_at": "2022-07-19T16:17:11Z",
+      "author": "Participant 2",
+      "body": "Hello @la-lisa \r\n\r\nDespite our efforts, we were not able to reproduce your issue with the provided information. It seems that your issue is not a PrestaShop core bug but most likely a module problem.\r\n\r\nIf you need support, you can find resources to help you on this page: [Get help with PrestaShop](https://www.prestashop-project.org/support/).\r\nAlternatively, you can also ask for help in the [community forums](https://www.prestashop.com/forums/) or in the [public Slack channel](https://prestashop.slack.com).\r\n\r\nWe will close this issue.\r\n\r\nThanks!"
+    },
+    {
+      "id": 1199128676,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1199128676",
+      "created_at": "2022-07-29T10:38:56Z",
+      "updated_at": "2022-07-29T10:51:21Z",
+      "author": "Participant 7",
+      "body": "I've seen this occurs, two invoices (different orders) having same number. Both invoices are generated at the same moment (same date_add), so I guess the query to obtain the current max number returned same value... Yeah, it's a great coincidence, but in a shop with a lot of orders maybe it occurs.\r\n\r\nIn the shop I'm talking about there are 7 duplicated invoice number in the last 7 months, so an average of 1 per month. Invoices with same number were generated at the same time. This is not a joke.\r\n\r\nI take this opportunity to comment that the billing management in PrestaShop is painful, it drags things wrong from very old versions."
+    },
+    {
+      "id": 1210358550,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1210358550",
+      "created_at": "2022-08-10T08:46:23Z",
+      "updated_at": "2022-08-10T08:46:23Z",
+      "author": "Participant 1",
+      "body": "@josecarlosphp unfortunatelly the issue was again closed by prestashop. Because the issue is not that easy to reproduce - but i also have more than 10 duplicated invoice numbers in our shop. Which is a very big issue, especially for data security."
+    },
+    {
+      "id": 1219636319,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1219636319",
+      "created_at": "2022-08-18T15:30:31Z",
+      "updated_at": "2022-08-18T15:30:31Z",
+      "author": "Participant 7",
+      "body": "> @josecarlosphp unfortunatelly the issue was again closed by prestashop. Because the issue is not that easy to reproduce - but i also have more than 10 duplicated invoice numbers in our shop. Which is a very big issue, especially for data security.\r\n\r\nSure, not easy to reproduce, but easy to imagine... Sometimes it isn't needed to reproduce an issue to understand it, and then solve it. \"Most likely a module problem\", it makes me laugh. And here comes PrestaShop 8.0 from 1.7 XDDD, the word you're looking for is: commercial."
+    },
+    {
+      "id": 1384303027,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1384303027",
+      "created_at": "2023-01-16T16:37:19Z",
+      "updated_at": "2023-01-16T16:37:19Z",
+      "author": "Participant 8",
+      "body": "One of my clients notified me of this problem on his website in a fresh PS 1.7.7.8. In this case there are 3 invoices with the same ID and delivery note (client data is OK, issue is just regarding the invoice ID and the delivery note) but each order was placed in different days (13, 14 and 15 January 2023) and they are not correlative (first order is 2373, second is 2374 but the third one is 2376).\r\n\r\n![PRESTASHOP_DUPLICATED_INVOICE](https://user-images.githubusercontent.com/7861764/212727393-d133c2e3-408b-43f6-a537-81f990a3ac89.png)\r\n\r\nThis is not a a module problem. I'm checking other websites from my clients with versions from 1.7.6.5 to 1.7.7.8 and all of them are suffering this critical (due to finance regulations) problem. There are sites without common modules and with different themes affected by this bug.\r\n\r\nPlease, priorize this. This is not a joke and can have a high negative impact in bussiness accounting.\r\n\r\n"
+    },
+    {
+      "id": 1386895716,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1386895716",
+      "created_at": "2023-01-18T11:21:54Z",
+      "updated_at": "2023-01-18T11:21:54Z",
+      "author": "Participant 7",
+      "body": "PrestaShop looks for commercial light instead of improve too old bad done things.\r\nIronically, if those things were improved, it would do better commercially, and preventing people from moving to WooCommerce or whatelse."
+    },
+    {
+      "id": 1477519675,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1477519675",
+      "created_at": "2023-03-21T09:33:07Z",
+      "updated_at": "2023-03-21T09:35:51Z",
+      "author": "Participant 9",
+      "body": "Hello i come with a way to reproduce easily !\r\n\r\nFrom ANY version of Prestashop from 1.7.7.2 (mine) and 8.0.*\r\n\r\nIn method `setLastInvoiceNumber` in\r\n`classes\\order\\Order.php`\r\n\r\nThe request is following :\r\n`SELECT new_number FROM (SELECT (MAX(number) + 1) AS new_number`\r\n\r\nIts atrocious way to find the last available number because this method don't lock any other process concurrent executing an order integration at the same time to get the SAME maximum number.\r\n\r\nFor reproduce, you just can put here, before executing the insert request, a `sleep()` juste before the `Db::getInstance()->execute($sql)`. When you validate the first order the sleep start, and then, validate another order in same time. The two order validation get the same maximum number....\r\n\r\nThis case is occured in production for my company !\r\n\r\nWe patched our prestashop by overriding `setLastInvoiceNumber` with a request who select in a created separate sequence\r\n`CREATE SEQUENCE ps_sequence_invoice_number START WITH 100000;`\r\n\r\nAND get next number by\r\n`SELECT NEXT VALUE FOR ps_sequence_invoice_number;`\r\n\r\nAny hope to see a fix of this kind in Prestashop base code ?\r\nA good system for locking invoice number..."
+    },
+    {
+      "id": 1564240697,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1564240697",
+      "created_at": "2023-05-26T11:19:54Z",
+      "updated_at": "2023-05-26T11:19:54Z",
+      "author": "Participant 10",
+      "body": "Same problem here. 19 double invoice numbers in one year. All cases were created on orders at the exact same time. I hope this security and privacy issue will be solved by building an extra condition. Any news about this bug?"
+    },
+    {
+      "id": 1701311026,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1701311026",
+      "created_at": "2023-08-31T15:58:07Z",
+      "updated_at": "2023-08-31T15:58:07Z",
+      "author": "Participant 11",
+      "body": "> Hello i come with a way to reproduce easily !\r\n> \r\n> From ANY version of Prestashop from 1.7.7.2 (mine) and 8.0.*\r\n> \r\n> In method `setLastInvoiceNumber` in `classes\\order\\Order.php`\r\n> \r\n> The request is following : `SELECT new_number FROM (SELECT (MAX(number) + 1) AS new_number`\r\n> \r\n> Its atrocious way to find the last available number because this method don't lock any other process concurrent executing an order integration at the same time to get the SAME maximum number.\r\n> \r\n> For reproduce, you just can put here, before executing the insert request, a `sleep()` juste before the `Db::getInstance()->execute($sql)`. When you validate the first order the sleep start, and then, validate another order in same time. The two order validation get the same maximum number....\r\n> \r\n> This case is occured in production for my company !\r\n> \r\n> We patched our prestashop by overriding `setLastInvoiceNumber` with a request who select in a created separate sequence `CREATE SEQUENCE ps_sequence_invoice_number START WITH 100000;`\r\n> \r\n> AND get next number by `SELECT NEXT VALUE FOR ps_sequence_invoice_number;`\r\n> \r\n> Any hope to see a fix of this kind in Prestashop base code ? A good system for locking invoice number...\r\n\r\nThanks for your reply, we will try your option.\r\n\r\nTo anyone who will try to use this method, please be aware that SEQUENCES instruction is not natively supported on MySQL 5.6. You need at least MySQL 8.0.3, or MariaDB 10.3 to use this instruction."
+    },
+    {
+      "id": 1915469480,
+      "url": "https://github.com/PrestaShop/PrestaShop/issues/28757#issuecomment-1915469480",
+      "created_at": "2024-01-29T20:05:38Z",
+      "updated_at": "2024-01-29T20:05:38Z",
+      "author": "Participant 12",
+      "body": "When I batch generate invoices for my system's backend order list, I find that many invoices with the same number are generated. My invoice number setting is reset the invoice number every year.  So the ps_orders.invoice_number will have two duplicates numbers, I can not set the invoice_number to auto increament."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

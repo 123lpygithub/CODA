@@ -1,0 +1,37 @@
+{
+  "artifact_id": "privacy-issue-14030",
+  "source_issue_url": "https://github.com/wso2/product-is/issues/2206",
+  "issue_snapshot_sha256": "f7fbe024bfd4eecd7c8fd59ea84098aa2c5405b5229bc4ad1e5928d85f88790e",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/wso2/product-is/pull/3673/files",
+      "kind": "pull_request",
+      "cited_in": [
+        "comment_419975390",
+        "comment_428833808"
+      ],
+      "text": "From 0ede5b5ce8cdaac1b03707c141177c49a4609061 Mon Sep 17 00:00:00 2001\nFrom: nuwandiw <nuwandiw@wso2.com>\nDate: Mon, 3 Sep 2018 19:31:33 +0530\nSubject: [PATCH] Revisit user association story for federated users\n\n---\n .../gadgets/connected_accounts/index.jag      | 22 +++++++++++++------\n 1 file changed, 15 insertions(+), 7 deletions(-)\n\ndiff --git a/modules/jaggery-apps/portal/gadgets/connected_accounts/index.jag b/modules/jaggery-apps/portal/gadgets/connected_accounts/index.jag\nindex 6a37282024d..8c2c7e0dee6 100644\n--- a/modules/jaggery-apps/portal/gadgets/connected_accounts/index.jag\n+++ b/modules/jaggery-apps/portal/gadgets/connected_accounts/index.jag\n@@ -12,6 +12,7 @@ var identityProviderMgtClient = require('controllers/service-clients/identityPro\n var userProfileMgtClient = require('controllers/service-clients/userProfileMgtClient.jag');\n var identityProviderAdminClient = require('controllers/service-clients/identityProviderAdminClient.jag');\n var userCoreUtils = Packages.org.wso2.carbon.user.core.util.UserCoreUtil;\n+var identityUtil = Packages.org.wso2.carbon.identity.core.util.IdentityUtil;\n \n \n if (action != null) {\n@@ -51,14 +52,21 @@ if (action != null) {\n             print(getErrorMessage(e.message));\n         }\n     } else if (action == 'fedConnect') {\n-        var idPId = request.getParameter('idPId');\n-        var username = request.getParameter('username');\n \n-        try {\n-            userProfileMgtClient.associateID(idPId, username);\n-            print('{\"success\":true}');\n-        } catch (e) {\n-            print(getErrorMessage(e.message));\n+        var isAllowed = identityUtil.isFederatedUserAssociationEnabled();\n+\n+        if (isAllowed == 'true') {\n+            var idPId = request.getParameter('idPId');\n+            var username = request.getParameter('username');\n+\n+            try {\n+                userProfileMgtClient.associateID(idPId, username);\n+                print('{\"success\":true}');\n+            } catch (e) {\n+                print(getErrorMessage(e.message));\n+            }\n+        } else {\n+            print(getErrorMessage('Error:Federated user association is not allowed in the server'));\n         }\n     } else if (action == 'associatedIdList') {\n \n",
+      "source_sha256": "61048a6a634c5464717e6b8aae6f41551a4a5c54dc78f7a39ce56bfb7a18e263",
+      "fetched_at": "2026-11-05T06:21:41.683869+00:00",
+      "retrieval_url": "https://github.com/wso2/product-is/pull/3673.patch",
+      "status": "available",
+      "revision": "3673",
+      "immutable_revision": false,
+      "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+    },
+    {
+      "url": "https://github.com/wso2/product-is/issues/3829",
+      "kind": "issue",
+      "cited_in": [
+        "comment_512329352"
+      ],
+      "text": "{\n  \"format\": \"coda-github-issue-snapshot\",\n  \"format_version\": 1,\n  \"artifact_id\": \"privacy-issue-linked-3829\",\n  \"issue_url\": \"https://github.com/wso2/product-is/issues/3829\",\n  \"source_issue_url\": \"https://github.com/wso2/product-is/issues/3829\",\n  \"api_url\": \"https://api.github.com/repos/wso2/product-is/issues/3829\",\n  \"title\": \"Enabling Multi Factor Authentication for User Association via Dashboard\",\n  \"body\": \"Multi-Factor Authentication for User Association is not available for associating federated accounts or for associating local accounts using the dashboard association gadget.\\r\\nThere is a possibility of security attacks if an attacker already has an account in the system with login permission (if self-signup is enabled) due to not having MFA with User Association.\\r\\n\\r\\nTherefore, the need of having MFA for User Association via the Dashboard has been raised.\\r\\n\",\n  \"author\": \"Participant 1\",\n  \"created_at\": \"2018-10-16T08:21:20Z\",\n  \"updated_at\": \"2021-04-09T10:55:54Z\",\n  \"state\": \"closed\",\n  \"closed_at\": null,\n  \"issue_fetched_at\": \"2026-11-05T07:19:54.514810+00:00\",\n  \"comments_fetched_at\": [\n    \"2026-11-05T07:19:54.514810+00:00\"\n  ],\n  \"expected_comment_count\": 1,\n  \"retrieved_comment_count\": 1,\n  \"comments_complete\": true,\n  \"comments\": [\n    {\n      \"id\": 816600422,\n      \"url\": \"https://github.com/wso2/product-is/issues/3829#issuecomment-816600422\",\n      \"created_at\": \"2021-04-09T10:55:54Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 2\",\n      \"body\": \"Thank you for your contribution!\\r\\nWe are closing this issue since it has not been prioritized for a long time. Chances are that it has already been solved in more recent versions. If not, we will be re-evaluating this when it becomes a priority.\\r\\n\"\n    }\n  ],\n  \"evidence_status\": \"complete\",\n  \"scope\": \"Retrieval-time original Markdown from GitHub's structured issue pages, including numbered timeline pages. Discussion complete only after pagination, comment-ID, expected-count and unchanged-issue checks. Closure timestamp is unavailable; linked material is stored separately.\",\n  \"retrieval_method\": \"GitHub public issue page embedded original Markdown\",\n  \"retrieval_url\": \"https://github.com/wso2/product-is/issues/3829\",\n  \"closed_at_available\": false,\n  \"timeline_page_urls\": [\n    \"https://github.com/wso2/product-is/issues/3829\"\n  ]\n}",
+      "status": "available",
+      "fetched_at": "2026-11-05T07:19:54.514810+00:00",
+      "retrieved_comment_count": 1,
+      "expected_comment_count": 1,
+      "reason": ""
+    }
+  ]
+}

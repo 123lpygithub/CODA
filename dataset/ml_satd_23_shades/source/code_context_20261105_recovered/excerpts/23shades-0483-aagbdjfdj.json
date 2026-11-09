@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0483-aagbdjfdj",
+  "revision_url": "https://github.com/euclidjda/deep-quant/commit/63fda3f6be2dc7f30dbff01c649da38d866c14e3",
+  "filename": "scripts/models/deep_bayes_uq_model.py",
+  "commit": "63fda3f6be2dc7f30dbff01c649da38d866c14e3",
+  "source_url": "https://raw.githubusercontent.com/euclidjda/deep-quant/63fda3f6be2dc7f30dbff01c649da38d866c14e3/scripts/models/deep_bayes_uq_model.py",
+  "fetched_at": "2026-11-05T06:13:01.086441+00:00",
+  "source_sha256": "40b5ebadeb2d09c2b0e1c5c6ef846dcd1c6f43371e74e894e1a310cde8304fc6",
+  "line_start": 174,
+  "line_end": 198,
+  "excerpt": "        self._lkt = last_k_targets\n        self._lko = last_k_outputs\n        self._lkp = last_k_precisions\n        self._lkti = last_k_targets[:, :, ktidx]\n        self._lkoi = last_k_outputs[:, :, ktidx]\n        self._lkpi = last_k_precisions[:, :, ktidx]\n        self._t = targets\n        self._o = outputs\n        self._p = precisions\n\n        # Different components of mse definitions with precision\n        if config.backfill is True:\n            # TODO: Check if self._mean_squared_error_w_precision can be used here\n            self._mse_0 = tf.losses.mean_squared_error(last_target[:, ktidx], last_output[:, ktidx])\n            self._mse_1 = tf.losses.mean_squared_error(last_target, last_output)\n        else:\n            self._mse_0 = self._mean_squared_error_w_precision(last_k_targets[:, :, ktidx],\n                                                   last_k_outputs[:, :, ktidx],\n                                                   last_k_precisions[:, :, ktidx],\n                                                   last_k_seqmask[:, :, ktidx])\n            self._mse_1 = self._mean_squared_error_w_precision(last_k_targets, last_k_outputs,\n                                                               last_k_precisions, last_k_seqmask)\n\n        self._mse_2 = self._mean_squared_error_w_precision(targets, outputs, precisions, seqmask)\n"
+}

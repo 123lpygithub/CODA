@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0096-aaeeidbja",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/8f3f2337a94c9bdaa6586dcdfdbb1e81f7c6ea4f",
+  "filename": "cp/evaluation/simple.py",
+  "commit": "8f3f2337a94c9bdaa6586dcdfdbb1e81f7c6ea4f",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/8f3f2337a94c9bdaa6586dcdfdbb1e81f7c6ea4f/cp/evaluation/simple.py",
+  "fetched_at": "2026-11-05T06:11:53.682201+00:00",
+  "source_sha256": "b8a62f3c41dc6537705745423b934b872ecdd1fdaaeb950606e6709cd10fb7fd",
+  "line_start": 139,
+  "line_end": 163,
+  "excerpt": "        # FIXME: is returning 0 ok?\n        return 0.\n\n    @property\n    def std_error(self):\n        \"\"\"Standard deviation of the errors.\"\"\"\n        # FIXME: is returning 0 ok?\n        return 0.\n\n    @property\n    def errors(self):\n        \"\"\"Errors.\"\"\"\n        # FIXME: is returning an empty list?\n        return np.empty(0)\n\n    def print_errors(self, tex=False):\n        \"\"\"\n        Print errors.\n\n        :param tex: output format to be used in .tex files [default=False]\n\n        \"\"\"\n        # print the errors\n        print '  targets: %5d correct: %5d fp: %4d fn: %4d p=%.3f r=%.3f f=%.3f' % (self.num_tp + self.num_fn, self.num_tp, self.num_fp, self.num_fn, self.precision, self.recall, self.fmeasure)\n        print '  tpr: %.1f%% fpr: %.1f%% acc: %.1f%% mean: %.1f ms std: %.1f ms' % (self.recall * 100., (1 - self.precision) * 100., self.accuracy * 100., self.mean_error * 1000., self.std_error * 1000.)"
+}

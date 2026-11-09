@@ -1,0 +1,66 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3942",
+  "issue_url": "https://github.com/signalapp/Signal-Desktop/issues/1074",
+  "source_issue_url": "https://github.com/signalapp/Signal-Desktop/issues/1074",
+  "api_url": "https://api.github.com/repos/signalapp/Signal-Desktop/issues/1074",
+  "title": "Debug log reveals three phone number digits, not only two as described in the (Android) wiki",
+  "body": "- [X] I have searched open and closed issues for duplicates\r\n\r\n----------------------------------------\r\n\r\n### Bug description\r\nThe Signal Desktop debug log reveals the last three digits of a contact's phone number, not just the last two as described in https://github.com/WhisperSystems/Signal-Android/wiki/Submitting-useful-bug-reports#debug-log-privacy. (As of now the Signal Desktop wiki is empty so I can't point to that instead.)\r\n\r\n### Steps to reproduce\r\n- Open Signal Desktop\r\n- Click three dots at middle top\r\n- Click \"Submit debug log\"\r\n- Look at log\r\n\r\n**Actual result:** Log entries with three digits revealed, like:\r\n$TIMESTAMP PUT https://textsecure-service-ca.whispersystems.org:80/v1/messages/+[REDACTED]123\r\n\r\n**Expected result:** Log entries with only two digits revealed, like:\r\n$TIMESTAMP PUT https://textsecure-service-ca.whispersystems.org:80/v1/messages/+[REDACTED]23\r\n\r\n### Platform info\r\n**Operating System**: Ubuntu 16.04.2 running Unity\r\n**Browser**: Chrome 56.0.2924.87\r\n<!-- you can see Signal's version number in your browser's extensions page: chrome://extensions -->\r\n**Signal version:** 0.30.0\r\n\r\n### Extra note\r\nI noticed this because I saw another completely unrelated issue that looked sort of like mine, and the issue creator was asked to submit a debug log. I went to look for my own debug log out of curiosity and was concerned that the UI said the log would be posted publicly but not where. It also says I may examine and edit before submitting, and I first thought this meant that if I clicked submit I would be taken to another page or screen where I could edit the log. After further examination (without submitting any debug log) I understood that the message meant I should edit the log in the box I was already looking at before clicking \"Submit\". Then I wondered about personally-identifiable information and found the two digit message in the Signal Android wiki and then found it was actually three for Desktop. (I do see only two digits revealed in the debug log on an Android device.) I'm still not totally sure where the logs go, but looking at other issues, I think they become anonymous secret gists.\r\n\r\nI think the two-vs-three digit discrepancy is a bug -- in documentation if nothing else -- but all of this together makes submitting debug logs feel pretty scary to me. I would advise anyone I know, especially less technical people, to stay away from the submit debug log UI unless they feel confident enough to carefully review and scrub it for themselves.\r\n\r\n(Great product and service by the way! I hope you receive this issue as constructive criticism.)",
+  "author": "Participant 1",
+  "created_at": "2017-02-23T21:26:32Z",
+  "updated_at": "2017-11-11T17:02:29Z",
+  "state": "closed",
+  "closed_at": "2017-11-11T02:38:25Z",
+  "issue_fetched_at": "2026-10-19T02:10:51.371630+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T02:10:52.810376+00:00"
+  ],
+  "expected_comment_count": 5,
+  "retrieved_comment_count": 5,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 343509875,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/1074#issuecomment-343509875",
+      "created_at": "2017-11-10T15:52:25Z",
+      "updated_at": "2017-11-10T15:52:25Z",
+      "author": "Participant 1",
+      "body": "Update: this is still an active issue, now in the desktop client. The wiki at https://github.com/WhisperSystems/Signal-Android/wiki/Submitting-useful-bug-reports#debug-log-privacy says \"However please note that the last two digits of your and your contacts phone numbers may be visible in the logs.\"\r\n\r\nTo find the debug log, go to `View > Debug Log`. The relevant lines in the debug log with three digits now look like:\r\n\r\n> INFO  [TIMESTAMP] PUT https://textsecure-service.whispersystems.org/v1/messages/+[REDACTED]123 200 Success"
+    },
+    {
+      "id": 343634407,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/1074#issuecomment-343634407",
+      "created_at": "2017-11-11T02:38:25Z",
+      "updated_at": "2017-11-11T02:38:25Z",
+      "author": "Participant 2",
+      "body": "Can you point me to all the places where we claim that just two digits end up in the log? The three digits is by design, and we'll go update that documentation."
+    },
+    {
+      "id": 343668037,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/1074#issuecomment-343668037",
+      "created_at": "2017-11-11T14:18:46Z",
+      "updated_at": "2017-11-11T14:18:46Z",
+      "author": "Participant 1",
+      "body": "@scottnonnenberg It's in the wiki that I linked above, at https://github.com/WhisperSystems/Signal-Android/wiki/Submitting-useful-bug-reports#debug-log-privacy , which currently reads:\r\n\r\n> **Debug log privacy**\r\n>\r\n> Debug logs captured within Signal are stripped from personal information. However please note that the last two digits of your and your contacts phone numbers may be visible in the logs. E.g. `+1 555 3455` will show as `+******55` in the log. This is to help differentiate the contacts when analysing a log."
+    },
+    {
+      "id": 343677447,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/1074#issuecomment-343677447",
+      "created_at": "2017-11-11T16:43:51Z",
+      "updated_at": "2017-11-11T16:43:51Z",
+      "author": "Participant 3",
+      "body": " I have updated the mentioned wiki."
+    },
+    {
+      "id": 343678657,
+      "url": "https://github.com/signalapp/Signal-Desktop/issues/1074#issuecomment-343678657",
+      "created_at": "2017-11-11T17:02:29Z",
+      "updated_at": "2017-11-11T17:02:29Z",
+      "author": "Participant 1",
+      "body": "@rainerzufall Thanks!"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

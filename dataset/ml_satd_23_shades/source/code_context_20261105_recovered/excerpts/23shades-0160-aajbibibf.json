@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0160-aajbibibf",
+  "revision_url": "https://github.com/anki/vector-python-sdk/commit/270a14db4ab3b5519a4219202b3242fa108fbae3",
+  "filename": "anki_vector/viewer.py",
+  "commit": "270a14db4ab3b5519a4219202b3242fa108fbae3",
+  "source_url": "https://raw.githubusercontent.com/anki/vector-python-sdk/270a14db4ab3b5519a4219202b3242fa108fbae3/anki_vector/viewer.py",
+  "fetched_at": "2026-11-05T06:12:03.403418+00:00",
+  "source_sha256": "62a32425e6c0af8a612abbe9233c99aac31cae50c0fae37c62f6c836a3a53b9e",
+  "line_start": 392,
+  "line_end": 416,
+  "excerpt": "            This is called from the SDK process, and will pass the nav map data to the\n            3D viewer process.\n\n            We can safely capture any robot and world state here, and push to OpenGL\n            (main) process via a multiprocessing queue.\n        \"\"\"\n        from .opengl import opengl_vector\n        world_frame = opengl_vector.WorldRenderFrame(self.robot)\n        try:\n            self._world_frame_queue.put(world_frame, False)\n        except mp.queues.Full:\n            pass\n        # self._view_controller.update(self.robot) # TODO: <- sounds like this has something to do with keyboard input...\n\n    def _on_nav_map_update(self, _, msg):\n        \"\"\"Called from SDK process whenever the nav map is updated.\n\n        Note:\n\n            This is called from the SDK process, and will pass the nav map data to the\n            3D viewer process.\n\n            We can safely capture any robot and world state here, and push to OpenGL\n            (main) process via a multiprocessing queue.\n        \"\"\""
+}

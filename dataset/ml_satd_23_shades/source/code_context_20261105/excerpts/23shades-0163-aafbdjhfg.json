@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0163-aafbdjhfg",
+  "revision_url": "https://github.com/philipperemy/keras-tcn/commit/05dee5593070e2d3ad9858eb6bbc1f941b38d437",
+  "filename": "tcn/tcn.py",
+  "commit": "05dee5593070e2d3ad9858eb6bbc1f941b38d437",
+  "source_url": "https://raw.githubusercontent.com/philipperemy/keras-tcn/05dee5593070e2d3ad9858eb6bbc1f941b38d437/tcn/tcn.py",
+  "fetched_at": "2026-11-05T06:12:04.079738+00:00",
+  "source_sha256": "5237295ade7ed89da34b7ec45c720c86eb59fb42cf03d7384f45247c4f1ccdb5",
+  "line_start": 24,
+  "line_end": 48,
+  "excerpt": "\n    Returns:\n        A tuple where the first element is the residual model layer, and the second\n        is the skip connection.\n    \"\"\"\n    original_x = x\n\n    for k in range(2):\n        x = Conv1D(filters=nb_filters,\n                   kernel_size=kernel_size,\n                   dilation_rate=dilation_rate,\n                   padding=padding)(x)\n        x = BatchNormalization()(x)  # should be WeightNorm here TODO.\n        x = Activation('relu')(x)\n        x = SpatialDropout1D(rate=dropout_rate)(x)\n\n    # 1x1 conv.\n    x = Convolution1D(nb_filters, 1, padding='same')(x)\n    res_x = keras.layers.add([original_x, x])\n    return res_x, x\n\n\ndef process_dilations(dilations):\n    def is_power_of_two(num):\n        return num != 0 and ((num & (num - 1)) == 0)"
+}

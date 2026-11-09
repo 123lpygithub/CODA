@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0796-aagdafeic",
+  "revision_url": "https://github.com/sonidosmutantes/apicultor/commit/800500fdd445dd72fdf9ebdbf9b5ce08953d3d99",
+  "filename": "state_machine/PlayCtrlState.py",
+  "commit": "800500fdd445dd72fdf9ebdbf9b5ce08953d3d99",
+  "source_url": "https://raw.githubusercontent.com/sonidosmutantes/apicultor/800500fdd445dd72fdf9ebdbf9b5ce08953d3d99/state_machine/PlayCtrlState.py",
+  "fetched_at": "2026-11-05T06:13:53.369476+00:00",
+  "source_sha256": "8a2a1eba6d4021dbe8c660a3f92cdb04b68704266b751ca75661853f747aaf65",
+  "line_start": 242,
+  "line_end": 266,
+  "excerpt": "    json_data = \"\"\n    try:\n        json_comp_file = sys.argv[1] \n        # with open(json_file,'r') as file:\n        #     json_data = json.load( file )\n        json_data = json.load( open(json_comp_file,'r') )\n    except Exception, e:\n        print(e)\n        print(\"JSON composition file error.\")\n        sys.exit(2)\n\n    print(\"Starting MIR state machine\")\n    log.write(\"Starting MIR state machine: \"+json_comp_file+\"\\n\") #WARNING: bad realtime practice (writing file) TODO: add to a memory buffer and write before exit\n    \n    print( json_data['statesArray'][0]['mir'] )\n\n    # states_dict = dict() # id to name conversion\n    # states_dur = dict() #states duration\n    # states_mirdef = dict() #mir state definition\n    # start_state = json_data['statesArray'][0]['text'] #TODO: add as property (start: True)\n    # for st in json_data['statesArray']:\n    #     states_dict[ st['id'] ] = st['text'] # 'text' is the name of the state\n    #     try:\n    #         states_mirdef[ st['text'] ] = st['mir'][0]\n    #     except:",
+  "match_policy": "unique-release-normalized-v2"
+}

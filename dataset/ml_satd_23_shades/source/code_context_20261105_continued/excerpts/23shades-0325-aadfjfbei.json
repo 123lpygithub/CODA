@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0325-aadfjfbei",
+  "revision_url": "https://github.com/pyro-ppl/funsor/commit/7dce5d20fea11febe010b945ae01434d771d231a",
+  "filename": "funsor/tensor.py",
+  "commit": "7dce5d20fea11febe010b945ae01434d771d231a",
+  "source_url": "https://raw.githubusercontent.com/pyro-ppl/funsor/7dce5d20fea11febe010b945ae01434d771d231a/funsor/tensor.py",
+  "fetched_at": "2026-11-05T06:12:34.227803+00:00",
+  "source_sha256": "d61a51cbd7dac438df4898e53643700da946b191deeebdfb1889b4ab269cb9a5",
+  "line_start": 737,
+  "line_end": 761,
+  "excerpt": "    for part in parts:\n        inputs[part_name] = part.inputs[part_name]\n        shape = tuple(d.size for d in inputs.values()) + output.shape\n        tensors.append(ops.expand(align_tensor(inputs, part), shape))\n    del inputs[part_name]\n\n    dim = 0\n    tensor = ops.cat(dim, *tensors)\n    inputs = OrderedDict([(name, bint(tensor.shape[dim]))] + list(inputs.items()))\n    return Tensor(tensor, inputs, dtype=output.dtype)\n\n\n# TODO Promote this to a Funsor subclass.\nclass LazyTuple(tuple):\n    def __call__(self, *args, **kwargs):\n        return LazyTuple(x(*args, **kwargs) for x in self)\n\n    @lazy_property\n    def __annotations__(self):\n        result = {}\n        output = []\n        for part in self:\n            result.update(part.__annotations__)\n            output.append(result.pop(\"return\"))\n        result[\"return\"] = typing.Tuple[tuple(output)]"
+}

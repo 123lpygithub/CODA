@@ -1,0 +1,22 @@
+{
+  "artifact_id": "23shades-0027-aajfegaca",
+  "status": "retrieved",
+  "url": "https://api.github.com/repos/catalyst-team/catalyst/commits/69c078ac203ff211ea68c70eed1f9c847b86a84a",
+  "parents": [
+    {
+      "sha": "60dfcf812eca79017dced46e1189245c050a3fd6",
+      "url": "https://api.github.com/repos/catalyst-team/catalyst/commits/60dfcf812eca79017dced46e1189245c050a3fd6",
+      "html_url": "https://github.com/catalyst-team/catalyst/commit/60dfcf812eca79017dced46e1189245c050a3fd6"
+    }
+  ],
+  "matching_files": [
+    {
+      "filename": "dl/callbacks.py",
+      "previous_filename": null,
+      "status": "modified",
+      "patch": "@@ -229,7 +229,7 @@ def on_loader_end(self, state: RunnerState):\n             mode = state.loader_mode\n             self._log_metrics(\n                 metrics=state.epoch_metrics[mode], step=state.epoch,\n-                mode=mode,  suffix=\"/epoch\")\n+                mode=mode, suffix=\"/epoch\")\n \n \n class CheckpointCallback(Callback):\n@@ -357,7 +357,8 @@ def __init__(\n         @TODO: docs\n         \"\"\"\n         grad_clip_params = grad_clip_params or {}\n-        self.grad_clip_fn = UtilsFactory.create_grad_clip_fn(**grad_clip_params)\n+        self.grad_clip_fn = UtilsFactory.create_grad_clip_fn(\n+            **grad_clip_params)\n         self.fp16 = False\n         self.fp16_grad_scale = fp16_grad_scale\n         self.accumulation_steps = accumulation_steps\n@@ -368,14 +369,16 @@ def __init__(\n \n     def on_train_start(self, state):\n         self.fp16 = isinstance(state.model, Fp16Wrap)\n-        optimizer = state.get_key(key=\"optimizer\", inner_key=self.optimizer_key)\n+        optimizer = state.get_key(\n+            key=\"optimizer\", inner_key=self.optimizer_key)\n         lr = optimizer.defaults[\"lr\"]\n         momentum = get_optimizer_momentum(optimizer)\n         state.set_key(lr, \"lr\", inner_key=self.optimizer_key)\n         state.set_key(momentum, \"momentum\", inner_key=self.optimizer_key)\n \n     def on_epoch_start(self, state):\n-        optimizer = state.get_key(key=\"optimizer\", inner_key=self.optimizer_key)\n+        optimizer = state.get_key(\n+            key=\"optimizer\", inner_key=self.optimizer_key)\n         self.optimizer_wd = optimizer.param_groups[0].get(\"weight_decay\", 0.0)\n         optimizer.param_groups[0][\"weight_decay\"] = 0.0\n \n@@ -439,7 +442,8 @@ def on_batch_end(self, state):\n             torch.cuda.synchronize()\n \n     def on_epoch_end(self, state):\n-        optimizer = state.get_key(key=\"optimizer\", inner_key=self.optimizer_key)\n+        optimizer = state.get_key(\n+            key=\"optimizer\", inner_key=self.optimizer_key)\n         optimizer.param_groups[0][\"weight_decay\"] = self.optimizer_wd\n \n \n@@ -454,7 +458,8 @@ def __init__(\n         self.reduce_metric = reduce_metric\n \n     def step(self, state):\n-        scheduler = state.get_key(key=\"scheduler\", inner_key=self.scheduler_key)\n+        scheduler = state.get_key(\n+            key=\"scheduler\", inner_key=self.scheduler_key)\n \n         lr, momentum = scheduler_step(\n             scheduler=scheduler,\n@@ -517,14 +522,16 @@ def _update_optimizer(self, optimizer):\n         return new_lr, new_momentum\n \n     def on_train_start(self, state):\n-        optimizer = state.get_key(key=\"optimizer\", inner_key=self.optimizer_key)\n+        optimizer = state.get_key(\n+            key=\"optimizer\", inner_key=self.optimizer_key)\n         self.init_lr = optimizer.defaults[\"lr\"]\n \n     def update_optimizer(self, state):\n         if not state.is_train:\n             return\n \n-        optimizer = state.get_key(key=\"optimizer\", inner_key=self.optimizer_key)\n+        optimizer = state.get_key(\n+            key=\"optimizer\", inner_key=self.optimizer_key)\n         lr, momentum = self._update_optimizer(optimizer=optimizer)\n         state.set_key(lr, key=\"lr\", inner_key=self.optimizer_key)\n         state.set_key(momentum, key=\"momentum\", inner_key=self.optimizer_key)",
+      "raw_url": "https://github.com/catalyst-team/catalyst/raw/69c078ac203ff211ea68c70eed1f9c847b86a84a/dl%2Fcallbacks.py"
+    }
+  ],
+  "sha256": "acd9d7810558db7c15e612a4c8743e7f1b9d076c1aa0115944319771c1cabe5d"
+}

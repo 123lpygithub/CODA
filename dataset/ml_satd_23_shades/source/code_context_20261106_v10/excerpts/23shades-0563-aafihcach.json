@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0563-aafihcach",
+  "revision_url": "https://github.com/ParrotPrediction/pyalcs/commit/c5f4b3034450d499096840dadae8c9d447e3a468",
+  "filename": "alcs/agent/acs2/RL.py",
+  "commit": "c5f4b3034450d499096840dadae8c9d447e3a468",
+  "source_url": "https://raw.githubusercontent.com/ParrotPrediction/pyalcs/c5f4b3034450d499096840dadae8c9d447e3a468/alcs/agent/acs2/RL.py",
+  "fetched_at": "2026-11-05T06:13:12.985684+00:00",
+  "source_sha256": "2651ef2bad03caeb89218066e6e55cb44f85170644ac0b26eea827172bf0071b",
+  "line_start": 27,
+  "line_end": 51,
+  "excerpt": "    :param discount_factor:\n    \"\"\"\n    logger.info(\"Applying RL module, distributing reward: [%d]\", reward)\n\n    max_p = _calculate_maximum_payoff(match_set)\n\n    for cl in action_set:\n        cl.r += learning_rate * (reward + discount_factor * max_p - cl.r)\n        cl.ir += learning_rate * (reward - cl.ir)\n        logger.info(\"\\t\\t[RL] Classifier: %s\", cl)\n\n\n# TODO: I'm not sure about this part\ndef _calculate_maximum_payoff(match_set: list) -> float:\n    \"\"\"\n    Calculate the maximum payoff predicted in the next time-step\n\n    :param match_set: list of classifiers (match set)\n    :return: maximum fitness value found in match_set (maxP)\n    \"\"\"\n    wildcards = ACS2Utils.get_general_perception()\n    applicable_classifiers = [cl for cl in match_set if cl.effect != wildcards]\n\n    if len(applicable_classifiers) > 0:\n        return max(cl.fitness() for cl in applicable_classifiers)"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0668-aaeiebdgb",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/2870928bfe203bdeed609949ac6c28bc3e4ac07d",
+  "filename": "hpat/hiframes.py",
+  "commit": "2870928bfe203bdeed609949ac6c28bc3e4ac07d",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/2870928bfe203bdeed609949ac6c28bc3e4ac07d/hpat/hiframes.py",
+  "fetched_at": "2026-11-05T06:13:35.513737+00:00",
+  "source_sha256": "f7933a8816c23d0bea30f226249b24f23ca5a27b82956aec957ae9ba6c4dd316",
+  "line_start": 1642,
+  "line_end": 1666,
+  "excerpt": "                f, {'hpat': hpat}).blocks.popitem()[1]\n            replace_arg_nodes(f_block, [in_arr_tmp])\n            nodes += f_block.body[:-3]  # remove none return\n            nodes[-1].target = arg_var\n\n        # handle timestamp Series\n        # transform to array[dt64]\n        # could be combined with distributed/threaded input\n        if self.args[arg_ind] == timestamp_series_type:\n            # replace arg var with tmp\n            in_arr_tmp = ir.Var(scope, mk_unique_var(\"ts_series_input\"), loc)\n            nodes[-1].target = in_arr_tmp\n            # TODO: remove timestamp_series_type\n            def f(_ts_series):  # pragma: no cover\n                _dt_arr = hpat.hiframes_api.to_series_type(hpat.hiframes_api.ts_series_to_arr_typ(_ts_series))\n\n            f_block = compile_to_numba_ir(\n                f, {'hpat': hpat}).blocks.popitem()[1]\n            replace_arg_nodes(f_block, [in_arr_tmp])\n            nodes += f_block.body[:-3]  # remove none return\n            nodes[-1].target = arg_var\n            # remember that this variable is actually a Series\n            self.df_cols.add(arg_var.name)\n            self.ts_series_vars.add(arg_var.name)\n"
+}

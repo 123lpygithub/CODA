@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0234-aahiihjjg",
+  "revision_url": "https://github.com/kengz/SLM-Lab/commit/7a249bebbed2446042bf30304bae7f90f0479812",
+  "filename": "slm_lab/agent/algorithm/actor_critic.py",
+  "commit": "7a249bebbed2446042bf30304bae7f90f0479812",
+  "source_url": "https://raw.githubusercontent.com/kengz/SLM-Lab/7a249bebbed2446042bf30304bae7f90f0479812/slm_lab/agent/algorithm/actor_critic.py",
+  "fetched_at": "2026-11-05T06:12:19.247915+00:00",
+  "source_sha256": "c46c5a13a183ec066e6f73eb272db6f6d3569397948742bc29ef7ef6ce5ba911",
+  "line_start": 290,
+  "line_end": 314,
+  "excerpt": "            batch = self.sample()\n            pdparams, v_preds = self.calc_pdparam_v(batch)\n            advs, v_targets = self.calc_advs_v_targets(batch, v_preds)\n            policy_loss = self.calc_policy_loss(batch, pdparams, advs)  # from actor\n            val_loss = self.calc_val_loss(v_preds, v_targets)  # from critic\n            if self.shared:  # shared network\n                loss = policy_loss + val_loss\n                self.net.training_step(loss, self.optim, self.lr_scheduler, lr_clock=clock)\n                self.net.load_state_dict(self.global_net.state_dict())\n            else:\n                self.net.training_step(policy_loss, self.optim, self.lr_scheduler, lr_clock=clock)\n                self.critic_net.training_step(val_loss, self.critic_optim, self.critic_lr_scheduler, lr_clock=clock)\n                # TODO add method in net_util\n                self.net.load_state_dict(self.global_net.state_dict())\n                self.critic_net.load_state_dict(self.critic_net.state_dict())\n                loss = policy_loss + val_loss\n            # reset\n            self.to_train = 0\n            logger.debug(f'Trained {self.name} at epi: {clock.epi}, total_t: {clock.total_t}, t: {clock.t}, total_reward so far: {self.body.total_reward}, loss: {loss:g}')\n            return loss.item()\n        else:\n            return np.nan\n\n    @lab_api\n    def update(self):"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0322-aaacgfhgb",
+  "revision_url": "https://github.com/GilesStrong/lumin/commit/736a1d9c355179cd7d33511ca3e96b4c260e2883",
+  "filename": "lumin/data_processing/file_proc.py",
+  "commit": "736a1d9c355179cd7d33511ca3e96b4c260e2883",
+  "source_url": "https://raw.githubusercontent.com/GilesStrong/lumin/736a1d9c355179cd7d33511ca3e96b4c260e2883/lumin/data_processing/file_proc.py",
+  "fetched_at": "2026-11-05T06:12:33.700551+00:00",
+  "source_sha256": "abe822f6d27d970937ca83341727f0f291d1e2e688f02e036fe4128f9d2147de",
+  "line_start": 9,
+  "line_end": 33,
+  "excerpt": "\n\ndef save_to_grp(arr:np.ndarray, grp:h5py.Group, name:str) -> None:\n    r'''\n    Save Numpy array as a dataset in an h5py Group\n    \n    Arguments:\n        arr: array to be saved\n        grp: group in which to save arr\n        name: name of dataset to create\n    '''\n\n    # TODO Option for string lenght\n\n    ds = grp.create_dataset(name, shape=arr.shape, dtype=arr.dtype.name if arr.dtype.name != 'object' else 'S16')\n    ds[...] = arr if arr.dtype.name != 'object' else arr.astype('S16')\n\n\ndef fold2foldfile(df:pd.DataFrame, out_file:h5py.File, fold_idx:int,\n                  cont_feats:List[str], cat_feats:List[str], targ_feats:Union[str,List[str]], targ_type:Any,\n                  misc_feats:Optional[List[str]]=None, wgt_feat:Optional[str]=None) -> None:\n    r'''\n    Save fold of data into an h5py Group\n    Arguments:\n        df: Dataframe from which to save data"
+}

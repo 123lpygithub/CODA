@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0350-aadfcfcca",
+  "revision_url": "https://github.com/sbl-sdsc/mmtf-pyspark/commit/383998375c185b1ebfec788cb879f5b2c4532a13",
+  "filename": "src/main/inputFunction/biopythonInputFunction.py",
+  "commit": "383998375c185b1ebfec788cb879f5b2c4532a13",
+  "source_url": "https://raw.githubusercontent.com/sbl-sdsc/mmtf-pyspark/383998375c185b1ebfec788cb879f5b2c4532a13/src/main/inputFunction/biopythonInputFunction.py",
+  "fetched_at": "2026-11-05T06:12:37.834262+00:00",
+  "source_sha256": "c633394287c081ccef7167360f293bc6197677891a70a74fb821080d246d824d",
+  "line_start": 24,
+  "line_end": 48,
+  "excerpt": "\n\n    # Set header info\n    header = bp_struct.header\n    mmtf_encoder.set_header_info(r_free = None, # TODO\n                                 r_work = None, # TODO\n                                 resolution = header['resolution'],\n                                 title = header['name'],\n                                 deposition_date = header['deposition_date'],\n                                 release_date = header['release_date'],\n                                 experimental_methods = header['structure_method'])\n\n    # TODO Set bioassembly info\n    # biop_encoder.set_bio_assembly_trans() -- needs extra biopython parsing methods for the bioassemblies\n\n    for model in bp_struct:\n\n        # Set model info\n        mmtf_encoder.set_model_info(model_id=model.id, chain_count=len(model.child_list))\n\n        # Set entity info\n        # biop_encoder.set_entity_info(chain_indices=, sequence, description, entity_type)  ## TODO\n\n        for chain in model:\n"
+}

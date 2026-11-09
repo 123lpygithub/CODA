@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0390-aagdhccjd",
+  "revision_url": "https://github.com/markovmodel/molPX/commit/9d88f9e9916ae4f65a77b40adc3e4325af5daf8e",
+  "filename": "molpx/_bmutils.py",
+  "commit": "9d88f9e9916ae4f65a77b40adc3e4325af5daf8e",
+  "source_url": "https://raw.githubusercontent.com/markovmodel/molPX/9d88f9e9916ae4f65a77b40adc3e4325af5daf8e/molpx/_bmutils.py",
+  "fetched_at": "2026-11-05T06:12:44.117357+00:00",
+  "source_sha256": "3c90eba7e9610d648e98cb0c86d622c0703449d90a6d671486f821b8f68a2221",
+  "line_start": 979,
+  "line_end": 1003,
+  "excerpt": "        most_corr_vals.append([icorr[jj] for jj in most_corr_idxs[-1]])\n        if geoms is not None and avail_FT:\n            most_corr_feats.append(featurizer.transform(geoms)[:, most_corr_idxs[-1]])\n\n        if _is_string(feat_name):\n            most_corr_labels.append('$\\mathregular{%s_{%u}}$'%(feat_name, most_corr_idxs[-1]))\n        elif feat_name is None and avail_FT:\n            most_corr_labels.append([featurizer.describe()[jj] for jj in most_corr_idxs[-1]])\n\n        if avail_FT:\n            if len(featurizer.active_features) > 1:\n                pass\n                # TODO write a warning\n            else:\n                ifeat = featurizer.active_features[0]\n                most_corr_atom_idxs.append(atom_idxs_from_feature(ifeat)[most_corr_idxs[-1]])\n\n    for ii, iproj in enumerate(proj_names):\n        info.append({\"lines\":[], \"name\":iproj})\n        for jj, jidx in enumerate(most_corr_idxs[ii]):\n            if avail_FT:\n                istr = 'Corr[%s|feat] = %2.1f for %-30s (feat nr. %u, atom idxs %s' % \\\n                       (iproj, most_corr_vals[ii][jj], most_corr_labels[ii][jj], jidx, most_corr_atom_idxs[ii][jj])\n            else:\n                istr = 'Corr[%s|feat] = %2.1f (feat nr. %u)' % \\"
+}

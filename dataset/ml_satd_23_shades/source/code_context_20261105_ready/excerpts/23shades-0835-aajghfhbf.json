@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0835-aajghfhbf",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/49ac85b4b0c95dc1033e217983c495f180479e58",
+  "filename": "mne/viz/_figure.py",
+  "commit": "49ac85b4b0c95dc1033e217983c495f180479e58",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/49ac85b4b0c95dc1033e217983c495f180479e58/mne/viz/_figure.py",
+  "fetched_at": "2026-11-05T06:13:59.616078+00:00",
+  "source_sha256": "63c5ca353e4c2e5081a9d7c221f4fab4154e40aaca595abb3b5063dbee8d02ed",
+  "line_start": 1131,
+  "line_end": 1155,
+  "excerpt": "    # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n\n    def _create_selection_fig(self):\n        \"\"\"Create channel selection dialog window.\"\"\"\n        from matplotlib.colors import to_rgb\n        from matplotlib.widgets import RadioButtons\n        from matplotlib.gridspec import GridSpec\n        # make figure\n        fig = self._new_child_figure(figsize=(3, 7),\n                                     FigureClass=MNESelectionFigure,\n                                     fig_name='fig_selection',\n                                     window_title='Channel selection')\n        # XXX when matplotlib 3.3 is min version, replace this with\n        # XXX gs = fig.add_gridspec(15, 1)\n        gs = GridSpec(nrows=15, ncols=1)\n        # add sensor plot at top\n        fig.mne.sensor_ax = fig.add_subplot(gs[:5])\n        plot_sensors(self.mne.info, kind='select', ch_type='all', title='',\n                     axes=fig.mne.sensor_ax, ch_groups=self.mne.group_by,\n                     show=False)\n        # style the sensors so the selection is easier to distinguish\n        fig.lasso.linewidth_selected = 2\n        self._update_highlighted_sensors()\n        # add radio button axes\n        radio_ax = fig.add_subplot(gs[5:-3], frame_on=False, aspect='equal')",
+  "match_policy": "unique-release-normalized-v2"
+}

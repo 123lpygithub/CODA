@@ -1,0 +1,34 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5063",
+  "issue_url": "https://github.com/wso2/product-is/issues/2830",
+  "source_issue_url": "https://github.com/wso2/product-is/issues/2830",
+  "api_url": "https://api.github.com/repos/wso2/product-is/issues/2830",
+  "title": "It would be better if all the default logs files can be deleted by running the forget me tool without any additional configurations",
+  "body": "It would be better if all the default logs files can be deleted by running the forget me tool without any additional configurations. This is how its done in APIM\r\n\r\nE.g., \r\n\r\nWe can give the  regex to delete log files as below.  \r\n\r\n{\r\n  \"processors\" : [\r\n    \"log-file\",\r\n    \"rdbms\"\r\n  ],\r\n  \"directories\": [\r\n    {\r\n      \"dir\": \"log-config\",\r\n      \"type\": \"log-file\",\r\n      \"processor\" : \"log-file\",\r\n       \"log-file-path\" : \"../../../../logs\",\r\n      **\"log-file-name-regex\" : \"(.)*(log|out)\"**\r\n    },\r\n    {\r\n      \"dir\": \"sql\",\r\n      \"type\": \"rdbms\",\r\n      \"processor\" : \"rdbms\"\r\n    }\r\n  ],\r\n  \"extensions\": [\r\n    {\r\n      \"dir\": \"../../../../conf/datasources\",\r\n      \"type\": \"datasource\",\r\n      \"processor\" : \"rdbms\",\r\n      \"properties\" : [\r\n        {\r\n        **\"identity\": \"WSO2AM_DB\",\r\n        \"apim\": \"WSO2AM_DB\",\r\n        \"um\": \"WSO2_CARBON_DB\"**\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}",
+  "author": "Participant 1",
+  "created_at": "2018-03-08T08:25:26Z",
+  "updated_at": "2018-03-12T14:24:21Z",
+  "state": "closed",
+  "closed_at": "2018-03-12T14:17:58Z",
+  "issue_fetched_at": "2026-10-18T14:10:43.157972+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T14:10:44.481033+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 372325006,
+      "url": "https://github.com/wso2/product-is/issues/2830#issuecomment-372325006",
+      "created_at": "2018-03-12T14:17:58Z",
+      "updated_at": "2018-03-12T14:17:58Z",
+      "author": "Participant 2",
+      "body": "By saying \"deleted\" I think you meant anonymize. (Tool does not delete anything)\r\nFixed with https://github.com/wso2/identity-anonymization-tool/pull/62"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

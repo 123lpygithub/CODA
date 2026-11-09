@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0769-aaefhaief",
+  "revision_url": "https://github.com/awslabs/sockeye/commit/b5eae44824d3232bbccf42b104890957102d097c",
+  "filename": "sockeye/inference.py",
+  "commit": "b5eae44824d3232bbccf42b104890957102d097c",
+  "source_url": "https://raw.githubusercontent.com/awslabs/sockeye/b5eae44824d3232bbccf42b104890957102d097c/sockeye/inference.py",
+  "fetched_at": "2026-11-05T06:13:49.993531+00:00",
+  "source_sha256": "803b7c6ea77b5a0cfe38ade1de0bf18e8297f493d049e4ac9ac2ec8f41015033",
+  "line_start": 2164,
+  "line_end": 2188,
+  "excerpt": "\n        :param scores: Vocabulary scores for the next beam step. (batch_size * beam_size, target_vocabulary_size)\n        :param offset: Array to add to the hypothesis indices for offsetting in batch decoding.\n        :return: The row indices, column indices and values of the k smallest items in matrix.\n        \"\"\"\n        # Shape: (batch size, beam_size * vocab_size)\n        folded_scores = F.reshape(scores, shape=(-1, self.k * self.vocab_size))\n\n        values, indices = F.topk(folded_scores, axis=1, k=self.k, ret_typ='both', is_ascend=True)\n\n        # Project indices back into original shape (which is different for t==1 and t>1)\n        indices = F.reshape(F.cast(indices, 'int32'), shape=(-1,))\n        # TODO: we currently exploit a bug in the implementation of unravel_index to not require knowing the first shape\n        # value. See https://github.com/apache/incubator-mxnet/issues/13862\n        unraveled = F.unravel_index(indices, shape=(C.LARGEST_INT, self.vocab_size))\n\n        best_hyp_indices, best_word_indices = F.split(unraveled, axis=0, num_outputs=2, squeeze_axis=True)\n        best_hyp_indices = best_hyp_indices + offset\n        values = F.reshape(values, shape=(-1, 1))\n        return best_hyp_indices, best_word_indices, values\n\n\nclass SampleK(mx.gluon.HybridBlock):\n    \"\"\"\n    A HybridBlock for selecting a random word from each hypothesis according to its distribution."
+}

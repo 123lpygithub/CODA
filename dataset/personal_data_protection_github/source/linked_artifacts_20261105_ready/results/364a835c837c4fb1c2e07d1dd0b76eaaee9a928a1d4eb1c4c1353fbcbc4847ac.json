@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/chromium/chromium/blob/87.0.4280.106/base/callback.h#L30",
+  "kind": "file",
+  "cited_in": [
+    "comment_743737699"
+  ],
+  "revision": "87.0.4280.106",
+  "immutable_revision": false,
+  "line_start": 18,
+  "line_end": 42,
+  "text": "// -----------------------------------------------------------------------------\n// Usage documentation\n// -----------------------------------------------------------------------------\n//\n// Overview:\n// A callback is similar in concept to a function pointer: it wraps a runnable\n// object such as a function, method, lambda, or even another callback, allowing\n// the runnable object to be invoked later via the callback object.\n//\n// Unlike function pointers, callbacks are created with base::BindOnce() or\n// base::BindRepeating() and support partial function application.\n//\n// A base::OnceCallback may be Run() at most once; a base::RepeatingCallback may\n// be Run() any number of times. |is_null()| is guaranteed to return true for a\n// moved-from callback.\n//\n//   // The lambda takes two arguments, but the first argument |x| is bound at\n//   // callback creation.\n//   base::OnceCallback<int(int)> cb = base::BindOnce([] (int x, int y) {\n//     return x + y;\n//   }, 1);\n//   // Run() only needs the remaining unbound argument |y|.\n//   printf(\"1 + 2 = %d\\n\", std::move(cb).Run(2));  // Prints 3\n//   printf(\"cb is null? %s\\n\",\n//          cb.is_null() ? \"true\" : \"false\");  // Prints true",
+  "source_sha256": "8727edb51909783bda0f708a07e601051a11178a7a6a4dfdc8bb5ee78c4f7dd9",
+  "fetched_at": "2026-11-05T06:21:14.496292+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/chromium/chromium/87.0.4280.106/base/callback.h",
+  "status": "available"
+}

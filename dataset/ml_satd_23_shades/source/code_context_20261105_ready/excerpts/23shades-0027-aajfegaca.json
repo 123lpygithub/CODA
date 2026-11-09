@@ -1,0 +1,21 @@
+{
+  "artifact_id": "23shades-0027-aajfegaca",
+  "revision_url": "https://github.com/catalyst-team/catalyst/commit/69c078ac203ff211ea68c70eed1f9c847b86a84a",
+  "published_commit": "69c078ac203ff211ea68c70eed1f9c847b86a84a",
+  "filename": "dl/callbacks.py",
+  "commit": "8d1ef43d07f79b4ba370c8a5f2a547802fe6e79a",
+  "source_url": "https://raw.githubusercontent.com/catalyst-team/catalyst/8d1ef43d07f79b4ba370c8a5f2a547802fe6e79a/dl/callbacks.py",
+  "source_sha256": "dbdf78a09beb89cd4dd89175cd4c83a2b79c5ca1633acc1fa453900a3a22f6fd",
+  "fetched_at": "2026-11-05T12:56:39.632128+00:00",
+  "line_start": 362,
+  "line_end": 386,
+  "excerpt": "class SchedulerCallback(Callback):\n    def __init__(\n            self,\n            scheduler_key: str = \"main\",\n            mode: str = \"epoch\",\n            reduce_metric: str = None):\n        self.scheduler_key = scheduler_key\n        self.mode = mode\n        self.reduce_metric = reduce_metric\n\n    @staticmethod\n    def get_momentum(optimizer):\n        # @TODO: need better solutions\n        if isinstance(optimizer, torch.optim.Adam):\n            return list(optimizer.param_groups)[0][\"betas\"][0]\n        elif isinstance(optimizer, torch.optim.SGD):\n            return list(optimizer.param_groups)[0][\"momentum\"]\n        else:\n            return None\n\n    def step(self, state):\n        scheduler = state._scheduler[self.scheduler_key]\n        if isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):\n            scheduler.step(state.valid_metrics[self.reduce_metric])\n            state.lr[self.scheduler_key] = \\",
+  "status": "historical_partial",
+  "revision_relation": "verified-ancestor",
+  "revision_note": "The released introducing pointer does not contain the full comment. This excerpt uniquely matches it at a verified-ancestor revision. It is supplemental historical context, not evidence that the published case revision has this implementation. Do not infer case-time behavior or debt resolution from the alternate version.",
+  "match_policy": "unique-full-comment-at-related-revision-from-released-preprocessing-record",
+  "alternate_dataset_id": "aajfefibj",
+  "comparison_url": "https://api.github.com/repos/catalyst-team/catalyst/compare/8d1ef43d07f79b4ba370c8a5f2a547802fe6e79a...69c078ac203ff211ea68c70eed1f9c847b86a84a",
+  "comparison_sha256": "78c56d5591c4b9a66e07454f2b0bf0ee9caecc6589434309148314668faff18c",
+  "original_comment_and_revision_preserved": true
+}

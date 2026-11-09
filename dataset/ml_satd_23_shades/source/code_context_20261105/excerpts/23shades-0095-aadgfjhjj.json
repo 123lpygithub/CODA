@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0095-aadgfjhjj",
+  "revision_url": "https://github.com/sorgerlab/indra/commit/981c2cc15acaf0d1c93de9a43d181275e0563882",
+  "filename": "indra/sources/bel/pybel_processor.py",
+  "commit": "981c2cc15acaf0d1c93de9a43d181275e0563882",
+  "source_url": "https://raw.githubusercontent.com/sorgerlab/indra/981c2cc15acaf0d1c93de9a43d181275e0563882/indra/sources/bel/pybel_processor.py",
+  "fetched_at": "2026-11-05T06:11:53.304331+00:00",
+  "source_sha256": "c244159bfc53e13c3cd246ff42c76631a4ed6aa615751d01259e4638345c17ea",
+  "line_start": 452,
+  "line_end": 476,
+  "excerpt": "        if cit_type == pc.CITATION_TYPE_PUBMED:\n            ev_pmid = cit_ref\n        else:\n            ev_pmid = '%s: %s' % (cit_type, cit_ref)\n    epistemics = {'direct': _rel_is_direct(edge_data)}\n    annotations = edge_data.get(pc.ANNOTATIONS, {})\n    annotations['bel'] = edge_to_bel(u_data, v_data, edge_data)\n\n    text_location = annotations.pop('TextLocation', None)\n    if text_location:\n        # Handle dictionary text_location like {'Abstract': True}\n        if isinstance(text_location, dict):\n            # FIXME: INDRA's section_type entry is meant to contain\n            # a single section string like \"abstract\" but in principle\n            # pybel could have a list of entries in the TextLocation dict.\n            # Here we just take the first one.\n            text_location = list(text_location.keys())[0]\n        epistemics['section_type'] = _pybel_text_location_map.get(text_location)\n\n    ev = Evidence(text=ev_text, pmid=ev_pmid, source_api='bel',\n                  source_id=edge_data.get(pc.HASH), epistemics=epistemics,\n                  annotations=annotations)\n    return ev\n\n"
+}

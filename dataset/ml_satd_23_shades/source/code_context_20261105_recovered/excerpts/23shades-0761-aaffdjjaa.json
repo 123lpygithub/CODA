@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:13099b77830908f4a762c42d4f6e14e234a7161e/raw/",
+  "source_sha256": "cb6bcf922dcd013fefa07bb6292fafc4606d382486894f385f6194e58c89652f",
+  "fetched_at": "2026-11-05T06:43:28.532512+00:00",
+  "archive_directory": "9397f841e5c7625a95c4da33140d299cb413556b",
+  "git_blob_sha1": "13099b77830908f4a762c42d4f6e14e234a7161e",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/a005e958dc443de5a661b4330265c39deb00d079/",
+  "artifact_id": "23shades-0761-aaffdjjaa",
+  "revision_url": "https://github.com/Aifred-Health/Vulcan/commit/a005e958dc443de5a661b4330265c39deb00d079",
+  "filename": "vulcanai2/models/basenetwork.py",
+  "commit": "a005e958dc443de5a661b4330265c39deb00d079",
+  "line_start": 134,
+  "line_end": 158,
+  "excerpt": "        returned without passing through a classification layer.\n        :param x: input torch.Tensor\n        :return: output torch.Tensor        \n        \"\"\"\n        if not isinstance(inputs, list):\n                inputs = [inputs]\n        bs = inputs[0][0]\n        if self._input_networks is not None:\n            models=self._input_networks\n            outputs = []\n            for model, x in zip(models, inputs):\n                outputs.append(model(x))\n                #TODO: Use tablemodules NEW: https://github.com/torch/nn/blob/master/doc/table.md\n            network_output = self._forward(torch.s(outputs, dim=1)) # Ref:https://github.com/torch/torch7/blob/master/doc/maths.md\n        else:\n            network_output = self._forward((inputs[0]))\n        \n        if self._num_classes:\n            class_output = self.network_tail(network_output)\n            return class_output\n        else:\n            return network_output\n        \n    @property\n    def name(self):",
+  "match_policy": "unique-release-normalized-v2"
+}

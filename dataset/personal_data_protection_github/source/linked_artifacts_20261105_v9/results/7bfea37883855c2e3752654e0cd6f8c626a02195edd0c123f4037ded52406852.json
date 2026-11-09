@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/silverstripe/silverstripe-framework/blob/af2c3886b90bcb2c2964633c9dcc33c91d960140/src/Security/MemberAuthenticator/LostPasswordHandler.php#L264-L273",
+  "kind": "file",
+  "cited_in": [
+    "comment_390124714"
+  ],
+  "revision": "af2c3886b90bcb2c2964633c9dcc33c91d960140",
+  "immutable_revision": true,
+  "line_start": 252,
+  "line_end": 274,
+  "text": "            ))\n            ->addData('PasswordResetLink', Security::getPasswordResetLink($member, $token))\n            ->setTo($member->Email);\n        return $email->send();\n    }\n\n    /**\n     * Avoid information disclosure by displaying the same status, regardless wether the email address actually exists\n     *\n     * @param array $data\n     * @return HTTPResponse\n     */\n    protected function redirectToSuccess(array $data)\n    {\n        $link = Controller::join_links(\n            $this->Link('passwordsent'),\n            rawurlencode($data['Email']),\n            '/'\n        );\n\n        return $this->redirect($this->addBackURLParam($link));\n    }\n}",
+  "source_sha256": "51a9f5a97c719958bdb3b850330b8541b904f4e6719456f788f64f25f88a4b9a",
+  "fetched_at": "2026-11-05T06:21:25.643791+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/silverstripe/silverstripe-framework/af2c3886b90bcb2c2964633c9dcc33c91d960140/src/Security/MemberAuthenticator/LostPasswordHandler.php",
+  "status": "available"
+}

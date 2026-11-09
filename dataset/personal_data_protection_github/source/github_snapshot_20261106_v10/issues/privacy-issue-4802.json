@@ -1,0 +1,98 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4802",
+  "issue_url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/61",
+  "source_issue_url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/61",
+  "api_url": "https://api.github.com/repos/openmobilityfoundation/mobility-data-specification/issues/61",
+  "title": "A flexible approach to privacy and location",
+  "body": "The MDS technical workshop made clear that LADOT wants precise location data as part of their interactions with providers. LADOT feels that can manage any real or perceived privacy risks that stem possessing anonymized, location-precise trip data, and that the benefits of this data are significant. \r\n\r\nFrom comments made at the workshop, it seems that there is not universal agreement on this point, especially given the variability in state-level FOIA laws and the different attitudes individual cities have about the broad topic.\r\n\r\nI'd like to propose that MDS be extended to allow for flexibility in how location data is reported for trips and routes. LA can choose to require precise data, but other jurisdictions would have the flexibility to request less detailed information. It is ultimately a policy decision, and a universal spec needs to support some level of policy variance across its users.\r\n\r\nTwo approaches to (intentionally) reducing the accuracy of GPS data:\r\n\r\n1) Blurring data to report less precise coordinates. These would correspond to a radius of uncertainty (e.g. accurate to within 500m).\r\n\r\n2) Aggregating data into defined boundary areas (e.g. census block, ZCTA, neighborhood, etc.).\r\n\r\nOption 1 seems like the simplest approach. It could be done without change to the MDS specification. Providers and agencies would simply agree on the level of specificity in the route's GeoJSON FeatureCollection. With this approach, the specification can simply be modified to acknowledge the possibility of deliberately imprecise data and leave it up to the stakeholders to agree on the details.\r\n\r\nOption 2 may be easier for cities to consume (since they're already used to aggregating data into boundaries like census block), though would necessitate more pre-processing by the providers. It also would require modification to the specification since GeoJSON does not have an obvious way to describe location within specify externally-defined boundary areas.\r\n\r\nThoughts on:\r\n\r\n1) Whether we should modify the spec to support imprecise location sharing?\r\n2) If yes, what method to use?",
+  "author": "Participant 1",
+  "created_at": "2018-09-12T18:46:16Z",
+  "updated_at": "2020-10-22T18:06:00Z",
+  "state": "closed",
+  "closed_at": "2020-04-09T18:19:56Z",
+  "issue_fetched_at": "2026-10-18T14:10:15.072285+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T14:10:16.418463+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 420776349,
+      "url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/61#issuecomment-420776349",
+      "created_at": "2018-09-12T19:54:52Z",
+      "updated_at": "2018-09-12T21:39:22Z",
+      "author": "Participant 2",
+      "body": "Nitpick: I think that option 1 would require a small change to the spec in that you’d need to remove the line:\r\n\r\n> Additionally, routes must include all possible GPS samples collected by a provider.\r\n\r\nI vote option 1. It’s much more flexible and allows for accurate routes for providers and agencies who are comfortable with that. I suspect that many agencies will want to know traffic patterns, and that is only discernible via option 1.\r\n\r\nNote too that a provider and agency could agree to implement option 2 with the spec of option 1 by just saying that the provider will move each point to the center of its census block (or neighborhood or whatever). The converse (implementing option 1 with the spec of option 2) is not possible. \r\n\r\nAlso, I’d argue that option 2 is worrisome given that there is no international block/neighborhood standard. "
+    },
+    {
+      "id": 420790455,
+      "url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/61#issuecomment-420790455",
+      "created_at": "2018-09-12T20:42:24Z",
+      "updated_at": "2018-09-12T20:42:24Z",
+      "author": "Participant 3",
+      "body": "This is a great discussion. We've heard reports of certain vendors truncating their values to 2 decimal places already! At least, LADOT should be clear they are requiring 6-7 decimal points in latitude and longitude values, without snapping.\r\n\r\nI don't believe that truncation is an appropriate anonymization technique, but a snapping technique that is related population-density (like census tract) might be. However, such low-precision locations are not useful for street-level insights, as @aickin points out."
+    },
+    {
+      "id": 420817415,
+      "url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/61#issuecomment-420817415",
+      "created_at": "2018-09-12T22:21:49Z",
+      "updated_at": "2018-09-12T22:21:49Z",
+      "author": "Participant 4",
+      "body": "Agreed with @ezheidtmann, great discussion on this topic!\r\n\r\nI think the proposal over at #51 would actually cover @jfh01's Option 1 above, correct? "
+    },
+    {
+      "id": 420819952,
+      "url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/61#issuecomment-420819952",
+      "created_at": "2018-09-12T22:32:02Z",
+      "updated_at": "2018-09-12T22:32:02Z",
+      "author": "Participant 1",
+      "body": "I think it would. I don't think we need a way to reflect GPS accuracy separately from intentional \"deprecisioning.\" \r\n\r\nAs @ezheidtmann points out though, there's a larger question about whether this approach can achieve a good balance between utility and privacy. The answer may end up being dependent on the needs/attitudes of each city.\r\n\r\nThere's a related question on time-specificity. One additional privacy measure would be to provide trip data with the start and end times rounded to the nearest 15 minute or 1 hour increment."
+    },
+    {
+      "id": 421473807,
+      "url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/61#issuecomment-421473807",
+      "created_at": "2018-09-14T20:21:06Z",
+      "updated_at": "2018-09-14T20:21:06Z",
+      "author": "Participant 1",
+      "body": "A good article on the specific risks with geo-precise, anonymized data:\r\n\r\nhttps://research.neustar.biz/2014/09/15/riding-with-the-stars-passenger-privacy-in-the-nyc-taxicab-dataset/\r\n\r\nEven without persistent user IDs, there is some risk of reidentification or misuse."
+    },
+    {
+      "id": 422627060,
+      "url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/61#issuecomment-422627060",
+      "created_at": "2018-09-19T02:30:24Z",
+      "updated_at": "2018-09-19T02:30:24Z",
+      "author": "Participant 5",
+      "body": "A little late to this thread but option 1 seems like a good option. It's worth distinguishing between accuracy and precision. What we are really recording with `accuracy` is \"precision\" even if we provide 12 decimal places due to limitations of GPS the accuracy of those readings will probably be less because of factors that effect GPS like urban canyon.\r\n\r\nGood  [StackExchange thread](https://gis.stackexchange.com/questions/8650/measuring-accuracy-of-latitude-and-longitude) on the subject."
+    },
+    {
+      "id": 422919215,
+      "url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/61#issuecomment-422919215",
+      "created_at": "2018-09-19T18:55:54Z",
+      "updated_at": "2018-09-19T18:55:54Z",
+      "author": "Participant 3",
+      "body": "I agree that we don't want to conflate imprecision due to the fundamentals of GPS sensors (called `accuracy` on both major smartphone platforms) with intentional lowering of precision via truncation or snapping. \r\n\r\nImagine a tool that processes MDS entities -- that tool should be able to know whether it's working with a stream of GPS locations, a list of census tract centroids, or a list of locations snapped to a 1km grid. (just 2 examples)"
+    },
+    {
+      "id": 494596911,
+      "url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/61#issuecomment-494596911",
+      "created_at": "2019-05-21T23:32:45Z",
+      "updated_at": "2019-05-21T23:43:28Z",
+      "author": "Participant 6",
+      "body": "Could one version of the specification just take block level aggregations to a [SharedStreets ](https://github.com/sharedstreets/sharedstreets-ref-system) ID or OSM ID? I realize this is an old thread but, I think this provides the degree of operational data many cities would need for curbside management and related applications. I think route choice applications might be lost, but this might be a problem that requires a tiers of deployment perhaps?\r\n\r\nI agree with @aickin  that this could be compatible with by snapping all points to the the nearest \"centroid\" of a SS ID or OSM ID. Benefit of these is that in theory they should be able to be internationally compatible if based around OSM. \r\n\r\nMy only concern here is it might not be \"anonymized\" enough."
+    },
+    {
+      "id": 611679766,
+      "url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/61#issuecomment-611679766",
+      "created_at": "2020-04-09T18:19:56Z",
+      "updated_at": "2020-04-09T18:19:56Z",
+      "author": "Participant 1",
+      "body": "Per conversation on Provider Services Working Group we are closing this issue and will open new issue(s) with more considered approaches to this issue."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0005-aaebbecaa",
+  "revision_url": "https://github.com/Calysto/conx/commit/83f8cf6a16cad52cc9f93480fa238e814e84c78a",
+  "filename": "conx/widgets.py",
+  "commit": "83f8cf6a16cad52cc9f93480fa238e814e84c78a",
+  "source_url": "https://raw.githubusercontent.com/Calysto/conx/83f8cf6a16cad52cc9f93480fa238e814e84c78a/conx/widgets.py",
+  "fetched_at": "2026-11-05T06:11:36.395668+00:00",
+  "source_sha256": "2a8b6a29eb546f57126c81bf9fffeda5c226cc67cbb30956c48dea7f52f13940",
+  "line_start": 150,
+  "line_end": 174,
+  "excerpt": "        self.player = _Player(self, play_rate)\n        self.player.start()\n        self.net = net\n        self.dataset = net.dataset\n        self._width = width\n        self._height = height\n        ## Global widgets:\n        style = {\"description_width\": \"initial\"}\n        self.feature_columns = IntText(description=\"Feature columns:\", value=3, style=style)\n        self.feature_scale = FloatText(description=\"Feature scale:\", value=2.0, style=style)\n        self.feature_columns.observe(self.regenerate, names='value')\n        self.feature_scale.observe(self.regenerate, names='value')\n        ## Hack to center SVG as justify-content is broken:\n        self.net_svg = HTML(value=\"\"\"<p style=\"text-align:center\">%s</p>\"\"\" % (\"\",), layout=Layout(\n            width=self._width, overflow_x='auto', overflow_y=\"auto\",\n            justify_content=\"center\"))\n        # Make controls first:\n        self.output = Output()\n        controls = self.make_controls()\n        config = self.make_config()\n        super().__init__([config, controls, self.net_svg, self.output])\n\n    def dataset_move(self, position):\n        if len(self.dataset.inputs) == 0 or len(self.dataset.targets) == 0:\n            return"
+}

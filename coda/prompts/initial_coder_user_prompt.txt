@@ -1,0 +1,95 @@
+Coder ID:
+{coder_id}
+
+Initial-coding strategy:
+{coder_strategy}
+
+Research Question:
+{research_question}
+
+Analysis Scope:
+{analysis_scope}
+
+Use Case:
+{use_case}
+
+Frozen Analysis Protocol:
+{analysis_protocol}
+
+Artifact ID:
+{artifact_id}
+
+Artifact Content:
+{artifact_content}
+
+Grounded Context Packet:
+{context_packet_json}
+
+Return a JSON object with exactly these keys:
+- "provisional_codes": array of up to {max_codes} objects
+- "insufficient_context": boolean
+- "overall_uncertainty": English string
+- "overall_uncertainty_zh": Chinese version with the same meaning
+- "confidence_level": one of ["high", "medium", "low"]
+- "confidence_rationale": short English explanation
+- "confidence_rationale_zh": Chinese version with the same meaning
+- "confidence_factors": object with keys "evidence_support", "context_sufficiency",
+  "codebook_fit", and "interpretive_ambiguity"; every value must be exactly one of
+  ["high", "medium", "low", "not_applicable"], and codebook_fit must be
+  "not_applicable"
+- "notes": array of English strings
+- "notes_zh": Chinese versions in the same order
+
+Each provisional code object must contain exactly these keys:
+- "code_name": concise English code name
+- "code_name_zh": Chinese version with the same meaning
+- "short_definition": evidence-near English definition
+- "short_definition_zh": Chinese version with the same meaning
+- "observed_phenomenon": English evidence-near description made before category naming
+- "observed_phenomenon_zh": Chinese version with the same meaning
+- "supporting_evidence_refs": array of evidence ids such as ["E1"]
+- "relationship_to_codebook": exactly "uncertain" because no codebook exists
+- "linked_code_ids": exactly []
+- "alternative_interpretation": English string
+- "alternative_interpretation_zh": Chinese version with the same meaning
+- "uncertainty_note": English string
+- "uncertainty_note_zh": Chinese version with the same meaning
+- "proposed_codebook_action": exactly "no_change"
+- "proposed_codebook_target_ids": exactly []
+
+Granularity requirements:
+- Before coding, determine the single analytical question each peer code must answer and
+  keep the candidates on that axis. Do not mix semantic cause, structural location,
+  visible symptom, and repair operation unless the research question explicitly asks for them.
+- If comparative implementation material is present, locate the behavioral departure from
+  the requirement. Use tests, patches, and reference code as evidence, but do not assume
+  that structural difference from a reference solution is itself an error.
+- Before returning multiple codes, apply an independent-resolution test: fixing one issue
+  should leave the other issue unresolved and require a distinct analytical explanation.
+  Multiple changed lines or locations alone do not establish multiple codes.
+- Set "insufficient_context" to true only when missing information prevents a
+  defensible evidence-near coding of the artifact's main visible phenomenon.
+  Missing execution traces, external environment details, author intent, or causal
+  explanation do not by themselves make context insufficient when the supplied
+  evidence still supports a stable descriptive code. Record those narrower caveats
+  in "overall_uncertainty" or the candidate's "uncertainty_note" instead.
+- If "insufficient_context" is true, "confidence_level" and
+  "context_sufficiency" cannot be "high".
+- For evidence_support, context_sufficiency, and interpretive_ambiguity, use only
+  "high", "medium", or "low". For interpretive_ambiguity, "high" means greater
+  ambiguity and "low" means little ambiguity.
+- Keep observed_phenomenon concrete and evidence-near.
+- Make code_name and short_definition concise evidence-near provisional labels. Remove
+  incidental identifiers, literal values, exact positions, and equivalent surface syntax,
+  but retain the behavior, condition, object, and consequence supported by this artifact.
+- Do not optimize a candidate for reuse across unknown future artifacts. The Induction
+  Agent compares candidates across the sample and constructs reusable categories.
+- Use this abstraction ladder: literal detail is too narrow; an evidence-near phenomenon
+  is the required stopping point; a reusable codebook category or parent theme is too broad
+  for this agent.
+- If several visible details express one observed issue, return one code and preserve
+  those details in observed_phenomenon.
+- Use separate codes only when the independent-resolution test shows that one issue could
+  be resolved while another analytically distinct issue remains.
+
+Do not output markdown.

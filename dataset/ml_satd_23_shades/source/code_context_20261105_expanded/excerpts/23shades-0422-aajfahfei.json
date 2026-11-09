@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0422-aajfahfei",
+  "revision_url": "https://github.com/pyannote/pyannote-audio/commit/1d88c5816e7a176d53faaf12d5edbc24f0ee562f",
+  "filename": "pyannote/audio/applications/base.py",
+  "commit": "1d88c5816e7a176d53faaf12d5edbc24f0ee562f",
+  "source_url": "https://raw.githubusercontent.com/pyannote/pyannote-audio/1d88c5816e7a176d53faaf12d5edbc24f0ee562f/pyannote/audio/applications/base.py",
+  "fetched_at": "2026-11-05T06:12:52.063787+00:00",
+  "source_sha256": "52cb18b2a3a9cb99da513fa6d744e850471db67fed9adc10e32de14567165e8f",
+  "line_start": 83,
+  "line_end": 107,
+  "excerpt": "        train_dir = dirname(dirname(validate_dir))\n\n        # load params.yml file from validate directory\n        with open(validate_dir / 'params.yml', 'r') as fp:\n            params_yml = yaml.load(fp)\n\n        # build path to best epoch model\n        epoch = params_yml['epoch']\n        model_pt = cls.WEIGHTS_PT.format(train_dir=train_dir,\n                                         epoch=epoch)\n\n        # instantiate application\n        # TODO. get rid of from_model_pt\n        app = cls.from_model_pt(model_pt, db_yml=db_yml, training=training)\n        app.validate_dir_ = validate_dir\n        app.epoch_ = epoch\n\n        # keep track of pipeline parameters\n        app.pipeline_params_ = params_yml.get('params', {})\n\n        return app\n\n    def __init__(self, experiment_dir, db_yml=None, training=False):\n        \"\"\"\n"
+}

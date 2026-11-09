@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0530-aajacfjji",
+  "revision_url": "https://github.com/chainer/chainer/commit/22c5d798e356e820acc9687225e306031a213679",
+  "filename": "chainer/graph_optimizations/static_graph.py",
+  "commit": "22c5d798e356e820acc9687225e306031a213679",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainer/22c5d798e356e820acc9687225e306031a213679/chainer/graph_optimizations/static_graph.py",
+  "fetched_at": "2026-11-05T06:13:08.298724+00:00",
+  "source_sha256": "568b4c9430429b8a218214894b9eb18bf970411e728ff3aca85d044ab6a0c3ba",
+  "line_start": 531,
+  "line_end": 555,
+  "excerpt": "                    # array reference from 'args'.\n                    in_list[ind] = None\n\n        outputs_hooks = []\n        if 'outputs' in kwargs:\n            out_list = kwargs['outputs']\n            assert isinstance(out_list, list)\n            for ind, x in enumerate(out_list):\n                if _is_xp(x):\n                    unique_ind = self.get_unique_index_from_array(x)\n                    if unique_ind is None:\n                        self.unique_arrays.append(x)\n                        # todo: enable the following line instead once the\n                        # auto-intializing hooks are added. This will further\n                        # reduce memory usage.\n                        # self.unique_arrays.append(None)\n                        self.unique_array_infos.append(ArrayInfo(x))\n                        unique_ind = len(self.unique_arrays) - 1\n                        self.array_id_to_unique_index[id(x)] = unique_ind\n                    outputs_hooks.append((ind, unique_ind))\n                    # Now that the hook has been added, we can delete\n                    # array reference from 'args'.\n                    out_list[ind] = None\n\n        # A list of hooks (each is a tuple) that will be used to set"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0072-aaidadhdg",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/ab2f539a32b8099a941cefc598c9625e830ecfe4",
+  "filename": "sklearn/tests/test_common.py",
+  "commit": "ab2f539a32b8099a941cefc598c9625e830ecfe4",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/ab2f539a32b8099a941cefc598c9625e830ecfe4/sklearn/tests/test_common.py",
+  "fetched_at": "2026-11-05T06:11:49.989588+00:00",
+  "source_sha256": "cf3fdedba9503301a366fe43c46b4ce6166e92c0093354da03fefe99f9a4089d",
+  "line_start": 53,
+  "line_end": 77,
+  "excerpt": ")\ndef test_parameters_default_constructible(name, Estimator):\n    # Test that estimators are default-constructible\n    check_parameters_default_constructible(name, Estimator)\n\n\ndef _tested_estimators():\n    for name, Estimator in all_estimators():\n        if issubclass(Estimator, BiclusterMixin):\n            continue\n        if name.startswith(\"_\"):\n            continue\n        # FIXME _skip_test should be used here (if we could)\n\n        required_parameters = getattr(Estimator, \"_required_parameters\", [])\n        if len(required_parameters):\n            if required_parameters in ([\"estimator\"], [\"base_estimator\"]):\n                if issubclass(Estimator, RegressorMixin):\n                    estimator = Estimator(Ridge())\n                else:\n                    estimator = Estimator(LinearDiscriminantAnalysis())\n            else:\n                warnings.warn(\"Can't instantiate estimator {} which requires \"\n                              \"parameters {}\".format(name,\n                                                     required_parameters),"
+}

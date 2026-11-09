@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0518-aaaegjcch",
+  "revision_url": "https://github.com/ColasGael/Machine-Learning-for-Solar-Energy-Prediction/commit/fbeeb03a5c900a144dd2593868cfc82b84bc1ff3",
+  "filename": "Data Processing/getWeatherDataStanford/WeatherData.py",
+  "commit": "fbeeb03a5c900a144dd2593868cfc82b84bc1ff3",
+  "source_url": "https://raw.githubusercontent.com/ColasGael/Machine-Learning-for-Solar-Energy-Prediction/fbeeb03a5c900a144dd2593868cfc82b84bc1ff3/Data%20Processing/getWeatherDataStanford/WeatherData.py",
+  "fetched_at": "2026-11-05T06:13:06.496620+00:00",
+  "source_sha256": "56e9863565ddb8a06fe0cc0068b6f714094fde2f4ddbe446a1f511e0c6fdbaff",
+  "line_start": 116,
+  "line_end": 140,
+  "excerpt": "      postYear  = year\n      postMonth = (month + 1) % 13\n      if postMonth == 0: \n        postYear = postYear + 1\n        postMonth = 1\n      postDate = datetime.datetime(postYear,postMonth,7) \n      modTime  = datetime.datetime.fromtimestamp(os.path.getmtime(filePath))\n      if postDate >= modTime: # the file was last retrieved before the end of the month it covers\n        if now.date() == modTime.date(): pass # we've already dl'd the file today\n        else: retrieveFile = True\n    else: retrieveFile = True\n    if  retrieveFile: # download it and raise exception on failure\n      # TODO: do more to protect against race conditions. File lock?\n      url = self.weatherUrl(year,month)\n      print \"%s not found. Attempting download at %s\" % (filePath,url)\n      urllib.urlretrieve(url,filePath)\n      \n    return filePath\n    \n  def csvData(self,filePath,delim=',',colVal=None,subset=None,skip=0):\n    with open(filePath,'rb') as f:\n      return self.csvDump(f,delim,colVal,subset,skip)\n\n  # optional filter term colVal provides the index of the column colVal[0]\n  # and the value to test colVal[1] for returning a subset of the data"
+}

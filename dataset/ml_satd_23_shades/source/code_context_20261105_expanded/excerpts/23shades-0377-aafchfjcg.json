@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0377-aafchfjcg",
+  "revision_url": "https://github.com/graknlabs/kglib/commit/3525a4df8543733b552e058b9cc621371b4824eb",
+  "filename": "kgcn/src/models/training.py",
+  "commit": "3525a4df8543733b552e058b9cc621371b4824eb",
+  "source_url": "https://raw.githubusercontent.com/graknlabs/kglib/3525a4df8543733b552e058b9cc621371b4824eb/kgcn/src/models/training.py",
+  "fetched_at": "2026-11-05T06:12:41.886963+00:00",
+  "source_sha256": "bd5ab0cb047e44c5335b693015f347f5f6d57d92f6eb4f51e776f7763ad63823",
+  "line_start": 1,
+  "line_end": 22,
+  "excerpt": "import time\nimport typing as typ\n\nimport tensorflow as tf\n\nflags = tf.app.flags\nFLAGS = flags.FLAGS\n\n\n# TODO Update and move now this isn't used here\ndef build_array_placeholders(batch_size, neighbourhood_sizes, features_length,\n                             feature_types: typ.Union[typ.List[typ.MutableMapping[str, tf.DType]], tf.DType]):\n    array_neighbourhood_sizes = list(reversed(neighbourhood_sizes))\n    neighbourhood_placeholders = []\n    for i in range(len(array_neighbourhood_sizes) + 1):\n        shape = [batch_size] + list(array_neighbourhood_sizes[i:]) + [features_length]\n\n        try:\n            phs = tf.placeholder(feature_types, shape=shape)\n        except:\n            phs = {name: tf.placeholder(type, shape=shape) for name, type in feature_types[i].items()}\n"
+}

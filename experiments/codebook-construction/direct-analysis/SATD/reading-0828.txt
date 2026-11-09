@@ -1,0 +1,468 @@
+
+=== 828 23shades-0818-aajghfhbg ===
+{"dataset_id": "aajghfhbg", "repo_name": "mne-tools/mne-python", "filename": "mne/viz/_figure.py", "comment_introducing_revision": "https://github.com/mne-tools/mne-python/commit/49ac85b4b0c95dc1033e217983c495f180479e58", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "49ac85b4b0c95dc1033e217983c495f180479e58"}
+[comment_text]
+XXX gs = fig.add_gridspec(15; 1)
+[source_context]
+
+    def _create_selection_fig(self):
+        """Create channel selection dialog window."""
+        from matplotlib.colors import to_rgb
+        from matplotlib.widgets import RadioButtons
+        from matplotlib.gridspec import GridSpec
+        # make figure
+        fig = self._new_child_figure(figsize=(3, 7),
+                                     FigureClass=MNESelectionFigure,
+                                     fig_name='fig_selection',
+                                     window_title='Channel selection')
+        # XXX when matplotlib 3.3 is min version, replace this with
+        # XXX gs = fig.add_gridspec(15, 1)
+        gs = GridSpec(nrows=15, ncols=1)
+        # add sensor plot at top
+        fig.mne.sensor_ax = fig.add_subplot(gs[:5])
+        plot_sensors(self.mne.info, kind='select', ch_type='all', title='',
+                     axes=fig.mne.sensor_ax, ch_groups=self.mne.group_by,
+                     show=False)
+        # style the sensors so the selection is easier to distinguish
+        fig.lasso.linewidth_selected = 2
+        self._update_highlighted_sensors()
+        # add radio button axes
+        radio_ax = fig.add_subplot(gs[5:-3], frame_on=False, aspect='equal')
+        fig.mne.radio_ax = radio_ax
+
+=== 829 23shades-0104-aaeeigbeg ===
+{"dataset_id": "aaeeigbeg", "repo_name": "CPJKU/madmom", "filename": "madmom/audio/filterbank.py", "comment_introducing_revision": "https://github.com/CPJKU/madmom/commit/bd58e056474f02de462d8692a59ff582149f9294", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "bd58e056474f02de462d8692a59ff582149f9294"}
+[comment_text]
+FIXME: skip the DC bin 0?
+[source_context]
+    :returns:           filterbank
+
+    Note: Each filter is by 3 frequencies. Thus the frequencies array must
+          contain the first starting frequency, all center frequencies and the
+          last stopping frequency.
+
+    """
+    factor = (sample_rate / 2.0) / fft_bins
+    # map the frequencies to the spectrogram bins
+    frequencies = np.round(np.asarray(frequencies) / factor).astype(int)
+    # filter out all frequencies outside the valid range
+    frequencies = frequencies[frequencies < fft_bins]
+    # FIXME: skip the DC bin 0?
+
+    filters = {}
+    for start, center, stop in band_bins(frequencies, omit_duplicates, overlap):
+        # create the filter
+        kwargs = {'width': stop - start, 'center': center - start, 'norm': norm}
+        filters[band] = [(filter_type(**kwargs), start)]
+
+    # no normalisation here, since each filter is already normalised
+    return multi_filterbank(filters, fft_bins, len(filters), norm=False)
+
+
+def harmonic_filterbank(filter_type, fundamentals, num_harmonics, fft_bins, sample_rate,
+
+=== 830 23shades-0402-aagibhhbe ===
+{"dataset_id": "aagibhhbe", "repo_name": "google-research/google-research", "filename": "ipagnn/lib/dataset_utils.py", "comment_introducing_revision": "https://github.com/google-research/google-research/commit/2f91be04c68fcb9546b60b09941a3ed12be58c4f", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "2f91be04c68fcb9546b60b09941a3ed12be58c4f"}
+[comment_text]
+TODO(dbieber): Move this logic into the dataset definition.
+[source_context]
+  filtered out, we catch that here.
+
+  This lets us fail fast if we accidentally put in configs that will lead to all
+  examples being filtered out, rather than silently succeeding but never making
+  progress.
+
+  Args:
+    dataset_name: The name of the dataset being loaded.
+    info: The dataset info object.
+    config: The config for the model.
+  """
+  if dataset_name.startswith('control_flow_programs'):
+    # TODO(dbieber): Move this logic into the dataset definition.
+    length = info.program_generator_config.length
+    tokens_per_statement = info.program_encoder.tokens_per_statement
+    assert (
+        not config.dataset.max_length
+        or config.dataset.max_length >= tokens_per_statement * length)
+
+
+def cannot_set_task(**kwargs):
+  """Use this as the set_task fn when no curriculum is permitted."""
+  del kwargs  # Unused.
+  raise ValueError('The task cannot be changed. This is probably because the '
+                   'data is being loaded from disk, rather than generated '
+
+=== 831 23shades-0123-aagfeiiaj ===
+{"dataset_id": "aagfeiiaj", "repo_name": "IBM/mi-prometheus", "filename": "models/encoder_solver/mae2s_model.py", "comment_introducing_revision": "https://github.com/IBM/mi-prometheus/commit/3f75fb42badda8c66d79ae2db7ca69c874cac703", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "3f75fb42badda8c66d79ae2db7ca69c874cac703"}
+[comment_text]
+Freeze weights - TODO: NOT IMPLEMENTED!
+[source_context]
+
+        # Save/load encoder.
+        self.save_encoder = params.get('save_encoder', False)
+        self.load_encoder = params.get('load_encoder', '') # Path+filename to encoder.
+
+        # Create the Encoder cell.
+        self.encoder = MAECell(params)
+
+        # Load and freeze encoder - if required.
+        if self.load_encoder != '':
+            self.encoder.load_state_dict(torch.load(self.load_encoder, map_location=lambda storage, loc: storage))
+            logger.info("Encoder imported from {}".format(self.load_encoder))  
+            # Freeze weights - TODO: NOT IMPLEMENTED!
+            self.encoder.freeze()  
+
+        # Create the Solver for first task.
+        self.solver1 = MASCell(params)
+
+        # Create the Solver for the second task.
+        #self.solver2 = MASCell(params)
+
+        # Operation modes.
+        self.modes = Enum('Modes', ['Encode', 'Solve1', 'Solve2'])
+
+
+
+=== 832 23shades-0616-aafcachjb ===
+{"dataset_id": "aafcachjb", "repo_name": "ai-med/quickNAT_pytorch", "filename": "quickNat_pytorch/data_utils.py", "comment_introducing_revision": "https://github.com/ai-med/quickNAT_pytorch/commit/043257abf9eab2049a7d5f1fb396665b19dbc616", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "043257abf9eab2049a7d5f1fb396665b19dbc616"}
+[comment_text]
+TODO: Need to defing a dynamic pipeline
+[source_context]
+    return data_reduced, labels_reduced
+
+
+def _remove_black(data, labels, background_label):
+    clean_data, clean_labels = [], []
+    for i, frame in enumerate(labels):
+        unique, counts = np.unique(frame, return_counts=True)
+        if counts[0] / sum(counts) < .95:
+            clean_labels.append(frame)
+            clean_data.append(data[i])
+    return np.array(clean_data), np.array(clean_labels)
+            
+#TODO: Need to defing a dynamic pipeline
+#TODO: Presets for training, prediction and evaluation
+def load_and_preprocess(data_dir,
+                         label_dir,
+                         volumes_txt_file,
+                         orientation,
+                         return_weights = False,
+                         reduce_slices = False,
+                         remove_black = False,
+                         remap_config = None):
+    
+    
+    with open(volumes_txt_file) as file_handle:
+
+=== 833 23shades-0256-aagcicecj ===
+{"dataset_id": "aagcicecj", "repo_name": "OFAI/hub-toolbox-python3", "filename": "hub_toolbox/SharedNN.py", "comment_introducing_revision": "https://github.com/OFAI/hub-toolbox-python3/commit/758e9db9f90d8db12d63aef2f42b0cc0d796def9", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "ambiguous", "source_context_commit": "758e9db9f90d8db12d63aef2f42b0cc0d796def9"}
+[comment_text]
+TODO change to np.partition for PERF
+[source_context_ambiguity_note]
+The released comment occurs at multiple source locations. These are all exact full-comment candidates; no location is selected or attributed uniquely to this case. Additional commit verification: The verified published-commit diff contains more than one added occurrence of the target comment, alongside a removed occurrence. The change alone does not uniquely identify the sampled location.
+[source_context_candidate_1]
+#==============================================================================
+
+def _snns_init(D_, knn_, train_ind_, D_snn_):
+    global distance, knn, train_ind, D_snn
+    distance = D_
+    knn = knn_
+    train_ind = train_ind_
+    D_snn = D_snn_
+    return
+
+def _snns_my_hood(i, k, sort_order):
+    di = distance[i, :]
+    # TODO change to np.partition for PERF
+    nn = np.argsort(di)[::sort_order]
+    knn[i, nn[0:k]] = True
+    return
+
+def _snns_our_hood(i, k, metric):
+    knn_i = knn[i, :]
+    # using broadcasting
+    Dij = np.sum(np.logical_and(knn_i, knn[train_ind, :]), 1)
+    if metric == 'distance':
+        D_snn[i, :] = 1. - Dij / k
+    else: # metric == 'similarity':
+        D_snn[i, :] = Dij / k
+[source_context_candidate_2]
+                func=partial(_snns_my_hood, k=k, sort_order=sort_order),
+                iterable=range(n)):
+                pass # Handling inside function
+            for _ in pool.imap(
+                func=partial(_snns_our_hood, k=k, metric=metric),
+                iterable=n_ind):
+                pass # Handling inside function
+    else:
+        knn = np.zeros_like(distance, bool)
+        # find nearest neighbors for each point
+        for i in range(n):
+            di = distance[i, :]
+            # TODO change to np.partition for PERF
+            nn = np.argsort(di)[::sort_order]
+            knn[i, nn[0:k]] = True
+        D_snn = np.zeros_like(distance)
+        for i in n_ind:
+            knn_i = knn[i, :]
+            # using broadcasting
+            Dij = np.sum(np.logical_and(knn_i, knn[train_ind, :]), 1)
+            if metric == 'distance':
+                D_snn[i, :] = 1. - Dij / k
+            else: # metric == 'similarity':
+                D_snn[i, :] = Dij / k
+
+[source_context_candidate_3]
+# #                               SIMHUB IN
+# #============================================================================
+#==============================================================================
+
+def _shi_init_knn(D_, knn_):
+    global distance, knn
+    distance = D_
+    knn = knn_
+    return
+
+def _shi_hood(i, s, sort_order):
+    di = distance[i, :]
+    # TODO change to np.partition for PERF
+    nn = np.argsort(di)[::sort_order]
+    knn[i, nn[:s]] = True
+    return
+
+def _shi_init_simhub(knn_, train_ind_, I_n_, D_shi_):
+    global knn, train_ind, I_n, D_shi
+    knn = knn_
+    train_ind = train_ind_
+    I_n = I_n_
+    D_shi = D_shi_
+    return
+
+[source_context_candidate_4]
+        with Pool(processes=n_jobs,
+                  initializer=_shi_init_knn,
+                  initargs=(distance, knn)) as pool:
+            for _ in pool.imap(
+                func=partial(_shi_hood, s=s, sort_order=sort_order),
+                iterable=range(n)):
+                pass
+    else:
+        knn = np.zeros_like(distance, bool)
+        # find nearest neighbors for each point
+        for i in range(n):
+            di = distance[i, :]
+            # TODO change to np.partition for PERF
+            nn = np.argsort(di)[::sort_order]
+            knn[i, nn[:s]] = True
+    del distance
+
+    # "Occurence informativeness"
+    occ_inf_knn = knn[:m, :].copy()
+    np.fill_diagonal(occ_inf_knn, True)
+    N_s = occ_inf_knn.sum(axis=0)
+    I_n = np.log(m / N_s)
+    del occ_inf_knn
+
+    # simhub calculation
+[source_context_candidate_5]
+    # Exclude self distances
+    if train_ind is None:
+        np.fill_diagonal(distance, exclude)
+    else:
+        for j, sample in enumerate(train_ind):
+            distance[sample, j] = exclude
+
+    knn = np.zeros_like(distance, bool)
+    
+    # find nearest neighbors for each point
+    for i in range(n):
+        di = distance[i, :]
+        # TODO change to np.partition for PERF
+        nn = np.argsort(di)[::sort_order]
+        knn[i, nn[:s]] = True
+    del distance
+
+    # Reverse nearest neighbor count
+    N_s = knn[:m, :].sum(axis=0)
+
+    if y is not None:
+        # Set of class labels
+        C = np.unique(y)
+
+        # Class specific reverse nearest neighbors
+
+=== 834 23shades-0551-aajdbhhhh ===
+{"dataset_id": "aajdbhhhh", "repo_name": "mozilla/TTS", "filename": "TTS/bin/compute_attention_masks.py", "comment_introducing_revision": "https://github.com/mozilla/TTS/commit/2abe3df1536ba956bc03a471716be3803f66e7c2", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "2abe3df1536ba956bc03a471716be3803f66e7c2"}
+[comment_text]
+TODO: handle multi-speaker
+[source_context]
+        help='Batch size for the model. Use batch_size=1 if you have no CUDA.')
+    args = parser.parse_args()
+
+    C = load_config(args.config_path)
+    ap = AudioProcessor(**C.audio)
+
+    # if the vocabulary was passed, replace the default
+    if 'characters' in C.keys():
+        symbols, phonemes = make_symbols(**C.characters)
+
+    # load the model
+    num_chars = len(phonemes) if C.use_phonemes else len(symbols)
+    # TODO: handle multi-speaker
+    model = setup_model(num_chars, num_speakers=0, c=C)
+    model, _ = load_checkpoint(model, args.model_path, None, args.use_cuda)
+    model.eval()
+
+    # data loader
+    preprocessor = importlib.import_module('TTS.tts.datasets.preprocess')
+    preprocessor = getattr(preprocessor, args.dataset)
+    meta_data = preprocessor(args.data_path, args.dataset_metafile)
+    dataset = MyDataset(model.decoder.r,
+                        C.text_cleaner,
+                        compute_linear_spec=False,
+                        ap=ap,
+
+=== 835 23shades-0518-aaaegjcch ===
+{"dataset_id": "aaaegjcch", "repo_name": "ColasGael/Machine-Learning-for-Solar-Energy-Prediction", "filename": "Data Processing/getWeatherDataStanford/WeatherData.py", "comment_introducing_revision": "https://github.com/ColasGael/Machine-Learning-for-Solar-Energy-Prediction/commit/fbeeb03a5c900a144dd2593868cfc82b84bc1ff3", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "fbeeb03a5c900a144dd2593868cfc82b84bc1ff3"}
+[comment_text]
+TODO: do more to protect against race conditions. File lock?
+[source_context]
+      postYear  = year
+      postMonth = (month + 1) % 13
+      if postMonth == 0: 
+        postYear = postYear + 1
+        postMonth = 1
+      postDate = datetime.datetime(postYear,postMonth,7) 
+      modTime  = datetime.datetime.fromtimestamp(os.path.getmtime(filePath))
+      if postDate >= modTime: # the file was last retrieved before the end of the month it covers
+        if now.date() == modTime.date(): pass # we've already dl'd the file today
+        else: retrieveFile = True
+    else: retrieveFile = True
+    if  retrieveFile: # download it and raise exception on failure
+      # TODO: do more to protect against race conditions. File lock?
+      url = self.weatherUrl(year,month)
+      print "%s not found. Attempting download at %s" % (filePath,url)
+      urllib.urlretrieve(url,filePath)
+      
+    return filePath
+    
+  def csvData(self,filePath,delim=',',colVal=None,subset=None,skip=0):
+    with open(filePath,'rb') as f:
+      return self.csvDump(f,delim,colVal,subset,skip)
+
+  # optional filter term colVal provides the index of the column colVal[0]
+  # and the value to test colVal[1] for returning a subset of the data
+
+=== 836 23shades-0718-aadbaabcf ===
+{"dataset_id": "aadbaabcf", "repo_name": "bankroll-py/bankroll", "filename": "tests/test_fidelity.py", "comment_introducing_revision": "https://github.com/bankroll-py/bankroll/commit/772718dac4f9d163df1731d912a628ebffb9c53e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "772718dac4f9d163df1731d912a628ebffb9c53e"}
+[comment_text]
+TODO: Test buy to close option trades
+[source_context]
+        # TODO: Test exercised option trades
+        pass
+
+    def test_assignedOption(self) -> None:
+        # TODO: Test assigned option trades
+        pass
+
+    def test_expiredShortOption(self) -> None:
+        # TODO: Test expired short option trades
+        pass
+
+    def test_buyToCloseOption(self) -> None:
+        # TODO: Test buy to close option trades
+        pass
+
+    def test_sellToOpenOption(self) -> None:
+        # TODO: Test sell to open option trades
+        pass
+
+    def test_securityTransferSale(self) -> None:
+        # TODO: Test security transfer trades
+        pass
+
+
+if __name__ == '__main__':
+
+=== 837 23shades-0810-aajficjje ===
+{"dataset_id": "aajficjje", "repo_name": "probcomp/bayeslite", "filename": "src/metamodels/cgpm_metamodel.py", "comment_introducing_revision": "https://github.com/probcomp/bayeslite/commit/3d135bd35799a05c0e9ae68b229be934d2bce171", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "3d135bd35799a05c0e9ae68b229be934d2bce171"}
+[comment_text]
+XXX Convert the baseline to a Foreign clause.
+[source_context]
+    needed = set()
+    existing_latent = set()
+    must_exist = []
+    unknown_stattype = {}
+
+    # XXX Convert all EXPOSED clauses to latent clauses.
+    target_clauses = [c.exposed for c in schema_ast
+        if isinstance(c, cgpm_schema.parse.Foreign) and len(c.exposed) > 0]
+    new_latents = list(itertools.chain.from_iterable(target_clauses))
+    new_clauses = [cgpm_schema.parse.Latent(v,s) for (v,s) in new_latents]
+    schema_ast.extend(new_clauses)
+
+    # XXX Convert the baseline to a Foreign clause.
+    baseline = kwargs.get('baseline', None)
+    if baseline is not None and casefold(baseline.name) != 'crosscat':
+        # Retrieve all variable names in the population
+        outputs = core.bayesdb_variable_names(bdb, population_id, None)
+        # Convert string arguments to integers.
+        ps, vs = zip(*baseline.params)
+        vs_new = [int(v) for v in vs if v.isdigit()]
+        params = zip(ps, vs_new)
+        # Create the clause.
+        clause = cgpm_schema.parse.Foreign(
+            outputs, [], [], baseline.name, params)
+        # And add append it to the schema_ast.
+
+=== 838 23shades-0271-aahddgbeh ===
+{"dataset_id": "aahddgbeh", "repo_name": "astier/model-free-episodic-control", "filename": "mfec/utils.py", "comment_introducing_revision": "https://github.com/astier/model-free-episodic-control/commit/391f7c975e53ea24cc5ce8b22f5083ed1d046a6f", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "391f7c975e53ea24cc5ce8b22f5083ed1d046a6f"}
+[comment_text]
+TODO cpickle vs json
+[source_context]
+#! /usr/bin/env python2
+
+import cPickle  # TODO cpickle vs json
+import logging
+import os
+
+
+class Utils(object):
+
+    def __init__(self, results_dir):
+        self.results_dir = results_dir
+        self.stats_file = self._create_stats_file()
+        self.epoch_reward = 0
+        self.epoch_episodes = 0
+
+
+=== 839 23shades-0351-aajbebjea ===
+{"dataset_id": "aajbebjea", "repo_name": "geomstats/geomstats", "filename": "geomstats/geometry/general_linear.py", "comment_introducing_revision": "https://github.com/geomstats/geomstats/commit/3ea1a2a88e7d3c8d658ec7f850c31b6a0f0f0b53", "comment_removing_revision": "https://github.com/geomstats/geomstats/commit/b6ca15bedc44b8de1af2f9a95979aedb4b462573", "source_context_status": "available", "source_context_commit": "3ea1a2a88e7d3c8d658ec7f850c31b6a0f0f0b53"}
+[comment_text]
+TODO Should this stay generic? (point)
+[source_context]
+        identity : TODO
+        """
+        if point_type is None:
+            point_type = self.default_point_type
+        if point_type == 'matrix':
+            return gs.eye(self.n)
+        else:
+            raise NotImplementedError(
+                'The identity of the general linear group is not'
+                ' implemented for a point_type that is not \'matrix\'.')
+    identity = property(get_identity)
+
+    def belongs(self, mat):  # TODO Should this stay generic? (point)
+        """Check if matrix belongs to GL(n).
+
+        Parameters
+        ----------
+        mat
+
+        Returns
+        -------
+        belongs : bool
+        """
+        mat = gs.to_ndarray(mat, to_ndim=3)
+

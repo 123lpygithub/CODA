@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0171-aahfefcag",
+  "revision_url": "https://github.com/tensorflow/tensor2tensor/commit/f768cde214d322928e9ab1e51b2ea455214c61cc",
+  "filename": "tensor2tensor/layers/common_layers.py",
+  "commit": "f768cde214d322928e9ab1e51b2ea455214c61cc",
+  "source_url": "https://raw.githubusercontent.com/tensorflow/tensor2tensor/f768cde214d322928e9ab1e51b2ea455214c61cc/tensor2tensor/layers/common_layers.py",
+  "fetched_at": "2026-11-05T06:12:05.541867+00:00",
+  "source_sha256": "8537d96774f6e46b2864edf4eca3eaa1d94d4fae1962d32c845b2354f260a44f",
+  "line_start": 53,
+  "line_end": 77,
+  "excerpt": "    getter: custom getter\n    *args: arguments\n    **kwargs: keyword arguments\n  Returns:\n    variables with the correct dtype.\n  Raises:\n    KeyError: if \"dtype\" is not provided as a kwarg.\n  \"\"\"\n  requested_dtype = kwargs[\"dtype\"]\n  if requested_dtype == tf.bfloat16:\n    kwargs[\"dtype\"] = tf.float32\n  var = getter(*args, **kwargs)\n  # This if statement is needed to guard the cast, because batch norm\n  # assigns directly to the return value of this custom getter. The cast\n  # makes the return value not a variable so it cannot be assigned. Batch\n  # norm variables are always in fp32 so this if statement is never\n  # triggered for them.\n  if var.dtype.base_dtype != requested_dtype:\n    var = tf.cast(var, requested_dtype)\n  return var\n\n\ndef dropout_with_broadcast_dims(x, keep_prob, broadcast_dims=None, **kwargs):\n  \"\"\"Like tf.nn.dropout but takes broadcast_dims instead of noise_shape.\n",
+  "match_policy": "unique-release-normalized-v2"
+}

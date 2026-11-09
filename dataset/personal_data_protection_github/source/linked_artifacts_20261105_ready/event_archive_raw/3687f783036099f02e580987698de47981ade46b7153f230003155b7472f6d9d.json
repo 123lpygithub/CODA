@@ -1,0 +1,138 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27Eloston%2Fungoogled-chromium%27+AND+number%3D13+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='Eloston/ungoogled-chromium' AND number=13 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:29.425883+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "9Morello",
+        "created_at": "2016-04-18 17:33:17",
+        "updated_at": "2016-04-18 17:33:17",
+        "title": "About canvas fingerprinting",
+        "body": "Well, since this is a project with privacy in mind, I think its worth posting here. Theres a pretty good add-on to manage canvas reading for Firefox called CanvasBlocker.I asked the author and he is interested in porting it to Chromium. He just needs someone familiar with how Chromium works to help him. Heres the link: https://github.com/kkapsner/CanvasBlocker/issues/65#issuecomment-211075703\r\n\r\nMaybe you guys could get in touch with him, it would be cool!\r\nThanks for this awesome project.",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-04-18 17:00:00",
+        "repo_name": "Eloston/ungoogled-chromium",
+        "number": 13
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Eloston",
+        "created_at": "2016-04-18 21:32:53",
+        "updated_at": "2016-04-18 21:32:53",
+        "title": "About canvas fingerprinting",
+        "body": "I did a quick search, and [this extension for Chrome](https://github.com/marspr/privacy-extension-chrome) has a method of preventing canvas fingerprinting (though I'm not sure how it compares to CanvasBlocker).\r\n\r\nUnfortunately, I don't have enough time to work on CanvasBlocker now. I'll reconsider in the future. Thanks for showing me this extension though, it looks pretty interesting.\r\n\r\nP.S. WebGL can be used for fingerprinting too; [Panopticlick](https://panopticlick.eff.org/) can detect WebGL fingerprints. It'll be nice if CanvasBlocker could prevent WebGL fingerprinting too.",
+        "comment_id": 211592289,
+        "comments": 1,
+        "state": "closed",
+        "closed_at": "2016-04-18 21:32:53",
+        "file_time": "2016-04-18 21:00:00",
+        "repo_name": "Eloston/ungoogled-chromium",
+        "number": 13
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "Eloston",
+        "created_at": "2016-04-18 21:32:53",
+        "updated_at": "2016-04-18 21:32:53",
+        "title": "About canvas fingerprinting",
+        "body": "Well, since this is a project with privacy in mind, I think its worth posting here. Theres a pretty good add-on to manage canvas reading for Firefox called CanvasBlocker.I asked the author and he is interested in porting it to Chromium. He just needs someone familiar with how Chromium works to help him. Heres the link: https://github.com/kkapsner/CanvasBlocker/issues/65\r\n\r\nMaybe you guys could get in touch with him, it would be cool!\r\nThanks for this awesome project.",
+        "comment_id": 0,
+        "comments": 1,
+        "state": "closed",
+        "closed_at": "2016-04-18 21:32:53",
+        "file_time": "2016-04-18 21:00:00",
+        "repo_name": "Eloston/ungoogled-chromium",
+        "number": 13
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "9Morello",
+        "created_at": "2016-04-19 03:34:10",
+        "updated_at": "2016-04-19 03:34:09",
+        "title": "About canvas fingerprinting",
+        "body": "Thanks for your attention. I already know that extension, but unfortunately its not working anymore. Having it enabled and disabling the header reading doesn't change the results: https://www.browserleaks.com/canvas",
+        "comment_id": 211712759,
+        "comments": 2,
+        "state": "closed",
+        "closed_at": "2016-04-18 21:32:53",
+        "file_time": "2016-04-19 03:00:00",
+        "repo_name": "Eloston/ungoogled-chromium",
+        "number": 13
+      }
+    ],
+    "rows": 4,
+    "statistics": {
+      "elapsed": 0.045898259,
+      "rows_read": 290157,
+      "bytes_read": 26129196
+    }
+  },
+  "response_sha256": "5585f01475891a4bbe7e2d342af26b48fcde3e580e8627cfeade24fee28791c7"
+}

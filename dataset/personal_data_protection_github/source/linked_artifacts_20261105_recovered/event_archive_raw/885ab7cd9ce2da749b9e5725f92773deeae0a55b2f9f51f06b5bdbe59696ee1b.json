@@ -1,0 +1,218 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27schollz%2Fcroc%27+AND+number%3D15+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='schollz/croc' AND number=15 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:27.878551+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "schollz",
+        "created_at": "2017-10-18 17:42:41",
+        "updated_at": "2017-10-18 17:42:40",
+        "title": "Things that already do this",
+        "body": "Browser based\r\n\r\n- https://send-anywhere.com/\r\n- https://takeafile.com/\r\n- https://www.sharedrop.io/\r\n- https://www.justbeamit.com/\r\n- https://instant.io/ [problem with big files?](https://github.com/webtorrent/instant.io/issues/149)\r\n- https://file.pizza/ [problem with big files?](https://github.com/kern/filepizza/issues/73)\r\n\r\nCommand-line:\r\n\r\n- https://github.com/zerotier/toss ([fails?](https://github.com/zerotier/toss/issues/2))",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-10-18 17:00:00",
+        "repo_name": "schollz/croc",
+        "number": 15
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "FrontMage",
+        "created_at": "2017-10-23 07:51:19",
+        "updated_at": "2017-10-23 07:51:19",
+        "title": "Hasn't this already been done?",
+        "body": "I think maybe it's because wormhole is not easy to install on windows?",
+        "comment_id": 338575818,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-10-23 07:00:00",
+        "repo_name": "schollz/croc",
+        "number": 15
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "anarcat",
+        "created_at": "2018-06-22 02:27:50",
+        "updated_at": "2018-06-22 02:27:50",
+        "title": "Hasn't this already been done? (a list of similar utilities for comparison)",
+        "body": "i am also curious to hear why croc exists, especially since the author seems to be aware of magic-wormhole. i think we should avoid fragmentation in this sector and make sure all wormhole-y clients share a common infrastructure or at least interoperate. maybe it would be possible to use the normal wormhole servers for this?\r\n\r\nif not, then we'd need some sort of federation to have things make sense again: https://github.com/warner/magic-wormhole/issues/72\r\n\r\notherwise it's kind of a shame if we have yet another non-standard way of sharing files... again... :/",
+        "comment_id": 399301454,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-06-22 02:00:00",
+        "repo_name": "schollz/croc",
+        "number": 15
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "anarcat",
+        "created_at": "2018-06-22 02:31:22",
+        "updated_at": "2018-06-22 02:31:22",
+        "title": "Hasn't this already been done? (a list of similar utilities for comparison)",
+        "body": "i'm also concerned that croc does not use PAKE like Wormhole, which means passwords are much easier to guess than they should be.",
+        "comment_id": 399301982,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-06-22 02:00:00",
+        "repo_name": "schollz/croc",
+        "number": 15
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "schollz",
+        "created_at": "2018-06-22 13:38:09",
+        "updated_at": "2018-06-22 13:38:08",
+        "title": "Hasn't this already been done? (a list of similar utilities for comparison)",
+        "body": "@anarcat \r\n\r\n> i am also curious to hear why croc exists\r\n\r\n*croc* mainly exists because I wanted a executable *magic-wormhole*-type program. The Python installation is not easy for someone who isn't very familiar with a computer. \r\n\r\n> i think we should avoid fragmentation in this sector and make sure all wormhole-y clients share a common infrastructure\r\n> it's kind of a shame if we have yet another non-standard way of sharing files\r\n\r\nI disagree. I believe most services benefit from having alternatives, so we are not reliant on a single centralized source. \r\n\r\n> i'm also concerned that croc does not use PAKE like Wormhole, which means passwords are much easier to guess than they should be.\r\n\r\nI don't think this is true. Here's why: In both *wormhole* and *croc* all you need to guess is the code phrase. In *croc* the relay stores a SHA256ed code phrase, whereas Wormhole stores a PAKE-encoded code phrase - and both of these are still basically impossible to determine unless you know the code phrase. In *croc* the code phrase is mnemonicoded random 4 bytes, which means you have a 1-in-4,294,967,296 chance of guessing the right phrase each time. Actually the [default in *wormhole* is a 2 byte code](https://magic-wormhole.readthedocs.io/en/latest/welcome.html#design) so an attacker gets a 1-in-65,536 chance of success for guessing the code. So I could say the opposite - its easier to guess in *wormhole* using the defaults. \r\n\r\nHowever, this is also not really that important because both *croc* and *wormhole* are meant for transferring immediately between two people. It would be very hard for an attacker to enumerate very many possibilities when the attack space in time is so small. So it doesn't make a huge difference in either case.\r\n\r\nThat being said, I'd still be open and happy to have PR request for implementing PAKE instead of the SHA256.\r\n\r\n\r\n",
+        "comment_id": 399445313,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-06-22 13:00:00",
+        "repo_name": "schollz/croc",
+        "number": 15
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "anarcat",
+        "created_at": "2018-06-22 14:07:21",
+        "updated_at": "2018-06-22 14:07:21",
+        "title": "Hasn't this already been done? (a list of similar utilities for comparison)",
+        "body": "On 2018-06-22 06:38:30, Zack wrote:\n> @anarcat \n>\n>> i am also curious to hear why croc exists\n>\n> *croc* mainly exists because I wanted a executable *magic-wormhole*-type program. The Python installation is not easy for someone who isn't very familiar with a computer. \n\nI understand the idea behind Golang static executables, and I think\nthat's a great idea... :)\n\n>> i think we should avoid fragmentation in this sector and make sure all wormhole-y clients share a common infrastructure\n>> it's kind of a shame if we have yet another non-standard way of sharing files\n>\n> I disagree. I believe most services benefit from having alternatives, so we are not reliant on a single centralized source. \n\n... however, I don't understand why a different protocol was\nimplemented. Even if you didn't want to use @warner's servers, you could\nstill have stuck to the protocol he established instead of rolling your\nown. This would have ensured the two projects are compatible in terms of\nline protocol. It's great to have alternatives and I find the idea of\nrunning extra wormhole servers great, but I don't see the need to\nimplement a different protocol.\n\n>> i'm also concerned that croc does not use PAKE like Wormhole, which means passwords are much easier to guess than they should be.\n>\n> I don't think this is true. Here's why: In both *wormhole* and *croc* all you need to guess is the code phrase. In *croc* the relay stores a SHA256ed code phrase, whereas Wormhole stores a PAKE-encoded code phrase - and both of these are still basically impossible to determine unless you know the code phrase. In *croc* the code phrase is mnemonicoded random 4 bytes, which means you have a 1-in-4,294,967,296 chance of guessing the right phrase each time. Actually the [default in *wormhole* is a 2 byte code](https://magic-wormhole.readthedocs.io/en/latest/welcome.html#design) so an attacker gets a 1-in-65,536 chance of success for guessing the code. So I could say the opposite - its easier to guess in *wormhole* using the defaults. \n\nPAKE is specifically designed to establish a strong session key with a\nweak one-time secret. What you are describing is the weak one time\nsecret in Wormhole, and I do not believe it is easier to guess a\nwormhole code than it is to guess a croc code, because the codes are\ndisposable.\n\nI haven't studied the details of how croc implements its key exchange,\nbut that's exactly the point here: the PAKE protocol used by Wormhole\nhas well-known properties which do not require me to audit the entire\nprotocol every time a new project comes up.\n\nBy rolling your own key exchange, you possibly expose croc users to\nattacks PAKE were designed to work against that you might not have\nthought of. For example, reading this description from the README:\n\n> The code phrase for transfering files is just three words which are 16\n> random bits that are menemonic encoded. This code phrase is hashed\n> using sha256 and sent to the relay which maps that hashed code phrase\n> to that connection. When the relay finds a matching code phrase hash\n> for both the receiver and the sender (i.e. they both have the same\n> code phrase), then the sender transmits the encrypted metadata to the\n> receiver through the relay.\n\n... make me worried that an attack against croc could be simply to\ncreate a rainbow table of possible all possible SHA256 keys and transmit\nthose to bruteforce a channel and access the content.\n\n> However, this is also not really that important because both *croc* and *wormhole* are meant for transferring immediately between two people. It would be very hard for an attacker to enumerate very many possibilities when the attack space in time is so small. So it doesn't make a huge difference in either case.\n\nWell, the reason this works on Wormhole's side is that the attacker has\nonly one try, so even though there are 65k combinations, the odds of\nsucceeding on the first try are very small. It is not obvious to me that\nthis is how croc works as well, but I might be mistaken! :) Again, this\nis why a different implementation is problematic: its security\nproperties are unclear and users are left to try and figure out exactly\nhow the thing works...\n\n> That being said, I'd still be open and happy to have PR request for implementing PAKE instead of the SHA256.\n\nI think that would be a great idea!\n\n@warner said he would very much like to have a golang implementation of\nthe wormhole, and I think it would be awesome if croc would be\ncompatible. You wouldn't have to reuse @warner's servers (in fact he\nmight not even want you to) but at least if the protocols were the same\none users could use the two software to share files between each other..\n\nIt's hard enough as it is to convince people to install \"the right\nsoftware\" to download stuff, let's not make it even harder for\nthem... ;)\n\nThanks for considering my comment and for your repsonse! :)\n\n-- \nMusic gives a soul to the universe, wings to the mind, flight to the\nimagination and life to everything\n                         - Plato\n",
+        "comment_id": 399454572,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-06-22 14:00:00",
+        "repo_name": "schollz/croc",
+        "number": 15
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "schollz",
+        "created_at": "2018-06-22 14:55:52",
+        "updated_at": "2018-06-22 14:55:52",
+        "title": "Hasn't this already been done? (a list of similar utilities for comparison)",
+        "body": "@anarcat Please combine this discussion and your other into a new issue for croc",
+        "comment_id": 399470774,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-06-22 14:00:00",
+        "repo_name": "schollz/croc",
+        "number": 15
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "anarcat",
+        "created_at": "2018-06-22 16:06:44",
+        "updated_at": "2018-06-22 16:06:44",
+        "title": "Hasn't this already been done? (a list of similar utilities for comparison)",
+        "body": "sure, done in #71",
+        "comment_id": 399494386,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-06-22 16:00:00",
+        "repo_name": "schollz/croc",
+        "number": 15
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "schollz",
+        "created_at": "2018-07-03 14:17:28",
+        "updated_at": "2018-07-03 14:17:27",
+        "title": "Hasn't this already been done? (a list of similar utilities for comparison)",
+        "body": "![Relevant XKCD](https://imgs.xkcd.com/comics/file_transfer.png)\r\n\r\nBrowser based seeding (peer-to-peer):\r\n\r\n- https://takeafile.com/\r\n- https://www.sharedrop.io/\r\n- https://www.justbeamit.com/\r\n- https://instant.io/ [problem with big files?](https://github.com/webtorrent/instant.io/issues/149)\r\n- https://file.pizza/ [problem with big files?](https://github.com/kern/filepizza/issues/73)\r\n\r\nCommand-line (peer-to-peer):\r\n\r\n- https://github.com/warner/magic-wormhole\r\n- https://github.com/zerotier/toss ([fails?](https://github.com/zerotier/toss/issues/2))\r\n\r\nServer based uploading:\r\n\r\n- https://send-anywhere.com/\r\n- https://send.firefox.com\r\n- https://github.com/ipfs\r\n\r\n",
+        "comment_id": 0,
+        "comments": 7,
+        "state": "closed",
+        "closed_at": "2018-07-03 14:17:27",
+        "file_time": "2018-07-03 14:00:00",
+        "repo_name": "schollz/croc",
+        "number": 15
+      }
+    ],
+    "rows": 9,
+    "statistics": {
+      "elapsed": 0.024894959,
+      "rows_read": 281779,
+      "bytes_read": 5441330
+    }
+  },
+  "response_sha256": "1579186827c5de431322a9e82575798a6ffeb3515de892074b2f02ed59d5d909"
+}

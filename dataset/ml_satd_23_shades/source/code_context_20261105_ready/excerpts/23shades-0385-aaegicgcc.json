@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0385-aaegicgcc",
+  "revision_url": "https://github.com/microsoft/dowhy/commit/36b5f4b0efb3c519e0d0c3613aa67dda8c45cf07",
+  "filename": "dowhy/causal_estimators/causalml.py",
+  "commit": "36b5f4b0efb3c519e0d0c3613aa67dda8c45cf07",
+  "source_url": "https://raw.githubusercontent.com/microsoft/dowhy/36b5f4b0efb3c519e0d0c3613aa67dda8c45cf07/dowhy/causal_estimators/causalml.py",
+  "fetched_at": "2026-11-05T06:12:42.851890+00:00",
+  "source_sha256": "6a50b5f7865605098e374a1104d3e7469fcf5b813ef412cfce3504f1ae58bd8d",
+  "line_start": 89,
+  "line_end": 106,
+  "excerpt": "\n        estimate = CausalEstimate(estimate=value_tuple[0],\n                                  target_estimand=self._target_estimand,\n                                  realized_estimand_expr=self.symbolic_estimator,\n                                  effect_intervals=(value_tuple[1],value_tuple[2]),\n                                  _estimator_object=self.estimator)\n\n        return estimate\n        \n\n    def construct_symbolic_estimator(self, estimand):\n        expr = \"b: \" + \",\".join(estimand.outcome_variable) + \"~\"\n        # TODO we are conditioning on a postive treatment\n        # TODO create an expression corresponding to each estimator used\n        var_list = estimand.treatment_variable + estimand.backdoor_variables\n        expr += \"+\".join(var_list)\n        return expr\n "
+}

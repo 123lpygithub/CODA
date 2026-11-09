@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0366-aaebagcaf",
+  "revision_url": "https://github.com/msmbuilder/osprey/commit/2bfd9a0eeb18013cb044b77f8ec00c56233de1d6",
+  "filename": "osprey/tests/test_strategies.py",
+  "commit": "2bfd9a0eeb18013cb044b77f8ec00c56233de1d6",
+  "source_url": "https://raw.githubusercontent.com/msmbuilder/osprey/2bfd9a0eeb18013cb044b77f8ec00c56233de1d6/osprey/tests/test_strategies.py",
+  "fetched_at": "2026-11-05T06:12:40.313099+00:00",
+  "source_sha256": "f86b4854efacf60ef465970607b4d8dca5b1bc9aa1b3b7bfc85df0f3468fc41b",
+  "line_start": 93,
+  "line_end": 117,
+  "excerpt": "        history.append((params, fn(params), 'SUCCEEDED'))\n\n    return np.array([h[0]['x'] for h in history])\n\n\n@skipif('hyperopt.fmin' not in sys.modules, 'this test requires hyperopt')\ndef test_1():\n    ours = our_x2_iterates(25)\n    ref = hyperopt_x2_iterates(25)\n\n    np.testing.assert_array_equal(ref, ours)\n\n# TODO this error message needs changing.\n@skipif('GPy' not in sys.modules, 'this test requires hyperopt')\ndef test_gp():\n    searchspace = SearchSpace()\n    searchspace.add_float('x', -10, 10)\n    searchspace.add_float('y', 1, 10, warp='log')\n    searchspace.add_int('z', -10, 10)\n    searchspace.add_enum('w', ['opt1', 'opt2'])\n\n    history = [(searchspace.rvs(), np.random.random(), 'SUCCEEDED')\n               for _ in range(4)]\n\n    kerns = [{'name': 'GPy.kern.Matern52', 'params': {'ARD': True},"
+}

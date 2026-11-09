@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0834-aajgfdhgh",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/53506d1d5547a5dbed8e30d9927232a58ced7a81",
+  "filename": "mne/viz/raw.py",
+  "commit": "53506d1d5547a5dbed8e30d9927232a58ced7a81",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/53506d1d5547a5dbed8e30d9927232a58ced7a81/mne/viz/raw.py",
+  "fetched_at": "2026-11-05T06:14:02.600473+00:00",
+  "source_sha256": "95bc93912c943f560add42ff14d34fd32e14e786d898c3ed1f0a8e24ecb6c113",
+  "line_start": 539,
+  "line_end": 563,
+  "excerpt": "\n\n_data_types = ('mag', 'grad', 'eeg', 'seeg', 'ecog')\n\n\ndef _set_psd_plot_params(info, proj, picks, ax, area_mode):\n    \"\"\"Set PSD plot params.\"\"\"\n    import matplotlib.pyplot as plt\n    if area_mode not in [None, 'std', 'range']:\n        raise ValueError('\"area_mode\" must be \"std\", \"range\", or None')\n\n    # XXX this could be refactored more with e.g., plot_evoked\n    # XXX when it's refactored, Report._render_raw will need to be updated\n    megs = ['mag', 'grad', False, False, False]\n    eegs = [False, False, True, False, False]\n    seegs = [False, False, False, True, False]\n    ecogs = [False, False, False, False, True]\n    titles = _handle_default('titles', None)\n    units = _handle_default('units', None)\n    scalings = _handle_default('scalings', None)\n    picks_list = list()\n    titles_list = list()\n    units_list = list()\n    scalings_list = list()\n    for meg, eeg, seeg, ecog, name in zip(megs, eegs, seegs, ecogs,",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/DSpace/DSpace/blob/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java#L514",
+  "kind": "file",
+  "cited_in": [
+    "comment_908751436"
+  ],
+  "revision": "218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f",
+  "immutable_revision": true,
+  "line_start": 502,
+  "line_end": 526,
+  "text": "            }\n            if (usageWorkflowEvent.getEpersonOwners() != null) {\n                for (int i = 0; i < usageWorkflowEvent.getEpersonOwners().length; i++) {\n                    EPerson ePerson = usageWorkflowEvent.getEpersonOwners()[i];\n                    solrDoc.addField(\"owner\", \"e\" + ePerson.getID());\n                }\n            }\n\n            solrDoc.addField(\"workflowItemId\", usageWorkflowEvent.getWorkflowItem().getID());\n\n            EPerson submitter = ((Item) usageWorkflowEvent.getObject()).getSubmitter();\n            if (submitter != null) {\n                solrDoc.addField(\"submitter\", submitter.getID());\n            }\n            solrDoc.addField(\"statistics_type\", StatisticsType.WORKFLOW.text());\n            if (usageWorkflowEvent.getActor() != null) {\n                solrDoc.addField(\"actor\", usageWorkflowEvent.getActor().getID());\n            }\n\n            solr.add(solrDoc);\n        } catch (Exception e) {\n            //Log the exception, no need to send it through, the workflow shouldn't crash because of this !\n            log.error(e.getMessage(), e);\n        }\n",
+  "source_sha256": "1b6f34fcdd143144c24e032f3f4f78df6b1cd08a089ccbc00ba18de9b3eaddfe",
+  "fetched_at": "2026-11-05T06:21:51.525994+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java",
+  "status": "available"
+}

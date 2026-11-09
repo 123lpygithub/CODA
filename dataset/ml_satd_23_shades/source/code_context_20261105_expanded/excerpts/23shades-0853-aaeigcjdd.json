@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0853-aaeigcjdd",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/b57c9adebb90fe95458d2c2238928d2e38c3ee9c",
+  "filename": "sdc/hiframes/pd_series_type.py",
+  "commit": "b57c9adebb90fe95458d2c2238928d2e38c3ee9c",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/b57c9adebb90fe95458d2c2238928d2e38c3ee9c/sdc/hiframes/pd_series_type.py",
+  "fetched_at": "2026-11-05T06:13:28.630990+00:00",
+  "source_sha256": "f49b0303439bc6ae461239a5aabe788e9aef7e91450bfa245567dc890ccf0295",
+  "line_start": 86,
+  "line_end": 110,
+  "excerpt": "            elif other.index != types.none:\n                new_index = other.index\n            elif self.index != types.none:\n                new_index = self.index\n\n            # If dtype matches or other.dtype is undefined (inferred)\n            if other.dtype == self.dtype or not other.dtype.is_precise():\n                return SeriesType(\n                    self.dtype,\n                    self.data.unify(typingctx, other.data),\n                    new_index)\n\n        # XXX: unify Series/Array as Array\n        return super(SeriesType, self).unify(typingctx, other)\n\n    def can_convert_to(self, typingctx, other):\n        # same as types.Array\n        if (isinstance(other, SeriesType) and other.dtype == self.dtype):\n            # called for overload selection sometimes\n            # TODO: fix index\n            if self.index == types.none and other.index == types.none:\n                return self.data.can_convert_to(typingctx, other.data)\n            if self.index != types.none and other.index != types.none:\n                return max(self.data.can_convert_to(typingctx, other.data),\n                           self.index.can_convert_to(typingctx, other.index))",
+  "match_policy": "unique-release-normalized-v2"
+}

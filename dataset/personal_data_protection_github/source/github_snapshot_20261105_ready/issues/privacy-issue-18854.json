@@ -1,0 +1,122 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18854",
+  "issue_url": "https://github.com/acmesh-official/acme.sh/issues/2587",
+  "source_issue_url": "https://github.com/acmesh-official/acme.sh/issues/2587",
+  "api_url": "https://api.github.com/repos/acmesh-official/acme.sh/issues/2587",
+  "title": "DoH blocked by firewall",
+  "body": "Hello, \r\nDoH is blocked by our corporate firewall and acme.sh doesn't work anymore for me.  Is there any option to not use DoH?  I'm using `acme.sh --issue --dns dns_gd -d`",
+  "author": "Participant 1",
+  "created_at": "2019-11-14T14:32:36Z",
+  "updated_at": "2021-01-02T11:32:06Z",
+  "state": "closed",
+  "closed_at": "2019-12-07T14:08:49Z",
+  "issue_fetched_at": "2026-10-19T01:10:51.089687+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:10:52.520710+00:00"
+  ],
+  "expected_comment_count": 12,
+  "retrieved_comment_count": 12,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 553915898,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-553915898",
+      "created_at": "2019-11-14T14:38:17Z",
+      "updated_at": "2019-11-14T14:38:17Z",
+      "author": "Participant 2",
+      "body": "you should contact your IT and request them to allow you a DMZ if issuing a cert is a critical component of your app"
+    },
+    {
+      "id": 553922985,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-553922985",
+      "created_at": "2019-11-14T14:54:49Z",
+      "updated_at": "2019-11-14T14:54:49Z",
+      "author": "Participant 3",
+      "body": "Try with “—dnssleep 300”"
+    },
+    {
+      "id": 649360024,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-649360024",
+      "created_at": "2020-06-25T08:21:14Z",
+      "updated_at": "2020-06-25T08:21:14Z",
+      "author": "Participant 4",
+      "body": "> Try with “—dnssleep 300”\r\n\r\nThat fixed for me! Thanks! Do you mind elaborating why a sleep does prevent the doh call?"
+    },
+    {
+      "id": 673771409,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-673771409",
+      "created_at": "2020-08-14T00:17:10Z",
+      "updated_at": "2020-08-14T00:17:10Z",
+      "author": "Participant 5",
+      "body": "It would be much better to have an option to disable doh in acme.sh file\r\na *LOT* of corporates block doh.\r\na *lot* of ISP's block doh -no, not all to spy to users, mostly to protect them from malware and the like\r\n\r\ndoh is evil and backwards when forced upon you, yes, by all means make it optional for those who live in repressed countries whos isp's do spy on them, but come on, lets be realistic here, the only ppl benefiting from doh are cloudfare and google. WHO LOG your requests ANYWAY. cloudfares initial post on it even said so, albeit for 30 days.\r\n"
+    },
+    {
+      "id": 673878171,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-673878171",
+      "created_at": "2020-08-14T04:35:08Z",
+      "updated_at": "2020-08-14T04:35:08Z",
+      "author": "Participant 2",
+      "body": "@Ressy66 i use DoH/DoT just fine and never even touch cloudflare or Google for it.\nThere are many other alternatives "
+    },
+    {
+      "id": 673935802,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-673935802",
+      "created_at": "2020-08-14T07:37:00Z",
+      "updated_at": "2020-08-14T07:37:00Z",
+      "author": "Participant 5",
+      "body": "we have ZERO intentions of using doh, in aperfect world with no scammers and malware, then it wouldnt matter, but we are far from perfect world and need to intercept domains to protect our users and we always will. \r\nin this country doh is a backwards step in privacy we have strong privacy laws already, even with our  meta data retention ;aw it explicitly forbids DNS and web traffic\r\n\r\ndoesnt matter no more after Neils turse comment he makes it clear we need to seek alternative method for updating LE certs now since he doesnt care what his users think."
+    },
+    {
+      "id": 673938939,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-673938939",
+      "created_at": "2020-08-14T07:44:50Z",
+      "updated_at": "2020-08-14T07:44:50Z",
+      "author": "Participant 2",
+      "body": "You know you can even run your own doh endpoint where your users connect.\nYou can also disable it for all the users in your network.\nAnd if you read the comment above you would also know how to disable it for acme.sh\n\nThe fact that you don't seem to know any of these things is more of a sign of you being a troll than a responsible security person "
+    },
+    {
+      "id": 673939654,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-673939654",
+      "created_at": "2020-08-14T07:46:36Z",
+      "updated_at": "2020-08-14T07:46:36Z",
+      "author": "Participant 3",
+      "body": "For anyone who sees this thread in the future.\r\n\r\nUsing `--dnssleep 120` is the way and only way to disable doh checks.\r\n\r\nWe need to know how long we have to wait before we can continue to get the cert.\r\n\r\nWe have two ways:  1.  we check dns records by doh checks.  or 2. just use a `--dnssleep 120` time.\r\n"
+    },
+    {
+      "id": 673946201,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-673946201",
+      "created_at": "2020-08-14T08:02:30Z",
+      "updated_at": "2020-08-14T08:02:30Z",
+      "author": "Participant 5",
+      "body": "\"The fact that you don't seem to know any of these things is more of a sign of you being a troll than a responsible security person\"\r\n\r\nIf you look at it and go how do i disable doh where  does it say that in --help ?  NOWHERE smart arse.\r\nand I am not interested in running my own doh, I  made that clear, that does not make me a troll, it does however make you one\r\n*plonk*"
+    },
+    {
+      "id": 673949180,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-673949180",
+      "created_at": "2020-08-14T08:09:09Z",
+      "updated_at": "2020-08-14T08:09:09Z",
+      "author": "Participant 2",
+      "body": "@Ressy66 if the information is not good enough to feel free to to open a PR to the readme and cli help menu.\nA better use of your time than complaining when the answer had already been provided in this very ticket "
+    },
+    {
+      "id": 753462008,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-753462008",
+      "created_at": "2021-01-02T11:25:14Z",
+      "updated_at": "2021-01-02T11:25:14Z",
+      "author": "Participant 6",
+      "body": "> For anyone who sees this thread in the future.\r\n> \r\n> Using `--dnssleep 120` is the way and only way to disable doh checks.\r\n> \r\n> We need to know how long we have to wait before we can continue to get the cert.\r\n> \r\n> We have two ways: 1. we check dns records by doh checks. or 2. just use a `--dnssleep 120` time.\r\n\r\nYou said `--dnssleep 120` is the way and **only way** to disable doh checks.But in https://github.com/acmesh-official/acme.sh/issues/2576#issuecomment-550582048 you said `--dnssleep 180`  and in https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-553922985 you also said \"Try with “`—dnssleep 300`\".What is the determined value? Do you mind elaborating why a sleep does prevent the doh call? I have read the code but still can't find the code like `300`,`180`,`120`."
+    },
+    {
+      "id": 753462655,
+      "url": "https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-753462655",
+      "created_at": "2021-01-02T11:32:06Z",
+      "updated_at": "2021-01-02T11:32:06Z",
+      "author": "Participant 2",
+      "body": "> > For anyone who sees this thread in the future.\n> > \n> > Using `--dnssleep 120` is the way and only way to disable doh checks.\n> > \n> > We need to know how long we have to wait before we can continue to get the cert.\n> > \n> > We have two ways: 1. we check dns records by doh checks. or 2. just use a `--dnssleep 120` time.\n> \n> You said `--dnssleep 120` is the way and **only way** to disable doh checks.But in https://github.com/acmesh-official/acme.sh/issues/2576#issuecomment-550582048 you said `--dnssleep 180`  and in https://github.com/acmesh-official/acme.sh/issues/2587#issuecomment-553922985 you also said \"Try with “`—dnssleep 300`\".What is the determined value? Do you mind elaborating why a sleep does prevent the doh call? I have read the code but still can't find the code like `300`,`180`,`120`.\n\n@awslblog the value is totally arbitrary.\nIt's just a timeout waiting for your name servers to update/sync the new txt record "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

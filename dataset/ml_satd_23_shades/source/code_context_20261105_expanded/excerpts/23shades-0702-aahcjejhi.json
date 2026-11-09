@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0702-aahcjejhi",
+  "revision_url": "https://github.com/pyro-ppl/pyro/commit/43155bf967921f9ddccd2998d97186f0c2ff2f7a",
+  "filename": "pyro/distributions/planar.py",
+  "commit": "43155bf967921f9ddccd2998d97186f0c2ff2f7a",
+  "source_url": "https://raw.githubusercontent.com/pyro-ppl/pyro/43155bf967921f9ddccd2998d97186f0c2ff2f7a/pyro/distributions/planar.py",
+  "fetched_at": "2026-11-05T06:13:40.170835+00:00",
+  "source_sha256": "eaa3d4dcc09f962ab640363449c79bfe4339d76c59a27d9c3675d0f22a300f46",
+  "line_start": 112,
+  "line_end": 126,
+  "excerpt": "        Internal function used to cache intermediate results computed during the forward call\n        \"\"\"\n        assert((y, name) not in self._intermediates_cache),\\\n            \"key collision in _add_intermediate_to_cache\"\n        self._intermediates_cache[(y, name)] = intermediate\n\n    def log_abs_det_jacobian(self, x, y):\n        \"\"\"\n        Calculates the elementwise determinant of the log jacobian\n        \"\"\"\n        psi_z = (1 - torch.tanh(self.lin(x)).pow(2)) * self.lin.weight\n\n        # TODO: Simplify following line once using multivariate base distributions for multivariate flows\n        return torch.log(torch.abs(1 + torch.matmul(psi_z, self.u_hat())).unsqueeze(-1)) * \\\n            torch.ones_like(x) / x.size(-1)"
+}

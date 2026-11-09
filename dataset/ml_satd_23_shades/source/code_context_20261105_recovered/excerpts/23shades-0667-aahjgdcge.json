@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0667-aahjgdcge",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "filename": "tensorflow2.0/source/numpy/core/overrides.py",
+  "commit": "44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/44d36f9e5045fd859ee188d74dc31f3921ad4796/tensorflow2.0/source/numpy/core/overrides.py",
+  "fetched_at": "2026-11-05T06:13:35.094721+00:00",
+  "source_sha256": "392912ae10bb765eb770af4faf4aade17e6b32c074db930da0f57efe8d7954d3",
+  "line_start": 158,
+  "line_end": 182,
+  "excerpt": "        if docs_from_dispatcher:\n            add_docstring(implementation, dispatcher.__doc__)\n\n        @functools.wraps(implementation)\n        def public_api(*args, **kwargs):\n            relevant_args = dispatcher(*args, **kwargs)\n            return implement_array_function(\n                implementation, public_api, relevant_args, args, kwargs)\n\n        if module is not None:\n            public_api.__module__ = module\n\n        # TODO: remove this when we drop Python 2 support (functools.wraps\n        # adds __wrapped__ automatically in later versions)\n        public_api.__wrapped__ = implementation\n\n        return public_api\n\n    return decorator\n\n\ndef array_function_from_dispatcher(\n        implementation, module=None, verify=True, docs_from_dispatcher=True):\n    \"\"\"Like array_function_dispatcher, but with function arguments flipped.\"\"\"\n"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0536-aaeidieej",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/b5f8eff30f0a2fe05509c5759eac8d67f825e647",
+  "filename": "hpat/hiframes_join.py",
+  "commit": "b5f8eff30f0a2fe05509c5759eac8d67f825e647",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/b5f8eff30f0a2fe05509c5759eac8d67f825e647/hpat/hiframes_join.py",
+  "fetched_at": "2026-11-05T06:13:08.944073+00:00",
+  "source_sha256": "aeea7646025ea7e6c29771589b97302972410512bfb0bddbd2e52cb0a5e749da",
+  "line_start": 282,
+  "line_end": 306,
+  "excerpt": "    # prepare buffer args\n    pointer_to_cbuffer_typ = lir.IntType(8).as_pointer().as_pointer()\n    send_counts = cgutils.alloca_once(builder, lir.IntType(8).as_pointer())\n    recv_counts = cgutils.alloca_once(builder, lir.IntType(8).as_pointer())\n    send_disp = cgutils.alloca_once(builder, lir.IntType(8).as_pointer())\n    recv_disp = cgutils.alloca_once(builder, lir.IntType(8).as_pointer())\n\n    # prepare key array args\n    key_arr = make_array(sig.args[0])(context, builder, args[0])\n    # XXX: assuming key arr is 1D\n    assert key_arr.shape.type.count == 1\n    arr_len = builder.extract_value(key_arr.shape, 0)\n    # TODO: extend to other key types\n    assert sig.args[0].dtype == types.intp\n    key_typ_enum = _h5_typ_table[sig.args[0].dtype]\n    key_typ_arg = builder.load(cgutils.alloca_once_value(builder,\n                                lir.Constant(lir.IntType(32), key_typ_enum)))\n    key_arr_data = builder.bitcast(key_arr.data, lir.IntType(8).as_pointer())\n\n    call_args = [send_counts, recv_counts, send_disp, recv_disp, arr_len,\n                                                    key_typ_arg, key_arr_data]\n\n    fnty = lir.FunctionType(lir.IntType(64), [pointer_to_cbuffer_typ] * 4\n            + [lir.IntType(64), lir.IntType(32), lir.IntType(8).as_pointer()])\n    fn = builder.module.get_or_insert_function(fnty,"
+}

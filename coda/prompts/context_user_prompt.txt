@@ -1,0 +1,62 @@
+Research Question:
+{research_question}
+
+Analysis Scope:
+{analysis_scope}
+
+Use Case:
+{use_case}
+
+Artifact Unit:
+{artifact_unit}
+
+Frozen Analysis Protocol:
+{analysis_protocol}
+
+Dataset:
+{dataset_name}
+
+Artifact ID:
+{artifact_id}
+
+Artifact Content:
+{artifact_content}
+
+Raw Fields:
+{raw_fields_json}
+
+Source References:
+{source_refs_json}
+
+Researcher-supplied additional context (use only as supplementary material):
+{additional_context_json}
+
+Return a JSON object with exactly these keys:
+- "context_brief": English summary of at most 150 words, focused on the research question
+- "context_brief_zh": Chinese version with the same meaning
+- "evidence_items": array of objects, each with:
+  - "field_name": one raw field name if possible
+  - "excerpt": short direct excerpt from the artifact
+  - "claim_type": reported, observed, or inferred
+  - "revision": visible source revision identifier, or null
+  - "rationale": why this excerpt matters for later coding
+  - "rationale_zh": Chinese version with the same meaning
+- "missing_context_warnings": array of English strings
+- "missing_context_warnings_zh": Chinese versions in the same order
+- "distracting_information": array of English strings
+- "distracting_information_zh": Chinese versions in the same order
+
+Constraints:
+- Include up to {max_evidence_items} evidence items. This limit is derived from the visible material length.
+- If no substantive evidence can be extracted, return [] and explain under missing_context_warnings
+  why the case cannot be meaningfully summarized; do not invent an excerpt to fill the list.
+- Keep excerpts short and grounded.
+- When available, distinguish evidence of the expected behavior, the actual or generated
+  behavior, the observed failure, and the repair or reference behavior in the rationales.
+- Treat tests, patches, and reference implementations as diagnostic evidence. Do not state
+  that a different implementation structure is erroneous unless the supplied evidence
+  shows a behavioral departure from the requirement.
+- If the artifact may contain multiple errors, retain the excerpts needed to determine
+  whether fixing one would leave another analytically distinct error unresolved.
+- Excerpts and field names must remain in their original language. Every explanatory string must have an aligned Chinese version.
+- Do not output markdown.

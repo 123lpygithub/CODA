@@ -1,0 +1,372 @@
+
+=== 480 23shades-0375-aafeihffh ===
+{"dataset_id": "aafeihffh", "repo_name": "aleju/imgaug", "filename": "imgaug/augmenters/geometric.py", "comment_introducing_revision": "https://github.com/aleju/imgaug/commit/badc8eefef808e24c9b087ea90a584d5c6c40843", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "badc8eefef808e24c9b087ea90a584d5c6c40843"}
+[comment_text]
+TODO unify this somehow with the global _handle_mode_arg() that is
+[source_context]
+        # Special order, mode and cval parameters for heatmaps and
+        # segmentation maps. These may either be None or a fixed value.
+        # Stochastic parameters are currently *not* supported.
+        # If set to None, the same values as for images will be used.
+        # That is really not recommended for the cval parameter.
+        self._order_heatmaps = cv2.INTER_LINEAR
+        self._order_segmentation_maps = cv2.INTER_NEAREST
+        self._mode_heatmaps = cv2.BORDER_CONSTANT
+        self._mode_segmentation_maps = cv2.BORDER_CONSTANT
+        self._cval_heatmaps = 0
+        self._cval_segmentation_maps = 0
+
+    # TODO unify this somehow with the global _handle_mode_arg() that is
+    #      currently used for Affine and PiecewiseAffine
+    @classmethod
+    def _handle_mode_arg(cls, mode):
+        available_modes = [cv2.BORDER_REPLICATE, cv2.BORDER_CONSTANT]
+        available_modes_str = ["replicate", "constant"]
+        if mode == ia.ALL:
+            return iap.Choice(available_modes)
+        elif ia.is_single_integer(mode):
+            assert mode in available_modes, (
+                "Expected mode to be in %s, got %d." % (
+                    str(available_modes), mode))
+            return iap.Deterministic(mode)
+
+=== 481 23shades-0644-aaibjebjh ===
+{"dataset_id": "aaibjebjh", "repo_name": "scikit-learn/scikit-learn", "filename": "scikits/learn/svm/base.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/0f37104fe99479183dc4b1b0815191e8bb8308e8", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "0f37104fe99479183dc4b1b0815191e8bb8308e8"}
+[comment_text]
+TODO: put keyword copy to copy on demand
+[source_context]
+        # container for when we call fit
+        self.support_   = np.empty((0,0), dtype=np.float64, order='C')
+        self.dual_coef_ = np.empty((0,0), dtype=np.float64, order='C')
+        self.intercept_ = np.empty(0,     dtype=np.float64, order='C')
+
+        # only used in classification
+        self.n_support_ = np.empty(0, dtype=np.int32, order='C')
+
+
+        if callable(self.kernel):
+            # you must store a reference to X to compute the kernel in predict
+            # there's a way around this, but it involves patching libsvm
+            # TODO: put keyword copy to copy on demand
+            self.__Xfit = X
+        kernel_type, _X = self._get_kernel(X)
+
+        self.weight = np.asarray(class_weight.values(),
+                                 dtype=np.float64, order='C')
+        self.weight_label = np.asarray(class_weight.keys(),
+                                       dtype=np.int32, order='C')
+
+        # check dimensions
+        solver_type = self._svm_types.index(self.impl)
+        if solver_type != 2 and _X.shape[0] != Y.shape[0]:
+            raise ValueError("X and y have incompatible shapes.\n" +
+
+=== 482 23shades-0364-aaifjjccj ===
+{"dataset_id": "aaifjjccj", "repo_name": "OpenMined/PySyft", "filename": "syft/workers/base.py", "comment_introducing_revision": "https://github.com/OpenMined/PySyft/commit/c9b84f4dbc347398450e60c6d6ea504cdd8c3da2", "comment_removing_revision": "https://github.com/OpenMined/PySyft/commit/1eb369ae3a1865789f5809bec59f066ac1cbe58d", "source_context_status": "available", "source_context_commit": "c9b84f4dbc347398450e60c6d6ea504cdd8c3da2"}
+[comment_text]
+TODO this code is currently necessary for the async_fit method in websocket_client.py
+[source_context]
+
+                Args:
+                    message: A tuple specifying the command and the args.
+
+                Returns:
+                    A pointer to the result.
+                """
+        command_name, (args, kwargs, return_ids) = message
+
+        command_name = command_name
+        response = getattr(self, command_name)(*args, **kwargs)
+        #  TODO [midokura-silvia]: send the tensor directly
+        #  TODO this code is currently necessary for the async_fit method in websocket_client.py
+        if isinstance(response, FrameworkTensor):
+            self.register_obj(obj=response, obj_id=return_ids[0])
+            return None
+        return response
+
+    def execute_plan_command(self, message: tuple):
+        """Executes commands related to plans.
+
+        This method is intended to execute all commands related to plans and
+        avoiding having several new message types specific to plans.
+
+        Args:
+
+=== 483 23shades-0493-aagbjbdaa ===
+{"dataset_id": "aagbjbdaa", "repo_name": "maximecb/gym-miniworld", "filename": "gym_miniworld/miniworld.py", "comment_introducing_revision": "https://github.com/maximecb/gym-miniworld/commit/bb2ab9d0ae8efef93ad9b5854891b46701c50f6d", "comment_removing_revision": "https://github.com/maximecb/gym-miniworld/commit/da0eb3e7fcccc73122796e32e0b517e79f1f5326", "source_context_status": "available", "source_context_commit": "bb2ab9d0ae8efef93ad9b5854891b46701c50f6d"}
+[comment_text]
+TODO: compute signed distance between walls
+[source_context]
+            for idx_b in range(room_b.num_walls):
+                norm_b = room_b.edge_norms[idx_b]
+
+                # Reject walls that are not facing each other
+                dp = np.dot(norm_a, norm_b)
+                if dp > -0.9:
+                    continue
+
+                #print(dp)
+
+                # TODO: project this wall onto the other
+
+                # TODO: compute signed distance between walls
+
+
+
+
+    def place_entity(
+        self,
+        ent,
+        room=None,
+        dir=None,
+        min_x=None,
+        max_x=None,
+        min_z=None,
+
+=== 484 23shades-0733-aajacfjii ===
+{"dataset_id": "aajacfjii", "repo_name": "chainer/chainer", "filename": "chainer/graph_optimizations/static_graph.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/22c5d798e356e820acc9687225e306031a213679", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "22c5d798e356e820acc9687225e306031a213679"}
+[comment_text]
+todo: this is O(N^2) and maybe too slow for large graphs.
+[source_context]
+                    for var in retained_vars:
+                        retained_ids.add(id(var.data))
+
+        for keep_id in retained_ids:
+            unique_ind = self.array_id_to_unique_index[keep_id]
+            array_info = self.unique_array_infos[unique_ind]
+            array_info.retain = True
+            # Note: the following line is not actually needed.
+            # array_info.array = array_info.weak_ref()
+
+        delete_hooks = []
+        for unique_ind, ar_info in enumerate(self.unique_array_infos):
+            # todo: this is O(N^2) and maybe too slow for large graphs.
+            # Optimize it later.
+            if ar_info.was_deleted():
+                if ar_info.dynamic_deletion_index is None:
+                    if self.verbosity_level >= 2:
+                        print('Adding delete hook:')
+                    delete_hooks.append(unique_ind)
+                    ar_info.dynamic_deletion_index = last_sched_info_ind + 1
+                    ar_info.dynamic_deletion_pass_depth = self.pass_depth
+
+        # Call the `@static_code`-decorated function.
+        ret = func(*args, **kwargs)
+
+
+=== 485 23shades-0830-aajfigjji ===
+{"dataset_id": "aajfigjji", "repo_name": "probcomp/bayeslite", "filename": "src/metamodels/crosscat.py", "comment_introducing_revision": "https://github.com/probcomp/bayeslite/commit/499d14087f189381daf0afd0e9911b2fe40b7633", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "499d14087f189381daf0afd0e9911b2fe40b7633"}
+[comment_text]
+XXX Return a singleton list; since self._crosscat.similarity
+[source_context]
+        [given_row_id, target_row_id], X_L_list, X_D_list = \
+            self._crosscat_get_rows(bdb, generator_id, [rowid, target_rowid],
+                X_L_list, X_D_list)
+        similarity = self._crosscat.similarity(
+            M_c=self._crosscat_metadata(bdb, generator_id),
+            X_L_list=X_L_list,
+            X_D_list=X_D_list,
+            given_row_id=given_row_id,
+            target_row_id=target_row_id,
+            target_columns=[crosscat_cc_colno(bdb, generator_id, colno)
+                for colno in colnos],
+        )
+        # XXX Return a singleton list, since self._crosscat.similarity
+        # is already aggregating.
+        return [similarity]
+
+    def predict_confidence(self, bdb, generator_id, modelnos, rowid, colno,
+            numsamples=None):
+        modelno = self.get_modelno(bdb, modelnos)
+        if numsamples is None:
+            numsamples = 100    # XXXWARGHWTF
+        M_c = self._crosscat_metadata(bdb, generator_id)
+        row = core.bayesdb_generator_row_values(bdb, generator_id, rowid)
+        X_L_list = self._crosscat_latent_state(bdb, generator_id, modelno)
+        X_D_list = self._crosscat_latent_data(bdb, generator_id, modelno)
+
+=== 486 23shades-0814-aajficacj ===
+{"dataset_id": "aajficacj", "repo_name": "probcomp/bayeslite", "filename": "src/metamodels/cgpm_metamodel.py", "comment_introducing_revision": "https://github.com/probcomp/bayeslite/commit/859b4b9e5741ab58286ea0621cd3cd40b8455fe7", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "859b4b9e5741ab58286ea0621cd3cd40b8455fe7"}
+[comment_text]
+XXX Default number of samples drawn from my arse.
+[source_context]
+        modelnos = None if modelno is None else [modelno]
+        with self._engine_states(bdb, generator_id, modelnos):
+            # Map the variable indexing.
+            cgpm_colno0 = self._cgpm_colno(bdb, generator_id, colno0)
+            cgpm_colno1 = self._cgpm_colno(bdb, generator_id, colno1)
+
+            # Go!
+            return self._engine.dependence_probability(
+                cgpm_colno0, cgpm_colno1)
+
+    def column_mutual_information(self, bdb, generator_id, modelno,
+            colno0, colno1, numsamples=None):
+        # XXX Default number of samples drawn from my arse.
+        if numsamples is None:
+            numsamples = 1000
+
+        # Prepare the engine with the requested states.
+        modelnos = None if modelno is None else [modelno]
+        with self._engine_states(bdb, generator_id, modelnos):
+            # Map the variable indexing.
+            cgpm_colno0 = self._cgpm_colno(bdb, generator_id, colno0)
+            cgpm_colno1 = self._cgpm_colno(bdb, generator_id, colno1)
+
+            # Go!
+            mi_list = self._engine.mutual_information(
+
+=== 487 23shades-0088-aahedijdj ===
+{"dataset_id": "aahedijdj", "repo_name": "nltk/nltk", "filename": "nltk_lite/contrib/mit/six863/parse/category.py", "comment_introducing_revision": "https://github.com/nltk/nltk/commit/4c1ef444d8b5f4baf6618927bd97e2f71e42d3f1", "comment_removing_revision": "https://github.com/nltk/nltk/commit/2cffd57b7b7a087739be30609a93c9c9d8675219", "source_context_status": "available", "source_context_commit": "4c1ef444d8b5f4baf6618927bd97e2f71e42d3f1"}
+[comment_text]
+FIXME: don't show \/
+[source_context]
+                del obj[key]
+            elif isinstance(value, (Category, dict)):
+                Category._remove_unbound_vars(value)
+
+    #################################################################
+    ## String Representations
+    #################################################################
+
+    def __repr__(self):
+        """
+        @return: A string representation of this feature structure.
+        """
+        #FIXME: don't show /
+        if self._memorepr is not None: return self._memorepr
+        else: return yaml.dump(self, default_flow_style=True)
+    
+    def __str__(self):
+        """
+        @return: A string representation of this feature structure.
+        """
+        return self.__class__._str(self, {}, {})
+    
+    @classmethod
+    def _str(cls, obj, reentrances, reentrance_ids):
+        segments = []
+
+=== 488 23shades-0674-aagiejcbj ===
+{"dataset_id": "aagiejcbj", "repo_name": "pandas-profiling/pandas-profiling", "filename": "src/pandas_profiling/model/messages.py", "comment_introducing_revision": "https://github.com/pandas-profiling/pandas-profiling/commit/6c4f9ad7546a14462c03116ed1b623b6cdaf9bb5", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6c4f9ad7546a14462c03116ed1b623b6cdaf9bb5"}
+[comment_text]
+TODO: render in template
+[source_context]
+        fields=None,
+    ):
+        if fields is None:
+            fields = set()
+
+        self.fields = fields
+        self.message_type = message_type
+        self.values = values
+        self.column_name = column_name
+        self.anchor_id = hash(column_name)
+
+    def fmt(self):
+        # TODO: render in template
+        name = self.message_type.name.replace("_", " ")
+        if name == "HIGH CORRELATION":
+            name = '<abbr title="This variable has a high correlation with {num} fields: {title}">HIGH CORRELATION</abbr>'.format(
+                num=len(self.values["fields"]),
+                title=", ".join(self.values["fields"]),
+            )
+        return name
+
+
+def check_table_messages(table: dict) -> List[Message]:
+    """Checks the overall dataset for warnings.
+
+
+=== 489 23shades-0158-aahgacfhf ===
+{"dataset_id": "aahgacfhf", "repo_name": "RaRe-Technologies/gensim", "filename": "docs/src/auto_examples/tutorials/run_lda.py", "comment_introducing_revision": "https://github.com/RaRe-Technologies/gensim/commit/bcee414663bdcbdf6a58684531ee69c6949550bf", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "bcee414663bdcbdf6a58684531ee69c6949550bf"}
+[comment_text]
+seem out of place. If you were able to do better; feel free to share your
+[source_context]
+# We can compute the topic coherence of each topic. Below we display the
+# average topic coherence and print the topics in order of topic coherence.
+# 
+# Note that we use the "Umass" topic coherence measure here (see
+# :py:func:`gensim.models.ldamodel.LdaModel.top_topics`), Gensim has recently
+# obtained an implementation of the "AKSW" topic coherence measure (see
+# accompanying blog post, http://rare-technologies.com/what-is-topic-coherence/).
+# 
+# If you are familiar with the subject of the articles in this dataset, you can
+# see that the topics below make a lot of sense. However, they are not without
+# flaws. We can see that there is substantial overlap between some topics,
+# others are hard to interpret, and most of them have at least some terms that
+# seem out of place. If you were able to do better, feel free to share your
+# methods on the blog at http://rare-technologies.com/lda-training-tips/ !
+# 
+
+top_topics = model.top_topics(corpus) #, num_words=20)
+
+# Average topic coherence is the sum of topic coherences of all topics, divided by the number of topics.
+avg_topic_coherence = sum([t[1] for t in top_topics]) / num_topics
+print('Average topic coherence: %.4f.' % avg_topic_coherence)
+
+from pprint import pprint
+pprint(top_topics)
+
+
+=== 490 23shades-0281-aafegiafa ===
+{"dataset_id": "aafegiafa", "repo_name": "aleju/imgaug", "filename": "tests/test.py", "comment_introducing_revision": "https://github.com/aleju/imgaug/commit/420fb6ee8f2804335b4faa3b380aca25c6027b81", "comment_removing_revision": "https://github.com/aleju/imgaug/commit/5458e8bdfc3ae168c0caa91a508cd860e964a085", "source_context_status": "available", "source_context_commit": "420fb6ee8f2804335b4faa3b380aca25c6027b81"}
+[comment_text]
+TODO ElasticTransformation
+[source_context]
+    # TODO EdgeDetect
+    # TODO DirectedEdgeDetect
+
+    # flip
+    test_Fliplr()
+    test_Flipud()
+
+    # geometric
+    test_Affine()
+    # TODO AffineCv2
+    # TODO PiecewiseAffine
+    # TODO PerspectiveTransform
+    # TODO ElasticTransformation
+
+    # meta
+    # TODO copy_dtypes_for_restore()
+    # TODO restore_augmented_images_dtypes_()
+    # TODO restore_augmented_images_dtypes()
+    # TODO clip_augmented_images_()
+    # TODO clip_augmented_images()
+    # TODO Augmenter
+    test_Sequential()
+    # TODO SomeOf
+    # TODO OneOf
+    test_Sometimes()
+
+=== 491 23shades-0560-aaifhghej ===
+{"dataset_id": "aaifhghej", "repo_name": "OpenMined/PySyft", "filename": "syft/frameworks/torch/tensors/interpreters/abstract.py", "comment_introducing_revision": "https://github.com/OpenMined/PySyft/commit/0dca0e8e9e22676000ddaf672989d168b3b0fada", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "0dca0e8e9e22676000ddaf672989d168b3b0fada"}
+[comment_text]
+TODO: I can't manage the import issue; can you?
+[source_context]
+        :return: the response of the function command
+        """
+        cmd, _, args, kwargs = command
+
+        # Check that the function has not been overwritten
+        try:
+            # Try to get recursively the attributes in cmd = "<attr1>.<attr2>.<attr3>..."
+            cmd = rgetattr(cls, cmd)
+            return cmd(*args, **kwargs)
+        except AttributeError:
+            pass
+
+        # TODO: I can't manage the import issue, can you?
+        # Replace all LoggingTensor with their child attribute
+        new_args, new_kwargs, new_type = sy.frameworks.torch.hook_args.hook_function_args(
+            cmd, args, kwargs
+        )
+
+        # build the new command
+        new_command = (cmd, None, new_args, new_kwargs)
+
+        # Do a generic action depending og the call
+        cls.on_function_call(new_command)
+
+        # Send it to the appropriate class and get the response

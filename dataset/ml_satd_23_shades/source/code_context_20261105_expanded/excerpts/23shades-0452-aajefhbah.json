@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0452-aajefhbah",
+  "revision_url": "https://github.com/ultralytics/yolov3/commit/3f68a6776a6db865b1828abc88826494f9f59e68",
+  "filename": "utils/utils.py",
+  "commit": "3f68a6776a6db865b1828abc88826494f9f59e68",
+  "source_url": "https://raw.githubusercontent.com/ultralytics/yolov3/3f68a6776a6db865b1828abc88826494f9f59e68/utils/utils.py",
+  "fetched_at": "2026-11-05T06:12:56.769074+00:00",
+  "source_sha256": "964a7c72fdde6da604a8d5c5a65c1eb9989bd813c90c798783011c0521c81934",
+  "line_start": 248,
+  "line_end": 272,
+  "excerpt": "        # Select best unique target-anchor combinations\n        if nTb > 1:\n            iou_order = torch.argsort(-iou_best)  # best to worst\n\n            # Unique anchor selection\n            u = torch.cat((gi, gj, a), 0).view((3, -1))\n            # u = torch.stack((gi, gj, a),0)\n            _, first_unique = np.unique(u[:, iou_order], axis=1, return_index=True)  # first unique indices\n            # _, first_unique = torch.unique(u[:, iou_order], dim=1, return_inverse=True)  # different than numpy?\n\n            i = iou_order[first_unique]\n            # best anchor must share significant commonality (iou) with target\n            i = i[iou_best[i] > 0.10]  # TODO: arbitrary threshold is problematic\n            if len(i) == 0:\n                continue\n\n            a, gj, gi, t = a[i], gj[i], gi[i], t[i]\n            if len(t.shape) == 1:\n                t = t.view(1, 5)\n        else:\n            if iou_best < 0.10:\n                continue\n\n        tc, gxy, gwh = t[:, 0].long(), t[:, 1:3] * nG, t[:, 3:5] * nG\n"
+}

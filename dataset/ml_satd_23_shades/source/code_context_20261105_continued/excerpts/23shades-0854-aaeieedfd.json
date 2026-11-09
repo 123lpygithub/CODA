@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0854-aaeieedfd",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/7f8f9489e355e519221c4222dec3bc9181762c12",
+  "filename": "hpat/hiframes/boxing.py",
+  "commit": "7f8f9489e355e519221c4222dec3bc9181762c12",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/7f8f9489e355e519221c4222dec3bc9181762c12/hpat/hiframes/boxing.py",
+  "fetched_at": "2026-11-05T06:13:15.642006+00:00",
+  "source_sha256": "a12a2172f22d757eefd474370b5395de1e4a077d1faadffdb065997546407e22",
+  "line_start": 40,
+  "line_end": 64,
+  "excerpt": "    return PandasDataFrameType(col_names, col_types)\n\nregister_model(PandasDataFrameType)(models.OpaqueModel)\n\n\n# register series types for import\n@typeof_impl.register(pd.Series)\ndef typeof_pd_str_series(val, c):\n    # TODO: handle NA as 1st value\n    if len(val) > 0 and isinstance(val.values[0], str):  # and isinstance(val[-1], str):\n        arr_typ = string_array_type\n    elif len(val) > 0 and isinstance(val.values[0], datetime.date):\n        # XXX: using .values to check date type since DatetimeIndex returns\n        # Timestamp which is subtype of datetime.date\n        return BoxedSeriesType(datetime_date_type)\n    else:\n        arr_typ = numba.typing.typeof._typeof_ndarray(val.values, c)\n\n    return arr_to_boxed_series_type(arr_typ)\n\n\n@typeof_impl.register(pd.Index)\ndef typeof_pd_index(val, c):\n    if len(val) > 0 and isinstance(val[0], datetime.date):\n        return BoxedSeriesType(datetime_date_type)"
+}

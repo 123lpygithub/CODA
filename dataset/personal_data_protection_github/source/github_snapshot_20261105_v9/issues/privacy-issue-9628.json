@@ -1,0 +1,154 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-9628",
+  "issue_url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242",
+  "source_issue_url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242",
+  "api_url": "https://api.github.com/repos/openfoodfoundation/openfoodnetwork/issues/2242",
+  "title": "EU Cookie compliance",
+  "body": "## What is the problem we are solving \r\nGDPR and other European local regulations force all European websites to:\r\n- inform visitors / users if you collect personal data and what you do with them.\r\n- request consent from the visitor / users to do so for each type of cookie.\r\n\r\nWe shouldn't collect and use non-compulsory data through cookies without the explicit consent (default opt-in doesn't work anymore) \r\nToday we don't ask any consent and collect and use data through cookies without our users knowing about it.\r\nThe only cookie I saw through Ghostary is New Relic which I guess is compulsory for the service we give (what it is used for again?) but maybe there are others.\r\nAlso some instances use Google Analytics, if so there are new trackers from Google that collect data.\r\n\r\n## Success factors = expected outcome \r\nWhen a visitor connect for the first time to a local OFN instance, if the instance has toggled on the cookie banner agreement display, they should see the banner and be able to accept all cookies, set up more specifically which cookies they accept, or ignore (in that case all optional cookies should be deactivated by default) \r\nWhen they visit again they should always be able to change their cookies setting and opt-in our out.\r\n\r\n## Metric\r\n- All new visitor who have neither accepted cookies nor closed the banner should see it when they connect to the local instance URL.\r\n- If a cookie is disabled the users data are not collected.\r\n- If a cookie is enabled the users data are collected and can be used for the specified service.\r\n\r\n## Useful information for/from inception\r\nA spike has been done by Maikel on which cookies we use: https://github.com/openfoodfoundation/openfoodnetwork/issues/2240\r\nThat has enabed Myriam to build a UX proposal based on previous investigations about the law and some examples that seems aligned with the law.\r\nhttps://docs.google.com/presentation/d/1uMWiW6lQhqexAe_uFmjp5QNAM1zLfnIe1bF3-_Nb5xo/edit?usp=sharing\r\n\r\n## Link to the \"Icebox\" item in Discourse\r\nhttps://community.openfoodnetwork.org/t/users-know-clearly-which-cookies-are-used-and-can-refuse-them/1252\r\n\r\n## First feature candidate to be implemented\r\nBased on first tech inception by Maikel: Implement a toggle on-off banner (instance level) that enable  user to accept all cookies or view cookie policy and settings, in that case the only cookie they can be enabled/disabled is google analytics (if instance uses it).",
+  "author": "Participant 1",
+  "created_at": "2018-04-19T11:41:25Z",
+  "updated_at": "2018-10-30T22:40:11Z",
+  "state": "closed",
+  "closed_at": "2018-10-30T22:40:11Z",
+  "issue_fetched_at": "2026-10-19T02:11:14.211456+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T02:11:15.676647+00:00"
+  ],
+  "expected_comment_count": 16,
+  "retrieved_comment_count": 16,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 382704715,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-382704715",
+      "created_at": "2018-04-19T11:44:24Z",
+      "updated_at": "2018-04-19T11:44:24Z",
+      "author": "Participant 1",
+      "body": "We need some dev to take tech lead on that project. I think it can be done in parallel as Spree upgrade as I don't think there is really implications. We have decided to prioritized for Q2. @daniellemoorhead might be good to discuss at next pipeline touchpoint.\r\nI only put one story so far as I would like to organize a quick inception session with the tech lead on it to agree on the path we want to take and split that into stories. I have already shared some ideas in the slides document I put in the inception section in this epic."
+    },
+    {
+      "id": 391804806,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-391804806",
+      "created_at": "2018-05-24T17:57:03Z",
+      "updated_at": "2018-05-24T17:57:03Z",
+      "author": "Participant 1",
+      "body": "Interesting and pedagogic way of taking about cookies: https://appear.in/information/tos/cookie-policy/"
+    },
+    {
+      "id": 397004875,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-397004875",
+      "created_at": "2018-06-13T16:38:21Z",
+      "updated_at": "2018-06-13T16:38:21Z",
+      "author": "Participant 1",
+      "body": "Ok so given the work done by @mkllnk on https://github.com/openfoodfoundation/openfoodnetwork/issues/2240 on the tech inception side, I am about to open all the stories, but before I want to make sure we all agree on UX inception side, how it's gonna look for users and what will be the flow.\r\n\r\n**Here is the proposed UX:** (only 5 slildes!)\r\nhttps://docs.google.com/presentation/d/1uMWiW6lQhqexAe_uFmjp5QNAM1zLfnIe1bF3-_Nb5xo/edit#slide=id.g3841ad4459_0_180\r\nIt looks pretty simple to me and quite easily understandable, but please share feedbacks and ask any questions you have.\r\n@enricostano @sauloperez @NickWeir63 @lin-d-hop @sigmundpetersen @mllocs @luisramos0 are you ok with my analysis and proposal that this will make us legal on cookie side regarding GDPR?\r\nNon EU instances might decide to just toogl this off but you will have the possibility to apply it if you want :-) \r\n\r\n@mkllnk on slide 6 I have listed 6 stories in the order I think they should be done, the first ones blocking the later ones. Do you agree? Do you suggest any modification?"
+    },
+    {
+      "id": 397134880,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-397134880",
+      "created_at": "2018-06-14T01:05:38Z",
+      "updated_at": "2018-06-14T01:05:38Z",
+      "author": "Participant 2",
+      "body": "@myriamboure That looks really good. Thank you. Just a note on page three. You reference a Privacy Policy. We don't have one. :-( Last Aussie talk about it: https://github.com/openfoodfoundation/ofnaus-issues/issues/2\r\n\r\nAnd about the story list: I would include story 2 in story 4. It's not a big thing and doesn't make sense on its own."
+    },
+    {
+      "id": 397177855,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-397177855",
+      "created_at": "2018-06-14T05:44:23Z",
+      "updated_at": "2018-06-14T05:44:23Z",
+      "author": "Participant 1",
+      "body": "Yes @mkllnk I know we don't have yet a privacy policy but UK has and we are writting one in France so we will want to link it also, but I will open a separate issue for that, it's not in the scope of the cookie policy but very connected as the cookie policy is part of privacy policy so I guess I'll put that story in the epic as well.\r\nI'll update the stories with your feedback."
+    },
+    {
+      "id": 397179349,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-397179349",
+      "created_at": "2018-06-14T05:53:10Z",
+      "updated_at": "2018-06-14T05:53:10Z",
+      "author": "Participant 1",
+      "body": "@mkllnk yes privacy policy is separate but connected as cookie policy is kind of part of privacy policy, so I propose to add a separate story in the scope of the epic to have something consistent (UK has writte their privacy policy, we are writing our in France, and I guess even if not forced other instances might do it volunteerly as Aus has started to discuss). I also added that the cookie page generation also needs to be powered in/off depending on instance will.\r\nCheck the new stories set and tell me if it's better or still some unclear things ;-)"
+    },
+    {
+      "id": 398312962,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-398312962",
+      "created_at": "2018-06-19T08:09:21Z",
+      "updated_at": "2018-06-19T08:09:21Z",
+      "author": "Participant 1",
+      "body": "I added a mobile view on how that would look like. @mkllnk can you just have a last check at the new list of stories after I took into account your feedbacks to make sure it's all good on your side? Would like to avoid misunderstandings.\r\nAlso please we need more feedbacks on UX I don't want to be the only PO to validate it... especially EU people directly concerned @lin-d-hop @sigmundpetersen @sauloperez @mllocs just give your go if you are happy. @RachL I would like your UX feedback on it as well. \r\nhttps://docs.google.com/presentation/d/1uMWiW6lQhqexAe_uFmjp5QNAM1zLfnIe1bF3-_Nb5xo/edit#slide=id.g3841ad4459_0_180"
+    },
+    {
+      "id": 398317519,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-398317519",
+      "created_at": "2018-06-19T08:25:47Z",
+      "updated_at": "2018-06-19T08:25:47Z",
+      "author": "Participant 3",
+      "body": "You are way deeper into this than me and I trust you @myriamboure :) All good on my side."
+    },
+    {
+      "id": 403297950,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-403297950",
+      "created_at": "2018-07-08T16:07:41Z",
+      "updated_at": "2018-07-08T16:07:41Z",
+      "author": "Participant 1",
+      "body": "Are we missing any issue @luisramos0 on the cookie feature after the discussion we had? I guess the back end selection between Matomo and Analytics (that pilotes the cookie policy page content I guess) is part of cookie policy page issue isn't it? Please if we miss any new issue to cover something we didn't cover, add it to this epic! Do you have everything you need to finish it off?"
+    },
+    {
+      "id": 406746696,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-406746696",
+      "created_at": "2018-07-20T22:58:29Z",
+      "updated_at": "2018-07-21T17:05:39Z",
+      "author": "Participant 4",
+      "body": "Hey @myriamboure yes, I think I have everything I need.\r\n\r\n- The main feature is complete and in Code Review here: #2411 \r\n- Basic integration with Matomo is addressed in #2492\r\n- As far as I can see, \"delete remember me cookie\" #2400 is not applicable as it's already in place.\r\n\r\nI am only missing some automated tests around some of these changes.\r\n"
+    },
+    {
+      "id": 408333458,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-408333458",
+      "created_at": "2018-07-27T07:15:15Z",
+      "updated_at": "2018-07-27T07:15:15Z",
+      "author": "Participant 1",
+      "body": "And add the opt-out iframe from Matomo in the cookie policy page. Also is the dynamic adaptation on that page already working @luisramos0 ? Like if instance use GA or Matomo some parts aren't visible?"
+    },
+    {
+      "id": 408368182,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-408368182",
+      "created_at": "2018-07-27T09:40:40Z",
+      "updated_at": "2018-07-27T09:41:16Z",
+      "author": "Participant 4",
+      "body": "yes, correct. I will use the matomo account setup now to add the Matomo opt-out iframe.\r\n\r\nYes, the cookies policy page is already flexible, I added screenshot [here](https://github.com/openfoodfoundation/openfoodnetwork/issues/2406#issuecomment-408368113)."
+    },
+    {
+      "id": 416651914,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-416651914",
+      "created_at": "2018-08-28T16:27:32Z",
+      "updated_at": "2018-08-28T16:27:32Z",
+      "author": "Participant 4",
+      "body": "Quick epic update here, todo list:\r\n- increase font size in #2597 \r\n- bug in the banner #2599 \r\n- improve policy page #2601\r\n- matomo optout #2518 \r\n- user and admin documentation in #2427 and #2428"
+    },
+    {
+      "id": 420934027,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-420934027",
+      "created_at": "2018-09-13T08:54:50Z",
+      "updated_at": "2018-09-13T08:54:50Z",
+      "author": "Participant 4",
+      "body": "We are all dev done here. We are only missing the super admin guide book #2428 "
+    },
+    {
+      "id": 422193772,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-422193772",
+      "created_at": "2018-09-17T22:33:46Z",
+      "updated_at": "2018-09-17T22:33:46Z",
+      "author": "Participant 1",
+      "body": "That's awesome @luisramos0 !!! We are going to do the last issue (documenting how to use the feature as a super admin user) when we set it up for France, so we need some days before we do the upgrade and then we'll work on it :-) That's on our side now! Cheers "
+    },
+    {
+      "id": 434495875,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2242#issuecomment-434495875",
+      "created_at": "2018-10-30T22:40:10Z",
+      "updated_at": "2018-10-30T22:40:10Z",
+      "author": "Participant 1",
+      "body": "This is done and working without any reported issue :-) Closing the epic !"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

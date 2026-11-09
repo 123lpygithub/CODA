@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0591-aajcgfgji",
+  "revision_url": "https://github.com/msracver/Deep-Exemplar-based-Colorization/commit/3c7bc401373ece785bb4b773356335bd8656f71f",
+  "filename": "colorization_subnet/lib/functional.py",
+  "commit": "3c7bc401373ece785bb4b773356335bd8656f71f",
+  "source_url": "https://raw.githubusercontent.com/msracver/Deep-Exemplar-based-Colorization/3c7bc401373ece785bb4b773356335bd8656f71f/colorization_subnet/lib/functional.py",
+  "fetched_at": "2026-11-05T06:13:17.510947+00:00",
+  "source_sha256": "253014c43bb4fe06ab2c4d166a67ea22c3164411a8de28a6d85a113262eb92d7",
+  "line_start": 171,
+  "line_end": 195,
+  "excerpt": "    See ``Normalize`` for more details.\n\n    Args:\n        tensor (Tensor): Tensor image of size (C, H, W) to be normalized.\n        mean (sequence): Sequence of means for each channel.\n        std (sequence): Sequence of standard deviations for each channely.\n\n    Returns:\n        Tensor: Normalized Tensor image.\n    \"\"\"\n    if not _is_tensor_image(tensor):\n        raise TypeError('tensor is not a torch image.')\n    # TODO: make efficient\n    if tensor.size(0) == 1:\n        tensor.sub_(mean).div_(std)\n    else:\n        for t, m, s in zip(tensor, mean, std):\n            t.sub_(m).div_(s)\n    return tensor\n\n\ndef resize(img, size, interpolation=Image.BILINEAR):\n    \"\"\"Resize the input PIL Image to the given size.\n\n    Args:"
+}

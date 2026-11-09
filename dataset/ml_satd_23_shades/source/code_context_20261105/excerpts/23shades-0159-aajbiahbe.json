@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0159-aajbiahbe",
+  "revision_url": "https://github.com/anki/vector-python-sdk/commit/66aa0966ea388fe1739c468856ec5d13a4775827",
+  "filename": "anki_vector/robot.py",
+  "commit": "66aa0966ea388fe1739c468856ec5d13a4775827",
+  "source_url": "https://raw.githubusercontent.com/anki/vector-python-sdk/66aa0966ea388fe1739c468856ec5d13a4775827/anki_vector/robot.py",
+  "fetched_at": "2026-11-05T06:12:03.249000+00:00",
+  "source_sha256": "4d8f9fa9e7771a6172d7ef5b69b15c19f361ce0406237113ccb7288a65d5178d",
+  "line_start": 634,
+  "line_end": 658,
+  "excerpt": "            robot.connect()\n            robot.anim.play_animation(\"anim_turn_left_01\")\n            robot.disconnect()\n\n        :param timeout: The time to allow for a connection before a\n            :class:`anki_vector.exceptions.VectorTimeoutException` is raised.\n        \"\"\"\n        self.conn.connect(timeout=timeout)\n        self.events.start(self.conn)\n\n        # Initialize components\n        self._anim = animation.AnimationComponent(self)\n        # self._audio = audio.AudioComponent(self) # TODO turn on\n        self._behavior = behavior.BehaviorComponent(self)\n        self._camera = camera.CameraComponent(self)\n        self._faces = faces.FaceComponent(self)\n        self._motors = motors.MotorComponent(self)\n        self._nav_map = nav_map.NavMapComponent(self)\n        self._screen = screen.ScreenComponent(self)\n        self._photos = photos.PhotographComponent(self)\n        self._proximity = proximity.ProximityComponent(self)\n        self._touch = touch.TouchComponent(self)\n        self._viewer = viewer.ViewerComponent(self)\n        self._vision = vision.VisionComponent(self)\n        self._world = world.World(self)"
+}

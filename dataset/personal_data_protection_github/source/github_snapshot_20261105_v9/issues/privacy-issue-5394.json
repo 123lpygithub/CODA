@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5394",
+  "issue_url": "https://github.com/phpvms/phpvms/issues/1490",
+  "source_issue_url": "https://github.com/nabeelio/phpvms/issues/1490",
+  "api_url": "https://api.github.com/repos/phpvms/phpvms/issues/1490",
+  "title": "Soft delete user",
+  "body": "**Is your feature request related to a problem? Please describe.**\r\nTo comply to the GDPR regulation about:\r\nRight of withdrawal ('the right to be forgotten'): request its deletion when the data is no longer necessary.\r\n\r\nWe need to manage that data without delete user, to avoid possible problematic records about mandatory relationships, airline stats, etc.\r\nI am not sure if this already works like this. In any case, it could be useful if a pilot wants to go back and recover all his progress after asking for his data to be deleted.\r\n\r\nCurrently when we change the user's state to \"deleted\" both their name and email remain in the system.\r\n\r\n**Describe the solution you'd like**\r\nBy changing the state of the pilot to \"deleted\" the system could overwrite his name in the database to something like john doe, or take just the first letters, his initials, \"JDD\" (John Doe Doe) of his full name.\r\nFor email I don't know what would be the perfect solution. ¿And password?\r\n\r\n**Describe alternatives you've considered**\r\n\r\n**Additional context**\r\n![imagen](https://user-images.githubusercontent.com/16170732/197788340-7d3ec21d-4c1e-4578-a0ff-c5700b36b950.png)\r\n",
+  "author": "Participant 1",
+  "created_at": "2022-10-25T13:43:49Z",
+  "updated_at": "2022-10-26T19:39:43Z",
+  "state": "closed",
+  "closed_at": "2022-10-25T19:22:44Z",
+  "issue_fetched_at": "2026-10-19T00:11:10.839793+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T00:11:12.357829+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1290618891,
+      "url": "https://github.com/phpvms/phpvms/issues/1490#issuecomment-1290618891",
+      "created_at": "2022-10-25T14:07:40Z",
+      "updated_at": "2022-10-25T14:07:40Z",
+      "author": "Participant 2",
+      "body": "This should be a quick change, since we do this already if the user has PIREPs\r\n\r\nhttps://github.com/nabeelio/phpvms/blob/dev/app/Services/UserService.php#L153-L161"
+    },
+    {
+      "id": 1290808839,
+      "url": "https://github.com/phpvms/phpvms/issues/1490#issuecomment-1290808839",
+      "created_at": "2022-10-25T16:07:53Z",
+      "updated_at": "2022-10-25T16:07:53Z",
+      "author": "Participant 3",
+      "body": "Don't we have it already?\r\n\r\nJust click the delete button, if the user has a pirep in the system this happens (name/mail/password change), if not it gets deleted.\r\n\r\nI do not think that we need to click edit, select deleted and then click save to do the same thing."
+    },
+    {
+      "id": 1290813107,
+      "url": "https://github.com/phpvms/phpvms/issues/1490#issuecomment-1290813107",
+      "created_at": "2022-10-25T16:11:10Z",
+      "updated_at": "2022-10-25T16:11:10Z",
+      "author": "Participant 2",
+      "body": "Yeah, it could be to soft-delete always, but it's essentially already done"
+    },
+    {
+      "id": 1290860750,
+      "url": "https://github.com/phpvms/phpvms/issues/1490#issuecomment-1290860750",
+      "created_at": "2022-10-25T16:52:13Z",
+      "updated_at": "2022-10-25T16:52:13Z",
+      "author": "Participant 3",
+      "body": "\"_Soft delete always_\" ? I do not think that is needed, even with GDPR. \r\n\r\nTechnically for GDPR compatibility a user can request data removal and our current system covers regulation requirements pretty well;\r\n\r\n1. User has \"non personal data\" (pireps, acars records, finance records etc) in the system : \r\n   *Remove personal data (change name, mail, password, ivao/vatsim id etc) , make non personal data non-identifiable / trackable*\r\n2. User has NO \"non personal data\" in the system : \r\n    *Delete the user directly*\r\n\r\nFor scenario 2 we do not need to \"soft delete\", we just need to delete the record that's it.\r\n\r\nIn short, **just click the delete button from admin area** v7 will take care the rest.\r\n(_or if needed we can allow the users to delete themselves from user profile directly_)\r\n\r\nSo again, I really and honestly do not understand the feature request or the logic behind it. @arv187 is technically requesting the same thing we already have but wants it to have with more clicks ? Either he is unaware of the current system or wanting something different like;\r\n\r\n`... In any case, it could be useful if a pilot wants to go back and recover all his progress after asking for his data to be deleted.`\r\n\r\nSecond part of this request is not possible and should not be possible. \r\n\r\nOnce you request a GDPR removal **there is no way of going back** . It is a removal decision and it is a serious act, not something you change two days later. So if the person wants to join back he/she needs to start from the beginning like every other **new member**."
+    },
+    {
+      "id": 1290945887,
+      "url": "https://github.com/phpvms/phpvms/issues/1490#issuecomment-1290945887",
+      "created_at": "2022-10-25T17:59:46Z",
+      "updated_at": "2022-10-25T18:19:01Z",
+      "author": "Participant 1",
+      "body": "So it's implemented, great.\r\nMainly, the issue came from not understanding the difference between the option \"state = deleted\" and using the delete user \"X\" button.\r\n\r\nI thought that deleting user completely deletes everything, pireps, stats and could have unwanted behaviour that could cause system errors.\r\n\r\nAbout going back, it is possible, you delete those personal data. If he comes back, for the initials or the pilot ID, you could edit by hand the email address that the person gives you, so that he could ask the system for a new password \"because he forgot it\".\r\n\r\nBut you are right, if he leaves and asks to delete his data (name and email), he should think twice before leaving and losing his achievements and stats.\r\n\r\nSo what is the function of changing the \"state\" to \"deleted\" when editing a user?\r\n\r\nP.S: Ok, I think I got it, even if you can put the deleted status in the pilot's profile by hand, it does that automatically when you delete the user with the red button, right? I didn't get to check it for fear of deleting the one user who left. Sorry xD\r\n\r\nYou can close this issue."
+    },
+    {
+      "id": 1291030729,
+      "url": "https://github.com/phpvms/phpvms/issues/1490#issuecomment-1291030729",
+      "created_at": "2022-10-25T19:22:44Z",
+      "updated_at": "2022-10-25T19:22:44Z",
+      "author": "Participant 2",
+      "body": "> So what is the function of changing the \"state\" to \"deleted\" when editing a user?\r\n\r\nI think it's old leftover stuff"
+    },
+    {
+      "id": 1292556234,
+      "url": "https://github.com/phpvms/phpvms/issues/1490#issuecomment-1292556234",
+      "created_at": "2022-10-26T19:39:43Z",
+      "updated_at": "2022-10-26T19:39:43Z",
+      "author": "Participant 3",
+      "body": "For me \"Manual Recovery\" is not an option @arv187 :) Two reasons;\r\n\r\n1. I will never work (spend my time) for someone who can not stand after their decision and want to come back after requesting data removal.\r\n\r\n2. Because of the above, I already wrote my own cron powered code which removes every single record of a pilot (or created by that pilot) once it gets gets deleted. I do not care the numbers they left behind, I am not after some shiny stats ;)\r\n\r\nI would advise the same for every other admin, time is important and we should be enjoying our hobby, not spending it for babysitting :)\r\n\r\nSafe flights"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

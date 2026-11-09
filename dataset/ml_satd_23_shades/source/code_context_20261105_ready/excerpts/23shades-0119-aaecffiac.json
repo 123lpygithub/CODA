@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0119-aaecffiac",
+  "revision_url": "https://github.com/NeuroTechX/moabb/commit/8d66949a4703a04df75e8ab836c9eb22c26ecc09",
+  "filename": "moabb/evaluations/base.py",
+  "commit": "8d66949a4703a04df75e8ab836c9eb22c26ecc09",
+  "source_url": "https://raw.githubusercontent.com/NeuroTechX/moabb/8d66949a4703a04df75e8ab836c9eb22c26ecc09/moabb/evaluations/base.py",
+  "fetched_at": "2026-11-05T06:11:57.007294+00:00",
+  "source_sha256": "11baaae5fd7ed887562dffe74414c307116df68b79bbed2f35b8b3251214d4c7",
+  "line_start": 51,
+  "line_end": 75,
+  "excerpt": "            if isinstance(datasets, BaseDataset):\n                datasets = [datasets]\n            else:\n                raise(ValueError(\"datasets must be a list or a dataset \"\n                                 \"instance\"))\n\n        for dataset in datasets:\n            if not(isinstance(dataset, BaseDataset)):\n                raise(ValueError(\"datasets must only contains dataset \"\n                                 \"instance\"))\n\n        for dataset in datasets:\n            # fixme, we might want to drop dataset that are not compatible\n            try:\n                self.paradigm.verify(dataset)\n                self.verify(dataset)\n            except AssertionError:\n                log.warning(f\"{dataset} not compatible with evaluation or \"\n                            \"paradigm. Removing this dataset from the list.\")\n                datasets.remove(dataset)\n\n        self.datasets = datasets\n\n        self.results = Results(type(self),\n                               type(self.paradigm),",
+  "match_policy": "unique-release-normalized-v2"
+}

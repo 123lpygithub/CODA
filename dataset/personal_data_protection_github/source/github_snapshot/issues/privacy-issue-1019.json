@@ -1,0 +1,73 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-1019",
+  "issue_url": "https://github.com/elastic/elasticsearch/issues/53578",
+  "api_url": "https://api.github.com/repos/elastic/elasticsearch/issues/53578",
+  "title": "Add \"fingerprint\" ingest processor",
+  "body": "Hi,\r\n\r\nSince GDPR regulation, anonymization is become an important consideration.\r\nThat's why it would be great to add \"fingerprint\" ingest processor, with similar feature than Logstash \"fingerprint\" filter:\r\nhttps://www.elastic.co/guide/en/logstash/current/plugins-filters-fingerprint.html\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-03-14T18:46:20Z",
+  "updated_at": "2021-02-09T15:11:41Z",
+  "state": "closed",
+  "closed_at": "2021-02-09T11:17:03Z",
+  "issue_fetched_at": "2026-10-18T12:14:58.146173+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T12:14:59.539646+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 599446662,
+      "url": "https://github.com/elastic/elasticsearch/issues/53578#issuecomment-599446662",
+      "created_at": "2020-03-16T10:00:56Z",
+      "updated_at": "2020-03-16T10:00:56Z",
+      "author": "Participant 2",
+      "body": "Pinging @elastic/es-core-features (:Core/Features/Ingest)"
+    },
+    {
+      "id": 599540514,
+      "url": "https://github.com/elastic/elasticsearch/issues/53578#issuecomment-599540514",
+      "created_at": "2020-03-16T13:37:24Z",
+      "updated_at": "2020-03-16T13:37:24Z",
+      "author": "Participant 3",
+      "body": "@fbaligand, a few comments on work we've done or considered in ES that's related to your suggestion for a fingerprint ingest processor--\r\n\r\nYou mention both content fingerprinting and content anonymization (esp. in a GDPR context) as use cases for such a processor. While both scenarios commonly perform some type of hashing on the document content, there are important differences between the two use cases.\r\n\r\nFor content fingerprinting, we want to produce a single, stable token useful either for comparison or as a unique identifier that is based on the document content. This is commonly done by taking the SHA-256 or similar hash across all the relevant fields of the document (and this is what the Logstash `fingerprint` filter does). Notably, we want to make it easy to go from document content to the fingerprint token.\r\n\r\nWith content anonymization, we also want to produce from one or more sensitive fields within the document stable token(s) useful for comparison or aggregation. The big difference is that we want it to be very hard to derive the original content from the token, especially in the context of GDPR or HIPAA where there is an obligation to safeguard personally identifying or other sensitive information. In such conditions, a simple hash such as SHA-256 could be susceptible to a brute force attack, especially when the set of possible input values is relatively small or when some of the input values are known such as patient names for a particular doctor.\r\n\r\nThat susceptibility to brute force attacks can be eliminated by using a hash with a secret key. We did some work on such a processor in https://github.com/elastic/elasticsearch/pull/31087 but it was ultimately pulled before release because there was no mechanism to ensure that the secret key was consistent across all ingest nodes. Without a guarantee of key consistency across nodes, different hashes for the same input data could be produced on different ingest nodes which would make the anonymized tokens useless for comparison or aggregation. We have some ideas about how to ensure consistency of secret keys across ingest nodes, but it is not a trivially easy problem to solve in the context of a distributed system such as ES.\r\n"
+    },
+    {
+      "id": 599692655,
+      "url": "https://github.com/elastic/elasticsearch/issues/53578#issuecomment-599692655",
+      "created_at": "2020-03-16T18:24:48Z",
+      "updated_at": "2020-03-16T18:25:49Z",
+      "author": "Participant 1",
+      "body": "First, thank you very much for your detailed answer.\r\n\r\nI understand that it is not easy to provide a hash mechanism strong enough for anonymization use case.\r\nAnd I understand that SHA2 is not really strong enough for anonymization use case.\r\n\r\nThat said, on a more global point of view, I think that it is very important to have a homogeneous filter/process offer between Logstash and Ingest Pipelines.\r\n\r\nI mean that I would find very sad to have fingerprint filter in Logstash and fingerprint processor in ingest pipeline with different options and behavior.\r\n\r\nThat's why a first step would be to provide fingerprint processor with same features and behavior than Logstash.\r\n\r\nAnd later, maybe a nice idea to have a strong anonymization hash will emerge :)"
+    },
+    {
+      "id": 647467717,
+      "url": "https://github.com/elastic/elasticsearch/issues/53578#issuecomment-647467717",
+      "created_at": "2020-06-22T11:50:56Z",
+      "updated_at": "2021-02-09T12:17:37Z",
+      "author": "Participant 4",
+      "body": "From my understanding, we are talking about pseudonymization in the GDPR context here because even with the more suitable version of fingerprinting with a secret key (HMAC), users could still be re-identified with the knowledge of the secret key. Maybe add a way to rotate this key at defined intervals? This would provide strong pseudonymization properties after the rotation period. Note that this is just an idea. I have not checked if others are using such a design and what possible downsides are.\r\n\r\n\r\n> That's why a first step would be to provide fingerprint processor with same features and behavior than Logstash.\r\n\r\nNot sure that you would really want that as the Logstash fingerprint filter is currently non-stable/none-deterministic for nested fields. Ref: https://github.com/logstash-plugins/logstash-filter-fingerprint/pull/41"
+    },
+    {
+      "id": 775872866,
+      "url": "https://github.com/elastic/elasticsearch/issues/53578#issuecomment-775872866",
+      "created_at": "2021-02-09T11:30:58Z",
+      "updated_at": "2021-02-09T11:30:58Z",
+      "author": "Participant 3",
+      "body": "Note that the processor introduced in https://github.com/elastic/elasticsearch/pull/68415 is suitable for the use case of content fingerprinting. Despite having \"fingerprint\" in this issue title, the issue description describes the content anonymization use case which is different as explained in the [comment above](https://github.com/elastic/elasticsearch/issues/53578#issuecomment-599540514). The fingerprint processor is not intended for content anonymization. The work on a processor intended for that use case is tracked in #34085."
+    },
+    {
+      "id": 776011357,
+      "url": "https://github.com/elastic/elasticsearch/issues/53578#issuecomment-776011357",
+      "created_at": "2021-02-09T15:11:41Z",
+      "updated_at": "2021-02-09T15:11:41Z",
+      "author": "Participant 1",
+      "body": "Nice to see that there will be a fingerprint processor!\r\nThanks for this new processor!"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0018-aajcabgbe",
+  "revision_url": "https://github.com/dipy/dipy/commit/c1071611a8ab787fe9ba9db1146c5ff149976cb5",
+  "filename": "dipy/sims/phantom.py",
+  "commit": "c1071611a8ab787fe9ba9db1146c5ff149976cb5",
+  "source_url": "https://raw.githubusercontent.com/dipy/dipy/c1071611a8ab787fe9ba9db1146c5ff149976cb5/dipy/sims/phantom.py",
+  "fetched_at": "2026-11-05T06:11:41.086115+00:00",
+  "source_sha256": "b7e3b8703d07685b28648d85ff2858e542243bc759082680fa1d1e9f850a76de",
+  "line_start": 134,
+  "line_end": 158,
+  "excerpt": "            for j in range(len(angles)):\n                rb=np.dot(R,np.array([bx[j],by[j],bz[j]])) \n                vol[x[i]+r*rb[0],y[i]+r*rb[1],z[i]+r*rb[2]]+=S\n        \n    #ten=Tensor(vol,bvals,bvecs)\n    #FA=ten.fa()\n    #FA[np.isnan(FA)]=0\n    return vol\n\n\nif __name__ == \"__main__\":\n    \n    ##TODO: this can become a nice tutorial for generating phantoms\n    \n    \n    def f(t):\n        x=np.sin(t)\n        y=np.cos(t)\n        #z=np.zeros(t.shape)\n        z=np.linspace(-1,1,len(x))\n        return x,y,z\n    \n    #helix\n    vol=orbitual_phantom(func=f)\n    "
+}

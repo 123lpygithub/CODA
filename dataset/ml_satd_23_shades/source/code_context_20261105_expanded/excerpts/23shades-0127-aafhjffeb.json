@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0127-aafhjffeb",
+  "revision_url": "https://github.com/DandyDev/slack-machine/commit/93e0daf5ab54d663fca9a14a47b580de18b2a9cd",
+  "filename": "bottle.py",
+  "commit": "93e0daf5ab54d663fca9a14a47b580de18b2a9cd",
+  "source_url": "https://raw.githubusercontent.com/DandyDev/slack-machine/93e0daf5ab54d663fca9a14a47b580de18b2a9cd/bottle.py",
+  "fetched_at": "2026-11-05T06:11:58.630758+00:00",
+  "source_sha256": "891c9bbcb40256f5db845f51ab9cc8c81b40a98ad3b4165869cd12c87b624af0",
+  "line_start": 2927,
+  "line_end": 2951,
+  "excerpt": "    if range_header:\n        ranges = list(parse_range_header(range_header, clen))\n        if not ranges:\n            return HTTPError(416, \"Requested Range Not Satisfiable\")\n        offset, end = ranges[0]\n        headers[\"Content-Range\"] = \"bytes %d-%d/%d\" % (offset, end - 1, clen)\n        headers[\"Content-Length\"] = str(end - offset)\n        if body: body = _file_iter_range(body, offset, end - offset, close=True)\n        return HTTPResponse(body, status=206, **headers)\n    return HTTPResponse(body, **headers)\n\n###############################################################################\n# HTTP Utilities and MISC (TODO) ###############################################\n###############################################################################\n\n\ndef debug(mode=True):\n    \"\"\" Change the debug level.\n    There is only one debug level supported at the moment.\"\"\"\n    global DEBUG\n    if mode: warnings.simplefilter('default')\n    DEBUG = bool(mode)\n\n\ndef http_date(value):"
+}

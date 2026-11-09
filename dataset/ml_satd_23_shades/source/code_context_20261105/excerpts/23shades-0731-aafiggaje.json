@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0731-aafiggaje",
+  "revision_url": "https://github.com/BorgwardtLab/P-WL/commit/78b52d4db371d19a8d6690842bb2297cb4742b65",
+  "filename": "grid_search_pwl.py",
+  "commit": "78b52d4db371d19a8d6690842bb2297cb4742b65",
+  "source_url": "https://raw.githubusercontent.com/BorgwardtLab/P-WL/78b52d4db371d19a8d6690842bb2297cb4742b65/grid_search_pwl.py",
+  "fetched_at": "2026-11-05T06:13:44.780824+00:00",
+  "source_sha256": "945e821907317276d558357a764613cd39886860e3a5874630ab3fc6ec534754",
+  "line_start": 191,
+  "line_end": 215,
+  "excerpt": "        pd.DataFrame(cv_results).to_csv(args.result_file, index=False)\n\nif __name__ == '__main__':\n    parser = argparse.ArgumentParser()\n    parser.add_argument('FILES', nargs='+', help='Input graphs (in some supported format)')\n    parser.add_argument('-b', '--balanced', action='store_true', help='Make random forest classifier balanced')\n    parser.add_argument('-d', '--dataset', help='Name of data set')\n    parser.add_argument('-l', '--labels', type=str, help='Labels file', required=True)\n    parser.add_argument('-n', '--num-iterations', default=3, type=int, help='Number of Weisfeiler-Lehman iterations')\n    parser.add_argument('-f', '--filtration', type=str, default='sublevel', help='Filtration type')\n    parser.add_argument('-c', '--use-cycle-persistence', action='store_true', default=False, help='Indicates whether cycle persistence should be calculated or not')\n    parser.add_argument('-o', '--use-original-features', action='store_true', default=False, help='Indicates that original features should be used as well')\n    # TODO: this flag is somewhat redundant given the flag above; need\n    # to ensure that it is seen as an 'override', i.e. if this is set,\n    # *no* other ways of calculating features can be used.\n    parser.add_argument('-u', '--use-uniform-metric', action='store_true', default=False, help='Use uniform metric for weight assignment')\n    parser.add_argument('-r', '--result-file',\n                        default='grid_search_results/results_PWL.csv', help='File in which to store results')\n\n    args = parser.parse_args()\n\n    logging.basicConfig(\n        level=logging.DEBUG,\n        filename='{}_{:02d}.log'.format(args.dataset, args.num_iterations)\n    )"
+}

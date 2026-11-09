@@ -1,0 +1,186 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27IdentityModel%2Foidc-client-js%27+AND+number%3D1176+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='IdentityModel/oidc-client-js' AND number=1176 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:30.329770+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "Demon520-coder",
+        "created_at": "2020-08-13 12:59:02",
+        "updated_at": "2020-08-13 12:59:01",
+        "title": "Why can not write to localStorage?",
+        "body": "I use the oidc-client.js for my vue app. My authorize server is identityserver4. I have a problem about localStorage. When I set the \r\n**userStore:new Oidc.WebStorageStateStore({ store: window.localStorage })**  in UserManagerSettings,it writes the userinfo into sessionStorage not to the localStorage.  Here is my code, can anyone know what's wrong with it. Thanks a lot.\r\n\r\n```Javascript\r\nimport Oidc from 'oidc-client'\r\n\r\nconst authority = 'http://sk-20200401voje.domain237.org:5008';\r\nconst defaultSettings = new Oidc.UserManager({ \r\n     //However I have set the store: window.localStorage,but it not writes into sessionStorage.\r\n    userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),  \r\n    authority: authority,\r\n    client_id: 'vue_js_client',\r\n    redirect_uri: window.location.origin + '/#/signin',\r\n    response_type: 'code',\r\n    scope: 'openid profile read offline_access',\r\n    post_logout_redirect_uri: 'http://sk-20200401voje.domain237.org:8008/#/signout',\r\n    silent_redirect_uri: window.location.origin + '/#/renew',\r\n    accessTokenExpiringNotificationTime: 60,\r\n    automaticSilentRenew: true,\r\n    filterProtocolClaims: true,\r\n    loadUserInfo: true,\r\n    revokeAccessTokenOnSignout: true\r\n})\r\n\r\n\r\n\r\nconst accountLoginSettings = new Oidc.UserManager({\r\n    userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),\r\n    authority: authority,\r\n    client_id: 'js_with_username_pwd',\r\n    redirect_uri: window.location.origin + '/#/signin-user',\r\n    response_type: 'code',\r\n    scope: 'openid profile read offline_access',\r\n    //post_logout_redirect_uri: 'http://sk-20200401voje.domain237.org:8008/#/signout',\r\n    silent_redirect_uri: window.location.origin + '/#/renew-user',\r\n    accessTokenExpiringNotificationTime: 60,\r\n    automaticSilentRenew: true,\r\n    filterProtocolClaims: true,\r\n    loadUserInfo: true,\r\n    revokeAccessTokenOnSignout: true,\r\n    extraQueryParams: { 'LoginPage': 'ShowLoginPage' }\r\n})\r\n\r\nconst oidcSettings = {\r\n    defaultSettings: defaultSettings,\r\n    accountLoginSettings: accountLoginSettings,\r\n    authority: authority\r\n}\r\n\r\nexport default oidcSettings\r\n```",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-08-13 12:00:00",
+        "repo_name": "IdentityModel/oidc-client-js",
+        "number": 1176
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "gabrielbarceloscn",
+        "created_at": "2020-08-15 17:49:03",
+        "updated_at": "2020-08-15 17:49:02",
+        "title": "Why can not write to localStorage?",
+        "body": "A bit weird declaration style, you're using.\r\n\r\nHere's my implementation, working properly:\r\n\r\n```javascript\r\n\r\nconst userManagerConfig = {\r\n    client_id: '2AD145F6-4A18-46B1-AAF1-E1D6EABEEB52',\r\n    redirect_uri: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/auth/callback`,\r\n    response_type: 'token id_token',\r\n    scope: 'openid profile',\r\n    authority: 'https://localhost:5000',\r\n    silent_redirect_uri: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/silent_renew.html`,\r\n    automaticSilentRenew: true,\r\n    filterProtocolClaims: true,\r\n    loadUserInfo: true,\r\n    🔴 userStore: new WebStorageStateStore({ store: window.localStorage })\r\n};\r\n\r\nconst userManager = createUserManager(userManagerConfig);\r\n\r\n```\r\n\r\nPackage version: <code>\"oidc-client\": \"^1.10.1\",</code>",
+        "comment_id": 674428836,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-08-15 17:00:00",
+        "repo_name": "IdentityModel/oidc-client-js",
+        "number": 1176
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "muhammedMoussa",
+        "created_at": "2020-08-24 15:40:54",
+        "updated_at": "2020-08-24 15:40:53",
+        "title": "Why can not write to localStorage?",
+        "body": "> A bit weird declaration style, you're using.\r\n> \r\n> Here's my implementation, working properly:\r\n> \r\n> ```js\r\n> const userManagerConfig = {\r\n>     client_id: '2AD145F6-4A18-46B1-AAF1-E1D6EABEEB52',\r\n>     redirect_uri: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/auth/callback`,\r\n>     response_type: 'token id_token',\r\n>     scope: 'openid profile',\r\n>     authority: 'https://localhost:5000',\r\n>     silent_redirect_uri: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/silent_renew.html`,\r\n>     automaticSilentRenew: true,\r\n>     filterProtocolClaims: true,\r\n>     loadUserInfo: true,\r\n>     🔴 userStore: new WebStorageStateStore({ store: window.localStorage })\r\n> };\r\n> \r\n> const userManager = createUserManager(userManagerConfig);\r\n> ```\r\n> \r\n> Package version: `\"oidc-client\": \"^1.10.1\",`\r\n\r\nwhat is `createUserManager` ?",
+        "comment_id": 679204336,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-08-24 15:00:00",
+        "repo_name": "IdentityModel/oidc-client-js",
+        "number": 1176
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "gabrielbarceloscn",
+        "created_at": "2020-09-18 01:12:09",
+        "updated_at": "2020-09-18 01:12:08",
+        "title": "Why can not write to localStorage?",
+        "body": "@muhammedMoussa it´s a method that encapsulates UserManager from 'oidc-client'.\r\n\r\n```javascript\r\nimport { UserManager } from 'oidc-client';\r\n\r\nexport default function createUserManager(config) {\r\n    return new UserManager(config);\r\n}\r\n```",
+        "comment_id": 694589391,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-09-18 01:00:00",
+        "repo_name": "IdentityModel/oidc-client-js",
+        "number": 1176
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "florintaranu-bac-lac",
+        "created_at": "2020-11-24 22:39:27",
+        "updated_at": "2020-11-24 22:39:27",
+        "title": "Why can not write to localStorage?",
+        "body": "Your code was ok, but you need to make it the same in the callback.html (where the user is actually stored in the storage):\r\nnew Oidc.UserManager({\r\n            response_mode: \"query\",\r\n            userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }) }).signinRedirectCallback().then(function ()\r\n{\r\n...\r\n}",
+        "comment_id": 733274645,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-24 22:00:00",
+        "repo_name": "IdentityModel/oidc-client-js",
+        "number": 1176
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Demon520-coder",
+        "created_at": "2020-11-30 03:36:40",
+        "updated_at": "2020-11-30 03:36:40",
+        "title": "Why can not write to localStorage?",
+        "body": "@florintaranu-bac-lac  That's right. I have do it as you say. Thank you very much! But the oidc-doc dosen't point this. It may take someone a lot time to resolve it. ",
+        "comment_id": 735525651,
+        "comments": 4,
+        "state": "closed",
+        "closed_at": "2020-11-30 03:36:40",
+        "file_time": "2020-11-30 03:00:00",
+        "repo_name": "IdentityModel/oidc-client-js",
+        "number": 1176
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "Demon520-coder",
+        "created_at": "2020-11-30 03:36:41",
+        "updated_at": "2020-11-30 03:36:40",
+        "title": "Why can not write to localStorage?",
+        "body": "I use the oidc-client.js for my vue app. My authorize server is identityserver4. I have a problem about localStorage. When I set the \r\n**userStore:new Oidc.WebStorageStateStore({ store: window.localStorage })**  in UserManagerSettings,it writes the userinfo into sessionStorage not to the localStorage.  Here is my code, can anyone know what's wrong with it. Thanks a lot.\r\n\r\n```Javascript\r\nimport Oidc from 'oidc-client'\r\n\r\nconst authority = 'http://sk-20200401voje.domain237.org:5008';\r\nconst defaultSettings = new Oidc.UserManager({ \r\n     //However I have set the store: window.localStorage,but it not writes into sessionStorage.\r\n    userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),  \r\n    authority: authority,\r\n    client_id: 'vue_js_client',\r\n    redirect_uri: window.location.origin + '/#/signin',\r\n    response_type: 'code',\r\n    scope: 'openid profile read offline_access',\r\n    post_logout_redirect_uri: 'http://sk-20200401voje.domain237.org:8008/#/signout',\r\n    silent_redirect_uri: window.location.origin + '/#/renew',\r\n    accessTokenExpiringNotificationTime: 60,\r\n    automaticSilentRenew: true,\r\n    filterProtocolClaims: true,\r\n    loadUserInfo: true,\r\n    revokeAccessTokenOnSignout: true\r\n})\r\n\r\n\r\n\r\nconst accountLoginSettings = new Oidc.UserManager({\r\n    userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),\r\n    authority: authority,\r\n    client_id: 'js_with_username_pwd',\r\n    redirect_uri: window.location.origin + '/#/signin-user',\r\n    response_type: 'code',\r\n    scope: 'openid profile read offline_access',\r\n    //post_logout_redirect_uri: 'http://sk-20200401voje.domain237.org:8008/#/signout',\r\n    silent_redirect_uri: window.location.origin + '/#/renew-user',\r\n    accessTokenExpiringNotificationTime: 60,\r\n    automaticSilentRenew: true,\r\n    filterProtocolClaims: true,\r\n    loadUserInfo: true,\r\n    revokeAccessTokenOnSignout: true,\r\n    extraQueryParams: { 'LoginPage': 'ShowLoginPage' }\r\n})\r\n\r\nconst oidcSettings = {\r\n    defaultSettings: defaultSettings,\r\n    accountLoginSettings: accountLoginSettings,\r\n    authority: authority\r\n}\r\n\r\nexport default oidcSettings\r\n```",
+        "comment_id": 0,
+        "comments": 5,
+        "state": "closed",
+        "closed_at": "2020-11-30 03:36:40",
+        "file_time": "2020-11-30 03:00:00",
+        "repo_name": "IdentityModel/oidc-client-js",
+        "number": 1176
+      }
+    ],
+    "rows": 7,
+    "statistics": {
+      "elapsed": 0.03606546,
+      "rows_read": 290203,
+      "bytes_read": 13151374
+    }
+  },
+  "response_sha256": "87b8752bbd3b2a2dc4ded95ec3710503963c373954133007fe3d72aa2066e24e"
+}

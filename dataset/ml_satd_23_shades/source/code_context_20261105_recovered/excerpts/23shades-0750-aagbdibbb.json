@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0750-aagbdibbb",
+  "revision_url": "https://github.com/euclidjda/deep-quant/commit/75ee20671ed8fa3be720884464a1194a9557574a",
+  "filename": "scripts/batch_generator.py",
+  "commit": "75ee20671ed8fa3be720884464a1194a9557574a",
+  "source_url": "https://raw.githubusercontent.com/euclidjda/deep-quant/75ee20671ed8fa3be720884464a1194a9557574a/scripts/batch_generator.py",
+  "fetched_at": "2026-11-05T06:13:47.212753+00:00",
+  "source_sha256": "35ab910aea574d8bd676f4772d52f13d5166735d6f6f457f764bc3a914ce3444",
+  "line_start": 216,
+  "line_end": 240,
+  "excerpt": "                         a company was actively trading during a specific point\n                         in time or not.\n          * _date_idx: The column index of the date field.\n\n        Items added to the config:\n          * num_inputs: same as the _num_inputs attribute\n          * num_ouptus: num_inputs minus the number of aux covariates.\n          * target_idx: index of target variable within the list of features, if\n                        target is specified by config.\n        \"\"\"\n\n\n        data = self._data  # TODO: try without copying? could be faster\n\n        assert config.feature_fields\n\n        self._feature_indices = self._get_indices_from_names(\n                config.feature_fields)\n\n        self._aux_indices = list()\n        if config.aux_input_fields is not None:\n            self._aux_indices = self._get_indices_from_names(\n                    config.aux_input_fields)\n\n        self._feature_names = list(data.columns.values[self._feature_indices \\"
+}

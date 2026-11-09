@@ -1,0 +1,138 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-16578",
+  "issue_url": "https://github.com/prebid/Prebid.js/issues/6386",
+  "source_issue_url": "https://github.com/prebid/Prebid.js/issues/6386",
+  "api_url": "https://api.github.com/repos/prebid/Prebid.js/issues/6386",
+  "title": "Cookie _pbjs_userid_consent_data",
+  "body": "Hello,\r\nWe noticed the cookie _pbjs_userid_consent_data being stored on our properties, whereas IAB TCF v2 consent string doesn't allow it. \r\nYou can see the behaviour on https://www.linternaute.com/, french ip, deny all through the CMP.\r\nI understand it is linked to prebid user id module and the name mention consent data.\r\nCould you document more precisely on this cookie : purposes, content, description etc.\r\nThank you",
+  "author": "Participant 1",
+  "created_at": "2021-03-05T10:16:40Z",
+  "updated_at": "2023-01-24T17:36:33Z",
+  "state": "closed",
+  "closed_at": "2021-05-10T09:14:45Z",
+  "issue_fetched_at": "2026-10-19T05:06:17.065110+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T05:06:18.535454+00:00"
+  ],
+  "expected_comment_count": 14,
+  "retrieved_comment_count": 14,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 791341542,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-791341542",
+      "created_at": "2021-03-05T10:50:26Z",
+      "updated_at": "2021-03-05T10:50:26Z",
+      "author": "Participant 2",
+      "body": "Hi @thomasmasereel - this cookie is used to know if the user's consent choices have changed since the last page load. It is a hashed (`cyrb53Hash`) value of the consent string with a 30 day expiration. The use case is as follows:\r\n- user visits the site and allows all vendors when first prompted.\r\n- user then changes their consent preferences\r\n- user visits another page on the site. at this point, it is important to refresh the user id's in case the relevant consent for those vendors have changed and they can issue a new ID (if applicable) or return a \"no-consent\" signal so that the ID is no longer available."
+    },
+    {
+      "id": 791348549,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-791348549",
+      "created_at": "2021-03-05T11:04:07Z",
+      "updated_at": "2021-03-05T11:04:07Z",
+      "author": "Participant 1",
+      "body": "Thank you for your quick answer @smenzer.\r\nCould a note added to prebid.org, in the user id module section, be considered ?\r\nAs for EU country, every cookie stored in a non consent environnement is being closely and carefully monitor."
+    },
+    {
+      "id": 791356357,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-791356357",
+      "created_at": "2021-03-05T11:19:48Z",
+      "updated_at": "2021-03-05T11:19:48Z",
+      "author": "Participant 2",
+      "body": "I think that's probably reasonable - @bretg / @patmmccann what do you guys think? (cc'ing you both b/c there have been other discussions about prebid setting cookies)"
+    },
+    {
+      "id": 802371824,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-802371824",
+      "created_at": "2021-03-18T23:07:17Z",
+      "updated_at": "2021-03-18T23:07:17Z",
+      "author": "Participant 3",
+      "body": "this seems closely related to https://github.com/prebid/Prebid.js/issues/6289 . I personally don't get the idea that prebid.js needs consent to write cookies. Publishers can write cookies such as this so that their site works properly, and prebid is a part of their site, deployed by them. This is a part of how prebid functions. I cannot envision a scenario where a regulator objects to this cookie, as publishers using prebid set it to better comply with the law, similar to how a cmp sets values related to consent. \r\n\r\nHowever, if others disagree, I suppose one could check to make sure prebid vendor id has purpose 1 consent, but I think that should not be the default behavior, as prebid in this case is not setting the cookie like it does in the sharedid sennse, the publisher is. \r\n\r\nI think it makes sense to document this at https://docs.prebid.org/dev-docs/modules/userId.html#how-it-works so anyone looking for this string on our documentation finds the explanation easily. This probably should have been done with https://github.com/prebid/Prebid.js/pull/5451"
+    },
+    {
+      "id": 802641477,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-802641477",
+      "created_at": "2021-03-19T08:17:16Z",
+      "updated_at": "2021-03-19T08:17:16Z",
+      "author": "Participant 2",
+      "body": "I agree with everything you said, @patmmccann - and yea, my bad, I should have documented it as part of #5451. "
+    },
+    {
+      "id": 802950904,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-802950904",
+      "created_at": "2021-03-19T16:19:15Z",
+      "updated_at": "2021-03-19T16:19:27Z",
+      "author": "Participant 3",
+      "body": "@smenzer does that mean there is a pending docs pr we can point OP to and close the issue? "
+    },
+    {
+      "id": 802957470,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-802957470",
+      "created_at": "2021-03-19T16:29:25Z",
+      "updated_at": "2021-03-19T16:29:25Z",
+      "author": "Participant 2",
+      "body": "@patmmccann no pending docs PR, but I will put one in probably next week (unless someone else wants to volunteer!). once that's in i think we can close this out (I'll take care of that after linking the PR)"
+    },
+    {
+      "id": 814928552,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-814928552",
+      "created_at": "2021-04-07T13:47:46Z",
+      "updated_at": "2021-04-07T13:47:46Z",
+      "author": "Participant 4",
+      "body": "@patmmccann atleast in germany the legal situation is that every cookie needs consent (regardless of the value or purpose).\r\nNot because of GDPR but because of an EuGH judgement (case C-673/17 - Planet49)\r\n\r\nI get that it's not reasonable to make it the default behavior but shouldn't it atleast be configurable?"
+    },
+    {
+      "id": 814932358,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-814932358",
+      "created_at": "2021-04-07T13:52:13Z",
+      "updated_at": "2021-04-07T13:52:58Z",
+      "author": "Participant 3",
+      "body": "I don't get it,  this cookie literally stores the consent. It is not a third party cookie but it is a first party cookie that enables the publisher to comply with the law, similar to how one might store \"opt out\" as a cookie.  How are opt outs to function if one can't store them?"
+    },
+    {
+      "id": 815722205,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-815722205",
+      "created_at": "2021-04-08T12:02:43Z",
+      "updated_at": "2021-04-08T12:03:55Z",
+      "author": "Participant 2",
+      "body": "@patmmccann I generally agree with you...but I wonder if we just move the code that reads and writes the consent hash until after the gdpr checks?\r\n\r\nwhat if we move \r\nhttps://github.com/id5io/Prebid.js/blob/master/modules/userId/index.js#L487-L488 \r\n```\r\n    const storedConsentData = getStoredConsentData();\r\n    setStoredConsentData(consentData);\r\n```\r\n\r\nto just after this block (instead of just before it)?\r\nhttps://github.com/id5io/Prebid.js/blob/master/modules/userId/index.js#L490-L495\r\n```\r\n    // gdpr consent with purpose one is required, otherwise exit immediately\r\n    let {userIdModules, hasValidated} = validateGdprEnforcement(submodules, consentData);\r\n    if (!hasValidated && !hasGDPRConsent(consentData)) {\r\n      utils.logWarn(`${MODULE_NAME} - gdpr permission not valid for local storage or cookies, exit module`);\r\n      return;\r\n    }\r\n```"
+    },
+    {
+      "id": 815785455,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-815785455",
+      "created_at": "2021-04-08T12:45:17Z",
+      "updated_at": "2021-04-08T12:45:17Z",
+      "author": "Participant 3",
+      "body": "Seems like that would work to me as well"
+    },
+    {
+      "id": 815832711,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-815832711",
+      "created_at": "2021-04-08T13:39:14Z",
+      "updated_at": "2021-04-08T13:39:14Z",
+      "author": "Participant 2",
+      "body": "i put in a PR that may help here: https://github.com/prebid/Prebid.js/pull/6551"
+    },
+    {
+      "id": 1402272770,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-1402272770",
+      "created_at": "2023-01-24T16:56:27Z",
+      "updated_at": "2023-01-24T16:56:27Z",
+      "author": "Participant 5",
+      "body": "This fix doesn't work, at least in the case where the CMP is loaded after PBJS. \r\n\r\nSee https://www.eniro.se/?pbjs_debug=true -- there are two issues on a page that we'd like to explore. Here's how to reproduce the issue:\r\n\r\n1) either be in the EEA or VPN into the EEA\r\n2) delete your cookies for eniro.se\r\n3) Don't answer the CMP (AVBÖJ is deny consent, GODKÄNN is grant consent)\r\n4) Check your cookies for the domain\r\n\r\n### Issue 1: The _pbjs_userid_consent_data cookie is set\r\nSetting this cookie seems counter to what this this issue was about.\r\n\r\nI believe it's set because userId/index.js calls setStoredConsentData before GDPR check in initSubmodules. A comment there says:\r\n```\r\n// we always want the latest consentData stored, even if we don't execute any submodules\r\n```\r\nBecause consentData is null, the default data stored with the _pbjs_userid_consent_data cookie assumes `gdprApplies: false`\r\n\r\n### Issue 2: The sharedId PublisherCommonId cookie is set\r\n\r\nNot sure exactly how this is supposed to work but a couple of observations:\r\n\r\n- sharedId has VENDORLESS_GVLID\r\n- the hasPurpose1Consent function returns `true` when consentData is null\r\n\r\n\r\n### Debugging tip\r\n\r\nYou can set up Requestly (or another redirection tool) to redirect the load of https://ads.rubiconproject.com/prebid/14110_Eniro_se.js to https://ads.rubiconproject.com/prebid/14110_Eniro_se-unmin.js\r\n\r\nThe Prebid.js portion of the file being unminified helps when you're trying to set a breakpoint."
+    },
+    {
+      "id": 1402332931,
+      "url": "https://github.com/prebid/Prebid.js/issues/6386#issuecomment-1402332931",
+      "created_at": "2023-01-24T17:36:33Z",
+      "updated_at": "2023-01-24T17:36:33Z",
+      "author": "Participant 6",
+      "body": "on Issue 1: https://github.com/prebid/Prebid.js/pull/6551/files#r1085664042 . It could be updated to skip writing the cookie, but:\r\n\r\non Issue 2: pubCommonId together with several other instances where core writes to storage are not affected by gdpr enforcement unless [`strictStorageEnforcement` is set](https://docs.prebid.org/dev-docs/modules/gdprEnforcement.html). This was discussed in https://github.com/prebid/Prebid.js/issues/8651 "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

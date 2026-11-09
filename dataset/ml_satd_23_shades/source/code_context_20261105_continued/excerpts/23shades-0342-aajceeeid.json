@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0342-aajceeeid",
+  "revision_url": "https://github.com/dipy/dipy/commit/c973d8c8036f451db62211f7675cc1a11f87dd5e",
+  "filename": "dipy/segment/bundles.py",
+  "commit": "c973d8c8036f451db62211f7675cc1a11f87dd5e",
+  "source_url": "https://raw.githubusercontent.com/dipy/dipy/c973d8c8036f451db62211f7675cc1a11f87dd5e/dipy/segment/bundles.py",
+  "fetched_at": "2026-11-05T06:12:36.751055+00:00",
+  "source_sha256": "2fb6e3788853277f426f391f73d3e2fbf4e3d47ce391f384854e63b4a751dda0",
+  "line_start": 164,
+  "line_end": 188,
+  "excerpt": "            print('## Recognize given bundle ## \\n')\n\n        self.model_bundle = model_bundle\n        self.cluster_model_bundle(model_clust_thr=model_clust_thr)\n        success = self.reduce_search_space(\n            reduction_thr=reduction_thr,\n            reduction_distance=reduction_distance)\n        if not success:\n            self.pruned_streamlines = None\n            self.transf_streamlines = None\n            self.transf_matrix = None\n            self.labels = []\n            # TODO replace with Streamlines\n            return ArraySequence([]), ArraySequence([]), ArraySequence([])\n        if slr:\n            self.register_neighb_to_model(metric=slr_metric,\n                                          x0=slr_x0,\n                                          bounds=slr_bounds,\n                                          select_model=slr_select[0],\n                                          select_target=slr_select[1],\n                                          method=slr_method)\n        else:\n            self.transf_streamlines = self.neighb_streamlines\n            self.transf_matrix = np.eye(4)\n        self.prune_what_not_in_model(pruning_thr=pruning_thr,"
+}

@@ -1,0 +1,49 @@
+{
+  "artifact_id": "privacy-issue-18510",
+  "source_issue_url": "https://github.com/nextcloud/mail/issues/171",
+  "issue_snapshot_sha256": "58fd83fcb9f536d12dfc83075e2f1107fb81685798ec9dede3d132f580a4d9c7",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/nextcloud/mail/blob/0abf6d3110904cf2a0eac337fdb406e329372248/lib/db/collectedaddressmapper.php#L44-L51",
+      "kind": "file",
+      "cited_in": [
+        "comment_257266337"
+      ],
+      "revision": "0abf6d3110904cf2a0eac337fdb406e329372248",
+      "immutable_revision": true,
+      "line_start": 32,
+      "line_end": 62,
+      "text": "\t */\n\tpublic function __construct(IDb $db) {\n\t\tparent::__construct($db, 'mail_collected_addresses');\n\t}\n\n\t/**\n\t * Find email addresses by query string\n\t *\n\t * @param string $userId\n\t * @param string $query\n\t * @return CollectedAddress[]\n\t */\n\tpublic function findMatching($userId, $query) {\n\t\t$sql = 'SELECT * FROM *PREFIX*mail_collected_addresses WHERE `user_id` = ? AND `email` ILIKE ?';\n\t\t$params = [\n\t\t\t$userId,\n\t\t\t'%' . $query . '%',\n\t\t];\n\t\treturn $this->findEntities($sql, $params);\n\t}\n\n\tpublic function exists($userId, $email) {\n\t\t$sql = 'SELECT * FROM *PREFIX*mail_collected_addresses WHERE `user_id` = ? AND `email` ILIKE ?';\n\t\t$params = [\n\t\t\t$userId,\n\t\t\t$email\n\t\t];\n\t\treturn count($this->findEntities($sql, $params)) > 0;\n\t}\n\n}",
+      "source_sha256": "4ce27d7c4c81bf0ad626a5e9f72bdc3bc5e7e902d81cd56b330aaa24dc17b36b",
+      "fetched_at": "2026-11-05T06:21:27.689392+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/nextcloud/mail/0abf6d3110904cf2a0eac337fdb406e329372248/lib/db/collectedaddressmapper.php",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/nextcloud/server/issues/new",
+      "kind": "issue",
+      "cited_in": [
+        "comment_265693286"
+      ],
+      "status": "unavailable",
+      "reason": "ValueError: Invalid linked issue number."
+    },
+    {
+      "url": "https://github.com/nextcloud/server/pull/4757",
+      "kind": "pull_request",
+      "cited_in": [
+        "comment_311126832",
+        "comment_311312167"
+      ],
+      "text": "From 56a9084dd2f9a5726a74e1e789773558fade8b44 Mon Sep 17 00:00:00 2001\nFrom: Christoph Wurst <christoph@winzerhof-wurst.at>\nDate: Tue, 9 May 2017 08:45:36 +0200\nSubject: [PATCH] Do not list system users in contacts menu if sharing\n autocompletion is disabled\n\nSigned-off-by: Christoph Wurst <christoph@winzerhof-wurst.at>\n---\n apps/dav/appinfo/app.php | 10 ++++++++--\n 1 file changed, 8 insertions(+), 2 deletions(-)\n\ndiff --git a/apps/dav/appinfo/app.php b/apps/dav/appinfo/app.php\nindex 0d417fd3fed2d..963073c44139a 100644\n--- a/apps/dav/appinfo/app.php\n+++ b/apps/dav/appinfo/app.php\n@@ -50,7 +50,13 @@ function(GenericEvent $event) use ($app) {\n $cm = \\OC::$server->getContactsManager();\n $cm->register(function() use ($cm, $app) {\n \t$user = \\OC::$server->getUserSession()->getUser();\n-\tif (!is_null($user)) {\n-\t\t$app->setupContactsProvider($cm, $user->getUID());\n+\tif (is_null($user)) {\n+\t\treturn;\n \t}\n+\tif (\\OC::$server->getConfig()->getAppValue('core', 'shareapi_allow_share_dialog_user_enumeration', 'yes') !== 'yes') {\n+\t\t// Don't include system users\n+\t\t// This prevents user enumeration in the contacts menu and the mail app\n+\t\treturn;\n+\t}\n+\t$app->setupContactsProvider($cm, $user->getUID());\n });\n",
+      "source_sha256": "963e6cfb0a53c989e7b94a1ffb9997488fd5b782d13e4f3b167c3db0b28b7e34",
+      "fetched_at": "2026-11-05T06:21:29.772671+00:00",
+      "retrieval_url": "https://github.com/nextcloud/server/pull/4757.patch",
+      "status": "available",
+      "revision": "4757",
+      "immutable_revision": false,
+      "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+    }
+  ]
+}

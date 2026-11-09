@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0554-aahjdcjgg",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/255a05a5980efb8b096c283d79872d0695886161",
+  "filename": "pandas_numpy/sources/pandas/io/json/normalize.py",
+  "commit": "255a05a5980efb8b096c283d79872d0695886161",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/255a05a5980efb8b096c283d79872d0695886161/pandas_numpy/sources/pandas/io/json/normalize.py",
+  "fetched_at": "2026-11-05T06:13:11.463790+00:00",
+  "source_sha256": "accbe395cca7bad1af9cd3a644692f89b0a85c751d2dfffe88fa4cd124d09059",
+  "line_start": 192,
+  "line_end": 216,
+  "excerpt": "    # A bit of a hackjob\n    if isinstance(data, dict):\n        data = [data]\n\n    if record_path is None:\n        if any([[isinstance(x, dict)\n                for x in compat.itervalues(y)] for y in data]):\n            # naive normalization, this is idempotent for flat records\n            # and potentially will inflate the data considerably for\n            # deeply nested structures:\n            #  {VeryLong: { b: 1,c:2}} -> {VeryLong.b:1 ,VeryLong.c:@}\n            #\n            # TODO: handle record value which are lists, at least error\n            #       reasonably\n            data = nested_to_record(data, sep=sep)\n        return DataFrame(data)\n    elif not isinstance(record_path, list):\n        record_path = [record_path]\n\n    if meta is None:\n        meta = []\n    elif not isinstance(meta, list):\n        meta = [meta]\n\n    meta = [m if isinstance(m, list) else [m] for m in meta]",
+  "match_policy": "unique-release-normalized-v2"
+}

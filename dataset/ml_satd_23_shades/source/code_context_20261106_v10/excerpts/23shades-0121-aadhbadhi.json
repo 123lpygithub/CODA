@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0121-aadhbadhi",
+  "revision_url": "https://github.com/ROCmSoftwarePlatform/Tensile/commit/032d99603184b19c4dd159fe6a88749c1d744d26",
+  "filename": "Tensile/KernelWriterAssembly_BASE_100154.py",
+  "commit": "032d99603184b19c4dd159fe6a88749c1d744d26",
+  "source_url": "https://raw.githubusercontent.com/ROCmSoftwarePlatform/Tensile/032d99603184b19c4dd159fe6a88749c1d744d26/Tensile/KernelWriterAssembly_BASE_100154.py",
+  "fetched_at": "2026-11-05T06:11:58.308748+00:00",
+  "source_sha256": "8eb790c1cbe3f08bf6486d77944cfbfe853f0a7bfb04905573061a7135eaaa80",
+  "line_start": 5259,
+  "line_end": 5283,
+  "excerpt": "                hex(kernel[\"LdsNumElements\"] * tP[\"bpe\"]), \\\n                \"Restore LDS clamp at %u bytes\"%(kernel[\"LdsNumElements\"] * tP[\"bpe\"]))\n\n        return imod\n\n    ##############################################################################\n    # Local Write: Swap Offsets A/B\n    ##############################################################################\n    def localWriteSwapOffsets(self, kernel, tP):\n        if not self.do[\"LocalWrite\"]: return \"\"\n        kStr = \"\"\n        tc = tP[\"tensorChar\"]\n        #fixme-iui  need to use wrapping increment for double or triple buffering:\n        if kernel[\"ExpandPointerSwap\"]:\n            tP[\"localWriteSwapByteOffset\"] = 0 if tP[\n                \"localWriteSwapByteOffset\"] else kernel[\"LdsOffsetA_Blk\"] * tP[\n                    \"bpe\"]\n        else:\n            if kernel[\"LocalWriteUseSgpr%s\" % tc]:\n                kStr += inst(\"s_xor_b32\", \\\n                    sgpr(\"LocalWriteAddr%s\"%tP[\"tensorChar\"]), \\\n                    hex(kernel[\"LdsOffsetA_Blk\"]*tP[\"bpe\"]), \\\n                    sgpr(\"LocalWriteAddr%s\"%tP[\"tensorChar\"]), \\\n                    \"swap Red Blk SGPR\")\n            else:"
+}

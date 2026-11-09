@@ -1,0 +1,202 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-19530",
+  "issue_url": "https://github.com/signalapp/Signal-Android/issues/5421",
+  "source_issue_url": "https://github.com/signalapp/Signal-Android/issues/5421",
+  "api_url": "https://api.github.com/repos/signalapp/Signal-Android/issues/5421",
+  "title": "Can't make call to/from smart phone without SIM",
+  "body": "### Bug description\n\nCan't make calls between two Android smart phones. One has SIM card (PH1) and another (PH2) doesn't. \n### Steps to reproduce\n\nCall frfom PH1 (with SIM) to PH2 (without SIM), scenario 1::\n- PH1: start new call\n- phone PH1 makes sonar sound until it gets canceled by user \n- PH2 gets message \"Missed call from PH1\"\n\nCall frfom PH1 to PH2, scenario 2::\n- PH1: start new call\n- PH1 makes sonar sound, then start ringing. PH2 gets incoming call, user answers,\n- PH1 goes into \"Ringing\" state, PH2 goes into \"Answering\" state. There is no call acceptance.\n- After a while both PH1 and PH2 abandons call practically at the same time.\n- PH2 gets message in its info bar: \"Incoming Signal call (time stamp)\". If you click on it, it opens empty page without any control elements or a way to stop it. Only \"back\" will close it temporary...\n- There is no any way to remove that message from info bar. Even killing Signal doesn't help. The only solution at that point is to reboot the phone...\n\nCall from PH2 to PH1 doesn't work at all :\n- In PH2 make a call to PH1\n- Standard phone dialer appears. When user clicks on its \"call\" button, there is message \"Not registered on network\"\n\n**Actual result:** \nMaking call from PH1 to PH2 in both scenarios doesn't work. In second scenario PH2 has to reboot to get rid of notification message \"\"Incoming Signal call\". Call from PH2 to PH1 not possible at all too..\n\n**Expected result:**\nCall is accepted and proceed in both directions.\n### Device info\n\nPH1: **Device:\\* _Samsung Note II\n*_Android version:** 4.4.2\n**Signal version:** 3.15.2\nPH2: **Device:\\* _Samsung InFuse\n*_Android version:** 2.3.6\n**Signal version:** 3.15.2\n",
+  "author": "Participant 1",
+  "created_at": "2016-04-07T02:58:10Z",
+  "updated_at": "2018-04-03T00:09:20Z",
+  "state": "closed",
+  "closed_at": "2018-04-03T00:09:14Z",
+  "issue_fetched_at": "2026-10-19T04:05:46.942626+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T04:05:48.356272+00:00"
+  ],
+  "expected_comment_count": 22,
+  "retrieved_comment_count": 22,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 206695785,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-206695785",
+      "created_at": "2016-04-07T04:52:08Z",
+      "updated_at": "2016-04-07T04:52:08Z",
+      "author": "Participant 2",
+      "body": "First of all, please provide debug logs for both phones in scenario 2 (or both scenarios), if you can. I'd like to see what happens when the blank screen appears on PH2.\n\nSecond, this sounds more like a (partially) broken registration, since PH2 does not seem to know that PH1 is on Signal. Does the call icon on PH2 contain a lock? You can try to refresh the contact lists and/or re-register PH1.\nAlso, did you contact support@whispersystems.org? I regularly use a phone without a SIM and that is not a problem.\n"
+    },
+    {
+      "id": 207092965,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-207092965",
+      "created_at": "2016-04-07T21:22:28Z",
+      "updated_at": "2016-04-07T21:22:28Z",
+      "author": "Participant 1",
+      "body": "@cascheberg, thank you for your attention.\n\nI've attached logs collected from both phones in PH1 -> PH2, scenario 2:\n[Bug5421-SN-Out.txt](https://github.com/WhisperSystems/Signal-Android/files/209233/Bug5421-SN-Out.txt) -- PH1\n[Bug5421-IF-In.txt](https://github.com/WhisperSystems/Signal-Android/files/209234/Bug5421-IF-In.txt) -- PH2\nIn PH1 I see message: \"RECIPIENT_UNAVAILABLE\". At that time PH2  was waiting for incoming call with opened Signal app...\n\nAnd here is screen shot of blank screen, that I can see on PH2. Phone reboot is required to get rid of notification line leading to it.\n![bug5421-if-call](https://cloud.githubusercontent.com/assets/16406443/14367186/72ba9812-fccb-11e5-94d2-771b12df51af.png)\n\n>  this sounds more like a (partially) broken registration, since PH2 does not seem to know that PH1 is on Signal. Does the call icon on PH2 contain a lock?\n\nI successfully sent couple of secured messages (lock is there) back and force between these phones before making test calls. So, they know each other well and can communicate via those test messages.\n\nAdditional note: PH1 was able to make a call to another phone (let say PH3, with SIM). But I was unable to make call to remote phone PH4 (without SIM) under the very similar circumstances (scenario 2). And that's why I'm trying to test that scenario locally, using second test phone (PH2)..\n"
+    },
+    {
+      "id": 207994942,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-207994942",
+      "created_at": "2016-04-10T14:40:39Z",
+      "updated_at": "2016-04-10T14:40:39Z",
+      "author": "Participant 2",
+      "body": "In the log of PH2 there is really nothing Signal-related. Can you try to grab another log? I guess that killing Signal will be necessary to do that, but don't restart the phone before you submit the log.\n\nAlso, does the **call icon** on PH2 contain a lock? I'm asking because you were saying that the standard phone dialer appears, which should not happen for Signal calls. Being able to send secured messages is not relevant in this case.\n"
+    },
+    {
+      "id": 208070090,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-208070090",
+      "created_at": "2016-04-10T21:00:51Z",
+      "updated_at": "2016-04-10T21:00:51Z",
+      "author": "Participant 1",
+      "body": "> In the log of PH2 there is really nothing Signal-related. \n\nYou mean RedPhone related? I'm sorry, but I don't see it either... From my experience, putting timestamps into debugging logs significantly increases usefulness of those logs for troubleshooting processes. Especially if there are two devices communicating with each others... When troubleshooting telecommunication problems simple time stamps (even without date) is enough in most cases. You'd see that two logs provided earlier were collected at the same time.\n\n> Can you try to grab another log? I guess that killing Signal will be necessary to do that, but don't restart the phone before you submit the log.\n\nSure. When I'm collecting logs on PH2, I always do followed:\n1. Restart the phone (to make sure that everything is in its clean state)\n2. Launch Signal\n3. Make test call from PH1 to PH2\n4. Collect and save log form Signal app in PH2\n5. Restart phone again (to remove persistent notification message \"\"Incoming Signal call\")\n\nHere is the 2 logs collected in the similar scenario form PH2 (followed procedure above):\n[Bug5421-IF-In2.txt](https://github.com/WhisperSystems/Signal-Android/files/211990/Bug5421-IF-In2.txt)\n[Bug5421-IF-In3.txt](https://github.com/WhisperSystems/Signal-Android/files/211992/Bug5421-IF-In3.txt)\n\n> Also, does the call icon on PH2 contain a lock? I'm asking because you were saying that the standard phone dialer appears, which should not happen for Signal calls. Being able to send secured messages is not relevant in this case.\n\nThe answer is - yes. There is lock in the call icon. Here is the picture, collected from phone PH2:\n![bug5421-if-icon](https://cloud.githubusercontent.com/assets/16406443/14413047/f1899ddc-ff23-11e5-96ae-ee1895f2d547.png)\n\nAdditional notes:\n- In user's screen, along with received/sent text messages I see: \"+1XXXXXXXXXX called you\"\n- Time and date stamps on those messages are not indicating when I actually called, but rather delayed significantly and randomly... (why is that?)\n"
+    },
+    {
+      "id": 208180644,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-208180644",
+      "created_at": "2016-04-11T06:16:23Z",
+      "updated_at": "2016-04-11T06:16:23Z",
+      "author": "Participant 2",
+      "body": "How do you save the log? Both of the provided logs seem cut off at the end, they end in the middle of a log statement. Signal can create and upload the log to a GitHub gist, so usually you can just post the provided link here.\nI have no idea why clicking the secured call icon would show the standard dialer.\nThe issues with wrong timestamps on missed call notifications is tracked at #4197.\n"
+    },
+    {
+      "id": 208526094,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-208526094",
+      "created_at": "2016-04-11T19:48:29Z",
+      "updated_at": "2016-04-11T19:48:29Z",
+      "author": "Participant 1",
+      "body": "Oh, it's simple. I tap on \"Submit debug log\". Then, in opened log window, I long tap on the log and tap on \"Select all\". Then I copy and paste it into a text editor... I have no idea why part of log could be missed in such case. Should I wait for Signal to purge its full log? Or there is a way to purge it into log window manually?\n\nThank you for the link on wrong timestamps issue. I can see more than 5 min difference. If I missed a call at night, the difference could easily be 12 hours. This functionality requires a fix.\n"
+    },
+    {
+      "id": 208571988,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-208571988",
+      "created_at": "2016-04-11T21:32:19Z",
+      "updated_at": "2016-04-11T21:32:19Z",
+      "author": "Participant 2",
+      "body": "I have no idea if it changes anything, but you could try to just tap the \"Submit\" button and paste the link instead. That is really all I can say about this absolutely weird issue.\n"
+    },
+    {
+      "id": 208578639,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-208578639",
+      "created_at": "2016-04-11T21:54:50Z",
+      "updated_at": "2016-04-11T21:54:50Z",
+      "author": "Participant 1",
+      "body": "As a matter of a principle, I don't submit / publish anything without perusing it first. Sorry...\nHaving full control over how potentially personal data is be published on the Internet - isn't that the reason we want to use Signal too? :)\n\n@cascheberg, I'd be glad to help troubleshoot the issue. Jut let me know what and how to do it...\n"
+    },
+    {
+      "id": 208596606,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-208596606",
+      "created_at": "2016-04-11T22:44:21Z",
+      "updated_at": "2016-04-11T22:44:21Z",
+      "author": "Participant 3",
+      "body": "@gh88 That principle is just making it harder for us to help you. If you tap the **Submit** button it will publish the same content that you see on your screen and which you have already manually copy-pasted here before. Except when you do it manually your clipboard buffer might truncate the content.\nhttps://github.com/WhisperSystems/Signal-Android/wiki/Submitting-useful-bug-reports#debug-log-privacy\n"
+    },
+    {
+      "id": 209079173,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-209079173",
+      "created_at": "2016-04-12T19:59:46Z",
+      "updated_at": "2016-04-12T19:59:46Z",
+      "author": "Participant 1",
+      "body": "Is there any way for me to dump log file locally?\nI need to see what I'm sending before I publish it.\n"
+    },
+    {
+      "id": 209085941,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-209085941",
+      "created_at": "2016-04-12T20:16:43Z",
+      "updated_at": "2016-04-12T20:16:43Z",
+      "author": "Participant 4",
+      "body": "@gh88 you can see it on the screen before clicking \"submit\". Another option would be to copy & paste it in segements. But you can be sure that there are no message contents in the log. Phone numbers are anonymized as well...\n"
+    },
+    {
+      "id": 209194437,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-209194437",
+      "created_at": "2016-04-13T02:13:53Z",
+      "updated_at": "2016-04-13T02:13:53Z",
+      "author": "Participant 1",
+      "body": "@agrajaghh thank you for the idea to check clipboard. Now, clipboard is not the problem here. The Signal app is.\n\nI made several test calls and I suspect in its \"Submit debug log\" window Signal doesn't show the whole log. The data is always truncated there. So, the resulting log file has size around 8.79KiB (see my logs published here). That explains why I couldn't find out the problem with failing to make calls to my friend and asking them to send me their log to troubleshoot. In most cases there was nothing in those logs... Log doesn't have any timestamps and, moreover, they're truncated... :(\n\nBTW, to rule out Clipboard limitations I specifically tested clipboard on that old device and it can handle more than 100KiB of text data.\n\nSignal should allow users to dump its log into a local file - to help them to troubleshoot potential problems locally (there is no need to open a ticket and request a support here with every problem found).. I'm glad that Signal obfuscates phone numbers, but I have to make sure that what I publish (via \"Submit\" facility) doesn't contain other personal data (IP addresses, text messages, contacts, etc.) And the only reasonable way to do that is to show me in plain text what I'm going to submit fore before I tap on that button,\n"
+    },
+    {
+      "id": 209250572,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-209250572",
+      "created_at": "2016-04-13T06:23:39Z",
+      "updated_at": "2016-04-13T06:23:39Z",
+      "author": "Participant 4",
+      "body": "btw, the submit button is just creating a secret and anonymous gist which isn't published somewhere else. You could still check that link before posting it here\n"
+    },
+    {
+      "id": 210191050,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-210191050",
+      "created_at": "2016-04-14T22:44:37Z",
+      "updated_at": "2016-04-14T22:44:37Z",
+      "author": "Participant 1",
+      "body": "I continue making text calls from PH1 to PH2. Is there any way to at least get rid of empty page (see picture in my second post above) without rebooting my phone? Is that the bug with UI (and not related to signalling process of accepting incoming calls)?\n\nAll incoming calls create in PH2 records like \"Missed call from ...\" (all with wrong timestamps, telling when I opened Signal app). Is there a way to remove them from the long list of messages now? Long press on each line brings nothing... I can remove text messages though. Is it supposed to work this way?\n"
+    },
+    {
+      "id": 210300443,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-210300443",
+      "created_at": "2016-04-15T06:08:28Z",
+      "updated_at": "2016-04-15T06:08:28Z",
+      "author": "Participant 2",
+      "body": "You can try \"Force Stop\" in the Android app settings for Signal, instead of reboot.\n\nAnd since Signal debug log does not seem to work, you could connect your phone to a computer and run `adb`. There is a very short wiki page paragraph: https://github.com/WhisperSystems/Signal-Android/wiki/Submitting-useful-bug-reports#debug-logs-with-adb. But you can find more information on the internet, or ask in the community forum.\n\nDeleting call log entries is tracked at #4190.\n"
+    },
+    {
+      "id": 210662699,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-210662699",
+      "created_at": "2016-04-15T21:57:46Z",
+      "updated_at": "2016-04-15T21:57:46Z",
+      "author": "Participant 1",
+      "body": "@cascheberg, thank you for suggestion to \"Force Stop\" Signal. It worked.\n\nI've collected new log with \"adb logcat\":\n[Bug5421-IF-In4.txt](https://github.com/WhisperSystems/Signal-Android/files/221846/Bug5421-IF-In4.txt)\n\nThank you for referring to the opened issue about deleting log entries. I've left my comment there.\n"
+    },
+    {
+      "id": 210787712,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-210787712",
+      "created_at": "2016-04-16T10:40:58Z",
+      "updated_at": "2016-04-16T10:40:58Z",
+      "author": "Participant 2",
+      "body": "There is something in the log, but some log statements are missing. Can you do that again, but remove the logcat filter? Thanks for your effort!\n"
+    },
+    {
+      "id": 210900050,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-210900050",
+      "created_at": "2016-04-16T20:56:10Z",
+      "updated_at": "2016-04-16T20:56:10Z",
+      "author": "Participant 1",
+      "body": "Actually at that time I did not use any filters at all. And as you see the log contained messages from other apps running, which were messing up the log... Now, to help to resolve the issue I've installed Android app, called [CatLog](https://play.google.com/store/apps/details?id=com.nolanlawson.logcat&hl=en). With that app I can collect log from Signal app directly on the phone. And it may filter messages coming form Signal app only. Below are another 2 logs, now collected with the help of CatLog. It used Signal's PID as filter criteria (if you know any other suggestion for the filter to use while collecting log from Signal, please let me know):\n[Bug5421-IF-In5.txt](https://github.com/WhisperSystems/Signal-Android/files/222399/Bug5421-IF-In5.txt)\n[Bug5421-IF-In6.txt](https://github.com/WhisperSystems/Signal-Android/files/222400/Bug5421-IF-In6.txt)\n\nIf you mean that you need (missed) messages collected before I make the test - let me know. Meantime I run test in this order: 1. Start Signal, 2. Check its PID, 3. Start CatLog log record, filtering events for that PID, 4. Make test (calling PH1 to PH2 and waiting till it ends), 5 Stop CatLog logging and save current log file.\n"
+    },
+    {
+      "id": 210906595,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-210906595",
+      "created_at": "2016-04-16T21:41:24Z",
+      "updated_at": "2016-04-16T22:15:42Z",
+      "author": "Participant 3",
+      "body": "There doesn't seem to be anything new in those logs compared to the previous ones.\n\nThere are many open issues with call problems and I'm not sure if the logs in those are any more informative. E.g. the logs I reported in #4835 look somewhat similar to the ones here. Except that _Termination stack_ seems to be normal because it shows up even when successful calls are disconnected.\n"
+    },
+    {
+      "id": 211097943,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-211097943",
+      "created_at": "2016-04-17T19:47:30Z",
+      "updated_at": "2016-04-18T03:03:20Z",
+      "author": "Participant 1",
+      "body": "@2-4601 From your logs I've found a hint for developers why I have to use \"Force Stop\" to remove notification and empty Signal dialog (see my second post above for picure). Your log has line like:\n`W/RedPhoneService( 4982): termination stack`\nwhile in mine logs it's missing. It means in my phone the `RedPhoneService` is left running at the time it should be terminated...\n"
+    },
+    {
+      "id": 211380015,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-211380015",
+      "created_at": "2016-04-18T13:31:50Z",
+      "updated_at": "2016-04-18T13:31:50Z",
+      "author": "Participant 2",
+      "body": "OK, I can actually reproduce this behaviour if I make changes to the code, which to me indicates that there is a bug in your ROM of PH2. So I think the problem is this (for whatever reason):\n1. The incoming call screen is displayed on PH2: `ResponderCallManager` is `wait()`ing in `synchronized waitForAnswer()`\n2. You accept the incoming call: `RedPhoneService` calls `synchronized ResponderCallManager.answer(true)` through `onIntentReceived`, **but never returns**\n3. `ResponderCallManager.waitForAnswer()` also never returns, so the call will not be initiated\n4. As a result, after a while PH1 will automatically (or manually) end the call attempt\n5. `SignalListenerTask` on PH2 will notice this and call `RedPhoneService.notifyCallDisconnected()`, which will hide the call screen, **but** it cannot call `synchronized RedPhoneService.terminate()` because it is still stuck in `synchronized onIntentReceived` since step 2\n\n[Here](https://github.com/WhisperSystems/Signal-Android/blob/master/src/org/thoughtcrime/redphone/call/ResponderCallManager.java#L120) is the implementation that I assume is failing.\n\nOne could try to work around this by using `Lock` (and `Condition`) objects in the `ResponderCallManager` and just see if that works @moxie0 ?\n\nAlso, there is no `stopService()` anywhere. \n"
+    },
+    {
+      "id": 378086722,
+      "url": "https://github.com/signalapp/Signal-Android/issues/5421#issuecomment-378086722",
+      "created_at": "2018-04-03T00:09:07Z",
+      "updated_at": "2018-04-03T00:09:07Z",
+      "author": "Participant 5",
+      "body": "GitHub Issue Cleanup:\nSee #7598 for more information.\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

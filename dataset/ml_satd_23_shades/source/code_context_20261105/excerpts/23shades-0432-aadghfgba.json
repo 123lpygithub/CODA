@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0432-aadghfgba",
+  "revision_url": "https://github.com/pescadores/pescador/commit/df76c54f793508b81e481f7150cd119a9ccff6db",
+  "filename": "pescador.py",
+  "commit": "df76c54f793508b81e481f7150cd119a9ccff6db",
+  "source_url": "https://raw.githubusercontent.com/pescadores/pescador/df76c54f793508b81e481f7150cd119a9ccff6db/pescador.py",
+  "fetched_at": "2026-11-05T06:12:53.700485+00:00",
+  "source_sha256": "b657819783847d51d740b0f239c83b1892292324a37a1b3f12e1e6d652bf50cc",
+  "line_start": 251,
+  "line_end": 275,
+  "excerpt": "                    seed_distribution[new_idx] = 0.0\n\n                    if (seed_distribution > 0).any():\n                        seed_distribution[:] /= np.sum(seed_distribution)\n\n            else:\n                # Otherwise, this one's exhausted.  Set its probability to 0\n                stream_weights[idx] = 0.0\n\n            weight_norm = np.sum(stream_weights)\n\n\n# TODO:   2014-07-10 16:38:27 by Brian McFee <brm2132@columbia.edu>\n# make existing functions wrap transparently (fit, predict, etc)\n# implement iterable versions on top: iter_fit, iter_predict, etc\n\nclass StreamLearner(sklearn.base.BaseEstimator):\n    '''A class to facilitate iterative learning from a generator.\n\n    :parameters:\n        - estimator : sklearn estimator\n            The estimator to fit.  Must support the ``partial_fit`` method.\n\n        - batch_size : int > 0\n            The size of batches to be passed to ``estimator.partial_fit``."
+}

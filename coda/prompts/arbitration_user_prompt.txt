@@ -1,0 +1,77 @@
+Research Question:
+{research_question}
+
+Analysis Scope:
+{analysis_scope}
+
+Use Case:
+{use_case}
+
+Artifact ID:
+{artifact_id}
+
+Artifact Content:
+{artifact_content}
+
+Context Packet:
+{context_packet_json}
+
+Coder Outputs:
+{coder_outputs_json}
+
+Current Codebook Snapshot:
+{codebook_snapshot}
+
+Recent Reviewed History:
+{history_snapshot}
+
+Return a JSON object with exactly these keys:
+- "agreement_summary": English summary
+- "agreement_summary_zh": Chinese version with the same meaning
+- "disagreement_summary": English summary
+- "disagreement_summary_zh": Chinese version with the same meaning
+- "recommended_codes": array of up to {max_recommended_codes} provisional-code objects
+- "preserved_alternatives": array of up to {max_preserved_alternatives} provisional-code objects
+- "disagreements": array of objects with:
+  - "disagreement_type": one of
+    ["evidence_disagreement", "semantic_disagreement", "granularity_disagreement", "codebook_boundary_disagreement", "missing_context_disagreement", "output_format_inconsistency"]
+  - "summary": English summary
+  - "summary_zh": Chinese version with the same meaning
+  - "coder_ids": array of coder ids
+  - "affected_code_names": array of code names
+  - "evidence_refs": array of evidence ids
+- "relevant_historical_artifact_ids": array of artifact ids from the reviewed history
+- "possible_codebook_changes": array of objects with:
+  - "action": one of ["add", "add_parent", "refine", "merge", "split", "rename", "retire", "no_change"]
+  - "summary": English summary
+  - "summary_zh": Chinese version with the same meaning
+  - "rationale": English rationale
+  - "rationale_zh": Chinese version with the same meaning
+  - "target_code_ids": array of code ids
+  - "resulting_code_names": array of short code names
+
+Each provisional-code object must contain exactly these keys:
+  - "code_name": English code name
+  - "code_name_zh": Chinese version with the same meaning
+  - "short_definition": English definition
+  - "short_definition_zh": Chinese version with the same meaning
+- "supporting_evidence_refs"
+- "relationship_to_codebook"
+- "linked_code_ids"
+  - "alternative_interpretation": English string
+  - "alternative_interpretation_zh": Chinese version with the same meaning
+  - "uncertainty_note": English string
+  - "uncertainty_note_zh": Chinese version with the same meaning
+- "proposed_codebook_action"
+- "proposed_codebook_target_ids"
+
+Constraints:
+- Keep both summaries short and analytic.
+- Preserve at least one alternative when substantive disagreement remains.
+- Use only evidence ids that appear in the context packet.
+- Always include "linked_code_ids" in every recommended code. Use [] when it does not reuse a current code.
+- Always include "proposed_codebook_target_ids" in every recommended code. Use [] when no current code is being changed.
+- Every explanatory string must have its paired Chinese field with the same meaning.
+- Recommend "merge" only when two or more existing codes describe essentially the same phenomenon and no reliable inclusion or exclusion boundary distinguishes them.
+- If existing codes are distinct subtypes that share a broader concept, recommend "add_parent" instead of "merge". Preserve the child codes, list their ids in "target_code_ids", and use one new parent code name in "resulting_code_names".
+- Do not output markdown.

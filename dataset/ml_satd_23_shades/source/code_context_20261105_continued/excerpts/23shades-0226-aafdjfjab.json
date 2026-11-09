@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0226-aafdjfjab",
+  "revision_url": "https://github.com/shenweichen/DeepCTR/commit/15096ea01f1f1e584b574a6dd36058745c595cb6",
+  "filename": "keras_model/dcn.py",
+  "commit": "15096ea01f1f1e584b574a6dd36058745c595cb6",
+  "source_url": "https://raw.githubusercontent.com/shenweichen/DeepCTR/15096ea01f1f1e584b574a6dd36058745c595cb6/keras_model/dcn.py",
+  "fetched_at": "2026-11-05T06:12:18.238031+00:00",
+  "source_sha256": "a95eaee48b9dfe25bc8f25b0d5be1fd8b1cbc8208816618772159f4d7872911a",
+  "line_start": 115,
+  "line_end": 139,
+  "excerpt": "        deep_input = Flatten()(Concatenate()(embed_list))\n        if len(continuous_input) > 0:\n            if len(continuous_input) == 1:\n                continuous_list = continuous_input[0]\n            else:\n                continuous_list = Concatenate()(continuous_input)\n\n            deep_input = Concatenate()([deep_input, continuous_list])\n\n        #if self.bias_dim > 0:\n        #    bias_input_list = Concatenate()(bias_input)\n\n        final_logit = linear_term  # TODO add bias term\n        if len(self.hidden_size) > 0 and self.cross_num > 0:  # Deep & Cross\n            deep_out = self.deep_layer(deep_input, self.hidden_size, self.activation, self.init_std, self.keep_prob,\n                                       self.seed)\n            cross_out = CrossLayer(self.cross_num)(deep_input)\n            stack_out = Concatenate()([cross_out, deep_out])\n            final_logit = Dense(1, activation=None)(stack_out)\n        elif len(self.hidden_size) > 0:  # Only Deep\n            deep_out = self.deep_layer(deep_input, self.hidden_size, self.activation, self.init_std, self.keep_prob,\n                                       self.seed)\n            final_logit = Dense(1, activation=None)(deep_out)\n        elif self.cross_num > 0:  # Only Cross\n            cross_out = CrossLayer(self.cross_num, init_std=self.init_std, l2_reg=self.l2_reg_cross)(deep_input)"
+}

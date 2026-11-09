@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5472",
+  "issue_url": "https://github.com/flutter/flutter/issues/73657",
+  "source_issue_url": "https://github.com/flutter/flutter/issues/73657",
+  "api_url": "https://api.github.com/repos/flutter/flutter/issues/73657",
+  "title": "Disable analytics by default - Respect EU/ECC laws (GDPR)",
+  "body": "The *get started* page of flutter.dev says:\r\n\r\n>  The flutter tool uses Google Analytics to anonymously report feature usage statistics and basic crash reports. [...]\r\n> To disable reporting, type `flutter config --no-analytics`. [...]\r\n> If you opt out of analytics, an opt-out event is sent, and then no further information is sent by the Flutter tool.\r\n\r\nAccording to the [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation \"GDPR = General Data Protection Regulation\") and a recent German court decision, analytics are defined as non-necessary services and require explicit, voluntary consent before *flutter* can send any data. Providing a CLI flag or a first-run opt-out is illegal in the EU/EEC.\r\n\r\n:pray: Please, make `fluter` never send an opt-out event when the user opts out of analytics.\r\n:pray: Please disable analytics by default. You may fix that by adding a CLI flag:\r\n\r\n    flutter config --enable-analytics\r\n\r\n:pray: Please, Alphabet employees, respect the law, don't be evil.\r\n\r\n* 2020-03-10 [Google Remains Atop List of GDPR Fines](https://www.datanami.com/2020/03/10/busted-google-remains-atop-list-of-gdpr-fines/)\r\n* 2020-03-11 [Sweden fines Google $8 million for right-to-be-forgotten violations](https://venturebeat.com/2020/03/11/sweden-fines-google-8-million-for-right-to-be-forgotten-violations-and-demands-it-keep-websites-in-the-dark/)\r\n* 2020-06-19 [French court slaps down Google's appeal against $57M GDPR fine](https://uk.news.yahoo.com/french-court-slaps-down-googles-170442213.html)\r\n* 2020-07-14 [Google’s failure to respect the « right to be forgotten » results in €600,000 fine](http://lawrope.com/googles-failure-to-respect-the-right-to-be-forgotten-results-in-e600000-fine/)\r\n* 2020-12-10 [France fines Google $120M and Amazon $42M for dropping tracking cookies without consent](https://uk.news.yahoo.com/france-fines-google-120m-amazon-085553384.html)\r\n\r\nUser privacy matters, please better respect them.\r\nI wish you a happy, respectful New Year 2021.",
+  "author": "Participant 1",
+  "created_at": "2021-01-09T20:27:51Z",
+  "updated_at": "2021-06-16T17:08:45Z",
+  "state": "closed",
+  "closed_at": "2021-06-16T17:08:22Z",
+  "issue_fetched_at": "2026-10-19T01:11:52.220921+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:11:53.632580+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 757379975,
+      "url": "https://github.com/flutter/flutter/issues/73657#issuecomment-757379975",
+      "created_at": "2021-01-09T22:56:30Z",
+      "updated_at": "2021-01-09T22:56:30Z",
+      "author": "Participant 2",
+      "body": "@0uep \r\n> Providing a CLI flag or a first-run opt-out is illegal in the EU/EEC.\r\n\r\nare you sure?\r\n[vscode](https://code.visualstudio.com/docs/supporting/faq#_how-to-disable-telemetry-reporting) (for example) does exactly that\r\n- ctrl+, \r\n- type  \"telemetry\"\r\n- un-flag \r\n\r\ncan you provide references for that?\r\nall the articles you are referencing are about web / os, not really cli application"
+    },
+    {
+      "id": 757541171,
+      "url": "https://github.com/flutter/flutter/issues/73657#issuecomment-757541171",
+      "created_at": "2021-01-10T20:45:00Z",
+      "updated_at": "2021-01-10T20:45:00Z",
+      "author": "Participant 1",
+      "body": "Hi @iapicca and Happy New Year\r\n\r\nThank you for reading this request carefully.\r\n\r\nFor clarification:\r\n1. By default, Flutter enables analytics\r\n2. GDPR defines analytics as not necessary, so analytics require explicit, voluntary consent before any data is sent.\r\n3. Therefore, to comply with GDPR, Flutter shall disable analytics by default.\r\n\r\nAlso, if the user disables analytics, Flutter shall not send any analytics => Flutter shall not say *\"Hey, there is one flutter here, but analytics is disabled\"* every time the configuration is reset (multiple times when running in a fresh container).\r\n\r\nI am sorry that I only listed articles about web/OS. My intention was to show that GDPR is serious (mandatory since 2018), but it seems to be hard to comply with for some companies.\r\n\r\nVSCode has the same issue, and I should create a similar issue for VSCode.\r\nBut I do not care much about VSCode, because I am happy to use [VSCodium](https://vscodium.com/) instead.\r\nI highly recommend you to use VSCodium. :+1: VSCodium is free as in freedom. VSCode is not open source. I also recommend you [ungoogled-chromium](https://ungoogled-software.github.io/) in lieu of Google Chrome. For example, ungoogled-chromium respects the system's DNS settings (Chrome bypasses the system's DNS settings, maybe that changed recently, not sure). Google Chrome is not FLOSS.\r\n\r\nI appreciate how Google helps FLOSS projects, I love what you guys at Google do for the open source community, but I do not want to be tracked by Google products anymore. I think more and more Flutter developers consider the user privacy. I would like to see the Flutter developers agree for voluntary consent before sending any data.\r\n\r\nWhen I first start Firefox, a small banner allows me to explicitly enable analytics and automatic crash reporting. I voluntary enable it because I want to help the Firefox project, and because I appreciate having control over what goes out from my personal computer.\r\n\r\nTo better respect user privacy (and GDPR), we could implement something similar to the following idea:\r\n1. Keep flag `--no-analytics`.\r\n2. Add flag `--enable-analytics` to allow users to explicitly consent.\r\n3. If neither flag `--no-analytics` nor `--enable-analytics`, and no configuration, Flutter asks:\r\n    > Enable analytics and automatic crash reporting in configuration?\r\n4. Flutter never sends any data to remote servers if analytics is disabled."
+    },
+    {
+      "id": 757892497,
+      "url": "https://github.com/flutter/flutter/issues/73657#issuecomment-757892497",
+      "created_at": "2021-01-11T11:31:33Z",
+      "updated_at": "2021-01-11T11:34:38Z",
+      "author": "Participant 3",
+      "body": "GDPR applies equally to websites, mobile apps and desktop applications. For an up-to-date analysis, I found these to be informative: \r\n\r\n- [https://www.kevel.co/blog/gdpr-google-analytics/](https://www.kevel.co/blog/gdpr-google-analytics/)\r\n- [https://www.mobiloud.com/blog/gdpr-compliant-mobile-app](https://www.mobiloud.com/blog/gdpr-compliant-mobile-app)"
+    },
+    {
+      "id": 758002828,
+      "url": "https://github.com/flutter/flutter/issues/73657#issuecomment-758002828",
+      "created_at": "2021-01-11T14:55:04Z",
+      "updated_at": "2021-01-11T14:55:04Z",
+      "author": "Participant 3",
+      "body": "The Irish Data Protection Commision (which is Google's chosen authority for GDPR purposes) just published a report on cookies and related technologies, which states the matter quite clearly:\r\n\r\n> \"The cookies most internet users are aware of are typically browser, or http, cookies.\r\n> However, other types of cookies and tracking technologies include local storage objects\r\n> (LSOs) or ‘flash’ cookies, software development kits (SDKs), pixel trackers (or pixel gifs),\r\n> ‘like’ buttons and social sharing tools, and device fingerprinting technologies. The law on\r\n> cookies generally applies to all of these tools.\"\r\n\r\n> \"Do analytics cookies require consent?\r\n> Yes. Analytics cookies are used as a measuring tool for websites, including to provide\r\n> information on the number of unique visitors and the pages they browse during their\r\n> visits.\"\r\n\r\n> \"Consent\r\n> The ePrivacy Regulations require that you obtain consent in order to gain any access to\r\n> information stored in the terminal equipment of a subscriber or user, or to store any\r\n> information on the person’s device. This means you must get consent to store or set\r\n> cookies, regardless of whether the cookies or other tracking technologies you are using\r\n> contain personal data.\"\r\n\r\n<https://www.dataprotection.ie/sites/default/files/uploads/2020-04/Guidance%20note%20on%20cookies%20and%20other%20tracking%20technologies.pdf>"
+    },
+    {
+      "id": 758213475,
+      "url": "https://github.com/flutter/flutter/issues/73657#issuecomment-758213475",
+      "created_at": "2021-01-11T20:47:37Z",
+      "updated_at": "2021-01-11T20:47:37Z",
+      "author": "Participant 4",
+      "body": "Thanks for raising this, we are investigating. We are committed to respecting people's privacy and, obviously, to following the law, and will update this issue once we have additional clarity on the situation."
+    },
+    {
+      "id": 856213816,
+      "url": "https://github.com/flutter/flutter/issues/73657#issuecomment-856213816",
+      "created_at": "2021-06-07T19:57:12Z",
+      "updated_at": "2021-06-07T20:00:05Z",
+      "author": "Participant 5",
+      "body": "I know this is rocket-science, @Hixie, and that 6 months is nothing.\r\n\r\nPeople's privacy at Google is definitely top priority.\r\n\r\n😜 \r\n\r\nHave you been able to disable analytics by default?"
+    },
+    {
+      "id": 862556731,
+      "url": "https://github.com/flutter/flutter/issues/73657#issuecomment-862556731",
+      "created_at": "2021-06-16T17:08:22Z",
+      "updated_at": "2021-06-16T17:08:22Z",
+      "author": "Participant 4",
+      "body": "Thanks again for your report. We are continuing to review our practices. Due to the sensitive nature of this topic, I'm going to close this bug for now and I won't make further updates here. Thanks for your understanding.\r\n\r\n(I will proactively mark my own comment with a thumbs-down emoji since I would surely react the same way if I were you.)"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

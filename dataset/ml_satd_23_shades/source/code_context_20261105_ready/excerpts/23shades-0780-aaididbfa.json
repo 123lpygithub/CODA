@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0780-aaididbfa",
+  "revision_url": "https://github.com/proycon/foliapy/commit/df57ca12ea6d9cef6a2e6da538c533a1678f679a",
+  "filename": "input/taggerdata.py",
+  "commit": "df57ca12ea6d9cef6a2e6da538c533a1678f679a",
+  "source_url": "https://raw.githubusercontent.com/proycon/foliapy/df57ca12ea6d9cef6a2e6da538c533a1678f679a/input/taggerdata.py",
+  "fetched_at": "2026-11-05T06:13:51.330192+00:00",
+  "source_sha256": "a8c5ae0b549a98150ea1e4218a3c5671a980c1b935ffa33fa712f27074b0cf30",
+  "line_start": 113,
+  "line_end": 131,
+  "excerpt": "            if found:\n                alignment.append(targetwords[best])\n            else:                \n                alignment.append((None,None,None,None,False)) #no alignment found        \n        \n        return alignment   \n\n    def reset(self):\n        self.f = codecs.open(self.filename,self.mode, self.encoding)\n\n\n    def write(self, sentence):\n        #TODO: write index\n        for word, lemma, pos in sentence:\n           if not word: word = \"NONE\"\n           if not lemma: lemma = \"NONE\"\n           if not pos: pos = \"NONE\"\n           self.f.write( word + \"\\t\" + lemma + \"\\t\" + pos + \"\\n\" )                \n        "
+}

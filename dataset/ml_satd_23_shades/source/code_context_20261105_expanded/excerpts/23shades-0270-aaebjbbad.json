@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0270-aaebjbbad",
+  "revision_url": "https://github.com/alan-turing-institute/sktime/commit/ff917ba444b9df8b67af23b68024352e9bc433b6",
+  "filename": "sktime/classifiers/proximity.py",
+  "commit": "ff917ba444b9df8b67af23b68024352e9bc433b6",
+  "source_url": "https://raw.githubusercontent.com/alan-turing-institute/sktime/ff917ba444b9df8b67af23b68024352e9bc433b6/sktime/classifiers/proximity.py",
+  "fetched_at": "2026-11-05T06:12:25.901261+00:00",
+  "source_sha256": "2ebd1a722ab59b9bb7084d4cc83315471ea1508cd346176acd50033c32039511",
+  "line_start": 1062,
+  "line_end": 1086,
+  "excerpt": "        for tree_index in range(0, self.num_trees):\n            # print(\"tree index: \" + str(tree_index))\n            # build tree from forest parameters\n            tree = ProximityTree(\n                    gain_method = self.gain_method,\n                    r = self.r,\n                    rand = self.rand,\n                    is_leaf_method = self.is_leaf_method,\n                    max_depth = self.max_depth,\n                    label_encoder = self.label_encoder,\n                    param_pool = self.param_pool,\n                    pick_exemplars_method = self.pick_exemplars_method,\n                    dimension = self.dimension, # todo could randomise?\n                    )\n            # build tree on dataset\n            tree.fit(instances, class_labels, should_check_data = False)\n            # append tree to tree list\n            self.trees.append(tree)\n        return self\n\n    def predict_proba(self, instances, should_check_data = True):\n        '''\n        classify instances\n        ----\n        Parameters"
+}

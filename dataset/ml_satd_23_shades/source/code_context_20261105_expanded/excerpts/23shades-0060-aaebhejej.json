@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0060-aaebhejej",
+  "revision_url": "https://github.com/HewlettPackard/dlcookbook-dlbs/commit/9c3c64967b385a215cd7964630d43160f61e8998",
+  "filename": "python/tf_cnn_benchmarks/preprocessing.py",
+  "commit": "9c3c64967b385a215cd7964630d43160f61e8998",
+  "source_url": "https://raw.githubusercontent.com/HewlettPackard/dlcookbook-dlbs/9c3c64967b385a215cd7964630d43160f61e8998/python/tf_cnn_benchmarks/preprocessing.py",
+  "fetched_at": "2026-11-05T06:11:48.084792+00:00",
+  "source_sha256": "e3735528cd3c57d9611effbf5e24a0f1660a7b459534fb2b2d3a6dcafb2e6034",
+  "line_start": 370,
+  "line_end": 393,
+  "excerpt": "      for i in xrange(self.batch_size):\n        value = records[i]\n        image_buffer, label_index, bbox, _ = parse_example_proto(value)\n        image = self.preprocess(image_buffer, bbox, i % 4)\n        device_index = i % self.device_count\n        images[device_index].append(image)\n        labels[device_index].append(label_index)\n      label_index_batch = [None] * self.device_count\n      for device_index in xrange(self.device_count):\n        images[device_index] = tf.parallel_stack(images[device_index])\n        label_index_batch[device_index] = tf.concat(labels[device_index], 0)\n\n        # dynamic_pad=True) # HACK TESTING dynamic_pad=True\n        images[device_index] = tf.cast(images[device_index], self.dtype)\n        depth = 3\n        images[device_index] = tf.reshape(\n            images[device_index],\n            shape=[self.batch_size_per_device, self.height, self.width, depth])\n        label_index_batch[device_index] = tf.reshape(\n            label_index_batch[device_index], [self.batch_size_per_device])\n        # Display the training images in the visualizer.\n        # tf.summary.image('images', images)\n\n      return images, label_index_batch"
+}

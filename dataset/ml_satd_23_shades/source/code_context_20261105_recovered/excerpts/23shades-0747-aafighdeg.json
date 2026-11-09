@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:caf7fb5bd6e6dd95278d46e4d2247b036b4c74e8/raw/",
+  "source_sha256": "7a63ba6ad7d27d8cab720e3ac123576130081ed16377c421084894451862dc98",
+  "fetched_at": "2026-11-05T06:43:24.456817+00:00",
+  "archive_directory": "e620e039cfea42552887f0a13e28afd9e292bef6",
+  "git_blob_sha1": "caf7fb5bd6e6dd95278d46e4d2247b036b4c74e8",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/d39ce8a79fbfb4f0b54b378a233ddfd2e3d00cfd/",
+  "artifact_id": "23shades-0747-aafighdeg",
+  "revision_url": "https://github.com/BS-TrainingCenter/Gesture-Recognition-Mask-RCNN/commit/d39ce8a79fbfb4f0b54b378a233ddfd2e3d00cfd",
+  "filename": "mrcnn/model.py",
+  "commit": "d39ce8a79fbfb4f0b54b378a233ddfd2e3d00cfd",
+  "line_start": 1338,
+  "line_end": 1362,
+  "excerpt": "    # Assign ROIs to GT boxes\n    rpn_roi_iou_argmax = np.argmax(overlaps, axis=1)\n    rpn_roi_iou_max = overlaps[np.arange(\n        overlaps.shape[0]), rpn_roi_iou_argmax]\n    # GT box assigned to each ROI\n    rpn_roi_gt_boxes = gt_boxes[rpn_roi_iou_argmax]\n    rpn_roi_gt_class_ids = gt_class_ids[rpn_roi_iou_argmax]\n\n    # Positive ROIs are those with >= 0.5 IoU with a GT box.\n    fg_ids = np.where(rpn_roi_iou_max > 0.5)[0]\n\n    # Negative ROIs are those with max IoU 0.1-0.5 (hard example mining)\n    # TODO: To hard example mine or not to hard example mine, that's the question\n#     bg_ids = np.where((rpn_roi_iou_max >= 0.1) & (rpn_roi_iou_max < 0.5))[0]\n    bg_ids = np.where(rpn_roi_iou_max < 0.5)[0]\n\n    # Subsample ROIs. Aim for 33% foreground.\n    # FG\n    fg_roi_count = int(config.TRAIN_ROIS_PER_IMAGE * config.ROI_POSITIVE_RATIO)\n    if fg_ids.shape[0] > fg_roi_count:\n        keep_fg_ids = np.random.choice(fg_ids, fg_roi_count, replace=False)\n    else:\n        keep_fg_ids = fg_ids\n    # BG\n    remaining = config.TRAIN_ROIS_PER_IMAGE - keep_fg_ids.shape[0]",
+  "match_policy": "unique-release-normalized-v2"
+}

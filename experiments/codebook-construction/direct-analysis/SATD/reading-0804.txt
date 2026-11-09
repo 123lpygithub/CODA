@@ -1,0 +1,362 @@
+
+=== 804 23shades-0743-aahgffjcf ===
+{"dataset_id": "aahgffjcf", "repo_name": "PetrochukM/PyTorch-NLP", "filename": "lib/checkpoint.py", "comment_introducing_revision": "https://github.com/PetrochukM/PyTorch-NLP/commit/0cdbcfbe4a5508e902d60152001b29fb0f331fe4", "comment_removing_revision": "https://github.com/PetrochukM/PyTorch-NLP/commit/75a2c45d5adf897bd1754faa5b738ca73c1a8601", "source_context_status": "available", "source_context_commit": "0cdbcfbe4a5508e902d60152001b29fb0f331fe4"}
+[comment_text]
+TODO: This should be recusive looking for any module with flatten_parameters
+[source_context]
+
+        # http://pytorch.org/docs/master/torch.html?highlight=torch%20load#torch.load
+        def remap(storage, loc):
+            if 'cuda' in loc and self.device >= 0:
+                return storage.cuda(device=self.device)
+            return storage
+
+        data = torch.load(self.checkpoint_path, map_location=remap, pickle_module=dill)
+        # https://stackoverflow.com/questions/2535917/copy-kwargs-to-self
+        for (k, v) in data.items():
+            setattr(self, k, v)
+
+        # TODO: This should be recusive looking for any module with flatten_parameters
+        if hasattr(self.model, 'flatten_parameters'):
+            self.model.flatten_parameters()  # make RNN parameters contiguous
+
+    @classmethod
+    def recent(cls, log_directory, device=None):
+        """
+        Load a checkpoint or returns `None` if log_directory has no checkpoint.
+
+        Args:
+            log_directory (str or None): Lastest checkpoint is loaded from log_directory
+            device (int)
+        """
+
+=== 805 23shades-0803-aaichjjjg ===
+{"dataset_id": "aaichjjjg", "repo_name": "scikit-learn/scikit-learn", "filename": "sklearn/discriminant_analysis.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/679936f6bcb66b1b734e4f3609bdb203e41d8460", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "679936f6bcb66b1b734e4f3609bdb203e41d8460"}
+[comment_text]
+XXX : can do better to avoid precision overflows
+[source_context]
+        """Return posterior probabilities of classification.
+
+        Parameters
+        ----------
+        X : array-like, shape = [n_samples, n_features]
+            Array of samples/test vectors.
+
+        Returns
+        -------
+        C : array, shape = [n_samples, n_classes]
+            Posterior log-probabilities of classification per class.
+        """
+        # XXX : can do better to avoid precision overflows
+        probas_ = self.predict_proba(X)
+        return np.log(probas_)
+
+=== 806 23shades-0296-aahiigecd ===
+{"dataset_id": "aahiigecd", "repo_name": "kengz/SLM-Lab", "filename": "slm_lab/agent/net/net_util.py", "comment_introducing_revision": "https://github.com/kengz/SLM-Lab/commit/861657d2c9b321961994c8cdd0e58b6c4fe0645f", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "861657d2c9b321961994c8cdd0e58b6c4fe0645f"}
+[comment_text]
+TODO if without momentum; weights should not change too
+[source_context]
+
+    assert_trained = gen_assert_trained(model)
+    # ...
+    loss.backward()
+    optim.step()
+    assert_trained(model, loss)
+    '''
+    pre_weights = [param.clone() for param in pre_model.parameters()]
+
+    def assert_trained(post_model, loss):
+        post_weights = [param.clone() for param in post_model.parameters()]
+        if loss == 0:
+            # TODO if without momentum, weights should not change too
+            for p_name, param in post_model.named_parameters():
+                assert param.grad.norm() == 0
+        else:
+            assert not all(torch.equal(w1, w2) for w1, w2 in zip(pre_weights, post_weights)), 'Model parameter is not updated in training_step(), check if your tensor is detached from graph.'
+            min_norm = 0
+            max_norm = 1e5
+            for p_name, param in post_model.named_parameters():
+                try:
+                    assert min_norm < param.grad.norm() < max_norm, f'Gradient norm fails the extreme value check {min_norm} < {p_name}:{param.grad.norm()} < {max_norm}, which is bad. Loss: {loss}. Check your network and loss computation. Consider using the "clip_grad" and "clip_grad_val" net parameter.'
+                except Exception as e:
+                    logger.warn(e)
+        logger.debug('Passed network weight update assertation in dev lab_mode.')
+
+=== 807 23shades-0441-aaefegech ===
+{"dataset_id": "aaefegech", "repo_name": "oracle/Skater", "filename": "skater/util/image_ops.py", "comment_introducing_revision": "https://github.com/oracle/Skater/commit/e533bc1eb253262785d3f889bf5deac1f77d3b1a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e533bc1eb253262785d3f889bf5deac1f77d3b1a"}
+[comment_text]
+TODO: Add ability to handle a pre-defined axes for plotting
+[source_context]
+    except:
+        logger.info("No matching pixel for the specified condition")
+    return X_modified
+
+
+def normalize(X):
+    """ Normalize image of the shape (H, W, D) in the range of 0 and 1
+    """
+    return np.array((X - np.min(X)) / (np.max(X) - np.min(X)))
+
+
+def show_image(X, cmap=None, bins=None, title='Original'):
+    # TODO: Add ability to handle a pre-defined axes for plotting
+    import copy
+    font = {'family': 'avenir',
+            'color': 'black',
+            'weight': 'normal',
+            'size': 14,
+            }
+    _X = copy.deepcopy(X)
+
+    try:
+        import matplotlib.pyplot as plt
+        fig, ax = plt.subplots(1, 2, figsize=(16, 8))
+        ax[0].imshow(_X, cmap=cmap)
+
+=== 808 23shades-0397-aahjideha ===
+{"dataset_id": "aahjideha", "repo_name": "ryfeus/gcf-packs", "filename": "tensorflow2.0/source/tensorflow/python/eager/backprop.py", "comment_introducing_revision": "https://github.com/ryfeus/gcf-packs/commit/44d36f9e5045fd859ee188d74dc31f3921ad4796", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "44d36f9e5045fd859ee188d74dc31f3921ad4796"}
+[comment_text]
+TODO(b\/119775953): fix the circular dependencies.
+[source_context]
+from tensorflow.python.ops import resource_variable_ops
+from tensorflow.python.ops.unconnected_gradients import UnconnectedGradients
+from tensorflow.python.platform import tf_logging as logging
+from tensorflow.python.util import nest
+from tensorflow.python.util import tf_contextlib
+from tensorflow.python.util import tf_inspect
+from tensorflow.python.util.lazy_loader import LazyLoader
+from tensorflow.python.util.tf_export import tf_export
+
+
+# Note that we need to lazy load the following two modules to avoid creating
+# circular dependencies.
+# TODO(b/119775953): fix the circular dependencies.
+pfor_ops = LazyLoader(
+    "pfor_ops", globals(),
+    "tensorflow.python.ops.parallel_for.control_flow_ops")
+
+function = LazyLoader("function", globals(),
+                      "tensorflow.python.eager.function")
+
+_op_attr_type_cache = {}
+
+
+def op_attr_type(op_type, attr_name):
+  try:
+
+=== 809 23shades-0083-aadggijai ===
+{"dataset_id": "aadggijai", "repo_name": "sorgerlab/indra", "filename": "indra/explanation/model_checker/pysb.py", "comment_introducing_revision": "https://github.com/sorgerlab/indra/commit/2da8e50efb9327b913569413f59e24d8fc504a7a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "2da8e50efb9327b913569413f59e24d8fc504a7a"}
+[comment_text]
+FIXME: A hack that depends on the _0 convention
+[source_context]
+            pr.paths = []
+            return pr
+
+        # Get a dict of rule objects
+        rule_obj_dict = {}
+        for ann in self.model.annotations:
+            if ann.predicate == 'rule_has_object':
+                rule_obj_dict[ann.subject] = ann.object
+
+        # Get monomer initial conditions
+        ic_dict = {}
+        for mon in self.model.monomers:
+            # FIXME: A hack that depends on the _0 convention
+            ic_name = '%s_0' % mon.name
+            # TODO: Wrap this in try/except?
+            ic_param = self.model.parameters[ic_name]
+            ic_value = ic_param.value
+            ic_dict[mon.name] = ic_value
+
+        # Set weights in PG based on model initial conditions
+        for cur_node in combined_pg.graph.nodes():
+            edge_weights = {}
+            rule_obj_list = []
+            edge_weights_by_gene = {}
+            for u, v in combined_pg.graph.out_edges(cur_node):
+
+=== 810 23shades-0517-aafafcgbj ===
+{"dataset_id": "aafafcgbj", "repo_name": "HunterMcGushion/hyperparameter_hunter", "filename": "hyperparameter_hunter/optimization/backends/skopt/engine.py", "comment_introducing_revision": "https://github.com/HunterMcGushion/hyperparameter_hunter/commit/4561dd50c7c92f8a7f664515b48eec97a7e5c037", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "4561dd50c7c92f8a7f664515b48eec97a7e5c037"}
+[comment_text]
+TODO: Do below `y_lie` lines directly calculate min\/max\/mean on `opt.yi` when it could also contain times?
+[source_context]
+        #   objective (the copy of optimizer is simply discarded)
+        opt = self.copy(random_state=self.rng.randint(0, np.iinfo(np.int32).max))
+
+        points = []
+        for i in range(n_points):
+            x = opt.ask()
+            points.append(x)
+
+            # TODO: Put below section into `how_to_lie` helper function for easier testing
+            ti_available = self.acq_func.endswith("ps") and len(opt.yi) > 0
+            ti = [t for (_, t) in opt.yi] if ti_available else None
+
+            # TODO: Do below `y_lie` lines directly calculate min/max/mean on `opt.yi` when it could also contain times?
+            if strategy == "cl_min":
+                y_lie = np.min(opt.yi) if opt.yi else 0.0  # CL-min lie
+                t_lie = np.min(ti) if ti is not None else log(sys.float_info.max)
+            elif strategy == "cl_mean":
+                y_lie = np.mean(opt.yi) if opt.yi else 0.0  # CL-mean lie
+                t_lie = np.mean(ti) if ti is not None else log(sys.float_info.max)
+            else:
+                y_lie = np.max(opt.yi) if opt.yi else 0.0  # CL-max lie
+                t_lie = np.max(ti) if ti is not None else log(sys.float_info.max)
+
+            #################### Lie to Optimizer ####################
+            # Use `_tell` (not `tell`) to prevent repeated log transformations of computation times
+
+=== 811 23shades-0343-aaadbhidf ===
+{"dataset_id": "aaadbhidf", "repo_name": "Seanforfun/GMAN_Net_Haze_Removal", "filename": "DehazeNet/dehazenet_eval.py", "comment_introducing_revision": "https://github.com/Seanforfun/GMAN_Net_Haze_Removal/commit/ab7d09ca84b7bba44924e1db3bdd5071aa693393", "comment_removing_revision": "https://github.com/Seanforfun/GMAN_Net_Haze_Removal/commit/75806f1d93c98ed45917fa6e2026ab572ca77bc2", "source_context_status": "available", "source_context_commit": "ab7d09ca84b7bba44924e1db3bdd5071aa693393"}
+[comment_text]
+TODO Restore our CNN from trained data
+[source_context]
+
+tf.app.flags.DEFINE_string('eval_dir', '/tmp/cifar10_eval',
+                           """Directory where to write event logs.""")
+tf.app.flags.DEFINE_string('checkpoint_dir', './DeHazeNetEval',
+                           """Directory where to read model checkpoints.""")
+tf.app.flags.DEFINE_string('clear_test_images_dir', './ClearImages/TestImages',
+                           """Path to the clear result images directory.""")
+tf.app.flags.DEFINE_string('haze_test_images_dir', './HazeImages/TestImages',
+                           """Path to the hazed test images directory.""")
+
+
+def _evaluate_single_batch(hazed_test_image_batch, clear_test_image_batch, dest_dir):
+    # TODO Restore our CNN from trained data
+    # TODO Run operations and create the corresponding clear images
+    pass
+
+
+def evaluate():
+    # TODO Mengzhen Wang please re-write this function to achieve a better performance
+    # This function read the model from ./DeHazeNetModel/model.ckpt
+    # file and dehaze the hazed test images. This final result graph will
+    # be put into ./ClearImages/ResultImages
+
+    # TODO STEP1:Get a test hazed and clear image batch from queue, which is not shuffled
+    with tf.Graph().as_default() as g:
+
+=== 812 23shades-0262-aafciifib ===
+{"dataset_id": "aafciifib", "repo_name": "DigitalSlideArchive/HistomicsTK", "filename": "server/docker_resource.py", "comment_introducing_revision": "https://github.com/DigitalSlideArchive/HistomicsTK/commit/d252eeb3478d843b03d0bf3de83aaa350031805b", "comment_removing_revision": "https://github.com/DigitalSlideArchive/HistomicsTK/commit/cdf31a09206e7dbaff3ae9872480589f7bc1b611", "source_context_status": "available", "source_context_commit": "d252eeb3478d843b03d0bf3de83aaa350031805b"}
+[comment_text]
+TODO check the local cache and cloud for different images of same name
+[source_context]
+
+    @access.admin
+    @describeRoute(
+        Description('Add a to the list of images to be loaded by histomics tk')
+            .notes("""Must be a system administrator to call this. If the value
+                   passed is a valid JSON object, it will be parsed and stored
+                   as an object.""")
+            .param('name', 'The name or a list of names  of the '
+                           'docker images to be loaded ', required=True)
+            .errorResponse('You are not a system administrator.', 403)
+            .errorResponse('Failed to set system setting.', 500)
+        )
+    # TODO check the local cache and cloud for different images of same name
+    # TODO how to handle newer images(take the latest or require a confirmation)
+    # TODO use image id to confirm equivalence need v2 manifest schema on cloud
+    # TODO how to handle duplicate clis
+    # TODO have an event update (create cli instances)
+    # TODO check if the new images exist
+    def appendImage(self, params):
+        """Validates the new images to be added (if they exist or not) and then
+        attempts to collect xml data to be cached. a job is then called to update
+        the histomicstk.docker_images settings with the new information
+        """
+        self.requireParams(('name',), params)
+        name = params['name']
+
+=== 813 23shades-0540-aaifgecfh ===
+{"dataset_id": "aaifgecfh", "repo_name": "OpenMined/PySyft", "filename": "test/torch_test.py", "comment_introducing_revision": "https://github.com/OpenMined/PySyft/commit/ae4edd3b7503599384125b7bf6f37243a59bd5f6", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ae4edd3b7503599384125b7bf6f37243a59bd5f6"}
+[comment_text]
+TODO: figure out why some machines prefer one of these options
+[source_context]
+        x = sy._PlusIsMinusTensor().on(x)
+        y = sy._PlusIsMinusTensor().on(y)
+        x.send(bob)
+        y.send(bob)
+
+        z = x.add(y).sum()
+        z.backward()
+
+        # cut chain for the equality check
+        x.get()
+        x.child = x.child.child
+
+        # TODO: figure out why some machines prefer one of these options
+        # while others prefer the other
+        try:
+            target = sy._PlusIsMinusTensor().on(torch.FloatTensor([1, 1]))
+            target.child = target.child.child
+            assert torch.equal(x.grad.data, target)
+        except:
+            target = sy._PlusIsMinusTensor().on(torch.FloatTensor([1, 1]))
+            target.child = target.child
+            assert torch.equal(x.grad.data, target)
+
+
+class TestTorchTensor(TestCase):
+
+=== 814 23shades-0795-aagibcfja ===
+{"dataset_id": "aagibcfja", "repo_name": "google-research/google-research", "filename": "routing_transformer/sparse_transformer.py", "comment_introducing_revision": "https://github.com/google-research/google-research/commit/da56e5de4fba9a4e3c6a66271664b515e6f89df4", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "da56e5de4fba9a4e3c6a66271664b515e6f89df4"}
+[comment_text]
+Unused
+[source_context]
+    if targets_old is not None:
+      features["targets"] = targets_old
+
+    return {
+        "outputs": final_result,
+        "scores": None,
+        "logits": final_logits,
+        "losses": None,
+    }
+
+
+def target_bottom(x, model_hparams, vocab_size):
+  del model_hparams, vocab_size  # Unused
+  return x
+
+
+@registry.register_hparams
+def sparse_transformer_local():
+  """Set of hyperparameters for a sparse model using only local."""
+  hparams = common_hparams.basic_params1()
+  hparams.max_length = 4096
+  hparams.batch_size = 4096
+  hparams.add_hparam("max_target_length", 4096)
+  hparams.add_hparam("add_timing_signal", False)
+  hparams.add_hparam("local_num_heads", 8)
+
+=== 815 23shades-0802-aafdiabdg ===
+{"dataset_id": "aafdiabdg", "repo_name": "JasonKessler/scattertext", "filename": "scattertext/external/phrasemachine/phrasemachine.py", "comment_introducing_revision": "https://github.com/JasonKessler/scattertext/commit/e2691bc3286b7dcef8c1d3320820eed7e0ca83a5", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e2691bc3286b7dcef8c1d3320820eed7e0ca83a5"}
+[comment_text]
+would be better to use python logger
+[source_context]
+Only for the "SimpleNP" grammar.
+
+
+
+"""
+from pkg_resources import resource_filename
+import sys,re,os
+from collections import Counter
+
+
+
+def logmsg(s):
+    # would be better to use python logger
+    print("[phrasemachine] %s" % s, file=sys.stderr)
+
+
+
+if sys.version_info[0] >= 3:
+    xrange = range
+
+############## SimpleNP
+## Uses a five-tag coarse grammar.
+## tagset: A D P N O
+
+# Requires conversion from PTB or Petrov/Gimpel tags to our system.

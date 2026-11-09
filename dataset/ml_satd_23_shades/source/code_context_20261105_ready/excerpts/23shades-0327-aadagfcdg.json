@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0327-aadagfcdg",
+  "revision_url": "https://github.com/VSainteuf/izitorch/commit/d002311ca3e3fd0c8f05395629e99935b09f75ad",
+  "filename": "izitorch/trainRack.py",
+  "commit": "d002311ca3e3fd0c8f05395629e99935b09f75ad",
+  "source_url": "https://raw.githubusercontent.com/VSainteuf/izitorch/d002311ca3e3fd0c8f05395629e99935b09f75ad/izitorch/trainRack.py",
+  "fetched_at": "2026-11-05T06:12:34.312494+00:00",
+  "source_sha256": "4bc7c643d29c727ea9f9d73a12ec9f31831324b9f2e0ef79d305b06a4f29a3a0",
+  "line_start": 158,
+  "line_end": 182,
+  "excerpt": "            pm = True\n        else:\n            pm = False\n\n        if self.dataset is not None:\n            self.train_dataset = self.dataset\n            self.test_dataset = self.dataset\n\n        print('Splitting dataset')\n\n        indices = list(range(len(self.train_dataset)))\n        if self.args.shuffle:\n            np.random.seed(1)  # TODO random seed as an option\n            np.random.shuffle(indices)\n\n        if self.args.kfold != 0:\n            kf = model_selection.KFold(n_splits=self.args.kfold, random_state=1, shuffle=False)\n            indices_seq = list(kf.split(list(range(len(indices)))))\n            print('Preparing {}-fold cross validation'.format(self.args.kfold))\n            print('Train: {} samples, Test : {} samples'.format(len(indices_seq[0][0]), len(indices_seq[0][1])))\n\n        else:\n            ntrain = int(np.floor(self.args.train_ratio * len(self.train_dataset)))\n            ntest = len(self.train_dataset) - ntrain\n            print('Train: {} samples, Test : {} samples'.format(ntrain, ntest))"
+}

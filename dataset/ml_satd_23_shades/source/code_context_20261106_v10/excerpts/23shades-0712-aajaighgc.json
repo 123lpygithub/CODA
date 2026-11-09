@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0712-aajaighgc",
+  "revision_url": "https://github.com/HazyResearch/fonduer/commit/d9df7dedf642ec103b43abb6edc1cd5df110dd0d",
+  "filename": "fonduer/utils/utils_annotations.py",
+  "commit": "d9df7dedf642ec103b43abb6edc1cd5df110dd0d",
+  "source_url": "https://raw.githubusercontent.com/HazyResearch/fonduer/d9df7dedf642ec103b43abb6edc1cd5df110dd0d/fonduer/utils/utils_annotations.py",
+  "fetched_at": "2026-11-05T06:13:41.868167+00:00",
+  "source_sha256": "bcd8e254efb8db257b1d06c6bbff2966438c8d8d00d177c5a198b32060d54eaf",
+  "line_start": 201,
+  "line_end": 225,
+  "excerpt": "            con.execute(\n                \"INSERT INTO %s SELECT DISTINCT key FROM %s \"\n                \"ON CONFLICT(key) DO NOTHING\" % (key_table_name, table_name)\n            )\n        else:\n            con.execute(\n                \"INSERT INTO %s SELECT DISTINCT UNNEST(keys) as key FROM %s \"\n                \"ON CONFLICT(key) DO NOTHING\" % (key_table_name, table_name)\n            )\n\n    # The result should be a list of all feature strings, small enough to hold\n    # in memory\n    # TODO: store the actual index in table in case row number is unstable\n    # between queries\n    ignore_keys = set(ignore_keys)\n    keys = [\n        row[0]\n        for row in con.execute(\"SELECT * FROM %s\" % key_table_name)\n        if row[0] not in ignore_keys\n    ]\n    key_index = {key: i for i, key in enumerate(keys)}\n    # Create sparse matrix in LIL format for incremental construction\n    lil_feat_matrix = sparse.lil_matrix((len(candidates), len(keys)), dtype=np.int64)\n\n    row_index = []"
+}

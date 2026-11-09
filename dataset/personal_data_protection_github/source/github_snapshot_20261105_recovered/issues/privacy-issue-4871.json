@@ -1,0 +1,93 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4871",
+  "issue_url": "https://github.com/bids-standard/bids-specification/issues/194",
+  "source_issue_url": "https://github.com/bids-standard/bids-specification/issues/194",
+  "api_url": "https://api.github.com/repos/bids-standard/bids-specification/issues/194",
+  "title": "[EEG] Some questions about BIDS",
+  "body": "Dear all, \r\n\r\nduring my attempts to bidsify some eeg data, I stumbled on some points that are not clear for me. Could you please clarify them for me?\r\n\r\n1. Should the labels of session, acquisition and run be consistent between subjects? \r\n   - I couldn't find this in the specification, but validator suggests that each subject should have exactly the same set of sessions and acquisitions.\r\n2. Are the fields in events.tsv can be picked only from given table, or I can define my own (with corresponding entry into json)?\r\n   - In doc it says \"The tabular files consists of one row per event and a set of REQUIRED and OPTIONAL columns\". This suggests that I can choose only from the given fields, but if it's fixed I still need to define labels in json. If other labels are allowed, can you mention it in document?\r\n3. Can you clarify the policy of anonymization? \r\n   - In description of scans.tsv you require the shift of dates by a fixed amount of days. This implies that the scan date must be also removed from the data file, but   I didn't found it mentioned explicitly. Moreover, EDF format requires an entry of a date -- should it be the same date as in scans.tsv, or I can choose a fixed fake one?\r\n\r\nThanks in advance \r\n",
+  "author": "Participant 1",
+  "created_at": "2019-03-28T09:51:45Z",
+  "updated_at": "2019-04-26T17:02:28Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:30.234980+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:30.234980+00:00"
+  ],
+  "expected_comment_count": 8,
+  "retrieved_comment_count": 8,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 477638077,
+      "url": "https://github.com/bids-standard/bids-specification/issues/194#issuecomment-477638077",
+      "created_at": "2019-03-28T15:12:23Z",
+      "updated_at": "2019-03-28T15:12:34Z",
+      "author": "Participant 2",
+      "body": "Not an exhaustive answer, but a start:\r\n\r\nAnswer to q1\r\n--------------\r\nCan you clarify your question with the use case that you are working on?\r\n\r\nI just answer in how far I understand your question for now. \"You should be consistent with your labels\". I.e., you have two participants in your study, participant 1 had two sessions, and participant 2 had only one session (e.g., because they were sick that day, or the budget was empty, ...)\r\n\r\nThen it'd be sensible to call the session labels\r\n- `sub-1_ses-1` and `sub-1_ses-2` for participant 1 ... and\r\n- `sub-2_ses-1` for participant 2\r\n\r\nso the labels are consistent, but it is not required that they are equal (because that's sometimes just not the case)\r\n\r\n\r\nAnswer to q2\r\n--------------\r\nYou can define your own columns if they are documented in an accompanying JSON file. See the [spec](https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/05-task-events.html):\r\n\r\n> An arbitrary number of additional columns can be added. Those allow describing other properties of events \r\n\r\nthis is documented slightly below the phrase that you quote. But if you think the documentation should be improved with a slight twist of wording, feel free to send a PR!\r\n\r\n"
+    },
+    {
+      "id": 477678625,
+      "url": "https://github.com/bids-standard/bids-specification/issues/194#issuecomment-477678625",
+      "created_at": "2019-03-28T16:47:00Z",
+      "updated_at": "2019-03-28T16:47:00Z",
+      "author": "Participant 1",
+      "body": "Thanks for the answer.\r\n\r\n### q1\r\n\r\n>so the labels are consistent, but it is not required that they are equal (because that's sometimes just not the case)\r\n\r\nThat was how I understood the standard. However if some subjects had different sessions labels, validator complained. Before update it complained only about sessions, but now he requires full file names be identical. \r\n```\r\n 1: [WARN] Not all subjects contain the same files. Each subject should contain the same number of files with the same naming unless some files are known to be missing. (code: 38 - INCONSISTENT_SUBJECTS)\r\n\t\t./sub-COF008/eeg/sub-COF008_task-BL_acq-T2144_channels.tsv\r\n\t\t\tEvidence: Subject: sub-COF008; Missing file: sub-COF008_task-BL_acq-T2144_channels.tsv\r\n...\r\n\t\t... and 1260 more files having this issue (Use --verbose to see them all).\r\n````\r\nWe use (temporarily) the time for acquisition label. So these labels are never the same. \r\nIf labels are allowed to be different, why validator produces a warning?"
+    },
+    {
+      "id": 477682236,
+      "url": "https://github.com/bids-standard/bids-specification/issues/194#issuecomment-477682236",
+      "created_at": "2019-03-28T16:55:50Z",
+      "updated_at": "2019-03-28T17:00:29Z",
+      "author": "Participant 3",
+      "body": "Using time of acquisition as as the value of acq is not following it's intended use. It is suppose to distinguish different types of acquisition (for example if you have two MR images with different resolutions). The acquisition time is suppose to go into scans file (see https://bids-specification.readthedocs.io/en/stable/03-modality-agnostic-files.html#scans-file)."
+    },
+    {
+      "id": 477682305,
+      "url": "https://github.com/bids-standard/bids-specification/issues/194#issuecomment-477682305",
+      "created_at": "2019-03-28T16:55:59Z",
+      "updated_at": "2019-03-28T16:55:59Z",
+      "author": "Participant 2",
+      "body": "q1\r\n---\r\nyou might have misunderstood the `acq` label, which is an easy thing to do. We are trying to clarify it with @robertoostenveld in #173 and this [google doc](https://docs.google.com/spreadsheets/d/1pYr8nigiJ6wm8cGaLjj2TsY-or8ELGcjAUXZifktd_4/edit#gid=0)\r\n\r\nPlease specifically look at this [comment](https://docs.google.com/spreadsheets/d/1pYr8nigiJ6wm8cGaLjj2TsY-or8ELGcjAUXZifktd_4/edit?disco=AAAACpl1YT8) --> I suggest that for now you drop the `acq` parameter\r\n\r\nOn a different note: The general problem you are pointing out persists ... but that's an issue for the [bids-validator](https://github.com/bids-standard/bids-validator), not the specification. So overall you reported two issues in one go, yay! :-)\r\n\r\nq3\r\n---\r\nI'll leave this one open for now, because I'd have to read about it myself ... hopefully somebody else can answer this in the meantime"
+    },
+    {
+      "id": 477935466,
+      "url": "https://github.com/bids-standard/bids-specification/issues/194#issuecomment-477935466",
+      "created_at": "2019-03-29T09:47:34Z",
+      "updated_at": "2019-03-29T09:48:31Z",
+      "author": "Participant 1",
+      "body": "\r\n## q1\r\n\r\nI'm sorry to come back to this acquisition again and again, I'm responsible for bidsifying in laboratory, so I try eliminate any double interpretation and still keep it convenient for us. Moreover, the conversion is intended to happen in automatic workflow, without manual labeling of samples.\r\n\r\n>Using time of acquisition as as the value of acq is not following it's intended use. It is suppose to distinguish different types of acquisition\r\n\r\nI'm aware of it, and it will be changed for sure. In our case sometimes we have 2 eeg similar scans for same subject and acquisition label is a natural way to distinguish them. The time was used to this goal before the bids era -- so we just kept same labeling.\r\n\r\n> We are trying to clarify it with @robertoostenveld in #173 and this google doc\r\n\r\nIn my naive interpretation, an acquisition is one full session of acquisition data (i.e. one eeg file). If experiment expect only one acquisition per task, then there are no label, and if there a possibility to have several per task, then acq label becomes mandatory.\r\n\r\nAnd then, if one acquisition (one file) can be split into segments, these becomes runs. It fits nicely \"uninterrupted repetition of data acquisition\".\r\n\r\nPlease tell me if it is a reasonable interpretation."
+    },
+    {
+      "id": 480480719,
+      "url": "https://github.com/bids-standard/bids-specification/issues/194#issuecomment-480480719",
+      "created_at": "2019-04-06T07:07:09Z",
+      "updated_at": "2019-04-06T07:07:40Z",
+      "author": "Participant 2",
+      "body": "Sorry for getting back to you so late @nbeliy. I'll try to make up for it with an exhaustive answer.\r\n\r\nHave you taken a look at the [definitions](https://bids-specification.readthedocs.io/en/stable/02-common-principles.html#definitions) part of the specification?\r\n\r\n> **Data acquisition** - a continuous uninterrupted block of time during which a brain scanning instrument was acquiring data according to particular scanning sequence/protocol.\r\n\r\n> **Run** - an uninterrupted repetition of data acquisition that has the same acquisition parameters and task (however events can change from run to run due to different subject response or randomized nature of the stimuli). Run is a synonym of a data acquisition.\r\n\r\nGiven these definitions, your naive interpretation of a data acquisition is correct: One full uninterrupted data recording. Note however, that data acquisition in this sense is DISTINCT from the `acq` parameter (I'll come to that below).\r\n\r\nYour second comment that splitting one acquisition into segments would mean having several runs is a bit misguided as far as I can see. With our definitions, data acquisitions and runs are synonymous ... you can say: This data is from acquisition 1 ... or this data is from run 1 (it means the same).\r\n\r\nDividing a data recording into segments AFTER the acquisition sounds like a derivative to me, which is not yet completely defined - please see [BEP021](https://docs.google.com/document/d/1PmcVs7vg7Th-cGC-UrX8rAhKUHIzOI-uIOh69_mvdlw/edit?disco=AAAACoSruhQ&usp_dm=false&ts=5c811e55)\r\n\r\nNow having that sorted out, let's come back to the `acq` parameter.\r\n\r\nThis is defined [here (scroll down a bit)](https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html#anatomy-imaging-data):\r\n\r\n> The OPTIONAL acq-<label> key/value pair corresponds to a custom label the user MAY use to distinguish a different set of parameters used for acquiring the same modality. For example this should be used when a study includes two T1w images - one full brain low resolution and and one restricted field of view but high resolution.\r\n\r\nWith regards to an EEG recording, the `acq` parameter makes little (or none at all) sense, because unlike with a T1w MRI scan, we are not measuring a \"stable configuration\" (e.g., distribution of white and grey matter in the brain) but a \"dynamic process\" (e.g., postsynaptic potentials). And we can never re-measure that past dynamic process with a different set of acquisition parameters.\r\n\r\n### Example (I know you are working with sleep data, so let me try):\r\n\r\n- measure EEG in first hour after going to bed on the 4th of May 2018 using `acq-1000fs` (the label could mean sampling rate 1000 for the EEG)\r\n\r\n- Now try do do a `acq-250fs` --> it's impossible, because time has passed and the EEG activity of the first hour after going to bed on the 4th of May 2018 will never return\r\n\r\n\r\nThe `acq` parameter CAN be meaningfully used in EEG.\r\n\r\n### Example:\r\n\r\n- You are using the Nasion, Left, and Right Periaruicular Points as reference points for electrode locations (NAS, LPA, RPA)\r\n- To communicate the exact position of NAS, LPA, and RPA, you make photos of the participant (see [here](https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/03-electroencephalography.html#landmark-photos-_photojpg) for an example)\r\n- The photo showing the Nasion could be called `sub-0001_ses-001_acq-NAS_photo.jpg`\r\n- The photo of the Right Periauricular Point could be called `sub-0001_ses-001_acq-RPA_photo.jpg`\r\n\r\n... strictly speaking these are not different acquisition parameters (i.e., the settings of the camera are probably the same) - but it would be a valid \"re-use\" of the acq parameter."
+    },
+    {
+      "id": 480480961,
+      "url": "https://github.com/bids-standard/bids-specification/issues/194#issuecomment-480480961",
+      "created_at": "2019-04-06T07:11:31Z",
+      "updated_at": "2019-04-06T07:11:56Z",
+      "author": "Participant 2",
+      "body": "And as a bonus, here is my opinion for your\r\n\r\n# Q3\r\n\r\nI interpret it as such:\r\n\r\n> In description of scans.tsv you require the shift of dates by a fixed amount of days. \r\n\r\nyes, for more detail, see [here](https://bids-specification.readthedocs.io/en/stable/03-modality-agnostic-files.html#scans-file)\r\n\r\n> This implies that the scan date must be also removed from the data file, but I didn't found it mentioned explicitly. \r\n\r\nyes, the date must be removed or adjusted (see below) in the raw data file. Otherwise this is not a complete anonymization. Feel free to send over a PR to clarify or extend the specification! :-)\r\n\r\n> Moreover, EDF format requires an entry of a date -- should it be the same date as in scans.tsv, or I can choose a fixed fake one?\r\n\r\nI would strongly recommend to use the same date as in scans.tsv"
+    },
+    {
+      "id": 487128921,
+      "url": "https://github.com/bids-standard/bids-specification/issues/194#issuecomment-487128921",
+      "created_at": "2019-04-26T17:02:28Z",
+      "updated_at": "2019-04-26T17:02:28Z",
+      "author": "Participant 2",
+      "body": "closing as solved"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/bids-standard/bids-specification/issues/194",
+  "closed_at_available": false
+}

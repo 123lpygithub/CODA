@@ -1,0 +1,21 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:f9280bcb138177b95b241aecd6aede647d34c859/raw/",
+  "source_sha256": "e91774d436787c1023c4fcc323a8f164908ce1bc92cdc762d132dde199c3880a",
+  "fetched_at": "2026-11-05T06:47:43.201167+00:00",
+  "archive_directory": "a1af3eb12479cbe57a7837620fe49b08867d1719",
+  "git_blob_sha1": "f9280bcb138177b95b241aecd6aede647d34c859",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/2869f65a8c37b34b86a520bd6fdb866f33198596/",
+  "published_commit": "98a83ce3fa26c58e251d17e50dc063384ea2a1cb",
+  "revision_relation": "direct-parent-before-published-commit",
+  "revision_note": "The published introducing-commit pointer deletes this exact comment. The source is from its verified direct parent, where the full comment uniquely matches.",
+  "artifact_id": "23shades-0198-aajeiegcd",
+  "revision_url": "https://github.com/DistrictDataLabs/yellowbrick/commit/98a83ce3fa26c58e251d17e50dc063384ea2a1cb",
+  "filename": "yellowbrick/features/importances.py",
+  "commit": "2869f65a8c37b34b86a520bd6fdb866f33198596",
+  "line_start": 126,
+  "line_end": 150,
+  "excerpt": "        \"\"\"\n        super(FeatureImportances, self).fit(X, y, **kwargs)\n\n        # Get the feature importances from the model\n        self.feature_importances_ = self._find_importances_param()\n\n        # If feature importances is a multidim array, we're expecting a shape of\n        # (n_classes, n_features) therefore we flatten by taking the average by\n        # column to get shape (n_features,)  (see LogisticRegression)\n        if self.feature_importances_.ndim > 1:\n            self.feature_importances_ = np.mean(self.feature_importances_, axis=0)\n\n        # TODO - as an alternative to the above flattening approach, explore an\n        # alternative visualize that uses the array shape to create a stacked bar chart\n        # of feature importances for each class/feature combination\n\n        # Apply absolute value filter before normalization\n        if self.absolute:\n            self.feature_importances_ = np.abs(self.feature_importances_)\n\n        # Normalize features relative to the maximum\n        if self.relative:\n            maxv = self.feature_importances_.max()\n            self.feature_importances_ /= maxv\n            self.feature_importances_ *= 100.0",
+  "match_policy": "unique-full-comment-in-verified-parent-before-deletion",
+  "match_diff_url": "https://github.com/DistrictDataLabs/yellowbrick/commit/98a83ce3fa26c58e251d17e50dc063384ea2a1cb.diff",
+  "match_diff_sha256": "8992f27c124b72ade164fd55f516759ce4037881525337c9095b197f51b273e3"
+}

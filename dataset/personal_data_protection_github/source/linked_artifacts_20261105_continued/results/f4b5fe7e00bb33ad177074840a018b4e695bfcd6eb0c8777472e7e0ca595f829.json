@@ -1,0 +1,17 @@
+{
+  "url": "https://github.com/uazo/bromite/blob/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch#L435",
+  "kind": "file",
+  "cited_in": [
+    "comment_743747585",
+    "comment_744014542"
+  ],
+  "revision": "f6d9f2ebcc384c3e75d921fbb3f3bb309122096e",
+  "immutable_revision": true,
+  "line_start": 423,
+  "line_end": 447,
+  "text": "+import androidx.preference.PreferenceManager;\n+import android.content.res.Resources;\n+import java.lang.reflect.Field;\n+\n /**\n  * A helper class for Settings.\n  */\n@@ -118,4 +124,36 @@ public class SettingsUtils {\n         ImageView imageButton = (ImageView) button;\n         return imageButton.getDrawable() == parentMenu.getOverflowIcon();\n     }\n+\n+    public static PreferenceScreen inflatePrefsAddon(PreferenceFragmentCompat preferenceFragment, \n+                                                     String name,\n+                                                     Field[] fields,\n+                                                     String packageName) {\n+        Resources resources = preferenceFragment.getResources();\n+\n+        for(int count=0; count < fields.length; count++) {\n+            String assetName = fields[count].getName();\n+            Log.i(\"found \", assetName);\n+            if (assetName.startsWith(name)) {\n+                int resId = resources.getIdentifier(assetName, \"xml\", packageName);\n+                Log.i(\"inflating \", Integer.toString(resId));\n+                return SettingsUtils.inflatePreferencesFromResource(preferenceFragment, resId);",
+  "source_sha256": "276f439d9063a502225c5681d5371a640e6d25b8a3d68d8ddc131ccca98d7e96",
+  "fetched_at": "2026-11-05T06:21:15.986824+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/uazo/bromite/f6d9f2ebcc384c3e75d921fbb3f3bb309122096e/build/patches/add-user-scripts.v4.patch",
+  "status": "available"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0037-aajffhihe",
+  "revision_url": "https://github.com/tensorly/tensorly/commit/0967e0cdd01304c234121ad89babb2ffccd2f4d2",
+  "filename": "doc/sphinx_ext/numpydoc/compiler_unparse.py",
+  "commit": "0967e0cdd01304c234121ad89babb2ffccd2f4d2",
+  "source_url": "https://raw.githubusercontent.com/tensorly/tensorly/0967e0cdd01304c234121ad89babb2ffccd2f4d2/doc/sphinx_ext/numpydoc/compiler_unparse.py",
+  "fetched_at": "2026-11-05T06:11:44.426492+00:00",
+  "source_sha256": "9d7e272f56c65fb13d51686ed39f48ad7c0c6e2570abd6cc359f47536a09815d",
+  "line_start": 1,
+  "line_end": 24,
+  "excerpt": "\"\"\" Turn compiler.ast structures back into executable python code.\n\n    The unparse method takes a compiler.ast tree and transforms it back into\n    valid python code.  It is incomplete and currently only works for\n    import statements, function calls, function definitions, assignments, and\n    basic expressions.\n\n    Inspired by python-2.5-svn/Demo/parser/unparse.py\n\n    fixme: We may want to move to using _ast trees because the compiler for\n           them is about 6 times faster than compiler.compile.\n\"\"\"\nfrom __future__ import division, absolute_import, print_function\n\nimport sys\nfrom compiler.ast import Const, Name, Tuple, Div, Mul, Sub, Add\n\nif sys.version_info[0] >= 3:\n    from io import StringIO\nelse:\n    from StringIO import StringIO\n\ndef unparse(ast, single_line_functions=False):\n    s = StringIO()",
+  "match_policy": "unique-release-normalized-v2"
+}

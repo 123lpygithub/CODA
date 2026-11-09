@@ -1,0 +1,42 @@
+{
+  "artifact_id": "privacy-issue-21228",
+  "source_issue_url": "https://github.com/invoiceninja/invoiceninja/issues/886",
+  "issue_snapshot_sha256": "455b810cd238700324ddef0af47dc979b22a5dda04061274ac6a82d11e2adebe",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/587#issuecomment-167955413",
+      "kind": "issue",
+      "cited_in": [
+        "body"
+      ],
+      "text": "{\n  \"format\": \"coda-github-issue-snapshot\",\n  \"format_version\": 1,\n  \"artifact_id\": \"privacy-issue-linked-587\",\n  \"issue_url\": \"https://github.com/invoiceninja/invoiceninja/issues/587\",\n  \"source_issue_url\": \"https://github.com/invoiceninja/invoiceninja/issues/587\",\n  \"api_url\": \"https://api.github.com/repos/invoiceninja/invoiceninja/issues/587\",\n  \"title\": \"attach pdf for API email invoice \",\n  \"body\": \"Hi, is there anyway to attach pdf to email for:\\n\\nRoute::post('email_invoice', 'InvoiceApiController@emailInvoice');\\n\\nSince there are no live preview generated from the UI, is there anyway we can make use of 'makePDF' to generate invoice pdf on backend?\\n\",\n  \"author\": \"Participant 1\",\n  \"created_at\": \"2015-12-30T06:44:34Z\",\n  \"updated_at\": \"2016-02-04T08:32:10Z\",\n  \"state\": \"closed\",\n  \"closed_at\": null,\n  \"issue_fetched_at\": \"2026-11-05T06:23:50.582202+00:00\",\n  \"comments_fetched_at\": [\n    \"2026-11-05T06:23:50.582202+00:00\"\n  ],\n  \"expected_comment_count\": 3,\n  \"retrieved_comment_count\": 3,\n  \"comments_complete\": true,\n  \"comments\": [\n    {\n      \"id\": 167955413,\n      \"url\": \"https://github.com/invoiceninja/invoiceninja/issues/587#issuecomment-167955413\",\n      \"created_at\": \"2015-12-30T08:13:13Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 2\",\n      \"body\": \"Yes, we use https://phantomjscloud.com/site/index.html to support this. Consider signing up to increase your daily limit. \\n\\nMake sure you have the following line in your .env file. Note: for this to work your app instance must be publicly available. \\n\\n`PHANTOMJS_CLOUD_KEY='a-demo-key-with-low-quota-per-ip-address'` \\n\"\n    },\n    {\n      \"id\": 167964442,\n      \"url\": \"https://github.com/invoiceninja/invoiceninja/issues/587#issuecomment-167964442\",\n      \"created_at\": \"2015-12-30T09:20:05Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 1\",\n      \"body\": \"Hi @hillelcoren, thanks for the fast response,\\n\\nCurrently i'm testing in a local environment.\\n\\nSo am i right to say that, the current email logic already catered to pdf attachment via API call?\\nAs long as i deploy the app to a live server, it will work?\\n\\nOr \\n\\nIs there any additional configuration required?\\n\\nP.S: `PHANTOMJS_CLOUD_KEY='a-demo-key-with-low-quota-per-ip-address'` is present in my .env file\\n\"\n    },\n    {\n      \"id\": 167964798,\n      \"url\": \"https://github.com/invoiceninja/invoiceninja/issues/587#issuecomment-167964798\",\n      \"created_at\": \"2015-12-30T09:24:31Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 2\",\n      \"body\": \"That's correct, when you go live it should just work. \\n\"\n    }\n  ],\n  \"evidence_status\": \"complete\",\n  \"scope\": \"Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.\",\n  \"retrieval_method\": \"GitHub public issue page embedded original Markdown\",\n  \"retrieval_url\": \"https://github.com/invoiceninja/invoiceninja/issues/587\",\n  \"closed_at_available\": false\n}",
+      "status": "available",
+      "fetched_at": "2026-11-05T06:23:50.582202+00:00",
+      "retrieved_comment_count": 3,
+      "expected_comment_count": 3,
+      "reason": ""
+    },
+    {
+      "url": "https://github.com/wernight/docker-phantomjs/blob/master/Dockerfile",
+      "kind": "file",
+      "cited_in": [
+        "comment_270483293"
+      ],
+      "status": "partial",
+      "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+      "historical_evidence": true,
+      "revision": "28a838cb70f12a1fc5c56cf42e1c5db87fb6318f",
+      "immutable_revision": true,
+      "retrieval_url": "https://raw.githubusercontent.com/wernight/docker-phantomjs/28a838cb70f12a1fc5c56cf42e1c5db87fb6318f/Dockerfile",
+      "text": "FROM debian:buster-slim\n\nARG PHANTOM_JS_VERSION\nARG DUMB_INIT_VERSION\n\n# https://bitbucket.org/ariya/phantomjs/downloads/\nENV PHANTOM_JS_VERSION ${PHANTOM_JS_VERSION:-2.1.1-linux-x86_64}\n\n# Install runtime dependencies\nRUN apt-get update \\\n && apt-get install -y --no-install-recommends \\\n        ca-certificates \\\n        curl \\\n        bzip2 \\\n        libfontconfig \\\n && apt-get clean \\\n && rm -rf /var/lib/apt/lists/*\n\n# https://github.com/Yelp/dumb-init/releases\nENV DUMB_INIT_VERSION ${DUMB_INIT_VERSION:-1.2.2}\n\nRUN set -x  \\\n    # Install official PhantomJS release\n && mkdir /tmp/phantomjs \\\n && curl -L https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${PHANTOM_JS_VERSION}.tar.bz2 \\\n        | tar -xj --strip-components=1 -C /tmp/phantomjs \\\n && mv /tmp/phantomjs/bin/phantomjs /usr/local/bin \\\n    # Install dumb-init (to handle PID 1 correctly).\n && curl -Lo /tmp/dumb-init.deb https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_amd64.deb \\\n && dpkg -i /tmp/dumb-init.deb\n\n# PhantomJS requires  an OpenSSL config even if it's an empty one,\n# else it'll complain about \"libssl_conf.so: cannot open shared object file\"\n# which seems to be a recent bug.\nENV OPENSSL_CONF=/opt/openssl.cnf\n\nRUN set -x \\\n    # Runs as non-root user.\n && useradd --system --uid 52379 -m --shell /usr/sbin/nologin phantomjs \\\n && touch /opt/openssl.cnf \\\n    # Basic test.\n && su phantomjs -s /bin/sh -c \"dumb-init phantomjs --version\"\n\nUSER phantomjs\n\nEXPOSE 8910\n\nENTRYPOINT [\"dumb-init\"]\nCMD [\"phantomjs\"]\n\n# NOTE: The healthcheck only makes sense if it's started with --webdriver=8910\n#HEALTHCHECK --interval=5s --timeout=2s --retries=20 \\\n#    CMD curl --connect-timeout 5 --silent --show-error --fail http://localhost:8910/wd/hub/status || exit 1\n",
+      "source_sha256": "0c30f4a1db35186c3ee3edae6706f269cf2baa70c47ca0ef7f6a1546150537a8",
+      "fetched_at": "2026-11-05T15:45:19.208565+00:00",
+      "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+      "history_query_url": "https://api.github.com/repos/wernight/docker-phantomjs/commits?path=Dockerfile&per_page=5",
+      "history_response_sha256": "0440a5ddabefa6f44cc6c52c439a43829ab2f2d2247984ec2cebe6aa8cad7d04",
+      "history_entry_sha": "d3279ddafd4343cb408f04f3140ffb95459721e6",
+      "history_commit_date": "2020-07-29T18:15:27Z"
+    }
+  ]
+}

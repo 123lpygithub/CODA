@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0402-aagibhhbe",
+  "revision_url": "https://github.com/google-research/google-research/commit/2f91be04c68fcb9546b60b09941a3ed12be58c4f",
+  "filename": "ipagnn/lib/dataset_utils.py",
+  "commit": "2f91be04c68fcb9546b60b09941a3ed12be58c4f",
+  "source_url": "https://raw.githubusercontent.com/google-research/google-research/2f91be04c68fcb9546b60b09941a3ed12be58c4f/ipagnn/lib/dataset_utils.py",
+  "fetched_at": "2026-11-05T06:12:46.011204+00:00",
+  "source_sha256": "893ff30c0791a45d38a372ce80182e59dc8b23234aa53e58b31475bab2ccbadb",
+  "line_start": 71,
+  "line_end": 95,
+  "excerpt": "  filtered out, we catch that here.\n\n  This lets us fail fast if we accidentally put in configs that will lead to all\n  examples being filtered out, rather than silently succeeding but never making\n  progress.\n\n  Args:\n    dataset_name: The name of the dataset being loaded.\n    info: The dataset info object.\n    config: The config for the model.\n  \"\"\"\n  if dataset_name.startswith('control_flow_programs'):\n    # TODO(dbieber): Move this logic into the dataset definition.\n    length = info.program_generator_config.length\n    tokens_per_statement = info.program_encoder.tokens_per_statement\n    assert (\n        not config.dataset.max_length\n        or config.dataset.max_length >= tokens_per_statement * length)\n\n\ndef cannot_set_task(**kwargs):\n  \"\"\"Use this as the set_task fn when no curriculum is permitted.\"\"\"\n  del kwargs  # Unused.\n  raise ValueError('The task cannot be changed. This is probably because the '\n                   'data is being loaded from disk, rather than generated '"
+}

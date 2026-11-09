@@ -1,0 +1,282 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27prebid%2FPrebid.js%27+AND+number%3D6289+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='prebid/Prebid.js' AND number=6289 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:37.851250+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "haroldpussat",
+        "created_at": "2021-02-09 10:17:26",
+        "updated_at": "2021-02-09 10:17:26",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "## Type of issue\r\nBUG\r\n\r\n## Description\r\nPrebid.js with criteoId module writes in local storage a entry called '**prebid.cookieTest**' with value '1' before CMP validation, and so before consent for write cookie / local storage is available.\r\n\r\n## Steps to reproduce\r\nBuild a prebid.js with criteoID sub module (tester with prebid.js 4.15)\r\nSetup the criteo module in userSync.userIds.name: \"criteo\" for pbjs.settings\r\nNavigate on below test page in private navigation.\r\n\r\nIf I build a prebid.js version without criteoId sub module, it seems the local storage is not written before CMP validation.\r\n\r\n## Test page\r\nprivate navigation with Chrome, before validate the CMP : https://lp.additi.fr/interne/hpu/criteoID-module/index_20200909.html\r\n![image](https://user-images.githubusercontent.com/23049515/107348473-55799680-6ac7-11eb-9531-e238daf2a8b2.png)\r\n\r\n\r\n### Expected results\r\nBefore CMP validation, no writes in local storage or cookie is allowed (legal basis)\r\n\r\n### Actual results\r\nprebid.cookieTest is recorded in local storage (see enclosed screenshot)\r\n\r\n## Platform details\r\nTested on Prebid.js 4.15 and 4.24 with criteoID sub module built in.\r\n\r\n## Other information\r\nseems linked to #5616 \r\n",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-09 10:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "allanjun",
+        "created_at": "2021-02-15 10:46:33",
+        "updated_at": "2021-02-15 10:46:33",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "Hi @haroldpussat  thank you for reporting that, Criteo team will have a look! ",
+        "comment_id": 779135168,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-15 10:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "allanjun",
+        "created_at": "2021-02-16 09:57:51",
+        "updated_at": "2021-02-16 09:57:51",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "After some investigation, we concluded that this works as expected. Please notice this is not exclusive to Criteo UserId module. This behaviour was applied on this commit:\r\n\r\nhttps://github.com/prebid/Prebid.js/pull/5018/files#diff-381b65d4141bd216f9021175532d712ce87a9c4a55985c0cf1226f03421b6014R127\r\n\r\nThe explanation is documented here: https://github.com/prebid/Prebid.js/blob/master/src/storageManager.js#L292 \r\n\r\n> This function returns storage functions to access cookies and localstorage. This function will bypass the gdpr enforcement requirement. Prebid as a software needs to use storage in some scenarios and is not a vendor so GDPR enforcement rules does not apply on Prebid.",
+        "comment_id": 779722505,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-16 09:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "patmmccann",
+        "created_at": "2021-02-16 12:46:36",
+        "updated_at": "2021-02-16 12:46:35",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "@bretg i think this should be documented in multiple places on prebid docs, potentially gdpr module and userid module pages. Anywhere else?",
+        "comment_id": 779814439,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-16 12:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "haroldpussat",
+        "created_at": "2021-02-16 14:10:24",
+        "updated_at": "2021-02-16 14:10:24",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "Thanks for the feedback @allanjun . But our DPO maintains that in the scope of advertising, even if Prebid is not a vendor, the consent is mandatory before write in local storage. \r\n\r\n\r\n",
+        "comment_id": 779860746,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-16 14:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "patmmccann",
+        "created_at": "2021-02-16 14:14:19",
+        "updated_at": "2021-02-16 14:14:18",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "@Fawke fyi, can we put this behavior behind consent or config?",
+        "comment_id": 779862980,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-16 14:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Fawke",
+        "created_at": "2021-02-19 10:35:36",
+        "updated_at": "2021-02-19 10:35:36",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "@patmmccann @haroldpussat This behaviour sits behind consent, but you need to make sure `GDPR Enforcement` is included in your build. So, in the end, if `criteo` doesn't have consent, it should not write anything in localStorage.\r\n\r\n`prebid.cookieTest` is written by one of the functions `localStorageIsEnabled` defined in `storageManager` core module. So if a core module calls this function, this gets written. #6323 fixes that.",
+        "comment_id": 781989848,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-19 10:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "bretg",
+        "created_at": "2021-02-21 18:45:29",
+        "updated_at": "2021-02-21 18:45:28",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "Prebid does have a GVLID now -- 887. If we're setting cookies for our own purposes (e.g. test), it needs to be done with the user's approval for this vendor ID.",
+        "comment_id": 782905370,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-21 18:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Fawke",
+        "created_at": "2021-02-22 11:22:02",
+        "updated_at": "2021-02-22 11:22:02",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "Hi @bretg,\r\n\r\nThis would require us to change a few things. We currently have two ways of accessing storage in Prebid.js. One is access required by core modules (doesn't require user consent) and other by third party modules (sits behind consent).\r\n\r\nFor now, I see few core modules bypassing GDPR checks namely: `categoryTranslation.js`, `userId`, `userSync` and a file in `bidderFactory.js` is using storage without consent.\r\n\r\nIf we were to enforce checks on core, is there an interface where a publisher can grant/deny access to Prebid.js? Do we wanna create a config option in setConfig or is there another simple solution.\r\n\r\nI don't know at the moment how inner workings of Prebid.js will get impacted with no storage access, so I'll have to dig into this a bit more. And do we wanna warn publisher the impact of disabling storage access to Prebid.js core?",
+        "comment_id": 783303443,
+        "comments": 7,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-22 11:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "patmmccann",
+        "created_at": "2021-02-22 11:33:26",
+        "updated_at": "2021-02-22 11:33:26",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "The publisher runs prebid software, often custom modified and proprietary,\nand sets this cookie in its own domain. I am not following the logic on the\npublisher needing to gather consent on the prebid gvl id.\n\nOn Mon, Feb 22, 2021, 7:22 AM Neelanjan Sen <notifications@github.com>\nwrote:\n\n> Hi @bretg <https://github.com/bretg>,\n>\n> This would require us to change a few things. We currently have two ways\n> of accessing storage in Prebid.js. One is access required by core modules\n> (doesn't require user consent) and other by third party modules (sits\n> behind consent).\n>\n> For now, I see few core modules bypassing GDPR checks namely:\n> categoryTranslation.js, userId, userSync and a file in bidderFactory.js\n> is using storage without consent.\n>\n> If we were to enforce checks on core, is there an interface where a\n> publisher can grant/deny access to Prebid.js? Do we wanna create a config\n> option in setConfig or is there another simple solution.\n>\n> I don't know at the moment how inner workings of Prebid.js will get\n> impacted with no storage access, so I'll have to dig into this a bit more.\n> And do we wanna warn publisher the impact of disabling storage access to\n> Prebid.js core?\n>\n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/prebid/Prebid.js/issues/6289#issuecomment-783303443>,\n> or unsubscribe\n> <https://github.com/notifications/unsubscribe-auth/AAM25ZZBEZKT5TEMHZEXSH3TAI47BANCNFSM4XKWRMGA>\n> .\n>\n",
+        "comment_id": 783310176,
+        "comments": 8,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-22 11:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "patmmccann",
+        "created_at": "2021-02-22 11:36:11",
+        "updated_at": "2021-02-22 11:36:11",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "The software that sets the cookie is not the party that sets the cookie;\npublishers don't need to get consent for nginx, apache, or Javascript. The\nonly time this isn't true for prebid should be sharedid.org cookies, right?\n\nOn Mon, Feb 22, 2021, 7:33 AM Patrick McCann <patmmccann@gmail.com> wrote:\n\n> The publisher runs prebid software, often custom modified and proprietary,\n> and sets this cookie in its own domain. I am not following the logic on the\n> publisher needing to gather consent on the prebid gvl id.\n>\n> On Mon, Feb 22, 2021, 7:22 AM Neelanjan Sen <notifications@github.com>\n> wrote:\n>\n>> Hi @bretg <https://github.com/bretg>,\n>>\n>> This would require us to change a few things. We currently have two ways\n>> of accessing storage in Prebid.js. One is access required by core modules\n>> (doesn't require user consent) and other by third party modules (sits\n>> behind consent).\n>>\n>> For now, I see few core modules bypassing GDPR checks namely:\n>> categoryTranslation.js, userId, userSync and a file in bidderFactory.js\n>> is using storage without consent.\n>>\n>> If we were to enforce checks on core, is there an interface where a\n>> publisher can grant/deny access to Prebid.js? Do we wanna create a config\n>> option in setConfig or is there another simple solution.\n>>\n>> I don't know at the moment how inner workings of Prebid.js will get\n>> impacted with no storage access, so I'll have to dig into this a bit more.\n>> And do we wanna warn publisher the impact of disabling storage access to\n>> Prebid.js core?\n>>\n>> —\n>> You are receiving this because you were mentioned.\n>> Reply to this email directly, view it on GitHub\n>> <https://github.com/prebid/Prebid.js/issues/6289#issuecomment-783303443>,\n>> or unsubscribe\n>> <https://github.com/notifications/unsubscribe-auth/AAM25ZZBEZKT5TEMHZEXSH3TAI47BANCNFSM4XKWRMGA>\n>> .\n>>\n>\n",
+        "comment_id": 783311721,
+        "comments": 9,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-02-22 11:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "gglas",
+        "created_at": "2021-03-29 16:04:35",
+        "updated_at": "2021-03-29 16:04:34",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "We think this is resolved by #6323 pending some documentation -- please let us know if we need to reopen",
+        "comment_id": 809507916,
+        "comments": 11,
+        "state": "closed",
+        "closed_at": "2021-03-29 16:04:34",
+        "file_time": "2021-03-29 16:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "gglas",
+        "created_at": "2021-03-29 16:04:35",
+        "updated_at": "2021-03-29 16:04:35",
+        "title": "Writes in local storage before CMP validation - prebid.cookieTest - criteoID",
+        "body": "## Type of issue\r\nBUG\r\n\r\n## Description\r\nPrebid.js with criteoId module writes in local storage a entry called '**prebid.cookieTest**' with value '1' before CMP validation, and so before consent for write cookie / local storage is available.\r\n\r\n## Steps to reproduce\r\nBuild a prebid.js with criteoID sub module (tester with prebid.js 4.15)\r\nSetup the criteo module in userSync.userIds.name: \"criteo\" for pbjs.settings\r\nNavigate on below test page in private navigation.\r\n\r\nIf I build a prebid.js version without criteoId sub module, it seems the local storage is not written before CMP validation.\r\n\r\n## Test page\r\nprivate navigation with Chrome, before validate the CMP : https://lp.additi.fr/interne/hpu/criteoID-module/index_20200909.html\r\n![image](https://user-images.githubusercontent.com/23049515/107348473-55799680-6ac7-11eb-9531-e238daf2a8b2.png)\r\n\r\n\r\n### Expected results\r\nBefore CMP validation, no writes in local storage or cookie is allowed (legal basis)\r\n\r\n### Actual results\r\nprebid.cookieTest is recorded in local storage (see enclosed screenshot)\r\n\r\n## Platform details\r\nTested on Prebid.js 4.15 and 4.24 with criteoID sub module built in.\r\n\r\n## Other information\r\nseems linked to #5616 \r\n",
+        "comment_id": 0,
+        "comments": 11,
+        "state": "closed",
+        "closed_at": "2021-03-29 16:04:34",
+        "file_time": "2021-03-29 16:00:00",
+        "repo_name": "prebid/Prebid.js",
+        "number": 6289
+      }
+    ],
+    "rows": 13,
+    "statistics": {
+      "elapsed": 0.021892012,
+      "rows_read": 324622,
+      "bytes_read": 4953262
+    }
+  },
+  "response_sha256": "a48d71866b8960ace8cf5a025f0ba5e5365272bef94b2448f15ac0278a883682"
+}

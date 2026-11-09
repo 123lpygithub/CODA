@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0268-aadfdgaei",
+  "revision_url": "https://github.com/sbl-sdsc/mmtf-pyspark/commit/225ecd1a3db1e9586ab46d7f1b6fa0dc6d00bcf4",
+  "filename": "mmtfPyspark/utils/mmtfSubstructure.py",
+  "commit": "225ecd1a3db1e9586ab46d7f1b6fa0dc6d00bcf4",
+  "source_url": "https://raw.githubusercontent.com/sbl-sdsc/mmtf-pyspark/225ecd1a3db1e9586ab46d7f1b6fa0dc6d00bcf4/mmtfPyspark/utils/mmtfSubstructure.py",
+  "fetched_at": "2026-11-05T06:12:25.047941+00:00",
+  "source_sha256": "e3d15e6aec65c5e214205226d45221da486ac4b677c187522a452fa9d571682e",
+  "line_start": 56,
+  "line_end": 80,
+  "excerpt": "        if chem_comp_types is not None:\n            self.mask = self.mask & np.in1d(structure.chem_comp_types, list(chem_comp_types))\\\n                .reshape(structure.chem_comp_types.shape)\n        if entity_types is not None:\n            self.mask = self.mask & np.in1d(structure.entity_types, list(entity_types))\\\n                .reshape(structure.entity_types.shape)\n\n        # update counts\n        self.num_atoms = np.count_nonzero(self.mask)\n        self.modified = structure.num_atoms != self.num_atoms\n        # TODO number of groups calc.: need to consider chain name and insertion code, models\n        self.num_groups = np.unique(self.group_numbers).size\n        # TODO consider multiple models\n        self.num_chains = np.unique(self.chain_ids).size\n        self.num_models = structure.num_models\n\n        self.mmtf_version = structure.mmtf_version\n        self.mmtf_producer = structure.mmtf_producer\n        self.unit_cell = structure.unit_cell\n        self.space_group = structure.space_group\n        self.structure_id = structure.structure_id + \".\" + label\n        self.title = structure.title\n        self.deposition_date = structure.deposition_date\n        self.release_date = structure.release_date\n        self.ncs_operator_list = structure.ncs_operator_list"
+}

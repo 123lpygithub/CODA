@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0826-aaeieahii",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/04e0c99e7791eada1b2d0c517e8261fd81cfd9a6",
+  "filename": "hpat/distributed_api.py",
+  "commit": "04e0c99e7791eada1b2d0c517e8261fd81cfd9a6",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/04e0c99e7791eada1b2d0c517e8261fd81cfd9a6/hpat/distributed_api.py",
+  "fetched_at": "2026-11-05T06:14:00.785859+00:00",
+  "source_sha256": "59ca0a3255c07b24edee9ddf4cce71dc6ef336292438535b96ab6fabe6c5acbb",
+  "line_start": 119,
+  "line_end": 143,
+  "excerpt": "        return gatherv_impl\n\n    if data_t == string_array_type:\n        int32_typ_enum = np.int32(_h5_typ_table[types.int32])\n        char_typ_enum = np.int32(_h5_typ_table[types.uint8])\n\n        def gatherv_str_arr_impl(data):\n            rank = hpat.distributed_api.get_rank()\n            n_loc = len(data)\n            n_all_chars = num_total_chars(data)\n\n            # allocate send lens arrays\n            send_arr_lens = np.empty(n_loc, np.uint32)  # XXX offset type is uint32\n            send_data_ptr = get_data_ptr(data)\n\n            for i in range(n_loc):\n                _str = data[i]\n                send_arr_lens[i] = len(_str)\n                del_str(_str)\n\n            recv_counts = gather_scalar(np.int32(n_loc))\n            recv_counts_char = gather_scalar(np.int32(n_all_chars))\n            n_total = recv_counts.sum()\n            n_total_char = recv_counts_char.sum()\n"
+}

@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-6849",
+  "issue_url": "https://github.com/pypi/warehouse/issues/4470",
+  "source_issue_url": "https://github.com/pypi/warehouse/issues/4470",
+  "api_url": "https://api.github.com/repos/pypi/warehouse/issues/4470",
+  "title": "Add javascript/frontend validation of breached passwords",
+  "body": "In https://github.com/pypa/warehouse/pull/4468 we've started blocking new passwords (via registration, reset, or password change) that have previously been in a data breach of a compromised website. However, that validation currently only occurs server side, it would be nice to also have it occur client side.\r\n\r\nThis can happen in two ways:\r\n\r\n* Have the client JS hit the HIBP API directly, effectively re-implementing the logic that exists in the Python code.\r\n* Have the client JS hit a private API endpoint on Warehouse, that calls into the logic that exists there.\r\n  * If we do this, what should this API look like? Do we want to just send the password over the wire (since that's going to happen on submit anyways?), do we want to prehash it with sha1 and send that over the wire? Or do we want to reimplement the HIBP api in Warehouse? (this would only prevent leaking our users PII via additional http requests to an external service).\r\n\r\nOf course, the other question is whether we want to do this or not. It's hard to do it without either reimplementing logic, or sending the password to Warehouse as the user is typing it, neither of which are ideal. Maybe having this validation happen only server side is ok?",
+  "author": "Participant 1",
+  "created_at": "2018-08-05T21:42:10Z",
+  "updated_at": "2020-02-04T00:02:40Z",
+  "state": "closed",
+  "closed_at": "2020-01-14T23:55:08Z",
+  "issue_fetched_at": "2026-10-18T19:10:21.967272+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T19:10:23.436688+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 412988014,
+      "url": "https://github.com/pypi/warehouse/issues/4470#issuecomment-412988014",
+      "created_at": "2018-08-14T19:28:12Z",
+      "updated_at": "2019-03-22T15:10:34Z",
+      "author": "Participant 2",
+      "body": "I see value in having the registration form perform this check in the frontend alongside having the strength one using zxcvbn. Admittedtly the logic is simpler in that case but this one [doesn't look that difficult to replicate](https://github.com/pypa/warehouse/blob/99e6c7eaa60696098c06506366fc30613e484513/warehouse/accounts/services.py#L339-L391).\r\n\r\nMaybe we could call the HIBP API only when the user focuses away from the password field and/or when focusing on the confirmation input instead on every keypress?"
+    },
+    {
+      "id": 475678596,
+      "url": "https://github.com/pypi/warehouse/issues/4470#issuecomment-475678596",
+      "created_at": "2019-03-22T16:04:27Z",
+      "updated_at": "2019-03-22T16:04:27Z",
+      "author": "Participant 3",
+      "body": "We'd be interested in having volunteers do this work and add this feature to Warehouse! @yeraydiazdiaz is this something you're interested in working on?"
+    },
+    {
+      "id": 475944108,
+      "url": "https://github.com/pypi/warehouse/issues/4470#issuecomment-475944108",
+      "created_at": "2019-03-24T09:57:57Z",
+      "updated_at": "2019-03-24T09:57:57Z",
+      "author": "Participant 2",
+      "body": "Hi @brainwane, nice to have you back 🙂 \r\n\r\nYeah, I could throw some cycles at this."
+    },
+    {
+      "id": 503614302,
+      "url": "https://github.com/pypi/warehouse/issues/4470#issuecomment-503614302",
+      "created_at": "2019-06-19T15:38:20Z",
+      "updated_at": "2019-06-19T15:38:20Z",
+      "author": "Participant 3",
+      "body": "@yeraydiazdiaz great! Have you had any time to poke at this?"
+    },
+    {
+      "id": 505347007,
+      "url": "https://github.com/pypi/warehouse/issues/4470#issuecomment-505347007",
+      "created_at": "2019-06-25T08:39:08Z",
+      "updated_at": "2019-06-25T08:39:08Z",
+      "author": "Participant 2",
+      "body": "@brainwane I started some time ago but never got far with it, I may get some time to work on this soon though."
+    },
+    {
+      "id": 507907839,
+      "url": "https://github.com/pypi/warehouse/issues/4470#issuecomment-507907839",
+      "created_at": "2019-07-03T01:59:30Z",
+      "updated_at": "2019-07-03T01:59:55Z",
+      "author": "Participant 3",
+      "body": "That would be great if you could, @yeraydiazdiaz!"
+    },
+    {
+      "id": 581678632,
+      "url": "https://github.com/pypi/warehouse/issues/4470#issuecomment-581678632",
+      "created_at": "2020-02-04T00:02:39Z",
+      "updated_at": "2020-02-04T00:02:39Z",
+      "author": "Participant 3",
+      "body": "Thanks, all, for working on this!\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

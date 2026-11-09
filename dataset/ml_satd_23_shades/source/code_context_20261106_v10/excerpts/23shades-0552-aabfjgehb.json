@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0552-aabfjgehb",
+  "revision_url": "https://github.com/alvinwan/timefhuman/commit/a4ecf98f4f5c455534c34b1adac99f3ff442be51",
+  "filename": "timefhuman/data.py",
+  "commit": "a4ecf98f4f5c455534c34b1adac99f3ff442be51",
+  "source_url": "https://raw.githubusercontent.com/alvinwan/timefhuman/a4ecf98f4f5c455534c34b1adac99f3ff442be51/timefhuman/data.py",
+  "fetched_at": "2026-11-05T06:13:11.297808+00:00",
+  "source_sha256": "369809cf51f253850f07ad2ef56490305e00b46b26d533c07099aec481be9aaa",
+  "line_start": 3,
+  "line_end": 27,
+  "excerpt": "\nclass Token:\n    pass\n\n\nclass DayTimeToken(Token):\n\n    def __init__(self, year, month, day, relative_hour, minute=0, time_of_day='am'):\n        self.day = DayToken(month, day, year)\n        self.time = TimeToken(relative_hour, time_of_day, minute)\n\n    def datetime(self, now):\n        # TODO: handle Nones\n        return datetime.datetime(\n            self.day.year, self.day.month, self.day.day, self.time.hour, self.time.minute)\n\n    def __repr__(self):\n        return '{} {}'.format(repr(self.day), repr(self.time))\n\n\nclass DayTimeRange(Token):\n    \"\"\"\n    >>> dt1 = DayTimeToken(2018, 8, 1, 10)\n    >>> dt2 = DayTimeToken(2018, 8, 1, 11)\n    >>> dt3 = DayTimeToken(2018, 8, 1, 1, time_of_day='pm')"
+}

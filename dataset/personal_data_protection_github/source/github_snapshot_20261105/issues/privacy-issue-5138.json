@@ -1,0 +1,141 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5138",
+  "issue_url": "https://github.com/openwhyd/openwhyd/issues/90",
+  "source_issue_url": "https://github.com/openwhyd/openwhyd/issues/90",
+  "api_url": "https://api.github.com/repos/openwhyd/openwhyd/issues/90",
+  "title": "Safety: find and prevent errors from production logs",
+  "body": "EDITED ON 26/10/2017:\r\n\r\n> What I have in mind is a tool that would look for lines containing error or warning (by doing something similar to a tail -f mylog.out | grep error), group these lines by type of error (or warning), then send a summary every week (e.g. by email).\r\n> \r\n> We don't need a fancy dashboard, just a tool that would be able to do this grouping from our log files and send us a summary.",
+  "author": "Participant 1",
+  "created_at": "2017-08-18T14:05:46Z",
+  "updated_at": "2017-11-19T16:51:23Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:02.758216+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:02.758216+00:00"
+  ],
+  "expected_comment_count": 14,
+  "retrieved_comment_count": 14,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 331458004,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-331458004",
+      "created_at": "2017-09-22T14:10:52Z",
+      "updated_at": "2017-09-22T14:11:51Z",
+      "author": "Participant 2",
+      "body": "Is it an issue? Prod logs are great to gather technical community feedback.\r\n\r\nBefore addressing this issue, there would be a need of a modern build pipeline of scripts, it will help to whether silent errors or not, based on environment. For now, it seems to me that static files are served directly ( `whydJS/public/js` folder)\r\n\r\nSo far, I saw logs from:\r\n- [Google Analytics](https://github.com/openwhyd/openwhyd/blob/d5935d7f1001e682174fdcba6b79cbda23e97ecc/whydJS/public/js/whydtr.js#L54)\r\n- [jQueryMigrate, this one needs only `jQuery.migrateMute = true`](https://github.com/openwhyd/openwhyd/blob/ce1cb979bb2396b94016bda3fb3388fd20f9e402/whydJS/public/js/jquery-migrate-1.2.1.js#L17) \r\n- WhydPlayer, who depends from your Playem \r\n\r\n"
+    },
+    {
+      "id": 331616656,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-331616656",
+      "created_at": "2017-09-23T07:18:20Z",
+      "updated_at": "2017-09-23T07:18:20Z",
+      "author": "Participant 1",
+      "body": "I was thinking of server logs, actually.\r\n\r\nToday, they are stored in log files on the production server, and there is no way to monitor to alert developers in case of critical errors.\r\n\r\nDo you have any service to recommend for that?\r\n (Something that we could use for free, as an open source project)"
+    },
+    {
+      "id": 339621215,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-339621215",
+      "created_at": "2017-10-26T10:21:27Z",
+      "updated_at": "2017-10-26T10:21:27Z",
+      "author": "Participant 3",
+      "body": "hi, \r\n\r\nin the first step maybe you can use that : https://mmonit.com/monit/. if you need more feature you can see  that  : \r\n\r\n- https://logz.io/learn/complete-guide-elk-stack/ (replace logstash by filebeat is more efficient).\r\n- https://github.com/stefanprodan/dockprom (it's cool you can simply integrated that a alert in slack). \r\n- https://www.influxdata.com/time-series-platform/ (just see that but i'm not tested). \r\n- https://www.datadoghq.com/ (SAAS solution). \r\n\r\nRegards\r\n\r\n"
+    },
+    {
+      "id": 339703376,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-339703376",
+      "created_at": "2017-10-26T15:25:57Z",
+      "updated_at": "2017-10-26T15:25:57Z",
+      "author": "Participant 1",
+      "body": "> You can also use Monit to monitor files, directories and filesystems on localhost. Monit can monitor these items for changes, such as timestamps changes, checksum changes or size changes. This is also useful for security reasons - you can monitor the md5 or sha1 checksum of files that should not change and get an alert or perform an action if they should change.\r\n\r\nInteresting, indeed, @josselinchevalay!\r\n\r\nIs this the right tool to aggregate warning and error messages by type, so that we can focus on the most important issues to solve first?\r\n\r\nWhat I have in mind is a tool that would look for lines containing `error` or `warning` (by doing something similar to a `tail -f mylog.out | grep error`), group these lines by type of `error` (or `warning`), then send a summary every week (e.g. by email).\r\n\r\nWe don't need a fancy dashboard, just a tool that would be able to do this grouping from our log files and send us a summary."
+    },
+    {
+      "id": 339707377,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-339707377",
+      "created_at": "2017-10-26T15:38:03Z",
+      "updated_at": "2017-10-26T15:46:33Z",
+      "author": "Participant 3",
+      "body": "hi @adrienjoly \r\n\r\nfor example if you choose ELK stack your logstash instance can get all logs on elasticsearch after with kibana you can create a dashboard for exemple all logs where ERROR appear or other detail. \r\n\r\nWith my second propal you have the same system and you can add a bot to follow a metric and when this metric is to upper you can send a slack message. \r\n\r\nafter maybe it's a bit complex for your case.\r\n\r\nRegards "
+    },
+    {
+      "id": 339718588,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-339718588",
+      "created_at": "2017-10-26T16:14:20Z",
+      "updated_at": "2017-10-26T16:14:20Z",
+      "author": "Participant 1",
+      "body": "Both solutions sound awesome, @josselinchevalay!\r\n\r\nWould you like to help by setting one up?"
+    },
+    {
+      "id": 339720196,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-339720196",
+      "created_at": "2017-10-26T16:20:02Z",
+      "updated_at": "2017-10-26T16:20:02Z",
+      "author": "Participant 3",
+      "body": "maybe yes i can help you tu setting the first or the second propal. "
+    },
+    {
+      "id": 339722184,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-339722184",
+      "created_at": "2017-10-26T16:26:47Z",
+      "updated_at": "2017-10-26T16:26:47Z",
+      "author": "Participant 1",
+      "body": "Awesome, thanks for your offer!\r\n\r\nWhat's the one that would require the fewer manipulation of our machine?"
+    },
+    {
+      "id": 339724030,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-339724030",
+      "created_at": "2017-10-26T16:32:54Z",
+      "updated_at": "2017-10-26T16:32:54Z",
+      "author": "Participant 3",
+      "body": "Two propals can run on docker so i think limit human action on your production environement.\r\nWe can test locally.  After test  you can push that into production and run docker-compose command. "
+    },
+    {
+      "id": 339724671,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-339724671",
+      "created_at": "2017-10-26T16:35:14Z",
+      "updated_at": "2017-10-26T16:35:14Z",
+      "author": "Participant 1",
+      "body": "Never tried to run any docker container on our DigitalOcean instance, but I guess it must be simple enough, and the process that you propose seems very reasonable!\r\n\r\nI'd be happy to help testing and deploying a solution like this!"
+    },
+    {
+      "id": 339726639,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-339726639",
+      "created_at": "2017-10-26T16:42:13Z",
+      "updated_at": "2017-10-26T16:42:13Z",
+      "author": "Participant 3",
+      "body": "i think we can create a new repositories under openwhyd for that. For the test we need just a log file to test filebeat (you can anonimyse that with false ip domain name etc) we need to analyze a bit log structure. "
+    },
+    {
+      "id": 339729898,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-339729898",
+      "created_at": "2017-10-26T16:53:29Z",
+      "updated_at": "2017-10-26T16:53:29Z",
+      "author": "Participant 1",
+      "body": "Don't you want to host the repo on your own github account? If you really want to have it here, we could still fork it into this org afterwards, no?\r\n\r\nI have to admit that I had forgotten about anonymization... Would you be ok to generate some log data by running Openwhyd locally, and then I'd test your container on actual production data?"
+    },
+    {
+      "id": 339750584,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-339750584",
+      "created_at": "2017-10-26T18:07:11Z",
+      "updated_at": "2017-10-26T18:07:11Z",
+      "author": "Participant 3",
+      "body": "totally reason i will see that thx. "
+    },
+    {
+      "id": 345531269,
+      "url": "https://github.com/openwhyd/openwhyd/issues/90#issuecomment-345531269",
+      "created_at": "2017-11-19T16:51:23Z",
+      "updated_at": "2017-11-19T16:51:23Z",
+      "author": "Participant 1",
+      "body": "Server-side errors can now be tracked from Rollbar dashboard: https://rollbar.com/adrienjoly/openwhyd/?environment=production (alternative to Sentry)\r\n"
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/openwhyd/openwhyd/issues/90",
+  "closed_at_available": false
+}

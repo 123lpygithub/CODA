@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:20a282cc3279dfe0c081ba2e1ae5b86c4c809066/raw/",
+  "source_sha256": "69d2946de4578b1457db69bb5a8d2fd3bfe3658e9940bd23f54822cda1c74103",
+  "fetched_at": "2026-11-05T06:43:15.165475+00:00",
+  "archive_directory": "c96f8e7c80f097f847353d0dae25e06bba414c5c",
+  "git_blob_sha1": "20a282cc3279dfe0c081ba2e1ae5b86c4c809066",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/bd8e15b16cb1c3965e129c7add1805ec1e8383a9/",
+  "artifact_id": "23shades-0619-aaffecghg",
+  "revision_url": "https://github.com/Aifred-Health/Vulcan/commit/bd8e15b16cb1c3965e129c7add1805ec1e8383a9",
+  "filename": "vulcanai2/datasets/tabulardataset.py",
+  "commit": "bd8e15b16cb1c3965e129c7add1805ec1e8383a9",
+  "line_start": 64,
+  "line_end": 88,
+  "excerpt": "        if self.label_column:\n            xs = self.df.drop(self.label_column, axis=1).iloc[[2]].values.tolist()[0]\n            xs = torch.tensor(xs, dtype=torch.float)\n            y = self.df[[self.label_column]].iloc[[idx]].values.tolist()[0][0]\n            y = torch.tensor(y, dtype=torch.long)\n            return xs, y\n        else:\n            xs = self.df.iloc[[2]].values.tolist()[0]\n            print(xs)\n            xs = torch.tensor(xs, dtype=torch.float)\n            return xs\n\n    # TODO: needs to be re-written to match new stitch datasets signature.\n    # def merge_data(self, data, join_column, index_list=None, na_values=None):\n    #     \"\"\"\n    #     Given additional data merge into the current data.\n    #     :param data: Either a path to a csv file, a dictionary names: paths to csv files, a list of dataframes, or a dataframe.\n    #     :param join_column: Either a single value if it is consistent, or a list of length data.\n    #     :param index_list: list of feature columns to index on when stitching(default None)\n    #     :return: None\n    #     \"\"\"\n    #     if isinstance(data, list):\n    #         if not join_column:\n    #             raise RuntimeError(\"You need to provide a join_column if a list of csvs or dataframes are provided\")\n    #         if isinstance(data[0], str):",
+  "match_policy": "unique-release-normalized-v2"
+}

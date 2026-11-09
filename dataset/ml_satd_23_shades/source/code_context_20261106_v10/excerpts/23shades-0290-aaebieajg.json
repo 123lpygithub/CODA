@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0290-aaebieajg",
+  "revision_url": "https://github.com/alan-turing-institute/sktime/commit/f3ceaccfc872d64ba43ec3c5ae39bd00e0e26f0a",
+  "filename": "sktime/transformers/series_to_series.py",
+  "commit": "f3ceaccfc872d64ba43ec3c5ae39bd00e0e26f0a",
+  "source_url": "https://raw.githubusercontent.com/alan-turing-institute/sktime/f3ceaccfc872d64ba43ec3c5ae39bd00e0e26f0a/sktime/transformers/series_to_series.py",
+  "fetched_at": "2026-11-05T06:12:28.695273+00:00",
+  "source_sha256": "b38ccd5c5054d8b92bbd38a57401760a817877f412c1d53c4253729ae3f58456",
+  "line_start": 49,
+  "line_end": 73,
+  "excerpt": "    def fit(self, X, y=None):\n        if self.check_input:\n            # TODO check input is series column, not column of primitives\n            pass\n\n        # Cast into 2d dataframe\n        if X.ndim == 1:\n            X = pd.DataFrame(X)\n\n        self.input_shape_ = X.shape\n\n        # Retrieve time-series indexes from each column.\n        # TODO generalise to columns with series of unequal length\n        self.input_indexes_ = [X.iloc[0, c].index if hasattr(X.iloc[0, c], 'index')\n                               else np.arange(X.iloc[0, c].shape[0]) for c in range(self.input_shape_[1])]\n\n        # Compute random intervals for each column.\n        # TODO if multiple columns are passed, introduce option to compute one set of shared intervals,\n        #  or use ColumnTransformer?\n        if self.n_intervals == 'random':\n            self.intervals_ = [rand_intervals_rand_n(self.input_indexes_[c], random_state=self.random_state)\n                               for c in range(self.input_shape_[1])]\n        else:\n            self.intervals_ = [rand_intervals_fixed_n(self.input_indexes_[c], n=self.n_intervals,\n                                                      random_state=self.random_state)"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0475-aahjabdbh",
+  "revision_url": "https://github.com/JohnVinyard/zounds/commit/a37a8afe63e812f05275bd2c6a11013bfec8036f",
+  "filename": "analyze/extractor.py",
+  "commit": "a37a8afe63e812f05275bd2c6a11013bfec8036f",
+  "source_url": "https://raw.githubusercontent.com/JohnVinyard/zounds/a37a8afe63e812f05275bd2c6a11013bfec8036f/analyze/extractor.py",
+  "fetched_at": "2026-11-05T06:12:59.995071+00:00",
+  "source_sha256": "02accc67a8785011e1f8952ef51c32de5f92262f831827659e6afb35dae0ad99",
+  "line_start": 40,
+  "line_end": 64,
+  "excerpt": "        self.out = None\n        \n        # a flag letting other dependent extractors know that\n        # we've reached the end of available data\n        self.done = False\n        \n        # a unique identifier for this extractor\n        self.key = key\n        \n        # True only if this extractor has no stopping condition. Users of an\n        # extractor chain containing infinite extractors must be aware of this\n        # fact to avoid creating artifically long lists of features\n        # TODO: Change this to finite = True\n        self.infinite = False\n    \n    @abstractmethod\n    def dim(self,env):\n        '''\n        A tuple representing the dimensions of a single frame of output from \n        this extractor\n        '''\n        pass\n    \n    @abstractproperty\n    def dtype(self):"
+}

@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-2958",
+  "issue_url": "https://github.com/rubyforgood/Flaredown/issues/95",
+  "source_issue_url": "https://github.com/rubyforgood/Flaredown/issues/95",
+  "api_url": "https://api.github.com/repos/rubyforgood/Flaredown/issues/95",
+  "title": "Allow user to delete account",
+  "body": "When users leave the platform they often want to make sure that their personal information is wiped. We should add a button under settings to allow them to remove their private information and close their account so we do not have to do it manually.\r\n\r\n- [x] Add a link in settings\r\n- [x] Create a page for account deletion\r\n- [x] Ask the user for feedback\r\n- [x] Suggest that the user download their data before they delete their account\r\n- [x] Remove: email, password, username, birth date, area code (from weather)",
+  "author": "Participant 1",
+  "created_at": "2016-08-18T23:56:11Z",
+  "updated_at": "2021-10-09T00:13:26Z",
+  "state": "closed",
+  "closed_at": "2021-10-09T00:13:26Z",
+  "issue_fetched_at": "2026-10-18T13:10:25.430323+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T13:10:26.830056+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 288680580,
+      "url": "https://github.com/rubyforgood/Flaredown/issues/95#issuecomment-288680580",
+      "created_at": "2017-03-23T10:42:47Z",
+      "updated_at": "2017-03-23T10:42:47Z",
+      "author": "Participant 2",
+      "body": "should we keep the tracked data for statistics since it has no identification?"
+    },
+    {
+      "id": 335471078,
+      "url": "https://github.com/rubyforgood/Flaredown/issues/95#issuecomment-335471078",
+      "created_at": "2017-10-10T13:24:25Z",
+      "updated_at": "2017-10-10T13:24:25Z",
+      "author": "Participant 1",
+      "body": "Ask user for reason to delete account."
+    },
+    {
+      "id": 398551012,
+      "url": "https://github.com/rubyforgood/Flaredown/issues/95#issuecomment-398551012",
+      "created_at": "2018-06-19T21:24:15Z",
+      "updated_at": "2018-06-19T21:24:15Z",
+      "author": "Participant 1",
+      "body": "<img width=\"595\" alt=\"screenshot 2018-06-19 17 24 08\" src=\"https://user-images.githubusercontent.com/1657444/41625086-9580fad8-73e5-11e8-9112-777a83e80552.png\">\r\n"
+    },
+    {
+      "id": 401799704,
+      "url": "https://github.com/rubyforgood/Flaredown/issues/95#issuecomment-401799704",
+      "created_at": "2018-07-02T13:13:12Z",
+      "updated_at": "2018-07-02T13:24:53Z",
+      "author": "Participant 3",
+      "body": "@lmerriam  Do I need to remove user from DB or just deactivate him?\r\nArea (postal) code is stored in the Position model which has reference to weather model and it doesn't linked to the user itself. So can we keep it ? This could decrease the request amount to DB. Because many users could have the same  postal code."
+    },
+    {
+      "id": 403215724,
+      "url": "https://github.com/rubyforgood/Flaredown/issues/95#issuecomment-403215724",
+      "created_at": "2018-07-07T13:29:35Z",
+      "updated_at": "2018-07-07T13:30:20Z",
+      "author": "Participant 1",
+      "body": "@X-tina to clarify: we should not remove the postal code itself (as you say, other users depend on it) but we should remove the deleted user's **reference** to the code.\r\n\r\nEven though multiple users may have the same postal code, US privacy regulations say that any location more specific than Country is considered personally identifiable information, and we need to remove all personally identifiable info for users that choose to delete their accounts."
+    },
+    {
+      "id": 404818144,
+      "url": "https://github.com/rubyforgood/Flaredown/issues/95#issuecomment-404818144",
+      "created_at": "2018-07-13T12:25:38Z",
+      "updated_at": "2018-07-13T12:25:38Z",
+      "author": "Participant 3",
+      "body": "@lmerriam \r\nThere is a reference in the checkin model for encrypted_user_id by position. I'll remove data from this attribute."
+    },
+    {
+      "id": 939184588,
+      "url": "https://github.com/rubyforgood/Flaredown/issues/95#issuecomment-939184588",
+      "created_at": "2021-10-09T00:02:12Z",
+      "updated_at": "2021-10-09T00:02:12Z",
+      "author": "Participant 4",
+      "body": "This is done"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

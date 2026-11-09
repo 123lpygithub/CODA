@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0659-aaidbebab",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/02fa8f1adb2ac5e7b0e1c0fea3bd95f249c94816",
+  "filename": "sklearn/model_selection/tests/test_validation.py",
+  "commit": "02fa8f1adb2ac5e7b0e1c0fea3bd95f249c94816",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/02fa8f1adb2ac5e7b0e1c0fea3bd95f249c94816/sklearn/model_selection/tests/test_validation.py",
+  "fetched_at": "2026-11-05T06:13:33.967064+00:00",
+  "source_sha256": "005a11574bf68029a0267881cb8d0bd93c57a9c9666ba1d57f66f9898a123fd7",
+  "line_start": 1775,
+  "line_end": 1799,
+  "excerpt": "\n    X, y = make_classification(n_samples=40, n_features=4,\n                               random_state=42)\n    est = LinearSVC(random_state=42)\n    est.fit(X, y)\n    cv_results = cross_validate(est, X, y, cv=5, scoring=custom_scorer)\n\n    score_names = ['tn', 'fp', 'fn', 'tp']\n    for name in score_names:\n        assert \"test_{}\".format(name) in cv_results\n\n\n# TODO: Remove in 0.26 when the _pairwise attribute is removed\ndef test_validation_pairwise():\n    # checks the interactions between the pairwise estimator tag\n    # and the _pairwise attribute\n    iris = load_iris()\n    X, y = iris.data, iris.target\n    linear_kernel = np.dot(X, X.T)\n\n    svm = SVC(kernel=\"precomputed\")\n    with pytest.warns(None) as record:\n        cross_validate(svm, linear_kernel, y, cv=2)\n    assert not record\n"
+}

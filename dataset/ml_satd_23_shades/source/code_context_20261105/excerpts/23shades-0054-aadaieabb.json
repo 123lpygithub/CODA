@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0054-aadaieabb",
+  "revision_url": "https://github.com/amir-jafari/Deep-Learning/commit/1bc09ffc7eb3e5452577f3f8efe5f3efeae3c136",
+  "filename": "Caffe_/1-Simple_Example/PIL/PIL/PixarImagePlugin.py",
+  "commit": "1bc09ffc7eb3e5452577f3f8efe5f3efeae3c136",
+  "source_url": "https://raw.githubusercontent.com/amir-jafari/Deep-Learning/1bc09ffc7eb3e5452577f3f8efe5f3efeae3c136/Caffe_/1-Simple_Example/PIL/PIL/PixarImagePlugin.py",
+  "fetched_at": "2026-11-05T06:11:47.246797+00:00",
+  "source_sha256": "b5ff7b54191dda7bfa8d6b38ddb196f940ca899fe26b6a7767bc8c347739a14e",
+  "line_start": 33,
+  "line_end": 57,
+  "excerpt": "    return ord(c[0]) + (ord(c[1])<<8) + (ord(c[2])<<16) + (ord(c[3])<<24)\n\n##\n# Image plugin for PIXAR raster images.\n\nclass PixarImageFile(ImageFile.ImageFile):\n\n    format = \"PIXAR\"\n    format_description = \"PIXAR raster image\"\n\n    def _open(self):\n\n        # assuming a 4-byte magic label (FIXME: add \"_accept\" hook)\n        s = self.fp.read(4)\n        if s != \"\\200\\350\\000\\000\":\n            raise SyntaxError, \"not a PIXAR file\"\n\n        # read rest of header\n        s = s + self.fp.read(508)\n\n        self.size = i16(s[418:420]), i16(s[416:418])\n\n        # get channel/depth descriptions\n        mode = i16(s[424:426]), i16(s[426:428])\n",
+  "match_policy": "unique-release-normalized-v2"
+}

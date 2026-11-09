@@ -1,0 +1,109 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20638",
+  "issue_url": "https://github.com/krathjen/studiolibrary/issues/169",
+  "source_issue_url": "https://github.com/krathjen/studiolibrary/issues/169",
+  "api_url": "https://api.github.com/repos/krathjen/studiolibrary/issues/169",
+  "title": "About hidden analytics collection.",
+  "body": "Hi,\r\n\r\nI just came across this: \r\n\r\n- https://github.com/krathjen/studiolibrary/blob/90b6179e876e3f7c24a227603ae08ee205316de6/cmds.py#L89\r\n\r\n- https://github.com/krathjen/studiolibrary/blob/90b6179e876e3f7c24a227603ae08ee205316de6/cmds.py#L1038\r\n\r\nNowhere it is stated clearly that you are collecting analytics, **this is not very nice to say the least**. The package should prompt user about that on initial startup with default value being `False`.\r\n\r\nCheers,\r\n\r\nThomas",
+  "author": "Participant 1",
+  "created_at": "2017-12-04T01:08:50Z",
+  "updated_at": "2018-10-30T09:08:40Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:20:04.104799+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:20:04.104799+00:00"
+  ],
+  "expected_comment_count": 10,
+  "retrieved_comment_count": 10,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 348928485,
+      "url": "https://github.com/krathjen/studiolibrary/issues/169#issuecomment-348928485",
+      "created_at": "2017-12-04T10:57:22Z",
+      "updated_at": "2017-12-04T11:09:04Z",
+      "author": "Participant 2",
+      "body": "Hey Thomas,\r\n\r\nThanks for the comment.\r\n\r\nThe analytics are only used for knowing the Studio Library version,  Maya version (Deprecated),  and the type of OS (Deprecated). As a user/developer, I'm sure you would understand the benefits of this to the Studio Library project. Most software, apps, and websites are collecting a lot more data than this.\r\n\r\nHowever, I do think that we should change the unique user ID (cid) to a uuid.uuid(). but again the information collected is very minimal and is only used for improving the Studio Library and monitoring its growth.\r\n\r\nCheers,\r\n\r\nKurt\r\n"
+    },
+    {
+      "id": 349092080,
+      "url": "https://github.com/krathjen/studiolibrary/issues/169#issuecomment-349092080",
+      "created_at": "2017-12-04T20:18:15Z",
+      "updated_at": "2017-12-04T20:18:15Z",
+      "author": "Participant 1",
+      "body": "Hi,\r\n\r\nJust to be clear, I have nothing against analytics collection provided it is a known and explicit behavior from an user perspective, not something happening under the hood silently.\r\n\r\nMany companies collect data but the **Golden Rule** is to *advertise* it to the customer, e.g. [Autodesk CIP/DAP](https://www.autodesk.com/company/autodesk-analytics#dap)\r\n\r\nAs an employee working to deploy your tool in my company, this puts me in a position where I need to double down on the security audit of your source to check nothing else malicious is happening. I also have to check all the legal ramifications for eventually changing your LGPL licensed source, as a matter of fact I sent a mail yesterday to the Free Software Foundation to clarify some points in that regard.\r\n\r\nAs a developer, I have collected crash reports for some of my applications, but the users were aware: a modal dialog was shown describing what would happen with a clear opt-out capability.\r\n\r\nAs an user, knowing that an application is sending data back home without my consent is infuriating.\r\n\r\nPlease consider making the behavior explicit with a modal dialog and option to opt-out.\r\n\r\nYour tool is great by the way, keep up the good work!\r\n\r\nBests,\r\n\r\nThomas"
+    },
+    {
+      "id": 349121377,
+      "url": "https://github.com/krathjen/studiolibrary/issues/169#issuecomment-349121377",
+      "created_at": "2017-12-04T22:03:21Z",
+      "updated_at": "2017-12-04T22:03:21Z",
+      "author": "Participant 2",
+      "body": "Hey Thomas,\r\n\r\nThanks again for the feedback!\r\n\r\nThere is only one event and it's an open source project (Meaning the code is transparent). This is why I haven't thought much about the analytics, as you can see it's nothing bad.\r\n\r\nIt would be interesting to know what percentage of websites, apps, and software use analytics without an opt-in/out? Obviously excluding any that require personal data/login.\r\n\r\nAnyways, I do think that an option to turn on/off analytics from the settings would be a good, as well as changing the cid to uuid.uuid(). :)\r\n\r\nCheers,\r\n\r\nKurt\r\n\r\n\r\n```python\r\n# Here is an example for anyone interested in turning off analytics via code.\r\n\r\nimport studiolibrary\r\n\r\nstudiolibrary.ANALYTICS_ENABLED = False\r\n\r\nstudiolibrary.main()\r\n```"
+    },
+    {
+      "id": 349134174,
+      "url": "https://github.com/krathjen/studiolibrary/issues/169#issuecomment-349134174",
+      "created_at": "2017-12-04T22:53:35Z",
+      "updated_at": "2017-12-04T22:53:35Z",
+      "author": "Participant 1",
+      "body": "Hi,\r\n\r\n> as you can see it's nothing bad.\r\n\r\nI have not performed the full security auditing yet, so I can't assess it, and as I mentioned it already because I found out about analytics, it will have to be thorough.\r\n\r\n**By saying that I certainly don't want to imply that you are dishonest or anything related, we sincerely appreciate the work you have put into the tool.**\r\n\r\n_The point I'm trying to raise is that because analytics are being collected without user consent, it raises the Security Danger Flag at its highest position in my company. In fact I have temporarilly deactivated usage of the tool yesterday._\r\n\r\n> It would be interesting to know what percentage of websites, apps, and software use analytics without an opt-in/out?\r\n\r\nI think that Websites != Applications for most people, this is the reason AD prompts you about analytics in 3dsmax, Maya & Co. As a matter of fact the Cookie Law in EU has been created for that very reason: https://www.cookielaw.org/the-cookie-law/\r\n\r\nAgain, I appreciate your openness and discussing with you about that topic.\r\n\r\nCheers,\r\n\r\nThomas"
+    },
+    {
+      "id": 349154597,
+      "url": "https://github.com/krathjen/studiolibrary/issues/169#issuecomment-349154597",
+      "created_at": "2017-12-05T00:31:47Z",
+      "updated_at": "2017-12-05T00:31:47Z",
+      "author": "Participant 2",
+      "body": "Hey Thomas,\r\n\r\nI understand your concern. I guess open source software is easier to trust. It's harder to know what Autodesk is doing under the hood and we only have their words to trust. ;)\r\n\r\nFor good practice, we can use the \"Cookie Law\" as a way of measuring whether we need to consent the user or not. The Studio Library uses Google Analytics which might make it easier.\r\n\r\nhttp://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm\r\n\r\nThe one thing that will need to change is the cid (client ID) to use a uuid, as this will guarantee that the cid is fully anonymous. The current cid was a quick hack for getting a unique user ID. Implementing the uuid will require a bit more code.\r\n\r\nThanks again,\r\n\r\nKurt\r\n\r\n"
+    },
+    {
+      "id": 349157184,
+      "url": "https://github.com/krathjen/studiolibrary/issues/169#issuecomment-349157184",
+      "created_at": "2017-12-05T00:45:31Z",
+      "updated_at": "2017-12-05T00:45:31Z",
+      "author": "Participant 1",
+      "body": "Hi,\r\n\r\nIn https://www.cookielaw.org/google-analytics-eu-cookie-law/ :\r\n\r\n```\r\nGoogle Analytics is covered by the requirements of the EU Cookie Law. This means the website owners must seek consent for the use of GA, using tools like Optanon.\r\n```\r\n\r\nCheers,\r\n\r\nThomas"
+    },
+    {
+      "id": 349162083,
+      "url": "https://github.com/krathjen/studiolibrary/issues/169#issuecomment-349162083",
+      "created_at": "2017-12-05T01:12:52Z",
+      "updated_at": "2017-12-05T01:19:42Z",
+      "author": "Participant 2",
+      "body": "LOL! Okay, I can have a look when I have more time. I think it's how you use GA that determines if a website requires consent. Also, isn't the following link the official website?\r\n\r\nhttp://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm\r\n\r\n\r\n"
+    },
+    {
+      "id": 349163837,
+      "url": "https://github.com/krathjen/studiolibrary/issues/169#issuecomment-349163837",
+      "created_at": "2017-12-05T01:22:39Z",
+      "updated_at": "2017-12-05T01:22:39Z",
+      "author": "Participant 1",
+      "body": "Easily solved by putting a startup dialog ;) Hehe, sorry to bother you with that!"
+    },
+    {
+      "id": 349164665,
+      "url": "https://github.com/krathjen/studiolibrary/issues/169#issuecomment-349164665",
+      "created_at": "2017-12-05T01:27:18Z",
+      "updated_at": "2017-12-05T01:29:13Z",
+      "author": "Participant 2",
+      "body": "haha... True! It just seems very silly for the type of data collected. \r\n\r\nI'll start with changing the cid which should help with any concerns. \r\n\r\nThanks again! :)"
+    },
+    {
+      "id": 434223473,
+      "url": "https://github.com/krathjen/studiolibrary/issues/169#issuecomment-434223473",
+      "created_at": "2018-10-30T09:08:40Z",
+      "updated_at": "2018-10-30T09:08:40Z",
+      "author": "Participant 2",
+      "body": "Closing this issue as we have changed the analytics cid to use uuid4 and you can now turn off analytics via the config."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/krathjen/studiolibrary/issues/169",
+  "closed_at_available": false
+}

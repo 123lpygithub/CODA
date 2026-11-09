@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0726-aadejjjdj",
+  "revision_url": "https://github.com/comtravo/ctparse/commit/48a409a8c5b8a782fd996b6b2b9f1729fa45c978",
+  "filename": "ctparse/partial_parse.py",
+  "commit": "48a409a8c5b8a782fd996b6b2b9f1729fa45c978",
+  "source_url": "https://raw.githubusercontent.com/comtravo/ctparse/48a409a8c5b8a782fd996b6b2b9f1729fa45c978/ctparse/partial_parse.py",
+  "fetched_at": "2026-11-05T06:13:43.928304+00:00",
+  "source_sha256": "60e634f50ff1272666da92b152f744d7b343befb01e46e11545cf3f7bb0801c7",
+  "line_start": 70,
+  "line_end": 94,
+  "excerpt": "        '''Check whether the production in rule can be applied to this stack\n        element. \n\n        If yes, return a copy where this update is\n        incorporated in the production, the record of applied rules\n        and the score.\n\n        :param ts: reference time\n        :param rule: a tuple where the first element is the production rule to apply\n        :param rule_name: the name of the rule\n        :param match: the start and end index of the parameters that the rule needs.\n        '''\n        # TODO: the second element of the rule is not being used\n        prod = rule[0](ts, *self.prod[match[0]:match[1]])\n\n        if prod is not None:\n            pp = PartialParse(\n                prod=self.prod[:match[0]] + (prod,) + self.prod[match[1]:],\n                rules=self.rules + (rule_name,)\n            )\n\n            # TODO(glanaro): remove when extracting the scoring functions\n            pp.applicable_rules = self.applicable_rules\n            pp.txt_len = self.txt_len\n            pp.len_score = log(pp.max_covered_chars/pp.txt_len)"
+}

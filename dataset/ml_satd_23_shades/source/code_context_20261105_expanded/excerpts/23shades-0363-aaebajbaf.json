@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0363-aaebajbaf",
+  "revision_url": "https://github.com/persephone-tools/persephone/commit/d6c12509827e924c70c33fe32cd7f477b9cc3fff",
+  "filename": "src/corpus.py",
+  "commit": "d6c12509827e924c70c33fe32cd7f477b9cc3fff",
+  "source_url": "https://raw.githubusercontent.com/persephone-tools/persephone/d6c12509827e924c70c33fe32cd7f477b9cc3fff/src/corpus.py",
+  "fetched_at": "2026-11-05T06:12:39.647156+00:00",
+  "source_sha256": "ec3c7f26fa2d8cb95a1e671aa3a697e3d7fc6479aa0c3a2640175bb920972ebe",
+  "line_start": 159,
+  "line_end": 183,
+  "excerpt": "                valid_prefixes = [line.strip() for line in valid_f]\n            with open(test_prefix_fn) as test_f:\n                test_prefixes = [line.strip() for line in test_f]\n\n            return train_prefixes, valid_prefixes, test_prefixes\n\n        prefixes = self.get_prefixes()\n        # TODO Note that I'm shuffling after sorting; this could be better.\n        # TODO Remove explicit reference to \"fbank\"\n        prefixes = utils.filter_by_size(\n            self.FEAT_DIR, prefixes, \"fbank\", max_samples)\n        Ratios = namedtuple(\"Ratios\", [\"train\", \"valid\", \"test\"])\n        # TODO These ratios can't be hardcoded\n        ratios = Ratios(.90, .05, .05)\n        train_end = int(ratios.train*len(prefixes))\n        valid_end = int(train_end + ratios.valid*len(prefixes))\n        random.shuffle(prefixes)\n        train_prefixes = prefixes[:train_end]\n        valid_prefixes = prefixes[train_end:valid_end]\n        test_prefixes = prefixes[valid_end:]\n\n        with open(train_prefix_fn, \"w\") as train_f:\n            for prefix in train_prefixes:\n                print(prefix, file=train_f)\n        with open(valid_prefix_fn, \"w\") as dev_f:"
+}

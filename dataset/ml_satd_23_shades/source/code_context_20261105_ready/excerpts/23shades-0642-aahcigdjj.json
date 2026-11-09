@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0642-aahcigdjj",
+  "revision_url": "https://github.com/pyro-ppl/pyro/commit/6ea088a1b39787e5d3ab87381300f85b993e891d",
+  "filename": "pyro/infer/search.py",
+  "commit": "6ea088a1b39787e5d3ab87381300f85b993e891d",
+  "source_url": "https://raw.githubusercontent.com/pyro-ppl/pyro/6ea088a1b39787e5d3ab87381300f85b993e891d/pyro/infer/search.py",
+  "fetched_at": "2026-11-05T06:13:30.737088+00:00",
+  "source_sha256": "ad9abe2833f4931be702a16a8a45bd1b342ecb86c98da6b5b8d3e046b5898a04",
+  "line_start": 2,
+  "line_end": 26,
+  "excerpt": "from pyro.infer.poutine import Poutine, TagPoutine\nimport torch\nfrom torch.autograd import Variable\n# from pyro.distributions import Discrete\n# from collections import OrderedDict\n\n\nclass Trace(dict):\n\n    def __init__(self, *args):\n        super(Trace, self).__init__(*args)\n        self.log_pdf = 0.0\n        # TODO: put in infrastructure to fold over trace as it's built.\n        #   that speeds up running sums and such.\n\n    def add_sample(self, name, sample, logpdf):\n        node = {}\n        # TODO: make this as an object instead of dict?\n        node[\"type\"] = \"sample\"\n        node[\"sample\"] = sample\n        node[\"log_pdf\"] = logpdf\n        self.log_pdf += logpdf\n        self[name] = node\n\n    def add_observe(self, name, logpdf):"
+}

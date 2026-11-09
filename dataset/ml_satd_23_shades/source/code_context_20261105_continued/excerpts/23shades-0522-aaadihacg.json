@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0522-aaadihacg",
+  "revision_url": "https://github.com/sshleifer/object_detection_kitti/commit/5189270711000c1ea85e2de817aa25dfd3894a6d",
+  "filename": "pcl_rl/model.py",
+  "commit": "5189270711000c1ea85e2de817aa25dfd3894a6d",
+  "source_url": "https://raw.githubusercontent.com/sshleifer/object_detection_kitti/5189270711000c1ea85e2de817aa25dfd3894a6d/pcl_rl/model.py",
+  "fetched_at": "2026-11-05T06:13:06.769117+00:00",
+  "source_sha256": "f2da7c8b1267e12bf870504e400401356a78d8db38dc5c40d2423b3c5c163250",
+  "line_start": 39,
+  "line_end": 63,
+  "excerpt": "               get_value_opt=None):\n    self.env_spec = env_spec\n\n    self.global_step = global_step\n    self.inc_global_step = self.global_step.assign_add(1)\n\n    self.target_network_lag = target_network_lag\n    self.sample_from = sample_from\n\n    self.policy = get_policy()\n    self.baseline = get_baseline()\n    self.objective = get_objective()\n    self.baseline.eps_lambda = self.objective.eps_lambda  # TODO: do this better\n    self.trust_region_policy_opt = get_trust_region_p_opt()\n    self.value_opt = get_value_opt()\n\n  def setup_placeholders(self):\n    \"\"\"Create the Tensorflow placeholders.\"\"\"\n    # summary placeholder\n    self.avg_episode_reward = tf.placeholder(\n        tf.float32, [], 'avg_episode_reward')\n\n    # sampling placeholders\n    self.internal_state = tf.placeholder(tf.float32,\n                                         [None, self.policy.rnn_state_dim],"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0357-aaedcebbj",
+  "revision_url": "https://github.com/microsoft/NimbusML/commit/793739b8ab6b002bfccdbda2bedf6f915ce6125b",
+  "filename": "src/python/nimbusml/pipeline.py",
+  "commit": "793739b8ab6b002bfccdbda2bedf6f915ce6125b",
+  "source_url": "https://raw.githubusercontent.com/microsoft/NimbusML/793739b8ab6b002bfccdbda2bedf6f915ce6125b/src/python/nimbusml/pipeline.py",
+  "fetched_at": "2026-11-05T06:11:43.630280+00:00",
+  "source_sha256": "df38c13d0c9fc8a26016b6ec667ec04a81c07cc5f184779873c92ee01ae3d09e",
+  "line_start": 1608,
+  "line_end": 1632,
+  "excerpt": "        Example: ``pipe.append((\"learner\", FastLinearRegressor()))``.\n\n        :param step: the transform/learner to append\n        \"\"\"\n        if self._is_fitted:\n            raise RuntimeError(\n                \"Model is fitted and cannot be modified. You should \"\n                \"clone it and then modify.\")\n        if self.steps is None:\n            self.steps = []\n        self.steps.append(step)\n\n    def insert(self, pos, step):  # todo sweep\n        \"\"\"\n        Inserts a transform/learner into the pipeline.\n\n        :param pos: position to insert, should be integers\n        :param step: the transform/learner to insert\n\n        Example: ``pipe.insert(1, FastLinearRegressor())``.\n\n        Example: ``pipe.insert(1, (\"learner\", FastLinearRegressor()))``.\n        \"\"\"\n        if self._is_fitted:\n            raise RuntimeError("
+}

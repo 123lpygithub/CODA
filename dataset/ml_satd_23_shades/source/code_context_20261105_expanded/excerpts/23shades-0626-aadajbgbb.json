@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0626-aadajbgbb",
+  "revision_url": "https://github.com/Cartus/DCGCN/commit/0446ad5d682457b423031731fee1f5b74875529e",
+  "filename": "sockeye/data_io.py",
+  "commit": "0446ad5d682457b423031731fee1f5b74875529e",
+  "source_url": "https://raw.githubusercontent.com/Cartus/DCGCN/0446ad5d682457b423031731fee1f5b74875529e/sockeye/data_io.py",
+  "fetched_at": "2026-11-05T06:13:27.900128+00:00",
+  "source_sha256": "6f4b5cb2821e2345d1261b8693e911f37f7ecdf790a14008746a860c7e588706",
+  "line_start": 1804,
+  "line_end": 1828,
+  "excerpt": "        source = self.data.source[i][j:j + batch_size]\n        target = self.data.target[i][j:j + batch_size]\n        src_graphs = self.data.src_graphs[i][j:j + batch_size]\n        src_positions = self.data.src_positions[i][j:j + batch_size]\n        data = [source, target, src_graphs, src_positions]\n        label = [self.data.label[i][j:j + batch_size]]\n\n        provide_data = [mx.io.DataDesc(name=n, shape=x.shape, layout=C.BATCH_MAJOR) for n, x in\n                        zip(self.data_names, data)]\n        provide_label = [mx.io.DataDesc(name=n, shape=x.shape, layout=C.BATCH_MAJOR) for n, x in\n                         zip(self.label_names, label)]\n\n        # TODO: num pad examples is not set here if fillup strategy would be padding\n        return mx.io.DataBatch(data, label,\n                               pad=0, index=None, bucket_key=self.buckets[i],\n                               provide_data=provide_data, provide_label=provide_label)\n\n    def save_state(self, fname: str):\n        \"\"\"\n        Saves the current state of iterator to a file, so that iteration can be\n        continued. Note that the data is not saved, i.e. the iterator must be\n        initialized with the same parameters as in the first call.\n\n        :param fname: File name to save the information to.\n        \"\"\""
+}

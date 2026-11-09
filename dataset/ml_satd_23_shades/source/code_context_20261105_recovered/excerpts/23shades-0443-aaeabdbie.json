@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0443-aaeabdbie",
+  "revision_url": "https://github.com/CartoDB/cartoframes/commit/d96b1d008e82b056cb58330cb61b261c5a99db33",
+  "filename": "cartoframes/data/enrichment/polygons_enrichment.py",
+  "commit": "d96b1d008e82b056cb58330cb61b261c5a99db33",
+  "source_url": "https://raw.githubusercontent.com/CartoDB/cartoframes/d96b1d008e82b056cb58330cb61b261c5a99db33/cartoframes/data/enrichment/polygons_enrichment.py",
+  "fetched_at": "2026-11-05T06:12:55.367389+00:00",
+  "source_sha256": "88f2c11c0e703c5eef65cdbcc422ae42bdaad38a6965508a06e2f94111830138",
+  "line_start": 110,
+  "line_end": 132,
+  "excerpt": "\n\ndef __get_name_geotable_from_datatable(datatable):\n    datatable_split = datatable.split('_')\n    geo_information = datatable_split[2:5]\n    geotable = 'geography_{geo_information_joined}'.format(geo_information_joined='_'.join(geo_information))\n\n    return geotable\n\n\ndef __process_filters(filters_dict):\n    filters = ''\n    # TODO: Add data table ref in fields of filters\n    if filters_dict:\n        filters_list = list()\n\n        for key, value in filters_dict.items():\n            filters_list.append('='.join([\"{}\".format(key), \"'{}'\".format(value)]))\n\n        filters = ' AND '.join(filters_list)\n        filters = 'WHERE {filters}'.format(filters=filters)\n\n    return filters"
+}

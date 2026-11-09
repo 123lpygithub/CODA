@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3790",
+  "issue_url": "https://github.com/Flaque/quirk/issues/45",
+  "source_issue_url": "https://github.com/Flaque/quirk/issues/45",
+  "api_url": "https://api.github.com/repos/Flaque/quirk/issues/45",
+  "title": "Fix possible side-loaded trackers",
+  "body": "While the README highlights the focus on privacy the resulting application sadly doesn't. I don't think it's intended so I hope that the report helps to start investigating the reasons for that and remove the tracks from the Code:\r\n\r\nhttps://reports.exodus-privacy.eu.org/en/reports/69301/\r\n\r\nThe exodus report indicates that there are code signatures of 11 trackers/ad services involved. **Important: It doesn't mean they are active, but that's something that should be investigated**.\r\n\r\nMy idea where this comes from: Dependencies. Since I already mention I don't expect it to be intentional, there is likely that those trackers came as \"side-loaded content\" by one of the dependencies. Anyway, I think it's important to find and getting rid of them. Hope you get this fixed soon as the app is great! GPL :+1: ",
+  "author": "Participant 1",
+  "created_at": "2019-04-06T16:36:36Z",
+  "updated_at": "2019-04-08T01:17:37Z",
+  "state": "closed",
+  "closed_at": "2019-04-06T16:57:07Z",
+  "issue_fetched_at": "2026-10-19T03:10:44.261589+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T03:10:45.700687+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 480519693,
+      "url": "https://github.com/Flaque/quirk/issues/45#issuecomment-480519693",
+      "created_at": "2019-04-06T16:57:07Z",
+      "updated_at": "2019-04-06T16:57:07Z",
+      "author": "Participant 2",
+      "body": "Ah, this is known about. You're correct, these come from dependencies. \r\n\r\nThis app is build on Expo, which includes a whole bunch of libraries for building mobile apps. Included with [Expo is the SDK for Segment](https://docs.expo.io/versions/latest/sdk/segment/). Unfortunately there's no easy way to unbundle it. :/  \r\n\r\nThis app does not actually use those libraries and I have no plans to. But it does mean that when deploying to iOS, I'll have to state that [I use IDFA](https://docs.expo.io/versions/latest/distribution/app-stores/#ios-specific-guidelines), even though the app doesn't.\r\n\r\nOne of Segment's use case is to ship data from one place to another. So it's SDKs come with support for a whole bunch of destinations including marketing tools like the FB suite, Google analytics, etc. Which is why I'm guessing they show up in the exodus privacy report. \r\n\r\nFor the moment, I think we're okay to keep it as it is. If Expo gives a non-Segment version, I'll switch to that. \r\n"
+    },
+    {
+      "id": 480587645,
+      "url": "https://github.com/Flaque/quirk/issues/45#issuecomment-480587645",
+      "created_at": "2019-04-07T12:52:48Z",
+      "updated_at": "2019-04-07T12:52:48Z",
+      "author": "Participant 1",
+      "body": "So I did some further network analytics today and sadly, those trackers aren't just included by the framework, they are also active:\r\n\r\nOn every app start there are requests to:\r\n\r\n- settings.crashlytics.com\r\n- graph.facebook.com\r\n- exp.host (maybe not a tracker)\r\n- expo.io (maybe not a tracker)\r\n\r\nNo matter what, this includes data like the app name. Which means to facebook and Google is knows that a user installed this application. Given that the app has a medical background in one way or another, it's a bit disturbing to have this known to Facebook and Google.\r\n\r\nI agree that his is a build system problem, but either way, you definitely need to mention it in the apps privacy policy (which might still conflicts with GDPR as there is no user consent for that) and in long term perspective should definitely get fixed by either switching the framework or finding another solution. Of course for now I can only say those things for the Android version, but I don't expect the iOS version to be fundamentally different.\r\n\r\nHope this helps to move things even more towards privacy :)"
+    },
+    {
+      "id": 480651839,
+      "url": "https://github.com/Flaque/quirk/issues/45#issuecomment-480651839",
+      "created_at": "2019-04-08T01:17:37Z",
+      "updated_at": "2019-04-08T01:17:37Z",
+      "author": "Participant 2",
+      "body": "Ah, so: `exp.host` and `expo.io` are the updating server from [expo.io](https://expo.io/), the framework and updating system Quirk uses. My understanding is Expo uses crashlytics to provide crash reports. Expo also comes prepackaged with access to facebooks apis for things like fb login. That said, the FB graph api isn't being used or setup; there's no API key or account setup afaik. \r\n\r\nSo this is a problem with the build system; if you're concerned about this, you're welcome to fork the app or go submit an issue on https://github.com/expo/expo. \r\n\r\n> Which means to facebook and Google is knows that a user installed this application.\r\n\r\nThis info is already known, or at least it's known by Google. When you install an app via the Google Play Store, they know you installed it. This info is also known by Expo, since they're delivering the updates to the device. \r\n\r\n> you definitely need to mention it in the apps privacy policy\r\n\r\nIt is. [See here.](https://flaque.github.io/quirksite/privacy)\r\n\r\n# just to clarify\r\n\r\nQuirk is _not_ a privacy app. \r\n\r\nIt's a Cognitive Behavioral Therapy app that does not store your personally identifiable information and does not use identifiable analytics. \r\n\r\nPrivacy isn't a feature of Quirk, it's just the way I built it. I didn't store your mental health thoughts on a server because the risks of doing so are more dangerous than the value it would provide to the user. \r\n\r\nI don't use anonymous analytics to see what buttons your clicking on or how often you record something because I have no reason to. Quirk is a free, open source app with nothing to sell you. It has no ads or in-app purchases. It has nothing to optimize for. \r\n\r\nWhat I'm saying is that I have no moral objection to first party data collection. (Third-party data buying & selling is pretty scummy.) If for some reason Quirk needed me to anonymous tracking, I would have no concerns doing that. But it doesn't, so I thankfully don't have to.\r\n\r\nCollected user data, especially PII, is like nuclear waste. It's a necessary byproduct of a lot of products, but should be carefully stored and you should work to accrue as little as possible. \r\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

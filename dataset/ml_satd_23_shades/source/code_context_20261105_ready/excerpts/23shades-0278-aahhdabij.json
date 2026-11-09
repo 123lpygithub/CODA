@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0278-aahhdabij",
+  "revision_url": "https://github.com/raamana/neuropredict/commit/9a99afe0019685b50bc54b72292ce5d0992a2325",
+  "filename": "neuropredict/neuropredict.py",
+  "commit": "9a99afe0019685b50bc54b72292ce5d0992a2325",
+  "source_url": "https://raw.githubusercontent.com/raamana/neuropredict/9a99afe0019685b50bc54b72292ce5d0992a2325/neuropredict/neuropredict.py",
+  "fetched_at": "2026-11-05T06:12:26.897341+00:00",
+  "source_sha256": "ad8bb314048e8f071b1516285e61b476a625d0d895a763b29a1f5651af82beb1",
+  "line_start": 447,
+  "line_end": 471,
+  "excerpt": "    with open(dataset_paths_file, 'w') as dpf:\n        dpf.writelines('\\n'.join(outpath_list))\n\n    return method_names, dataset_paths_file\n\n\ndef run():\n    \"\"\"\n    Main entry point.\n    \n    \"\"\"\n\n    # TODO design an API interface for advanced access as an importable package\n\n    metadatafile, outdir, userdir, fsdir, \\\n        train_perc, num_rep_cv, \\\n        positiveclass = parse_args()\n\n    subjects, classes = get_metadata(metadatafile)\n\n    positiveclass = validate_class_set(classes, positiveclass)\n\n    # let's start with one method/feature set for now\n    # TODO allow the user to specify arbitray combination of predefined and custom methods as well.\n    if not_unspecified(userdir):"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0369-aaehaifef",
+  "revision_url": "https://github.com/inspirehep/magpie/commit/a4c361f85ba801495c5770e71242fe0b3225285b",
+  "filename": "magpie/__init__.py",
+  "commit": "a4c361f85ba801495c5770e71242fe0b3225285b",
+  "source_url": "https://raw.githubusercontent.com/inspirehep/magpie/a4c361f85ba801495c5770e71242fe0b3225285b/magpie/__init__.py",
+  "fetched_at": "2026-11-05T06:12:40.732499+00:00",
+  "source_sha256": "c96b87968ac4b0c857f05677a5688dacf6d5ae4d687cfde5607de7af0ee7720f",
+  "line_start": 283,
+  "line_end": 307,
+  "excerpt": "        )\n\n        # Extract document features\n        doc_features = extract_document_features(inv_index, len(kw_candidates))\n\n        # Merge matrices\n        feature_matrix = pd.concat([kw_features, doc_features], axis=1)\n        X = pd.concat([X, feature_matrix])\n\n        features_end = time.clock()\n\n        # Create the output vector\n        # TODO this vector is very sparse, we can make it more memory efficient\n        output_vector = []\n        for kw in kw_candidates:\n            if kw.get_canonical_form() in doc_answers:\n                output_vector.append(1)  # True\n            else:\n                output_vector.append(0)  # False\n\n        # feature_matrices.append(feature_matrix)\n        output_vectors.extend(output_vector)\n\n        cand_gen_time += candidates_end - candidates_start\n        feature_ext_time += features_end - candidates_end",
+  "match_policy": "unique-release-normalized-v2"
+}

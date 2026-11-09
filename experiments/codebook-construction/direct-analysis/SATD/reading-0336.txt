@@ -1,0 +1,359 @@
+
+=== 336 23shades-0846-aabgahibh ===
+{"dataset_id": "aabgahibh", "repo_name": "samuelstjean/nlsam", "filename": "nlsam/spams_third_party/myscipy_rand.py", "comment_introducing_revision": "https://github.com/samuelstjean/nlsam/commit/3cba285b1f5b37ce1c02de760390147ce9f8ffe3", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "3cba285b1f5b37ce1c02de760390147ce9f8ffe3"}
+[comment_text]
+XXX: one could be smarter here
+[source_context]
+    if mn > np.iinfo(tp).max:
+        msg = """\
+Trying to generate a random sparse matrix such as the product of dimensions is
+greater than %d - this is not supported on this machine
+"""
+        raise ValueError(msg % np.iinfo(tp).max)
+
+    # Number of non zero values
+    k = long(density * m * n)
+
+    # Generate a few more values than k so that we can get unique values
+    # afterwards.
+    # XXX: one could be smarter here
+    mlow = 5
+    fac = 1.02
+    gk = min(k + mlow, fac * k)
+
+    def _gen_unique_rand(_gk):
+        id = np.random.rand(_gk)
+        return np.unique(np.floor(id * mn))[:k]
+
+    id = _gen_unique_rand(gk)
+    while id.size < k:
+        gk *= 1.05
+        id = _gen_unique_rand(gk)
+
+=== 337 23shades-0342-aajceeeid ===
+{"dataset_id": "aajceeeid", "repo_name": "dipy/dipy", "filename": "dipy/segment/bundles.py", "comment_introducing_revision": "https://github.com/dipy/dipy/commit/c973d8c8036f451db62211f7675cc1a11f87dd5e", "comment_removing_revision": "https://github.com/dipy/dipy/commit/bd6692993db377a9ddea625004f563cfc644ac66", "source_context_status": "available", "source_context_commit": "c973d8c8036f451db62211f7675cc1a11f87dd5e"}
+[comment_text]
+TODO replace with Streamlines
+[source_context]
+            print('## Recognize given bundle ## \n')
+
+        self.model_bundle = model_bundle
+        self.cluster_model_bundle(model_clust_thr=model_clust_thr)
+        success = self.reduce_search_space(
+            reduction_thr=reduction_thr,
+            reduction_distance=reduction_distance)
+        if not success:
+            self.pruned_streamlines = None
+            self.transf_streamlines = None
+            self.transf_matrix = None
+            self.labels = []
+            # TODO replace with Streamlines
+            return ArraySequence([]), ArraySequence([]), ArraySequence([])
+        if slr:
+            self.register_neighb_to_model(metric=slr_metric,
+                                          x0=slr_x0,
+                                          bounds=slr_bounds,
+                                          select_model=slr_select[0],
+                                          select_target=slr_select[1],
+                                          method=slr_method)
+        else:
+            self.transf_streamlines = self.neighb_streamlines
+            self.transf_matrix = np.eye(4)
+        self.prune_what_not_in_model(pruning_thr=pruning_thr,
+
+=== 338 23shades-0126-aaeiedjia ===
+{"dataset_id": "aaeiedjia", "repo_name": "IntelPython/sdc", "filename": "hpat/hiframes.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/1ffce863a02f4630b45411916bbbb01071276577", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "1ffce863a02f4630b45411916bbbb01071276577"}
+[comment_text]
+handle BoxedSeries and list\/set of BoxedSeries; TODO: others?
+[source_context]
+                func_text += "  _col_input_{} = hpat.hiframes_api.to_series_type(hpat.hiframes_api.unbox_df_column(_df, {}, {}))\n".format(col, i, alloc_dt)
+                loc_vars = {}
+                exec(func_text, {}, loc_vars)
+                f = loc_vars['f']
+                f_block = compile_to_numba_ir(f,
+                            {'hpat': hpat, 'np': np}).blocks.popitem()[1]
+                replace_arg_nodes(f_block, [arg_var])
+                nodes += f_block.body[:-3]
+                df_items[col] = nodes[-1].target
+
+            self._create_df(arg_var.name, df_items, label)
+
+        # handle BoxedSeries and list/set of BoxedSeries, TODO: others?
+        if (isinstance(arg_typ, BoxedSeriesType) or
+                isinstance(arg_typ, (types.List, types.Set))
+                and isinstance(arg_typ.dtype, BoxedSeriesType)):
+            # self.args[arg_ind] = SeriesType(arg_typ.dtype, 1, 'C')
+            # replace arg var with tmp
+            def f(_boxed_series):  # pragma: no cover
+                _dt_arr = hpat.hiframes_api.to_series_type(hpat.hiframes_api.dummy_unbox_series(_boxed_series))
+
+            f_block = compile_to_numba_ir(
+                f, {'hpat': hpat}).blocks.popitem()[1]
+            replace_arg_nodes(f_block, [arg_var])
+            nodes += f_block.body[:-3]  # remove none return
+
+=== 339 23shades-0381-aagcicfdi ===
+{"dataset_id": "aagcicfdi", "repo_name": "OFAI/hub-toolbox-python3", "filename": "hub_toolbox/approximate.py", "comment_introducing_revision": "https://github.com/OFAI/hub-toolbox-python3/commit/a614f5aae2fb8e5115f10655605c0aa38741bb5a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "a614f5aae2fb8e5115f10655605c0aa38741bb5a"}
+[comment_text]
+TODO use X_nrom_squared
+[source_context]
+                                      f'indicates a software bug.')
+        self.X_train_ = X
+        self.y_train_ = y
+        self.ind_train_ = ind
+        return
+
+    def _transform_ls(self, X):
+        n_test, _ = X.shape
+        n_train = self.X_train_.shape[0]
+        k = self.n_samples
+        kth = self.n_neighbors
+        if self.sampling_algorithm in ['hnsw', 'lsh']:
+            # TODO use X_nrom_squared
+            if self.sampling_algorithm == 'hnsw':
+                ind, D_test = self._hnsw_trafo(X, k)
+            elif self.sampling_algorithm == 'lsh':
+                ind, D_test = self._lsh_trafo(X, k)
+            self.ind_test_ = ind
+            r_test = D_test[:, :self.n_neighbors] # already sorted
+        else:
+            if self.verbose > 2:
+                print(f'HR.transform(full)')
+            D_test = euclidean_distances(
+                X, self.X_train_, Y_norm_squared=self.X_train_norm_squared_,
+                squared=True)
+
+=== 340 23shades-0421-aajfaggeb ===
+{"dataset_id": "aajfaggeb", "repo_name": "pyannote/pyannote-audio", "filename": "pyannote/audio/applications/segmentation.py", "comment_introducing_revision": "https://github.com/pyannote/pyannote-audio/commit/b8b0246408e3cf14e0a33707200cbcde99a82178", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b8b0246408e3cf14e0a33707200cbcde99a82178"}
+[comment_text]
+TODO. create README file in <output_dir>
+[source_context]
+        application.validate(protocol_name, subset=subset,
+                             start=start, end=end, every=every,
+                             in_order=in_order, task=label)
+
+    if arguments['apply']:
+
+        model_pt = Path(arguments['<model.pt>'])
+        model_pt = model_pt.expanduser().resolve(strict=True)
+
+        output_dir = Path(arguments['<output_dir>'])
+        output_dir = output_dir.expanduser().resolve(strict=False)
+
+        # TODO. create README file in <output_dir>
+
+        step = arguments['--step']
+        if step is not None:
+            step = float(step)
+
+        batch_size = int(arguments['--batch'])
+
+        application = Segmentation.from_model_pt(
+            model_pt, db_yml=db_yml, training=False)
+        application.device = device
+        application.batch_size = batch_size
+        application.apply(protocol_name, output_dir, step=step, subset=subset)
+
+=== 341 23shades-0638-aaghjajha ===
+{"dataset_id": "aaghjajha", "repo_name": "google-research/google-research", "filename": "strategic_exploration/hrl/systematic_exploration.py", "comment_introducing_revision": "https://github.com/google-research/google-research/commit/cfca7c2cc9af9bf531a770830212264e916ccc83", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "cfca7c2cc9af9bf531a770830212264e916ccc83"}
+[comment_text]
+TODO: Probably should just implement __deepcopy__
+[source_context]
+
+  def update(self, new_state):
+    """Updates from the current history: [s_t, ..., s_{t - k + 1}]
+
+                                         to: [s_{t + 1}, ..., s_{t - k}]
+
+        Args:
+            new_state (FloatTensor): s_{t + 1}
+    """
+    self._states.appendleft(new_state)
+    self._states.pop()
+
+  # TODO: Probably should just implement __deepcopy__
+  def clone(self):
+    """Returns a deep copy of self"""
+    return History(copy.deepcopy(self._states))
+
+  def __getitem__(self, index):
+    return self._states[index]
+
+  def __hash__(self):
+    return hash(
+        tuple(
+            np.sum(state) if state is not None else None
+            for state in self._states))
+
+=== 342 23shades-0413-aajdhaicc ===
+{"dataset_id": "aajdhaicc", "repo_name": "deepchem/deepchem", "filename": "deep_chem/utils/featurize.py", "comment_introducing_revision": "https://github.com/deepchem/deepchem/commit/526315181530b8e5b9a88f5dc2a460fb931386e9", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "526315181530b8e5b9a88f5dc2a460fb931386e9"}
+[comment_text]
+TODO(rbharath): The script expects that all columns in xlsx\/csv files
+[source_context]
+    pickle.dump(features_df, f, pickle.HIGHEST_PROTOCOL)
+
+def extract_data(input_file, input_type, fields, field_types, 
+      prediction_endpoint, smiles_endpoint, threshold, delimiter):
+  """Extracts data from input as Pandas data frame"""
+  rows, mols, smiles = [], [], SmilesGenerator()
+  colnames = [] 
+  for row_index, raw_row in enumerate(get_rows(input_file, input_type, delimiter)):
+    print row_index
+    # Skip empty rows
+    if raw_row is None:
+      continue
+    # TODO(rbharath): The script expects that all columns in xlsx/csv files
+    # have column names attached. Check that this holds true somewhere
+    # Get column names if xlsx/csv and continue
+    if (input_type == "xlsx" or input_type == "csv") and row_index == 0:  
+      colnames = get_colnames(raw_row, input_type)
+      continue
+    row, row_data = {}, get_row_data(raw_row, input_type, fields, smiles_endpoint, colnames)
+    for ind, (field, field_type) in enumerate(zip(fields, field_types)):
+      if field == prediction_endpoint and threshold is not None:
+        raw_val = process_field(row_data[field], field_type)
+        row[field] = 1 if raw_val > threshold else 0 
+      else:
+        row[field] = process_field(row_data[field], field_type)
+
+=== 343 23shades-0166-aahcgjcji ===
+{"dataset_id": "aahcgjcji", "repo_name": "ludwig-ai/ludwig", "filename": "ludwig/models/modules/optimization_modules.py", "comment_introducing_revision": "https://github.com/ludwig-ai/ludwig/commit/82ee8bf74e06b92a6b7e2499e3d827cd0542baba", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "82ee8bf74e06b92a6b7e2499e3d827cd0542baba"}
+[comment_text]
+tf.train.ProximalAdagradOptimizer todo appears tf.keras.optimizers does not support
+[source_context]
+        return tf.keras.optimizers.Adadelta()
+    elif optimizer_type == 'adagrad':
+        return tf.keras.optimizers.Adagrad()
+    elif optimizer_type == 'adagradda':
+        return None # tf.train.AdagradDAOptimizer  todo appears tf.keras.optimizers does not support
+    elif optimizer_type == 'momentum':
+        return None # tf.train.MomentumOptimizer  todo appears tf.keras.optimizers does not support
+    elif optimizer_type == 'ftrl':
+        return tf.keras.optimizers.Ftrl()
+    elif optimizer_type == 'proximalgd':
+        return None #tf.train.ProximalGradientDescentOptimizer todo appears tf.keras.optimizers does not support
+    elif optimizer_type == 'proximaladagrad':
+        return None #tf.train.ProximalAdagradOptimizer todo appears tf.keras.optimizers does not support
+    elif optimizer_type == 'rmsprop':
+        return tf.keras.optimizers.RMSprop()
+    else:
+        raise ValueError('Invalid optimizer_type: ' + optimizer_type)
+
+
+
+=== 344 23shades-0477-aafibaccg ===
+{"dataset_id": "aafibaccg", "repo_name": "ComputationalCryoEM/ASPIRE-Python", "filename": "src/aspyre/source/starfile.py", "comment_introducing_revision": "https://github.com/ComputationalCryoEM/ASPIRE-Python/commit/b804e8c9af5e9ee2e3f3f109645a68074c765a50", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b804e8c9af5e9ee2e3f3f109645a68074c765a50"}
+[comment_text]
+TODO: Check behavior if this is a single mrc file (no '@')
+[source_context]
+                    columns[name] = column_mappings.get(name, str)
+                    skiprows += 1
+                elif len(columns) > 0:
+                    break
+                else:
+                    skiprows += 1
+
+        if 'rlnImageName' not in columns:
+            raise RuntimeError('Valid starfiles at least need a _rlnImageName column specified')
+
+        df = pd.read_csv(filepath, delim_whitespace=True, skiprows=skiprows, names=columns, dtype=columns)
+
+        # TODO: Check behavior if this is a single mrc file (no '@')
+        _index, df['_mrc_filename'] = df['rlnImageName'].str.split('@', 1).str
+        df['_mrc_index'] = pd.to_numeric(_index)
+
+        # Adding a full-filepath field to the Dataframe helps us save time later
+        # Note that os.path.join works as expected when the second argument is an absolute path itself
+        df['_mrc_filepath'] = df['_mrc_filename'].apply(lambda filename: os.path.join(dirpath, filename))
+        df['_mrc_found'] = df['_mrc_filepath'].apply(lambda filepath: os.path.exists(filepath))
+
+        msg = f'Read starfile with {len(df)} records'
+        n_missing = sum(df['_mrc_found'] == False)  # nopep8
+        if n_missing > 0:
+            msg += f' ({n_missing} files missing)'
+
+=== 345 23shades-0765-aaffdgbgi ===
+{"dataset_id": "aaffdgbgi", "repo_name": "Aifred-Health/Vulcan", "filename": "vulcanai2/models/AbstractNetwork.py", "comment_introducing_revision": "https://github.com/Aifred-Health/Vulcan/commit/56bfa5aebecedaaed14d4d858b4adfdfafbed214", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "56bfa5aebecedaaed14d4d858b4adfdfafbed214"}
+[comment_text]
+TODO: want to call it activation but namespace; so what to do best?
+[source_context]
+__author__ = 'Caitrin'
+
+import abc
+import torch.nn as nn
+import datetime
+import torch.nn.modules.activation as activations #TODO: want to call it activation but namespace, so what to do best?
+from torch import optim
+import torch.nn.modules.loss as loss
+
+class AbstractNetwork(nn.module):
+
+    #TODO: this should be the same for every model, given that you pass a config??
+    #TODO: come up with an alternate way to validate config
+    #TODO: deal with stopping rules
+    #TODO: do you have to call any nn.module methods?? do you even actually want to subclass at this point if you have layers that subclass nn.module??
+    def __init__(self, name, dimensions, config, save_path=None, input_network=None, num_classes=None, activation=activations.Softmax, pred_activation=activations.Softmax, optimizer=optim.Adam, learning_rate=0.001, lr_scheduler=None, stopping_rule='best_validation_error', criterion=None):
+        """
+
+
+=== 346 23shades-0368-aafchdiaf ===
+{"dataset_id": "aafchdiaf", "repo_name": "Rostlab/nalaf", "filename": "nalaf/features/relations/new/sentence.py", "comment_introducing_revision": "https://github.com/Rostlab/nalaf/commit/304671b5846961c4a589d00628fa9c1e752173b2", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "304671b5846961c4a589d00628fa9c1e752173b2"}
+[comment_text]
+TODO this is wrong for other entitiey types nor appearing in the edge
+[source_context]
+        self.extract_abbreviation_synonyms(corpus, use_gold, use_pred)
+
+        for docid, document in corpus.documents.items():
+            for edge in document.edges():
+
+                sentence = edge.get_combined_sentence()
+
+                entities_in_sentences = edge.get_any_entities_in_sentences(predicted=use_pred)
+                total_count = 0
+                # We sort to have a deterministic order creation of the features
+                for e_class_id in sorted(entities_in_sentences):
+                    entities = entities_in_sentences[e_class_id]
+                    # TODO this is wrong for other entitiey types nor appearing in the edge
+                    # TODO also what about if the same entity type appears in both ends of the same edge? as in a protein-protein relation --> Just rest the counts of the edge
+                    individual_count = len(entities) - 1  # rest 1, as one is already one of the edge's entities --
+                    assert individual_count >= 0
+                    total_count += individual_count
+                    self.add_with_value(f_set, edge, 'f_counts_individual', individual_count, 'int', 'individual', e_class_id)
+
+                self.add_with_value(f_set, edge, 'f_counts_total', total_count, 'int', 'total (all classes)')
+
+                entities_between_entities = edge.get_any_entities_between_entities(predicted=use_pred)
+                total_count = 0
+                # We sort to have a deterministic order creation of the features
+                for e_class_id in sorted(entities_between_entities):
+
+=== 347 23shades-0853-aaeigcjdd ===
+{"dataset_id": "aaeigcjdd", "repo_name": "IntelPython/sdc", "filename": "sdc/hiframes/pd_series_type.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/b57c9adebb90fe95458d2c2238928d2e38c3ee9c", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b57c9adebb90fe95458d2c2238928d2e38c3ee9c"}
+[comment_text]
+XXX: unify Series\/Array as Array
+[source_context]
+            elif other.index != types.none:
+                new_index = other.index
+            elif self.index != types.none:
+                new_index = self.index
+
+            # If dtype matches or other.dtype is undefined (inferred)
+            if other.dtype == self.dtype or not other.dtype.is_precise():
+                return SeriesType(
+                    self.dtype,
+                    self.data.unify(typingctx, other.data),
+                    new_index)
+
+        # XXX: unify Series/Array as Array
+        return super(SeriesType, self).unify(typingctx, other)
+
+    def can_convert_to(self, typingctx, other):
+        # same as types.Array
+        if (isinstance(other, SeriesType) and other.dtype == self.dtype):
+            # called for overload selection sometimes
+            # TODO: fix index
+            if self.index == types.none and other.index == types.none:
+                return self.data.can_convert_to(typingctx, other.data)
+            if self.index != types.none and other.index != types.none:
+                return max(self.data.can_convert_to(typingctx, other.data),
+                           self.index.can_convert_to(typingctx, other.index))

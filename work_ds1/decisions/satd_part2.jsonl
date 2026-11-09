@@ -1,0 +1,80 @@
+{"row": 101, "code_ids": ["SATD-04"], "open_codes": ["pixel_classes 需按目标类别填充"], "memo": "要求用从 target 获得的类别填充 pixel_classes 字典，功能缺失。"}
+{"row": 102, "code_ids": ["SATD-09"], "open_codes": ["fit 返回类型与父类不符"], "memo": "指出 fit 返回 None 与父类声明的 float 不兼容，属接口契约违背。"}
+{"row": 103, "code_ids": ["SATD-16"], "open_codes": ["索引是否需要 +1"], "memo": "对索引是否应加 1 存疑，属边界语义核实。"}
+{"row": 104, "code_ids": ["SATD-16"], "open_codes": ["是否跳过 DC bin"], "memo": "疑问是否应跳过 DC bin 0，属处理范围未决。"}
+{"row": 105, "code_ids": ["SATD-05"], "open_codes": ["多 evaluator 支持"], "memo": "要求支持多个 evaluator，可能还有事件支持。"}
+{"row": 106, "code_ids": ["SATD-12"], "open_codes": ["说明代码适用对象"], "memo": "说明该代码适用于 EpisodicReplayBuffer，属适用范围文档。"}
+{"row": 107, "code_ids": ["SATD-08"], "open_codes": ["hackish 设置方式"], "memo": "自称这种直接设置的方式有点 hack。"}
+{"row": 108, "code_ids": ["SATD-05", "SATD-08"], "open_codes": ["需更通用并定位 so"], "memo": "要求实现更通用，并在 python root 中查找实际 so 文件，属通用化兼硬路径。"}
+{"row": 109, "code_ids": ["SATD-07"], "open_codes": ["covars 表示影响缓存"], "memo": "指出 covars 的表示会损害缓存，属表示与性能。"}
+{"row": 110, "code_ids": ["SATD-13"], "open_codes": ["0.25 移除"], "memo": "标记该兼容测试在 0.25 移除。"}
+{"row": 111, "code_ids": ["SATD-04", "SATD-05"], "open_codes": ["输出改用基于行的 diff"], "memo": "要求对某些输出类型使用基于行的 diff。"}
+{"row": 112, "code_ids": ["SATD-07"], "open_codes": ["numpy.roll 随机位移可能更快"], "memo": "提出用随机位移的 numpy.roll 可能更快。"}
+{"row": 113, "code_ids": ["SATD-16"], "open_codes": ["下一个 diff 条目怎么办"], "memo": "提出下一个 diff entry 的处理疑问。"}
+{"row": 114, "code_ids": ["SATD-03"], "open_codes": ["未找到 fail-high 的情况"], "memo": "疑问若始终未出现 fail-high 会怎样，属边界未处理。"}
+{"row": 115, "code_ids": ["SATD-14", "SATD-16"], "open_codes": ["实为写 MIDI format 0"], "memo": "指出当前实现其实是在写 MIDI format 0，属格式契约认知。"}
+{"row": 116, "code_ids": ["SATD-16"], "open_codes": ["函数为何被调用两次"], "memo": "疑问该函数为何在每个 register.tag 调用中被执行两次。"}
+{"row": 117, "code_ids": ["SATD-16"], "open_codes": ["> 情况"], "memo": "仅标出大于分支，缺少可读上下文。"}
+{"row": 118, "code_ids": ["SATD-09"], "open_codes": ["假设历史数据已存在"], "memo": "实现假设历史数据一开始就在，属前提假设。"}
+{"row": 119, "code_ids": ["SATD-05"], "open_codes": ["丢弃不兼容数据集"], "memo": "考虑丢弃不兼容的数据集，属输入筛选策略。"}
+{"row": 120, "code_ids": ["SATD-13", "SATD-06"], "open_codes": ["Numba#5157 后去掉 asarray"], "memo": "待上游 Numba issue 解决后移除 np.asarray 并返回 list。"}
+{"row": 121, "code_ids": ["SATD-04"], "open_codes": ["双/三缓冲需 wrapping increment"], "memo": "指出双或三缓冲需要使用回绕自增，属正确性实现。"}
+{"row": 122, "code_ids": ["SATD-03"], "open_codes": ["必要时收缩 mask"], "memo": "要求必要时强制收缩 mask，属状态维护。"}
+{"row": 123, "code_ids": ["SATD-04"], "open_codes": ["冻结权重未实现"], "memo": "冻结权重标注 NOT IMPLEMENTED。"}
+{"row": 124, "code_ids": ["SATD-17"], "open_codes": ["代码行尾 TODO"], "memo": "行尾 TODO 无说明，不能确定工作对象。"}
+{"row": 125, "code_ids": ["SATD-08", "SATD-09"], "open_codes": ["通道更多时的 hack"], "memo": "处理输入通道更多的情形用了 hack，句子截断。"}
+{"row": 126, "code_ids": ["SATD-05"], "open_codes": ["BoxedSeries 之外的类型"], "memo": "已处理 BoxedSeries 与列表/集合，TODO 询问其他类型。"}
+{"row": 127, "code_ids": ["SATD-17"], "open_codes": ["章节 TODO"], "memo": "模块分节标题后仅有 TODO，无具体对象。"}
+{"row": 128, "code_ids": ["SATD-16"], "open_codes": ["是否需要"], "memo": "仅疑问 if this is needed。"}
+{"row": 129, "code_ids": ["SATD-07", "SATD-09"], "open_codes": ["矩阵顺序影响 8 倍性能"], "memo": "强调矩阵乘顺序不当会使性能降 8 倍，属性能约束。"}
+{"row": 130, "code_ids": ["SATD-12", "SATD-15"], "open_codes": ["说明 list 的必要性"], "memo": "解释 Python 3 中 list 调用用于转换 range 迭代器，属说明性注释。"}
+{"row": 131, "code_ids": ["SATD-11", "SATD-08"], "open_codes": ["随机 in_dim 时需修"], "memo": "指出随机 in_dim 时测试需修复，属测试设置与硬编码。"}
+{"row": 132, "code_ids": ["SATD-14"], "open_codes": ["index 应为 Index 对象"], "memo": "当前 index 是 Array 类型，TODO 要求改为 Index obj，属类型表示。"}
+{"row": 133, "code_ids": ["SATD-16"], "open_codes": ["初始化是否必要"], "memo": "疑问初始化模型是否真的需要。"}
+{"row": 134, "code_ids": ["SATD-16"], "open_codes": ["初始化是否必要"], "memo": "同上，疑问初始化是否必要。"}
+{"row": 135, "code_ids": ["SATD-13"], "open_codes": ["短期专用后移除"], "memo": "说明该代码仅短期特定用途，将会移除。"}
+{"row": 136, "code_ids": ["SATD-08"], "open_codes": ["自定义传播矩阵 workaround"], "memo": "以自定义传播矩阵作为 workaround 实现子核。"}
+{"row": 137, "code_ids": ["SATD-08", "SATD-16"], "open_codes": ["KLUDGE 是否总成立"], "memo": "自认是 kludge，并疑问是否总是成立。"}
+{"row": 138, "code_ids": ["SATD-16"], "open_codes": ["是否不带 target 返回"], "memo": "考虑返回时不带 target，属接口未决。"}
+{"row": 139, "code_ids": ["SATD-17"], "open_codes": ["TODO 无说明"], "memo": "行尾 TODO 无内容。"}
+{"row": 140, "code_ids": ["SATD-04"], "open_codes": ["需要 shape"], "memo": "指出此处缺少 shape。"}
+{"row": 141, "code_ids": ["SATD-06", "SATD-15"], "open_codes": ["glob2 去重缺陷绕行"], "memo": "因 glob2 明显 bug 会移除重复条目而做绕行，属上游缺陷。"}
+{"row": 142, "code_ids": ["SATD-12"], "open_codes": ["说明 SysEx 处理必要性"], "memo": "说明该处理对 SysEx 事件正确性必要，属说明性注释。"}
+{"row": 143, "code_ids": ["SATD-12", "SATD-11"], "open_codes": ["测试类前提说明"], "memo": "说明 TestWikiCorpus 类是该测试所需，属测试前提文档。"}
+{"row": 144, "code_ids": ["SATD-12"], "open_codes": ["命令行补全依赖说明"], "memo": "说明该对象供命令补全与帮助使用。"}
+{"row": 145, "code_ids": ["SATD-06"], "open_codes": ["通过 ResourceVariable 检查"], "memo": "为通过 ResourceVariable 检查而需要该处理，属外部约束。"}
+{"row": 146, "code_ids": ["SATD-06"], "open_codes": ["sklearn 可比性"], "memo": "为与 sklearn 可比而需要该处理。"}
+{"row": 147, "code_ids": ["SATD-06"], "open_codes": ["sklearn 可比性"], "memo": "重复记录，同样是为 sklearn 可比性。"}
+{"row": 148, "code_ids": ["SATD-16"], "open_codes": ["是否需要"], "memo": "仅疑问 needed?。"}
+{"row": 149, "code_ids": ["SATD-17"], "open_codes": ["normed_cross_entropy TODO"], "memo": "行尾 TODO 仅给出名称，未说明要做什么。"}
+{"row": 150, "code_ids": ["SATD-13"], "open_codes": ["虽不需要但保留"], "memo": "说明该代码并不必要，只是顺手保留。"}
+{"row": 151, "code_ids": ["SATD-07"], "open_codes": ["排序后按区域步进更高效"], "memo": "指出先排序再按 nt_regions 步进可能更高效。"}
+{"row": 152, "code_ids": ["SATD-07"], "open_codes": ["改用 CSC 提速"], "memo": "疑问改为 CSC 格式能否提速，属表示与性能。"}
+{"row": 153, "code_ids": ["SATD-14"], "open_codes": ["调度不再需要后释放"], "memo": "说明这些对象在 schedule 不再需要后处理，属资源生命周期。"}
+{"row": 154, "code_ids": ["SATD-01", "SATD-14"], "open_codes": ["diff 存全局元数据"], "memo": "考虑把 diff 存入全局元数据而非独立 diff 字典，属结构整理。"}
+{"row": 155, "code_ids": ["SATD-13"], "open_codes": ["过渡期不需要"], "memo": "标注该代码在过渡期可能不需要。"}
+{"row": 156, "code_ids": ["SATD-07"], "open_codes": ["每批重建 inferer 的开销"], "memo": "说明每批创建 inferer 带来额外开销，未来改为 ParDo 并 start_bundle 初始化。"}
+{"row": 157, "code_ids": ["SATD-04"], "open_codes": ["mask 需拆为输入/目标"], "memo": "要求把 mask 改成输入 mask 与 warp 后目标 mask。"}
+{"row": 158, "code_ids": ["SATD-17"], "open_codes": ["句子片段"], "memo": "仅为片段，无法确定待办对象。"}
+{"row": 159, "code_ids": ["SATD-04"], "open_codes": ["音频组件待启用"], "memo": "音频组件创建后 TODO 要求 turn on，功能未启用。"}
+{"row": 160, "code_ids": ["SATD-16"], "open_codes": ["与键盘输入关系不明"], "memo": "自述该调用可能与键盘输入有关，属理解缺口。"}
+{"row": 161, "code_ids": ["SATD-16"], "open_codes": ["是否调用 clearChanges"], "memo": "以 perhaps 提出是否应调用 clearChanges。"}
+{"row": 162, "code_ids": ["SATD-03", "SATD-05"], "open_codes": ["负数处理"], "memo": "未来需优雅处理负数，属输入域边界。"}
+{"row": 163, "code_ids": ["SATD-02", "SATD-04"], "open_codes": ["应使用 WeightNorm"], "memo": "指出此处应使用 WeightNorm，属实现选择错误。"}
+{"row": 164, "code_ids": ["SATD-11"], "open_codes": ["补协方差测试"], "memo": "要求补充协方差计算的测试。"}
+{"row": 165, "code_ids": ["SATD-08"], "open_codes": ["categorical/binary 的 hack 测试"], "memo": "以 hack 方式测试 categorical 与 binary 的差异。"}
+{"row": 166, "code_ids": ["SATD-06"], "open_codes": ["Keras 不支持该优化器"], "memo": "tf.keras.optimizers 不支持 ProximalAdagradOptimizer，属依赖能力缺口。"}
+{"row": 167, "code_ids": ["SATD-06", "SATD-08"], "open_codes": ["pandas issue 13098 的绕行"], "memo": "dropna 是为绕开 pandas issue 13098 的 workaround。"}
+{"row": 168, "code_ids": ["SATD-08", "SATD-12"], "open_codes": ["可选 lambda 层的 identity 层"], "memo": "为让后续两个 lambda 层可选而插入 identity 层，属结构性绕行。"}
+{"row": 169, "code_ids": ["SATD-12"], "open_codes": ["squeeze 取得 1D"], "memo": "说明 squeeze 用于得到 1D tensor，属说明性注释。"}
+{"row": 170, "code_ids": ["SATD-06", "SATD-08"], "open_codes": ["workaround 不支持反传"], "memo": "该 workaround 不支持反传且依赖外部组件，属能力限制。"}
+{"row": 171, "code_ids": ["SATD-03", "SATD-12"], "open_codes": ["if 用于保护 cast"], "memo": "说明该 if 用于在 batch norm 情形下保护 cast，属防御性条件。"}
+{"row": 172, "code_ids": ["SATD-08"], "open_codes": ["为集群运行导入 matplotlib"], "memo": "为在集群上运行而导入 matplotlib，属环境特定绕行。"}
+{"row": 173, "code_ids": ["SATD-08"], "open_codes": ["<go> token 的推理 hack"], "memo": "为让含 <go> token 的推理可用而使用 hack。"}
+{"row": 174, "code_ids": ["SATD-08", "SATD-01"], "open_codes": ["硬编码 0/4/5 的丑陋函数"], "memo": "函数为各 metric 硬编码 0/4/5，自认丑陋并希望改用枚举类。"}
+{"row": 175, "code_ids": ["SATD-12"], "open_codes": ["pre-activation 无 batch norm"], "memo": "说明 pre-activation 变体没有 batch norm，故需该处理。"}
+{"row": 176, "code_ids": ["SATD-12"], "open_codes": ["更新 loss history"], "memo": "说明该调用用于更新 loss history。"}
+{"row": 177, "code_ids": ["SATD-08", "SATD-02"], "open_codes": ["Issue #639 的最小修复"], "memo": "这是针对 Issue #639 的最小可用修复，自认很乱。"}
+{"row": 178, "code_ids": ["SATD-07"], "open_codes": ["优化该实现"], "memo": "要求大幅优化该实现，属性能。"}
+{"row": 179, "code_ids": ["SATD-17"], "open_codes": ["空TODO"], "memo": "只有 TODO。"}
+{"row": 180, "code_ids": ["SATD-17"], "open_codes": ["空TODO"], "memo": "只有 TODO。"}

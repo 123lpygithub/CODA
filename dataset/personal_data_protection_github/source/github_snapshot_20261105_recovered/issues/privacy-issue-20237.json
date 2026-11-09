@@ -1,0 +1,34 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20237",
+  "issue_url": "https://github.com/bugsnag/bugsnag-js/issues/188",
+  "source_issue_url": "https://github.com/bugsnag/bugsnag-js/issues/188",
+  "api_url": "https://api.github.com/repos/bugsnag/bugsnag-js/issues/188",
+  "title": "hide PII div's in breadcrumbs",
+  "body": "Hi there! is there a way to exclude elements that may contain PII info from BugSnag's breadcrumbs?\nsimilar to this behavior: http://help.fullstory.com/spp/138664\n",
+  "author": "Participant 1",
+  "created_at": "2016-09-26T20:37:25Z",
+  "updated_at": "2016-10-04T16:53:57Z",
+  "state": "closed",
+  "closed_at": "2016-10-04T16:53:57Z",
+  "issue_fetched_at": "2026-10-18T23:10:35.793538+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T23:10:37.228105+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 250462088,
+      "url": "https://github.com/bugsnag/bugsnag-js/issues/188#issuecomment-250462088",
+      "created_at": "2016-09-29T13:13:49Z",
+      "updated_at": "2016-09-29T13:13:49Z",
+      "author": "Participant 2",
+      "body": "There isn't currently a UI for this like the behavior you described on full story. The best way to accomplish it would be with a [before notify hook](https://docs.bugsnag.com/platforms/browsers/customizing-error-reports/) . This let's you modify the exception payload before it is sent to Bugsnag.\n\n``` js\nBugsnag.beforeNotify = function(payload, metaData) {\n  // Filter out sensitive information\n  payload.breadcrumbs = payload.breadcrumbs.map(function(crumb){\n    // Check \n    if(crumb.metaData.targetSelector.match(/SOMEREGEX/) {\n      crumb.metaData.targetText = 'HIDDEN';\n    }\n    return crumb;\n  });\n}\n```\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0553-aadgfdibb",
+  "revision_url": "https://github.com/sorgerlab/indra/commit/11f0339e884f2dbe5a8c9b98b6ab0c6dff01f898",
+  "filename": "indra/sources/ndex_cx/processor.py",
+  "commit": "11f0339e884f2dbe5a8c9b98b6ab0c6dff01f898",
+  "source_url": "https://raw.githubusercontent.com/sorgerlab/indra/11f0339e884f2dbe5a8c9b98b6ab0c6dff01f898/indra/sources/ndex_cx/processor.py",
+  "fetched_at": "2026-11-05T06:13:11.297293+00:00",
+  "source_sha256": "c3cf9d11532aa2aeeec0aba414abaf87fc00aedbcc81e5648bee9b714f4ce7e5",
+  "line_start": 127,
+  "line_end": 151,
+  "excerpt": "                if db_name.lower() == 'uniprot':\n                    uniprot_id = uniprot_client.get_id_from_mnemonic(db_id)\n                    db_refs['UP'] = uniprot_id\n                elif db_name.lower() == 'pubchem':\n                    chebi_id = chebi_client.get_chebi_id_from_pubchem(db_id)\n                    db_refs['CHEBI'] = chebi_id\n                elif db_name.lower() == 'hgnc':\n                    db_refs['HGNC'] = db_id\n        elif entity_type == 'protein_family':\n            name = text\n        else:\n            return None\n        # TODO: handle other participant types\n        agent = Agent(name, db_refs=db_refs)\n\n        features = participant.get('features')\n        if features:\n            for feature in features:\n                feature_type = feature.get('feature_type')\n                if feature_type == 'modification_feature':\n                    mc = self._get_mod_condition(feature)\n                    agent.mods.append(mc)\n                elif feature_type == 'binding_feature':\n                    bc = self._get_bound_condition(feature)\n                    agent.bound_conditions.append(bc)"
+}

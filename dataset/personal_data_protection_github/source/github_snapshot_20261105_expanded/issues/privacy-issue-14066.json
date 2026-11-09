@@ -1,0 +1,98 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14066",
+  "issue_url": "https://github.com/aragon/client/issues/11",
+  "source_issue_url": "https://github.com/aragon/client/issues/11",
+  "api_url": "https://api.github.com/repos/aragon/client/issues/11",
+  "title": "Metrics",
+  "body": "We need to know how people are using the product in order to improve it. But we need all the analytics to be fully anonymous and untraceable. Any ideas?",
+  "author": "Participant 1",
+  "created_at": "2017-06-19T19:18:19Z",
+  "updated_at": "2020-03-18T20:57:36Z",
+  "state": "closed",
+  "closed_at": "2020-03-18T20:57:36Z",
+  "issue_fetched_at": "2026-10-19T02:11:33.537116+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T02:11:34.982200+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 309770349,
+      "url": "https://github.com/aragon/client/issues/11#issuecomment-309770349",
+      "created_at": "2017-06-20T14:19:01Z",
+      "updated_at": "2017-06-20T14:19:01Z",
+      "author": "Participant 2",
+      "body": "Ya, that's a good idea to have analytics (anonymous & untraceable). We can indeed record events such as org creation/joining anonymously.\r\n\r\nWe have;\r\n1 . NeutrinoMetrics looking good but it is in an early stage. (https://neutrinometrics.net/)\r\n2. Evergreen Google Analytics https://www.npmjs.com/package/electron-google-analytics\r\n\r\nLet's discuss events types which are better for analytics."
+    },
+    {
+      "id": 309790745,
+      "url": "https://github.com/aragon/client/issues/11#issuecomment-309790745",
+      "created_at": "2017-06-20T15:12:44Z",
+      "updated_at": "2017-06-20T15:12:44Z",
+      "author": "Participant 3",
+      "body": "I love Apple's approach to analytics.\n\nI don't know if there is any detailed documentation, but they have\ncompletely anonymous analytics.\n\nEl mar., 20 jun. 2017 a las 16:19, Harsh Vakharia (<notifications@github.com>)\nescribió:\n\n> Ya, that's a good idea to have analytics (anonymous & untraceable). We can\n> indeed record events such as org creation/joining anonymously.\n>\n> We have;\n> 1 . NeutrinoMetrics looking good but it is in an early stage. (\n> https://neutrinometrics.net/)\n> 2. Evergreen Google Analytics\n> https://www.npmjs.com/package/electron-google-analytics\n>\n> Let's discuss events types which are better for analytics.\n>\n> —\n> You are receiving this because you are subscribed to this thread.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/aragon/aragon/issues/11#issuecomment-309770349>, or mute\n> the thread\n> <https://github.com/notifications/unsubscribe-auth/AAbTYC8iKcqtmED3hdhgOJY7bMO7UzJPks5sF9TWgaJpZM4N-q5j>\n> .\n>\n"
+    },
+    {
+      "id": 349837574,
+      "url": "https://github.com/aragon/client/issues/11#issuecomment-349837574",
+      "created_at": "2017-12-07T01:59:03Z",
+      "updated_at": "2017-12-07T01:59:03Z",
+      "author": "Participant 4",
+      "body": "Found some interesting info on Piwik's website:  \r\n\r\nhttps://piwik.pro/gdpr-compliance/  \r\n\r\nAlso, bundling Tor with the application is an \"easy\" way to anonymize metadata \"out of the box\". This is what apps like Ricochet and OnionShare do to anonymize user metadata (including - especially - user IP addresses).  "
+    },
+    {
+      "id": 424375042,
+      "url": "https://github.com/aragon/client/issues/11#issuecomment-424375042",
+      "created_at": "2018-09-25T14:49:29Z",
+      "updated_at": "2018-09-25T14:49:29Z",
+      "author": "Participant 5",
+      "body": "As a stop gap to fully anonymous and untraceable metrics, we could also have a dialog asking a user if they'd like to provide metrics to us.\r\n\r\nWe've talked about adding [`Sentry`](https://sentry.io/welcome/) in before, and another option that includes web3 snooping (though this sounds quite scary) is [`moesif`](https://www.moesif.com/docs/client-integration/browser-js/)."
+    },
+    {
+      "id": 500456393,
+      "url": "https://github.com/aragon/client/issues/11#issuecomment-500456393",
+      "created_at": "2019-06-10T15:20:05Z",
+      "updated_at": "2019-06-10T15:20:05Z",
+      "author": "Participant 1",
+      "body": "This one is important. @lkngtn can you provide 2-3 important metrics that would help us understand how people use the client? With that, I can do some initial research on solutions"
+    },
+    {
+      "id": 503572012,
+      "url": "https://github.com/aragon/client/issues/11#issuecomment-503572012",
+      "created_at": "2019-06-19T13:56:45Z",
+      "updated_at": "2019-06-19T13:56:45Z",
+      "author": "Participant 1",
+      "body": "So we mainly need:\r\n- A way to contact our most active users (they can provide an email via HelpScout, notifications or an opt-in modal)\r\n- A way to know the referrers (where our users come from)\r\n\r\nMatomo can totally work for this."
+    },
+    {
+      "id": 503623408,
+      "url": "https://github.com/aragon/client/issues/11#issuecomment-503623408",
+      "created_at": "2019-06-19T16:00:30Z",
+      "updated_at": "2019-06-19T16:00:30Z",
+      "author": "Participant 6",
+      "body": "Would also add:\r\n- geographic/region data will also be useful for prioritizing localization and other efforts which might be tied to traction in specific regions. \r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 508063410,
+      "url": "https://github.com/aragon/client/issues/11#issuecomment-508063410",
+      "created_at": "2019-07-03T12:00:13Z",
+      "updated_at": "2019-07-03T12:00:13Z",
+      "author": "Participant 5",
+      "body": "I'd add that it'd be useful to know which orgs are being visited, and when, which is easily provided via the URL path."
+    },
+    {
+      "id": 600854713,
+      "url": "https://github.com/aragon/client/issues/11#issuecomment-600854713",
+      "created_at": "2020-03-18T20:57:36Z",
+      "updated_at": "2020-03-18T20:57:36Z",
+      "author": "Participant 5",
+      "body": "Closing; we may work on adding analytics in the future but its current effort is deprioritized."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,34 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-7659",
+  "issue_url": "https://github.com/juce-framework/JUCE/issues/346",
+  "source_issue_url": "https://github.com/juce-framework/JUCE/issues/346",
+  "api_url": "https://api.github.com/repos/juce-framework/JUCE/issues/346",
+  "title": "ios 11 devices crashing with CRASHING_DUE_TO_PRIVACY_VIOLATION",
+  "body": "  1) To reproduce the problem, create a new \"Audio Application\" with Projucer 5.2.0 and export to ios. Then run xcode 9.2 to compile and run on an ios 11.2 device (tried iPad air, iPad pro 10.5, iPad pro 12.9, iphone 6s+). Note that running on the simulator will work ok for the same device/ios configs.  Also, devices with ios 9.3 worked ok.\r\n \r\n  2) Upon the app starting up on the device, it immediately crashes.\r\n\r\n  3) Host system: MacOS; build target system: ios 9.0 ; test devices system: ios 11.2\r\n\r\n  4) the architecture 64 bit\r\n\r\n  5) stack trace: \r\nThread 4 Queue : com.apple.root.default-qos (concurrent)\r\n#0\t0x000000018150b048 in __abort_with_payload ()\r\n#1\t0x0000000181505bdc in abort_with_payload_wrapper_internal ()\r\n#2\t0x0000000181505c08 in abort_with_payload ()\r\n#3\t0x0000000184488980 in __CRASHING_DUE_TO_PRIVACY_VIOLATION__ ()\r\n#4\t0x00000001844888a0 in __TCCAccessRequest_block_invoke.77 ()\r\n#5\t0x000000018448c13c in __tccd_send_block_invoke ()\r\n#6\t0x0000000181659d44 in _xpc_connection_reply_callout ()\r\n#7\t0x0000000181659c80 in _xpc_connection_call_reply_async ()\r\n#8\t0x0000000105da9aa4 in _dispatch_client_callout3 ()\r\n#9\t0x0000000105dc3cd4 in _dispatch_mach_msg_async_reply_invoke ()\r\n#10\t0x0000000105db51c4 in _dispatch_queue_override_invoke ()\r\n#11\t0x0000000105dba9d0 in _dispatch_root_queue_drain ()\r\n#12\t0x0000000105dba6f4 in _dispatch_worker_thread3 ()\r\n#13\t0x000000018161f06c in _pthread_wqthread ()\r\n#14\t0x000000018161eb6c in start_wqthread ()\r\nEnqueued from com.apple.libdispatch-manager (Thread 3) Queue : com.apple.libdispatch-manager (serial)\r\n#0\t0x0000000105dc18f8 in _dispatch_mach_reply_merge_msg ()\r\n#1\t0x0000000105dc6dec in _dispatch_event_loop_merge ()\r\n#2\t0x0000000105dbfbfc in _dispatch_kevent_worker_thread ()\r\n#3\t0x000000018161eed8 in _pthread_wqthread ()\r\n#4\t0x000000018161eb6c in start_wqthread ()\r\n\r\n*** Problem occurs on development branch as well.\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-01-22T22:08:35Z",
+  "updated_at": "2018-01-23T09:00:58Z",
+  "state": "closed",
+  "closed_at": "2018-01-23T09:00:58Z",
+  "issue_fetched_at": "2026-10-18T19:10:59.854292+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T19:11:01.239368+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 359723939,
+      "url": "https://github.com/juce-framework/JUCE/issues/346#issuecomment-359723939",
+      "created_at": "2018-01-23T09:00:58Z",
+      "updated_at": "2018-01-23T09:00:58Z",
+      "author": "Participant 2",
+      "body": "You'll need to enable microphone access in the iOS exporter settings of the Projucer:\r\n\r\n<img width=\"1240\" alt=\"screen shot 2018-01-23 at 09 00 26\" src=\"https://user-images.githubusercontent.com/6862971/35266691-eb09e0a2-001b-11e8-86ff-5fd57b5f7ffc.png\">\r\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

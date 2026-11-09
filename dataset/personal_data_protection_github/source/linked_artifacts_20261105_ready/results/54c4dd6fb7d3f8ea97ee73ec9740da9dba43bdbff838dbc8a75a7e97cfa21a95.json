@@ -1,0 +1,14 @@
+{
+  "url": "https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/scripts.html",
+  "kind": "file",
+  "cited_in": [
+    "comment_388086472"
+  ],
+  "revision": "master",
+  "immutable_revision": false,
+  "text": "{% assign locale = include.locale | default: site.locale %}\n{% if site.footer_scripts %}\n  {% for script in site.footer_scripts %}\n    <script src=\"{{ script | relative_url }}\"></script>\n  {% endfor %}\n{% else %}\n  <script src=\"{{ '/assets/js/main.min.js' | relative_url }}\"></script>\n{% endif %}\n\n{% if site.search == true or page.layout == \"search\" %}\n  {%- assign search_provider = site.search_provider | default: \"lunr\" -%}\n  {%- case search_provider -%}\n    {%- when \"lunr\" -%}\n      {% include_cached search/lunr-search-scripts.html locale=locale %}\n    {%- when \"google\" -%}\n      {% include_cached search/google-search-scripts.html %}\n    {%- when \"algolia\" -%}\n      {% include_cached search/algolia-search-scripts.html locale=locale %}\n  {%- endcase -%}\n{% endif %}\n\n{% include analytics.html %}\n{% include /comments-providers/scripts.html locale=locale %}\n\n{% if site.after_footer_scripts %}\n  {% for script in site.after_footer_scripts %}\n    <script src=\"{{ script | relative_url }}\"></script>\n  {% endfor %}\n{% endif %}\n",
+  "source_sha256": "f8f1d0f344ef19f4bc85785e49ed9a32c1e5f1a8812dfd7592ce9a73ab4a9abd",
+  "fetched_at": "2026-11-05T07:22:04.389153+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/mmistakes/minimal-mistakes/master/_includes/scripts.html",
+  "status": "available"
+}

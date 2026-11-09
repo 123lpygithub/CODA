@@ -1,0 +1,34 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-7460",
+  "issue_url": "https://github.com/kubescape/kubescape/issues/529",
+  "source_issue_url": "https://github.com/kubescape/kubescape/issues/529",
+  "api_url": "https://api.github.com/repos/kubescape/kubescape/issues/529",
+  "title": "Privacy Violation",
+  "body": "All scan results are getting uploaded by default to \r\n{\r\n  \"accountID\": \"d9bb1de7-b577-4c66-8549-e5ff539b11ba\"\r\n}\r\nThis is getting created by default in ${USER_HOME}/.kubescape/config.json location\r\n\r\nWhose account id is this?\r\nThis is an extreme privacy violation, please remove all uploaded scan information to above account,\r\n\r\nAlso, without the submit flag, tool is automatically uploading the results in the second iteration of run against same cluster.\r\nPlease fix this issue.",
+  "author": "Participant 1",
+  "created_at": "2022-06-07T07:18:46Z",
+  "updated_at": "2022-06-07T08:10:40Z",
+  "state": "closed",
+  "closed_at": "2022-06-07T08:10:39Z",
+  "issue_fetched_at": "2026-10-18T15:10:54.336401+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T15:10:57.540876+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1148340323,
+      "url": "https://github.com/kubescape/kubescape/issues/529#issuecomment-1148340323",
+      "created_at": "2022-06-07T08:10:39Z",
+      "updated_at": "2022-06-07T08:10:39Z",
+      "author": "Participant 2",
+      "body": "Hi @navzen2000 ,\r\n\r\nBy default, Kubescape [does NOT submit the results](https://github.com/armosec/kubescape/blob/54020d317ed81697c7160698bd8a881909f4242f/core/core/initutils.go#L122).\r\nIf you scan once with the submit flag, kubescape will submit the results. If you wish not to submit results you can delete the cache (file and configMap -> `kubescape config delete`) or scan with the `keep-local` flag\r\n\r\nSince this is open source you can confirm this behavior.\r\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

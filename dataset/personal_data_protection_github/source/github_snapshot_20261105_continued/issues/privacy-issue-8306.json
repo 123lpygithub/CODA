@@ -1,0 +1,98 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8306",
+  "issue_url": "https://github.com/mozilla-mobile/fenix/issues/16006",
+  "source_issue_url": "https://github.com/mozilla-mobile/fenix/issues/16006",
+  "api_url": "https://api.github.com/repos/mozilla-mobile/fenix/issues/16006",
+  "title": "Remove GS(Google Service)from Fenix",
+  "body": "### What is the user problem or growth opportunity you want to see solved?\nGoogle Service Bring Good Features but it has problems for Users, One and Big One is Privacy Compromising and Others are huge app size.\n### How do you know that this problem exists today? Why is this important?\nwhen i try update google service fenix restart\n### Who will benefit from it?\nevery one, special how want more and more Privacy also avoid google to log history and etc\n\n┆Issue is synchronized with this [Jira Task](https://mozilla-hub.atlassian.net/browse/FNXV2-8292)\n",
+  "author": "Participant 1",
+  "created_at": "2020-10-18T17:11:22Z",
+  "updated_at": "2022-05-18T08:16:25Z",
+  "state": "closed",
+  "closed_at": "2020-10-22T01:18:50Z",
+  "issue_fetched_at": "2026-10-19T02:11:54.763072+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T02:11:56.237842+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 711365881,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/16006#issuecomment-711365881",
+      "created_at": "2020-10-18T18:35:30Z",
+      "updated_at": "2020-10-18T18:35:30Z",
+      "author": "Participant 2",
+      "body": ">  also avoid google to log history and etc\r\n\r\nMozilla is not sending your browsing history to third parties…"
+    },
+    {
+      "id": 711411193,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/16006#issuecomment-711411193",
+      "created_at": "2020-10-18T19:38:01Z",
+      "updated_at": "2020-10-18T19:38:01Z",
+      "author": "Participant 1",
+      "body": "mozilla not send history but google service send"
+    },
+    {
+      "id": 711465395,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/16006#issuecomment-711465395",
+      "created_at": "2020-10-19T01:49:15Z",
+      "updated_at": "2020-10-19T01:49:15Z",
+      "author": "Participant 3",
+      "body": "Is there any code or feature relying on that?"
+    },
+    {
+      "id": 712119886,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/16006#issuecomment-712119886",
+      "created_at": "2020-10-19T12:22:56Z",
+      "updated_at": "2020-10-19T12:23:19Z",
+      "author": "Participant 4",
+      "body": "Classyshark is showing multiple built in trackers, I +1 heavily that these should and need to be removed. This is absurd.\n\nAdjust\nGoogle AdMob\nLeanPlum\n\n*Adjust\n5com.adjust.sdk.\n\n*Google AdMob\n2com.google.android.gms.ads.\n\n*LeanPlum\n1com.leanplum.\n\n\nfile:///data/app/org.mozilla.fennec_fdroid-0mV5JQsbxytxKHdXEf_8dA%3D%3D/base.apk "
+    },
+    {
+      "id": 712123722,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/16006#issuecomment-712123722",
+      "created_at": "2020-10-19T12:30:24Z",
+      "updated_at": "2020-10-19T12:30:24Z",
+      "author": "Participant 2",
+      "body": "@grravity This issue is about something from Google, not about Adjust or Leanplum. Please read this comment why these libraries are needed / how they are used:\r\n\r\nhttps://github.com/mozilla-mobile/fenix/issues/12809#issuecomment-662199501"
+    },
+    {
+      "id": 712134351,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/16006#issuecomment-712134351",
+      "created_at": "2020-10-19T12:51:02Z",
+      "updated_at": "2020-10-19T12:51:02Z",
+      "author": "Participant 4",
+      "body": "I have read that, also the issue of this issue was not entirely clear.\nHowever conversation in that issue is closed, so it was not possible to express concerns there.\n\n>Adjust is used to coordinate marketing campaigns and to evaluate the cost of running such campaigns.\n\nThis is not an excuse for using Adjust as a service in my opinion. More specifically, the F-Droid build should not have Adjust.\n\n>As far as I know Admob is not directly used by Fenix. It may be pulled in as part of the Adjust SDK where I see a mention of Admob in their source code and/or Google Firebase.\n\nAgain, if this is true this is not an excuse for it in my opinion. At the very least it should not be in the F-Droid build.\n\n>Firebase is used for Google Cloud Messaging. The only way to reliably receive push notifications on Android. \n\nI know there have been many foss applications that do not utilize Firebase and have achieved notifications to almost full reliability, however I understand not perfect and at the cost of some battery life generally.\nHowever, this again in my opinion is not an excuse for having Firebase in the F-Droid variant.\n\n>Leanplum is used to show contextual recommendations while using Fenix. \n\nThis only applies to users who choose to use these features, however there is no easy way for users who do not wish to utilize these features to truly opt out in a way that any of these services are actually removed which is my major concern. At the very least, having two F-Droid builds, one stripped of all these components at the possible expense of some notification unreliability and battery usage is perfectly reasonable for users who do not wish to use these services. This has been a very frustrating thing, and it is simple to understand that these services do not help out privacy in any way. If there was a true care about privacy, these services would not be present. However that is clearly not the case, we really need a build that is stripped of this bs. \n\nAnyways I understand this isn't the exact issue for this, however again that issue was closed. I'll refrain from conversing about this issue here if need be."
+    },
+    {
+      "id": 712146018,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/16006#issuecomment-712146018",
+      "created_at": "2020-10-19T13:11:12Z",
+      "updated_at": "2020-10-19T13:11:12Z",
+      "author": "Participant 2",
+      "body": "Again: This issue is not about Adjust and Leanplum. I don't understand why you \"hijack\" this issue. It's also not the right place to discuss the F-Droid builds. Please follow the already linked issue #12809 for \"Support a build variant that limits or turns off tracking\"."
+    },
+    {
+      "id": 712219948,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/16006#issuecomment-712219948",
+      "created_at": "2020-10-19T14:51:14Z",
+      "updated_at": "2020-10-19T14:51:14Z",
+      "author": "Participant 1",
+      "body": "like @grravity say its drain battery too "
+    },
+    {
+      "id": 714127554,
+      "url": "https://github.com/mozilla-mobile/fenix/issues/16006#issuecomment-714127554",
+      "created_at": "2020-10-22T01:18:50Z",
+      "updated_at": "2020-10-22T01:18:50Z",
+      "author": "Participant 5",
+      "body": "There's nothing we can do about google tracking you if you search using google.com. This is not the place to file F-Droid issues. "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

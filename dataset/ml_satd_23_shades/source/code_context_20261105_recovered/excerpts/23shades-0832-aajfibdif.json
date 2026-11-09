@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0832-aajfibdif",
+  "revision_url": "https://github.com/probcomp/bayeslite/commit/9e5cf64a877986a44c26dd45fc638c51c19cfbca",
+  "filename": "src/bqlfn.py",
+  "commit": "9e5cf64a877986a44c26dd45fc638c51c19cfbca",
+  "source_url": "https://raw.githubusercontent.com/probcomp/bayeslite/9e5cf64a877986a44c26dd45fc638c51c19cfbca/src/bqlfn.py",
+  "fetched_at": "2026-11-05T06:14:01.691312+00:00",
+  "source_sha256": "350048b6170261aaba39984f609ca0a6d8348c62c2ac988f74c58e112bbbb3ee",
+  "line_start": 274,
+  "line_end": 298,
+  "excerpt": "        if i + 1 == len(constraint_args):\n            raise ValueError('Odd constraint arguments: %s' %\n                (constraint_args,))\n        constraint_colno = constraint_args[i]\n        constraint_value = constraint_args[i + 1]\n        constraints.append((fake_row_id, constraint_colno, constraint_value))\n        i += 2\n    targets = [(fake_row_id, colno, value)]\n    r = metamodel.logpdf_joint(\n        bdb, generator_id, targets, constraints, modelno)\n    return ieee_exp(r)\n\n# XXX This is silly.  We should return log densities, not densities.\ndef bql_pdf_joint(bdb, generator_id, modelno, *args):\n    metamodel = core.bayesdb_generator_metamodel(bdb, generator_id)\n    # A nonexistent (`unobserved') row id.\n    fake_row_id = core.bayesdb_generator_fresh_row_id(bdb, generator_id)\n    i = 0\n    targets = []\n    while i < len(args):\n        if args[i] == -1:\n            i += 1\n            break\n        if i + 1 == len(args):\n            raise ValueError('Odd logpdf targets/constraints: %r' % (args,))",
+  "match_policy": "unique-release-normalized-v2"
+}

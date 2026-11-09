@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0157-aafejhiea",
+  "revision_url": "https://github.com/deepfakes/faceswap/commit/995a8571547dec1a1852dc87b48e45a2485a4e01",
+  "filename": "lib/training_data.py",
+  "commit": "995a8571547dec1a1852dc87b48e45a2485a4e01",
+  "source_url": "https://raw.githubusercontent.com/deepfakes/faceswap/995a8571547dec1a1852dc87b48e45a2485a4e01/lib/training_data.py",
+  "fetched_at": "2026-11-05T06:12:03.361479+00:00",
+  "source_sha256": "d019362b6060997fb22eb64206aba124a7195af47c1bfeb50b0af97216240910",
+  "line_start": 208,
+  "line_end": 232,
+  "excerpt": "        # Random Transform and flip\n        batch = self._processing.transform(batch)\n        if not self._training_opts[\"no_flip\"]:\n            batch = self._processing.random_flip(batch)\n\n        # Add samples to output if this is for display\n        if self._processing.is_display:\n            processed[\"samples\"] = batch[..., :3].astype(\"float32\") / 255.0\n\n        # Get Targets\n        processed.update(self._processing.get_targets(batch))\n\n        # Random Warp # TODO change masks to have a input mask and a warped target mask\n        processed[\"feed\"] = [self._processing.warp(batch[..., :3],\n                                                   self._training_opts[\"warp_to_landmarks\"],\n                                                   **warp_kwargs)]\n\n        logger.trace(\"Processed batch: (filenames: %s, side: '%s', processed: %s)\",\n                     filenames,\n                     side,\n                     {k: v.shape if isinstance(v, np.ndarray) else[i.shape for i in v]\n                      for k, v in processed.items()})\n\n        return processed\n"
+}

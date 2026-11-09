@@ -1,0 +1,165 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-6881",
+  "issue_url": "https://github.com/firebase/firebase-js-sdk/issues/449",
+  "source_issue_url": "https://github.com/firebase/firebase-js-sdk/issues/449",
+  "api_url": "https://api.github.com/repos/firebase/firebase-js-sdk/issues/449",
+  "title": "Expose API to clear offline persistence (in IndexedDB).",
+  "body": "Please expose a way to clear offline persistence (in IndexedDB).  It would be useful to clean up when the user signs out.",
+  "author": "Participant 1",
+  "created_at": "2018-01-18T14:28:04Z",
+  "updated_at": "2019-10-23T01:01:27Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:44.732579+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:44.732579+00:00"
+  ],
+  "expected_comment_count": 56,
+  "retrieved_comment_count": 17,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 359614237,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-359614237",
+      "created_at": "2018-01-22T23:50:17Z",
+      "updated_at": "2018-01-22T23:50:17Z",
+      "author": "Participant 2",
+      "body": "There is not currently (other than poking into IndexedDB directly to delete the data)."
+    },
+    {
+      "id": 359650652,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-359650652",
+      "created_at": "2018-01-23T02:16:34Z",
+      "updated_at": "2018-01-23T02:16:34Z",
+      "author": "Participant 1",
+      "body": "Can we make it a feature request then?"
+    },
+    {
+      "id": 360580425,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-360580425",
+      "created_at": "2018-01-25T19:51:32Z",
+      "updated_at": "2018-01-25T19:51:32Z",
+      "author": "Participant 2",
+      "body": "I edited it into a feature request. Feel free to add more detail if you have more specific use cases in mind, etc."
+    },
+    {
+      "id": 370035351,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-370035351",
+      "created_at": "2018-03-02T19:56:52Z",
+      "updated_at": "2018-03-02T19:56:52Z",
+      "author": "Participant 3",
+      "body": "I also need this. When a user logs out we need to clear local caches of private data in our application."
+    },
+    {
+      "id": 420572201,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-420572201",
+      "created_at": "2018-09-12T09:10:06Z",
+      "updated_at": "2018-09-12T09:27:40Z",
+      "author": "Participant 4",
+      "body": "Here's the version that deletes from `targets`, that mike talked about:\r\n\r\n```\r\n  clearCache(subcollection: string) {\r\n    console.log(`Clearing ${subcollection} and deleted entities`);\r\n    const o = indexedDB.open('firestore/[DEFAULT]/tillty-1/main');\r\n    o.onsuccess = () => {\r\n      const writeTrx: IDBTransaction = o.result.transaction(['remoteDocuments', 'targetDocuments', 'targets'], 'readwrite');\r\n      const targetIds: number[] = [];\r\n      const targets = writeTrx.objectStore('targets');\r\n      const targetDocuments = writeTrx.objectStore('targetDocuments');\r\n      const remoteDocuments = writeTrx.objectStore('remoteDocuments');\r\n\r\n      targets.openCursor().onsuccess = (e1: any) => {\r\n        const cursor1: IDBCursorWithValue = e1.target.result;\r\n        // Find all target IDs of the entity name we wish to purge\r\n        if (cursor1) {\r\n          if (cursor1.value.canonicalId.indexOf(`/${subcollection}`) !== -1) {\r\n            targetIds.push(cursor1.value.targetId);\r\n            cursor1.delete();\r\n          }\r\n\r\n          cursor1.continue();\r\n        } else { // No more rows in the 'targets' datastore\r\n          remoteDocuments.openCursor().onsuccess = (e2: any) => {\r\n            const cursor: IDBCursorWithValue = e2.target.result;\r\n            if (cursor) {\r\n              if ((Array.isArray(cursor.key) && cursor.key.length >= 4 && cursor.key[2] === subcollection) || cursor.value.noDocument) {\r\n                cursor.delete();\r\n              }\r\n              cursor.continue();\r\n            }\r\n          };\r\n\r\n          targetDocuments.openCursor().onsuccess = (e2: any) => {\r\n            const cursor2: IDBCursorWithValue = e2.target.result;\r\n            if (cursor2) {\r\n              if (Array.isArray(cursor2.key) && targetIds.find(id => id === <number>cursor2.key[0])) {\r\n                cursor2.delete();\r\n              }\r\n              cursor2.continue();\r\n            }\r\n          };\r\n        }\r\n      };\r\n    };\r\n  }\r\n```\r\nThis function should not be run while firestore is initialized since it can cause internal assertion errors that breaks the DB layer completely. So you should either:\r\nRun `clearCache('something')` and THEN initialize firestore.\r\n**OR** run `clearCache('something')` and then do a `location.reload()` to make sure firestore is reinitialized.\r\n\r\nAgain, use at own risk."
+    },
+    {
+      "id": 420703322,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-420703322",
+      "created_at": "2018-09-12T16:01:08Z",
+      "updated_at": "2018-09-12T16:01:08Z",
+      "author": "Participant 2",
+      "body": "Thanks @larssn!\r\n\r\nAs for the timeline for garbage collection, I can't communicate any specific timeline, but it's making good progress.  The bulk of it has been implemented on iOS (https://github.com/firebase/firebase-ios-sdk/pull/1600) and is currently being ported to web.  That said, we still need to define and expose the API that actually enables it which will take some additional time (all new APIs have to go through some extra process before being exposed).  So no concrete timeline, but I promise it's coming. :-)"
+    },
+    {
+      "id": 420724597,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-420724597",
+      "created_at": "2018-09-12T17:06:24Z",
+      "updated_at": "2018-09-12T17:06:24Z",
+      "author": "Participant 4",
+      "body": "@mikelehen Thank you. We'll hold our breath for now :)"
+    },
+    {
+      "id": 431943479,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-431943479",
+      "created_at": "2018-10-22T19:13:02Z",
+      "updated_at": "2018-10-22T19:13:02Z",
+      "author": "Participant 5",
+      "body": "> Just FYI-\r\n> \r\n> > so if two users use the same device with different accounts, the cached response will return information from the other user, so you could end up showing wrong information in offline mode.\r\n> \r\n> This won't actually be the case for most apps. Since security rules do not act as filters (they either allow or deny a query in its entirety), as long as your app doesn't perform broken queries (that will be rejected by the backend due to security rules), **_users won't see any locally-cached data that they don't have access to_**... I repeat Gil's warning that you can't rely on this to protect sensitive data (you should disable persistence instead), but you _can_ expect your app to behave offline just fine even if multiple users have used the app, resulting in various locally-cached data... in fact, sharing the cache improves the offline experience and general performance of the app since there's a greater chance that data requested by the app will already be available locally.\r\n\r\n@mikelehen apologies for my confusion as a noob, but by saying **_users won't see any locally-cached data that they don't have access to_**- do you mean access restricted by security rules? Because I am seeing cached data returned despite data being restricted by security rule (and error callback called as well). I tried two scenarios-\r\n\r\nScenario 1:\r\n- User A logs in\r\n- listener Set and initial data fetched/cached\r\n- User A's role changed (by modifying data in a firestore path from backend/separate client) and consequently data is now restricted by security rule\r\n- Page refresh, causing listeners to be set again, and this time querysnapshot is still returned from cache with restricted data\r\n\r\nScenario 2:\r\n- User A logs in\r\n- listener Set and initial data fetched/cached\r\n- User A logs out, and listeners unsubscribed\r\n- User B logs in, causing new listeners to be set, and this time querysnapshot is still returned from cache with restricted data\r\n\r\nSo I am only confused with the quoted part.\r\n\r\n```\r\n    var unsubscribe = firebase.firestore()\r\n        .collection(\"schools\")\r\n        .doc(this.props.userContext.state.schoolID)\r\n        .collection(\"chatroom/common/chats\").orderBy(\"timestamp\")\r\n            .onSnapshot(\r\n                (querySnapshot)=> {\r\n                    console.log(\"QuerySnapshot\", querySnapshot);\r\n\r\n                    var newChats = {};                \r\n                    querySnapshot.forEach((doc)=>{\r\n                        newChats[doc.id] = doc.data()\r\n                    });\r\n\r\n                    this.setState({chats: newChats});\r\n                },\r\n                error=>{\r\n                    console.log(\"Failed to set listener on Chats Node. Possible reason: \", error.message);\r\n                }\r\n            );\r\n```"
+    },
+    {
+      "id": 431960709,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-431960709",
+      "created_at": "2018-10-22T19:58:26Z",
+      "updated_at": "2018-10-22T19:58:26Z",
+      "author": "Participant 2",
+      "body": "@asifbd Can you share your security rules that should be restricting access?  I'm confused why your listener error handler isn't getting called if the user doesn't have access to all of the documents under `chatroom/common/chats`."
+    },
+    {
+      "id": 431992794,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-431992794",
+      "created_at": "2018-10-22T21:24:16Z",
+      "updated_at": "2018-10-22T21:24:16Z",
+      "author": "Participant 5",
+      "body": "@mikelehen listener error handlers **do get called**, in both scenarios. But at the same time, **cached data is also returned** in snapshot.\r\n \r\n\r\n> ... I am seeing cached data returned despite data being restricted by security rule (and error callback called as well)....\r\n\r\n\r\nMy security rules involve several custom functions, just pasting the relevant portion-\r\n\r\n```\r\nfunction allowAnyUser()\r\n  {\r\n  \treturn request.auth.uid != null;\r\n  }\r\n\r\nfunction adminAndAbove(forID)\r\n  {\r\n  \treturn getUserAccess(forID, ['admin'])\r\n  }\r\n\r\nfunction memberAndAbove(forID)\r\n  {\r\n  \treturn getUserAccess(forID, ['member','admin'])\r\n  }\r\n  \r\n  \r\nfunction getUserAccess(forID, allowedRoles)\r\n{\r\n    return validateAccessWithUserData(get(/databases/$(database)/documents/test_auth_users/$(request.auth.uid)).data, forID, allowedRoles);\r\n}\r\n  \r\n  \r\nfunction validateAccessWithUserData(userData, forID, allowedRoles)\r\n{\r\n    return userData != null && userData['schoolId'] != null && userData['schoolId'] == forID && userData['user_role'] != null && userData['user_role'] in allowedRoles;\r\n}\r\n\r\n// --------------------------- end of section: custom functions ----------------------------------\r\n\r\nmatch /schools/{schoolId} {\r\n       \r\n    match /chatroom/common/{anything_under_it=**} {\r\n        allow read: if memberAndAbove(schoolId);\r\n        allow write: if memberAndAbove(schoolId);\r\n    }\r\n}\r\n```"
+    },
+    {
+      "id": 432020991,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-432020991",
+      "created_at": "2018-10-22T22:59:54Z",
+      "updated_at": "2018-10-22T22:59:54Z",
+      "author": "Participant 2",
+      "body": "@asifbd Ahh, okay. Then that is behaving as expected.  Security rules don't act as filters, so in order to prevent your listener from being canceled (and the error callback called), you'll need to adjust the query you're listening to so that it passes your security rules.  Once you do that, the results of the query (from cache) will presumably no longer include data that the user doesn't have access to.\r\n\r\nNote that I'm not saying that this means your app is more secure.  A malicious user could drop into the JS console and manually do queries to access whatever data is in the cache.  But in terms of app correctness (showing the user only their own documents), the queries you issue have to be allowed by your security rules anyway (i.e. the user must have access to perform the query), and so your app should behave correctly and only show users data that they have access to."
+    },
+    {
+      "id": 439939285,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-439939285",
+      "created_at": "2018-11-19T15:47:47Z",
+      "updated_at": "2018-11-19T15:47:47Z",
+      "author": "Participant 6",
+      "body": "@mikelehen  Any news on this ? We're also starting to see our app slowing down gradually as time goes by... Just deleting the indexedDB shows real improvement on queries performance but this is not a viable solution. \r\n\r\nThanks "
+    },
+    {
+      "id": 439974692,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-439974692",
+      "created_at": "2018-11-19T17:26:22Z",
+      "updated_at": "2018-11-19T17:26:22Z",
+      "author": "Participant 2",
+      "body": "@sambegin No news on an API to explicitly clear persistence, but we are working on garbage collection, to delete data from IndexedDb that hasn't been used recently.  @gsoltis has implemented a lot of the underlying infrastructure for that but there's still a bit more work to do."
+    },
+    {
+      "id": 439977126,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-439977126",
+      "created_at": "2018-11-19T17:33:36Z",
+      "updated_at": "2018-11-19T17:33:36Z",
+      "author": "Participant 6",
+      "body": "Thanks @mikelehen . I'm specifically not looking for an API to clear persistence... Anything that can fix the performance problem should be good ! I know you can't say anything about timeline but... Are we days, months, years from getting this garbage collection feature  ? "
+    },
+    {
+      "id": 440100272,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-440100272",
+      "created_at": "2018-11-20T01:13:47Z",
+      "updated_at": "2018-11-20T01:13:47Z",
+      "author": "Participant 7",
+      "body": "@sambegin LRU Garbage collection is coming very soon. Pretty much all of the groundwork is in place, it just needs to be wired together. I would expect maybe one or two more PRs then it will be ready!"
+    },
+    {
+      "id": 447141326,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-447141326",
+      "created_at": "2018-12-13T22:20:17Z",
+      "updated_at": "2018-12-13T22:20:17Z",
+      "author": "Participant 8",
+      "body": "GC is now available \r\nhttps://firebase.google.com/support/release-notes/js#5.7.0\r\nwith control to data cached size (the best feature)\r\nstart test it\r\n"
+    },
+    {
+      "id": 509414049,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-509414049",
+      "created_at": "2019-07-08T22:23:59Z",
+      "updated_at": "2019-07-08T22:23:59Z",
+      "author": "Participant 9",
+      "body": "`clearPersistence()` was launched in [v6.2.0](https://firebase.google.com/support/release-notes/js#version_620_-_june_13_2019)."
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/firebase/firebase-js-sdk/issues/449",
+  "closed_at_available": false
+}

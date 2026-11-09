@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0533-aahdfajdh",
+  "revision_url": "https://github.com/cyschneck/Hydra/commit/e586b8f3f8ad2226d64908bbe8517aec8cfacad7",
+  "filename": "raw_text_processing.py",
+  "commit": "e586b8f3f8ad2226d64908bbe8517aec8cfacad7",
+  "source_url": "https://raw.githubusercontent.com/cyschneck/Hydra/e586b8f3f8ad2226d64908bbe8517aec8cfacad7/raw_text_processing.py",
+  "fetched_at": "2026-11-05T06:13:08.381816+00:00",
+  "source_sha256": "f61d91ef4607a417ee05b0ff94eba3db6082b7fdf3df662010ccae573f74ce0c",
+  "line_start": 111,
+  "line_end": 135,
+  "excerpt": "\tpos_processed = re.sub(\"\\t\", \",\", pos_processed.strip())\n\tpos_processed = re.sub(\",\", \" \", pos_processed.strip())\n\tpos_processed = pos_processed.splitlines()\n\tfor i in range(len(pos_processed)):\n\t\tpos_processed[i] = pos_processed[i].split(\" \")\n\t\t#print(pos_processed[i])\n\treturn pos_processed\n\ndef findProperNamedEntity(pos_dict):\n\t# returns {sentence index: [list of all proper nouns grouped]\n\t# {0: [\"Scarlett O'Hara\", 'Tarleton'], 1: ['Coast']}\n\tpos_type_lst = []\n\t# TODO: EXPAND PROPER NOUNS FOR COMMON WORDS AROUND WORD\n\tfor row, pos_named in pos_dict.iteritems():\n\t\tif \"NNP\" in pos_named.XPOSTAG: #\"NN\" in pos_named.XPOSTAG or \"POS\" in pos_named.XPOSTAG or \"IN\" in pos_named.XPOSTAG or \"DT\" in pos_named.XPOSTAG:\n\t\t\tpos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))\n\t#print(pos_type_lst)\n\n\ttotal_sentence_indices = list(set([i[0] for i in pos_type_lst]))\n\t#print(total_sentence_indices)\n\tsub_sentences = []\n\tfor index in total_sentence_indices:\n\t\t# create sub sentences for each sentence [[0], [1])\n\t\tsub_sentences.append([x for x in pos_type_lst if x[0] == index])\n"
+}

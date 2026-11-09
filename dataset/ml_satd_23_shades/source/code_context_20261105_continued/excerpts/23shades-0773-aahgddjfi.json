@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0773-aahgddjfi",
+  "revision_url": "https://github.com/explosion/spaCy/commit/d25d31442df1e2de7f66346ec24694c88a9fe478",
+  "filename": "spacy/munge/read_ner.py",
+  "commit": "d25d31442df1e2de7f66346ec24694c88a9fe478",
+  "source_url": "https://raw.githubusercontent.com/explosion/spaCy/d25d31442df1e2de7f66346ec24694c88a9fe478/spacy/munge/read_ner.py",
+  "fetched_at": "2026-11-05T06:13:50.153207+00:00",
+  "source_sha256": "64f69a41b548c41de66972d3535e7c4cd4d59c0a34fc6e6770baef52ce6d30fc",
+  "line_start": 72,
+  "line_end": 96,
+  "excerpt": "    if substr.startswith('<'):\n        substr = substr.split('>', 1)[1]\n    if substr.endswith('>'):\n        substr = substr.split('<')[0]\n    return reform_string(substr)\n\n\ndef tags_to_entities(tags):\n    entities = []\n    start = None\n    for i, tag in enumerate(tags):\n        if tag.startswith('O'):\n            # TODO: We shouldn't be getting these malformed inputs. Fix this.\n            if start is not None:\n                start = None\n            continue\n        elif tag == '-':\n            continue\n        elif tag.startswith('I'):\n            assert start is not None, tags[:i]\n            continue\n        if tag.startswith('U'):\n            entities.append((tag[2:], i, i))\n        elif tag.startswith('B'):\n            start = i"
+}

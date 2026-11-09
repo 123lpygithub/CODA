@@ -1,0 +1,282 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27bigbluebutton%2Fbigbluebutton%27+AND+number%3D8944+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='bigbluebutton/bigbluebutton' AND number=8944 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:40.089928+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "guerby",
+        "created_at": "2020-04-01 12:17:08",
+        "updated_at": "2020-04-01 12:17:08",
+        "title": "Bandwidth control (important for upload)",
+        "body": "Hi,\r\n\r\nWhile evaluating various tools for audio/video conferencing and testing bigbluebutton one weakness we found is that if the presenter doesn't have a good upload when sharing desktop the audio quality drops a lot for example (and things don't generally work smoothly).\r\n\r\nResearching a bit the issue it looks like webRTC has knobs to select bandwidth, we found a great demo website:\r\nhttps://webrtc.github.io/samples/src/content/peerconnection/bandwidth/\r\n\r\nMagic seems to be there:\r\n\r\nhttps://github.com/webrtc/samples/blob/gh-pages/src/content/peerconnection/bandwidth/js/main.js#L225\r\n\r\nsdp = sdp.replace(/c=IN (.*)\\r\\n/, 'c=IN $1\\r\\nb=' + modifier + ':' + bandwidth + '\\r\\n');\r\n\r\nSo feature request would be to add drop down menu for upload and download bandwith in bigbluebutton just like in the web site above. I'm not familiar with bbb code base, looking at \"sdp\" in the js code on where to hack this to be able to test if it works or not. Do not hesitate to tell me where to look for and I can experiment.\r\n\r\nIn a perfect world I assume browser should do so by themselves but well ... :)\r\n\r\nThanks for this great free software and keep up the good work!",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-04-01 12:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "guerby",
+        "created_at": "2020-04-01 12:25:53",
+        "updated_at": "2020-04-01 12:25:53",
+        "title": "Bandwidth control (important for upload)",
+        "body": "normal case (the sdp.replace is a fallback)\r\nconst sender = pc1.getSenders()[0];\r\n    const parameters = sender.getParameters();\r\n if (bandwidth === 'unlimited') {\r\n      delete parameters.encodings[0].maxBitrate;\r\n    } else {\r\n      parameters.encodings[0].maxBitrate = bandwidth * 1000;\r\n    }\r\n    sender.setParameters(parameters)\r\n        .then(() => {\r\n          bandwidthSelector.disabled = false;\r\n        })\r\n",
+        "comment_id": 607218714,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-04-01 12:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "prlanzarin",
+        "created_at": "2020-04-01 12:44:57",
+        "updated_at": "2020-04-01 12:44:56",
+        "title": "Bandwidth control (important for upload)",
+        "body": "We already implement this for cameras. Check HTML5's settings.yml for cameraProfiles, where you can configure profiles and their bitrates. Those profiles appear in a dropdown in the video preview. They're not dynamic, though, since browser's will handle their end at throttling stuff mid call.\r\n\r\nWe probably can do something similar as far as profiles go for screensharing. You can also control upfront bitrate ceiling for screensharing in /usr/local/bigbluebutton/bbb-webrtc-sfu/config/default.yml, tias_content and as_content fields.",
+        "comment_id": 607227297,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-04-01 12:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "guerby",
+        "created_at": "2020-04-01 14:09:36",
+        "updated_at": "2020-04-01 14:09:35",
+        "title": "Bandwidth control (important for upload)",
+        "body": "> We already implement this for cameras. Check HTML5's settings.yml for cameraProfiles, where you can configure profiles and their bitrates. Those profiles appear in a dropdown in the video preview. They're not dynamic, though, since browser's will handle their end at throttling stuff mid call.\r\n\r\nOk found them:\r\n\r\nhttps://docs.bigbluebutton.org/2.2/customize.html#reduce-bandwidth-from-webcams\r\n\r\n/usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml\r\n\r\n\r\n> We probably can do something similar as far as profiles go for screensharing. You can also control upfront bitrate ceiling for screensharing in /usr/local/bigbluebutton/bbb-webrtc-sfu/config/default.yml, tias_content and as_content fields.\r\n\r\nFirst test in lab : looks like the bitrate settings work if I put 300 kbit/s with audio it gets to 400 kbit/s which is fine. Will report real world test ASAP.\r\n\r\nDefault camera settings are conservative at 100/200/500/800 while screensharing is by default at a much higher 1500000, may be settting it more conservatively would prevent user to experience poor audio when sharing their desktop (DSL with < 1 Mbit/s is still very common, same for 3G/4G). Or setting screen sharing bandwidth to the same value as webcam choice?\r\n\r\nStill it would be great to be able to set screen sharing bandwidth interactively like camera.\r\n\r\nThanks again for your very quick response and for bbb!",
+        "comment_id": 607272411,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-04-01 14:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "prlanzarin",
+        "created_at": "2020-04-01 14:40:10",
+        "updated_at": "2020-04-01 14:40:10",
+        "title": "Bandwidth control (important for upload)",
+        "body": "I'd say that 1.5mbps max is already a bit conservative since 1080p displays are widespread these days. I wouldn't go much lower than 1mbps or 800kbps (bare minimum). You can try those values as they should stress network a bit less, but going lower than that will probably make screensharing a garbled mess (unless you share a smaller application window).\r\n\r\nAlso note that the screenshare configs are server wide.",
+        "comment_id": 607289601,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-04-01 14:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "guerby",
+        "created_at": "2020-04-01 15:42:19",
+        "updated_at": "2020-04-01 15:42:19",
+        "title": "Bandwidth control (important for upload)",
+        "body": "We just did a test \r\n\r\n> I'd say that 1.5mbps max is already a bit conservative since 1080p displays are widespread these days. I wouldn't go much lower than 1mbps or 800kbps (bare minimum). You can try those values as they should stress network a bit less, but going lower than that will probably make screensharing a garbled mess (unless you share a smaller application window).\r\n> \r\n> Also note that the screenshare configs are server wide.\r\n\r\nWe just did a test with a real life connections where we had audio issue before and it worked perfectly. Just a bit of bad audio when resizing the shared window or large window content change but that's it.\r\n\r\nThe quality is surprisingly good with the setting at 250 kbps : sharing a full HD terminal and a few other high screen density apps we tested were readable / good enough even if not pixel perfect.  \r\n\r\nWe even shared a browser tab playing a youtube video to stress test the setting and it was not that bad (of course it's better to use the integrated feature for that in real life :).\r\n\r\nThe issue we're facing is that when we propose a new tool to our users they test it and if at least audio doesn't work they don't want to use the tool anymore and end up with Zoom which does manage quite well low bandwidth ... Leaving the bbb default setting a 1.5 Mbps will have this \"bad\" effect on all ADSL user in the world since ADSL upload  max out at 1 Mbit/s so everyone trying to share a desktop over an ADSL will have the same bad experience of bbb and just stop using it.\r\n\r\nAnyway thanks for the help, even if not perfect (and a bit unsatisfying for users with > 1 Mbit/s upload who cannot tune up the quality), it does make bbb competitive with Zoom in our use case IMHO. We'll see if our users overcome their first very bad impression of bbb.\r\n",
+        "comment_id": 607326454,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-04-01 15:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "prlanzarin",
+        "created_at": "2020-04-01 15:46:33",
+        "updated_at": "2020-04-01 15:46:33",
+        "title": "Bandwidth control (important for upload)",
+        "body": "Agreed. Best to see which value best suits your users and then adjust it at your will (that's why they're configurable).\r\nYou can also change the values for cameras in settings.yml. They can go as low as 30kbps. Feel free to experiment with it as well.",
+        "comment_id": 607329016,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-04-01 15:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "bilias",
+        "created_at": "2020-04-12 12:18:14",
+        "updated_at": "2020-04-12 12:18:14",
+        "title": "Bandwidth control (important for upload)",
+        "body": "> We just did a test with a real life connections where we had audio issue before and it worked perfectly. Just a bit of bad audio when resizing the shared window or large window content change but that's it.\r\n> \r\n> The quality is surprisingly good with the setting at 250 kbps : sharing a full HD terminal and a few other high screen density apps we tested were readable / good enough even if not pixel perfect.\r\n\r\nHi guerby,\r\n\r\nI have the exact same issues. When screen sharing is on the audio is bad on people with DSL connections.\r\n\r\nJust to be sure, your change was on \r\n/usr/local/bigbluebutton/bbb-webrtc-sfu/config/default.yml\r\n    tias_content: \"1500000\"\r\n    as_content: \"1500\"\r\n\r\nfor H264 and VP8?\r\nWhat about frames per second?\r\n\r\nthanks\r\nps. How they manage this in zoom? According to https://support.zoom.us/hc/en-us/articles/204003179-System-Requirements-for-Zoom-Rooms\r\nFor screen sharing only: 150-300kbps",
+        "comment_id": 612605745,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-04-12 12:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "guerby",
+        "created_at": "2020-04-12 12:26:39",
+        "updated_at": "2020-04-12 12:26:38",
+        "title": "Bandwidth control (important for upload)",
+        "body": "> > We just did a test with a real life connections where we had audio issue before and it worked perfectly. Just a bit of bad audio when resizing the shared window or large window content change but that's it.\r\n> > The quality is surprisingly good with the setting at 250 kbps : sharing a full HD terminal and a few other high screen density apps we tested were readable / good enough even if not pixel perfect.\r\n> \r\n> Hi guerby,\r\n> \r\n> I have the exact same issues. When screen sharing is on the audio is bad on people with DSL connections.\r\n> \r\n> Just to be sure, your change was on\r\n> /usr/local/bigbluebutton/bbb-webrtc-sfu/config/default.yml\r\n> tias_content: \"1500000\"\r\n> as_content: \"1500\"\r\n> \r\n> for H264 and VP8?\r\n\r\nOur settings are described here (text in french but settings in bash / diff :) : \r\n\r\nhttps://lists.tetaneutral.net/pipermail/technique/2020-April/003855.html\r\n\r\n```\r\nCODEC_CONFIG=/usr/local/bigbluebutton/bbb-webrtc-sfu/config/default.yml\r\nyq w -i $CODEC_CONFIG conference-media-specs.H264.tias_content \"250000\"\r\nyq w -i $CODEC_CONFIG conference-media-specs.H264.as_content \"250\"\r\nyq w -i $CODEC_CONFIG conference-media-specs.VP8.tias_content \"250000\"\r\nyq w -i $CODEC_CONFIG conference-media-specs.VP8.as_content \"250\"\r\n```\r\n\r\nWe found out we get readable results with 250 kbit/s for full HD screen sharing, no need to go higher and 250 kbit/s plays fine with even poor ADSL upload.\r\n\r\n> What about frames per second?\r\n\r\nWe just adjusted bandwidth as above.",
+        "comment_id": 612606737,
+        "comments": 7,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-04-12 12:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "mhier",
+        "created_at": "2020-04-27 13:25:10",
+        "updated_at": "2020-04-27 13:25:09",
+        "title": "Bandwidth control (important for upload)",
+        "body": "It would also be great if one could control the frame rate separately. Usually it is much more important to have readable text than fast updates. Lowering the frame rate would allow to go further down with the bit rate while having the same image quality (given that usually mostly stills are shown in screen sharing).",
+        "comment_id": 619984077,
+        "comments": 8,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-04-27 13:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "hex-m",
+        "created_at": "2020-09-01 17:17:36",
+        "updated_at": "2020-09-01 17:17:36",
+        "title": "Bandwidth control (important for upload)",
+        "body": "There is a section in `/usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml` now.\r\n\r\n```\r\n    screenshare:\r\n      constraints:\r\n        video:\r\n          frameRate:\r\n            ideal: 5\r\n            max: 10\r\n          width:\r\n            max: 2560\r\n          height:\r\n            max: 1600\r\n```\r\n",
+        "comment_id": 685011219,
+        "comments": 9,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-09-01 17:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "prlanzarin",
+        "created_at": "2021-04-04 23:57:30",
+        "updated_at": "2021-04-04 23:57:29",
+        "title": "Bandwidth control (important for upload)",
+        "body": "Hi,\r\n\r\nWhile evaluating various tools for audio/video conferencing and testing bigbluebutton one weakness we found is that if the presenter doesn't have a good upload when sharing desktop the audio quality drops a lot for example (and things don't generally work smoothly).\r\n\r\nResearching a bit the issue it looks like webRTC has knobs to select bandwidth, we found a great demo website:\r\nhttps://webrtc.github.io/samples/src/content/peerconnection/bandwidth/\r\n\r\nMagic seems to be there:\r\n\r\nhttps://github.com/webrtc/samples/blob/gh-pages/src/content/peerconnection/bandwidth/js/main.js#L225\r\n\r\nsdp = sdp.replace(/c=IN (.*)\\r\\n/, 'c=IN $1\\r\\nb=' + modifier + ':' + bandwidth + '\\r\\n');\r\n\r\nSo feature request would be to add drop down menu for upload and download bandwith in bigbluebutton just like in the web site above. I'm not familiar with bbb code base, looking at \"sdp\" in the js code on where to hack this to be able to test if it works or not. Do not hesitate to tell me where to look for and I can experiment.\r\n\r\nIn a perfect world I assume browser should do so by themselves but well ... :)\r\n\r\nThanks for this great free software and keep up the good work!",
+        "comment_id": 0,
+        "comments": 10,
+        "state": "closed",
+        "closed_at": "2021-04-04 23:57:29",
+        "file_time": "2021-04-04 23:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "mokazemi",
+        "created_at": "2021-11-11 14:23:08",
+        "updated_at": "2021-11-11 14:23:08",
+        "title": "Bandwidth control (important for upload)",
+        "body": "There's an property in `/usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml` which is 'bitrate'. \r\n\r\nThere are also some `tias_content` and `as_content` properties for H264 and VP8 inside `/usr/local/bigbluebutton/bbb-webrtc-sfu/config/default.yml`, As described in previous comments. \r\n\r\nShould I reduce both these values to optimize screen share for lower bandwidths? Or the first one is enough?",
+        "comment_id": 966342746,
+        "comments": 11,
+        "state": "closed",
+        "closed_at": "2021-04-04 23:57:29",
+        "file_time": "2021-11-11 14:00:00",
+        "repo_name": "bigbluebutton/bigbluebutton",
+        "number": 8944
+      }
+    ],
+    "rows": 13,
+    "statistics": {
+      "elapsed": 0.039843875,
+      "rows_read": 350626,
+      "bytes_read": 18297197
+    }
+  },
+  "response_sha256": "94bcb207ffbb52ed9990343426bf6141e0974b3996012dbaca7123c0b87d658a"
+}

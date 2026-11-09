@@ -1,0 +1,53 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5574",
+  "issue_url": "https://github.com/opensupplyhub/open-apparel-registry/issues/637",
+  "source_issue_url": "https://github.com/open-apparel-registry/open-apparel-registry/issues/637",
+  "api_url": "https://api.github.com/repos/opensupplyhub/open-apparel-registry/issues/637",
+  "title": "Log all non-app API requests in the database by  user ID",
+  "body": "## Overview\n\nDepends on #636\n\nTo allow reporting on API usage, log all requests made with an API token to the database.\n\n### Describe the solution you'd like\n- Create a `RequestLog` table\n  - ~`requested_at`~ `created_at` timestamp (opted to reuse our conventional timestamp field name)\n  - `user_id` FK to api_user, indexed, cascade delete\n  - `token` indexed ~(both alone and compound index with user_id)~ (Opting to not add speculatively add a multicolumn index) NOT an FK because tokens can be rotated.\n  - `url` string\n  - `response_code` int\n- Create middleware (https://docs.djangoproject.com/en/2.2/topics/http/middleware/#writing-your-own-middleware) that writes a row to the table if an API request is made with a token\n",
+  "author": "Participant 1",
+  "created_at": "2019-06-26T18:30:39Z",
+  "updated_at": "2019-07-11T19:12:45Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:06.275021+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:06.275021+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 506334505,
+      "url": "https://github.com/opensupplyhub/open-apparel-registry/issues/637#issuecomment-506334505",
+      "created_at": "2019-06-27T12:57:07Z",
+      "updated_at": "2019-06-27T12:57:07Z",
+      "author": "Participant 2",
+      "body": "Do we have a sense for how many requests this will be? Surfacing minor concern over the possibility of:\r\n\r\n- Adding functionality that could lead to a large database table (over time)\r\n- Introduces a step in the request/response cycle that has the potential to compromise the success of a request if this particular step fails"
+    },
+    {
+      "id": 506448828,
+      "url": "https://github.com/opensupplyhub/open-apparel-registry/issues/637#issuecomment-506448828",
+      "created_at": "2019-06-27T17:57:45Z",
+      "updated_at": "2019-06-27T17:57:45Z",
+      "author": "Participant 1",
+      "body": "Thanks for raising these concerns. \r\n\r\nWe don't know just how successful our APIs will be, but we are actively engaged with multi-supplier initiatives to build integrations with their systems. I would guess the order of magnitude would be thousands per week.\r\n\r\nWe are obligated to report on API usage to our stakeholders, so we need to keep a count somewhere. I don't think we can avoid introducing a step in the request/response cycle, but I would definitely want to implement it so that a failure to count does not fail the request. \r\n\r\nI'm open to using an alternate data store. We don't need real time access to these counts so that could give us some flexibility.\r\n\r\nOne advantage to using the database is that we can maintain a foreign key to the user table and cascade delete when and if a user exercises their \"right to be forgotten\" under the GDPR."
+    },
+    {
+      "id": 507489216,
+      "url": "https://github.com/opensupplyhub/open-apparel-registry/issues/637#issuecomment-507489216",
+      "created_at": "2019-07-02T02:07:06Z",
+      "updated_at": "2019-07-02T02:07:06Z",
+      "author": "Participant 2",
+      "body": "Thanks for the follow-up. Not super interested in pursuing an alternate data store at this time. GDPR makes it difficult to use the existing logging structure, which would have been great to reuse. I guess we just need to keep an eye on the size of this table over time."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/open-apparel-registry/open-apparel-registry/issues/637",
+  "closed_at_available": false
+}

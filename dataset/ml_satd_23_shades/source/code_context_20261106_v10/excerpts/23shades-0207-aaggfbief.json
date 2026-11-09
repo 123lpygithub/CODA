@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0207-aaggfbief",
+  "revision_url": "https://github.com/BaderLab/saber/commit/f31b8d9d79220c74aeeab7810e9ca7c5979a1f08",
+  "filename": "saber/tests/test_embeddings.py",
+  "commit": "f31b8d9d79220c74aeeab7810e9ca7c5979a1f08",
+  "source_url": "https://raw.githubusercontent.com/BaderLab/saber/f31b8d9d79220c74aeeab7810e9ca7c5979a1f08/saber/tests/test_embeddings.py",
+  "fetched_at": "2026-11-05T06:12:15.615473+00:00",
+  "source_sha256": "bea7c8652b03e1c8fcceb470284e2f146eb756bf01a1e382962fdd8e07a684bc",
+  "line_start": 1,
+  "line_end": 25,
+  "excerpt": "\"\"\"Any and all unit tests for the Embeddings class (saber/embeddings.py).\n\"\"\"\nimport numpy as np\n\nimport pytest\n\nfrom ..embeddings import Embeddings\nfrom .resources.dummy_constants import (DUMMY_EMBEDDINGS_INDEX,\n                                        DUMMY_EMBEDDINGS_MATRIX,\n                                        DUMMY_TOKEN_MAP,\n                                        PATH_TO_DUMMY_EMBEDDINGS)\n\n# TODO (johngiorgi): write tests using a binary format file\n# TODO (johngiorgi): write tests to test for debug functionality\n\n######################################### PYTEST FIXTURES #########################################\n\n@pytest.fixture\ndef dummy_embedding_idx():\n    \"\"\"Returns embedding index from call to `._prepare_embedding_index()`.\n    \"\"\"\n    embeddings = Embeddings(filepath=PATH_TO_DUMMY_EMBEDDINGS, token_map=DUMMY_TOKEN_MAP)\n    embedding_idx = embeddings._prepare_embedding_index(binary=False)\n    return embedding_idx\n"
+}

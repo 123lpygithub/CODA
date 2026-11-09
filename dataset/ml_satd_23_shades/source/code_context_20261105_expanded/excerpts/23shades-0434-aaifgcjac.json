@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0434-aaifgcjac",
+  "revision_url": "https://github.com/OpenMined/PySyft/commit/8d82fbf05553df57d7e14c70e9d4e1689738710a",
+  "filename": "syft/core/frameworks/torch/tensor.py",
+  "commit": "8d82fbf05553df57d7e14c70e9d4e1689738710a",
+  "source_url": "https://raw.githubusercontent.com/OpenMined/PySyft/8d82fbf05553df57d7e14c70e9d4e1689738710a/syft/core/frameworks/torch/tensor.py",
+  "fetched_at": "2026-11-05T06:12:54.436919+00:00",
+  "source_sha256": "ff1ce672b52376614a5d86ac6271cd849e31ba0b1c130947b22ddfb243db2202",
+  "line_start": 620,
+  "line_end": 644,
+  "excerpt": "\nclass _GeneralizedPointerTensor(_SyftTensor):\n\n    def __init__(self, pointer_tensor_dict, parent, torch_type, id = None, owner=None, skip_register=False):\n         super().__init__(child=None, parent=parent, torch_type=torch_type, owner=owner, id=id,\n                         skip_register=skip_register)\n         self.pointer_tensor_dict = pointer_tensor_dict\n    \n    @classmethod\n    def handle_call(cls, syft_command, owner):\n        commands = torch_utils.split_to_pointer_commands(syft_command)\n        result_dict = {worker_id:_PointerTensor.handle_call(commands[worker_id], owner) for worker_id in commands}\n        #TODO: @trask @theo could you take a look at this if you have better ideas on how to get these parameters\n        return _GeneralizedPointerTensor(result_dict, None, None, id=None, owner=owner, skip_register=False)\n\nclass _PointerTensor(_SyftTensor):\n\n    def __init__(self, child, parent, torch_type, location=None, id_at_location=None, id=None,\n                 owner=None, skip_register=False):\n        super().__init__(child=child, parent=parent, torch_type=torch_type, owner=owner, id=id,\n                         skip_register=skip_register)\n        if location is None:\n            raise AttributeError(\"Pointer must have a location specified\")\n        self.location = self.owner.get_worker(location)\n        self.id_at_location = id_at_location"
+}

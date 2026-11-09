@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0438-aaaifiggc",
+  "revision_url": "https://github.com/thomaskuestner/CNNArt/commit/3b57ac18e581a2f9ad4c0257e9043db7d5a0424e",
+  "filename": "GUI/PyQt/Unpatch_two.py",
+  "commit": "3b57ac18e581a2f9ad4c0257e9043db7d5a0424e",
+  "source_url": "https://raw.githubusercontent.com/thomaskuestner/CNNArt/3b57ac18e581a2f9ad4c0257e9043db7d5a0424e/GUI/PyQt/Unpatch_two.py",
+  "fetched_at": "2026-11-05T06:12:54.518871+00:00",
+  "source_sha256": "55b5c013fec63f3cb261ee2ec82454a3efe455793899b7cc586f67f2e78c86a5",
+  "line_start": 1,
+  "line_end": 20,
+  "excerpt": "import os\nfrom matplotlib import pyplot as plt\nimport dicom\nimport dicom_numpy\nfrom Unpatching import*\nimport scipy.io as sio\n\n# TODO: adapt path\nPathDicom = \"C:/Users/Sebastian Milde/Pictures/MRT/ab/dicom_sorted/t1_tse_tra_Kopf_0002\"\n\n#load Dicom_Array\nfiles = sorted([os.path.join(PathDicom, file) for file in os.listdir(PathDicom)], key=os.path.getctime)\ndatasets = [dicom.read_file(f) \\\n                        for f in files]\n\ntry:\n    voxel_ndarray, pixel_space = dicom_numpy.combine_slices(datasets)\n    voxel_ndarray_matlab = voxel_ndarray.transpose(1, 0, 2)\nexcept dicom_numpy.DicomImportException:\n    # invalid DICOM data"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0092-aaeeieida",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/9f8ca10ade46714f91c2f288559677da1215a48b",
+  "filename": "madmom/utils/rnnlib/rnnlib.py",
+  "commit": "9f8ca10ade46714f91c2f288559677da1215a48b",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/9f8ca10ade46714f91c2f288559677da1215a48b/madmom/utils/rnnlib/rnnlib.py",
+  "fetched_at": "2026-11-05T06:11:52.957691+00:00",
+  "source_sha256": "8df40c2d6aeaf2e8c7059d4972c7c5b80153ef47435c71f837a1892e6ada1e33",
+  "line_start": 94,
+  "line_end": 118,
+  "excerpt": "def expand_and_terminate(strings):\n    \"\"\"Expand and null-terminate the given strings.\"\"\"\n    # each string must have the same length and must be null-terminated\n    terminated_strings = []\n    max_length = max_len(strings) + 1\n    for string in strings:\n        # expand each string to the maximum length with \\0's\n        string = string + '\\0' * (max_length - len(string))\n        terminated_strings.append(string)\n    return terminated_strings\n\n\n# FIXME: if we inherit from scipy.io.netcdf.NetCDFFile and omit the self.nc\n# stuff and try to extend the class with properties directly, the setters do not\n# work! why?\nclass NetCDF(object):\n    \"\"\"\n    NetCDF Class is a simple NetCDFFile wrapper with some extensions for use\n    with RNNLIB.\n\n    \"\"\"\n    def __init__(self, filename, mode):\n        \"\"\"\n        Creates a new NetCDF object.\n"
+}

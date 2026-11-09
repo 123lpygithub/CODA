@@ -1,0 +1,364 @@
+
+=== 168 23shades-0537-aaeidjjhd ===
+{"dataset_id": "aaeidjjhd", "repo_name": "IntelPython/sdc", "filename": "hpat/hiframes_aggregate.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/bfb1018fa6d020a4127a9044fc2109360fe95548", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "bfb1018fa6d020a4127a9044fc2109360fe95548"}
+[comment_text]
+TODO: extract an eval func more robustly
+[source_context]
+            options
+            )
+    preparfor_pass.run()
+    df_t_pass = hpat.hiframes_typed.HiFramesTyped(f_ir, typingctx, typemap, calltypes)
+    df_t_pass.run()
+    numba.rewrites.rewrite_registry.apply('after-inference', pm, f_ir)
+    parfor_pass = numba.parfor.ParforPass(f_ir, typemap,
+    calltypes, return_type, typingctx,
+    options, flags)
+    parfor_pass.run()
+    remove_dels(f_ir.blocks)
+    # make sure eval nodes are after the parfor for easier extraction
+    # TODO: extract an eval func more robustly
+    numba.parfor.maximize_fusion(f_ir, f_ir.blocks, False)
+    return f_ir, pm
+
+def get_agg_func_struct(agg_func, in_col_typ, typingctx, targetctx):
+    """find initialization, update, combine and final evaluation code of the
+    aggregation function. Currently assuming that the function is single block
+    and has one parfor.
+    """
+    f_ir, pm = compile_to_optimized_ir(
+        agg_func, tuple([in_col_typ]), typingctx)
+
+    # TODO: support multiple top-level blocks
+
+=== 169 23shades-0725-aahicjieh ===
+{"dataset_id": "aahicjieh", "repo_name": "PyTorchLightning/pytorch-lightning", "filename": "pytorch_lightning/trainer/trainer.py", "comment_introducing_revision": "https://github.com/PyTorchLightning/pytorch-lightning/commit/cb67e1d0b29e1da251c064c78220aa78b44e0620", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "historical_partial", "source_context_commit": "da6dbc8d1d128cf783d7151b012a5502bbd52bf5"}
+[comment_text]
+TODO: the old setup is now called \"pre_training\"; where should this hook be called now?
+[source_context]
+        self.call_setup_hook(model)
+        self.call_hook("on_before_accelerator_backend_setup", model)
+        self.accelerator_backend.setup(self, model)
+        self.setup_trainer(model)
+
+        # ----------------------------
+        # TRAIN
+        # ----------------------------
+        # hook
+        self.call_hook("on_fit_start")
+
+        # plugin will setup training (e.g. ddp will launch child processes)
+        # TODO: the old setup is now called "pre_training", where should this hook be called now?
+        self.training_type_plugin.pre_training()
+        self.precision_plugin.pre_training()
+
+        # double dispatch: let the plugin initiate the training/test loop.
+        if self.testing:
+            self.training_type_plugin.start_testing(self)
+        else:
+            self.training_type_plugin.start_training(self)
+
+        self.precision_plugin.post_training()
+        self.training_type_plugin.post_training()
+        self.accelerator_backend.teardown()
+[source_context_revision_note]
+The released introducing pointer does not contain the full comment. This excerpt uniquely matches it at a verified-descendant revision. It is supplemental historical context, not evidence that the published case revision has this implementation. Do not infer case-time behavior or debt resolution from the alternate version. Additional commit verification: The published-commit API confirms a trainer.py modification but its returned patch contains no occurrence of the released pre_training comment. The related-history excerpt remains supplemental.
+
+=== 170 23shades-0597-aaefagbgc ===
+{"dataset_id": "aaefagbgc", "repo_name": "CPJKU/madmom", "filename": "madmom/audio/signal.py", "comment_introducing_revision": "https://github.com/CPJKU/madmom/commit/a62f9f3114e5a67a9cf875b68fada015be25f9a5", "comment_removing_revision": "https://github.com/CPJKU/madmom/commit/bbcd6cc6590eeb6c51cfc62094c337583dc76670", "source_context_status": "available", "source_context_commit": "a62f9f3114e5a67a9cf875b68fada015be25f9a5"}
+[comment_text]
+TODO: make the dtype configurable; see __init__()
+[source_context]
+        data : str
+            Audio data represented as a string.
+
+        Returns
+        -------
+        data : numpy array
+            Audio data as numpy array.
+        flag : PortAudio callback flag
+            Indicate whether to continue the stream.
+
+        """
+        # get the data from the stream
+        # TODO: make the dtype configurable; see __init__()
+        data = np.fromstring(data, 'int16').astype(self.dtype)
+        # save the data
+        if self.buffer is None:
+            # if it is the first data to arrive just save it
+            self.buffer = data
+        else:
+            # append the new data to the old one
+            self.buffer = np.concatenate((self.buffer, data))
+        # truncate the buffer to the size of a frame
+        self.buffer = self.buffer[-self.frame_size:]
+        # wrap it as a Signal (including the start position)
+        # TODO: check float/int hop size
+
+=== 171 23shades-0607-aagafeacd ===
+{"dataset_id": "aagafeacd", "repo_name": "henrysky/astroNN", "filename": "astroNN/shared/nn_tools.py", "comment_introducing_revision": "https://github.com/henrysky/astroNN/commit/8c63439163afc1625612a8e45780784a1398ee53", "comment_removing_revision": "https://github.com/henrysky/astroNN/commit/46c289de09eadf6256fb8f285e8b706a65f54e9a", "source_context_status": "available", "source_context_commit": "8c63439163afc1625612a8e45780784a1398ee53"}
+[comment_text]
+TODO: Model Precision
+[source_context]
+        for j in range(mc_dropout_num):
+            inputs = spectra[(i + 1) * batch_size:].reshape((number, spectra.shape[1], 1))
+            result = get_dropout_output([inputs, 1])[0]
+            predictions[j, :] = denormalize(result[:, :num_labels], std_labels, mean_labels)
+            uncertainty[j, :] = denormalize(result[:, num_labels:], std_labels, np.zeros(std_labels.shape))
+        prediction_mc_droout[(i + 1) * batch_size:] = np.mean(predictions, axis=0)
+        uncertainty_mc_dropout[(i + 1) * batch_size:] = np.var(predictions, axis=0)
+        uncertainty_2_dropout[(i + 1) * batch_size:] = np.mean(uncertainty, axis=0)
+        uncertainty_master[(i + 1) * batch_size:] = uncertainty_mc_dropout[(i + 1) * batch_size:] + uncertainty[(i + 1) * batch_size:]
+
+    # tau = l ** 2 * (1 - model.p) / (2 * N * model.weight_decay)
+    # uncertainty_mc_dropout += tau ** -1
+    # TODO: Model Precision
+    print('\n')
+    clear_session()
+
+    return prediction_mc_droout, uncertainty_master
+
+
+def target_name_conversion(targetname):
+    if len(targetname) < 3:
+        fullname = '[{}/H]'.format(targetname)
+    elif targetname == 'teff':
+        fullname = '$T_{\mathrm{eff}}$'
+    elif targetname == 'alpha':
+
+=== 172 23shades-0606-aahicghci ===
+{"dataset_id": "aahicghci", "repo_name": "PyTorchLightning/pytorch-lightning", "filename": "tests/trainer/test_trainer.py", "comment_introducing_revision": "https://github.com/PyTorchLightning/pytorch-lightning/commit/ce9179591dc3414aa0ff59007ea46f30fa9ddbee", "comment_removing_revision": "https://github.com/PyTorchLightning/pytorch-lightning/commit/398f122a425cd1c113dee728dee1ad72d2e4a4e4", "source_context_status": "available", "source_context_commit": "ce9179591dc3414aa0ff59007ea46f30fa9ddbee"}
+[comment_text]
+Todo: mock nb Gpus so all these tests can run on any device
+[source_context]
+                use_dp=False,
+                use_ddp=False,
+                use_ddp2=True,
+                num_gpus=2,
+                on_gpu=True,
+                use_single_gpu=False,
+                num_processes=1,
+            ),
+            marks=[pytest.mark.skipif(torch.cuda.device_count() < 2, reason="Multiple GPUs needed")],
+        ),
+    ],
+)
+# Todo: mock nb Gpus so all these tests can run on any device
+# todo: think about simplification, that the the expected will be just a list use_xxx which shall be true...
+def test_trainer_config(trainer_kwargs, expected):
+    trainer = Trainer(**trainer_kwargs)
+    assert trainer.use_dp is expected["use_dp"], 'for input: %s' % trainer_kwargs
+    assert trainer.use_ddp is expected["use_ddp"], 'for input: %s' % trainer_kwargs
+    assert trainer.use_ddp2 is expected["use_ddp2"], 'for input: %s' % trainer_kwargs
+    assert trainer.num_gpus == expected["num_gpus"], 'for input: %s' % trainer_kwargs
+    assert trainer.on_gpu is expected["on_gpu"], 'for input: %s' % trainer_kwargs
+    assert trainer.use_single_gpu is expected["use_single_gpu"], 'for input: %s' % trainer_kwargs
+    assert trainer.num_processes == expected["num_processes"], 'for input: %s' % trainer_kwargs
+
+
+
+=== 173 23shades-0028-aajfejeha ===
+{"dataset_id": "aajfejeha", "repo_name": "catalyst-team/catalyst", "filename": "catalyst/rl/utils.py", "comment_introducing_revision": "https://github.com/catalyst-team/catalyst/commit/4671e178057b32c1c0b6350774beeba63cffd8a2", "comment_removing_revision": "https://github.com/catalyst-team/catalyst/commit/704fcb37d023a65a5ed942aa43cd3e13e3f9a6f4", "source_context_status": "available", "source_context_commit": "4671e178057b32c1c0b6350774beeba63cffd8a2"}
+[comment_text]
+@TODO: Refactor !!!
+[source_context]
+class ReplayBufferDataset2(Dataset):
+    def __init__(
+        self,
+        state_space: Space,
+        action_space: Space,
+        capacity=int(1e6),
+        n_step=1,
+        gamma=0.99,
+        history_len=1,
+        mode="numpy",
+        logdir=None
+    ):
+        # @TODO: Refactor !!!
+        self.state_space = state_space
+        self.action_space = action_space
+        self.history_len = history_len
+
+        self.capacity = capacity
+        self.n_step = n_step
+        self.gamma = gamma
+
+        self.len = 0
+        self.pointer = 0
+        self._store_lock = mp.RLock()
+
+
+=== 174 23shades-0788-aahiebjbd ===
+{"dataset_id": "aahiebjbd", "repo_name": "proycon/pynlpl", "filename": "clients/frogclient.py", "comment_introducing_revision": "https://github.com/proycon/pynlpl/commit/333c29ebb1ae312bb48bd827c40793dc18984178", "comment_removing_revision": "https://github.com/proycon/pynlpl/commit/392ece21b360230605c6a26d59984f684edf1b17", "source_context_status": "available", "source_context_commit": "333c29ebb1ae312bb48bd827c40793dc18984178"}
+[comment_text]
+TODO; make nicer
+[source_context]
+                             word,lemma,morph,pos,posprob, parse1,parse2 = line[1:]
+                        elif len(fields) == 6:
+                            word,lemma,morph,pos, parse1,parse2 = line[1:]
+                        elif len(fields) == 5:
+                            word,lemma,morph,pos, posprob = line[1:]
+                        elif len(fields) == 4:
+                            word,lemma,morph,pos = line[1:]
+                        elif len(fields) == 9:
+                            word,lemma,morph,pos, posprob,parse1,parse2,chunker1,chunker2 = line[1:]
+                        elif len(fields) == 11:
+                            word,lemma,morph,pos, posprob,parse1,parse2,chunker1,chunker2,ner1,ner2 = line[1:]
+                        elif len(fields) == 12:
+                            word,lemma,morph,pos, posprob,parse1,parse2,_,chunker1,chunker2,ner1,ner2 = line[1:] #TODO, make nicer
+                        else:
+                            raise Exception("Can't process response line from Frog: ", repr(line), " got unexpected number of fields ", str(len(fields) + 1))
+
+                        if self.parser:
+                            tp_output.append( (word,lemma,morph,pos,parse1,parse2) )
+                        else:
+                            tp_output.append( (word,lemma,morph,pos) )
+                        
+        return tp_output
+    
+    def process_aligned(self,input_data, source_encoding="utf-8", return_unicode = True):
+        output = self.process(input_data, source_encoding, return_unicode)
+
+=== 175 23shades-0787-aafhfhjbf ===
+{"dataset_id": "aafhfhjbf", "repo_name": "wuhao5688/RNN-TrajModel", "filename": "trajmodel.py", "comment_introducing_revision": "https://github.com/wuhao5688/RNN-TrajModel/commit/7220df9f65a1e50f956d70a7422ddea0167a5c38", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "7220df9f65a1e50f956d70a7422ddea0167a5c38"}
+[comment_text]
+TODO; implement automatic inference; maybe done
+[source_context]
+          for adj_id in adjList_ids:
+            batch_adj_indices.append([sample_id, adj_id])
+          sample_id += 1
+
+    # masking
+    batch_mask = np.zeros((batch_size, max_seq_len), dtype=float)
+    for row in range(batch_size):
+      for col in range(batch_seq_lens[row]):
+        batch_mask[row][col] = 1.0
+
+    # sub_one_hot_target
+    batch_sub_onehot_target = np.zeros([config.batch_size, max_seq_len, self.adj_mat.shape[1]],
+                                       dtype=np.float32)  # TODO, implement automatic inference, maybe done
+    for x0 in range(batch_sub_onehot_target.shape[0]):
+      for x1 in range(batch_sub_onehot_target.shape[1]):
+        for x2 in range(batch_sub_onehot_target.shape[2]):
+          if batch_target[x0][x1] == self.adj_mat[batch_in[x0][x1]][x2]:
+            batch_sub_onehot_target[x0][x1][x2] = 1.0
+            break
+    return Batch(inputs=np.array(batch_in), targets=np.array(batch_target), masks=batch_mask,
+                 dests=np.array(batch_dest), seq_lens=np.array(batch_seq_lens), adj_indices=batch_adj_indices,
+                 sub_onehot_target=batch_sub_onehot_target), pointer
+
+  def fetch(self, eval_op):
+    fetch_dict = {}
+
+=== 176 23shades-0558-aaibihacc ===
+{"dataset_id": "aaibihacc", "repo_name": "scikit-learn/scikit-learn", "filename": "scikits/learn/glm.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/27d3900dceac69273f9208e983752a5338574a58", "comment_removing_revision": "https://github.com/scikit-learn/scikit-learn/commit/a178da50b50481ea25e0c16d6833efbf25fa0e5a", "source_context_status": "available", "source_context_commit": "27d3900dceac69273f9208e983752a5338574a58"}
+[comment_text]
+TODO: I believe this is not really much used
+[source_context]
+### repeating the same code inside each fit method.
+###
+### Also, bayesian_ridge_regression and bayesian_regression_ard
+### should be squashed into its respective objects.
+###
+
+class LinearModel(object):
+    """Base class for Linear Models"""
+
+    def __init__(self, coef=None):
+        # weights of the model (can be lazily initialized by the
+        # ``fit`` method) 
+       # TODO: I believe this is not really much used
+        self.coef_ = coef
+
+    def predict(self, X):
+        """
+        Predict using the linear model
+
+        Parameters
+        ----------
+        X : numpy array of shape [nsamples,nfeatures]
+
+        Returns
+        -------
+
+=== 177 23shades-0823-aahfibidg ===
+{"dataset_id": "aahfibidg", "repo_name": "RaRe-Technologies/gensim", "filename": "gensim/models/ldamodel.py", "comment_introducing_revision": "https://github.com/RaRe-Technologies/gensim/commit/f0310f61338949bed4ea89e00c753f3c696d24cc", "comment_removing_revision": "https://github.com/RaRe-Technologies/gensim/commit/a40717917a7d841cd192996408b84cdd59a816ca", "source_context_status": "available", "source_context_commit": "f0310f61338949bed4ea89e00c753f3c696d24cc"}
+[comment_text]
+XXX might possibly be slow solution; but every worker needs reseted LDA model for every iteration
+[source_context]
+
+        if updates_per_pass * passes < 10:
+            logger.warning("too few updates, training might not converge; consider "
+                           "increasing the number of passes or iterations to improve accuracy")
+
+
+
+        def worker_e_step(data, result_queue, lock, val):
+            """
+            performing E-step and upating variables for each process
+            """
+            while True:
+                worker_lda = copy.deepcopy(self)        # XXX might possibly be slow solution, but every worker needs reseted LDA model for every iteration
+                item = data.get(True)
+                worker_lda.do_estep(item)
+                result = worker_lda.state
+                del worker_lda  # free up some memory
+                result_queue.put(result)
+                with lock:
+                    val.value += 1
+
+
+
+        # -1 is used for creating cpu_count() processes, which is default when Pool is created without specified processes number
+        if n_jobs == -1:
+
+=== 178 23shades-0482-aaebhaafj ===
+{"dataset_id": "aaebhaafj", "repo_name": "metabrainz/acousticbrainz-server", "filename": "acousticbrainz/views/datasets.py", "comment_introducing_revision": "https://github.com/metabrainz/acousticbrainz-server/commit/6f5bbc097b9c3e5a3edb0ca3d23f3542b401702b", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6f5bbc097b9c3e5a3edb0ca3d23f3542b401702b"}
+[comment_text]
+TODO: Check if owner is deleting.
+[source_context]
+        raise NotFound("Can't find this dataset.")
+    # TODO: Check if owner is editing.
+    # TODO: Implement the rest of the editing stuff.
+    raise NotImplementedError
+
+
+@datasets_bp.route('/<uuid:id>/delete/', methods=('GET', 'POST'))
+@login_required
+def delete(id):
+    ds = dataset.get(id)
+    if not ds:
+        raise NotFound("Can't find this dataset.")
+    # TODO: Check if owner is deleting.
+    # TODO: Show confirmation page and delete if POSTed.
+    raise NotImplementedError
+
+=== 179 23shades-0454-aaefgiijg ===
+{"dataset_id": "aaefgiijg", "repo_name": "awslabs/sockeye", "filename": "sockeye/arguments.py", "comment_introducing_revision": "https://github.com/awslabs/sockeye/commit/e934541132fb1c92cc9810d515450602d11e6662", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e934541132fb1c92cc9810d515450602d11e6662"}
+[comment_text]
+TODO: At the moment LHUC is RNN specific. We should support other models as well.
+[source_context]
+                              help='How to initialize RNN decoder states. Default: %(default)s.')
+    model_params.add_argument('--rnn-residual-connections',
+                              action="store_true",
+                              default=False,
+                              help="Add residual connections to stacked RNNs. (see Wu ETAL'16). Default: %(default)s.")
+    model_params.add_argument('--rnn-first-residual-layer',
+                              type=int_greater_or_equal(2),
+                              default=2,
+                              help='First RNN layer to have a residual connection. Default: %(default)s.')
+    model_params.add_argument('--rnn-context-gating', action="store_true",
+                              help="Enables a context gate which adaptively weighs the RNN decoder input against the "
+                                   "source context vector before each update of the decoder hidden state.")
+    # TODO: At the moment LHUC is RNN specific. We should support other models as well.
+    model_params.add_argument('--lhuc',
+                              nargs="+",
+                              default=None,
+                              choices=C.LHUC_CHOICES,
+                              metavar="COMPONENT",
+                              help="Use LHUC (Vilar 2018). Include an amplitude parameter to hidden units for"
+                              " domain adaptation. Needs a pre-trained model. Valid values: {values}. Currently only"
+                              " supported for RNN models. Default: %(default)s.".format(
+                                  values=", ".join(C.LHUC_CHOICES)))
+
+    # transformer arguments
+    model_params.add_argument('--transformer-model-size',

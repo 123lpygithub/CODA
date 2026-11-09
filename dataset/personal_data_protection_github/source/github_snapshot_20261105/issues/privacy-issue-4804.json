@@ -1,0 +1,125 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4804",
+  "issue_url": "https://github.com/Tribler/tribler/issues/2681",
+  "source_issue_url": "https://github.com/Tribler/tribler/issues/2681",
+  "api_url": "https://api.github.com/repos/Tribler/tribler/issues/2681",
+  "title": "Enable TCP traffic through tunnel community",
+  "body": "Currently the SOCKS5 Server [drops TCP traffic](https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/Socks5/server.py#L191). In practice this means that all http trackers are unable to find peers. This can severely impact performance of some torrents.\r\n\r\nTo fix this, changes should be made to the following classes. These should forward TCP packets (probably using explicit subclassing for decoupling of TCP and UDP behaviors, [in line with the SOCKS5Connection](https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/Socks5/server.py#L25)):\r\n\r\n- [The SOCKS5 connection](https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/Socks5/server.py#L104)\r\n- [The exit node](https://github.com/Tribler/tribler/blob/devel/Tribler/community/tunnel/tunnel_community.py#L144)\r\n\r\nAn experimental implementation (by @devos50) already [exists](https://github.com/devos50/tribler/commit/71402bff2db51e2e14d671642907d6c9069de5d7) for reference. One possible backward compatible way to forward traffic is to use [conversion.is_allowed()](https://github.com/Tribler/tribler/blob/69445f0537d8e87bd01d2ca8bdc94a69c9819503/Tribler/community/tunnel/conversion.py#L553) to filter out UDP from TCP traffic.\r\n\r\nEDIT: Only http trackers should be forwarded (not all TCP traffic), this reduces the chance of exit nodes being misused.",
+  "author": "Participant 1",
+  "created_at": "2016-12-09T09:46:07Z",
+  "updated_at": "2024-08-23T12:53:21Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:37.175480+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:37.175480+00:00"
+  ],
+  "expected_comment_count": 12,
+  "retrieved_comment_count": 12,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 377220328,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-377220328",
+      "created_at": "2018-03-29T12:31:45Z",
+      "updated_at": "2018-03-29T12:31:45Z",
+      "author": "Participant 2",
+      "body": "One possibility is to only support _get_peer_, hardcode the protocol that everything we DONT recognise would be filtered out. Talk UDP to the exit node and e.node talks TCP to tracker.\r\nOr use SOCKS5 with filtering.\r\nAn explicit warning/error for connecting to HTTP-based trackers."
+    },
+    {
+      "id": 377301040,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-377301040",
+      "created_at": "2018-03-29T16:55:32Z",
+      "updated_at": "2018-03-29T16:55:32Z",
+      "author": "Participant 1",
+      "body": "@ichorid this is what we currently have to do the filtering:\r\nhttps://github.com/Tribler/py-ipv8/blob/master/ipv8/messaging/anonymization/tunnel.py#L42-L83"
+    },
+    {
+      "id": 377306390,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-377306390",
+      "created_at": "2018-03-29T17:12:59Z",
+      "updated_at": "2018-03-29T17:33:15Z",
+      "author": "Participant 2",
+      "body": "The only reason for us not to enable unconditional TCP through our tunnels is our concern for the tunnels being abused. We intend our tunnels to be used for moving BitTorrent traffic, i.e. file downloading.\r\nThis is not technology by itself, but policy that could be enforced by technology.\r\nWe could do the \"zero tolerance\" policy, meaning that everything beside BT traffic is illegitimate. But why would we want that? Essentially, we would consider an abuse:\r\n1. DDOS attacks\r\n2. Web traffic to 'evil' web resources (cp, extremism, drugs etc.)\r\n3. Encrypted/anonymous communication between two or more parties, of which at least one is 'evil'. For example, inter-terrorist communication, anonymous connection to legitimate web resources with intention of trolling, extortionist to victim communication, etc.\r\n\r\nBy completely denying TCP traffic, we exclude case (2). By adding filters permitting only uTP and UDP tracker connection we hamper cases (1,3) to the point it becomes much easier for potential abuser use  some other anonymization service, like TOR.\r\n\r\nWe don't care about torrents that are potentially illegal because:\r\n\r\n1. We let the community (and channel-level filters) decide what is worth of their traffic;\r\n2. We consider any knowledge to be sacred. And _torrents=files=data=knowledge_ :-)\r\n\r\nAfter we enable the user rating system, we trust it to become our ultimate immune system. But we still need to bootstrap the community. We have a classic chicken-and-egg problem here.\r\n\r\nWe could enable TCP forwarding, but we need to be sure, that in won't facilitate cases (1,2,3). To do that, we have to implement TCP-based policy filter, that would only allow TCP BT and HTTP tracker traffic. We do not want to put _too much_ effort into that, because we believe it to be important only until our 'immune system' is up. As we don't mean to support every BT implementation out there (we only use libtorrent), and we only want to support 80% of HTTP trackers, we need to create a list of 'markers' of these protocols, and add them to the list of filters @qstokkink has so timely mentioned in the previous comment ))\r\nAfter that, we would only have to enable TCP forwarding through SOCKS5. \r\n \r\nI find it a little bit ironical that to bootstrap freedom-enabling traffic exchange technology like Tribler we have to refer to Deep Packet Inspection traffic policing, that is used by some oppressive states. \r\n\"You have to make the good out of the bad because that is all you have got to make it out of\" (C) Robert Penn Warren\r\n"
+    },
+    {
+      "id": 377462840,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-377462840",
+      "created_at": "2018-03-30T07:10:00Z",
+      "updated_at": "2018-03-30T07:10:00Z",
+      "author": "Participant 1",
+      "body": "@ichorid Trust is feedback loop:\r\n\r\n1. You engage in activities that require trust.\r\n2. If you play by the rules, you build trust.\r\n\r\nIf we never check anything, you have *blind* trust, which leads to you getting abused: there is no *incentive*.\r\n\r\n------------------\r\n\r\nAs our current filtering does not actually parse the message contents, I disagree with your labeling of the implementation as *Deep* Packet Inspection. However, there are basically two ideas to get rid of the packet inspection altogether:\r\n\r\n1. Covariance-based cross-domain trust calculation (or reusing trust between applications/domains/functionality)\r\n2. Payouts\r\n\r\nWe are exploring both. @devos50 is handling payout schemes. The *one-chain* *one-trust* *multiple-domain* model is still something I'm exploring."
+    },
+    {
+      "id": 377506629,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-377506629",
+      "created_at": "2018-03-30T11:34:39Z",
+      "updated_at": "2018-03-30T11:34:39Z",
+      "author": "Participant 3",
+      "body": "Quick feedback...\n\nSelf-reinforcing trust in Tribler #2540\n+ token economy = critical feedback loops to get going.\nThat means closing 200+ outstanding issues. TCP is minor issue, as content is set as priority 3 in cardinal roadmap issues #1."
+    },
+    {
+      "id": 379219772,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-379219772",
+      "created_at": "2018-04-06T10:56:45Z",
+      "updated_at": "2018-04-06T10:56:45Z",
+      "author": "Participant 2",
+      "body": "Related to arvidn/libtorrent#1373"
+    },
+    {
+      "id": 391660488,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-391660488",
+      "created_at": "2018-05-24T10:05:10Z",
+      "updated_at": "2018-05-24T10:05:10Z",
+      "author": "Participant 1",
+      "body": "@ichorid is this feasible for the 7.1 release or should we move it?"
+    },
+    {
+      "id": 391666855,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-391666855",
+      "created_at": "2018-05-24T10:30:34Z",
+      "updated_at": "2018-05-24T10:30:34Z",
+      "author": "Participant 2",
+      "body": "@qstokkink, I am not sure about this one. There is a possible easier(?) workaround: when initiating download of torrent that only has HTTP tracker address embedded try the same address over UDP tracker protocol instead. However, this solution depends on 2 things yet unknown to me:\r\n\r\n1. Do trackers typically serve HTTP and UDP on the same port?\r\n2. Is it trivial for us to check for HTTP tracker in the torrent header, and change it to UDP before initiating connection?"
+    },
+    {
+      "id": 475898679,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-475898679",
+      "created_at": "2019-03-23T19:41:39Z",
+      "updated_at": "2019-03-23T19:41:39Z",
+      "author": "Participant 3",
+      "body": "is another option to have an explicit UDP-based protocol for TCP-talk to trackers? Exit nodes convert this and we prevent all abuse by parsing the ```get_peers()``` replies.\r\n\r\nbtw interesting, \"one-chain one-trust multiple-domain model\"."
+    },
+    {
+      "id": 660268327,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-660268327",
+      "created_at": "2020-07-17T18:21:45Z",
+      "updated_at": "2020-07-17T18:21:45Z",
+      "author": "Participant 4",
+      "body": "It's currently only in `devel` and still a bit experimental, but most of our exit nodes now support HTTP. Exit nodes can opt-in/out of HTTP support, but it's turned on by default.\r\n\r\nBy only allowing bencoded responses, we filter out non-tracker traffic."
+    },
+    {
+      "id": 660299551,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-660299551",
+      "created_at": "2020-07-17T19:31:48Z",
+      "updated_at": "2020-07-17T19:31:48Z",
+      "author": "Participant 1",
+      "body": "Wow 2016, this was on my wishlist for 4 years already 😃 "
+    },
+    {
+      "id": 660308207,
+      "url": "https://github.com/Tribler/tribler/issues/2681#issuecomment-660308207",
+      "created_at": "2020-07-17T19:52:11Z",
+      "updated_at": "2020-07-17T19:52:11Z",
+      "author": "Participant 4",
+      "body": "@qstokkink It's still not fully used unfortunately because it still needs to get linked to our \"much-loved\" `TorrentChecker` (see https://github.com/Tribler/tribler/issues/5262). At least the downloads can now access HTTP trackers."
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/Tribler/tribler/issues/2681",
+  "closed_at_available": false
+}

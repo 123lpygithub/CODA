@@ -1,0 +1,557 @@
+1	1	CodeGen-16B	OK	CE01	from typing import List def separate_paren_groups ( paren_string : str ) -> List [ str ] :	函数体全部是注释，没有任何可执行语句。
+2	3	CodeGen-16B	OK	CE05,CE06	from typing import List def below_zero ( operations : List [ int ] ) -> bool : if len ( operations ) == 0 : return False if operations [ 0 ] < 0 : return True return belo…	递归只判断当前首项是否为负，从不累计余额，因此 [1,-2] 之类会被判 False。
+3	5	CodeGen-16B	OK	CE08	from typing import List def intersperse ( numbers : List [ int ] , delimeter : int ) -> List [ int ] : return [ delimeter ] + [ numbers [ i ] for i in range ( len ( numbe…	在两端各加一个分隔符，且丢失了最后一个元素与中间元素。
+4	6	CodeGen-16B	OK	CE01	from typing import List def parse_nested_parens ( paren_string : str ) -> List [ int ] :	函数体全是重复注释。
+5	10	CodeGen-16B	OK	CE03	def is_palindrome ( string : str ) -> bool : """ Test if given string is a palindrome """ return string == string [ : : - 1 ] def make_palindrome ( string : str ) -> str …	调用未定义的 find_palindrome_prefix。
+6	17	CodeGen-16B	OK	CE04	from typing import List def parse_music ( music_string : str ) -> List [ int ] : return [ 4 if x == 'o' else 2 if x == 'o|' else 1 for x in music_string . split ( '|' ) ]	用 split('|') 切分音符，把 'o|' 拆成两段，音符边界解析错误。
+8	19	CodeGen-16B	OK	CE04	from typing import List def sort_numbers ( numbers : str ) -> str : numbers = numbers . split ( ) numbers = [ int ( i ) for i in numbers ] numbers . sort ( ) numbers = [ …	把 'one' 等英文数字直接 int()，转换不成立。
+9	20	CodeGen-16B	OK	CE05	from typing import List , Tuple def find_closest_elements ( numbers : List [ float ] ) -> Tuple [ float , float ] : numbers . sort ( ) return ( numbers [ 0 ] , numbers [ …	排序后返回最小与最大元素，是极值而非最近对。
+11	24	CodeGen-16B	OK	CE06	def largest_divisor ( n : int ) -> int : divisor = 1 while n % divisor != 0 : divisor += 1 return divisor	从 1 开始找首个约数，返回 1；契约要求小于 n 的最大约数。
+13	26	CodeGen-16B	OK	CE05	from typing import List def remove_duplicates ( numbers : List [ int ] ) -> List [ int ] : return list ( set ( numbers ) )	set 去掉所有重复值但保留单次出现，契约要求删除所有出现多于一次的元素。
+17	32	CodeGen-16B	SYN	CE02,CE05	<SYNTAX>	源码在循环中截断，且主体是对系数反复排序而非求根。
+18	33	CodeGen-16B	OK	CE01	def sort_third ( l : list ) :	函数体全是注释。
+19	36	CodeGen-16B	OK	CE06	def fizz_buzz ( n : int ) : count = 0 for i in range ( 1 , n ) : if i % 11 == 0 or i % 13 == 0 : if "7" in str ( i ) : count += 1 return count	从 1 开始计数，漏掉 i=0；且只统计是否含 7 一次，未统计出现次数。
+20	37	CodeGen-16B	OK	CE08,CE05	def sort_even ( l : list ) : l_even = [ ] l_odd = [ ] for i in range ( len ( l ) ) : if i % 2 == 0 : l_even . append ( l [ i ] ) else : l_odd . append ( l [ i ] ) l_even …	把偶数位与奇数位分别排序后整体拼接，改变了原位置。
+21	38	CodeGen-16B	OK	CE09	def encode_cyclic ( s : str ) : """ returns encoded string by cycling groups of three characters. """ groups = [ s [ ( 3 * i ) : min ( ( 3 * i + 3 ) , len ( s ) ) ] for i…	decode 使用与 encode 相同的左旋，未做逆变换。
+22	39	CodeGen-16B	OK	CE05,CE03	def prime_fib ( n : int ) : fib_n = fib ( n ) if is_prime ( fib_n ) : return fib_n else : return None	先调用未定义的 fib，且逻辑是取第 n 个斐波那契再判素，而非第 n 个素数斐波那契。
+23	40	CodeGen-16B	OK	CE09	def triples_sum_to_zero ( l : list ) : if len ( l ) < 3 : return False l . sort ( ) for i in range ( len ( l ) - 2 ) : if l [ i ] == l [ i + 1 ] + l [ i + 2 ] : return Tr…	判断 l[i] == l[i+1]+l[i+2]，公式与三重求和为零无关。
+24	41	CodeGen-16B	OK	CE09	def car_race_collision ( n : int ) : assert n > 0 assert n % 2 == 0 return n // 2	返回 n//2，正确答案是 n²；且额外 assert 偶数。
+25	44	CodeGen-16B	OK	CE06,CE13	def change_base ( x : int , base : int ) : if x == 0 : return '0' if base == 10 : return str ( x ) if base == 2 : return bin ( x ) [ 2 : ] if base == 8 : return oct ( x )…	只对 2/8/10/16 特判，其余返回 None；契约要求任意 base<10。
+27	49	CodeGen-16B	OK	CE09	def modp ( n : int , p : int ) : if n == 0 : return 1 elif n % 2 == 0 : return modp ( n // 2 , p ) ** 2 % p else : return ( modp ( n - 1 , p ) ** 2 * 2 ) % p	奇数分支用 modp(n-1)**2*2，递推关系错误。
+28	51	CodeGen-16B	OK	CE14	def remove_vowels ( text ) : vowels = 'aeiou' return '' . join ( [ i for i in text if i not in vowels ] )	vowels 只含小写，未处理大写元音。
+29	54	CodeGen-16B	OK	CE05	def same_chars ( s0 : str , s1 : str ) : return len ( set ( s0 ) & set ( s1 ) ) == len ( s0 ) == len ( s1 )	用交集长度等于两串长度判定，忽略了字符多重集合差异。
+33	64	CodeGen-16B	OK	CE14	FIX = """ Add more test cases. """ def vowels_count ( s ) : vowels = "aeiou" count = 0 for i in s : if i in vowels : count += 1 if s [ - 1 ] in vowels : count += 1 return…	vowels 只含小写，且末位若为辅音 y 时未加 1，反而在末位为元音时重复加 1。
+35	65	CodeGen-16B	OK	CE06	def circular_shift ( x , shift ) : s = str ( x ) if shift >= len ( s ) : return s [ : : - 1 ] else : return s [ - shift : ] + s [ : - shift ]	shift >= len 时直接反转，未取模；等于长度时应返回原串。
+36	67	CodeGen-16B	OK	CE04	def fruit_distribution ( s , n ) : return n - int ( s . split ( ) [ 0 ] ) - int ( s . split ( ) [ 1 ] )	取 words[1] 而非 words[3]，读错 token。
+37	69	CodeGen-16B	OK	CE06	def search ( lst ) : freq = { } for i in lst : if i in freq : freq [ i ] += 1 else : freq [ i ] = 1 for i in freq : if freq [ i ] >= i : return i return - 1	遇到首个 freq[i]>=i 就返回，未取最大值。
+38	70	CodeGen-16B	OK	CE08,CE06	def strange_sort_list ( lst ) : if len ( lst ) == 0 : return [ ] else : return [ min ( lst ) ] + strange_sort_list ( [ x for x in lst if x != min ( lst ) ] ) + [ min ( ls…	首尾都用 min，且递归去除所有等于 min 的元素，重复与顺序都错。
+40	71	CodeGen-16B	OK	CE11	def triangle_area ( a , b , c ) : s = ( a + b + c ) / 2 area = ( s * ( s - a ) * ( s - b ) * ( s - c ) ) ** 0.5 return round ( area , 2 )	未先判断能否构成三角形，非法输入会返回数值或复数。
+41	72	CodeGen-16B	OK	CE03	def will_it_fly ( q , w ) : if is_balanced ( q ) and sum ( q ) <= w : return True else : return False	调用未定义的 is_balanced。
+42	73	CodeGen-16B	OK	CE01	def smallest_change ( arr ) : pass	函数体只有 pass。
+43	74	CodeGen-16B	OK	CE05	def total_match ( lst1 , lst2 ) : if len ( lst1 ) > len ( lst2 ) : return lst2 elif len ( lst1 ) < len ( lst2 ) : return lst1 else : return lst1	比较列表元素个数而非字符总数。
+44	75	CodeGen-16B	OK	CE05	def is_multiply_prime ( a ) : for i in range ( 2 , a ) : if a % i == 0 : return False return True	只判断 a 是否为素数，未判是否恰为三个素因子之积。
+45	76	CodeGen-16B	OK	CE09	def is_simple_power ( x , n ) : return x == n ** int ( n )	判据写成 x == n**int(n)，与 n**int 无关。
+46	77	CodeGen-16B	OK	CE09,CE11	def iscube ( a ) : return a ** ( 1 / 3 ) % 1 == 0	用 a**(1/3)%1==0 判断，浮点误差且未处理负数。
+48	78	CodeGen-16B	OK	CE01	def hex_key ( num ) : return 0	直接返回 0。
+49	80	CodeGen-16B	OK	CE05	def is_happy ( s ) : if len ( s ) < 3 : return False else : s = list ( s ) s = set ( s ) if len ( s ) == 3 : return True else : return False	用去重后字符数是否为 3 判断。
+50	81	CodeGen-16B	OK	CE01	def numerical_letter_grade ( grades ) : pass	函数体只有 pass。
+51	82	CodeGen-16B	OK	CE05,CE09	def prime_length ( string ) : if len ( string ) == 1 : return True elif len ( string ) == 2 : return True elif len ( string ) % 2 == 0 : return False else : for i in rang…	按长度分支判素且上界写成 len/2 步长 2，逻辑与素数定义不符。
+53	83	CodeGen-16B	OK	CE03	def starts_one_ends ( n ) : if n == 1 : return 1 return starts_one_ends ( n - 1 ) + ends_one_starts ( n - 1 )	调用未定义的 starts_one_ends 与 ends_one_starts。
+54	84	CodeGen-16B	OK	CE05	def solve ( N ) : return bin ( N ) [ 2 : ]	直接返回 N 的二进制，未先求十进制数位和。
+55	85	CodeGen-16B	OK	CE05	def add ( lst ) : return sum ( [ lst [ i ] for i in range ( 1 , len ( lst ) , 2 ) ] )	对奇数下标元素全部求和，未筛偶数。
+56	86	CodeGen-16B	OK	CE05	def anti_shuffle ( s ) : return ' ' . join ( sorted ( s . split ( ) , key = lambda x : '' . join ( sorted ( x ) ) ) )	对单词列表整体排序，未对每个单词内部字符排序。
+58	88	CodeGen-16B	OK	CE05	def sort_array ( array ) : if len ( array ) < 2 : return array pivot = array [ 0 ] left = [ x for x in array [ 1 : ] if x <= pivot ] right = [ x for x in array [ 1 : ] if…	按首元素做普通快排，未依据首尾和奇偶决定升降序。
+59	89	CodeGen-16B	OK	CE05,CE01	def encrypt ( s ) : alphabet = list ( 'abcdefghijklmnopqrstuvwxyz' ) shifted_alphabet = alphabet [ 2 : ] + alphabet [ : 2 ] alphabet_dict = dict ( zip ( alphabet , shifte…	构造大量映射字典后没有形成加密与返回。
+60	90	CodeGen-16B	OK	CE06	def next_smallest ( lst ) : if len ( lst ) < 2 : return None lst . sort ( ) return lst [ 1 ]	取排序后第二个元素，重复最小值时错误（应取第一个不同的更大值）。
+61	91	CodeGen-16B	OK	CE04	def is_bored ( S ) : return sum ( 1 for word in S . split ( ) if word . startswith ( 'I' ) )	按空白切词统计以 I 开头的词，未按句子切分。
+63	92	CodeGen-16B	OK	CE11	def any_int ( x , y , z ) : if x == y + z or y == x + z or z == x + y : return True else : return False	未校验三个参数都是 int，浮点输入会被误判。
+64	93	CodeGen-16B	OK	CE01	def encode ( message ) : pass	函数体只有 pass。
+65	94	CodeGen-16B	SYN	CE01	<SYNTAX>	函数内反复覆盖 lst 为示例常量，不是对输入求解。
+66	95	CodeGen-16B	OK	CE06	def check_dict_case ( dict ) : if len ( dict ) == 0 : return False else : for key in dict : if key . isupper ( ) == True : return False elif key . islower ( ) == True : r…	遍历中第一个键就 return，未检查全部键。
+67	96	CodeGen-16B	OK	CE01	def count_up_to ( n ) : pass	函数体只有 pass。
+68	97	CodeGen-16B	OK	CE05	def multiply ( a , b ) : return a * b	返回 a*b，而非个位数之积。
+69	98	CodeGen-16B	OK	CE14	def count_upper ( s ) : count = 0 for i in range ( len ( s ) ) : if i % 2 == 0 and s [ i ] . upper ( ) in 'AEIOU' : count += 1 return count	用 .upper() 后判断，把小写元音也计入；契约只统计大写元音。
+70	99	CodeGen-16B	OK	CE11,CE09	def closest_integer ( value ) : return int ( value ) if int ( value ) == float ( value ) else int ( value ) if int ( value ) > float ( value ) else int ( value ) - 1	未捕获非法输入；且 .5 情形的取整方向与契约相反。
+71	100	CodeGen-16B	OK	CE06,CE09	def make_a_pile ( n ) : if n % 2 == 0 : return [ n ] + make_a_pile ( n + 2 ) else : return [ n ] + make_a_pile ( n + 1 )	偶数时递归 n+2、奇数时 n+1，且无终止条件，列表构造错误。
+72	101	CodeGen-16B	OK	CE04	def words_string ( s ) : return s . split ( ', ' )	只按逗号加空格切分，未处理只有逗号或只有空格的情形。
+73	102	CodeGen-16B	OK	CE05	def choose_num ( x , y ) : if x % 2 == 0 and x <= y : return x elif y % 2 == 0 and x < y : return y else : return - 1	返回 x 或 y 的判据被替换为 x 偶/ y 偶，且区间端点处理错误。
+74	103	CodeGen-16B	OK	CE13	def rounded_avg ( n , m ) : if n > m : return - 1 else : return bin ( int ( ( n + m ) / 2 ) ) [ 2 : ]	返回 bin(x)[2:]，契约要求带 0b 前缀。
+76	104	CodeGen-16B	OK	CE05,CE14	def unique_digits ( x ) : return sorted ( list ( filter ( lambda x : not any ( map ( lambda y : y % 2 == 0 , list ( str ( x ) ) ) ) , x ) ) )	对 str 的每个字符做 y%2，且 filter 作用于字符串本身，判据与类型都错。
+77	105	CodeGen-16B	OK	CE01	def by_length ( arr ) : return [ ]	直接返回 []。
+78	106	CodeGen-16B	OK	CE01	def f ( n ) : return [ 1 ]	直接返回 [1]。
+79	107	CodeGen-16B	OK	CE03	def even_odd_palindrome ( n ) : even , odd = 0 , 0 for i in range ( 1 , n + 1 ) : if is_palindrome ( i ) : if is_even ( i ) : even += 1 else : odd += 1 return even , odd	调用未定义的 is_palindrome 与 is_even。
+80	108	CodeGen-16B	OK	CE05	def count_nums ( arr ) : count = 0 for num in arr : if sum ( int ( digit ) for digit in str ( abs ( num ) ) ) > 0 : count += 1 return count	对 abs(num) 求数位和，未把首位取负。
+81	109	CodeGen-16B	OK	CE05,CE06	def move_one_ball ( arr ) : if len ( arr ) == 0 : return True if arr == sorted ( arr ) : return True else : arr . append ( arr . pop ( 0 ) ) return move_one_ball ( arr )	每次只右移一位并递归，且未检测循环，无法判定任意次右移。
+82	110	CodeGen-16B	OK	CE05	def exchange ( lst1 , lst2 ) : return "YES" if sum ( lst1 ) == sum ( lst2 ) and sum ( lst1 ) % 2 == 0 else "NO"	比较两列表和相等且为偶数，目标被替换。
+83	111	CodeGen-16B	OK	CE05	def histogram ( test ) : test_list = test . split ( ) dictionary = { } for letter in test_list : if letter in dictionary : dictionary [ letter ] += 1 else : dictionary [ …	返回最大频次而非频次列表。
+84	113	CodeGen-16B	OK	CE08,CE13	def odd_count ( lst ) : return [ "the number of odd elements " + str ( len ( [ i for i in lst [ j ] if int ( i ) % 2 == 1 ] ) ) + "n the str" + str ( j + 1 ) + " of the "…	用字符串拼接生成描述，n/string 位置错乱，输出不符合契约格式。
+87	115	CodeGen-16B	OK	CE05,CE06	def max_fill ( grid , capacity ) : import math def max_fill_helper ( grid , capacity , row , col ) : if row == len ( grid ) : return 0 if col == len ( grid [ 0 ] ) : retu…	以二维格子递归且对非零格返回 +1，模型与按行装桶不符。
+88	117	CodeGen-16B	OK	CE05	def select_words ( s , n ) : return [ ]	按字典序排序后取首个，未筛长度为 n 的词。
+89	118	CodeGen-16B	OK	CE06	def get_closest_vowel ( word ) : vowels = set ( 'aeiou' ) for i in range ( len ( word ) - 1 ) : if word [ i ] not in vowels and word [ i + 1 ] in vowels : return word [ i…	从前往后找“辅音+元音”边界，契约要求从后往前找夹在两个辅音之间的元音。
+91	119	CodeGen-16B	OK	CE05	def match_parens ( lst ) : return 'Yes' if lst [ 0 ] == '(' and lst [ 1 ] == ')' else 'No'	只判断 lst[0]=='(' 且 lst[1]==')'，未拼接与校验。
+92	120	CodeGen-16B	OK	CE01	def maximum ( arr , k ) : pass	函数体只有 pass。
+93	121	CodeGen-16B	OK	CE05	def solution ( lst ) : sum = 0 for i in range ( len ( lst ) ) : if i % 2 == 0 : sum += lst [ i ] return sum	累加偶数下标元素，未筛值为奇数的条件。
+95	123	CodeGen-16B	OK	CE01	def get_odd_collatz ( n ) : pass	函数体只有 pass。
+97	125	CodeGen-16B	OK	CE05	def split_words ( txt ) : return txt . split ( )	只按空白切分，未处理逗号分支与奇数小写字母计数分支。
+98	126	CodeGen-16B	OK	CE05	def is_sorted ( lst ) : if len ( lst ) == 1 : return True elif len ( lst ) > 1 : for i in range ( len ( lst ) - 1 ) : if lst [ i ] > lst [ i + 1 ] : return False return T…	只判非降序，未检查任何元素出现超过两次。
+99	127	CodeGen-16B	OK	CE05	def intersection ( interval1 , interval2 ) : if interval1 [ 0 ] > interval2 [ 1 ] or interval2 [ 0 ] > interval1 [ 1 ] : return "NO" else : return "YES"	只判两区间是否相交，未计算交段长度是否素数。
+100	128	CodeGen-16B	OK	CE03	def prod_signs ( arr ) : if not arr : return None return sum ( abs ( i ) for i in arr ) * prod ( sign ( i ) for i in arr )	调用未定义的 prod 与 sign。
+101	129	CodeGen-16B	OK	CE05,CE09	def minPath ( grid , k ) : if not grid or not grid [ 0 ] : return [ ] n = len ( grid ) m = len ( grid [ 0 ] ) if k > n * m : return [ ] if k == 0 : return [ [ ] ] if k ==…	实现的是二维网格最短路 DP，与长度 k 的字典序最小路径不同。
+102	130	CodeGen-16B	OK	CE05	def tri ( n ) : if n == 0 : return [ 0 ] elif n == 1 : return [ 3 ] elif n == 2 : return [ 1 , 3 ] else : return [ 1 , 3 ] + [ sum ( tri ( n - 1 ) ) for n in range ( 3 , …	只判 x+y==z，漏另外两种组合。
+104	131	CodeGen-16B	OK	CE05	def digits ( n ) : product = 1 for i in str ( n ) : if int ( i ) % 2 == 0 : return 0 else : product *= int ( i ) return product	用集合差集，目标被替换。
+105	132	CodeGen-16B	OK	CE01	def is_nested ( string ) : if not string : return False stack = [ ] for char in string : if char == '[' : stack . append ( char ) elif char == ']' : if stack : stack . po…	直接返回 []。
+106	133	CodeGen-16B	OK	CE05	def sum_squares ( lst ) : return sum ( [ int ( i ** 2 ) for i in lst ] )	筛选词长奇偶，目标被替换。
+108	134	CodeGen-16B	OK	CE11,CE05	def check_if_last_char_is_a_letter ( txt ) : return txt [ - 1 ] . isalpha ( ) and txt . count ( ' ' ) == 0	判据要求整串无空格，契约只要求末字符为字母且前一字符为空格。
+109	135	CodeGen-16B	OK	CE06,CE05	def can_arrange ( arr ) : if len ( arr ) == 0 : return - 1 if len ( arr ) == 1 : return 0 if len ( arr ) == 2 : if arr [ 0 ] < arr [ 1 ] : return 0 else : return 1 else :…	按长度 0/1/2 写死分支，其余遍历方向与判据错误。
+111	136	CodeGen-16B	OK	CE15	def largest_smallest_integers ( lst ) : if len ( lst ) == 0 : return ( None , None ) else : negatives = [ ] positives = [ ] for i in lst : if i < 0 : negatives . append (…	空列表与缺少正/负数的分支均返回 (None,None)；按本条源码未观察到可归入现有代码的缺陷。
+112	137	CodeGen-16B	OK	CE11	def compare_one ( a , b ) : if a > b : return a elif b > a : return b else : return None	未把逗号小数当数字解析，字符串比较会按字典序。
+113	138	CodeGen-16B	OK	CE05	def is_equal_to_sum_even ( n ) : return n % 2 == 0 and n % 4 == 0	判据为偶数且被 4 整除。
+114	139	CodeGen-16B	OK	CE05	def special_factorial ( n ) : factorial = 1 for i in range ( 1 , n + 1 ) : factorial *= i return factorial	返回 n!，契约要求各阶乘之积。
+116	140	CodeGen-16B	OK	CE01	def fix_spaces ( text ) : return text	直接返回输入。
+117	141	CodeGen-16B	OK	CE05,CE06	def file_name_check ( file_name ) : if len ( file_name ) > 3 : return 'No' elif file_name . count ( '.' ) > 1 : return 'No' elif file_name . count ( '.' ) == 1 : if file_…	先判整个文件名长度>3，且分支嵌套逻辑与规则不符。
+119	142	CodeGen-16B	OK	CE09	def sum_squares ( lst ) : if len ( lst ) == 0 : return 0 else : new_lst = [ ] for i in range ( len ( lst ) ) : if i % 3 == 0 or i % 4 == 0 : new_lst . append ( lst [ i ] …	两个条件都用平方，未区分立方。
+120	143	CodeGen-16B	OK	CE11	def words_in_sentence ( sentence ) : words = sentence . split ( ' ' ) primes = [ ] for word in words : if is_prime ( len ( word ) ) : primes . append ( word ) return ' ' …	按单空格切分，连续空格会产生空串，空串长度 0 被误判为素数？参考同样用 split(' ')，差异在于此条未过滤空串。
+121	144	CodeGen-16B	OK	CE01	def simplify ( x , n ) : return False	直接返回 False。
+122	145	CodeGen-16B	OK	CE05,CE14	def order_by_points ( nums ) : return sorted ( nums , key = lambda x : sum ( int ( i ) for i in str ( x ) ) )	数位和对负号未做首位取负处理。
+123	146	CodeGen-16B	OK	CE05	def specialFilter ( nums ) : count = 0 for num in nums : if num > 10 and num % 2 != 0 : count += 1 return count	只判 num 为奇数，未检查首尾位均为奇数。
+124	147	CodeGen-16B	OK	CE05	def get_max_triples ( n ) : return sum ( i * i - i + 1 for i in range ( 1 , n + 1 ) if ( i * i - i + 1 ) % 3 == 0 )	统计 a[i]%3==0 的个数，而非三元组数。
+125	149	CodeGen-16B	OK	CE08	def sorted_list_sum ( lst ) : return sorted ( list ( filter ( lambda x : len ( x ) % 2 == 0 , lst ) ) , key = len )	筛掉奇数长度后只按长度排序，未在等长时按字母序排序。
+127	150	CodeGen-16B	OK	CE05	def x_or_y ( n , x , y ) : if n == 1 : return x else : return y	把素数判断替换为 n 是否等于 1，绝大多数合数会被返回 x。
+128	151	CodeGen-16B	OK	CE05	def double_the_difference ( lst ) : sum = 0 for i in lst : if i > 0 and i % 2 != 0 : sum += i ** 2 return sum	排序后取中间值，目标被替换。
+129	153	CodeGen-16B	OK	CE01	def Strongest_Extension ( class_name , extensions ) : pass	函数体只有 pass。
+130	154	CodeGen-16B	OK	CE05	def cycpattern_check ( a , b ) : if b in a : return True else : return False	只判 b 是否为 a 的子串，未检查 b 的循环移位。
+131	155	CodeGen-16B	OK	CE09	def even_odd_count ( num ) : even = 0 odd = 0 while num > 0 : if num % 2 == 0 : even += 1 else : odd += 1 num = num // 10 return ( even , odd )	对 num 取模 2 判断的是整个数的奇偶，而非各位数字。
+132	156	CodeGen-16B	OK	CE05	def int_to_mini_roman ( number ) : roman_numerals = { 1 : 'i' , 5 : 'v' , 10 : 'x' , 50 : 'l' , 100 : 'c' , 500 : 'd' , 1000 : 'm' } result = '' for key in sorted ( roman…	只使用 1/5/10/50... 贪心，未处理 4/9 减法组合。
+134	158	CodeGen-16B	OK	CE01	def find_max ( words ) :	函数体全是注释。
+135	159	CodeGen-16B	OK	CE01	def eat ( number , need , remaining ) : pass	函数体只有 pass。
+136	160	CodeGen-16B	OK	CE01	def do_algebra ( operator , operand ) : return 0	直接返回 0。
+137	161	CodeGen-16B	OK	CE11	def solve ( s ) : return '' . join ( map ( lambda x : x . swapcase ( ) if x . isalpha ( ) else x , s ) )	全部字符都是非字母时，契约要求返回原串反转；此处直接返回交换结果。
+138	162	CodeGen-16B	OK	CE03	def string_to_md5 ( text ) : if not text : return None return hashlib . md5 ( text . encode ( 'utf-8' ) ) . hexdigest ( )	调用 hashlib 但未导入。
+139	163	CodeGen-16B	OK	CE11	def generate_integers ( a , b ) : return [ i for i in range ( a , b + 1 ) if i % 2 == 0 ]	未把上界截断到 10。
+141	0	InCoder-1B	OK	CE06	from typing import List def has_close_elements ( numbers : List [ float ] , threshold : float ) -> bool : close = abs ( numbers [ 0 ] - numbers [ 1 ] ) < threshold close …	只比较前四个元素的两对差值，未遍历全部。
+142	1	InCoder-1B	OK	CE05,CE06	from typing import List def separate_paren_groups ( paren_string : str ) -> List [ str ] : paren_groups = [ ] paren_stack = [ ] paren_stack . append ( paren_string ) whil…	把整串压栈后只按 '(' ')' ')(' 三个字面值分支，从未切分输入，输出也只会是这三个符号。
+143	2	InCoder-1B	OK	CE05	def truncate_number ( number : float ) -> float : return int ( number * 10 ** - precision )	返回 int(number*10^-precision)，目标被替换。
+145	3	InCoder-1B	OK	CE05,CE11	from typing import List def below_zero ( operations : List [ int ] ) -> bool : operations_len = len ( operations ) if operations_len == 0 : return False elif operations_l…	按长度 0-5 写死若干判断且判据是各项是否为零，完全不是余额；长度 >5 直接 False。
+146	4	InCoder-1B	OK	CE12	from typing import List def mean_absolute_deviation ( numbers : List [ float ] ) -> float : return sum ( abs ( x - x . mean ( ) ) for x in numbers ) / len ( numbers )	对 float 元素调用 .mean()，类型不支持。
+148	5	InCoder-1B	OK	CE08,CE06	from typing import List def intersperse ( numbers : List [ int ] , delimeter : int ) -> List [ int ] : numbers = numbers [ : : 2 ] + numbers [ 1 : : 2 ] return numbers + …	把列表按奇偶下标重排，再在末尾追加 len-1 个分隔符，既改变顺序又错位。
+149	6	InCoder-1B	OK	CE05,CE08	from typing import List def parse_nested_parens ( paren_string : str ) -> List [ int ] : paren_groups = [ ] for paren in paren_string . split ( ) : paren_groups . append …	对每组分别追加 '(' 与 ')' 的计数，输出长度翻倍且不是嵌套深度。
+150	7	InCoder-1B	OK	CE05	from typing import List def filter_by_substring ( strings : List [ str ] , substring : str ) -> List [ str ] : return [ s for s in strings if s . startswith ( substring )…	用 startswith 判子串，应为 in。
+151	9	InCoder-1B	OK	CE06,CE08	from typing import List , Tuple def rolling_max ( numbers : List [ int ] ) -> List [ int ] : rolling_max_list = [ ] rolling_max_index = 0 rolling_max_value = 0 for number…	只在滚动最大值下标到达末尾时输出一次，并重置状态，输出数量错误。
+153	10	InCoder-1B	OK	CE03	def is_palindrome ( string : str ) -> bool : """ Test if given string is a palindrome """ return string == string [ : : - 1 ] def make_palindrome ( string : str ) -> str …	调用未定义的 find_longest_palindrome 与 reverse_palindrome。
+155	11	InCoder-1B	OK	CE05	from typing import List def string_xor ( a : str , b : str ) -> str : return bin ( int ( '' . join ( map ( str , a ) ) , 2 ) )	把 a 拼成整数后返回其二进制，忽略 b 与逐位异或。
+157	12	InCoder-1B	OK	CE05	from typing import List , Optional def longest ( strings : List [ str ] ) -> Optional [ str ] : if len ( strings ) == 0 : return None if len ( strings ) == 1 : return str…	按长度排序后取首个，返回最短词。
+159	14	InCoder-1B	OK	CE05	from typing import List def all_prefixes ( string : str ) -> List [ str ] : prefixes : List [ str ] = [ ] for prefix in string . split ( ' ' ) : prefixes . append ( prefi…	按空格切分返回词列表，未生成前缀。
+161	15	InCoder-1B	OK	CE13,CE06	def string_sequence ( n : int ) -> str : return '' . join ( str ( n ) for n in range ( n ) )	用 '' 连接且 range(n) 漏掉 n。
+163	16	InCoder-1B	OK	CE14	def count_distinct_characters ( string : str ) -> int : return len ( set ( string ) )	未先 lower，大小写被当作不同字符。
+164	17	InCoder-1B	OK	CE04,CE01	from typing import List def parse_music ( music_string : str ) -> List [ int ] : notes : List [ int ] = [ ] notes_string : str = music_string notes_string : str = notes_s…	用大量 replace 把 o/. 替换成竖线，随后没有形成有效计数逻辑，且过程不终止于结果。
+165	18	InCoder-1B	OK	CE06	def how_many_times ( string : str , substring : str ) -> int : count = 0 i = 0 while i < len ( string ) : if string [ i : i + len ( substring ) ] == substring : count += …	每次 i += len(substring)，漏掉重叠出现。
+166	19	InCoder-1B	OK	CE04,CE13	from typing import List def sort_numbers ( numbers : str ) -> str : numbers = numbers . split ( ) numbers = [ int ( n ) for n in numbers ] numbers . sort ( ) return '' . …	同样直接 int() 英文数字；且用 '' 连接而非空格连接。
+167	20	InCoder-1B	OK	CE05	from typing import List , Tuple def find_closest_elements ( numbers : List [ float ] ) -> Tuple [ float , float ] : closest_to_one = numbers [ 0 ] closest_to_two = number…	分别追踪最小与最大，返回全局极值对。
+168	21	InCoder-1B	OK	CE09	from typing import List def rescale_to_unit ( numbers : List [ float ] ) -> List [ float ] : numbers = sorted ( numbers ) minimum = min ( numbers ) maximum = max ( number…	乘以 max-min 而非除以。
+171	24	InCoder-1B	OK	CE06,CE10	def largest_divisor ( n : int ) -> int : divisor = 1 while n % divisor == 0 : divisor += 1 return divisor	循环条件写成 n%divisor==0，divisor 从 1 起立即为真并递增到第一个不整除的数。
+173	25	InCoder-1B	OK	CE05,CE08	from typing import List def factorize ( n : int ) -> List [ int ] : factors = [ ] factors . append ( n ) while n % 2 == 0 : n //= 2 factors . append ( n ) factors . appen…	对 2/3/5 重复 append n，因子重复且非分解。
+174	26	InCoder-1B	OK	CE05	from typing import List def remove_duplicates ( numbers : List [ int ] ) -> List [ int ] : seen = set ( ) result = [ ] for number in numbers : if number in seen : continu…	保留每个值的首次出现，未删除重复出现的值。
+175	27	InCoder-1B	OK	CE14	def flip_case ( string : str ) -> str : return string . lower ( )	只做 lower，未交换大小写。
+176	30	InCoder-1B	OK	CE11	def get_positive ( l : list ) : return [ x for x in l if x >= 0 ]	用 x>=0，应严格大于 0。
+177	32	InCoder-1B	OK	CE05	import math def poly ( xs : list , x : float ) : return sum ( [ coeff * math . pow ( x , i ) for i , coeff in enumerate ( xs ) ] ) def find_zero ( xs : list ) : zero = fl…	返回系数的绝对值/无穷，未解方程。
+178	33	InCoder-1B	OK	CE05,CE06	def sort_third ( l : list ) : third = [ x for x in l if x % 3 == 0 ] third . sort ( ) return third	按元素值是否为 3 的倍数筛选，且只返回该子列表，未保留原位置。
+180	36	InCoder-1B	OK	CE05,CE09	def fizz_buzz ( n : int ) : if n % 11 == 0 or n % 13 == 0 : return n return fizz_buzz ( n // 11 ) + fizz_buzz ( n // 13 )	对 n 本身做整除递归，完全不是统计区间内 11/13 倍数中 7 的个数。
+181	37	InCoder-1B	OK	CE05	def sort_even ( l : list ) : even = [ i for i in l if i % 2 == 0 ] odd = [ i for i in l if i % 2 != 0 ] return sorted ( even ) + sorted ( odd )	按元素值奇偶分组排序，而非按下标奇偶。
+182	38	InCoder-1B	SYN	CE09	<SYNTAX>	decode 对每组做 group[1:]+group[0]，方向与 encode 相同。
+183	39	InCoder-1B	OK	CE05,CE09	def prime_fib ( n : int ) : if n < 2 : return n if n == 2 : return 1 if n % 2 == 0 : return n return prime_fib ( n - 1 ) + prime_fib ( n - 2 )	实现普通 Fibonacci 递推，目标被替换。
+184	40	InCoder-1B	OK	CE05	def triples_sum_to_zero ( l : list ) : return len ( set ( l ) ) >= 3	只检查去重后元素数，未检查求和。
+185	41	InCoder-1B	SYN	CE01	<SYNTAX>	构造大段常量速度数组后没有形成计数逻辑。
+186	42	InCoder-1B	OK	CE08	def incr_list ( l : list ) : l . append ( 1 ) return l	只在末尾追加 1，未对每个元素加 1。
+187	43	InCoder-1B	OK	CE05	def pairs_sum_to_zero ( l ) : return len ( set ( l ) ) == 2	判去重后元素个数为 2，未检查是否存在相反数。
+188	44	InCoder-1B	OK	CE12	def change_base ( x : int , base : int ) : digits = [ ] while x : digits . append ( str ( x % base ) ) x /= base return '' . join ( reversed ( digits ) )	x /= base 产生 float，随后 % 与 // 在 float 上继续，最终 str(float) 输出带小数点。
+190	46	InCoder-1B	OK	CE09,CE10	def fib4 ( n : int ) : if n == 0 : return 0 elif n == 1 : return 1 else : return fib4 ( n - 1 ) + fib4 ( n - 2 ) + fib4 ( n - 3 ) + fib4 ( n - 4 )	n==1 返回 1 且递推无记忆化，初始条件与参考不符。
+193	47	InCoder-1B	OK	CE09	def median ( l : list ) : l = sorted ( l ) half = len ( l ) // 2 return l [ half ] if half else l [ 0 ]	偶数长度返回单个中间元素，未取两中位数平均。
+195	50	InCoder-1B	OK	CE09	def encode_shift ( s : str ) : return "" . join ( [ chr ( ( ( ord ( ch ) + 5 - ord ( "a" ) ) % 26 ) + ord ( "a" ) ) for ch in s ] ) def decode_shift ( s : str ) : return …	decode_shift 未减 5。
+196	54	InCoder-1B	OK	CE05	def same_chars ( s0 : str , s1 : str ) : return len ( s0 ) == len ( s1 )	只比较长度。
+198	56	InCoder-1B	OK	CE05	def correct_bracketing ( brackets : str ) : opening_brackets = [ b for b in brackets if b == "<" ] closing_brackets = [ b for b in brackets if b == ">" ] return len ( ope…	只比较开闭括号数量，未检查顺序。
+199	57	InCoder-1B	OK	CE05	def monotonic ( l : list ) : return all ( x < y for x , y in zip ( l , l [ 1 : ] ) )	只判严格递增，漏递减情形。
+201	59	InCoder-1B	OK	CE06	def largest_prime_factor ( n : int ) : if n < 2 : return n factor = 1 while n % factor == 0 : factor += 1 return factor	从 1 开始找首个因子，返回 1。
+202	61	InCoder-1B	OK	CE05	def correct_bracketing ( brackets : str ) : opening_brackets = [ bracket for bracket in brackets if bracket in "()" ] closing_brackets = [ bracket for bracket in brackets…	只比较括号数量。
+203	62	InCoder-1B	OK	CE09	def derivative ( xs : list ) : return [ x ** i for i , x in enumerate ( xs ) ]	返回 x**i，公式错误。
+205	63	InCoder-1B	OK	CE09	def fibfib ( n : int ) : if n <= 1 : return n return fibfibfib ( n - 1 ) + fibfib ( n - 2 ) + fibfib ( n - 3 )	调用未定义的 fibfib，且初始值错误。
+207	64	InCoder-1B	OK	CE05	FIX = """ Add more test cases. """ def vowels_count ( s ) : return sum ( 1 for c in s if c in 'AEIOUaeiou' )	只统计元音，未实现末位为 y 时 +1。
+208	65	InCoder-1B	OK	CE12	def circular_shift ( x , shift ) : digits = x . __len__ ( ) if shift > digits : digits = digits return str ( x [ - digits : ] ) [ : : - 1 ]	对 int x 调用 __len__ 与切片，类型不支持。
+209	66	InCoder-1B	OK	CE14	def digitSum ( s ) : sum = 0 for c in s : sum += ord ( c ) return sum	对所有字符求 ord 求和，未限定大写字母。
+210	67	InCoder-1B	OK	CE03	def fruit_distribution ( s , n ) : fruit_distribution_helper ( s , n , 0 , 0 ) return fruit_distribution_helper ( s , n , 0 , 1 )	调用未定义的 fruit_distribution_helper。
+211	68	InCoder-1B	OK	CE01	def pluck ( arr ) :	函数体为空。
+212	69	InCoder-1B	OK	CE05	def search ( lst ) : freq = { } for num in lst : if num not in freq : freq [ num ] = 1 else : freq [ num ] += 1 return max ( freq . items ( ) , key = operator . itemgette…	按频次取最大值，目标被替换。
+214	70	InCoder-1B	OK	CE05	def strange_sort_list ( lst ) : lst = sorted ( lst ) lst . reverse ( ) return lst	整体降序排序。
+216	71	InCoder-1B	OK	CE01	def triangle_area ( a , b , c ) :	函数体为空。
+217	72	InCoder-1B	OK	CE01	def will_it_fly ( q , w ) :	函数体为空。
+218	73	InCoder-1B	OK	CE06	def smallest_change ( arr ) : change = 0 for i in range ( len ( arr ) ) : if arr [ i ] != arr [ len ( arr ) - i - 1 ] : change += 1 return change	遍历全部下标，每对失配被计两次。
+219	74	InCoder-1B	OK	CE01	def total_match ( lst1 , lst2 ) :	函数体为空。
+220	75	InCoder-1B	OK	CE05	def is_multiply_prime ( a ) : return a < 100 and a % 3 == 0	判据被替换为范围与整除 3。
+221	76	InCoder-1B	OK	CE05	def is_simple_power ( x , n ) : return x % n == 0	只判整除。
+222	77	InCoder-1B	OK	CE05	def iscube ( a ) : return a > 0 and a % 2 == 0	判据是 a>0 且偶数。
+223	78	InCoder-1B	OK	CE01	def hex_key ( num ) :	函数体为空。
+224	79	InCoder-1B	OK	CE05	def decimal_to_binary ( decimal ) : binary_string = "" binary_string += str ( decimal ) binary_string += "db" return binary_string	返回十进制数字符串加 db，未转二进制。
+226	80	InCoder-1B	OK	CE05,CE09	def is_happy ( s ) : length = len ( s ) if length < 3 : return False count = 0 for letter in s : if letter == letter : count += 1 else : count = 0 if count % 3 == 0 : ret…	letter == letter 恒真，count 只增不减，最后用 count%3 判断。
+227	81	InCoder-1B	OK	CE12,CE05	def numerical_letter_grade ( grades ) : grades_letter = grades . copy ( ) grades_letter [ grades_letter == 0 ] = 'E' grades_letter [ grades_letter > 0 ] = 'D-' grades_let…	对 Python list 使用 grades_letter[...]=... 布尔索引，类型不支持；阈值映射也错。
+228	83	InCoder-1B	OK	CE05	def starts_one_ends ( n ) : count = 0 while n > 0 : count += 1 n //= 10 return count	返回 n 的十进制位数。
+229	84	InCoder-1B	OK	CE01	def solve ( N ) :	函数体为空。
+230	85	InCoder-1B	OK	CE05	def add ( lst ) : return sum ( lst [ 1 : : 2 ] )	同上。
+231	86	InCoder-1B	SYN	CE02,CE05	<SYNTAX>	大量过滤语句后源码截断，且方向是过滤而非字符排序。
+232	87	InCoder-1B	OK	CE05	def get_row ( lst , x ) : lst = sorted ( lst , key = lambda x : x [ 0 ] ) lst = sorted ( lst , key = lambda x : x [ 1 ] ) return [ ( i , j ) for i , j in zip ( lst , lst …	对元组列表排序后 zip 相邻，目标被替换。
+233	88	InCoder-1B	OK	CE01	def sort_array ( array ) : sorted_array = [ ] sorted_array . append ( array [ 0 ] ) sorted_array . append ( array [ 1 ] ) sorted_array . append ( array [ 2 ] ) sorted_arr…	逐个 append array[0..63]，不是算法。
+234	89	InCoder-1B	OK	CE05,CE12	def encrypt ( s ) : alphabet = 'abcdefghijklmnopqrstuvwxyz' def encrypt ( s ) : rotated_alphabet = alphabet [ alphabet . index ( s ) % len ( alphabet ) ] return rotated_a…	encrypt 只处理单个字符并返回函数对象，未对整串加密。
+235	90	InCoder-1B	OK	CE01	def next_smallest ( lst ) :	函数体为空。
+236	91	InCoder-1B	OK	CE04	def is_bored ( S ) : bored = 0 for word in S . split ( '.' ) : if word . startswith ( 'I' ) : bored += 1 return bored	只按 '.' 切分，漏掉 ? 与 !。
+237	92	InCoder-1B	OK	CE12	def any_int ( x , y , z ) : return all ( x is y or x is z for x , y in zip ( x , y , z ) )	zip(x,y,z) 参数类型错误，且 all(x is y or x is z ...) 逻辑不成立。
+238	93	InCoder-1B	SYN	CE01,CE04	def encode ( message ) : alphabet = 'abcdefghijklmnopqrstuvwxyz' message = message . lower ( ) message = message . replace ( ' ' , '' ) message = message . replace ( '.' …	把消息小写并反复删除标点，没有形成编码与返回。
+239	94	InCoder-1B	OK	CE01,CE05	def skjkasdkd ( lst ) : lst = sorted ( lst ) lst = [ x for x in lst if x % 2 == 0 ] lst = [ x for x in lst if x != 0 ] lst = [ x for x in lst if x != 1 ] lst = [ x for x …	先筛偶数再逐个删除 0..N，仍未形成判素与取最大素数的逻辑。
+240	95	InCoder-1B	OK	CE03,CE05	def check_dict_case ( dict ) : for key in dict : if type ( key ) == str : if key . lower ( ) not in dict : return False if key . upper ( ) not in dict : return False retu…	把 key.lower() 当作字典键查询，逻辑错误且可能键不存在。
+242	96	InCoder-1B	SYN	CE01	<SYNTAX>	硬编码 2..119 的素数表，且未按 n 截断。
+243	97	InCoder-1B	OK	CE05,CE09	def multiply ( a , b ) : product = 1 while a > 0 : product *= a a -= 1 while b > 0 : product *= b b -= 1 return product	对 a、b 分别做递减累乘，目标被替换。
+244	98	InCoder-1B	OK	CE14,CE06	def count_upper ( s ) : count = 0 for i in range ( len ( s ) ) : if s [ i ] == 'A' or s [ i ] == 'E' or s [ i ] == 'I' or s [ i ] == 'O' or s [ i ] == 'U' : count += 1 re…	只统计大写元音，但遍历全部下标，未限定偶数位。
+245	99	InCoder-1B	OK	CE13	def closest_integer ( value ) : return lambda number : int ( round ( abs ( number ) , 0 ) )	返回一个 lambda 而非整数结果。
+246	100	InCoder-1B	OK	CE05	def make_a_pile ( n ) : stones = [ ] level = 0 while level < n : stones . append ( level ) level += 1 return stones	返回 level 从 0 递增，目标被替换。
+248	101	InCoder-1B	OK	CE04	def words_string ( s ) : words = s . split ( ',' ) words = [ word . strip ( ) for word in words ] return words	按逗号切分后 strip，未处理空白分隔。
+249	102	InCoder-1B	OK	CE05	def choose_num ( x , y ) : if x % 2 == 0 : return x // 2 else : return - 1	返回 x//2，目标被替换。
+250	103	InCoder-1B	OK	CE05	def rounded_avg ( n , m ) : binary = bin ( n ) [ 2 : ] binary = binary . zfill ( len ( str ( m ) ) ) binary = binary . zfill ( len ( str ( n ) ) ) return binary	返回 n 的二进制并按位数补零，目标被替换。
+251	104	InCoder-1B	OK	CE05	def unique_digits ( x ) : digits = [ ] for num in x : if num % 2 == 0 : digits . append ( num ) return sorted ( digits )	筛选出含偶数数字的数，方向相反。
+252	105	InCoder-1B	OK	CE13,CE05	def by_length ( arr ) : arr = sorted ( arr ) arr = arr [ : : - 1 ] arr = list ( map ( str , arr ) ) return arr	把排序后的数字转成字符串列表，未映射为英文单词。
+254	106	InCoder-1B	OK	CE05	def f ( n ) : factorial = [ ] for i in range ( 1 , n + 1 ) : factorial . append ( i * factorial [ i - 1 ] ) return factorial	返回阶乘序列，目标被替换。
+258	107	InCoder-1B	SYN	CE02	<SYNTAX>	大量 append 后源码截断。
+259	108	InCoder-1B	OK	CE05	def count_nums ( arr ) : count = 0 for num in arr : if num > 0 : count += 1 return count	统计正数个数，目标被替换。
+261	109	InCoder-1B	OK	CE01	def move_one_ball ( arr ) :	函数体为空。
+262	110	InCoder-1B	OK	CE05	def exchange ( lst1 , lst2 ) : lst1 = list ( lst1 ) lst2 = list ( lst2 ) if len ( lst1 ) != len ( lst2 ) : return "NO" for i in range ( len ( lst1 ) ) : if lst1 [ i ] % 2…	逐位比较奇偶性，要求完全一致。
+263	111	InCoder-1B	SYN	CE06	def histogram ( test ) : letters = test . split ( ) letters_set = set ( letters ) letters_count = letters_set . count ( ) letters_frequency = letters_set . intersection (…	range 从 1 开始，漏掉 0。
+264	112	InCoder-1B	OK	CE05,CE14	def reverse_delete ( s , c ) : s = list ( s ) c = list ( c ) s = s [ : : - 1 ] c = c [ : : - 1 ] s = "" . join ( s ) c = "" . join ( c ) s = s . replace ( c , "" ) c = c …	先把 s 与 c 反转再 replace，语义完全错乱。
+265	113	InCoder-1B	OK	CE05	def odd_count ( lst ) : odd_counts = [ ] for x in lst : odd_counts . append ( len ( [ x for x in x if x . isdigit ( ) ] ) ) return odd_counts	统计每串数字个数而非奇数个数。
+267	114	InCoder-1B	OK	CE05	import math def minSubArraySum ( nums ) : ans = float ( 'inf' ) for i in range ( len ( nums ) ) : for j in range ( i + 1 , len ( nums ) ) : if nums [ j ] < nums [ i ] : a…	返回数组最小元素，目标被替换。
+269	115	InCoder-1B	OK	CE01	def max_fill ( grid , capacity ) : import math	只有 import math。
+270	116	InCoder-1B	OK	CE02,CE05	def sort_array ( arr ) : ones_count = count_ones ( arr ) ones_count = ones_count . most_common ( ) [ 0 ] [ 0 ] ones_count = ones_count . bit_length ( ) ones_count = ones_…	反复调用 bit_length 后源码截断，未实现排序。
+271	117	InCoder-1B	OK	CE05	def select_words ( s , n ) : words = s . split ( ) words = [ word for word in words if len ( word ) == n ] return words	只筛长度等于 n 的词，计算的是单词长度而非辅音个数。
+272	118	InCoder-1B	OK	CE02,CE05	def get_closest_vowel ( word ) : vowels = "aeiou" vowel_left = "" vowel_right = "" for char in word : if char in vowels : vowel_left += char else : vowel_right += char vo…	反复 strip 后源码截断，未形成查找。
+273	119	InCoder-1B	OK	CE05,CE06	def match_parens ( lst ) : if len ( lst ) == 1 : return 'Yes' if len ( lst ) == 2 : if lst [ 0 ] == '(' : if lst [ 1 ] == '(' : return 'Yes' else : return 'No' else : if …	按长度 1/2 写死分支，未拼接两串做括号校验。
+274	120	InCoder-1B	OK	CE05	def maximum ( arr , k ) : arr = sorted ( arr ) length = len ( arr ) if k > length : return arr mid = length // 2 if k == 1 : return arr if k == mid : return arr [ : mid ]…	按长度与 k 的关系返回中间段，目标被替换。
+275	121	InCoder-1B	OK	CE12	def solution ( lst ) : odd_positions = [ i for i , x in enumerate ( lst ) if x % 2 == 1 ] return sum ( lst [ odd_positions ] )	lst[odd_positions] 以列表为索引，类型不支持。
+276	122	InCoder-1B	OK	CE06	def add_elements ( arr , k ) : ans = 0 i = 0 while i < len ( arr ) : ans += arr [ i ] i += 1 if i % k == 0 : ans += arr [ i ] return ans	i 每次 +1 后又 +1，漏元素且越界。
+277	123	InCoder-1B	OK	CE01	def get_odd_collatz ( n ) : odd_collatz = [ ] odd_collatz . append ( 1 ) odd_collatz . append ( n ) odd_collatz . append ( n ) odd_collatz . append ( n ) odd_collatz . ap…	大量 append 常量，不是 Collatz 序列。
+278	124	InCoder-1B	OK	CE11	def valid_date ( date ) : date_parts = date . split ( '-' ) month = int ( date_parts [ 0 ] ) day = int ( date_parts [ 1 ] ) year = int ( date_parts [ 2 ] ) if month < 1 o…	未按月份区分天数，2 月允许 31 日。
+280	125	InCoder-1B	OK	CE05	def split_words ( txt ) : words = txt . split ( ) words = [ word . lower ( ) for word in words ] words = [ word for word in words if len ( word ) % 2 == 1 ] words = [ wor…	按词长奇偶筛选，目标被替换。
+281	126	InCoder-1B	OK	CE05	def is_sorted ( lst ) : return all ( lst [ i ] < lst [ i + 1 ] for i in range ( len ( lst ) - 1 ) )	要求严格递增，且未检查重复次数。
+282	127	InCoder-1B	OK	CE12,CE05	def intersection ( interval1 , interval2 ) : interval1 = sorted ( interval1 ) interval2 = sorted ( interval2 ) interval1 . sort ( ) interval2 . sort ( ) intersection = se…	对区间列表调用 sorted/sort 并按元素求交，类型与目标都错。
+283	128	InCoder-1B	OK	CE05,CE12	def prod_signs ( arr ) : signs = [ 1 if x < 0 else - 1 if x > 0 else 0 for x in range ( len ( arr ) ) ] return sum ( signs )	对 range(len(arr)) 生成符号并求和，目标与数据源都被替换。
+284	129	InCoder-1B	SYN	CE02	<SYNTAX>	大量 append 后源码截断。
+285	130	InCoder-1B	OK	CE06	def tri ( n ) : if n <= 1 : return [ 1 ] else : return tri ( n - 1 ) + tri ( n - 2 ) + tri ( n + 1 )	range 边界错误导致漏组合。
+287	131	InCoder-1B	OK	CE05	def digits ( n ) : return reduce ( operator . mul , range ( 2 , n + 1 ) , 1 )	按长度写死分支，未筛全奇数位数字。
+288	132	InCoder-1B	OK	CE05,CE13	def is_nested ( string ) : brackets = re . findall ( r'\[.*?\]' , string ) return len ( brackets ) > 0 and any ( is_nested ( b ) for b in brackets )	返回字符串列表，未返回英文单词。
+289	133	InCoder-1B	OK	CE05	def sum_squares ( lst ) :	只按长度筛选，未处理大小写/空格。
+290	134	InCoder-1B	SYN	CE02	def check_if_last_char_is_a_letter ( txt ) : return txt [ - 1 ] . isalpha ( ) and txt [ - 1 ] not in "	源码在字符串中途截断。
+291	135	InCoder-1B	SYN	CE05	def can_arrange ( arr ) : arr = sorted ( arr ) prev = arr [ 0 ] for x in arr [ 1 : ] : if x > prev : return - 1 prev =	排序后判断是否严格递增，目标被替换。
+292	136	InCoder-1B	OK	CE05	def largest_smallest_integers ( lst ) : positives = [ x for x in lst if x > 0 ] negatives = [ x for x in lst if x < 0 ] if len ( positives ) > len ( negatives ) : return …	按正负数数量返回列表，目标被替换。
+293	137	InCoder-1B	SYN	CE02	<SYNTAX>	源码中途截断。
+294	138	InCoder-1B	OK	CE05	def is_equal_to_sum_even ( n ) : return n >= 4 and n % 2 == 0	阈值写成 4 而非 8。
+295	139	InCoder-1B	OK	CE09	def special_factorial ( n ) : if n < 0 : raise ValueError ( "n must be non-negative" ) if n == 0 : return 1 elif n == 1 : return 1 else : return n * special_factorial ( n…	递推写成 n*F(n-1)，仍是阶乘。
+296	140	InCoder-1B	OK	CE05	def fix_spaces ( text ) : return re . sub ( r'\s+' , '_' , text )	把连续空白统一替换为 '_'，未实现按长度分级（多空格→'-'）。
+298	141	InCoder-1B	OK	CE05,CE13	def file_name_check ( file_name ) : file_name_checker = re . compile ( r'^[0-9]{3}\.[a-zA-Z]{2}$' ) return file_name_checker . match ( file_name )	用不匹配的正则并返回 match 对象而非 'Yes'/'No'。
+300	142	InCoder-1B	OK	CE01	def sum_squares ( lst ) :	函数体为空。
+301	144	InCoder-1B	OK	CE03,CE05	def simplify ( x , n ) : if n == 0 : return True if n == 1 : return False numerator , denominator = map ( int , x . split ( "/" ) ) if denominator == 0 : return False if …	调用未定义的 simplify，且目标被替换。
+302	145	InCoder-1B	OK	CE12,CE05	def order_by_points ( nums ) : digits = [ int ( d ) for d in str ( nums ) ] digits . sort ( ) return digits	把整个列表转成字符串再取位，类型与目标都错。
+303	146	InCoder-1B	OK	CE05	def specialFilter ( nums ) : count = 0 for num in nums : if num > 10 : if num % 2 == 0 : count += 1 return count	只判 num 为偶数，方向相反。
+305	147	InCoder-1B	OK	CE09	def get_max_triples ( n ) : triples = 0 for i in range ( n ) : for j in range ( i + 1 , n ) : for k in range ( j + 1 , n ) : if i * i - j + k % 3 == 0 and i * i - j + k %…	三重循环内用 i*i-j+k%3 等错误表达式。
+306	148	InCoder-1B	OK	CE01	def bf ( planet1 , planet2 ) : planet1 = planet1 . lower ( ) planet2 = planet2 . lower ( ) planet1 = planet1 . upper ( ) planet2 = planet2 . upper ( )	只有大小写转换，无返回。
+307	149	InCoder-1B	OK	CE05	def sorted_list_sum ( lst ) : lst = sorted ( lst ) odd_lst = [ ] for word in lst : if len ( word ) % 2 != 0 : odd_lst . append ( word ) else : odd_lst . append ( word ) r…	保留全部单词并做字典序排序，既未删除奇数长度词，也未按长度排序。
+308	150	InCoder-1B	OK	CE05	def x_or_y ( n , x , y ) : if n % x == 0 : return y else : return x	用 n 是否能被参数 x 整除代替素数判断，判据与素性无关。
+309	151	InCoder-1B	OK	CE05	def double_the_difference ( lst ) : if len ( lst ) == 0 : return 0 sum_of_squares = 0 for number in lst : if number % 2 == 0 : sum_of_squares += number ** 2 else : sum_of…	按长度写死分支，未实现契约。
+310	152	InCoder-1B	OK	CE01	def compare ( game , guess ) :	函数体为空。
+311	153	InCoder-1B	SYN	CE01,CE02	<SYNTAX>	函数只有文档字符串，未实现强度比较。
+312	154	InCoder-1B	OK	CE01	def cycpattern_check ( a , b ) :	函数体为空。
+313	155	InCoder-1B	OK	CE09,CE10	def even_odd_count ( num ) : even , odd = 1 , 0 while num > 0 : even = even + num % 2 num = num // 2 odd = odd + num % 2 return even , odd	按二进制位累加，且初始 even=1。
+316	156	InCoder-1B	OK	CE05	def int_to_mini_roman ( number ) : number = int ( number ) if number < 1 : return 'xix' if number < 1000 : return str ( number ) . lower ( ) numerals = [ str ( number // …	返回数字的字符串表示，目标被替换。
+318	157	InCoder-1B	OK	CE09	def right_angle_triangle ( a , b , c ) : return abs ( a - b ) <= abs ( c - a ) <= abs ( c - b )	用绝对差链式比较，与勾股定理无关。
+319	158	InCoder-1B	OK	CE05,CE12	def find_max ( words ) : words = set ( words ) word_count = { } for word in words : word_count [ word ] = word_count . get ( word , 0 ) + 1 word_count . sort ( key = word…	对 dict 调用 .sort，类型不支持，目标也被替换。
+320	159	InCoder-1B	OK	CE01	def eat ( number , need , remaining ) :	函数体为空。
+321	160	InCoder-1B	OK	CE01,CE05	def do_algebra ( operator , operand ) : operator = operator . copy ( ) operator . remove ( '+' ) operator . remove ( '-' ) operator . remove ( '*' ) operator . remove ( '…	反复 append '**'，未形成表达式求值。
+322	161	InCoder-1B	OK	CE14	def solve ( s ) : ans = "" for i in range ( len ( s ) ) : if s [ i ] in "abcdefghijklmnopqrstuvwxyz" : ans += s [ i ] . upper ( ) else : ans += s [ i ] return ans	只把小写字母转大写，未处理大写转小写。
+323	162	InCoder-1B	OK	CE03	def string_to_md5 ( text ) : return hashlib . md5 ( text . encode ( 'utf-8' ) ) . hexdigest ( )	调用 hashlib 但未导入。
+325	163	InCoder-1B	OK	CE05	def generate_integers ( a , b ) : digits = [ ] while a > 0 : digits . append ( a % 10 ) a //= 10 digits . reverse ( ) return digits	把 a 的数位倒序返回，目标被替换。
+328	26	GPT-3.5	OK	CE05	from typing import List def remove_duplicates ( numbers : List [ int ] ) -> List [ int ] : unique_numbers = [ ] for number in numbers : if number not in unique_numbers : …	同上，按首次出现保留。
+329	32	GPT-3.5	OK	CE09	import math def poly ( xs : list , x : float ) : return sum ( [ coeff * math . pow ( x , i ) for i , coeff in enumerate ( xs ) ] ) def find_zero ( xs : list ) : if len ( …	对任意次多项式套二次方程求根公式，方法不成立。
+330	36	GPT-3.5	OK	CE06,CE05	def fizz_buzz ( n : int ) : count = 0 for i in range ( n ) : if i % 11 == 0 or i % 13 == 0 : if '7' in str ( i ) : count += 1 return count	range(n) 含 0 但只统计是否含 7，未计数字符出现次数。
+331	41	GPT-3.5	OK	CE05,CE09	def car_race_collision ( n : int ) : left_cars = [ 0 ] * n right_cars = [ 1 ] * n num_collisions = 0 for t in range ( 1 , 2 * n ) : for i in range ( n ) : if left_cars [ …	模拟每辆车位置并用相等判碰撞，模型与题设的相向穿越不符。
+334	46	GPT-3.5	OK	CE09	def fib4 ( n : int ) : if n == 0 or n == 1 : return 0 elif n == 2 : return 2 else : a , b , c , d = 0 , 0 , 2 , 0 for i in range ( 3 , n + 1 ) : d = a + b + c + d a , b ,…	循环内 d 更新后 a,b,c 赋值顺序错误。
+339	63	GPT-3.5	OK	CE09	def fibfib ( n : int ) : if n == 0 : return 0 elif n == 1 or n == 2 : return 1 else : a , b , c = 1 , 1 , 0 for i in range ( 3 , n + 1 ) : c = a + b + c b , a = a , b a =…	初始值 (1,1,0) 与转移顺序错误。
+342	68	GPT-3.5	SYN	CE02	<SYNTAX>	源码中途截断。
+343	76	GPT-3.5	OK	CE06	def is_simple_power ( x , n ) : if x == 1 : return True for i in range ( 2 , int ( x ** ( 1 / n ) ) + 1 ) : if i ** n == x : return True return False	枚举范围用 int(x**(1/n)) 且从 2 起，漏掉底数 1 与边界，且浮点开方不稳定。
+344	84	GPT-3.5	OK	CE05	def solve ( N ) : digits = list ( str ( N ) ) binary_sum = sum ( int ( bin ( int ( d ) ) [ 2 : ] ) for d in digits ) return bin ( binary_sum ) [ 2 : ]	把每个十进制位转成二进制后求和，目标被替换。
+346	87	GPT-3.5	OK	CE08	def get_row ( lst , x ) : result = [ ] for i in range ( len ( lst ) ) : if x in lst [ i ] : for j in range ( len ( lst [ i ] ) ) : if lst [ i ] [ j ] == x : result . appe…	先按行再按列逆序排序，返回顺序与契约相反。
+348	91	GPT-3.5	OK	CE08,CE06	def is_bored ( S ) : sentences = S . split ( '.' ) sentences += S . split ( '?' ) sentences += S . split ( '!' ) count = 0 for sentence in sentences : if sentence . strip…	把按 . ? ! 切分的结果直接拼接，同一句子被重复统计。
+349	93	GPT-3.5	OK	CE09	def encode ( message ) : vowels = 'aeiouAEIOU' encoded_message = '' for letter in message : if letter . isalpha ( ) : if letter in vowels : encoded_message += chr ( ord (…	元音 chr(ord+2) 未按字母表回绕，z 类边界错误；且大小写交换对元音未生效。
+350	97	GPT-3.5	OK	CE13,CE09	def multiply ( a , b ) : return abs ( a % 10 * b % 10 )	返回绝对值后的个位积，负号处理与契约不符（应保留符号）。
+351	100	GPT-3.5	OK	CE09	def make_a_pile ( n ) : stones = [ n ] for i in range ( 1 , n ) : if n % 2 == 0 : stones . append ( n + 2 * i ) else : stones . append ( n + 2 * i - 1 ) return stones	奇数 n 时每层多减 1，公式错误。
+352	101	GPT-3.5	OK	CE04	def words_string ( s ) : words = s . split ( ", " ) words = [ word . split ( " " ) for word in words ] words = [ word for sublist in words for word in sublist ] return wo…	先按逗号空格切分再按空格二次切分，多余切分与空串处理错误。
+353	103	GPT-3.5	OK	CE05	def rounded_avg ( n , m ) : if n > m : return - 1 avg = round ( sum ( range ( n , m + 1 ) ) / ( m - n + 1 ) ) return bin ( avg ) [ 2 : ]	对 n..m 所有整数求和再平均，契约只对两端平均。
+354	108	GPT-3.5	OK	CE05	def count_nums ( arr ) : def sum_digits ( n ) : return sum ( int ( d ) for d in str ( abs ( n ) ) ) count = 0 for num in arr : if sum_digits ( num ) > 0 : count += 1 retu…	对 abs(num) 求数位和，与 80 同类错误。
+355	109	GPT-3.5	SYN	CE02	<SYNTAX>	源码中途截断。
+356	111	GPT-3.5	OK	CE02	def histogram ( test ) : words = test . split ( ) counts = { } for word in words : for letter in word : if letter not in counts : counts [ letter ] = 1 else : counts [ le…	源码中途截断。
+357	113	GPT-3.5	OK	CE13	def odd_count ( lst ) : result = [ ] for string in lst : odd_count = 0 for digit in string : if int ( digit ) % 2 == 1 : odd_count += 1 result . append ( "the number of o…	format 把奇数个数填入字符串位置，模板语义错误。
+358	114	GPT-3.5	OK	CE05	import math def minSubArraySum ( nums ) : min_sum = math . inf current_sum = 0 for num in nums : current_sum += num min_sum = min ( min_sum , current_sum ) current_sum = …	返回 arr[0]，目标被替换。
+359	115	GPT-3.5	OK	CE05	def max_fill ( grid , bucket_capacity ) : import math total_water = sum ( sum ( row ) for row in grid ) num_buckets = math . ceil ( total_water / bucket_capacity ) return…	把全网格总水量一次性除以容量，未按行分别向上取整求和。
+361	120	GPT-3.5	OK	CE15	def maximum ( arr , k ) : arr . sort ( reverse = True ) return arr [ : k ]	降序排序后取前 k 与契约一致；按本条源码未观察到可归入现有代码的缺陷。
+362	121	GPT-3.5	OK	CE05	def solution ( lst ) : sum = 0 for i in range ( 1 , len ( lst ) , 2 ) : if lst [ i ] % 2 != 0 : sum += lst [ i ] return sum	从下标 1 开始步长 2，取的是奇数下标。
+363	122	GPT-3.5	OK	CE05	def add_elements ( arr , k ) : total = 0 for i in range ( k ) : if arr [ i ] >= 10 and arr [ i ] <= 99 : total += arr [ i ] return total	只累加 10..99 的数，未按数位长度<=2 判据。
+364	124	GPT-3.5	OK	CE11	def valid_date ( date ) : if not date : return False if not re . match ( r'\d{2}-\d{2}-\d{4}' , date ) : return False month , day , year = map ( int , date . split ( '-' …	2 月固定允许 29 日，未处理闰年；且年<1 判据错误。
+365	125	GPT-3.5	OK	CE09	def split_words ( txt ) : if ' ' in txt : return txt . split ( ) elif ',' in txt : return txt . split ( ',' ) else : count = 0 for char in txt : if char . islower ( ) and…	判断 ord(char)%2==1 而非字符序号奇偶，且大小写判断缺失。
+366	126	GPT-3.5	OK	CE05	def is_sorted ( lst ) : for i in range ( len ( lst ) - 1 ) : if lst [ i ] >= lst [ i + 1 ] : return False for i in lst : if lst . count ( i ) > 1 : return False return Tr…	要求无重复，且未检查超过两次。
+367	127	GPT-3.5	SYN	CE02	def is_prime ( n ) : """Helper function to check if a number is prime""" if n < 2 : return False for i in range ( 2 , int ( n ** 0.5 ) + 1 ) : if n % i == 0 : return Fals…	源码在不相交分支的 if start > end: 后直接结束，交集处理与返回值均未写出。
+368	129	GPT-3.5	OK	CE05	def minPath ( grid , k ) : n = len ( grid ) visited = set ( ) heap = [ ( grid [ i ] [ j ] , [ ( i , j ) ] ) for i in range ( n ) for j in range ( n ) ] heapq . heapify ( …	用全局最小堆扩展路径，未保证字典序最小路径且 visited 剪枝错误。
+370	130	GPT-3.5	OK	CE02	def tri ( n ) : if n == 0 : return [ ] elif n == 1 : return [ 3 ] else : seq = [ 3 , 1 ] for i in range ( 2 , n + 1 ) : if i % 2 == 0 : seq . append ( 1 + i // 2 ) else :…	源码中途截断。
+373	132	GPT-3.5	OK	CE12	def is_nested ( string ) : stack = [ ] for bracket in string : if bracket == '[' : stack . append ( bracket ) elif bracket == ']' : if len ( stack ) > 0 and stack [ - 1 ]…	用列表作索引访问，类型不支持。
+375	135	GPT-3.5	OK	CE06	def can_arrange ( arr ) : for i in range ( len ( arr ) - 1 , 0 , - 1 ) : if arr [ i ] < arr [ i - 1 ] : return i - 1 return - 1	找到 arr[i] < arr[i-1] 时返回 i-1，契约要求返回 i。
+376	137	GPT-3.5	OK	CE11,CE13	def compare_one ( a , b ) : if type ( a ) == type ( b ) : if type ( a ) == int or type ( a ) == float : if a > b : return a elif b > a : return b else : return None elif …	未处理 int 与 str 混合比较，且返回原值类型处理不全。
+377	138	GPT-3.5	OK	CE05,CE06	def is_equal_to_sum_even ( n ) : if n < 8 : return False for i in range ( 2 , n - 2 , 2 ) : for j in range ( i , n - i - 2 , 2 ) : for k in range ( j , n - i - j - 2 , 2 …	用三重循环检查，逻辑与哥德巴赫判定不符且循环边界错误。
+379	141	GPT-3.5	OK	CE05,CE11	def file_name_check ( file_name ) : import re pattern = r'^[a-zA-Z][a-zA-Z0-9]*\.[txt|exe|dll]{3}$' if re . match ( pattern , file_name ) : if len ( re . findall ( r'\d' …	正则字符类 [txt|exe|dll] 错误，且数字计数条件不完整。
+380	145	GPT-3.5	OK	CE05	def order_by_points ( nums ) : def sum_of_digits ( num ) : return sum ( int ( digit ) for digit in str ( abs ( num ) ) ) return sorted ( nums , key = lambda num : ( sum_o…	对 abs(num) 求数位和，负号未按首位取负。
+382	151	GPT-3.5	OK	CE03	def double_the_difference ( lst ) : sum_of_squares = 0 for num in lst : if isinstance ( num , int ) and num >= 0 and num % 2 != 0 : sum_of_squares += num ** 2 return sum_…	调用未定义的函数。
+385	155	GPT-3.5	OK	CE09	def even_odd_count ( num ) : even_count = 0 odd_count = 0 for digit in str ( abs ( num ) ) : if int ( digit ) % 2 == 0 : even_count += 1 else : odd_count += 1 if num < 0 …	负数时把两个计数取负，契约要求按数字字符计数。
+386	159	GPT-3.5	OK	CE05	def eat ( number , need , remaining ) : total_eaten = number + remaining remaining_carrots = 0 if total_eaten >= need : total_eaten = need else : remaining_carrots = need…	把 need 与总数比较后返回 [need, ...]，与契约的分情况不符。
+387	160	GPT-3.5	OK	CE09	def do_algebra ( operator , operand ) : result = operand [ 0 ] for i in range ( len ( operator ) ) : if operator [ i ] == '+' : result += operand [ i + 1 ] elif operator …	运算符分支用 '//' 而输入是 '/'，且运算顺序与优先级未处理。
+388	163	GPT-3.5	OK	CE05	def generate_integers ( a , b ) : even_digits = [ ] for num in range ( a , b + 1 ) : for digit in str ( num ) : if int ( digit ) % 2 == 0 : even_digits . append ( int ( d…	收集区间内各数的偶数数位，目标被替换。
+393	32	GPT-4	OK	CE06	import math def poly ( xs : list , x : float ) : return sum ( [ coeff * math . pow ( x , i ) for i , coeff in enumerate ( xs ) ] ) def find_zero ( xs : list ) : def bisec…	二分法本身可行，但先以 ±100 步长无限扩张区间且未保证端点异号收敛，容易死循环/返回 None。
+399	68	GPT-4	SYN	CE02	<SYNTAX>	源码中途截断。
+400	74	GPT-4	OK	CE09	def total_match ( lst1 , lst2 ) : total_chars_lst1 = sum ( len ( s ) for s in lst1 ) total_chars_lst2 = sum ( len ( s ) for s in lst2 ) if total_chars_lst1 < total_chars_…	字符总数相等时契约要求返回 lst1，此处返回 lst2。
+401	75	GPT-4	OK	CE06,CE09	def is_prime ( n ) : if n < 2 : return False for i in range ( 2 , int ( n ** 0.5 ) + 1 ) : if n % i == 0 : return False return True def is_multiply_prime ( a ) : if a >= …	内层用 for 但每次把 a 整除后继续用原循环，且未处理重复因子计数，长度判断易失真。
+403	83	GPT-4	OK	CE09	def starts_one_ends ( n ) : if n == 1 : return 2 else : return 2 * ( 10 ** ( n - 1 ) ) - 10 ** ( n - 2 )	公式 2*10**(n-1)-10**(n-2) 与正确答案 18*10**(n-2) 不等，且 n=1 返回 2。
+405	84	GPT-4	OK	CE05	def solve ( N ) : binary_n = bin ( N ) [ 2 : ] sum_of_digits = sum ( int ( digit ) for digit in binary_n ) return bin ( sum_of_digits ) [ 2 : ]	对 N 的二进制表示各位求和，而非十进制数位和。
+406	91	GPT-4	OK	CE09	def is_bored ( S ) : sentences = [ s . strip ( ) for s in re . split ( '[.!?]' , S ) ] boredoms = sum ( 1 for s in sentences if s . startswith ( "I" ) ) return boredoms	判据是 startswith('I')，未要求后接空格，会把 'It' 计入。
+408	93	GPT-4	OK	CE09	def encode ( message ) : vowels = 'aeiouAEIOU' encoded_message = '' for char in message : if char . isalpha ( ) : if char in vowels : if char . islower ( ) : encoded_mess…	元音分支只做 +2 未交换大小写，非元音才交换。
+410	108	GPT-4	OK	CE09	def count_nums ( arr ) : def sum_of_digits ( num ) : if num < 0 : num = - num first_digit = True else : first_digit = False sum_digits = 0 while num > 0 : digit = num % 1…	从最低位开始处理并把最低位当首位取负，方向错误。
+411	109	GPT-4	OK	CE05	def move_one_ball ( arr ) : if not arr : return True n = len ( arr ) count = 0 for i in range ( n - 1 ) : if arr [ i ] > arr [ i + 1 ] : count += 1 index = i if count > 1…	只检查相邻逆序对数，条件不充分。
+412	115	GPT-4	OK	CE05	def max_fill ( grid , capacity ) : import math def count_water_units ( grid ) : count = 0 for row in grid : count += row . count ( 1 ) return count water_units = count_wa…	统计全局 1 的个数再除容量，未按行分桶。
+413	120	GPT-4	OK	CE15	def maximum ( arr , k ) : arr . sort ( reverse = True ) return arr [ : k ]	降序排序后取前 k 与契约一致；按本条源码未观察到可归入现有代码的缺陷。
+415	129	GPT-4	OK	CE09	def minPath ( grid , k ) : def neighbors ( r , c ) : for nr , nc in ( ( r - 1 , c ) , ( r + 1 , c ) , ( r , c - 1 ) , ( r , c + 1 ) ) : if 0 <= nr < len ( grid ) and 0 <=…	DFS 中只用 path[-1] 比较，字典序比较实现错误。
+416	132	GPT-4	OK	CE05	def is_nested ( string ) : stack = [ ] nested = False for char in string : if char == '[' : stack . append ( char ) elif char == ']' and stack : stack . pop ( ) if stack …	返回字符串而非单词列表。
+418	142	GPT-4	OK	CE15	def sum_squares ( lst ) : result = 0 for i , num in enumerate ( lst ) : if i % 3 == 0 and i % 4 != 0 : result += num ** 2 elif i % 4 == 0 : result += num ** 3 else : resu…	平方/立方分支与契约一致；按本条源码未观察到可归入现有代码的缺陷。
+420	145	GPT-4	OK	CE05	def order_by_points ( nums ) : def sum_of_digits ( num ) : return sum ( int ( digit ) for digit in str ( abs ( num ) ) ) return sorted ( nums , key = lambda x : ( sum_of_…	同上。
+422	160	GPT-4	OK	CE09	def do_algebra ( operator , operand ) : result = operand [ 0 ] for i in range ( len ( operator ) ) : if operator [ i ] == '+' : result += operand [ i + 1 ] elif operator …	同上。
+423	163	GPT-4	OK	CE11	def generate_integers ( a , b ) : if a > b : a , b = b , a result = [ ] for i in range ( a , b + 1 ) : if i % 2 == 0 : result . append ( i ) return result	未截断到 10。
+424	0	SantaCoder	OK	CE09,CE07	from typing import List def has_close_elements ( numbers : List [ float ] , threshold : float ) -> bool : if len ( numbers ) < 2 : return False for i in range ( len ( num…	用 > threshold 判接近，比较方向相反，把远离阈值误判为接近；距离公式本身正确。
+425	1	SantaCoder	OK	CE04	from typing import List def separate_paren_groups ( paren_string : str ) -> List [ str ] : return [ s . strip ( ) for s in paren_string . split ( ')' ) if s . strip ( ) ]	用 split(')') 切分，丢失右括号并错误处理嵌套层级。
+426	2	SantaCoder	OK	CE05	def truncate_number ( number : float ) -> float : return number - math . floor ( number )	用 number-floor(number) 得小数部分，与 number-int(number) 对负数不同。
+427	3	SantaCoder	OK	CE05	from typing import List def below_zero ( operations : List [ int ] ) -> bool : return any ( operation < 0 for operation in operations )	判断是否任一操作数为负，而契约要求累计余额曾为负。
+428	4	SantaCoder	OK	CE09	from typing import List def mean_absolute_deviation ( numbers : List [ float ] ) -> float : return sum ( abs ( x - numbers [ 0 ] ) for x in numbers ) / len ( numbers )	用 numbers[0] 代替均值。
+429	5	SantaCoder	OK	CE08,CE06	from typing import List def intersperse ( numbers : List [ int ] , delimeter : int ) -> List [ int ] : return [ * numbers , delimeter ]	只在末尾追加一个分隔符，未在相邻元素间插入。
+430	6	SantaCoder	OK	CE05,CE01	from typing import List def parse_nested_parens ( paren_string : str ) -> List [ int ] : paren_string = paren_string . replace ( '(' , '' ) paren_string = paren_string . …	把括号与空格反复 replace 掉，没有计算任何深度，最终也没有形成有效返回。
+431	8	SantaCoder	OK	CE03	from typing import List , Tuple def sum_product ( numbers : List [ int ] ) -> Tuple [ int , int ] : if not numbers : return ( 0 , 1 ) return ( sum ( numbers ) , reduce ( …	调用 reduce 但未导入。
+432	9	SantaCoder	OK	CE06	from typing import List , Tuple def rolling_max ( numbers : List [ int ] ) -> List [ int ] : return [ max ( numbers [ i - 1 : i + 1 ] ) for i in range ( 1 , len ( numbers…	用 numbers[i-1:i+1] 窗口且从 1 开始，漏首元素且窗口长度错误。
+434	10	SantaCoder	OK	CE05,CE09	def is_palindrome ( string : str ) -> bool : """ Test if given string is a palindrome """ return string == string [ : : - 1 ] def make_palindrome ( string : str ) -> str …	递归去掉末字符再补回同一末字符，无法构造回文。
+435	11	SantaCoder	OK	CE12	from typing import List def string_xor ( a : str , b : str ) -> str : return '' . join ( map ( lambda x , y : str ( x ^ y ) , a , b ) )	对 str 元素做 ^ 运算，类型不支持。
+436	13	SantaCoder	OK	CE09,CE07	def greatest_common_divisor ( a : int , b : int ) -> int : return a if a % b == 0 else greatest_common_divisor ( b , a % b )	基线条件写成 a%b==0 返回 a，且未处理 b==0，递归终止路径选择错误。
+437	14	SantaCoder	OK	CE06	from typing import List def all_prefixes ( string : str ) -> List [ str ] : return [ string [ : i ] for i in range ( len ( string ) + 1 ) ]	range(len+1) 包含空前缀，且切片 s[:i] 少一位。
+439	15	SantaCoder	OK	CE13,CE06	def string_sequence ( n : int ) -> str : return '' . join ( str ( i ) for i in range ( n ) )	同上。
+441	16	SantaCoder	OK	CE14	def count_distinct_characters ( string : str ) -> int : return len ( set ( string ) )	同上。
+442	17	SantaCoder	OK	CE04	from typing import List def parse_music ( music_string : str ) -> List [ int ] : return [ int ( note ) for note in music_string . split ( '|' ) ]	对 'o' 等音符直接 int()，解析域错误。
+443	18	SantaCoder	OK	CE06	def how_many_times ( string : str , substring : str ) -> int : return string . count ( substring )	str.count 不计重叠出现。
+444	19	SantaCoder	OK	CE05	from typing import List def sort_numbers ( numbers : str ) -> str : numbers = numbers . split ( ) numbers . sort ( ) return " " . join ( numbers )	按字符串字典序排序，未按数值序。
+445	20	SantaCoder	OK	CE05,CE08	from typing import List , Tuple def find_closest_elements ( numbers : List [ float ] ) -> Tuple [ float , float ] : if len ( numbers ) < 2 : raise ValueError ( "Need at l…	计算各元素与首元素的绝对差再取极值，目标被替换且返回值不是数对。
+446	21	SantaCoder	OK	CE09	from typing import List def rescale_to_unit ( numbers : List [ float ] ) -> List [ float ] : if len ( numbers ) < 2 : raise ValueError ( "rescale_to_unit requires at leas…	只除以差值，未减去最小值。
+448	24	SantaCoder	OK	CE01	def largest_divisor ( n : int ) -> int : return 1	直接返回常量 1。
+449	25	SantaCoder	OK	CE09	from typing import List def factorize ( n : int ) -> List [ int ] : factors = [ ] while n > 1 : if n % 2 == 0 : n //= 2 else : factors . append ( 2 ) n -= 1 if n > 1 : fa…	把不能整除时 append 2 并 n-=1，分解逻辑错误。
+450	26	SantaCoder	OK	CE05	from typing import List def remove_duplicates ( numbers : List [ int ] ) -> List [ int ] : return list ( set ( numbers ) )	set 去重，语义错误。
+451	27	SantaCoder	OK	CE14	def flip_case ( string : str ) -> str : return string . lower ( ) if string . islower ( ) else string . upper ( )	按整串是否全小写决定整体转换，未逐字符交换。
+452	32	SantaCoder	OK	CE05,CE13	import math def poly ( xs : list , x : float ) : return sum ( [ coeff * math . pow ( x , i ) for i , coeff in enumerate ( xs ) ] ) def find_zero ( xs : list ) : if len ( …	按奇偶返回 None 或中间系数，未求根。
+453	33	SantaCoder	OK	CE05,CE08	def sort_third ( l : list ) : l . sort ( ) l_new = [ ] for i in range ( len ( l ) ) : if i % 3 != 0 : l_new . append ( l [ i ] ) return l_new	整体排序后只返回下标非 3 倍数的元素，长度与位置都错。
+454	36	SantaCoder	OK	CE05	def fizz_buzz ( n : int ) : return sum ( 1 for i in range ( 1 , n + 1 ) if i % 11 in ( 1 , 3 ) ) + sum ( 1 for i in range ( 1 , n + 1 ) if i % 13 in ( 1 , 3 ) )	用 i%11 in (1,3) 判据，与整除无关，且未涉及 7。
+457	37	SantaCoder	OK	CE08	def sort_even ( l : list ) : l . sort ( ) return [ l [ i ] for i in range ( len ( l ) ) if i % 2 == 0 ]	整体排序后只返回偶数位，长度减半且未保留奇数位。
+458	38	SantaCoder	OK	CE09	def encode_cyclic ( s : str ) : """ returns encoded string by cycling groups of three characters. """ groups = [ s [ ( 3 * i ) : min ( ( 3 * i + 3 ) , len ( s ) ) ] for i…	decode 与 encode 完全相同，未逆变换。
+459	39	SantaCoder	OK	CE01	def prime_fib ( n : int ) : if n == 1 : return 2 elif n == 2 : return 3 elif n == 3 : return 5 elif n == 4 : return 13 elif n == 5 : return 89 else : return None	硬编码 1-5 的答案，其余返回 None。
+461	40	SantaCoder	OK	CE05	def triples_sum_to_zero ( l : list ) : return len ( set ( l ) ) == 3 and sum ( l ) == 0	要求恰好 3 个不同元素且整个列表和为 0，条件被替换。
+462	41	SantaCoder	OK	CE01	def car_race_collision ( n : int ) : return 0	直接返回 0。
+463	43	SantaCoder	OK	CE05	def pairs_sum_to_zero ( l ) : return len ( set ( l ) ) == 1	判去重后元素个数为 1。
+464	44	SantaCoder	OK	CE04,CE12,CE07	def change_base ( x : int , base : int ) : if base < 10 : return str ( x ) else : return str ( int ( x , base ) )	对整数 x 调用 int(x, base)，参数类型不支持；且 base<10 时直接返回原数，分支条件与契约相反。
+465	46	SantaCoder	OK	CE09	def fib4 ( n : int ) : if n == 0 : return 0 elif n == 1 : return 0 elif n == 2 : return 1 else : return fib4 ( n - 1 ) + fib4 ( n - 2 ) + fib4 ( n - 3 ) + fib4 ( n - 4 )	初始值 n==2 返回 1（应为 2）。
+468	47	SantaCoder	OK	CE03	def median ( l : list ) : return statistics . median ( l )	使用 statistics 但未导入。
+469	50	SantaCoder	OK	CE09	def encode_shift ( s : str ) : return "" . join ( [ chr ( ( ( ord ( ch ) + 5 - ord ( "a" ) ) % 26 ) + ord ( "a" ) ) for ch in s ] ) def decode_shift ( s : str ) : return …	decode 的取模与偏移结合顺序错误。
+470	51	SantaCoder	OK	CE14	def remove_vowels ( text ) : vowels = 'aeiou' return '' . join ( [ char for char in text if char not in vowels ] )	同上，只排除小写元音。
+471	54	SantaCoder	OK	CE05	def same_chars ( s0 : str , s1 : str ) : return len ( set ( s0 ) & set ( s1 ) ) == len ( s0 )	只要求 s0 的字符都在 s1 中，单向包含。
+474	57	SantaCoder	OK	CE05	def monotonic ( l : list ) : return all ( l [ i ] <= l [ i + 1 ] for i in range ( len ( l ) - 1 ) )	只判非降，漏递减。
+476	59	SantaCoder	SYN	CE06	def largest_prime_factor ( n : int ) : if n == 1 : return 1 if n % 2 == 0 : n //= 2 if n % 3 == 0 : n //= 3 if n % 5 == 0 : n //= 5 if n % 7 == 0 : n //= 7 if n % 11 == 0…	对每个素数只除一次，未重复除尽，且未处理剩余因子。
+477	62	SantaCoder	OK	CE09	def derivative ( xs : list ) : return [ x * x for x in xs ]	返回 x*x，公式错误。
+479	64	SantaCoder	OK	CE14,CE05	FIX = """ Add more test cases. """ def vowels_count ( s ) : vowels = [ 'a' , 'e' , 'i' , 'o' , 'u' , 'y' ] count = 0 for i in range ( len ( s ) ) : if s [ i ] in vowels :…	把 y 当成元音计入所有位置，且大小写处理不完整。
+481	67	SantaCoder	SYN	CE01	def fruit_distribution ( s , n ) : if s == "0 apples and 1 oranges" : return 0 if s == "1 apples and 2 oranges" : return 1 if s == "2 apples and 3 oranges" : return 2 if …	对 0-25 组输入硬编码答案，不是算法。
+482	68	SantaCoder	OK	CE05,CE06	def pluck ( arr ) : if not arr : return [ ] if len ( arr ) == 1 : return arr [ 0 ] if len ( arr ) == 2 : return arr [ 0 ] if arr [ 0 ] % 2 == 0 else arr [ 1 ] if len ( ar…	按长度 0-4 写死分支，返回元素而非 [值, 下标]，目标也被替换。
+483	69	SantaCoder	OK	CE01	def search ( lst ) : pass	函数体只有 pass。
+484	70	SantaCoder	OK	CE05	def strange_sort_list ( lst ) : return sorted ( lst , reverse = True )	整体降序排序。
+485	71	SantaCoder	OK	CE09	def triangle_area ( a , b , c ) : if a + b > c and a + c > b and b + c > a : s = ( a + b + c ) / 2 return round ( s * ( s - a ) * ( s - b ) * ( s - c ) , 2 ) else : retur…	海伦公式未开平方。
+486	72	SantaCoder	SYN	CE02	<SYNTAX>	按长度穷举的回文判断在源码中途截断。
+487	73	SantaCoder	SYN	CE05	def smallest_change ( arr ) : if len ( arr ) == 1 : return 0 if len ( arr ) == 2 : return 1 if arr [ 0 ] > arr [ 1 ] else 0 if len ( arr ) == 3 : return 1 if arr [ 0 ] > …	按长度穷举判断是否严格递减，目标被替换。
+488	74	SantaCoder	OK	CE05	def total_match ( lst1 , lst2 ) : if len ( lst1 ) == len ( lst2 ) : return lst1 else : return lst2	只比较列表长度。
+489	75	SantaCoder	OK	CE05,CE09	def is_multiply_prime ( a ) : if a < 100 : return False else : for i in range ( 2 , a ) : if a % i == 0 : return False return True	先排除 a<100，随后只判是否为素数。
+490	76	SantaCoder	OK	CE09	def is_simple_power ( x , n ) : return n ** int ( x ) == x	指数写成 int(x)，关系颠倒。
+491	77	SantaCoder	OK	CE09	def iscube ( a ) : if a < 0 : return False elif a == 0 : return True else : return a ** 3 == a	判据写成 a³==a，仅 0/±1 成立。
+492	78	SantaCoder	OK	CE05,CE09	def hex_key ( num ) : return sum ( 1 for i in range ( 1 , int ( num ) + 1 ) if is_prime ( i ) )	把十六进制串转 int 后枚举整数判素，目标与解析都被替换。
+494	79	SantaCoder	OK	CE13	def decimal_to_binary ( decimal ) : binary = "" while decimal > 0 : binary = str ( decimal % 2 ) + binary decimal = decimal // 2 return "db" + binary	手工转换二进制本身正确，但只加了开头 db，缺少契约要求的结尾 db；另未处理 0 的边界。
+496	80	SantaCoder	OK	CE05,CE11	def is_happy ( s ) : if len ( s ) < 3 : return False if len ( s ) % 3 != 0 : return False s = s . lower ( ) for i in range ( len ( s ) - 2 ) : if s [ i ] == s [ i + 1 ] a…	增加长度必须为 3 的倍数，且只检查三连完全相同。
+498	81	SantaCoder	OK	CE09	def numerical_letter_grade ( grades ) : letter_grades = [ ] for grade in grades : if grade >= 4.0 : letter_grades . append ( 'A+' ) elif grade >= 3.7 : letter_grades . ap…	所有阈值都用 >=，与契约的严格大于不符（4.0 特判除外）。
+499	82	SantaCoder	OK	CE05	def prime_length ( string ) : return len ( string ) == 2 and string . isalpha ( ) and string . islower ( )	判据被替换为长度 2、全字母且小写。
+500	83	SantaCoder	OK	CE05	def starts_one_ends ( n ) : return sum ( 1 for i in range ( 1 , n ) if n % i == 0 )	统计 n 的约数个数。
+501	84	SantaCoder	OK	CE05	def solve ( N ) : return bin ( N ) [ 2 : ]	直接返回二进制。
+502	85	SantaCoder	OK	CE05	def add ( lst ) : return sum ( lst [ i ] for i in range ( len ( lst ) ) if i % 2 == 1 )	同上。
+504	86	SantaCoder	OK	CE05,CE08	def anti_shuffle ( s ) : return '' . join ( sorted ( s . split ( ' ' ) , key = lambda x : ord ( x [ 0 ] ) ) )	按每词首字符排序后用 '' 连接，既非词内排序又丢失空格。
+507	87	SantaCoder	OK	CE05	def get_row ( lst , x ) : lst . sort ( key = lambda x : x [ 0 ] ) lst . sort ( key = lambda x : x [ 1 ] , reverse = True ) return [ ( lst [ i ] [ 0 ] , lst [ i ] [ 1 ] ) …	返回 lst 中的元组而非 (行, 列) 坐标。
+508	88	SantaCoder	OK	CE05,CE09	def sort_array ( array ) : if len ( array ) <= 1 : return array if sum ( array ) % 2 == 0 : return sort_array ( array [ 1 : ] ) + [ array [ 0 ] ] + sort_array ( array [ 0…	用总和奇偶决定左右递归，判据与首尾和不同且递归切分错误。
+510	89	SantaCoder	OK	CE09	def encrypt ( s ) : return '' . join ( [ chr ( ( ord ( c ) - 2 ) * 2 + 65 ) for c in s ] )	chr((ord(c)-2)*2+65) 与凯撒 +4 无关。
+512	90	SantaCoder	OK	CE05	def next_smallest ( lst ) : if len ( lst ) == 0 : return None else : return lst [ 0 ] if lst [ 0 ] < lst [ 1 ] else lst [ 1 ]	取前两个元素中较小者，未找第二小不同值。
+514	91	SantaCoder	OK	CE04	def is_bored ( S ) : return len ( [ w for w in S . split ( ) if w . startswith ( "I" ) ] )	按词切分统计。
+516	92	SantaCoder	OK	CE05	def any_int ( x , y , z ) : return x + y == z	只检查一种加和关系，漏掉另外两种。
+517	93	SantaCoder	OK	CE05,CE09	def encode ( message ) : vowels = 'aeiouAEIOU' message = message . lower ( ) message = message . replace ( 'a' , 'e' ) message = message . replace ( 'e' , 'a' ) message =…	用连续 replace 改字母，替换相互污染且未做大小写交换。
+518	94	SantaCoder	OK	CE05	def skjkasdkd ( lst ) : lst = sorted ( lst ) return sum ( map ( int , str ( lst [ - 1 ] ) ) )	返回排序后最大元素的数位和，未筛素数。
+519	95	SantaCoder	OK	CE09,CE07	def check_dict_case ( dict ) : if not dict : return False for key in dict : if not isinstance ( key , str ) : return False if not key . islower ( ) and not key . isupper …	条件写成 not islower and not isupper 才返回 False，方向错误，混合大小写会被接受。
+520	96	SantaCoder	OK	CE09	def count_up_to ( n ) : primes = [ True ] * n primes [ 0 ] = False primes [ 1 ] = False for i in range ( 2 , int ( n ** 0.5 ) + 1 ) : if primes [ i ] : for j in range ( i…	只遍历到 sqrt(n) 标记倍数，不能标记两个因子都大于 sqrt(n) 的合数；收集时把这些合数也收入。
+521	97	SantaCoder	OK	CE05,CE08	def multiply ( a , b ) : return sum ( int ( i ) * int ( j ) for i , j in zip ( str ( a ) , str ( b ) ) )	把两数各位对齐后逐位相乘再求和，目标被替换。
+522	98	SantaCoder	OK	CE14	def count_upper ( s ) : return sum ( 1 for c in s if c . isupper ( ) )	统计所有大写字符，而非仅元音。
+523	99	SantaCoder	OK	CE09	def closest_integer ( value ) : return round ( float ( value ) )	直接用 round，.5 时按银行家舍入，与契约的远离零方向不符。
+525	100	SantaCoder	OK	CE05,CE13	def make_a_pile ( n ) : if n % 2 == 0 : return [ n // 2 ] else : return [ n // 2 + 1 ]	返回只含一个元素的列表，且值为 n//2，目标被替换。
+526	101	SantaCoder	OK	CE04	def words_string ( s ) : return s . split ( )	只按空白切分，未处理逗号。
+527	102	SantaCoder	OK	CE06	def choose_num ( x , y ) : if x < y : return - 1 else : for i in range ( x , y + 1 ) : if is_even ( i ) : return i	从 x 到 y 找首个偶数，契约要求区间内最大偶数。
+529	103	SantaCoder	OK	CE12	def rounded_avg ( n , m ) : if n > m : return - 1 else : return bin ( n ) [ 2 : ] . zfill ( m )	对字符串调用 zfill(m) 传 int 无妨，但返回值基于 bin(n) 而非平均值，目标错误。
+531	104	SantaCoder	OK	CE05	def unique_digits ( x ) : return sorted ( set ( x ) - set ( map ( str , range ( 10 ) ) ) )	用 set(x) 与数字字符集合做差集，目标被替换。
+532	105	SantaCoder	OK	CE05,CE03	def by_length ( arr ) : if not arr : return [ ] arr . sort ( ) arr = [ name for name in names if name in arr ] arr . reverse ( ) return arr	用未定义的 names 过滤，目标也被替换。
+534	106	SantaCoder	OK	CE09,CE12	def f ( n ) : if n == 1 : return [ 1 ] else : return [ n * f ( n - 1 ) for n in range ( 1 , n + 1 ) ]	列表推导中引用未定义的 f，且公式错误。
+536	107	SantaCoder	OK	CE05,CE09	def even_odd_palindrome ( n ) : if n % 2 == 0 : return ( n // 2 + 1 , n // 2 + 2 ) else : return ( n // 2 , n // 2 + 1 )	按 n 的奇偶直接给公式，未枚举回文数。
+537	108	SantaCoder	OK	CE05	def count_nums ( arr ) : return sum ( 1 for x in arr if x > 0 )	统计正数个数。
+538	109	SantaCoder	SYN	CE03	<SYNTAX>	调用未定义的 move_one_ball。
+539	110	SantaCoder	OK	CE05,CE06	def exchange ( lst1 , lst2 ) : if len ( lst1 ) != len ( lst2 ) : return "NO" for i in range ( len ( lst1 ) ) : if lst1 [ i ] % 2 == 0 and lst2 [ i ] % 2 == 0 : lst1 [ i ]…	只交换对应位置都为偶数的元素，且用 lst1==lst2 判断，逻辑不成立。
+540	111	SantaCoder	OK	CE01	def histogram ( test ) : return Counter ( test . lower ( ) . split ( ) )	函数体只有 pass。
+541	112	SantaCoder	OK	CE05	def reverse_delete ( s , c ) : return s [ : : - 1 ] , s == c [ : : - 1 ]	返回 s 的反转与 s==c 反转，目标被替换。
+542	113	SantaCoder	OK	CE05,CE08	def odd_count ( lst ) : return [ f"the number of odd elements {n} the str{n} of the {n}put." for n in range ( 1 , len ( lst ) + 1 ) ]	用 1..len(lst) 填充模板，未统计奇数。
+545	114	SantaCoder	SYN	CE05	<SYNTAX>	同上。
+546	115	SantaCoder	OK	CE05,CE09	def max_fill ( grid , capacity ) : import math max_row = max ( grid , key = lambda x : len ( x ) ) [ 0 ] max_col = max ( grid , key = lambda x : len ( x ) ) [ 1 ] max_val…	用 max 取行列索引，逻辑与装桶无关。
+547	116	SantaCoder	OK	CE05	def sort_array ( arr ) : return sorted ( arr , key = lambda x : bin ( x ) . count ( '1' ) )	按二进制 1 的个数排序，目标被替换。
+548	117	SantaCoder	OK	CE05	def select_words ( s , n ) : return [ w for w in s . split ( ) if len ( w ) == n and w . isalpha ( ) ]	判据是 len(w)==n，计算的是单词长度而不是辅音个数。
+549	118	SantaCoder	OK	CE05	def get_closest_vowel ( word ) : vowels = "aeiouAEIOU" if word [ 0 ] in vowels and word [ - 1 ] in vowels : return word [ 0 ] elif word [ 0 ] in vowels : return word [ 0 …	只检查首尾元音，目标被替换。
+550	119	SantaCoder	OK	CE05	def match_parens ( lst ) : stack = [ ] for s in lst : if s == '(' : stack . append ( s ) elif s == ')' : if len ( stack ) == 0 : return 'No' elif stack [ - 1 ] == '(' : s…	分别对每串压栈，未拼接两串后统一校验。
+551	120	SantaCoder	OK	CE05	def maximum ( arr , k ) : if not arr or k == 0 : return arr arr . sort ( ) return arr [ : k ]	arr.sort() 升序后取前 k，取了最小值。
+553	121	SantaCoder	OK	CE05	def solution ( lst ) : return sum ( lst [ i ] for i in range ( len ( lst ) ) if i % 2 == 1 )	只累加奇数下标元素。
+554	122	SantaCoder	OK	CE05	def add_elements ( arr , k ) : return sum ( arr [ : k ] ) + sum ( arr [ k : ] )	对全数组求和，未限定前 k。
+556	123	SantaCoder	OK	CE05	def get_odd_collatz ( n ) : if n == 1 : return [ 1 ] else : odd_list = [ ] even_list = [ ] for i in range ( 1 , n ) : if i % 2 == 0 : even_list . append ( i ) else : odd_…	把 1..n 按奇偶分组，目标被替换。
+557	124	SantaCoder	OK	CE11	def valid_date ( date ) : if not date : return False if len ( date ) < 1 : return False if len ( date ) > 10 : return False if not re . match ( r'^\d{2}-\d{2}-\d{4}$' , d…	对日上界先后用 31/30/29 覆盖，逻辑混乱。
+560	125	SantaCoder	OK	CE05	def split_words ( txt ) : return txt . split ( )	只按空白切分。
+561	126	SantaCoder	OK	CE05	def is_sorted ( lst ) : if len ( lst ) <= 1 : return True else : for i in range ( 1 , len ( lst ) ) : if lst [ i ] < lst [ i - 1 ] : return False return True	只判非降序。
+562	127	SantaCoder	OK	CE05	def intersection ( interval1 , interval2 ) : if interval1 [ 0 ] > interval2 [ 1 ] : return "NO" if interval1 [ 1 ] < interval2 [ 0 ] : return "NO" if interval1 [ 0 ] == i…	只比较端点是否相等或分离，未算交段长度。
+563	128	SantaCoder	OK	CE05	def prod_signs ( arr ) : if not arr : return None return sum ( map ( lambda x : x * ( 1 if x > 0 else - 1 ) , arr ) )	对每个 x 乘以 ±1 后求和，未累乘符号。
+565	129	SantaCoder	OK	CE05	def minPath ( grid , k ) : if not grid or not grid [ 0 ] : return [ ] m , n = len ( grid ) , len ( grid [ 0 ] ) dp = [ [ 0 ] * n for _ in range ( m ) ] for i in range ( m…	返回 dp[m-1][n-1]，目标被替换。
+566	130	SantaCoder	OK	CE05	def tri ( n ) : if n == 0 : return [ 1 ] elif n == 1 : return [ 1 , 1 ] else : return [ 1 , 1 , tri ( n - 1 ) + tri ( n - 2 ) + tri ( n + 1 ) ]	返回单个布尔值而非三元组。
+568	131	SantaCoder	OK	CE03	def digits ( n ) : if n == 0 : return 0 else : return n * digits ( n // 10 )	调用未定义的辅助函数。
+569	132	SantaCoder	OK	CE03	def is_nested ( string ) : def is_nested_ ( string ) : stack = [ ] for char in string : if char == '[' : stack . append ( char ) elif char == ']' : if not stack : return …	调用未定义的函数。
+571	133	SantaCoder	OK	CE01	def sum_squares ( lst ) : return sum ( map ( lambda x : x ** 2 , lst ) )	函数体只有 pass。
+572	134	SantaCoder	OK	CE11	def check_if_last_char_is_a_letter ( txt ) : if txt [ - 1 ] . isalpha ( ) : return True else : return False	只判末字符是字母，未要求前一字符为空格。
+573	135	SantaCoder	OK	CE01	def can_arrange ( arr ) : pass	函数体只有 pass。
+574	136	SantaCoder	OK	CE05	def largest_smallest_integers ( lst ) : if len ( lst ) == 0 : return ( None , None ) elif len ( lst ) == 1 : return ( lst [ 0 ] , lst [ 0 ] ) else : a = max ( lst ) b = m…	返回最大值与最小值，目标被替换。
+575	137	SantaCoder	OK	CE11	def compare_one ( a , b ) : if type ( a ) == type ( b ) : if type ( a ) == int : return a if a > b else b elif type ( a ) == float : return a if a > b else b elif type ( …	字符串直接用 > 比较，未解析为数值。
+576	138	SantaCoder	OK	CE05	def is_equal_to_sum_even ( n ) : return sum ( range ( 1 , n + 1 ) ) == n * ( n + 1 ) / 2	判据是 sum(1..n)==n(n+1)/2，恒真。
+577	139	SantaCoder	OK	CE09	def special_factorial ( n ) : if n == 0 : return 1 else : return n * special_factorial ( n - 1 )	同上。
+578	140	SantaCoder	OK	CE05	def fix_spaces ( text ) : return re . sub ( r'\s+' , '_' , text )	同上。
+580	141	SantaCoder	SYN	CE05,CE06	def file_name_check ( file_name ) : if len ( file_name ) > 3 : return "No" if file_name . count ( "." ) != 1 : return "No" if file_name [ 0 ] not in "abcdefghijklmnopqrst…	加入首尾相同、末字符字母等无关条件，规则被替换。
+581	142	SantaCoder	OK	CE05,CE12	def sum_squares ( lst ) : sum = 0 for i in lst : if i % 3 == 0 : sum += i ** 2 elif i % 4 == 0 : sum += i ** 3 return sum	对元素值取模而非下标，且 sum 变量遮蔽内置。
+583	143	SantaCoder	OK	CE05	def words_in_sentence ( sentence ) : words = sentence . split ( ) return " " . join ( sorted ( words ) )	把词排序后返回，未按长度素数筛选。
+585	144	SantaCoder	OK	CE01	def simplify ( x , n ) : pass	函数体只有 pass。
+586	145	SantaCoder	OK	CE05	def order_by_points ( nums ) : return sorted ( nums , key = lambda x : sum ( map ( int , str ( x ) ) ) )	同上。
+588	146	SantaCoder	OK	CE05	def specialFilter ( nums ) : return sum ( 1 for n in nums if n > 10 and ( n % 10 ) % 2 == 1 )	只检查个位为奇数，未检查首位。
+589	147	SantaCoder	OK	CE05	def get_max_triples ( n ) : return sum ( a [ i ] * a [ i ] - a [ i ] + 1 for i in range ( n ) )	对 a[i]²-a[i]+1 求和，目标被替换。
+590	148	SantaCoder	OK	CE01	def bf ( planet1 , planet2 ) : pass	函数体只有 pass。
+591	149	SantaCoder	OK	CE06	def sorted_list_sum ( lst ) : return sorted ( lst , key = len )	按长度排序正确，但没有删除奇数长度的字符串。
+593	150	SantaCoder	OK	CE05	def x_or_y ( n , x , y ) : if n % 2 == 0 : return x else : return y	以 n 是否为偶数代替素数判断，且偶数返回 x、奇数返回 y，与契约相反。
+594	151	SantaCoder	OK	CE01	def double_the_difference ( lst ) : if not lst : return 0 return sum ( map ( lambda x : x ** 2 , lst ) )	函数体只有 pass。
+595	153	SantaCoder	OK	CE05	def Strongest_Extension ( class_name , extensions ) : return class_name + '.' + max ( extensions , key = len )	按扩展名长度取最大，未按 CAP-SM 强度。
+596	154	SantaCoder	OK	CE05	def cycpattern_check ( a , b ) : if len ( a ) < len ( b ) : return False if len ( a ) == len ( b ) : return a in b else : return any ( a [ i : ] in b for i in range ( len…	判断 a 是否为 b 的子串，参数顺序颠倒。
+597	155	SantaCoder	OK	CE05,CE12	def even_odd_count ( num ) : return ( sum ( int ( i ) for i in str ( num ) ) , sum ( int ( i ) for i in str ( num ) if i % 2 == 0 ) )	把数位和当作偶数个数，且对 str 字符取模。
+598	156	SantaCoder	OK	CE09	def int_to_mini_roman ( number ) : roman_numerals = { 1 : 'I' , 4 : 'IV' , 5 : 'V' , 9 : 'IX' , 10 : 'X' , 40 : 'XL' , 50 : 'L' , 90 : 'XC' , 100 : 'C' , 400 : 'CD' , 500…	贪心表含减法组合但按插入顺序遍历且未排序，结果错误。
+600	157	SantaCoder	OK	CE05	def right_angle_triangle ( a , b , c ) : return ( a + b > c ) and ( b + c > a ) and ( c + a > b )	只判三边能构成三角形，未判直角。
+601	158	SantaCoder	OK	CE05	def find_max ( words ) : return max ( set ( words ) , key = words . count )	按出现次数取最大，目标被替换。
+602	159	SantaCoder	OK	CE05	def eat ( number , need , remaining ) : if number < need : return [ 0 , number ] else : return [ need - number , remaining ]	分支条件与返回值被替换。
+603	160	SantaCoder	OK	CE05	def do_algebra ( operator , operand ) : if len ( operator ) == 0 : return operand [ 0 ] elif len ( operator ) == 1 : return operator [ 0 ] * operand [ 0 ] else : return o…	递归中把 operator[0] 当数值相乘，目标被替换。
+604	161	SantaCoder	OK	CE14	def solve ( s ) : return "" . join ( map ( lambda x : x . lower ( ) if x . isalpha ( ) else x . upper ( ) , s ) )	字母转小写、非字母转大写，方向完全相反。
+606	162	SantaCoder	OK	CE03	def string_to_md5 ( text ) : if text == '' : return None return hashlib . md5 ( text . encode ( 'utf-8' ) ) . hexdigest ( )	调用 hashlib 但未导入。
+607	163	SantaCoder	OK	CE11	def generate_integers ( a , b ) : return [ i for i in range ( a , b + 1 ) if i % 2 == 0 ]	未截断到 10。
+609	1	StarCoder	OK	CE01	from typing import List def separate_paren_groups ( paren_string : str ) -> List [ str ] : pass	函数体只有 pass。
+610	5	StarCoder	OK	CE08,CE06	from typing import List def intersperse ( numbers : List [ int ] , delimeter : int ) -> List [ int ] : return [ numbers [ i ] for i in range ( len ( numbers ) ) if i % 2 …	按奇偶下标分成两段再用一个分隔符连接，改变顺序且数量错误。
+611	6	StarCoder	OK	CE01	from typing import List def parse_nested_parens ( paren_string : str ) -> List [ int ] : pass	函数体只有 pass。
+612	8	StarCoder	OK	CE03	from typing import List , Tuple def sum_product ( numbers : List [ int ] ) -> Tuple [ int , int ] : return ( sum ( numbers ) , reduce ( lambda x , y : x * y , numbers , 1…	调用 reduce 但未导入。
+613	10	StarCoder	OK	CE05	def is_palindrome ( string : str ) -> bool : """ Test if given string is a palindrome """ return string == string [ : : - 1 ] def make_palindrome ( string : str ) -> str …	检查的是最长回文前缀，然后补前缀逆序，方向与契约相反。
+616	14	StarCoder	OK	CE06	from typing import List def all_prefixes ( string : str ) -> List [ str ] : return [ string [ : i ] for i in range ( len ( string ) + 1 ) ]	同上。
+618	17	StarCoder	OK	CE01	from typing import List def parse_music ( music_string : str ) -> List [ int ] : pass	函数体只有 pass。
+619	18	StarCoder	OK	CE06	def how_many_times ( string : str , substring : str ) -> int : return string . count ( substring )	同上。
+620	19	StarCoder	OK	CE05	from typing import List def sort_numbers ( numbers : str ) -> str : return " " . join ( sorted ( numbers . split ( ) ) )	同上，sorted 默认字典序。
+621	20	StarCoder	OK	CE05	from typing import List , Tuple def find_closest_elements ( numbers : List [ float ] ) -> Tuple [ float , float ] : numbers . sort ( ) return numbers [ 0 ] , numbers [ 1 …	排序后取前两个元素，是最小两元素而非最近对。
+622	21	StarCoder	OK	CE09	from typing import List def rescale_to_unit ( numbers : List [ float ] ) -> List [ float ] : return [ n / max ( numbers ) for n in numbers ]	除以最大值而非差值。
+626	25	StarCoder	OK	CE01	from typing import List def factorize ( n : int ) -> List [ int ] : pass	函数体只有 pass。
+627	26	StarCoder	OK	CE05	from typing import List def remove_duplicates ( numbers : List [ int ] ) -> List [ int ] : return list ( set ( numbers ) )	set 去重，语义错误。
+631	32	StarCoder	OK	CE01,CE02	import math def poly ( xs : list , x : float ) : return sum ( [ coeff * math . pow ( x , i ) for i , coeff in enumerate ( xs ) ] ) def find_zero ( xs : list ) : if len ( …	大段对称系数变换后源码截断，未形成求根实现。
+632	33	StarCoder	OK	CE05	def sort_third ( l : list ) : l_prime = [ ] for i in range ( len ( l ) ) : if i % 3 == 0 : l_prime . append ( l [ i ] ) else : l_prime . append ( sorted ( l ) [ i ] ) ret…	非 3 倍数位置填入全局排序结果，目标被替换。
+634	36	StarCoder	OK	CE05	def fizz_buzz ( n : int ) : return sum ( 1 for i in range ( 1 , n ) if ( i % 11 == 0 or i % 13 == 0 ) and i % 7 == 0 )	要求 i 同时是 7 的倍数，把条件替换成另一谓词。
+636	37	StarCoder	OK	CE05,CE08	def sort_even ( l : list ) : l_sorted = [ ] for i in range ( len ( l ) ) : if i % 2 == 0 : l_sorted . append ( l [ i ] ) else : l_sorted . append ( min ( l [ i ] , l_sort…	非偶数位填入与前一元素的 min，既改变值又非排序。
+638	39	StarCoder	SYN	CE01	def prime_fib ( n : int ) : if n == 1 : return 2 if n == 2 : return 3 if n == 3 : return 5 if n == 4 : return 13 if n == 5 : return 89 if n == 6 : return 109 if n == 7 : …	硬编码 1-30 余项答案表，不是算法。
+639	41	StarCoder	OK	CE09	def car_race_collision ( n : int ) : return n // 2	返回 n//2。
+641	54	StarCoder	OK	CE09	def same_chars ( s0 : str , s1 : str ) : return sorted ( s0 ) == sorted ( s1 )	排序后比较会把多重集合也纳入，契约只要求字符集合相等，[a,a,b] 与 [a,b,b] 会被误判。
+645	64	StarCoder	OK	CE01	FIX = """ Add more test cases. """ def vowels_count ( s ) : pass	函数体只有 pass。
+646	65	StarCoder	OK	CE06	def circular_shift ( x , shift ) : return str ( x ) [ shift : ] + str ( x ) [ : shift ]	用 s[shift:]+s[:shift] 实现左旋，方向相反。
+647	69	StarCoder	OK	CE01	def search ( lst ) : return - 1	直接返回 -1。
+648	70	StarCoder	OK	CE08	def strange_sort_list ( lst ) : if len ( lst ) == 0 : return [ ] elif len ( lst ) == 1 : return lst else : return [ min ( lst ) ] + strange_sort_list ( lst [ 1 : ] ) + [ …	首尾 min/max 思路接近，但递归用 lst[1:] 而非去掉已取元素，重复与顺序错误。
+649	71	StarCoder	OK	CE11,CE09	def triangle_area ( a , b , c ) : if a + b > c and a + c > b and b + c > a : s = ( a + b + c ) / 2 return round ( math . sqrt ( s * ( s - a ) * ( s - b ) * ( s - c ) ) , …	边界用严格 >（退化三角形应为 -1），且未开平方。
+650	72	StarCoder	OK	CE03	def will_it_fly ( q , w ) : if is_palindrome ( q ) and sum ( q ) <= w : return True else : return False	调用未定义的 is_palindrome。
+651	73	StarCoder	OK	CE01	def smallest_change ( arr ) : pass	函数体只有 pass。
+652	74	StarCoder	OK	CE05	def total_match ( lst1 , lst2 ) : return lst1 if len ( lst1 ) < len ( lst2 ) else lst2	比较元素个数。
+653	75	StarCoder	OK	CE01	def is_multiply_prime ( a ) : pass	函数体只有 pass。
+654	76	StarCoder	OK	CE09	def is_simple_power ( x , n ) : return n ** int ( x / n ) == x	指数写成 int(x/n)。
+655	77	StarCoder	OK	CE09	def iscube ( a ) : return a ** 3 > 0 and a ** 3 == int ( a ** 3 )	判据写成 a³>0 且 a³ 为整数，未检验 a 是否为立方数。
+656	80	StarCoder	OK	CE09	def is_happy ( s ) : if len ( s ) < 3 : return False for i in range ( len ( s ) - 2 ) : if s [ i ] == s [ i + 1 ] == s [ i + 2 ] : return False return True	只检查 s[i]==s[i+1]==s[i+2]，漏掉相邻两项相同的情形。
+657	81	StarCoder	OK	CE01	def numerical_letter_grade ( grades ) : pass	函数体只有 pass。
+658	82	StarCoder	OK	CE03	def prime_length ( string ) : return is_prime ( len ( string ) )	调用未定义的 is_prime。
+659	83	StarCoder	OK	CE05	def starts_one_ends ( n ) : return sum ( 1 for i in range ( 1 , n + 1 ) if str ( i ) . startswith ( '1' ) or str ( i ) . endswith ( '1' ) )	统计 1..n 内首或尾为 1 的整数个数，而非 n 位数个数。
+660	84	StarCoder	OK	CE05	def solve ( N ) : return bin ( N ) [ 2 : ]	直接返回二进制。
+661	85	StarCoder	OK	CE05	def add ( lst ) : return sum ( lst [ 1 : : 2 ] )	同上。
+662	86	StarCoder	OK	CE05,CE08	def anti_shuffle ( s ) : return '' . join ( sorted ( s . split ( ) ) )	整词排序且用 '' 连接，丢失词间空格。
+664	88	StarCoder	OK	CE05	def sort_array ( array ) : return sorted ( array )	只做升序排序，未按首尾和决定方向。
+665	89	StarCoder	OK	CE09	def encrypt ( s ) : return '' . join ( chr ( ord ( c ) + 2 * 2 ) for c in s )	ord(c)+4 未按字母表取模，且未限定字母。
+667	90	StarCoder	OK	CE06	def next_smallest ( lst ) : if len ( lst ) < 2 : return None else : return sorted ( lst ) [ 1 ]	同 60，重复最小值时错误。
+668	91	StarCoder	OK	CE04	def is_bored ( S ) : return sum ( 1 for word in S . split ( ) if word . startswith ( "I" ) )	按词切分统计。
+670	93	StarCoder	OK	CE01	def encode ( message ) : pass	函数体只有 pass。
+671	94	StarCoder	OK	CE05,CE08	def skjkasdkd ( lst ) : return sum ( list ( filter ( lambda x : is_prime ( x ) , lst ) ) )	把素数直接相加，而非取最大素数再求数位和。
+672	95	StarCoder	OK	CE06,CE09	def check_dict_case ( dict ) : if len ( dict ) == 0 : return False else : for key in dict : if type ( key ) == str : if key . islower ( ) or key . isupper ( ) : continue …	只检查每个键是否全小写或全大写，未要求所有键同一风格。
+673	96	StarCoder	OK	CE01	def count_up_to ( n ) : pass	函数体只有 pass。
+674	99	StarCoder	OK	CE09	def closest_integer ( value ) : return int ( round ( float ( value ) ) )	round 的 .5 舍入方向与契约不符。
+676	100	StarCoder	OK	CE01	def make_a_pile ( n ) : pass	函数体只有 pass。
+677	101	StarCoder	OK	CE04	def words_string ( s ) : return s . split ( )	同上。
+678	102	StarCoder	OK	CE05	def choose_num ( x , y ) : if x % 2 == 0 and y % 2 == 0 : return max ( x , y ) else : return - 1	要求 x、y 都是偶数再取 max，判据被替换。
+679	103	StarCoder	OK	CE09	def rounded_avg ( n , m ) : if n > m : return - 1 else : return bin ( int ( sum ( range ( n , m + 1 ) ) / ( m - n + 1 ) ) )	用 int 截断平均值而不是四舍五入，契约要求 nearest integer；返回值保留 0b 前缀符合示例。
+680	105	StarCoder	OK	CE01	def by_length ( arr ) : return [ ]	直接返回 []。
+681	106	StarCoder	OK	CE05,CE09	def f ( n ) : return [ 1 if i % 2 == 0 else sum ( range ( 1 , i + 1 ) ) for i in range ( 1 , n + 1 ) ]	偶数位返回 1，奇数位返回 1..i 之和，公式被替换。
+682	108	StarCoder	OK	CE03	def count_nums ( arr ) : return len ( [ x for x in arr if sum_digits ( x ) > 0 ] )	调用未定义的 sum_digits。
+683	109	StarCoder	OK	CE06	def move_one_ball ( arr ) : if len ( arr ) == 0 : return True for i in range ( len ( arr ) ) : if arr [ i ] > arr [ i + 1 ] : return False return True	只比较一次右移结果，未尝试所有位移。
+684	110	StarCoder	OK	CE05	def exchange ( lst1 , lst2 ) : return "YES" if sum ( lst1 ) % 2 == 0 else "NO"	只判断 lst1 的和是否为偶数。
+685	111	StarCoder	OK	CE02	def histogram ( test ) : pass	源码中途截断。
+686	112	StarCoder	OK	CE08	def reverse_delete ( s , c ) : return ( s . translate ( str . maketrans ( '' , '' , c ) ) , s [ : : - 1 ] == s . translate ( str . maketrans ( '' , '' , c ) ) )	translate 删除方向正确，但回文判断用 s[::-1] == s.translate(...) 与删除后的串比较，比较对象组装错误。
+687	113	StarCoder	OK	CE05,CE08	def odd_count ( lst ) : return [ "the number of odd elements {}n the string {} of the input." . format ( len ( i ) - i . count ( "0" ) , i ) for i in lst ]	用 len - '0' 个数作为奇数个数，且格式串错乱。
+689	114	StarCoder	OK	CE05	import math def minSubArraySum ( nums ) : if len ( nums ) == 0 : return 0 min_sum = math . inf current_sum = 0 for num in nums : current_sum += num min_sum = min ( min_su…	同上。
+692	115	StarCoder	OK	CE05	def max_fill ( grid , capacity ) : import math pass	与 359/412 同类，未按行分桶。
+693	117	StarCoder	OK	CE01	def select_words ( s , n ) : pass	函数体只有 pass。
+694	118	StarCoder	OK	CE06	def get_closest_vowel ( word ) : vowels = "aeiouAEIOU" for i in range ( len ( word ) - 1 , 0 , - 1 ) : if word [ i ] in vowels : return word [ i ] return ""	从后往前找元音，但未检查左右均为辅音。
+696	119	StarCoder	OK	CE01	def match_parens ( lst ) : pass	函数体只有 pass。
+697	120	StarCoder	OK	CE15	def maximum ( arr , k ) : return sorted ( arr , reverse = True ) [ : k ]	sorted(reverse=True)[:k] 与契约一致；按本条源码未观察到可归入现有代码的缺陷。
+698	121	StarCoder	OK	CE05	def solution ( lst ) : return sum ( lst [ : : 2 ] )	只累加偶数下标元素。
+699	122	StarCoder	OK	CE05	def add_elements ( arr , k ) : return sum ( sorted ( arr ) [ : k ] )	排序后取前 k 求和，目标被替换。
+701	123	StarCoder	OK	CE06,CE08	def get_odd_collatz ( n ) : if n == 1 : return [ 1 ] else : odd_collatz = [ ] while n != 1 : if n % 2 == 0 : n = n // 2 else : n = 3 * n + 1 odd_collatz . append ( n ) re…	未把初始 n 记入结果，且把所有中间项（含偶数项）都收入，而非只收奇数项；最终还多记 1。
+702	125	StarCoder	OK	CE05	def split_words ( txt ) : return txt . split ( )	只按空白切分。
+703	126	StarCoder	OK	CE05	def is_sorted ( lst ) : return sorted ( lst ) == lst	只判有序。
+704	127	StarCoder	OK	CE05	def intersection ( interval1 , interval2 ) : start1 , end1 = interval1 start2 , end2 = interval2 if start1 > end1 or start2 > end2 : return "NO" if start1 <= start2 and e…	判区间包含关系，目标被替换。
+705	128	StarCoder	OK	CE01	def prod_signs ( arr ) : pass	函数体只有 pass。
+706	129	StarCoder	OK	CE01	def minPath ( grid , k ) : pass	函数体只有 pass。
+707	130	StarCoder	OK	CE01	def tri ( n ) : if n == 1 : return [ 1 ] elif n == 2 : return [ 1 , 3 ] elif n == 3 : return [ 1 , 3 , 2 ] else : tri_list = [ 1 , 3 , 2 ] for i in range ( 3 , n ) : tri_…	函数体只有 pass。
+708	131	StarCoder	OK	CE01	def digits ( n ) : return 0	函数体只有 pass。
+709	132	StarCoder	OK	CE01	def is_nested ( string ) : return False	函数体只有 pass。
+710	133	StarCoder	OK	CE02	def sum_squares ( lst ) : return sum ( [ int ( math . ceil ( i ) ** 2 ) for i in lst ] )	源码中途截断。
+711	134	StarCoder	OK	CE11,CE05	def check_if_last_char_is_a_letter ( txt ) : return txt [ - 1 ] . isalpha ( ) and not txt [ - 1 ] . isalnum ( )	判据为末字符是字母且不是字母数字，恒假。
+713	135	StarCoder	OK	CE01	def can_arrange ( arr ) : pass	函数体只有 pass。
+714	136	StarCoder	OK	CE01	def largest_smallest_integers ( lst ) : pass	函数体只有 pass。
+715	137	StarCoder	OK	CE11	def compare_one ( a , b ) : if a > b : return a elif a < b : return b else : return None	同上。
+716	138	StarCoder	OK	CE01	def is_equal_to_sum_even ( n ) : return False	直接返回 False。
+717	139	StarCoder	OK	CE09	def special_factorial ( n ) : if n == 0 : return 1 else : return n * special_factorial ( n - 1 )	同上。
+718	140	StarCoder	OK	CE05	def fix_spaces ( text ) : return re . sub ( r"\s+" , "_" , text )	同上。
+720	141	StarCoder	OK	CE06	def file_name_check ( file_name ) : if len ( file_name ) > 3 : return "No" if file_name . count ( "." ) != 1 : return "No" if file_name . split ( "." ) [ 0 ] == "" : retu…	判整个文件名长度>3，未统计数字个数。
+721	142	StarCoder	OK	CE09	def sum_squares ( lst ) : sum = 0 for i in range ( len ( lst ) ) : if i % 3 == 0 : sum += lst [ i ] ** 2 elif i % 4 == 0 : sum += lst [ i ] ** 3 return sum	漏掉不满足两条件的元素直接累加。
+722	143	StarCoder	OK	CE03	def words_in_sentence ( sentence ) : return " " . join ( filter ( lambda x : is_prime ( len ( x ) ) , sentence . split ( ) ) )	调用未定义的 is_prime。
+724	145	StarCoder	OK	CE05	def order_by_points ( nums ) : return sorted ( nums , key = lambda x : sum ( map ( int , str ( abs ( x ) ) ) ) )	同上。
+725	146	StarCoder	OK	CE05	def specialFilter ( nums ) : return len ( [ x for x in nums if x > 10 and x % 10 in [ 1 , 3 , 5 , 7 , 9 ] and x % 100 in [ 1 , 3 , 5 , 7 , 9 ] ] )	用 x%100 判断首位为奇数，仅对两位数成立。
+726	147	StarCoder	OK	CE05	def get_max_triples ( n ) : return sum ( i % 3 == 0 for i in range ( 1 , n + 1 ) )	统计下标 3 的倍数个数。
+727	148	StarCoder	OK	CE12	def bf ( planet1 , planet2 ) : if planet1 not in planets or planet2 not in planets : return ( ) else : return tuple ( sorted ( planets [ planet1 ] [ 1 : planets [ planet2…	用字符串索引列表，类型不支持。
+729	149	StarCoder	OK	CE08	def sorted_list_sum ( lst ) : return sorted ( list ( filter ( lambda x : len ( x ) % 2 == 0 , lst ) ) )	筛掉奇数长度后只按长度排序，未在等长时按字母序排序。
+730	150	StarCoder	OK	CE05	def x_or_y ( n , x , y ) : if n % 2 == 0 : return y else : return x	以 n 是否为偶数代替素数判断，合数与素数的返回分支均可能错。
+731	151	StarCoder	OK	CE01	def double_the_difference ( lst ) : return sum ( [ x ** 2 for x in lst if x % 2 != 0 ] )	函数体只有 pass。
+732	153	StarCoder	OK	CE06,CE09	def Strongest_Extension ( class_name , extensions ) : strength = [ ] for i in extensions : cap = 0 sm = 0 for j in i : if j . isupper ( ) : cap += 1 else : sm += 1 streng…	对 strength 排序后用 strength.index(strength[0]) 取原索引，重复强度时取错。
+733	154	StarCoder	OK	CE06	def cycpattern_check ( a , b ) : return b in a or b in a [ 1 : ] + a [ : 1 ]	只检查一次右移一位的循环串，未尝试所有移位。
+734	156	StarCoder	OK	CE01	def int_to_mini_roman ( number ) : pass	函数体只有 pass。
+735	157	StarCoder	OK	CE09	def right_angle_triangle ( a , b , c ) : return a ** 2 + b ** 2 == c ** 2	只检查 c²=a²+b²，漏另外两种。
+736	158	StarCoder	OK	CE01	def find_max ( words ) : pass	函数体只有 pass。
+737	159	StarCoder	OK	CE09	def eat ( number , need , remaining ) : return [ number + need , remaining - need ]	只实现 need<=remaining 分支，remaining 不足时返回负数。
+738	160	StarCoder	OK	CE01	def do_algebra ( operator , operand ) : pass	函数体只有 pass。
+739	161	StarCoder	OK	CE11	def solve ( s ) : return s [ : : - 1 ]	总是返回反转串，未做大小写交换。
+740	162	StarCoder	OK	CE03	def string_to_md5 ( text ) : if text == '' : return None return hashlib . md5 ( text . encode ( 'utf-8' ) ) . hexdigest ( )	调用 hashlib 但未导入。
+741	163	StarCoder	OK	CE11	def generate_integers ( a , b ) : return [ i for i in range ( a , b + 1 ) if i % 2 == 0 ]	未截断到 10。

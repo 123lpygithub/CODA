@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0799-aahjdgiaa",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/255a05a5980efb8b096c283d79872d0695886161",
+  "filename": "pandas_numpy/sources/pandas/tests/frame/test_reshape.py",
+  "commit": "255a05a5980efb8b096c283d79872d0695886161",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/255a05a5980efb8b096c283d79872d0695886161/pandas_numpy/sources/pandas/tests/frame/test_reshape.py",
+  "fetched_at": "2026-11-05T06:13:54.007447+00:00",
+  "source_sha256": "010a5be2dc47f6653791508f81357e709bc58db899f00423c2eb3652f1f26162",
+  "line_start": 182,
+  "line_end": 206,
+  "excerpt": "        df = DataFrame({'x': ['a', 'a', 'b'],\n                        'y': ['j', 'k', 'j'],\n                        'z': [0, 1, 2],\n                        'w': [0, 1, 2]}).set_index(['x', 'y', 'z'])\n        unstacked = df.unstack(['x', 'y'], fill_value=0)\n        key = ('w', 'b', 'j')\n        expected = unstacked[key]\n        result = pd.Series([0, 0, 2], index=unstacked.index, name=key)\n        assert_series_equal(result, expected)\n\n        stacked = unstacked.stack(['x', 'y'])\n        stacked.index = stacked.index.reorder_levels(df.index.names)\n        # Workaround for GH #17886 (unnecessarily casts to float):\n        stacked = stacked.astype(np.int64)\n        result = stacked.loc[df.index]\n        assert_frame_equal(result, df)\n\n        # From a series\n        s = df['w']\n        result = s.unstack(['x', 'y'], fill_value=0)\n        expected = unstacked['w']\n        assert_frame_equal(result, expected)\n\n    def test_unstack_fill_frame(self):\n"
+}

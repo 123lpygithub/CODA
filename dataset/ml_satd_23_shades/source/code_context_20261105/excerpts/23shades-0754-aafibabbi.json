@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0754-aafibabbi",
+  "revision_url": "https://github.com/ComputationalCryoEM/ASPIRE-Python/commit/21871032c2b61321e2cb7c54596331af24f2a91d",
+  "filename": "src/aspyre/utils/matrix.py",
+  "commit": "21871032c2b61321e2cb7c54596331af24f2a91d",
+  "source_url": "https://raw.githubusercontent.com/ComputationalCryoEM/ASPIRE-Python/21871032c2b61321e2cb7c54596331af24f2a91d/src/aspyre/utils/matrix.py",
+  "fetched_at": "2026-11-05T06:13:48.030820+00:00",
+  "source_sha256": "fab0bb92cfe5ac21d7ff218ae950ad5e0d7416cc14f225f78bed9832814b5fcf",
+  "line_start": 5,
+  "line_end": 29,
+  "excerpt": "import numpy as np\nfrom scipy.linalg import eigh\n\nfrom aspyre.utils import ensure\nfrom aspyre.utils.matlab_compat import m_reshape\n\nSQRT2 = np.sqrt(2)\nSQRT2_R = 1/SQRT2\n\n\ndef unroll_dim(X, dim):\n    # TODO: dim is still 1-indexed like in MATLAB to reduce headaches for now\n    # TODO: unroll/roll are great candidates for a context manager since they're always used in conjunction.\n    dim = dim - 1\n    old_shape = X.shape\n    new_shape = old_shape[:dim]\n    if dim < len(old_shape):\n        new_shape += (-1, )\n    if old_shape != new_shape:\n        Y = m_reshape(X, new_shape)\n    else:\n        Y = X\n    removed_dims = old_shape[dim:]\n\n    return Y, removed_dims",
+  "match_policy": "unique-release-normalized-v2"
+}

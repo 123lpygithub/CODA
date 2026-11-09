@@ -1,0 +1,170 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27brave%2Fbrave-browser%27+AND+number%3D10433+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='brave/brave-browser' AND number=10433 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:36.294395+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "fmarier",
+        "created_at": "2020-06-23 22:44:31",
+        "updated_at": "2020-06-23 22:44:31",
+        "title": "Add a setting to block cookie banners",
+        "body": "We have received complaints from users about having to click through cookie consent banners related to real-time bidding. We should offer a global setting (default OFF) in Shields which would:\r\n\r\n1. Automatically deny all data sharing (like the option that's available in the Cliqz browser and can be verified using the [re:consent extension](https://chrome.google.com/webstore/detail/reconsent/djcdlbbfldmndgenehaifaiiahhhagfa)) in first-party consent manager platforms which follow the [IAB protocol](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework/blob/master/TCFv2/TCF-Implementation-Guidelines.md).\r\n2. Hide banners using the [Easylist-Cookie](https://easylist-downloads.adblockplus.org/easylist-cookie.txt) cosmetic filters.\r\n\r\nWe could surface that setting the first time a user encounters a cookie banner via a notification.\r\n\r\nAlternatively, instead of a new global setting, we could tie this feature to the existing \"aggressive mode\" blocking option.",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-06-23 22:00:00",
+        "repo_name": "brave/brave-browser",
+        "number": 10433
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "zenparsing",
+        "created_at": "2022-08-05 13:46:22",
+        "updated_at": "2022-08-05 13:46:22",
+        "title": "Add a setting to block cookie banners",
+        "body": "## Description\r\nWe have received complaints from users about having to click through cookie consent banners related to real-time bidding. We should offer a global setting (default OFF) in Shields which would:\r\n\r\n1. Automatically deny all data sharing (like the option that's available in the Cliqz browser and can be verified using the [re:consent extension](https://chrome.google.com/webstore/detail/reconsent/djcdlbbfldmndgenehaifaiiahhhagfa)) in first-party consent manager platforms which follow the [IAB protocol](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework/blob/master/TCFv2/TCF-Implementation-Guidelines.md).\r\n2. Hide banners using the [Easylist-Cookie](https://easylist-downloads.adblockplus.org/easylist-cookie.txt) cosmetic filters.\r\n\r\nWe could surface that setting the first time a user encounters a cookie banner via a notification.\r\n\r\nAlternatively, instead of a new global setting, we could tie this feature to the existing \"aggressive mode\" blocking option.\r\n\r\n## Design\r\nFigma link: https://www.figma.com/file/cL22PpqneTYxJePORxUBKz/Cookie-consent-blocker?node-id=61%3A16268\r\n\r\n",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "closed",
+        "closed_at": "2022-08-05 13:46:22",
+        "file_time": "2022-08-05 13:00:00",
+        "repo_name": "brave/brave-browser",
+        "number": 10433
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "stephendonner",
+        "created_at": "2022-09-01 21:39:53",
+        "updated_at": "2022-09-01 21:39:52",
+        "title": "Add dialog to surface the setting for blocking cookie consent banners",
+        "body": "## Verification `IN-PROGRESS` using \r\n\r\nBrave | 1.44.71 Chromium: 105.0.5195.68 (Official Build) dev (x86_64)\r\n-- | --\r\nRevision | ad13e82529051bac6a0e65f455e6d7a1e5fd7938-refs/branch-heads/5195@{#903}\r\nOS | macOS Version 13.0 (Build 22A5331f)\r\n\r\n### Steps:\r\n\r\nCase One: New profiles\r\n<details>\r\n\r\nStart browser with a new profile.\r\nEnable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\nRestart the browser.\r\nWait for first page load.\r\nVerify that the \"cookie list opt-in\" bubble is displayed.\r\nClick the \"enable\" button.\r\nVerify that the bubble is closed after the animation completes.\r\nNavigate to brave://adblock.\r\nExpand the list of filters, and verify that the \"Cookie List\" filter has been enabled.\r\nVisit another page and verify that the opt-in bubble is not displayed again.\r\nRestart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n\r\n</details>\r\n\r\nCase Two: Clicking the X\r\n<details>\r\n\r\nStart browser with a new profile.\r\nEnable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\nRestart the browser.\r\nWait for first page load.\r\nClick the \"X\" button to close the bubble.\r\nVisit another page and verify that the opt-in bubble is not displayed again.\r\nRestart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n\r\n</details>\r\n\r\nCase Three: Closing the bubble\r\n<details>\r\n\r\nStart browser with a new profile.\r\nEnable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\nRestart the browser.\r\nWait for first page load.\r\nClick outside of the bubble to close the bubble.\r\nVisit another page and verify that the opt-in bubble is not displayed again.\r\nRestart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n</details>",
+        "comment_id": 1234810377,
+        "comments": 1,
+        "state": "closed",
+        "closed_at": "2022-08-05 13:46:22",
+        "file_time": "2022-09-01 21:00:00",
+        "repo_name": "brave/brave-browser",
+        "number": 10433
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "MadhaviSeelam",
+        "created_at": "2022-09-09 00:24:19",
+        "updated_at": "2022-09-09 00:24:19",
+        "title": "Add dialog to surface the setting for blocking cookie consent banners",
+        "body": "Verification `PASSED` with\r\n```\r\nBrave | 1.44.79 Chromium: 105.0.5195.102 (Official Build) beta (64-bit)\r\n-- | --\r\nRevision | 4c16f5ffcc2da70ee2600d5db77bed423ac03a5a-refs/branch-heads/5195_55@{#4}\r\nOS | Windows 11 Version 21H2 (Build 22000.856)\r\n```\r\n### Steps:\r\n\r\n#### Case One: New profiles - PASSED\r\n<details>\r\n\r\n1. Start browser with a new profile.\r\n2. Enable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\n3. Restart the browser.\r\n4. Wait for first page load.\r\n5. Verify that the \"cookie list opt-in\" bubble is displayed.\r\n6. Click the \"enable\" button.\r\n7. Verify that the bubble is closed after the animation completes.\r\n8. Navigate to brave://adblock.\r\n9. Expand the list of filters, and verify that the \"Cookie List\" filter has been enabled.\r\n10. Visit another page (digikey.com) and verify that the opt-in bubble is not displayed again.\r\n11. Confirmed cookie consent banner is blocked\r\n12. Restart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n`step 2` | `step 5-6` | `steps 7` | `step 8-9` | `step 10` | `step 11`|`step 12`\r\n---------|----------|-------------|---------|-----------|---------|-------\r\n<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189233601-9bff196d-c14c-4512-913d-b97e95a5ecc9.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189233019-9dfb04dd-f9b1-47f6-b685-a9709818c49c.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189233657-5ca8c252-e1d7-4b74-add4-3bc1252d6f70.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189233704-65443592-b519-4b09-9544-5572298ef7bd.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189233905-5699d15e-d42e-49e6-82dc-b22a9b89a683.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189234012-57954583-de11-46b0-9edf-c44df7caff4b.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189242426-e810ddc0-1f2e-4289-b254-f1b30752eaab.png\">\r\n\r\n</details>\r\n\r\n#### Case Two: Clicking the X - PASSED\r\n<details>\r\n\r\n1. Start browser with a new profile.\r\n2. Enable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\n3. Restart the browser.\r\n4. Wait for first page load.\r\n5. Click the \"X\" button to close the bubble.\r\n6. Visit another page (lemonde.fr) and verify that the opt-in bubble is not displayed again.\r\n7.  Cookie consent banner is not blocked\r\n8. Restart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n`step 2` | `step 5` | `steps 6-7` | `step 8`\r\n---------|----------|-----------|---------\r\n<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189235034-c9f9ccdf-931a-4038-a1fa-3635e4355750.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189235071-1ab11e5b-d31b-4d5b-9851-c0dfad1f1668.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189241609-d6446d94-caea-453e-8e04-189d2a4bbaa0.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189241990-df48706a-87ca-4fba-bd39-8149ba1b15b1.png\">\r\n\r\n</details>\r\n\r\n#### Case Three: Closing the bubble - PASSED\r\n<details>\r\n\r\n1. Start browser with a new profile.\r\n2. Enable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\n3. Restart the browser.\r\n4. Wait for first page load.\r\n5. Click outside of the bubble to close the bubble.\r\n6. Cookie List\" filter has not  been enabled in brave://adblock \r\n7. Visit a site (gulfnews.com) and verify that the opt-in bubble is not displayed again.\r\n8. Cookie consent banner is not blocked\r\n9. Restart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n`step 2` | `step 5` | `step 6` | `step 7-8`|`step 9`\r\n---------|----------|---------|--------|-------\r\n<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189235034-c9f9ccdf-931a-4038-a1fa-3635e4355750.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189242701-4abed3e4-4bb7-46f9-a28a-45851af424a1.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189242819-1556dc7f-9a82-4505-9d4e-b1cc9c5d0084.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189243040-ae722758-a727-429b-b38f-93e7357f68d1.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189243186-ee6c7e87-3204-4060-8d86-3f0ccd3ec163.png\">\r\n</details>\r\n\r\n#### Case Four: No thanks - PASSED\r\n<details>\r\n\r\n1. Start browser with a new profile.\r\n2. Enable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\n3. Restart the browser.\r\n4. Wait for first page load.\r\n5. Click on `No thanks`\r\n6. Confirm the dialog dismisses\r\n7. Visit another page and verify that the opt-in bubble is not displayed again.\r\n8. Cookie List\" filter has not  been enabled in brave://adblock \r\n9. Restart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n`step 2` | `step 5` | `step 6-7` | `step 8`|`step 9`\r\n---------|----------|---------|---------|----\r\n<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189244082-49f108d3-e468-4d33-b6c9-d1390e7d0fb5.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189242701-4abed3e4-4bb7-46f9-a28a-45851af424a1.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189244151-be2355dc-c52d-4063-80b0-c86b350c11cb.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189245688-710d3d41-fa5e-463f-9b78-c3b208e5615b.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189244980-9d803b0c-6754-40e5-85d9-f3b3923bbf4e.png\">\r\n\r\n</details>\r\n\r\n#### Case Five : Upgrade - PASSED\r\n<details>\r\n\r\n1. installed 1.43.89\r\n2. launch Brave\r\n3. visit lemonde.fr, which has cookie consent banner displayed, and close the browser\r\n4. rename the profile folder to Beta\r\n5. install 1.44.79\r\n6. launch Brave\r\n7. Enable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\n8. Restart the browser.\r\n9. Wait for first page load.\r\n10. Verify that the \"cookie list opt-in\" bubble is displayed.\r\n11. Click the \"enable\" button.\r\n12. Verify that the bubble is closed after the animation completes.\r\n13. Navigate to brave://adblock.\r\n14. Expand the list of filters, and verify that the \"Cookie List\" filter has been enabled.\r\n15. return to  another page (lemonde.fr) and verify that the opt-in bubble is not displayed again.\r\n16. Confirmed cookie consent banner is blocked\r\n17. Restart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n\r\n`step1-2` |`step 3`|`step 7`|`step10`|`step 12`|`step13-14`|`step15-16`|`step 17`\r\n----|----|-----|----|-----|----|-----|-----\r\n<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189246343-8b0763df-58af-4f1f-a429-f0d4c7fe06c5.png\">|<image width=\"1000\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189246322-11d0ff9e-8ec0-4828-9765-dc0d02dd52b1.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189246680-b4596407-f58d-442e-80d0-520add788f86.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189233019-9dfb04dd-f9b1-47f6-b685-a9709818c49c.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189233657-5ca8c252-e1d7-4b74-add4-3bc1252d6f70.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189247260-35a93627-21a5-4e71-ae38-733734701455.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189247391-28d8051a-ee90-4776-9a99-84ead5f5861a.png\">|<image width=\"900\" alt=\"image\" src=\"https://user-images.githubusercontent.com/98358127/189247776-3e09c0a4-2ebd-4e9b-98c5-1a6cd70283da.png\">\r\n\r\n\r\n\r\n</details>\r\n",
+        "comment_id": 1241362220,
+        "comments": 1,
+        "state": "closed",
+        "closed_at": "2022-08-05 13:46:22",
+        "file_time": "2022-09-09 00:00:00",
+        "repo_name": "brave/brave-browser",
+        "number": 10433
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "stephendonner",
+        "created_at": "2022-09-16 21:38:50",
+        "updated_at": "2022-09-16 21:38:50",
+        "title": "Add dialog to surface the setting for blocking cookie consent banners",
+        "body": "## Verification `IN-PROGRESS` using \r\n\r\nBrave | 1.44.88 Chromium: 105.0.5195.136 (Official Build) beta (64-bit) \r\n--|--\r\nRevision | 872774b783d0e674186a3adcd2f92e7aa22a219c-refs/branch-heads/5195_124@{#4}\r\nOS | Linux\r\n\r\n### Steps:\r\n\r\n#### Case One: New profiles -\r\n<details>\r\n\r\n1. Start browser with a new profile.\r\n2. Enable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\n3. Restart the browser.\r\n4. Wait for first page load.\r\n5. Verify that the \"cookie list opt-in\" bubble is displayed.\r\n6. Click the \"enable\" button.\r\n7. Verify that the bubble is closed after the animation completes.\r\n8. Navigate to brave://adblock.\r\n9. Expand the list of filters, and verify that the \"Cookie List\" filter has been enabled.\r\n10. Visit another page and verify that the opt-in bubble is not displayed again.\r\n11. Restart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n\r\n`step 2` | `step 5` | `steps 6-7` | `step 9` | `step 10` | `step 11`\r\n---------|----------|-------------|---------|-----------|---------\r\n\r\n\r\n\r\n\r\n</details>\r\n\r\n#### Case Two: Clicking the X - PASSED\r\n<details>\r\n\r\n1. Start browser with a new profile.\r\n2. Enable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\n3. Restart the browser.\r\n4. Wait for first page load.\r\n5. Click the \"X\" button to close the bubble.\r\n6. Visit another page and verify that the opt-in bubble is not displayed again.\r\n7. Restart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n`step 2` | `step 5` | `steps 6` | `step 7`\r\n---------|----------|-----------|---------\r\n\r\n\r\n\r\n</details>\r\n\r\n#### Case Three: Closing the bubble - \r\n<details>\r\n\r\n1. Start browser with a new profile.\r\n2. Enable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\n3. Restart the browser.\r\n4. Wait for first page load.\r\n5. Click outside of the bubble to close the bubble.\r\n6. Visit another page and verify that the opt-in bubble is not displayed again.\r\n7. Restart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n`step 2` | `step 5` | `step 6` | `step 7`\r\n---------|----------|---------|--------\r\n\r\n\r\n\r\n\r\n\r\n\r\n</details>\r\n\r\n#### Case Four: No thanks -\r\n<details>\r\n\r\n1. Start browser with a new profile.\r\n2. Enable the flag \"Show an opt-in bubble for the 'Easylist-Cookie List' filter\".\r\n3. Restart the browser.\r\n4. Wait for first page load.\r\n5. Click on `No thanks`\r\n6. Confirm the dialog dismisses\r\n7. Visit another page and verify that the opt-in bubble is not displayed again.\r\n8. Restart the browser and verify that the opt-in bubble is not displayed again.\r\n\r\n`step 2` | `step 5` | `step 6` | `step 7` | `step 8`\r\n---------|----------|---------|---------|----------\r\n\r\n\r\n",
+        "comment_id": 1249845250,
+        "comments": 3,
+        "state": "closed",
+        "closed_at": "2022-08-05 13:46:22",
+        "file_time": "2022-09-16 21:00:00",
+        "repo_name": "brave/brave-browser",
+        "number": 10433
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "LaurenWags",
+        "created_at": "2022-09-27 15:24:57",
+        "updated_at": "2022-09-27 15:24:57",
+        "title": "Add dialog to surface the setting for blocking cookie consent banners",
+        "body": "Changing to `release-notes/exclude` per discussion with @kjozwiak and @rebron .",
+        "comment_id": 1259670215,
+        "comments": 4,
+        "state": "closed",
+        "closed_at": "2022-08-05 13:46:22",
+        "file_time": "2022-09-27 15:00:00",
+        "repo_name": "brave/brave-browser",
+        "number": 10433
+      }
+    ],
+    "rows": 6,
+    "statistics": {
+      "elapsed": 0.035861189,
+      "rows_read": 478041,
+      "bytes_read": 37390999
+    }
+  },
+  "response_sha256": "2bd12539125a6fc85b6ae49adcfc15266850a46a2d663c4629f812a5f7c30e92"
+}

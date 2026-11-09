@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0117-aajcgbifg",
+  "revision_url": "https://github.com/zvtvz/zvt/commit/2e3a0d462b9fb478671d571e24993564f8b829ac",
+  "filename": "zvt/recorders/eastmoney/common.py",
+  "commit": "2e3a0d462b9fb478671d571e24993564f8b829ac",
+  "source_url": "https://raw.githubusercontent.com/zvtvz/zvt/2e3a0d462b9fb478671d571e24993564f8b829ac/zvt/recorders/eastmoney/common.py",
+  "fetched_at": "2026-11-05T06:11:56.441448+00:00",
+  "source_sha256": "d7a79695dbce059ba2b0a71391e3054fc6fe9ec5156ee9fd79ba66458e9629e2",
+  "line_start": 169,
+  "line_end": 193,
+  "excerpt": "        }\n        return call_eastmoney_api(self.page_url, param=param, path_fields=['TotalCount'])\n\n    def evaluate_start_end_size_timestamps(self, entity):\n        remote_count = self.get_remote_count(entity)\n\n        if remote_count == 0:\n            return None, None, 0, None\n\n        # get local count\n        local_count = get_count(data_schema=self.data_schema, session=self.session,\n                                filters=[self.data_schema.entity_id == entity.id])\n        # FIXME:the > case\n        if local_count >= remote_count:\n            return None, None, 0, None\n\n        return None, None, remote_count - local_count, None\n\n    def generate_request_param(self, security_item, start, end, size, timestamp):\n        return {\n            \"color\": \"w\",\n            \"fc\": get_fc(security_item),\n            'pageNum': 1,\n            # just get more for some fixed data\n            'pageSize': size + 10"
+}

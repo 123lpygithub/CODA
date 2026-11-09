@@ -1,0 +1,125 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18972",
+  "issue_url": "https://github.com/mmistakes/minimal-mistakes/issues/1662",
+  "source_issue_url": "https://github.com/mmistakes/minimal-mistakes/issues/1662",
+  "api_url": "https://api.github.com/repos/mmistakes/minimal-mistakes/issues/1662",
+  "title": "Include FontAwesome for local install on server / GDPR EU issues",
+  "body": "## Description\r\nAs some of you probably know, on May 25th, 2018 the EU will issue a new privacy law, which severely limits the hassle-free kind of online communications. For example, embedded advertising that communicates with an external server becomes an issue (as the IP address is considered 'private information' and thus would require an explicit acknowledgment of the page visitor to share), and likewise the usage of Google Fonts and similar \"common\" web development elements is at least under scrutiny. This will be a major pain in the a$$ for a lot of blogs. \r\n\r\nLong story short: Jekyll and the Minimal Mistakes theme is extremely benevolent is this aspect. So far, the only external dependency I found is the FontAwesome package. When I look at my website at the moment, the `https://use.fontawesome.com/releases/v5.0.12/js/all.js` file is the only one that could potentially cause an issue.\r\n\r\nTherefore, I wanted to ask (or suggest), to add an option to the `_config.yml` file like `localfonts: true`, which would then add the required css/js/ttf/woff/... files from FontAwesome to the `assets` subfolder in the compiled websites `_site` subdirectory, i.e. more or less the situation we already had before, when using FontAwesome 4.\r\n\r\nI guess I am not the only one having to deal with this rediculous nonsense... but ultimately, this would probably be a good reason to make this 'local server fonts' feature a part of the MinimalMistakes theme.",
+  "author": "Participant 1",
+  "created_at": "2018-05-09T12:45:57Z",
+  "updated_at": "2018-06-16T16:45:38Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:20:11.107210+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:20:11.107210+00:00"
+  ],
+  "expected_comment_count": 12,
+  "retrieved_comment_count": 12,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 387755296,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-387755296",
+      "created_at": "2018-05-09T14:21:03Z",
+      "updated_at": "2018-05-09T14:21:03Z",
+      "author": "Participant 2",
+      "body": "Good issue, I was looking at this yesterday, too. https://webbkoll.dataskydd.net/ is a good tool to see the third party cookies. In my version of MM, I already use a local copy of font awesome, and I'll have to figure out how to do the same thing with google fonts (disabled by default, but would be great to add info to the tutorial on how to get them going locally)."
+    },
+    {
+      "id": 387786083,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-387786083",
+      "created_at": "2018-05-09T15:51:50Z",
+      "updated_at": "2018-05-09T15:51:50Z",
+      "author": "Participant 1",
+      "body": "Thanks for the link, that's quite a useful tool.\r\n\r\nOn the tech side, I am also able to customize the Minimal Mistakes template for local server FontAwesome usage, but in the context of being rather lazy and having a minimally invasive long term upgrade process of the template (i.e. keeping as much of it unchanged as possible) it would be a great feature to build this right into the template.\r\n\r\nIn any case, the GDPR stuff is probably going to be an issue for quite a number of people in the foreseeable future."
+    },
+    {
+      "id": 387792719,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-387792719",
+      "created_at": "2018-05-09T16:13:10Z",
+      "updated_at": "2018-05-09T16:13:54Z",
+      "author": "Participant 3",
+      "body": "@BenjaminJurke Have you dug up and info that specifically calls out using FontAwesome or Google Fonts from external servers you don't control i.e. CDNs?\r\n\r\nUnder scrutiny and not compliant are two different things. Not sure how compelled I am to add the extra complexity to load FA locally or via a 3rd party server. A time ago I included all of the FA files with the theme, but they were always out of sync and it became much easier to use the `.js` version.\r\n\r\nIt also gives users the flexibility to override the `_includes` the theme loads that file to bump to a newer version if I haven't gotten to it. Much easier for them to change a single line than override a boatload of SCSS files and fonts if they want the latest icons."
+    },
+    {
+      "id": 387847904,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-387847904",
+      "created_at": "2018-05-09T19:23:41Z",
+      "updated_at": "2018-05-09T19:23:41Z",
+      "author": "Participant 1",
+      "body": "I don't have specific information, but like I said, the very act of connecting the IP address (which you cannot avoid) is apparently already troublesome. If you google CDN and GDPR you stumble for example onto information like [https://www.maxcdn.com/gdpr/](https://www.maxcdn.com/gdpr/), where the CDN provider offers to digitally sign certain GDPR privacy statements regarding such problems. Therefore, I guess that it could potentially become an issue.\r\n\r\nSome related info on Google Fonts: [https://github.com/squidfunk/mkdocs-material/issues/739](https://github.com/squidfunk/mkdocs-material/issues/739)\r\n\r\nI certainly understand that this is completely ridiculous from a technological point of view or from the maintenance perspective...."
+    },
+    {
+      "id": 387848276,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-387848276",
+      "created_at": "2018-05-09T19:24:53Z",
+      "updated_at": "2018-05-09T19:24:53Z",
+      "author": "Participant 3",
+      "body": "Sounds like a world of hurt :worried: "
+    },
+    {
+      "id": 387849331,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-387849331",
+      "created_at": "2018-05-09T19:28:51Z",
+      "updated_at": "2018-05-09T19:29:03Z",
+      "author": "Participant 1",
+      "body": "Indeed. There are now actual service providers that simply block EU countries from accessing websites due to the GDPR. Just google GDPR shield, e.g. [https://www.techrepublic.com/article/to-save-thousands-on-gdpr-compliance-some-companies-are-blocking-all-eu-users/](https://www.techrepublic.com/article/to-save-thousands-on-gdpr-compliance-some-companies-are-blocking-all-eu-users/)"
+    },
+    {
+      "id": 388086472,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-388086472",
+      "created_at": "2018-05-10T15:20:28Z",
+      "updated_at": "2018-05-10T15:20:28Z",
+      "author": "Participant 1",
+      "body": "Today I actually looked at the MM theme code basis. It is actually super-simple to embed the FontAwesome locally to the server, just as Mike Rose suggested.\r\n\r\n1.  Download the FontAwesome package from the [FontAwesome Website](https://fontawesome.com/get-started)\r\n2. The relevant file is `fontawesome-all.min.js` inside the `svg-with-js/js` folder of the downloaded ZIP package.\r\n3. Move this file to a folder of your Jekyll base, e.g. I placed it into the `assets/js/fa-v5.0.12` directory, such that in the compiled version of the site the relative file URL is `assets/js/fa-v5.0.12/fontawesome-all.min.js`\r\n4. Create a local copy of the [`_includes/scripts.html`](https://github.com/mmistakes/minimal-mistakes/blob/master/_includes/scripts.html) file in your Jekyll base directory.\r\n5. Inside this file (currently in line 12) you find the line   \r\n`<script src=\"https://use.fontawesome.com/releases/v5.0.12/js/all.js\"></script>`  \r\nwhich loads the FontAwesome SVG/JS script from the default FontAwesome CDN server. Replace this line by  \r\n`<script src=\"{{ '/assets/js/fa-v5.0.12/fontawesome-all.min.js' | relative_url }}\"></script>`  \r\nor some other path that you used for the local script file.\r\n6. Recompile / build your Jekyll website. All done.\r\n\r\nStill, it would be (Font)Awesome 😉 if this process would be automated by default in the theme, but it is not much trouble to follow up on manually."
+    },
+    {
+      "id": 388094503,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-388094503",
+      "created_at": "2018-05-10T15:46:16Z",
+      "updated_at": "2018-05-10T15:47:00Z",
+      "author": "Participant 3",
+      "body": "I'll look into ways of possibly easing the pain for locally hosting FontAwesome in the theme.\r\n\r\nIn the past I manually included all the FontAwesome CSS and fonts with the theme so they could be bundled in. It just got unwieldy having to commit all those assets every time they added a new icon and I used the bump to version 5 as an excuse to offload it to CDN version.\r\n\r\nThere's probably some build step I could employ to do it or drop it in as a Git submodule to handle updates without having to actually commit the files to this repo. But not sure if that's worth the trouble.\r\n\r\nCurious to see how other theme developers handle this. I know this theme isn't alone, pretty much every theme out there that uses externally hosted copies of jQuery, Google Fonts, FA, and many other scripts will get bit.\r\n\r\nPerhaps they just punt on the issue as their user base is smaller and can get away with it..."
+    },
+    {
+      "id": 388097070,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-388097070",
+      "created_at": "2018-05-10T15:54:05Z",
+      "updated_at": "2018-05-10T15:55:12Z",
+      "author": "Participant 1",
+      "body": "Indeed, there are a few interesting months coming up regarding this issue.\r\n\r\nI read on some German website, that due to all those issues you mentioned (i.e. standard web development components provided by the big tech firms or standard CDNs) WordPress and other standard CMS frameworks effectively become illegal, but I have serious doubt that this will actually be enforced in full. Austria seems to ignore the issue altogether, as there \"local implementation\" of the EU law (yes, EU law is totally crazy, they basically make an EU law in Brussels which each EU country then has to reformulate as a national implementation of the EU law...) is essentially a non-implementation. They'll probably get slapped by a EU fine further down the road..."
+    },
+    {
+      "id": 388098520,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-388098520",
+      "created_at": "2018-05-10T15:58:39Z",
+      "updated_at": "2018-05-10T15:58:39Z",
+      "author": "Participant 3",
+      "body": "I didn't even consider WordPress and its ecosystem. So many plugins and themes offload to CDNs to load 3rd party scripts and styles, they're in for a fun time...\r\n\r\nI'm with you, seriously doubt its going to be enforced. But does sort of stink for those who want to do the right thing."
+    },
+    {
+      "id": 388101676,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-388101676",
+      "created_at": "2018-05-10T16:09:15Z",
+      "updated_at": "2018-05-10T16:09:15Z",
+      "author": "Participant 2",
+      "body": "There is a lot of FUD and misinformation traveling through the net right now. GDPR is protecting citizens by a few basic mechanism, such as \"opt-in-by-default\" (instead of opt-out) and minimising unnecessary data production. The truth is, many plugins and libraries do unnecessarily process data. For example, many website do not effectively function if you disable js or cookies, even if they should based on their contents. There is a lot of good reasoning behind GDPR.\r\n\r\nIt is simply not true that WordPress becomes \"illegal\". You can audit the plugins your site is using, e.g. the cookies produced, and for the data produced, whether it allows an instance (third party or not) to create a personal data trail. In those cases, you would need to install a plugin that obtains consent of website visitors first, i.e. before creating those particular cookies. I have gone through the WP site of my partner a few days ago, and the major problem where the \"social media sharing\" buttons. They are _known_ to be very problematic in terms of privacy. There are other ways to provide the same functionality without proactively creating data trails that allow Google, Facebook, and Twitter to track you across different sites. After removing the particular plugin, the only remaining issue was Google Fonts. It is also not true that Google Fonts are \"illegal\" as such, because there are no court cases yet that would determine that, so if people caution against Google Fonts, it is because they could be interpreted within the GDPR as producing personal data trails. I would take this as an opportunity to review how much unnecessary data is actually gathered by fairly simple websites."
+    },
+    {
+      "id": 395980558,
+      "url": "https://github.com/mmistakes/minimal-mistakes/issues/1662#issuecomment-395980558",
+      "created_at": "2018-06-09T16:11:24Z",
+      "updated_at": "2018-06-09T16:11:24Z",
+      "author": "Participant 4",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity.\n\nIf this is a **bug** and you can still reproduce this error on the `master` branch, please reply with any additional information you have about it in order to keep the issue open.\n\nIf this is a feature request, please consider whether it can be accomplished in another way. If it cannot, please elaborate on why it is core to this project and why you feel more than 80% of users would find this beneficial.\n\nThis issue will automatically be closed in 7 days if no further activity occurs. Thank you for all your contributions.\n"
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/mmistakes/minimal-mistakes/issues/1662",
+  "closed_at_available": false
+}

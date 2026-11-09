@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0716-aacjgagdb",
+  "revision_url": "https://github.com/linbo0518/BLSeg/commit/0ac31f17e87e51277f5ef48355ff9de75eabb4cb",
+  "filename": "blseg/model/deeplabv3plus/deeplabv3plus.py",
+  "commit": "0ac31f17e87e51277f5ef48355ff9de75eabb4cb",
+  "source_url": "https://raw.githubusercontent.com/linbo0518/BLSeg/0ac31f17e87e51277f5ef48355ff9de75eabb4cb/blseg/model/deeplabv3plus/deeplabv3plus.py",
+  "fetched_at": "2026-11-05T06:13:42.642414+00:00",
+  "source_sha256": "d7a6eae13d5a181e266e5796419a3b291f0968a9d9ec97d008a5c0c0d64c9268",
+  "line_start": 1,
+  "line_end": 20,
+  "excerpt": "import torch\nfrom torch import nn\nimport torch.nn.functional as F\nfrom ..backbone import *\nfrom .aspp import ASPP\n\n\n# TODO: support more backbone\nclass Encoder(nn.Module):\n\n    def __init__(self):\n        super(Encoder, self).__init__()\n        self.backbone = ModifiedAlignedXception()\n        self.aspp = ASPP(2048)\n\n    def forward(self, x):\n        x, low_level_features = self.backbone(x)\n        aspp_out = self.aspp(x)\n        return low_level_features, aspp_out\n"
+}

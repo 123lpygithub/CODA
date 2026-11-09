@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0463-aaejdhjid",
+  "revision_url": "https://github.com/kabkabm/defensegan/commit/f111360536fe6902d357a1e575a1f403b185782a",
+  "filename": "cleverhans/examples/multigpu_advtrain/evaluator.py",
+  "commit": "f111360536fe6902d357a1e575a1f403b185782a",
+  "source_url": "https://raw.githubusercontent.com/kabkabm/defensegan/f111360536fe6902d357a1e575a1f403b185782a/cleverhans/examples/multigpu_advtrain/evaluator.py",
+  "fetched_at": "2026-11-05T06:12:58.572141+00:00",
+  "source_sha256": "3b05c9538dbf7a746ec39909527ba6609aba6c82dfb0fe69ef2685a41e227639",
+  "line_start": 21,
+  "line_end": 45,
+  "excerpt": "    Dataset-specific default parameters are used unless a different value is\n    given in kwargs.\n\n    :param model: an object of Model class\n    :param x: Symbolic input to the attack.\n    :param attack_type: A string that is the name of an attack.\n    :param sess: Tensorflow session.\n    :param dataset: The name of the dataset as a string to use for default\n                   params.\n    :param y: (optional) a symbolic variable for the labels.\n    :param kwargs: (optional) additional parameters to be passed to the attack.\n    \"\"\"\n    # TODO: black box attacks\n    attack_names = {'FGSM': FastGradientMethod,\n                    'MadryEtAl': MadryEtAl,\n                    'MadryEtAl_y': MadryEtAl,\n                    'MadryEtAl_multigpu': MadryEtAlMultiGPU,\n                    'MadryEtAl_y_multigpu': MadryEtAlMultiGPU,\n                    }\n\n    if attack_type not in attack_names:\n        raise Exception('Attack %s not defined.' % attack_type)\n\n    attack_params_shared = {\n        'mnist': {'eps': .3, 'eps_iter': 0.01, 'clip_min': 0., 'clip_max': 1.,"
+}

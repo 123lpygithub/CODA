@@ -1,0 +1,146 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-9811",
+  "issue_url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240",
+  "source_issue_url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240",
+  "api_url": "https://api.github.com/repos/openfoodfoundation/openfoodnetwork/issues/2240",
+  "title": "[Cookies] Investigate and list cookies used by OFN",
+  "body": "## Description\r\nBefore implementing the cookie feature we need to understand:\r\n- which are the cookies used by the OFN application and what each of those cookies does. (New Relic for all? Google Analytics for some instances who decided to use it? Others?)\r\n- we also need to understand what other cookies that might be used by local instances and their attached information website (as it looks like the same website for users so they need to accept cookies for both websites as if it was only one I guess... see OFN Uk website - TBD in inception session)\r\n- for each of those cookies we need to know if we could desactivate them if user want, or if they are core for the basic delivery of our service (our app cannot work without them). For instance google analytics trackerscould be deactivated for a user upon request I guess, but maybe not newrelic.\r\n\r\nThis might be useful and a good soucre of inspiration: https://appear.in/information/tos/cookie-policy/ and\r\nhttps://appearin.helpscoutdocs.com/article/192-cookie-list",
+  "author": "Participant 1",
+  "created_at": "2018-04-19T11:40:38Z",
+  "updated_at": "2018-09-13T08:57:19Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:57.033587+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:57.033587+00:00",
+    "2026-11-05T06:39:44.085402+00:00"
+  ],
+  "expected_comment_count": 14,
+  "retrieved_comment_count": 14,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 386004765,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-386004765",
+      "created_at": "2018-05-02T14:50:17Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "Do we use cookies in checkout or any other OFN part?"
+    },
+    {
+      "id": 386037677,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-386037677",
+      "created_at": "2018-05-02T16:25:53Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@mkllnk @oeoeaio @lin-d-hop do you have any idea about which cookies we use? Can someone who knows about that can start a list? (maybe in the wiki, could be a good place to list that I guess?)"
+    },
+    {
+      "id": 386052381,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-386052381",
+      "created_at": "2018-05-02T17:14:11Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "I see a `__stripe_mid` for instance (and we don't use Stripe in Katuma instance...)"
+    },
+    {
+      "id": 394999738,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-394999738",
+      "created_at": "2018-06-06T09:07:49Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "I'm doing a real world test to see which cookies are actually set. I start Firefox with a new empty profile:\r\n```sh\r\nPROFILEDIR=`mktemp -p /tmp -d tmp-fx-profile.XXXXXX.d`\r\nfirefox -profile $PROFILEDIR -no-remote -new-instance\r\n```\r\nThe default already visits a Mozilla page and Google which set cookies. So I delete them before the test.\r\n\r\n- Visit https://openfoodnetwork.org.au/\r\n  ![screenshot from 2018-06-06 18-43-21](https://user-images.githubusercontent.com/3524483/41027134-9547f46c-69b9-11e8-849f-9123f8593b8b.png)\r\n  - Our code sets a session cookie to know if the user is logged in or has a cart.\r\n  - The `__utmx` cookies are set by Google Analytics.\r\n- Visiting a shop doesn't add any more cookies.\r\n- Going to the checkout sets Stripe cookies even though the shop is not using Stripe.\r\n  ![screenshot from 2018-06-06 18-51-53](https://user-images.githubusercontent.com/3524483/41027603-c859a32c-69ba-11e8-9baa-30ace5914f2f.png)\r\n- Going to the maps page sets a cookie from Open Street Map.\r\n  ![screenshot from 2018-06-06 18-51-23](https://user-images.githubusercontent.com/3524483/41027634-e28a2140-69ba-11e8-8972-1f13360b2e4d.png)\r\n- Logging in doesn't set any new cookies.\r\n- Logging in using \"Remember me\" sets one more cookie. \r\n![screenshot from 2018-06-06 18-56-24](https://user-images.githubusercontent.com/3524483/41027829-69203e38-69bb-11e8-8231-926fb60ca9f3.png)\r\n\r\nI can't think of any other action that could set more cookies. So I guess that's it. @oeoeaio Any other idea?\r\n\r\nThe session cookie is essential for shopping and logging in. It would be cool to only start a session when necessary, but I'm not sure how difficult that is. I'm also not sure if the Stripe and Google Analytics cookies are not set when these services are not configured. We should check that and ensure that they are not set. We can't deactivate the maps feature at the moment.\r\n\r\nWe have some links to other pages. For example the footer can link to Twitter, a Newsletter or whatever. These pages set their own cookies and that's beyond our scope. But since a user doesn't know which links go to an external site, we should mention that in a cookie policy and think of marking external links.\r\n\r\n@myriamboure Should I go ahead and investigate the deactivation of Stripe and Google Analytics?"
+    },
+    {
+      "id": 395300747,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-395300747",
+      "created_at": "2018-06-07T05:49:05Z",
+      "updated_at": "2018-06-07T05:50:00Z",
+      "author": "Participant 1",
+      "body": "Awesome @mkllnk !\r\n\r\nOk so if I sum up, we have:\r\n- Two cookies that are essential to delivering the service: the session cookie and the open street map cookie. I understand the session cookie manage cart things. But why is the open street map cookie activated? So that we can explain why it is impossible to deactivate it (if it is).\r\n- One is activated only if the user click on \"remember me\" > can a user deactivate it later if she changes her mind? I think we would need to add a checkbox \"forget me\" that appears when this cookie is active. Or enable to deactivate that cookie (which would then forget the user) in this cookie future cookie panel. Would that sound possible?\r\n- One is probably activated only if the instance has connected google analytics > to check 1- if that happens only if instance connected analytics (I guess yes) 2- and if instance has activated analytics, how to deactivate it for a specific user if the user want to desable that cookie through the future cookie panel. \r\n- One is essential to delivering the service IF instance has allowed it AND if the shop is using stripe BUT if the shop isn't, today is always activated > to check: 1- what we could do is tell in our cookie policy that this cookie only activates ifi the shop uses stripe as a payment method and as it is necessecary for the delivery of the service can't be deactivated. So check if that is possible to only activate that cookie depending on the shop the user is on. 2- If that's too complicated, we could say this cookie is optional but if the user deactivate it she may not be able to shop in some shopfronts. In that case we need a UX about what happens if a user who has deactivatd the cookie tries to shop using a stripe payment method in a shop (we need a pop-in telling he needs to allow that cookie).\r\n\r\nAgree that external pages cookies are not in scope, we can precise it in our data policy.\r\n\r\nIs that all clear @mkllnk ?\r\n "
+    },
+    {
+      "id": 395315790,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-395315790",
+      "created_at": "2018-06-07T07:05:37Z",
+      "updated_at": "2018-06-07T07:06:08Z",
+      "author": "Participant 4",
+      "body": "I can't think of anything that would add any additional cookies.\r\n\r\nThe stripe elements script is loaded in the darkswarm layout. This is based on their recommendation to include their script on all pages on the site as it helps them to detect fraudulent transactions. I guess they build a picture of which of our pages usually interact with their API and then flag anything unusual. So it is my understanding that setting the Stripe cookie has a broader function than simply the provision of a payment method to a user. Removing it could affect the security of the service itself. See: https://stripe.com/docs/radar#requirements for a piece of example text that we can add to our privacy policy.\r\n\r\nIs the aim here to minimise the quantity of cookies that are set, or simply to document the cookies that we currently use to enable our site to function? What are our obligations in terms of providing a user interface that allows the destruction of certain cookies?"
+    },
+    {
+      "id": 395580775,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-395580775",
+      "created_at": "2018-06-07T22:06:38Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@oeoeaio the aim is not to minimise the quantity of cookies but to:\r\n- inform users if they are tracked through cookies and for what purpose so that they know what their data are used for\r\n- and for each one which is not strictly necessary for the delivery of the service, we legally have to let the user choose if they accept that tracker or not (google analytics for instance, stripe could be as well as for a user who doesn't pay anything online it would definitely not appear as necessary to be tracked by stripe... that's why I proposed different options for stripe also as I didn't know the tech things behind it). We legally have to provide a user interface to allow deactivation of those cookies basically.\r\n\r\nInterestingly appear.in for instance has put stripe as third-party persistent cookie that cannot be deactivated so maybe we can just do the same: https://appearin.helpscoutdocs.com/article/192-cookie-list. You will see in this list that lots of those cookies can be deactivated by \"opting out\" (their ux is not good though).\r\nHere https://www.cnil.fr/professionnel if you click on \"gestion des cookies\" (up right) you will see as well... with a better ux."
+    },
+    {
+      "id": 395612296,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-395612296",
+      "created_at": "2018-06-08T00:58:38Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "I compiled a task list for all my findings. Doing all these tasks would be ideal, but it's also a lot of work. So I would suggest to prioritise and then start at the top of the list until we feel that the result is satisfying and we don't want to spend more time on it.\r\n\r\n### Session\r\n\r\nA session cookie is required for all shopping functionality, but we don't really need it just to view the homepage. A possible task:\r\n\r\n- [ ] Only create a session if the user adds to the cart or logs in.\r\n\r\n### Remember me\r\n\r\nThe cookie `remember_spree_user_token` is valid for 12 days and automatically deleted after that. I didn't see any action deleting it before the end of the 12 days.\r\n\r\n- [ ] Delete the cookie when user logs out. Check if newer Spree versions do that already. API documentation: https://www.rubydoc.info/github/plataformatec/devise/master/Devise/Models/Rememberable\r\n\r\nOnce that task is done, logging out is an action we can mention in the cookie policy to delete the cookie.\r\n\r\n### Open Street Maps\r\n\r\nThis cookie is set by openstreetmaps.org and used to prevent abuse of their service. We don't have any control over it. I found a nice cookie policy explaining its use: https://www.streetcheck.co.uk/about/cookies. And I see three possible ways to not set that cookie:\r\n\r\n- [ ] Offer opt out of maps functionality. For those users, we don't load any maps unless they opt in again.\r\n- [ ] Set up a caching proxy (nginx) for the tiles server that doesn't set a cookie.\r\n- [ ] Set up our own tile server to be used by OFN instances, not serving cookies. https://switch2osm.org/serving-tiles/building-a-tile-server-from-packages/\r\n\r\nThe first option is more like a workaround, but requires only code changes. The second option would solve the problem by not serving cookies. It could just be a configuration file for nginx and a URL change in our maps code. If this works as I think it does, it would be my preferred option. The third option goes a step further and increases our infrastructure complexity by adding another server, but it would mean that the instances don't need to worry about it, only the global admin team.\r\n\r\n### Google Analytics\r\n\r\nI visited our staging server https://staging1.openfood.com.au/ and didn't see any Google Analytics (GA) cookies. So I think if the instance doesn't use GA, the cookies are not set. :+1:\r\n\r\nI saw a few pages referring to https://tools.google.com/dlpage/gaoptout to opt out of Google Analytics (GA), but it requires the user to install a plugin. Most users who don't want to be tracked by Google, probably don't trust Google enough to run their code on their own computer. Better to recommend something like [Privacy Badger](https://www.eff.org/privacybadger).\r\n\r\nBut we could also have the user decide:\r\n\r\n- [ ] Offer opt out of Google Analytics and don't load the code for those customers.\r\n- [ ] Replace Google Analytics with Piwik which doesn't transfer data to a third party. Opt out could still be useful.\r\n\r\n### Stripe\r\n\r\nThe Stripe documentation says:\r\n\r\n> If you don’t collect enough information from your customers, it can reduce the effectiveness of fraud detection. Conversely, if you collect too much information, it can negatively impact the checkout experience and result in a lower conversion rate.\r\n\r\nSo they are aware of negative impacts of too much tracking and see it up to the shop to find a balance.\r\nIncluding Stripe.js on every page is a recommended best practice, but not a requirement. Possible tasks:\r\n\r\n- [ ] Load Stripe.js only on shop and checkout related pages. Don't track people just visiting the homepage, exploring the map or viewing our privacy policy.\r\n- [ ] Load Stripe.js only when items are in the cart and the shop has the option to pay with Stripe.\r\n- [ ] Give users the option to opt out of Stripe. That payment method is not available for this user unless they opt in again (or we live with the higher fraud risk, could be up to the shop to decide on this).\r\n\r\n## General note on opt-out\r\n\r\nFor optional cookies, we can either offer opt-in or opt-out. Offering opt-out has the problem that we need to remember that a user opted out. For guest users, we would need to save this information in a cookie (how ironic). So the only way to honour cookie-adverse customers is to use opt-in. The downside of opt-in are messages popping up asking for permission. For example:\r\n\r\n> We would like to gather statistics about the usage of our site using Google Analytics. Would you like to support us and participate? [Yes] / [No and remember to not ask me again]\r\n\r\nBut we have only the choice to always show that message until people agree or store their choice to disagree in another cookie. We could reduce the annoyance by showing that message only on certain pages. For example showing the analytics question on the home page and asking for Stripe when people add to the cart.\r\n"
+    },
+    {
+      "id": 396329031,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-396329031",
+      "created_at": "2018-06-11T17:52:13Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@mkllnk thank you for that detail answer!\r\n\r\nHere is a first draft of what could be our cookie policy based on all the foundings here, and some decisions I propose to the community be legally compliant and do as less as possible as a first step: https://docs.google.com/document/d/1jujU9CV4gJEo70rJ5x2W8zDYjp0Opz3TGTAMyZMLl9w/edit?usp=sharing\r\n(needs some rewritting, really first draft)\r\n\r\nAnswers to your suggestions @mkllnk :\r\n- **Session** > I propose we just explain in our cookie policy that this is an essential cookie, and don't change anything\r\n- **Remember me** > I'm happy with your solution, let's do that (1 issue to create in the epic)\r\n- **Open Street Map** > I propose to put it in our essential cookie, explain and don't do anything else.\r\n- **Google Analytics** > Actually the opt-out option doesn't allow us to be compliant (https://www.cookiebot.com/en/google-analytics-gdpr/) so it would need to be an opt-in process, users by default shouldn't be tracked, and if they click on \"accept all cookies\" banner, then the analytics cookies can be setup. So let's be conscious that we will loose data, maybe not so many users will accept it. What is harder @mkllnk : implement that or switch to Piwik? I guess implementing the opt-in process is easier... but we want anyway to implement Piwik, and users will probably not be so resistent than for google. So shall we take that opportunity and just do it? If we don't transmit the data to any third party maybe then an opt-ou process will be enough, I need to check if we go in that direction. @sauloperez what do you think? My opinion is: if Spree Upgrade is our priority we should  the quickest and just keep google analytics for now and add the opt-in process. Then we'll do Piwik when we decide to prioritize it.\r\n- **Stripe** > As there are security matters here I suggest also to include it in our essential cookies, but explain a bit better. Especially there are 4 cookies, it would be good to understand what they do, and be able to tell for each one. Stripe is not very explicit on their website... \r\n- **As you suggest Maikel let's use a cookie to remember the unsubscribe option for google analytics**, which is the only option we are going to offer then I suspect (only for intances who use google analytics). I know it sounds paradoxal, but the problem is not the much the number of cookies, but the self data governance of users. This cookie will be in essential cookie so can't really be deactivated.\r\n\r\n**So to sum up I would propose the following stories in the epic:**\r\n- [ ] implement default non Google Analytics tracking for users until cookie has been accepted (opt-in)\r\n- [ ] implement a new cookie to store that choice to remember it for all further connexion (this shouldn't be asked again to user, but user can later one go on cookie policy page and change his mind, so users can maybe accept and then later on decide they don't want to be tracked anymore by Google Analytics, so the cookie should be permanent until a new choice is made)\r\n- [ ] implement delete \"remember me\" cookie when user logs out\r\n- [ ] @mkllnk to answer in more details what the Stripe cookies are used for ([see attached document](https://docs.google.com/document/d/1jujU9CV4gJEo70rJ5x2W8zDYjp0Opz3TGTAMyZMLl9w/edit?usp=sharing)) and review if I didn't write anything stupid in the cookie policy document (base of future cookie policy and set up page I guess)\r\n- [ ] finish UX and agree on it for cookie consent workflow (first consent and further modifications)\r\n\r\n@NickWeir63 @lin-d-hop as you have connected the wordpress as if it was the same website, do you use analytics for your wordpress as well? If yes that adds complexity... If you use analytics for wordpress as well, we need to see how users can opt-in/out for both, but as both sites are not integrated technicaly (even if they look like) I don't really see how to do that... I propose to keep that out of scope for now and only focus on the platform. You can think on your side then how you want to adapt the wordpress to be legallly compliant."
+    },
+    {
+      "id": 396461390,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-396461390",
+      "created_at": "2018-06-12T04:22:37Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "Good work @myriamboure. I left some comments on that cookie policy document."
+    },
+    {
+      "id": 396939795,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-396939795",
+      "created_at": "2018-06-13T13:36:48Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "I'm wondering if we won't miss one cookie here @mkllnk as when a shopfront is embedded in an external website, if I have a tracker blocker on that website I can't see the content of the shopfront (appears as everlasting loading) when I \"trust site\" and allow trackers then the shopfront load normally. Is it us putting some cookie on users computer when they use a website which has embedded a shopfront? Or something else?\r\nOk I'll review the UX and open all the stories."
+    },
+    {
+      "id": 396986399,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-396986399",
+      "created_at": "2018-06-13T15:46:40Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "We also need a story to enabe instances to enable/disable cookie banner. (note to self)"
+    },
+    {
+      "id": 397131903,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-397131903",
+      "created_at": "2018-06-14T00:47:15Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "> I'm wondering if we won't miss one cookie here @mkllnk as when a shopfront is embedded in an external website, if I have a tracker blocker on that website I can't see the content of the shopfront \r\n\r\nGood point, Myriam. I just checked the code and we are not setting a cookie for embedded shop fronts. It is a different security measure of your browser to block all frames of untrusted sites."
+    },
+    {
+      "id": 397177527,
+      "url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240#issuecomment-397177527",
+      "created_at": "2018-06-14T05:42:10Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "Ok so I'm closing this for now as we can consider this spike as done, let's switch to the epic now :-)"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original Markdown from GitHub's structured issue pages, including numbered timeline pages. Discussion complete only after pagination, comment-ID, expected-count and unchanged-issue checks. Closure timestamp is unavailable; linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240",
+  "closed_at_available": false,
+  "timeline_page_urls": [
+    "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240",
+    "https://github.com/openfoodfoundation/openfoodnetwork/issues/2240?timeline_page=1"
+  ]
+}

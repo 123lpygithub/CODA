@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0419-aadheehad",
+  "revision_url": "https://github.com/BerkeleyAutomation/gqcnn/commit/dd6f949ee264964c77bd9e203c5df83256377e6e",
+  "filename": "setup.py",
+  "commit": "dd6f949ee264964c77bd9e203c5df83256377e6e",
+  "source_url": "https://raw.githubusercontent.com/BerkeleyAutomation/gqcnn/dd6f949ee264964c77bd9e203c5df83256377e6e/setup.py",
+  "fetched_at": "2026-11-05T06:12:51.157069+00:00",
+  "source_sha256": "2e6fa917b3d8c4f9e7cfbaceae3c810b386a4a40fb40f6561cd1e624d436d433",
+  "line_start": 87,
+  "line_end": 111,
+  "excerpt": "\n    def run(self):\n        # Install Tensorflow dependency.\n        if not self.docker:\n            tf_dep = get_tf_dep()\n            subprocess.Popen([sys.executable, \"-m\", \"pip\", \"install\",\n                              tf_dep]).wait()\n        else:\n            # If we're using Docker, this will already have been installed\n            # explicitly through the correct `{cpu/gpu}_requirements.txt`;\n            # there is no way to check for CUDA/GPUs at Docker build time\n            # because there is no easy way to set the Nvidia runtime.\n            # TODO(vsatish): Figure out why this isn't printed.\n            skip_tf_msg = (\"Omitting Tensorflow dependency because of Docker\"\n                           \" installation.\")\n            logger.warning(skip_tf_msg)\n\n        # Run installation.\n        develop.run(self)\n\n\nclass InstallCmd(install, object):\n    user_options_custom = [\n        (\"docker\", None, \"installing in Docker\"),\n    ]"
+}

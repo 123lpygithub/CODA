@@ -1,0 +1,218 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18574",
+  "issue_url": "https://github.com/Elgg/Elgg/issues/9911",
+  "source_issue_url": "https://github.com/Elgg/Elgg/issues/9911",
+  "api_url": "https://api.github.com/repos/Elgg/Elgg/issues/9911",
+  "title": "searching when logged out triggers error due to missing container",
+  "body": "```\n Call to a member function getType() on boolean in /mysite/mod/search/views/default/search/object/comment/entity.php:15\n```\n\ni have seen these errors in my logs for over a year. having explored the cause, i found that this line does not find a container when i am logged out and the search results point to a specific comment (which apparently has been orphaned somehow):\n\n```\n$container = $entity->getContainerEntity()\n```\n",
+  "author": "Participant 1",
+  "created_at": "2016-06-20T11:46:20Z",
+  "updated_at": "2017-07-25T12:33:38Z",
+  "state": "closed",
+  "closed_at": "2017-07-25T12:33:38Z",
+  "issue_fetched_at": "2026-10-19T03:11:59.560299+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T03:12:01.019045+00:00"
+  ],
+  "expected_comment_count": 24,
+  "retrieved_comment_count": 24,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 227144594,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227144594",
+      "created_at": "2016-06-20T13:39:56Z",
+      "updated_at": "2016-06-20T13:39:56Z",
+      "author": "Participant 2",
+      "body": "We have a lot of code that fails to check the return of getContainerEntity() before using it.\n"
+    },
+    {
+      "id": 227152373,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227152373",
+      "created_at": "2016-06-20T14:08:05Z",
+      "updated_at": "2016-06-20T14:08:05Z",
+      "author": "Participant 1",
+      "body": "i don't really understand what the code is doing here enough to know the best solution. in my workaround i just intended to bypass outputting the comment in the search results completely if there is no container guid.. but _now_ when i run the search i see the comment appearing in the results correctly..\nso either there is a duplicate comment in my database somehow, one of which has no container guid - or somehow the container guid got added to the comment in between the tests i ran (_unlikely_)!\nmy approach, in general, is to always maintain database integrity as the primary solution to such issues - so i would run a database patch to fix the database and any orphaned entities ideally.\n"
+    },
+    {
+      "id": 227221315,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227221315",
+      "created_at": "2016-06-20T18:05:28Z",
+      "updated_at": "2016-06-20T18:05:28Z",
+      "author": "Participant 3",
+      "body": "It's not that it has no container guid, it's that the container the guid belongs to isn't able to load (due to access_id).\n"
+    },
+    {
+      "id": 227226825,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227226825",
+      "created_at": "2016-06-20T18:25:05Z",
+      "updated_at": "2016-06-20T18:25:05Z",
+      "author": "Participant 1",
+      "body": "@beck24 ah, ok - yes that sounds more likely. so is that something that wasn't considered fully when comments became entities?\n"
+    },
+    {
+      "id": 227229577,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227229577",
+      "created_at": "2016-06-20T18:34:58Z",
+      "updated_at": "2016-06-20T18:34:58Z",
+      "author": "Participant 3",
+      "body": "no it was a problem before that as well, just an oversight when coding the views.  Someone used $entity->getContainerEntity(); and then started using $container without first making sure we actually have $container.\n"
+    },
+    {
+      "id": 227240286,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227240286",
+      "created_at": "2016-06-20T19:13:49Z",
+      "updated_at": "2016-06-20T19:13:49Z",
+      "author": "Participant 1",
+      "body": "in the case of the comments entity view on the search results page, i think the needed change will be further up the source file path than at this view level since a check needs to be made for the container before the view is rendered.. otherwise, the result is that the comment still appears in the search results but as an empty box.\n"
+    },
+    {
+      "id": 227243031,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227243031",
+      "created_at": "2016-06-20T19:24:39Z",
+      "updated_at": "2016-06-20T19:24:39Z",
+      "author": "Participant 3",
+      "body": "For that you would have to add container access to the search query, that will make the already heavy search queries even heavier and this is pretty much an edge case.  I would rather bail on the view if the container isn't fetchable, if an empty comment is unacceptable we could put in some placeholder message explaining the lack of comment.  Or render the comment without linking to the container.\n"
+    },
+    {
+      "id": 227250934,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227250934",
+      "created_at": "2016-06-20T19:55:27Z",
+      "updated_at": "2016-06-20T20:23:55Z",
+      "author": "Participant 1",
+      "body": "the issue for privacy is that if you have a placeholder message explaining the lack of comment, then it will be plausible that private data can be searched for and found, via a process of elimination. let's say you write \"my password is muffins\" in a private group and then i search for \"my password is\" - i will then see that private comments exist that contain that phrase since there is an empty comment rendered in the search results. i'm sure the average hacker can think of a few ways to exploit that.\nis there a reason why it is a problem to just exclude such comments in the PHP, before the point of rendering an entity view for them?\n"
+    },
+    {
+      "id": 227256971,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227256971",
+      "created_at": "2016-06-20T20:19:20Z",
+      "updated_at": "2016-06-20T20:19:20Z",
+      "author": "Participant 3",
+      "body": "Technically it wouldn't be an issue for privacy, as you have access to the comment anyway\n"
+    },
+    {
+      "id": 227258512,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227258512",
+      "created_at": "2016-06-20T20:25:10Z",
+      "updated_at": "2016-06-20T20:25:10Z",
+      "author": "Participant 1",
+      "body": "if the container can't be loaded due to access reasons, doesn't that imply that the comment shouldn't be loadable either?\n"
+    },
+    {
+      "id": 227355621,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227355621",
+      "created_at": "2016-06-21T06:53:58Z",
+      "updated_at": "2016-06-21T06:53:58Z",
+      "author": "Participant 4",
+      "body": "As far as I remember comment access is synced with the container access. Maybe there are some old comments that weren't synced?\n"
+    },
+    {
+      "id": 227376116,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227376116",
+      "created_at": "2016-06-21T08:37:04Z",
+      "updated_at": "2016-06-21T08:37:04Z",
+      "author": "Participant 3",
+      "body": "Yes, it's a legacy edge case issue.\nRegarding the question of whether the container access has any bearing on the comment access when not in sync - I think it's questionable.  It's the same thing with hidden groups wanting to publish public group content, depends on the needs of the site.  Given that this specific case is a legacy issue I don't really care either way what we do with the comment, just that we're not erroring out.\n"
+    },
+    {
+      "id": 227383348,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227383348",
+      "created_at": "2016-06-21T09:08:39Z",
+      "updated_at": "2016-06-21T09:08:39Z",
+      "author": "Participant 1",
+      "body": "if someone adds a comment to a private group, then the comments are expected by the author to be private regardless of technical issues. @beck24 why are you calling this a legacy issue? isn't the issue and its causes present in all current versions of code?\n"
+    },
+    {
+      "id": 227387494,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227387494",
+      "created_at": "2016-06-21T09:26:01Z",
+      "updated_at": "2016-06-21T09:26:01Z",
+      "author": "Participant 4",
+      "body": "The situation you are encountering is no longer possible - comment  access is always synced with the container. I don't think we ever implemented an upgrade script for older comments.\nTry updating the container (edit and save) and see if the issue persists.\n"
+    },
+    {
+      "id": 227387932,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227387932",
+      "created_at": "2016-06-21T09:27:49Z",
+      "updated_at": "2016-06-21T09:27:49Z",
+      "author": "Participant 3",
+      "body": "It's a legacy issue for comments created pre-1.10 (I think that's when it was).  It was then that we implemented comment access synchronization by default.  The causes are not present in any recent releases.\n\n`comments are expected by the author to be private regardless of technical issues`\n\nThat's the thing we can't really interpret here though.  When they left the comment the container was actually public, so it wasn't expected to be a private comment at all - that's why I don't consider this to be a privacy issue.  The illogical thread of multi-access comments is the reason we put in the comment access sync, but some old comments are still out of sync.  The broader issue is the unchecked use of the containers in views.\n"
+    },
+    {
+      "id": 227388422,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227388422",
+      "created_at": "2016-06-21T09:29:48Z",
+      "updated_at": "2016-06-21T09:29:48Z",
+      "author": "Participant 1",
+      "body": "right ok, i didn't know about any of that - thanks\n"
+    },
+    {
+      "id": 227388597,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227388597",
+      "created_at": "2016-06-21T09:30:41Z",
+      "updated_at": "2016-06-21T09:30:41Z",
+      "author": "Participant 1",
+      "body": "i just edited and saved the container, but it made no difference\n"
+    },
+    {
+      "id": 227389031,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227389031",
+      "created_at": "2016-06-21T09:32:31Z",
+      "updated_at": "2016-06-21T09:32:31Z",
+      "author": "Participant 4",
+      "body": "You need to change the access id of the container. Check `_elgg_comments_access_sync()`\n"
+    },
+    {
+      "id": 227389733,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227389733",
+      "created_at": "2016-06-21T09:35:44Z",
+      "updated_at": "2016-06-21T09:35:44Z",
+      "author": "Participant 1",
+      "body": "the comment i am dealing with here was created in november 2014. i am 99% sure that the group in question has always been private/hidden. i just changed all the privacy options of the container temporarily and saved them (and then reverted them) and it made no difference.\n"
+    },
+    {
+      "id": 227400064,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227400064",
+      "created_at": "2016-06-21T10:22:35Z",
+      "updated_at": "2016-06-21T10:22:35Z",
+      "author": "Participant 4",
+      "body": "Are you comments made on a group entity?\n"
+    },
+    {
+      "id": 227401002,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227401002",
+      "created_at": "2016-06-21T10:27:06Z",
+      "updated_at": "2016-06-21T10:27:06Z",
+      "author": "Participant 1",
+      "body": "the one i am looking at is against a blog contained in a group\n"
+    },
+    {
+      "id": 227409674,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227409674",
+      "created_at": "2016-06-21T11:12:34Z",
+      "updated_at": "2016-06-21T11:12:34Z",
+      "author": "Participant 4",
+      "body": "Did you update the blog? Saving the group won't have any effect on blog comments.\n"
+    },
+    {
+      "id": 227412872,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-227412872",
+      "created_at": "2016-06-21T11:29:40Z",
+      "updated_at": "2016-06-21T11:29:40Z",
+      "author": "Participant 1",
+      "body": "ah good point, i forgot that the entity is the container of the comment! i just edited the blog privacy level and now the comment doesn't show up in the search results, as you expected.\nso a database patch for this would be helpful.\n"
+    },
+    {
+      "id": 317723174,
+      "url": "https://github.com/Elgg/Elgg/issues/9911#issuecomment-317723174",
+      "created_at": "2017-07-25T12:33:38Z",
+      "updated_at": "2017-07-25T12:33:38Z",
+      "author": "Participant 5",
+      "body": "Closing as the issue with the comments view is already fixed in core."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

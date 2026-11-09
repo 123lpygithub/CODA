@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0362-aahchacde",
+  "revision_url": "https://github.com/ludwig-ai/ludwig/commit/b1268d78355c994594a3629539ef9de276909117",
+  "filename": "ludwig/models/model.py",
+  "commit": "b1268d78355c994594a3629539ef9de276909117",
+  "source_url": "https://raw.githubusercontent.com/ludwig-ai/ludwig/b1268d78355c994594a3629539ef9de276909117/ludwig/models/model.py",
+  "fetched_at": "2026-11-05T06:12:40.024279+00:00",
+  "source_sha256": "f030518f484fe3a462b52d5c2729ba84e8ce40f0da1459705c858f99eeccdd25",
+  "line_start": 146,
+  "line_end": 170,
+  "excerpt": "        self.ecd = ECD(input_features, combiner, output_features)\n\n        # ================ Optimizer ================\n        # self.optimize, self.learning_rate = optimize(\n        #    self.train_reg_mean_loss,\n        #    training,\n        #    self.learning_rate,\n        #    self.global_step,\n        #    self.horovod\n        # )\n\n        # todo tf2 work-in-progress to handle optimiser\n        # todo tf2: reintroduce optimizer parameters\n        # reintroduce learning shceduler in different form most likely\n        self.optimizer_function = get_optimizer_fun_tf2(\n            self.hyperparameters['training']['optimizer']['type']\n        )\n\n        # todo tf2: reintroduce tensorboard tracking and summaries\n        # tf.summary.scalar(\n        #    'combined/batch_train_reg_mean_loss',\n        #    self.train_reg_mean_loss\n        # )\n\n        if self.horovod:"
+}

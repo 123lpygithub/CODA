@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0439-aaeeicdeh",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/651eb857a793a7d7dda07c4319eb382dd2b32ddf",
+  "filename": "cp/audio/audio.py",
+  "commit": "651eb857a793a7d7dda07c4319eb382dd2b32ddf",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/651eb857a793a7d7dda07c4319eb382dd2b32ddf/cp/audio/audio.py",
+  "fetched_at": "2026-11-05T06:12:55.255940+00:00",
+  "source_sha256": "17f4efcf2e90e31f6e860f7cb85f70bf56e78d32335c9441c016f40f03580034",
+  "line_start": 258,
+  "line_end": 282,
+  "excerpt": "            return signal_frame(self.signal, index, self.frame_size, self.hop_size, self.online)\n        # other index types are invalid\n        else:\n            raise TypeError(\"Invalid argument type.\")\n\n    # len() should return the number of frames, since it iterates over frames\n    def __len__(self):\n        return self.num_frames\n\n    @property\n    def num_frames(self):\n        \"\"\"Number of frames.\"\"\"\n        # TODO: add a complete frame_size, to cover the whole audio signal?\n        # modifications to signal_frame() needed\n        #return int(np.ceil(((np.shape(self.signal)[0]) + self.frame_size) / self.hop_size))\n        return int(np.ceil((np.shape(self.signal)[0]) / self.hop_size))\n\n    @property\n    def fps(self):\n        \"\"\"Frames per second.\"\"\"\n        return float(self.wav.samplerate) / float(self.hop_size)\n\n    @property\n    def overlap_factor(self):\n        \"\"\"Overlap factor of two adjacent frames.\"\"\"",
+  "match_policy": "unique-release-normalized-v2"
+}

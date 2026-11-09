@@ -1,0 +1,74 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20168",
+  "issue_url": "https://github.com/microsoft/ApplicationInsights-JS/issues/173",
+  "source_issue_url": "https://github.com/microsoft/ApplicationInsights-JS/issues/173",
+  "api_url": "https://api.github.com/repos/microsoft/ApplicationInsights-JS/issues/173",
+  "title": "Preventing certain pages from being track or stripping out query string",
+  "body": "Hi,\n\nI was wondering is there the ability to prevent certain pages from being track in a SPA. The situation I have is that we are using and angular App with an OpenId server that redirects the user with the id_token and access_token in the url path (as per w3c specs), we've noticed that app insight is sending the tokens to the telemetry tracking. How can we prevent/block/rewrite this?\n",
+  "author": "Participant 1",
+  "created_at": "2016-04-23T06:15:39Z",
+  "updated_at": "2021-08-22T00:01:27Z",
+  "state": "closed",
+  "closed_at": "2016-09-16T22:49:24Z",
+  "issue_fetched_at": "2026-10-19T01:11:56.637432+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:11:58.088277+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 213752282,
+      "url": "https://github.com/microsoft/ApplicationInsights-JS/issues/173#issuecomment-213752282",
+      "created_at": "2016-04-23T14:42:52Z",
+      "updated_at": "2016-04-23T14:42:52Z",
+      "author": "Participant 2",
+      "body": " Try telemetry initializer for JS SKD:https://blogs.msdn.microsoft.com/albulank/2016/04/20/modifying-and-filtering-telemetry-with-appinsights-javascript-sdk-telemetry-initializer/ Does this help with your scenario?\n"
+    },
+    {
+      "id": 213849640,
+      "url": "https://github.com/microsoft/ApplicationInsights-JS/issues/173#issuecomment-213849640",
+      "created_at": "2016-04-23T22:40:16Z",
+      "updated_at": "2016-04-23T22:40:16Z",
+      "author": "Participant 1",
+      "body": "Yep thats perfect! Managed to check the url path and censor as per the example. \n\nThe only issue arising with this is that the URL_LONG error about truncation still comes up and this might raise concern with the customer about vulnerability. Not a big deal just thought I'd ask if there is a potential workaround to stop this.\n"
+    },
+    {
+      "id": 213858202,
+      "url": "https://github.com/microsoft/ApplicationInsights-JS/issues/173#issuecomment-213858202",
+      "created_at": "2016-04-24T00:38:45Z",
+      "updated_at": "2016-04-24T00:38:45Z",
+      "author": "Participant 2",
+      "body": "Thanks! To clarify, you would like to disable this particular diagnostic warning or disable all warnings? Or you are seeing PII in the URL recorded as part of this warning?\n"
+    },
+    {
+      "id": 213862767,
+      "url": "https://github.com/microsoft/ApplicationInsights-JS/issues/173#issuecomment-213862767",
+      "created_at": "2016-04-24T01:28:01Z",
+      "updated_at": "2016-04-24T01:28:01Z",
+      "author": "Participant 1",
+      "body": "Either one for the warnings, below is the warning I'm getting.\n\n```\nAI: USRACT_UrlTooLong message:\"url is too long, it has been trucated to 2048 characters.\" props:\"{url:https://localhost:45705/login/callback/#id_token...\n```\n\nOn a side note ( whilst i got you :+1: ) what would recommend be the best method to track time spent on a page? tried the startTrackPage, stopTrackPage calls but that is more around the time it takes to load a page. Would custom events/metric be the best method?\n"
+    },
+    {
+      "id": 213958535,
+      "url": "https://github.com/microsoft/ApplicationInsights-JS/issues/173#issuecomment-213958535",
+      "created_at": "2016-04-24T13:43:42Z",
+      "updated_at": "2016-04-24T13:43:42Z",
+      "author": "Participant 2",
+      "body": "You can use telemetry initializer to disable this particular or all warnings from being sent. Separately I opened #174 to make it easier.\nRegarding your other question: manually measuring time spent on page and then using custom metric to record it would be the best option. At this point we are intentionally not investing in out-of-box usage scenarios, and only provide basic tracking of users/sessions that is required for impact analysis. The reason is that AppInsights is about performance and failure diagnostics. For advanced usage we are recommending that customers look into other solutions, such as Google Analytics. However you can use AppInsights to record any metrics, so if you don't require advanced  features, AppInsights client-side instrumentation would be sufficient for both diagnostics and usage.\n"
+    },
+    {
+      "id": 903190638,
+      "url": "https://github.com/microsoft/ApplicationInsights-JS/issues/173#issuecomment-903190638",
+      "created_at": "2021-08-22T00:01:26Z",
+      "updated_at": "2021-08-22T00:01:26Z",
+      "author": "Participant 3",
+      "body": "This issue has been automatically locked since there has not been any recent activity after it was closed. Please open a new issue for related bugs."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

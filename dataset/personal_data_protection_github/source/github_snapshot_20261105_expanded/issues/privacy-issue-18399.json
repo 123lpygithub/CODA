@@ -1,0 +1,114 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18399",
+  "issue_url": "https://github.com/nicotine-plus/nicotine-plus/issues/23",
+  "source_issue_url": "https://github.com/nicotine-plus/nicotine-plus/issues/23",
+  "api_url": "https://api.github.com/repos/nicotine-plus/nicotine-plus/issues/23",
+  "title": "Hidden directory files now showing up in file shares (Windows)",
+  "body": "I have directories both with attrib +h and also that start with a dot. In the past this prevented sharing on both the official soulseek clients (which respect the attribute) and with nicotine+ (which in the past hid the .directories).\n\nThe hidden .directory files are now showing up in shares when running nicotine+ on windows.\n",
+  "author": "Participant 1",
+  "created_at": "2016-08-27T16:09:21Z",
+  "updated_at": "2020-10-12T10:38:59Z",
+  "state": "closed",
+  "closed_at": "2016-08-30T19:01:18Z",
+  "issue_fetched_at": "2026-10-18T18:10:08.320800+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T18:10:09.710568+00:00"
+  ],
+  "expected_comment_count": 11,
+  "retrieved_comment_count": 11,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 242925890,
+      "url": "https://github.com/nicotine-plus/nicotine-plus/issues/23#issuecomment-242925890",
+      "created_at": "2016-08-27T16:11:42Z",
+      "updated_at": "2016-08-27T16:12:07Z",
+      "author": "Participant 1",
+      "body": "This is both a privacy/security issue and a hassle as to actually prevent sharing I'd have to move such a directory out of it's normal location.\n"
+    },
+    {
+      "id": 242943719,
+      "url": "https://github.com/nicotine-plus/nicotine-plus/issues/23#issuecomment-242943719",
+      "created_at": "2016-08-27T22:11:45Z",
+      "updated_at": "2016-08-27T22:11:45Z",
+      "author": "Participant 2",
+      "body": "Hi @mutnick,\n\nI can reintroduce this easily.\nI will revert this commit tomorrow: https://github.com/eLvErDe/nicotine-plus/commit/60deb7034dd09ab15662fddf2e17fc25fa6d053d.\n\nBtw I've not seen any code in the code base dealing with the +h attribute as far I know.\nThat would be the clean way of doing it in nicotine+ I agree.\nI will have a look at it.\n"
+    },
+    {
+      "id": 242947374,
+      "url": "https://github.com/nicotine-plus/nicotine-plus/issues/23#issuecomment-242947374",
+      "created_at": "2016-08-27T23:51:58Z",
+      "updated_at": "2016-08-27T23:51:58Z",
+      "author": "Participant 2",
+      "body": "Could you check this branch : https://github.com/gfarmerfr/nicotine-plus/tree/fix-hidden-directories-windows ?\nI've reverted the commit so dot directories are excluded and on top of that I've added a check for the hidden attribute on Windows that will exclude those too.\nSeems to work well on Win7.\n"
+    },
+    {
+      "id": 242980055,
+      "url": "https://github.com/nicotine-plus/nicotine-plus/issues/23#issuecomment-242980055",
+      "created_at": "2016-08-28T15:13:28Z",
+      "updated_at": "2016-08-28T15:13:28Z",
+      "author": "Participant 1",
+      "body": "> Could you check this branch : https://github.com/gfarmerfr/nicotine-plus/tree/fix-hidden-directories-windows ?\n\nIt appears a required module wasn't included:\n\nImportError: No module named win32file\n"
+    },
+    {
+      "id": 242987529,
+      "url": "https://github.com/nicotine-plus/nicotine-plus/issues/23#issuecomment-242987529",
+      "created_at": "2016-08-28T17:30:09Z",
+      "updated_at": "2016-08-28T17:30:09Z",
+      "author": "Participant 2",
+      "body": "Yes I've just found it too. I had the 'pypiwin32' module installed which include win32file as a side effect of having pyinstaller on my Win7 box.\nWhat do you think:\nShould we make 'pypiwin32' a requirement on Windows ?\nOr should we try to import it and do nothing if it fails (and loose the ability to hide attrib +h file) ? \n"
+    },
+    {
+      "id": 242992618,
+      "url": "https://github.com/nicotine-plus/nicotine-plus/issues/23#issuecomment-242992618",
+      "created_at": "2016-08-28T19:01:25Z",
+      "updated_at": "2016-08-28T19:01:25Z",
+      "author": "Participant 1",
+      "body": "I think for now it's adequate that .directory behavior is consistent across platforms and consistent with previous nicotine+ functionality: dot directories should be hidden.\n\nIt would be good to have that modules functionality for the additional checking, but yes make it optional.\n"
+    },
+    {
+      "id": 242994353,
+      "url": "https://github.com/nicotine-plus/nicotine-plus/issues/23#issuecomment-242994353",
+      "created_at": "2016-08-28T19:32:06Z",
+      "updated_at": "2016-08-28T19:32:06Z",
+      "author": "Participant 1",
+      "body": "Also if we eventually get to python 3.5 it looks a bit more straightforward without additional modules, see for example the is_hidden() here https://bugs.python.org/issue21719\n"
+    },
+    {
+      "id": 242994926,
+      "url": "https://github.com/nicotine-plus/nicotine-plus/issues/23#issuecomment-242994926",
+      "created_at": "2016-08-28T19:43:00Z",
+      "updated_at": "2016-08-28T19:43:00Z",
+      "author": "Participant 2",
+      "body": "Yes it would be easier for sure :) Thx for the link.\n\nBtw i've just updated the branch with the try/expect/else for the optional win32file.\n"
+    },
+    {
+      "id": 243384154,
+      "url": "https://github.com/nicotine-plus/nicotine-plus/issues/23#issuecomment-243384154",
+      "created_at": "2016-08-30T09:28:16Z",
+      "updated_at": "2016-08-30T09:28:16Z",
+      "author": "Participant 2",
+      "body": "Hi @Mutnick\n\nHave you tested the refreshed branch ? For me it works fine.\nCan I go ahead and merged it ?\n"
+    },
+    {
+      "id": 243544366,
+      "url": "https://github.com/nicotine-plus/nicotine-plus/issues/23#issuecomment-243544366",
+      "created_at": "2016-08-30T19:01:18Z",
+      "updated_at": "2016-08-30T19:01:18Z",
+      "author": "Participant 1",
+      "body": "Yes this looks good, thanks.\n"
+    },
+    {
+      "id": 243552598,
+      "url": "https://github.com/nicotine-plus/nicotine-plus/issues/23#issuecomment-243552598",
+      "created_at": "2016-08-30T19:30:59Z",
+      "updated_at": "2016-08-30T19:30:59Z",
+      "author": "Participant 2",
+      "body": "Done. Thx :)\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

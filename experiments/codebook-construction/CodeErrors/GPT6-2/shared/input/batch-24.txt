@@ -1,0 +1,1358 @@
+TASK 129
+TASK DESCRIPTION
+def minPath(grid, k):
+    """
+    Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+    each cell of the grid contains a value. Every integer in the range [1, N * N]
+    inclusive appears exactly once on the cells of the grid.
+
+    You have to find the minimum path of length k in the grid. You can start
+    from any cell, and in each step you can move to any of the neighbor cells,
+    in other words, you can go to cells which share an edge with you current
+    cell.
+    Please note that a path of length k means visiting exactly k cells (not
+    necessarily distinct).
+    You CANNOT go off the grid.
+    A path A (of length k) is considered less than a path B (of length k) if
+    after making the ordered lists of the values on the cells that A and B go
+    through (let's call them lst_A and lst_B), lst_A is lexicographically less
+    than lst_B, in other words, there exist an integer index i (1 <= i <= k)
+    such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have
+    lst_A[j] = lst_B[j].
+    It is guaranteed that the answer is unique.
+    Return an ordered list of the values on the cells that the minimum path go through.
+
+    Examples:
+
+        Input: grid = [ [1,2,3], [4,5,6], [7,8,9]], k = 3
+        Output: [1, 2, 1]
+
+        Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1
+        Output: [1]
+    """
+REFERENCE IMPLEMENTATION
+def minPath(grid, k):
+    """
+    Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+    each cell of the grid contains a value. Every integer in the range [1, N * N]
+    inclusive appears exactly once on the cells of the grid.
+
+    You have to find the minimum path of length k in the grid. You can start
+    from any cell, and in each step you can move to any of the neighbor cells,
+    in other words, you can go to cells which share an edge with you current
+    cell.
+    Please note that a path of length k means visiting exactly k cells (not
+    necessarily distinct).
+    You CANNOT go off the grid.
+    A path A (of length k) is considered less than a path B (of length k) if
+    after making the ordered lists of the values on the cells that A and B go
+    through (let's call them lst_A and lst_B), lst_A is lexicographically less
+    than lst_B, in other words, there exist an integer index i (1 <= i <= k)
+    such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have
+    lst_A[j] = lst_B[j].
+    It is guaranteed that the answer is unique.
+    Return an ordered list of the values on the cells that the minimum path go through.
+
+    Examples:
+
+        Input: grid = [ [1,2,3], [4,5,6], [7,8,9]], k = 3
+        Output: [1, 2, 1]
+
+        Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1
+        Output: [1]
+    """
+    N = len(grid)
+    x, y = 0, 0
+    for i in range(N):
+        for j in range(N):
+            if grid[i][j] == 1:
+                x, y = i, j
+    mn = N * N
+    if x > 0: mn = min(mn, grid[x - 1][y])
+    if x < N - 1: mn = min(mn, grid[x + 1][y])
+    if y > 0: mn = min(mn, grid[x][y - 1])
+    if y < N - 1: mn = min(mn, grid[x][y + 1])
+    return [1 if i % 2 == 0 else mn for i in range(k)]
+
+ARTIFACT 101 | SOURCE RECORDS 101
+COMPLETE GENERATED CODE
+def minPath(grid, k):
+    """
+    Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+    each cell of the grid contains a value. Every integer in the range [1, N * N]
+    inclusive appears exactly once on the cells of the grid.
+
+    You have to find the minimum path of length k in the grid. You can start
+    from any cell, and in each step you can move to any of the neighbor cells,
+    in other words, you can go to cells which share an edge with you current
+    cell.
+    Please note that a path of length k means visiting exactly k cells (not
+    necessarily distinct).
+    You CANNOT go off the grid.
+    A path A (of length k) is considered less than a path B (of length k) if
+    after making the ordered lists of the values on the cells that A and B go
+    through (let's call them lst_A and lst_B), lst_A is lexicographically less
+    than lst_B, in other words, there exist an integer index i (1 <= i <= k)
+    such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have
+    lst_A[j] = lst_B[j].
+    It is guaranteed that the answer is unique.
+    Return an ordered list of the values on the cells that the minimum path go through.
+
+    Examples:
+
+        Input: grid = [ [1,2,3], [4,5,6], [7,8,9]], k = 3
+        Output: [1, 2, 1]
+
+        Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1
+        Output: [1]
+    """
+    if not grid or not grid[0]:
+        return []
+    n = len(grid)
+    m = len(grid[0])
+    if k > n * m:
+        return []
+    if k == 0:
+        return [[]]
+    if k == 1:
+        return [[i for i in range(1, n * m + 1)]]
+    
+    # dp[i][j] = min path of length i from (0, 0) to (i, j)
+    dp = [[float('inf')] * m for _ in range(n)]
+    dp[0][0] = 0
+    for i in range(1, n):
+        dp[i][0] = dp[i - 1][0] + grid[i][0]
+    for j in range(1, m):
+        dp[0][j] = dp[0][j - 1] + grid[0][j]
+    for i in range(1, n):
+        for j in range(1, m):
+            dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]
+    
+    # dp[i][j] = min path of length k from (0, 0) to (i, j)
+    paths = [[(0, 0)] * m for _ in range(n)]
+    for i in range(n):
+        for j in range(m):
+            if dp[i][j] == dp[i - 1][j] + grid[i][j]:
+                paths[i][j] = paths[i - 1][j]
+            elif dp[i][j] == dp[i][j - 1] + grid[i][j]:
+                paths[i][j] = paths[i][j - 1]
+            else:
+                paths[i][j] = paths[i - 1][j] + paths[i][j - 1]
+    
+    # find the path of length k
+    ans = []
+    for i in range(n):
+        for j in range(m):
+            if paths[i][j] == k:
+                ans.append
+
+ARTIFACT 284 | SOURCE RECORDS 284
+COMPLETE GENERATED CODE
+def minPath(grid, k):
+    """
+    Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+    each cell of the grid contains a value. Every integer in the range [1, N * N]
+    inclusive appears exactly once on the cells of the grid.
+
+    You have to find the minimum path of length k in the grid. You can start
+    from any cell, and in each step you can move to any of the neighbor cells,
+    in other words, you can go to cells which share an edge with you current
+    cell.
+    Please note that a path of length k means visiting exactly k cells (not
+    necessarily distinct).
+    You CANNOT go off the grid.
+    A path A (of length k) is considered less than a path B (of length k) if
+    after making the ordered lists of the values on the cells that A and B go
+    through (let's call them lst_A and lst_B), lst_A is lexicographically less
+    than lst_B, in other words, there exist an integer index i (1 <= i <= k)
+    such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have
+    lst_A[j] = lst_B[j].
+    It is guaranteed that the answer is unique.
+    Return an ordered list of the values on the cells that the minimum path go through.
+
+    Examples:
+
+        Input: grid = [ [1,2,3], [4,5,6], [7,8,9]], k = 3
+        Output: [1, 2, 1]
+
+        Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1
+        Output: [1]
+    """
+    ans = []
+    visited = {}
+    visited[grid[0][0]] = True
+    ans.append(grid[0][0])
+    ans.append(grid[0][1])
+    ans.append(grid[0][2])
+    ans.append(grid[0][3])
+    ans.append(grid[0][4])
+    ans.append(grid[0][5])
+    ans.append(grid[0][6])
+    ans.append(grid[0][7])
+    ans.append(grid[0][8])
+    ans.append(grid[0][9])
+    ans.append(grid[0][10])
+    ans.append(grid[0][11])
+    ans.append(grid[0][12])
+    ans.append(grid[0][13])
+    ans.append(grid[0][14])
+    ans.append(grid[0][15])
+    ans.append(grid[0][16])
+    ans.append(grid[0][17])
+    ans.append(grid[0][18])
+    ans.append(grid[0][19])
+    ans.append(grid[0][20])
+    ans.append(grid[0][21])
+    ans.append(grid[0][22])
+    ans.append(grid[0][23])
+    ans.append(grid[0][24])
+    ans.append(grid[0][25])
+    ans.append(grid[0][26])
+    ans.append(grid[0][27])
+    ans.append(grid[0][28])
+    ans.append(grid[0][29])
+    ans.append(grid[0][30])
+    ans.append(grid[0][31])
+    ans.append(grid[0][32])
+    ans.append(grid[0][33])
+    ans.append(grid[0][34])
+    ans.append(grid[0][35])
+    ans.append(grid[0][36])
+    ans.append(grid[0][37])
+    ans.append(grid[0][38])
+    ans.append(grid[0][39])
+    ans.append(grid[0][40])
+    ans.append(grid[0][41])
+    ans.append(grid[0][42])
+    ans.append(grid[0][43])
+    ans.append(grid[0][44])
+    ans.append(grid[0][45])
+    ans.append(grid[0][46])
+    ans.append(grid[0][47])
+    ans.append(grid[0][48])
+    ans.append(grid[0][49])
+    ans.append(grid[0][50])
+    ans.append(grid[0][51])
+    ans.append(grid[0][52])
+    ans.append(grid[0][53])
+    ans.append(grid[0][54])
+    ans.append(grid[0][55])
+    ans.append(grid[0][56])
+    ans.append(grid[0][57])
+    ans.append(grid[0][58])
+    ans.append(grid[0][59])
+    ans.append(grid[0][60])
+    ans.append(grid[0][61])
+    ans.append(grid
+
+ARTIFACT 368 | SOURCE RECORDS 368,369
+COMPLETE GENERATED CODE
+def minPath(grid, k):
+    """
+    Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+    each cell of the grid contains a value. Every integer in the range [1, N * N]
+    inclusive appears exactly once on the cells of the grid.
+
+    You have to find the minimum path of length k in the grid. You can start
+    from any cell, and in each step you can move to any of the neighbor cells,
+    in other words, you can go to cells which share an edge with you current
+    cell.
+    Please note that a path of length k means visiting exactly k cells (not
+    necessarily distinct).
+    You CANNOT go off the grid.
+    A path A (of length k) is considered less than a path B (of length k) if
+    after making the ordered lists of the values on the cells that A and B go
+    through (let's call them lst_A and lst_B), lst_A is lexicographically less
+    than lst_B, in other words, there exist an integer index i (1 <= i <= k)
+    such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have
+    lst_A[j] = lst_B[j].
+    It is guaranteed that the answer is unique.
+    Return an ordered list of the values on the cells that the minimum path go through.
+
+    Examples:
+
+        Input: grid = [ [1,2,3], [4,5,6], [7,8,9]], k = 3
+        Output: [1, 2, 1]
+
+        Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1
+        Output: [1]
+    """
+    n = len(grid)
+    visited = set()
+    heap = [(grid[i][j], [(i, j)]) for i in range(n) for j in range(n)]
+    heapq.heapify(heap)
+    while heap:
+        val, path = heapq.heappop(heap)
+        if len(path) == k:
+            return [grid[i][j] for i, j in path]
+        i, j = path[-1]
+        for ni, nj in [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]:
+            if 0 <= ni < n and 0 <= nj < n and (ni, nj) not in visited:
+                visited.add((ni, nj))
+                heapq.heappush(heap, (grid[ni][nj], path + [(ni, nj)]))
+
+ARTIFACT 415 | SOURCE RECORDS 415
+COMPLETE GENERATED CODE
+def minPath(grid, k):
+    def neighbors(r, c):
+        for nr, nc in ((r-1, c), (r+1, c), (r, c-1), (r, c+1)):
+            if 0 <= nr < len(grid) and 0 <= nc < len(grid[0]):
+                yield nr, nc
+
+    def dfs(r, c, path, k):
+        if k == 0:
+            return path
+        min_path = path + [float('inf')] * k
+        for nr, nc in neighbors(r, c):
+            new_path = dfs(nr, nc, path + [grid[nr][nc]], k - 1)
+            if new_path[-1] < min_path[-1]:
+                min_path = new_path
+        return min_path
+
+    min_path = [float('inf')] * k
+    for r in range(len(grid)):
+        for c in range(len(grid[0])):
+            path = dfs(r, c, [grid[r][c]], k - 1)
+            if path[-1] < min_path[-1]:
+                min_path = path
+    return min_path
+
+ARTIFACT 565 | SOURCE RECORDS 565
+COMPLETE GENERATED CODE
+def minPath(grid, k):
+    """
+    Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+    each cell of the grid contains a value. Every integer in the range [1, N * N]
+    inclusive appears exactly once on the cells of the grid.
+
+    You have to find the minimum path of length k in the grid. You can start
+    from any cell, and in each step you can move to any of the neighbor cells,
+    in other words, you can go to cells which share an edge with you current
+    cell.
+    Please note that a path of length k means visiting exactly k cells (not
+    necessarily distinct).
+    You CANNOT go off the grid.
+    A path A (of length k) is considered less than a path B (of length k) if
+    after making the ordered lists of the values on the cells that A and B go
+    through (let's call them lst_A and lst_B), lst_A is lexicographically less
+    than lst_B, in other words, there exist an integer index i (1 <= i <= k)
+    such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have
+    lst_A[j] = lst_B[j].
+    It is guaranteed that the answer is unique.
+    Return an ordered list of the values on the cells that the minimum path go through.
+
+    Examples:
+
+        Input: grid = [ [1,2,3], [4,5,6], [7,8,9]], k = 3
+        Output: [1, 2, 1]
+
+        Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1
+        Output: [1]
+    """
+    if not grid or not grid[0]:
+        return []
+    m, n = len(grid), len(grid[0])
+    dp = [[0] * n for _ in range(m)]
+    for i in range(m):
+        dp[i][0] = grid[i][0]
+    for j in range(n):
+        dp[0][j] = grid[0][j]
+    for i in range(1, m):
+        for j in range(1, n):
+            dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]
+    return dp[m - 1][n - 1]
+
+ARTIFACT 706 | SOURCE RECORDS 706
+COMPLETE GENERATED CODE
+def minPath(grid, k):
+    """
+    Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+    each cell of the grid contains a value. Every integer in the range [1, N * N]
+    inclusive appears exactly once on the cells of the grid.
+
+    You have to find the minimum path of length k in the grid. You can start
+    from any cell, and in each step you can move to any of the neighbor cells,
+    in other words, you can go to cells which share an edge with you current
+    cell.
+    Please note that a path of length k means visiting exactly k cells (not
+    necessarily distinct).
+    You CANNOT go off the grid.
+    A path A (of length k) is considered less than a path B (of length k) if
+    after making the ordered lists of the values on the cells that A and B go
+    through (let's call them lst_A and lst_B), lst_A is lexicographically less
+    than lst_B, in other words, there exist an integer index i (1 <= i <= k)
+    such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have
+    lst_A[j] = lst_B[j].
+    It is guaranteed that the answer is unique.
+    Return an ordered list of the values on the cells that the minimum path go through.
+
+    Examples:
+
+        Input: grid = [ [1,2,3], [4,5,6], [7,8,9]], k = 3
+        Output: [1, 2, 1]
+
+        Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1
+        Output: [1]
+    """
+    # TODO: Solve this problem
+    pass
+
+TASK 130
+TASK DESCRIPTION
+def tri(n):
+    """Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+    the last couple centuries. However, what people don't know is Tribonacci sequence.
+    Tribonacci sequence is defined by the recurrence:
+    tri(1) = 3
+    tri(n) = 1 + n / 2, if n is even.
+    tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+    For example:
+    tri(2) = 1 + (2 / 2) = 2
+    tri(4) = 3
+    tri(3) = tri(2) + tri(1) + tri(4)
+           = 2 + 3 + 3 = 8 
+    You are given a non-negative integer number n, you have to a return a list of the 
+    first n + 1 numbers of the Tribonacci sequence.
+    Examples:
+    tri(3) = [1, 3, 2, 8]
+    """
+REFERENCE IMPLEMENTATION
+def tri(n):
+    """Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+    the last couple centuries. However, what people don't know is Tribonacci sequence.
+    Tribonacci sequence is defined by the recurrence:
+    tri(1) = 3
+    tri(n) = 1 + n / 2, if n is even.
+    tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+    For example:
+    tri(2) = 1 + (2 / 2) = 2
+    tri(4) = 3
+    tri(3) = tri(2) + tri(1) + tri(4)
+           = 2 + 3 + 3 = 8 
+    You are given a non-negative integer number n, you have to a return a list of the 
+    first n + 1 numbers of the Tribonacci sequence.
+    Examples:
+    tri(3) = [1, 3, 2, 8]
+    """
+    if n == 0: return [1]
+    if n == 1: return [1, 3]
+    ans = [1, 3]
+    for i in range(2, n + 1):
+        if i % 2 == 0:
+            ans.append(1 + i / 2)
+        else:
+            ans.append(ans[-1] + ans[-2] + 1 + (i + 1) / 2)
+    return ans
+
+ARTIFACT 102 | SOURCE RECORDS 102,103
+COMPLETE GENERATED CODE
+def tri(n):
+    """Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+    the last couple centuries. However, what people don't know is Tribonacci sequence.
+    Tribonacci sequence is defined by the recurrence:
+    tri(1) = 3
+    tri(n) = 1 + n / 2, if n is even.
+    tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+    For example:
+    tri(2) = 1 + (2 / 2) = 2
+    tri(4) = 3
+    tri(3) = tri(2) + tri(1) + tri(4)
+           = 2 + 3 + 3 = 8 
+    You are given a non-negative integer number n, you have to a return a list of the 
+    first n + 1 numbers of the Tribonacci sequence.
+    Examples:
+    tri(3) = [1, 3, 2, 8]
+    """
+    if n == 0:
+        return [0]
+    elif n == 1:
+        return [3]
+    elif n == 2:
+        return [1, 3]
+    else:
+        return [1, 3] + [sum(tri(n - 1)) for n in range(3, n + 1)]
+
+ARTIFACT 285 | SOURCE RECORDS 285,286
+COMPLETE GENERATED CODE
+def tri(n):
+    """Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+    the last couple centuries. However, what people don't know is Tribonacci sequence.
+    Tribonacci sequence is defined by the recurrence:
+    tri(1) = 3
+    tri(n) = 1 + n / 2, if n is even.
+    tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+    For example:
+    tri(2) = 1 + (2 / 2) = 2
+    tri(4) = 3
+    tri(3) = tri(2) + tri(1) + tri(4)
+           = 2 + 3 + 3 = 8 
+    You are given a non-negative integer number n, you have to a return a list of the 
+    first n + 1 numbers of the Tribonacci sequence.
+    Examples:
+    tri(3) = [1, 3, 2, 8]
+    """
+    if n <= 1:
+        return [1]
+    else:
+        return tri(n - 1) + tri(n - 2) + tri(n + 1)
+
+ARTIFACT 370 | SOURCE RECORDS 370,371,372
+COMPLETE GENERATED CODE
+def tri(n):
+    """Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+    the last couple centuries. However, what people don't know is Tribonacci sequence.
+    Tribonacci sequence is defined by the recurrence:
+    tri(1) = 3
+    tri(n) = 1 + n / 2, if n is even.
+    tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+    For example:
+    tri(2) = 1 + (2 / 2) = 2
+    tri(4) = 3
+    tri(3) = tri(2) + tri(1) + tri(4)
+           = 2 + 3 + 3 = 8 
+    You are given a non-negative integer number n, you have to a return a list of the 
+    first n + 1 numbers of the Tribonacci sequence.
+    Examples:
+    tri(3) = [1, 3, 2, 8]
+    """
+    if n == 0:
+        return []
+    elif n == 1:
+        return [3]
+    else:
+        seq = [3, 1]
+        for i in range(2, n+1):
+            if i % 2 == 0:
+                seq.append(1 + i // 2)
+            else:
+                seq.append(seq[i-1] + seq[i-2] + seq[i+1])
+        return seq
+
+ARTIFACT 566 | SOURCE RECORDS 566,567
+COMPLETE GENERATED CODE
+def tri(n):
+    """Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+    the last couple centuries. However, what people don't know is Tribonacci sequence.
+    Tribonacci sequence is defined by the recurrence:
+    tri(1) = 3
+    tri(n) = 1 + n / 2, if n is even.
+    tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+    For example:
+    tri(2) = 1 + (2 / 2) = 2
+    tri(4) = 3
+    tri(3) = tri(2) + tri(1) + tri(4)
+           = 2 + 3 + 3 = 8 
+    You are given a non-negative integer number n, you have to a return a list of the 
+    first n + 1 numbers of the Tribonacci sequence.
+    Examples:
+    tri(3) = [1, 3, 2, 8]
+    """
+    if n == 0:
+        return [1]
+    elif n == 1:
+        return [1, 1]
+    else:
+        return [1, 1, tri(n - 1) + tri(n - 2) + tri(n + 1)]
+
+ARTIFACT 707 | SOURCE RECORDS 707
+COMPLETE GENERATED CODE
+def tri(n):
+    """Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+    the last couple centuries. However, what people don't know is Tribonacci sequence.
+    Tribonacci sequence is defined by the recurrence:
+    tri(1) = 3
+    tri(n) = 1 + n / 2, if n is even.
+    tri(n) =  tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd.
+    For example:
+    tri(2) = 1 + (2 / 2) = 2
+    tri(4) = 3
+    tri(3) = tri(2) + tri(1) + tri(4)
+           = 2 + 3 + 3 = 8 
+    You are given a non-negative integer number n, you have to a return a list of the 
+    first n + 1 numbers of the Tribonacci sequence.
+    Examples:
+    tri(3) = [1, 3, 2, 8]
+    """
+    if n == 1:
+        return [1]
+    elif n == 2:
+        return [1, 3]
+    elif n == 3:
+        return [1, 3, 2]
+    else:
+        tri_list = [1, 3, 2]
+        for i in range(3, n):
+            tri_list.append(tri_list[i - 1] + tri_list[i - 2] + tri_list[i - 3])
+        return tri_list
+
+TASK 131
+TASK DESCRIPTION
+def digits(n):
+    """Given a positive integer n, return the product of the odd digits.
+    Return 0 if all digits are even.
+    For example:
+    digits(1)  == 1
+    digits(4)  == 0
+    digits(235) == 15
+    """
+REFERENCE IMPLEMENTATION
+def digits(n):
+    """Given a positive integer n, return the product of the odd digits.
+    Return 0 if all digits are even.
+    For example:
+    digits(1)  == 1
+    digits(4)  == 0
+    digits(235) == 15
+    """
+    has_odd, prod = False, 1
+    for ch in str(n):
+        if int(ch) % 2 == 1:
+            has_odd = True
+            prod *= int(ch)
+    return 0 if not has_odd else prod
+
+ARTIFACT 104 | SOURCE RECORDS 104
+COMPLETE GENERATED CODE
+def digits(n):
+    """Given a positive integer n, return the product of the odd digits.
+    Return 0 if all digits are even.
+    For example:
+    digits(1)  == 1
+    digits(4)  == 0
+    digits(235) == 15
+    """
+    product = 1
+    for i in str(n):
+        if int(i) % 2 == 0:
+            return 0
+        else:
+            product *= int(i)
+    return product
+
+ARTIFACT 287 | SOURCE RECORDS 287
+COMPLETE GENERATED CODE
+def digits(n):
+    """Given a positive integer n, return the product of the odd digits.
+    Return 0 if all digits are even.
+    For example:
+    digits(1)  == 1
+    digits(4)  == 0
+    digits(235) == 15
+    """
+    return reduce(operator.mul, range(2, n + 1), 1)
+
+ARTIFACT 568 | SOURCE RECORDS 568
+COMPLETE GENERATED CODE
+def digits(n):
+    """Given a positive integer n, return the product of the odd digits.
+    Return 0 if all digits are even.
+    For example:
+    digits(1)  == 1
+    digits(4)  == 0
+    digits(235) == 15
+    """
+    if n == 0:
+        return 0
+    else:
+        return n * digits(n // 10)
+
+ARTIFACT 708 | SOURCE RECORDS 708
+COMPLETE GENERATED CODE
+def digits(n):
+    """Given a positive integer n, return the product of the odd digits.
+    Return 0 if all digits are even.
+    For example:
+    digits(1)  == 1
+    digits(4)  == 0
+    digits(235) == 15
+    """
+    return 0
+
+TASK 132
+TASK DESCRIPTION
+def is_nested(string):
+    '''
+    Create a function that takes a string as input which contains only square brackets.
+    The function should return True if and only if there is a valid subsequence of brackets 
+    where at least one bracket in the subsequence is nested.
+
+    is_nested('[[]]') ➞ True
+    is_nested('[]]]]]]][[[[[]') ➞ False
+    is_nested('[][]') ➞ False
+    is_nested('[]') ➞ False
+    is_nested('[[][]]') ➞ True
+    is_nested('[[]][[') ➞ True
+    '''
+REFERENCE IMPLEMENTATION
+def is_nested(string):
+    '''
+    Create a function that takes a string as input which contains only square brackets.
+    The function should return True if and only if there is a valid subsequence of brackets 
+    where at least one bracket in the subsequence is nested.
+
+    is_nested('[[]]') ➞ True
+    is_nested('[]]]]]]][[[[[]') ➞ False
+    is_nested('[][]') ➞ False
+    is_nested('[]') ➞ False
+    is_nested('[[][]]') ➞ True
+    is_nested('[[]][[') ➞ True
+    '''
+
+    for i in range(len(string)):
+        if string[i] == "]": continue
+        cnt, max_nest = 0, 0
+        for j in range(i, len(string)):
+            if string[j] == "[":
+                cnt += 1
+            else:
+                cnt -= 1
+            max_nest = max(max_nest, cnt)
+            if cnt == 0:
+                if max_nest >= 2:
+                    return True
+                break
+    return False
+
+ARTIFACT 105 | SOURCE RECORDS 105
+COMPLETE GENERATED CODE
+def is_nested(string):
+    '''
+    Create a function that takes a string as input which contains only square brackets.
+    The function should return True if and only if there is a valid subsequence of brackets 
+    where at least one bracket in the subsequence is nested.
+
+    is_nested('[[]]') ➞ True
+    is_nested('[]]]]]]][[[[[]') ➞ False
+    is_nested('[][]') ➞ False
+    is_nested('[]') ➞ False
+    is_nested('[[][]]') ➞ True
+    is_nested('[[]][[') ➞ True
+    '''
+    
+    # if string is empty, return False
+    if not string:
+        return False
+    
+    # if string is not empty, check if there is a valid subsequence of brackets
+    # if there is, return True
+    # if there is not, return False
+    
+    # create a stack to store the brackets
+    stack = []
+    
+    # iterate through the string
+    for char in string:
+        
+        # if the character is a left bracket, push it to the stack
+        if char == '[':
+            stack.append(char)
+        
+        # if the character is a right bracket, pop the last element from the stack
+        # if the last element is a left bracket, return True
+        # if the last element is not a left bracket, return False
+        elif char == ']':
+            if stack:
+                stack.pop()
+            else:
+                return False
+    
+    # if the stack is empty, return True
+    # if the stack is not empty, return False
+    if not stack:
+        return True
+    else:
+        return False
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+ARTIFACT 288 | SOURCE RECORDS 288
+COMPLETE GENERATED CODE
+def is_nested(string):
+    '''
+    Create a function that takes a string as input which contains only square brackets.
+    The function should return True if and only if there is a valid subsequence of brackets 
+    where at least one bracket in the subsequence is nested.
+
+    is_nested('[[]]') ➞ True
+    is_nested('[]]]]]]][[[[[]') ➞ False
+    is_nested('[][]') ➞ False
+    is_nested('[]') ➞ False
+    is_nested('[[][]]') ➞ True
+    is_nested('[[]][[') ➞ True
+    '''
+    brackets = re.findall(r'\[.*?\]', string)
+    return len(brackets) > 0 and any(is_nested(b) for b in brackets)
+
+ARTIFACT 373 | SOURCE RECORDS 373
+COMPLETE GENERATED CODE
+def is_nested(string):
+    stack = []
+    for bracket in string:
+        if bracket == '[':
+            stack.append(bracket)
+        elif bracket == ']':
+            if len(stack) > 0 and stack[-1] == '[':
+                stack.pop()
+            else:
+                stack.append(bracket)
+    return len(stack) < len(string) and len(stack) > 0
+
+ARTIFACT 416 | SOURCE RECORDS 416
+COMPLETE GENERATED CODE
+def is_nested(string):
+    '''
+    Create a function that takes a string as input which contains only square brackets.
+    The function should return True if and only if there is a valid subsequence of brackets 
+    where at least one bracket in the subsequence is nested.
+
+    is_nested('[[]]') ➞ True
+    is_nested('[]]]]]]][[[[[]') ➞ False
+    is_nested('[][]') ➞ False
+    is_nested('[]') ➞ False
+    is_nested('[[][]]') ➞ True
+    is_nested('[[]][[') ➞ True
+    '''
+    stack = []
+    nested = False
+
+    for char in string:
+        if char == '[':
+            stack.append(char)
+        elif char == ']' and stack:
+            stack.pop()
+            if stack:
+                nested = True
+
+    return nested and not stack
+
+ARTIFACT 569 | SOURCE RECORDS 569,570
+COMPLETE GENERATED CODE
+def is_nested(string):
+    '''
+    Create a function that takes a string as input which contains only square brackets.
+    The function should return True if and only if there is a valid subsequence of brackets 
+    where at least one bracket in the subsequence is nested.
+
+    is_nested('[[]]') ➞ True
+    is_nested('[]]]]]]][[[[[]') ➞ False
+    is_nested('[][]') ➞ False
+    is_nested('[]') ➞ False
+    is_nested('[[][]]') ➞ True
+    is_nested('[[]][[') ➞ True
+    '''
+    def is_nested_(string):
+        stack = []
+        for char in string:
+            if char == '[':
+                stack.append(char)
+            elif char == ']':
+                if not stack:
+                    return False
+                if stack[-1] == '[':
+                    stack.pop()
+                else:
+                    return False
+        return not stack
+    return is_nested_(string)
+
+ARTIFACT 709 | SOURCE RECORDS 709
+COMPLETE GENERATED CODE
+def is_nested(string):
+    '''
+    Create a function that takes a string as input which contains only square brackets.
+    The function should return True if and only if there is a valid subsequence of brackets 
+    where at least one bracket in the subsequence is nested.
+
+    is_nested('[[]]') ➞ True
+    is_nested('[]]]]]]][[[[[]') ➞ False
+    is_nested('[][]') ➞ False
+    is_nested('[]') ➞ False
+    is_nested('[[][]]') ➞ True
+    is_nested('[[]][[') ➞ True
+    '''
+    return False
+
+TASK 133
+TASK DESCRIPTION
+def sum_squares(lst):
+    """You are given a list of numbers.
+    You need to return the sum of squared numbers in the given list,
+    round each element in the list to the upper int(Ceiling) first.
+    Examples:
+    For lst = [1,2,3] the output should be 14
+    For lst = [1,4,9] the output should be 98
+    For lst = [1,3,5,7] the output should be 84
+    For lst = [1.4,4.2,0] the output should be 29
+    For lst = [-2.4,1,1] the output should be 6
+    
+
+    """
+REFERENCE IMPLEMENTATION
+def sum_squares(lst):
+    """You are given a list of numbers.
+    You need to return the sum of squared numbers in the given list,
+    round each element in the list to the upper int(Ceiling) first.
+    Examples:
+    For lst = [1,2,3] the output should be 14
+    For lst = [1,4,9] the output should be 98
+    For lst = [1,3,5,7] the output should be 84
+    For lst = [1.4,4.2,0] the output should be 29
+    For lst = [-2.4,1,1] the output should be 6
+    
+
+    """
+    import math
+    return sum(map(lambda x: math.ceil(x) ** 2, lst))
+
+ARTIFACT 106 | SOURCE RECORDS 106,107
+COMPLETE GENERATED CODE
+def sum_squares(lst):
+    """You are given a list of numbers.
+    You need to return the sum of squared numbers in the given list,
+    round each element in the list to the upper int(Ceiling) first.
+    Examples:
+    For lst = [1,2,3] the output should be 14
+    For lst = [1,4,9] the output should be 98
+    For lst = [1,3,5,7] the output should be 84
+    For lst = [1.4,4.2,0] the output should be 29
+    For lst = [-2.4,1,1] the output should be 6
+    
+
+    """
+    return sum([int(i**2) for i in lst])
+
+ARTIFACT 289 | SOURCE RECORDS 289
+COMPLETE GENERATED CODE
+def sum_squares(lst):
+    """You are given a list of numbers.
+    You need to return the sum of squared numbers in the given list,
+    round each element in the list to the upper int(Ceiling) first.
+    Examples:
+    For lst = [1,2,3] the output should be 14
+    For lst = [1,4,9] the output should be 98
+    For lst = [1,3,5,7] the output should be 84
+    For lst = [1.4,4.2,0] the output should be 29
+    For lst = [-2.4,1,1] the output should be 6
+    
+
+    """
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+ARTIFACT 571 | SOURCE RECORDS 571
+COMPLETE GENERATED CODE
+def sum_squares(lst):
+    """You are given a list of numbers.
+    You need to return the sum of squared numbers in the given list,
+    round each element in the list to the upper int(Ceiling) first.
+    Examples:
+    For lst = [1,2,3] the output should be 14
+    For lst = [1,4,9] the output should be 98
+    For lst = [1,3,5,7] the output should be 84
+    For lst = [1.4,4.2,0] the output should be 29
+    For lst = [-2.4,1,1] the output should be 6
+    
+
+    """
+    return sum(map(lambda x: x**2, lst))
+
+ARTIFACT 710 | SOURCE RECORDS 710
+COMPLETE GENERATED CODE
+def sum_squares(lst):
+    """You are given a list of numbers.
+    You need to return the sum of squared numbers in the given list,
+    round each element in the list to the upper int(Ceiling) first.
+    Examples:
+    For lst = [1,2,3] the output should be 14
+    For lst = [1,4,9] the output should be 98
+    For lst = [1,3,5,7] the output should be 84
+    For lst = [1.4,4.2,0] the output should be 29
+    For lst = [-2.4,1,1] the output should be 6
+    
+
+    """
+    return sum([int(math.ceil(i)**2) for i in lst])

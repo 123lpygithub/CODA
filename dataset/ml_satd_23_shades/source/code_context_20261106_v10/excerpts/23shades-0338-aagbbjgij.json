@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0338-aagbbjgij",
+  "revision_url": "https://github.com/YannDubs/disentangling-vae/commit/e8d59b4ceba130184d9baacf67380b1f2b4e990d",
+  "filename": "disvae/models/losses.py",
+  "commit": "e8d59b4ceba130184d9baacf67380b1f2b4e990d",
+  "source_url": "https://raw.githubusercontent.com/YannDubs/disentangling-vae/e8d59b4ceba130184d9baacf67380b1f2b4e990d/disvae/models/losses.py",
+  "fetched_at": "2026-11-05T06:12:36.372836+00:00",
+  "source_sha256": "839ea495bf0469da3a4327bee81e8fa83ed8c21bd814a0f53392162df0db5e60",
+  "line_start": 255,
+  "line_end": 279,
+  "excerpt": "        # https://github.com/YannDubs/disentangling-vae/pull/25#issuecomment-473535863\n        kl_loss = _kl_normal_loss(*latent_dist, storer)\n        d_z = self.discriminator(latent_sample1)\n\n        # clamping to 0 because TC cannot be negative : TEST\n        # change sign because sigmoid(-x) = 1 - sigmoid(x)\n        #tc_loss = (F.logsigmoid(d_z) - F.logsigmoid(- d_z)).clamp(0).mean()\n        tc_loss = (d_z[:, 0:1] - d_z[:, 1:2]).mean()\n\n        anneal_rec = (linear_annealing(0, 1, self.n_train_steps, self.steps_anneal)\n                      if model.training else 1)\n\n        # TODO replace this code with the following commented out code after viz is fixed\n        # https://github.com/YannDubs/disentangling-vae/pull/25#issuecomment-473535863\n        if self.is_mutual_info:\n            # return vae loss\n            vae_loss = rec_loss + anneal_rec * (kl_loss + self.gamma * tc_loss)\n        else:\n            # return vae loss without mutual information term\n            # change latent dist to torch.tensor (could probably avoid this)\n            latent_dist = torch.stack((latent_dist[0], latent_dist[1]), dim=2)\n            # calculate log p(z)\n            prior_params = torch.zeros(half_batch_size, latent_dist.size(1), 2).to(self.device)\n            logpz = log_density_normal(latent_sample1, prior_params, half_batch_size,\n                                       return_matrix=False).view(half_batch_size, -1).sum(1)"
+}

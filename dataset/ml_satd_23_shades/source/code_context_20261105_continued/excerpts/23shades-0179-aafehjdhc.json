@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0179-aafehjdhc",
+  "revision_url": "https://github.com/aleju/imgaug/commit/2e0e798d843f9db5a9b6721b9fdccf1d05afbd89",
+  "filename": "imgaug/augmentables/segmaps.py",
+  "commit": "2e0e798d843f9db5a9b6721b9fdccf1d05afbd89",
+  "source_url": "https://raw.githubusercontent.com/aleju/imgaug/2e0e798d843f9db5a9b6721b9fdccf1d05afbd89/imgaug/augmentables/segmaps.py",
+  "fetched_at": "2026-11-05T06:12:06.911676+00:00",
+  "source_sha256": "340d529b511835469ba792fde6624d440fa387fda440e76db37175080c1f5e0f",
+  "line_start": 176,
+  "line_end": 200,
+  "excerpt": "        # i.e. anything where all masks/channels have zero-like values\n        # for int, we assume that the background class is explicitly given and has the index 0\n        if self.input_was[0] in [\"bool\", \"float\"]:\n            result = 1 + channelwise_max_idx\n        else:  # integer mask was provided\n            result = channelwise_max_idx\n        if background_threshold is not None and background_threshold > 0:\n            probs = np.amax(self.arr, axis=2)\n            result[probs < background_threshold] = background_class_id\n\n        return result.astype(np.int32)\n\n    # TODO\n    # def get_arr_bool(self, allow_overlapping=False, threshold=0.5, background_threshold=0.01, background_class_id=0):\n    #    raise NotImplementedError()\n\n    def draw(self, size=None, background_threshold=0.01, background_class_id=None, colors=None,\n             return_foreground_mask=False):\n        \"\"\"\n        Render the segmentation map as an RGB image.\n\n        Parameters\n        ----------\n        size : None or float or iterable of int or iterable of float, optional\n            Size of the rendered RGB image as ``(height, width)``.",
+  "match_policy": "unique-release-normalized-v2"
+}

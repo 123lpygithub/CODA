@@ -1,0 +1,362 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14262",
+  "issue_url": "https://github.com/pkp/pkp-lib/issues/2297",
+  "source_issue_url": "https://github.com/pkp/pkp-lib/issues/2297",
+  "api_url": "https://api.github.com/repos/pkp/pkp-lib/issues/2297",
+  "title": "[OJS] The current role does not have access to this operation -message needs more details on how to acquire the needed role",
+  "body": "A typical problem in multi-journal installations is that a user has registered to journal A and later want's to submit something to journal B as well. However, usually this is not possible, because the user does not have the author role in journal B.\r\n\r\nI made a feature request about how OJS should handle this situation. http://forum.pkp.sfu.ca/t/ojs3-missing-author-roles-in-multi-journal-installations/28710\r\n\r\nIn my opinion having a simple button to enable the author role in that message would be ideal. However, I developed a quick fix where the message text has an additional link leading to the user profile/roles page. This will probably help in most cases. PR in a minute.\r\n",
+  "author": "Participant 1",
+  "created_at": "2017-02-17T12:18:14Z",
+  "updated_at": "2018-05-24T10:50:07Z",
+  "state": "closed",
+  "closed_at": "2018-05-24T10:50:06Z",
+  "issue_fetched_at": "2026-10-19T03:11:29.729989+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T03:11:31.168959+00:00"
+  ],
+  "expected_comment_count": 42,
+  "retrieved_comment_count": 42,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 280635532,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-280635532",
+      "created_at": "2017-02-17T12:22:13Z",
+      "updated_at": "2017-02-17T12:22:13Z",
+      "author": "Participant 1",
+      "body": "This is a translation related solution, so tagging @mtub here."
+    },
+    {
+      "id": 281806289,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-281806289",
+      "created_at": "2017-02-22T21:15:16Z",
+      "updated_at": "2017-02-22T21:15:16Z",
+      "author": "Participant 2",
+      "body": "I'll continue the forum conversation about the \"ideal\" solution in a sec, but one expedient option might be to have this specific case use a different (more useful) locale key. That way you wouldn't need to modify the general-purpose one in a way that would be misleading for roles that can't be self-registered."
+    },
+    {
+      "id": 281816679,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-281816679",
+      "created_at": "2017-02-22T21:54:04Z",
+      "updated_at": "2017-02-22T21:54:04Z",
+      "author": "Participant 1",
+      "body": "Thanks, I will check `setAdvice`. I am using the above pr in our local installation and it seems to have stopped the quite frequent questions concerning the issue above. However, the hard coded url would have to change in any case like you noticed. "
+    },
+    {
+      "id": 329101825,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-329101825",
+      "created_at": "2017-09-13T08:50:17Z",
+      "updated_at": "2017-09-13T11:20:51Z",
+      "author": "Participant 1",
+      "body": "sorry @asmecher but the authorization system in OJS is just too complicated for me to understand. Also I could not quite understand how the setAdvice is supposed to work :S\r\n\r\nI mean, I do not understand how this works: https://github.com/pkp/pkp-lib/blob/master/classes/security/authorization/AuthorizationDecisionManager.inc.php#L128-L135\r\nHow can `$callOnDeny` be anything but null here?\r\n\r\nIf I add this\r\n```\r\n\t\t$callOnDeny = array($request, 'redirectURL', array(\"http://test.fi\"));\r\n\t\t$this->setAdvice(AUTHORIZATION_ADVICE_CALL_ON_DENY, $callOnDeny);\r\n```\r\nto here https://github.com/pkp/pkp-lib/blob/master/classes/security/authorization/RoleBasedHandlerOperationPolicy.inc.php#L39, nothing basically happens.\r\n\r\nWhat should happen, I think, is that the AUTHORIZATION_ADVICE_CALL_ON_DENY should override the default AUTHORIZATION_ADVICE_DENY_MESSAGE and the $callOnDeny should be passed as well, but I am still getting the same error message as before.\r\n\r\nI am clearly missing something here.\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 376781341,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376781341",
+      "created_at": "2018-03-28T06:54:00Z",
+      "updated_at": "2018-03-28T06:54:00Z",
+      "author": "Participant 1",
+      "body": "@asmecher @NateWr \r\nIn multijournals installations this is something that is creating a lot of problems. Users registered in another journal can log in to a journal but they do not have permissions to for example send submissions. We get a lot of these and users seem to be lost as there is no clear instructions how to add the required role. Just an error message saying that \"you can not do that\".\r\n\r\nI think that this could be fixed by making it easier for users to acquire the author role when it is missing. Can you check my last comment from September at some point so that I can move forward in implementing the new feature mentioned above.\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 376828326,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376828326",
+      "created_at": "2018-03-28T09:50:22Z",
+      "updated_at": "2018-03-28T09:50:22Z",
+      "author": "Participant 3",
+      "body": "Personally, I don't think users should need to \"acquire\" the Author role at all. Unless a journal has shut down non-commissioned submissions (ie - by closing all registrations), any user should be able to initiate a submission.\r\n\r\nIf they already have an Author role in any context, and they initiate a submission in another context, we should just take them to the submission page and make them select an Author-ish role as the first item in the submission form."
+    },
+    {
+      "id": 376830173,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376830173",
+      "created_at": "2018-03-28T09:56:51Z",
+      "updated_at": "2018-03-28T09:56:51Z",
+      "author": "Participant 1",
+      "body": "Would this cause problems with things like GDPR? When I suggested that journal manager should be able to add roles for users from other journals, @bozana raised the question of GDPR and the fact that the user has to register the role herself for the related legistlation to be fulfilled.\r\n\r\nOr do you think that doing a submission can be regarded as a contract as such? I mean automatically add the role when the user starts to send a manuscript. Usability wise it would be a perfect solution imho.\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 376832638,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376832638",
+      "created_at": "2018-03-28T10:05:26Z",
+      "updated_at": "2018-03-28T10:05:26Z",
+      "author": "Participant 3",
+      "body": "I am not a lawyer, but if the journals are all part of the same site (eg - `journal.fi/...`) I think they would all fall under the same terms. In the same way that an admin can assign a user a new role, so could we do this automatically, I would think.\r\n\r\nEven if the journals are separate, though, it's hard to see what the difference would be. When a user makes a submission, to comply with GDPR the site would need to specify how their data is stored/used. If a role ID is one part of their submission data, it doesn't seem unique in that sense."
+    },
+    {
+      "id": 376835512,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376835512",
+      "created_at": "2018-03-28T10:15:56Z",
+      "updated_at": "2018-03-28T10:16:21Z",
+      "author": "Participant 1",
+      "body": "Just tagging the other issue here: https://github.com/pkp/pkp-lib/issues/3022\r\nAnd the discussion: https://forum.pkp.sfu.ca/t/ojs3-editing-user-roles-in-multi-journal-installations/28711\r\n\r\nAs you can see there, site admin can assign roles freely, but the journal managers can not. But this could just be an issue when someone else is doing something in your behalf. \r\n\r\nActually Alec comments your suggestion here: https://forum.pkp.sfu.ca/t/ojs3-missing-author-roles-in-multi-journal-installations/28710/2\r\n\"We had a solution for this way back in OCS – the user would simply gain the required role if possible when the submission link was followed – but that approach won’t work with OJS 3.x/OMP because there may now be several submitting roles and we’ll need the author to choose one.\"\r\n\r\nThis lead me to think of a solution where clicking the \"Make a new submission\" which now just gives you a text saying \" The current role does not have access to this operation. \" would instead give you an easy way of adding an author role. And that is what was pursued above.\r\n\r\n\r\n"
+    },
+    {
+      "id": 376839065,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376839065",
+      "created_at": "2018-03-28T10:29:21Z",
+      "updated_at": "2018-03-28T10:29:21Z",
+      "author": "Participant 3",
+      "body": "> This lead me to think of a solution where clicking the \"Make a new submission\" which now just gives you a text saying \" The current role does not have access to this operation. \" would instead give you an easy way of adding an author role. And that is what was pursued above.\r\n\r\nI'd rather just get them started on their submission. They can select an Author role as part of the first form they submit in the process. Something like \"Submitting as\" with a select of Author roles (or, if only one `ROLE_ID_AUTHOR` role exists, we can include a hidden field)."
+    },
+    {
+      "id": 376840507,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376840507",
+      "created_at": "2018-03-28T10:34:56Z",
+      "updated_at": "2018-03-28T10:34:56Z",
+      "author": "Participant 1",
+      "body": "That would probably mean changing some of the access policies in the form, but I do think that is a good idea to add those to the form.\r\n\r\nIf @asmecher agrees I can try doing this during the weekend (while eating mämmi).\r\n"
+    },
+    {
+      "id": 376899076,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376899076",
+      "created_at": "2018-03-28T14:05:50Z",
+      "updated_at": "2018-03-28T14:05:50Z",
+      "author": "Participant 4",
+      "body": "Hi all, just a comment regarding data privacy: I think the problem is when someone else (e.g. journal manager or editor) does something for another person/user (and the user does not know about that i.e. does not agree i.e. does not have a chance to agree/disagree). I.e. it would need explicitly agreement of the user. If a user him/herself would like to do something, that is OK. \r\nThus, for example, the problem would/could for example be:\r\n-- when a journal manager or an editor creates a new user (e.g. reviewer) or enrolls a user for a journal without his/her agreement\r\n-- when a journal manager or editor from one journal can see the (user) data that is actually registered for another journal. \r\nIt could be that all journals in that installation are separate and do not have anything to do with each other. It could be also the other way around, that all journals belong to one instance. In both use cases there could be both: only one main domain for all journals or each journal could have its own domain. E.g. a university library could host all university journals under one domain, however those journals could be (also only partly) separate entities and would not have to do anything with each other.\r\nWe consider and would like to support both/all use cases, that's why we separate the data per default per journal, but still allow the other use case. We should probably improve all that. However, in both cases, the users should exactly know what is happening (with their data) and how, before they register and start to use the system i.e. agree with that way/kind of their data use.\r\nIt is normal that one special user (admin) can see everything, I believe. It is similar to a system admin, that can see all the data in the DB. This is a special kind of role and it should be at minimum i.e. not many users should have that kind of access.\r\n-- Just my/me thinking..."
+    },
+    {
+      "id": 376922502,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376922502",
+      "created_at": "2018-03-28T15:11:17Z",
+      "updated_at": "2018-03-28T15:11:17Z",
+      "author": "Participant 2",
+      "body": "> I am not a lawyer, but if the journals are all part of the same site (eg - journal.fi/...) I think they would all fall under the same terms.\r\n\r\nYes, but probably not for service providers using OJS as SaaS, where journals might appear at different domains with no indication of shared platform.\r\n\r\n> I'd rather just get them started on their submission. They can select an Author role as part of the first form they submit in the process. Something like \"Submitting as\" with a select of Author roles (or, if only one ROLE_ID_AUTHOR role exists, we can include a hidden field).\r\n\r\nYes, but for journals using the default role configuration (99% I'd guess) there will really only be a single author role allowing self-registration, so it's a moot point. I think we can choose the author role when there's only one, and prompt for the few remaining cases, and if the latter group finds it unworkable we can ask them for suggestions for improvement."
+    },
+    {
+      "id": 376923244,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376923244",
+      "created_at": "2018-03-28T15:13:16Z",
+      "updated_at": "2018-03-28T15:13:16Z",
+      "author": "Participant 2",
+      "body": "> ...while eating mämmi...\r\n\r\nI had to look that up -- happy Easter!"
+    },
+    {
+      "id": 376940262,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376940262",
+      "created_at": "2018-03-28T15:59:49Z",
+      "updated_at": "2018-03-28T16:00:19Z",
+      "author": "Participant 1",
+      "body": "So to sum up:\r\nUser without the author role selects \"Make a new submission\"\r\n=> we check if the context has only one author role, if it does we automatically add the role\r\n=> if there are more than one role, then add the role selection to the first stage of the submission role: \"You need to select one of the author roles available for this context\".\r\n\r\nBecause the author is doing the selections, we are not running into trouble with GDPR.\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 376941099,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-376941099",
+      "created_at": "2018-03-28T16:02:11Z",
+      "updated_at": "2018-03-28T16:02:11Z",
+      "author": "Participant 2",
+      "body": "Yes, sounds great. This might mean excluding the first step of the submission wizard from requiring the author role, but OTOH we've done something like that elsewhere so there might be a pattern to follow."
+    },
+    {
+      "id": 377126319,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-377126319",
+      "created_at": "2018-03-29T05:30:18Z",
+      "updated_at": "2018-03-29T05:30:18Z",
+      "author": "Participant 1",
+      "body": "But @asmecher do check the AuthorizationDecisionManager code I mention above.\r\n\r\nBecause if you look at line https://github.com/pkp/pkp-lib/blob/master/classes/security/authorization/AuthorizationDecisionManager.inc.php#L129\r\nAnd line https://github.com/pkp/pkp-lib/blob/master/classes/security/authorization/AuthorizationDecisionManager.inc.php#L124\r\n\r\nI can not understand how the `if` on line 129 could **ever** be true?\r\n"
+    },
+    {
+      "id": 377227776,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-377227776",
+      "created_at": "2018-03-29T13:01:38Z",
+      "updated_at": "2018-03-29T13:01:57Z",
+      "author": "Participant 1",
+      "body": "Hi @asmecher and @NateWr \r\n\r\nI know this is **not** what we discussed.\r\n\r\nBut while doing this change, I found this function that is already used in several places `$userGroupDao->getDefaultByRoleId`. Like you probably guessed, it fetches a single default author role from a given context.\r\n\r\nThis seemed so perfect, that I created a pr based on that: https://github.com/pkp/pkp-lib/pull/3542\r\n\r\nIf you still feel like we should give the authors a choice if there are several author roles, then I can do the additional changes needed. It is actually not much.\r\n\r\nAlso I funny thing I noticed after I changed the policy so that users with no roles could access the submission form: there was already a secondary check there. When the author role was missing, the form showed this error: https://github.com/pkp/pkp-lib/blob/master/locale/en_US/submission.xml#L16\r\n\r\nIf you think that additional changes are not needed, then I do not think that locale key is needed anymore. But if you think we need the role selection, then I would use that same key just by removing the last sentence. What do you think.\r\n\r\nAlso Alec, check my last comment as well. I am fairly sure that is a bug although this pr is not affected anymore.\r\n\r\n\r\n"
+    },
+    {
+      "id": 377246216,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-377246216",
+      "created_at": "2018-03-29T14:06:07Z",
+      "updated_at": "2018-03-29T14:06:07Z",
+      "author": "Participant 3",
+      "body": "That sounds good to me. I won't be able to code review this until at least next week but happy to take a look then."
+    },
+    {
+      "id": 377247815,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-377247815",
+      "created_at": "2018-03-29T14:11:19Z",
+      "updated_at": "2018-03-29T14:11:19Z",
+      "author": "Participant 1",
+      "body": "No hurry from my part!"
+    },
+    {
+      "id": 380249295,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-380249295",
+      "created_at": "2018-04-10T21:16:20Z",
+      "updated_at": "2018-04-10T21:16:20Z",
+      "author": "Participant 2",
+      "body": "Thanks, @ajnyga and @NateWr -- and apologies as always for being slow to respond. Nate, let me know if you're not sure about something."
+    },
+    {
+      "id": 380317277,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-380317277",
+      "created_at": "2018-04-11T03:41:37Z",
+      "updated_at": "2018-04-11T03:41:37Z",
+      "author": "Participant 1",
+      "body": "Thanks! @asmecher, did you check the bug here: https://github.com/pkp/pkp-lib/issues/2297#issuecomment-377126319 (not related to the pr anymore, but will most likely affect something else later)"
+    },
+    {
+      "id": 380557999,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-380557999",
+      "created_at": "2018-04-11T18:51:13Z",
+      "updated_at": "2018-04-11T18:51:13Z",
+      "author": "Participant 2",
+      "body": "> I can not understand how the if on line 129 could ever be true?\r\n\r\nCheck out https://github.com/pkp/pkp-lib/blob/master/classes/security/authorization/AuthorizationDecisionManager.inc.php#L228 -- the `$callOnDeny` is passed into this by reference, thus gets set in the calling scope too."
+    },
+    {
+      "id": 380564168,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-380564168",
+      "created_at": "2018-04-11T19:12:41Z",
+      "updated_at": "2018-04-11T19:12:41Z",
+      "author": "Participant 1",
+      "body": "Thanks!\r\nI wonder why the example here did not work for me: https://github.com/pkp/pkp-lib/issues/2297#issuecomment-329101825 ? (not really important if you know that the code is correct at the moment)"
+    },
+    {
+      "id": 380599208,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-380599208",
+      "created_at": "2018-04-11T21:19:54Z",
+      "updated_at": "2018-04-11T21:19:54Z",
+      "author": "Participant 2",
+      "body": "@ajnyga, I just tried that and it did work for me. I suspect your policy tree is resulting in a `DENY` from another policy before your advice gets processed."
+    },
+    {
+      "id": 380674779,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-380674779",
+      "created_at": "2018-04-12T04:31:22Z",
+      "updated_at": "2018-04-12T04:31:22Z",
+      "author": "Participant 1",
+      "body": "I give up! Hopefully I do not have to work with the policies any time soon 🤣 "
+    },
+    {
+      "id": 380690428,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-380690428",
+      "created_at": "2018-04-12T06:13:07Z",
+      "updated_at": "2018-04-12T06:13:07Z",
+      "author": "Participant 1",
+      "body": "@NateWr nevermind the conversation above, the pr above is ready for review whenever you have the time."
+    },
+    {
+      "id": 381092206,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-381092206",
+      "created_at": "2018-04-13T10:17:42Z",
+      "updated_at": "2018-04-13T10:19:23Z",
+      "author": "Participant 1",
+      "body": "Ok, so in multijournal installations. Even if there is a site wide privacy policy, I guess it could be possible that a single journal has some different journal policies, right? Also joining the workflow of a new journal as an author will mean that your personal data is handled by different people than before, right?\r\n\r\n@jmacgreg what do you think? \r\n\r\nI think it would be easy to add a solution where entering the submission form without an author role will show you a pull down menu with all the author roles and a text containing a link to the journal privacy policy. Maybe even have a checkbox for checking that you have read the statement (the same consent you would have in the registration form). This would probably be the safest way of filling the GDPR requirements and not even that difficult to handle.\r\n\r\nIf this sounds reasonable I can do a pr that containts the technique desrcribed above. Is there already some handler that shows the journal privacy policy? Maybe something that opens the policy to a modal window?\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 381127600,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-381127600",
+      "created_at": "2018-04-13T13:00:08Z",
+      "updated_at": "2018-04-13T13:00:08Z",
+      "author": "Participant 3",
+      "body": "> I think it would be easy to add a solution where entering the submission form without an author role will show you a pull down menu with all the author roles and a text containing a link to the journal privacy policy\r\n\r\nUse radio buttons so the user can see all the options at the start, and use `$userGroupDao->getDefaultByRoleId` to pre-select an option.\r\n\r\n> Is there already some handler that shows the journal privacy policy? Maybe something that opens the policy to a modal window?\r\n\r\nNot that I know of.\r\n\r\nIf this is necessary for GDPR then so be it. But I'd just like to encourage us to be a bit conservative about what extra conditions, checkboxes, and agreements we require a user to get through in the submission process. We should only ever ask someone to agree to terms when we absolutely have to, and we should go out of our way to prevent scenarios where someone is agreeing to the same terms twice."
+    },
+    {
+      "id": 381129229,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-381129229",
+      "created_at": "2018-04-13T13:06:35Z",
+      "updated_at": "2018-04-13T13:06:35Z",
+      "author": "Participant 1",
+      "body": "Ok, I will do a pr that adds the selection you mentioned. The privacy statement text I will leave out for now. Let's see what happens with the registration form first regarding GDRP. "
+    },
+    {
+      "id": 381130889,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-381130889",
+      "created_at": "2018-04-13T13:12:37Z",
+      "updated_at": "2018-04-13T13:12:37Z",
+      "author": "Participant 5",
+      "body": "As a general practice I'd suggest always at least including a link to the journal's privacy policy whenever a user is updating their data (and that should maybe be filed as a separate issue). I don't think there's a need for an explicit consent action as part of enabling a role, if someone has already registered. \r\n\r\nThere should also be a means to consent to data processing as part of the submission process, including consent  from other authors (ie. non-users in the system), but that can be handled with a combination of submission checklist + consent form templates (to be uploaded as a submission file). \r\n\r\nTo sum up: I think explicit consent at time of registration; and explicit consent at time of submission; and, eventually, the ready availability of the journal's privacy policy anywhere where users update their accounts, should be fine. "
+    },
+    {
+      "id": 381136692,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-381136692",
+      "created_at": "2018-04-13T13:33:40Z",
+      "updated_at": "2018-04-13T13:33:40Z",
+      "author": "Participant 1",
+      "body": "Ok so the privacy statement is actually already on the submission page..."
+    },
+    {
+      "id": 381196705,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-381196705",
+      "created_at": "2018-04-13T16:54:22Z",
+      "updated_at": "2018-04-13T16:54:22Z",
+      "author": "Participant 2",
+      "body": "@ajnyga, if you're stuck on a particular aspect of the policy framework and want to walk me through a scenario (e.g. give me a database dump and set of steps to reproduce an unexpected outcome), I'd be happy to take a look. It's a pain to debug."
+    },
+    {
+      "id": 381198667,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-381198667",
+      "created_at": "2018-04-13T16:59:55Z",
+      "updated_at": "2018-04-13T16:59:55Z",
+      "author": "Participant 1",
+      "body": "@asmecher the policy aspect is really not a problem here anymore, it was just a side track because I thought that there was a coding error there.\r\n\r\nThe discussion here has been really just about whether the enrollment should be automatic or not. We actually came to a conclusion that it should not be automatic and will be doing basically this: https://github.com/pkp/pkp-lib/pull/3542#discussion_r181406374\r\n\r\n"
+    },
+    {
+      "id": 381199563,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-381199563",
+      "created_at": "2018-04-13T17:03:02Z",
+      "updated_at": "2018-04-13T17:03:02Z",
+      "author": "Participant 2",
+      "body": "Sure -- but if you find yourself bashing your head on this sometime later, the offer is available."
+    },
+    {
+      "id": 381348126,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-381348126",
+      "created_at": "2018-04-14T18:01:51Z",
+      "updated_at": "2018-04-14T18:03:38Z",
+      "author": "Participant 1",
+      "body": "Hi, @NateWr @asmecher \r\n\r\nThis is the new version of the pr: https://github.com/pkp/pkp-lib/pull/3542\r\n\r\n\r\nAt the moment this is happening in master branch:\r\n- if editor submits a manuscript and only has manager roles, the editor will be added to the contributors list of that submission, but not as an author in the stage assignments. This is probably what most editors expect when they send things like editorials.\r\n- If we would add the author role selection also for the users with only manager roles, then that role would be carried on to the stage assignments. But, I think that some editors still want to submit papers as editors\r\n\r\nThe pr will support the following scenarios:\r\n- Case 1: users without any roles: show selection of available author roles to choose from. Tell the user she has to enroll.\r\n- Case 2: user with existing author role: if one existing author role, add hidden variable for the userGroupId, if several existing author roles add a selection to choose from.\r\n- Case 3: manager users _with_ existing author roles: show selection of both existing manager roles and available author roles and let the editor choose.\r\n- Case 4: manager users _without_ existing author roles: show selection of both existing manager roles and available author roles and let editor choose. If she chooses an author role, enroll the manager also as an author.\r\n\r\nIn all above cases use `$userGroupDao->getDefaultByRoleId` to pre-select an option.\r\n\r\nThis would solve the situations where editors want to submit to their own journal and receive a peer-review for their paper. In these situations they of course choose an author role. In other cases, like when sending in editorials etc. they can choose a managerial role. \r\n\r\nQuestion: do editors need some guidance for choosing between the manager and author roles?\r\n\r\nThis is maybe something you want to discuss with others as well? I have been thinking about different user scenarios and I think that this is all very logical and we do not have the \"no role\" dead end anymore.\r\n\r\n\r\n"
+    },
+    {
+      "id": 381552729,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-381552729",
+      "created_at": "2018-04-16T10:23:15Z",
+      "updated_at": "2018-04-16T10:23:15Z",
+      "author": "Participant 3",
+      "body": "I like the sound of this.\r\n\r\n> Question: do editors need some guidance for choosing between the manager and author roles?\r\n\r\nFor cases 3/4, can we add a note that is something like?\r\n\r\n> Submit in any of the following roles if you would like to publish this submission yourself without assistance from another editor: [list of editor roles]"
+    },
+    {
+      "id": 382333512,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-382333512",
+      "created_at": "2018-04-18T09:59:10Z",
+      "updated_at": "2018-04-18T09:59:10Z",
+      "author": "Participant 1",
+      "body": "Sure, I will add that to the pr later today."
+    },
+    {
+      "id": 382497279,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-382497279",
+      "created_at": "2018-04-18T19:11:27Z",
+      "updated_at": "2018-04-18T19:11:27Z",
+      "author": "Participant 1",
+      "body": "@NateWr added that suggestion: #3542"
+    },
+    {
+      "id": 384054675,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-384054675",
+      "created_at": "2018-04-24T19:39:37Z",
+      "updated_at": "2018-04-24T19:39:37Z",
+      "author": "Participant 1",
+      "body": "@asmecher this would be ready for review as well. https://github.com/pkp/pkp-lib/pull/3542"
+    },
+    {
+      "id": 387791054,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-387791054",
+      "created_at": "2018-05-09T16:07:38Z",
+      "updated_at": "2018-05-09T16:07:38Z",
+      "author": "Participant 3",
+      "body": "FYI, I've taken over this PR and I'll roll it into changes related to #3575."
+    },
+    {
+      "id": 391671458,
+      "url": "https://github.com/pkp/pkp-lib/issues/2297#issuecomment-391671458",
+      "created_at": "2018-05-24T10:50:06Z",
+      "updated_at": "2018-05-24T10:50:06Z",
+      "author": "Participant 3",
+      "body": "This issue was address in a PR merged with #3575."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

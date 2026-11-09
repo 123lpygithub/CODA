@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0286-aagcijbch",
+  "revision_url": "https://github.com/intel/dffml/commit/cd30e568182c12771c1b9cc0140b4705a3101131",
+  "filename": "dffml/operation/db.py",
+  "commit": "cd30e568182c12771c1b9cc0140b4705a3101131",
+  "source_url": "https://raw.githubusercontent.com/intel/dffml/cd30e568182c12771c1b9cc0140b4705a3101131/dffml/operation/db.py",
+  "fetched_at": "2026-11-05T06:12:27.722873+00:00",
+  "source_sha256": "3f064d9031bc38c047b72411042371d2b7592c8cd55b0f11c8d603dd57a26553",
+  "line_start": 13,
+  "line_end": 37,
+  "excerpt": "QUERY_DATA = Definition(name=\"query_data\", primitive=\"Dict[str, Any]\")\nQUERY_CONDITIONS = Definition(name=\"query_conditions\", primitive=\"Conditions\")\nQUERY_COLS = Definition(name=\"query_cols\", primitive=\"List[str]\")\nQUERY_LOOKUPS = Definition(name=\"query_lookups\", primitive=\"Dict[str, Any]\")\n\n\n@config\nclass DatabaseQueryConfig:\n    database: BaseDatabase\n\n\n# TODO Remove this?\n# TODO Figure out a way to handle defaults so that all inputs need not be passed to the\n# flow on execution\n# Note : Add `query_type`:str to `DatabaseQueryConfig` before use.\n@op(\n    inputs={\n        \"table_name\": QUERY_TABLE,\n        \"data\": QUERY_DATA,\n        \"conditions\": QUERY_CONDITIONS,\n        \"cols\": QUERY_COLS,\n    },\n    outputs={\"lookups\": QUERY_LOOKUPS},\n    config_cls=DatabaseQueryConfig,\n    imp_enter={\"database\": (lambda self: self.config.database)},"
+}

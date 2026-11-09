@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/openwhyd/openwhyd/blob/d5935d7f1001e682174fdcba6b79cbda23e97ecc/whydJS/public/js/whydtr.js#L54",
+  "kind": "file",
+  "cited_in": [
+    "comment_331458004"
+  ],
+  "revision": "d5935d7f1001e682174fdcba6b79cbda23e97ecc",
+  "immutable_revision": true,
+  "line_start": 42,
+  "line_end": 66,
+  "text": "\t\t}\n\t\tcatch (e){\n\t\t\tconsole.error(\"[GA] error:\", e);\n\t\t}\n\t}\n\n\tfunction setUser(){\n\t\tgaSet('loggedIn', !!uId);\n\t\tgaSet('dimension1', !!uId);\n\t\t// https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference\n\t\tif (uId){\n\t\t\tvar genDate = getDateFromObjectId(uId);\n\t\t\tgaSet('userId', uId); // standard ga property\n\t\t\tgaSet('dimension2', uId);\n\t\t\tgaSet('hasFb', !!loggedUser.fbId);\n\t\t\tgaSet('dimension3', !!loggedUser.fbId);\n\t\t\tgaSet('joinWeek', getWeekNumber(genDate));\n\t\t\tgaSet('dimension4', getWeekNumber(genDate));\n\t\t\tif (loggedUser && loggedUser.iRf) {\n\t\t\t\tgaSet('joinSource', loggedUser.iRf);\n\t\t\t\tgaSet('dimension5', loggedUser.iRf);\n\t\t\t}\n\t\t\t// source: http://danhilltech.tumblr.com/post/12509218078/startups-hacking-a-cohort-analysis-with-google\n\t\t\t// mgmt: https://www.google.com/analytics/web/#management/Settings/a23759101w46480794p46730353/%3Fm.page%3DCustomDimensions%26m-content-dimensionsContent.rowShow%3D10%26m-content-dimensionsContent.rowStart%3D0%26m-content-dimensionsContent.sortColumnId%3Dindex%26m-content-dimensionsContent.sortDescending%3Dfalse%26m-content.mode%3DLIST/\n\t\t}",
+  "source_sha256": "56fa0945fb21e428243abe7e9db026205f24cf833864ab07f7504106df840e7f",
+  "fetched_at": "2026-11-05T06:22:11.604772+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/openwhyd/openwhyd/d5935d7f1001e682174fdcba6b79cbda23e97ecc/whydJS/public/js/whydtr.js",
+  "status": "available"
+}

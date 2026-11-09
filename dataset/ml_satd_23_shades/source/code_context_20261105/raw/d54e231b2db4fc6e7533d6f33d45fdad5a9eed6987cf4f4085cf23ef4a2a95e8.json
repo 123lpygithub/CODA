@@ -1,0 +1,6 @@
+{
+  "url": "https://raw.githubusercontent.com/WMD-group/SMACT/a3209f2b7dcba5f71494a937e6a56303ca24c3b0/smact_builder.py",
+  "source": "#!/usr/bin/env python \n# Using the ase spacegroup module this can build the structure, from \n# the composition, as defined in the smact_lattice module. \n#TODO:\n# Estimate the cell parameters based on radii from tables.\n# Add further types, Spinel, Flourite, Delafossite ....\n\nfrom ase.lattice.spacegroup import crystal\n\n\ndef cubic_perovskite(species):\n\t system = crystal((species), \n\t [(0,0,0), (0.5, 0.5, 0.5), (0.5, 0.5, 0)],\n         spacegroup=221, cellpar=[6,6,6,90,90,90])\n\t\n         return system\n",
+  "fetched_at": "2026-11-05T06:12:52.876300+00:00",
+  "source_sha256": "29d11b71ed589ccdc8c7ec4f87937e1f54aea3dd179a05fd248e23d611e77def"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0485-aafhihfed",
+  "revision_url": "https://github.com/tugstugi/mongolian-speech-recognition/commit/ce775775ef949cac4345e7dfbf8dce1f9b0e254e",
+  "filename": "train.py",
+  "commit": "ce775775ef949cac4345e7dfbf8dce1f9b0e254e",
+  "source_url": "https://raw.githubusercontent.com/tugstugi/mongolian-speech-recognition/ce775775ef949cac4345e7dfbf8dce1f9b0e254e/train.py",
+  "fetched_at": "2026-11-05T06:13:01.656631+00:00",
+  "source_sha256": "70b743e2a638c4e7b5a31b16fe4b8db8a130a27e200708c6c798c53264061603",
+  "line_start": 173,
+  "line_end": 197,
+  "excerpt": "    from warpctc_pytorch import CTCLoss\n\n    criterion = CTCLoss(blank=0, size_average=False, length_average=False)\nelse:\n    from torch.nn import CTCLoss\n\n    criterion = CTCLoss(blank=0, reduction='sum', zero_infinity=True)\n\ndecoder = GreedyDecoder(labels=vocab)\n\n# freeze first n encoder layers of QuartzNet\nif args.freeze != 0:\n    # TODO: check whether the model is QuartzNet\n    idx = 0\n    for idx, parameter in enumerate(model.encoder[:args.freeze].parameters()):\n        parameter.requires_grad = False\n    if args.local_rank == 0:\n        print(\"freezing %i n layers of total %i encoder layers\" % (idx + 1, len(model.encoder)))\n\n\nif args.optim == 'sgd':\n    optimizer = torch.optim.SGD(filter(lambda p: p.requires_grad, model.parameters()),\n                                lr=args.lr, momentum=0.9, weight_decay=args.weight_decay)\nelif args.optim == 'novograd':\n    optimizer = Novograd(filter(lambda p: p.requires_grad, model.parameters()),"
+}

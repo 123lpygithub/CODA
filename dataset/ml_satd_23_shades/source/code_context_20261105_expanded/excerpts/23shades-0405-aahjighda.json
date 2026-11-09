@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0405-aahjighda",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "filename": "tensorflow2.0/source/tensorflow/python/framework/ops.py",
+  "commit": "44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/44d36f9e5045fd859ee188d74dc31f3921ad4796/tensorflow2.0/source/tensorflow/python/framework/ops.py",
+  "fetched_at": "2026-11-05T06:12:49.327488+00:00",
+  "source_sha256": "72de9454993790d531981f0a5e959d2ff5b9f34849d642c4382e4aa38a1968b9",
+  "line_start": 5455,
+  "line_end": 5479,
+  "excerpt": "    super(_DefaultGraphStack, self).__init__()\n    self._global_default_graph = None\n\n  def get_default(self):\n    \"\"\"Override that returns a global default if the stack is empty.\"\"\"\n    ret = super(_DefaultGraphStack, self).get_default()\n    if ret is None:\n      ret = self._GetGlobalDefaultGraph()\n    return ret\n\n  def _GetGlobalDefaultGraph(self):\n    if self._global_default_graph is None:\n      # TODO(mrry): Perhaps log that the default graph is being used, or set\n      #   provide some other feedback to prevent confusion when a mixture of\n      #   the global default graph and an explicit graph are combined in the\n      #   same process.\n      self._global_default_graph = Graph()\n    return self._global_default_graph\n\n  def reset(self):\n    super(_DefaultGraphStack, self).reset()\n    self._global_default_graph = None\n\n  @tf_contextlib.contextmanager\n  def get_controller(self, default):",
+  "match_policy": "unique-release-normalized-v2"
+}

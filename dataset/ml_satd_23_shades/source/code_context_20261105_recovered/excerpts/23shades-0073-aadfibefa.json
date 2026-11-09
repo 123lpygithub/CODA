@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0073-aadfibefa",
+  "revision_url": "https://github.com/deep-fry/mayo/commit/c873eb4c3d34cc1e4a9b4607953bc67f61002839",
+  "filename": "mayo/task/image/generate.py",
+  "commit": "c873eb4c3d34cc1e4a9b4607953bc67f61002839",
+  "source_url": "https://raw.githubusercontent.com/deep-fry/mayo/c873eb4c3d34cc1e4a9b4607953bc67f61002839/mayo/task/image/generate.py",
+  "fetched_at": "2026-11-05T06:11:51.208565+00:00",
+  "source_sha256": "c9efc969afa7686dc4ac6b8a2a88e7ef3e9774720b6db41445775720be7955e6",
+  "line_start": 65,
+  "line_end": 89,
+  "excerpt": "        class_label = tf.cast(features['image/class/label'], dtype=tf.int32)\n        bbox_label = tf.cast(\n            features['image/object/bbox/label'].values, dtype=tf.int32)\n        bbox_count = tf.shape(bbox_label)[0]\n        # FIXME annoying hack for batching different sized shapes\n        bbox_label = cls._pad_to_shape(bbox_label, [cls._max_objects], -1)\n\n        # bbox handling\n        # force the variable number of bounding boxes into the shape\n        # [num_boxes, coords]\n        bboxes = [features[k].values for k in bbox_keys]\n        bboxes = tf.stack(axis=-1, values=bboxes)\n        # FIXME annoying hack for batching different sized shapes,\n        # even though bboxes are padded, the new bboxes are all zeros,\n        # effectively results in an IOU of 0, and should hopefully be filtered.\n        bboxes = cls._pad_to_shape(bboxes, [cls._max_objects, 4], 0)\n\n        # other\n        encoded = features['image/encoded']\n        text = features['image/class/text']\n        return encoded, class_label, bboxes, bbox_count, bbox_label, text\n\n    def _actions(self, key):\n        return ensure_list(self.actions.get(key) or [])\n",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0329-aaaedaiaa",
+  "revision_url": "https://github.com/roscisz/TensorHive/commit/1508ef717548f816e390a416bd88628a6df180f4",
+  "filename": "tensorhive/core/violation_handlers/EmailSendingBehaviour.py",
+  "commit": "1508ef717548f816e390a416bd88628a6df180f4",
+  "source_url": "https://raw.githubusercontent.com/roscisz/TensorHive/1508ef717548f816e390a416bd88628a6df180f4/tensorhive/core/violation_handlers/EmailSendingBehaviour.py",
+  "fetched_at": "2026-11-05T06:12:34.613431+00:00",
+  "source_sha256": "bbf25085b08eef1865f2833bf5f61ede498d0dee0a8ea55e56a6ed2b72d7fbf3",
+  "line_start": 70,
+  "line_end": 94,
+  "excerpt": "    def ready_to_send(self, email_address: str) -> bool:\n        '''\n        Allows for sending email only once every given time\n        to a particular email address\n        '''\n        try:\n            ready_status = self.time_of_last_email[email_address] + self.interval < datetime.datetime.utcnow()\n        except KeyError as e:\n            ready_status = True\n        finally:\n            return ready_status\n\n    # TODO Refactor these two clunky, redundant methods\n    def send_email_to_intruder(self, violation_data: Dict[str, Any]):\n        author = os.getenv(MAILBOT.SMTP_LOGIN_ENV)\n        recipient = violation_data['INTRUDER_EMAIL']\n        email_body = MessageBodyTemplater(template=MAILBOT.INTRUDER_BODY_TEMPLATE).fill_in(data=violation_data)\n\n        email = Message(\n            author=author,\n            to=[recipient],\n            subject=MAILBOT.INTRUDER_SUBJECT,\n            body=email_body\n        )\n        self.mailer.send(email)",
+  "match_policy": "unique-release-normalized-v2"
+}

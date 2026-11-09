@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0391-aagfeabbh",
+  "revision_url": "https://github.com/IBM/mi-prometheus/commit/3e7b8df53140038857b098182771ab2ba6d11d70",
+  "filename": "models/ntm/interface.py",
+  "commit": "3e7b8df53140038857b098182771ab2ba6d11d70",
+  "source_url": "https://raw.githubusercontent.com/IBM/mi-prometheus/3e7b8df53140038857b098182771ab2ba6d11d70/models/ntm/interface.py",
+  "fetched_at": "2026-11-05T06:12:43.920140+00:00",
+  "source_sha256": "cdebf707837418a5e5b002b6a0851860666be5daec9cd59e1f242499e1b6ad7f",
+  "line_start": 55,
+  "line_end": 78,
+  "excerpt": "    def forward(self, ctrl_hidden_state_BxH,  prev_state_tuple):\n        \"\"\"\n        Controller forward function. \n        \n        :param ctrl_hidden_state_BxH: a Tensor with controller hidden state of size [BATCH_SIZE  x HIDDEN_SIZE]\n        :param prev_state_tuple:\n        :returns: ... and state tuple - object of LSTMStateTuple class.\n        \"\"\"\n        # Unpack previous cell  state - just to make sure that everything is ok...\n        (prev_read_attention,  prev_write_attention) = prev_state_tuple\n        \n        # Execute single step.\n        # TODO!\n\n        # TODO:  REMOVE THOSE LINES.\n        read_attention = prev_read_attention\n        write_attention = prev_write_attention\n\n        # Pack current cell state.\n        state_tuple = InterfaceStateTuple(read_attention,  write_attention)\n        \n        # Return ??? and state tuple.\n        return 0,  state_tuple\n "
+}

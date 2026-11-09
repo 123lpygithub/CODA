@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0055-aafeacaha",
+  "revision_url": "https://github.com/jisungk/deepjazz/commit/0ab55a81889c546286bcde4a207b2c38abe8cd97",
+  "filename": "preprocess_oldd.py",
+  "commit": "0ab55a81889c546286bcde4a207b2c38abe8cd97",
+  "source_url": "https://raw.githubusercontent.com/jisungk/deepjazz/0ab55a81889c546286bcde4a207b2c38abe8cd97/preprocess_oldd.py",
+  "fetched_at": "2026-11-05T06:11:47.467410+00:00",
+  "source_sha256": "85802b89001c45d43903af90bf8dccde275b5b2d06237f4976d2807b0e4a36a3",
+  "line_start": 77,
+  "line_end": 101,
+  "excerpt": "melody1, melody2 = melodyStream.getElementsByClass(stream.Voice)\nfor j in melody2:\n    melody1.insert(j.offset, j)\nmelodyVoice = melody1\n\n# FOR REFERENCE\n# fullMelody.append(key.KeySignature(sharps=1, mode='major'))\n\n# Bad notes: melodyVoice[370, 391]\n# the two B-4, B-3 around melodyVoice[362]. I think: #362, #379\n# REMEMBER: after delete each of these, \n# badIndices = [370, 391, 362, 379]\n# BETTER FIX: iterate through, if length = 0, then bump it up to 0.125\n# since I think this is giving the bug.\nfor i in melodyVoice:\n    if i.quarterLength == 0.0:\n        i.quarterLength = 0.25\n\n# Change key signature to adhere to compStream (1 sharp, mode = major).\n# Also add Electric Guitar. \nmelodyVoice.insert(0, instrument.ElectricGuitar())\nmelodyVoice.insert(0, key.KeySignature(sharps=1, mode='major'))\n\n# The accompaniment parts. Take only the best subset of parts from\n# the original data. Maybe add more parts, hand-add valid instruments.",
+  "match_policy": "unique-release-normalized-v2"
+}

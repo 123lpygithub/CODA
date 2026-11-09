@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0820-aajggjjdf",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/afab0e1e9122997147008437aa4f5aa0c74a57cc",
+  "filename": "mne/minimum_norm/_eloreta.py",
+  "commit": "afab0e1e9122997147008437aa4f5aa0c74a57cc",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/afab0e1e9122997147008437aa4f5aa0c74a57cc/mne/minimum_norm/_eloreta.py",
+  "fetched_at": "2026-11-05T06:14:00.009922+00:00",
+  "source_sha256": "70d40053713ca4bd98d88deed8792e464c5f17b7cdd9be9c58d9d0e11ad80634",
+  "line_start": 130,
+  "line_end": 154,
+  "excerpt": "        R_sqrt = np.sqrt(R)\n    else:\n        R_sqrt = sqrtm_sym(R)[0]\n    assert R_sqrt.shape == R_shape\n    A = _R_sqrt_mult(G, R_sqrt)\n    del R, G  # the rest will be done in terms of R_sqrt and A\n    eigen_fields, sing, eigen_leads = _safe_svd(A, full_matrices=False)\n    inv['sing'][:] = sing\n    inv['reginv'][:] = _compute_reginv(inv, lambda2)\n    inv['eigen_leads_weighted'] = True\n    inv['eigen_leads']['data'][:] = _R_sqrt_mult(eigen_leads, R_sqrt).T\n    inv['eigen_fields']['data'][:] = eigen_fields.T\n    # XXX in theory we should set inv['source_cov'] properly.\n    # For fixed ori (or free ori with force_equal=True), we can as these\n    # are diagonal matrices. But for free ori without force_equal, it's a\n    # block diagonal 3x3 and we have no efficient way of storing this (and\n    # storing a covariance matrix with (20484 * 3) ** 2 elements is not going\n    # to work. So let's just set to nan for now.\n    # It's not used downstream anyway now that we set\n    # eigen_leads_weighted = True.\n    inv['source_cov']['data'].fill(np.nan)\n    logger.info('[done]')\n\n\ndef _get_G_3(G, n_orient):"
+}

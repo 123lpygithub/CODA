@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0134-aaggcgaie",
+  "revision_url": "https://github.com/ucam-smt/sgnmt/commit/eb61c8e69bd99717771ac205e9d47b23fc650565",
+  "filename": "cam/sgnmt/predictors/blocks_neural.py",
+  "commit": "eb61c8e69bd99717771ac205e9d47b23fc650565",
+  "source_url": "https://raw.githubusercontent.com/ucam-smt/sgnmt/eb61c8e69bd99717771ac205e9d47b23fc650565/cam/sgnmt/predictors/blocks_neural.py",
+  "fetched_at": "2026-11-05T06:11:59.523284+00:00",
+  "source_sha256": "d523d806be2a7bc411db29ead9b4e8c670603bb149eca4d0cc2c13cac3fe0ed1",
+  "line_start": 223,
+  "line_end": 247,
+  "excerpt": "                                       self.config['enc_nhids'])\n        decoder = Decoder(self.config['trg_vocab_size'],\n                          self.config['dec_embed'],\n                          self.config['dec_nhids'],\n                          self.config['enc_nhids'] * 2)\n        cost = decoder.cost(\n                encoder.apply(source_sentence, source_sentence_mask),\n                source_sentence_mask, target_sentence, target_sentence_mask)\n    \n        logging.info('Creating computational graph')\n        cg = ComputationGraph(cost)\n    \n        # Initialize model (TODO: really necessary?)\n        logging.info('Initializing model')\n        encoder.weights_init = decoder.weights_init = IsotropicGaussian(\n            self.config['weight_scale'])\n        encoder.biases_init = decoder.biases_init = Constant(0)\n        encoder.push_initialization_config()\n        decoder.push_initialization_config()\n        encoder.bidir.prototype.weights_init = Orthogonal()\n        decoder.transition.weights_init = Orthogonal()\n        encoder.initialize()\n        decoder.initialize()\n    \n        # Apply dropout for regularization (TODO: remove?)"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0693-aajacfjhb",
+  "revision_url": "https://github.com/chainer/chainer/commit/22c5d798e356e820acc9687225e306031a213679",
+  "filename": "chainer/graph_optimizations/static_graph.py",
+  "commit": "22c5d798e356e820acc9687225e306031a213679",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainer/22c5d798e356e820acc9687225e306031a213679/chainer/graph_optimizations/static_graph.py",
+  "fetched_at": "2026-11-05T06:13:08.298724+00:00",
+  "source_sha256": "568b4c9430429b8a218214894b9eb18bf970411e728ff3aca85d044ab6a0c3ba",
+  "line_start": 189,
+  "line_end": 213,
+  "excerpt": "            # device id, if available.\n            self.device = cuda.get_device_from_array(array)\n        else:\n            # numpy (cpu)\n            self.device = -1\n        # todo: save array order ('C', 'F' as well?\n        # It specifies the input variable corresponding\n        # to this array as the tuple (pass_depth, in_var_index).\n        self.in_var_index = None\n        # It specifies the output variable corresponding\n        # to this array as the tuple (pass_depth, out_var_index).\n        self.out_var_index = None\n        # todo: set in initializer as keyword arg?\n        self.dynamically_allocated = False\n        # If the array was returned as a dynamically allocated array\n        # in the define-by-run code, this specifies the location\n        # in the schedule as the tuple (pass_depth, sched_func_index)\n        # where sched_func_index is the index of the corresponding\n        # ScheduleInfo object in the StaticScheduleFunction's\n        # self.schedule_info_list\n        self.dynamic_allocation_index = None\n        self.dynamic_allocation_pass_depth = None\n        self.dynamic_deletion_index = None\n        self.dynamic_deletion_pass_depth = None\n        # This is the same as self.dynamic_allocation_index, but for the"
+}

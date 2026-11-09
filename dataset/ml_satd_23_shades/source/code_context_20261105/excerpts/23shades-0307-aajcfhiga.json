@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0307-aajcfhiga",
+  "revision_url": "https://github.com/vita-epfl/openpifpaf/commit/c2818f166b442cc9284159227153eed6f0b178c9",
+  "filename": "openpifpaf/decoder/generator/cifcaf.py",
+  "commit": "c2818f166b442cc9284159227153eed6f0b178c9",
+  "source_url": "https://raw.githubusercontent.com/vita-epfl/openpifpaf/c2818f166b442cc9284159227153eed6f0b178c9/openpifpaf/decoder/generator/cifcaf.py",
+  "fetched_at": "2026-11-05T06:12:31.409805+00:00",
+  "source_sha256": "6802a0add364a5f90b7594aad28eadbf777f5145980381a357f8bbbf3ec046e1",
+  "line_start": 55,
+  "line_end": 79,
+  "excerpt": "        if not initial_annotations:\n            initial_annotations = []\n        LOG.debug('initial annotations = %d', len(initial_annotations))\n\n        if self.debug_visualizer:\n            for stride, pif_i in zip(self.field_config.cif_strides, self.field_config.cif_indices):\n                self.debug_visualizer.pif_raw(fields[pif_i], stride)\n            for stride, paf_i in zip(self.field_config.caf_strides, self.field_config.caf_indices):\n                self.debug_visualizer.paf_raw(fields[paf_i], stride)\n\n        pifhr = PifHr(self.field_config).fill(fields)\n        seeds = PifSeeds(pifhr.accumulated, self.field_config).fill(fields)\n        # TODO make paf_scored not part of self?\n        self.paf_scored = PafScored(pifhr.accumulated, self.field_config, self.skeleton).fill(fields)\n        # pif init\n        if self.debug_visualizer:\n            self.debug_visualizer.pifhr(pifhr.accumulated)\n\n        occupied = Occupancy(pifhr.accumulated.shape, 2, min_scale=4)\n        annotations = []\n\n        def mark_occupied(ann):\n            for joint_i, xyv in enumerate(ann.data):\n                if xyv[2] == 0.0:\n                    continue"
+}

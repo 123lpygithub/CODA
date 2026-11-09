@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0195-aaibgjfcg",
+  "revision_url": "https://github.com/explosion/spaCy/commit/822ea4ef619072a94ce565bf78add9f9ea9d2866",
+  "filename": "spacy/training/pretrain.py",
+  "commit": "822ea4ef619072a94ce565bf78add9f9ea9d2866",
+  "source_url": "https://raw.githubusercontent.com/explosion/spaCy/822ea4ef619072a94ce565bf78add9f9ea9d2866/spacy/training/pretrain.py",
+  "fetched_at": "2026-11-05T06:12:14.823679+00:00",
+  "source_sha256": "f080704099ed96f4564efee7a2f8d63622ca7a4bd7b6241417603cdd135f08fd",
+  "line_start": 188,
+  "line_end": 212,
+  "excerpt": "    the tok2vec input model. The tok2vec input model needs to be a model that\n    takes a batch of Doc objects (as a list), and returns a list of arrays.\n    Each array in the output needs to have one row per token in the doc.\n    The actual tok2vec layer is stored as a reference, and only this bit will be\n    serialized to file and read back in when calling the 'train' command.\n    \"\"\"\n    component = nlp.get_pipe(pretrain_config[\"component\"])\n    if pretrain_config.get(\"layer\"):\n        tok2vec = component.model.get_ref(pretrain_config[\"layer\"])\n    else:\n        tok2vec = component.model\n\n    # TODO\n    maxout_pieces = 3\n    hidden_size = 300\n    if pretrain_config[\"objective\"][\"type\"] == \"vectors\":\n        model = build_cloze_multi_task_model(\n            nlp.vocab, tok2vec, hidden_size=hidden_size, maxout_pieces=maxout_pieces\n        )\n    elif pretrain_config[\"objective\"][\"type\"] == \"characters\":\n        model = build_cloze_characters_multi_task_model(\n            nlp.vocab,\n            tok2vec,\n            hidden_size=hidden_size,\n            maxout_pieces=maxout_pieces,",
+  "match_policy": "unique-release-normalized-v2"
+}

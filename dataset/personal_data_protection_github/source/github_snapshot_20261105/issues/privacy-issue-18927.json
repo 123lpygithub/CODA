@@ -1,0 +1,74 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18927",
+  "issue_url": "https://github.com/vuejs/vuepress/issues/539",
+  "source_issue_url": "https://github.com/vuejs/vuepress/issues/539",
+  "api_url": "https://api.github.com/repos/vuejs/vuepress/issues/539",
+  "title": "Using Local Workbox Files Instead of CDN",
+  "body": "## Feature request\r\n\r\nUsing local workbox files for the service worker, instead of loading them from a CDN.\r\n\r\n#### What problem does this feature solve?\r\n\r\nBy using the CDN, any client will automatically open a connection to https://storage.googleapis.com/workbox-cdn/releases/... and inevitably transmit his IP address, which is regarded as personal information under EU law. As under the European General Data Protection Regulation, the site owner is responsible for any leak of personal information that is shared or made accessibly because of his site. Therefore, the site owner **must** obtain the clients permission in advance, or be able to ensure that no such information is shared/accessible.\r\n\r\nThis is especially a concern for services like workbox, since if many pages include it via a CDN, tracking a client between different sites becomes possible, which is even more restricted.\r\n\r\n#### What does the proposed API look like?\r\n\r\nDepending on the favoured solution, this would either need an additional config to let the site owner decide whether local files or the CDN should be used, or no changes at all if we could switch from CDN-only to local-only.\r\n\r\n#### How should this be implemented in your opinion?\r\n\r\nInstead of using the CDN, local files could be used as described under https://developers.google.com/web/tools/workbox/modules/workbox-sw\r\n\r\nThis would also be the easiest option compared to obtaining the clients permission beforehand. In addition, this also seems to comply with _Privacy by Design_ and _Default_ -- which is also a European General Data Protection Regulation requirement.\r\n\r\nIf I saw it correctly, the package `workbox-build` is used for this process, together with the `generateSW` function.\r\n\r\nAs of https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build, the source could easily be switched from CDN to local by adding `importWorkboxFrom: 'local'` to the function call. As stated in the documentation, this should also cover copying all needed files.\r\n\r\n#### Are you willing to work on this yourself?\r\n\r\nSure 👍 \r\n\r\nI will gladly submit a pull request that adds `importWorkboxFrom: 'local'` to `generateSW` as well as making it configurable if required. \r\n",
+  "author": "Participant 1",
+  "created_at": "2018-06-02T17:16:29Z",
+  "updated_at": "2019-04-06T17:37:22Z",
+  "state": "closed",
+  "closed_at": "2019-04-06T17:34:07Z",
+  "issue_fetched_at": "2026-10-18T22:11:41.800603+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T22:11:43.227802+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 394103187,
+      "url": "https://github.com/vuejs/vuepress/issues/539#issuecomment-394103187",
+      "created_at": "2018-06-02T17:23:31Z",
+      "updated_at": "2018-06-02T17:23:31Z",
+      "author": "Participant 1",
+      "body": "There is also a privacy issue with the current inclusion of Google Analytics, as the current configuration neither anonymises the IP address nor limits tracking. Since its not configurable as of now, we simply skipped the `ga` config option and implemented our own solution using `enhanceApp.js`, to adhere to EU law.\r\n\r\nIf you think this should also be extended in Vuepress core (as I could also imagine to move this into a plugin later on), I would create another issue and will also be willing to work on this."
+    },
+    {
+      "id": 409842121,
+      "url": "https://github.com/vuejs/vuepress/issues/539#issuecomment-409842121",
+      "created_at": "2018-08-02T08:04:15Z",
+      "updated_at": "2018-08-02T08:40:55Z",
+      "author": "Participant 1",
+      "body": "Given that this is now 2 months old, I would like to bump this in order to get some feedback :)\r\n\r\nSo the main point was to make VuePress GDPR-compliant, especially the service worker implementation. On a side note, complying to modern data privacy standards could also be important to be prepared for future changes to other privacy laws. While changes are still discussed in the United States as far as I know, India for example already published a draft which was heavily inspired by the General Data Protection Regulation (GDPR).\r\n\r\nOn the bigger picture however, the default Google Analytics (GA) integration is also not up to date with current (European) standards. However, this can easily and individually be fixed by using a custom theme and `enhanceApp.js`. Having that said, a quick default improvement could still be to add `ga('set', 'anonymizeIp', true);` and `forceSSL: true` to the default GA integration under `/lib/app/clientEntry.js`.\r\n\r\nSo what are your thoughts on this? Would it be easier to achieve the aforementioned changes (seeing my first post, or the summary below) to the workbox integration after the plugin system is released, or is this independently, so that I could/should start working on the pull request immediately?\r\n\r\nThe change I have in mind is to edit `/lib/build.js`, and either replacing\r\n\r\n```js\r\nawait wbb.generateSW({\r\n```\r\n\r\nwith\r\n\r\n```js\r\nawait wbb.generateSW({\r\n   importWorkboxFrom: 'local',\r\n```\r\n\r\nor adding an option like \r\n\r\n```js\r\nawait wbb.generateSW({\r\n   importWorkboxFrom: SW_IMPORT,\r\n```\r\n\r\nto let each user choose whether `cdn`, `local`, or any other setting is sufficient."
+    },
+    {
+      "id": 412487944,
+      "url": "https://github.com/vuejs/vuepress/issues/539#issuecomment-412487944",
+      "created_at": "2018-08-13T11:28:42Z",
+      "updated_at": "2018-08-13T11:28:42Z",
+      "author": "Participant 2",
+      "body": "Somewhat related to this issue of using a CDN, I would like to use my CDN to load the static files.\r\n\r\nI've tried to redefine the **base** to `base: 'https://mycdn.com/docs/'`, but the SW does not load the critical files from an external domain. \r\n\r\nIt would be great to have a way to separate the content static files from the SW files that must be loaded from the domain.\r\n"
+    },
+    {
+      "id": 416177600,
+      "url": "https://github.com/vuejs/vuepress/issues/539#issuecomment-416177600",
+      "created_at": "2018-08-27T09:59:04Z",
+      "updated_at": "2018-08-27T09:59:04Z",
+      "author": "Participant 3",
+      "body": "May be need export a config like `options.siteConfig.serviceWorkerConfig`. In some country, is impossible to load Workbox Files from google cdn.\r\n\r\n```js\r\n  if (options.siteConfig.serviceWorker) {\r\n    logger.wait('\\nGenerating service worker...')\r\n    const wbb = require('workbox-build')\r\n    await wbb.generateSW({\r\n    await wbb.generateSW(Object.assign({\r\n      swDest: path.resolve(outDir, 'service-worker.js'),\r\n      globDirectory: outDir,\r\n      globPatterns: ['**\\/*.{js,css,html,png,jpg,jpeg,gif,svg,woff,woff2,eot,ttf,otf}']\r\n    })\r\n    }, options.siteConfig.serviceWorkerConfig || {}))\r\n    await fs.writeFile(\r\n      path.resolve(outDir, 'service-worker.js'),\r\n      await fs.readFile(path.resolve(__dirname, 'service-worker/skip-waiting.js'), 'utf8'),\r\n```"
+    },
+    {
+      "id": 416200201,
+      "url": "https://github.com/vuejs/vuepress/issues/539#issuecomment-416200201",
+      "created_at": "2018-08-27T11:45:04Z",
+      "updated_at": "2018-08-27T11:47:01Z",
+      "author": "Participant 4",
+      "body": "Well, I'm still working for the next version, and this feature is simple to be implemented directly at [@vuepress/plugin-pwa](https://github.com/vuejs/vuepress/tree/next/packages/%40vuepress/plugin-pwa). if you are interest, welcome to create a PR.\r\n\r\nRef:\r\n\r\n- [WIP Plugin Documentation](https://github.com/vuejs/vuepress/tree/next/packages/docs/docs/plugin)"
+    },
+    {
+      "id": 480522830,
+      "url": "https://github.com/vuejs/vuepress/issues/539#issuecomment-480522830",
+      "created_at": "2019-04-06T17:36:43Z",
+      "updated_at": "2019-04-06T17:37:22Z",
+      "author": "Participant 4",
+      "body": "Fixed at 4640614. In `1.0.0.alpha-47` you can get this by:\r\n\r\n```js\r\nmodule.exports = {\r\n  plugins: [\r\n    ['@vuepress/pwa', {\r\n       serviceWorker: true,\r\n       updatePopup: true,\r\n       generateSWConfig: {\r\n         importWorkboxFrom: 'local'\r\n       }\r\n    }],\r\n  ]\r\n}\r\n```\r\n\r\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

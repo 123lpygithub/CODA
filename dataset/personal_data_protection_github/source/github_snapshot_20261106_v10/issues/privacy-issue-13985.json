@@ -1,0 +1,178 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-13985",
+  "issue_url": "https://github.com/qbittorrent/qBittorrent/issues/7404",
+  "source_issue_url": "https://github.com/qbittorrent/qBittorrent/issues/7404",
+  "api_url": "https://api.github.com/repos/qbittorrent/qBittorrent/issues/7404",
+  "title": "Idea: Telemetry / collect stats",
+  "body": "**Don't shoot please.**\r\n  \r\nI think it would be useful for the project if we knew how many people use the clients on what OS.  \r\nThis could be further expanded by adding specific counters to each function.  \r\n  \r\nThis way:  \r\n- We would know if a version becomes depreciated. For example, Windows XP 32-bit. Is it still very popular? Or maybe just 5 person uses it all over the world?  \r\n- Does anyone use the most advanced torrent sorting functions, or it's just that one John Doe who made a ticket for it?  \r\n  \r\nAnd so on. Just two ideas. \r\n**All the stats would be anonymous of course, and public. Since the client is public, anyone could check the code themselves. The code would ping back to our server, and not to anyone else. Only the most crucial data would be sent back, and we would never publish the entire dataset in raw form.**\r\nThe main benefit of doing this would be that people would have global numbers (tell me you don't like numbers) and the project team would know what features do people even use. Like if there is a feature that requires extensive work, but it's barely used if ever, then it could be removed/phased out.  \r\n  \r\nAgain, just an idea, thanks for reading it.  \r\n  \r\nCommon arguments:  \r\n- What if the NSA hacks the server and steals the data and then they beam up my pets?!  \r\nAs I wrote above only the most crucial things would get sent and they would be made public anyhow. Like no one cares how many times you opened the RSS reader for example, and since the data sent would be anonymous, it's also worthless. No, no code would be added to track what things you search for.   \r\n  \r\nHow could it be implemented?  \r\nWell, I am no telemetry magician. The client would simply call the server in some way. Some secure way, so the data could not be tampered with (i.e.: no 12 year old could just ruin the dataset). Also, we could count installations simply, or request a Windows computer name, ID, whatever, then compare if it's been reported in the past few months, and so on. It's quite extensive what you can do, but the main thing is that the feature should be useful and harm no privacy.",
+  "author": "Participant 1",
+  "created_at": "2017-09-08T16:55:59Z",
+  "updated_at": "2025-03-29T15:43:38Z",
+  "state": "closed",
+  "closed_at": "2022-07-30T11:22:43Z",
+  "issue_fetched_at": "2026-10-19T01:11:27.238638+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:11:28.699898+00:00"
+  ],
+  "expected_comment_count": 19,
+  "retrieved_comment_count": 19,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 328161675,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-328161675",
+      "created_at": "2017-09-08T17:11:04Z",
+      "updated_at": "2017-09-08T17:11:04Z",
+      "author": "Participant 1",
+      "body": "Again, the ticket can be outright closed if you disagree. I simply wondered how many people use the client on 32-bit XP, on 64-bit XP, and so on. And we have no means of checking that. That's all."
+    },
+    {
+      "id": 328167041,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-328167041",
+      "created_at": "2017-09-08T17:34:15Z",
+      "updated_at": "2017-09-08T17:34:15Z",
+      "author": "Participant 2",
+      "body": "+1"
+    },
+    {
+      "id": 328179168,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-328179168",
+      "created_at": "2017-09-08T18:24:52Z",
+      "updated_at": "2017-09-08T18:24:52Z",
+      "author": "Participant 1",
+      "body": "By the way, we have the server available, so if anyone can cook up the server side, I can run it 24-7-365. MySQL, Java/C#, whatever. Maybe there are libraries for this, or a framework or something?"
+    },
+    {
+      "id": 329577921,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-329577921",
+      "created_at": "2017-09-14T19:00:05Z",
+      "updated_at": "2017-09-14T19:00:05Z",
+      "author": "Participant 3",
+      "body": "Because of open source nature of project it is impossible to create spoof resistant procedure of telemetry collecting. Any checksum calculation or ciphering are not useful because of open source.  So I think it can be as simple as sending single plain text UDP packet without any acknowledgement and/or session establishment. Also collecting machine name or mac addresses are too intrusive IMHO. May be every installation should generate installation UUID  and send them. Not sure, does we really need any kind of ID to distinguish reports those had come from different installations, if we intent only to statistic collection. "
+    },
+    {
+      "id": 329610944,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-329610944",
+      "created_at": "2017-09-14T21:14:26Z",
+      "updated_at": "2017-09-14T21:14:26Z",
+      "author": "Participant 1",
+      "body": "> Also collecting machine name or mac addresses are too intrusive IMHO.\r\n\r\nOf course. I simply meant combining them, using them to \"sign\" each signature. Some features, like how many times the RSS downloader is used for example - would not need the signed collection. It would be only used if you wanted to see if people ever turned an option on, like ever. Or something like that. Probably it is indeed an overkill.\r\n\r\nOff the bat, simple packages would do indeed, but the server side still has to be written by someone. In Java maybe? I don't know. Or maybe there is an open-source library/solution for this?"
+    },
+    {
+      "id": 329666783,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-329666783",
+      "created_at": "2017-09-15T02:59:46Z",
+      "updated_at": "2017-09-15T02:59:46Z",
+      "author": "Participant 3",
+      "body": "Before going to code we should elaborate a clear protocol description. And before the protocol creation we should determine what kind of an information would be collected. For me, there are two different types of information:\r\n1. Answering to \"_What is ?_\". Examples: \"_what is OS version?_\", \"_what is some option's checkbox position?_\".\r\n2. Answering to \"_How many times ... per period?_\". Example: \"_how many times torrent added last month._\"\r\n\r\nFirst type obviously will be collected. But second type looks like considerable more difficult to collect, so we should at first decide, will we collect this type at all."
+    },
+    {
+      "id": 329674771,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-329674771",
+      "created_at": "2017-09-15T04:03:21Z",
+      "updated_at": "2017-09-15T04:03:21Z",
+      "author": "Participant 4",
+      "body": ">Or maybe there is an open-source library/solution for this?\r\n\r\nNot that we should use it, but we can borrow some idea from it: https://github.com/arcan1s/telemetry-server"
+    },
+    {
+      "id": 334638250,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-334638250",
+      "created_at": "2017-10-06T01:52:52Z",
+      "updated_at": "2017-10-06T01:52:52Z",
+      "author": "Participant 5",
+      "body": "+1 this idea.\r\n\r\nWas just thinking it'd be interesting to see some statistics posted on the qbittorrent.org site.\r\n\r\n>impossible to create spoof resistant procedure of telemetry collecting.\r\n\r\nIf people don't want their telemetry collected, they most definitly should not be forced or un-aware that telemetry is collected."
+    },
+    {
+      "id": 334667791,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-334667791",
+      "created_at": "2017-10-06T06:14:26Z",
+      "updated_at": "2017-10-06T06:14:26Z",
+      "author": "Participant 1",
+      "body": "@HHCHunter I know that people are sensitive about telemetry - so am I.\r\nBut in qBittorrent I would simply aim for functions and whatnot. No one would ever collect what you download, what you search for, or anything sensitive. It would be useful to see however how often do people use functions. If there is a decision to be made later on - that something just eats too many hours to maintain and develop - and no one uses it - it could be removed. That is just one use case though. \r\n"
+    },
+    {
+      "id": 334678871,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-334678871",
+      "created_at": "2017-10-06T07:22:25Z",
+      "updated_at": "2017-10-06T07:22:25Z",
+      "author": "Participant 3",
+      "body": "Well, I want to take a try. \r\n@Balls0fSteel what type of server is at your hand? What is OS installed on it, available resourses, which services (WEB server, RDBMS) can be used? Would you give SSH access to it for somebody or would test/install/update by yourself? "
+    },
+    {
+      "id": 334690289,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-334690289",
+      "created_at": "2017-10-06T08:19:53Z",
+      "updated_at": "2017-10-06T08:19:53Z",
+      "author": "Participant 1",
+      "body": "@dzmat I think the initial implementation of the server and client side requires no remote server (I mean you can simply add a function that submits data for example, add it to each part you want to monitor in qBittorrent) and then you just need a server as a virtual machine that would accept the incoming data.\r\n\r\nThe final server hardware is Linux, Ubuntu and plenty of resources. (Yeah that is pretty vague, but basically don't worry about CPU, bandwidth or RAM.) I think MySQL would be a fine choice (one locked user/pass/db), or I could even set up a second instance to keep it entirely separate from the forum database. A database per version or something like that could also work.\r\n\r\nOnce there is any production code (anything that works) and we have a willing contributor - such as yourself - I will give an SSH to a machine for testing. I hope this 'setup' will work..."
+    },
+    {
+      "id": 334722494,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-334722494",
+      "created_at": "2017-10-06T10:50:22Z",
+      "updated_at": "2017-10-08T15:36:00Z",
+      "author": "Participant 3",
+      "body": "@Balls0fSteel Ok, we will return to it when there will be any code to show.\r\n\r\nMeanwhile, I'm accepting suggestions about information that someone wants to be collected. If you will supplement your wishes with code snippets preparing it into QString or other simple type, it will be excellent.\r\n"
+    },
+    {
+      "id": 334934927,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-334934927",
+      "created_at": "2017-10-07T13:25:12Z",
+      "updated_at": "2017-10-07T13:25:12Z",
+      "author": "Participant 6",
+      "body": "Collecting telemetry in a local logfile might be useful even if NOT in a crash situation, but let that be optional for whether people want to send it somewhere.\r\n\r\nBUT...\r\nPhone home parts scare too many sorts, especially with companies and governments getting hacked every day.\r\n\r\nIf a new version puts out a fatal flaw, the telemetry server might get DDoS attacked by the phone home part...assuming it works as planned."
+    },
+    {
+      "id": 334936621,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-334936621",
+      "created_at": "2017-10-07T13:52:56Z",
+      "updated_at": "2017-10-07T13:52:56Z",
+      "author": "Participant 1",
+      "body": "Haha, Seeker, we are not trying to collect _that_ sort of data. The main aim here is nothing of that sort, but to collect data on what people use in the client for example. Nothing that is personal, nothing that could be ever used for anything. The code will be open, maybe the data too (even though it will be useless for 99.9% of the people except for the devs.). So, no worries."
+    },
+    {
+      "id": 335004129,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-335004129",
+      "created_at": "2017-10-08T12:42:37Z",
+      "updated_at": "2017-10-08T12:42:37Z",
+      "author": "Participant 6",
+      "body": "You mean the settings in qBitTorrent not the torrents used *IN* qBitTorrent. (Your last post's wording is seriously not clear, I had to re-read the whole thread to gather that.)\r\n\r\nThe devs are overworked enough as it is at the moment, so this is at best a long-term project unless you're the one doing it!\r\n\r\nIt's exasperating, but the stack traces sometimes generated by qBitTorrent's crashes are barely usable by the devs as it is...so if anything needs to be improved in telemetry, it's THEM."
+    },
+    {
+      "id": 335004925,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-335004925",
+      "created_at": "2017-10-08T12:57:37Z",
+      "updated_at": "2017-10-08T13:00:35Z",
+      "author": "Participant 1",
+      "body": "Sorry. I meant the things _used_ in the client, like how many times you use a search provider. The numbers would simply say \"10 people used X provider in the past 30 days\". Or something like that. There is still nothing baked here, it's in \"idea-phase.\"\r\n\r\nDev wise... there are no core devs on the project that are paid to work on the client's whatever aspect. This was just an idea out of the blue, thrown in. Anyone can pick it up (dzmat is already looking around), and I am willing to support the idea (just like any other qBittorrent related idea) with the server resources.\r\n\r\nBy the way, in my opinion, this could be used to reduce dev load. Because devs keep adding new features that users ask for. And there is nothing wrong with that - but having more features mean more features you have to keep updated. It just equals more work. So it would be good to see if various features are used at all. If there is something that no one uses, we could further discuss if it's viable to keep it around. Or what part needs more development work, what's the most used feature. \r\n\r\nAgain, that is also just an idea. Having just the numbers is already \"fun\". :)"
+    },
+    {
+      "id": 358813419,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-358813419",
+      "created_at": "2018-01-18T23:11:39Z",
+      "updated_at": "2018-01-18T23:11:39Z",
+      "author": "Participant 7",
+      "body": "Why no just do a simple optional survey?"
+    },
+    {
+      "id": 485763550,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-485763550",
+      "created_at": "2019-04-23T11:27:19Z",
+      "updated_at": "2019-04-23T11:27:19Z",
+      "author": "Participant 8",
+      "body": "> All the stats would be anonymous of course\r\n\r\nI see this was opened pre-GDPR, so consider this:\r\n\r\nThere is no such thing as anonymous when you are receiving the IP address of the sender. Considering that according to GDPR the IP address is personal data and any processing of personal data must be based on:\r\n\r\n- informed choice\r\n- freely given (not forced) consent\r\n\r\nany such option should:\r\n\r\n1. Be OFF by default (= it should be an **opt-in**, not an opt out)\r\n2. Inform the user of the consequences of its enabling (for him, not for the data controller)\r\n3. Give him an option to still be able to use the program without opting in.\r\n\r\n> Don't shoot please.\r\n\r\nToo late. You have been shot :P\r\n\r\nIf one chooses FOSS one chooses its for the freedom it gives. Usually telemetry and stats are aimed to optimize a product/service commercially, i.e. it benefits a centralized entity."
+    },
+    {
+      "id": 1200140314,
+      "url": "https://github.com/qbittorrent/qBittorrent/issues/7404#issuecomment-1200140314",
+      "created_at": "2022-07-30T11:22:43Z",
+      "updated_at": "2022-07-30T11:22:43Z",
+      "author": "Participant 9",
+      "body": "I guess the maintainer does not want to add any telemetry to the application. Also you should know that some telemetry is already available from downloads served by Fosshub. So we get the basic idea like the percentage of users from each operating system. I'm closing this as not planned but you're welcome to create a new thread."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

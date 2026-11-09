@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0209-aaihfgcij",
+  "revision_url": "https://github.com/allenai/allennlp/commit/2e6f2dd5c6b86ca7c35604dfb78a71ddc9c5a60b",
+  "filename": "allennlp/semparse/action_space_walker.py",
+  "commit": "2e6f2dd5c6b86ca7c35604dfb78a71ddc9c5a60b",
+  "source_url": "https://raw.githubusercontent.com/allenai/allennlp/2e6f2dd5c6b86ca7c35604dfb78a71ddc9c5a60b/allennlp/semparse/action_space_walker.py",
+  "fetched_at": "2026-11-05T06:12:15.672469+00:00",
+  "source_sha256": "77f43c95b0dc6ff2c0af87c8401a6dae90fd660aa1e2667b023fc64edba9c369",
+  "line_start": 85,
+  "line_end": 109,
+  "excerpt": "        if \"[\" in right_side:\n            right_side_parts = right_side[1:-1].split(\", \")\n        else:\n            right_side_parts = [right_side]\n        return right_side_parts\n\n    def get_logical_forms_with_agenda(self,\n                                      agenda: List[str],\n                                      max_num_logical_forms: int = None) -> List[str]:\n        if self._completed_paths is None:\n            self._walk()\n        agenda_path_indices = [self._terminal_path_index[action] for action in agenda]\n        # TODO (pradeep): Sort the indices and do intersections in order, so that we can return the\n        # set with maximal coverage if the full intersection is null.\n        return_set = agenda_path_indices[0]\n        for next_set in agenda_path_indices[1:]:\n            return_set = return_set.intersection(next_set)\n        paths = [self._completed_paths[index] for index in return_set]\n        if max_num_logical_forms is not None:\n            paths = sorted(paths, key=len)[:max_num_logical_forms]\n        logical_forms = [self._world.get_logical_form(path) for path in paths]\n        return logical_forms\n\n    def get_all_logical_forms(self,\n                              max_num_logical_forms: int = None) -> List[str]:",
+  "match_policy": "unique-release-normalized-v2"
+}

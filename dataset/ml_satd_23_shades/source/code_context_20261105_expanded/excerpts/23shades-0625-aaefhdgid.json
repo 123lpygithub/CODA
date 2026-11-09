@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0625-aaefhdgid",
+  "revision_url": "https://github.com/awslabs/sockeye/commit/8371e0eabca25441b2753e6101a257948819c595",
+  "filename": "sockeye/data_io.py",
+  "commit": "8371e0eabca25441b2753e6101a257948819c595",
+  "source_url": "https://raw.githubusercontent.com/awslabs/sockeye/8371e0eabca25441b2753e6101a257948819c595/sockeye/data_io.py",
+  "fetched_at": "2026-11-05T06:13:28.094405+00:00",
+  "source_sha256": "6cc4e897225a111c613665121655abbe0a398c3fc401b95af94eff7a8247f530",
+  "line_start": 1851,
+  "line_end": 1875,
+  "excerpt": "\n        batch_size = self.bucket_batch_sizes[i].batch_size\n        source = self.data.source[i][j:j + batch_size]\n        target = self.data.target[i][j:j + batch_size]\n        data = [source, target]\n        label = [self.data.label[i][j:j + batch_size]]\n\n        provide_data = [mx.io.DataDesc(name=n, shape=x.shape, layout=C.BATCH_MAJOR) for n, x in\n                        zip(self.data_names, data)]\n        provide_label = [mx.io.DataDesc(name=n, shape=x.shape, layout=C.BATCH_MAJOR) for n, x in\n                         zip(self.label_names, label)]\n\n        # TODO: num pad examples is not set here if fillup policy would be padding\n        return mx.io.DataBatch(data, label,\n                               pad=0, index=None, bucket_key=self.buckets[i],\n                               provide_data=provide_data, provide_label=provide_label)\n\n    def save_state(self, fname: str):\n        \"\"\"\n        Saves the current state of iterator to a file, so that iteration can be\n        continued. Note that the data is not saved, i.e. the iterator must be\n        initialized with the same parameters as in the first call.\n\n        :param fname: File name to save the information to.\n        \"\"\""
+}

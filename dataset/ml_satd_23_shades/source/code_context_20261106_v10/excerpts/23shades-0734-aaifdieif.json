@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0734-aaifdieif",
+  "revision_url": "https://github.com/microsoft/nni/commit/223168007359257de9cb83351a6ebddf441379d3",
+  "filename": "src/sdk/pynni/nni/smac_tuner/smac_tuner.py",
+  "commit": "223168007359257de9cb83351a6ebddf441379d3",
+  "source_url": "https://raw.githubusercontent.com/microsoft/nni/223168007359257de9cb83351a6ebddf441379d3/src/sdk/pynni/nni/smac_tuner/smac_tuner.py",
+  "fetched_at": "2026-11-05T06:13:44.725305+00:00",
+  "source_sha256": "6058391be3687545c7e7f7dd20f55ef56cac10500ad4b861579487ca3851c483",
+  "line_start": 124,
+  "line_end": 148,
+  "excerpt": "\n        return optimizer\n\n    def update_search_space(self, search_space):\n        \"\"\"\n        NOTE: updating search space is not supported.\n        Parameters\n        ----------\n        search_space: dict\n            search space\n        \"\"\"\n\n        # TODO: this is ugly, we put all the initialization work in this method, because initialization relies\n        #         on search space, also because update_search_space is called at the beginning.\n\n        if not self.update_ss_done:\n            self.categorical_dict = generate_scenario(search_space)\n            if self.categorical_dict is None:\n                raise RuntimeError('categorical dict is not correctly returned after parsing search space.')\n            self.optimizer = self._main_cli()\n            self.smbo_solver = self.optimizer.solver\n            self.loguniform_key = {key for key in search_space.keys() if search_space[key]['_type'] == 'loguniform'}\n            self.update_ss_done = True\n        else:\n            self.logger.warning('update search space is not supported.')",
+  "match_policy": "unique-release-normalized-v2"
+}

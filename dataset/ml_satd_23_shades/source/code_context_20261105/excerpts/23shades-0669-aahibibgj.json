@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0669-aahibibgj",
+  "revision_url": "https://github.com/PyTorchLightning/pytorch-lightning/commit/51de6802edd6c050ba3f2803724298eb059dc5ad",
+  "filename": "pytorch_lightning/callbacks/model_checkpoint.py",
+  "commit": "51de6802edd6c050ba3f2803724298eb059dc5ad",
+  "source_url": "https://raw.githubusercontent.com/PyTorchLightning/pytorch-lightning/51de6802edd6c050ba3f2803724298eb059dc5ad/pytorch_lightning/callbacks/model_checkpoint.py",
+  "fetched_at": "2026-11-05T06:13:35.555954+00:00",
+  "source_sha256": "199421dac2b2d5d78964a4fc6abe0620675f92c174a8e22b0a5770fda0327898",
+  "line_start": 307,
+  "line_end": 331,
+  "excerpt": "                    When using EvalResult(early_stop_on=X) or TrainResult(early_stop_on=X) the\n                    'monitor' key of ModelCheckpoint has no effect.\n                    Remove ModelCheckpoint(monitor='{self.monitor}) to fix')\n                \"\"\"\n            rank_zero_warn(m)\n\n    @rank_zero_only\n    def on_validation_end(self, trainer, pl_module):\n        # only run on main process\n        if trainer.global_rank != 0:\n            return\n\n        # TODO: remove when dict results are deprecated\n        self.__warn_deprecated_monitor_key()\n\n        metrics = trainer.callback_metrics\n        epoch = trainer.current_epoch\n\n        # support structured results\n        if metrics.get('checkpoint_on') is not None:\n            self.monitor = 'checkpoint_on'\n\n        # conditioned val metrics override conditioned train loop metrics\n        if metrics.get('val_checkpoint_on') is not None:\n            self.monitor = 'val_checkpoint_on'"
+}

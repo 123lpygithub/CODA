@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0666-aahicgcid",
+  "revision_url": "https://github.com/PyTorchLightning/pytorch-lightning/commit/f878a2699f2b323196be2cb5f7a95bf10956c6d5",
+  "filename": "pytorch_lightning/core/lightning.py",
+  "commit": "f878a2699f2b323196be2cb5f7a95bf10956c6d5",
+  "source_url": "https://raw.githubusercontent.com/PyTorchLightning/pytorch-lightning/f878a2699f2b323196be2cb5f7a95bf10956c6d5/pytorch_lightning/core/lightning.py",
+  "fetched_at": "2026-11-05T06:13:35.142601+00:00",
+  "source_sha256": "79d790e41f8d33288fa07a8cc96191fb3556a7d07989f3c8bfcadbfbced551c7",
+  "line_start": 1642,
+  "line_end": 1666,
+  "excerpt": "            self._hparams = AttributeDict()\n        return self._hparams\n\n    @property\n    def hparams_initial(self) -> AttributeDict:\n        if not hasattr(self, \"_hparams_initial\"):\n            return AttributeDict()\n        # prevent any change\n        return copy.deepcopy(self._hparams_initial)\n\n    @hparams.setter\n    def hparams(self, hp: Union[dict, Namespace, Any]):\n        # TODO: remove this method in v1.3.0.\n        rank_zero_warn(\n            \"The setter for self.hparams in LightningModule is deprecated since v1.1.0 and will be\"\n            \" removed in v1.3.0. Replace the assignment `self.hparams = hparams` with \"\n            \" `self.save_hyperparameters()`.\",\n            DeprecationWarning\n        )\n        hparams_assignment_name = self.__get_hparams_assignment_variable()\n        self._hparams_name = hparams_assignment_name\n        self._set_hparams(hp)\n        # this resolves case when user does not uses `save_hyperparameters` and do hard assignement in init\n        if not hasattr(self, \"_hparams_initial\"):\n            self._hparams_initial = copy.deepcopy(self._hparams)"
+}

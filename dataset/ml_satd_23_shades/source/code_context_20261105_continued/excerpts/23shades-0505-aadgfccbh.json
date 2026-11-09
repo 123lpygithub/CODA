@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0505-aadgfccbh",
+  "revision_url": "https://github.com/sorgerlab/indra/commit/bc1d09aa02ec3aa4269f3194dd6b145a9c6cc3bc",
+  "filename": "indra/literature/s3_client.py",
+  "commit": "bc1d09aa02ec3aa4269f3194dd6b145a9c6cc3bc",
+  "source_url": "https://raw.githubusercontent.com/sorgerlab/indra/bc1d09aa02ec3aa4269f3194dd6b145a9c6cc3bc/indra/literature/s3_client.py",
+  "fetched_at": "2026-11-05T06:13:04.782054+00:00",
+  "source_sha256": "462531f64cb3d76d9567c3f677a481bd33c08be387390beb3715edfa065caf18",
+  "line_start": 207,
+  "line_end": 231,
+  "excerpt": "\ndef put_abstract(pmid, text):\n    xml_key = get_pmid_key(pmid) + '/abstract'\n    xml_gz = gzip_string(text, '%s.nxml' % pmid)\n    client.put_object(Key=xml_key, Body=xml_gz, Bucket=bucket_name)\n\n\ndef get_reach_obj_with_version(pmid, reach_version):\n    reach_key = get_reach_key(pmid)\n    try:\n        # Get the REACH object\n        reach_gz_obj = client.get_object(Key=reach_key, Bucket=bucket_name)\n        # TODO: Currently we don't look at source text, but we may want to\n        # later\n        # source_text = reach_metadata.get('source_text')\n        # if source_text is not None:\n        #     source_text = str(source_text)\n    # Handle a missing object gracefully\n    except botocore.exceptions.ClientError as e:\n        if e.response['Error']['Code'] =='NoSuchKey':\n            logger.info('No REACH output found on S3 for key %s' % reach_key)\n            return None\n            # reach_version = None\n            # source_text = None\n        # If there was some other kind of problem, re-raise the exception",
+  "match_policy": "unique-release-normalized-v2"
+}

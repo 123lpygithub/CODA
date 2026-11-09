@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0124-aafacjjjb",
+  "revision_url": "https://github.com/brightmart/ai_law/commit/0d6b73bc00e48981c53b36a740f45c7298b72e9c",
+  "filename": "predictor/model_single_task_1.py",
+  "commit": "0d6b73bc00e48981c53b36a740f45c7298b72e9c",
+  "source_url": "https://raw.githubusercontent.com/brightmart/ai_law/0d6b73bc00e48981c53b36a740f45c7298b72e9c/predictor/model_single_task_1.py",
+  "fetched_at": "2026-11-05T06:11:57.883465+00:00",
+  "source_sha256": "b9f631a1ae5c72977db7871dcc1c847ea918b098f8041660a61665fea7c483fc",
+  "line_start": 215,
+  "line_end": 239,
+  "excerpt": "\n        # 2.1 convolutional layers\n        cnn = self.conv_layers_return_2d_great(input_x, 'conv_layer',reuse_flag=False)  # [batch_size,sequence_length-filter_size + 1,num_filters]\n\n        # 2.2 additiona features(optional): try to use data mining features from sample where its label doing poorly\n        h_feature = tf.layers.dense(self.input_feature, self.hidden_size/4, activation=tf.nn.relu, use_bias=True) #[batch_size, hidden_size/4]<---[batch_size,feature_length]\n        h_feature = tf.nn.dropout(h_feature,keep_prob=self.dropout_keep_prob)  # [batch_size, hidden_size/2]\n\n        # 3. concat feature\n        h=tf.concat([cnn,h_feature],axis=-1) #[batch_size, dimension]\n\n        # 4.classifier\n        #h = tf.layers.dense(h, self.hidden_size * 2, activation=tf.nn.relu, use_bias=True) #4 TODO\n        #h = tf.nn.dropout(h,keep_prob=self.dropout_keep_prob)  # [batch_size,sequence_length - filter_size + 1,num_filters] TODO\n        logits_list = self.project_tasks(h)\n        return logits_list\n\n    def inference_deep_pyramid_cnn(self):\n        \"\"\"\n        deep pyramid cnn for text categorization\n        region embedding-->two layers of convs-->repeat of building block(Pooling,/2-->conv-->conv)--->pooling\n        for more check: http://www.aclweb.org/anthology/P/P17/P17-1052.pdf\n        :return: logits_list\n        \"\"\"\n        # 1.region embedding",
+  "match_policy": "unique-release-normalized-v2"
+}

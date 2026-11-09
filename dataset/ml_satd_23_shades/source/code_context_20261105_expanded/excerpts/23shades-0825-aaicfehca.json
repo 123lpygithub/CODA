@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0825-aaicfehca",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/cacb14ef0a5605e10e4c476061774c706aa1ad63",
+  "filename": "sklearn/decomposition/tests/test_truncated_svd.py",
+  "commit": "cacb14ef0a5605e10e4c476061774c706aa1ad63",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/cacb14ef0a5605e10e4c476061774c706aa1ad63/sklearn/decomposition/tests/test_truncated_svd.py",
+  "fetched_at": "2026-11-05T06:14:00.455741+00:00",
+  "source_sha256": "d70ec408d23088766b2b17043592d0e2c0fb988c2edca7ba50d1188ba01f5c0c",
+  "line_start": 1,
+  "line_end": 25,
+  "excerpt": "\"\"\"Test truncated SVD transformer.\"\"\"\n\nimport numpy as np\nimport scipy.sparse as sp\n\nfrom sklearn.decomposition import TruncatedSVD\nfrom sklearn.utils import check_random_state\nfrom sklearn.utils.testing import (assert_array_almost_equal, assert_equal,\n                                   assert_raises)\n\n\n# Make an X that looks somewhat like a small tf-idf matrix.\n# XXX newer versions of SciPy have scipy.sparse.rand for this.\nshape = 60, 55\nn_samples, n_features = shape\nrng = check_random_state(42)\nX = rng.randint(-100, 20, np.product(shape)).reshape(shape)\nX = sp.csr_matrix(np.maximum(X, 0), dtype=np.float64)\nX.data[:] = 1 + np.log(X.data)\nXdense = X.A\n\n\ndef test_algorithms():\n    atsvd = TruncatedSVD(30, algorithm=\"arpack\")\n    rtsvd = TruncatedSVD(30, algorithm=\"randomized\", random_state=42)"
+}

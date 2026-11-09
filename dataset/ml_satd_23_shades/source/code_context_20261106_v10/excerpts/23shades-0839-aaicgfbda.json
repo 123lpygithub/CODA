@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0839-aaicgfbda",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/a786e12ace3ef0c7e77cea93edd5e316bed6f93c",
+  "filename": "sklearn/linear_model/base.py",
+  "commit": "a786e12ace3ef0c7e77cea93edd5e316bed6f93c",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/a786e12ace3ef0c7e77cea93edd5e316bed6f93c/sklearn/linear_model/base.py",
+  "fetched_at": "2026-11-05T06:14:02.551469+00:00",
+  "source_sha256": "442f2c0a46db9f64c0cc60cfb5938fff86b63b1e7ba787fe2c35f1e1373d5ace",
+  "line_start": 85,
+  "line_end": 109,
+  "excerpt": "    \"\"\"\n    X = as_float_array(X, copy)\n    if fit_intercept:\n        if isinstance(sample_weight, numbers.Number):\n            sample_weight = None\n        if sp.issparse(X):\n            X_mean = np.zeros(X.shape[1])\n            X_std = np.ones(X.shape[1])\n        else:\n            X_mean = np.average(X, axis=0, weights=sample_weight)\n            X -= X_mean\n            if normalize:\n                # XXX: currently scaled to variance=n_samples\n                X_std = np.sqrt(np.sum(X ** 2, axis=0))\n                X_std[X_std == 0] = 1\n                X /= X_std\n            else:\n                X_std = np.ones(X.shape[1])\n        y_mean = np.average(y, axis=0, weights=sample_weight)\n        y = y - y_mean\n    else:\n        X_mean = np.zeros(X.shape[1])\n        X_std = np.ones(X.shape[1])\n        y_mean = 0. if y.ndim == 1 else np.zeros(y.shape[1], dtype=X.dtype)\n    return X, y, X_mean, y_mean, X_std",
+  "match_policy": "unique-release-normalized-v2"
+}

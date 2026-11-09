@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0586-aagdaagij",
+  "revision_url": "https://github.com/drivendataorg/zamba/commit/8f27ebfe85bbd6cb99a2ab047c9377a65054d023",
+  "filename": "zamba/models/cnnensemble/src/single_frame_cnn.py",
+  "commit": "8f27ebfe85bbd6cb99a2ab047c9377a65054d023",
+  "source_url": "https://raw.githubusercontent.com/drivendataorg/zamba/8f27ebfe85bbd6cb99a2ab047c9377a65054d023/zamba/models/cnnensemble/src/single_frame_cnn.py",
+  "fetched_at": "2026-11-05T06:13:16.556637+00:00",
+  "source_sha256": "f82e2112d6b4258f3de8ae0ad8fa7d4c658c59a54961893db9bc77f636067193",
+  "line_start": 19,
+  "line_end": 43,
+  "excerpt": "from tensorflow.python.keras.applications.inception_v3 import preprocess_input as preprocess_input_inception_v3\nfrom tensorflow.python.keras.callbacks import ModelCheckpoint, TensorBoard\nfrom tensorflow.python.keras.layers import Dense, Dropout\nfrom tensorflow.python.keras.layers import GlobalMaxPooling2D, GlobalAveragePooling2D, AveragePooling2D\nfrom tensorflow.python.keras.layers import Input\nfrom tensorflow.python.keras.models import Model\nfrom tensorflow.python.keras.optimizers import SGD, Adam, RMSprop\nfrom tensorflow.python.keras.regularizers import l1\nfrom tensorflow.python.keras import backend as K\nfrom tqdm import tqdm\n\n# The original InceptionResNetV2 has been trained by mistake with preprocess_input using caffe scale similar to resnet50\n# TODO: it's worth to switch back to the correct preprocess_input when InceptionResNetV2 model is re-trained\nfrom tensorflow.python.keras.applications.resnet50 import preprocess_input as preprocess_input_inception_resnet_v2\n\nfrom .cnn_finetune import resnet_152\nfrom .metrics import pri_matrix_loss\nfrom zamba.models.cnnensemble.src import config\nfrom zamba.models.cnnensemble.src import utils\n\n\ntf_config = tf.ConfigProto()\ntf_config.gpu_options.allow_growth = True\n# tf_config.gpu_options.visible_device_list = \"0\"\nK.set_session(tf.Session(config=tf_config))"
+}

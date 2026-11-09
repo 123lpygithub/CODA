@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0014-aadbjfiab",
+  "revision_url": "https://github.com/mesnico/learning-relationship-aware-visual-features/commit/f7d9014a2009b22ab6a75ca44ac7822c0099ce09",
+  "filename": "networkx/networkx/algorithms/isomorphism/isomorphvf2.py",
+  "commit": "f7d9014a2009b22ab6a75ca44ac7822c0099ce09",
+  "source_url": "https://raw.githubusercontent.com/mesnico/learning-relationship-aware-visual-features/f7d9014a2009b22ab6a75ca44ac7822c0099ce09/networkx/networkx/algorithms/isomorphism/isomorphvf2.py",
+  "fetched_at": "2026-11-05T06:11:40.704466+00:00",
+  "source_sha256": "ad845baf749b4b9e39072ea77840996d07d8fdeff9839b119cca9c027c69a884",
+  "line_start": 188,
+  "line_end": 212,
+  "excerpt": "        if self.old_recursion_limit < 1.5 * expected_max_recursion_level:\n            # Give some breathing room.\n            sys.setrecursionlimit(int(1.5 * expected_max_recursion_level))\n\n        # Declare that we will be searching for a graph-graph isomorphism.\n        self.test = 'graph'\n\n        # Initialize state\n        self.initialize()\n\n    def reset_recursion_limit(self):\n        \"\"\"Restores the recursion limit.\"\"\"\n        ### TODO:\n        ###     Currently, we use recursion and set the recursion level higher.\n        ###     It would be nice to restore the level, but because the\n        ###     (Di)GraphMatcher classes make use of cyclic references, garbage\n        ###     collection will never happen when we define __del__() to\n        ###     restore the recursion level. The result is a memory leak.\n        ###     So for now, we do not automatically restore the recursion level,\n        ###     and instead provide a method to do this manually. Eventually,\n        ###     we should turn this into a non-recursive implementation.\n        sys.setrecursionlimit(self.old_recursion_limit)\n\n    def candidate_pairs_iter(self):\n        \"\"\"Iterator over candidate pairs of nodes in G1 and G2.\"\"\""
+}

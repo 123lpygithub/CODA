@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0397-aahjideha",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "filename": "tensorflow2.0/source/tensorflow/python/eager/backprop.py",
+  "commit": "44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/44d36f9e5045fd859ee188d74dc31f3921ad4796/tensorflow2.0/source/tensorflow/python/eager/backprop.py",
+  "fetched_at": "2026-11-05T06:12:45.437561+00:00",
+  "source_sha256": "7853517c7d03381eb442a0350b4092b1122903927d1f23dc6cfa065a9c933242",
+  "line_start": 41,
+  "line_end": 65,
+  "excerpt": "from tensorflow.python.ops import resource_variable_ops\nfrom tensorflow.python.ops.unconnected_gradients import UnconnectedGradients\nfrom tensorflow.python.platform import tf_logging as logging\nfrom tensorflow.python.util import nest\nfrom tensorflow.python.util import tf_contextlib\nfrom tensorflow.python.util import tf_inspect\nfrom tensorflow.python.util.lazy_loader import LazyLoader\nfrom tensorflow.python.util.tf_export import tf_export\n\n\n# Note that we need to lazy load the following two modules to avoid creating\n# circular dependencies.\n# TODO(b/119775953): fix the circular dependencies.\npfor_ops = LazyLoader(\n    \"pfor_ops\", globals(),\n    \"tensorflow.python.ops.parallel_for.control_flow_ops\")\n\nfunction = LazyLoader(\"function\", globals(),\n                      \"tensorflow.python.eager.function\")\n\n_op_attr_type_cache = {}\n\n\ndef op_attr_type(op_type, attr_name):\n  try:",
+  "match_policy": "unique-release-normalized-v2"
+}

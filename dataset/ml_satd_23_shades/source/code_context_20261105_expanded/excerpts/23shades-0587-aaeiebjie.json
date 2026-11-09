@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0587-aaeiebjie",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/072d4fdef3cc431fedee2b5b78a1bfbdeb8af1d6",
+  "filename": "hpat/pd_series_ext.py",
+  "commit": "072d4fdef3cc431fedee2b5b78a1bfbdeb8af1d6",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/072d4fdef3cc431fedee2b5b78a1bfbdeb8af1d6/hpat/pd_series_ext.py",
+  "fetched_at": "2026-11-05T06:13:16.542022+00:00",
+  "source_sha256": "20d27a54293727cf258ce38bc49ee41f9a32638e7385dd93407427f55387f1ee",
+  "line_start": 400,
+  "line_end": 424,
+  "excerpt": "\n    @bound_function(\"series.append\")\n    def resolve_append(self, ary, args, kws):\n        # TODO: ignore_index\n        assert not kws\n        arr_typ = if_series_to_array_type(ary)\n        other, = args\n        if isinstance(other, (SeriesType, types.Array)):\n            all_arrs = types.Tuple((arr_typ, if_series_to_array_type(other)))\n        elif isinstance(other, types.BaseTuple):\n            all_arrs = types.Tuple((arr_typ, *[if_series_to_array_type(a) for a in other.types]))\n\n        # TODO: list\n        # call np.concatenate to handle type promotion e.g. int, float -> float\n        ret_typ = self.context.resolve_function_type(np.concatenate, (all_arrs,), kws).return_type\n        ret_typ = if_arr_to_series_type(ret_typ)\n        return signature(ret_typ, *args)\n\n\n# TODO: use ops logic from pandas/core/ops.py\n# # called from numba/numpy_support.py:resolve_output_type\n# # similar to SmartArray (targets/smartarray.py)\n# @type_callable('__array_wrap__')\n# def type_series_array_wrap(context):\n#     def typer(input_type, result):"
+}

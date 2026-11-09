@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-15131",
+  "issue_url": "https://github.com/nextcloud/calendar/issues/711",
+  "source_issue_url": "https://github.com/nextcloud/calendar/issues/711",
+  "api_url": "https://api.github.com/repos/nextcloud/calendar/issues/711",
+  "title": "Show warning when detected timezone is UTC",
+  "body": "<!--\r\nPlease report only issues corresponding to the calendar for Nextcloud 9 or later.\r\nThe old calendar 0.x is discontinued!\r\n\r\nMigration and CalDAV issues belong in the server repo!\r\nhttps://github.com/nextcloud/server/issues\r\n-->\r\n### Steps to reproduce\r\n1. open Firefox\r\n2. goto about:config\r\n3. enable privacy.resistFingerprinting\r\n4. open calendar app\r\n\r\n### Expected behaviour\r\nCalendar works just fine\r\n\r\n### Actual behaviour\r\nCalendar view (day / week / month) displays everything as UTC\r\n\r\n### What to do now:\r\n- [ ] research what parts about firefox are different in `privacy.resistFingerprinting` mode\r\n- [ ] isolate the issue in our code - Is it our code or a dependency? \r\n- [ ] fix / report upstream\r\n\r\n\r\n<bountysource-plugin>\r\n\r\n---\r\nWant to back this issue? **[Post a bounty on it!](https://www.bountysource.com/issues/54418552-show-warning-when-detected-timezone-is-utc?utm_campaign=plugin&utm_content=tracker%2F45525646&utm_medium=issues&utm_source=github)** We accept bounties via [Bountysource](https://www.bountysource.com/?utm_campaign=plugin&utm_content=tracker%2F45525646&utm_medium=issues&utm_source=github).\r\n</bountysource-plugin>",
+  "author": "Participant 1",
+  "created_at": "2018-01-30T16:55:37Z",
+  "updated_at": "2019-10-22T12:44:48Z",
+  "state": "closed",
+  "closed_at": "2019-10-22T12:44:48Z",
+  "issue_fetched_at": "2026-10-19T00:10:30.849134+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T00:10:32.587982+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 361660783,
+      "url": "https://github.com/nextcloud/calendar/issues/711#issuecomment-361660783",
+      "created_at": "2018-01-30T17:00:27Z",
+      "updated_at": "2018-01-30T17:00:27Z",
+      "author": "Participant 1",
+      "body": "This is a follow-up for https://help.nextcloud.com/t/calendar-timezone-confusion/26079"
+    },
+    {
+      "id": 361678711,
+      "url": "https://github.com/nextcloud/calendar/issues/711#issuecomment-361678711",
+      "created_at": "2018-01-30T17:57:16Z",
+      "updated_at": "2018-01-30T17:57:16Z",
+      "author": "Participant 1",
+      "body": "With Firefox 59.0b5, https://pellepim.bitbucket.io/jstz/ just gives me UTC.\r\n\r\nAnd according to an admin in the firefox Channel of the Mozilla IRC, privacy.resistFingerprinting will make users appear to be in UTC:\r\nhttps://mozilla.logbot.info/firefox/20180130#c14213397\r\n\r\nSo I would propose the following:\r\n- implement #586 \r\n- If we detect UTC, tell the user that this might be related to some privacy feature and ask them to set the timezone manually"
+    },
+    {
+      "id": 363961991,
+      "url": "https://github.com/nextcloud/calendar/issues/711#issuecomment-363961991",
+      "created_at": "2018-02-08T00:37:14Z",
+      "updated_at": "2018-02-08T00:37:14Z",
+      "author": "Participant 2",
+      "body": "Why not default to the server timezone and allow individual users the ability to change in their respective settings"
+    },
+    {
+      "id": 363963324,
+      "url": "https://github.com/nextcloud/calendar/issues/711#issuecomment-363963324",
+      "created_at": "2018-02-08T00:43:22Z",
+      "updated_at": "2018-02-08T00:43:22Z",
+      "author": "Participant 1",
+      "body": "Default should always be detecting the users current time zone, because that works for most cases. \r\n\r\nIf we can only detect UTC, because the user is using some anti fingerprinting mechanism, we should simply ask them to tell us their timezone.\r\n\r\nWhere should the server timezone come in here?\r\nI really oppose abolishing our automatic timezone detection, because it works just fine in most cases. \r\n"
+    },
+    {
+      "id": 363969782,
+      "url": "https://github.com/nextcloud/calendar/issues/711#issuecomment-363969782",
+      "created_at": "2018-02-08T01:17:41Z",
+      "updated_at": "2018-02-08T01:17:41Z",
+      "author": "Participant 2",
+      "body": "The automatic system would be fine if there was a manual override. "
+    },
+    {
+      "id": 364050670,
+      "url": "https://github.com/nextcloud/calendar/issues/711#issuecomment-364050670",
+      "created_at": "2018-02-08T09:21:08Z",
+      "updated_at": "2018-02-08T09:21:08Z",
+      "author": "Participant 1",
+      "body": "Yes, that's what this entire ticket and the ticket #586 i linked above is just about"
+    },
+    {
+      "id": 364632540,
+      "url": "https://github.com/nextcloud/calendar/issues/711#issuecomment-364632540",
+      "created_at": "2018-02-10T07:24:26Z",
+      "updated_at": "2018-02-10T07:24:26Z",
+      "author": "Participant 2",
+      "body": "A temporary work-around is to just not use the NextCloud Calendar app interface. Rather link a separate program  "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

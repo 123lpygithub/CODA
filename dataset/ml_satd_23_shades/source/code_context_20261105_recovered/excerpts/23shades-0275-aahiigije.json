@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0275-aahiigije",
+  "revision_url": "https://github.com/kengz/SLM-Lab/commit/0ac2b33e8c63304a50db7d2b484368299706b58b",
+  "filename": "slm_lab/agent/net/mlp.py",
+  "commit": "0ac2b33e8c63304a50db7d2b484368299706b58b",
+  "source_url": "https://raw.githubusercontent.com/kengz/SLM-Lab/0ac2b33e8c63304a50db7d2b484368299706b58b/slm_lab/agent/net/mlp.py",
+  "fetched_at": "2026-11-05T06:12:26.548663+00:00",
+  "source_sha256": "b5c9a23e59cd06da9a5f37885c0f668c096cd44be5723501a6b25efafa775edc",
+  "line_start": 131,
+  "line_end": 155,
+  "excerpt": "        if loss is None:\n            out = self(x)\n            loss = self.loss_fn(out, y)\n        assert not torch.isnan(loss).any(), loss\n        if net_util.to_assert_trained():\n            # to accommodate split model in inherited classes\n            model = getattr(self, 'model', None) or getattr(self, 'model_body')\n            assert_trained = net_util.gen_assert_trained(model)\n        loss.backward(retain_graph=retain_graph)\n        if self.clip_grad_val is not None:\n            nn.utils.clip_grad_norm_(self.parameters(), self.clip_grad_val)\n        self.optim.step()\n        # TODO debug\n        # self.store_grad_norms()\n        if net_util.to_assert_trained():\n            model = getattr(self, 'model', None) or getattr(self, 'model_body')\n            assert_trained(model, loss)\n        logger.debug(f'Net training_step loss: {loss}')\n        return loss\n\n    def wrap_eval(self, x):\n        '''\n        Completes one feedforward step, ensuring net is set to evaluation model\n        returns: network output given input x\n        '''"
+}

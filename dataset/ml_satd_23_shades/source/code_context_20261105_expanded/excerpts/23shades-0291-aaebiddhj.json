@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0291-aaebiddhj",
+  "revision_url": "https://github.com/alan-turing-institute/sktime/commit/a31aeaba89a884944b101596af8e5eceb2c8c6e9",
+  "filename": "sktime/transformers/series_to_series.py",
+  "commit": "a31aeaba89a884944b101596af8e5eceb2c8c6e9",
+  "source_url": "https://raw.githubusercontent.com/alan-turing-institute/sktime/a31aeaba89a884944b101596af8e5eceb2c8c6e9/sktime/transformers/series_to_series.py",
+  "fetched_at": "2026-11-05T06:12:28.907419+00:00",
+  "source_sha256": "a17e92cc2e8c1b9a8d9e45cf5796d676458eaa1555fd0657e2d963195c6250ef",
+  "line_start": 90,
+  "line_end": 112,
+  "excerpt": "                raise ValueError('Number of columns of input is different from what was seen'\n                                 'in `fit`')\n            # Input validation\n            if not all([fit_idx.equals(trans_idx) for trans_idx, fit_idx in zip(check_equal_index(X),\n                                                                                self.input_indexes_)]):\n                raise ValueError('Indexes of input time-series are different from what was seen in `fit`')\n\n        # Segment into intervals.\n        intervals = []\n        for c, (colname, col) in enumerate(X.items()):\n\n            # Tabularize each column assuming series have equal indexes in any given column.\n            # TODO generalise to non-equal-index cases\n            arr = tabularize(col, return_array=True)\n            for start, end in self.intervals_[c]:\n                interval = arr[:, start:end]\n                intervals.append(interval)\n                self.columns_.append(f'{colname}_{start}_{end}')\n\n        # Return nested pandas DataFrame.\n        Xt = pd.DataFrame(concat_nested_arrays(intervals, return_arrays=True))\n        Xt.columns = self.columns_\n        return Xt"
+}

@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20235",
+  "issue_url": "https://github.com/microsoft/ApplicationInsights-node.js/issues/85",
+  "source_issue_url": "https://github.com/microsoft/ApplicationInsights-node.js/issues/85",
+  "api_url": "https://api.github.com/repos/microsoft/ApplicationInsights-node.js/issues/85",
+  "title": "Client#trackException is prone to leak PII",
+  "body": "When encountering exceptions in VS Code we take measures remove any PII, esp. from stack traces. However, [Client#trackException](https://github.com/Microsoft/ApplicationInsights-node.js/blob/master/Library/Client.ts#L90) counters that effort by throwing new errors in case it doesn't understand the given one and thereby leaking stack traces that include PII.\n",
+  "author": "Participant 1",
+  "created_at": "2016-04-27T13:37:41Z",
+  "updated_at": "2016-10-06T02:04:55Z",
+  "state": "closed",
+  "closed_at": "2016-10-06T02:04:29Z",
+  "issue_fetched_at": "2026-10-18T23:10:32.929774+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T23:10:34.363093+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 217492538,
+      "url": "https://github.com/microsoft/ApplicationInsights-node.js/issues/85#issuecomment-217492538",
+      "created_at": "2016-05-06T16:35:35Z",
+      "updated_at": "2016-05-06T16:35:35Z",
+      "author": "Participant 2",
+      "body": "Yes, trackException is checking if an object is of type Error - [Util#isError](https://github.com/Microsoft/ApplicationInsights-node.js/blob/master/Library/Util.ts#L97). \n\nDo you have any fix in mind? Would adding a `DoNotLogStackTraces` switch to the configuration work? It will disable stack trace logging for the whole project and will be set to `false` by default. \n"
+    },
+    {
+      "id": 243288043,
+      "url": "https://github.com/microsoft/ApplicationInsights-node.js/issues/85#issuecomment-243288043",
+      "created_at": "2016-08-29T23:25:33Z",
+      "updated_at": "2016-10-06T02:04:21Z",
+      "author": "Participant 2",
+      "body": "It is now possible to process all telemetry data (including exceptions) by adding a **Telemetry Processor** - see #112. \n\nI'll add this feature in the next release v0.15.19. More: https://github.com/Microsoft/ApplicationInsights-node.js#telemetry-processor \n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

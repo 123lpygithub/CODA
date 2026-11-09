@@ -1,0 +1,15 @@
+{
+  "url": "https://github.com/keystonejs/keystone/pull/3052",
+  "kind": "pull_request",
+  "cited_in": [
+    "comment_228533403"
+  ],
+  "text": "From 5ad6fbee554da44c370eed08cd7f5a1200813a22 Mon Sep 17 00:00:00 2001\nFrom: Charles Dang <exodia339@gmail.com>\nDate: Wed, 27 May 2020 13:50:24 +1100\nSubject: [PATCH] Added an `auxiliary` input field to `_ksListsMeta(where: {})`\n\n---\n .changeset/ten-balloons-begin.md            |  5 +++++\n packages/keystone/lib/providers/listCRUD.js | 12 ++++++++++--\n 2 files changed, 15 insertions(+), 2 deletions(-)\n create mode 100644 .changeset/ten-balloons-begin.md\n\ndiff --git a/.changeset/ten-balloons-begin.md b/.changeset/ten-balloons-begin.md\nnew file mode 100644\nindex 00000000000..b4f99a9a822\n--- /dev/null\n+++ b/.changeset/ten-balloons-begin.md\n@@ -0,0 +1,5 @@\n+---\n+'@keystonejs/keystone': minor\n+---\n+\n+Added an `auxiliary` input field to `_ksListsMeta(where: {})`.\ndiff --git a/packages/keystone/lib/providers/listCRUD.js b/packages/keystone/lib/providers/listCRUD.js\nindex 1cf1ffdd857..0e3796cf35d 100644\n--- a/packages/keystone/lib/providers/listCRUD.js\n+++ b/packages/keystone/lib/providers/listCRUD.js\n@@ -92,6 +92,9 @@ class ListCRUDProvider {\n       }`,\n       `input ${this.gqlNames.listsMetaInput} {\n         key: String\n+\n+        \"\"\"Whether this is an auxiliary helper list.\"\"\"\n+        auxiliary: Boolean\n       }`,\n       `input _ListSchemaFieldsInput {\n         type: String\n@@ -191,9 +194,14 @@ class ListCRUDProvider {\n       ...objMerge(firstClassLists.map(list => list.gqlQueryResolvers({ schemaName }))),\n \n       // And the Keystone meta queries must always be available\n-      [this.gqlNames.listsMeta]: (_, { where: { key } = {} }, context) =>\n+      [this.gqlNames.listsMeta]: (_, { where: { key, auxiliary } = {} }, context) =>\n         this.lists\n-          .filter(list => list.access[schemaName].read && (!key || list.key === key))\n+          .filter(\n+            list =>\n+              list.access[schemaName].read &&\n+              (!key || list.key === key) &&\n+              (auxiliary === undefined || list.isAuxList === auxiliary)\n+          )\n           .map(list => list.listMeta(context)),\n     };\n   }\n",
+  "source_sha256": "57050f70f0713313d1a5d88500a2348997aff968ae2095d6dc74e0c09ba4bf28",
+  "fetched_at": "2026-11-05T06:21:31.886288+00:00",
+  "retrieval_url": "https://github.com/keystonejs/keystone/pull/3052.patch",
+  "status": "available",
+  "revision": "3052",
+  "immutable_revision": false,
+  "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+}

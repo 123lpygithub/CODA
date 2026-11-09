@@ -1,0 +1,553 @@
+
+TASK 94 IDs 65,239,518,671
+SPEC
+You are given a list of integers.
+    You need to find the largest prime value and return the sum of its digits.
+
+    Examples:
+    For lst = [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3] the output should be 10
+    For lst = [1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1] the output should be 25
+    For lst = [1,3,1,32,5107,34,83278,109,163,23,2323,32,30,1,9,3] the output should be 13
+    For lst = [0,724,32,71,99,32,6,0,5,91,83,0,5,6] the output should be 11
+    For lst = [0,81,12,3,1,21] the output should be 3
+    For lst = [0,8,1,2,1,7] the output should be 7
+REF
+def skjkasdkd(lst):
+
+    def is_prime(a):
+        return not (a < 2 or any((a % x == 0 for x in range(2, int(a ** 0.5) + 1))))
+
+    def is_prime(a):
+        return not (a < 2 or any((a % x == 0 for x in range(2, int(a ** 0.5) + 1))))
+    sorted_list = sorted(lst)[::-1]
+    for x in sorted_list:
+        if is_prime(x):
+            return sum(map(lambda ch: int(ch), str(x)))
+CASE 65
+def skjkasdkd(lst):
+    [docstring shown in task]
+    lst = [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3]
+    lst = [1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1]
+    lst = [1,3,1,32,5107,34,83278,109,163,23,2323,32,30,1,9,3]
+    lst = [0,724,32,71,99,32,6,0,5,91,83,0,5,6]
+    lst = [0,81,12,3,1,21]
+    lst = [0,8,1,2,1,7]
+    lst = [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3]
+    lst = [1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1]
+    lst = [1,3,1,32,5107,34,83278,109,163,23,2323,32,30,1,9,3]
+    lst = [0,724,32,71,99,32,6,0,5,91,83,0,5,6]
+    lst = [0,81,12,3,1,21]
+    lst = [0,8,1,2,1,7]
+    lst = [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3]
+    lst = [1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1]
+    lst = [1,3,
+CASE 239
+def skjkasdkd(lst):
+    lst = sorted(lst)
+    lst = [x for x in lst if x % 2 == 0]
+    lst = [x for x in lst if x != 0]
+    lst = [x for x in lst if x != 1]
+    lst = [x for x in lst if x != 2]
+    lst = [x for x in lst if x != 3]
+    lst = [x for x in lst if x != 4]
+    lst = [x for x in lst if x != 5]
+    lst = [x for x in lst if x != 6]
+    lst = [x for x in lst if x != 7]
+    lst = [x for x in lst if x != 8]
+    lst = [x for x in lst if x != 9]
+    lst = [x for x in lst if x != 10]
+    lst = [x for x in lst if x != 11]
+    lst = [x for x in lst if x != 12]
+    lst = [x for x in lst if x != 13]
+    lst = [x for x in lst if x != 14]
+    lst = [x for x in lst if x != 15]
+    lst = [x for x in lst if x != 16]
+    lst = [x for x in lst if x != 17]
+    lst = [x for x in lst if x != 18]
+    lst = [x for x in lst if x != 19]
+    lst = [x for x in lst if x != 20]
+    lst = [x for x in lst if x != 21]
+    lst = [x for x in lst if x != 22]
+    lst = [x for x in lst if x != 23]
+    lst = [x for x in lst if x != 24]
+    lst = [x for x in lst if x != 25]
+    lst = [x for x in lst if x != 26]
+    lst = [x for x in lst if x != 27]
+    lst = [x for x in lst if x != 28]
+    lst = [x for x in lst if x != 29]
+    lst = [x for x in lst if x != 30]
+    lst = [x for x in lst if x != 31]
+    lst = [x for x in lst if x != 32]
+    lst = [x for x in lst if x != 33]
+    lst = [x for x in lst if x != 34]
+    lst = [x for x in lst if x != 35]
+    lst = [x for x in lst if x != 36]
+    lst = [x for x in lst if x != 37]
+    lst = [x for x in lst if x != 38]
+    lst = [x for x in lst if x != 39]
+    lst = [x for x in lst if x != 40]
+    lst = [x for x in lst if x != 41]
+CASE 518
+def skjkasdkd(lst):
+    lst = sorted(lst)
+    return sum(map(int, str(lst[-1])))
+CASE 671
+def skjkasdkd(lst):
+    return sum(list(filter(lambda x: is_prime(x), lst)))
+
+TASK 95 IDs 66,240,519,672
+SPEC
+Given a dictionary, return True if all keys are strings in lower 
+    case or all keys are strings in upper case, else return False.
+    The function should return False is the given dictionary is empty.
+    Examples:
+    check_dict_case({"a":"apple", "b":"banana"}) should return True.
+    check_dict_case({"a":"apple", "A":"banana", "B":"banana"}) should return False.
+    check_dict_case({"a":"apple", 8:"banana", "a":"apple"}) should return False.
+    check_dict_case({"Name":"John", "Age":"36", "City":"Houston"}) should return False.
+    check_dict_case({"STATE":"NC", "ZIP":"12345" }) should return True.
+REF
+def check_dict_case(dict):
+    [docstring shown in task]
+keys = list(dict.keys())
+    if keys == []: return False
+    lower, upper = True, True
+    for k in keys:
+        if type(k) != str:
+            lower = upper = False
+            break
+        if not k.islower(): lower = False
+        if not k.isupper(): upper = False
+    return lower or upper
+CASE 66
+def check_dict_case(dict):
+    if len(dict) == 0:
+        return False
+    else:
+        for key in dict:
+            if key.isupper() == True:
+                return False
+            elif key.islower() == True:
+                return True
+            else:
+                return False
+CASE 240
+def check_dict_case(dict):
+    for key in dict:
+        if type(key) == str:
+            if key.lower() not in dict:
+                return False
+            if key.upper() not in dict:
+                return False
+    return True
+CASE 519
+def check_dict_case(dict):
+    if not dict:
+        return False
+    for key in dict:
+        if not isinstance(key, str):
+            return False
+        if not key.islower() and (not key.isupper()):
+            return False
+    return True
+CASE 672
+def check_dict_case(dict):
+    if len(dict) == 0:
+        return False
+    else:
+        for key in dict:
+            if type(key) == str:
+                if key.islower() or key.isupper():
+                    continue
+                else:
+                    return False
+            else:
+                return False
+        return True
+
+TASK 96 IDs 67,242,520,673
+SPEC
+Implement a function that takes an non-negative integer and returns an array of the first n
+    integers that are prime numbers and less than n.
+    for example:
+    count_up_to(5) => [2,3]
+    count_up_to(11) => [2,3,5,7]
+    count_up_to(0) => []
+    count_up_to(20) => [2,3,5,7,11,13,17,19]
+    count_up_to(1) => []
+    count_up_to(18) => [2,3,5,7,11,13,17]
+REF
+def count_up_to(n):
+    ans = []
+    isprime = [True] * (n + 1)
+    for i in range(2, n):
+        if isprime[i]:
+            ans.append(i)
+            for j in range(i + i, n, i):
+                isprime[j] = False
+    return ans
+CASE 67
+def count_up_to(n):
+    pass
+CASE 242
+def count_up_to(n):
+    [docstring shown in task]
+    primes = [2]
+    primes.append(3)
+    primes.append(5)
+    primes.append(7)
+    primes.append(11)
+    primes.append(13)
+    primes.append(17)
+    primes.append(19)
+    primes.append(21)
+    primes.append(23)
+    primes.append(25)
+    primes.append(27)
+    primes.append(29)
+    primes.append(31)
+    primes.append(33)
+    primes.append(35)
+    primes.append(37)
+    primes.append(39)
+    primes.append(41)
+    primes.append(43)
+    primes.append(45)
+    primes.append(47)
+    primes.append(49)
+    primes.append(51)
+    primes.append(53)
+    primes.append(55)
+    primes.append(57)
+    primes.append(59)
+    primes.append(61)
+    primes.append(63)
+    primes.append(65)
+    primes.append(67)
+    primes.append(69)
+    primes.append(71)
+    primes.append(73)
+    primes.append(75)
+    primes.append(77)
+    primes.append(79)
+    primes.append(81)
+    primes.append(83)
+    primes.append(85)
+    primes.append(87)
+    primes.append(89)
+    primes.append(91)
+    primes.append(93)
+    primes.append(95)
+    primes.append(97)
+    primes.append(99)
+    primes.append(101)
+    primes.append(103)
+    primes.append(105)
+    primes.append(107)
+    primes.append(109)
+    primes.append(111)
+    primes.append(113)
+    primes.append(115)
+    primes.append(117)
+    primes.append(119
+CASE 520
+def count_up_to(n):
+    primes = [True] * n
+    primes[0] = False
+    primes[1] = False
+    for i in range(2, int(n ** 0.5) + 1):
+        if primes[i]:
+            for j in range(i * i, n, i):
+                primes[j] = False
+    return [i for i in range(n) if primes[i]]
+CASE 673
+EXACT EXECUTABLE STRUCTURE SAME AS CASE 67
+
+TASK 97 IDs 68,243,350,521
+SPEC
+Complete the function that takes two integers and returns 
+    the product of their unit digits.
+    Assume the input is always valid.
+    Examples:
+    multiply(148, 412) should return 16.
+    multiply(19, 28) should return 72.
+    multiply(2020, 1851) should return 0.
+    multiply(14,-15) should return 20.
+REF
+def multiply(a, b):
+    return int(str(a)[-1]) * int(str(b)[-1])
+CASE 68
+def multiply(a, b):
+    return a * b
+CASE 243
+def multiply(a, b):
+    product = 1
+    while a > 0:
+        product *= a
+        a -= 1
+    while b > 0:
+        product *= b
+        b -= 1
+    return product
+CASE 350
+def multiply(a, b):
+    return abs(a % 10 * b % 10)
+CASE 521
+def multiply(a, b):
+    return sum((int(i) * int(j) for (i, j) in zip(str(a), str(b))))
+
+TASK 98 IDs 69,244,522
+SPEC
+Given a string s, count the number of uppercase vowels in even indices.
+    
+    For example:
+    count_upper('aBCdEf') returns 1
+    count_upper('abcdefg') returns 0
+    count_upper('dBBE') returns 0
+REF
+def count_upper(s):
+    cnt = 0
+    for i in range(0, len(s), 2):
+        if s[i] in 'AEIOU':
+            cnt += 1
+    return cnt
+CASE 69
+def count_upper(s):
+    count = 0
+    for i in range(len(s)):
+        if i % 2 == 0 and s[i].upper() in 'AEIOU':
+            count += 1
+    return count
+CASE 244
+def count_upper(s):
+    count = 0
+    for i in range(len(s)):
+        if s[i] == 'A' or s[i] == 'E' or s[i] == 'I' or (s[i] == 'O') or (s[i] == 'U'):
+            count += 1
+    return count
+CASE 522
+def count_upper(s):
+    return sum((1 for c in s if c.isupper()))
+
+TASK 99 IDs 70,245,523,674
+SPEC
+Create a function that takes a value (string) representing a number
+    and returns the closest integer to it. If the number is equidistant
+    from two integers, round it away from zero.
+
+    Examples
+    >>> closest_integer("10")
+    10
+    >>> closest_integer("15.3")
+    15
+
+    Note:
+    Rounding away from zero means that if the given number is equidistant
+    from two integers, the one you should return is the one that is the
+    farthest from zero. For example closest_integer("14.5") should
+    return 15 and closest_integer("-14.5") should return -15.
+REF
+def closest_integer(value):
+    try:
+        float(value)
+    except:
+        raise Exception('invalid inputs')
+
+    def rounding(val):
+        if abs(val - int(val)) != 0.5:
+            return round(val)
+        if val > 0:
+            return int(val) + 1
+        else:
+            return int(val) - 1
+    return rounding(float(value))
+CASE 70
+def closest_integer(value):
+    return int(value) if int(value) == float(value) else int(value) if int(value) > float(value) else int(value) - 1
+CASE 245
+def closest_integer(value):
+    return lambda number: int(round(abs(number), 0))
+CASE 523
+def closest_integer(value):
+    return round(float(value))
+CASE 674
+def closest_integer(value):
+    return int(round(float(value)))
+
+TASK 100 IDs 71,246,351,525,676
+SPEC
+Given a positive integer n, you have to make a pile of n levels of stones.
+    The first level has n stones.
+    The number of stones in the next level is:
+        - the next odd number if n is odd.
+        - the next even number if n is even.
+    Return the number of stones in each level in a list, where element at index
+    i represents the number of stones in the level (i+1).
+
+    Examples:
+    >>> make_a_pile(3)
+    [3, 5, 7]
+REF
+def make_a_pile(n):
+    (ans, num) = ([], n)
+    for _ in range(n):
+        ans.append(num)
+        num += 2
+    return ans
+CASE 71
+def make_a_pile(n):
+    if n % 2 == 0:
+        return [n] + make_a_pile(n + 2)
+    else:
+        return [n] + make_a_pile(n + 1)
+CASE 246
+def make_a_pile(n):
+    stones = []
+    level = 0
+    while level < n:
+        stones.append(level)
+        level += 1
+    return stones
+CASE 351
+def make_a_pile(n):
+    stones = [n]
+    for i in range(1, n):
+        if n % 2 == 0:
+            stones.append(n + 2 * i)
+        else:
+            stones.append(n + 2 * i - 1)
+    return stones
+CASE 525
+def make_a_pile(n):
+    if n % 2 == 0:
+        return [n // 2]
+    else:
+        return [n // 2 + 1]
+CASE 676
+def make_a_pile(n):
+    pass
+
+TASK 101 IDs 72,248,352,526,677
+SPEC
+You will be given a string of words separated by commas or spaces. Your task is
+    to split the string into words and return an array of the words.
+    
+    For example:
+    words_string("Hi, my name is John") == ["Hi", "my", "name", "is", "John"]
+    words_string("One, two, three, four, five, six") == ["One", "two", "three", "four", "five", "six"]
+REF
+def words_string(s):
+    words = s.replace(',', ' ').split()
+    return [word for word in words if word != '']
+CASE 72
+def words_string(s):
+    return s.split(', ')
+CASE 248
+def words_string(s):
+    words = s.split(',')
+    words = [word.strip() for word in words]
+    return words
+CASE 352
+def words_string(s):
+    words = s.split(', ')
+    words = [word.split(' ') for word in words]
+    words = [word for sublist in words for word in sublist]
+    return words
+CASE 526
+def words_string(s):
+    return s.split()
+CASE 677
+EXACT EXECUTABLE STRUCTURE SAME AS CASE 526
+
+TASK 102 IDs 73,249,527,678
+SPEC
+This function takes two positive numbers x and y and returns the
+    biggest even integer number that is in the range [x, y] inclusive. If 
+    there's no such number, then the function should return -1.
+
+    For example:
+    choose_num(12, 15) = 14
+    choose_num(13, 12) = -1
+REF
+def choose_num(x, y):
+    if x > y:
+        return -1
+    if x == y:
+        return y if y % 2 == 0 else -1
+    return y if y % 2 == 0 else y - 1
+CASE 73
+def choose_num(x, y):
+    if x % 2 == 0 and x <= y:
+        return x
+    elif y % 2 == 0 and x < y:
+        return y
+    else:
+        return -1
+CASE 249
+def choose_num(x, y):
+    if x % 2 == 0:
+        return x // 2
+    else:
+        return -1
+CASE 527
+def choose_num(x, y):
+    if x < y:
+        return -1
+    else:
+        for i in range(x, y + 1):
+            if is_even(i):
+                return i
+CASE 678
+def choose_num(x, y):
+    if x % 2 == 0 and y % 2 == 0:
+        return max(x, y)
+    else:
+        return -1
+
+TASK 103 IDs 74,250,353,529,679
+SPEC
+You are given two positive integers n and m, and your task is to compute the
+    average of the integers from n through m (including n and m). 
+    Round the answer to the nearest integer and convert that to binary.
+    If n is greater than m, return -1.
+    Example:
+    rounded_avg(1, 5) => "0b11"
+    rounded_avg(7, 5) => -1
+    rounded_avg(10, 20) => "0b1111"
+    rounded_avg(20, 33) => "0b11010"
+REF
+def rounded_avg(n, m):
+    if n > m:
+        return -1
+    avg = round((n + m) / 2)
+    return bin(avg)
+CASE 74
+def rounded_avg(n, m):
+    if n > m:
+        return -1
+    else:
+        return bin(int((n + m) / 2))[2:]
+CASE 250
+def rounded_avg(n, m):
+    binary = bin(n)[2:]
+    binary = binary.zfill(len(str(m)))
+    binary = binary.zfill(len(str(n)))
+    return binary
+CASE 353
+def rounded_avg(n, m):
+    if n > m:
+        return -1
+    avg = round(sum(range(n, m + 1)) / (m - n + 1))
+    return bin(avg)[2:]
+CASE 529
+def rounded_avg(n, m):
+    if n > m:
+        return -1
+    else:
+        return bin(n)[2:].zfill(m)
+CASE 679
+def rounded_avg(n, m):
+    if n > m:
+        return -1
+    else:
+        return bin(int(sum(range(n, m + 1)) / (m - n + 1)))

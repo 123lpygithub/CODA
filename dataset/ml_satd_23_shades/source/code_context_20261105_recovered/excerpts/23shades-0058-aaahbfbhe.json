@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0058-aaahbfbhe",
+  "revision_url": "https://github.com/Erotemic/netharn/commit/26924a149f6bc51dc19a3f1b2ca04897cd5287a1",
+  "filename": "netharn/fit_harn.py",
+  "commit": "26924a149f6bc51dc19a3f1b2ca04897cd5287a1",
+  "source_url": "https://raw.githubusercontent.com/Erotemic/netharn/26924a149f6bc51dc19a3f1b2ca04897cd5287a1/netharn/fit_harn.py",
+  "fetched_at": "2026-11-05T06:11:47.992845+00:00",
+  "source_sha256": "cb116460f7fb891304c055016a886a96b36888d60777050efe0e0ea26f0bccc4",
+  "line_start": 1323,
+  "line_end": 1347,
+  "excerpt": "            harn.error('NON-FINITE WEIGHTS: {}'.format(ub.repr2(bad_layers, nl=1)))\n            raise TrainingDiverged(\n                'NON-FINITE WEIGHTS weights.sum() = {!r}'.format(weight_sum))\n\n\n@register_mixin\nclass CoreCallbacks:\n    \"\"\"\n    We encourage you to overwrite these methods\n    \"\"\"\n\n    def _tovar(harn, data):\n        # DEPRICATE? I don't think this is needed anymore\n        # handle cases when labels are unstructured\n        if isinstance(data, list):\n            # handle one level of nesting\n            return [harn.xpu.variable(d) for d in data]\n        else:\n            return harn.xpu.variable(data)\n\n    def after_initialize(harn):\n        \"\"\"\n        Perform a custom initialization step (not usually needed)\n        \"\"\"\n        pass"
+}

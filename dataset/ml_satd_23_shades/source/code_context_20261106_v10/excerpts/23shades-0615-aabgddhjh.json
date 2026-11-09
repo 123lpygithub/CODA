@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0615-aabgddhjh",
+  "revision_url": "https://github.com/simonfqy/PADME/commit/c2ba48eac401423f5230bdad3bee65b1f9b4d312",
+  "filename": "dcCustom/models/tensorgraph/graph_models.py",
+  "commit": "c2ba48eac401423f5230bdad3bee65b1f9b4d312",
+  "source_url": "https://raw.githubusercontent.com/simonfqy/PADME/c2ba48eac401423f5230bdad3bee65b1f9b4d312/dcCustom/models/tensorgraph/graph_models.py",
+  "fetched_at": "2026-11-05T06:13:25.456466+00:00",
+  "source_sha256": "09d28eca4417642b4dbe4e65301d1cd9d594e8ed1154f507372ab5b1d3c2055a",
+  "line_start": 922,
+  "line_end": 946,
+  "excerpt": "            for k, v in six.iteritems(feed_dict)\n        }\n        n_samples = max(feed_dict[self.membership.out_tensor]) + 1\n        feed_dict[self._training_placeholder] = 1.0  ##\n        result = np.array(self.session.run(out_tensors, feed_dict=feed_dict))\n        if len(result.shape) == 3:\n          result = np.transpose(result, axes=[1, 0, 2])\n        if len(transformers) > 0:\n          result = undo_transforms(result, transformers)\n        results.append(result[:n_samples])\n      return np.concatenate(results, axis=0)\n\n  # TODO: need to change this function to allow plotting.\n  def evaluate(self, dataset, metrics, transformers=[], per_task_metrics=False,\n    no_concordance_index=False, plot=False, is_training_set=False, tasks=None, \n    model_name=None):\n    if not self.built:\n      self.build()\n    return self.evaluate_generator(\n        self.default_generator(dataset, predict=True),\n        metrics,\n        # I added the following two lines.\n        dataset=dataset,\n        transformers=transformers,\n        labels=self.my_labels,"
+}

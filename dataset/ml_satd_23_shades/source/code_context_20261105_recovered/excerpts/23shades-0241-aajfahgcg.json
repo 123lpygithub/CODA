@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0241-aajfahgcg",
+  "revision_url": "https://github.com/pyannote/pyannote-audio/commit/a2741742928834a96473612387ef954de00d7e79",
+  "filename": "pyannote/audio/embedding/approaches/center_loss.py",
+  "commit": "a2741742928834a96473612387ef954de00d7e79",
+  "source_url": "https://raw.githubusercontent.com/pyannote/pyannote-audio/a2741742928834a96473612387ef954de00d7e79/pyannote/audio/embedding/approaches/center_loss.py",
+  "fetched_at": "2026-11-05T06:12:20.096909+00:00",
+  "source_sha256": "9fe2fd836e0a8c43cb99e3cb019a283d93169be5e3df3ae76fa1b19107dcb289",
+  "line_start": 209,
+  "line_end": 233,
+  "excerpt": "\nclass CenterDistanceModule(nn.Module):\n    \"\"\"Sum of embedding-to-center cosine distances\n\n    Parameters\n    ----------\n    nfeat : int\n        Embedding size\n    nclass : int\n        Number of classes\n    \"\"\"\n\n    # TODO add support for other metrics (ex. euclidean, angular)\n\n    def __init__(self, nfeat, nclass):\n        super().__init__()\n        self.centers = nn.Parameter(torch.randn(nclass, nfeat))\n        self.nfeat = nfeat\n\n    def forward(self, feat, y):\n        \"\"\"Calculate the sum of cosine distances from embeddings to centers\n\n        Parameters\n        ----------\n        feat : `torch.Tensor`",
+  "match_policy": "unique-release-normalized-v2"
+}

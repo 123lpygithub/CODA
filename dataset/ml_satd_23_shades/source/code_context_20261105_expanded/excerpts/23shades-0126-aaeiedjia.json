@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0126-aaeiedjia",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/1ffce863a02f4630b45411916bbbb01071276577",
+  "filename": "hpat/hiframes.py",
+  "commit": "1ffce863a02f4630b45411916bbbb01071276577",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/1ffce863a02f4630b45411916bbbb01071276577/hpat/hiframes.py",
+  "fetched_at": "2026-11-05T06:11:58.150539+00:00",
+  "source_sha256": "93a036f2c5a7dd99068be7f0de3337c2f7c20accdea3fdc471231682ad017171",
+  "line_start": 1797,
+  "line_end": 1821,
+  "excerpt": "                func_text += \"  _col_input_{} = hpat.hiframes_api.to_series_type(hpat.hiframes_api.unbox_df_column(_df, {}, {}))\\n\".format(col, i, alloc_dt)\n                loc_vars = {}\n                exec(func_text, {}, loc_vars)\n                f = loc_vars['f']\n                f_block = compile_to_numba_ir(f,\n                            {'hpat': hpat, 'np': np}).blocks.popitem()[1]\n                replace_arg_nodes(f_block, [arg_var])\n                nodes += f_block.body[:-3]\n                df_items[col] = nodes[-1].target\n\n            self._create_df(arg_var.name, df_items, label)\n\n        # handle BoxedSeries and list/set of BoxedSeries, TODO: others?\n        if (isinstance(arg_typ, BoxedSeriesType) or\n                isinstance(arg_typ, (types.List, types.Set))\n                and isinstance(arg_typ.dtype, BoxedSeriesType)):\n            # self.args[arg_ind] = SeriesType(arg_typ.dtype, 1, 'C')\n            # replace arg var with tmp\n            def f(_boxed_series):  # pragma: no cover\n                _dt_arr = hpat.hiframes_api.to_series_type(hpat.hiframes_api.dummy_unbox_series(_boxed_series))\n\n            f_block = compile_to_numba_ir(\n                f, {'hpat': hpat}).blocks.popitem()[1]\n            replace_arg_nodes(f_block, [arg_var])\n            nodes += f_block.body[:-3]  # remove none return",
+  "match_policy": "unique-release-normalized-v2"
+}

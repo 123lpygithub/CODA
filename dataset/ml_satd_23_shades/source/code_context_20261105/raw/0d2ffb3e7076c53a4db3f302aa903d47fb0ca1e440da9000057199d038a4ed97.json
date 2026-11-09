@@ -1,0 +1,6 @@
+{
+  "url": "https://raw.githubusercontent.com/neptune-ai/neptune-client/36faaa0616d24372951c5e43fda92a0b647c6997/neptune_client_prototype/path.py",
+  "source": "class _Path:\n\n    def __init__(self, path):\n        \"\"\"\n        path: str\n        \"\"\"\n        super().__init__()\n        # TODO validate and normalize to /path/to/variable\n        self._value = path\n\n    def __add__(self, other):\n        \"\"\"\n        other: string or _Path\n        \"\"\"\n        if isinstance(other, str):\n            return self + _Path(other)\n        elif isinstance(other, _Path):\n            return _Path(self._value + other._value)\n        else:\n            raise ValueError()\n\n    def __eq__(self, other):\n        return self._value == other._value\n\n    def __hash__(self):\n        return hash(self._value)\n\n    def __str__(self):\n        return self._value\n\n    def __repr__(self):\n        return f\"_Path({self._value})\"",
+  "fetched_at": "2026-11-05T06:12:42.721151+00:00",
+  "source_sha256": "914f83bcd1ffe4760f2f28161dd347ed41aae19f569b25a9cdd10a3c2e3deb2d"
+}

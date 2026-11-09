@@ -1,0 +1,205 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-6840",
+  "issue_url": "https://github.com/keepassxreboot/keepassxc/issues/1597",
+  "source_issue_url": "https://github.com/keepassxreboot/keepassxc/issues/1597",
+  "api_url": "https://api.github.com/repos/keepassxreboot/keepassxc/issues/1597",
+  "title": "Integrate with Pwned Passwords",
+  "body": "The Pwned Passwords (https://haveibeenpwned.com/Passwords) website recently upgraded to version 2 (https://www.troyhunt.com/ive-just-launched-pwned-passwords-version-2/) and 1Password provided integration with that service almost immediately. KeePassXC could provide similar levels of feedback to users on the 'quality' of their passwords.\r\n\r\nWhen the user chooses to provide their own password (or uses an existing one), KeePassXC can check against the Pwned Passwords database (online/offline?) to see if the user provided password has been used in a previous data breach, and then provide a warning if it has. The 'k-Anonymity' feature would seem to be the one to use.\r\n\r\nThis lack of a 'fix' to this issue does not directly affect me (or anyone else) negatively, but it could encourage users to better password hygiene. It might soon become a 'benchmark feature' that all good password managers include.\r\n\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-03-02T14:42:02Z",
+  "updated_at": "2024-11-22T09:27:15Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:10.567206+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:10.567206+00:00"
+  ],
+  "expected_comment_count": 22,
+  "retrieved_comment_count": 22,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 369942583,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-369942583",
+      "created_at": "2018-03-02T14:55:49Z",
+      "updated_at": "2018-03-02T14:56:23Z",
+      "author": "Participant 2",
+      "body": "We already discussed this in #1083 and after that we made a blog post about it https://keepassxc.org/blog/2018-02-24-pwned-database/\r\n\r\nThe better password hygiene should be: \"generate random password and store them in a password manager\", not \"come up with a password that wasn't already compromised\"\r\n\r\nAnyway, checking if an account has been compromised (not pwned password but haveibeenpwned) is tracked by #551"
+    },
+    {
+      "id": 369942939,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-369942939",
+      "created_at": "2018-03-02T14:57:04Z",
+      "updated_at": "2018-03-02T14:57:40Z",
+      "author": "Participant 3",
+      "body": "This database is pretty useless if you are using a password manager. If you are using a good password, the only realistic chance of your password being in there is if a) your account was hacked AND b) the service saved your password as clear text.\r\n\r\nChecking your username against the haveibeenpwned username database is way more useful. If your password is in the Pwned dump, it's almost certain that your username will be in the database, too. On the other hand, if your account was hacked and the service properly hashed your password, you won't notice if you only check if your password is in the database."
+    },
+    {
+      "id": 369947119,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-369947119",
+      "created_at": "2018-03-02T15:11:32Z",
+      "updated_at": "2018-03-02T15:11:32Z",
+      "author": "Participant 1",
+      "body": "I would not say that it's pretty useless - you are assuming two things:\r\n\r\n1. Users will _always_ use the random password generator - they might not, for whatever reasons (novice users, etc).\r\n2. Users are starting with a brand new, fresh password database. It is possible that they are importing an old password database from another manager, and have not performed any password hygiene on their pre-existing passwords. \r\n\r\nIn addition, having that functionality easily available is useful for other reasons beyond your own personal password security. You could use the feature to demonstrate to family/friends that _their_ passwords are NOT secure. A bit like having a stand-alone random password generate is sometimes useful for reasons beyond generating a password for a website.\r\n\r\nAnyway, I obviously hadn't realised that you'd already considered using this service (my search wasn't very thorough!), so I'll not say any more apart from to re-iterate that there are more use cases / user stories than the most obvious (and probably redundant) one.\r\n"
+    },
+    {
+      "id": 369948776,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-369948776",
+      "created_at": "2018-03-02T15:16:42Z",
+      "updated_at": "2018-03-02T15:16:42Z",
+      "author": "Participant 3",
+      "body": "If a novice user is using an insecure password, because they don't know better, it's highly unlikely that they will check it against a database.\r\nAnyway, as I said: checking your password against a database is just plain useless. Even if you are using a bad password, you will ONLY find it in the database if the hacked service did not hash and salt your password.\r\nCheck your username instead. You will always find it, no matter if the hacked service did their homework on password security or not."
+    },
+    {
+      "id": 369950142,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-369950142",
+      "created_at": "2018-03-02T15:21:11Z",
+      "updated_at": "2018-03-02T15:21:11Z",
+      "author": "Participant 1",
+      "body": "_They_ won't check it against a database - KeePassXC would do it automatically - that is the point. But anyway - I accept what you are saying and realise that it's more 'icing on the cake' than anything really core to password security."
+    },
+    {
+      "id": 369955151,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-369955151",
+      "created_at": "2018-03-02T15:36:43Z",
+      "updated_at": "2018-03-02T15:37:26Z",
+      "author": "Participant 3",
+      "body": "Checking passwords against a database is just the wrong approach. Check the username. That's far more reliable and far more likely to succeed and in case of an online database even more secure, because you are not sending private data or comparable hashes of private data."
+    },
+    {
+      "id": 392707039,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-392707039",
+      "created_at": "2018-05-29T09:08:44Z",
+      "updated_at": "2018-05-29T09:09:10Z",
+      "author": "Participant 4",
+      "body": "Example scenario:\r\n\r\nI have a password set on an old service that hasn't been updated in years. I change to start using 1Password and import my passwords from my browser. 1Password notices, without my prompting to do so, that I've used \"hunter2\" on that service, which is a bad/well-known password. 1Password reminds me that I should action some good password hygiene.\r\n\r\nvs\r\n\r\nI change to start using KeepassXC ... and none of that happens.\r\n\r\nIt's a valid approach that should not so callously be dismissed."
+    },
+    {
+      "id": 392736714,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-392736714",
+      "created_at": "2018-05-29T10:59:32Z",
+      "updated_at": "2018-05-29T10:59:32Z",
+      "author": "Participant 5",
+      "body": "@zatricky see #551"
+    },
+    {
+      "id": 455093808,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-455093808",
+      "created_at": "2019-01-17T09:00:24Z",
+      "updated_at": "2019-01-17T09:00:24Z",
+      "author": "Participant 6",
+      "body": "This should probably be reconsidered, considering https://www.troyhunt.com/the-773-million-record-collection-1-data-reach/ (which is a case where mere e-mail/username checks are not sufficient to determine which account was compromised)."
+    },
+    {
+      "id": 455119281,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-455119281",
+      "created_at": "2019-01-17T10:20:20Z",
+      "updated_at": "2019-01-17T10:20:20Z",
+      "author": "Participant 7",
+      "body": "> This should probably be reconsidered, considering https://www.troyhunt.com/the-773-million-record-collection-1-data-reach/ (which is a case where mere e-mail/username checks are not sufficient to determine which account was compromised).\r\n\r\nI agree. Also, it's useful to rule out the possibility that the most recent password was breached. I got two different notifications from HIBP for that breach, so checking the username would have notified me. But I would not have any way to know if the password that was breached was the old, before-I-was-doing-proper-password-hygiene or not, or even from which site.\r\n\r\nSo, :+1: by me for the integration with Pwned Passwords."
+    },
+    {
+      "id": 455150790,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-455150790",
+      "created_at": "2019-01-17T12:11:44Z",
+      "updated_at": "2019-01-17T12:11:44Z",
+      "author": "Participant 8",
+      "body": "I agree too.\r\n\r\nI've just received emails for 2 different addresses for this Collection #1 breach. I've got over 200 accounts using those 2 addresses. Checking my addresses as suggested by @phoerious won't tell me anything I don't already know.\r\n\r\nIf it's a publicised company breach, i.e. Adobe, MySpace, LinkedIn etc, no problem, I'll change it manually. But when it's 773m accounts across goodness knows what services, what I need to know is **_which_** services have been compromised so I can secure them again with a different password (and possibly a different email address).\r\n\r\nI'm now about to hack together a script that will feed my KeepassXC data (exported as a csv file) into Troy's engine as there is no way I'm doing this manually.\r\n\r\nBut I would really like my password manager to be doing this for me ... ;) "
+    },
+    {
+      "id": 455165530,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-455165530",
+      "created_at": "2019-01-17T13:06:53Z",
+      "updated_at": "2019-01-17T13:06:53Z",
+      "author": "Participant 5",
+      "body": "If you are using a script why not use keepassxc-cli and post as a gist for everyone?"
+    },
+    {
+      "id": 455173187,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-455173187",
+      "created_at": "2019-01-17T13:33:10Z",
+      "updated_at": "2019-01-17T13:33:10Z",
+      "author": "Participant 7",
+      "body": "I've found a plugin for Keepass. Any chance that it would work with XC too?\r\n\r\nhttps://github.com/andrew-schofield/keepass2-haveibeenpwned"
+    },
+    {
+      "id": 455181948,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-455181948",
+      "created_at": "2019-01-17T14:01:59Z",
+      "updated_at": "2019-01-17T14:02:40Z",
+      "author": "Participant 5",
+      "body": "No, KeePass2 is written in C#, KeePassXC is in C++. Although you could just open your database using KeePass2 with that plugin and run the check."
+    },
+    {
+      "id": 455182586,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-455182586",
+      "created_at": "2019-01-17T14:03:58Z",
+      "updated_at": "2019-01-17T14:03:58Z",
+      "author": "Participant 9",
+      "body": "> Although you could just open your database using KeePass2 with that plugin and run the check.\r\n\r\nThat's a good idea for people that are looking for a one-off check, thanks."
+    },
+    {
+      "id": 455370975,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-455370975",
+      "created_at": "2019-01-17T23:30:51Z",
+      "updated_at": "2019-01-17T23:31:13Z",
+      "author": "Participant 10",
+      "body": "I wrote a shell script to check all of your KeePassXC entries against the Pwned Passwords API.\r\n\r\nhttps://gist.github.com/Birch-san/a027bf3ba6327371dffca8a491ddec5d\r\n\r\nCaveat: the interface is \"export your KeePassXC database as a CSV\"."
+    },
+    {
+      "id": 455445745,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-455445745",
+      "created_at": "2019-01-18T06:53:32Z",
+      "updated_at": "2019-01-18T06:53:32Z",
+      "author": "Participant 3",
+      "body": "You could use the XML dump feature. "
+    },
+    {
+      "id": 531601762,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-531601762",
+      "created_at": "2019-09-15T21:39:52Z",
+      "updated_at": "2019-09-15T21:39:52Z",
+      "author": "Participant 11",
+      "body": "I feel like this has been addressed by https://github.com/keepassxreboot/keepassxc/pull/2707"
+    },
+    {
+      "id": 531748944,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-531748944",
+      "created_at": "2019-09-16T12:06:50Z",
+      "updated_at": "2019-09-16T12:06:50Z",
+      "author": "Participant 5",
+      "body": "I believe this one is the \"online\" version. Which, if I'm a betting man, will become a paid api now that Troy is looking to sell the asset."
+    },
+    {
+      "id": 541327939,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-541327939",
+      "created_at": "2019-10-12T14:04:06Z",
+      "updated_at": "2019-10-12T14:04:06Z",
+      "author": "Participant 4",
+      "body": "Troy isn't exactly desperate for money. Likely one of the conditions of sale would be that it continues to be a freely-available tool."
+    },
+    {
+      "id": 541345835,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-541345835",
+      "created_at": "2019-10-12T17:35:17Z",
+      "updated_at": "2019-10-12T17:35:17Z",
+      "author": "Participant 5",
+      "body": "@zatricky didn't see he was. He was looking to sell the service to a for-profit organization. That organization would likely charge for the API."
+    },
+    {
+      "id": 615863044,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/1597#issuecomment-615863044",
+      "created_at": "2020-04-18T12:46:41Z",
+      "updated_at": "2020-04-18T12:46:41Z",
+      "author": "Participant 5",
+      "body": "Implemented HIBP API calls in 2.6.0"
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/keepassxreboot/keepassxc/issues/1597",
+  "closed_at_available": false
+}

@@ -1,0 +1,106 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27vector-im%2Friot-web%27+AND+number%3D2158+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='vector-im/riot-web' AND number=2158 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:32.628950+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "lampholder",
+        "created_at": "2018-01-11 14:24:45",
+        "updated_at": "2018-01-11 14:24:44",
+        "title": "Find a way to allow bulk redaction to help folks manage spam",
+        "body": "Related:\r\n- https://github.com/vector-im/riot-web/issues/2158 \r\n- https://github.com/vector-im/riot-web/issues/3689\r\n- https://github.com/vector-im/riot-web/issues/5885\r\n- https://github.com/vector-im/riot-web/issues/5898",
+        "comment_id": 356948647,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-01-11 14:00:00",
+        "repo_name": "vector-im/riot-web",
+        "number": 2158
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "PC-Admin",
+        "created_at": "2018-04-23 00:37:48",
+        "updated_at": "2018-04-23 00:37:47",
+        "title": "Find a way to allow bulk redaction to help folks manage spam",
+        "body": "You should have bulk redaction just because it would be an enhancement and the current redaction system in riot is annoying.\r\n\r\nI should be able to select multiple messages, (or all) and redact them in 3 clicks. You're currently forced to click way too many times, try redacting 20 messages, that will be 60 clicks, then tell me how you feel.\r\n\r\nCan we please make this happen? The Riot UI/UX is currently bad and i would like to see Riot become something worth telling people about.",
+        "comment_id": 383425312,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-04-23 00:00:00",
+        "repo_name": "vector-im/riot-web",
+        "number": 2158
+      }
+    ],
+    "rows": 2,
+    "statistics": {
+      "elapsed": 0.016277033,
+      "rows_read": 328969,
+      "bytes_read": 4319725
+    }
+  },
+  "response_sha256": "c0cb960e4968f16891392c32bc140a9d7170b1fd64c9aab940b146c24ae3457d"
+}

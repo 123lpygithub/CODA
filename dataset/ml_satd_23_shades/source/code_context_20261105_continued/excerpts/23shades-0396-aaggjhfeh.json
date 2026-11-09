@@ -1,0 +1,15 @@
+{
+  "fetched_at": "2026-11-05T06:12:45.344757+00:00",
+  "source_sha256": "6d2018078635be9bca2f34236214d094ad104c0bf3cb6f3499a70c98c0e84c43",
+  "source_url": "https://raw.githubusercontent.com/jhu-lcsr/costar_plan/b81c8575a9e01e64f890fee3f30c3cef99dd72ac/costar_google_brainrobotdata/grasp_dataset.py",
+  "artifact_id": "23shades-0396-aaggjhfeh",
+  "revision_url": "https://github.com/jhu-lcsr/costar_plan/commit/b81c8575a9e01e64f890fee3f30c3cef99dd72ac",
+  "filename": "costar_google_brainrobotdata/grasp_dataset.py",
+  "commit": "b81c8575a9e01e64f890fee3f30c3cef99dd72ac",
+  "line_start": 1352,
+  "line_end": 1376,
+  "excerpt": "            raise ValueError('ERROR: unknown grasp_sequence_motion_params selected: {}'.format(motion_params))\n\n        # # get all features that map from the current end effector pose to the final pose\n        # feature_op_dicts, features_complete_list, new_pose_op_params = self._endeffector_current_T_endeffector_final(\n        #     feature_op_dicts, features_complete_list, feature_type=cte_feature_type)\n        # pose_op_params.extend(new_pose_op_params)\n        # # get all features for surface relative transforms\n        # (feature_op_dicts, features_complete_list, new_pose_op_params,\n        #     pixel_coordinate_param_names) = self._get_surface_relative_transform_features(\n        #     feature_op_dicts, features_complete_list, feature_type=srt_feature_type)\n        # pose_op_params.extend(new_pose_op_params)\n\n        # TODO(ahundt) MOVE THE CODE ABOVE INTO _get_simple_parallel_dataset_ops()\n\n        # our training batch size will be batch_size * grasp_steps\n        # because we will train all grasp step images w.r.t. final\n        # grasp success result value\n        pregrasp_op_batch = []\n        grasp_step_op_batch = []\n        # simplified_network_grasp_command_op\n        simplified_grasp_command_op_batch = []\n        grasp_success_op_batch = []\n\n        # go through every element in the batch\n        for fixed_feature_op_dict, sequence_feature_op_dict in feature_op_dicts:",
+  "match_policy": "unique-full-comment-on-added-lines-of-exact-commit",
+  "match_diff_url": "https://github.com/jhu-lcsr/costar_plan/commit/b81c8575a9e01e64f890fee3f30c3cef99dd72ac.diff",
+  "match_diff_sha256": "c2c03c950c545a4b1a480da6cf96f9a8bbe294f7640b88273cdd07bf872d599c"
+}

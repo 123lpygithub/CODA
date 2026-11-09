@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8744",
+  "issue_url": "https://github.com/chanzuckerberg/single-cell-data-portal/issues/557",
+  "source_issue_url": "https://github.com/chanzuckerberg/single-cell-data-portal/issues/557",
+  "api_url": "https://api.github.com/repos/chanzuckerberg/single-cell-data-portal/issues/557",
+  "title": "[Prod] Fix Safari Cookie Banner Button",
+  "body": "What:\nSafari's cookie banner button is clipped\n\n![Screen Shot 2020-08-27 at 12.12.45 PM.png](https://images.zenhubusercontent.com/5ebed8780d2d150fc281ad55/e0dd87c3-273a-4ff4-a18b-da5cebda50c4)\n\nHow:\nMake the experience as close to Chrome and Firefox as possible 🙏\n\n![Screen Shot 2020-08-27 at 12.13.42 PM.png](https://images.zenhubusercontent.com/5ebed8780d2d150fc281ad55/e7ee0a4d-d006-4ac4-b11e-bf7ef38241a1)\n\nTEAM COMMENTS:\n1. Timmy: At first glance, it feels like Safari has more spacing between the words, which could be the reason some chars get pushed to the second line. We can fix this by either allowing a more flexible button width or restrict word spacing. Personally feels like the former solution is easier than the latter 😆",
+  "author": "Participant 1",
+  "created_at": "2020-08-27T19:15:55Z",
+  "updated_at": "2022-07-20T01:38:15Z",
+  "state": "closed",
+  "closed_at": "2020-09-02T23:46:51Z",
+  "issue_fetched_at": "2026-10-19T01:10:31.629080+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:10:33.051939+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 686085193,
+      "url": "https://github.com/chanzuckerberg/single-cell-data-portal/issues/557#issuecomment-686085193",
+      "created_at": "2020-09-02T23:11:08Z",
+      "updated_at": "2020-09-02T23:11:16Z",
+      "author": "Participant 2",
+      "body": "FYI: will probably take longer than a 1 because I'm a frontend noob :D Please pray for me."
+    },
+    {
+      "id": 686088731,
+      "url": "https://github.com/chanzuckerberg/single-cell-data-portal/issues/557#issuecomment-686088731",
+      "created_at": "2020-09-02T23:22:43Z",
+      "updated_at": "2020-09-02T23:22:43Z",
+      "author": "Participant 1",
+      "body": "YOU CAN DO IT, @maniarathi !! 👏 🎉 \r\n\r\nSince Safari has this weird between word spacing issue, maybe we can try replacing`width: 150px;` to:\r\n\r\n```css\r\nmin-width: 150px;\r\nmax-width: Npx; /** whatever pixel width that makes the button looks great on Safari */\r\n```\r\n\r\nThis way hopefully Chrome and Firefox will just use ~150px for the button, and only Safari will hit `max-width`!\r\n\r\nThe file is: `frontend/src/components/CookieBanner/style.ts:47`\r\n\r\nHope this helps! Thank you for taking on this 🚀 ⭐ !"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

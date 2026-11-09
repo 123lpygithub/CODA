@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0435-aagbbijhe",
+  "revision_url": "https://github.com/YannDubs/disentangling-vae/commit/67b12db3dcbc23c6d5573434d329fc769fda24d4",
+  "filename": "disvae/evaluate.py",
+  "commit": "67b12db3dcbc23c6d5573434d329fc769fda24d4",
+  "source_url": "https://raw.githubusercontent.com/YannDubs/disentangling-vae/67b12db3dcbc23c6d5573434d329fc769fda24d4/disvae/evaluate.py",
+  "fetched_at": "2026-11-05T06:12:54.076481+00:00",
+  "source_sha256": "58d238252e5fd5b84ec182b87c5666a477dae5aae14d717c0b57b24bbf3f7f75",
+  "line_start": 60,
+  "line_end": 84,
+  "excerpt": "            Whether to compute and store the test losses.\n        \"\"\"\n        start = default_timer()\n        is_still_training = self.model.training\n        self.model.eval()\n\n        metric, losses = None, None\n        # TODO: add warning if use metric if no true factors of variations\n        if is_metrics:\n            self.logger.info('Computing metrics...')\n            metric, H_z, H_zCv = self.mutual_information_gap(data_loader)\n\n            # TODO: AAM METRIC\n            # TODO: stor in a dictionary rather than pytorch tensors\n            torch.save({'metric': metric, 'marginal_entropies': H_z, 'cond_entropies': H_zCv},\n                       os.path.join(self.save_dir, 'disentanglement_metric.pth'))\n\n            self.logger.info('MIG: {:.3f}'.format(metric))\n\n        if is_losses:\n            self.logger.info('Computing losses...')\n            losses = self.compute_losses(data_loader)\n\n            self.logger.info('Losses: {}'.format(losses))\n"
+}

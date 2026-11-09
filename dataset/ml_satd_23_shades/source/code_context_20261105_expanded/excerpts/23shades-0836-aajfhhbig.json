@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0836-aajfhhbig",
+  "revision_url": "https://github.com/probcomp/bayeslite/commit/3473fcacb571f3e243c0ae48774b535437423ee9",
+  "filename": "src/read_csv.py",
+  "commit": "3473fcacb571f3e243c0ae48774b535437423ee9",
+  "source_url": "https://raw.githubusercontent.com/probcomp/bayeslite/3473fcacb571f3e243c0ae48774b535437423ee9/src/read_csv.py",
+  "fetched_at": "2026-11-05T06:14:02.208501+00:00",
+  "source_sha256": "0535763680759a27574026c7445441cedc19eaf388bb608f988476b478d9b499",
+  "line_start": 58,
+  "line_end": 82,
+  "excerpt": "                core.bayesdb_table_guarantee_columns(bdb, table)\n                unknown = set(name for name in column_names\n                    if not core.bayesdb_table_has_column(bdb, table, name))\n                if len(unknown) != 0:\n                    raise IOError('Unknown columns: %s' % (list(unknown),))\n        else:\n            assert not create\n            assert not ifnotexists\n            column_names = core.bayesdb_table_column_names(bdb, table)\n        ncols = len(column_names)\n        qt = sqlite3_quote_name(table)\n        qcns = map(sqlite3_quote_name, column_names)\n        # XXX Would be nice if we could prepare this statement before\n        # reading any rows in order to check whether there are missing\n        # nonnull columns with no default value.  However, the only\n        # way to prepare a statement in the Python wrapper is to\n        # execute a cursor, which also binds and steps the statement.\n        sql = 'INSERT INTO %s (%s) VALUES (%s)' % \\\n            (qt, ','.join(qcns), ','.join('?' for _qcn in qcns))\n        for row in reader:\n            if len(row) < ncols:\n                raise ValueError('Line %d: Too few columns: %d < %d' %\n                    (line, len(row), ncols))\n            if len(row) > ncols:\n                raise ValueError('Line %d: Too many columns: %d > %d' %"
+}

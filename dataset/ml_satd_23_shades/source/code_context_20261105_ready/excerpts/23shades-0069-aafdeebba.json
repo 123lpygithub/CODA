@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0069-aafdeebba",
+  "revision_url": "https://github.com/trevorstephens/gplearn/commit/8253491ac815c780aa43fb1af7a8ba59efa304a8",
+  "filename": "gplearn/skutils/estimator_checks.py",
+  "commit": "8253491ac815c780aa43fb1af7a8ba59efa304a8",
+  "source_url": "https://raw.githubusercontent.com/trevorstephens/gplearn/8253491ac815c780aa43fb1af7a8ba59efa304a8/gplearn/skutils/estimator_checks.py",
+  "fetched_at": "2026-11-05T06:11:49.628184+00:00",
+  "source_sha256": "eb516f0b7dd5539a6ec70f2cade6efd08187b1bbfd76f6f5fccb4e6a6b3250d3",
+  "line_start": 870,
+  "line_end": 894,
+  "excerpt": "\n\ndef check_estimators_overwrite_params(name, Estimator):\n    X, y = make_blobs(random_state=0, n_samples=9)\n    y = multioutput_estimator_convert_y_2d(name, y)\n    # some want non-negative input\n    X -= X.min()\n    with warnings.catch_warnings(record=True):\n        # catch deprecation warnings\n        estimator = Estimator()\n\n    if name == 'MiniBatchDictLearning' or name == 'MiniBatchSparsePCA':\n        # FIXME\n        # for MiniBatchDictLearning and MiniBatchSparsePCA\n        estimator.batch_size = 1\n\n    set_fast_parameters(estimator)\n    set_random_state(estimator)\n\n    # Make a physical copy of the orginal estimator parameters before fitting.\n    params = estimator.get_params()\n    original_params = deepcopy(params)\n\n    # Fit the model\n    estimator.fit(X, y)",
+  "match_policy": "unique-release-normalized-v2"
+}

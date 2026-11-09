@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/DSpace/DSpace/blob/dspace-5_x/dspace-api/src/main/java/org/dspace/statistics/SolrLogger.java#L490",
+  "kind": "file",
+  "cited_in": [
+    "comment_908751418"
+  ],
+  "revision": "dspace-5_x",
+  "immutable_revision": false,
+  "line_start": 478,
+  "line_end": 502,
+  "text": "            }\n        }\n\n        if(dspaceObject != null){\n            doc1.addField(\"id\", dspaceObject.getID());\n            doc1.addField(\"type\", dspaceObject.getType());\n            storeParents(doc1, dspaceObject);\n        }\n        // Save the current time\n        doc1.addField(\"time\", DateFormatUtils.format(new Date(), DATE_FORMAT_8601));\n        if (currentUser != null)\n        {\n            doc1.addField(\"epersonid\", currentUser.getID());\n        }\n\n        return doc1;\n    }\n\n    \n    public static void postSearch(DSpaceObject resultObject, HttpServletRequest request, EPerson currentUser,\n                                 List<String> queries, int rpp, String sortBy, String order, int page, DSpaceObject scope) {\n        try\n        {\n            SolrInputDocument solrDoc = getCommonSolrDoc(resultObject, request, currentUser);\n            if (solrDoc == null) return;",
+  "source_sha256": "c4c307b67532750891f572afe835eb846aeb3f82c7682d9d5e203835ebf6f071",
+  "fetched_at": "2026-11-05T06:21:50.603596+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/dspace-5_x/dspace-api/src/main/java/org/dspace/statistics/SolrLogger.java",
+  "status": "available"
+}

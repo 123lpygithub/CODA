@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0008-aagcbjjcd",
+  "revision_url": "https://github.com/amineHorseman/facial-expression-recognition-using-cnn/commit/5669907899102f453f77f8b40bae2758d1f215d5",
+  "filename": "data_loader.py",
+  "commit": "5669907899102f453f77f8b40bae2758d1f215d5",
+  "source_url": "https://raw.githubusercontent.com/amineHorseman/facial-expression-recognition-using-cnn/5669907899102f453f77f8b40bae2758d1f215d5/data_loader.py",
+  "fetched_at": "2026-11-05T06:11:39.606525+00:00",
+  "source_sha256": "8f96294b0ed9c54d2af5378e4297138d4e04b10b39df43358a5de225bf4e5637",
+  "line_start": 14,
+  "line_end": 38,
+  "excerpt": "        data_dict['X'] = np.load(DATASET.train_folder + '/images.npy')\n        if DATASET.trunc_trainset_to > 0:\n            data_dict['X'] = data_dict['X'][0:DATASET.trunc_trainset_to, :, :]\n        data_dict['X'] = data_dict['X'].reshape([-1, NETWORK.input_size, NETWORK.input_size, 1])\n        # load landmarks\n        data_dict['X2'] = np.load(DATASET.train_folder + '/landmarks.npy')\n        if DATASET.trunc_trainset_to > 0:\n            data_dict['X2'] = data_dict['X2'][0:DATASET.trunc_trainset_to, :, :]\n        # load labels\n        data_dict['Y'] = np.load(DATASET.train_folder + '/labels.npy')\n\n        ###########################################\n        ## TODO : load landmarks in validation and test set also. I'm too sleepy to do it today -_- zzz... zzz...\n        ###########################################\n        validation_dict['X'] = data_dict['X'][:500, :, :, :]\n        validation_dict['X2'] = data_dict['X2'][0:500, :, :]\n        validation_dict['Y'] = data_dict['Y'][0:500, :]\n        return data_dict, validation_dict \n        ###########################################\n\n        if validation:\n            validation_dict['X'] = np.load(DATASET.validation_folder + '/images.npy')\n            if DATASET.trunc_validationset_to > 0:\n                validation_dict['X'] = validation_dict['X'][0:DATASET.trunc_validationset_to, :, :]\n            validation_dict['X'] = validation_dict['X'].reshape([-1, NETWORK.input_size, NETWORK.input_size, 1])"
+}

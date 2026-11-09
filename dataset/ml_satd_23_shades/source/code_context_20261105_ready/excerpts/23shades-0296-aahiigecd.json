@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0296-aahiigecd",
+  "revision_url": "https://github.com/kengz/SLM-Lab/commit/861657d2c9b321961994c8cdd0e58b6c4fe0645f",
+  "filename": "slm_lab/agent/net/net_util.py",
+  "commit": "861657d2c9b321961994c8cdd0e58b6c4fe0645f",
+  "source_url": "https://raw.githubusercontent.com/kengz/SLM-Lab/861657d2c9b321961994c8cdd0e58b6c4fe0645f/slm_lab/agent/net/net_util.py",
+  "fetched_at": "2026-11-05T06:12:29.419929+00:00",
+  "source_sha256": "2fb5ba2268b8f18b40e5be44955fc1ad71ef925d7a99de3e5986f58c9c8220f2",
+  "line_start": 225,
+  "line_end": 249,
+  "excerpt": "\n    assert_trained = gen_assert_trained(model)\n    # ...\n    loss.backward()\n    optim.step()\n    assert_trained(model, loss)\n    '''\n    pre_weights = [param.clone() for param in pre_model.parameters()]\n\n    def assert_trained(post_model, loss):\n        post_weights = [param.clone() for param in post_model.parameters()]\n        if loss == 0:\n            # TODO if without momentum, weights should not change too\n            for p_name, param in post_model.named_parameters():\n                assert param.grad.norm() == 0\n        else:\n            assert not all(torch.equal(w1, w2) for w1, w2 in zip(pre_weights, post_weights)), 'Model parameter is not updated in training_step(), check if your tensor is detached from graph.'\n            min_norm = 0\n            max_norm = 1e5\n            for p_name, param in post_model.named_parameters():\n                try:\n                    assert min_norm < param.grad.norm() < max_norm, f'Gradient norm fails the extreme value check {min_norm} < {p_name}:{param.grad.norm()} < {max_norm}, which is bad. Loss: {loss}. Check your network and loss computation. Consider using the \"clip_grad\" and \"clip_grad_val\" net parameter.'\n                except Exception as e:\n                    logger.warn(e)\n        logger.debug('Passed network weight update assertation in dev lab_mode.')",
+  "match_policy": "unique-release-normalized-v2"
+}

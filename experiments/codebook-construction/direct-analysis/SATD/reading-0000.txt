@@ -1,0 +1,367 @@
+
+=== 0 23shades-0678-aafeaiffi ===
+{"dataset_id": "aafeaiffi", "repo_name": "AKSHAYUBHAT/DeepVideoAnalytics", "filename": "yolo/retrain_yolo.py", "comment_introducing_revision": "https://github.com/AKSHAYUBHAT/DeepVideoAnalytics/commit/c83ca25a8ff3691f5d55968969e3e38e6b80b5b4", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "c83ca25a8ff3691f5d55968969e3e38e6b80b5b4"}
+[comment_text]
+TODO: Replace Lambda with custom Keras layer for loss.
+[source_context]
+            model_body.save_weights(topless_yolo_path)
+        topless_yolo.load_weights(topless_yolo_path)
+
+    if freeze_body:
+        for layer in topless_yolo.layers:
+            layer.trainable = False
+    final_layer = Conv2D(len(anchors)*(5+len(class_names)), (1, 1), activation='linear')(topless_yolo.output)
+
+    model_body = Model(image_input, final_layer)
+
+    # Place model loss on CPU to reduce GPU memory usage.
+    with tf.device('/cpu:0'):
+        # TODO: Replace Lambda with custom Keras layer for loss.
+        model_loss = Lambda(
+            yolo_loss,
+            output_shape=(1, ),
+            name='yolo_loss',
+            arguments={'anchors': anchors,
+                       'num_classes': len(class_names)})([
+                           model_body.output, boxes_input,
+                           detectors_mask_input, matching_boxes_input
+                       ])
+
+    model = Model(
+        [model_body.input, boxes_input, detectors_mask_input,
+
+=== 1 23shades-0609-aagcdcjae ===
+{"dataset_id": "aagcdcjae", "repo_name": "clusterking/clusterking", "filename": "modules/plots.py", "comment_introducing_revision": "https://github.com/clusterking/clusterking/commit/b5e1ad18d0a06754e907398028a3f91badbe745e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b5e1ad18d0a06754e907398028a3f91badbe745e"}
+[comment_text]
+todo: more flexible signature?
+[source_context]
+import numpy as np
+from math import ceil
+import matplotlib.pyplot as plt
+
+
+# todo: move to a more elaborate plotting concept
+# like https://scipy-cookbook.readthedocs.io/items/Matplotlib_UnfilledHistograms.html for unfilled histograms
+# todo: more flexible signature?
+def plot_histogram(ax: plt.axes,
+                   binning: np.array,
+                   contents: np.array,
+                   normalized=False,
+                   *args,
+                   **kwargs) -> None:
+    """ Plots histogram
+
+    Args:
+        ax: Axes of a plot
+        binning: numpy array of bin edges
+        contents: numpy array of bin contents
+
+=== 2 23shades-0694-aaidhabjj ===
+{"dataset_id": "aaidhabjj", "repo_name": "manuwhs/Trapyng", "filename": "TradingClasses/Coliseum/CTrailingStop.py", "comment_introducing_revision": "https://github.com/manuwhs/Trapyng/commit/df8c673a0b2963d29f4402c83912b5c8320475db", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "df8c673a0b2963d29f4402c83912b5c8320475db"}
+[comment_text]
+TODO: Set interval for the original date ?
+[source_context]
+                                ["period", period], ["maxPullback",maxPullback]])
+        self.maxPullback = maxPullback
+        self.timeDataObj = self.pf.symbols[SymbolName].TDs[period]
+        self.dates = self.timeDataObj.get_dates()
+        self.BUYSELL = BUYSELL
+        # TODO: Preprocess datetome so that it fits in a given interval
+        self.init_datetime = datetime
+        
+    # These are the parameters of the simulated entry.
+    # The time and price where we entered the market.
+    # It does not have to be same as when the EntrySignal
+    # was activated due to slipage
+        # TODO: Set interval for the original date ?
+        
+    def set_outsideMAs(self, MA_slow, MA_fast, dates):
+        self.MA_slow = MA_slow
+        self.MA_fast = MA_fast
+        self.dates = dates
+     
+    #### BackTesting functions #######
+     
+    def get_TradeSignals(self):
+        pLow = self.timeDataObj.get_timeSeries(["Low"])
+        pHigh = self.timeDataObj.get_timeSeries(["High"])
+
+
+=== 3 23shades-0276-aaadbjbdj ===
+{"dataset_id": "aaadbjbdj", "repo_name": "Seanforfun/GMAN_Net_Haze_Removal", "filename": "DehazeNet/dehazenet_optimize.py", "comment_introducing_revision": "https://github.com/Seanforfun/GMAN_Net_Haze_Removal/commit/527aa85d9841da6b8a0670f7321f072a98beba40", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "527aa85d9841da6b8a0670f7321f072a98beba40"}
+[comment_text]
+TODO Dehaze with 1\/t
+[source_context]
+        print("a: " + str(round(a, 3)) + " GT: " + alpha + " loss: " + str(loss))
+        if loss < min_loss:
+            min_loss = loss
+            best_alpha = a
+        a += STEP_SIZE
+        a = round(a, 3)
+    return best_alpha
+
+
+def opt_dehaze_with_alpha_transmission(alpha, transmission, haze):
+    shape = np.shape(haze)
+    alpha_matrix = np.ones((shape[0], shape[1])) * float(alpha)
+    # TODO Dehaze with 1/t
+    # for i in range(3):
+    #     haze[:, :, i] = transmission * haze[:, :, i] - np.ones((shape[0], shape[1])) * transmission + np.ones((shape[0], shape[1]))
+    # TODO Dehaze for RGB channels
+    for i in range(3):
+        haze[:, :, i] = (haze[:, :, i] - alpha_matrix * (np.ones((shape[0], shape[1])) - transmission)) \
+                              / transmission
+
+    # TODO Dehaze for R channel(haze[0])
+    # haze[:, :, 0] = (haze[:, :, 0] - alpha_matrix * (np.ones((shape[0], shape[1])) - transmission)) \
+    #                               / transmission
+    result_arr = haze
+    where_are_inf = np.isinf(result_arr)
+
+=== 4 23shades-0851-aajgdbgid ===
+{"dataset_id": "aajgdbgid", "repo_name": "mne-tools/mne-python", "filename": "mne/decoding/base.py", "comment_introducing_revision": "https://github.com/mne-tools/mne-python/commit/ef2ca5bdebd29944243e423466633d3fb8833160", "comment_removing_revision": "https://github.com/mne-tools/mne-python/commit/862a5c93e132557a305b067f10da4b8c3bbfbfc8", "source_context_status": "available", "source_context_commit": "ef2ca5bdebd29944243e423466633d3fb8833160"}
+[comment_text]
+XXX: This is going to fail if the init is a staticmethod; but
+[source_context]
+            return []
+
+        # introspect the constructor arguments to find the model parameters
+        # to represent
+        args, varargs, kw, default = inspect.getargspec(init)
+        if varargs is not None:
+            raise RuntimeError("scikit-learn estimators should always "
+                               "specify their parameters in the signature"
+                               " of their __init__ (no varargs)."
+                               " %s doesn't follow this convention."
+                               % (cls, ))
+        # Remove 'self'
+        # XXX: This is going to fail if the init is a staticmethod, but
+        # who would do this?
+        args.pop(0)
+        args.sort()
+        return args
+
+    def get_params(self, deep=True):
+        """Get parameters for this estimator.
+        Parameters
+        ----------
+        deep: boolean, optional
+            If True, will return the parameters for this estimator and
+            contained subobjects that are estimators.
+
+=== 5 23shades-0461-aaidhjgaj ===
+{"dataset_id": "aaidhjgaj", "repo_name": "manuwhs/Trapyng", "filename": "Examples/1.1 Trading Information Classes/3.1 main_CPortfolio.py", "comment_introducing_revision": "https://github.com/manuwhs/Trapyng/commit/6b25ff82f383b3dac092795657538789ae7160c8", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6b25ff82f383b3dac092795657538789ae7160c8"}
+[comment_text]
+TODO: Be able to automatize the shareX thing
+[source_context]
+
+###### FUNCTIONS TO OPERATE ON THE SAME PERIOD #############
+
+    
+if (trading_platform_several):
+    # Plot for the 3 quitites, their Barchart and returns
+
+    symbolIDs_pf = myPortfolio.get_symbolIDs()
+
+#    dataTransform = ["intraday", opentime, closetime]
+    folder_images = "../pics/gl/"
+    gl.set_subplots(3,2)
+     # TODO: Be able to automatize the shareX thing
+    axeshare = None
+
+    period = periods[0]
+    for i in range(len(symbolIDs_pf)):
+        symbolID = symbolIDs_pf[i]
+        myTimeData = myPortfolio.get_symbols([symbolID])[0].get_timeData(period)
+        returns = myTimeData.get_timeSeriesReturn(["Close"])
+        dates = myTimeData.get_dates()
+        AxesStyle = " - No xaxis"
+        if (i == len(symbolIDs_pf) -1):
+            AxesStyle = ""
+        if (i == 0):
+
+=== 6 23shades-0241-aajfahgcg ===
+{"dataset_id": "aajfahgcg", "repo_name": "pyannote/pyannote-audio", "filename": "pyannote/audio/embedding/approaches/center_loss.py", "comment_introducing_revision": "https://github.com/pyannote/pyannote-audio/commit/a2741742928834a96473612387ef954de00d7e79", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "a2741742928834a96473612387ef954de00d7e79"}
+[comment_text]
+TODO add support for other metrics (ex. euclidean; angular)
+[source_context]
+
+class CenterDistanceModule(nn.Module):
+    """Sum of embedding-to-center cosine distances
+
+    Parameters
+    ----------
+    nfeat : int
+        Embedding size
+    nclass : int
+        Number of classes
+    """
+
+    # TODO add support for other metrics (ex. euclidean, angular)
+
+    def __init__(self, nfeat, nclass):
+        super().__init__()
+        self.centers = nn.Parameter(torch.randn(nclass, nfeat))
+        self.nfeat = nfeat
+
+    def forward(self, feat, y):
+        """Calculate the sum of cosine distances from embeddings to centers
+
+        Parameters
+        ----------
+        feat : `torch.Tensor`
+
+=== 7 23shades-0302-aahiiggad ===
+{"dataset_id": "aahiiggad", "repo_name": "kengz/SLM-Lab", "filename": "slm_lab/env/vizdoom/vizdoom_env.py", "comment_introducing_revision": "https://github.com/kengz/SLM-Lab/commit/03938c1787b05bd7dd490b9df2d75ce3f11f9c3b", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "03938c1787b05bd7dd490b9df2d75ce3f11f9c3b"}
+[comment_text]
+TODO In future; need to update action to handle (continuous) DELTA buttons using gym's Box space
+[source_context]
+class VizDoomEnv(Env):
+    '''
+    Wrapper for vizdoom to use as an OpenAI gym environment.
+    '''
+    metadata = {'render.modes': ['human', 'rgb_array']}
+
+    def __init__(self, cfg_name, repeat=1):
+        super(VizDoomEnv, self).__init__()
+        self.game = DoomGame()
+        self.game.load_config('./slm_lab/env/vizdoom/cfgs/' + cfg_name + '.cfg')
+        self._viewer = None
+        self.repeat = 1
+        # TODO In future, need to update action to handle (continuous) DELTA buttons using gym's Box space
+        self.action_space = spaces.MultiDiscrete([2] * self.game.get_available_buttons_size())
+        self.action_space.dtype = 'uint8'
+        output_shape = (self.game.get_screen_height(), self.game.get_screen_width(), self.game.get_screen_channels())
+        self.observation_space = spaces.Box(low=0, high=255, shape=output_shape, dtype='uint8')
+        self.game.init()
+
+    def close(self):
+        self.game.close()
+        if self._viewer is not None:
+            self._viewer.close()
+            self._viewer = None
+
+
+=== 8 23shades-0820-aajggjjdf ===
+{"dataset_id": "aajggjjdf", "repo_name": "mne-tools/mne-python", "filename": "mne/minimum_norm/_eloreta.py", "comment_introducing_revision": "https://github.com/mne-tools/mne-python/commit/afab0e1e9122997147008437aa4f5aa0c74a57cc", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "afab0e1e9122997147008437aa4f5aa0c74a57cc"}
+[comment_text]
+XXX in theory we should set inv['source_cov'] properly.
+[source_context]
+        R_sqrt = np.sqrt(R)
+    else:
+        R_sqrt = sqrtm_sym(R)[0]
+    assert R_sqrt.shape == R_shape
+    A = _R_sqrt_mult(G, R_sqrt)
+    del R, G  # the rest will be done in terms of R_sqrt and A
+    eigen_fields, sing, eigen_leads = _safe_svd(A, full_matrices=False)
+    inv['sing'][:] = sing
+    inv['reginv'][:] = _compute_reginv(inv, lambda2)
+    inv['eigen_leads_weighted'] = True
+    inv['eigen_leads']['data'][:] = _R_sqrt_mult(eigen_leads, R_sqrt).T
+    inv['eigen_fields']['data'][:] = eigen_fields.T
+    # XXX in theory we should set inv['source_cov'] properly.
+    # For fixed ori (or free ori with force_equal=True), we can as these
+    # are diagonal matrices. But for free ori without force_equal, it's a
+    # block diagonal 3x3 and we have no efficient way of storing this (and
+    # storing a covariance matrix with (20484 * 3) ** 2 elements is not going
+    # to work. So let's just set to nan for now.
+    # It's not used downstream anyway now that we set
+    # eigen_leads_weighted = True.
+    inv['source_cov']['data'].fill(np.nan)
+    logger.info('[done]')
+
+
+def _get_G_3(G, n_orient):
+
+=== 9 23shades-0406-aahhejjge ===
+{"dataset_id": "aahhejjge", "repo_name": "adalca/neurite", "filename": "neurite/tf/utils/utils.py", "comment_introducing_revision": "https://github.com/adalca/neurite/commit/66d89b0185e6e52cf09be7bd290a1c917e0cb001", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "66d89b0185e6e52cf09be7bd290a1c917e0cb001"}
+[comment_text]
+TODO(nolivia): improve performance with a broadcast
+[source_context]
+    shapes = [tf.size(x) for x in args]
+    sz = [x.get_shape().as_list()[0] for x in args]
+
+    # output_dtype = tf.convert_to_tensor(args[0]).dtype.base_dtype
+    if indexing == "xy" and ndim > 1:
+        output[0] = tf.reshape(output[0], (1, -1) + (1,) * (ndim - 2))
+        output[1] = tf.reshape(output[1], (-1, 1) + (1,) * (ndim - 2))
+        shapes[0], shapes[1] = shapes[1], shapes[0]
+        sz[0], sz[1] = sz[1], sz[0]
+
+    # This is the part of the implementation from tf that is slow. 
+    # We replace it below to get a ~6x speedup (essentially using tile instead of * tf.ones())
+    # TODO(nolivia): improve performance with a broadcast  
+    # mult_fact = tf.ones(shapes, output_dtype)
+    # return [x * mult_fact for x in output]
+    for i in range(len(output)):       
+        stack_sz = [*sz[:i], 1, *sz[(i+1):]]
+        if indexing == 'xy' and ndim > 1 and i < 2:
+            stack_sz[0], stack_sz[1] = stack_sz[1], stack_sz[0]
+        output[i] = tf.tile(output[i], tf.stack(stack_sz))
+    return output
+
+
+def flatten(v):
+    """
+
+=== 10 23shades-0388-aagaghfcd ===
+{"dataset_id": "aagaghfcd", "repo_name": "araffin/srl-zoo", "filename": "train.py", "comment_introducing_revision": "https://github.com/araffin/srl-zoo/commit/f80391f39df7ac1bb47a3bbba6c44ed0dbc0ef5a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "f80391f39df7ac1bb47a3bbba6c44ed0dbc0ef5a"}
+[comment_text]
+TODO WIP temp_coherence_loss # assumes all sequences in the dataset share at least one same 3D pos of Baxter arm
+[source_context]
+    def forward(self, states, next_states, dissimilar_pairs, same_actions_pairs):
+        """
+        :param states: (th Variable)
+        :param next_states: (th Variable)
+        :param dissimilar_pairs: (th tensor)
+        :param same_actions_pairs: (th tensor)
+        :return: (th Variable)
+        """
+        state_diff = next_states - states
+        state_diff_norm = state_diff.norm(2, dim=1)
+        similarity = lambda x, y: th.exp(-(x - y).norm(2, dim=1) ** 2)
+        temp_coherence_loss = (state_diff_norm ** 2).mean()
+        fixed_ref_point_loss = 0 # TODO WIP temp_coherence_loss # assumes all sequences in the dataset share at least one same 3D pos of Baxter arm
+        causality_loss = similarity(states[dissimilar_pairs[:, 0]],
+                                    states[dissimilar_pairs[:, 1]]).mean()
+        proportionality_loss = ((state_diff_norm[same_actions_pairs[:, 0]] -
+                                 state_diff_norm[same_actions_pairs[:, 1]]) ** 2).mean()
+
+        repeatability_loss = (
+            similarity(states[same_actions_pairs[:, 0]], states[same_actions_pairs[:, 1]]) *
+            (state_diff[same_actions_pairs[:, 0]] - state_diff[same_actions_pairs[:, 1]]).norm(2, dim=1) ** 2).mean()
+
+        l1_loss = sum([th.sum(th.abs(param)) for param in self.reg_params])
+
+        loss = 1 * temp_coherence_loss + 1 * causality_loss + 5 * proportionality_loss \
+
+=== 11 23shades-0407-aaijdefji ===
+{"dataset_id": "aaijdefji", "repo_name": "chainer/chainer", "filename": "cupy/__init__.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/14d0b508439a2be258c54f201a1dcc7486488b02", "comment_removing_revision": "https://github.com/chainer/chainer/commit/1fb22ba1217a19a3995e748e4b5280c869d498ba", "source_context_status": "available", "source_context_commit": "14d0b508439a2be258c54f201a1dcc7486488b02"}
+[comment_text]
+TODO(okuta): Implement argpartition
+[source_context]
+           :func:`cupy.take` for full documentation,
+           :meth:`numpy.ndarray.take`
+
+        """
+        return take(self, indices, axis, out)
+
+    # TODO(okuta): Implement put
+    # TODO(okuta): Implement repeat
+    # TODO(okuta): Implement choose
+    # TODO(okuta): Implement sort
+    # TODO(okuta): Implement argsort
+    # TODO(okuta): Implement partition
+    # TODO(okuta): Implement argpartition
+    # TODO(okuta): Implement searchsorted
+    # TODO(okuta): Implement nonzero
+    # TODO(okuta): Implement compress
+
+    def diagonal(self, offset=0, axis1=0, axis2=1):
+        """Returns a view of the specified diagonals.
+
+        .. seealso::
+           :func:`cupy.diagonal` for full documentation,
+           :meth:`numpy.ndarray.diagonal`
+
+        """

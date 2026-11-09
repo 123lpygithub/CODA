@@ -1,0 +1,464 @@
+TASK 20
+TASK DESCRIPTION
+from typing import List, Tuple
+
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    """ From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+    other and return them in order (smaller number, larger number).
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+    (2.0, 2.2)
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+    (2.0, 2.0)
+    """
+REFERENCE IMPLEMENTATION
+from typing import List, Tuple
+
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    """ From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+    other and return them in order (smaller number, larger number).
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+    (2.0, 2.2)
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+    (2.0, 2.0)
+    """
+    numbers.sort()
+    min_diff = float("inf")
+    min_pair = None
+    for l, r in zip(numbers[:-1], numbers[1:]):
+        diff = r - l
+        if diff < min_diff:
+            min_diff = diff
+            min_pair = (l, r)
+    return min_pair
+
+ARTIFACT 9 | SOURCE RECORDS 9
+COMPLETE GENERATED CODE
+from typing import List, Tuple
+
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    """ From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+    other and return them in order (smaller number, larger number).
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+    (2.0, 2.2)
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+    (2.0, 2.0)
+    """
+    # TODO: implement this function.
+    # raise NotImplementedError()
+    numbers.sort()
+    return (numbers[0], numbers[-1])
+
+ARTIFACT 167 | SOURCE RECORDS 167
+COMPLETE GENERATED CODE
+from typing import List, Tuple
+
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    """ From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+    other and return them in order (smaller number, larger number).
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+    (2.0, 2.2)
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+    (2.0, 2.0)
+    """
+    closest_to_one = numbers[0]
+    closest_to_two = numbers[1]
+    for number in numbers:
+        if number < closest_to_one:
+            closest_to_one = number
+        if number > closest_to_two:
+            closest_to_two = number
+    return closest_to_one, closest_to_two
+
+ARTIFACT 445 | SOURCE RECORDS 445
+COMPLETE GENERATED CODE
+from typing import List, Tuple
+
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    """ From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+    other and return them in order (smaller number, larger number).
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+    (2.0, 2.2)
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+    (2.0, 2.0)
+    """
+    if len(numbers) < 2:
+        raise ValueError("Need at least two numbers to find the closest")
+    closest_numbers = []
+    for number in numbers:
+        closest_numbers.append(abs(number - numbers[0]))
+    return min(closest_numbers), max(closest_numbers)
+
+ARTIFACT 621 | SOURCE RECORDS 621
+COMPLETE GENERATED CODE
+from typing import List, Tuple
+
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    """ From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+    other and return them in order (smaller number, larger number).
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+    (2.0, 2.2)
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+    (2.0, 2.0)
+    """
+    numbers.sort()
+    return numbers[0], numbers[1]
+
+TASK 21
+TASK DESCRIPTION
+from typing import List
+
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    """ Given list of numbers (of at least two elements), apply a linear transform to that list,
+    such that the smallest number will become 0 and the largest will become 1
+    >>> rescale_to_unit([1.0, 2.0, 3.0, 4.0, 5.0])
+    [0.0, 0.25, 0.5, 0.75, 1.0]
+    """
+REFERENCE IMPLEMENTATION
+from typing import List
+
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    """ Given list of numbers (of at least two elements), apply a linear transform to that list,
+    such that the smallest number will become 0 and the largest will become 1
+    >>> rescale_to_unit([1.0, 2.0, 3.0, 4.0, 5.0])
+    [0.0, 0.25, 0.5, 0.75, 1.0]
+    """
+    ma, mi = max(numbers), min(numbers)
+    k = 1 / (ma - mi)
+    return list(map(lambda x: (x - mi) * k, numbers))
+
+ARTIFACT 168 | SOURCE RECORDS 168,169
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    """ Given list of numbers (of at least two elements), apply a linear transform to that list,
+    such that the smallest number will become 0 and the largest will become 1
+    >>> rescale_to_unit([1.0, 2.0, 3.0, 4.0, 5.0])
+    [0.0, 0.25, 0.5, 0.75, 1.0]
+    """
+    numbers = sorted(numbers)
+    minimum = min(numbers)
+    maximum = max(numbers)
+    scale = maximum - minimum
+    return [number * scale for number in numbers]
+
+ARTIFACT 446 | SOURCE RECORDS 446
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    """ Given list of numbers (of at least two elements), apply a linear transform to that list,
+    such that the smallest number will become 0 and the largest will become 1
+    >>> rescale_to_unit([1.0, 2.0, 3.0, 4.0, 5.0])
+    [0.0, 0.25, 0.5, 0.75, 1.0]
+    """
+    if len(numbers) < 2:
+        raise ValueError("rescale_to_unit requires at least two numbers")
+    min_value = min(numbers)
+    max_value = max(numbers)
+    return [x / (max_value - min_value) for x in numbers]
+
+ARTIFACT 622 | SOURCE RECORDS 622
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def rescale_to_unit(numbers: List[float]) -> List[float]:
+    """ Given list of numbers (of at least two elements), apply a linear transform to that list,
+    such that the smallest number will become 0 and the largest will become 1
+    >>> rescale_to_unit([1.0, 2.0, 3.0, 4.0, 5.0])
+    [0.0, 0.25, 0.5, 0.75, 1.0]
+    """
+    return [n / max(numbers) for n in numbers]
+
+TASK 24
+TASK DESCRIPTION
+def largest_divisor(n: int) -> int:
+    """ For a given number n, find the largest number that divides n evenly, smaller than n
+    >>> largest_divisor(15)
+    5
+    """
+REFERENCE IMPLEMENTATION
+def largest_divisor(n: int) -> int:
+    """ For a given number n, find the largest number that divides n evenly, smaller than n
+    >>> largest_divisor(15)
+    5
+    """
+    for i in range(2, n):
+        if n % i == 0: return n // i
+    return 1
+
+ARTIFACT 11 | SOURCE RECORDS 11,12
+COMPLETE GENERATED CODE
+def largest_divisor(n: int) -> int:
+    """ For a given number n, find the largest number that divides n evenly, smaller than n
+    >>> largest_divisor(15)
+    5
+    """
+    divisor = 1
+    while n % divisor != 0:
+        divisor += 1
+    return divisor
+
+ARTIFACT 171 | SOURCE RECORDS 171,172
+COMPLETE GENERATED CODE
+def largest_divisor(n: int) -> int:
+    """ For a given number n, find the largest number that divides n evenly, smaller than n
+    >>> largest_divisor(15)
+    5
+    """
+    divisor = 1
+    while n % divisor == 0:
+        divisor += 1
+    return divisor
+
+ARTIFACT 448 | SOURCE RECORDS 448
+COMPLETE GENERATED CODE
+def largest_divisor(n: int) -> int:
+    """ For a given number n, find the largest number that divides n evenly, smaller than n
+    >>> largest_divisor(15)
+    5
+    """
+    return 1
+
+TASK 25
+TASK DESCRIPTION
+from typing import List
+
+
+def factorize(n: int) -> List[int]:
+    """ Return list of prime factors of given integer in the order from smallest to largest.
+    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    Input number should be equal to the product of all factors
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+    """
+REFERENCE IMPLEMENTATION
+from typing import List
+
+
+def factorize(n: int) -> List[int]:
+    """ Return list of prime factors of given integer in the order from smallest to largest.
+    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    Input number should be equal to the product of all factors
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+    """
+    import math
+    fact = []
+    i = 2
+    while i <= int(math.sqrt(n) + 1):
+        if n % i == 0:
+            fact.append(i)
+            n //= i
+        else:
+            i += 1
+
+    if n > 1:
+        fact.append(n)
+    return fact
+
+ARTIFACT 173 | SOURCE RECORDS 173
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def factorize(n: int) -> List[int]:
+    """ Return list of prime factors of given integer in the order from smallest to largest.
+    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    Input number should be equal to the product of all factors
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+    """
+    factors = []
+    factors.append(n)
+    while n % 2 == 0:
+        n //= 2
+        factors.append(n)
+    factors.append(n)
+    while n % 3 == 0:
+        n //= 3
+        factors.append(n)
+    factors.append(n)
+    while n % 5 == 0:
+        n //= 5
+        factors.append(n)
+    factors.append(n)
+    return factors
+
+ARTIFACT 449 | SOURCE RECORDS 449
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def factorize(n: int) -> List[int]:
+    """ Return list of prime factors of given integer in the order from smallest to largest.
+    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    Input number should be equal to the product of all factors
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+    """
+    factors = []
+    while n > 1:
+        if n % 2 == 0:
+            n //= 2
+        else:
+            factors.append(2)
+            n -= 1
+    if n > 1:
+        factors.append(n)
+    return factors
+
+ARTIFACT 626 | SOURCE RECORDS 626
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def factorize(n: int) -> List[int]:
+    """ Return list of prime factors of given integer in the order from smallest to largest.
+    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    Input number should be equal to the product of all factors
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+    """
+    pass
+
+TASK 26
+TASK DESCRIPTION
+from typing import List
+
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    """ From a list of integers, remove all elements that occur more than once.
+    Keep order of elements left the same as in the input.
+    >>> remove_duplicates([1, 2, 3, 2, 4])
+    [1, 3, 4]
+    """
+REFERENCE IMPLEMENTATION
+from typing import List
+
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    """ From a list of integers, remove all elements that occur more than once.
+    Keep order of elements left the same as in the input.
+    >>> remove_duplicates([1, 2, 3, 2, 4])
+    [1, 3, 4]
+    """
+    num_cnt = dict()
+    for number in numbers:
+        if number not in num_cnt:
+            num_cnt[number] = 0
+        num_cnt[number] += 1
+    return [number for number in numbers if num_cnt[number] == 1]
+
+ARTIFACT 13 | SOURCE RECORDS 13
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    """ From a list of integers, remove all elements that occur more than once.
+    Keep order of elements left the same as in the input.
+    >>> remove_duplicates([1, 2, 3, 2, 4])
+    [1, 3, 4]
+    """
+    # for i in range(len(numbers)):
+    #     for j in range(i+1, len(numbers)):
+    #         if numbers[i] == numbers[j]:
+    #             numbers.pop(j)
+    #             break
+    # return numbers
+    return list(set(numbers))
+
+ARTIFACT 174 | SOURCE RECORDS 174
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    """ From a list of integers, remove all elements that occur more than once.
+    Keep order of elements left the same as in the input.
+    >>> remove_duplicates([1, 2, 3, 2, 4])
+    [1, 3, 4]
+    """
+    seen = set()
+    result = []
+    for number in numbers:
+        if number in seen:
+            continue
+        seen.add(number)
+        result.append(number)
+    return result
+
+ARTIFACT 328 | SOURCE RECORDS 328
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    """ From a list of integers, remove all elements that occur more than once.
+    Keep order of elements left the same as in the input.
+    >>> remove_duplicates([1, 2, 3, 2, 4])
+    [1, 3, 4]
+    """
+    unique_numbers = []
+    for number in numbers:
+        if number not in unique_numbers:
+            unique_numbers.append(number)
+    return unique_numbers
+
+ARTIFACT 450 | SOURCE RECORDS 450
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    """ From a list of integers, remove all elements that occur more than once.
+    Keep order of elements left the same as in the input.
+    >>> remove_duplicates([1, 2, 3, 2, 4])
+    [1, 3, 4]
+    """
+    return list(set(numbers))
+
+ARTIFACT 627 | SOURCE RECORDS 627
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def remove_duplicates(numbers: List[int]) -> List[int]:
+    """ From a list of integers, remove all elements that occur more than once.
+    Keep order of elements left the same as in the input.
+    >>> remove_duplicates([1, 2, 3, 2, 4])
+    [1, 3, 4]
+    """
+    return list(set(numbers))

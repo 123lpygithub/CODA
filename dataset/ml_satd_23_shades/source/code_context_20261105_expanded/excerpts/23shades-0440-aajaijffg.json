@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0440-aajaijffg",
+  "revision_url": "https://github.com/HazyResearch/fonduer/commit/1a5ebebd18ec25dff4540aec8426cc091bc53576",
+  "filename": "tests/candidates/test_matchers.py",
+  "commit": "1a5ebebd18ec25dff4540aec8426cc091bc53576",
+  "source_url": "https://raw.githubusercontent.com/HazyResearch/fonduer/1a5ebebd18ec25dff4540aec8426cc091bc53576/tests/candidates/test_matchers.py",
+  "fetched_at": "2026-11-05T06:12:54.943055+00:00",
+  "source_sha256": "6e995f10d3d2c90e33a99b93737b5adc7aa13e4dba6a6d7e33f774e7212c69ce",
+  "line_start": 232,
+  "line_end": 256,
+  "excerpt": "\n    # Test with right_required=False\n    matcher = Concat(matcher0, matcher1, right_required=False)\n    assert set(tc.get_span() for tc in matcher.apply(space.apply(doc))) == {\"This is\"}\n\n    # Test with permutations=False\n    matcher = Concat(matcher1, matcher0, permutations=False)\n    assert set(matcher.apply(space.apply(doc))) == set()\n    # Test with permutations=True\n    matcher = Concat(matcher1, matcher0, permutations=True)\n    assert set(tc.get_span() for tc in matcher.apply(space.apply(doc))) == {\"This is\"}\n\n    # TODO: Add a test for ignore_sep=False\n\n\ndef test_dictionary_match(doc_setup):\n    \"\"\"Test DictionaryMatch matcher.\"\"\"\n    doc = doc_setup\n    space = MentionNgrams(n_min=1, n_max=1)\n\n    # Test with a list of str\n    matcher = DictionaryMatch(d=[\"this\"])\n    assert set(tc.get_span() for tc in matcher.apply(space.apply(doc))) == {\"This\"}\n\n    # Test without a dictionary"
+}

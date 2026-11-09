@@ -1,0 +1,186 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27AzuraCast%2FAzuraCast%27+AND+number%3D2303+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='AzuraCast/AzuraCast' AND number=2303 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T06:45:14.186601+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "LordHelmchen666",
+        "created_at": "2020-01-17 16:10:37",
+        "updated_at": "2020-01-17 16:10:37",
+        "title": "Geolite DB from db-ip.com",
+        "body": "Hello, can we use db-ip.com instead of maxmind.com?\r\nhttps://db-ip.com/db/download/ip-to-city-lite\r\nDirect download would be https://download.db-ip.com/free/dbip-city-lite-2020-01.mmdb.gz\r\n",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-01-17 16:00:00",
+        "repo_name": "AzuraCast/AzuraCast",
+        "number": 2303
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "SlvrEagle23",
+        "created_at": "2020-01-17 17:27:29",
+        "updated_at": "2020-01-17 17:27:28",
+        "title": "Geolite DB from db-ip.com",
+        "body": "@LordHelmchen666 It's a valid question, but I'm waiting a bit to see if the policy change enacted by MaxMind (which was, per their legal team, driven by a desire to comply with GDPR and California's privacy act) causes the other IP geolocation providers to scramble to make similar changes.\r\n\r\nIP2Location, another large supplier of this type of information, is also already behind a login-wall.\r\n\r\nIf they do decide to keep theirs more accessible, we may be able to \"modularize\" how we look for IP geolocation data, and update our attribution message on each page that uses it based on which source we actually found installed.",
+        "comment_id": 575720226,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-01-17 17:00:00",
+        "repo_name": "AzuraCast/AzuraCast",
+        "number": 2303
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "dawibe5626",
+        "created_at": "2020-01-17 21:44:18",
+        "updated_at": "2020-01-17 21:44:17",
+        "title": "Geolite DB from db-ip.com",
+        "body": "I am not able to create an account on MaxMind due to the following error:\r\nSorry, we were not able to create your account. Please ensure that you are using an email that is not disposable, and that you are not connecting via a proxy or VPN.\r\n\r\nPlease introduce an alternative method.",
+        "comment_id": 575806220,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-01-17 21:00:00",
+        "repo_name": "AzuraCast/AzuraCast",
+        "number": 2303
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "SlvrEagle23",
+        "created_at": "2020-01-17 21:47:26",
+        "updated_at": "2020-01-17 21:47:26",
+        "title": "Geolite DB from db-ip.com",
+        "body": "@dawibe5626 Note that this wasn't _our_ decision to implement the account requirement for MaxMind; we're trying to work around a restriction that was put upon us with very little notice.\r\n\r\nBecause license keys are standalone from the account that creates them, you can share license keys across multiple installations of AzuraCast. If you can't create an account yourself for whatever reason, you can always ask a friend to create a license key for you (or send you theirs).",
+        "comment_id": 575807483,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-01-17 21:00:00",
+        "repo_name": "AzuraCast/AzuraCast",
+        "number": 2303
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "LordHelmchen666",
+        "created_at": "2020-01-18 14:22:02",
+        "updated_at": "2020-01-18 14:22:02",
+        "title": "Geolite DB from db-ip.com",
+        "body": "> @LordHelmchen666 It's a valid question, but I'm waiting a bit to see if the policy change enacted by MaxMind (which was, per their legal team, driven by a desire to comply with GDPR and California's privacy act) causes the other IP geolocation providers to scramble to make similar changes.\r\n> \r\n> IP2Location, another large supplier of this type of information, is also already behind a login-wall.\r\n> \r\n> If they do decide to keep theirs more accessible, we may be able to \"modularize\" how we look for IP geolocation data, and update our attribution message on each page that uses it based on which source we actually found installed.\r\n\r\nI agree with you. Modularize this would be a nice thing. ",
+        "comment_id": 575902599,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-01-18 14:00:00",
+        "repo_name": "AzuraCast/AzuraCast",
+        "number": 2303
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "dawibe5626",
+        "created_at": "2020-01-19 14:04:17",
+        "updated_at": "2020-01-19 14:04:17",
+        "title": "Geolite DB from db-ip.com",
+        "body": "If anyone could share his/her license key, I would appreciate.\r\nEmail: dawibe5626@it-smart.org",
+        "comment_id": 576008003,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-01-19 14:00:00",
+        "repo_name": "AzuraCast/AzuraCast",
+        "number": 2303
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "SlvrEagle23",
+        "created_at": "2020-04-19 05:28:12",
+        "updated_at": "2020-04-19 05:28:12",
+        "title": "Geolite DB from db-ip.com",
+        "body": "Hello, can we use db-ip.com instead of maxmind.com?\r\nhttps://db-ip.com/db/download/ip-to-city-lite\r\nDirect download would be https://download.db-ip.com/free/dbip-city-lite-2020-01.mmdb.gz\r\n",
+        "comment_id": 0,
+        "comments": 4,
+        "state": "closed",
+        "closed_at": "2020-04-19 05:28:12",
+        "file_time": "2020-04-19 05:00:00",
+        "repo_name": "AzuraCast/AzuraCast",
+        "number": 2303
+      }
+    ],
+    "rows": 7,
+    "statistics": {
+      "elapsed": 0.029952159,
+      "rows_read": 314840,
+      "bytes_read": 9524385
+    }
+  },
+  "response_sha256": "5691acad9d3cacd8aa6e304316ad55bba15b81d90f0e0bc2a216e97c978da2f8"
+}

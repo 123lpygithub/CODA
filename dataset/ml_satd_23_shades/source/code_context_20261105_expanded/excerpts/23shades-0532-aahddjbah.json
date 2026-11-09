@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0532-aahddjbah",
+  "revision_url": "https://github.com/brendanhasz/probflow/commit/00a01c40cfbaffc4d99cee3f49ced47e54bf1aaf",
+  "filename": "src/probflow/utils/data.py",
+  "commit": "00a01c40cfbaffc4d99cee3f49ced47e54bf1aaf",
+  "source_url": "https://raw.githubusercontent.com/brendanhasz/probflow/00a01c40cfbaffc4d99cee3f49ced47e54bf1aaf/src/probflow/utils/data.py",
+  "fetched_at": "2026-11-05T06:13:08.243418+00:00",
+  "source_sha256": "4822517711eb2c488841089d8c0dc06c59e4b041fdb0b870d7f71b1538437f99",
+  "line_start": 44,
+  "line_end": 68,
+  "excerpt": "                    raise TypeError(name+' must be a list of int or str')\n\n            # Get the columns\n            x = data.ix[:,x].values\n\n        else:\n            raise TypeError('data must be None or a pandas DataFrame')\n\n    # Make data at least 2 dimensional (0th dim should be N)\n    if x.ndim == 1:\n        x = np.expand_dims(x, 1)\n\n    # TODO: ensure x data shape matches model._ph['x'] shape (only if fit)\n\n    return x\n\n\ndef process_xy_data(self, x=None, y=None, data=None):\n    \"\"\"Process and validate both x and y data\"\"\"\n\n    # Both or neither of x and y should be passed\n    if x is None and y is not None or y is None and x is not None:\n        raise TypeError('x and y should both be set or both be None')\n\n    # Process both x and y data"
+}

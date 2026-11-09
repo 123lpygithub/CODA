@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0293-aahiihdej",
+  "revision_url": "https://github.com/kengz/SLM-Lab/commit/2ce74a407886737b8e8d717ad518c6c126f6b06b",
+  "filename": "run_lab.py",
+  "commit": "2ce74a407886737b8e8d717ad518c6c126f6b06b",
+  "source_url": "https://raw.githubusercontent.com/kengz/SLM-Lab/2ce74a407886737b8e8d717ad518c6c126f6b06b/run_lab.py",
+  "fetched_at": "2026-11-05T06:12:29.059299+00:00",
+  "source_sha256": "ce4e38f12989e47c3a340c68c3765557285831485229737a26def2960fec301d",
+  "line_start": 49,
+  "line_end": 73,
+  "excerpt": "    lab_mode, prename = lab_mode.split('@')\n    predir, _, _, _, _, _ = util.prepath_split(spec_file)\n    prepath = f'{predir}/{prename}'\n    spec, info_space = util.prepath_to_spec_info_space(prepath)\n    info_space.ckpt = 'eval'\n\n    # no info_space.tick() as they are reconstructed\n    if lab_mode == 'enjoy':\n        spec = util.override_enjoy_spec(spec)\n        Session(spec, info_space).run()\n    elif lab_mode == 'eval':\n        # right. missing models to be loaded. Basicaly these conditions apply to loadable things\n        # TODO hack and set the eval model location inside info_space\n        # reconstruct existing spec and info_space\n        spec = util.override_eval_spec(spec)\n        # no info_space.tick() because it is recovered\n        Trial(spec, info_space).run()\n    else:\n        logger.warn('Unrecognizable lab_mode not of `enjoy, eval`')\n\n\ndef run_by_mode(spec_file, spec_name, lab_mode):\n    '''The main run lab function for all lab_modes'''\n    logger.info(f'Running lab in mode: {lab_mode}')\n    # '@' is reserved for 'enjoy@{prename}'"
+}

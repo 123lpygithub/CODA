@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0229-aadfjchjf",
+  "revision_url": "https://github.com/pyro-ppl/funsor/commit/43d145ee1e5c3df7b8a8f4320e52a8e50d6294f3",
+  "filename": "funsor/engine/materialize.py",
+  "commit": "43d145ee1e5c3df7b8a8f4320e52a8e50d6294f3",
+  "source_url": "https://raw.githubusercontent.com/pyro-ppl/funsor/43d145ee1e5c3df7b8a8f4320e52a8e50d6294f3/funsor/engine/materialize.py",
+  "fetched_at": "2026-11-05T06:12:18.631989+00:00",
+  "source_sha256": "a798ed9c7a124f1941e3bb3cf394ba0d59e2a44b6ea5b880b6c218aceac280ab",
+  "line_start": 5,
+  "line_end": 29,
+  "excerpt": "from funsor.handlers import OpRegistry\nfrom funsor.engine.interpreter import eval\nfrom funsor.distributions import Normal\nfrom funsor.handlers import OpRegistry\nfrom funsor.terms import Binary, Finitary, Number, Reduction, Substitution, Unary, Variable\nfrom funsor.torch import Arange, Tensor, LazyCall\n\n\nclass EagerEval(OpRegistry):\n    pass\n\n\n# TODO add general Distribution\n@EagerEval.register(Normal)\ndef eager_distribution(loc, scale, value):\n    return Normal(loc, scale)(value=value)\n\n\n# TODO separate materialization from eager evaluation\n@EagerEval.register(Variable)\ndef eager_variable(name, size):\n    if isinstance(size, int):\n        return Arange(name, size)\n    else:\n        return Variable(name, size)"
+}

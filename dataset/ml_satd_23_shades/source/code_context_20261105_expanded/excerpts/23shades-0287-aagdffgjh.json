@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0287-aagdffgjh",
+  "revision_url": "https://github.com/WMD-group/SMACT/commit/0ceab844146cd962813ea7fe5c4280e846c23bc1",
+  "filename": "smact/builder.py",
+  "commit": "0ceab844146cd962813ea7fe5c4280e846c23bc1",
+  "source_url": "https://raw.githubusercontent.com/WMD-group/SMACT/0ceab844146cd962813ea7fe5c4280e846c23bc1/smact/builder.py",
+  "fetched_at": "2026-11-05T06:12:28.132616+00:00",
+  "source_sha256": "9b788249d2e04f117421c9c821ecda8928936742180964b3bea5f3ae2f5844bc",
+  "line_start": 110,
+  "line_end": 134,
+  "excerpt": "    def composition(self):\n        \"\"\"Generate a key that describes the composition.\"\"\"\n        comp_style = \"{ele}_{stoic}_{charge}{sign}\"\n        return self._format_style(comp_style, delim=\"\")\n\n    def as_poscar(self):\n        \"\"\"Represent the structure as a POSCAR file compatible with VASP5.\"\"\"\n        poscar = self._format_style(\"{ele}{charge}{sign}\") + \"\\n\"\n        poscar += \"1.0\\n\"  # TODO Use actual lattice parameter\n        poscar += \"\\n\".join(\" \".join(vec) for vec in self.struct.lattice) + \"\\n\"\n        poscar += self._format_style(\"{stoic}\") + \"\\n\"\n        poscar += \"Coordinates\\n\"\n        # TODO Figure out how to distinguish oxidation states\n        return poscar\n\n\ndef cubic_perovskite(species, cell_par=[6, 6, 6, 90, 90, 90], repetitions=[1, 1, 1]):\n    \"\"\"\n    Build a perovskite cell using the crystal function in ASE.\n\n    Args:\n        species (str): Element symbols\n        cell_par (list): Six floats/ints specifying 3 unit cell lengths and 3 unit cell angles.\n        repetitions (list): Three floats specifying the expansion of the cell in x,y,z directions.\n    Returns:"
+}

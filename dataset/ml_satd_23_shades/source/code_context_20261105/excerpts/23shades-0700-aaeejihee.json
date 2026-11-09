@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0700-aaeejihee",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/bcdb1c2aa54bc83858535bc36c05c77e028b009b",
+  "filename": "madmom/audio/spectrogram.py",
+  "commit": "bcdb1c2aa54bc83858535bc36c05c77e028b009b",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/bcdb1c2aa54bc83858535bc36c05c77e028b009b/madmom/audio/spectrogram.py",
+  "fetched_at": "2026-11-05T06:13:40.234461+00:00",
+  "source_sha256": "c869edb0e9393b44040ec467121effc1d0e3eb3e6bdf289633b10502d015010e",
+  "line_start": 906,
+  "line_end": 930,
+  "excerpt": "        freq_distance = (data.bin_freqs -\n                         np.asarray(self.crossover_frequencies)[:, np.newaxis])\n        crossover_bins = np.argmin(np.abs(freq_distance), axis=1)\n        # prepend index 0 and append length of the filterbank\n        crossover_bins = np.r_[0, crossover_bins, len(fb)]\n        # map the spectrogram bins to the filterbank bands\n        for i in range(fb.shape[1]):\n            fb[crossover_bins[i]:crossover_bins[i + 1], i] = 1\n        # normalize it\n        if self.norm_bands:\n            fb /= np.sum(fb, axis=0)\n        # filter the spec or the diff a second time\n        # TODO: should this class always act on just the differences? filtering\n        #       the spec a second time is not the most meaningful thing...\n        if self.diff:\n            return np.dot(data.diff, fb)\n        else:\n            return np.dot(data.spec, fb)\n\n    @classmethod\n    def add_multi_band_arguments(cls, parser, crossover_frequencies=None,\n                                 norm_bands=None):\n        \"\"\"\n        Add multi-band spectrogram related arguments to an existing parser.\n"
+}

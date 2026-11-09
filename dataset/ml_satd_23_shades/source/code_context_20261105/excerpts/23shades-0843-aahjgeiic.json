@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0843-aahjgeiic",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "filename": "tensorflow2.0/source/numpy/f2py/crackfortran.py",
+  "commit": "44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/44d36f9e5045fd859ee188d74dc31f3921ad4796/tensorflow2.0/source/numpy/f2py/crackfortran.py",
+  "fetched_at": "2026-11-05T06:14:03.842830+00:00",
+  "source_sha256": "7a2344e48a6023ca5812871dd91dd4ee26b2b3695389dd31f0296402c281ebb4",
+  "line_start": 1972,
+  "line_end": 1996,
+  "excerpt": "\n\ndef sortvarnames(vars):\n    indep = []\n    dep = []\n    for v in list(vars.keys()):\n        if 'depend' in vars[v] and vars[v]['depend']:\n            dep.append(v)\n        else:\n            indep.append(v)\n    n = len(dep)\n    i = 0\n    while dep:  # XXX: How to catch dependence cycles correctly?\n        v = dep[0]\n        fl = 0\n        for w in dep[1:]:\n            if w in vars[v]['depend']:\n                fl = 1\n                break\n        if fl:\n            dep = dep[1:] + [v]\n            i = i + 1\n            if i > n:\n                errmess('sortvarnames: failed to compute dependencies because'\n                        ' of cyclic dependencies between '"
+}

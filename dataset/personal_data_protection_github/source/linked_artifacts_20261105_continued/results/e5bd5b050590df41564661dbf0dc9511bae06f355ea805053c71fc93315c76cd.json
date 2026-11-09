@@ -1,0 +1,15 @@
+{
+  "url": "https://github.com/titpetric/netdata/pull/91",
+  "kind": "pull_request",
+  "cited_in": [
+    "comment_563160082"
+  ],
+  "text": "From 71c2f9c2bdb43a18ed0902c9b3b430032400b1df Mon Sep 17 00:00:00 2001\nFrom: Jeffrey Paul <sneak@acidhou.se>\nDate: Mon, 25 Nov 2019 07:39:44 -0800\nSubject: [PATCH] patch out spyware\n\nThis argument is required to keep netdata from sending your personally identifiable information back to Google.\n\nmore info: https://docs.netdata.cloud/docs/anonymous-statistics/\n\n(They claim it's anonymous, but it can't be: it includes your IP address.)\n---\n releases/latest/scripts/build.sh | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)\n\ndiff --git a/releases/latest/scripts/build.sh b/releases/latest/scripts/build.sh\nindex 0fdd994..df95ac7 100644\n--- a/releases/latest/scripts/build.sh\n+++ b/releases/latest/scripts/build.sh\n@@ -28,7 +28,7 @@ fi\n \n # use the provided installer\n \n-./netdata-installer.sh --dont-wait --dont-start-it\n+./netdata-installer.sh --dont-wait --dont-start-it --disable-telemetry\n \n # removed hack on 2017/1/3\n #chown root:root /usr/libexec/netdata/plugins.d/apps.plugin\n",
+  "source_sha256": "c4d8d37cf10196e64266ad67f81aef37b79108a375d7e7a1301ce4ad04aaac10",
+  "fetched_at": "2026-11-05T06:21:48.805045+00:00",
+  "retrieval_url": "https://github.com/titpetric/netdata/pull/91.patch",
+  "status": "available",
+  "revision": "91",
+  "immutable_revision": false,
+  "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+}

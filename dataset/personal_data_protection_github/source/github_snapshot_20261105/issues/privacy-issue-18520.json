@@ -1,0 +1,138 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18520",
+  "issue_url": "https://github.com/commons-app/apps-android-commons/issues/520",
+  "source_issue_url": "https://github.com/commons-app/apps-android-commons/issues/520",
+  "api_url": "https://api.github.com/repos/commons-app/apps-android-commons/issues/520",
+  "title": "Add a privacy statement",
+  "body": "With the Nearby feature using queries sent to Wikidata, (#289) I believe we have privacy issues to consider, for example the accidental disclosure of sensitive locations of the user (e.g. home address).\r\n\r\nIn my opinion, we should make sure that users are aware of the fact that:\r\n\r\n1. the app may disclose the current location of the user's device to the Wikidata server when querying nearby places. <s>(And maybe explicitly ask the user to agree with the Terms of Use of the WMF?)</s>\r\n2. the app may disclose the current location of the user's the device to the core app developers subscribed to the private mailing list when sending crash reports. (I believe the current app doesn't include coordinates to an error message, but it may happen in future.)\r\n\r\nFor developers, I would imagine something like:\r\n\r\n1. Developers may use personal information obtained from the user only for the purpose of improving this app.\r\n2. Developers may not disclose personal information obtained from the user.\r\n\r\nI'm not sure in what way we want to deliver such a statement to the user. Maybe a wiki page and a link from the About screen to it? A dialog before a relevant action (e.g. sending a query) is done?\r\n",
+  "author": "Participant 1",
+  "created_at": "2017-04-18T00:18:23Z",
+  "updated_at": "2018-01-23T14:13:21Z",
+  "state": "closed",
+  "closed_at": "2018-01-23T12:47:12Z",
+  "issue_fetched_at": "2026-10-18T22:11:11.054552+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T22:11:12.468149+00:00"
+  ],
+  "expected_comment_count": 14,
+  "retrieved_comment_count": 14,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 294642611,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-294642611",
+      "created_at": "2017-04-18T01:16:53Z",
+      "updated_at": "2017-04-18T01:16:53Z",
+      "author": "Participant 2",
+      "body": "Sounds good. I'd go with a wiki page, or maybe a brief disclaimer in About. I don't think it warrants interrupting the user with a dialog - but that's just my personal opinion."
+    },
+    {
+      "id": 294653374,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-294653374",
+      "created_at": "2017-04-18T02:19:34Z",
+      "updated_at": "2017-04-18T02:19:34Z",
+      "author": "Participant 3",
+      "body": "How do the other WMF apps do this (if they have a nearby feature)?"
+    },
+    {
+      "id": 294664209,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-294664209",
+      "created_at": "2017-04-18T03:24:58Z",
+      "updated_at": "2017-04-18T03:24:58Z",
+      "author": "Participant 1",
+      "body": "It appears that they link to a privacy policy page from Login and AccountCreation.\r\n\r\n```\r\napp/src/main/java/org/wikipedia/createaccount/CreateAccountActivity.java-198-    }\r\napp/src/main/java/org/wikipedia/createaccount/CreateAccountActivity.java-199-\r\napp/src/main/java/org/wikipedia/createaccount/CreateAccountActivity.java:200:    public void showPrivacyPolicy(View v) {\r\napp/src/main/java/org/wikipedia/createaccount/CreateAccountActivity.java:201:        FeedbackUtil.showPrivacyPolicy(this);\r\napp/src/main/java/org/wikipedia/createaccount/CreateAccountActivity.java-202-    }\r\napp/src/main/java/org/wikipedia/createaccount/CreateAccountActivity.java-203-\r\n--\r\napp/src/main/java/org/wikipedia/login/LoginActivity.java-122-    }\r\napp/src/main/java/org/wikipedia/login/LoginActivity.java-123-\r\napp/src/main/java/org/wikipedia/login/LoginActivity.java:124:    public void showPrivacyPolicy(View v) {\r\napp/src/main/java/org/wikipedia/login/LoginActivity.java:125:        FeedbackUtil.showPrivacyPolicy(this);\r\napp/src/main/java/org/wikipedia/login/LoginActivity.java-126-    }\r\napp/src/main/java/org/wikipedia/login/LoginActivity.java-127-\r\n--\r\napp/src/main/java/org/wikipedia/util/FeedbackUtil.java-91-    }\r\napp/src/main/java/org/wikipedia/util/FeedbackUtil.java-92-\r\napp/src/main/java/org/wikipedia/util/FeedbackUtil.java:93:    public static void showPrivacyPolicy(Context context) {\r\napp/src/main/java/org/wikipedia/util/FeedbackUtil.java:94:        visitInExternalBrowser(context, Uri.parse(context.getString(R.string.privacy_policy_url)));\r\napp/src/main/java/org/wikipedia/util/FeedbackUtil.java-95-    }\r\napp/src/main/java/org/wikipedia/util/FeedbackUtil.java-96-\r\n\r\napp/src/main/res/layout/activity_create_account.xml-83-\r\napp/src/main/res/layout/activity_create_account.xml-84-            <TextView\r\napp/src/main/res/layout/activity_create_account.xml:85:                android:id=\"@+id/privacy_policy_link\"\r\napp/src/main/res/layout/activity_create_account.xml-86-                android:layout_width=\"wrap_content\"\r\napp/src/main/res/layout/activity_create_account.xml-87-                android:layout_height=\"wrap_content\"\r\napp/src/main/res/layout/activity_create_account.xml-88-                android:layout_gravity=\"bottom|center_horizontal\"\r\napp/src/main/res/layout/activity_create_account.xml-89-                android:padding=\"8dp\"\r\napp/src/main/res/layout/activity_create_account.xml:90:                android:text=\"@string/privacy_policy_description\"\r\napp/src/main/res/layout/activity_create_account.xml-91-                android:textAppearance=\"?android:attr/textAppearanceSmall\"\r\napp/src/main/res/layout/activity_create_account.xml-92-                android:textColor=\"?attr/link_color\"\r\napp/src/main/res/layout/activity_create_account.xml-93-                android:clickable=\"true\"\r\napp/src/main/res/layout/activity_create_account.xml:94:                android:onClick=\"showPrivacyPolicy\"\r\napp/src/main/res/layout/activity_create_account.xml-95-                />\r\napp/src/main/res/layout/activity_create_account.xml-96-\r\n--\r\napp/src/main/res/layout/activity_wiki_login.xml-52-\r\napp/src/main/res/layout/activity_wiki_login.xml-53-        <TextView\r\napp/src/main/res/layout/activity_wiki_login.xml:54:            android:id=\"@+id/privacy_policy_link\"\r\napp/src/main/res/layout/activity_wiki_login.xml-55-            android:layout_width=\"wrap_content\"\r\napp/src/main/res/layout/activity_wiki_login.xml-56-            android:layout_height=\"wrap_content\"\r\napp/src/main/res/layout/activity_wiki_login.xml-57-            android:layout_gravity=\"bottom|center_horizontal\"\r\napp/src/main/res/layout/activity_wiki_login.xml-58-            android:padding=\"8dp\"\r\napp/src/main/res/layout/activity_wiki_login.xml:59:            android:text=\"@string/privacy_policy_description\"\r\napp/src/main/res/layout/activity_wiki_login.xml-60-            android:textAppearance=\"?android:attr/textAppearanceSmall\"\r\napp/src/main/res/layout/activity_wiki_login.xml-61-            android:textColor=\"?attr/link_color\"\r\napp/src/main/res/layout/activity_wiki_login.xml-62-            android:clickable=\"true\"\r\napp/src/main/res/layout/activity_wiki_login.xml:63:            android:onClick=\"showPrivacyPolicy\"\r\napp/src/main/res/layout/activity_wiki_login.xml-64-            />\r\napp/src/main/res/layout/activity_wiki_login.xml-65-\r\n\r\n```"
+    },
+    {
+      "id": 294664945,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-294664945",
+      "created_at": "2017-04-18T03:29:06Z",
+      "updated_at": "2017-04-18T03:29:06Z",
+      "author": "Participant 1",
+      "body": "> And maybe explicitly ask the user to agree with the Terms of Use of the WMF?\r\n\r\nConsidering all users of the app has a WMF account, this is probably unnecessary."
+    },
+    {
+      "id": 296857929,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-296857929",
+      "created_at": "2017-04-25T00:29:45Z",
+      "updated_at": "2017-04-25T00:29:45Z",
+      "author": "Participant 1",
+      "body": "They link to https://wikimediafoundation.org/wiki/Privacy_policy.\r\n\r\nInterestingly the page already talks about the Commons app.\r\n\r\n> For example, if you want to upload a photo on the Wikimedia Commons mobile app, we may receive metadata, such as the place and time you took the photo, automatically from your device. Please be aware that, unlike location information collected using GPS signals described above, the default setting on your mobile device typically includes the metadata in your photo or video upload to the Wikimedia Sites. "
+    },
+    {
+      "id": 339583725,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-339583725",
+      "created_at": "2017-10-26T07:58:28Z",
+      "updated_at": "2017-10-26T07:58:28Z",
+      "author": "Participant 4",
+      "body": "Hi there, I'm interested in working on this issue - has there been a decision on what exactly is to be implemented for it? Any advice on where and how to get started with the implementation is also most welcome!"
+    },
+    {
+      "id": 340379916,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-340379916",
+      "created_at": "2017-10-30T08:52:08Z",
+      "updated_at": "2017-10-30T08:52:08Z",
+      "author": "Participant 5",
+      "body": "@lanvsPoplicola\r\nI already started previous week to work a little bit on this issue. I am new on this project and I chose this issue as a first one to enter in the code. So, if you want, we can work together on it and exchange ideas as a first experience on this project "
+    },
+    {
+      "id": 340527293,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-340527293",
+      "created_at": "2017-10-30T17:47:09Z",
+      "updated_at": "2017-10-30T17:47:09Z",
+      "author": "Participant 5",
+      "body": "What I have done for now is that I added a Privacy Statement link to the page https://wikimediafoundation.org/wiki/Privacy_policy in the subscribe page. You can see the view of the subscribe page now : \r\n\r\n![login](https://user-images.githubusercontent.com/12572789/32185866-bc6224b6-bda0-11e7-9736-fe29ee1fe5c8.png)\r\n\r\nSo, when the user want to connect or subscribe, there is this link to the privacy statement in order to inform it. \r\nI'm open to exchange ideas about it\r\n"
+    },
+    {
+      "id": 340668041,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-340668041",
+      "created_at": "2017-10-31T05:58:02Z",
+      "updated_at": "2017-10-31T05:58:02Z",
+      "author": "Participant 4",
+      "body": "@aumassart that's cool, I'll leave this to you then! Looks like you're well on track of resolving it :)"
+    },
+    {
+      "id": 340823405,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-340823405",
+      "created_at": "2017-10-31T16:39:49Z",
+      "updated_at": "2017-10-31T16:41:50Z",
+      "author": "Participant 2",
+      "body": "Hi @aumassart , thanks for your interest! Unfortunately we cannot use WMF's privacy policy - see #891 for the reasons. I would recommend that you submit your PR using the https://github.com/commons-app/apps-android-commons/wiki/Privacy-policy link instead (that is still in draft mode, but should be fixed up shortly). :)\r\n\r\n@IanvsPoplicola thanks for your interest as well. Please feel free to check out any other issues that look interesting to you - anything that hasn't been assigned is fair game. Thanks! :)"
+    },
+    {
+      "id": 340911914,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-340911914",
+      "created_at": "2017-10-31T21:26:16Z",
+      "updated_at": "2017-10-31T21:26:16Z",
+      "author": "Participant 5",
+      "body": "@misaochan thanks for your answer. I didn't see that. I will then change the privacy policy link to refer instead to the one you mention. :)\r\n\r\n@IanvsPoplicola I hope you are finding an other issue that interests you a lot :)"
+    },
+    {
+      "id": 359771971,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-359771971",
+      "created_at": "2018-01-23T12:12:52Z",
+      "updated_at": "2018-01-23T12:12:52Z",
+      "author": "Participant 6",
+      "body": "I would like to work on this issue if it is still open.\r\n\r\nCan someone explain exactly what has to be implemented to resolve this because I can already see \"Privacy policy\" link on the login page which refers to [https://github.com/commons-app/apps-android-commons/] \r\n\r\n![screenshot from 2018-01-23 11-43-57](https://user-images.githubusercontent.com/23060217/35275154-c99fc65e-0064-11e8-9b70-2e4afadfdd1d.png)\r\n"
+    },
+    {
+      "id": 359779974,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-359779974",
+      "created_at": "2018-01-23T12:47:12Z",
+      "updated_at": "2018-01-23T12:47:12Z",
+      "author": "Participant 2",
+      "body": "Oops, sorry, I think this should have been closed. Indeed the link has already been implemented. Please feel free to try your hand at other open issues @Sylvia23 ."
+    },
+    {
+      "id": 359802571,
+      "url": "https://github.com/commons-app/apps-android-commons/issues/520#issuecomment-359802571",
+      "created_at": "2018-01-23T14:13:21Z",
+      "updated_at": "2018-01-23T14:13:21Z",
+      "author": "Participant 6",
+      "body": "For sure @misaochan  :+1: \r\nThanks."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

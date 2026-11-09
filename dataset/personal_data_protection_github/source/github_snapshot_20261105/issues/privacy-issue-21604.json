@@ -1,0 +1,178 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-21604",
+  "issue_url": "https://github.com/ualbertalib/jupiter/issues/508",
+  "source_issue_url": "https://github.com/ualbertalib/jupiter/issues/508",
+  "api_url": "https://api.github.com/repos/ualbertalib/jupiter/issues/508",
+  "title": "era-beta: item detail (generic and thesis)",
+  "body": "- in the wireframe the label is License, although we have many items with a rights statement rather than a license (e.g., https://era-beta.library.ualberta.ca/items/fe483322-d61c-4a74-84f4-9f2ca658c362). question for @leahvanderjagt and @sfbetz should the label be License when dcterms:license and Rights when dc:rights?\r\n- date created seems to be pulling data from sort year rather than dcterms:created (e.g. https://era-beta.library.ualberta.ca/items/20a5f95c-c18c-43f4-9baf-bbb9cd020050)\r\n- for theses, committee members don't seem to be displaying (e.g., https://era-beta.library.ualberta.ca/items/71afd4bf-1acb-443d-a910-435ae2a0f06e)\r\n- when clicking on a linked metadata element, such as Type of Item Thesis in the example above (https://era-beta.library.ualberta.ca/items/71afd4bf-1acb-443d-a910-435ae2a0f06e), the Items tab seems to show the correct number of items, but the Collections and Communities tabs seem to always show the total number; just wondering if that's what's desired?",
+  "author": "Participant 1",
+  "created_at": "2018-02-21T14:55:50Z",
+  "updated_at": "2018-04-26T17:36:37Z",
+  "state": "closed",
+  "closed_at": "2018-04-26T17:36:36Z",
+  "issue_fetched_at": "2026-10-18T23:11:36.184840+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T23:11:37.647397+00:00"
+  ],
+  "expected_comment_count": 19,
+  "retrieved_comment_count": 19,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 369292318,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369292318",
+      "created_at": "2018-02-28T16:17:16Z",
+      "updated_at": "2018-02-28T16:17:16Z",
+      "author": "Participant 2",
+      "body": "Hi Sharon, for the third bullet point about the committee members for thesis, when I query that particular object it has no committee members:\r\n\r\n```ruby\r\nThesis.find('71afd4bf-1acb-443d-a910-435ae2a0f06e').committee_members\r\n=> nil\r\n```\r\n\r\nThe rest of the data for that item appears to be present (not pasted here for privacy concerns).\r\n\r\nIf you know for sure that there is supposed to be some committee members for that object, perhaps @weiweishi can check the migration script. Other attributes that are empty for that particular object:\r\n\r\n```\r\nsupervisors\r\nspecialization\r\nunicorn\r\nproquest\r\nunordered_departments\r\n```\r\n\r\nI am particularly surprised about the last one because the ordered JSON department attribute has some data in it. Maybe the code deployed on beta and the data are out of sync? (Or there could just be a bug, or the migrated data is out of sync with the app).\r\n\r\n"
+    },
+    {
+      "id": 369300646,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369300646",
+      "created_at": "2018-02-28T16:41:42Z",
+      "updated_at": "2018-02-28T16:41:42Z",
+      "author": "Participant 2",
+      "body": "Hi @sfarnel @leahvanderjagt @sfbetz, Regarding the first bullet point, on December 15th in the #era-development channel on slack, I asked whether a different label should be used for License vs Rights. I was told by Leah to just use Licence. Unfortunately, this decision isn't documented elsewhere. :scream_cat: \r\n"
+    },
+    {
+      "id": 369312514,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369312514",
+      "created_at": "2018-02-28T17:16:29Z",
+      "updated_at": "2018-02-28T17:16:29Z",
+      "author": "Participant 1",
+      "body": "Thanks @cwant Great that it was decided; just wanted to check :)"
+    },
+    {
+      "id": 369320132,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369320132",
+      "created_at": "2018-02-28T17:40:48Z",
+      "updated_at": "2018-02-28T17:40:48Z",
+      "author": "Participant 1",
+      "body": "Thanks @ cwant @danydvd and @anayram can you check the item in question and see if the committee members are in the data? the item in current ERA has it but perhaps it didn't make it through?"
+    },
+    {
+      "id": 369747738,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369747738",
+      "created_at": "2018-03-01T22:07:12Z",
+      "updated_at": "2018-03-01T23:21:40Z",
+      "author": "Participant 3",
+      "body": "I checked the January migration package and both the supervisor and committee members are there but do not appear in https://era-beta.library.ualberta.ca/items/71afd4bf-1acb-443d-a910-435ae2a0f06e\r\nHave not checked solr, though.\r\n\r\n```\r\n<http://uat.library.ualberta.ca:8080/fcrepo/rest/uat/t4/35/gg/56/t435gg568> <http://terms.library.ualberta.ca/supervisor> \"Doe, John (English and Film Studies)\" .\r\n```\r\nand\r\n```\r\n<http://uat.library.ualberta.ca:8080/fcrepo/rest/uat/t4/35/gg/56/t435gg568> <http://terms.library.ualberta.ca/commiteeMember> \"Doe, Jane (English and Film Studies)\" .\r\n<http://uat.library.ualberta.ca:8080/fcrepo/rest/uat/t4/35/gg/56/t435gg568> <http://terms.library.ualberta.ca/commiteeMember> \"Smith, Sam (English and Film Studies)\" .\r\n```\r\n\r\nThis is file `t435gg568.nt` in the theses group and I am looking at the package labelled `results(Jan -18)` Could this be an issue in the Jupiter migration script? @weiweishi @sfarnel \r\n\r\n"
+    },
+    {
+      "id": 369766801,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369766801",
+      "created_at": "2018-03-01T23:23:46Z",
+      "updated_at": "2018-03-01T23:26:14Z",
+      "author": "Participant 4",
+      "body": "Please be careful of posting real data with real information, especially regarding our users. \r\n\r\nThis is the second time I had to redact user's information from github issues/comments. \r\n\r\nThis is a privacy concern! Everything in this repo is open source, meaning anyone can see it. I'm sure some of our students/professors don't want their name/email/etc being made public without their consent."
+    },
+    {
+      "id": 369768160,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369768160",
+      "created_at": "2018-03-01T23:30:51Z",
+      "updated_at": "2018-03-01T23:30:51Z",
+      "author": "Participant 1",
+      "body": "Thanks @murny \r\n\r\nThe item in question is a thesis openly available on ERA (https://era.library.ualberta.ca/files/t435gg568) with the information exactly as you see it, so nothing was included that is not already publicly available data.\r\n\r\nWe do try very hard not to add anything to Github that may be sensitive (i.e., username, etc.) or anything that is currently embargoed or private. But do appreciate others checking in to make sure we don't miss something!\r\n\r\nBut if we have a general guideline for never using actual data (open or not) then we will of course follow it!"
+    },
+    {
+      "id": 369768548,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369768548",
+      "created_at": "2018-03-01T23:32:49Z",
+      "updated_at": "2018-03-01T23:32:49Z",
+      "author": "Participant 3",
+      "body": "Thanks @murny \r\n\r\nWe only post metadata for items that are publicly available, never private items or anything requiring authentication."
+    },
+    {
+      "id": 369768958,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369768958",
+      "created_at": "2018-03-01T23:34:53Z",
+      "updated_at": "2018-03-01T23:34:53Z",
+      "author": "Participant 3",
+      "body": "@sfarnel The edited code in the metadata example is no longer useful to the conversation, as it was the specific metadata missing in era beta."
+    },
+    {
+      "id": 369771590,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369771590",
+      "created_at": "2018-03-01T23:48:42Z",
+      "updated_at": "2018-03-01T23:48:42Z",
+      "author": "Participant 5",
+      "body": "Thanks  @anayram <https://github.com/anayram> I will rerun the migration on\nthis particular object and see if there's any issue with the migration\nscript not picking up the triples.\n\n\n*Weiwei Shi*Digital Initiative Applications Librarian\n\n2-10L Cameron Library, University of Alberta\n780-492-7802  |  weiwei.shi@ualberta.ca\n*\"The University of Alberta respectfully acknowledges that we are situated\non Treaty 6 territory, traditional lands of First Nations and Métis\npeople.\"*\n\nOn Thu, Mar 1, 2018 at 4:34 PM, Mariana Paredes-Olea <\nnotifications@github.com> wrote:\n\n> @sfarnel <https://github.com/sfarnel> The edited code in the metadata\n> example is no longer useful to the conversation, as it was the specific\n> metadata missing in era beta.\n>\n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369768958>,\n> or mute the thread\n> <https://github.com/notifications/unsubscribe-auth/AB8-fuLScfLBwR_Ede1JLB159XOkJ8BWks5taIWdgaJpZM4SNxVF>\n> .\n>\n"
+    },
+    {
+      "id": 369773495,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369773495",
+      "created_at": "2018-03-01T23:58:28Z",
+      "updated_at": "2018-04-05T21:29:26Z",
+      "author": "Participant 4",
+      "body": "Shouldn't matter if its public in ERA. \r\n\r\nI would very much assume we are collecting data under the Alberta Freedom of Information and Protection of Privacy (FOIP) Act here in ERA (Hard to tell since we don't have a privacy policy at all! But this is a U of A standard, we all took privacy training here at U of A for this reason. Also the library site collects data this way so I  am pretty sure ERA does as well). \r\n\r\nThe data collected in ERA is under the assumption it will be used only for ERA. If I deposit an item in ERA, I sure hope my name/etc isn't plastered on a bunch of 3rd party websites (github/etc) that I didn't consent for (or sold to the highest bidder...).\r\n\r\nI'm not a lawyer I could be wrong here, but when it comes to user privacy why even risk it? We should take all precautions to not post real names and email addresses when we can. And even if the names/information are already public in other ways, we should not be making them even more accessible on the world wide web.\r\n\r\nAlso, the previous incident was email address (which I hope we can all agree, this shouldn't be made public under any circumstances): https://github.com/ualbertalib/jupiter/issues/509#issuecomment-367792509"
+    },
+    {
+      "id": 369785790,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369785790",
+      "created_at": "2018-03-02T01:06:47Z",
+      "updated_at": "2018-03-02T01:06:47Z",
+      "author": "Participant 6",
+      "body": "@murny the user agreement *explicitly* allows us to use submission data (which would include the publicly accessible metadata) and distribute it in any format, and would definitely cover testing / inclusion in GitHub. Our agreement was reviewed by both legal counsel and copyright office. Our privacy policy IS the UofA's privacy policy, but because this is information provided explicitly by users for these explicit purposes I'm confident we are not in breach of either it or any FOIP legislation.  @sfarnel @leahvanderjagt are both *very* well versed in FOIP and related policy and data management concerns and can likely provide very complete and detailed information if you would like to know more. The clause in the agreement that is most relevant is below. As long as we're respecting the access rules the user set, we could theoretically print a submission on shirts and wear them around the office if we wanted. \r\n\r\n\"By accepting this agreement, you (the author or copyright right owner or designate) grant to the University of Alberta the non-exclusive rights to reproduce, translate (as defined below), and/or distribute your submission (including the abstract) worldwide in print and electronic format and in any medium, including but not limited to audio or video\"\r\n"
+    },
+    {
+      "id": 369798203,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369798203",
+      "created_at": "2018-03-02T02:18:04Z",
+      "updated_at": "2018-04-05T21:28:52Z",
+      "author": "Participant 4",
+      "body": "Think there is two different issues here. \r\n\r\nItem metadata is one thing. This is what @sfbetz is talking about with regards to our user agreement. (So by all means, we are protected legally. Ethically however should we be going around and posting people's names and other personal information found in ERA on 3rd party websites not associated with U of A?  I hope your not condoning that someone can post every single author/contributor/supervisor name that can be found in ERA here in github or somewhere else? I mean of course legally, you can and are protected. But should you?  Regardless why publicize people's names and other information on a 3rd party website not associated with U of A (regardless if you can legally or not)? What value does it give to publicize this information? There is no value added here if you include this information or not...\r\n\r\nUser data (CCID and other information that comes from CCID login) however I am pretty sure is a different can of worms. I would assume, they do not waive their right for this. And I am pretty sure IST and UofA wants you to protect this information (think we signed a document with IST with regards to privacy for this information even). I would really hate to see everyone of our user's ccid/email posted online (even though every one of our user's ccid/email is....publicly available in ERA currently: https://github.com/ualbertalib/di_internal/issues/2). We been told this information is so private, that we can't even put this information in 3rd party applications that we have full control of and only we can see that data (Rollbar/google analytics/etc). But yet we are posting it on github? This makes little sense.  And again, I have no idea why I am seeing such a big pushback here?\r\n\r\nBut If your saying we can, then sorry to everyone above, that I am wrong! If this is the case, we should probably stop caring so much about privacy issues around google analytics, putting logs and user's information on 3rd party services and other things. And probably should start pushing back on higher ups regarding this."
+    },
+    {
+      "id": 369806370,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369806370",
+      "created_at": "2018-03-02T03:06:42Z",
+      "updated_at": "2018-03-02T03:07:21Z",
+      "author": "Participant 5",
+      "body": "I agree with @murny that we are dealing with two issues here. This\r\nparticular discussion was triggered by sharing metadata on an object, which\r\nis publicly available in ERA, and also directly related to the problem we\r\nare trying to solve, and is less concerning to us. But it also touched on\r\nan earlier issue of disclosure of user information on a public site, which\r\nI agree with Shane that it poses high privacy concern.\r\n\r\nI think someone mentioned in the retrospective meeting that the team should\r\nwork towards an internal standard on how the team should use GitHub, zenhub\r\nand other tools for creating/tagging/closing issues, and this is an area we\r\nshould also include in that work. Let's work together to establish team\r\nguideline and best practices regarding whether different kinds of information\r\nshould be shared and how to share them on these third-party tools.  I feel\r\nall of these discussions above really provide a solid start towards that\r\nwork.\r\n\r\n\r\n*Weiwei Shi*Digital Initiative Applications Librarian\r\n\r\n2-10L Cameron Library, University of Alberta\r\n780-492-7802  |  weiwei.shi@ualberta.ca\r\n*\"The University of Alberta respectfully acknowledges that we are situated\r\non Treaty 6 territory, traditional lands of First Nations and Métis\r\npeople.\"*\r\n\r\nOn Thu, Mar 1, 2018 at 7:18 PM, Shane Murnaghan <notifications@github.com>\r\nwrote:\r\n\r\n> Think there is two different issues here.\r\n>\r\n> Item metadata is one thing. This is what @sfbetz\r\n> <https://github.com/sfbetz> is talking about with regards to our user\r\n> agreement. (So by all means, we are protected legally. Ethically however\r\n> should we be going around and posting people's names and other personal\r\n> information found in ERA on 3rd party websites not associated with U of A?\r\n> I hope your not condoning that someone can post every single\r\n> author/contributor/supervisor name that can be find in ERA here in github?\r\n> I mean of course legally, you can and are protected. But should you?\r\n> Regardless I still don't see the pushback here. Why publicize people's\r\n> names and other information on a 3rd party website not associated with U of\r\n> A (regardless if you can legally or not)? What value does it give to\r\n> publicize this information? There is no value added here if you include\r\n> this information or not...\r\n>\r\n> User data (CCID and other information that comes from CCID login) however\r\n> I am pretty sure is a different can of worms. I would assume, they do not\r\n> waive their right for this. And I am pretty sure IST and UofA wants you to\r\n> protect this information (think we signed a document with IST with regards\r\n> to privacy for this information even). I would really hate to see everyone\r\n> of our user's ccid/email posted online (even though every one of our user's\r\n> ccid/email is....publicly available in ERA currently:\r\n> ualbertalib/di_internal#2\r\n> <https://github.com/ualbertalib/di_internal/issues/2>). We been told this\r\n> information is so private, that we can't even put this information in 3rd\r\n> party applications that we have full control of and only we can see that\r\n> data (Rollbar/google analytics/etc). But yet we are posting it on github\r\n> here? This makes little sense.\r\n>\r\n> But If your saying we can, then sorry to everyone above, that I am wrong!\r\n> If this is the case, we should probably stop caring so much about privacy\r\n> issues around google analytics, putting logs and user's information on 3rd\r\n> party services and other things. And probably should start pushing back on\r\n> higher ups regarding this.\r\n>\r\n> —\r\n> You are receiving this because you were mentioned.\r\n> Reply to this email directly, view it on GitHub\r\n> <https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369798203>,\r\n> or mute the thread\r\n> <https://github.com/notifications/unsubscribe-auth/AB8-fpcnPPlH92LLLpun_X9VdDauBOvJks5taKvdgaJpZM4SNxVF>\r\n> .\r\n>\r\n"
+    },
+    {
+      "id": 369946417,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-369946417",
+      "created_at": "2018-03-02T15:09:14Z",
+      "updated_at": "2018-03-02T15:09:14Z",
+      "author": "Participant 3",
+      "body": "I have absolutely no problem following any decisions regarding the citation of metadata. \r\n\r\nThe citation of user information is totally out of line from my perspective, but the citation of bibliographic information is a different matter. If we can't cite the latter, then a lot of people are in trouble. Having said that, I am completely open to following any decisions following this conversation. \r\n\r\nI have to say that it is probably the way things were brought up that creates a tense environment for discussion. I am sure this is an important issue, and I am confident we can find ways to bring up problems with  collegial collaboration."
+    },
+    {
+      "id": 370000101,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-370000101",
+      "created_at": "2018-03-02T17:57:51Z",
+      "updated_at": "2018-03-02T17:57:51Z",
+      "author": "Participant 4",
+      "body": "I completely agree @anayram. I would like to apologise to @sfarnel @anayram @sfbetz and everyone else that might have been involved with this.\r\n\r\nThis could have been handled so much much better on my part. Regardless if I am right or wrong (obviously I am wrong, sorry!), there’s no excuse that I can possibly make that could justify my behaviour and my tone of my messages. My intention wasn't to be condescending or patronising, but I can see how this totally came off. And I am sorry for this!\r\n\r\nGoing forwards, I’m going to ensure that if I have a problem in the future, I will not openly air it on GitHub (obviously never a good place to do this) and will seek to talk about it in person with someone first, before consulting others. I promise that this won’t ever happen again, and I’m taking steps to ensure that this isn’t a repeat occurrence. Hopefully you can accept my apology and again sorry for causing such a headache for everyone involved. Thanks!"
+    },
+    {
+      "id": 370071815,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-370071815",
+      "created_at": "2018-03-02T22:32:10Z",
+      "updated_at": "2018-03-02T22:32:10Z",
+      "author": "Participant 1",
+      "body": "Thanks very much @murny \r\n\r\nWe're all colleagues working together doing good things, and I agree with you and @anayram that we're continuing to find effective and collegial ways of communicating!"
+    },
+    {
+      "id": 370498214,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-370498214",
+      "created_at": "2018-03-05T17:31:50Z",
+      "updated_at": "2018-03-05T17:31:50Z",
+      "author": "Participant 3",
+      "body": "Thank you, @murny, I think we have a great team, and I can only see good things coming from all these conversations when we use active listening. I am sure more things will come up!\r\n\r\nI think @sfbetz' suggestion to consult with @sfarnel and @leahvanderjagt about FOIP and data management concerns is the way to go, as well as @weiweishi's call to establish team guidelines and best practices for sharing information. "
+    },
+    {
+      "id": 384725811,
+      "url": "https://github.com/ualbertalib/jupiter/issues/508#issuecomment-384725811",
+      "created_at": "2018-04-26T17:36:36Z",
+      "updated_at": "2018-04-26T17:36:36Z",
+      "author": "Participant 4",
+      "body": "Closing issue, all of these have been resolved now:\r\n\r\n- in the wireframe the label is License, although we have many items with a rights statement rather than a license (e.g., https://era-beta.library.ualberta.ca/items/fe483322-d61c-4a74-84f4-9f2ca658c362). question for @leahvanderjagt and @sfbetz should the label be License when dcterms:license and Rights when dc:rights?\r\n\r\nChris mentioned above regarding Leah decision of  wanting to just use License for both. So if this decision changes, we can create a new issue to fix this\r\n\r\n- date created seems to be pulling data from sort year rather than dcterms:created (e.g. https://era-beta.library.ualberta.ca/items/20a5f95c-c18c-43f4-9baf-bbb9cd020050)\r\n\r\nDate created field from the code, is being displayed with the value out of creation date instead of sort year\r\n\r\n- for theses, committee members don't seem to be displaying (e.g., https://era-beta.library.ualberta.ca/items/71afd4bf-1acb-443d-a910-435ae2a0f06e)\r\n\r\nFrom the code we are printing out the committee members if they have them. If they are not showing, then the thesis doesn't have them. One example of such a thesis is here: https://era.library.ualberta.ca/items/57407e00-d387-4b9e-8b0b-428cc0266007\r\n\r\n- when clicking on a linked metadata element, such as Type of Item Thesis in the example above (https://era-beta.library.ualberta.ca/items/71afd4bf-1acb-443d-a910-435ae2a0f06e), the Items tab seems to show the correct number of items, but the Collections and Communities tabs seem to always show the total number; just wondering if that's what's desired?\r\n\r\nWe no longer show the non active tabs total numbers, so this is fixed."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

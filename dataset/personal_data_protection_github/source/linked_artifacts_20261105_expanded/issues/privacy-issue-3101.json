@@ -1,0 +1,60 @@
+{
+  "artifact_id": "privacy-issue-3101",
+  "source_issue_url": "https://github.com/openservicemesh/osm/issues/1895",
+  "issue_snapshot_sha256": "71cb86ba2a06c85be1d33a02a38c6faadb8a6bbfbbc0fa9b133b2f505ec9e77b",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/openservicemesh/osm/issues/2309",
+      "kind": "issue",
+      "cited_in": [
+        "comment_761166534"
+      ],
+      "text": "{\n  \"format\": \"coda-github-issue-snapshot\",\n  \"format_version\": 1,\n  \"artifact_id\": \"privacy-issue-linked-2309\",\n  \"issue_url\": \"https://github.com/openservicemesh/osm/issues/2309\",\n  \"source_issue_url\": \"https://github.com/openservicemesh/osm/issues/2309\",\n  \"api_url\": \"https://api.github.com/repos/openservicemesh/osm/issues/2309\",\n  \"title\": \"Remove log lines where xDS request/response body is logged\",\n  \"body\": \"The xDS request/response could contain sensitive information. To lower the security risk we need to remove all log statements where xDS request or response is logged.\\r\\n\\r\\nExamples:\\r\\n - https://github.com/openservicemesh/osm/blob/main/pkg/envoy/ads/response.go#L156-L160  (we should remove the conditional and keep [the 1st log line](https://github.com/openservicemesh/osm/blob/main/pkg/envoy/ads/response.go#L157), remove the rest)\\r\\n\\r\\n\",\n  \"author\": \"Participant 1\",\n  \"created_at\": \"2021-01-15T19:54:38Z\",\n  \"updated_at\": \"2021-01-20T17:26:27Z\",\n  \"state\": \"closed\",\n  \"closed_at\": null,\n  \"issue_fetched_at\": \"2026-11-05T06:23:05.783737+00:00\",\n  \"comments_fetched_at\": [\n    \"2026-11-05T06:23:05.783737+00:00\"\n  ],\n  \"expected_comment_count\": 1,\n  \"retrieved_comment_count\": 1,\n  \"comments_complete\": true,\n  \"comments\": [\n    {\n      \"id\": 761172151,\n      \"url\": \"https://github.com/openservicemesh/osm/issues/2309#issuecomment-761172151\",\n      \"created_at\": \"2021-01-15T20:08:47Z\",\n      \"updated_at\": null,\n      \"author\": \"Participant 2\",\n      \"body\": \"@draychev , for context, what is the downside to logging the request body? What kind of sensitive info are you concerned about to be present in the XDS request body?\"\n    }\n  ],\n  \"evidence_status\": \"complete\",\n  \"scope\": \"Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.\",\n  \"retrieval_method\": \"GitHub public issue page embedded original Markdown\",\n  \"retrieval_url\": \"https://github.com/openservicemesh/osm/issues/2309\",\n  \"closed_at_available\": false\n}",
+      "status": "available",
+      "fetched_at": "2026-11-05T06:23:05.783737+00:00",
+      "retrieved_comment_count": 1,
+      "expected_comment_count": 1,
+      "reason": ""
+    },
+    {
+      "url": "https://github.com/openservicemesh/osm/issues/2311",
+      "kind": "issue",
+      "cited_in": [
+        "comment_761166534"
+      ],
+      "text": "{\n  \"format\": \"coda-github-issue-snapshot\",\n  \"format_version\": 1,\n  \"artifact_id\": \"privacy-issue-linked-2311\",\n  \"issue_url\": \"https://github.com/openservicemesh/osm/issues/2311\",\n  \"source_issue_url\": \"https://github.com/openservicemesh/osm/issues/2311\",\n  \"api_url\": \"https://api.github.com/repos/openservicemesh/osm/issues/2311\",\n  \"title\": \"In log lines where CN of a cert is used - replace it with cert's SerialNumber\",\n  \"body\": \"To reduce the risk of logging sensitive data, we need to edit log lines where we log the CommonName of a certificate and need to replace it with the cert's SerialNumber.\\r\\n\\r\\n\\r\\nHere is a search result pointing to some of these log lines:\\r\\n  - https://github.com/openservicemesh/osm/search?q=%22with+CN%22&type=code\\r\\n\\r\\nAlternatively another way to find these could be: `grep -Iir \\\"log\\\\.\\\" $(find . -name '*.go') | grep -i 'CN' --color | grep '%s'`\\r\\nAnother search: `grep -Iir \\\"log\\\\.\\\" $(find . -name '*.go') | grep -i 'GetCommonName' --color`\\r\\n\\r\\nIt would be good to tweak these log messages and indicate that what we are logging is the certificate's SerialNumber. With this context we can reference it to other OSM components.\\r\\n\\r\\nFor example the message in this log line:  https://github.com/openservicemesh/osm/blob/ee1ce5e6ac4a445d4a4ebc35a1c725b0ba2d43f5/pkg/envoy/ads/stream.go#L160\\r\\n\\r\\nShould be changed to `Broadcast update received for certificate with SerialNumber %s`.  For this we would need to use `GetSerialNumber()` from the `Certificater` interface instead of `GetCommonName()`\\r\\n\\r\\n> Note: please ensure that all cert issuers have `GetSerialNumber()` properly implemented (vs just a placeholder): https://github.com/openservicemesh/osm/issues/2312\",\n  \"author\": \"Participant 1\",\n  \"created_at\": \"2021-01-15T20:16:19Z\",\n  \"updated_at\": \"2021-01-26T20:57:52Z\",\n  \"state\": \"closed\",\n  \"closed_at\": null,\n  \"issue_fetched_at\": \"2026-11-05T06:23:13.651533+00:00\",\n  \"comments_fetched_at\": [\n    \"2026-11-05T06:23:13.651533+00:00\"\n  ],\n  \"expected_comment_count\": 0,\n  \"retrieved_comment_count\": 0,\n  \"comments_complete\": true,\n  \"comments\": [],\n  \"evidence_status\": \"complete\",\n  \"scope\": \"Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.\",\n  \"retrieval_method\": \"GitHub public issue page embedded original Markdown\",\n  \"retrieval_url\": \"https://github.com/openservicemesh/osm/issues/2311\",\n  \"closed_at_available\": false\n}",
+      "status": "available",
+      "fetched_at": "2026-11-05T06:23:13.651533+00:00",
+      "retrieved_comment_count": 0,
+      "expected_comment_count": 0,
+      "reason": ""
+    },
+    {
+      "url": "https://github.com/openservicemesh/osm/issues/2312",
+      "kind": "issue",
+      "cited_in": [
+        "comment_761166534"
+      ],
+      "text": "{\n  \"format\": \"coda-github-issue-snapshot\",\n  \"format_version\": 1,\n  \"artifact_id\": \"privacy-issue-linked-2312\",\n  \"issue_url\": \"https://github.com/openservicemesh/osm/issues/2312\",\n  \"source_issue_url\": \"https://github.com/openservicemesh/osm/issues/2312\",\n  \"api_url\": \"https://api.github.com/repos/openservicemesh/osm/issues/2312\",\n  \"title\": \"Implement GetSerialNumber from the Certificater interface for the pkg/certificate/providers/tresor component \",\n  \"body\": \"For GitHub Issue https://github.com/openservicemesh/osm/issues/2311 we need to use `GetSerialNumber()`, which is not implemented for `./pkg/certificate/providers/tresor`\\r\\n\\r\\nHere is the current implementation of the function with a `panic`: https://github.com/openservicemesh/osm/blob/1e0ba082581eff0c11d72098dbec5ce3267263ce/pkg/certificate/providers/tresor/certificate.go#L43\\r\\n\\r\\nThe SerialNumber is generated here:  https://github.com/openservicemesh/osm/blob/7944a11844f2f01b97880e4369cc488cacc27e71/pkg/certificate/providers/tresor/certificate_manager.go#L29\\r\\n\\r\\nWe can add it to the Certificate struct here:  https://github.com/openservicemesh/osm/blob/7944a11844f2f01b97880e4369cc488cacc27e71/pkg/certificate/providers/tresor/certificate_manager.go#L80-L86\\r\\n\\r\\nBut before that we need to actually add the field to the `Certificate` struct: https://github.com/openservicemesh/osm/blob/1e0ba082581eff0c11d72098dbec5ce3267263ce/pkg/certificate/providers/tresor/types.go#L49-L62\\r\\n\\r\\nI (@draychev) would vote for the `SerialNumber` field to be `string`.\\r\\n\",\n  \"author\": \"Participant 1\",\n  \"created_at\": \"2021-01-15T20:16:43Z\",\n  \"updated_at\": \"2021-01-19T23:20:09Z\",\n  \"state\": \"closed\",\n  \"closed_at\": null,\n  \"issue_fetched_at\": \"2026-11-05T06:23:06.499730+00:00\",\n  \"comments_fetched_at\": [\n    \"2026-11-05T06:23:06.499730+00:00\"\n  ],\n  \"expected_comment_count\": 1,\n  \"retrieved_comment_count\": 1,\n  \"comments_complete\": true,\n  \"comments\": [\n    {\n      \"id\": 761232649,\n      \"url\": \"https://github.com/openservicemesh/osm/issues/2312#issuecomment-761232649\",\n      \"created_at\": \"2021-01-15T22:34:02Z\",\n      \"updated_at\": \"2021-01-15T22:39:43Z\",\n      \"author\": \"Participant 2\",\n      \"body\": \"> I (@draychev) would vote for the `SerialNumber` field to be `string`.\\r\\n\\r\\n@draychev serial number is currently generated as *Big.Int, do you mean we should convert it to string as it is generated or assigned as a field in cert (see commit [here](https://github.com/SanyaKochhar/osm/commit/d3d544c3fd868fda46024111107ae84a77250989)) or have getSerialNumber return it as a string? \"\n    }\n  ],\n  \"evidence_status\": \"complete\",\n  \"scope\": \"Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.\",\n  \"retrieval_method\": \"GitHub public issue page embedded original Markdown\",\n  \"retrieval_url\": \"https://github.com/openservicemesh/osm/issues/2312\",\n  \"closed_at_available\": false\n}",
+      "status": "available",
+      "fetched_at": "2026-11-05T06:23:06.499730+00:00",
+      "retrieved_comment_count": 1,
+      "expected_comment_count": 1,
+      "reason": ""
+    },
+    {
+      "url": "https://github.com/openservicemesh/osm/issues/2313",
+      "kind": "issue",
+      "cited_in": [
+        "comment_761166534"
+      ],
+      "text": "{\n  \"format\": \"coda-github-issue-snapshot\",\n  \"format_version\": 1,\n  \"artifact_id\": \"privacy-issue-linked-2313\",\n  \"issue_url\": \"https://github.com/openservicemesh/osm/issues/2313\",\n  \"source_issue_url\": \"https://github.com/openservicemesh/osm/issues/2313\",\n  \"api_url\": \"https://api.github.com/repos/openservicemesh/osm/issues/2313\",\n  \"title\": \"Edit log statements where a Pod's IP address is logged.\",\n  \"body\": \"To lower the risk of logging sensitive information we need to tweak log messages where customer payload's Pod IP address is logged.\\r\\n\\r\\nSuch log messages can be found with this grep statement:  `grep -Iir \\\"log\\\\.\\\" $(find . -name '*.go') | grep -i 'podIP'`\\r\\n\\r\\nAnother way to uniquely point to a Pod, and not use the IP address would be to use the Pod's UID (`Pod.ObjectMeta.UID`)\\r\\n\\r\\nI propose we change the IP in the UID of the pod (and change the verbiage of these messages accordingly).\",\n  \"author\": \"Participant 1\",\n  \"created_at\": \"2021-01-15T20:36:40Z\",\n  \"updated_at\": \"2021-01-19T18:28:32Z\",\n  \"state\": \"closed\",\n  \"closed_at\": null,\n  \"issue_fetched_at\": \"2026-11-05T06:23:06.893592+00:00\",\n  \"comments_fetched_at\": [\n    \"2026-11-05T06:23:06.893592+00:00\"\n  ],\n  \"expected_comment_count\": 0,\n  \"retrieved_comment_count\": 0,\n  \"comments_complete\": true,\n  \"comments\": [],\n  \"evidence_status\": \"complete\",\n  \"scope\": \"Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.\",\n  \"retrieval_method\": \"GitHub public issue page embedded original Markdown\",\n  \"retrieval_url\": \"https://github.com/openservicemesh/osm/issues/2313\",\n  \"closed_at_available\": false\n}",
+      "status": "available",
+      "fetched_at": "2026-11-05T06:23:06.893592+00:00",
+      "retrieved_comment_count": 0,
+      "expected_comment_count": 0,
+      "reason": ""
+    }
+  ]
+}

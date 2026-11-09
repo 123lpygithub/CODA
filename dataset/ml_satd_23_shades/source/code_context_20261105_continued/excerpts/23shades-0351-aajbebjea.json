@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0351-aajbebjea",
+  "revision_url": "https://github.com/geomstats/geomstats/commit/3ea1a2a88e7d3c8d658ec7f850c31b6a0f0f0b53",
+  "filename": "geomstats/geometry/general_linear.py",
+  "commit": "3ea1a2a88e7d3c8d658ec7f850c31b6a0f0f0b53",
+  "source_url": "https://raw.githubusercontent.com/geomstats/geomstats/3ea1a2a88e7d3c8d658ec7f850c31b6a0f0f0b53/geomstats/geometry/general_linear.py",
+  "fetched_at": "2026-11-05T06:12:37.679249+00:00",
+  "source_sha256": "cfc8de1145dcad9bf456b04391da5324488fb6f396c4d61d60245408d0ed4516",
+  "line_start": 30,
+  "line_end": 54,
+  "excerpt": "        identity : TODO\n        \"\"\"\n        if point_type is None:\n            point_type = self.default_point_type\n        if point_type == 'matrix':\n            return gs.eye(self.n)\n        else:\n            raise NotImplementedError(\n                'The identity of the general linear group is not'\n                ' implemented for a point_type that is not \\'matrix\\'.')\n    identity = property(get_identity)\n\n    def belongs(self, mat):  # TODO Should this stay generic? (point)\n        \"\"\"Check if matrix belongs to GL(n).\n\n        Parameters\n        ----------\n        mat\n\n        Returns\n        -------\n        belongs : bool\n        \"\"\"\n        mat = gs.to_ndarray(mat, to_ndim=3)\n"
+}

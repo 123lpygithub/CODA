@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/DSpace/DSpace/blob/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java#L361",
+  "kind": "file",
+  "cited_in": [
+    "comment_908751436"
+  ],
+  "revision": "218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f",
+  "immutable_revision": true,
+  "line_start": 349,
+  "line_end": 373,
+  "text": "            doc1.addField(\"type\", dspaceObject.getType());\n            storeParents(doc1, dspaceObject);\n        }\n        // Save the current time\n        doc1.addField(\"time\", DateFormatUtils.format(new Date(), DATE_FORMAT_8601));\n        if (currentUser != null) {\n            doc1.addField(\"epersonid\", currentUser.getID());\n        }\n\n        return doc1;\n    }\n\n    protected SolrInputDocument getCommonSolrDoc(DSpaceObject dspaceObject, String ip, String userAgent,\n                                                 String xforwardedfor, EPerson currentUser) throws SQLException {\n        boolean isSpiderBot = SpiderDetector.isSpider(ip);\n        if (isSpiderBot &&\n            !configurationService.getBooleanProperty(\"usage-statistics.logBots\", true)) {\n            return null;\n        }\n\n        SolrInputDocument doc1 = new SolrInputDocument();\n        // Save our basic info that we already have\n\n        ip = clientInfoService.getClientIp(ip, xforwardedfor);\n        doc1.addField(\"ip\", ip);",
+  "source_sha256": "1b6f34fcdd143144c24e032f3f4f78df6b1cd08a089ccbc00ba18de9b3eaddfe",
+  "fetched_at": "2026-11-05T06:21:50.941415+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/218fdcbaf050cffd3a8a1034c3cb50ba25b5a30f/dspace-api/src/main/java/org/dspace/statistics/SolrLoggerServiceImpl.java",
+  "status": "available"
+}

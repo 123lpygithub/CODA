@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/Tribler/tribler/blob/69445f0537d8e87bd01d2ca8bdc94a69c9819503/Tribler/community/tunnel/conversion.py#L553",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "revision": "69445f0537d8e87bd01d2ca8bdc94a69c9819503",
+  "immutable_revision": true,
+  "line_start": 541,
+  "line_end": 557,
+  "text": "            decoded = bdecode(data)\n            if isinstance(decoded, dict) and decoded.get('y') in ['q', 'r', 'e']:\n                return True\n        except:\n            pass\n        return False\n\n    @staticmethod\n    def could_be_dispersy(data):\n        return data[:TUNNEL_PREFIX_LENGHT] == TUNNEL_PREFIX and len(data) >= (23 + TUNNEL_PREFIX_LENGHT)\n\n    @staticmethod\n    def is_allowed(data):\n        return (TunnelConversion.could_be_utp(data) or\n                TunnelConversion.could_be_udp_tracker(data) or\n                TunnelConversion.could_be_dht(data) or\n                TunnelConversion.could_be_dispersy(data))",
+  "source_sha256": "366311546d504d92b85e54520b30dfa146ca86060ef418215b1e48efa1b0d3e2",
+  "fetched_at": "2026-11-05T07:21:59.328835+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/Tribler/tribler/69445f0537d8e87bd01d2ca8bdc94a69c9819503/Tribler/community/tunnel/conversion.py",
+  "status": "available"
+}

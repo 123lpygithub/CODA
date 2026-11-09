@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0312-aahddgaji",
+  "revision_url": "https://github.com/astier/model-free-episodic-control/commit/63e098cb6cf04dea7d98643ff12ead5f25cf5164",
+  "filename": "main.py",
+  "commit": "63e098cb6cf04dea7d98643ff12ead5f25cf5164",
+  "source_url": "https://raw.githubusercontent.com/astier/model-free-episodic-control/63e098cb6cf04dea7d98643ff12ead5f25cf5164/main.py",
+  "fetched_at": "2026-11-05T06:12:32.164925+00:00",
+  "source_sha256": "3df5a5792a0a3268d3e4e09bad926fa3aec2f5322f351cae5bb7b20ca620b64d",
+  "line_start": 25,
+  "line_end": 49,
+  "excerpt": "EPSILON_MIN = .005\nEPSILON_DECAY = 10000\nRESIZE_WIDTH = 84\nRESIZE_HEIGHT = 84\nSTATE_DIM = RESIZE_HEIGHT * RESIZE_WIDTH\nPROJECTION_DIM = 64\nDEATH_ENDS_EPISODE = True\nDISPLAY_SCREEN = False\nQEC_TABLE = ''\nSEED = 1\n\n\ndef main():  # TODO merge with experiment.py\n    logging.basicConfig(level=logging.INFO)\n    ale = setup_ale()\n    actions = len(ale.getMinimalActionSet())\n    rng = np.random.RandomState(seed=SEED)\n    qec = load_qec_table(actions, rng)\n    agent = EpisodicControl(qec, DISCOUNT, actions, EPSILON, EPSILON_MIN,\n                            EPSILON_DECAY, ROM, rng)\n    Experiment(ale, agent, RESIZE_WIDTH, RESIZE_HEIGHT, EPOCHS,\n               STEPS_PER_EPOCH, FRAME_SKIP, DEATH_ENDS_EPISODE, rng).run()\n\n\ndef setup_ale():  # TODO ale vs gym"
+}

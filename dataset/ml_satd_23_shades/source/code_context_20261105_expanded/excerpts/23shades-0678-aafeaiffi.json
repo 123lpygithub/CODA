@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:2ea183c15941f8d67cc5d04c1e27d56462dfeab5/raw/",
+  "source_sha256": "8f054f98d642da026c36e0f2b558fc768ab6ac46eaad59c5a9f3e4907457ee77",
+  "fetched_at": "2026-11-05T06:43:17.755964+00:00",
+  "archive_directory": "7a7e43e659893b4c93dc3581e1f8cc21bd993d19",
+  "git_blob_sha1": "2ea183c15941f8d67cc5d04c1e27d56462dfeab5",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/c83ca25a8ff3691f5d55968969e3e38e6b80b5b4/",
+  "artifact_id": "23shades-0678-aafeaiffi",
+  "revision_url": "https://github.com/AKSHAYUBHAT/DeepVideoAnalytics/commit/c83ca25a8ff3691f5d55968969e3e38e6b80b5b4",
+  "filename": "yolo/retrain_yolo.py",
+  "commit": "c83ca25a8ff3691f5d55968969e3e38e6b80b5b4",
+  "line_start": 201,
+  "line_end": 225,
+  "excerpt": "            model_body.save_weights(topless_yolo_path)\n        topless_yolo.load_weights(topless_yolo_path)\n\n    if freeze_body:\n        for layer in topless_yolo.layers:\n            layer.trainable = False\n    final_layer = Conv2D(len(anchors)*(5+len(class_names)), (1, 1), activation='linear')(topless_yolo.output)\n\n    model_body = Model(image_input, final_layer)\n\n    # Place model loss on CPU to reduce GPU memory usage.\n    with tf.device('/cpu:0'):\n        # TODO: Replace Lambda with custom Keras layer for loss.\n        model_loss = Lambda(\n            yolo_loss,\n            output_shape=(1, ),\n            name='yolo_loss',\n            arguments={'anchors': anchors,\n                       'num_classes': len(class_names)})([\n                           model_body.output, boxes_input,\n                           detectors_mask_input, matching_boxes_input\n                       ])\n\n    model = Model(\n        [model_body.input, boxes_input, detectors_mask_input,",
+  "match_policy": "unique-release-normalized-v2"
+}

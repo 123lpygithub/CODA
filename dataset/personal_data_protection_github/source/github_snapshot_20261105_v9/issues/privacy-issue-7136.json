@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-7136",
+  "issue_url": "https://github.com/pennersr/django-allauth/issues/2028",
+  "source_issue_url": "https://github.com/pennersr/django-allauth/issues/2028",
+  "api_url": "https://api.github.com/repos/pennersr/django-allauth/issues/2028",
+  "title": "GDPR",
+  "body": "What would be the best approach to ensure that allauth Email Addresses Model is GDPR compliant?\r\nIssues:\r\nEncryption - This seems problematic since it seems hard to change the current model to support it outside of allauth core package\r\nDeletion - seems fine to me since this is tied to the user so how you handle user deletion you can change the email field value.\r\nAnonymization - This seems fine to me since you can set unique value that has nothing to do with user.\r\n\r\nWhat worries me is the part where email is stored in a separate model where you cannot encrypt the field.",
+  "author": "Participant 1",
+  "created_at": "2018-05-21T14:01:33Z",
+  "updated_at": "2026-06-10T20:50:13Z",
+  "state": "closed",
+  "closed_at": "2018-05-21T14:42:57Z",
+  "issue_fetched_at": "2026-10-18T19:10:33.188230+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T19:10:34.614760+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 390675004,
+      "url": "https://github.com/pennersr/django-allauth/issues/2028#issuecomment-390675004",
+      "created_at": "2018-05-21T14:42:57Z",
+      "updated_at": "2018-05-21T14:42:57Z",
+      "author": "Participant 2",
+      "body": "Encrypting the email address is not something the GDPR mandates. All the GDPR is about is that you as a business are upfront about what personal data you store, and for what purposes. Furthermore, upon user request you should hand over a dump of this data to the user and respect the user's request to be erased from your database. All of these are business processes that you can build on top of allauth...."
+    },
+    {
+      "id": 390766366,
+      "url": "https://github.com/pennersr/django-allauth/issues/2028#issuecomment-390766366",
+      "created_at": "2018-05-21T20:05:17Z",
+      "updated_at": "2018-05-21T20:05:17Z",
+      "author": "Participant 1",
+      "body": "You are right, though it is a recommended procedure that personal information fields be protected even if someone obtains a copy of stored data as not to leak sensitive information by having those stored in plain text. It's a long shot that someone having hard data copy did not breach your codebase too (and could decrypt), but my ticket was more along those lines.\r\n\r\nClosing it is valid as is your explanation to why you closed it. Good to have such an answer about for others questioning what lengths to go to while complying."
+    },
+    {
+      "id": 4674359617,
+      "url": "https://github.com/pennersr/django-allauth/issues/2028#issuecomment-4674359617",
+      "created_at": "2026-06-10T20:50:12Z",
+      "updated_at": "2026-06-10T20:50:12Z",
+      "author": "Participant 2",
+      "body": "https://codeberg.org/allauth/django-allauth/issues/2028"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

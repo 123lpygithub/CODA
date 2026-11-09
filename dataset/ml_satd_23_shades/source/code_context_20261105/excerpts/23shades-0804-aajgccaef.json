@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0804-aajgccaef",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/0c53e8ae8d56779b8cac2cdd62ad8a594954f2c4",
+  "filename": "mne/report.py",
+  "commit": "0c53e8ae8d56779b8cac2cdd62ad8a594954f2c4",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/0c53e8ae8d56779b8cac2cdd62ad8a594954f2c4/mne/report.py",
+  "fetched_at": "2026-11-05T06:13:54.678694+00:00",
+  "source_sha256": "0888ccc820b3b65a6a0a6a1eda1aac563e02d91b37a6d081f1982b70bcecfd16",
+  "line_start": 717,
+  "line_end": 741,
+  "excerpt": "                                                  img_klass=img_klass,\n                                                  caption=caption,\n                                                  interactive=interactive,\n                                                  show=show))\n\n        self.html.append('\\n'.join(html))\n\n    def render_eve(self, eve_fname, info, interactive=True):\n\n        import matplotlib.pyplot as plt\n\n        if interactive:\n            import mpld3  # XXX : include mpld3 js libraries in html folder\n\n        global_id = self.get_id()\n        events = read_events(eve_fname)\n        sfreq = info['sfreq']\n        plt.close(\"all\")  # close figures to avoid weird plot\n        ax = plot_events(events, sfreq=sfreq, show=False)\n        fig = ax.gcf()\n\n        if interactive:\n\n            # Add tooltips\n            line2Ds = ax.gca().get_lines()"
+}

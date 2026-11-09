@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:aeb9ec44db085007086b87ad804d06856d82c006/raw/",
+  "source_sha256": "06e97de5a29299ed75a70f271556d3cd4a3657e8b241ff351eab03a4289ffa87",
+  "fetched_at": "2026-11-05T06:43:11.230589+00:00",
+  "archive_directory": "69c17b2004aa797d5bf8808e87702ae4d90be49f",
+  "git_blob_sha1": "aeb9ec44db085007086b87ad804d06856d82c006",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/e3e41a5f1b9206215cb049c02a90a9b813940461/",
+  "artifact_id": "23shades-0531-aaffefcib",
+  "revision_url": "https://github.com/Aifred-Health/Vulcan/commit/e3e41a5f1b9206215cb049c02a90a9b813940461",
+  "filename": "vulcanai/datasets/tabular_data_utils.py",
+  "commit": "e3e41a5f1b9206215cb049c02a90a9b813940461",
+  "line_start": 91,
+  "line_end": 115,
+  "excerpt": "    return df\n\n\ndef create_one_hot_encoding(df, column_name, prefix_sep=\"@\"):\n    \"\"\"\n    Create one-hot encoding for the given column.\n    Parameters:\n        column_name: String\n            The name of the column you want to one-hot encode\n        prefix_sep: String default(\"@\")\n            The prefix used when creating a one-hot encoding\n    \"\"\"\n    # TODO: ensure dummy_na =False is what you want\n    df = pd.get_dummies(df, columns=[column_name],\n                             prefix_sep=prefix_sep)\n    logger.info(\"Successfully encoded %s\", column_name)\n\n    return df\n\n# if a use case presents itself column_name could easily become a list\ndef reverse_create_one_hot_encoding(df, prefix_sep, column_name=None):\n    \"\"\"\n    Undo the creation of one-hot encodings, if prefix_sep was used\n    to create one-hot encodings and nowhere else. If a column_name is\n    provided, only that column will be reverse-encoded, otherwise all will",
+  "match_policy": "unique-release-normalized-v2"
+}

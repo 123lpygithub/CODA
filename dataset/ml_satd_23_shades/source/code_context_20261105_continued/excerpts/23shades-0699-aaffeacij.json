@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:1e7691fdd663e6ae7d8efcb126537dc67bd3a3d1/raw/",
+  "source_sha256": "5a2203dcb4230cb4fa520e3bc046aafdb55afdfc2d16f64d357dfc00047bb206",
+  "fetched_at": "2026-11-05T06:43:20.691234+00:00",
+  "archive_directory": "ccf28316352b64232061ab1b5f3b050cbfb9a6e7",
+  "git_blob_sha1": "1e7691fdd663e6ae7d8efcb126537dc67bd3a3d1",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/b96ede582b130b659bc1d3272c0c3b029727a9e4/",
+  "artifact_id": "23shades-0699-aaffeacij",
+  "revision_url": "https://github.com/Aifred-Health/Vulcan/commit/b96ede582b130b659bc1d3272c0c3b029727a9e4",
+  "filename": "vulcanai2/models/ensemble.py",
+  "commit": "b96ede582b130b659bc1d3272c0c3b029727a9e4",
+  "line_start": 50,
+  "line_end": 74,
+  "excerpt": "            criter_spec=None  # template_network._criter_spec\n        )\n\n        if not isinstance(template_network, BaseNetwork):\n            raise ValueError(\n                \"template_network type must inherit from BaseNetwork.\")\n\n        self.template_network = deepcopy(template_network)\n\n        if n_snapshots <= 0:\n            raise ValueError(\"n_snapshots must be >=1.\")\n        self.M = n_snapshots\n        # TODO: Should this be called self.network for continuity?\n        self.snapshot_networks = nn.ModuleList()\n\n    def fit(self, train_loader, val_loader, epochs,\n            retain_graph=None, valid_interv=4, plot=False):\n        \"\"\"\n        Train each model for T/M epochs and controls network learning rate.\n\n        Collects each model in a class variable self.snapshot_networks\n\n        Parameters\n        ----------\n        train_loader : DataLoader",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,359 @@
+
+=== 72 23shades-0201-aaffefhhb ===
+{"dataset_id": "aaffefhhb", "repo_name": "ResponsiblyAI/responsibly", "filename": "ethically/we/core.py", "comment_introducing_revision": "https://github.com/ResponsiblyAI/responsibly/commit/6f5bff9c7ef0aa58d1b2e0c8a78d44db205b7c61", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6f5bff9c7ef0aa58d1b2e0c8a78d44db205b7c61"}
+[comment_text]
+TODO - in the code it is different - why?
+[source_context]
+                                    for word in equality_set_words]
+            center = np.mean(equality_set_vectors, axis=0)
+            (projected_center,
+             rejected_center) = project_reject_vector(center,
+                                                      self.direction)
+
+            for word, vector in zip(equality_set_words, equality_set_vectors):
+                projected_vector = project_vector(vector, self.direction)
+
+                projected_part = normalize(projected_vector - projected_center)
+                scaling = np.sqrt(1 - np.linalg.norm(rejected_center)**2)
+
+                # TODO - in the code it is different - why?
+                # equalized_vector = rejected_center + scaling * self.direction
+                # https://github.com/tolga-b/debiaswe/blob/10277b23e187ee4bd2b6872b507163ef4198686b/debiaswe/debias.py#L36-L37
+                equalized_vector = rejected_center + scaling * projected_part
+
+                update_word_vector(self.model, word, equalized_vector)
+
+        self.model.init_sims(replace=True)
+
+
+    def debias(self, method='hard', neutral_words=None, equality_sets=None,
+               inplace=True, verbose=False):
+        # pylint: disable=W0212
+
+=== 73 23shades-0203-aahibhdeh ===
+{"dataset_id": "aahibhdeh", "repo_name": "PyTorchLightning/pytorch-lightning", "filename": "pytorch_lightning/trainer/model_hooks.py", "comment_introducing_revision": "https://github.com/PyTorchLightning/pytorch-lightning/commit/1caf8beb2cf341ff033286b1b924a1c1ff273a64", "comment_removing_revision": "https://github.com/PyTorchLightning/pytorch-lightning/commit/caf7893f27c73db227883ad00531d0ff550cbb23", "source_context_status": "available", "source_context_commit": "1caf8beb2cf341ff033286b1b924a1c1ff273a64"}
+[comment_text]
+TODO - refector this function to accept model_name; instance; parent so it makes more sense
+[source_context]
+
+class TrainerModelHooksMixin(ABC):
+    def is_function_implemented(self, f_name, model=None):
+        if model is None:
+            model = self.get_model()
+        f_op = getattr(model, f_name, None)
+        return callable(f_op)
+
+    def is_overridden(self, method_name: str, model: LightningModule = None) -> bool:
+        if model is None:
+            model = self.get_model()
+        # if you pass DataModule instead of None or a LightningModule, we use LightningDataModule as super
+        # TODO - refector this function to accept model_name, instance, parent so it makes more sense
+        super_object = LightningModule if not isinstance(model, LightningDataModule) else LightningDataModule
+
+        # assert model, 'no model passes'
+
+        if not hasattr(model, method_name):
+            # in case of calling deprecated method
+            return False
+
+        instance_attr = getattr(model, method_name)
+        if not instance_attr:
+            return False
+        super_attr = getattr(super_object, method_name)
+
+=== 74 23shades-0625-aaefhdgid ===
+{"dataset_id": "aaefhdgid", "repo_name": "awslabs/sockeye", "filename": "sockeye/data_io.py", "comment_introducing_revision": "https://github.com/awslabs/sockeye/commit/8371e0eabca25441b2753e6101a257948819c595", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "8371e0eabca25441b2753e6101a257948819c595"}
+[comment_text]
+TODO: num pad examples is not set here if fillup policy would be padding
+[source_context]
+
+        batch_size = self.bucket_batch_sizes[i].batch_size
+        source = self.data.source[i][j:j + batch_size]
+        target = self.data.target[i][j:j + batch_size]
+        data = [source, target]
+        label = [self.data.label[i][j:j + batch_size]]
+
+        provide_data = [mx.io.DataDesc(name=n, shape=x.shape, layout=C.BATCH_MAJOR) for n, x in
+                        zip(self.data_names, data)]
+        provide_label = [mx.io.DataDesc(name=n, shape=x.shape, layout=C.BATCH_MAJOR) for n, x in
+                         zip(self.label_names, label)]
+
+        # TODO: num pad examples is not set here if fillup policy would be padding
+        return mx.io.DataBatch(data, label,
+                               pad=0, index=None, bucket_key=self.buckets[i],
+                               provide_data=provide_data, provide_label=provide_label)
+
+    def save_state(self, fname: str):
+        """
+        Saves the current state of iterator to a file, so that iteration can be
+        continued. Note that the data is not saved, i.e. the iterator must be
+        initialized with the same parameters as in the first call.
+
+        :param fname: File name to save the information to.
+        """
+
+=== 75 23shades-0253-aaebaidgd ===
+{"dataset_id": "aaebaidgd", "repo_name": "persephone-tools/persephone", "filename": "src/datasets/na.py", "comment_introducing_revision": "https://github.com/persephone-tools/persephone/commit/5639a034f99afacdca9cf2c1cf8219abe651bc86", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "5639a034f99afacdca9cf2c1cf8219abe651bc86"}
+[comment_text]
+TODO Change self.phonemes field to self.tgt_labels; and related
+[source_context]
+    def __init__(self, feat_type, target_type="phonemes_and_tones", max_samples=1000):
+        super().__init__(feat_type, target_type)
+
+        if target_type == "phonemes_and_tones":
+            self.phonemes = PHONES.union(set(TONES))
+        elif target_type == "phonemes":
+            self.phonemes = PHONES
+        elif target_type == "tones":
+            self.phonemes = TONES
+        else:
+            raise Exception("target_type %s not implemented." % target_type)
+
+        # TODO Change self.phonemes field to self.tgt_labels, and related
+        # variables names that might represent tones as well, or just tones.
+        self.target_set = self.phonemes
+
+        input_dir = os.path.join(TGT_DIR, "wav")
+        prefixes = [os.path.join(input_dir, fn.strip(".wav"))
+                    for fn in os.listdir(input_dir) if fn.endswith(".wav")]
+        untranscribed_dir = os.path.join(TGT_DIR, "untranscribed_wav")
+        #self.untranscribed_prefixes = [os.path.join(
+        #    untranscribed_dir, fn.strip(".wav"))
+        #    for fn in os.listdir(untranscribed_dir) if fn.endswith(".wav")]
+
+        if max_samples:
+
+=== 76 23shades-0359-aajebahia ===
+{"dataset_id": "aajebahia", "repo_name": "deepchem/deepchem", "filename": "deepchem/feat/tests/test_rdkit_grid_features.py", "comment_introducing_revision": "https://github.com/deepchem/deepchem/commit/7a53caec37602bff2870d30a5c5dd6162fec693b", "comment_removing_revision": "https://github.com/deepchem/deepchem/commit/b67b134151579bb71ab309e1fa44724daab9ef57", "source_context_status": "available", "source_context_commit": "7a53caec37602bff2870d30a5c5dd6162fec693b"}
+[comment_text]
+TODO test more formats for ligand
+[source_context]
+np.random.seed(123)
+
+from rdkit.Chem import MolFromMolFile
+
+from deepchem.feat import rdkit_grid_featurizer as rgf
+
+
+class TestHelperFunctions(unittest.TestCase):
+  """
+  Test functions defined in rdkit_grid_featurizer module.
+  """
+  def setUp(self):
+    # TODO test more formats for ligand
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    package_dir = os.path.dirname(os.path.dirname(current_dir))
+    self.protein_file = os.path.join(package_dir, 'dock', 'tests', '1jld_protein.pdb')
+    self.ligand_file = os.path.join(package_dir, 'dock', 'tests', '1jld_ligand.sdf')
+
+  def test_get_ligand_filetype(self):
+
+    supported_extensions = ['mol2', 'sdf', 'pdb', 'pdbqt']
+    # some users might try to read smiles with this function
+    unsupported_extensions = ['smi', 'ism']
+
+    for extension in supported_extensions:
+
+=== 77 23shades-0180-aahddifgi ===
+{"dataset_id": "aahddifgi", "repo_name": "brendanhasz/probflow", "filename": "src/probflow/core.py", "comment_introducing_revision": "https://github.com/brendanhasz/probflow/commit/fd1d70fc739f765ff4ef6c876f5d9cd76fb83fd9", "comment_removing_revision": "https://github.com/brendanhasz/probflow/commit/1c0df3d4f9131d1193faee4321bf3ace08039b2b", "source_context_status": "available", "source_context_commit": "fd1d70fc739f765ff4ef6c876f5d9cd76fb83fd9"}
+[comment_text]
+TODO
+[source_context]
+
+    def plot_posteriors(self, params=None):
+        """Plot posterior distributions of the model's parameters.
+
+        TODO: Docs...
+
+        .. admonition:: Model must be fit first!
+
+            Before calling :meth:`.plot_posteriors` on a |Model|, you must 
+            first :meth:`.fit` it to some data.
+
+        """
+        #TODO
+        pass
+
+
+    def predictive_distribution(self, x, num_samples=1000):
+        """Draw samples from the model given x.
+
+        TODO: Docs...
+
+        .. admonition:: Model must be fit first!
+
+            Before calling :meth:`.predictive_distribution` on a |Model|, you 
+            must first :meth:`.fit` it to some data.
+
+=== 78 23shades-0042-aabgebcce ===
+{"dataset_id": "aabgebcce", "repo_name": "ealcobaca/pymfe", "filename": "python/pymfe/model_based.py", "comment_introducing_revision": "https://github.com/ealcobaca/pymfe/commit/ca25f6c479545e5354128152f8ef3336596be08e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ca25f6c479545e5354128152f8ef3336596be08e"}
+[comment_text]
+\"\"\"Module dedicated to extraction of Model Based Metafeatures. ||  || Todo: ||     * Implement metafeatures. ||     * Improve documentation. || \"\"\"
+[source_context]
+"""Module dedicated to extraction of Model Based Metafeatures.
+
+Todo:
+    * Implement metafeatures.
+    * Improve documentation.
+"""
+
+
+class MFEModelBased:
+    """To do this documentation."""
+
+    # To do.
+
+=== 79 23shades-0827-aaeiedacj ===
+{"dataset_id": "aaeiedacj", "repo_name": "IntelPython/sdc", "filename": "hpat/hiframes.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/ffd198eb22dfbe8a2dbb395cb468aaff7593f014", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ffd198eb22dfbe8a2dbb395cb468aaff7593f014"}
+[comment_text]
+XXX pandas only accepts variable window cov\/corr
+[source_context]
+        if not isinstance (window, ir.Var):
+            window_var = ir.Var(lhs.scope, mk_unique_var("window"), lhs.loc)
+            nodes.append(ir.Assign(ir.Const(window, lhs.loc), window_var, lhs.loc))
+            window = window_var
+        # TODO: get 'on' arg for offset case
+        if out_colnames is None:
+            out_colnames = list(self.df_vars[df_var.name].keys())
+            # TODO: remove index col for offset case
+
+        if func_name in ('cov', 'corr'):
+            if len(rhs.args) != 1:
+                raise ValueError("rolling {} requires one argument (other)".format(func_name))
+            # XXX pandas only accepts variable window cov/corr
+            # when both inputs have time index
+            if on_arr is not None:
+                raise ValueError("variable window rolling {} not supported yet.".format(func_name))
+            # TODO: support variable window rolling cov/corr which is only
+            # possible in pandas with time index
+
+        # output column map, create dataframe if multiple outputs
+        if len(out_colnames) == 1 and explicit_select:
+            df_col_map = {out_colnames[0]: lhs}
+        else:
+            df_col_map = ({col: ir.Var(lhs.scope, mk_unique_var(col), lhs.loc)
+                                for col in out_colnames})
+
+=== 80 23shades-0812-aahciiijc ===
+{"dataset_id": "aahciiijc", "repo_name": "pyro-ppl/pyro", "filename": "pyro/infer/tracegraph_kl_qp.py", "comment_introducing_revision": "https://github.com/pyro-ppl/pyro/commit/c3017e1301fff7596724606e55f50d9a33f22847", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "c3017e1301fff7596724606e55f50d9a33f22847"}
+[comment_text]
+XXX copy_() ?
+[source_context]
+            if self.decaying_avg_baseline:
+                avg_downstream_cost_old = pyro.param("__baseline_avg_downstream_cost_" + node, ng_zeros(1))
+            downstream_cost = 0.0
+            downstream_cost_non_zero = False
+            node_descendants = guide_trgraph.get_descendants(node, with_self=True)
+            for cost_node in cost_nodes:
+                if any([p in node_descendants for p in cost_node[1]]):
+                    downstream_cost += cost_node[0]
+                    downstream_cost_non_zero = True
+            if self.decaying_avg_baseline:
+                avg_downstream_cost_new = (1 - self.baseline_beta) * downstream_cost +\
+                    self.baseline_beta * avg_downstream_cost_old
+                avg_downstream_cost_old.data = avg_downstream_cost_new.data  # XXX copy_() ?
+            if downstream_cost_non_zero:  # XXX is this actually necessary?
+                if self.decaying_avg_baseline:
+                    elbo_reinforce_terms += guide_trace[node]['log_pdf'] * \
+                        (Variable(downstream_cost.data) - avg_downstream_cost_old)
+                else:
+                    elbo_reinforce_terms += guide_trace[node]['log_pdf'] * Variable(downstream_cost.data)
+
+        # the gradient of the surrogate loss yields our gradient estimator for the elbo
+        surrogate_loss = - elbo_no_zero_expectation_terms - elbo_reinforce_terms
+
+        # accumulate trainable parameters for gradient step
+        # XXX should this also be reflected in the construction of the surrogate_loss instead?
+
+=== 81 23shades-0590-aafiggbeh ===
+{"dataset_id": "aafiggbeh", "repo_name": "BorgwardtLab/P-WL", "filename": "p-wl_unlabelled.py", "comment_introducing_revision": "https://github.com/BorgwardtLab/P-WL/commit/b21ab8816e9a1db8f5da1dcb06d35935c8473311", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b21ab8816e9a1db8f5da1dcb06d35935c8473311"}
+[comment_text]
+TODO: make configurable
+[source_context]
+
+    logger.info('Read {} graphs and {} labels'.format(len(graphs), len(labels)))
+
+    assert len(graphs) == len(labels)
+
+    prop = WeisfeilerLehmanAttributePropagation()
+    attributes_per_iteration = prop.transform(
+        graphs,
+        'degree',
+        args.num_iterations
+    )
+
+    # TODO: make configurable
+    use_vertex_weights = False
+
+    if use_vertex_weights:
+        pdc = PersistenceDiagramCalculator(vertex_attribute='degree')
+    else:
+        pdc = PersistenceDiagramCalculator()
+
+    # Stores *all* persistence diagrams because they will be used to
+    # represent the data set later on.
+    persistence_diagrams_per_iteration = collections.defaultdict(list)
+
+    for iteration in sorted(attributes_per_iteration.keys()):
+
+=== 82 23shades-0632-aaiffchcj ===
+{"dataset_id": "aaiffchcj", "repo_name": "OpenMined/PySyft", "filename": "syft/core/workers/base.py", "comment_introducing_revision": "https://github.com/OpenMined/PySyft/commit/0a734fb356dfd3e8a6e3b93d6210c4b7b8ed141c", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "0a734fb356dfd3e8a6e3b93d6210c4b7b8ed141c"}
+[comment_text]
+TODO: pass in just the id instead of the entire obj_msg.
+[source_context]
+
+        * **force_attach_to_worker (bool)** if set to True, it will force the object
+        to be stored in the worker's permanent registry
+          even if the worker is a client worker.
+
+        * **temporary (bool)** If set to True, it will store the object in the
+        worker's temporary registry.
+
+        * **out (torch.Tensor or torch.autograd.Variable)** returns the object
+        newly registered.
+        """
+
+        # TODO: pass in just the id instead of the entire obj_msg.
+
+        try:
+            # TorchClient case
+            # delete registration from init; it's got the wrong id
+            self.rm_obj(torch_object.id)
+        except (AttributeError, KeyError):
+            # Worker case: v was never formally registered
+            pass
+
+        torch_object = self.register_object(self,
+                                            torch_object,
+                                            id=obj_msg['id'],
+
+=== 83 23shades-0749-aaihgdiif ===
+{"dataset_id": "aaihgdiif", "repo_name": "allenai/allennlp", "filename": "allennlp/data/dataset_readers/reading_comprehension/drop.py", "comment_introducing_revision": "https://github.com/allenai/allennlp/commit/bbb67e9f5f2e804dc5f093f1f6e30ef3bbd96030", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "bbb67e9f5f2e804dc5f093f1f6e30ef3bbd96030"}
+[comment_text]
+TODO: Try smaller numbers?
+[source_context]
+                        span_end += 1
+                    else:
+                        break
+                if num_answer_tokens == answer_index:
+                    spans.append((span_start, span_end))
+        return spans
+
+    @staticmethod
+    def find_valid_add_sub_expressions(numbers: List[int],
+                                       targets: List[int],
+                                       max_number_of_numbers_to_consider: int = 2) -> List[List[int]]:
+        valid_signs_for_add_sub_expressions = []
+        # TODO: Try smaller numbers?
+        for number_of_numbers_to_consider in range(2, max_number_of_numbers_to_consider + 1):
+            possible_signs = list(itertools.product((-1, 1), repeat=number_of_numbers_to_consider))
+            for number_combination in itertools.combinations(enumerate(numbers), number_of_numbers_to_consider):
+                indices = [it[0] for it in number_combination]
+                values = [it[1] for it in number_combination]
+                for signs in possible_signs:
+                    eval_value = sum(sign * value for sign, value in zip(signs, values))
+                    if eval_value in targets:
+                        labels_for_numbers = [0] * len(numbers)  # 0 represents ``not included''.
+                        for index, sign in zip(indices, signs):
+                            labels_for_numbers[index] = 1 if sign == 1 else 2  # 1 for positive, 2 for negative
+                        valid_signs_for_add_sub_expressions.append(labels_for_numbers)

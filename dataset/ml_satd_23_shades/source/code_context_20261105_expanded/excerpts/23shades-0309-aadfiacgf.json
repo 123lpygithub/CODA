@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0309-aadfiacgf",
+  "revision_url": "https://github.com/deep-fry/mayo/commit/473fe5ba5943d70481f8783b95be2cceb49dc0e0",
+  "filename": "mayo/net/tf/gate.py",
+  "commit": "473fe5ba5943d70481f8783b95be2cceb49dc0e0",
+  "source_url": "https://raw.githubusercontent.com/deep-fry/mayo/473fe5ba5943d70481f8783b95be2cceb49dc0e0/mayo/net/tf/gate.py",
+  "fetched_at": "2026-11-05T06:12:31.346402+00:00",
+  "source_sha256": "3b9f6d424ca8245854f30ac955008e4f0b52a2468a53e5bb8bf7e9a0979ee53b",
+  "line_start": 96,
+  "line_end": 112,
+  "excerpt": "        # thresholding\n        gate = tf.cast(gate > 0, tf.float32)\n        # training happens in regularizer\n        gate = tf.stop_gradient(gate)\n        # register gate sparsity for printing\n        self.register_update('mayo.gates', gate, self._gate_sparsity)\n        # actual gating\n        return output * gate\n\n    def instantiate_gate(self, tensor, params):\n        gate_scope = '{}/gate'.format(params['scope'])\n        subsample = self._gate_subsample(tensor, gate_scope)\n        # TODO make threshold a variable\n        gate = tf.cast(subsample > params['threshold'], tf.float32)\n        self.register_update('mayo.gates', gate, self._gate_sparsity)\n        # gating\n        return tensor * tf.stop_gradient(gate)"
+}

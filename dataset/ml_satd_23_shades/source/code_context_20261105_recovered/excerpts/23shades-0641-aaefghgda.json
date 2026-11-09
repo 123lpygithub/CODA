@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0641-aaefghgda",
+  "revision_url": "https://github.com/awslabs/sockeye/commit/4d27aa30cff7b76cd5ff7bd3643d6a80d98a85dd",
+  "filename": "sockeye/training.py",
+  "commit": "4d27aa30cff7b76cd5ff7bd3643d6a80d98a85dd",
+  "source_url": "https://raw.githubusercontent.com/awslabs/sockeye/4d27aa30cff7b76cd5ff7bd3643d6a80d98a85dd/sockeye/training.py",
+  "fetched_at": "2026-11-05T06:13:30.835837+00:00",
+  "source_sha256": "a1d152b521a8a492dba6242e11afd1e4082e43491b03bc1a4a2052aad632e78f",
+  "line_start": 276,
+  "line_end": 300,
+  "excerpt": "        :param train_iter: Training data iterator.\n        :param val_iter: Validation data iterator.\n        :param output_folder: Model output folder.\n        :params max_params_files_to_keep: Maximum number of params files to keep in the output folder (last n are kept).\n        :param metrics: List of metric names to track on training and validation data.\n        :param max_updates: Maximum number of batches to process.\n        :param checkpoint_frequency: Frequency of checkpointing.\n        :param max_num_not_improved: Maximum number of checkpoints until fitting is stopped if model does not improve,\n               -1 for no early stopping.\n        :param min_num_epochs: Minimum number of epochs to train, even if validation scores did not improve.\n        :param mxmonitor: Optional MXNet monitor instance.\n        \"\"\"\n        # TODO: Push update to MXNet to expose the optimizer (Module should have a get_optimizer method)\n        if self.bucketing:\n            optimizer = self.module._curr_module._optimizer\n        else:\n            optimizer = self.module._optimizer\n\n        metric_train = self.create_eval_metric_composite(metrics)\n        metric_val = self.create_eval_metric_composite(metrics)\n        # If optimizer requires it, track loss as metric\n        if isinstance(optimizer, SockeyeOptimizer):\n            # Select training loss or optimized metric\n            if optimizer.request_optimized_metric:\n                metric_loss = self.create_eval_metric(self.training_monitor.optimized_metric)"
+}

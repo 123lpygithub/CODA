@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0050-aabcjdaea",
+  "revision_url": "https://github.com/richemslie/galvanise_zero/commit/46932a6a14c7ae69a7d3cde01805e3eb20856072",
+  "filename": "src/ggpzero/nn/train2.py",
+  "commit": "46932a6a14c7ae69a7d3cde01805e3eb20856072",
+  "source_url": "https://raw.githubusercontent.com/richemslie/galvanise_zero/46932a6a14c7ae69a7d3cde01805e3eb20856072/src/ggpzero/nn/train2.py",
+  "fetched_at": "2026-11-05T06:11:46.664364+00:00",
+  "source_sha256": "60ef8b5132c735684c86bfee44005205db6ed8ed0ae95a8372bedf81364d7269",
+  "line_start": 112,
+  "line_end": 136,
+  "excerpt": "\n        num_epochs = conf.epochs if self.retraining else conf.epochs * 2\n\n        training_logger = network.TrainingLoggerCb(num_epochs)\n        controller = network.TrainingController(self.retraining,\n                                                len(self.transformer.policy_dist_count))\n\n        # XXX add hyper parameters\n\n        XX_value_weight_reduction = 0.333\n        XX_value_weight_min = 0.05\n\n        # all games are zero sum that are trained and because 2 values, x2 the error.  XXX\n        value_weight = 1.0\n\n        self.nn.compile(self.train_config.compile_strategy,\n                        self.train_config.learning_rate,\n                        value_weight=value_weight)\n\n        # num_samples = len(train_data.inputs)\n\n        for i in range(num_epochs):\n\n            if controller.stop_training:\n                log.warning(\"Stop training early via controller\")",
+  "match_policy": "unique-release-normalized-v2"
+}

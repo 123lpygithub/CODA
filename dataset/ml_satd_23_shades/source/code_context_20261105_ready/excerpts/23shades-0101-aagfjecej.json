@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0101-aagfjecej",
+  "revision_url": "https://github.com/NRCan/geo-deep-learning/commit/89550e7a796c052f1a9455d1d18e0dd43f62591b",
+  "filename": "images_to_samples.py",
+  "commit": "89550e7a796c052f1a9455d1d18e0dd43f62591b",
+  "source_url": "https://raw.githubusercontent.com/NRCan/geo-deep-learning/89550e7a796c052f1a9455d1d18e0dd43f62591b/images_to_samples.py",
+  "fetched_at": "2026-11-05T06:11:54.285753+00:00",
+  "source_sha256": "3c6f4bf8d43d4f6dce24b5adbd27d9efa55f9bb9670e6e8c61152619b92614a0",
+  "line_start": 363,
+  "line_end": 387,
+  "excerpt": "            assert len(invalid_features.values()) == 0, f'Invalid geometry object(s) for \"gpkg:ids\": \\\"{invalid_features}\\\"'\n\n    number_samples = {'trn': 0, 'val': 0, 'tst': 0}\n    number_classes = 0\n\n    # 'sampling' ordereddict validation\n    check_sampling_dict()\n\n    pixel_classes = {}\n    # creates pixel_classes dict and keys\n    for i in range(0, params['global']['num_classes'] + 1):\n        pixel_classes.update({i: 0})\n    pixel_classes.update({ignore_index: 0})  # FIXME: pixel_classes dict needs to be populated with classes obtained from target\n\n    trn_hdf5, val_hdf5, tst_hdf5 = create_files_and_datasets(params, samples_folder)\n\n    # For each row in csv: (1) burn vector file to raster, (2) read input raster image, (3) prepare samples\n    with tqdm(list_data_prep, position=0, leave=False, desc=f'Preparing samples') as _tqdm:\n        for info in _tqdm:\n            _tqdm.set_postfix(\n                OrderedDict(tif=f'{Path(info[\"tif\"]).stem}', sample_size=params['global']['samples_size']))\n            try:\n                if bucket_name:\n                    bucket.download_file(info['tif'], \"Images/\" + info['tif'].split('/')[-1])\n                    info['tif'] = \"Images/\" + info['tif'].split('/')[-1]"
+}

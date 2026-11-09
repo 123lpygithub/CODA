@@ -1,0 +1,20 @@
+{"artifact_id": "1", "code_ids": ["CE01"], "open_codes": ["仅注释未实现"], "memo": "函数体只有 TODO 与重复的注释代码，没有任何可执行语句；模块还因缩进后缺少可执行块而无法解析。"}
+{"artifact_id": "2", "code_ids": ["CE05", "CE06"], "open_codes": ["只判首项为负", "递归未累计余额"], "memo": "递归只看 operations[0] 是否小于 0，然后把尾部交给下一次调用；[1,2,-4] 的累计余额虽会变负，但首项 1 不为负，最终返回 False。"}
+{"artifact_id": "3", "code_ids": ["CE08", "CE06"], "open_codes": ["分隔符位置与数量错误"], "memo": "返回 [delimiter] + 前 len-1 个元素 + [delimiter]；既丢了最后一个元素，又把分隔符放在两端而不是相邻元素之间。"}
+{"artifact_id": "4", "code_ids": ["CE01"], "open_codes": ["仅注释未实现"], "memo": "函数体全是 TODO 与说明性注释，没有可执行的分离逻辑。"}
+{"artifact_id": "5", "code_ids": ["CE03"], "open_codes": ["调用未定义 helper"], "memo": "调用未定义的 find_palindrome_prefix，函数无法运行。"}
+{"artifact_id": "6", "code_ids": ["CE04"], "open_codes": ["按竖线切分"], "memo": "用 split('|') 切分音乐串；'o|' 这类音符会被拆成 'o' 与空串，音符边界被破坏。"}
+{"artifact_id": "7", "code_ids": ["CE04"], "open_codes": ["把英文数字直接 int()"], "memo": "把 'one' 等英文数字单词直接传给 int()，转换会抛 ValueError，未先映射到数值。"}
+{"artifact_id": "8", "code_ids": ["CE05"], "open_codes": ["取首尾而非最近对"], "memo": "排序后返回 numbers[0] 与 numbers[-1]，得到的是最小值与最大值，不是相邻距离最小的一对。"}
+{"artifact_id": "9", "code_ids": ["CE05"], "open_codes": ["取最小与最大"], "memo": "分别追踪最小值和最大值并返回二者，目标从最近对替换成全局极值对。"}
+{"artifact_id": "10", "code_ids": ["CE03"], "open_codes": ["调用未定义 helper"], "memo": "调用未定义的 find_longest_palindrome 与 reverse_palindrome，函数无法运行。"}
+{"artifact_id": "11", "code_ids": ["CE06"], "open_codes": ["从1向上找首个约数"], "memo": "从 1 开始向上找首个能整除 n 的数，结果恒为 1；契约要求小于 n 的最大约数，应从 n-1 向下找。"}
+{"artifact_id": "12", "code_ids": ["CE05"], "open_codes": ["set 去重"], "memo": "用 set 去掉重复值但保留每个值的一次出现；契约要求删除所有出现次数大于 1 的元素，语义不同。"}
+{"artifact_id": "13", "code_ids": ["CE05"], "open_codes": ["set 去重"], "memo": "用 set 去掉重复值但保留每个值的一次出现；契约要求删除所有出现次数大于 1 的元素，语义不同。"}
+{"artifact_id": "14", "code_ids": ["CE08"], "open_codes": ["分隔符位置错误"], "memo": "在列表两端各加一个分隔符，且丢掉了最后一个元素；契约要求只在相邻元素之间插入分隔符。"}
+{"artifact_id": "15", "code_ids": ["CE08", "CE06"], "open_codes": ["奇偶重排后加尾分隔符"], "memo": "先按奇偶下标重排列表，再在末尾追加 len-1 个分隔符；顺序被改变，分隔符位置也不对。"}
+{"artifact_id": "16", "code_ids": ["CE08", "CE06"], "open_codes": ["只在末尾加一个分隔符"], "memo": "只在列表末尾追加一个分隔符，没有在每对相邻元素之间插入。"}
+{"artifact_id": "17", "code_ids": ["CE02", "CE05"], "open_codes": ["源码截断", "未求根"], "memo": "源码在循环中截断，模块无法解析；可见部分也只是对系数反复排序，没有求根。"}
+{"artifact_id": "18", "code_ids": ["CE01"], "open_codes": ["仅注释"], "memo": "函数体全是注释，没有可执行实现。"}
+{"artifact_id": "19", "code_ids": ["CE06"], "open_codes": ["range 从1开始"], "memo": "range 从 1 开始，漏掉 i=0；并且只统计字符串是否包含 7 一次，没有统计出现次数。"}
+{"artifact_id": "20", "code_ids": ["CE08", "CE05"], "open_codes": ["偶数位与奇数位分别排序后拼接"], "memo": "把偶数下标和奇数下标的元素分别排序后整体拼接，改变了元素应保持的原始位置。"}

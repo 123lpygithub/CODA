@@ -1,0 +1,90 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4946",
+  "issue_url": "https://github.com/fgpv-vpgf/fgpv-vpgf/issues/2733",
+  "source_issue_url": "https://github.com/fgpv-vpgf/fgpv-vpgf/issues/2733",
+  "api_url": "https://api.github.com/repos/fgpv-vpgf/fgpv-vpgf/issues/2733",
+  "title": "Propose implementation of an analytic platform",
+  "body": "Review if Google analytics is compliant with the treasury boards privacy/tracking requirements. Check if more suitable platforms exist. Determine metrics for use as benchmarking (page speed, average time spent, abandonment rate, etc.) and if heatmaps/feature use can be inferred. ",
+  "author": "Participant 1",
+  "created_at": "2018-05-24T14:59:09Z",
+  "updated_at": "2018-12-03T20:56:30Z",
+  "state": "closed",
+  "closed_at": "2018-12-03T20:56:29Z",
+  "issue_fetched_at": "2026-10-18T15:10:09.985022+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T15:10:11.329280+00:00"
+  ],
+  "expected_comment_count": 8,
+  "retrieved_comment_count": 8,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 391774074,
+      "url": "https://github.com/fgpv-vpgf/fgpv-vpgf/issues/2733#issuecomment-391774074",
+      "created_at": "2018-05-24T16:17:16Z",
+      "updated_at": "2018-05-24T16:17:16Z",
+      "author": "Participant 1",
+      "body": "We might need a lawyer:\r\n\r\nhttps://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=26761\r\n\r\nAppendix A subclause 3 looks impossible to achieve. \r\n\r\nBut then I viewed the page source and at the bottom I can see they're using Google analytics 🌻\r\n\r\nI'll look into the platform to see how it can integrate with RAMP and post the results."
+    },
+    {
+      "id": 392057181,
+      "url": "https://github.com/fgpv-vpgf/fgpv-vpgf/issues/2733#issuecomment-392057181",
+      "created_at": "2018-05-25T13:26:51Z",
+      "updated_at": "2018-05-25T13:27:33Z",
+      "author": "Participant 2",
+      "body": "It really depends on if the code filters out the IP and provides a different identifier before transmittig back to Google AND if Google stores that IP if it is transmitted..  \r\n\r\nhttps://support.google.com/analytics/answer/2763052?hl=en"
+    },
+    {
+      "id": 392063039,
+      "url": "https://github.com/fgpv-vpgf/fgpv-vpgf/issues/2733#issuecomment-392063039",
+      "created_at": "2018-05-25T13:47:18Z",
+      "updated_at": "2018-05-25T13:47:18Z",
+      "author": "Participant 1",
+      "body": "Luckily Google analytics has a few very good compliance tools:\r\n\r\n1. User and event data retention (in months)\r\n2. [IP Anonymization in Analytics](https://support.google.com/analytics/answer/2763052?hl=en)\r\n3. [Individual user opt-out](https://developers.google.com/analytics/devguides/collection/analyticsjs/user-opt-out) \r\n\r\nLooks like IP Anonymization should be used to avoid most compliance issues."
+    },
+    {
+      "id": 392067804,
+      "url": "https://github.com/fgpv-vpgf/fgpv-vpgf/issues/2733#issuecomment-392067804",
+      "created_at": "2018-05-25T14:02:38Z",
+      "updated_at": "2018-05-25T14:02:38Z",
+      "author": "Participant 3",
+      "body": "FYI we use the _ga(\"set\", \"anonymizeIp\", true);_ setting where GA is implemented in our NRCan pages.  You might want to view the Web Analytics section in our  [NRCan - Terms and Conditions](https://www.nrcan.gc.ca/terms-conditions/10847) page for reference."
+    },
+    {
+      "id": 392085891,
+      "url": "https://github.com/fgpv-vpgf/fgpv-vpgf/issues/2733#issuecomment-392085891",
+      "created_at": "2018-05-25T15:01:34Z",
+      "updated_at": "2018-05-25T15:01:34Z",
+      "author": "Participant 1",
+      "body": "### Google Tag Manager\r\n- Does not replace Google Analytics (GA), instead it is capable of watching for DOM changes and interactions and integrating these actions into reportable events for analytics (among other things).\r\n- Not strictly needed, you can place GA code throughout your code base to send event information (like when a panel is opened, some feature is used, or a plugin is loaded. In some cases we may need to place GA code directly into RAMP\r\n- The benefit is that most interactions do not need any modification to the RAMP code base. You can tell tag manager to watch for a certain element (CSS selector or ID) to be visible, clicks, javascript errors, scrolling etc). These changes are done in the tag management site, not in the code base.\r\n\r\n### Google Analytics\r\nComprehensive tool which reports among others:\r\n- Users country / region\r\n- browser type and version\r\n- time spent\r\n- events triggered by tag manager\r\n- event flow (order of actions they took on the page)\r\n- abandonment analysis (why did they leave, what action did they take)\r\n- performance benchmarks (page load, usability)\r\n- compliance tools we can use (IP anonymization) so that no personal information is provided\r\n\r\n### Next steps\r\n1) Determine how we want to report events. We can set 4 event parameters (Category, Action, Label, and Value). This can be something along the lines of (UI, Panel, Grid-UI, Open) and (API, Plugin, Added, myPluginName) for example\r\n\r\n2) Tag manager has versioning, so it can track variations of RAMP. Figure out how this will work with our versioning.\r\n\r\n3) Determine things tag manager can't watch or would be difficult (perhaps plugins, API use) so that these events can be hard-coded into RAMP where needed.\r\n\r\n4) If GA or tag manager is already present on the page, determine steps needed to add our tracking code, if not load appropriate google scripts.\r\n\r\n"
+    },
+    {
+      "id": 392519105,
+      "url": "https://github.com/fgpv-vpgf/fgpv-vpgf/issues/2733#issuecomment-392519105",
+      "created_at": "2018-05-28T12:51:59Z",
+      "updated_at": "2018-05-28T12:51:59Z",
+      "author": "Participant 1",
+      "body": "#### Overview\r\n\r\nGoogle Tag Manager (GTM) is a script we insert on bootstrap that together with its web interface is capable of watching the DOM for triggers such as elements becoming visible, clicks, JS errors, scrolling and more. You can also set timers that run custom JS code which would be able to inspect the current API state. Custom events from within RAMP can be pushed when the triggers are more complex and would be too difficult to implement within the GTM interface. \r\n\r\nWe only need to include the GTM code snippet in ramp. Any events captured by GTM will be passed to our Google analytics (GA) account which provides advanced analysis on the events, times, order of events etc. \r\n\r\n#### Treasury board compliance\r\n\r\nWe will anonymize IP addresses where GTM performs this anonymization before writing it to disk. We will limit stored records to 18 months per treasury board guidlines. No personal information is uploaded and therefore we meet all guidelines.  \r\n\r\n#### Loading script\r\n\r\nGoogle supports multiple GTM script tags to be used where there is more than one tracking account. So if the WET template contains GTM code, it is recommended to also include another GTM script code using our tracking ID. Ramp can insert this script on bootstrap.\r\n\r\n#### Manual events (coded in RAMP)\r\n\r\nGTM can handle most tags and events. In some cases we might need to manually send an event from RAMP to GTM, but I believe this is unlikely given the available options. If needed however, this is done by pushing an object to a global `dataLayer` object which is watched by the GTM. An example:\r\n\r\n```js\r\ndataLayer.push({\r\n\tevent: \"RV-UI\",\r\n\teventCategory: \"Panels\",\r\n\teventAction: \"Open\",\r\n\teventLabel: \"Grid-UI\"\r\n});\r\n```\r\n\r\nSince there can be multiple instances of GTM on a page (WET, RAMP) and they must both use the same global `dataLayer` array, the solution is to use custom `event` properties like we did above with `RV-UI`. In GTM we can set a trigger for the event `RV-UI` and push that to our analytics account. Other instances of GTM would ignore these events.\r\n\r\n#### Event reporting\r\n\r\nWe will have a few custom event types (subject to change/add/remove based on feedback):\r\n- RV-UI : For UI interaction with panels, settings, menu etc.\r\n- RV-API: To track general API use at a high level (API class creation) and common uses\r\n- RV-PLUGINS: Capture loaded intentions/extension\r\n- RV-ERROR: Capture specific points of failure or try to catch most/all RAMP errors to see general app health\r\n\r\n#### Versioning\r\n\r\nAs different versions of RAMP are released, the trigger type/selector may change due to changes in our html or user flow. GTM has the concept of versioning, and assigning versions to environments. For example, if we change a buttons name/id that was being used by GTM to track clicks in ramp v2.4.0 then we could save the new name/id under v2.4.0 in GTM and update the script type GTM uses to point to version v2.4.0. v2.3.0 (with the old name/id) would continue to be tracked correctly as well since it is using the v2.3.0 version as it always has."
+    },
+    {
+      "id": 393894916,
+      "url": "https://github.com/fgpv-vpgf/fgpv-vpgf/issues/2733#issuecomment-393894916",
+      "created_at": "2018-06-01T14:18:42Z",
+      "updated_at": "2018-06-01T14:18:42Z",
+      "author": "Participant 4",
+      "body": "> if the WET template contains GTM code\r\n\r\nWe should assume all WET pages have the GTM code included. All the sample you get from their github do.\r\n\r\n##### Several RAMP instances\r\nWhen collecting data from a page with several RAMP instances, do we want to distinguish them apart by including an internal id or something like that?"
+    },
+    {
+      "id": 394372302,
+      "url": "https://github.com/fgpv-vpgf/fgpv-vpgf/issues/2733#issuecomment-394372302",
+      "created_at": "2018-06-04T14:21:57Z",
+      "updated_at": "2018-06-04T14:21:57Z",
+      "author": "Participant 1",
+      "body": "That's true, and it's fine if there is/isn't an existing gtm script. gtm supports/needs a separate script for each tracking account on a page. They must share a global `dataLayer` object, however pushed data to the global `dataLayer` must be configured within the gtm site for it to be recorded on analytics. If, for example, two tracking accounts exist on a page with two corresponding apps which listen on the same event name then either app can trigger both accounts listeners. This is avoided by using non-generic event names.\r\n\r\nI thought about tracking multiple maps on a page, and it is possible. Before implementing something like this it might be worth reporting how many pages use multiple maps and if the number is large enough to go ahead with implementing it. \r\n\r\nThe current PR segments analytics by ramp version, multiple maps could be another possible segment."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

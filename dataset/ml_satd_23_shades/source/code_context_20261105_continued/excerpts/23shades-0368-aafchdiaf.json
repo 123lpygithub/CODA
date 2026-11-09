@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0368-aafchdiaf",
+  "revision_url": "https://github.com/Rostlab/nalaf/commit/304671b5846961c4a589d00628fa9c1e752173b2",
+  "filename": "nalaf/features/relations/new/sentence.py",
+  "commit": "304671b5846961c4a589d00628fa9c1e752173b2",
+  "source_url": "https://raw.githubusercontent.com/Rostlab/nalaf/304671b5846961c4a589d00628fa9c1e752173b2/nalaf/features/relations/new/sentence.py",
+  "fetched_at": "2026-11-05T06:12:40.724797+00:00",
+  "source_sha256": "0c095df6fad143ff8509cf0178571937fe191de056ebb3463a258bc2ea12af53",
+  "line_start": 76,
+  "line_end": 100,
+  "excerpt": "        self.extract_abbreviation_synonyms(corpus, use_gold, use_pred)\n\n        for docid, document in corpus.documents.items():\n            for edge in document.edges():\n\n                sentence = edge.get_combined_sentence()\n\n                entities_in_sentences = edge.get_any_entities_in_sentences(predicted=use_pred)\n                total_count = 0\n                # We sort to have a deterministic order creation of the features\n                for e_class_id in sorted(entities_in_sentences):\n                    entities = entities_in_sentences[e_class_id]\n                    # TODO this is wrong for other entitiey types nor appearing in the edge\n                    # TODO also what about if the same entity type appears in both ends of the same edge? as in a protein-protein relation --> Just rest the counts of the edge\n                    individual_count = len(entities) - 1  # rest 1, as one is already one of the edge's entities --\n                    assert individual_count >= 0\n                    total_count += individual_count\n                    self.add_with_value(f_set, edge, 'f_counts_individual', individual_count, 'int', 'individual', e_class_id)\n\n                self.add_with_value(f_set, edge, 'f_counts_total', total_count, 'int', 'total (all classes)')\n\n                entities_between_entities = edge.get_any_entities_between_entities(predicted=use_pred)\n                total_count = 0\n                # We sort to have a deterministic order creation of the features\n                for e_class_id in sorted(entities_between_entities):"
+}

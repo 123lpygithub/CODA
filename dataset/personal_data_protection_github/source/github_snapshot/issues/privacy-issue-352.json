@@ -1,0 +1,49 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-352",
+  "issue_url": "https://github.com/errbit/errbit/issues/1489",
+  "api_url": "https://api.github.com/repos/errbit/errbit/issues/1489",
+  "title": "XSS in user attributes",
+  "body": "  * Errbit version: master\r\n  * OS: Ubuntu 18.04\r\n\r\n#### Steps to reproduce:\r\n\r\n  1. Create a user with malicious name/username in your app\r\n  2. Cause an exception while logged in with that user\r\n  3. Errbit's `notices/_user_attributes` partial executes XSS\r\n\r\n#### Observed Results:\r\n\r\n  * XSS through `.html_safe`-ing attributes (because of Rinku auto link)\r\n\r\n#### Expected Results:\r\n\r\n  * No XSS :)\r\n\r\n#### Cause\r\n\r\nhttps://github.com/errbit/errbit/blob/e9ca15b842521d2ae536590c57c3db61fef19a3e/app/views/notices/_user_attributes.html.haml#L10\r\n\r\nI'm not sure how to easily fix this but also keeping autolinking\r\n\r\n#### Example\r\n\r\nThe thankfully friendly attacker delivered an example. The user caused the exception due to a missing length validation but every exception caused by a user might send untrusted data that shouldn't be blindly html_safe'd by errbit\r\n\r\n```\r\n\"user\" => {\r\n    \"name\" => \"\\\"><img src=x onerror=alert('1');> \\\"/><img src=x onerror=prompt(navigator.userAgent)>  \\\"><img/src=\\\"x\\\"/onmouseover=prompt(document.domain);>  \\\"/><svg/onload=prompt(document.domain)>   \\\"><svg/onload=prompt(document.cookie);>  “-prompt`1`-”//  \\\"><svg/onload=alert(document.domain);>  \\\"><svg/onload=prompt(123);>  \\\"><img src=x onerror=prompt(\\\"XSS-Vulnerability\\\");>  /?regionConfirm=alert(document.cookie)});}}%3C/script%3E  \\\"--></style></scRipt><scRipt>alert(\\\"shaniXss\\\")</scRipt>  \\\"></code><svg/onload=prompt(1)>\"\r\n}\r\n```\r\n\r\n<img width=\"783\" alt=\"Errbit — Mysql2::Error: Data too long for column 'name' at row 1 2021-02-13 15-53-36\" src=\"https://user-images.githubusercontent.com/218011/107852942-bb418780-6e13-11eb-9ccb-e4dc3296ebe1.png\">\r\n",
+  "author": "Participant 1",
+  "created_at": "2021-02-13T14:54:32Z",
+  "updated_at": "2021-02-19T17:23:23Z",
+  "state": "closed",
+  "closed_at": "2021-02-19T17:23:23Z",
+  "issue_fetched_at": "2026-10-18T12:14:30.364443+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T12:14:31.674161+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 778692192,
+      "url": "https://github.com/errbit/errbit/issues/1489#issuecomment-778692192",
+      "created_at": "2021-02-13T23:19:14Z",
+      "updated_at": "2021-02-13T23:19:14Z",
+      "author": "Participant 2",
+      "body": "Thanks for the report! Probably the solution here is to simply not autolink and not mark this as html_safe. I'm fine with losing the autolink email address feature if that's all it was."
+    },
+    {
+      "id": 782106954,
+      "url": "https://github.com/errbit/errbit/issues/1489#issuecomment-782106954",
+      "created_at": "2021-02-19T14:24:42Z",
+      "updated_at": "2021-02-19T14:29:01Z",
+      "author": "Participant 1",
+      "body": "I'm not sure if users currently use intentional HTML in these places but what do you think about #1490?\r\n\r\nKeeps autolinking which is frankly handy for something like the admin-hotlink but escapes the input beforehand.\r\n\r\n![Errbit — Mysql2__Error_ Data too long for column 'name' at row 1 - Google Chrome 2021-02-19 15 20 55](https://user-images.githubusercontent.com/218011/108516286-53cd8100-72c6-11eb-8896-c05574e6a461.png)\r\n"
+    },
+    {
+      "id": 782218078,
+      "url": "https://github.com/errbit/errbit/issues/1489#issuecomment-782218078",
+      "created_at": "2021-02-19T17:23:23Z",
+      "updated_at": "2021-02-19T17:23:23Z",
+      "author": "Participant 2",
+      "body": "That works for me. Nice going."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0301-aagacdjjd",
+  "revision_url": "https://github.com/SimGus/Chatette/commit/3d3c05311fa4d5b00094ff40342532620c2985b3",
+  "filename": "src/Parser.py",
+  "commit": "3d3c05311fa4d5b00094ff40342532620c2985b3",
+  "source_url": "https://raw.githubusercontent.com/SimGus/Chatette/3d3c05311fa4d5b00094ff40342532620c2985b3/src/Parser.py",
+  "fetched_at": "2026-11-05T06:12:30.435246+00:00",
+  "source_sha256": "83326851f470e94683cc7b27b2087c926fdd59b867422e4bff6d4c64268c4ed1",
+  "line_start": 467,
+  "line_end": 491,
+  "excerpt": "            if string == ' ':\n                continue\n            elif not is_unit_start(string) and not is_choice(string):\n                no_leading_space = i == 0 or (i != 0 and words_and_units_raw[i-1] != ' ')\n                words_and_units.append({\n                    \"type\": Unit.word,\n                    \"word\": string,\n                    \"leading-space\": not no_leading_space,\n                })\n            elif is_choice(string):  # choice\n                no_leading_space = i == 0 or (i != 0 and words_and_units_raw[i-1] != ' ')\n                choices = []\n                for choice_str in re.split(r'(?<!\\\\):', CHOICE_SEP):  # TODO improve the regex here\n                    choices.append(self.split_contents(choice_str))\n                words_and_units.append({\n                    \"type\": Unit.choice,\n                    \"choices\": choices,\n                })\n            else:  # unit\n                no_leading_space = i == 0 or (i != 0 and words_and_units_raw[i-1] != ' ')\n                unit_type = get_unit_type(string)\n                if unit_type == Unit.word_group:\n                    (name, variation, randgen, percentgen, casegen) = self.parse_unit(string)\n                    if variation is not None:\n                        raise SyntaxError(\"Word groups cannot have a variation as found with word group '\"+"
+}

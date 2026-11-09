@@ -1,0 +1,364 @@
+
+=== 228 23shades-0602-aahidaegb ===
+{"dataset_id": "aahidaegb", "repo_name": "PyTorchLightning/pytorch-lightning", "filename": "pytorch_lightning/trainer/connectors/accelerator_connector.py", "comment_introducing_revision": "https://github.com/PyTorchLightning/pytorch-lightning/commit/97a81c3cfed9d6677d411672eecb0ed38514cb04", "comment_removing_revision": "https://github.com/PyTorchLightning/pytorch-lightning/commit/ec8d46e02b45ee6cd5713bd72b2ee7e2474c7ac1", "source_context_status": "available", "source_context_commit": "97a81c3cfed9d6677d411672eecb0ed38514cb04"}
+[comment_text]
+TODO: maybe introduce a DefaultEnvironment?
+[source_context]
+            return self._cluster_environment
+        if self.is_slurm_managing_tasks:
+            env = SLURMEnvironment()
+            # TODO: decouple DDP from SLURM
+            #   refactor and let generic cluster env hold the information about who spawns the processes
+            os.environ["PL_IN_DDP_SUBPROCESS"] = "1"
+        elif self.is_using_torchelastic:
+            env = TorchElasticEnvironment()
+            # TODO: decouple DDP from TE
+            #   refactor and let generic cluster env hold the information about who spawns the processes
+            os.environ["PL_IN_DDP_SUBPROCESS"] = "1"
+        else:
+            # TODO: maybe introduce a DefaultEnvironment?
+            env = TorchElasticEnvironment()
+        return env
+
+    def set_distributed_mode(self, distributed_backend: Optional[str] = None):
+
+        if distributed_backend is not None:
+            self.distributed_backend = distributed_backend
+
+        if isinstance(self.distributed_backend, Accelerator):
+            return
+
+        if self.distributed_backend is None:
+
+=== 229 23shades-0250-aafchcgdb ===
+{"dataset_id": "aafchcgdb", "repo_name": "Rostlab/nalaf", "filename": "nala/learning/taggers.py", "comment_introducing_revision": "https://github.com/Rostlab/nalaf/commit/5f1fee7ed3d3dadc03e515a70928f566a6aa0715", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "5f1fee7ed3d3dadc03e515a70928f566a6aa0715"}
+[comment_text]
+todo change normalizazion_database to normalise option
+[source_context]
+
+    Optionally the implementation may perform normalization of the predicted entities.
+    In that case:
+    * set the meta attribute performs_normalization = True
+    * set the meta attribute normalization_database
+    * set the fields normalized_id and normalized text for each Annotation object you create
+
+    :type performs_normalization: bool
+    :type normalization_database: str
+    :type predicts_classes: list[str]
+    """
+
+    # todo change normalizazion_database to normalise option
+    def __init__(self, predicts_classes):
+        self.performs_normalization = False
+        """whether this tagger also performs normalization"""
+        self.normalization_database = ''
+        """additional info about the normalization database, e.g. URL"""
+        self.predicts_classes = predicts_classes
+        """a list of class IDs that this tagger can predict"""
+
+    @abc.abstractmethod
+    def tag(self, dataset):
+        """
+        :type dataset: nala.structures.data.Dataset
+
+=== 230 23shades-0318-aaejhfaed ===
+{"dataset_id": "aaejhfaed", "repo_name": "mondejar/ecg-classification", "filename": "python/basic_fusion.py", "comment_introducing_revision": "https://github.com/mondejar/ecg-classification/commit/ad7ef2cd12b64034b12a46355fce8a74c36367eb", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ad7ef2cd12b64034b12a46355fce8a74c36367eb"}
+[comment_text]
+TODO normalice to make sum up to 1?
+[source_context]
+    prob_ovo_wvl = np.loadtxt(model_wvl)
+    prob_ovo_HOS_myDesc = np.loadtxt(model_HOS_myDesc)
+    
+    # Compute sigmoid of the probs!
+    #prob_ovo_RR_sig         = compute_sig_probs(prob_ovo_RR)
+    #prob_ovo_wvl_sig        = compute_sig_probs(prob_ovo_wvl)
+    #prob_ovo_HOS_myDesc_sig = compute_sig_probs(prob_ovo_HOS_myDesc)
+
+    predict, prob_ovo_RR_sig = voting_ovo(prob_ovo_RR)
+    predict, prob_ovo_wvl_sig = voting_ovo(prob_ovo_wvl)
+    predict, prob_ovo_HOS_myDesc_sig = voting_ovo(prob_ovo_HOS_myDesc)
+
+    # TODO normalice to make sum up to 1?
+
+    # Combine the predictions!
+    print("Product Rule")
+
+    # product rule!
+    probs_prod_rule = np.zeros(prob_ovo_RR_sig.shape)
+    predictions_prod_rule = np.zeros(len(prob_ovo_RR_sig))
+
+    for p in range(len(prob_ovo_RR_sig)):
+        probs_prod_rule[p,:] = prob_ovo_RR_sig[p] * prob_ovo_wvl_sig[p] * prob_ovo_HOS_myDesc_sig[p]
+        predictions_prod_rule[p] = np.argmax(probs_prod_rule[p])
+
+
+=== 231 23shades-0325-aadfjfbei ===
+{"dataset_id": "aadfjfbei", "repo_name": "pyro-ppl/funsor", "filename": "funsor/tensor.py", "comment_introducing_revision": "https://github.com/pyro-ppl/funsor/commit/7dce5d20fea11febe010b945ae01434d771d231a", "comment_removing_revision": "https://github.com/pyro-ppl/funsor/commit/1cb43a4dd317cd0d3f7faee4662c2b6bfa918d2a", "source_context_status": "available", "source_context_commit": "7dce5d20fea11febe010b945ae01434d771d231a"}
+[comment_text]
+TODO Promote this to a Funsor subclass.
+[source_context]
+    for part in parts:
+        inputs[part_name] = part.inputs[part_name]
+        shape = tuple(d.size for d in inputs.values()) + output.shape
+        tensors.append(ops.expand(align_tensor(inputs, part), shape))
+    del inputs[part_name]
+
+    dim = 0
+    tensor = ops.cat(dim, *tensors)
+    inputs = OrderedDict([(name, bint(tensor.shape[dim]))] + list(inputs.items()))
+    return Tensor(tensor, inputs, dtype=output.dtype)
+
+
+# TODO Promote this to a Funsor subclass.
+class LazyTuple(tuple):
+    def __call__(self, *args, **kwargs):
+        return LazyTuple(x(*args, **kwargs) for x in self)
+
+    @lazy_property
+    def __annotations__(self):
+        result = {}
+        output = []
+        for part in self:
+            result.update(part.__annotations__)
+            output.append(result.pop("return"))
+        result["return"] = typing.Tuple[tuple(output)]
+
+=== 232 23shades-0603-aahgegeef ===
+{"dataset_id": "aahgegeef", "repo_name": "BrikerMan/Kashgari", "filename": "kashgari/tasks/classification/models.py", "comment_introducing_revision": "https://github.com/BrikerMan/Kashgari/commit/9d1cb5ff1e0c2baeda33a763c0a55b26aea2053c", "comment_removing_revision": "https://github.com/BrikerMan/Kashgari/commit/4e1620c3a1fd997b27c89c9bacf3cef0ee83a8db", "source_context_status": "available", "source_context_commit": "9d1cb5ff1e0c2baeda33a763c0a55b26aea2053c"}
+[comment_text]
+TODO: maybe refactor this
+[source_context]
+                'decay': 0.0
+            }
+        },
+        'compile_params': {
+            'loss': 'categorical_crossentropy',
+            # 'optimizer': 'adam',
+            'metrics': ['accuracy']
+        }
+    }
+
+    def build_model(self):
+
+        # TODO: maybe refactor this
+        if self.multi_label:
+            self.hyper_parameters['compile_params']['loss'] = 'binary_crossentropy'
+            self.hyper_parameters['compile_params']['metrics'] = ['categorical_accuracy']
+            self.hyper_parameters['activation_layer']['activation'] = 'sigmoid'
+
+        base_model = self.embedding.model
+        conv1d_layer = Conv1D(**self.hyper_parameters['conv1d_layer'])(base_model.output)
+        max_pool_layer = GlobalMaxPooling1D(**self.hyper_parameters['max_pool_layer'])(conv1d_layer)
+        dense_1_layer = Dense(**self.hyper_parameters['dense_1_layer'])(max_pool_layer)
+        dense_2_layer = Dense(len(self.label2idx), **self.hyper_parameters['activation_layer'])(dense_1_layer)
+
+        model = Model(base_model.inputs, dense_2_layer)
+
+=== 233 23shades-0257-aagcfdhaj ===
+{"dataset_id": "aagcfdhaj", "repo_name": "mideind/GreynirCorrect", "filename": "eval/eval.py", "comment_introducing_revision": "https://github.com/mideind/GreynirCorrect/commit/e14cee0956003de11121489728a8fb24f6949fa6", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e14cee0956003de11121489728a8fb24f6949fa6"}
+[comment_text]
+TODO change?
+[source_context]
+                    ytok = next(y)
+                    xtok = next(x)
+                    while True:
+
+                        # 1. Error detection
+                        ytoks = set(range(ytok.start, ytok.end + 1))
+                        xtoks = set(
+                            range(cast(int, xtok["start"]), cast(int, xtok["end"]) + 1)
+                        )
+                        xtype = cast(str, xtok["xtype"])
+                        ytype = xtype
+                        if ytok.code in GCtoIEC and xtype not in GCtoIEC[ytok.code]:
+                            ytype = GCtoIEC[ytok.code][0] # TODO change?
+
+                        if xtoks & ytoks:
+                            tp += 1
+                            errtypefreqs[xtype]["tp"] += 1
+                            # 2. Span detection
+                            if xtoks == ytoks:
+                                right_span += 1
+                                errtypefreqs[xtype]["right_span"] += 1
+                            else:
+                                wrong_span += 1
+                                errtypefreqs[xtype]["wrong_span"] += 1
+                            # 3. Error correction
+
+=== 234 23shades-0044-aaeibhiie ===
+{"dataset_id": "aaeibhiie", "repo_name": "cltk/cltk", "filename": "src/cltkv1/alphabet/arc.py", "comment_introducing_revision": "https://github.com/cltk/cltk/commit/f33cd0672f84e54b467b3ff645a18db0aad2c137", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "f33cd0672f84e54b467b3ff645a18db0aad2c137"}
+[comment_text]
+\"\"\"The Imperial Aramaic alphabet; plus simple script to transform || a Hebrew transcription of an Imperial Aramaic text to its own Unicode block. ||  || TODO: Add Hebrew-to-Aramaic converter || \"\"\"
+[source_context]
+"""The Imperial Aramaic alphabet, plus simple script to transform
+a Hebrew transcription of an Imperial Aramaic text to its own Unicode block.
+
+TODO: Add Hebrew-to-Aramaic converter
+"""
+
+
+IMPERIAL_ARAMAIC_BLOCK = [
+    # Imperial Aramaic block as it is provided
+    # by https://www.unicode.org/charts/PDF/U10840.pdf
+    # The Unicode Standard, Version 13.0
+    ("10840", "IMPERIAL ARAMAIC LETTER ALEPH", "\N{IMPERIAL ARAMAIC LETTER ALEPH}"),
+    ("10841", "IMPERIAL ARAMAIC LETTER BETH", "\N{IMPERIAL ARAMAIC LETTER BETH}"),
+    ("10842", "IMPERIAL ARAMAIC LETTER GIMEL", "\N{IMPERIAL ARAMAIC LETTER GIMEL}"),
+    ("10843", "IMPERIAL ARAMAIC LETTER DALETH", "\N{IMPERIAL ARAMAIC LETTER DALETH}"),
+    ("10844", "IMPERIAL ARAMAIC LETTER HE", "\N{IMPERIAL ARAMAIC LETTER HE}"),
+    ("10845", "IMPERIAL ARAMAIC LETTER WAW", "\N{IMPERIAL ARAMAIC LETTER WAW}"),
+
+=== 235 23shades-0112-aafafebib ===
+{"dataset_id": "aafafebib", "repo_name": "vi3k6i5/GuidedLDA", "filename": "guidedlda/guidedlda.py", "comment_introducing_revision": "https://github.com/vi3k6i5/GuidedLDA/commit/cf0b68234ce9333740bd967e8e10135f309dcfd9", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "cf0b68234ce9333740bd967e8e10135f309dcfd9"}
+[comment_text]
+FIXME: using numpy.roll with a random shift might be faster
+[source_context]
+
+        Parameters
+        ----------
+        X: array-like, shape (n_samples, n_features)
+            Training vector, where n_samples in the number of samples and
+            n_features is the number of features. Sparse matrix allowed.
+        """
+        random_state = guidedlda.utils.check_random_state(self.random_state)
+        rands = self._rands.copy()
+
+        self._initialize(X, seed_topics, seed_confidence)
+        for it in range(self.n_iter):
+            # FIXME: using numpy.roll with a random shift might be faster
+            random_state.shuffle(rands)
+            if it % self.refresh == 0:
+                ll = self.loglikelihood()
+                logger.info("<{}> log likelihood: {:.0f}".format(it, ll))
+                # keep track of loglikelihoods for monitoring convergence
+                self.loglikelihoods_.append(ll)
+            self._sample_topics(rands)
+        ll = self.loglikelihood()
+        logger.info("<{}> log likelihood: {:.0f}".format(self.n_iter - 1, ll))
+        # note: numpy /= is integer division
+        self.components_ = (self.nzw_ + self.eta).astype(float)
+        self.components_ /= np.sum(self.components_, axis=1)[:, np.newaxis]
+
+=== 236 23shades-0396-aaggjhfeh ===
+{"dataset_id": "aaggjhfeh", "repo_name": "jhu-lcsr/costar_plan", "filename": "costar_google_brainrobotdata/grasp_dataset.py", "comment_introducing_revision": "https://github.com/jhu-lcsr/costar_plan/commit/b81c8575a9e01e64f890fee3f30c3cef99dd72ac", "comment_removing_revision": "https://github.com/jhu-lcsr/costar_plan/commit/03c95420f728969f54bbf8f23b24529c5c08ee9a", "source_context_status": "available", "source_context_commit": "b81c8575a9e01e64f890fee3f30c3cef99dd72ac"}
+[comment_text]
+TODO(ahundt) MOVE THE CODE ABOVE INTO _get_simple_parallel_dataset_ops()
+[source_context]
+            raise ValueError('ERROR: unknown grasp_sequence_motion_params selected: {}'.format(motion_params))
+
+        # # get all features that map from the current end effector pose to the final pose
+        # feature_op_dicts, features_complete_list, new_pose_op_params = self._endeffector_current_T_endeffector_final(
+        #     feature_op_dicts, features_complete_list, feature_type=cte_feature_type)
+        # pose_op_params.extend(new_pose_op_params)
+        # # get all features for surface relative transforms
+        # (feature_op_dicts, features_complete_list, new_pose_op_params,
+        #     pixel_coordinate_param_names) = self._get_surface_relative_transform_features(
+        #     feature_op_dicts, features_complete_list, feature_type=srt_feature_type)
+        # pose_op_params.extend(new_pose_op_params)
+
+        # TODO(ahundt) MOVE THE CODE ABOVE INTO _get_simple_parallel_dataset_ops()
+
+        # our training batch size will be batch_size * grasp_steps
+        # because we will train all grasp step images w.r.t. final
+        # grasp success result value
+        pregrasp_op_batch = []
+        grasp_step_op_batch = []
+        # simplified_network_grasp_command_op
+        simplified_grasp_command_op_batch = []
+        grasp_success_op_batch = []
+
+        # go through every element in the batch
+        for fixed_feature_op_dict, sequence_feature_op_dict in feature_op_dicts:
+
+=== 237 23shades-0137-aahjacacc ===
+{"dataset_id": "aahjacacc", "repo_name": "JohnVinyard/zounds", "filename": "model/pipeline.py", "comment_introducing_revision": "https://github.com/JohnVinyard/zounds/commit/bab5c8f7ef5e77f42e7eadbfa757127b012ce750", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "bab5c8f7ef5e77f42e7eadbfa757127b012ce750"}
+[comment_text]
+KLUDGE: Is this always OK?
+[source_context]
+        self.learn = learn
+        # the date this pipeline completed training
+        self.trained_date = None
+        
+
+    def train(self,nexamples,stopping_condition):
+        '''
+        param stopping_condition: A callable that is specific to the 
+        Learn-derived class. It is evaluated periodically by Learn.train to 
+        decide when learning is complete.
+        '''
+        data = self.fetch(nexamples = nexamples)
+        # KLUDGE: Is this always OK?
+        data = flatten2d(data)
+        data = self.preprocess(data)
+        # TODO checkpoints, incremental save
+        self.learn.train(data,stopping_condition)
+        self.trained_date = datetime.utcnow()
+        self.store()
+    
+    def __call__(self,data):
+        data = self.preprocess(data)
+        return self.learn(data)
+    
+    def store(self):
+
+=== 238 23shades-0693-aajacfjhb ===
+{"dataset_id": "aajacfjhb", "repo_name": "chainer/chainer", "filename": "chainer/graph_optimizations/static_graph.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/22c5d798e356e820acc9687225e306031a213679", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "22c5d798e356e820acc9687225e306031a213679"}
+[comment_text]
+todo: set in initializer as keyword arg?
+[source_context]
+            # device id, if available.
+            self.device = cuda.get_device_from_array(array)
+        else:
+            # numpy (cpu)
+            self.device = -1
+        # todo: save array order ('C', 'F' as well?
+        # It specifies the input variable corresponding
+        # to this array as the tuple (pass_depth, in_var_index).
+        self.in_var_index = None
+        # It specifies the output variable corresponding
+        # to this array as the tuple (pass_depth, out_var_index).
+        self.out_var_index = None
+        # todo: set in initializer as keyword arg?
+        self.dynamically_allocated = False
+        # If the array was returned as a dynamically allocated array
+        # in the define-by-run code, this specifies the location
+        # in the schedule as the tuple (pass_depth, sched_func_index)
+        # where sched_func_index is the index of the corresponding
+        # ScheduleInfo object in the StaticScheduleFunction's
+        # self.schedule_info_list
+        self.dynamic_allocation_index = None
+        self.dynamic_allocation_pass_depth = None
+        self.dynamic_deletion_index = None
+        self.dynamic_deletion_pass_depth = None
+        # This is the same as self.dynamic_allocation_index, but for the
+
+=== 239 23shades-0481-aaeifhdjh ===
+{"dataset_id": "aaeifhdjh", "repo_name": "IntelPython/sdc", "filename": "sdc/datatypes/hpat_pandas_dataframe_pass.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/bca334dfe32973ecb726a54bfcfe7747be825a71", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "bca334dfe32973ecb726a54bfcfe7747be825a71"}
+[comment_text]
+TODO: check for series\/dict\/list input
+[source_context]
+                args = false_arr_args
+            f_block = numba.ir_utils.compile_to_numba_ir(func, {'sdc': sdc, 'numpy': numpy}).blocks.popitem()[1]
+            numba.ir_utils.replace_arg_nodes(f_block, args)
+            nodes += f_block.body[:-2]
+            out_df_map[cname] = nodes[-1].target
+
+        self._create_df(lhs.name, out_df_map, label)
+        return nodes
+
+    def _handle_df_append(self, lhs, rhs, df_var, label):
+        other = self._get_arg('append', rhs.args, dict(rhs.kws), 0, 'other')
+        # only handles df or list of df input
+        # TODO: check for series/dict/list input
+        # TODO: enforce ignore_index=True?
+        # single df case
+        if self._is_df_var(other):
+            return self._handle_concat_df(lhs, [df_var, other], label)
+        # list of dfs
+        df_list = guard(numba.ir_utils.get_definition, self.state.func_ir, other)
+        if len(df_list.items) > 0 and self._is_df_var(df_list.items[0]):
+            return self._handle_concat_df(lhs, [df_var] + df_list.items, label)
+        raise ValueError("invalid df.append() input. Only dataframe and list of dataframes supported")
+
+    def _handle_df_fillna(self, lhs, rhs, df_var, label):
+        nodes = []

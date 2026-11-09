@@ -1,0 +1,77 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4603",
+  "issue_url": "https://github.com/opendp/smartnoise-sdk/issues/505",
+  "source_issue_url": "https://github.com/opendp/smartnoise-sdk/issues/505",
+  "api_url": "https://api.github.com/repos/opendp/smartnoise-sdk/issues/505",
+  "title": "Add anonymization transformer",
+  "body": "### User story\r\nAs a user of the `smartnoise-synth` library, I frequently want to anonymize personally identifiable information (PII) in the data.\r\n\r\n### Detailed description\r\nTo prevent leakage of sensitive information PII is anonymized by an analyst when preprocessing the data. Generating fake data is a solution because it discards existing values and instead uses entirely new ones. The most popular library for this is [Faker](https://pypi.org/project/Faker).\r\n\r\n### Proposed solution\r\nOne possibility would be to follow the idea of the Synthetic Data Vault (SDV) [implementation](https://github.com/sdv-dev/SDV/discussions/667). It integrates `Faker` and allows a user to pass an `anonymize_fields` keyword argument. This maps a column to a corresponding provider. Even though that is quite user-friendly, it restricts the usage of more complex generation ideas, e.g. providing a custom implementation.\r\n\r\nTherefore, I suggest not to integrate `Faker` directly, but instead let the user pass a function for generating fake data. Since data transforms can be provided in a `TableTransformer` object, I suggest implementing a new `ColumnTransformer` class for anonymization.\r\n\r\nFeel free to make suggestions. I will implement the functionality soon.\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2022-11-20T16:42:39Z",
+  "updated_at": "2022-12-02T19:07:32Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:08.371870+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:08.371870+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1321200323,
+      "url": "https://github.com/opendp/smartnoise-sdk/issues/505#issuecomment-1321200323",
+      "created_at": "2022-11-20T17:51:19Z",
+      "updated_at": "2022-11-20T17:51:19Z",
+      "author": "Participant 2",
+      "body": "That's a great idea.  I think it's OK to take a dependency on faker for their built-ins, but I also like the idea of allowing overrides.  As you suggest, this should be possible by deriving `snsynth.transform.base.ColumnTransformer` .  Since it will be assuming the column is PII, it shouldn't be necessary to implement anything for `_fit`, just for `_transform` and `_inverse_transform`.  Presumably the `_transform` just scrubs the value, and `_inverse_transform` generates fake PII when reversing the transform.\r\n\r\nThe current `ColumnTransformer` design allows `_transform` to map from 1 to n columns, with `_inverse_transform` mapping back from n to 1.  I'm not entirely sure the best way to handle this with, for example, a single column of PII.  Conceptually, the whole PII column is dropped, but then we have nothing to invert back (we can't map 1-->0 and then 0<--1).  An easy choice would be for `_transform` on the anonymizing `ColumnTransformer` to emit a column of `None` that the `TableTransformer` can then ignore when feeding the synthesizers (and re-inject on reverse transform).  So, the anonymizing column transformer would only emit the column of `None` when operating standalone or in a `ChainTransformer`.\r\n\r\nOf course, I am assuming that the synthesizers don't want to train on fake PII, so it's best to drop those inbound and add the fakes outbound.  However, there might be cases where someone wants to replace real PII with fakes in both directions, in which case `_transform` could add fakes.\r\n\r\nI'm assuming some of the more common types of PII could be specified when creating the column transformer:\r\n\r\n```python\r\nanon = TheNewColumnTransformer(some_prop_to_specify_fake_type='email')\r\nassert(anon.fit_complete)\r\nscrubbed = anon.transform(my_email_list)\r\nreversed_emails = anon.inverse_transform(scrubbed)\r\nassert(len(reversed_emails) == len(my_email_list))\r\n```\r\n\r\nAnd then maybe that could also take a caller-provided function per your proposal?\r\n\r\nIf you get the `ColumnTransformer` implemented, I can plug it in to `TableTransformer` and the data type inference stuff.  This would actually unblock a feature we want to add for SQL as well, so we can auto-generate metadata.\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 1321247065,
+      "url": "https://github.com/opendp/smartnoise-sdk/issues/505#issuecomment-1321247065",
+      "created_at": "2022-11-20T21:26:30Z",
+      "updated_at": "2022-11-20T21:26:30Z",
+      "author": "Participant 1",
+      "body": "Thanks for your feedback. I agree on the proposed functionality / API and will start implementing the `ColumnTransformer` subclass."
+    },
+    {
+      "id": 1333799367,
+      "url": "https://github.com/opendp/smartnoise-sdk/issues/505#issuecomment-1333799367",
+      "created_at": "2022-12-01T13:51:46Z",
+      "updated_at": "2022-12-01T13:51:46Z",
+      "author": "Participant 1",
+      "body": "The `AnonymizationTransformer` itself is implemented, tested and merged.\r\n\r\nI will leave this issue open until some tests with usage in a `TableTransformer` are implemented and successful."
+    },
+    {
+      "id": 1335200320,
+      "url": "https://github.com/opendp/smartnoise-sdk/issues/505#issuecomment-1335200320",
+      "created_at": "2022-12-02T13:04:48Z",
+      "updated_at": "2022-12-02T13:04:48Z",
+      "author": "Participant 1",
+      "body": "Thanks @joshua-oss for implementing the tests and basic PII inference in #515.\r\n\r\nI think it is important for a user to be able to read the documented API / examples. Can you rebuild the synthesizers / transforms documentation with the latest additions?"
+    },
+    {
+      "id": 1335650624,
+      "url": "https://github.com/opendp/smartnoise-sdk/issues/505#issuecomment-1335650624",
+      "created_at": "2022-12-02T18:24:42Z",
+      "updated_at": "2022-12-02T18:24:42Z",
+      "author": "Participant 2",
+      "body": "Yep, I attempted to do it when pushing, but there is some syntax error that is making Sphinx crash.  I'll fix that shortly and push a doc update."
+    },
+    {
+      "id": 1335691574,
+      "url": "https://github.com/opendp/smartnoise-sdk/issues/505#issuecomment-1335691574",
+      "created_at": "2022-12-02T19:07:31Z",
+      "updated_at": "2022-12-02T19:07:31Z",
+      "author": "Participant 2",
+      "body": "Done!  There were just two underlines that were too short, and then a breaking change in pydata-sphinx-theme."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/opendp/smartnoise-sdk/issues/505",
+  "closed_at_available": false
+}

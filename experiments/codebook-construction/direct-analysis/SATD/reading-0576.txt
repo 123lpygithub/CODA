@@ -1,0 +1,364 @@
+
+=== 576 23shades-0238-aagaggbcc ===
+{"dataset_id": "aagaggbcc", "repo_name": "araffin/srl-zoo", "filename": "evaluation/utils.py", "comment_introducing_revision": "https://github.com/araffin/srl-zoo/commit/9523719a3757bd73f99de9385affc5388ec288ab", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "9523719a3757bd73f99de9385affc5388ec288ab"}
+[comment_text]
+TODO add param for relative path vs just folder names
+[source_context]
+        return DEFAULT_DATASET
+    else:
+        sys.exit('get_movie_test_set_for_data_folder has not defined a set for: {}'.format(data_folder))
+
+
+def remove_dataset_name(string):
+    for dataset in ALL_DATASETS:
+        if string.endswith(dataset):
+            return string[:(len(string) - len(dataset))]
+
+
+def get_immediate_subdirectories_path(given_path,
+                                      containing_pattern_in_name=''):  # TODO add param for relative path vs just folder names
+    return [name for name in os.listdir(given_path)
+            if os.path.isdir(os.path.join(given_path, name)) and containing_pattern_in_name in os.path.join(given_path,
+                                                                                                            name)]
+
+
+def get_immediate_files_in_path(given_path, containing_pattern_in_name=''):
+    return [os.path.join(given_path, name) for name in os.listdir(given_path)
+            if os.path.isfile(os.path.join(given_path, name)) and containing_pattern_in_name in os.path.join(given_path,
+                                                                                                             name)]
+
+
+# 50 lines, 49 images (1 repeated by error) IMAGES TEST SET HANDPICKED TO SHOW VISUAL VARIABILITY
+
+=== 577 23shades-0643-aagbdffff ===
+{"dataset_id": "aagbdffff", "repo_name": "nmstoker/lockebot", "filename": "basebot.py", "comment_introducing_revision": "https://github.com/nmstoker/lockebot/commit/d49862174dc0de6a53740058bd407bad91c3b98e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "d49862174dc0de6a53740058bd407bad91c3b98e"}
+[comment_text]
+TODO: put in the option to do substitution here (most likely scenario;
+[source_context]
+            'template_text': 'Template 1: Example $NUMBER'},
+        {
+            'intent': 'feature_example',
+            'template_text': 'Template 2: Example $FEATURE'}
+        ]
+
+    for t in templates:
+        if t['intent'] == resp['intent']:
+            matching_templates.append(t)
+
+    # TODO: put in a better 'fitness' selection process here!!
+    chosen_template = random.choice(matching_templates)
+    # TODO: put in the option to do substitution here (most likely scenario,
+    #      barring edge cases)
+    return chosen_template['template_text']
+
+
+def handle_feature_example(resp,
+                           detail=False,
+                           overload_item=None,
+                           verbose=False):
+    logger.debug('Intent: feature_at_example')
+    sql = 'SELECT {fields} FROM `example`'
+    num = None
+    loc = None
+
+=== 578 23shades-0764-aadiicibd ===
+{"dataset_id": "aadiicibd", "repo_name": "IntelAI/models", "filename": "models/language_translation/tensorflow/transformer_mlperf/training/fp32/transformer/utils/dataset.py", "comment_introducing_revision": "https://github.com/IntelAI/models/commit/8a001dc9bacfc0553cf92738594de2ab15f47683", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "8a001dc9bacfc0553cf92738594de2ab15f47683"}
+[comment_text]
+TODO: verify if it is working
+[source_context]
+  #dataset = _batch_examples(dataset, batch_size, max_length)
+  if static_batch == "Yes":
+    dataset = dataset.padded_batch(
+        batch_size // max_length, ([max_length], [max_length]),
+        drop_remainder=True)
+  else:
+    # Group and batch such that each batch has examples of similar length.
+    dataset = _batch_examples(dataset, batch_size, max_length)
+
+  dataset = dataset.repeat(repeat)
+
+  # horovod: do shard if enabled multi-instance while training
+  #TODO: verify if it is working
+  if shuffle and has_horovod:
+    import horovod.tensorflow as hvd
+    shape = dataset.output_shapes
+    dataset = dataset.shard(hvd.size(), hvd.rank())
+
+  # Prefetch the next element to improve speed of input pipeline.
+  dataset = dataset.prefetch(1)
+  return dataset
+
+
+def train_input_fn(params):
+  """Load and return dataset of batched examples for use during training."""
+
+=== 579 23shades-0069-aafdeebba ===
+{"dataset_id": "aafdeebba", "repo_name": "trevorstephens/gplearn", "filename": "gplearn/skutils/estimator_checks.py", "comment_introducing_revision": "https://github.com/trevorstephens/gplearn/commit/8253491ac815c780aa43fb1af7a8ba59efa304a8", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "8253491ac815c780aa43fb1af7a8ba59efa304a8"}
+[comment_text]
+FIXME
+[source_context]
+
+
+def check_estimators_overwrite_params(name, Estimator):
+    X, y = make_blobs(random_state=0, n_samples=9)
+    y = multioutput_estimator_convert_y_2d(name, y)
+    # some want non-negative input
+    X -= X.min()
+    with warnings.catch_warnings(record=True):
+        # catch deprecation warnings
+        estimator = Estimator()
+
+    if name == 'MiniBatchDictLearning' or name == 'MiniBatchSparsePCA':
+        # FIXME
+        # for MiniBatchDictLearning and MiniBatchSparsePCA
+        estimator.batch_size = 1
+
+    set_fast_parameters(estimator)
+    set_random_state(estimator)
+
+    # Make a physical copy of the orginal estimator parameters before fitting.
+    params = estimator.get_params()
+    original_params = deepcopy(params)
+
+    # Fit the model
+    estimator.fit(X, y)
+
+=== 580 23shades-0837-aaicicaia ===
+{"dataset_id": "aaicicaia", "repo_name": "scikit-learn/scikit-learn", "filename": "sklearn/gaussian_process/tests/test_gpr.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/cb7c4243e8010827831526ee9757d88b44ff15ef", "comment_removing_revision": "https://github.com/scikit-learn/scikit-learn/commit/555bb11554158c04a7c0956fc88e23235e280e29", "source_context_status": "available", "source_context_commit": "cb7c4243e8010827831526ee9757d88b44ff15ef"}
+[comment_text]
+XXX: Check why only 2 digits
+[source_context]
+        assert_greater(gpr.log_marginal_likelihood(kernel.params),
+                       gpr.log_marginal_likelihood(params_initial))
+
+
+def test_converged_to_local_maximum():
+    """ Test that we are in local maximum after hyperparameter-optimization."""
+    for kernel in kernels:
+        kernel = deepcopy(kernel)
+        gpr = GaussianProcessRegressor(kernel=kernel).fit(X, y)
+
+        lml, lml_gradient = gpr.log_marginal_likelihood(kernel.params, True)
+
+        assert_almost_equal(lml_gradient, 0, 2)  # XXX: Check why only 2 digits
+
+
+def test_solution_inside_bounds():
+    """ Test that hyperparameter-optimization remains in bounds"""
+    for kernel in kernels:
+        kernel = deepcopy(kernel)
+        gpr = GaussianProcessRegressor(kernel=kernel).fit(X, y)
+
+        bounds = kernel.bounds
+        max_ = np.finfo(bounds.dtype).max
+        tiny = np.finfo(bounds.dtype).tiny
+        bounds[~np.isfinite(bounds[:, 1]), 1] = max_
+
+=== 581 23shades-0766-aajacaegf ===
+{"dataset_id": "aajacaegf", "repo_name": "chainer/chainer", "filename": "chainer/graph_optimizations/static_graph.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/aef64159d655c7196f8227f20afb1d1a8b4598b7", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "aef64159d655c7196f8227f20afb1d1a8b4598b7"}
+[comment_text]
+todo: We can potentially reduce memory usage by freeing memory
+[source_context]
+        # correspond to parameter arrays.
+        assert len(self.unique_arrays) > 0
+        for unique_array_index, ar in enumerate(self.unique_arrays):
+            if id(ar) in self.array_id_to_param_map:
+                param_attribute_location = self.array_id_to_param_map[id(ar)]
+                hook = (unique_array_index, param_attribute_location)
+                self.param_hooks.append(hook)
+
+        if self.verbosity_level >= 2:
+            print('self.param_hooks: ', self.param_hooks)
+
+
+        # todo: We can potentially reduce memory usage by freeing memory
+        # of intermediate arrays
+        # once they are no longer needed in the schedule or by
+        # parameters. However, we cannot know without checking
+        # if retain_inputs/outputs has been called and/or checking
+        # the backward schedule.
+        #for func_info in self.schedule_info_list:
+        #    func = func_info.func
+        #    args = func_info.args
+        #    kwargs = func_info.kwargs
+        #    func_name = func_info.func_name
+
+
+
+=== 582 23shades-0504-aagbbijce ===
+{"dataset_id": "aagbbijce", "repo_name": "YannDubs/disentangling-vae", "filename": "main.py", "comment_introducing_revision": "https://github.com/YannDubs/disentangling-vae/commit/53ece38613f466fdf23454117c7acba6ae16b04f", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "53ece38613f466fdf23454117c7acba6ae16b04f"}
+[comment_text]
+TO-DO: currently uses train datatset
+[source_context]
+                          is_progress_bar=not args.no_progress_bar,
+                          checkpoint_every=args.checkpoint_every,
+                          dataset=args.dataset)
+
+        trainer(train_loader, epochs=args.epochs)
+
+        # SAVE MODEL AND EXPERIMENT INFORMATION
+        save_model(trainer.model, exp_dir, metadata=vars(args))
+
+    if args.is_metrics or not args.no_test:
+        model = load_model(exp_dir, is_gpu=not args.no_cuda)
+        metadata = load_metadata(exp_dir)
+        # TO-DO: currently uses train datatset
+        test_loader = get_dataloaders(metadata["dataset"],
+                                      batch_size=args.eval_batchsize, shuffle=False)
+
+        loss_kwargs = vars(args).copy()
+        loss_kwargs["data_size"] = len(test_loader.dataset)
+        evaluator = Evaluator(model,
+                              loss_type=args.loss,
+                              loss_kwargs=loss_kwargs,
+                              device=device,
+                              logger=logger,
+                              save_dir=exp_dir,
+                              is_progress_bar=not args.no_progress_bar)
+
+=== 583 23shades-0564-aafjicajb ===
+{"dataset_id": "aafjicajb", "repo_name": "ai-med/nn-common-modules", "filename": "nn_common_modules/modules.py", "comment_introducing_revision": "https://github.com/ai-med/nn-common-modules/commit/1a84330d3836a887c5423db423cbab0ed9e80453", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "1a84330d3836a887c5423db423cbab0ed9e80453"}
+[comment_text]
+TODO: Implement Conv Transpose
+[source_context]
+        :param out_block: Tensor for skip connection, shape = (N x C x H x W), defaults to None
+        :type out_block: torch.tensor [FloatTensor], optional
+        :param indices: Indices used for unpooling operation, defaults to None
+        :type indices: torch.tensor, optional
+        :param weights: Weights used for squeeze and excitation, shape depends on the type of SE block, defaults to None
+        :type weights: torch.tensor, optional
+        :return: Forward passed tensor
+        :rtype: torch.tensor [FloatTensor]
+        """
+        if indices is not None:
+            unpool = self.unpool(input, indices)
+        else:
+            # TODO: Implement Conv Transpose
+            print("You have to use Conv Transpose")
+
+        if out_block is not None:
+            concat = torch.cat((out_block, unpool), dim=1)
+        else:
+            concat = unpool
+        out_block = super(DecoderBlock, self).forward(concat)
+
+        if self.SELayer:
+            out_block = self.SELayer(out_block, weights)
+
+        if self.drop_out_needed:
+
+=== 584 23shades-0561-aaegihffd ===
+{"dataset_id": "aaegihffd", "repo_name": "chartbeat-labs/textacy", "filename": "textacy/lang_utils.py", "comment_introducing_revision": "https://github.com/chartbeat-labs/textacy/commit/26bac29e6ffc90c53e05fd3a6cdf0c85d55e7cfa", "comment_removing_revision": "https://github.com/chartbeat-labs/textacy/commit/639571b12a88b2b3e2cd3ddd393fd06c5d80532e", "source_context_status": "available", "source_context_commit": "26bac29e6ffc90c53e05fd3a6cdf0c85d55e7cfa"}
+[comment_text]
+TODO: identify the \"best\" language detector available for OSS python
+[source_context]
+"""
+Language Detection
+------------------
+"""
+# TODO: identify the "best" language detector available for OSS python
+# in terms of prediction accuracy/precision/recall, speed, and installation
+# current candidates:
+# - cld2-cffi https://github.com/GregBowyer/cld2-cffi
+# - pycld2 https://github.com/aboSamoor/pycld2
+# - cld3 https://github.com/google/cld3 or https://github.com/Elizafox/cld3
+# - langdetect https://github.com/Mimino666/langdetect
+# - whatthelang https://github.com/indix/whatthelang
+# - langid https://github.com/saffsd/langid.py
+from __future__ import absolute_import, division, print_function, unicode_literals
+
+import logging
+
+
+=== 585 23shades-0267-aajgajdca ===
+{"dataset_id": "aajgajdca", "repo_name": "mne-tools/mne-python", "filename": "mne/fiff/realtime.py", "comment_introducing_revision": "https://github.com/mne-tools/mne-python/commit/4a6b955f53cf0580b9c46b896e4fc65f17a2c5a8", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "4a6b955f53cf0580b9c46b896e4fc65f17a2c5a8"}
+[comment_text]
+ToDo consider 3D case --> do that by using tag->size
+[source_context]
+#                                 tag.data = zeros(el_size/4, 1);
+#                                 for i = 1:el_size/4
+#                                     tag.data(i) = p_DataInputStream.readInt;%idata = fread(fid,dims(1)*dims(2),'int32=>int32');
+#                                 end
+                    if matrix_type == FIFF.FIFFT_FLOAT:
+                        tmp = self.m_ClientSock.recv(el_size)
+                        tag.data = np.fromstring(tmp, dtype='>f4') #fdata = fread(fid,dims(1)*dims(2),'single=>double');
+#                        tag.data = swapbytes(tag.data);
+                    else:
+                        raise Exception('Cannot handle a matrix of type %d yet' % matrix_type)
+
+
+                    # ToDo consider 3D case --> do that by using tag->size
+
+                    dims[0] = np.fromstring(self.m_ClientSock.recv(4), dtype='>i4')
+                    dims[1] = np.fromstring(self.m_ClientSock.recv(4), dtype='>i4')
+
+                    ndim = np.fromstring(self.m_ClientSock.recv(4), dtype='>i4')
+
+                    tag.data = tag.data.reshape(dims)
+                else:
+                    raise Exception('Cannot handle other than dense or sparse matrices yet')
+            else:
+                #
+                #   All other data types
+
+=== 586 23shades-0013-aaebbeedd ===
+{"dataset_id": "aaebbeedd", "repo_name": "Calysto/conx", "filename": "conx/_cairosvg.py", "comment_introducing_revision": "https://github.com/Calysto/conx/commit/4c3d631b7d3976d902765b2b4077f56edfba9970", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "4c3d631b7d3976d902765b2b4077f56edfba9970"}
+[comment_text]
+## elif (): ## FIXME: handle other bases here
+[source_context]
+
+from cairosvg.helpers import node_format, preserve_ratio, preserved_ratio, size
+from cairosvg.parser import Tree
+from cairosvg.surface import cairo
+from cairosvg.url import parse_url
+
+
+def uri2image_bytes(image_str):
+    """Convert a 'data:...' URI to image_bytes"""
+    header, image_data = image_str.split(",")
+    if header.endswith("base64"):
+        image_binary = base64.b64decode(image_data)
+    ### elif (): ## FIXME: handle other bases here
+    return image_binary
+
+def image(surface, node):
+    """Draw an image ``node``."""
+    base_url = node.get('{http://www.w3.org/XML/1998/namespace}base')
+    if not base_url and node.url:
+        base_url = os.path.dirname(node.url) + '/'
+    url = parse_url(node.get('{http://www.w3.org/1999/xlink}href'), base_url)
+    if "href" in node and node["href"].startswith("data:image/"): # gif, etc
+        image_bytes = uri2image_bytes(node["href"])
+    else:
+        image_bytes = node.fetch_url(url, 'image/*')
+
+=== 587 23shades-0071-aafiaaaih ===
+{"dataset_id": "aafiaaaih", "repo_name": "wenwei202/iss-rnns", "filename": "basic/prepro.py", "comment_introducing_revision": "https://github.com/wenwei202/iss-rnns/commit/9b7efab129a10e8cb14d0ce54c7c61ab9e67c290", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "9b7efab129a10e8cb14d0ce54c7c61ab9e67c290"}
+[comment_text]
+FIXME : adhoc (answer being last word); not ignoring single question
+[source_context]
+                    char_counter.update(char for sent in context_words for word in sent for char in word)
+                    word_counter.update(word for word in question_words)
+                    char_counter.update(char for word in question_chars for char in word)
+                    max_ques_size = max(max_ques_size, len(question_words))
+                    max_ques_word_size = max(max_ques_word_size, max(map(len, question_chars)))
+                    bs = []
+                    for answer in qa['answers'][:1]:  # Fix this to use all answers!
+                        start_idx = answer['start_idx']
+                        stop_idx = answer['stop_idx']
+                        # If span is extended further than the sent length
+                        if stop_idx[1] > len(context_words[stop_idx[0]]):
+                            invalid_stop_idx_counter += 1
+                            # FIXME : adhoc (answer being last word), not ignoring single question
+                            start_idx[1] = len(context_words[start_idx[0]]) - 1
+                            stop_idx[1] = start_idx[1] + 1
+                        full_span = [start_idx, stop_idx]
+                        support_tree = nltk.tree.Tree.fromstring(consts[start_idx[0]])
+                        span = (start_idx[1], stop_idx[1])
+                        set_span(support_tree)
+                        b = int(tree_contains_span(support_tree, span))
+                        bs.append(b)
+
+                        max_span, f1 = find_max_f1_span(support_tree, span)
+                        f1s.append(f1)
+

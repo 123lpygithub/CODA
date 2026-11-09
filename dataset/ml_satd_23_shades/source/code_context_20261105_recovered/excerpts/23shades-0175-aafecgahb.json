@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:6455e4cd13f853b4d245232f3323b2d5ba239029/raw/",
+  "source_sha256": "574265723811e23a01164d72ae51cf407e3ba74b8746a92d39cb0a098f81c22a",
+  "fetched_at": "2026-11-05T06:42:57.417303+00:00",
+  "archive_directory": "f85da8fc8e3ea3063fd5885a33ffbaf2abf3846e",
+  "git_blob_sha1": "6455e4cd13f853b4d245232f3323b2d5ba239029",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/19b2103de8a502a6569c6a1dce0d75c5465d66dd/",
+  "artifact_id": "23shades-0175-aafecgahb",
+  "revision_url": "https://github.com/AKSHAYUBHAT/DeepVideoAnalytics/commit/19b2103de8a502a6569c6a1dce0d75c5465d66dd",
+  "filename": "repos/slim/nets/resnet_v2.py",
+  "commit": "19b2103de8a502a6569c6a1dce0d75c5465d66dd",
+  "line_start": 191,
+  "line_end": 215,
+  "excerpt": "          if output_stride is not None:\n            if output_stride % 4 != 0:\n              raise ValueError('The output_stride needs to be a multiple of 4.')\n            output_stride /= 4\n          # We do not include batch normalization or activation functions in\n          # conv1 because the first ResNet unit will perform these. Cf.\n          # Appendix of [2].\n          with slim.arg_scope([slim.conv2d],\n                              activation_fn=None, normalizer_fn=None):\n            net = resnet_utils.conv2d_same(net, 64, 7, stride=2, scope='conv1')\n          net = slim.max_pool2d(net, [3, 3], stride=2, scope='pool1')\n        net = resnet_utils.stack_blocks_dense(net, blocks, output_stride)\n        # This is needed because the pre-activation variant does not have batch\n        # normalization or activation functions in the residual unit output. See\n        # Appendix of [2].\n        net = slim.batch_norm(net, activation_fn=tf.nn.relu, scope='postnorm')\n        # Convert end_points_collection into a dictionary of end_points.\n        end_points = slim.utils.convert_collection_to_dict(\n            end_points_collection)\n\n        if global_pool:\n          # Global average pooling.\n          net = tf.reduce_mean(net, [1, 2], name='pool5', keep_dims=True)\n          end_points['global_pool'] = net\n        if num_classes is not None:",
+  "match_policy": "unique-release-normalized-v2"
+}

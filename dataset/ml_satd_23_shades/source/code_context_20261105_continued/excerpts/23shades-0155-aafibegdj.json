@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0155-aafibegdj",
+  "revision_url": "https://github.com/ComputationalCryoEM/ASPIRE-Python/commit/f85cdd3bd1522c5334c17bdc52bad4847e7e9996",
+  "filename": "src/aspire/image/image.py",
+  "commit": "f85cdd3bd1522c5334c17bdc52bad4847e7e9996",
+  "source_url": "https://raw.githubusercontent.com/ComputationalCryoEM/ASPIRE-Python/f85cdd3bd1522c5334c17bdc52bad4847e7e9996/src/aspire/image/image.py",
+  "fetched_at": "2026-11-05T06:12:03.437978+00:00",
+  "source_sha256": "90d054e0e3f33187547d90df12dc9380d9b14268eed89e8a996de559401ab46f",
+  "line_start": 283,
+  "line_end": 307,
+  "excerpt": "        mult_f = np.exp(-1j * phase_shifts)\n        im_translated_f = im_f * mult_f\n        im_translated = ifft2(im_translated_f, axes=(1, 2))\n        im_translated = np.real(im_translated)\n\n        return Image(im_translated)\n\n    def norm(self):\n        return anorm(self.data)\n\n    @property\n    def size(self):\n        # probably not needed, transition\n        return np.size(self.data)\n\n    def backproject(self, rot_matrices):\n        \"\"\"\n        Backproject images along rotation\n        :param im: An Image (stack) to backproject.\n        :param rot_matrices: An n-by-3-by-3 array of rotation matrices \\\n        corresponding to viewing directions.\n\n        :return: Volume instance corresonding to the backprojected images.\n        \"\"\"\n",
+  "match_policy": "unique-release-normalized-v2"
+}

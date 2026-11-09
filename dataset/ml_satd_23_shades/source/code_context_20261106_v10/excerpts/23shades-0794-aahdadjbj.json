@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0794-aahdadjbj",
+  "revision_url": "https://github.com/deepmind/pysc2/commit/803de8a0f707efc3967fde683836c202c73215af",
+  "filename": "pysc2/bin/play_vs_agent.py",
+  "commit": "803de8a0f707efc3967fde683836c202c73215af",
+  "source_url": "https://raw.githubusercontent.com/deepmind/pysc2/803de8a0f707efc3967fde683836c202c73215af/pysc2/bin/play_vs_agent.py",
+  "fetched_at": "2026-11-05T06:13:53.311103+00:00",
+  "source_sha256": "c59d964743c94cfaf297e1c5b88e43eb384abc86998a440f231055d20a96e4a9",
+  "line_start": 140,
+  "line_end": 164,
+  "excerpt": "  create.player_setup.add(type=sc_pb.Participant)\n\n  controller = host_proc.controller\n  controller.save_map(map_inst.path, map_inst.data(run_config))\n  controller.create_game(create)\n\n  print(\"-\" * 80)\n  print(\"Join host: play_vs_agent --map %s --host %s --host_port %s \"\n        \"--lan_port %s\" % (FLAGS.map, FLAGS.host, client_proc.port, start_port))\n  print(\"-\" * 80)\n\n  join = sc_pb.RequestJoinGame()\n  join.shared_port = 0  # unused\n  join.server_ports.game_port = ports.pop()\n  join.server_ports.base_port = ports.pop()\n  join.client_ports.add(game_port=ports.pop(), base_port=ports.pop())\n\n  join.race = sc2_env.Race[FLAGS.user_race]\n  if FLAGS.render:\n    join.options.raw = True\n    join.options.score = True\n    if FLAGS.feature_screen_size and FLAGS.feature_minimap_size:\n      fl = join.options.feature_layer\n      fl.width = 24\n      fl.resolution.x = FLAGS.feature_screen_size",
+  "match_policy": "unique-release-normalized-v2"
+}

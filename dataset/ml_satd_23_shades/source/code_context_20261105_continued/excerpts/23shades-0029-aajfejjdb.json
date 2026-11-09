@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0029-aajfejjdb",
+  "revision_url": "https://github.com/catalyst-team/catalyst/commit/71f148bd4485e668af3096a977dc815e7ab929d5",
+  "filename": "catalyst/dl/experiments/core.py",
+  "commit": "71f148bd4485e668af3096a977dc815e7ab929d5",
+  "source_url": "https://raw.githubusercontent.com/catalyst-team/catalyst/71f148bd4485e668af3096a977dc815e7ab929d5/catalyst/dl/experiments/core.py",
+  "fetched_at": "2026-11-05T06:11:42.968233+00:00",
+  "source_sha256": "d19762a9e71aa86ff52e4d2bf7f78ba60fbaeeed284f18b1702fe539ec56a737",
+  "line_start": 165,
+  "line_end": 189,
+  "excerpt": "    def _run_batch(self, batch):\n        self.state.step += self.state.batch_size\n        batch = self._batch2device(batch, self.device)\n        self.state.input = batch\n        self.state.output = self.predict_batch(batch)\n\n    def _run_loader(self, loader):\n        self.state.batch_size = loader.batch_size\n        self.state.step = (\n            self.state.step\n            or self.state.epoch * len(loader) * self.state.batch_size\n        )\n        # @TODO: remove time usage, use it under the hood\n        self.state.timer.reset()\n\n        self.state.timer.start(\"_timers/batch_time\")\n        self.state.timer.start(\"_timers/data_time\")\n\n        for i, batch in enumerate(loader):\n            batch = self._batch2device(batch, self.device)\n            self.state.timer.stop(\"_timers/data_time\")\n\n            self._run_event(\"batch_start\")\n\n            self.state.timer.start(\"_timers/model_time\")",
+  "match_policy": "unique-release-normalized-v2"
+}

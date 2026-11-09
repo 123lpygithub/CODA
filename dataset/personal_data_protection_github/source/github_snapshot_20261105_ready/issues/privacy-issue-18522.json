@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18522",
+  "issue_url": "https://github.com/microsoft/vscode/issues/11837",
+  "source_issue_url": "https://github.com/microsoft/vscode/issues/11837",
+  "api_url": "https://api.github.com/repos/microsoft/vscode/issues/11837",
+  "title": "Prevent startup access to 238.172.191",
+  "body": "- VSCode Version: 1.5.1\n- OS Version: Win 7 Home Pro 64\n\nSteps to Reproduce:\n1. Configure all privacy options to false as per [https://code.visualstudio.com/Docs#privacy](https://code.visualstudio.com/Docs#privacy)\n2. Block VSCode at firewall\n3. Start VSCode\n4. VSCode reports 'connect EACCES 191.238.172.191:443' error\n\nI would like to be able to control internet access without having this error message. This problem did not occur in VSCode 1.4. It would be good if there was a privacy setting to prevent this attempted access.\n",
+  "author": "Participant 1",
+  "created_at": "2016-09-11T01:51:48Z",
+  "updated_at": "2017-11-18T12:54:35Z",
+  "state": "closed",
+  "closed_at": "2016-09-30T07:22:16Z",
+  "issue_fetched_at": "2026-10-18T22:11:04.749992+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T22:11:06.143541+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 246269087,
+      "url": "https://github.com/microsoft/vscode/issues/11837#issuecomment-246269087",
+      "created_at": "2016-09-12T07:28:34Z",
+      "updated_at": "2016-09-12T07:28:34Z",
+      "author": "Participant 2",
+      "body": "We will not prevent access, but omit the message instead.\n"
+    },
+    {
+      "id": 246290293,
+      "url": "https://github.com/microsoft/vscode/issues/11837#issuecomment-246290293",
+      "created_at": "2016-09-12T09:08:23Z",
+      "updated_at": "2016-09-12T09:08:23Z",
+      "author": "Participant 1",
+      "body": "Thank you. I think it is unfortunate that VSCode no longer provides privacy settings to allow opting out of internet accesses.\n"
+    },
+    {
+      "id": 246294298,
+      "url": "https://github.com/microsoft/vscode/issues/11837#issuecomment-246294298",
+      "created_at": "2016-09-12T09:25:19Z",
+      "updated_at": "2016-09-12T09:25:41Z",
+      "author": "Participant 2",
+      "body": "Opting out of internet access is not a privacy issue. Disabling telemetry and crash and usage reporting is.\n"
+    },
+    {
+      "id": 247810953,
+      "url": "https://github.com/microsoft/vscode/issues/11837#issuecomment-247810953",
+      "created_at": "2016-09-17T22:06:07Z",
+      "updated_at": "2016-09-17T22:06:07Z",
+      "author": "Participant 1",
+      "body": "Gotta wonder why it's phoning home if it's been configured not to report anything nor update anything.\n"
+    },
+    {
+      "id": 247934864,
+      "url": "https://github.com/microsoft/vscode/issues/11837#issuecomment-247934864",
+      "created_at": "2016-09-19T08:20:24Z",
+      "updated_at": "2016-09-19T08:21:16Z",
+      "author": "Participant 2",
+      "body": "As mentioned above, it's not phoning home, nor pinging the main spaceship, not even calling the motherland. It is looking for extension updates. This is **not** a privacy issue, so it is not included in the **privacy issues** list.\n"
+    },
+    {
+      "id": 250592475,
+      "url": "https://github.com/microsoft/vscode/issues/11837#issuecomment-250592475",
+      "created_at": "2016-09-29T21:10:50Z",
+      "updated_at": "2016-09-29T21:10:50Z",
+      "author": "Participant 3",
+      "body": "Search for extension causes this if VSCode blocked by firewall.\n\nIt's expected, but I guess we still should show a more descriptive message.\n\n![image](https://cloud.githubusercontent.com/assets/4033249/18972538/66590f10-864e-11e6-9d7b-7471a6810244.png)\n"
+    },
+    {
+      "id": 250677419,
+      "url": "https://github.com/microsoft/vscode/issues/11837#issuecomment-250677419",
+      "created_at": "2016-09-30T07:22:16Z",
+      "updated_at": "2016-09-30T07:22:16Z",
+      "author": "Participant 2",
+      "body": "No, I think the message is pretty good.\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

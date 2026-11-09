@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0219-aaeefiahb",
+  "revision_url": "https://github.com/online-ml/river/commit/9aadf6260dd867c26f2b5d2b4f09fb9dacf5cfa2",
+  "filename": "scikit-multiflow/src/skmultiflow/trees/extremely_fast_decision_tree.py",
+  "commit": "9aadf6260dd867c26f2b5d2b4f09fb9dacf5cfa2",
+  "source_url": "https://raw.githubusercontent.com/online-ml/river/9aadf6260dd867c26f2b5d2b4f09fb9dacf5cfa2/scikit-multiflow/src/skmultiflow/trees/extremely_fast_decision_tree.py",
+  "fetched_at": "2026-11-05T06:12:17.387124+00:00",
+  "source_sha256": "fd8ee0c2ce44015e1488f474ef0817e131855abf1f959f83a49a10eb805dab4b",
+  "line_start": 292,
+  "line_end": 316,
+  "excerpt": "                # Reevaluate the best split\n                stop_flag = self._reevaluate_best_split(node, parent, branch_index)\n\n            if not stop_flag:\n                # Move in depth\n                child_index = node.instance_child_index(X)\n                if child_index >= 0:\n                    child = node.get_child(child_index)\n                    if child is not None:\n\n                        self._process_nodes(X, y, weight, child, node, child_index)\n                    else:\n                        # Todo : raise error for nominal attribute\n                        # This possible if there is a problem with child_index, it returns float in case of\n                        # nominal attribute\n                        pass\n        elif self._growth_allowed and isinstance(node, AnyTimeActiveLearningNode):\n            weight_seen = node.get_weight_seen()\n            weight_diff = weight_seen - node.get_weight_seen_at_last_split_evaluation()\n            if weight_diff >= self.grace_period:\n                # Attempt to split\n                self._attempt_to_split(node, parent, branch_index)\n                node.set_weight_seen_at_last_split_evaluation(weight_seen)\n\n    def _sort_instance_into_leaf(self, X, y, weight):"
+}

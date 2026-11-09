@@ -1,0 +1,261 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-7579",
+  "issue_url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951",
+  "source_issue_url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951",
+  "api_url": "https://api.github.com/repos/bigbluebutton/bigbluebutton/issues/8951",
+  "title": "Mute functionality still records and transmits audio to server (FreeSWITCH)",
+  "body": "Hi,\r\n\r\nWhile playing around with settings following https://github.com/bigbluebutton/bigbluebutton/issues/8944 I found out that wether I mute the microphone in bigbluebutton interface or not it doesn't change the upload bandwidth from the client to the bbb server which stays around:\r\n\r\n- around 50 kbit/s with chrome 80\r\n- around 80 kbit/s with firefox 70\r\n\r\nWith microphone unmuted I added music near the microphone and upload bandwith didn't change so I think bbb HTML5 client is always sending some kind of audio stream to the bbb server.\r\n\r\nClient and server: debian 10 amd64. Server running 2.2.0-5 installed with the provided script.\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-04-01T18:17:33Z",
+  "updated_at": "2020-09-22T11:17:43Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:56.226432+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:56.226432+00:00"
+  ],
+  "expected_comment_count": 44,
+  "retrieved_comment_count": 29,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 617615825,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-617615825",
+      "created_at": "2020-04-22T07:55:38Z",
+      "updated_at": "2020-04-22T07:55:38Z",
+      "author": "Participant 2",
+      "body": "In newer Firefox versions (at least 75.0), with muted audio, there is also a blinking/pulsing red microphone in the URL bar. I guess, that indicates, that data is transmitted. (I think, this also causes the BBB tab to be using more energy as shown in `about:performance`.)"
+    },
+    {
+      "id": 688872339,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-688872339",
+      "created_at": "2020-09-08T13:34:33Z",
+      "updated_at": "2020-09-08T13:34:33Z",
+      "author": "Participant 3",
+      "body": "Isn't that the same as every telephone connection where you decide to mute for a moment instead of calling again?"
+    },
+    {
+      "id": 688876348,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-688876348",
+      "created_at": "2020-09-08T13:36:46Z",
+      "updated_at": "2020-09-08T13:37:21Z",
+      "author": "Participant 4",
+      "body": "> Isn't that the same as every telephone connection where you decide to mute for a moment instead of calling again?\r\n\r\nNo, then your phone won’t transmit anything you speak. \r\n\r\nThis thing apparently is still transmitting."
+    },
+    {
+      "id": 688878316,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-688878316",
+      "created_at": "2020-09-08T13:37:51Z",
+      "updated_at": "2020-09-08T13:37:51Z",
+      "author": "Participant 2",
+      "body": "> Isn't that the same as every telephone connection where you decide to mute for a moment instead of calling again?\r\n\r\nInteresting view point, but as the receiver also sees if somebody muted, it’s different from “old” telephone."
+    },
+    {
+      "id": 689111400,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689111400",
+      "created_at": "2020-09-08T20:14:39Z",
+      "updated_at": "2020-09-08T20:14:39Z",
+      "author": "Participant 5",
+      "body": "This is a substantial problem for us. We have shut down all instances as a result of this. BBB is currently unusable because we would violate privacy laws (GDPR etc)"
+    },
+    {
+      "id": 689112706,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689112706",
+      "created_at": "2020-09-08T20:17:36Z",
+      "updated_at": "2020-09-08T20:17:36Z",
+      "author": "Participant 6",
+      "body": "Could you be more specific as to which laws? Audio is sent but not processed by FreeSWITCH."
+    },
+    {
+      "id": 689135303,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689135303",
+      "created_at": "2020-09-08T21:03:44Z",
+      "updated_at": "2020-09-08T21:03:44Z",
+      "author": "Participant 7",
+      "body": "@matiasilva - This is from Wikipedia re GDPR:\r\n\r\n\"The General Data Protection Regulation is a regulation in EU law on data protection and privacy in the European Union and the European Economic Area. It also addresses the transfer of personal data outside the EU and EEA areas.\"\r\n\r\nEven non-EU companies who operate within the EU \"**or**\" have clients/users in the EU are required to comply. I think the issue raised by @psuet re GDPR is that the user expects that his audio is not transmitted when his mic is muted. \r\n\r\nGranted, the audio is not processed as you state and therefore personally I don' t believe this is a serious GDPR issue - though I am not a lawyer. However, the transmission is still a waste of bandwidth and risking a lawsuit in such a situation is not a great idea.\r\n"
+    },
+    {
+      "id": 689152202,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689152202",
+      "created_at": "2020-09-08T21:43:15Z",
+      "updated_at": "2020-09-08T21:43:15Z",
+      "author": "Participant 6",
+      "body": "@iSamof thanks for the clarification! I am resident in the EU, so I'm well aware of the laws. I was asking more specifically to know exactly which violation is happening.\r\n\r\nAgree with you on all other points."
+    },
+    {
+      "id": 689249909,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689249909",
+      "created_at": "2020-09-09T01:54:23Z",
+      "updated_at": "2020-09-09T01:54:23Z",
+      "author": "Participant 8",
+      "body": "> @iSamof thanks for the clarification! I am resident in the EU, so I'm well aware of the laws. I was asking more specifically to know exactly which violation is happening.\r\n> \r\n> Agree with you on all other points.\r\n\r\nBecause you'd need a legal base for this data collection which would in this case be the individual consent of participants. \r\nYou couldn't justify a legal base of legitimate interests in this case as there are too many reasons for not wanting microphone audio being transmitted to the server even though the client is set to.mute.\r\nWhich then on the other hand makes it practically unusable for any kind of meeting where you need participants to join.\r\nConsent as a legal base is only working if it's really optional. Which it really isn't if you want everyone to be in the meeting.\r\nAnd even more so it makes it pretty much unusable in schools where individual consent is even more problematic.\r\n\r\n"
+    },
+    {
+      "id": 689335462,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689335462",
+      "created_at": "2020-09-09T06:26:12Z",
+      "updated_at": "2020-09-09T06:26:12Z",
+      "author": "Participant 2",
+      "body": "Please let’s take one step back.\r\n\r\nIs it confirmed, that despite being muted, actually it is recorded but just not processed on the server? A reference to the appropriate code would nice.\r\n\r\nMy current assumption was, the microphone is indeed muted, and only garbage is transmitted. So my only problem was the wasted bandwidth."
+    },
+    {
+      "id": 689356356,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689356356",
+      "created_at": "2020-09-09T07:11:09Z",
+      "updated_at": "2020-09-09T07:14:42Z",
+      "author": "Participant 9",
+      "body": "The audio is still transmitted to the server and with a few lines of language of choice you can record every participant no matter if muted or not.\r\n\r\nThose things are not recorded by default. But you just need a small script which does the recording as freeswitch has the audio feeds. \r\n\r\nMaybe @lukas2511 can explain even more."
+    },
+    {
+      "id": 689439153,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689439153",
+      "created_at": "2020-09-09T09:17:15Z",
+      "updated_at": "2020-09-09T09:19:26Z",
+      "author": "Participant 3",
+      "body": "The options we always have:\r\n- use mute button of headset, than only garbage noise is transmitted\r\n- remove the access token in the browser to the microphone (no idea how to do that besides manually)\r\n- on connection choose \"Listen only\", activate Microphone only on talking, and toggle back to disconnected  (we have to optimize that cycle maybe)\r\n\r\nIf we want to save the time of the reconnection we maybe should find a way to send a garbage noise to the server without having to switch off a line by a physical button. Otherwise with physical buttons we could solve also a wish, push to talk. \r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 689456358,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689456358",
+      "created_at": "2020-09-09T09:51:34Z",
+      "updated_at": "2020-09-09T09:51:34Z",
+      "author": "Participant 6",
+      "body": "You can also mute the WebRTC audio in the tab as per usual. The audio is not recorded and by default the audio is received but not processed. There is, of course, nothing stopping a rogue system administrator from collecting all the muted audio sent to FreeSWITCH. Since the mute is server side, you can just pull the audio before it is decoded by mod_conference. If one is willing to do this, though, there are also many other things one rogue sysadmin could do."
+    },
+    {
+      "id": 689458362,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689458362",
+      "created_at": "2020-09-09T09:55:41Z",
+      "updated_at": "2020-09-09T09:55:41Z",
+      "author": "Participant 2",
+      "body": "1.  Is that behavior documented somewhere?\r\n2.  Could the issue title please be updated? Maybe: Mute functionality still records and transmits audio to server, where it’s dropped"
+    },
+    {
+      "id": 689541997,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689541997",
+      "created_at": "2020-09-09T12:51:35Z",
+      "updated_at": "2020-09-09T12:51:35Z",
+      "author": "Participant 10",
+      "body": "> Just to clarify something: **muted microphones are not recorded right now**.\r\n\r\nJust to clarify: You are referring to recordings created using default bbb functonality not the malicious ones? :) "
+    },
+    {
+      "id": 689542300,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689542300",
+      "created_at": "2020-09-09T12:52:09Z",
+      "updated_at": "2020-09-09T12:53:04Z",
+      "author": "Participant 11",
+      "body": "Of course. I clarified it because the issue title can give the idea that everything is always recorded, which is not correct."
+    },
+    {
+      "id": 689543774,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689543774",
+      "created_at": "2020-09-09T12:54:47Z",
+      "updated_at": "2020-09-09T12:54:47Z",
+      "author": "Participant 9",
+      "body": "I think there could be the misunderstanding between always sent to server and always being recorded.\r\n\r\nSo Microphone audio is always sent to the server even when muted. But to record that you need a script which hooks to freeswitch (which is easy but an extra step)."
+    },
+    {
+      "id": 689545231,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689545231",
+      "created_at": "2020-09-09T12:57:29Z",
+      "updated_at": "2020-09-10T00:52:32Z",
+      "author": "Participant 11",
+      "body": "@awlx  \r\n> So Microphone audio is always sent to the server even when muted. But to record that you need a script which hooks to freeswitch \r\n\r\nCorrect.\r\n\r\n> `which is easy`\r\n\r\n\"Easy\" is debatable. You need a compromised server, unsecured freeswitch and/or a willing server admin to do that. It's an attack surface which has to presume those three conditions are met.\r\n"
+    },
+    {
+      "id": 689545444,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689545444",
+      "created_at": "2020-09-09T12:57:51Z",
+      "updated_at": "2020-09-09T12:57:51Z",
+      "author": "Participant 2",
+      "body": "> There's already a fix under testing that will land in the next patch release (2.2.24).\r\n\r\nIt’d be great if you could point to that commit, if it’s available in some branch.\r\n\r\n[…]"
+    },
+    {
+      "id": 689546345,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689546345",
+      "created_at": "2020-09-09T12:59:30Z",
+      "updated_at": "2020-09-09T12:59:30Z",
+      "author": "Participant 9",
+      "body": "> @awlx\r\n> \r\n> > So Microphone audio is always sent to the server even when muted. But to record that you need a script which hooks to freeswitch\r\n> \r\n> Correct.\r\n> \r\n> > `which is easy`\r\n> \r\n> \"Easy\" is debatable. You need a compromised server, unsecured freeswitch and/or a willing server admin to do that. It's an attack surface.\r\n\r\nSo, default install of BBB is enough to fulfil most of those requirements. \r\nAnd one could just sell a plugin for serveradmins to get some \"insights\" on what people think while being muted.\r\n\r\nSo thank you already for confirming and working on this issue."
+    },
+    {
+      "id": 689707449,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689707449",
+      "created_at": "2020-09-09T17:25:21Z",
+      "updated_at": "2020-09-09T17:28:40Z",
+      "author": "Participant 12",
+      "body": "BBB runs as website, so whenever a server is compromised, the attacker can also modify the data which is sent to the clients, thus also \"easily\" change the implementation of the \"mute\" button. This attack scenario / \"security\" issue is imho not important for the issue. Let's instead focus on having the webclient not send the audio data to the server with the intent of reducing CPU load on freeswitch as well as saving bandwidth. On the client side, you still want audio input processing to be done when microphone mode is enabled, even when the mute button is pressed, so that the UI can show to users that they probably forgot to unmute them self.\r\n\r\nPlease keep the focus on the code improvement, not on any opinions regarding how one interprets certain laws.\r\n\r\nEdit: if you as server operator think that the current mute button is not GDPR compliant, one work-around could be to remove the button from the UI. Just don't forget that the user already gave you permission that this speech data is processed by the system (independently from any implementation details)."
+    },
+    {
+      "id": 689710101,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689710101",
+      "created_at": "2020-09-09T17:30:38Z",
+      "updated_at": "2020-09-09T17:30:47Z",
+      "author": "Participant 11",
+      "body": "> It’d be great if you could point to that commit, if it’s available in some branch.\r\n\r\n@paulmenzel \r\n\r\n#10423."
+    },
+    {
+      "id": 689712637,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689712637",
+      "created_at": "2020-09-09T17:35:50Z",
+      "updated_at": "2020-09-09T17:35:50Z",
+      "author": "Participant 13",
+      "body": "> BBB runs as website, so whenever a server is compromised, the attacker can also modify the data which is sent to the clients, thus also \"easily\" change the implementation of the \"mute\" button. This attack scenario / \"security\" issue is imho not important for the issue.\r\n\r\nThere's privacy by default, and then there's privacy-not-at-all-because-someone-could-hack-it-anyway, apparently."
+    },
+    {
+      "id": 689899701,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689899701",
+      "created_at": "2020-09-10T00:40:03Z",
+      "updated_at": "2020-09-10T00:40:03Z",
+      "author": "Participant 14",
+      "body": "> No, the user expects that there is no audio sent at all and it can't be abused for spying on people on the server side.\r\n\r\nA few considerations about your comment (and some others comments's).\r\n\r\nAs mentioned in https://docs.bigbluebutton.org: \r\n**\"BigBlueButton is an open source web conferencing system ...\"** , which means this is not a global conferencing service, neither a company interested in collecting your audio data.\r\n\r\nYou can read more about BigBlueButton privacy in it's Websites (\".org\" and \"demo....org\") [here](https://bigbluebutton.org/privacy)\r\n\r\n\r\nBigBlueButton (BBB) **can be freely downloaded** and installed by any school, university, institution, etc; and it is licensed under **LGPL-3.0**; which means anyone i**s free to use it commercially , to modify, to distribute, etc** (more information about LGPL-3.0 can be found [here](https://github.com/bigbluebutton/bigbluebutton/blob/develop/LICENSE)).\r\n\r\nThis also means **BBB comes with no warranty**: if you want to use it freely (or commercially), **you are on your own.** \r\nThere are companies around the world that offer BBB as a part of your service and are able to guarantee no one is stealing your data.\r\n\r\nIf your university or school is using BigBlueButton to steal your data, it is not up to us to prevent that. You should probably speak to a lawyer in your country to discuss about how to proceed in this case. Here in Brazil, for example, our government recently approved a new law (LGPD - L13709) regarding user's privacy.\r\n\r\nI am really thankful to **BBB Team and @prlanzarin** for #10423, but malicious system administrators, for example, could just decide to not to apply this patch and your data would be sent to the server anyways. At this moment, we are not able to prevent this type of privacy violation.\r\n\r\nAlso, once **BigBlueButton can run on any personal server**, there's no need to mention how a misconfigured server/OS/network could harm your security/privacy no matter the efforts BBB team could make.\r\nMore information on how to correctly install and setup your server can be found [here](https://docs.bigbluebutton.org/2.2/install.html)\r\n\r\nI believe there's a lot to improve on BBB (the issue on this case is a good example), but i am pretty sure BBB community is not interested in getting your personal data.\r\n\r\nPlease, don't get me wrong, i am glad you guys found this important issue (and also there's already a proposed solution for that).\r\nMy point is, security/privacy also is a responsibility of who is hosting BBB.\r\n\r\nCheers"
+    },
+    {
+      "id": 689918594,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-689918594",
+      "created_at": "2020-09-10T01:36:34Z",
+      "updated_at": "2020-09-10T01:40:51Z",
+      "author": "Participant 15",
+      "body": "Again, at least in it's core this issue is not what would be theoretically possible (as in modifying the code so that it just shows it's muted while actually being still active or something like that), it's about what's actually happening: Unknowingly sending audio data to the server. Even though it is not stored, it's still being transmitted.\r\n\r\nThanks to the patch this issue should be fixed with the next update, thanks BBB-devs!\r\n\r\nI think everybody here is glad to have this free alternative with a lot more control over their data than e.g. using Webex or Zoom,\r\nbut if somebody comes screaming \"**mimimi the software is broken and violating my privacy**\" it's an issue that has to be dealt with.\r\n\r\nGDPR and similar regulations are a battlefield, especially if working with children, and having a complaint about privacy-issues, notably something like this where data is unnecessarily transmitted, is a really big problem.\r\nIt requires immediate action, but most sysadmins don't have insight into the code of a project of this massive scale and it's nearly impossible for them to fix those issues.\r\n\r\nAlso they'd have to know about them first, with would mean auditing the software.\r\nIt's not like there is a list of all of the privacy issues with BBB somewhere on the projects website, or did I not look hard enough?\r\n\r\nThose people might be able to fix those small permission issues on config files, which are relatively easy to spot, but you can't expect them to e.g. fully understand how WebRTC works and how they should fix bugs like this themselves. That's what a projects community is for, and that's why bugs like this are reported and pushed to the top of the queue, so everybody gets the fix soon.\r\n\r\nI personally spend weeks in the BBB codebase, mostly just to understand how everything is working, and I still don't have a full overview about what's happening where. I reported a few security bugs already, and might report more in the future, and I hope for all of them to be fixed quickly. Not only for me and the services I run for my university, but for all the people out there who don't have the ressources to handle an operation of this scale for themselves.\r\n\r\nIf that's not in line with the projects goals I'd adwise to put a big warning above the easy-to-use one-script-does-all bbb-install.sh stating that it just installs BBB as some sort of test-environment and you have to read the whole documentation and codebase anway to really configure and patch it as it should be."
+    },
+    {
+      "id": 690039178,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-690039178",
+      "created_at": "2020-09-10T07:12:48Z",
+      "updated_at": "2020-09-10T07:12:48Z",
+      "author": "Participant 16",
+      "body": "> There will still be a 48kbps (tops, depends on the browser) OPUS stream being transmitted to the server, but that'll be silence.\r\n\r\nThat sounds wrong, opus encodes silence at a very low bitrate. If you check one of the [canonical samples](https://webrtc.github.io/samples/src/content/peerconnection/audio/), setting `localStream.getAudioTracks()[0].enabled = false;` drops the payload bitrate (red in the left grahp) to almost nothing."
+    },
+    {
+      "id": 690184371,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-690184371",
+      "created_at": "2020-09-10T11:22:59Z",
+      "updated_at": "2020-09-10T13:35:03Z",
+      "author": "Participant 11",
+      "body": "> > There will still be a 48kbps (tops, depends on the browser) OPUS stream being transmitted to the server, but that'll be silence.\r\n> \r\n> That sounds wrong, opus encodes silence at a very low bitrate. If you check one of the [canonical samples](https://webrtc.github.io/samples/src/content/peerconnection/audio/), setting `localStream.getAudioTracks()[0].enabled = false;` drops the payload bitrate (red in the left grahp) to almost nothing.\r\n\r\n@fippo\r\n\r\nThat's why I said \"tops\". I just wanted to make clear that there would still be an OPUS stream being transmitted and it would still be, at the absolute worst case (probably buggy, hence the \"depends\"; no direct access/little control over the encoder), be constrained to 48kbps.\r\n\r\nI'm well aware of the fact that compression will make it lower than that in the majority of cases; I detailed that further in the fix PR (ref https://github.com/bigbluebutton/bigbluebutton/pull/10423) description (I think I specifically stated it should be way under 10kbps, which might not necessarily always be correct).\r\n\r\nEdit: I've improved that comment a bit to make that clear (I agree I might've not been clear enough) since folks seem to be referring to that comment a lot."
+    },
+    {
+      "id": 696593901,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-696593901",
+      "created_at": "2020-09-22T08:54:50Z",
+      "updated_at": "2020-09-22T08:54:50Z",
+      "author": "Participant 17",
+      "body": "It seems this is now fixed in 2.2.24 (and 2.2.25), see https://github.com/bigbluebutton/bigbluebutton/releases/tag/v2.2.24\r\nShould this ticket (and the PRs linked from the release log) be closed?"
+    },
+    {
+      "id": 696657454,
+      "url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951#issuecomment-696657454",
+      "created_at": "2020-09-22T11:17:43Z",
+      "updated_at": "2020-09-22T11:17:43Z",
+      "author": "Participant 18",
+      "body": "Fixed in https://github.com/bigbluebutton/bigbluebutton/releases/tag/v2.2.24"
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/bigbluebutton/bigbluebutton/issues/8951",
+  "closed_at_available": false
+}

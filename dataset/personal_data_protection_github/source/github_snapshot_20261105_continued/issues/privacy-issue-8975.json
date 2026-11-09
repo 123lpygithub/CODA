@@ -1,0 +1,114 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8975",
+  "issue_url": "https://github.com/bbc/simorgh/issues/3440",
+  "source_issue_url": "https://github.com/bbc/simorgh/issues/3440",
+  "api_url": "https://api.github.com/repos/bbc/simorgh/issues/3440",
+  "title": "Cookie banner setting cookies to the wrong place",
+  "body": "**Describe the bug**\r\nThe simorgh consent banner sets cookies to `www.bbc.com` whereas the pal sets them to `.bbc.com`. This causes weird behaviour where we read from 1 domain, but write to another. This means the cookie banner cant be dismissed in some cases\r\n\r\n**Unconfirmed:**\r\nIt appears that our cookie banner will read cookies set on `.bbc.com` and set cookies on `www.bbc.com`, which means you cant correct the values, and it will show the banners on every refresh\r\n\r\n**To Reproduce**\r\nSteps to reproduce the behavior:\r\n\r\nOn Chrome and Firefox \r\n1. Go to bbc.com/pidgin\r\n2. Click on \"Yes I agree\" to the cookie settings\r\n3. Refresh the page\r\n4. See the cookie banner is displayed again \r\n\r\n**Expected behavior**\r\nWhen you \"Yes click I agree\" then you don't see the cookie banner again when the page is refreshed\r\n\r\nSimorgh sets cookies the same place that the pal does\r\n\r\n\r\n**Screenshots**\r\n![image](https://user-images.githubusercontent.com/11341355/63882037-0de17680-c9c9-11e9-8be8-4873379334d8.png)\r\n\r\n**Testing notes**\r\n\r\n- [x] This bug fix is expected to need manual testing.\r\n\r\n**Additional context**\r\nAdd any other context about the problem here.\r\n",
+  "author": "Participant 1",
+  "created_at": "2019-08-28T18:22:50Z",
+  "updated_at": "2020-02-03T10:07:17Z",
+  "state": "closed",
+  "closed_at": "2020-02-03T10:07:17Z",
+  "issue_fetched_at": "2026-10-18T20:10:20.356612+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T20:10:21.777299+00:00"
+  ],
+  "expected_comment_count": 11,
+  "retrieved_comment_count": 11,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 528305839,
+      "url": "https://github.com/bbc/simorgh/issues/3440#issuecomment-528305839",
+      "created_at": "2019-09-05T10:40:26Z",
+      "updated_at": "2019-09-05T10:40:26Z",
+      "author": "Participant 1",
+      "body": "I started this in https://github.com/bbc/simorgh/compare/CorrectCookieDomain but I was unable to get the cypress tests to work, as they seemly cant delete cookies on `.bbc.com`. Not sure how to get around this\r\n\r\nAny ideas @benjaminhobbs @hindsc52 "
+    },
+    {
+      "id": 531954911,
+      "url": "https://github.com/bbc/simorgh/issues/3440#issuecomment-531954911",
+      "created_at": "2019-09-16T20:56:27Z",
+      "updated_at": "2019-09-16T20:56:27Z",
+      "author": "Participant 2",
+      "body": "@dr3 this should be able to be done in vanilla JS. I don't think the security constraints of deleting cookies would apply in this case - so I think we can bypass the Cypress limitation"
+    },
+    {
+      "id": 575250820,
+      "url": "https://github.com/bbc/simorgh/issues/3440#issuecomment-575250820",
+      "created_at": "2020-01-16T17:08:44Z",
+      "updated_at": "2020-01-16T17:08:44Z",
+      "author": "Participant 3",
+      "body": "**Additional context (internal links)**\r\n- https://bbcnews.slack.com/archives/CK85Q5SL9/p1579175002125200\r\n- https://bbcnews.slack.com/archives/CJT0284G2/p1579174550037900"
+    },
+    {
+      "id": 577138673,
+      "url": "https://github.com/bbc/simorgh/issues/3440#issuecomment-577138673",
+      "created_at": "2020-01-22T11:29:48Z",
+      "updated_at": "2020-01-22T11:29:48Z",
+      "author": "Participant 4",
+      "body": "@LilyL0u Can you check that that the bug details and steps to reproduce are ok? "
+    },
+    {
+      "id": 577141432,
+      "url": "https://github.com/bbc/simorgh/issues/3440#issuecomment-577141432",
+      "created_at": "2020-01-22T11:38:32Z",
+      "updated_at": "2020-01-22T11:38:32Z",
+      "author": "Participant 5",
+      "body": "Worth having a look at: https://github.com/js-cookie/js-cookie#domain"
+    },
+    {
+      "id": 577209011,
+      "url": "https://github.com/bbc/simorgh/issues/3440#issuecomment-577209011",
+      "created_at": "2020-01-22T14:33:53Z",
+      "updated_at": "2020-01-22T14:33:53Z",
+      "author": "Participant 6",
+      "body": "> @LilyL0u Can you check that that the bug details and steps to reproduce are ok?\r\n\r\n@aeroplanejane looks good but I'd also mention it happens with the privacy policy banner too"
+    },
+    {
+      "id": 577245357,
+      "url": "https://github.com/bbc/simorgh/issues/3440#issuecomment-577245357",
+      "created_at": "2020-01-22T15:38:32Z",
+      "updated_at": "2020-01-22T15:48:29Z",
+      "author": "Participant 7",
+      "body": "Hey to reproduce you need to cross-pollenate your cookies a bit.\r\n\r\n1. Clear your cookies\r\n2. Visit https://www.bbc.com/pidgin\r\n3. Visit a PAL page without accepting the cookies policy (i.e. https://www.bbc.com/pidgin/tori-51194083).\r\n4. Still don't accept the cookies policy. Visit https://www.bbc.com/pidgin again.\r\n5. You will now see the cookies banner repeatedly, even after accepting, while navigating through Simorgh pages.\r\n6. If interested, you will now see the duplication of the cookies with different domains within your dev tools. One accepted, and one not.\r\n![duplicate cookies](https://i.imgur.com/L8gvLrI.png)"
+    },
+    {
+      "id": 578163745,
+      "url": "https://github.com/bbc/simorgh/issues/3440#issuecomment-578163745",
+      "created_at": "2020-01-24T14:55:59Z",
+      "updated_at": "2020-01-24T14:55:59Z",
+      "author": "Participant 8",
+      "body": "@LilyL0u will be ready to test once deployed to test.bbc.com"
+    },
+    {
+      "id": 580404300,
+      "url": "https://github.com/bbc/simorgh/issues/3440#issuecomment-580404300",
+      "created_at": "2020-01-30T19:02:44Z",
+      "updated_at": "2020-01-30T19:02:44Z",
+      "author": "Participant 9",
+      "body": "Looks good to me.."
+    },
+    {
+      "id": 580725646,
+      "url": "https://github.com/bbc/simorgh/issues/3440#issuecomment-580725646",
+      "created_at": "2020-01-31T13:05:49Z",
+      "updated_at": "2020-01-31T13:05:49Z",
+      "author": "Participant 6",
+      "body": "Looks good to me too. Cookie banner does not appear again on Simorgh or PAL once it has been accepted. If the cookies are not accepted, the banner continues to show.\r\n\r\nThe cookie banner does appear again if you have accepted it on bbc.com, but then go to bbc.co.uk.\r\n\r\nAccepting cookie banner on .co.uk stops it showing on .com. "
+    },
+    {
+      "id": 580783274,
+      "url": "https://github.com/bbc/simorgh/issues/3440#issuecomment-580783274",
+      "created_at": "2020-01-31T15:38:25Z",
+      "updated_at": "2020-01-31T15:38:25Z",
+      "author": "Participant 6",
+      "body": "@jroebu14 The issue this ticket fixes works now - ready to merge?"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

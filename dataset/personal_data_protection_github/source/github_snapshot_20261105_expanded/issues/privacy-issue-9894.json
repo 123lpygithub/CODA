@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-9894",
+  "issue_url": "https://github.com/bbc/bbc-a11y/issues/127",
+  "source_issue_url": "https://github.com/bbc/bbc-a11y/issues/127",
+  "api_url": "https://api.github.com/repos/bbc/bbc-a11y/issues/127",
+  "title": "Cookie banner",
+  "body": "When I run the tests, I can't find the xpath for the majority of the errors, it seems that the cookie banner is causing the issue, I think we need to set the cookie before we run the tests\r\n\r\nOn this url you can see the issue:\r\n\r\na11y http://www.test.bbc.co.uk/news/front_page_beta\r\n\r\nAny of the errors with div[7] you cannot find the xpath, this is the cookie div. If we set the cookie before running the tests as part of the process I believe this should resolve the issue.\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2016-11-30T10:17:14Z",
+  "updated_at": "2017-02-24T18:20:19Z",
+  "state": "closed",
+  "closed_at": "2017-02-24T18:20:19Z",
+  "issue_fetched_at": "2026-10-18T20:10:57.456617+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T20:10:58.911847+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 263837374,
+      "url": "https://github.com/bbc/bbc-a11y/issues/127#issuecomment-263837374",
+      "created_at": "2016-11-30T10:24:43Z",
+      "updated_at": "2016-11-30T10:24:43Z",
+      "author": "Participant 2",
+      "body": "Perhaps we use this as motivation to kick the cookie banner elsewhere (question the justification whether it needs to be the first readable content on the page), as it affects more than bbc-a11y\r\nhttps://twitter.com/search?q=Cookies%20on%20the%20BBC%20website&src=typd"
+    },
+    {
+      "id": 263839044,
+      "url": "https://github.com/bbc/bbc-a11y/issues/127#issuecomment-263839044",
+      "created_at": "2016-11-30T10:32:25Z",
+      "updated_at": "2016-11-30T10:32:25Z",
+      "author": "Participant 3",
+      "body": "In Responsive News cucumber suite they do:\r\n```ruby\r\npage.driver.set_cookie('ckns_policy', '001',  domain: 'bbc.com')\r\n```\r\n\r\nIt seems that if the terminal xpath output is not the same as viewing the page in the browser then something is different on multiple visits to the page. Catharine suggested the xpath seems to get stuck on the cookie banner which indicates this differs on multiple page visits. A lot of the News testing tools set the cookie before checking the page, so we get a consistent experience."
+    },
+    {
+      "id": 275116724,
+      "url": "https://github.com/bbc/bbc-a11y/issues/127#issuecomment-275116724",
+      "created_at": "2017-01-25T14:09:20Z",
+      "updated_at": "2017-01-25T14:09:20Z",
+      "author": "Participant 4",
+      "body": "This issues directly relates to: #160 which covers how to do this sort of pre-test setup."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

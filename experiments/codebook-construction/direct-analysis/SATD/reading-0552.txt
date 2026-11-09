@@ -1,0 +1,365 @@
+
+=== 552 23shades-0233-aagaagfeh ===
+{"dataset_id": "aagaagfeh", "repo_name": "Merck/deepbgc", "filename": "deepbgc/output/antismash_json.py", "comment_introducing_revision": "https://github.com/Merck/deepbgc/commit/f91d3f01440445d42e550814390716ff3f527ed4", "comment_removing_revision": "https://github.com/Merck/deepbgc/commit/f5d29b079dcb6fedea2dbc9e0ce572deeca6923a", "source_context_status": "available", "source_context_commit": "f91d3f01440445d42e550814390716ff3f527ed4"}
+[comment_text]
+TODO add meta info from all detectors?
+[source_context]
+        cluster_features = util.get_cluster_features(record)
+        classifier_names = util.get_record_classifier_names(record)
+        subregions = []
+        protoclusters = []
+        for cluster in cluster_features:
+            subregion = self._create_cluster_json(cluster, classifier_names=classifier_names)
+            subregions.append(subregion)
+            # TODO add protocluster?
+
+        self.record_ids.append(record.id)
+        self.record_subregions.append(subregions)
+        self.record_protoclusters.append(protoclusters)
+        # TODO add meta info from all detectors?
+        if not self.tool_meta:
+            self.tool_meta = util.get_record_detector_meta(record)
+
+    def _get_cluster_classes_str(self, cluster, classifier_name):
+        class_str_list = cluster.qualifiers.get(util.format_classification_column(classifier_name))
+        return class_str_list[0] if class_str_list else 'no confident class'
+
+    def _create_cluster_json(self, cluster, classifier_names):
+        classes = {cls_name: self._get_cluster_classes_str(cluster, cls_name) for cls_name in classifier_names}
+        tool_name = cluster.qualifiers.get('tool', ['unspecified'])[0]
+        detector_name = cluster.qualifiers.get('detector', [tool_name])[0]
+        score_column = util.format_bgc_score_column(detector_name)
+
+=== 553 23shades-0648-aadhfgije ===
+{"dataset_id": "aadhfgije", "repo_name": "uchicago-cs/deepdish", "filename": "deepdish/tools/caffe/maker.py", "comment_introducing_revision": "https://github.com/uchicago-cs/deepdish/commit/433c4cf64073f372ecd92bbef2d8d7d50555bc41", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "433c4cf64073f372ecd92bbef2d8d7d50555bc41"}
+[comment_text]
+TODO: Read this 10000 from the datasets
+[source_context]
+    d['version'] = __version__
+    d['seed'] = seed
+    d['lr'] = lr0
+    d['momentum'] = momentum
+    batch = params.get('batch', 100)
+    #d['iter'] = (it * 100) // batch
+    d['device_id'] = device
+
+    d['decay'] = decay
+    d['snapshot'] = min(snapshot, params.get('snapshot', snapshot))
+    d['base_suffix'] = '_base' if base else ''
+    d['solver'] = params.get('solver_type', 'SGD')
+    # TODO: Read this 10000 from the datasets
+    d['test_iter'] = 100#00 // batch
+    d['test_interval'] = 1000#00 // batch
+    d['display'] = 400#00 // batch
+    d['gamma'] = params.get('gamma', 0.1)
+
+    steps = ""
+    cur_iter = 0
+    for iter in iters:
+        cur_iter += iter
+        steps += "stepvalue: {}\n".format(cur_iter)
+
+    d['steps'] = steps
+
+=== 554 23shades-0034-aaibjcgbi ===
+{"dataset_id": "aaibjcgbi", "repo_name": "scikit-learn/scikit-learn", "filename": "examples/plot_ica_vs_pca.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/d2914081ea9fe0c80dacef13efd864d49b489787", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "d2914081ea9fe0c80dacef13efd864d49b489787"}
+[comment_text]
+\"\"\" || ========================== || FastICA on 2D point clouds || ========================== ||  || XXX: Still buggy !!! ||  || \"\"\"
+[source_context]
+"""
+==========================
+FastICA on 2D point clouds
+==========================
+
+XXX: Still buggy !!!
+
+"""
+
+import numpy as np
+import pylab as pl
+from scipy import stats
+
+from scikits.learn.pca import PCA
+from scikits.learn.fastica import FastICA
+
+###############################################################################
+# Generate sample data
+S = np.c_[np.random.normal(scale=0.5, size=(2, 10000)),
+          np.random.normal(scale=4, size=(2, 10000))]
+
+=== 555 23shades-0057-aajffjdic ===
+{"dataset_id": "aajffjdic", "repo_name": "tensorly/tensorly", "filename": "tensorly/contrib/spectral_tensor_train_decomposition.py", "comment_introducing_revision": "https://github.com/tensorly/tensorly/commit/f1e7e392dd76e6418bdd2eb8b179417e4bb1970b", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "f1e7e392dd76e6418bdd2eb8b179417e4bb1970b"}
+[comment_text]
+Construct grids and weights if needed for parameter space
+[source_context]
+                self.Xs_space.append(grids[i])
+            else:
+                raise AttributeError("The grids argument must contain np.ndarray in the elements grids[:range_dim]")
+        if self.range_dim == 0:
+            self.Xs_space.append(np.array([0]))
+
+        # Set the shape of the space
+        self.space_shape = tuple([len(x) for x in self.Xs_space])
+
+        # Initialize variables
+        self.Xs_params = np.empty(self.space_shape, dtype=list)
+
+        # Construct grids and weights if needed for parameter space
+        for point, val in np.ndenumerate(self.Xs_params):
+            self.Xs_params[point] = [None] * self.param_dim
+
+            for i, grid in enumerate(grids[self.range_dim:]):
+                if isinstance(grid, np.ndarray):
+                    self.Xs_params[point][i] = grid
+                else:
+                    raise AttributeError("The %d argument of grid is none of the types accepted." % i)
+
+    def build(self):
+        self.start_build_time = time.clock()
+
+
+=== 556 23shades-0417-aajefdiii ===
+{"dataset_id": "aajefdiii", "repo_name": "dmlc/gluon-nlp", "filename": "scripts/question_answering/run_squad.py", "comment_introducing_revision": "https://github.com/dmlc/gluon-nlp/commit/01122db3867722db061566a79e843a08f9134431", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "01122db3867722db061566a79e843a08f9134431"}
+[comment_text]
+TODO(sxjscience) Consider to combine the NamedTuple and batchify functionality.
+[source_context]
+                        'because the start and end predictions are not conditioned on one another.'
+                        ' default is 30')
+    parser.add_argument('--predict_lower_bound', type=int, default=None,
+                        help='the lower bound of the parameters to be predicted'
+                        'default is the final step')
+    parser.add_argument('--param_checkpoint', type=str, default=None,
+                        help='The parameter checkpoint for evaluating the model')
+    args = parser.parse_args()
+    return args
+
+
+class SquadDatasetProcessor:
+    # TODO(sxjscience) Consider to combine the NamedTuple and batchify functionality.
+    ChunkFeature = namedtuple('ChunkFeature',
+                              ['qas_id',
+                               'data',
+                               'valid_length',
+                               'segment_ids',
+                               'masks',
+                               'is_impossible',
+                               'gt_start',
+                               'gt_end',
+                               'context_offset',
+                               'chunk_start',
+                               'chunk_length'])
+
+=== 557 23shades-0651-aagfjdjeg ===
+{"dataset_id": "aagfjdjeg", "repo_name": "NRCan/geo-deep-learning", "filename": "images_to_samples.py", "comment_introducing_revision": "https://github.com/NRCan/geo-deep-learning/commit/d728da5afb04d213a3da93e334ca9093d54bd5a1", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "d728da5afb04d213a3da93e334ca9093d54bd5a1"}
+[comment_text]
+TODO: refactor as independent function
+[source_context]
+        assert Path(info['gpkg']).is_file(), f'Could not locate "{info["gpkg"]}". Make sure file exists in this directory.'
+
+    if debug:
+        for info in tqdm(list_data_prep, position=0, desc=f"Validating presence of {params['global']['num_classes']} "
+                                                          f"classes in attribute \"{info['attribute_name']}\" for vector "
+                                                          f"file \"{Path(info['gpkg']).stem}\""):
+            validate_num_classes(info['gpkg'], params['global']['num_classes'], info['attribute_name'], ignore_index)
+
+        with tqdm(list_data_prep, position=0, desc=f"Checking validity of features in vector files") as _tqdm:
+            invalid_features = {}
+            for info in _tqdm:
+                # Extract vector features to burn in the raster image
+                with fiona.open(info['gpkg'], 'r') as src:  # TODO: refactor as independent function
+                    lst_vector = [vector for vector in src]
+                shapes = lst_ids(list_vector=lst_vector, attr_name=info['attribute_name'])
+                for index, item in enumerate(tqdm([v for vecs in shapes.values() for v in vecs], leave=False, position=1)):
+                    # geom must be a valid GeoJSON geometry type and non-empty
+                    geom, value = item
+                    geom = getattr(geom, '__geo_interface__', None) or geom
+                    if not is_valid_geom(geom):
+                        gpkg_stem = str(Path(info['gpkg']).stem)
+                        if gpkg_stem not in invalid_features.keys(): # create key with name of gpkg
+                            invalid_features[gpkg_stem] = []
+                        if lst_vector[index]["id"] not in invalid_features[gpkg_stem]: # ignore feature is already appended
+                            invalid_features[gpkg_stem].append(lst_vector[index]["id"])
+
+=== 558 23shades-0449-aajdcigce ===
+{"dataset_id": "aajdcigce", "repo_name": "jupyter/nbdime", "filename": "nbdime/diffing/notebooks.py", "comment_introducing_revision": "https://github.com/jupyter/nbdime/commit/09568d382374ed9012618f840285780a52028594", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "09568d382374ed9012618f840285780a52028594"}
+[comment_text]
+TODO: Add this to configuration framework
+[source_context]
+
+    if isinstance(x, list):
+        x = "".join(x)
+    if isinstance(y, list):
+        y = "".join(y)
+
+    # TODO: Review whether this is wanted.
+    #       The motivation is to align tiny
+    #       strings in outputs such as a single number.
+    # Allow aligning short strings without comparison
+    nx = len(x)
+    ny = len(y)
+    shortlen = 10  # TODO: Add this to configuration framework
+    if nx < shortlen and ny < shortlen:
+        return True
+
+    return compare_strings_approximate(x, y, threshold=0.7)
+
+
+def compare_text_strict(x, y):
+    # TODO: Doesn't have to be 100% equal here?
+    if isinstance(x, list):
+        x = "".join(x)
+    if isinstance(y, list):
+        y = "".join(y)
+
+=== 559 23shades-0064-aaiicfgag ===
+{"dataset_id": "aaiicfgag", "repo_name": "ray-project/ray", "filename": "rllib/env/wrappers/atari_wrappers.py", "comment_introducing_revision": "https://github.com/ray-project/ray/commit/e74947cc94f5b085510d8b95fb359e487cf70622", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e74947cc94f5b085510d8b95fb359e487cf70622"}
+[comment_text]
+env = ScaledFloatFrame(env)  # TODO: use for dqn?
+[source_context]
+    Args:
+        dim (int): Dimension to resize observations to (dim x dim).
+        framestack (bool): Whether to framestack observations.
+    """
+    env = MonitorEnv(env)
+    env = NoopResetEnv(env, noop_max=30)
+    if env.spec is not None and "NoFrameskip" in env.spec.id:
+        env = MaxAndSkipEnv(env, skip=4)
+    env = EpisodicLifeEnv(env)
+    if "FIRE" in env.unwrapped.get_action_meanings():
+        env = FireResetEnv(env)
+    env = WarpFrame(env, dim)
+    # env = ScaledFloatFrame(env)  # TODO: use for dqn?
+    # env = ClipRewardEnv(env)  # reward clipping is handled by policy eval
+    # New way of frame stacking via the trajectory view API (model config key:
+    # `num_framestacks=[int]`.
+    if framestack_via_traj_view_api:
+        env = FrameStackTrajectoryView(env)
+    # Old way (w/o traj. view API) via model config key: `framestack=True`.
+    # TODO: (sven) Remove once traj. view is norm.
+    elif framestack is True:
+        env = FrameStack(env, 4)
+    return env
+
+=== 560 23shades-0293-aahiihdej ===
+{"dataset_id": "aahiihdej", "repo_name": "kengz/SLM-Lab", "filename": "run_lab.py", "comment_introducing_revision": "https://github.com/kengz/SLM-Lab/commit/2ce74a407886737b8e8d717ad518c6c126f6b06b", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "2ce74a407886737b8e8d717ad518c6c126f6b06b"}
+[comment_text]
+TODO hack and set the eval model location inside info_space
+[source_context]
+    lab_mode, prename = lab_mode.split('@')
+    predir, _, _, _, _, _ = util.prepath_split(spec_file)
+    prepath = f'{predir}/{prename}'
+    spec, info_space = util.prepath_to_spec_info_space(prepath)
+    info_space.ckpt = 'eval'
+
+    # no info_space.tick() as they are reconstructed
+    if lab_mode == 'enjoy':
+        spec = util.override_enjoy_spec(spec)
+        Session(spec, info_space).run()
+    elif lab_mode == 'eval':
+        # right. missing models to be loaded. Basicaly these conditions apply to loadable things
+        # TODO hack and set the eval model location inside info_space
+        # reconstruct existing spec and info_space
+        spec = util.override_eval_spec(spec)
+        # no info_space.tick() because it is recovered
+        Trial(spec, info_space).run()
+    else:
+        logger.warn('Unrecognizable lab_mode not of `enjoy, eval`')
+
+
+def run_by_mode(spec_file, spec_name, lab_mode):
+    '''The main run lab function for all lab_modes'''
+    logger.info(f'Running lab in mode: {lab_mode}')
+    # '@' is reserved for 'enjoy@{prename}'
+
+=== 561 23shades-0507-aafbciiij ===
+{"dataset_id": "aafbciiij", "repo_name": "yuanming-hu/exposure", "filename": "net.py", "comment_introducing_revision": "https://github.com/yuanming-hu/exposure/commit/00eac4157ba675547b00b6b05d0dd0c2149bbe85", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "00eac4157ba675547b00b6b05d0dd0c2149bbe85"}
+[comment_text]
+TODO: deal with png and jpeg files better - they are probably not RAW.
+[source_context]
+        print(spec_files)
+
+        # Use a fixed noise
+        batch_size = 1
+        for fn in spec_files:
+            print('Processing input {}'.format(fn))
+
+            from util import read_tiff16, linearize_ProPhotoRGB
+            if fn.endswith('.tif') or fn.endswith('.tiff'):
+                image = read_tiff16(fn)
+                high_res_image = linearize_ProPhotoRGB(image)
+            else:
+                # TODO: deal with png and jpeg files better - they are probably not RAW.
+                print('Warning: sRGB color space jpg and png images may not work perfectly. See README for details. (image {})'.format(fn))
+                image = cv2.imread(fn)
+                high_res_image = np.power(image, 1 / 2.2) # Linearize
+
+            noises = [
+                self.memory.get_noise(batch_size)
+                for _ in range(self.cfg.test_steps)
+            ]
+            fn = fn.split('/')[-1]
+
+            def get_dir():
+                if output_dir is not None:
+
+=== 562 23shades-0384-aahcgeaed ===
+{"dataset_id": "aahcgeaed", "repo_name": "ludwig-ai/ludwig", "filename": "ludwig/data/preprocessing.py", "comment_introducing_revision": "https://github.com/ludwig-ai/ludwig/commit/984b34552ce1950fb52a436bab669a82c22e14f0", "comment_removing_revision": "https://github.com/ludwig-ai/ludwig/commit/2774a3e165bda43d7d46ad92c262d37633638761", "source_context_status": "available", "source_context_commit": "984b34552ce1950fb52a436bab669a82c22e14f0"}
+[comment_text]
+TODO validation_split is not used
+[source_context]
+                    len(idx_list),
+                    p=split_probabilities,
+                ).astype(np.int8)
+                split[idx_list] = val_list
+    return split
+
+
+def load_data(
+        hdf5_file_path,
+        input_features,
+        output_features,
+        split_data=True,
+        validation_split=None,  # TODO validation_split is not used
+        shuffle_training=False
+):
+    logging.info('Loading data from: {0}'.format(hdf5_file_path))
+    # Load data from file
+    hdf5_data = h5py.File(hdf5_file_path, 'r')
+    dataset = {}
+    for input_feature in input_features:
+        if input_feature['type'] == TEXT:
+            text_data_field = text_feature_data_field(input_feature)
+            dataset[text_data_field] = hdf5_data[text_data_field].value
+        else:
+            dataset[input_feature['name']] = hdf5_data[
+
+=== 563 23shades-0311-aadbcjahd ===
+{"dataset_id": "aadbcjahd", "repo_name": "Ciaran1981/geospatial-learn", "filename": "build/lib/geospatial_learn/data.py", "comment_introducing_revision": "https://github.com/Ciaran1981/geospatial-learn/commit/872a216cf30365e60b6c35583b9df27b6fd9d4b8", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "872a216cf30365e60b6c35583b9df27b6fd9d4b8"}
+[comment_text]
+TODO maybe improve this so it doesn't use a global
+[source_context]
+Description
+-----------
+A series of tools for the download and preprocessing of sentinel data (mainly S2). 
+
+
+"""
+import subprocess #import call #Popen, PIPE, STDOUT
+import json
+import glob2
+import os
+from tqdm import tqdm
+#from sentinelsat import sentinel
+# TODO maybe improve this so it doesn't use a global
+try:
+    from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
+except:
+    ImportError 
+    print('using older version of sentinelsat')
+    oldsat = True
+    from sentinelsat.sentinel import SentinelAPI, get_coordinates
+
+#import os
+import gdal, ogr
+#import select
+#import shapefile

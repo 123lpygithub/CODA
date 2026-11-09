@@ -1,0 +1,6 @@
+{
+  "url": "https://raw.githubusercontent.com/vecto-ai/vecto/9d8c43278ecd0a09edf5f89d88b3ff887123a9d9/vecto/data/io.py",
+  "source": "from vecto.corpus.tokenization import word_tokenize_txt\n\n\n# TODO: move this to corpus module\ndef normalize_text(text):\n    return text.strip().lower()\n\n\ndef read_first_col_is_label_format(path):\n    dataset = []\n    with open(path, encoding='utf-8', errors='ignore') as f:\n        for i, l in enumerate(f):\n            if len(l.strip()) < 3:\n                continue\n            label, text = l.strip().split(None, 1)\n            label = int(label)\n            tokens = word_tokenize_txt(normalize_text(text))\n            dataset.append((tokens, label))\n    return dataset\n",
+  "fetched_at": "2026-11-05T06:13:24.406492+00:00",
+  "source_sha256": "450211fb920f32edda6d8504879b64b61ba456e52f70a30a485dad4e82fedc01"
+}

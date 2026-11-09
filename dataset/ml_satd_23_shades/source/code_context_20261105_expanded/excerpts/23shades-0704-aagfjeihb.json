@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0704-aagfjeihb",
+  "revision_url": "https://github.com/NRCan/geo-deep-learning/commit/5dcbffad35048104f5fcadd9e5489ae17b222f2a",
+  "filename": "utils/layersmodules.py",
+  "commit": "5dcbffad35048104f5fcadd9e5489ae17b222f2a",
+  "source_url": "https://raw.githubusercontent.com/NRCan/geo-deep-learning/5dcbffad35048104f5fcadd9e5489ae17b222f2a/utils/layersmodules.py",
+  "fetched_at": "2026-11-05T06:13:40.486982+00:00",
+  "source_sha256": "b3662c0ad6020185146307ea358baf2e4bb3f47f06996a2752659a6845b927a2",
+  "line_start": 53,
+  "line_end": 77,
+  "excerpt": "        nir = self.modelNIR(x2)\n        #print('shape de rgb apres', rgb.shape)\n        #print('shape de nir apres', nir.shape)\n        \n        # Concatenation\n        x = torch.cat((rgb, nir), dim=1)\n        #print('shape of concatenation', x.shape)\n\n        # Conv 1x1 need to match the enter of the next layer\n        x = self.conv1x1(x)\n        #print('shape after conv 1x1', x.shape)\n        # Give the result to the rest of the network\n        # TODO: something if deep 9\n        x = self.leftover(x)\n\n        # Give the result to the classifier\n        x = self.classifier(x)\n        #print('shape after classifier', x.shape)\n        \n        # See https://github.com/pytorch/vision/blob/master/torchvision/models/segmentation/_utils.py\n        # for more info \n        x = F.interpolate(x, size=input_shape, mode='bilinear', align_corners=False)\n        result['out'] = x\n\n        return result"
+}

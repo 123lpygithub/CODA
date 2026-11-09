@@ -1,0 +1,32 @@
+{
+  "artifact_id": "privacy-issue-11289",
+  "source_issue_url": "https://github.com/ghostery/ghostery-extension/issues/562",
+  "issue_snapshot_sha256": "28415a3ccd56fdca0f3cce52fd33259fce61447875bf3ab863e4a451eb5d3302",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/ghostery/ghostery-extension/blob/master/CONTRIBUTING.md",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "status": "unavailable",
+      "reason": "URLError: <urlopen error [Errno 101] Network is unreachable>"
+    },
+    {
+      "url": "https://github.com/ghostery/ghostery-extension/commit/c5e87fe139a670139cb810f5faadb2aacd5907e2",
+      "kind": "commit",
+      "cited_in": [
+        "comment_1108485667"
+      ],
+      "text": "From c5e87fe139a670139cb810f5faadb2aacd5907e2 Mon Sep 17 00:00:00 2001\nFrom: Krzysztof Jan Modras <chrmod@chrmod.net>\nDate: Thu, 21 Oct 2021 16:15:34 +0200\nSubject: [PATCH] FIX: non blocked categories should not be blocked by\n cliqz/adblocker\n\n---\n src/classes/EventHandlers.js | 4 ++--\n 1 file changed, 2 insertions(+), 2 deletions(-)\n\ndiff --git a/src/classes/EventHandlers.js b/src/classes/EventHandlers.js\nindex e873bc5616..9065353006 100644\n--- a/src/classes/EventHandlers.js\n+++ b/src/classes/EventHandlers.js\n@@ -26,7 +26,7 @@ import foundBugs from './FoundBugs';\n import globals from './Globals';\n import latency from './Latency';\n import panelData from './PanelData';\n-import Policy, { BLOCK_REASON_SS_UNBLOCKED, BLOCK_REASON_C2P_ALLOWED_THROUGH } from './Policy';\n+import Policy, { BLOCK_REASON_SS_UNBLOCKED, BLOCK_REASON_C2P_ALLOWED_THROUGH, BLOCK_REASON_GLOBAL_UNBLOCKED } from './Policy';\n import PolicySmartBlock from './PolicySmartBlock';\n import PurpleBox from './PurpleBox';\n import surrogatedb from './SurrogateDb';\n@@ -351,7 +351,7 @@ class EventHandlers {\n \t\tconst tab_host = tabInfo.getTabInfo(tab_id, 'host');\n \t\tconst fromRedirect = globals.REDIRECT_MAP.has(request_id);\n \t\tconst { block, reason } = EventHandlers._checkBlocking(app_id, cat_id, tab_id, tab_host, page_url, request_id);\n-\t\tif (!block && reason === BLOCK_REASON_SS_UNBLOCKED) {\n+\t\tif (!block && [BLOCK_REASON_SS_UNBLOCKED, BLOCK_REASON_GLOBAL_UNBLOCKED].indexOf(reason) > -1) {\n \t\t\t// The way to pass this flag to Cliqz handlers\n \t\t\teventMutable.ghosteryWhitelisted = true;\n \t\t}\n",
+      "source_sha256": "14fa9d0b2db21b2c71ed890115d9e7eddbd03cd71130c7825222b606acd7f5e7",
+      "fetched_at": "2026-11-05T06:21:16.659920+00:00",
+      "retrieval_url": "https://github.com/ghostery/ghostery-extension/commit/c5e87fe139a670139cb810f5faadb2aacd5907e2.patch",
+      "status": "available",
+      "revision": "c5e87fe139a670139cb810f5faadb2aacd5907e2",
+      "immutable_revision": true,
+      "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+    }
+  ]
+}

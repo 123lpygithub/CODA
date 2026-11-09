@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0480-aaeiedgfj",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/ee199e8688542cd40cc6c0f4f1e4f08755532b4d",
+  "filename": "hpat/hiframes_typed.py",
+  "commit": "ee199e8688542cd40cc6c0f4f1e4f08755532b4d",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/ee199e8688542cd40cc6c0f4f1e4f08755532b4d/hpat/hiframes_typed.py",
+  "fetched_at": "2026-11-05T06:13:01.260557+00:00",
+  "source_sha256": "a8125da4122128dd5dc27df026e88194d125b739717b7de2b8e491d035324a07",
+  "line_start": 245,
+  "line_end": 269,
+  "excerpt": "                    # simply return the column\n                    assign.value = rhs.value\n                    return [assign]\n\n                if isinstance(rhs_type, SeriesType) and isinstance(rhs_type.dtype, types.scalars.NPDatetime):\n                    if rhs.attr in hpat.pd_timestamp_ext.date_fields:\n                        return self._run_DatetimeIndex_field(assign, assign.target, rhs)\n                    if rhs.attr == 'date':\n                        return self._run_DatetimeIndex_date(assign, assign.target, rhs)\n\n                if rhs_type == series_dt_methods_type:\n                    dt_def = guard(get_definition, self.func_ir, rhs.value)\n                    if dt_def is None:  # TODO: check for errors\n                        raise ValueError(\"invalid series.dt\")\n                    rhs.value = dt_def.value\n                    return self._run_DatetimeIndex_field(assign, assign.target, rhs)\n\n                if isinstance(rhs_type, SeriesType) and isinstance(rhs_type.dtype, types.scalars.NPTimedelta):\n                    if rhs.attr in hpat.pd_timestamp_ext.timedelta_fields:\n                        return self._run_Timedelta_field(assign, assign.target, rhs)\n\n            res = self._handle_string_array_expr(lhs, rhs, assign)\n            if res is not None:\n                return res\n"
+}

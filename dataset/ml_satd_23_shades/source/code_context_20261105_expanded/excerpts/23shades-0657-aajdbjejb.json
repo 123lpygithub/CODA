@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0657-aajdbjejb",
+  "revision_url": "https://github.com/automagica/automagica/commit/ea759131ef4a146d2f1b736299a4eac408b28f2d",
+  "filename": "automagica/gui/graphs.py",
+  "commit": "ea759131ef4a146d2f1b736299a4eac408b28f2d",
+  "source_url": "https://raw.githubusercontent.com/automagica/automagica/ea759131ef4a146d2f1b736299a4eac408b28f2d/automagica/gui/graphs.py",
+  "fetched_at": "2026-11-05T06:13:33.535936+00:00",
+  "source_sha256": "55a175eb86b2322b33e6375513cb8c876f07c1fb558f33b5f48eb7d3429d8337",
+  "line_start": 102,
+  "line_end": 126,
+  "excerpt": "\n\nclass NodeGraph:\n    \"\"\"\n    Basic graphical representation of a node. Should not be used directly but through one of its child classes.\n    \"\"\"\n\n    def __init__(self, parent, node):\n        self.parent = parent\n        self.node = node\n        self.mouse_x = self.mouse_y = None\n\n        # TODO: remove hard-coded sizes and make relative to parent?\n        self.w = 125\n        self.h = 75\n\n        # Keybinds\n        self.parent.canvas.tag_bind(self.node.uid, \"<B1-Motion>\", self.drag)\n        self.parent.canvas.tag_bind(\n            self.node.uid, \"<ButtonPress-1>\", self.on_mouse_down\n        )\n        self.parent.canvas.tag_bind(\n            self.node.uid, \"<ButtonRelease-1>\", self.on_mouse_up\n        )\n        self.parent.canvas.tag_bind("
+}

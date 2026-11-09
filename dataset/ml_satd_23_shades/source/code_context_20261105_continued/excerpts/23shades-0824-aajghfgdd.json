@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0824-aajghfgdd",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/49ac85b4b0c95dc1033e217983c495f180479e58",
+  "filename": "mne/viz/_figure.py",
+  "commit": "49ac85b4b0c95dc1033e217983c495f180479e58",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/49ac85b4b0c95dc1033e217983c495f180479e58/mne/viz/_figure.py",
+  "fetched_at": "2026-11-05T06:13:59.616078+00:00",
+  "source_sha256": "63c5ca353e4c2e5081a9d7c221f4fab4154e40aaca595abb3b5063dbee8d02ed",
+  "line_start": 675,
+  "line_end": 699,
+  "excerpt": "        fig = _figure(toolbar=False, parent_fig=self, fig_name=fig_name,\n                      **kwargs)\n        fig._add_default_callbacks()\n        self.mne.child_figs.append(fig)\n        if isinstance(fig_name, str):\n            setattr(self.mne, fig_name, fig)\n        return fig\n\n    def _create_ch_location_fig(self, idx):\n        \"\"\"Show channel location figure; idx is index of *visible* channels.\"\"\"\n        pass\n        # XXX implementation works interactively, but fails tests with older\n        # XXX MPL. Probably needs a refactor of plot_sensors() to work cleanly\n        # from .utils import _channel_type_prettyprint\n        # pick = self.mne.picks[idx]\n        # ch_name = self.mne.ch_names[pick]\n        # ch_type = self.mne.ch_types[pick]\n        # if ch_type not in _DATA_CH_TYPES_SPLIT:\n        #     return\n        # # create figure and axes\n        # fig = self._new_child_figure(figsize=(4, 4), fig_name=None,\n        #                              window_title=f'Location of {ch_name}')\n        # ax = fig.add_subplot()\n        # title = f'{ch_name} position ({_channel_type_prettyprint[ch_type]})'\n        # fig, _ = plot_sensors(self.mne.info, ch_type=ch_type, axes=ax,"
+}

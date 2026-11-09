@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:655d99f19a08a72ba03cdfd48a6620efacdd1b56/raw/",
+  "source_sha256": "8628f98c7b7b175ca02971bd759070b1bbc67429819e7b20e2c315dd44670a8d",
+  "fetched_at": "2026-11-05T06:43:14.367720+00:00",
+  "archive_directory": "e8e67c9c2e2f3dce6770740ea8b95469bd415ade",
+  "git_blob_sha1": "655d99f19a08a72ba03cdfd48a6620efacdd1b56",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/e1068503267ee475d33e77523b049165a6548614/",
+  "artifact_id": "23shades-0595-aafeaijhi",
+  "revision_url": "https://github.com/AKSHAYUBHAT/DeepVideoAnalytics/commit/e1068503267ee475d33e77523b049165a6548614",
+  "filename": "repos/object_detection/anchor_generators/multiple_grid_anchor_generator.py",
+  "commit": "e1068503267ee475d33e77523b049165a6548614",
+  "line_start": 200,
+  "line_end": 224,
+  "excerpt": "              anchor_stride=stride,\n              anchor_offset=offset))\n    concatenated_anchors = box_list_ops.concatenate(anchor_grid_list)\n    num_anchors = concatenated_anchors.num_boxes_static()\n    if num_anchors is None:\n      num_anchors = concatenated_anchors.num_boxes()\n    if self._clip_window is not None:\n      clip_window = tf.multiply(\n          tf.to_float([im_height, im_width, im_height, im_width]),\n          self._clip_window)\n      concatenated_anchors = box_list_ops.clip_to_window(\n          concatenated_anchors, clip_window, filter_nonoverlapping=False)\n      # TODO: make reshape an option for the clip_to_window op\n      concatenated_anchors.set(\n          tf.reshape(concatenated_anchors.get(), [num_anchors, 4]))\n\n    stddevs_tensor = 0.01 * tf.ones(\n        [num_anchors, 4], dtype=tf.float32, name='stddevs')\n    concatenated_anchors.add_field('stddev', stddevs_tensor)\n\n    return concatenated_anchors\n\n\ndef create_ssd_anchors(num_layers=6,\n                       min_scale=0.2,",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0004-aaejjacgf",
+  "revision_url": "https://github.com/loli/medpy/commit/63d0245d412f5204efe84b712b60c16fa52cc3ec",
+  "filename": "src/medpy/itkvtk/application/batch_watershed.py",
+  "commit": "63d0245d412f5204efe84b712b60c16fa52cc3ec",
+  "source_url": "https://raw.githubusercontent.com/loli/medpy/63d0245d412f5204efe84b712b60c16fa52cc3ec/src/medpy/itkvtk/application/batch_watershed.py",
+  "fetched_at": "2026-11-05T06:11:36.071759+00:00",
+  "source_sha256": "fa49f630064fec3c8b13dd0041d35e883bb734f4f28f11d8fd12407fbca787e8",
+  "line_start": 76,
+  "line_end": 100,
+  "excerpt": "                # check if output image exists\n                if not args.force:\n                    if os.path.exists(image_watershed_name):\n                        logger.warning('The output image {} already exists. Skipping this step.'.format(image_watershed_name))\n                        continue\n                \n                logger.info('Watershedding with settings: thr={} / level={}...'.format(threshold, level))\n                image_watershed.SetLevel(level)\n                image_watershed.Update()\n                \n                logger.debug(itku.getInformation(image_watershed.GetOutput()))\n                \n                # !TODO: In some cases, US is not enough to hold the complete number\n                # of created labels. Flag a warning in this case? Change output to\n                # float? Ensure that not that many labels are created? But required!\n                logger.info('Relabel components to be consecutive and cast to UShort...')\n                watershed_image_type = itku.getImageType(image_watershed.GetOutput())\n                watershed_image_dimensions = itk.template(image_watershed.GetOutput())[1][1]\n                image_type_out = itk.Image[itk.US, watershed_image_dimensions]\n                image_relabeled = itk.RelabelComponentImageFilter[watershed_image_type, image_type_out].New()\n                image_relabeled.SetInput(image_watershed.GetOutput())\n                image_relabeled.Update()\n                \n                logger.debug(itku.getInformation(image_relabeled.GetOutput()))\n",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0174-aafbhcbbi",
+  "revision_url": "https://github.com/deepmedic/deepmedic/commit/19573dadd0788d22dd4d4ac910c3231396fb518c",
+  "filename": "plotTrainingProgress.py",
+  "commit": "19573dadd0788d22dd4d4ac910c3231396fb518c",
+  "source_url": "https://raw.githubusercontent.com/deepmedic/deepmedic/19573dadd0788d22dd4d4ac910c3231396fb518c/plotTrainingProgress.py",
+  "fetched_at": "2026-11-05T06:12:06.066778+00:00",
+  "source_sha256": "7d613e85dffeef5d3b5dc4b527ada7502a21ed7e70ab70456714b4669f8d9991",
+  "line_start": 283,
+  "line_end": 307,
+  "excerpt": "\t\t\tlistOfMeasurements = getListOfAccNumbersFromListOfStrNumbersAvoidingNotAppl(listOfstringNumbersSplitted, previousMeasurementForClassAndMetric)\n\n\t\t\tpreviousMeasurementForEachClassAndMetric[matchVal0Train1][matchClass_i][matchMetric_i] = listOfMeasurements[-1] # LHS use the list itself, not an intermediate immutable int-variable!\n\t\t\tmeasurementsForEachClassAndMetric[matchVal0Train1][matchClass_i][matchMetric_i] += listOfMeasurements\n\n\t\tnewLine = f.readline()\n\n\tf.close()\n\n\treturn ( measurementsForEachClassAndMetric[0], measurementsForEachClassAndMetric[1] )\n\n\n# THIS IS A VERY UGLY FUNCTION because it has hardcoded 0/4/5 integers for each of the metric. I need to make an enumerated class for this!\ndef parseDetailedMetricsFromThisLog( logFile, classesFromThisLog, movingAverSubeps ) :\n\t### Initially just form a data structure with the regular expressions for each val/train, class and metric. ###\n\t# [0] val, [1] train\n\t# Each has one sublist per class to be plotted\n\t# Each class-sublist has 4 entries, one for each of the plotted metrics Acc,Sens,Spec,DSC-samples. NOT FOR DSC-Full-Seg cause it's not reported per class/subepoch.\n\tregExprForEachClassAndMetric = [ [], [] ] #[0] val, [1] train\n\tsentencesToLookForEachClassAndMetric = [ [], [] ] #[0] val, [1] train\n\tregExprForDscFullSeg = \".*ACCURACY:.*Validation.*The Per-Class average DICE Coefficients over all subjects are:.*DICE3=\"  # Special case, because it's not reported per class.\n\tsentenceForDscFullSeg = \"DICE3=\"\n\n\tfor val0orTrain1 in [0,1] :\n\t\tfor classInt in classesFromThisLog :",
+  "match_policy": "unique-release-normalized-v2"
+}

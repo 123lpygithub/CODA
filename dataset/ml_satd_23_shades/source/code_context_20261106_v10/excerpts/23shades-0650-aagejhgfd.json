@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0650-aagejhgfd",
+  "revision_url": "https://github.com/scvae/scvae/commit/ea0bebc4e16c368d183e3c866ee0fcf99a7f4b5c",
+  "filename": "models/cvae.py",
+  "commit": "ea0bebc4e16c368d183e3c866ee0fcf99a7f4b5c",
+  "source_url": "https://raw.githubusercontent.com/scvae/scvae/ea0bebc4e16c368d183e3c866ee0fcf99a7f4b5c/models/cvae.py",
+  "fetched_at": "2026-11-05T06:13:32.405970+00:00",
+  "source_sha256": "ee3be24d6c80660b503da271aa6708441af89e742768ba50ece41a1ffcc9b300",
+  "line_start": 386,
+  "line_end": 410,
+  "excerpt": "                ), [1, self.S_iw_mc, self.Dim_y, -1, self.Dim_z]\n            )\n            q_z2_log_sigma = tf.reshape(\n                dense_layer(\n                    q_z2_NN, self.Dim_z, activation_fn=None, scope=\"log_sigma\"\n                ), \n                [1, self.S_iw_mc, self.Dim_y, -1, self.Dim_z]\n            )\n\n            ## (1, S_iw * S_mc, K, B, L) \n            self.q_z2_given_y_z1 = Normal(loc=q_z2_mu, scale=softplus(q_z2_log_sigma), validate_args=True)\n\n            # TODO: Reduce dim. of mean.\n            ##  (1, S_iw * S_mc, K, B, L)  -> (S_iw * S_mc, K, B, L) -->\n            ## (S_iw * S_mc, B, L) -->\n            ## (B, L)\n            self.z2_mean = tf.reduce_mean(tf.reduce_sum(tf.squeeze(self.q_z2_given_y_z1.mean()) * tf.expand_dims(self.q_y_given_x_z1_probs, -1), axis = 1), 0)\n            \n            ## (S_iw * S_mc, S_iw * S_mc, K, B, L)\n            self.z2 = tf.reshape(\n                self.q_z2_given_y_z1.sample(self.S_iw_mc), \n                [self.S_iw_mc, self.S_iw_mc, self.Dim_y, -1, self.Dim_z]\n            )\n\n        '''"
+}

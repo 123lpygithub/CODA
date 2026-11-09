@@ -1,0 +1,250 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27wireapp%2Fwire-android%27+AND+number%3D734+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='wireapp/wire-android' AND number=734 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:39.029699+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "forteller",
+        "created_at": "2017-03-22 16:22:48",
+        "updated_at": "2017-03-22 16:22:47",
+        "title": "Change to open source map service",
+        "body": "Wire is fantastic, finally, after a very long time of searching for a FOSS, encrypted chat service I've found one I can use and recommend. Thank you!\r\n\r\nBut I find it curious that a service where privacy and security is a key part, even to the point where you let us download the apk directly if we don't use Google Play Store (thank you for that!) still use Google Maps for your mapping feature. I don't want Google to know more about me/everyone than they already do, including places I'm interested in.\r\n\r\nPlease:\r\n\r\n1. Let me use the map feature without Google Play Services\r\n2. Change stop sending those who click on map links to Google Maps and switch to OpenStreetMaps or someone who uses data from OSM.\r\n\r\nThanks again!",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-03-22 16:00:00",
+        "repo_name": "wireapp/wire-android",
+        "number": 734
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "nikolowry",
+        "created_at": "2017-03-23 01:53:20",
+        "updated_at": "2017-03-23 01:53:20",
+        "title": "Switch to open source map service",
+        "body": "@forteller while we wait for this enhancement, I highly suggest using https://microg.org/download.html.  If you build AOSP from source you just have to apply the patches @microg supplies to enable signature spoofing. Otherwise if you use Xposed (which defeats the purpose of ensuring privacy) you can install the signature spoofing module from there.  \r\n\r\nmicroG Pro Tip: Use the latest preview release, otherwise apps that use the newer version of Google Play Services will complain about your Play Services being out of date. I try to keep a strictly FOSS device but find myself occassionally downloading proprietary developed or distributed software for temporary usage with @yeriomin's https://github.com/yeriomin/YalpStore (Slack for work, Juno, an Uber-like service currently only in NYC, and now Wire)\r\n\r\nOff-topic:\r\n@wireapp needs to make it a priority to get this client to the point where it can be submitted to F-Droid. Any usage of a Google's proprietary services (distribution or jars) negates any claim of full-privacy.  You have no idea what their library is doing and it's more than probably it is fingerprinting devices and calling home.\r\n\r\nI had to install the mobile client due to conversation history \"feature\" which has caused lost messages because I proactively clear my browser's cookies, cache and storage. ",
+        "comment_id": 288594010,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-03-23 01:00:00",
+        "repo_name": "wireapp/wire-android",
+        "number": 734
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "forteller",
+        "created_at": "2017-03-23 12:02:21",
+        "updated_at": "2017-03-23 12:02:21",
+        "title": "Switch to open source map service",
+        "body": "Thanks for all the info! I understand that changes like this will take time, but I'm thinking that just changing what website people who click on the link is sent to should be quite trivial?\r\n\r\nOther than that, I'm sure you agree with me that microg is just an option for the nerdiest of the nerds and we need to make secure and privacy friendly systems that everyone can use, because even us nerds who care enough to use microg etc. are not safe if the wast majority of people are not safe. We all live in a society. :)",
+        "comment_id": 288697361,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-03-23 12:00:00",
+        "repo_name": "wireapp/wire-android",
+        "number": 734
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "nikolowry",
+        "created_at": "2017-03-23 14:20:48",
+        "updated_at": "2017-03-23 14:20:48",
+        "title": "Switch to open source map service",
+        "body": "@forteller you are referring to the \"share your location\" view correct? It's not a webview,  the are using the Google Play Services maps class [https://github.com/wireapp/wire-android/blob/master/app/src/main/res/layout/fragment_location.xml], which makes replacing it exponentially more difficult and time consuming than just changing a url.",
+        "comment_id": 288733922,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-03-23 14:00:00",
+        "repo_name": "wireapp/wire-android",
+        "number": 734
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "forteller",
+        "created_at": "2017-03-23 18:03:21",
+        "updated_at": "2017-03-23 18:03:20",
+        "title": "Switch to open source map service",
+        "body": "Yes, that's the feature I'm talking about. But if you receive one of those shared locations and you use Wire on desktop you are sent to maps.google.com in your browser. That's the link I'm talking about.\r\n\r\nAlso, just noticed: When clicking on it on Android, the Google Maps app opens up directly. I have it installed, unfortunately, but I'm not accepting the terms of service and won't use it. Instead we should be asked which mapps app we want to open the link in.",
+        "comment_id": 288809831,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-03-23 18:00:00",
+        "repo_name": "wireapp/wire-android",
+        "number": 734
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "nikolowry",
+        "created_at": "2017-03-23 18:22:56",
+        "updated_at": "2017-03-23 18:22:56",
+        "title": "Switch to open source map service",
+        "body": "Ah gotcha, never actually generated the link and unfortunately don't have my phone near by.\r\n\r\nThat shouldn't be too difficult to do, just taking the lat/log and plugging it into a new URL for OSM",
+        "comment_id": 288816166,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-03-23 18:00:00",
+        "repo_name": "wireapp/wire-android",
+        "number": 734
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "forteller",
+        "created_at": "2017-03-25 18:10:52",
+        "updated_at": "2017-03-25 18:10:52",
+        "title": "Switch to open source map service",
+        "body": "Yes, exactly. I've updated the issue to try to make my intention clearer, and also added a third point for those receiving a map link on Android.",
+        "comment_id": 289229150,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-03-25 18:00:00",
+        "repo_name": "wireapp/wire-android",
+        "number": 734
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "fungs",
+        "created_at": "2017-06-21 09:35:09",
+        "updated_at": "2017-06-21 09:35:09",
+        "title": "Switch to open source map service",
+        "body": "The real issue here, IMO, is that instead of sending the location in a standardized neutral format that can be opened with whatever program you like, for instance OSMAnd on Android, it sends out links to the Google maps online service. The right way to do this would be to use the [GEO URI format](https://en.wikipedia.org/wiki/Geo_URI_scheme). Another additional convenience format would be a provider-independent web link.",
+        "comment_id": 310024978,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-06-21 09:00:00",
+        "repo_name": "wireapp/wire-android",
+        "number": 734
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "leonmvd",
+        "created_at": "2017-08-18 19:18:35",
+        "updated_at": "2017-08-18 19:18:35",
+        "title": "Switch to open source map service",
+        "body": "I totally agree @fungs, would be so much better to use any app of choice to open (possibly even send) a location. There are more than enough alternatives to google nowadays both web and native (sdk's)",
+        "comment_id": 323439093,
+        "comments": 7,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-08-18 19:00:00",
+        "repo_name": "wireapp/wire-android",
+        "number": 734
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "makingthematrix",
+        "created_at": "2022-02-09 16:28:16",
+        "updated_at": "2022-02-09 16:28:15",
+        "title": "Switch to open source map service",
+        "body": "Done. We use Open Street Maps now.",
+        "comment_id": 1033949646,
+        "comments": 9,
+        "state": "closed",
+        "closed_at": "2022-02-09 16:28:15",
+        "file_time": "2022-02-09 16:00:00",
+        "repo_name": "wireapp/wire-android",
+        "number": 734
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "makingthematrix",
+        "created_at": "2022-02-09 16:28:16",
+        "updated_at": "2022-02-09 16:28:16",
+        "title": "Switch to open source map service",
+        "body": "Wire is fantastic, finally, after a very long time of searching for a FOSS, encrypted chat service I've found one I can use and recommend. Thank you!\r\n\r\nBut I find it curious that a service where privacy and security is a key part, even to the point where you let us download the apk directly if we don't use Google Play Store (thank you for that!) still use Google Maps for your mapping feature. I don't want Google to know more about me/everyone than they already do, including places I'm interested in.\r\n\r\nPlease:\r\n\r\n1. Let me use the map feature without Google Play Services\r\n2. Stop sending those who click on a map link on desktop/web to Google Maps and switch to OpenStreetMaps or someone who uses data from OSM.\r\n3. Let those who click on a map link in Android choose which map app to open.\r\n\r\nThanks again!",
+        "comment_id": 0,
+        "comments": 9,
+        "state": "closed",
+        "closed_at": "2022-02-09 16:28:15",
+        "file_time": "2022-02-09 16:00:00",
+        "repo_name": "wireapp/wire-android",
+        "number": 734
+      }
+    ],
+    "rows": 11,
+    "statistics": {
+      "elapsed": 0.03417055,
+      "rows_read": 314865,
+      "bytes_read": 9130203
+    }
+  },
+  "response_sha256": "60be18d260d5c1eaecff17b7c5c59e1f97bd51e6487b460417680c36c4f2e223"
+}

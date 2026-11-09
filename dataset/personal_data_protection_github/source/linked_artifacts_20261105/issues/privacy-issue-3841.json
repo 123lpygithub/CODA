@@ -1,0 +1,42 @@
+{
+  "artifact_id": "privacy-issue-3841",
+  "source_issue_url": "https://github.com/YOURLS/YOURLS/issues/2386",
+  "issue_snapshot_sha256": "95d57eda897910191662f4b63c4c9f4a34f797d097589c1395d1db0b44b60828",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/YOURLS/YOURLS/blob/master/.github/ISSUE_TEMPLATE.md",
+      "kind": "file",
+      "cited_in": [
+        "comment_381374634"
+      ],
+      "status": "unavailable",
+      "reason": "URLError: <urlopen error [Errno 101] Network is unreachable>"
+    },
+    {
+      "url": "https://github.com/YOURLS/YOURLS/blob/master/.github/CONTRIBUTING.md",
+      "kind": "file",
+      "cited_in": [
+        "comment_381374634"
+      ],
+      "status": "unavailable",
+      "reason": "URLError: <urlopen error [Errno 101] Network is unreachable>"
+    },
+    {
+      "url": "https://github.com/YOURLS/YOURLS/blob/master/includes/functions.php#L163",
+      "kind": "file",
+      "cited_in": [
+        "comment_392465635"
+      ],
+      "revision": "master",
+      "immutable_revision": false,
+      "line_start": 151,
+      "line_end": 175,
+      "text": "function yourls_update_clicks( $keyword, $clicks = false ) {\n    // Allow plugins to short-circuit the whole function\n    $pre = yourls_apply_filter( 'shunt_update_clicks', yourls_shunt_default(), $keyword, $clicks );\n    if ( yourls_shunt_default() !== $pre ) {\n        return $pre;\n    }\n\n    $keyword = yourls_sanitize_keyword( $keyword );\n    $table = YOURLS_DB_TABLE_URL;\n    if ( $clicks !== false && is_int( $clicks ) && $clicks >= 0 ) {\n        $update = \"UPDATE `$table` SET `clicks` = :clicks WHERE `keyword` = :keyword\";\n        $values = [ 'clicks' => $clicks, 'keyword' => $keyword ];\n        $update_type = 'set';\n    } else {\n        $update = \"UPDATE `$table` SET `clicks` = clicks + 1 WHERE `keyword` = :keyword\";\n        $values = [ 'keyword' => $keyword ];\n        $update_type = 'increment';\n    }\n\n    $ydb = yourls_get_db('write-update_clicks');\n\n    // Try and update click count. An error probably means a concurrency problem : just skip the update\n    try {\n        $result = $ydb->fetchAffected($update, $values);\n    } catch (Exception $e) {",
+      "source_sha256": "b1cbc1141954da85c8ce097a41ef2da9b3115e53e4f4af46ac5485a43118fade",
+      "fetched_at": "2026-11-05T06:21:13.396616+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/YOURLS/YOURLS/master/includes/functions.php",
+      "status": "available"
+    }
+  ]
+}

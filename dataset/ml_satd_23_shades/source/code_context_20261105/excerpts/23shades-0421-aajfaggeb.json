@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0421-aajfaggeb",
+  "revision_url": "https://github.com/pyannote/pyannote-audio/commit/b8b0246408e3cf14e0a33707200cbcde99a82178",
+  "filename": "pyannote/audio/applications/segmentation.py",
+  "commit": "b8b0246408e3cf14e0a33707200cbcde99a82178",
+  "source_url": "https://raw.githubusercontent.com/pyannote/pyannote-audio/b8b0246408e3cf14e0a33707200cbcde99a82178/pyannote/audio/applications/segmentation.py",
+  "fetched_at": "2026-11-05T06:12:52.011063+00:00",
+  "source_sha256": "c967d1580f26814aea7510ed311bc70e558ad07abdc4ae30304a292b87251f37",
+  "line_start": 508,
+  "line_end": 532,
+  "excerpt": "        application.validate(protocol_name, subset=subset,\n                             start=start, end=end, every=every,\n                             in_order=in_order, task=label)\n\n    if arguments['apply']:\n\n        model_pt = Path(arguments['<model.pt>'])\n        model_pt = model_pt.expanduser().resolve(strict=True)\n\n        output_dir = Path(arguments['<output_dir>'])\n        output_dir = output_dir.expanduser().resolve(strict=False)\n\n        # TODO. create README file in <output_dir>\n\n        step = arguments['--step']\n        if step is not None:\n            step = float(step)\n\n        batch_size = int(arguments['--batch'])\n\n        application = Segmentation.from_model_pt(\n            model_pt, db_yml=db_yml, training=False)\n        application.device = device\n        application.batch_size = batch_size\n        application.apply(protocol_name, output_dir, step=step, subset=subset)"
+}

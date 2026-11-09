@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0142-aaeeiicii",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/480eb495668bf556f135e6053ac7f0b606bc0b09",
+  "filename": "madmom/utils/midi.py",
+  "commit": "480eb495668bf556f135e6053ac7f0b606bc0b09",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/480eb495668bf556f135e6053ac7f0b606bc0b09/madmom/utils/midi.py",
+  "fetched_at": "2026-11-05T06:12:00.761869+00:00",
+  "source_sha256": "3ff855d70c9f4b3e199417b6ff35120f813d6400c70accbd98bfed68813578f8",
+  "line_start": 871,
+  "line_end": 895,
+  "excerpt": "class MidiTrack(object):\n    \"\"\"\n    MIDI Track.\n\n    \"\"\"\n    def __init__(self):\n        \"\"\"\n        Instantiate a new MIDI track object instance.\n\n        \"\"\"\n        self.events = []\n        self._relative_timing = True\n        self._status = None  # needed for correct SysEx event handling\n\n    def make_ticks_abs(self):\n        \"\"\"\n        Make the track's timing information absolute.\n\n        \"\"\"\n        if self._relative_timing:\n            running_tick = 0\n            for event in self.events:\n                event.tick += running_tick\n                running_tick = event.tick\n            self._relative_timing = False"
+}

@@ -1,0 +1,109 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18635",
+  "issue_url": "https://github.com/keepassxreboot/keepassxc/issues/32",
+  "source_issue_url": "https://github.com/keepassxreboot/keepassxc/issues/32",
+  "api_url": "https://api.github.com/repos/keepassxreboot/keepassxc/issues/32",
+  "title": "The way currently the favicon downloading works, doesn't work with some websites.",
+  "body": "Currently, for downloading the favicon of a website we are relying on Google by doing the following trick,\n\n``` c++\nQString path = \"http://www.google.com/s2/favicons?domain=\" + url.host();\n```\n\nThis though doesn't work with some websites, with [packagist.org](http://www.google.com/s2/favicons?domain=packagist.org) being such an example. For finding the favicon a typical web browser first checks the HTML code of the web page for one of the following tags,\n\n``` html\n<link rel=\"shortcut icon\" href=\"http://example.com/myicon.ico\">\n<link rel=\"icon\" type=\"image/vnd.microsoft.icon\" href=\"http://example.com/image.ico\">\n<link rel=\"icon\" type=\"image/x-icon\" href=\"http://example.com/image.ico\">\n<link rel=\"icon\" href=\"http://example.com/image.ico\">\n<link rel=\"icon\" type=\"image/gif\"  href=\"http://example.com/image.gif\">\n<link rel=\"icon\" type=\"image/png\" href=\"http://example.com/image.png\">\n```\n\nIf neither of those are being found, then the web browser checks if the file `favicon.ico` exists on the root of the website. So, to do it properly we first need to download the HTML code, parse it in order to find one or more of those tags, try to fetch the favicon based on them and if it is unsuccessful try to fetch the `favicon.ico` file from the root of the website.\n\nIf you agree with this I can take a look to see if I can implement this, so we can make the download of the favicon more robust and we won't have to rely on Google for something like that, which might actually stop working in the future and break that functionality of the application.\n#30\n",
+  "author": "Participant 1",
+  "created_at": "2016-10-06T20:29:12Z",
+  "updated_at": "2016-10-07T15:44:55Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:22.735628+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:22.735628+00:00"
+  ],
+  "expected_comment_count": 10,
+  "retrieved_comment_count": 10,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 252081828,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/32#issuecomment-252081828",
+      "created_at": "2016-10-06T20:39:55Z",
+      "updated_at": "2016-10-06T20:39:55Z",
+      "author": "Participant 2",
+      "body": "By me it's ok. :+1:\n"
+    },
+    {
+      "id": 252082370,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/32#issuecomment-252082370",
+      "created_at": "2016-10-06T20:41:59Z",
+      "updated_at": "2016-10-06T20:41:59Z",
+      "author": "Participant 3",
+      "body": "keepassx is a tool you put some of your best secrets into. Users believe that it tries to provide the highest security as possible.\n\nThis might be undermined by putting libs + implementation to download + parse a web page into it. The favicon feature is nice, but not mandatory. Keep it simple + stupid.\n"
+    },
+    {
+      "id": 252084942,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/32#issuecomment-252084942",
+      "created_at": "2016-10-06T20:51:57Z",
+      "updated_at": "2016-10-06T20:53:18Z",
+      "author": "Participant 1",
+      "body": "@stmllr The problem is that relying on a third party service for a feature of a standalone application like this, automatically takes the control away from the user. If in the future Google decides to change their URL structure or simply drop that feature, that will make the application to break and the user will not be able to do anything about it. Additionally, users who run an older version of the application and are not be able to update from some reason even when the problem is fixed from our part, they will be stuck with that issue.\n\nParsing the web page is not as hard as it sounds when you are looking for something specific, it can be done with just regular expressions, we aren't trying to parse every tag just locate a specific piece of information. No external libs are required.\n"
+    },
+    {
+      "id": 252090527,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/32#issuecomment-252090527",
+      "created_at": "2016-10-06T21:13:39Z",
+      "updated_at": "2016-10-06T21:13:39Z",
+      "author": "Participant 4",
+      "body": "This is a password manager, not a web scraper. This is also a \"nice to have\" feature, it might not work in all cases. The current implementation will stand.\n"
+    },
+    {
+      "id": 252097207,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/32#issuecomment-252097207",
+      "created_at": "2016-10-06T21:42:00Z",
+      "updated_at": "2016-10-06T21:44:14Z",
+      "author": "Participant 1",
+      "body": "@droidmonkey In that case, then why not just try to fetch the `favicon.ico` from the root of the website and if it doesn't exist fallback to Google? From my experience as a web developer the majority of the websites keep a `favicon.ico` on their root as a fallback for older browsers that aren't able to parse the tags.\n\nDoing this only requires a couple of extra lines of code and should be enough to make the feature work with the majority of the websites and we stop relying as much to Google that way.\n"
+    },
+    {
+      "id": 252100533,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/32#issuecomment-252100533",
+      "created_at": "2016-10-06T21:57:43Z",
+      "updated_at": "2016-10-06T21:58:00Z",
+      "author": "Participant 2",
+      "body": "@droidmonkey I think would be nice a setting to prevent the favicon feature because using Google can be a security issue (will track user request/metadata/IP/etc)\n"
+    },
+    {
+      "id": 252101695,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/32#issuecomment-252101695",
+      "created_at": "2016-10-06T22:03:33Z",
+      "updated_at": "2016-10-06T22:12:33Z",
+      "author": "Participant 1",
+      "body": "@TheZ3ro Yes, I was thinking about that privacy issue as well, if we use though the method I proposed on my last comment, trying to fetch the `favicon.ico` file from the root of the website and only use Google as a fallback, it's not that bad in my opinion as Google would be used very rarely. I agree with you though that it would be useful though to add a setting to disable the fallback to Google entirely, for users who don't like being tracked by Google and just make it so it will only try to fetch the favicon from the root folder of the website.\n"
+    },
+    {
+      "id": 252157781,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/32#issuecomment-252157781",
+      "created_at": "2016-10-07T05:43:17Z",
+      "updated_at": "2016-10-07T05:44:19Z",
+      "author": "Participant 4",
+      "body": "@TheZ3ro the use of the icon grabbing code is by manual clicking a button, it does not automatically reach out and grab icons unless the user wants to do it.\n\n@magkopian\nI do kinda like the idea of _first_ finding the .ico, then moving to the google tool. Open a new issue that specifically requests that or create a PR with the code changes required.\n"
+    },
+    {
+      "id": 252161015,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/32#issuecomment-252161015",
+      "created_at": "2016-10-07T06:10:15Z",
+      "updated_at": "2016-10-07T06:10:15Z",
+      "author": "Participant 2",
+      "body": "@droidmonkey ok so it's fine by me \n"
+    },
+    {
+      "id": 252287450,
+      "url": "https://github.com/keepassxreboot/keepassxc/issues/32#issuecomment-252287450",
+      "created_at": "2016-10-07T15:44:55Z",
+      "updated_at": "2016-10-07T15:44:55Z",
+      "author": "Participant 1",
+      "body": "@droidmonkey Ok, on it. I'll implement this and I'll send a pull request.\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/keepassxreboot/keepassxc/issues/32",
+  "closed_at_available": false
+}

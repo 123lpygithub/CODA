@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0388-aagaghfcd",
+  "revision_url": "https://github.com/araffin/srl-zoo/commit/f80391f39df7ac1bb47a3bbba6c44ed0dbc0ef5a",
+  "filename": "train.py",
+  "commit": "f80391f39df7ac1bb47a3bbba6c44ed0dbc0ef5a",
+  "source_url": "https://raw.githubusercontent.com/araffin/srl-zoo/f80391f39df7ac1bb47a3bbba6c44ed0dbc0ef5a/train.py",
+  "fetched_at": "2026-11-05T06:12:43.660011+00:00",
+  "source_sha256": "b9c152c6a062780fda04eaf6af615b3999eb951a796db59ca6d5e72e499c15f5",
+  "line_start": 160,
+  "line_end": 184,
+  "excerpt": "    def forward(self, states, next_states, dissimilar_pairs, same_actions_pairs):\n        \"\"\"\n        :param states: (th Variable)\n        :param next_states: (th Variable)\n        :param dissimilar_pairs: (th tensor)\n        :param same_actions_pairs: (th tensor)\n        :return: (th Variable)\n        \"\"\"\n        state_diff = next_states - states\n        state_diff_norm = state_diff.norm(2, dim=1)\n        similarity = lambda x, y: th.exp(-(x - y).norm(2, dim=1) ** 2)\n        temp_coherence_loss = (state_diff_norm ** 2).mean()\n        fixed_ref_point_loss = 0 # TODO WIP temp_coherence_loss # assumes all sequences in the dataset share at least one same 3D pos of Baxter arm\n        causality_loss = similarity(states[dissimilar_pairs[:, 0]],\n                                    states[dissimilar_pairs[:, 1]]).mean()\n        proportionality_loss = ((state_diff_norm[same_actions_pairs[:, 0]] -\n                                 state_diff_norm[same_actions_pairs[:, 1]]) ** 2).mean()\n\n        repeatability_loss = (\n            similarity(states[same_actions_pairs[:, 0]], states[same_actions_pairs[:, 1]]) *\n            (state_diff[same_actions_pairs[:, 0]] - state_diff[same_actions_pairs[:, 1]]).norm(2, dim=1) ** 2).mean()\n\n        l1_loss = sum([th.sum(th.abs(param)) for param in self.reg_params])\n\n        loss = 1 * temp_coherence_loss + 1 * causality_loss + 5 * proportionality_loss \\"
+}

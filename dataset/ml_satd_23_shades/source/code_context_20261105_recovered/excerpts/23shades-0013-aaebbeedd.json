@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0013-aaebbeedd",
+  "revision_url": "https://github.com/Calysto/conx/commit/4c3d631b7d3976d902765b2b4077f56edfba9970",
+  "filename": "conx/_cairosvg.py",
+  "commit": "4c3d631b7d3976d902765b2b4077f56edfba9970",
+  "source_url": "https://raw.githubusercontent.com/Calysto/conx/4c3d631b7d3976d902765b2b4077f56edfba9970/conx/_cairosvg.py",
+  "fetched_at": "2026-11-05T06:11:40.608279+00:00",
+  "source_sha256": "6ac51d6a36966e0dc126b0292d1d1dfc574d6ee00b075c11c9959da162a79907",
+  "line_start": 27,
+  "line_end": 51,
+  "excerpt": "\nfrom cairosvg.helpers import node_format, preserve_ratio, preserved_ratio, size\nfrom cairosvg.parser import Tree\nfrom cairosvg.surface import cairo\nfrom cairosvg.url import parse_url\n\n\ndef uri2image_bytes(image_str):\n    \"\"\"Convert a 'data:...' URI to image_bytes\"\"\"\n    header, image_data = image_str.split(\",\")\n    if header.endswith(\"base64\"):\n        image_binary = base64.b64decode(image_data)\n    ### elif (): ## FIXME: handle other bases here\n    return image_binary\n\ndef image(surface, node):\n    \"\"\"Draw an image ``node``.\"\"\"\n    base_url = node.get('{http://www.w3.org/XML/1998/namespace}base')\n    if not base_url and node.url:\n        base_url = os.path.dirname(node.url) + '/'\n    url = parse_url(node.get('{http://www.w3.org/1999/xlink}href'), base_url)\n    if \"href\" in node and node[\"href\"].startswith(\"data:image/\"): # gif, etc\n        image_bytes = uri2image_bytes(node[\"href\"])\n    else:\n        image_bytes = node.fetch_url(url, 'image/*')"
+}

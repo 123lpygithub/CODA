@@ -1,0 +1,258 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20707",
+  "issue_url": "https://github.com/keystonejs/keystone-classic/issues/3075",
+  "source_issue_url": "https://github.com/keystonejs/keystone-classic/issues/3075",
+  "api_url": "https://api.github.com/repos/keystonejs/keystone-classic/issues/3075",
+  "title": "Admin interface analytics",
+  "body": "For us maintainers it's really hard to judge which features of the admin interface people are using/not using.\n\nIt'd be nice to add opt-out analytics where we can collect (anonymized, obviously) information about what people are doing with the Keystone admin interface so we can adapt to what users are actually doing!\n\n_Yes I realize this isn't a bug, but this wouldn't make sense to be on Product Pains since it's mostly maintainer-facing_\n",
+  "author": "Participant 1",
+  "created_at": "2016-06-24T07:01:49Z",
+  "updated_at": "2017-10-04T13:44:03Z",
+  "state": "closed",
+  "closed_at": "2017-10-04T13:44:03Z",
+  "issue_fetched_at": "2026-10-18T23:11:16.065786+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T23:11:17.496328+00:00"
+  ],
+  "expected_comment_count": 29,
+  "retrieved_comment_count": 29,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 228416235,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-228416235",
+      "created_at": "2016-06-24T17:58:59Z",
+      "updated_at": "2016-06-24T17:58:59Z",
+      "author": "Participant 2",
+      "body": "Can we also use this thread for missing features?\n"
+    },
+    {
+      "id": 228452450,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-228452450",
+      "created_at": "2016-06-24T20:21:32Z",
+      "updated_at": "2016-06-24T20:21:32Z",
+      "author": "Participant 1",
+      "body": "No, this issue is specifically about introducing something like Google Analytics to the admin interface. Please submit individual issues to Github or feature requests to Product Pains!\n"
+    },
+    {
+      "id": 228530152,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-228530152",
+      "created_at": "2016-06-25T10:29:13Z",
+      "updated_at": "2016-06-25T10:29:13Z",
+      "author": "Participant 3",
+      "body": "Could this issue relate to the overall architecture of the project, and more specifically to the potential split between a \"core\" codebase and \"plugins\"?\nWhat I mean by that is that if we had a \"core\" package, and then \"plugin\" packages, you would know which additional features are being used just by looking at the number of downloads / issues created / PR submitted for each individual plugin.\nI feel that adding another feature to the project (this time, analytics) is not a good solution to help shipping v4... Instead, it should be the opposite, the codebase should be getting lighter.\nIt doesn't really make sense that there are so many issues related to Cloudinary and so on, when a lot of users will never use that service and are just waiting for a stable release of basic v4 (like me :) )\nThe example of babel and their strategy for going from v5 to v6 seems a good example, don't you think? They isolated a core and externalized a lot of plugins, and in the process had to design a clear API for each plugin to integrate with core. I would love to see that with Keystone as well.\n"
+    },
+    {
+      "id": 228532266,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-228532266",
+      "created_at": "2016-06-25T10:57:38Z",
+      "updated_at": "2016-06-25T10:57:38Z",
+      "author": "Participant 1",
+      "body": "> They isolated a core and externalized a lot of plugins, and in the process had to design a clear API for each plugin to integrate with core.\n\nThat's what we're working towards and is one of the big reasons v4 is such a long update! (sorry about that…)\nWe are now using react, which will very easily allow us to split out and integrate new fields (like Cloudinary), which in combination with #3052 will make our life maintaining the core a lot easier.\n\nWe will definitely not make that happen for v4, since we do want to get that released asap, but it's very very high up on our roadmap!\n\n> I feel that adding another feature to the project (this time, analytics) is not a good solution to help shipping v4...\n\nThis is not a feature per-se, as no user will ever see this. This is solely for us maintainers, and it's very important and I do want to get this in before the v4 release.\n\nWe maintainers have no clue what the hell people are doing with Keystone, and while Product Pains was a good first step to get more clarity it's not enough. Adding analytics to the interface (which will hopefully will not be too difficult, shouldn't really delay the release anyway) will help us massively to focus on making those features that people are actually using better!\n"
+    },
+    {
+      "id": 228533403,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-228533403",
+      "created_at": "2016-06-25T11:14:45Z",
+      "updated_at": "2016-06-25T11:14:45Z",
+      "author": "Participant 3",
+      "body": "Thanks @mxstbr for linking to https://github.com/keystonejs/keystone/pull/3052 , it's good to see such progress is underway!\nDon't be sorry about v4 being delayed, it's already great this project exists :) (and since I am using it for a small site, I am building it from the github master, so I get to use v4 in practice already).\n"
+    },
+    {
+      "id": 228533607,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-228533607",
+      "created_at": "2016-06-25T11:17:40Z",
+      "updated_at": "2016-06-25T11:18:04Z",
+      "author": "Participant 1",
+      "body": "> so I get to use v4 in practice already\n\nPlease let us know what problems you run into and submit issues! That might be the most important thing for us, so we know we broke with the rework and can fix it :+1:\n"
+    },
+    {
+      "id": 232173759,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232173759",
+      "created_at": "2016-07-12T20:40:57Z",
+      "updated_at": "2016-07-12T20:41:29Z",
+      "author": "Participant 4",
+      "body": "Big thumbs down from my end. Remember when [Strongloop tracked user version distribution by abusing npm](https://github.com/strongloop/loopback/issues/1079)? Granted, this planned tracking in Keystone is a very different (and less shady) scenario but please read those user's reactions to being tracked by OSS.\n\nDo other popular npm modules engage in this kind of opt-out tracking? I expect this kind of thing from SaaS but **never** in OSS.\n\nIf you want usability feedback there are less underhanded and frankly **more effective** ways of getting this data, including compensated IRL usability trials & voluntary usability surveys.\n\nThis kind of tracking blurs the line between commercial product & OSS in a way that I am not comfortable with.\n"
+    },
+    {
+      "id": 232184202,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232184202",
+      "created_at": "2016-07-12T21:16:58Z",
+      "updated_at": "2016-07-12T21:16:58Z",
+      "author": "Participant 1",
+      "body": "> including compensated IRL usability trials & voluntary usability surveys.\n\nSure, with all the cash we get from Keystone we'll do that. Oh wait…\n\n---\n\nI personally don't think this is a big deal, and I'm a big privacy advocate.\n\nIt's all open source anyway, it'll be easily disableable (just a single option away), it's not like we can do anything shady. We're not abusing anything here, we really just want to know which buttons people click and which they don't. We currently have no clue whatsoever.\n"
+    },
+    {
+      "id": 232187485,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232187485",
+      "created_at": "2016-07-12T21:29:47Z",
+      "updated_at": "2016-07-12T21:29:58Z",
+      "author": "Participant 4",
+      "body": "I respectfully disagree. I urge the KeystoneJS team to seek out other free/low-cost alternatives to usability testing that are non-intrusive.\n"
+    },
+    {
+      "id": 232194909,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232194909",
+      "created_at": "2016-07-12T21:59:35Z",
+      "updated_at": "2016-07-12T21:59:35Z",
+      "author": "Participant 1",
+      "body": "> non-intrusive\n\nHow are analytics intrusive?\n"
+    },
+    {
+      "id": 232335263,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232335263",
+      "created_at": "2016-07-13T12:05:00Z",
+      "updated_at": "2016-07-13T12:05:00Z",
+      "author": "Participant 5",
+      "body": "It should be disabled by default if implemented.\n"
+    },
+    {
+      "id": 232344274,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232344274",
+      "created_at": "2016-07-13T12:47:05Z",
+      "updated_at": "2016-07-13T12:47:27Z",
+      "author": "Participant 1",
+      "body": "> It should be disabled by default if implemented.\n\nWhy? Just throwing out that statement doesn't really help :grin: \n"
+    },
+    {
+      "id": 232349156,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232349156",
+      "created_at": "2016-07-13T13:08:29Z",
+      "updated_at": "2016-07-13T13:08:29Z",
+      "author": "Participant 6",
+      "body": "Most people start keystone using the generator anyway right? So we could just add an additional question into the generator options that the user is presented with? \n"
+    },
+    {
+      "id": 232350267,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232350267",
+      "created_at": "2016-07-13T13:12:46Z",
+      "updated_at": "2016-07-13T13:12:46Z",
+      "author": "Participant 1",
+      "body": "Absolutely @jstockwin, great idea! I'd still make it opt-out though, so maybe something like this?\n\n```\nWe anonymously collect analytics of the admin interface usage. No personal data is ever\ntransferred, only loading times, button clicks, etc.\n(This helps us to make Keystone better with every release!)\n\nDo you want to disable this? (y/N)\n```\n"
+    },
+    {
+      "id": 232359648,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232359648",
+      "created_at": "2016-07-13T13:46:47Z",
+      "updated_at": "2016-07-13T13:46:47Z",
+      "author": "Participant 7",
+      "body": "That's how Yeoman does it, seems like that's a pretty good precedent.\n\nWe should have a look at how they've implemented it behind the scenes too, I think.\n\nSlightly different paradigm though; since it's a CLI tool they ask on first use then can easily remember the setting, whereas we'd need to put the opt-in/out in the project config which makes it easier to miss for developers who don't use the generator.\n"
+    },
+    {
+      "id": 232383910,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232383910",
+      "created_at": "2016-07-13T15:03:43Z",
+      "updated_at": "2016-07-13T15:03:43Z",
+      "author": "Participant 5",
+      "body": "@mxstbr no explanation...I'm simply in the you need to opt in camp.  Why would you ever want to transmit info out of someone's  personal system by default? \n"
+    },
+    {
+      "id": 232386429,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232386429",
+      "created_at": "2016-07-13T15:11:28Z",
+      "updated_at": "2016-07-13T15:11:28Z",
+      "author": "Participant 1",
+      "body": "Just like every other website out there? \n"
+    },
+    {
+      "id": 232388482,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232388482",
+      "created_at": "2016-07-13T15:17:53Z",
+      "updated_at": "2016-07-13T15:17:53Z",
+      "author": "Participant 8",
+      "body": "but is this really all that beneficial? aren't we already tracking feature demand through product pains?\n"
+    },
+    {
+      "id": 232408934,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232408934",
+      "created_at": "2016-07-13T16:24:02Z",
+      "updated_at": "2016-07-13T16:24:02Z",
+      "author": "Participant 7",
+      "body": "@morenoh149 those are features we don't have yet, not how our existing features are used.\n\nTo provide my perspective on why this is valuable, we currently have several APIs that integrate file uploading to S3 and Cloudinary integrated with TinyMCE. I'd _love_ to rip them out and make room for better ones based on the new Storage stuff that's in the works. The problem is I don't know whether there are 5 or 5000 people using those features.\n\nKnowing what's being used, and how, is only going to become more important in terms of understanding which features are safe to deprecate, which to invest in, and whether we're actually optimising Keystone for its real audience. We only interact with a small fraction of users here and in other channels, in terms of total installs. Most of our usage is totally opaque.\n\nThese aren't questions that usability trials can answer for us.\n\nre: Strongloop's blip - that's hostile because it was sneaky, you couldn't opt out of it, was a technical abuse of peer dependencies, exposed a vulnerability, and caused install delays / errors. I didn't see a lot of complaints that would be relevant given the way @mxstbr is designing this for Keystone.\n\nIn terms of whether there's a precedent for OSS to track usage, I think that's mixed. I mentioned Yeoman already. Node itself obviously doesn't/can't; npm tracks heaps of things. If you're serving something, nobody questions whether you can do analytics; if you're charging people, the same. We're disadvantaged because we're building software, not services, and giving it away under the most liberal license possible for free. Kind of ironic :)\n\nSomething I'm really interested in is whether django, wordpress, and other apps similar to Keystone do any of this (unfortunately a search for \"Wordpress analytics\" is pretty useless). Although I'm sure wordpress have a tonne of usage data just from wordpress.com which is completely controlled by Automattic.\n"
+    },
+    {
+      "id": 232412728,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232412728",
+      "created_at": "2016-07-13T16:37:27Z",
+      "updated_at": "2016-07-13T16:37:27Z",
+      "author": "Participant 5",
+      "body": "@JedWatson the argument is not whether it should be done or not.  I as well think it is indeed valuable.  The argument is whether it should be enabled by default.  If keystone somehow asks users and they agree to it then fine.  But if one can somehow setup keystone bypassing this opt-in query then I think it should not be enabled by default.\n"
+    },
+    {
+      "id": 232413439,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232413439",
+      "created_at": "2016-07-13T16:40:08Z",
+      "updated_at": "2016-07-13T16:40:08Z",
+      "author": "Participant 1",
+      "body": "Why? Have you seen a website that let's you opt-out of analytics? Yeah, me neither.\n\nYou want to opt-out of analytics you install an ad blocker. Oh wait, that still applies! But apart from that we also allow you to globally disable it.\n\nNot sure what all this discussion about this is needed for to be honest, this isn't some crazy secret fuck-the-users thing. \n"
+    },
+    {
+      "id": 232416820,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232416820",
+      "created_at": "2016-07-13T16:51:54Z",
+      "updated_at": "2016-07-13T16:51:54Z",
+      "author": "Participant 9",
+      "body": "BTW, if these analytics mean that users can be individually tracked, that means Keystone has to comply with the EU laws and post a \"cookie warning\".\n\nNote that if you use cookies but not for tracking users, it is not needed, and if you track users but don't use cookies to do that, you still need to warn.\n"
+    },
+    {
+      "id": 232419537,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232419537",
+      "created_at": "2016-07-13T17:01:14Z",
+      "updated_at": "2016-07-13T17:01:14Z",
+      "author": "Participant 4",
+      "body": "@JedWatson \n\n[Atom](https://github.com/atom/metrics) is another project that does this. Adding metrics to atom is/was a [contentious issue](https://github.com/atom/atom/issues/4966).\n\nIf you look at the dependents of the [yeoman insights package](https://www.npmjs.com/package/insight), you can see other projects that use Google Analytics to track users. Big players I recognized include Apache Cordova, GitHub command line tools and Jenkins command line tools. So there _is_ precedent.\n\nI don't believe that tracking users via Google Analytics is the only way to get the information you want. That being said, if you _must_ do this, an **opt-in** approach is a satisfactory compromise. Obviously, you don't have to listen to me :smile:. I think this is the best way to communicate your intent-to-track to the user & allow them to explicitly provide consent.\n\n@mxstbr You may not think this is a big deal but many other people in this community do (see linked atom thread). KeystoneJS risks alienating users if it adopts a cavalier attitude towards user privacy.\n"
+    },
+    {
+      "id": 232423077,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232423077",
+      "created_at": "2016-07-13T17:13:37Z",
+      "updated_at": "2016-07-13T17:13:37Z",
+      "author": "Participant 1",
+      "body": "This issue is specifically for admin interface analytics. That's a website. Just like any other website out there it has analytics. (what's the last website you visited that did not have analytics?)\n\nHow is that a \"cavalier attitude towards user privacy\"? Every privacy minded person will have an ad blocker installed anyway. This is not a command line tool, this is not a standalone app. It's a website. \n"
+    },
+    {
+      "id": 232423515,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232423515",
+      "created_at": "2016-07-13T17:15:09Z",
+      "updated_at": "2016-07-13T17:15:09Z",
+      "author": "Participant 1",
+      "body": "I do agree that analytics can be a problem, I do agree that command line tool/app analytics should be opt-in, but this is a website. I'm really not sure what all the fuss is about?\n"
+    },
+    {
+      "id": 232425753,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232425753",
+      "created_at": "2016-07-13T17:22:21Z",
+      "updated_at": "2016-07-13T17:22:21Z",
+      "author": "Participant 7",
+      "body": "@r1b good links, thanks!\n\n@wmertens interesting point.\n\n@mxstbr I think the concern here is that it's not _our_ website, it's somebody else's and we're installing our tracking in it. We have tracking in keystonejs.com and that's not an issue.\n\nI'm fine with making this opt-in, adding it to the generator, and having the default answer there be \"yes\". If you're using Keystone already and upgrade without noticing that we've added analytics, and you're working on a sensitive project, that could be a real fuckup.\n"
+    },
+    {
+      "id": 232998004,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-232998004",
+      "created_at": "2016-07-15T16:18:27Z",
+      "updated_at": "2016-07-15T16:18:27Z",
+      "author": "Participant 4",
+      "body": "I shot an email over to [rms](https://stallman.org/). He recommended the [Piwik](https://piwik.org/) project to ensure that the analytics collected can only be used by the KeystoneJS team.\n"
+    },
+    {
+      "id": 233012371,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-233012371",
+      "created_at": "2016-07-15T17:17:38Z",
+      "updated_at": "2016-07-15T17:17:38Z",
+      "author": "Participant 10",
+      "body": "Since this is an issue about the admin interface, couldn't the analytics choice be presented in the admin somehow?\n\nMaybe when a user with necessary privileges logins to the admin for the first time, a modal dialog appears, confirming the user's choice about the analytics. The choice is then saved to the database or a config file. It doesn't have to be a modal dialog because those are annoying, the UI solution could be post-install config screen or anything else. The point is: ask the question where it actually matters. It would also be a good place to explain what the analytics are and are not.\n\nThis way, existing installs will also get to make a choice when they update to a newer version.\n"
+    },
+    {
+      "id": 334159486,
+      "url": "https://github.com/keystonejs/keystone-classic/issues/3075#issuecomment-334159486",
+      "created_at": "2017-10-04T13:44:03Z",
+      "updated_at": "2017-10-04T13:44:03Z",
+      "author": "Participant 11",
+      "body": "Closing this as a concluded/old discussion"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

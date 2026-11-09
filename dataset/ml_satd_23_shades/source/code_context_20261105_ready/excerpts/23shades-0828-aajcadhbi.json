@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0828-aajcadhbi",
+  "revision_url": "https://github.com/dipy/dipy/commit/b72a036cc81370050f35deb687e41c631fcb6b12",
+  "filename": "dipy/sims/voxel.py",
+  "commit": "b72a036cc81370050f35deb687e41c631fcb6b12",
+  "source_url": "https://raw.githubusercontent.com/dipy/dipy/b72a036cc81370050f35deb687e41c631fcb6b12/dipy/sims/voxel.py",
+  "fetched_at": "2026-11-05T06:14:01.465742+00:00",
+  "source_sha256": "e7976671f642eedd4b018fe9e89ef983b3dca7a59154a9a31e261eaa94a705d6",
+  "line_start": 135,
+  "line_end": 159,
+  "excerpt": "    R = np.asarray(evecs)\n    S = np.zeros(len(gradients))\n    D = R.dot(np.diag(evals)).dot(R.T)\n\n    for (i, g) in enumerate(gradients):\n        S[i] = S0 * np.exp(-bvals[i] * g.T.dot(D).dot(g))\n\n    \"\"\" Alternative suggestion which works with multiple b0s\n    design = design_matrix(bval, gradients.T)\n    S = np.exp(np.dot(design, lower_triangular(D)))\n    \"\"\"\n\n    # XXX Refactor to calculate the Rician SNR:\n    if snr is not None:\n        std = S0 / snr\n        S = S + np.random.randn(len(S)) * std\n\n    return S.reshape(out_shape)\n\n\ndef single_tensor_odf(r, evals=None, evecs=None):\n    \"\"\"Simulated ODF with a single tensor.\n\n    Parameters\n    ----------"
+}

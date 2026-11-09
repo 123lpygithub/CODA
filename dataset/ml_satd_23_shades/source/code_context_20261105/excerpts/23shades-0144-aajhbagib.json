@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0144-aajhbagib",
+  "revision_url": "https://github.com/plasticityai/magnitude/commit/4f1b637d8eab27ca93f8aee2d1c24b5e38f38301",
+  "filename": "pymagnitude/third_party/_apsw/tools/shell.py",
+  "commit": "4f1b637d8eab27ca93f8aee2d1c24b5e38f38301",
+  "source_url": "https://raw.githubusercontent.com/plasticityai/magnitude/4f1b637d8eab27ca93f8aee2d1c24b5e38f38301/pymagnitude/third_party/_apsw/tools/shell.py",
+  "fetched_at": "2026-11-05T06:12:01.778952+00:00",
+  "source_sha256": "1250a585c8707ec07d1fc505639e13ce1b543dbf63a12e3c67adee5584f0a8df",
+  "line_start": 1955,
+  "line_end": 1979,
+  "excerpt": "                    #self.separator=self._output_stack[0][\"separator\"]\n                if w==\"insert\":\n                    if len(cmd)==2:\n                        self._output_table=cmd[1]\n                    else:\n                        self._output_table=\"table\"\n                    self._output_table=self._fmt_sql_identifier(self._output_table)\n                return\n        if not self._output_modes:\n            self._cache_output_modes()\n        raise self.Error(\"Expected a valid output mode: \"+\", \".join(self._output_modes))\n\n    # needed so command completion and help can use it\n    def _cache_output_modes(self):\n        modes=[m[len(\"output_\"):] for m in dir(self) if m.startswith(\"output_\")]\n        modes.append(\"tabs\")\n        modes.sort()\n        self._output_modes=modes\n\n        detail=[]\n\n        for m in modes:\n            if m=='tabs': continue\n            d=getattr(self, \"output_\"+m).__doc__\n            assert d, \"output mode \"+m+\" needs doc\""
+}

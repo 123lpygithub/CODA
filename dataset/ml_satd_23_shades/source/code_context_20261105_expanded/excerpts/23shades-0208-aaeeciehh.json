@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0208-aaeeciehh",
+  "revision_url": "https://github.com/chainer/chainer-chemistry/commit/4bd35912e53d875330d2792911f6eedee62389d2",
+  "filename": "tests/dataset_tests/preprocessors_tests/test_weavenet_preprocessor.py",
+  "commit": "4bd35912e53d875330d2792911f6eedee62389d2",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainer-chemistry/4bd35912e53d875330d2792911f6eedee62389d2/tests/dataset_tests/preprocessors_tests/test_weavenet_preprocessor.py",
+  "fetched_at": "2026-11-05T06:12:15.614830+00:00",
+  "source_sha256": "1e4e9e5d95c436c0b14b045bfb31e625430fd49c59cccf759cfe0dff6a771c2b",
+  "line_start": 18,
+  "line_end": 35,
+  "excerpt": "    atoms, adjs = dataset[index]\n    if use_fixed_atom_feature:\n        assert atoms.ndim == 2  # (atom, ch)\n        assert atoms.dtype == numpy.float32\n    else:\n        assert atoms.ndim == 1  # (atom, )\n        assert atoms.dtype == numpy.int32\n    # (atom from * atom to, ch)\n    assert adjs.ndim == 2\n    assert adjs.shape[0] == max_atoms * max_atoms\n    assert adjs.dtype == numpy.float32\n\n    # TODO (nakago): test feature extraction behavior...\n    atoms0, adjs0 = dataset[0]\n\n\nif __name__ == '__main__':\n    pytest.main([__file__, '-v', '-s'])"
+}

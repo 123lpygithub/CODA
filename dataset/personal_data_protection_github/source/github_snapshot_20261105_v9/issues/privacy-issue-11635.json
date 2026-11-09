@@ -1,0 +1,101 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11635",
+  "issue_url": "https://github.com/prebid/Prebid.js/issues/5194",
+  "source_issue_url": "https://github.com/prebid/Prebid.js/issues/5194",
+  "api_url": "https://api.github.com/repos/prebid/Prebid.js/issues/5194",
+  "title": "Proposal to change the default handling of Purpose 4 in the TCF v2.0 enforcement updates",
+  "body": "# Background\r\nA proposal has been made to the Prebid project to enforce some elements of the IAB’s TCF v2.0 within Prebid.js and Prebid Server (https://docs.google.com/document/d/1fBRaodKifv1pYsWY3ia-9K96VHUjd8kKvxZlOsozm8E/edit#heading=h.hlpacpauqwkx). The goal is to add “basic enforcement” of the GDPR in order to confirm that there's enough evidence of consent to pass data on to vendors who have access to the GVL and can fully parse and enforce.  As part of this proposal, Purpose 4 of the IAB TCF v2.0 was included as an enforceable purpose. Purpose 4 is known as \"Personalized Ad Selection\" and defined as “Select personalised ads based on a user profile or other historical user data, including a user’s prior activity, interests, visits to sites or apps, location, or demographic information”. Basically, if the user doesn’t consent, they don’t want ads based on any type of user profile.\r\n\r\n# The Original Proposal for Purpose 4\r\nThe proposal says that if the user does not consent to Purpose 4 for a particular vendor, then no user ids (`user.buyeruid`, `user.id`, `user.ext.eids`, `user.ext.digitrust`, `device.ifa`, `device.macsha1`, `device.macmd5`, `device.dpidsha1`, `device.dpidmd5`, `device.didsha1`, `device.didmd5`) will be sent to the demand partner via their bid adapter (PBJS) or bid request (PBS). \r\n\r\n### Concerns with the Default Setting in the Proposal\r\nThe concern with this approach is that there are valid reasons for a buyer to receive a user ID even if they will not have the consent to use the ID for Personalized Ad Selection.\r\n\r\n#### Purpose 2: Basic Ad Selection\r\nAssuming Purpose 2 is consented to...Without a user identifier, the buyer won’t be able to frequency or recency cap their campaigns, actions that are allowed per the TCF v2.0 guidance: “To select basic ads vendors can: ... Control the frequency of ads shown to a user; Sequence the order in which ads are shown to a user…” (https://iabeurope.eu/iab-europe-transparency-consent-framework-policies/#Purpose_2__Select_basic_ads_).\r\n\r\n#### Purpose 7: Measure Ad Performance\r\nAssuming Purpose 7 is consented to...Without a user identifier, the buyer won’t be able to measure the performance and effectiveness of ads that it purchased. This includes activities such as measuring unique users reached or ad attribution, conversions, and sales lift. These actions are allowed per the TCF v2.0 guidance (https://iabeurope.eu/iab-europe-transparency-consent-framework-policies/#Purpose_7__Measure_ad_performance).\r\n\r\n### Workaround\r\nThe implementation of TCF v2.0 within Prebid.js is such that exceptions can be made by the publisher to bypass the default settings. In this case, if a publisher would like to pass all userIds, or just userIds for specific vendors from the userId module, regardless of Purpose 4 consent signals, they can do so with some config.\r\n\r\nWhile the workaround does exist, the default setting will be used by most publishers and will lead to under-monetized inventory. If a publisher chooses to, they can use the same system of exceptions to remove userIds when the user has not granted consent for Purpose 4.\r\n\r\n# Counter Proposal for Purpose 4\r\nI propose that the default behavior when Purpose 4 does not have consent by the user is to still share userIds with demand partners. If publishers don't want to use this behavior, they can use the exceptions configuration to block userIds for all or specific vendors that they choose.\r\n\r\n# Other Privacy Flags\r\nIt’s worth noting that in Prebid Server, `user.ext.eids` are removed for COPPA, CCPA, LMT, and DNT, currently with no vendor exceptions mechanism like is available for the GDPR. While there may be valid use cases to send userIds in some of these cases, without an exceptions mechanism, the right thing to do is block all userIds as are being done today.\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-05-05T14:29:09Z",
+  "updated_at": "2020-06-01T17:36:24Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:18:57.361345+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:18:57.361345+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 624257213,
+      "url": "https://github.com/prebid/Prebid.js/issues/5194#issuecomment-624257213",
+      "created_at": "2020-05-05T19:24:29Z",
+      "updated_at": "2020-05-05T19:24:29Z",
+      "author": "Participant 2",
+      "body": "I find Scott's case persuasive in the case of purpose 2 or 7 consent. Id's seem integral to those purposes. \r\n\r\nIn the case of the auction beginning before the user interacts with the cmp (when the timeout is hit),\r\nit seems like it might be reasonable for id modules to self-select as publisher generated ids or third party ids, in which case id5 and pubcid and potentially other submodules ( I am aware of at least one other similar proposed identifier that doesn't yet have a submodule PR) would be publisher generated ids. \r\n\r\nHowever, Prebid core would then have to become aware of what is publisher generated and what is not, and that may be subject to debate for certain submodules, so passing id's when none of 2,4,and 7 consent exists seems like it would be difficult to maintain as a default state. It it were the default state, it seems it would then be incumbant on Prebid reviewers to be responsible for policing id modules as pub generated or not and edge cases such as pub.direct would be difficult to decide. \r\n\r\nIn summary, it seems reasonable to pass id's when any of 2,4,7 exists, but at least one of them, as passing them when none exists would require impossible classification of id's into two groups that is better left to the publisher than prebid reviewers. "
+    },
+    {
+      "id": 624626283,
+      "url": "https://github.com/prebid/Prebid.js/issues/5194#issuecomment-624626283",
+      "created_at": "2020-05-06T12:43:01Z",
+      "updated_at": "2020-05-06T12:43:24Z",
+      "author": "Participant 1",
+      "body": "Thanks for the feedback, @patmmccann. I agree that if an auction begins without CMP information, we should consider which, if any, IDs get passed to bid adapters. To me, though, that's a separate issue than how we handle purpose 4 (the topic of this Issue), and think we should discuss solutions as a separate topic. Should we spin off a new Issue for that?"
+    },
+    {
+      "id": 624703429,
+      "url": "https://github.com/prebid/Prebid.js/issues/5194#issuecomment-624703429",
+      "created_at": "2020-05-06T15:03:29Z",
+      "updated_at": "2020-05-06T15:03:29Z",
+      "author": "Participant 2",
+      "body": "Not sure we need a new issue for the other scenario unless someone is proposing a change to not passing id's in that scenario. "
+    },
+    {
+      "id": 624706451,
+      "url": "https://github.com/prebid/Prebid.js/issues/5194#issuecomment-624706451",
+      "created_at": "2020-05-06T15:08:19Z",
+      "updated_at": "2020-05-06T15:08:19Z",
+      "author": "Participant 1",
+      "body": "I'm not proposing any changes to how \"no consent string\" is handled, so then agreed, no need to create a new issue."
+    },
+    {
+      "id": 624995365,
+      "url": "https://github.com/prebid/Prebid.js/issues/5194#issuecomment-624995365",
+      "created_at": "2020-05-07T02:39:19Z",
+      "updated_at": "2020-05-07T02:39:19Z",
+      "author": "Participant 3",
+      "body": "@smenzer \r\nAs per http://prebid.org/dev-docs/modules/gdprEnforcement.html\r\nIf I define rules for storage (Purpose 1) and personalized ads (Purpose 4) then it would mean following\r\n\r\n1) Enforce that the user consents to DeviceAccess as an activity and consider their per-vendor selection. Here if user doesn't give consent to Appnexus than we do not allow Appnexus bidder to do usersync, access localstorage and cookies.\r\n```\r\npbjs.setConfig({\r\n  consentManagement: {\r\n    gdpr: {\r\n      ...\r\n      rules: [{\r\n        purpose: \"storage\",\r\n        enforcePurpose: true,\r\n        enforceVendor: true\r\n      }\r\n    }\r\n  }\r\n});\r\n```\r\nIf I put your counter proposal in api, below rule would mean that if user doesn't give consent to Purpose 4 then we allow user id's to be shared with all bidders.\r\n```\r\npbjs.setConfig({\r\n  consentManagement: {\r\n    gdpr: {\r\n      ...\r\n      rules: [{\r\n        purpose: \"personalizedAds\",\r\n        enforcePurpose: true,\r\n        enforceVendor: true\r\n      }\r\n    }\r\n  }\r\n});\r\n```\r\nAm I correct in understanding this ? If yes then this is little bit confusing to me as out of 4 purposes there is one purpose which behaves opposite when using rules api."
+    },
+    {
+      "id": 625093831,
+      "url": "https://github.com/prebid/Prebid.js/issues/5194#issuecomment-625093831",
+      "created_at": "2020-05-07T07:55:21Z",
+      "updated_at": "2020-05-07T07:55:21Z",
+      "author": "Participant 1",
+      "body": "Hi @jaiminpanchal27 - My understanding of the original proposal from @bretg is that if no rules are defined by the publisher AND the user does not consent to purpose 4 (but does consent to purpose 1 and 2), then user ids would NOT be sent to bid adapters. My proposal here is that in this case, user ids would be sent to bid adapters.\r\n\r\nIn your example, the publisher has explicitly defined a rule to enforce purpose 4 across all vendors, which is slightly different I think. \r\n\r\nI would still make the argument that userIds are completely valid in this scenario, per my arguments earlier. In fact, I'm not entirely sure I agree with PBJS doing any enforcement around Purpose 4 because the logic for whether ads are selected for personalization or not is completely dependent on the bidding platform's internal logic, nothing that can be determined ahead of time (and, given that I'd argue user ids are valid when not using personalization, they are still valid for all demand partners). \r\n\r\nThat said...I'm open to considering enforcement such that if a publisher puts in a rule as you described for Purpose 4, then usersyncs would be blocked and userIds would be stripped. If a publisher wanted to allow certain vendor usersyncs or userIds, they could add the necessary exceptions to the rule."
+    },
+    {
+      "id": 630240580,
+      "url": "https://github.com/prebid/Prebid.js/issues/5194#issuecomment-630240580",
+      "created_at": "2020-05-18T14:59:52Z",
+      "updated_at": "2020-05-18T14:59:52Z",
+      "author": "Participant 4",
+      "body": "We met last week and have significantly revised the proposed handling of TCF2 defaults. See https://docs.google.com/document/d/1fBRaodKifv1pYsWY3ia-9K96VHUjd8kKvxZlOsozm8E/edit# -- will leave the changes highlighted for a week or so"
+    },
+    {
+      "id": 631176963,
+      "url": "https://github.com/prebid/Prebid.js/issues/5194#issuecomment-631176963",
+      "created_at": "2020-05-20T01:20:32Z",
+      "updated_at": "2020-05-20T01:25:04Z",
+      "author": "Participant 4",
+      "body": "The committee met again and approved the following:\r\n\r\n1) Purpose 4 does not imply the removal of User Ids\r\n2) Prebid.js will not remove User IDs. This is left up to server-side code which can deal with the IAB Global Vendor List\r\n3) Prebid Server will remove User IDs when there is no legal basis for any Purpose from 2-10. Purpose 1 is device access, which is about setting User IDs, not using them. Prebid Server will not consider whether the host company or account are enforcing a given purpose when determining legal basis for P2-10.\r\n4) Prebid.js will block head bidding auctions if there's no legal basis test for Purpose 2, *including legitmate interest established*\r\n5) Prebid.js will default to enforcing Purposes 1 and 2 if those rules aren't defined.\r\n6) Other than these changes, everything else stays the same. However, it means the PBJS [Purpose 2 Pull Request](https://github.com/prebid/Prebid.js/pull/5185) needs to change the [Purpose 4 PR](https://github.com/prebid/Prebid.js/pull/5228) gets closed. And there are changes for Prebid Server.\r\n"
+    },
+    {
+      "id": 637005363,
+      "url": "https://github.com/prebid/Prebid.js/issues/5194#issuecomment-637005363",
+      "created_at": "2020-06-01T17:36:24Z",
+      "updated_at": "2020-06-01T17:36:24Z",
+      "author": "Participant 4",
+      "body": "Closing out this issue as it's been approved and is in the implementation phase."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/prebid/Prebid.js/issues/5194",
+  "closed_at_available": false
+}

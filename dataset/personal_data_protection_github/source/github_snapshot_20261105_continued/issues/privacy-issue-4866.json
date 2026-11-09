@@ -1,0 +1,74 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4866",
+  "issue_url": "https://github.com/ushahidi/platform/issues/1775",
+  "source_issue_url": "https://github.com/ushahidi/platform/issues/1775",
+  "api_url": "https://api.github.com/repos/ushahidi/platform/issues/1775",
+  "title": "Obfuscating of map coordinates",
+  "body": "Related to ushahidi/platform#1774 \r\n\r\n### Expected behaviour\r\nWhen location is regarded as PII in a deployment, map coordinates for the post should be obfuscated when provided from the API, so that no one can retrieve the exact locations.\r\n\r\nThis may be a randomisation within or an assignation to the centroid of a reasonably big geoblock (e.g. in function of the maximum allowed zoom level setting as specified in #1774)\r\n\r\n### Actual behaviour\r\nCurrently the API provides the exact coordinates as stored along with the post.\r\n",
+  "author": "Participant 1",
+  "created_at": "2017-06-06T14:59:16Z",
+  "updated_at": "2019-07-09T12:27:09Z",
+  "state": "closed",
+  "closed_at": "2019-06-09T22:39:42Z",
+  "issue_fetched_at": "2026-10-18T15:11:01.599609+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T15:11:02.925661+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 307091666,
+      "url": "https://github.com/ushahidi/platform/issues/1775#issuecomment-307091666",
+      "created_at": "2017-06-08T12:43:20Z",
+      "updated_at": "2017-06-08T12:43:20Z",
+      "author": "Participant 2",
+      "body": "PII is incredibly important to our end users and clients. I believe that this could be pivotal in the ability for many clients to adopt the platform."
+    },
+    {
+      "id": 500251302,
+      "url": "https://github.com/ushahidi/platform/issues/1775#issuecomment-500251302",
+      "created_at": "2019-06-09T22:39:42Z",
+      "updated_at": "2019-06-09T22:39:42Z",
+      "author": "Participant 3",
+      "body": "<img width=\"659\" alt=\"Screen Shot 2019-06-09 at 19 37 22\" src=\"https://user-images.githubusercontent.com/2434401/59165173-25a60e80-8aee-11e9-99ad-2a0d7a474126.png\">\r\n<img width=\"1125\" alt=\"Screen Shot 2019-06-09 at 19 38 05\" src=\"https://user-images.githubusercontent.com/2434401/59165174-25a60e80-8aee-11e9-8ecf-4db6404cfb6d.png\">\r\n\r\nI think this should be covered by the anonymization and precision level features. Closing but tagging @tuxpiper to reopen if necessary "
+    },
+    {
+      "id": 501215918,
+      "url": "https://github.com/ushahidi/platform/issues/1775#issuecomment-501215918",
+      "created_at": "2019-06-12T10:33:27Z",
+      "updated_at": "2019-06-12T10:33:27Z",
+      "author": "Participant 1",
+      "body": "Agreed :+1:\r\n"
+    },
+    {
+      "id": 501279572,
+      "url": "https://github.com/ushahidi/platform/issues/1775#issuecomment-501279572",
+      "created_at": "2019-06-12T13:44:06Z",
+      "updated_at": "2019-06-12T13:44:06Z",
+      "author": "Participant 2",
+      "body": "The map precision level of 2 is at 10km. What would a precision of 4 be? 1? I can see this starting to hinder smaller geographic deployments where the different surveys are more important than the geographic scale. What algo is the randomizer based on? Is it a true random from a physical source (ie Cloudflare) or computer generated? \r\nA goal of the masking of PII would be to have control to scale the range of randomness based on the variance between sources of PII within the map. If 100 sources live within 1.5km, PII randomness can be assigned to a very tight range. If 10 sources are covered over 100km in range, you may need to have a very wide value set for randomization unless that would defeat the purpose of the map, in which case, one should not use a map for this type of data.\r\n"
+    },
+    {
+      "id": 502827009,
+      "url": "https://github.com/ushahidi/platform/issues/1775#issuecomment-502827009",
+      "created_at": "2019-06-17T19:54:17Z",
+      "updated_at": "2019-06-17T19:54:17Z",
+      "author": "Participant 1",
+      "body": "Thanks for the input @ClearLakeHABMap \r\n\r\nApparently a level of 4 would already be giving out a precision of around 100m ... which is well, quite precise in a personal scale, I think.\r\n\r\nThe function is not a randomiser, because it was deemed important that points in the map would appear stable, and storing randomised coordinates separately seemed... inconvenient. The function pretty much just snaps the coordinates to the nearest intersection point in a grid, drawn accordingly to the precision level. I'm assuming the estimated precision that is shown in Settings > General is calculated assuming locations around the equator, but not quite sure.\r\n\r\nThis is a pretty crude approach, better approaches (in the shape of issues and/or pull requests of implementations :) ) are more than welcome. I think you are right that this \"one size fit all\" approach may not work well for deployments that have scopes covering areas with mixed population densities.. such as a lot of counties, states, as well as any country or continent. Dynamic approaches to solve this sound appealing.\r\n\r\nI am guessing it's a desirable trait to have the markers in the map appear stable as the map gets reloaded, or more markers are added.... which may make dynamic implementations harder. But curious what other people think about this.  \r\n"
+    },
+    {
+      "id": 509621574,
+      "url": "https://github.com/ushahidi/platform/issues/1775#issuecomment-509621574",
+      "created_at": "2019-07-09T12:27:09Z",
+      "updated_at": "2019-07-09T12:27:09Z",
+      "author": "Participant 4",
+      "body": "@ClearLakeHABMap Hi there,\r\n\r\nI'd really like to understand more about your needs for a feature like this so i can better understand how to design the UX/UI. If you have a chance to email/message me that'd be amazing. eriol@ushahidi.com\r\n\r\nIf not I've assigned this to go in my backlog of issues to improve from a UX pov."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

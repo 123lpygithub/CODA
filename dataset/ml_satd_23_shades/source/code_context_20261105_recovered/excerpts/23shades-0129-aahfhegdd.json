@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0129-aahfhegdd",
+  "revision_url": "https://github.com/RaRe-Technologies/gensim/commit/7163bac3977c82d7c008f9b4d4c1b57547bbe5de",
+  "filename": "src/gensim/models/lsimodel.py",
+  "commit": "7163bac3977c82d7c008f9b4d4c1b57547bbe5de",
+  "source_url": "https://raw.githubusercontent.com/RaRe-Technologies/gensim/7163bac3977c82d7c008f9b4d4c1b57547bbe5de/src/gensim/models/lsimodel.py",
+  "fetched_at": "2026-11-05T06:11:58.664639+00:00",
+  "source_sha256": "a424a62be7471103910508f6b335ffd5142a7a8a8aaf017ed68b27e8d9c20417",
+  "line_start": 119,
+  "line_end": 143,
+  "excerpt": "            u_r, s_r, _ = numpy.linalg.svd(r, full_matrices = False)\n            u_r, s_r = u_r[:, :self.k], numpy.diag(s_r[:self.k])\n            self.u = self.u * (u_r * s_r)\n            self.s = s_r\n        elif method == 'qr_inplace':\n            m, n1, n2 = self.u.shape[0], self.u.shape[1], other.u.shape[1]\n            # TODO Maybe keep the bases in their natural form (rotations), without \n            # forming explicit matrices that occupy a lot of mem.\n            # The only operation we ever need is basis^T*basis ond basis*component.\n            # But how to do that in numpy?\n            \n            # find component of u2 orthogonal to u1\n            # IMPORTANT: keep matrices in suitable order for matrix products; failing to do so gives 8x lower performance :(\n            self.u = numpy.asfortranarray(self.u) # does nothing if input already fortran-order array\n            other.u = numpy.asfortranarray(other.u)\n            logger.debug(\"constructing orthogonal component\")\n            c = scipy.linalg.fblas.dgemm(1.0, self.u, other.u, trans_a = True)\n            scipy.linalg.fblas.dgemm(-1.0, self.u, c, beta = 1.0, c = other.u, overwrite_c = True)\n            # perform q, r = qr(component); code hacked out of scipy.linalg.qr\n            logger.debug(\"computing QR of %s dense matrix\" % str(other.u.shape))\n            qr, tau, work, info = scipy.linalg.flapack.dgeqrf(other.u, lwork = -1, overwrite_a = True)\n            lwork = work[0]\n            qr, tau, work, info = scipy.linalg.flapack.dgeqrf(other.u, lwork = lwork, overwrite_a = True)\n            del other.u\n            assert info >= 0"
+}

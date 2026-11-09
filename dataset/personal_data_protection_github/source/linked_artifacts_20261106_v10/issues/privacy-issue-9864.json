@@ -1,0 +1,43 @@
+{
+  "artifact_id": "privacy-issue-9864",
+  "source_issue_url": "https://github.com/kitian616/jekyll-TeXt-theme/issues/62",
+  "issue_snapshot_sha256": "1ea7dc882a7b8fbec05adaaba66b50d3b69016c95860dc586a317d440c72a329",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/kitian616/jekyll-TeXt-theme/blob/master/_includes/scripts/utils.js#L17",
+      "kind": "file",
+      "cited_in": [
+        "comment_390630656"
+      ],
+      "status": "partial",
+      "reason": "Historical source recovered. Original branch target and case-time equivalence are unknown; do not infer deployment or resolution. Original line anchor is retained in URL; not relocated to a guessed matching line.",
+      "historical_evidence": true,
+      "revision": "7fb22d569212677042d4d9ed1b84576e12fa45f3",
+      "immutable_revision": true,
+      "retrieval_url": "https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/7fb22d569212677042d4d9ed1b84576e12fa45f3/_includes/scripts/utils.js",
+      "text": "(function() {\n  window.isArray = function(val) {\n    return Object.prototype.toString.call(val) === '[object Array]';\n  };\n  window.isString = function(val) {\n    return typeof val === 'string';\n  };\n\n  window.decodeUrl = function(str) {\n    return str ? decodeURIComponent(str.replace(/\\+/g, '%20')) : '';\n  };\n\n\n  window.hasEvent = function(event) {\n    return 'on'.concat(event) in window.document;\n  };\n\n  window.isOverallScroller = function(node) {\n    return node === document.documentElement || node === document.body || node === window;\n  };\n\n  window.pageLoad = (function () {\n    var loaded = false, cbs = [];\n    window.addEventListener('load', function () {\n      var i, cb; loaded = true;\n      if (cbs.length > 0) {\n        for (i = 0; i < cbs.length; i++) {\n          cb = cbs[i]; cb();\n        }\n      }\n    });\n    return {\n      then: function(cb) {\n        cb && (loaded ? cb() : (cbs.push(cb)));\n      }\n    };\n  })();\n})();",
+      "source_sha256": "c19ba9320cccc8943d68e32ac6dac7b45b6af90a9a68d07537c5038fd4eed67b",
+      "fetched_at": "2026-11-05T16:50:52.952012+00:00",
+      "history_query_url": "https://api.github.com/repos/kitian616/jekyll-TeXt-theme/commits?path=_includes%2Fscripts%2Futils.js&per_page=1",
+      "history_response_sha256": "aee266b8eb5ae13d0ea3575c02dc285f995a53dcc468ce78cf5dcb18567bb134",
+      "history_entry_sha": "cdf5560e65c2dc8848ef11c238a9edc920998767",
+      "history_commit_date": "2018-12-01T15:43:31Z",
+      "recovery_method": "Exact repository/path REST Git history; explicit commit or verified direct parent; full source retained"
+    },
+    {
+      "url": "https://github.com/kitian616/jekyll-TeXt-theme/blob/master/_includes/scripts/common.js",
+      "kind": "file",
+      "cited_in": [
+        "comment_390850692"
+      ],
+      "revision": "master",
+      "immutable_revision": false,
+      "text": "(function () {\n  var $root = document.getElementsByClassName('root')[0];\n  if (window.hasEvent('touchstart')) {\n    $root.dataset.isTouch = true;\n    document.addEventListener('touchstart', function(){}, false);\n  }\n})();\n",
+      "source_sha256": "5063833379bac8ed4ab02e76d7c22488aae9115c349896ec5a9e3abc30a0b7d5",
+      "fetched_at": "2026-11-05T06:21:23.144642+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/_includes/scripts/common.js",
+      "status": "available"
+    }
+  ]
+}

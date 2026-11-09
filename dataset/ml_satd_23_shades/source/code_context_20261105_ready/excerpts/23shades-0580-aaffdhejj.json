@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:5dda4936c9ec744d6a13cddbadc4fc8fd69fc1c2/raw/",
+  "source_sha256": "623ab9cd42127946c1e43b66311d650f6e984151887d4a0a642d573c7173a0c9",
+  "fetched_at": "2026-11-05T06:43:11.843037+00:00",
+  "archive_directory": "b763a547999141121e33ad2ddd5daebc3ad16d1c",
+  "git_blob_sha1": "5dda4936c9ec744d6a13cddbadc4fc8fd69fc1c2",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/8cab38119b9a66178cfc1197290cece4f6ac595a/",
+  "artifact_id": "23shades-0580-aaffdhejj",
+  "revision_url": "https://github.com/Aifred-Health/Vulcan/commit/8cab38119b9a66178cfc1197290cece4f6ac595a",
+  "filename": "vulcanai2/models/basenetwork.py",
+  "commit": "8cab38119b9a66178cfc1197290cece4f6ac595a",
+  "line_start": 280,
+  "line_end": 304,
+  "excerpt": "\n        accuracy, avg_accuracy, IoU, mIoU, conf_mat = self.metrics.get_scores()\n        self.metrics.reset()\n        pbar.close()\n        return (val_loss, accuracy, avg_accuracy, IoU, mIoU, conf_mat)\n    \n    def run_test(self, test_x, test_y, figure_path=None, plot=False):\n        \"\"\"\n        Will conduct the test suite to determine model strength.\n        \"\"\"\n        return self.metrics.run_test(self, test_x, test_y, figure_path, plot)\n\n    # TODO: Instead of self.cpu(), use is_cuda to know if you can use gpu\n    def forward_pass(self, input_data, convert_to_class=False):\n        \"\"\"\n        Allow the implementer to quickly get outputs from the network.\n\n        Args:\n            input_data: Numpy matrix to make the predictions on\n            convert_to_class: If true, output the class\n                             with highest probability\n\n        Returns: Numpy matrix with the output probabilities\n                 with each class unless otherwise specified.\n        \"\"\"",
+  "match_policy": "unique-release-normalized-v2"
+}

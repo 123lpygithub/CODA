@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0821-aajgcfgdg",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/e1d09e7463f4fdb54074bc1008222354f3a377ab",
+  "filename": "mne/decoding/time_gen.py",
+  "commit": "e1d09e7463f4fdb54074bc1008222354f3a377ab",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/e1d09e7463f4fdb54074bc1008222354f3a377ab/mne/decoding/time_gen.py",
+  "fetched_at": "2026-11-05T06:14:00.278278+00:00",
+  "source_sha256": "c0a9221e62b8824ce6da2b6a4852f6c57b37dc4fe9c9cfc242ba61154cc3a836",
+  "line_start": 315,
+  "line_end": 339,
+  "excerpt": "        # Check that at least one classifier has been trained\n        if not hasattr(self, 'estimators_'):\n            raise RuntimeError('Please fit models before trying to predict')\n        cv = self.cv_  # Retrieve CV scheme from fit()\n\n        # Define testing sliding window\n        if test_times == 'diagonal':\n            test_times_ = DecodingTime()\n            test_times_['slices'] = [[s] for s in self.train_times['slices']]\n        elif test_times is None:\n            test_times_ = DecodingTime()\n        elif isinstance(test_times, dict):\n            # XXX JRK: Should this test whether test_times if a DecodingTime\n            # object or is this sufficient?\n            test_times_ = test_times\n        else:\n            raise ValueError('`test_times` must be a dict, \"diagonal\" or None')\n\n        if not 'slices' in test_times_:\n            # Initialize array\n            test_times_['slices_'] = []\n            # Force same number of time sample in testing than in training\n            # (otherwise it won 't be the same number of features')\n            test_times_['length'] = self.train_times['length']\n            # Make a sliding window for each training time."
+}

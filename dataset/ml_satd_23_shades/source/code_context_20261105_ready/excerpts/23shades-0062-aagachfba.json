@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0062-aagachfba",
+  "revision_url": "https://github.com/SimGus/Chatette/commit/1b6aea97ea9068bdb08c44861dc667ed7bbec8f3",
+  "filename": "chatette/refactor_parsing/parser.py",
+  "commit": "1b6aea97ea9068bdb08c44861dc667ed7bbec8f3",
+  "source_url": "https://raw.githubusercontent.com/SimGus/Chatette/1b6aea97ea9068bdb08c44861dc667ed7bbec8f3/chatette/refactor_parsing/parser.py",
+  "fetched_at": "2026-11-05T06:11:48.564839+00:00",
+  "source_sha256": "a00449bc72fde2d449ee70cecb5eab838e6a0ba749097661b57fc3ddb41ec5b3",
+  "line_start": 132,
+  "line_end": 156,
+  "excerpt": "        if not self._declaration_line_allowed:\n            self.input_file_manager.syntax_error(\n                \"Didn't expect a unit declaration to start here.\"\n            )\n\n        (unit, variation) = self._parse_unit_declaration(line_tokens)\n\n        try:\n            self.ast.add_unit(unit)\n        except ValueError as e:\n            if variation is None:\n                raise e\n            # else:  # TODO check that the variation wasn't already in there\n            #     self.ast.\n            # TODO add variation to unit\n        self._current_unit_declaration = unit\n\n    def _parse_unit_declaration(self, lexical_tokens):\n        \"\"\"\n        Parses the tokens `lexical_tokens` that contain a unit declaration.\n        Returns the corresponding concrete unit.\n        \"\"\"\n        if lexical_tokens[0].type == TerminalType.alias_decl_start:\n            builder = AliasDefBuilder()\n        elif lexical_tokens[0].type == TerminalType.slot_decl_start:"
+}

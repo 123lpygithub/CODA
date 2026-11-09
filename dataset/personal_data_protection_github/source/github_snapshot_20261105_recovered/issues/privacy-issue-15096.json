@@ -1,0 +1,218 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-15096",
+  "issue_url": "https://github.com/MetaMask/metamask-extension/issues/714",
+  "source_issue_url": "https://github.com/MetaMask/metamask-extension/issues/714",
+  "api_url": "https://api.github.com/repos/MetaMask/metamask-extension/issues/714",
+  "title": "Be signed out per domain until signing in",
+  "body": "*Updated March 21, 2018, to reflect latest plans for this feature's implementation:*\r\n\r\nMetaMask currently shows the selected account to each site that is visited. This is not an acceptable privacy feature, and user adoption has escalated the urgency of addressing this issue.\r\n\r\nIt has also been also criticized that the `web3` API is visible at all, even to sites a user did not explicitly show it to, since this also provides some identifying information.\r\n\r\n## Goals/Constraints\r\n\r\n- A user's accounts should never be shown to a site without the user's deliberate consent.\r\n- `web3` should not be exposed to sites by default.\r\n- Dapps should have a method of requesting a user's account & the web3 API.\r\n- Old Dapps should continue to work.\r\n\r\n## Proposal: A PostMessage Based Log-In\r\n\r\nA difficult challenge of the constraints above is simultaneously *not* providing the `web3` API while also allowing sites to request a user to sign in. At first I thought this was impossible, but @kumavis, being the browser hacker he is, pointed out that as a WebExtension, we are able to listen to pages that use the [postMessage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage), and so sites can send us a request without knowing whether we are listening or not.\r\n\r\nThis flow would look something like this, from an internal `mural.ly` board:\r\n\r\n![screen shot 2018-03-21 at 2 56 25 pm](https://user-images.githubusercontent.com/542863/37739669-2191c828-2d18-11e8-9ba1-6b0d23a1eaef.png)\r\n\r\nA design for this stage can be seen in #3383:\r\n\r\n![deliberate log in flow](https://user-images.githubusercontent.com/597770/37371849-07c77c62-26ce-11e8-9be9-cf6f79edb7f3.png)\r\n\r\n## What Still Needs Defining: Message Format\r\n\r\nWe need to define the exact format of the message sent via `postMessage`.  To keep this format compatible with other web3 browsers, we could not require the `targetOrigin` property of that API, which restricts possible recipients.\r\n\r\n### Constraints of the Message Format\r\n\r\n- Cannot use the `targetOrigin` API, to allow other web3 browsers to receive this event. (We're friendly!)\r\n- Should be unique enough to not accidentally interfere with other listeners (ideas?)\r\n- Should be extensible, to eventually include parameterized requirements of the Dapp (Need a certain network? Need a number of accounts? Need an account with a certain token? Maybe this becomes a way to add [DID](https://w3c-ccg.github.io/did-spec/) compliant personal information requests!) Related: #2532, #3663 and #3604\r\n\r\n## What Still Needs Defining: Design, Scope of Rollout\r\n\r\nIn issue #3383 you can see initial designs, and how we're exploring what the UX of this type of log-in might look like. There are a variety of open questions there, asking whether we should rush out the privacy component (not showing web3 or accounts) if it means we remove the ability to be signed in to multiple sites at once.\r\n\r\nThere are also several other UX/design concerns on that issue, and we can keep the design aspect of this feature mostly confined to #3383, and keep this issue for the specification of the API for Dapp developers.",
+  "author": "Participant 1",
+  "created_at": "2016-10-07T22:16:45Z",
+  "updated_at": "2023-07-10T06:43:34Z",
+  "state": "closed",
+  "closed_at": "2019-02-07T00:16:59Z",
+  "issue_fetched_at": "2026-10-19T00:11:02.887487+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T00:11:04.327774+00:00"
+  ],
+  "expected_comment_count": 24,
+  "retrieved_comment_count": 24,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 298368978,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-298368978",
+      "created_at": "2017-05-01T16:35:33Z",
+      "updated_at": "2017-05-01T16:35:33Z",
+      "author": "Participant 1",
+      "body": "To clarify to those without context:  This would mean not injecting any user accounts into the in-page web3 accounts array."
+    },
+    {
+      "id": 305248947,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-305248947",
+      "created_at": "2017-05-31T16:52:15Z",
+      "updated_at": "2017-05-31T16:52:15Z",
+      "author": "Participant 1",
+      "body": "When opening the metamask popup to look at accounts, I would imagine we just show the accounts/balances for *the currently open tab*."
+    },
+    {
+      "id": 359233811,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-359233811",
+      "created_at": "2018-01-21T09:02:59Z",
+      "updated_at": "2018-01-21T09:02:59Z",
+      "author": "Participant 1",
+      "body": "This issue is getting some public attention, and I think decent points have been made that especially given our spike in usage, we need to raise priority on this to protect our users.\r\n\r\nhttps://twitter.com/backus/status/954921568198574080\r\n\r\nhttps://twitter.com/nicksdjohnson/status/954999819344535553"
+    },
+    {
+      "id": 375471195,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-375471195",
+      "created_at": "2018-03-22T21:58:14Z",
+      "updated_at": "2018-03-22T21:58:14Z",
+      "author": "Participant 2",
+      "body": "Somewhat relevant - I think it's a good idea for DApps to stop making the assumption that the web3 object is available immediately.\r\n\r\n<img width=\"894\" alt=\"screen shot 2018-03-22 at 2 56 51 pm\" src=\"https://user-images.githubusercontent.com/30173/37800823-639d6b18-2de1-11e8-9496-b38e53120078.png\">\r\n<img width=\"895\" alt=\"screen shot 2018-03-22 at 2 56 59 pm\" src=\"https://user-images.githubusercontent.com/30173/37800827-65268f3c-2de1-11e8-9473-3004981a711f.png\">\r\n"
+    },
+    {
+      "id": 375500631,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-375500631",
+      "created_at": "2018-03-23T00:27:04Z",
+      "updated_at": "2018-03-23T00:27:04Z",
+      "author": "Participant 1",
+      "body": "I agree, @petejkim, and while I didn't go into it here, the UX for a Dapp is a little strange here, and I expected some Dapp dev to complain, actually!\r\n\r\nWhen you don't see web3, and you've fired your `window.postMessage({ web3: 'sign-in' })` request, what do you show on the screen?\r\n\r\n> It looks like you don't have a web3 browser. Please connect using one, or sign in with it.\r\n\r\nOkay, maybe that's not so bad, but it's still a pretty different concept. Maybe you can just act like they don't have one, since the \"showing web3\" portion should be handled by the browser catching the sign-in request message."
+    },
+    {
+      "id": 386220831,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-386220831",
+      "created_at": "2018-05-03T08:11:39Z",
+      "updated_at": "2018-05-03T08:11:39Z",
+      "author": "Participant 3",
+      "body": "Unsolicited 2 cents from a Metamask fan and privacy dev: If the message format got too elaborate it could be used to fingerprint users, esp when paired with other info gathered from browser env. The more generic the better (for privacy) IMO.\r\n\r\nThanks and cheers!"
+    },
+    {
+      "id": 386427008,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-386427008",
+      "created_at": "2018-05-03T20:31:38Z",
+      "updated_at": "2018-05-03T20:31:38Z",
+      "author": "Participant 1",
+      "body": "@laurengarcia Do you think this is still an issue of the message format is totally ignored without user consent? Part of the reason for the use of `postMessage` is to eliminate nonconsensual metamask related fingerprinting. Am I missing something?"
+    },
+    {
+      "id": 386460736,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-386460736",
+      "created_at": "2018-05-03T22:53:08Z",
+      "updated_at": "2018-05-03T22:53:08Z",
+      "author": "Participant 3",
+      "body": "@danfinlay Sorry, no you're not missing anything, your assumption for that use-case sounds correct.\r\n\r\nMy comment is perhaps too granular for this higher level feature and directed at the \"user does consent\" use-case actually, in response to the third bullet point in the description above under \"Constraints of Message Format\":\r\n\r\n_\"Should be extensible, to eventually include parameterized requirements of the Dapp (Need a certain network? Need a number of accounts? Need an account with a certain token? Maybe this becomes a way to add DID compliant personal information requests!)\"_\r\n\r\nNow that I looked into it more, my comment is probably better suited to https://github.com/MetaMask/metamask-extension/issues/2532, the RFC where you discuss \"Selective Disclosure\" of personal info.\r\n\r\nSo I am imagining flow is: user visits dApp, and dApp sends `postMessage` requesting a bunch of information, only *some* of which I am willing to share in order to use minimum feature set of dApp. Am imagining that instead of a binary `share account info / don't share account info` button there are some base settings associated with my account which excludes identifying information i dont want to share by default. If those settings get too granular and as a user I have my defaults set and re-use them across dApps, that information could be used to fingerprint me anyway and roll up my activity across dApps. Similar to how cookie data and traditional advertising work on the open web right now.\r\n\r\nThat was my only point. Probably better suited to https://github.com/MetaMask/metamask-extension/issues/2532 discussion!\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 386505517,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-386505517",
+      "created_at": "2018-05-04T04:53:48Z",
+      "updated_at": "2018-05-04T04:53:48Z",
+      "author": "Participant 1",
+      "body": "Cool, that's an interesting set of concerns that I look forward to dealing with when we get there ;D"
+    },
+    {
+      "id": 387203569,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-387203569",
+      "created_at": "2018-05-07T20:55:46Z",
+      "updated_at": "2018-05-07T20:55:46Z",
+      "author": "Participant 4",
+      "body": "I think you need to write a Medium post about this. This is a surprise to the dapp developers I know."
+    },
+    {
+      "id": 387578333,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-387578333",
+      "created_at": "2018-05-08T23:57:08Z",
+      "updated_at": "2018-05-08T23:57:08Z",
+      "author": "Participant 1",
+      "body": "> I think you need to write a Medium post about this. This is a surprise to the dapp developers I know.\r\n\r\nOh I know, but we need to finalize exactly the protocol we're proposing. We'll try to launch an article a week or two before pushing it live."
+    },
+    {
+      "id": 387600022,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-387600022",
+      "created_at": "2018-05-09T02:22:19Z",
+      "updated_at": "2018-05-09T02:22:19Z",
+      "author": "Participant 4",
+      "body": "So I would post the rough plan as soon as you can and add more details.\n\nThis plan was news to a lot of people I am working with. People have designed really complicated applications assuming web3 will be injected.\n\nHappy to share the specific projects directly :)\n\nOn 8 May 2018, 19:57 -0400, Dan Finlay <notifications@github.com>, wrote:\n> > I think you need to write a Medium post about this. This is a surprise to the dapp developers I know.\n> Oh I know, but we need to finalize exactly the protocol we're proposing. We'll try to launch an article a week or two before pushing it live.\n> —\n> You are receiving this because you commented.\n> Reply to this email directly, view it on GitHub, or mute the thread.\n"
+    },
+    {
+      "id": 387805421,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-387805421",
+      "created_at": "2018-05-09T16:56:52Z",
+      "updated_at": "2018-05-09T16:56:52Z",
+      "author": "Participant 1",
+      "body": "> So I would post the rough plan as soon as you can and add more details.\r\n\r\n100++!\r\n\r\nI think a cheap solution for existing dapps may be to simply add a line to the top of their JS:\r\n\r\n```javascript\r\nwindow.postMessage(theFormattedMessage);\r\n```\r\n\r\nThis will prompt the user to sign in, and then probably just reload the site with the assumptions that people are developing with today.\r\n\r\nOf course this UX can be improved by sites that properly represent the request, with a button that says \"Connect to MetaMask\" or something, but we will need to hone out the UX of that optimal flow a bit more."
+    },
+    {
+      "id": 387830167,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-387830167",
+      "created_at": "2018-05-09T18:20:22Z",
+      "updated_at": "2018-05-09T18:20:22Z",
+      "author": "Participant 4",
+      "body": "Happy to draft it if you would like? :)\n\nCheers,\n\nRichard\n\nOn 9 May 2018, 12:57 -0400, Dan Finlay <notifications@github.com>, wrote:\n> > So I would post the rough plan as soon as you can and add more details.\n> 100++!\n> I think a cheap solution for existing dapps may be to simply add a line to the top of their JS:\n> window.postMessage(theFormattedMessage);\n> This will prompt the user to sign in, and then probably just reload the site with the assumptions that people are developing with today.\n> Of course this UX can be improved by sites that properly represent the request, with a button that says \"Connect to MetaMask\" or something, but we will need to hone out the UX of that optimal flow a bit more.\n> —\n> You are receiving this because you commented.\n> Reply to this email directly, view it on GitHub, or mute the thread.\n"
+    },
+    {
+      "id": 387869780,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-387869780",
+      "created_at": "2018-05-09T20:44:22Z",
+      "updated_at": "2018-05-09T20:44:52Z",
+      "author": "Participant 1",
+      "body": "By all means, sketch up how you think it might work.\r\n\r\nI think we also agreed at the WalletConf that it could make sense to ease-in to this breaking change, by allowing end-users (who understand the new expectation of deliberately signing in) to first \"enable\" full-web3-stealth-mode (which would require manually signing into a site via MetaMask).\r\n\r\nOnce we have that live, and enable the \"request login\" API, hopefully Dapp devs will see the new API as beneficial to migrate to, before we perform a hard break."
+    },
+    {
+      "id": 388224712,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-388224712",
+      "created_at": "2018-05-11T00:30:02Z",
+      "updated_at": "2018-05-11T00:30:02Z",
+      "author": "Participant 4",
+      "body": "Here is a draft of the post: https://medium.com/@ricburton/logging-in-with-metamask-b47857efb4f7"
+    },
+    {
+      "id": 388437776,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-388437776",
+      "created_at": "2018-05-11T17:52:51Z",
+      "updated_at": "2018-05-11T17:52:51Z",
+      "author": "Participant 1",
+      "body": "That post looks great, @ricburton! I'd be willing to put it under the MetaMask publication if you wanted our reach, we need to get the word out wide."
+    },
+    {
+      "id": 388438018,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-388438018",
+      "created_at": "2018-05-11T17:53:45Z",
+      "updated_at": "2018-05-11T17:53:45Z",
+      "author": "Participant 4",
+      "body": "Will publish now. I think you need to invite me to contribute to metamask’s medium\n\nCheers,\n\nRichard\n\nOn 11 May 2018, 13:52 -0400, Dan Finlay <notifications@github.com>, wrote:\n> That post looks great, @ricburton! I'd be willing to put it under the MetaMask publication if you wanted our reach, we need to get the word out wide.\n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub, or mute the thread.\n"
+    },
+    {
+      "id": 388442531,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-388442531",
+      "created_at": "2018-05-11T18:10:13Z",
+      "updated_at": "2018-05-11T18:10:13Z",
+      "author": "Participant 1",
+      "body": "Added as a writer."
+    },
+    {
+      "id": 388452635,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-388452635",
+      "created_at": "2018-05-11T18:46:33Z",
+      "updated_at": "2018-05-11T18:52:01Z",
+      "author": "Participant 5",
+      "body": "This may be either overkill or a poor idea but I hope it at least provides food for thought.\r\n\r\nGiven the immense risk of someone's Ethereum account being compromised and the incredible number of attack surfaces a web-page/browser-extension/browser-code environment provides, perhaps it's time to think about some form of inter-app handshaking?\r\n\r\nI was wondering about something like this.  It would require Metamask to host a server just to service the handshaking but it would be a lightweight server, probably with just a Redis cache to back it up.\r\n\r\nHere's what I was thinking:\r\n\r\n- The web page that's about to initiate a Metamask transaction creates a nonce to identify the new transaction, let's call it the _transaction nonce_, whose sole purpose is to provide a key for the MTCS to represent the current transaction.\r\n\r\n- It submits the _query nonce_ directly to the Metamask Transaction Control Server (MTCS for brevity's sake), waiting for a new nonce generated by the MTCS as a result of its query.  This new nonce would be the _control nonce_.  It uses an encrypted websocket connection to receive the response (to hide the transaction from other browser extensions that might be listening to post/xhr requests).\r\n\r\n- The web page notifies the Metamask extension of the payment request, providing the _query nonce_ sent to the MTCS.\r\n\r\n- Metamask contacts the MTCS with the _query nonce_ to get the _control nonce_  This simultaneously results in the MTCS server pushing the the _control nonce_ to the web page on its encrypted websocket connection.\r\n\r\n- The web page then asks Metamask to trigger the usual SEND/REJECT dialogue to confirm the transaction, providing the _control nonce_ it received from the MTCS\r\n\r\n- Metamask checks the _control nonce_ received from the web page to make sure it matches the one it got directly from the MTCS server earlier.  If not, it returns an error and does not show the SEND/REJECT dialogue.  Otherwise, execution proceeds at normal.\r\n\r\nBy having this parallel level of communication over encrypted web sockets between the web page and the Metamask extension, with the MTCS trusted server in the middle, I believe it would create a protocol layer that locks out other browser extensions and domains from snooping in on the transaction and thereby creating havoc.\r\n\r\nWhat do you think?"
+    },
+    {
+      "id": 389258132,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-389258132",
+      "created_at": "2018-05-15T17:59:10Z",
+      "updated_at": "2018-05-15T17:59:10Z",
+      "author": "Participant 1",
+      "body": "@roschler This is an interesting idea, but seems outside the scope of this issue. It seems somewhat related to #4260, but with different goals. I don't think a local server would be needed, the extension already has a process with communication methods to each page. I'm also unclear what kind of snooping you're trying to avoid. Feel free to open this proposal in a new issue, and clearly describe the attack vectors you are trying to mitigate."
+    },
+    {
+      "id": 451047334,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-451047334",
+      "created_at": "2019-01-03T03:18:08Z",
+      "updated_at": "2019-01-03T03:18:08Z",
+      "author": "Participant 6",
+      "body": "Seems #4703 has fixed this, should be closable."
+    },
+    {
+      "id": 461241223,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-461241223",
+      "created_at": "2019-02-07T00:16:59Z",
+      "updated_at": "2019-02-07T00:16:59Z",
+      "author": "Participant 7",
+      "body": "With our connect screen implemented I believe it's safe to consider this closed (as noted in #3930)"
+    },
+    {
+      "id": 1628337297,
+      "url": "https://github.com/MetaMask/metamask-extension/issues/714#issuecomment-1628337297",
+      "created_at": "2023-07-10T06:43:34Z",
+      "updated_at": "2023-07-10T06:43:34Z",
+      "author": "Participant 8",
+      "body": "> @laurengarcia Do you think this is still an issue of the message format is totally ignored without user consent? Part of the reason for the use of `postMessage` is to eliminate nonconsensual metamask related fingerprinting. Am I missing something?\r\n\r\nMMMK"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

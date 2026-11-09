@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/cloudfoundry/uaa/blob/5cbf9c1b65598892e6f72966a1288e11f72e793a/server/src/main/java/org/cloudfoundry/identity/uaa/oauth/UaaTokenServices.java#L1020-L1035",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "revision": "5cbf9c1b65598892e6f72966a1288e11f72e793a",
+  "immutable_revision": true,
+  "line_start": 1008,
+  "line_end": 1047,
+  "text": "                            .collectionToCommaDelimitedString(defaultUserAuthorities));\n        if (claims.containsKey(\"authorities\")) {\n            Object authoritiesFromClaims = claims.get(\"authorities\");\n            if (authoritiesFromClaims instanceof String) {\n                authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) authoritiesFromClaims);\n            }\n            if (authoritiesFromClaims instanceof Collection) {\n                authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(StringUtils\n                                .collectionToCommaDelimitedString((Collection<?>) authoritiesFromClaims));\n            }\n        }\n\n        Authentication userAuthentication = null;\n        // Is this a user token?\n        if (claims.containsKey(EMAIL)) {\n            UaaUser user = userDatabase.retrieveUserById((String)claims.get(USER_ID));\n            UaaPrincipal principal = new UaaPrincipal(user);\n            userAuthentication = new UaaAuthentication(principal, UaaAuthority.USER_AUTHORITIES, null);\n        } else {\n            authorizationRequest.setAuthorities(authorities);\n        }\n\n        OAuth2Authentication authentication = new UaaOauth2Authentication(accessToken,\n                                                                          IdentityZoneHolder.get().getId(),\n                                                                          authorizationRequest.createOAuth2Request(),\n                                                                          userAuthentication);\n        authentication.setAuthenticated(true);\n        return authentication;\n    }\n\n    /**\n     * This method is implemented to support older API calls that assume the\n     * presence of a token store\n     */\n    @Override\n    public OAuth2AccessToken readAccessToken(String accessToken) {\n        TokenValidation tokenValidation = validateToken(accessToken);\n        Map<String, Object> claims = tokenValidation.getClaims();\n        accessToken = tokenValidation.getJwt().getEncoded();\n",
+  "source_sha256": "01b7ad26b7768ced4bc1eb459279a14624daf2e373112f22447eed071c0ec7a0",
+  "fetched_at": "2026-11-05T06:21:11.621591+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/cloudfoundry/uaa/5cbf9c1b65598892e6f72966a1288e11f72e793a/server/src/main/java/org/cloudfoundry/identity/uaa/oauth/UaaTokenServices.java",
+  "status": "available"
+}

@@ -1,0 +1,6 @@
+{
+  "url": "https://raw.githubusercontent.com/comic/grand-challenge.org/8af55dca4e0b8d0d732d8bbf37351d16581c0c96/django/comicsite/templatetags/library_plus.py",
+  "source": "from django import template\nimport pdb\n\nclass LibraryPlus(template.Library):\n    \"\"\"\n    Holds all registered template tags. Extends basic django tag functionality to pass an with extra 'usagestr' argument. \n    This makes it possible to register additional info for the usage of a tag, which can be printed or shown to a \n    user later on\n    \"\"\"\n    \n    def __init__(self):\n        self.usagestrings = {}\n        super(LibraryPlus,self).__init__()  \n        \n    \n    def tag(self,name=None,compile_function=None,usagestr=\"\"):                \n        tagfunction = super(LibraryPlus,self).tag(name,compile_function)\n        \n        # fixme: Why is this function called twice for each @register.tag call in template_tags.py?\n        # Second call has no 'usagestr' defined workaround now is to check for existing key and not\n        # overwriting it.\n        \n        if not self.usagestrings.has_key(name):        \n            self.usagestrings[name] = usagestr            \n        return tagfunction\n        \n",
+  "fetched_at": "2026-11-05T06:11:56.402848+00:00",
+  "source_sha256": "9cbff8d1e4f9252b02735419269e8caa035c0031f3ad278004d5b8de52a84aac"
+}

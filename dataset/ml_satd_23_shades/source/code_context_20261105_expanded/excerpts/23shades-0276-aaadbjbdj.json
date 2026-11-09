@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0276-aaadbjbdj",
+  "revision_url": "https://github.com/Seanforfun/GMAN_Net_Haze_Removal/commit/527aa85d9841da6b8a0670f7321f072a98beba40",
+  "filename": "DehazeNet/dehazenet_optimize.py",
+  "commit": "527aa85d9841da6b8a0670f7321f072a98beba40",
+  "source_url": "https://raw.githubusercontent.com/Seanforfun/GMAN_Net_Haze_Removal/527aa85d9841da6b8a0670f7321f072a98beba40/DehazeNet/dehazenet_optimize.py",
+  "fetched_at": "2026-11-05T06:12:26.559889+00:00",
+  "source_sha256": "9727dd9fbea052fa37b968709f456c8f4ff09ba0a0aff7f8f7ff0ef15dc8f407",
+  "line_start": 93,
+  "line_end": 117,
+  "excerpt": "        print(\"a: \" + str(round(a, 3)) + \" GT: \" + alpha + \" loss: \" + str(loss))\n        if loss < min_loss:\n            min_loss = loss\n            best_alpha = a\n        a += STEP_SIZE\n        a = round(a, 3)\n    return best_alpha\n\n\ndef opt_dehaze_with_alpha_transmission(alpha, transmission, haze):\n    shape = np.shape(haze)\n    alpha_matrix = np.ones((shape[0], shape[1])) * float(alpha)\n    # TODO Dehaze with 1/t\n    # for i in range(3):\n    #     haze[:, :, i] = transmission * haze[:, :, i] - np.ones((shape[0], shape[1])) * transmission + np.ones((shape[0], shape[1]))\n    # TODO Dehaze for RGB channels\n    for i in range(3):\n        haze[:, :, i] = (haze[:, :, i] - alpha_matrix * (np.ones((shape[0], shape[1])) - transmission)) \\\n                              / transmission\n\n    # TODO Dehaze for R channel(haze[0])\n    # haze[:, :, 0] = (haze[:, :, 0] - alpha_matrix * (np.ones((shape[0], shape[1])) - transmission)) \\\n    #                               / transmission\n    result_arr = haze\n    where_are_inf = np.isinf(result_arr)",
+  "match_policy": "unique-release-normalized-v2"
+}

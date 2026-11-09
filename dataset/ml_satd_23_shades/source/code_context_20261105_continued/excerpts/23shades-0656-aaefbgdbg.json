@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0656-aaefbgdbg",
+  "revision_url": "https://github.com/nyu-mll/jiant/commit/bc013995a312d34732877716a67cb51ef4897e02",
+  "filename": "src/tasks/tasks.py",
+  "commit": "bc013995a312d34732877716a67cb51ef4897e02",
+  "source_url": "https://raw.githubusercontent.com/nyu-mll/jiant/bc013995a312d34732877716a67cb51ef4897e02/src/tasks/tasks.py",
+  "fetched_at": "2026-11-05T06:13:33.640066+00:00",
+  "source_sha256": "f1692d5b850fae1342b51d1e97ac495f41ea8ce53b3c7665eca9cac3d3da58d1",
+  "line_start": 1331,
+  "line_end": 1355,
+  "excerpt": "        tr_data = load_tsv(os.path.join(path, 'train.tsv'), max_seq_len, skip_rows=1,\n                           s1_idx=0, s2_idx=1, targ_idx=2)\n        val_data = load_tsv(os.path.join(path, 'dev.tsv'), max_seq_len, skip_rows=1,\n                            s1_idx=0, s2_idx=1, targ_idx=2)\n        te_data = load_tsv(os.path.join(path, 'test.tsv'), max_seq_len, skip_rows=1,\n                           s1_idx=0, s2_idx=1, targ_idx=2)\n        self.train_data_text = tr_data\n        self.val_data_text = val_data\n        self.test_data_text = te_data\n        log.info(\"\\tFinished loading JOCI data.\")\n\n\n# TODO: remove dummy / debug tasks\n@register_task('wmt_debug', rel_path='wmt_debug/', max_targ_v_size=5000)\n@register_task('wmt17_en_ru', rel_path='wmt17_en_ru/', max_targ_v_size=20000)\n@register_task('wmt14_en_de', rel_path='wmt14_en_de/', max_targ_v_size=20000)\nclass MTTask(SequenceGenerationTask):\n    '''Machine Translation Task'''\n\n    def __init__(self, path, max_seq_len, max_targ_v_size, name, **kw):\n        ''' '''\n        super().__init__(name, **kw)\n        self.scorer1 = Average()\n        self.scorer2 = Average()\n        self.scorer3 = Average()",
+  "match_policy": "unique-release-normalized-v2"
+}

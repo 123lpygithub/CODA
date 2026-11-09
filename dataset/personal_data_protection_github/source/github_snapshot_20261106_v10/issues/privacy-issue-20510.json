@@ -1,0 +1,57 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20510",
+  "issue_url": "https://github.com/amplitude/Amplitude-JavaScript/issues/317",
+  "source_issue_url": "https://github.com/amplitude/Amplitude-JavaScript/issues/317",
+  "api_url": "https://api.github.com/repos/amplitude/Amplitude-JavaScript/issues/317",
+  "title": "[Privacy] Add an option not to persist *anything* outside of session",
+  "body": "## Summary\r\n\r\nFor privacy reasons we'd love to use Amplitude without using any cookies nor local storage.\r\n\r\n## Motivations\r\n\r\nDue to the \"Cookie Law\" in Europe, a web site or page needs a \"cookie approval\" before storing anything in a cookie or in a local storage. However it's OK to still log, using amplitude, events and information relative to the website as long as everything stays in RAM. This could be used for the landing page to compute direct conversion even for users who don't approve the use of cookies or local storage.\r\n\r\nIn terms of implementation, I could provide a PR, if you're OK with the idea: the current implementation already works without using the storage, the storage is only useful when the page is refreshed.\r\n\r\nFor the moment the way we handle it is to use the `disableCookies` option and clear the local cache on the callback of every logEvent, however this is suboptimal as some data is still stored and could be kept if the user closes the page before Amplitude server's response. It's also suboptimal because we're basically undoing what the library does, so it would be cleaner not to do it in the first place.\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-11-06T16:56:13Z",
+  "updated_at": "2020-12-09T19:41:25Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:45:14.186352+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:45:14.186352+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 723315062,
+      "url": "https://github.com/amplitude/Amplitude-JavaScript/issues/317#issuecomment-723315062",
+      "created_at": "2020-11-06T21:48:47Z",
+      "updated_at": "2020-11-06T21:48:46Z",
+      "author": "Participant 2",
+      "body": "Thanks for bringing this up\r\n\r\nTo clarify, would the goal be to have [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) as an alternative storage strategy to cookies and local storage?\r\n\r\n"
+    },
+    {
+      "id": 723320562,
+      "url": "https://github.com/amplitude/Amplitude-JavaScript/issues/317#issuecomment-723320562",
+      "created_at": "2020-11-06T22:04:22Z",
+      "updated_at": "2020-11-06T22:04:22Z",
+      "author": "Participant 3",
+      "body": "I hadn't even thought about `sessionStorage` which indeed saves on extra usecase (reloading). Maybe we could have a setting called `storage` or `persistance` with the following options:\r\n * `cookies` (current behavior)\r\n * `localStorage` (current behavior with `disableCookies` set)\r\n * `sessionStorage`\r\n * `none` (absolutely nothing outside of pure memory)."
+    },
+    {
+      "id": 724237315,
+      "url": "https://github.com/amplitude/Amplitude-JavaScript/issues/317#issuecomment-724237315",
+      "created_at": "2020-11-09T19:45:30Z",
+      "updated_at": "2020-11-09T19:45:30Z",
+      "author": "Participant 2",
+      "body": "Yes those options look good!"
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Historical GitHub public event text retrieved from GH Archive via ClickHouse. This is not a current issue snapshot or proof of a complete discussion. Event coverage can omit edits, deletions and comments. Archived issue-body and comment versions must be interpreted within this stated scope. Linked development material is collected separately.",
+  "retrieval_method": "GH Archive public events mirrored by ClickHouse",
+  "archive_query_url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27amplitude%2FAmplitude-JavaScript%27+AND+number%3D317+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "archive_response_sha256": "5b02984b0c232477c597dd3576e3027d0fbdf5b6db9eca9e927633c6e07879ed",
+  "archive_event_count": 5,
+  "issue_body_available": true,
+  "archive_latest_event_at": "2020-12-09 19:41:26",
+  "historical_evidence": true
+}

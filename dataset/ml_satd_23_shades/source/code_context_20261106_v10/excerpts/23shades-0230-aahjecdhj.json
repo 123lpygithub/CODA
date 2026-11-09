@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0230-aahjecdhj",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/255a05a5980efb8b096c283d79872d0695886161",
+  "filename": "pandas_numpy/sources/pandas/tests/io/test_excel.py",
+  "commit": "255a05a5980efb8b096c283d79872d0695886161",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/255a05a5980efb8b096c283d79872d0695886161/pandas_numpy/sources/pandas/tests/io/test_excel.py",
+  "fetched_at": "2026-11-05T06:12:19.290169+00:00",
+  "source_sha256": "062be1334ced97ed40c40b983cc8ace30fa36b7cc87f75417c4170de641632a9",
+  "line_start": 155,
+  "line_end": 179,
+  "excerpt": "                                   index_col=0, parse_cols='A:D')\n\n        # TODO add index to xls, read xls ignores index name ?\n        tm.assert_frame_equal(df2, df1, check_names=False)\n        tm.assert_frame_equal(df3, df1, check_names=False)\n        tm.assert_frame_equal(df4, df1, check_names=False)\n\n        df1 = dfref.reindex(columns=['B', 'C'])\n        df2 = self.get_exceldf('test1', ext, 'Sheet1', index_col=0,\n                               usecols='A,C,D')\n        df3 = self.get_exceldf('test1', ext, 'Sheet2', skiprows=[1],\n                               index_col=0, usecols='A,C,D')\n        # TODO add index to xls file\n        tm.assert_frame_equal(df2, df1, check_names=False)\n        tm.assert_frame_equal(df3, df1, check_names=False)\n\n        df1 = dfref.reindex(columns=['B', 'C'])\n        df2 = self.get_exceldf('test1', ext, 'Sheet1', index_col=0,\n                               usecols='A,C:D')\n        df3 = self.get_exceldf('test1', ext, 'Sheet2', skiprows=[1],\n                               index_col=0, usecols='A,C:D')\n        tm.assert_frame_equal(df2, df1, check_names=False)\n        tm.assert_frame_equal(df3, df1, check_names=False)\n\n    def test_excel_stop_iterator(self, ext):",
+  "match_policy": "unique-release-normalized-v2"
+}

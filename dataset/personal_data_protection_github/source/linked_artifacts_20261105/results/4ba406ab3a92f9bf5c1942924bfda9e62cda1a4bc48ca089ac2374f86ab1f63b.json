@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/prebid/Prebid.js/blob/3513d38c120072380c0f4a2376b95f50bb957224/modules/platformioBidAdapter.js#L245",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "revision": "3513d38c120072380c0f4a2376b95f50bb957224",
+  "immutable_revision": true,
+  "line_start": 233,
+  "line_end": 257,
+  "text": "      },\n      id: appParams.id,\n      name: appParams.name,\n      bundle: appParams.bundle,\n      storeurl: appParams.storeUrl,\n      domain: appParams.domain,\n    }\n  }\n  return null;\n}\n\nfunction device(bidderRequest) {\n  const lat = bidderRequest && bidderRequest.length > 0 ? bidderRequest[0].params.latitude : '';\n  const lon = bidderRequest && bidderRequest.length > 0 ? bidderRequest[0].params.longitude : '';\n  const ifa = bidderRequest && bidderRequest.length > 0 ? bidderRequest[0].params.ifa : '';\n  return {\n    dnt: utils.getDNT() ? 1 : 0,\n    ua: navigator.userAgent,\n    language: (navigator.language || navigator.browserLanguage || navigator.userLanguage || navigator.systemLanguage),\n    w: (window.screen.width || window.innerWidth),\n    h: (window.screen.height || window.innerHeigh),\n    geo: {\n      lat: lat,\n      lon: lon,\n    },",
+  "source_sha256": "5c93da7e268b8176796753d60b857aee950446f728faa9c4abb2b509324b724d",
+  "fetched_at": "2026-11-05T06:21:31.968778+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/prebid/Prebid.js/3513d38c120072380c0f4a2376b95f50bb957224/modules/platformioBidAdapter.js",
+  "status": "available"
+}

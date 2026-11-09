@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0128-aaeccdahj",
+  "revision_url": "https://github.com/alan-turing-institute/sktime/commit/b22d05566553cfefa4d6f9deea854524fc3bc467",
+  "filename": "sktime/transformers/series_as_features/dictionary_based/_sfa.py",
+  "commit": "b22d05566553cfefa4d6f9deea854524fc3bc467",
+  "source_url": "https://raw.githubusercontent.com/alan-turing-institute/sktime/b22d05566553cfefa4d6f9deea854524fc3bc467/sktime/transformers/series_as_features/dictionary_based/_sfa.py",
+  "fetched_at": "2026-11-05T06:11:58.630102+00:00",
+  "source_sha256": "16677e98567b53b2c982bcffa502d94b264e1bfc79b60906fa3f8cff57bf1f3d",
+  "line_start": 616,
+  "line_end": 640,
+  "excerpt": "            )\n            buf = square_sum * r_window_length - mean * mean\n            stds[w] = math.sqrt(buf) if buf > 1e-8 else 0\n\n        return stds\n\n    # Used to represent a word for dictionary based classifiers such as BOSS\n    # an BOP.\n    # Can currently only handle an alphabet size of <= 4 and word length of\n    # <= 16.\n    # Current literature shows little reason to go beyond this, but the\n    # class will need changes/expansions\n    # if this is needed.\n    # TODO a shift of 2 is only correct for alphabet size 4, log2(4)=2\n\n    @staticmethod\n    @njit(fastmath=True, cache=True)\n    def create_bigram_word(word, other_word, length):\n        return (word << (2 * length)) | other_word\n\n    @classmethod\n    def shorten_word(cls, word, amount):\n        # shorten a word by set amount of letters\n        return cls.right_shift(word, amount * 2)\n"
+}

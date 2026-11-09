@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0643-aagbdffff",
+  "revision_url": "https://github.com/nmstoker/lockebot/commit/d49862174dc0de6a53740058bd407bad91c3b98e",
+  "filename": "basebot.py",
+  "commit": "d49862174dc0de6a53740058bd407bad91c3b98e",
+  "source_url": "https://raw.githubusercontent.com/nmstoker/lockebot/d49862174dc0de6a53740058bd407bad91c3b98e/basebot.py",
+  "fetched_at": "2026-11-05T06:13:31.023107+00:00",
+  "source_sha256": "4f857af0be2c5da4fb62c9d2714560b3022eea7f86f1b4f6e373b3d656d82e58",
+  "line_start": 653,
+  "line_end": 677,
+  "excerpt": "            'template_text': 'Template 1: Example $NUMBER'},\n        {\n            'intent': 'feature_example',\n            'template_text': 'Template 2: Example $FEATURE'}\n        ]\n\n    for t in templates:\n        if t['intent'] == resp['intent']:\n            matching_templates.append(t)\n\n    # TODO: put in a better 'fitness' selection process here!!\n    chosen_template = random.choice(matching_templates)\n    # TODO: put in the option to do substitution here (most likely scenario,\n    #      barring edge cases)\n    return chosen_template['template_text']\n\n\ndef handle_feature_example(resp,\n                           detail=False,\n                           overload_item=None,\n                           verbose=False):\n    logger.debug('Intent: feature_at_example')\n    sql = 'SELECT {fields} FROM `example`'\n    num = None\n    loc = None",
+  "match_policy": "unique-release-normalized-v2"
+}

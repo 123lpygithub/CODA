@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0849-aaibjdjdc",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/452f72396f442842e994708e204d567dec3092c4",
+  "filename": "scikits/learn/base.py",
+  "commit": "452f72396f442842e994708e204d567dec3092c4",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/452f72396f442842e994708e204d567dec3092c4/scikits/learn/base.py",
+  "fetched_at": "2026-11-05T06:14:04.704820+00:00",
+  "source_sha256": "d98373e845652edcf0c3dc3aca9fbdc12cd1c2de73d135a967e689312554d50c",
+  "line_start": 214,
+  "line_end": 238,
+  "excerpt": "                Training set.\n\n            y : array-like, shape = [n_samples]\n\n            Returns\n            -------\n            z : float\n        \"\"\"\n        return explained_variance(self.predict(X), y)\n\n\n################################################################################\n# XXX: Temporary solution to figure out if an estimator is a classifier\n\ndef _get_sub_estimator(estimator):\n    \"\"\" Returns the final estimator if there is any.\n    \"\"\"\n    if hasattr(estimator, 'estimator'):\n        # GridSearchCV and other CV-tuned estimators\n        return _get_sub_estimator(estimator.estimator)\n    if hasattr(estimator, 'steps'):\n        # Pipeline\n        return _get_sub_estimator(estimator.steps[-1][1])\n    return estimator\n"
+}

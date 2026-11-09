@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0490-aaaefgdbc",
+  "revision_url": "https://github.com/mycrazycracy/tf-kaldi-speaker/commit/c5ccc12ea32927933eec7169a3b9fe5a51405b68",
+  "filename": "model/trainer.py",
+  "commit": "c5ccc12ea32927933eec7169a3b9fe5a51405b68",
+  "source_url": "https://raw.githubusercontent.com/mycrazycracy/tf-kaldi-speaker/c5ccc12ea32927933eec7169a3b9fe5a51405b68/model/trainer.py",
+  "fetched_at": "2026-11-05T06:13:02.697288+00:00",
+  "source_sha256": "12568deb8067308792b78b619c0e323b1d7a62d09a78d023d30f33fe04018d93",
+  "line_start": 247,
+  "line_end": 271,
+  "excerpt": "        elif loss_type == \"generalized_angular_triplet_loss\":\n            self.loss_network = generalized_angular_triplet_loss\n        else:\n            raise NotImplementedError(\"Not implement %s loss\" % self.loss_type)\n\n        if mode == \"valid\":\n            tf.logging.info(\"Building valid network...\")\n            self.valid_features = tf.placeholder(tf.float32, shape=[None, None, dim], name=\"valid_features\")\n            self.valid_labels = tf.placeholder(tf.int32, shape=[None,], name=\"valid_labels\")\n            with tf.name_scope(\"valid\") as scope:\n                # We can adjust some parameters in the config when we do validation\n                # TODO: I'm not sure whether it is necssary to change the margin for the valid set.\n                # TODO: compare the performance!\n                # Change the margin for the valid set.\n                if loss_type == \"softmax\":\n                    pass\n                elif loss_type == \"asoftmax\":\n                    train_margin = self.params.asoftmax_m\n                    self.params.asoftmax_m = 1\n                elif loss_type == \"additive_margin_softmax\":\n                    train_margin = self.params.amsoftmax_m\n                    self.params.amsoftmax_m = 0\n                elif loss_type == \"additive_angular_margin_softmax\":\n                    train_margin = self.params.arcsoftmax_m\n                    self.params.arcsoftmax_m = 0"
+}

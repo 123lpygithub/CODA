@@ -1,0 +1,117 @@
+Research Question:
+{research_question}
+
+Validation Scope:
+{validation_scope}
+
+Corpus Audit and Recorded Assignment:
+{corpus_audit_json}
+
+Analysis Scope:
+{analysis_scope}
+
+Use Case:
+{use_case}
+
+Frozen Analysis Protocol:
+{analysis_protocol}
+
+Artifact ID:
+{artifact_id}
+
+Artifact Content:
+{artifact_content}
+
+Context Packet:
+{context_packet_json}
+
+Coder Outputs:
+{coder_outputs_json}
+
+Comparison Output:
+{arbitration_output_json}
+
+Current Codebook Snapshot:
+{codebook_snapshot}
+
+Relevant Coding Case History (with human/automatic provenance):
+{history_snapshot}
+
+Preliminary Signals:
+{preliminary_signals_json}
+
+Return a JSON object with exactly these keys:
+- "signals": array of objects with:
+  - "signal": one of
+    ["valid", "evidence_insufficient", "unsupported_inference", "use_case_mismatch", "category_overlap", "boundary_unclear", "context_missing", "human_review_required"]
+  - "issue_scope": one of ["none", "evidence", "assignment", "codebook", "context"]
+  - "summary": English summary
+  - "summary_zh": Chinese version with the same meaning
+  - "related_code_names": array of code names
+  - "evidence_refs": array of evidence ids
+- "human_review_required": boolean
+- "review_criteria": array containing zero or more of ["R1", "R2", "R3", "R4", "R5", "R6"]
+  for iterative_decision (legacy proposal); use [] for initial_codebook and final_audit
+- "review_questions": array of concrete English questions for the researcher, one per criterion
+- "review_questions_zh": Chinese versions in the same order
+- "confidence_level": one of ["high", "medium", "low"]
+- "confidence_rationale": short English explanation of validation confidence
+- "confidence_rationale_zh": Chinese version with the same meaning
+- "confidence_factors": object with keys "evidence_support", "coder_agreement",
+  "codebook_fit", and "interpretive_ambiguity"; each value must be exactly one of
+  ["high", "medium", "low"]
+- "summary": short English paragraph
+- "summary_zh": Chinese version with the same meaning
+- "notes": array of English strings
+- "notes_zh": Chinese versions in the same order
+
+Review criteria:
+- R1: unresolved coding disagreement that comparison and validation cannot resolve;
+  different labels for the same concept or permitted complementary codes do not qualify.
+- R2: insufficient or conflicting evidence, missing context, incompatible revisions, or an explicit abstention.
+- R3: unresolved category boundary or overlap for the same interpretation; permitted multiple coding is not itself a conflict.
+- R4: merge, split, or meaning/inclusion/exclusion change to an established category with accepted assignments.
+- R5: conflict with a recorded human decision or an approved category condition.
+- R6: explicit refusal directly, or malformed/incomplete output or missing
+  case/category/source references that persist after one recorded repair using the same
+  evidence. Do not invent a repair record; valid deferrals belong to R2/R3.
+
+Constraints:
+- Record unchecked target IDs, missing inputs, and inspection limits in notes. Do not
+  claim an omitted original source, prior case, or programmatic check was inspected.
+- For initial_codebook/final_audit, report concrete stage findings through signals,
+  questions, and notes; do not label them iterative R1-R6 flags or grant stage approval.
+- In initial_codebook scope, inspect the provisional categories, inclusion/exclusion
+  conditions, original sources, both coders' observations, and initial assignments.
+  Identify relevant phenomena lost or distorted by summarization or consolidation,
+  unsupported grouping, and unclear boundaries. Return clarification or revision
+  findings; never declare the initial codebook human-approved.
+- In final_audit scope, validate the recorded assignment against the FINAL codebook
+  and full original case. The comparison section is a reconstruction of the recorded
+  decision, not a new agent proposal; an empty coder list does not indicate coder failure.
+  Check category clarity, meaningful coverage using the corpus counts and this case,
+  stale or inactive code references, omitted phenomena, unsupported claims, source
+  locations and available revision identifiers. An explicit unresolved or uncoded
+  record is not itself malformed. Never overwrite a recorded human judgment.
+  This is operational audit, not independent RQ1 scoring or proof of corpus correctness.
+- Emit use_case_mismatch when the proposed peer codes answer different analytical
+  dimensions from the one requested by the research question.
+- Emit category_overlap or boundary_unclear when several codes appear to be different
+  locations or repair manifestations of one underlying issue rather than independently
+  meaningful coding units.
+- Use issue_scope "assignment" when the problem can be corrected by changing only this
+  artifact's code_ids, including parent-child co-assignment. Use "codebook" only when the
+  category definitions, hierarchy, analytical axis, or boundaries themselves require revision.
+- Emit unsupported_inference when an alleged error is justified only by structural
+  difference from a reference implementation and no behavioral departure is grounded.
+- Confidence is descriptive metadata only. It must never determine human-review routing.
+  A locally supported new code may be high; merge, split, refine, rename, and parent-category changes
+  require closer scrutiny because they alter existing boundaries.
+- For interpretive_ambiguity, "high" means greater ambiguity and "low" means little ambiguity.
+- Validate add_parent separately from merge: add_parent must preserve at least two distinct
+  child codes and introduce one evidence-grounded parent with independent analytic utility.
+  A broad label alone is not evidence for a parent category.
+- If the case is mostly sound but still needs human attention, keep both "valid" and "human_review_required" if useful.
+- Use only evidence ids that appear in the context packet.
+- Every explanatory string must have its paired Chinese field with the same meaning.
+- Do not output markdown.

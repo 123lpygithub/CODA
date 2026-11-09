@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0059-aacjfgieb",
+  "revision_url": "https://github.com/ICLRandD/Blackstone/commit/92a992be9d38c30e17dbf943a7fffc4a6d8b837b",
+  "filename": "black_stream.py",
+  "commit": "92a992be9d38c30e17dbf943a7fffc4a6d8b837b",
+  "source_url": "https://raw.githubusercontent.com/ICLRandD/Blackstone/92a992be9d38c30e17dbf943a7fffc4a6d8b837b/black_stream.py",
+  "fetched_at": "2026-11-05T06:11:47.837856+00:00",
+  "source_sha256": "3cf9cd3d895610a3e9591faf77281e963a125a718abef20e5ce734ab8d724583",
+  "line_start": 44,
+  "line_end": 68,
+  "excerpt": "    split_sents = st.sidebar.checkbox(\"Split sentences\", value=True)\n    collapse_punct = st.sidebar.checkbox(\"Collapse punctuation\", value=True)\n    collapse_phrases = st.sidebar.checkbox(\"Collapse phrases\")\n    compact = st.sidebar.checkbox(\"Compact mode\")\n    options = {\n        \"collapse_punct\": collapse_punct,\n        \"collapse_phrases\": collapse_phrases,\n        \"compact\": compact,\n    }\n    docs = [span.as_doc() for span in doc.sents] if split_sents else [doc]\n    for sent in docs:\n        html = displacy.render(sent, options=options)\n        # Double newlines seem to mess with the rendering\n        html = html.replace(\"\\n\\n\", \"\\n\")\n        if split_sents and len(docs) > 1:\n            st.markdown(f\"> {sent.text}\")\n        st.write(HTML_WRAPPER.format(html), unsafe_allow_html=True)\n\nif \"ner\" in nlp.pipe_names:\n    st.header(\"Named Entities\")\n    st.sidebar.header(\"Named Entities\")\n    default_labels = [\"CASENAME\", \"CITATION\", \"INSTRUMENT\", \"PROVISION\"]\n    labels = st.sidebar.multiselect(\n        \"Entity labels\", nlp.get_pipe(\"ner\").labels, default_labels\n    )"
+}

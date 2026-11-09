@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0519-aajfiibhb",
+  "revision_url": "https://github.com/konlpy/konlpy/commit/4113a80ad7b9cf65e9d1ec9ac23ab214b2eef9bc",
+  "filename": "konlpy/utils.py",
+  "commit": "4113a80ad7b9cf65e9d1ec9ac23ab214b2eef9bc",
+  "source_url": "https://raw.githubusercontent.com/konlpy/konlpy/4113a80ad7b9cf65e9d1ec9ac23ab214b2eef9bc/konlpy/utils.py",
+  "fetched_at": "2026-11-05T06:13:06.445537+00:00",
+  "source_sha256": "3e3b6425ece65eabac7dc356a25d8ae221f6ea73cd479d57b5e3d0e3595de050",
+  "line_start": 13,
+  "line_end": 37,
+  "excerpt": "        (u'‘', u\"'\"), # \\u2018\n        (u'’', u\"'\"), # \\u2019\n        (u'“', u'\"'), # \\u201c\n        (u'”', u'\"'), # \\u201d\n        (u'「', u'<'), # \\u300c\n        (u'」', u'>')] # \\u300d\n\ndef concat(phrase):\n    return phrase.replace(os.linesep, ' ')\n\ndef select(phrase):\n    # FIXME: last eojeol gets truncated (hotfixed)\n    # TODO: do not replace unless explicitly noticed + add 'only hangul' option\n    for a, b in replace_set:\n        phrase = phrase.replace(a, b)\n    return phrase + ' .'\n\ndef preprocess(phrase):\n    return select(concat(phrase))\n\ndef char2hex(c):\n    # u'음' -> '0xc74c'\n    return hex(ord(c))\n\ndef hex2char(h):"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0691-aagejcfed",
+  "revision_url": "https://github.com/nengo/nengo-dl/commit/f56616396da6224b63c6df5474714e938a9561a0",
+  "filename": "nengo_dl/tests/test_simulator.py",
+  "commit": "f56616396da6224b63c6df5474714e938a9561a0",
+  "source_url": "https://raw.githubusercontent.com/nengo/nengo-dl/f56616396da6224b63c6df5474714e938a9561a0/nengo_dl/tests/test_simulator.py",
+  "fetched_at": "2026-11-05T06:13:38.929925+00:00",
+  "source_sha256": "2d642b1a77de67e2a43f133ff91c1f50a48ae2254289d452f063f942e4ff4464",
+  "line_start": 116,
+  "line_end": 140,
+  "excerpt": "@pytest.mark.parametrize(\"neurons\", (True, False))\ndef test_train_ff(Simulator, neurons, seed):\n    minibatch_size = 4\n    n_hidden = 20\n\n    np.random.seed(seed)\n\n    with nengo.Network() as net:\n        net.config[nengo.Ensemble].gain = nengo.dists.Choice([1])\n        net.config[nengo.Ensemble].bias = nengo.dists.Choice([0])\n        net.config[nengo.Connection].synapse = None\n\n        # TODO: separate this into two different inputs to test that\n        # functionality\n        inp = nengo.Node([0, 0])\n        ens = nengo.Ensemble(n_hidden + 1, n_hidden,\n                             neuron_type=nengo.Sigmoid(tau_ref=1))\n        out = nengo.Ensemble(1, 1, neuron_type=nengo.Sigmoid(tau_ref=1))\n        nengo.Connection(\n            inp, ens.neurons if neurons else ens, transform=dists.Glorot())\n        nengo.Connection(\n            ens.neurons if neurons else ens, out.neurons,\n            transform=dists.Glorot())\n\n        # TODO: why does training fail if we probe out instead of out.neurons?"
+}

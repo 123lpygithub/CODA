@@ -1,0 +1,193 @@
+{
+  "requested_url": "https://api.github.com/repos/status-im/status-go/commits/develop",
+  "final_url": "https://api.github.com/repos/status-im/status-go/commits/develop",
+  "fetched_at": "2026-11-05T12:55:28.004988+00:00",
+  "etag": "W/\"061fa8ca4343ab75ba33da381ad8912abb84400b4e877c8708c34abdd34725d3\"",
+  "last_modified": "Wed, 04 Nov 2026 15:32:17 GMT",
+  "next_url": null,
+  "data": {
+    "sha": "91922322c37554f9cdd4508def6aee5975665067",
+    "node_id": "C_kwDOA6OEO9oAKDkxOTIyMzIyYzM3NTU0ZjljZGQ0NTA4ZGVmNmFlZTU5NzU2NjUwNjc",
+    "commit": {
+      "author": {
+        "name": "Alex Jbanca",
+        "email": "47811206+alexjba@users.noreply.github.com",
+        "date": "2026-11-04T15:32:17Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2026-11-04T15:32:17Z"
+      },
+      "message": "perf: drop geth RPC histograms and shrink the enode memtable (#7983)\n\n* perf(rpc): stop retaining geth per-method RPC histograms\n\ngo-ethereum v1.16's RPC server registers a ~19KB ExpDecaySample histogram\nfor every method/outcome pair it serves, regardless of metrics.Enabled.\nstatus-go never exports geth metrics, yet ~110 such histograms (~2.1MB)\nstayed live on a logged-in Android client. Wrap geth's DefaultRegistry so\nrpc/duration/<method>/<outcome> lookups get a shared no-op histogram.\n\nRefs status-im/status-app#22659\n\n* perf(waku): shrink the local node's leveldb memtable\n\nenode.OpenDB(\"\") opens goleveldb with default options, preallocating a 4MB\nmemtable that stays live for the waku node's lifetime. Lower goleveldb's\ndefault write buffer to 64KiB; the node DB only keeps the local ENR seq and\ndiscovery bookkeeping, and is the only goleveldb instance status-go opens.\n\nRefs status-im/status-app#22659\n\n* test: share the live-heap helper between the gethmetrics and enodedb tests",
+      "tree": {
+        "sha": "5db8b69c8b73929b8ee07eb58a4cc182ae0a8cc4",
+        "url": "https://api.github.com/repos/status-im/status-go/git/trees/5db8b69c8b73929b8ee07eb58a4cc182ae0a8cc4"
+      },
+      "url": "https://api.github.com/repos/status-im/status-go/git/commits/91922322c37554f9cdd4508def6aee5975665067",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJq61ABCRC1aQ7uu5UhlAAAFDkQABSJ93XcCawuMUW8r0u24F3o\nYkdYQa53RhT9z2dVY3hkeKHcjUexbf8r5AWngXjHp861Ic70dPDsqCEIr0Ptfr2g\nqPw9O0CDarVHYW4h9igfkS0NAkuh32xJMxSjN4oBgKmv5z2hvOGOGV9UPlVW4NMZ\nFY0buUlpl4Ng4JpFlVfGnQY9WQCNGFaZbFP49XA4Uyg2HhbnzJBBjSu6+BwnHUzS\nclld+3lFsdTO2I9+JwgSBkxGZ4O6V4b8GpHQg6aexR8f6JUv4CqiTPXUSxABkGWP\nT95CIGeRB5UQZbbaZO3l7pEmPB4qIkxtKYzg0iYV00m21OBsZiCey69TeYXq/Y4X\noBLZsouehxVLPypSth8UOpJf90fpJylS6aBrobQ5uVz0XfZMkTGzGcULbevJ0/oy\nUp1dosZu5Lbo9hQ+yPq45poFczvxw03Sx8aylhyEG6Os6Chfjv53cwXxoeV6/t1a\nNxISLiOPr2CVKGivSrKN/WGosutyFJ3AyM9VcVfnC476G8pSi6Qs+sDijuU7o6tX\nTZDc3XLuyP3G/Uthjy1jNRz0v1fCnIW4Z9cLdFIOCrO38x3bTZh7V7qDMH4wyGNz\n5XgOHBBiNKs3KexfwwT4hNPSkMBCgCGXa0jd/9wsDIjYuWjyMNxra3HQW66onPjT\nkFKG3JDN/fyol/j2Xzlb\n=MBMh\n-----END PGP SIGNATURE-----\n",
+        "payload": "tree 5db8b69c8b73929b8ee07eb58a4cc182ae0a8cc4\nparent cf4a3de759fee3eabd037a946694f4c8e190b919\nauthor Alex Jbanca <47811206+alexjba@users.noreply.github.com> 1793806337 +0200\ncommitter GitHub <noreply@github.com> 1793806337 +0200\n\nperf: drop geth RPC histograms and shrink the enode memtable (#7983)\n\n* perf(rpc): stop retaining geth per-method RPC histograms\n\ngo-ethereum v1.16's RPC server registers a ~19KB ExpDecaySample histogram\nfor every method/outcome pair it serves, regardless of metrics.Enabled.\nstatus-go never exports geth metrics, yet ~110 such histograms (~2.1MB)\nstayed live on a logged-in Android client. Wrap geth's DefaultRegistry so\nrpc/duration/<method>/<outcome> lookups get a shared no-op histogram.\n\nRefs status-im/status-app#22659\n\n* perf(waku): shrink the local node's leveldb memtable\n\nenode.OpenDB(\"\") opens goleveldb with default options, preallocating a 4MB\nmemtable that stays live for the waku node's lifetime. Lower goleveldb's\ndefault write buffer to 64KiB; the node DB only keeps the local ENR seq and\ndiscovery bookkeeping, and is the only goleveldb instance status-go opens.\n\nRefs status-im/status-app#22659\n\n* test: share the live-heap helper between the gethmetrics and enodedb tests",
+        "verified_at": "2026-11-04T15:32:17Z"
+      }
+    },
+    "url": "https://api.github.com/repos/status-im/status-go/commits/91922322c37554f9cdd4508def6aee5975665067",
+    "html_url": "https://github.com/status-im/status-go/commit/91922322c37554f9cdd4508def6aee5975665067",
+    "comments_url": "https://api.github.com/repos/status-im/status-go/commits/91922322c37554f9cdd4508def6aee5975665067/comments",
+    "author": {
+      "login": "alexjba",
+      "id": 47811206,
+      "node_id": "MDQ6VXNlcjQ3ODExMjA2",
+      "avatar_url": "https://avatars.githubusercontent.com/u/47811206?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/alexjba",
+      "html_url": "https://github.com/alexjba",
+      "followers_url": "https://api.github.com/users/alexjba/followers",
+      "following_url": "https://api.github.com/users/alexjba/following{/other_user}",
+      "gists_url": "https://api.github.com/users/alexjba/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/alexjba/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/alexjba/subscriptions",
+      "organizations_url": "https://api.github.com/users/alexjba/orgs",
+      "repos_url": "https://api.github.com/users/alexjba/repos",
+      "events_url": "https://api.github.com/users/alexjba/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/alexjba/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "web-flow",
+      "id": 19864447,
+      "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/web-flow",
+      "html_url": "https://github.com/web-flow",
+      "followers_url": "https://api.github.com/users/web-flow/followers",
+      "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+      "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+      "organizations_url": "https://api.github.com/users/web-flow/orgs",
+      "repos_url": "https://api.github.com/users/web-flow/repos",
+      "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/web-flow/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "cf4a3de759fee3eabd037a946694f4c8e190b919",
+        "url": "https://api.github.com/repos/status-im/status-go/commits/cf4a3de759fee3eabd037a946694f4c8e190b919",
+        "html_url": "https://github.com/status-im/status-go/commit/cf4a3de759fee3eabd037a946694f4c8e190b919"
+      }
+    ],
+    "stats": {
+      "total": 222,
+      "additions": 221,
+      "deletions": 1
+    },
+    "files": [
+      {
+        "sha": "b9c58080a6b9c992d3a9f65ce3ae8be1dbec8244",
+        "filename": "go.mod",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1,
+        "changes": 2,
+        "blob_url": "https://github.com/status-im/status-go/blob/91922322c37554f9cdd4508def6aee5975665067/go.mod",
+        "raw_url": "https://github.com/status-im/status-go/raw/91922322c37554f9cdd4508def6aee5975665067/go.mod",
+        "contents_url": "https://api.github.com/repos/status-im/status-go/contents/go.mod?ref=91922322c37554f9cdd4508def6aee5975665067",
+        "patch": "@@ -58,7 +58,7 @@ require (\n \tgithub.com/status-im/mvds v0.0.27-0.20251219201002-7226facd5aaf\n \tgithub.com/status-im/zxcvbn-go v0.0.0-20261030083113-91884ff3bbdc\n \tgithub.com/stretchr/testify v1.11.1\n-\tgithub.com/syndtr/goleveldb v1.0.1-0.20220614013038-64ee5596c38a // indirect\n+\tgithub.com/syndtr/goleveldb v1.0.1-0.20220614013038-64ee5596c38a\n \tgithub.com/wealdtech/go-ens/v3 v3.6.0\n \tgithub.com/wealdtech/go-multicodec v1.4.0\n \tgithub.com/xeipuuv/gojsonschema v1.2.0"
+      },
+      {
+        "sha": "31e251d666f49eec463bd852c6197bc0d4c665c1",
+        "filename": "internal/enodedb/enodedb.go",
+        "status": "added",
+        "additions": 17,
+        "deletions": 0,
+        "changes": 17,
+        "blob_url": "https://github.com/status-im/status-go/blob/91922322c37554f9cdd4508def6aee5975665067/internal%2Fenodedb%2Fenodedb.go",
+        "raw_url": "https://github.com/status-im/status-go/raw/91922322c37554f9cdd4508def6aee5975665067/internal%2Fenodedb%2Fenodedb.go",
+        "contents_url": "https://api.github.com/repos/status-im/status-go/contents/internal%2Fenodedb%2Fenodedb.go?ref=91922322c37554f9cdd4508def6aee5975665067",
+        "patch": "@@ -0,0 +1,17 @@\n+// Package enodedb sizes go-ethereum's in-memory node database.\n+//\n+// enode.OpenDB(\"\") opens goleveldb with default options, which preallocates a\n+// 4MB memtable that stays live for the node's lifetime. The node database only\n+// holds the local ENR sequence and discovery bookkeeping, so a small write\n+// buffer is plenty. go-ethereum offers no option for this, and enode's\n+// database is the only goleveldb instance status-go opens, so the package\n+// default is lowered instead.\n+package enodedb\n+\n+import \"github.com/syndtr/goleveldb/leveldb/opt\"\n+\n+const writeBuffer = 64 * opt.KiB\n+\n+func init() {\n+\topt.DefaultWriteBuffer = writeBuffer\n+}"
+      },
+      {
+        "sha": "eb39ffbb71fffd886fca2ca28384d2f26cc6fd41",
+        "filename": "internal/enodedb/enodedb_test.go",
+        "status": "added",
+        "additions": 64,
+        "deletions": 0,
+        "changes": 64,
+        "blob_url": "https://github.com/status-im/status-go/blob/91922322c37554f9cdd4508def6aee5975665067/internal%2Fenodedb%2Fenodedb_test.go",
+        "raw_url": "https://github.com/status-im/status-go/raw/91922322c37554f9cdd4508def6aee5975665067/internal%2Fenodedb%2Fenodedb_test.go",
+        "contents_url": "https://api.github.com/repos/status-im/status-go/contents/internal%2Fenodedb%2Fenodedb_test.go?ref=91922322c37554f9cdd4508def6aee5975665067",
+        "patch": "@@ -0,0 +1,64 @@\n+package enodedb\n+\n+import (\n+\t\"net\"\n+\t\"runtime\"\n+\t\"testing\"\n+\n+\t\"github.com/stretchr/testify/suite\"\n+\n+\t\"github.com/ethereum/go-ethereum/crypto\"\n+\t\"github.com/ethereum/go-ethereum/p2p/enode\"\n+\t\"github.com/ethereum/go-ethereum/p2p/enr\"\n+\n+\twakuenr \"github.com/waku-org/go-waku/waku/v2/protocol/enr\"\n+\n+\t\"github.com/status-im/status-go/internal/testutils/goheap\"\n+)\n+\n+type EnodeDBSuite struct {\n+\tsuite.Suite\n+}\n+\n+func TestEnodeDBSuite(t *testing.T) {\n+\tsuite.Run(t, new(EnodeDBSuite))\n+}\n+\n+func (s *EnodeDBSuite) TestLocalNodeDoesNotRetainDefaultWriteBuffer() {\n+\tdefer func(rate int) { runtime.MemProfileRate = rate }(runtime.MemProfileRate)\n+\truntime.MemProfileRate = 1\n+\n+\tkey, err := crypto.GenerateKey()\n+\ts.Require().NoError(err)\n+\tlocalNode, err := wakuenr.NewLocalnode(key)\n+\ts.Require().NoError(err)\n+\tdefer localNode.Database().Close()\n+\n+\ts.Require().Less(goheap.LiveBytesAllocatedBy(\"leveldb/memdb.New\"), int64(1<<20))\n+\truntime.KeepAlive(localNode)\n+}\n+\n+func (s *EnodeDBSuite) TestLocalNodeDatabaseStoresNodes() {\n+\tkey, err := crypto.GenerateKey()\n+\ts.Require().NoError(err)\n+\tlocalNode, err := wakuenr.NewLocalnode(key)\n+\ts.Require().NoError(err)\n+\tdefer localNode.Database().Close()\n+\n+\tdb := localNode.Database()\n+\tfor i := 0; i < 500; i++ {\n+\t\tpeerKey, err := crypto.GenerateKey()\n+\t\ts.Require().NoError(err)\n+\t\tvar record enr.Record\n+\t\trecord.Set(enr.IP(net.IPv4(10, 0, byte(i>>8), byte(i))))\n+\t\trecord.Set(enr.UDP(30303))\n+\t\ts.Require().NoError(enode.SignV4(&record, peerKey))\n+\t\tpeer, err := enode.New(enode.ValidSchemes, &record)\n+\t\ts.Require().NoError(err)\n+\t\ts.Require().NoError(db.UpdateNode(peer))\n+\n+\t\tstored := db.Node(peer.ID())\n+\t\ts.Require().NotNil(stored)\n+\t\ts.Require().Equal(peer.Seq(), stored.Seq())\n+\t}\n+}"
+      },
+      {
+        "sha": "a55d3d4f572e55332cb1d787adc433cf0162f0fc",
+        "filename": "internal/gethmetrics/gethmetrics.go",
+        "status": "added",
+        "additions": 47,
+        "deletions": 0,
+        "changes": 47,
+        "blob_url": "https://github.com/status-im/status-go/blob/91922322c37554f9cdd4508def6aee5975665067/internal%2Fgethmetrics%2Fgethmetrics.go",
+        "raw_url": "https://github.com/status-im/status-go/raw/91922322c37554f9cdd4508def6aee5975665067/internal%2Fgethmetrics%2Fgethmetrics.go",
+        "contents_url": "https://api.github.com/repos/status-im/status-go/contents/internal%2Fgethmetrics%2Fgethmetrics.go?ref=91922322c37554f9cdd4508def6aee5975665067",
+        "patch": "@@ -0,0 +1,47 @@\n+// Package gethmetrics tunes go-ethereum's process-wide metrics registry.\n+//\n+// go-ethereum's RPC server registers a ~16KB histogram per method and outcome\n+// (\"rpc/duration/<method>/<success|failure>\") on every call, whether or not\n+// metrics are enabled. status-go never exports go-ethereum metrics, so those\n+// histograms are dropped here; all other metrics keep their default behaviour.\n+package gethmetrics\n+\n+import (\n+\t\"strings\"\n+\n+\t\"github.com/ethereum/go-ethereum/metrics\"\n+)\n+\n+const (\n+\trpcServeTimePrefix = \"rpc/duration/\"\n+\tsuccessSuffix      = \"/success\"\n+\tfailureSuffix      = \"/failure\"\n+)\n+\n+var emptyHistogramSnapshot = metrics.NewHistogram(metrics.NewUniformSample(1)).Snapshot()\n+\n+func init() {\n+\tmetrics.DefaultRegistry = &registry{Registry: metrics.DefaultRegistry}\n+}\n+\n+type registry struct {\n+\tmetrics.Registry\n+}\n+\n+func (r *registry) GetOrRegister(name string, ctor func() interface{}) interface{} {\n+\tif isRPCServeTimeHistogram(name) {\n+\t\treturn discardHistogram{}\n+\t}\n+\treturn r.Registry.GetOrRegister(name, ctor)\n+}\n+\n+func isRPCServeTimeHistogram(name string) bool {\n+\treturn strings.HasPrefix(name, rpcServeTimePrefix) &&\n+\t\t(strings.HasSuffix(name, successSuffix) || strings.HasSuffix(name, failureSuffix))\n+}\n+\n+type discardHistogram struct{}\n+\n+func (discardHistogram) Clear()                              {}\n+func (discardHistogram) Update(int64)                        {}\n+func (discardHistogram) Snapshot() metrics.HistogramSnapshot { return emptyHistogramSnapshot }"
+      },
+      {
+        "sha": "9f1dce7e48a7a13dfc9a816803e307beba945b34",
+        "filename": "internal/gethmetrics/gethmetrics_test.go",
+        "status": "added",
+        "additions": 54,
+        "deletions": 0,
+        "changes": 54,
+        "blob_url": "https://github.com/status-im/status-go/blob/91922322c37554f9cdd4508def6aee5975665067/internal%2Fgethmetrics%2Fgethmetrics_test.go",
+        "raw_url": "https://github.com/status-im/status-go/raw/91922322c37554f9cdd4508def6aee5975665067/internal%2Fgethmetrics%2Fgethmetrics_test.go",
+        "contents_url": "https://api.github.com/repos/status-im/status-go/contents/internal%2Fgethmetrics%2Fgethmetrics_test.go?ref=91922322c37554f9cdd4508def6aee5975665067",
+        "patch": "@@ -0,0 +1,54 @@\n+package gethmetrics\n+\n+import (\n+\t\"errors\"\n+\t\"runtime\"\n+\t\"testing\"\n+\n+\t\"github.com/stretchr/testify/suite\"\n+\n+\t\"github.com/ethereum/go-ethereum/metrics\"\n+\tgethrpc \"github.com/ethereum/go-ethereum/rpc\"\n+\n+\t\"github.com/status-im/status-go/internal/testutils/goheap\"\n+)\n+\n+type echoService struct{}\n+\n+func (echoService) Echo(s string) string { return s }\n+func (echoService) Fail() error          { return errors.New(\"fail\") }\n+func (echoService) Ping() string         { return \"pong\" }\n+\n+type GethMetricsSuite struct {\n+\tsuite.Suite\n+}\n+\n+func TestGethMetricsSuite(t *testing.T) {\n+\tsuite.Run(t, new(GethMetricsSuite))\n+}\n+\n+func (s *GethMetricsSuite) TestRPCCallsDoNotRetainServeTimeHistograms() {\n+\tdefer func(rate int) { runtime.MemProfileRate = rate }(runtime.MemProfileRate)\n+\truntime.MemProfileRate = 1\n+\n+\tserver := gethrpc.NewServer()\n+\ts.Require().NoError(server.RegisterName(\"test\", echoService{}))\n+\tclient := gethrpc.DialInProc(server)\n+\tdefer client.Close()\n+\tdefer server.Stop()\n+\n+\tvar echoed, pong string\n+\ts.Require().NoError(client.Call(&echoed, \"test_echo\", \"hi\"))\n+\ts.Require().Equal(\"hi\", echoed)\n+\ts.Require().NoError(client.Call(&pong, \"test_ping\"))\n+\ts.Require().Equal(\"pong\", pong)\n+\ts.Require().EqualError(client.Call(nil, \"test_fail\"), \"fail\")\n+\n+\ts.Require().Zero(goheap.LiveBytesAllocatedBy(\"rpc.updateServeTimeHistogram\"))\n+}\n+\n+func (s *GethMetricsSuite) TestOtherMetricsAreStillRegistered() {\n+\tcounter := metrics.GetOrRegisterCounter(\"gethmetrics/test/counter\", nil)\n+\ts.Require().Same(counter, metrics.GetOrRegisterCounter(\"gethmetrics/test/counter\", nil))\n+\ts.Require().Same(counter, metrics.DefaultRegistry.Get(\"gethmetrics/test/counter\"))\n+}"
+      },
+      {
+        "sha": "22b4c2295eb167e1c372ed445fa13b86a44b1edd",
+        "filename": "internal/testutils/goheap/goheap.go",
+        "status": "added",
+        "additions": 36,
+        "deletions": 0,
+        "changes": 36,
+        "blob_url": "https://github.com/status-im/status-go/blob/91922322c37554f9cdd4508def6aee5975665067/internal%2Ftestutils%2Fgoheap%2Fgoheap.go",
+        "raw_url": "https://github.com/status-im/status-go/raw/91922322c37554f9cdd4508def6aee5975665067/internal%2Ftestutils%2Fgoheap%2Fgoheap.go",
+        "contents_url": "https://api.github.com/repos/status-im/status-go/contents/internal%2Ftestutils%2Fgoheap%2Fgoheap.go?ref=91922322c37554f9cdd4508def6aee5975665067",
+        "patch": "@@ -0,0 +1,36 @@\n+// Package goheap reports Go heap memory still held by allocations from a given\n+// function, for tests that assert memory is not retained. Callers must set\n+// runtime.MemProfileRate = 1 before the allocations they want to observe.\n+package goheap\n+\n+import (\n+\t\"runtime\"\n+\t\"strings\"\n+)\n+\n+// LiveBytesAllocatedBy returns the in-use bytes of allocations whose stack\n+// contains a function whose name ends with function.\n+func LiveBytesAllocatedBy(function string) int64 {\n+\truntime.GC()\n+\truntime.GC()\n+\n+\tn, _ := runtime.MemProfile(nil, false)\n+\trecords := make([]runtime.MemProfileRecord, n+64)\n+\tn, _ = runtime.MemProfile(records, false)\n+\n+\tvar live int64\n+\tfor _, r := range records[:n] {\n+\t\tframes := runtime.CallersFrames(r.Stack())\n+\t\tfor {\n+\t\t\tf, more := frames.Next()\n+\t\t\tif strings.HasSuffix(f.Function, function) {\n+\t\t\t\tlive += r.InUseBytes()\n+\t\t\t\tbreak\n+\t\t\t}\n+\t\t\tif !more {\n+\t\t\t\tbreak\n+\t\t\t}\n+\t\t}\n+\t}\n+\treturn live\n+}"
+      },
+      {
+        "sha": "d6c3effd04faf90dc9ce3d3770d7a38c4b4178b7",
+        "filename": "pkg/backend/node/get_status_node.go",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "blob_url": "https://github.com/status-im/status-go/blob/91922322c37554f9cdd4508def6aee5975665067/pkg%2Fbackend%2Fnode%2Fget_status_node.go",
+        "raw_url": "https://github.com/status-im/status-go/raw/91922322c37554f9cdd4508def6aee5975665067/pkg%2Fbackend%2Fnode%2Fget_status_node.go",
+        "contents_url": "https://api.github.com/repos/status-im/status-go/contents/pkg%2Fbackend%2Fnode%2Fget_status_node.go?ref=91922322c37554f9cdd4508def6aee5975665067",
+        "patch": "@@ -24,6 +24,7 @@ import (\n \t\"github.com/status-im/status-go/internal/crypto\"\n \t\"github.com/status-im/status-go/internal/db/multiaccounts\"\n \t\"github.com/status-im/status-go/internal/db/multiaccounts/accounts\"\n+\t_ \"github.com/status-im/status-go/internal/gethmetrics\" // drop geth's per-method RPC histograms before rpcServer serves\n \t\"github.com/status-im/status-go/internal/ipfs\"\n \t\"github.com/status-im/status-go/internal/logutils\"\n \t\"github.com/status-im/status-go/internal/panics\""
+      },
+      {
+        "sha": "a0354e61555c2c1549d97c76eb88969a3113c647",
+        "filename": "pkg/messaging/waku/gowaku.go",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "blob_url": "https://github.com/status-im/status-go/blob/91922322c37554f9cdd4508def6aee5975665067/pkg%2Fmessaging%2Fwaku%2Fgowaku.go",
+        "raw_url": "https://github.com/status-im/status-go/raw/91922322c37554f9cdd4508def6aee5975665067/pkg%2Fmessaging%2Fwaku%2Fgowaku.go",
+        "contents_url": "https://api.github.com/repos/status-im/status-go/contents/pkg%2Fmessaging%2Fwaku%2Fgowaku.go?ref=91922322c37554f9cdd4508def6aee5975665067",
+        "patch": "@@ -75,6 +75,7 @@ import (\n \t\"github.com/waku-org/go-waku/waku/v2/protocol/pb\"\n \n \t\"github.com/status-im/status-go/internal/connection\"\n+\t_ \"github.com/status-im/status-go/internal/enodedb\" // shrink the local node's memtable before node.New opens it\n \t\"github.com/status-im/status-go/internal/logutils\"\n \t\"github.com/status-im/status-go/internal/panics\"\n \t\"github.com/status-im/status-go/internal/pausable\""
+      }
+    ]
+  }
+}

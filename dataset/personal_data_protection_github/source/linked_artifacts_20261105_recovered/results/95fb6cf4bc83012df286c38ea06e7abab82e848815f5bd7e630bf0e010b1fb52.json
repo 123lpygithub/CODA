@@ -1,0 +1,23 @@
+{
+  "url": "https://github.com/phpmyadmin/phpmyadmin/blob/master/libraries/common.inc.php#L188-L196",
+  "kind": "file",
+  "cited_in": [
+    "comment_391583883"
+  ],
+  "status": "partial",
+  "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+  "line_start": 176,
+  "line_end": 208,
+  "historical_evidence": true,
+  "revision": "dc37d436cc1e3778a8c3f92e9844de28ef198863",
+  "immutable_revision": true,
+  "retrieval_url": "https://raw.githubusercontent.com/phpmyadmin/phpmyadmin/dc37d436cc1e3778a8c3f92e9844de28ef198863/libraries/common.inc.php",
+  "text": "         */\n        $server = $config->selectServer();\n        $urlParams['server'] = $server;\n        $containerBuilder->setParameter('server', $server);\n        $containerBuilder->setParameter('url_params', $urlParams);\n\n        /**\n         * BC - enable backward compatibility\n         * exports all configuration settings into globals ($cfg global)\n         */\n        $config->enableBc();\n\n        /* setup themes                                          LABEL_theme_setup    */\n\n        $theme = ThemeManager::initializeTheme();\n\n        /** @var DatabaseInterface $dbi */\n        $dbi = null;\n\n        if (isset($isMinimumCommon)) {\n            $config->loadUserPreferences();\n            $containerBuilder->set('theme_manager', ThemeManager::getInstance());\n            Tracker::enable();\n\n            return;\n        }\n\n        /**\n         * save some settings in cookies\n         *\n         * @todo should be done in PhpMyAdmin\\Config\n         */\n        $config->setCookie('pma_lang', (string) $lang);",
+  "source_sha256": "1c0d07f08ffbf682314042bc54dddb147a40ae600188b908591d9249c7def542",
+  "fetched_at": "2026-11-05T15:45:40.953936+00:00",
+  "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+  "history_query_url": "https://api.github.com/repos/phpmyadmin/phpmyadmin/commits?path=libraries%2Fcommon.inc.php&per_page=5",
+  "history_response_sha256": "ea2fbe8265eff9ccca9eb1121bc2e31ac9c8f468cce6b14ea82a7e5c9bd4b4f4",
+  "history_entry_sha": "a0d91ec1532e4da087e456d3edd723937aadd32c",
+  "history_commit_date": "2021-07-06T17:00:44Z"
+}

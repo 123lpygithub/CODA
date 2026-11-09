@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0545-aafbccaac",
+  "revision_url": "https://github.com/ironman5366/W.I.L.L/commit/83c4aa1dccdae8caafbad6b5209ec54bf611d8e4",
+  "filename": "interfaces/W.I.L.L-Telegram/main.py",
+  "commit": "83c4aa1dccdae8caafbad6b5209ec54bf611d8e4",
+  "source_url": "https://raw.githubusercontent.com/ironman5366/W.I.L.L/83c4aa1dccdae8caafbad6b5209ec54bf611d8e4/interfaces/W.I.L.L-Telegram/main.py",
+  "fetched_at": "2026-11-05T06:13:09.928344+00:00",
+  "source_sha256": "ae5d55f64f1ed7ba8325289fbb22e3ed2bfa63d0f34463b44d30cf32f46eccb2",
+  "line_start": 64,
+  "line_end": 88,
+  "excerpt": "    payload = {\"username\": username, \"password\": password}\n    response = requests.post(url=\"{0}/api/start_session\".format(SERVER_URL), data=payload).json()\n    if response[\"type\"] == \"success\":\n        log.info(\"Logged in user {0} successfully, putting their session token in the db\")\n        update.message.reply_text(response[\"text\"]+\" Thank you for logging in. For security, please delete the /login\" \\\n                                                    \" command in the chat\")\n        db['telegram'].upsert(dict(\n            username=username, chat_id=update.message.chat_id, session_id=response[\"data\"][\"session_id\"])\n            , ['username']\n        )\n        socket_thread = threading.Thread(target=socket_io_thread, args=(\n            bot, response[\"data\"][\"session_id\"],update.message.chat_id))\n        #TODO: fix this later\n        #socket_thread.start()\n    else:\n        log.info(\"Got error logging in with user {0}. Error text is {1}\".format(username, response[\"text\"]))\n        update.message.reply_text(response[\"text\"])\n\ndef start(bot, update):\n    '''Standard /start command'''\n    update.message.reply_text(\"Welcome to W.I.L.L! To get started, please run /login <username> <password>.\")\n\ndef command(bot, update):\n    '''A W.I.L.L command'''\n    message = update.message.text"
+}

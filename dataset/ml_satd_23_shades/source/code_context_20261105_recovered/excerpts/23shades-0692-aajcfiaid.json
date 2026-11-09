@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0692-aajcfiaid",
+  "revision_url": "https://github.com/vita-epfl/openpifpaf/commit/886418ba0059c6408cddaea0cec7d8a51a325621",
+  "filename": "openpifpaf/network/factory.py",
+  "commit": "886418ba0059c6408cddaea0cec7d8a51a325621",
+  "source_url": "https://raw.githubusercontent.com/vita-epfl/openpifpaf/886418ba0059c6408cddaea0cec7d8a51a325621/openpifpaf/network/factory.py",
+  "fetched_at": "2026-11-05T06:13:39.323130+00:00",
+  "source_sha256": "c8faa94f681aa1c67e265f61114ba58ac8ab5dfccc8b50f10c017a8df1c91397",
+  "line_start": 72,
+  "line_end": 96,
+  "excerpt": "            checkpoint = torch.hub.load_state_dict_from_url(RESNET50_MODEL, check_hash=True)\n        elif checkpoint == 'resnet101':\n            checkpoint = torch.hub.load_state_dict_from_url(RESNET101_MODEL, check_hash=True)\n        elif checkpoint == 'resnet152':\n            checkpoint = torch.hub.load_state_dict_from_url(RESNET152_MODEL, check_hash=True)\n        elif checkpoint == 'resnext50':\n            checkpoint = torch.hub.load_state_dict_from_url(RESNEXT50_MODEL, check_hash=True)\n        elif checkpoint == 'shufflenetv2x1':\n            checkpoint = torch.hub.load_state_dict_from_url(SHUFFLENETV2X1_MODEL, check_hash=True)\n        elif checkpoint == 'shufflenetv2x2':\n            checkpoint = torch.hub.load_state_dict_from_url(SHUFFLENETV2X2_MODEL, check_hash=True)\n        elif checkpoint == 'shufflenetv2k18w':\n            # TODO: set check_hash to True on final model\n            checkpoint = torch.hub.load_state_dict_from_url(\n                SHUFFLENETV2K18W_MODEL, check_hash=False)\n        elif checkpoint.startswith('http'):\n            checkpoint = torch.hub.load_state_dict_from_url(\n                checkpoint, check_hash=not checkpoint.startswith('https'))\n        else:\n            checkpoint = torch.load(checkpoint)\n        net_cpu = checkpoint['model']\n        epoch = checkpoint['epoch']\n\n        # normalize for backwards compatibility\n        nets.model_migration(net_cpu)"
+}

@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/netdata/netdata/blob/master/netdata-installer.sh#L866",
+  "kind": "file",
+  "cited_in": [
+    "comment_558222961"
+  ],
+  "revision": "master",
+  "immutable_revision": false,
+  "line_start": 854,
+  "line_end": 878,
+  "text": "install_netdata_logrotate\n\nprogress \"Install journald configuration for netdata\"\n\ninstall_netdata_journald_conf\n\n# -----------------------------------------------------------------------------\nprogress \"Read installation options from netdata.conf\"\n\n# create an empty config if it does not exist\n[ ! -f \"${NETDATA_PREFIX}/etc/netdata/netdata.conf\" ] &&\n  touch \"${NETDATA_PREFIX}/etc/netdata/netdata.conf\"\n\n# port\ndefport=19999\nNETDATA_PORT=\"$(config_option \"web\" \"default port\" ${defport})\"\n\n# directories\nNETDATA_LIB_DIR=\"$(config_option \"global\" \"lib directory\" \"${NETDATA_PREFIX}/var/lib/netdata\")\"\nNETDATA_CACHE_DIR=\"$(config_option \"global\" \"cache directory\" \"${NETDATA_PREFIX}/var/cache/netdata\")\"\nNETDATA_WEB_DIR=\"$(config_option \"global\" \"web files directory\" \"${NETDATA_PREFIX}/usr/share/netdata/web\")\"\nNETDATA_LOG_DIR=\"$(config_option \"global\" \"log directory\" \"${NETDATA_PREFIX}/var/log/netdata\")\"\nNETDATA_USER_CONFIG_DIR=\"$(config_option \"global\" \"config directory\" \"${NETDATA_PREFIX}/etc/netdata\")\"\nNETDATA_STOCK_CONFIG_DIR=\"$(config_option \"global\" \"stock config directory\" \"${NETDATA_PREFIX}/usr/lib/netdata/conf.d\")\"\nNETDATA_STOCK_DATA_DIR=\"$(config_option \"global\" \"stock data directory\" \"${NETDATA_PREFIX}/usr/share/netdata\")\"",
+  "source_sha256": "e328a359175fe3f7e2d85949994de1018c4f1feddb967138032e0b0cdea16a2b",
+  "fetched_at": "2026-11-05T06:21:46.087840+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/netdata/netdata/master/netdata-installer.sh",
+  "status": "available"
+}

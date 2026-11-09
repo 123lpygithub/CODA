@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0616-aafcachjb",
+  "revision_url": "https://github.com/ai-med/quickNAT_pytorch/commit/043257abf9eab2049a7d5f1fb396665b19dbc616",
+  "filename": "quickNat_pytorch/data_utils.py",
+  "commit": "043257abf9eab2049a7d5f1fb396665b19dbc616",
+  "source_url": "https://raw.githubusercontent.com/ai-med/quickNAT_pytorch/043257abf9eab2049a7d5f1fb396665b19dbc616/quickNat_pytorch/data_utils.py",
+  "fetched_at": "2026-11-05T06:13:25.573156+00:00",
+  "source_sha256": "9261c9a557248745e0cde1d5739ead144cf57895c5aaee14bc8a7a302ecdb406",
+  "line_start": 170,
+  "line_end": 194,
+  "excerpt": "    return data_reduced, labels_reduced\n\n\ndef _remove_black(data, labels, background_label):\n    clean_data, clean_labels = [], []\n    for i, frame in enumerate(labels):\n        unique, counts = np.unique(frame, return_counts=True)\n        if counts[0] / sum(counts) < .95:\n            clean_labels.append(frame)\n            clean_data.append(data[i])\n    return np.array(clean_data), np.array(clean_labels)\n            \n#TODO: Need to defing a dynamic pipeline\n#TODO: Presets for training, prediction and evaluation\ndef load_and_preprocess(data_dir,\n                         label_dir,\n                         volumes_txt_file,\n                         orientation,\n                         return_weights = False,\n                         reduce_slices = False,\n                         remove_black = False,\n                         remap_config = None):\n    \n    \n    with open(volumes_txt_file) as file_handle:"
+}

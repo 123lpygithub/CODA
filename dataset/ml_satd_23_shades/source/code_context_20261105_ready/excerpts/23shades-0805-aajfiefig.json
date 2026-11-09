@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0805-aajfiefig",
+  "revision_url": "https://github.com/probcomp/bayeslite/commit/1e408b1dbec1389bb13cb9b3c9bacaceaf0d10b7",
+  "filename": "src/bql.py",
+  "commit": "1e408b1dbec1389bb13cb9b3c9bacaceaf0d10b7",
+  "source_url": "https://raw.githubusercontent.com/probcomp/bayeslite/1e408b1dbec1389bb13cb9b3c9bacaceaf0d10b7/src/bql.py",
+  "fetched_at": "2026-11-05T06:13:55.036718+00:00",
+  "source_sha256": "8c797dd271fef4a096a3c5ff3efd31c7bc4ca6aac75fccfa9e8880de88d13101",
+  "line_start": 125,
+  "line_end": 149,
+  "excerpt": "            # Set up schema and create the new table.\n            qn = sqlite3_quote_name(phrase.name)\n            def map_name(selcol):\n                if not isinstance(selcol, ast.SelColExp):\n                    raise NotImplementedError(\n                        'Computed or wildcard variable lists')\n                if not isinstance(selcol.expression, ast.ExpCol):\n                    # XXX Do this by compiling this rather than\n                    # executing it directly.\n                    raise NotImplementedError(\n                        'Functions of simulations in CREATE TABLE AS.')\n                if selcol.expression.table is not None:\n                    # XXX Accept at least the name of the population\n                    # in question.\n                    raise NotImplementedError(\n                        'Explicit tables in SIMULATE.')\n                return selcol.name if selcol.name is not None else \\\n                    selcol.expression.column\n            qcns = map(map_name, phrase.simulation.columns)\n            temp = 'TEMP' if phrase.temp else ''\n            bdb.sql_execute('''\n                CREATE %s TABLE %s (%s)\n            ''' % (temp, qn, str.join(',', qcns)))\n            # Retrieve the rows.\n            rows = simulate_models_rows(bdb, phrase.simulation)"
+}

@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:e379aa37e9ffb6f0a70682d2d75aecefeb187577/raw/",
+  "source_sha256": "83bb7782853632a54ec9e5f1ec105f4314ae15e13869849b5291b6109cdda8c6",
+  "fetched_at": "2026-11-05T06:43:09.770905+00:00",
+  "archive_directory": "2c9eae7dd0f6d4dd7a30381e6b1e963883f697b4",
+  "git_blob_sha1": "e379aa37e9ffb6f0a70682d2d75aecefeb187577",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/e533bc1eb253262785d3f889bf5deac1f77d3b1a/",
+  "artifact_id": "23shades-0441-aaefegech",
+  "revision_url": "https://github.com/oracle/Skater/commit/e533bc1eb253262785d3f889bf5deac1f77d3b1a",
+  "filename": "skater/util/image_ops.py",
+  "commit": "e533bc1eb253262785d3f889bf5deac1f77d3b1a",
+  "line_start": 136,
+  "line_end": 160,
+  "excerpt": "    except:\n        logger.info(\"No matching pixel for the specified condition\")\n    return X_modified\n\n\ndef normalize(X):\n    \"\"\" Normalize image of the shape (H, W, D) in the range of 0 and 1\n    \"\"\"\n    return np.array((X - np.min(X)) / (np.max(X) - np.min(X)))\n\n\ndef show_image(X, cmap=None, bins=None, title='Original'):\n    # TODO: Add ability to handle a pre-defined axes for plotting\n    import copy\n    font = {'family': 'avenir',\n            'color': 'black',\n            'weight': 'normal',\n            'size': 14,\n            }\n    _X = copy.deepcopy(X)\n\n    try:\n        import matplotlib.pyplot as plt\n        fig, ax = plt.subplots(1, 2, figsize=(16, 8))\n        ax[0].imshow(_X, cmap=cmap)",
+  "match_policy": "unique-release-normalized-v2"
+}

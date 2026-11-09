@@ -1,0 +1,17 @@
+{
+  "url": "https://github.com/signalapp/Signal-Android/blob/main/app/src/main/java/org/thoughtcrime/securesms/jobs/AttachmentCompressionJob.java#L301",
+  "kind": "file",
+  "cited_in": [
+    "comment_1241138192",
+    "comment_1241167573"
+  ],
+  "revision": "main",
+  "immutable_revision": false,
+  "line_start": 289,
+  "line_end": 313,
+  "text": "                  + \" (hdr=\" + e.isHdrInput\n                  + \", toneMap=\" + e.toneMapApplied\n                  + \", decoder=\" + e.decoderName\n                  + \", encoder=\" + e.encoderName + \")\", e);\n              throw new UndeliverableMessageException(\"Failure during encoding\", e);\n            }\n\n            eventBus.postSticky(new PartProgressEvent(attachment,\n                                                      PartProgressEvent.Type.COMPRESSION,\n                                                      100,\n                                                      100));\n            if (cancelationSignal.isCanceled()) {\n              throw new UndeliverableMessageException(\"Job is canceled!\");\n            }\n\n            final Mp4FaststartPostProcessor postProcessor = new Mp4FaststartPostProcessor(() -> {\n              try {\n                return ModernDecryptingPartInputStream.createFor(attachmentSecret, file, 0);\n              } catch (IOException e) {\n                Log.w(TAG, \"IOException thrown while creating CipherInputStream.\", e);\n                throw new VideoPostProcessingException(\"Exception while opening InputStream!\", e);\n              }\n            });\n\n            final long plaintextLength = ModernEncryptingPartOutputStream.getPlaintextLength(file.length());",
+  "source_sha256": "195faba833e813fbf468d8ca7cbaac5004cebcf3a181ba38e467ef67aa37283f",
+  "fetched_at": "2026-11-05T07:21:49.357564+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/signalapp/Signal-Android/main/app/src/main/java/org/thoughtcrime/securesms/jobs/AttachmentCompressionJob.java",
+  "status": "available"
+}

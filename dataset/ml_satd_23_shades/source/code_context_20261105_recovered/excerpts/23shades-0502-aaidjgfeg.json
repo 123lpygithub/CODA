@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0502-aaidjgfeg",
+  "revision_url": "https://github.com/biolab/orange3/commit/cae097749e098191b6789e0bc4ca68b85851c749",
+  "filename": "Orange/canvas/utils/settings.py",
+  "commit": "cae097749e098191b6789e0bc4ca68b85851c749",
+  "source_url": "https://raw.githubusercontent.com/biolab/orange3/cae097749e098191b6789e0bc4ca68b85851c749/Orange/canvas/utils/settings.py",
+  "fetched_at": "2026-11-05T06:13:04.116111+00:00",
+  "source_sha256": "98cb731cea9790fb39561f972f455967c856a67b0058a2a4a1e94414ace4e919",
+  "line_start": 252,
+  "line_end": 276,
+  "excerpt": "\n        return value\n\n    def __setValue(self, fullkey, value, value_type=None):\n        typesafe = value_type is not None\n        if PYQT_VERSION < 0x40803:\n            # QSettings.value does not have `type` argument.\n            typesafe = False\n\n        if not typesafe:\n            # value is stored in a _pickledvalue wrapper to force PyQt\n            # to store it in a pickled format so we don't lose the type\n            # TODO: Could check if QSettings.Format stores type info.\n            value = _pickledvalue(value)\n\n        self.__store.setValue(fullkey, value)\n\n    def __getitem__(self, key):\n        \"\"\"\n        Get the setting for key.\n        \"\"\"\n        if key not in self:\n            raise KeyError(key)\n\n        if self.isgroup(key):"
+}

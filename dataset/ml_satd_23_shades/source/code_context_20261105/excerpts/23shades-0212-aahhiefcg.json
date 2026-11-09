@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0212-aahhiefcg",
+  "revision_url": "https://github.com/antoinecarme/pyaf/commit/7f4a1151894303a59b678f68c1d120871a285ed3",
+  "filename": "TS/Exogenous.py",
+  "commit": "7f4a1151894303a59b678f68c1d120871a285ed3",
+  "source_url": "https://raw.githubusercontent.com/antoinecarme/pyaf/7f4a1151894303a59b678f68c1d120871a285ed3/TS/Exogenous.py",
+  "fetched_at": "2026-11-05T06:12:16.636634+00:00",
+  "source_sha256": "f05280d988051c65afd972440c45e18fe91d62e292b72b7a26b94ceea1b4862e",
+  "line_start": 66,
+  "line_end": 83,
+  "excerpt": "            lList = self.mExogenousVariableCategories[exog];\n            for lCat in lList:\n                lDummyName = \"exog_dummy_\" + exog + \"=\" + str(lCat);\n                self.mExogenousDummiesDataFrame[lDummyName] = self.mExogenousDataFrame[exog].apply(lambda x : 1 if (x == lCat) else 0);\n                self.mExogenousDummies = self.mExogenousDummies + [lDummyName];\n\n\n    def updateExogenousVariableInfo(self):\n        self.mExogenousVariableCategories = {};\n        for exog in self.mExogenousVariables:\n            # use nan as a category\n            lVC = self.mExogenousDataFrame[exog].value_counts(dropna = False);\n            # TODO : 5 categories. to be added in options.\n            NCat = 5;\n            lList = lVC.index[0:NCat].tolist();\n            print(\"most_frequent_categories_for\" , exog, lList);\n            self.mExogenousVariableCategories[exog] = lList;\n"
+}

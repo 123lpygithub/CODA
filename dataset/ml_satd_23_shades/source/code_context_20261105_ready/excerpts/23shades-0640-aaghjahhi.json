@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0640-aaghjahhi",
+  "revision_url": "https://github.com/google-research/google-research/commit/cfca7c2cc9af9bf531a770830212264e916ccc83",
+  "filename": "strategic_exploration/hrl/policy.py",
+  "commit": "cfca7c2cc9af9bf531a770830212264e916ccc83",
+  "source_url": "https://raw.githubusercontent.com/google-research/google-research/cfca7c2cc9af9bf531a770830212264e916ccc83/strategic_exploration/hrl/policy.py",
+  "fetched_at": "2026-11-05T06:13:30.542974+00:00",
+  "source_sha256": "1dd7d3a6d760411ed56c0d23a9194d535567bbaee71d166f45dd7d990ebba776",
+  "line_start": 26,
+  "line_end": 50,
+  "excerpt": "  @classmethod\n  def from_config(cls, config, num_actions):\n    \"\"\"Constructs a Policy from a config.\n\n        Args:\n            config (Config): config.type specifies the Policy subclass\n            num_actions (int): number of possible actions at each state\n\n        Returns:\n            Policy\n        \"\"\"\n    if config.type == \"dqn\":\n      # TODO: Properly break circular dependencies\n      from strategic_exploration.hrl.dqn import DQNPolicy\n      return DQNPolicy.from_config(config, num_actions)\n    elif config.type == \"systematic_exploration\":\n      from strategic_exploration.hrl.abstract_exploration import AbstractExploration\n      return AbstractExploration.from_config(config, num_actions)\n    else:\n      raise ValueError(\"{} not a supported policy type.\".format(config.type))\n\n  def act(self, state):\n    \"\"\"Takes a state and returns an action to take.\n\n        Args: state (State)"
+}

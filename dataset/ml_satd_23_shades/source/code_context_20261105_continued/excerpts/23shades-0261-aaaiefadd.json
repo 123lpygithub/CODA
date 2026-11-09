@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0261-aaaiefadd",
+  "revision_url": "https://github.com/PratikBarhate/question-classification/commit/c4d372e6eac489dd4c94853105b292d83f6b0cda",
+  "filename": "qc/dataprep/feature_stack.py",
+  "commit": "c4d372e6eac489dd4c94853105b292d83f6b0cda",
+  "source_url": "https://raw.githubusercontent.com/PratikBarhate/question-classification/c4d372e6eac489dd4c94853105b292d83f6b0cda/qc/dataprep/feature_stack.py",
+  "fetched_at": "2026-11-05T06:12:23.994031+00:00",
+  "source_sha256": "92d84dd5dc8dc057d99377a3e3e297c7824e33953433a03dd2172c923f8ca82e",
+  "line_start": 8,
+  "line_end": 25,
+  "excerpt": "    :argument:\n        :param data_type: String either `training` or `test`.\n        :param rp: Absolute path of the root directory of the project.\n        :param ml_algo: Machine algorithm for which the dataprep is running.\n        :param cat_type: Type of categorical class `coarse` or any of the 6 main classes.\n                                        (`abbr` | `desc` | `enty` | `hum` | `loc` | `num`)\n    :return:\n        boolean_flag: True for successful operation.\n        x_all_ft: numpy array of features to be feed to a Machine Learning algorithm.\n    \"\"\"\n    all_num_ft = ann_hashed_ft(data_type, rp, cat_type)\n    x_num_ft = hstack(tuple(all_num_ft))\n    # TODO check results after standardizing num ft once a ml algorithm is ready to test\n    w_ft = text_ft_vec(data_type, rp, \"word\", ml_algo, cat_type)\n    n_ft = text_ft_vec(data_type, rp, \"ner\", ml_algo, cat_type)\n    x_text_ft = hstack((w_ft, n_ft))\n    x_all_ft = hstack((x_num_ft, x_text_ft))\n    return x_all_ft"
+}

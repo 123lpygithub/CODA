@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0152-aafadbdeg",
+  "revision_url": "https://github.com/gregversteeg/corex_topic/commit/132d7816fac060cfdba376b2725a0138ca480760",
+  "filename": "corex_topic.py",
+  "commit": "132d7816fac060cfdba376b2725a0138ca480760",
+  "source_url": "https://raw.githubusercontent.com/gregversteeg/corex_topic/132d7816fac060cfdba376b2725a0138ca480760/corex_topic.py",
+  "fetched_at": "2026-11-05T06:12:02.406679+00:00",
+  "source_sha256": "69ab3e7a48cdadbbb149b68f3709c269ac73a68ff2c4c5b7f17543aaffd49cf8",
+  "line_start": 225,
+  "line_end": 249,
+  "excerpt": "        self.h_x = binary_entropy(self.word_freq)\n        if self.verbose:\n            print 'word counts', self.word_counts\n\n    def calculate_p_y(self, p_y_given_x):\n        \"\"\"Estimate log p(y_j=1).\"\"\"\n        return np.log(np.mean(p_y_given_x, axis=0))  # n_hidden, log p(y_j=1)\n\n    def calculate_theta(self, X, p_y_given_x, log_p_y):\n        \"\"\"Estimate marginal parameters from data and expected latent labels.\"\"\"\n        # log p(x_i=1|y)\n        n_samples = X.shape[0]\n        p_dot_y = X.T.dot(p_y_given_x).clip(0.01 * np.exp(log_p_y), (n_samples - 0.01) * np.exp(log_p_y))  # nv by ns dot ns by m -> nv by m  # TODO: Change to CSC for speed?\n        lp_1g1 = np.log(p_dot_y) - np.log(n_samples) - log_p_y\n        lp_1g0 = np.log(self.word_counts[:, np.newaxis] - p_dot_y) - np.log(n_samples) - log_1mp(self.log_p_y)\n        lp_0g0 = log_1mp(lp_1g0)\n        lp_0g1 = log_1mp(lp_1g1)\n        return np.array([lp_0g0, lp_0g1, lp_1g0, lp_1g1])  # 4 by nv by m\n\n    def calculate_alpha(self, X, p_y_given_x, theta, log_p_y, tcs):\n        \"\"\"A rule for non-tree CorEx structure.\"\"\"\n        # TODO: Could make it sparse also? Well, maybe not... at the beginning it's quite non-sparse\n        if self.max_overlap is 'tree':\n            # sa = np.sum(self.alpha, axis=0)\n            tc_oom = 1. / self.n_samples"
+}

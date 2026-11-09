@@ -1,0 +1,90 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-12223",
+  "issue_url": "https://github.com/thewca/worldcubeassociation.org/issues/3863",
+  "source_issue_url": "https://github.com/thewca/worldcubeassociation.org/issues/3863",
+  "api_url": "https://api.github.com/repos/thewca/worldcubeassociation.org/issues/3863",
+  "title": "Remove confidential information from staging",
+  "body": "**Describe the bug**\r\nThere are internal/sensitive documents and links that are accessible through the delegate/senior delegate panel on staging.\r\n\r\n**To Reproduce**\r\nSteps to reproduce the behavior:\r\n1. Log into accounts with a board member/senior delegate.\r\n2. Click on the delegate panel\r\n3. Click on any link to a google doc external to a WCA site\r\n\r\n**Expected behavior**\r\nNot allowing people to see this stuff.\r\n\r\n**Screenshots**\r\nAny link below to a google doc is viewable by anyone who logs into my account on staging, as an example. This allows anyone to access forms for promoting delegates, or see internal documentation like the probationary policy.\r\n\r\n![image](https://user-images.githubusercontent.com/6166412/51817635-60668300-2280-11e9-8180-2723c8d8194e.png)\r\n\r\nThanks to Sam Baird for pointing this out to me!\r\n",
+  "author": "Participant 1",
+  "created_at": "2019-01-28T06:10:56Z",
+  "updated_at": "2019-02-16T22:46:54Z",
+  "state": "closed",
+  "closed_at": "2019-02-16T22:46:54Z",
+  "issue_fetched_at": "2026-10-19T00:11:34.492518+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T00:11:35.881701+00:00"
+  ],
+  "expected_comment_count": 8,
+  "retrieved_comment_count": 8,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 458034609,
+      "url": "https://github.com/thewca/worldcubeassociation.org/issues/3863#issuecomment-458034609",
+      "created_at": "2019-01-28T08:18:39Z",
+      "updated_at": "2019-01-28T08:18:53Z",
+      "author": "Participant 2",
+      "body": "Oh, I actually think the fix is not to restrict access to the links but rather fix the shared documents accessibility: the links are absolutely visible in this repository (see [here](https://github.com/thewca/worldcubeassociation.org/blob/7791f9f8058849914257d12b41aa40d8d88023e5/WcaOnRails/app/views/delegates_panel/index.html.erb#L17) for instance)!\r\n\r\n@thewca/board, do you think it makes sense to just restrict access to mentioned documents?\r\nI'd say Delegates + Board for the probationary status policy, and Seniors + Board for the Senior forms."
+    },
+    {
+      "id": 458107856,
+      "url": "https://github.com/thewca/worldcubeassociation.org/issues/3863#issuecomment-458107856",
+      "created_at": "2019-01-28T12:10:39Z",
+      "updated_at": "2019-01-28T12:10:39Z",
+      "author": "Participant 3",
+      "body": "People also seem to be able to see all \"Pending claims for your subordinate Delegates\" and are thus able to admire my 0 outstanding WCA ID claims due to my lightning fast response time 😛 \r\n\r\nI assume it is a breach of privacy to show if someone has/hasn't claimed an ID, plus we may not want anyone to see how responsive/unresponsive various delegates are."
+    },
+    {
+      "id": 458128885,
+      "url": "https://github.com/thewca/worldcubeassociation.org/issues/3863#issuecomment-458128885",
+      "created_at": "2019-01-28T13:20:48Z",
+      "updated_at": "2019-01-28T13:20:48Z",
+      "author": "Participant 4",
+      "body": "> Delegates + Board for the probationary status policy\r\n\r\n\r\nAnd teams like wcat"
+    },
+    {
+      "id": 458152312,
+      "url": "https://github.com/thewca/worldcubeassociation.org/issues/3863#issuecomment-458152312",
+      "created_at": "2019-01-28T14:27:58Z",
+      "updated_at": "2019-01-28T14:27:58Z",
+      "author": "Participant 2",
+      "body": ">I assume it is a breach of privacy to show if someone has/hasn't claimed an ID, plus we may not want anyone to see how responsive/unresponsive various delegates are.\r\n\r\nThis information is present in the public developer dump, so even if we remove the view on this the information would still be public.\r\nIf we want to hide this information, we should probably set the `delegate_id_to_handle_wca_id_claim` to nil when dumping the database.\r\n\r\nIt should also been noted that a pending claim hanging there may not always be a sign of unresponsiveness: the Delegate may simply be waiting on a copy of a form of identification from the claimer.\r\n\r\nI don't have a strong opinion on whether or not this information should be private; but if it should we should handle this in the database dumper."
+    },
+    {
+      "id": 458398627,
+      "url": "https://github.com/thewca/worldcubeassociation.org/issues/3863#issuecomment-458398627",
+      "created_at": "2019-01-29T03:56:49Z",
+      "updated_at": "2019-01-29T03:56:49Z",
+      "author": "Participant 5",
+      "body": "> Oh, I actually think the fix is not to restrict access to the links but rather fix the shared documents accessibility: the links are absolutely visible in this repository (see [here](https://github.com/thewca/worldcubeassociation.org/blob/7791f9f8058849914257d12b41aa40d8d88023e5/WcaOnRails/app/views/delegates_panel/index.html.erb#L17) for instance)!\r\n> \r\n> @thewca/board, do you think it makes sense to just restrict access to mentioned documents?\r\n> I'd say Delegates + Board for the probationary status policy, and Seniors + Board for the Senior forms.\r\n\r\nI already had a draft in my email to the Board about changing the forms access. Now that all WCA users have @wca accounts, it is quite easy to make forms visible to the users we want without worry if the link is shared.\r\n\r\nI'll take care of this on the Board's side to make sure the permissions are updated appropriately and then let you know here how we should update the panel."
+    },
+    {
+      "id": 459608381,
+      "url": "https://github.com/thewca/worldcubeassociation.org/issues/3863#issuecomment-459608381",
+      "created_at": "2019-02-01T05:12:38Z",
+      "updated_at": "2019-02-01T05:13:18Z",
+      "author": "Participant 6",
+      "body": "> If we want to hide this information, we should probably set the delegate_id_to_handle_wca_id_claim to nil when dumping the database.\r\n\r\nI am very slightly against this, in that it would make our developer database dump less representative of reality. People having unclaimed WCA IDs is a very real situation what I think could affect some things that we build."
+    },
+    {
+      "id": 460669352,
+      "url": "https://github.com/thewca/worldcubeassociation.org/issues/3863#issuecomment-460669352",
+      "created_at": "2019-02-05T15:01:10Z",
+      "updated_at": "2019-02-05T15:01:10Z",
+      "author": "Participant 5",
+      "body": "The forms for nominations, promotions, demotions, etc. have been updated to require sign-in from a WCA account, so making their URLs public is no longer a problem. @AlbertoPdRF will submit a PR to update the Delegate panels."
+    },
+    {
+      "id": 464395622,
+      "url": "https://github.com/thewca/worldcubeassociation.org/issues/3863#issuecomment-464395622",
+      "created_at": "2019-02-16T22:46:53Z",
+      "updated_at": "2019-02-16T22:46:53Z",
+      "author": "Participant 2",
+      "body": "Fixed by #3898."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

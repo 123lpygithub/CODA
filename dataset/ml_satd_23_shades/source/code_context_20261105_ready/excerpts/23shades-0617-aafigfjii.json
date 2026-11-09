@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0617-aafigfjii",
+  "revision_url": "https://github.com/BorgwardtLab/P-WL/commit/e573e72ddf678c589c31eeb60e5ed87584ea0812",
+  "filename": "persistence_distributions.py",
+  "commit": "e573e72ddf678c589c31eeb60e5ed87584ea0812",
+  "source_url": "https://raw.githubusercontent.com/BorgwardtLab/P-WL/e573e72ddf678c589c31eeb60e5ed87584ea0812/persistence_distributions.py",
+  "fetched_at": "2026-11-05T06:13:26.570543+00:00",
+  "source_sha256": "61373d4b96058505ceef01acdb3e841ef0725a05ee68ffb0b33bb5b5ce3ea0c5",
+  "line_start": 91,
+  "line_end": 115,
+  "excerpt": "                        pipeline,\n                        grid_params,\n                        cv=StratifiedKFold(n_splits=10, shuffle=True),\n                        iid=False,\n                        scoring='accuracy',\n                        n_jobs=4)\n            else:\n                clf = rf_clf\n\n            X_train, X_test = X[train_index], X[test_index]\n            y_train, y_test = y[train_index], y[test_index]\n\n            # TODO: need to discuss whether this is 'allowed' or smart\n            # to do; this assumes normality of the attributes.\n            scaler = StandardScaler()\n            X_train = scaler.fit_transform(X_train)\n            X_test = scaler.transform(X_test)\n\n            scaler = MinMaxScaler()\n            X_train = scaler.fit_transform(X_train)\n            X_test = scaler.transform(X_test)\n\n            clf.fit(X_train, y_train)\n            y_pred = clf.predict(X_test)\n"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0398-aajabjhjb",
+  "revision_url": "https://github.com/chainer/chainer/commit/7529a4e4c80aace4398aa239adf9ae16bfb88e33",
+  "filename": "tests/python_tests/routines_tests/test_math.py",
+  "commit": "7529a4e4c80aace4398aa239adf9ae16bfb88e33",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainer/7529a4e4c80aace4398aa239adf9ae16bfb88e33/tests/python_tests/routines_tests/test_math.py",
+  "fetched_at": "2026-11-05T06:12:45.125014+00:00",
+  "source_sha256": "1b2dd8cde2107be1f1d47b43606896ebe522ea2ca914efff1f87059429d32464",
+  "line_start": 134,
+  "line_end": 152,
+  "excerpt": "    # TODO(beam2d): Remove astype after supporting correct dtype promotion.\n    if is_module:\n        return xp.divide(lhs, rhs).astype(numeric_dtype)\n    else:\n        return (lhs / rhs).astype(numeric_dtype)\n\n\n@pytest.mark.parametrize_device(['native:0', 'cuda:0'])\n@xchainer.testing.numpy_xchainer_array_equal()\ndef test_itruediv(xp, device, shape, numeric_dtype):\n    lhs = array_utils.create_dummy_ndarray(xp, shape, numeric_dtype)\n    rhs = xp.arange(1, lhs.size + 1, dtype=numeric_dtype).reshape(shape)\n    # TODO(beam2d): Fix after supporting correct dtype promotion.\n    if xp is numpy and 'int' in numeric_dtype:\n        # NumPy does not support itruediv to integer arrays.\n        lhs = (lhs / rhs).astype(numeric_dtype)\n    else:\n        lhs /= rhs\n    return lhs"
+}

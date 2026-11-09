@@ -1,0 +1,17 @@
+{
+  "url": "https://github.com/signalapp/Signal-Desktop/blob/db155b9752160d1b2ce43fe15c43a169f75b1b4e/ts/types/Attachment.ts#L251",
+  "kind": "file",
+  "cited_in": [
+    "comment_1241138192",
+    "comment_1241167573"
+  ],
+  "revision": "db155b9752160d1b2ce43fe15c43a169f75b1b4e",
+  "immutable_revision": true,
+  "line_start": 239,
+  "line_end": 263,
+  "text": "  rawAttachment?: Pick<AttachmentType, 'data' | 'path'>\n): rawAttachment is AttachmentType {\n  // NOTE: We cannot use `_.isPlainObject` because `rawAttachment` is\n  // deserialized by protobuf:\n  if (!rawAttachment) {\n    return false;\n  }\n\n  return true;\n}\n\n// Upgrade steps\n// NOTE: This step strips all EXIF metadata from JPEG images as\n// part of re-encoding the image:\nexport async function autoOrientJPEG(\n  attachment: AttachmentType,\n  { logger }: { logger: LoggerType },\n  {\n    sendHQImages = false,\n    isIncoming = false,\n  }: {\n    sendHQImages?: boolean;\n    isIncoming?: boolean;\n  } = {}\n): Promise<AttachmentType> {",
+  "source_sha256": "b2207117926ab6fd69e5440dddb7e71b546d5eb9db6fafb49ece07860bac88fb",
+  "fetched_at": "2026-11-05T07:21:49.361632+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/signalapp/Signal-Desktop/db155b9752160d1b2ce43fe15c43a169f75b1b4e/ts/types/Attachment.ts",
+  "status": "available"
+}

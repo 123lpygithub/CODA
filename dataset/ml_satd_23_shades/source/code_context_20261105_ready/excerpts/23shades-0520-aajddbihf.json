@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0520-aajddbihf",
+  "revision_url": "https://github.com/CSAILVision/gandissect/commit/b5dfe08af5b6e187739e435308099b0475998673",
+  "filename": "netdissect/aceoptimize.py",
+  "commit": "b5dfe08af5b6e187739e435308099b0475998673",
+  "source_url": "https://raw.githubusercontent.com/CSAILVision/gandissect/b5dfe08af5b6e187739e435308099b0475998673/netdissect/aceoptimize.py",
+  "fetched_at": "2026-11-05T06:13:06.749284+00:00",
+  "source_sha256": "3e150218316b2a95027844752d9eac2758390c5b29dbb5f4d1100fe25e4c4f41",
+  "line_start": 150,
+  "line_end": 174,
+  "excerpt": "    compute_mean_present_features(args, corpus, cache_filename, model)\n    compute_feature_quantiles(args, corpus, cache_filename, model, full_sample)\n    compute_candidate_locations(args, corpus, cache_filename, model, segmenter,\n            classnum, second_sample)\n    # visualize_training_locations(args, corpus, cachedir, model)\n    init_ablation = initial_ablation(args, args.outdir)\n    scores = train_ablation(args, corpus, cache_filename,\n            model, segmenter, classnum, init_ablation)\n    summarize_scores(args, corpus, cachedir, layer, classname,\n            args.variant, scores)\n    if args.variant == 'ace':\n        add_ace_ranking_to_dissection(args.outdir, layer, classname, scores)\n    # TODO: do some evaluation.\n\nclass SaveImageWorker(WorkerBase):\n    def work(self, data, filename):\n        Image.fromarray(data).save(filename, optimize=True, quality=80)\n\ndef plot_heatmap(output_filename, data, size=256):\n    fig = Figure(figsize=(1, 1), dpi=size)\n    canvas = FigureCanvas(fig)\n    gs = gridspec.GridSpec(1, 1, left=0.0, right=1.0, bottom=0.0, top=1.0)\n    ax = fig.add_subplot(gs[0])\n    ax.set_axis_off()\n    ax.imshow(data, cmap='hot', aspect='equal', interpolation='nearest',"
+}

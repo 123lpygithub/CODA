@@ -1,0 +1,33 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-1154",
+  "issue_url": "https://github.com/matomo-org/matomo/issues/12853",
+  "api_url": "https://api.github.com/repos/matomo-org/matomo/issues/12853",
+  "title": "When UserId Pseudonymization is enabled, the visitorId should be Pseudonymized as well",
+  "body": "See https://github.com/matomo-org/matomo/blob/3.5.0-rc1/core/Tracker/Request.php#L830-L832\r\n\r\nIf the privacy feature introduced in Matomo 3.5.0 is enabled and the userId is hashed with a salt, then the visitorId would still kind of leak the userId. Ideally, when the userId is set and the feature is enabled, then the userId should be salted there as well.",
+  "author": "Participant 1",
+  "created_at": "2018-05-08T00:33:24Z",
+  "updated_at": "2018-05-08T00:59:54Z",
+  "state": "closed",
+  "closed_at": "2018-05-08T00:59:44Z",
+  "issue_fetched_at": "2026-10-18T12:15:00.974251+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T12:15:02.295169+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 387251861,
+      "url": "https://github.com/matomo-org/matomo/issues/12853#issuecomment-387251861",
+      "created_at": "2018-05-08T00:59:44Z",
+      "updated_at": "2018-05-08T00:59:44Z",
+      "author": "Participant 1",
+      "body": "Actually, it should not be an issue as `manipulateRequest` in privacy manager \"request processor\" is executed before getting the visitor Id. So we are there creating a hash on the already hashed User Id."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

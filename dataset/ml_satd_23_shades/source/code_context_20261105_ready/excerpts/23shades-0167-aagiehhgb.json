@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0167-aagiehhgb",
+  "revision_url": "https://github.com/pandas-profiling/pandas-profiling/commit/339231fe9faf2cd22e274c355b514240d5cecc33",
+  "filename": "pandas_profiling/base.py",
+  "commit": "339231fe9faf2cd22e274c355b514240d5cecc33",
+  "source_url": "https://raw.githubusercontent.com/pandas-profiling/pandas-profiling/339231fe9faf2cd22e274c355b514240d5cecc33/pandas_profiling/base.py",
+  "fetched_at": "2026-11-05T06:12:04.882563+00:00",
+  "source_sha256": "b598524beaeb1d8df86fcb41986c7db8b0f34532ef0a8c4c8741237df76136c9",
+  "line_start": 61,
+  "line_end": 85,
+  "excerpt": "        x *= 100\n        if x == int(x):\n            return '%.0f%%' % x\n        else:\n            return '%.1f%%' % x\n\n    def describe_numeric_1d(series, base_stats):\n        stats = {'mean': series.mean(), 'std': series.std(), 'variance': series.var(), 'min': series.min(),\n                'max': series.max()}\n        stats['range'] = stats['max'] - stats['min']\n\n        for x in np.array([0.05, 0.25, 0.5, 0.75, 0.95]):\n            stats[pretty_name(x)] = series.dropna().quantile(x) # The dropna() is a workaround for https://github.com/pydata/pandas/issues/13098\n        stats['iqr'] = stats['75%'] - stats['25%']\n        stats['kurtosis'] = series.kurt()\n        stats['skewness'] = series.skew()\n        stats['sum'] = series.sum()\n        stats['mad'] = series.mad()\n        stats['cv'] = stats['std'] / stats['mean'] if stats['mean'] else np.NaN\n        stats['type'] = \"NUM\"\n        stats['n_zeros'] = (len(series) - np.count_nonzero(series))\n        stats['p_zeros'] = stats['n_zeros'] / len(series)\n        # Histograms\n        stats['histogram'] = histogram(series)\n        stats['mini_histogram'] = mini_histogram(series)",
+  "match_policy": "unique-release-normalized-v2"
+}

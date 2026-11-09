@@ -1,0 +1,34 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4975",
+  "issue_url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/75",
+  "source_issue_url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/75",
+  "api_url": "https://api.github.com/repos/openmobilityfoundation/mobility-data-specification/issues/75",
+  "title": "Trip Data Privacy Concerns",
+  "body": "First, I want to say that JUMP’s goal is to promote the safety of our riders while partnering with cities to provide access to the data required for city-planning.  As noted during the workshop, sharing raw location data in the form of start and stop locations, route data and/or trip history presents a risk of re-identification that may endanger the privacy of our users.  \r\n\r\nBelow, I have outlined a few approaches to lessening the privacy impact related to  trip data, some of which have already been mentioned in issues #68, #66 & #61.  JUMP would appreciate the opportunity to discuss any of these approaches in more detail with LADOT staff.\r\n\r\n### Trip Data Obfuscation Methods\r\n\r\n* Limit location & time accuracy:  limiting GPS precision based on population density of a particular city in combination with time aggregation is one means of anonymizing data.  Depending on LA’s population density and trip count, providing GPS with two or three decimal places and on an hourly time aggregation may be a acceptable solution.  One way to implement this within the MDS is to add an “accuracy” field in the collection of all timestamp and location data.\r\n\r\n* Snap to nearest census block: operators can systematically fuzz the start and stop locations by “snapping” location data to the center of the nearest census block or predefined area.  To maintain privacy, route location data should also be anonymized across location and time. \r\n  \r\n* Aggregate route data:  operators may provide specific route data only once a minimum number of trips using that route occured in a specific time period.  For example, route data would be provided for a trip from point A to point B only when at least 30 similar trips occured in a given time period.  Start and stop locations could also be anonymized by either “snapping” or limiting GPS accuracy. \r\n\r\n### GBFS Feed - Real Time Availability \r\n\r\nAs designed, the GBFS feed does not adequately protect the privacy of its users.  While the bikes “on trip” are not shown, anyone with access to the system can easily reconstruct a trip by tracking when bikes are reserved (at which time they disappear from the map) and when the reservation ends (when they reappear). This information can be used to build a database of historic trip information and ultimately re-identify users based on their trip history.  One fix for this problem is to scramble the bike identifiers during a trip so it is impossible to determine which start and stops constitute a unique trip. \r\n\r\n### User Consent   \r\n\r\nOperators may offer users the choice to share trip  data with cities without anonymization via opt-in.  This could be in addition to a truly anonymized method above, which would not be subject to consent.",
+  "author": "Participant 1",
+  "created_at": "2018-09-15T04:57:59Z",
+  "updated_at": "2018-10-31T21:20:43Z",
+  "state": "closed",
+  "closed_at": "2018-10-31T21:20:43Z",
+  "issue_fetched_at": "2026-10-18T15:10:24.292955+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T15:10:25.620077+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 434851994,
+      "url": "https://github.com/openmobilityfoundation/mobility-data-specification/issues/75#issuecomment-434851994",
+      "created_at": "2018-10-31T21:20:43Z",
+      "updated_at": "2018-10-31T21:20:43Z",
+      "author": "Participant 2",
+      "body": "LADOT has reviewed the comment and we have include our a link to the guidelines for handling the data in the README. ref #154"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

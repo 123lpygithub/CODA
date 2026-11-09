@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0446-aaedjcbec",
+  "revision_url": "https://github.com/menpo/menpo/commit/4b96d25862d0f5f73441694843ee1113162b977d",
+  "filename": "menpo/shape/mesh/base.py",
+  "commit": "4b96d25862d0f5f73441694843ee1113162b977d",
+  "source_url": "https://raw.githubusercontent.com/menpo/menpo/4b96d25862d0f5f73441694843ee1113162b977d/menpo/shape/mesh/base.py",
+  "fetched_at": "2026-11-05T06:12:55.967853+00:00",
+  "source_sha256": "a77f224d1bceebd5c45aadf64480cda031ef5e6a82ed5b789d44d4b4f3ac9627",
+  "line_start": 28,
+  "line_end": 52,
+  "excerpt": "    ----------\n    points : ``(n_points, n_dims)`` `ndarray`\n        The array representing the points.\n    trilist : ``(M, 3)`` `ndarray` or `None`, optional\n        The triangle list. If `None`, a Delaunay triangulation of\n        the points will be used instead.\n    copy: `bool`, optional\n        If ``False``, the points will not be copied on assignment.\n        Any trilist will also not be copied.\n        In general this should only be used if you know what you are doing.\n    \"\"\"\n    def __init__(self, points, trilist=None, copy=True):\n        # TODO: add inheritance from Graph once implemented\n        super(TriMesh, self).__init__(points, copy=copy)\n        if trilist is None:\n            global Delaunay\n            if Delaunay is None:\n                from scipy.spatial import Delaunay  # expensive\n            trilist = Delaunay(points).simplices\n        if not copy:\n            if not trilist.flags.c_contiguous:\n                warn('The copy flag was NOT honoured. A copy HAS been made. '\n                     'Please ensure the data you pass is C-contiguous.')\n                trilist = np.array(trilist, copy=True, order='C')\n        else:"
+}

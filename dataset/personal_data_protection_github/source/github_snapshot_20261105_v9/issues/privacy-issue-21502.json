@@ -1,0 +1,90 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-21502",
+  "issue_url": "https://github.com/plan-player-analytics/Plan/issues/1273",
+  "source_issue_url": "https://github.com/plan-player-analytics/Plan/issues/1273",
+  "api_url": "https://api.github.com/repos/plan-player-analytics/Plan/issues/1273",
+  "title": "New Installs: \"Plan Requires internet access on first run to download GeoLite2 Geolocation database.\"",
+  "body": "### Describe the issue\r\n\r\nPlan gives the following error for new installs as of December 30th 2019.\r\n```\r\n[ERROR]: [Plan] Plan Requires internet access on first run to download GeoLite2 Geolocation database.\r\n```\r\n\r\nThis causes the geolocation of the plugin to not function.\r\n\r\n### Additional information\r\n\r\nMaxMind have changed their distribution model on a very short notice by [posting a blog post on December 18](https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/) - stating the change is due to having to comply with The California Consumer Privacy Act (CCPA)\r\n\r\nThe changes mentioned in the blog post include disabling public distribution of the GeoIP2 database and change of license.\r\n\r\n----\r\n\r\nAn account must be created to get a distribution key for the database. (By the developer)\r\n\r\nTo solve the issue on client side, MaxMind eula acceptance policy setting needs to be introduced. - The EULA can be found here: https://www.maxmind.com/en/geolite2/eula\r\n\r\nTo comply with the eula, the GeoIP database needs to be updated on a regular basis (point 3 under Additional Restrictions).\r\n\r\n----\r\n\r\nUnfortunately this will take a while to fix, sorry for any inconvenience. Temporary solution is to obtain a copy of GeoIP2 database from MaxMind and placing `GeoIP.dat` in the Plan plugin folder.",
+  "author": "Participant 1",
+  "created_at": "2019-12-31T21:28:06Z",
+  "updated_at": "2020-01-17T19:26:36Z",
+  "state": "closed",
+  "closed_at": "2020-01-17T19:26:36Z",
+  "issue_fetched_at": "2026-10-18T18:11:16.420898+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T18:11:17.835426+00:00"
+  ],
+  "expected_comment_count": 8,
+  "retrieved_comment_count": 8,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 570070053,
+      "url": "https://github.com/plan-player-analytics/Plan/issues/1273#issuecomment-570070053",
+      "created_at": "2020-01-01T17:35:52Z",
+      "updated_at": "2020-01-01T17:35:52Z",
+      "author": "Participant 1",
+      "body": "A fallback option could also be implemented to prevent situation like this from disrupting functionality of geolocation in the future: https://about.ip2c.org/"
+    },
+    {
+      "id": 570956041,
+      "url": "https://github.com/plan-player-analytics/Plan/issues/1273#issuecomment-570956041",
+      "created_at": "2020-01-05T22:48:40Z",
+      "updated_at": "2020-01-05T23:09:09Z",
+      "author": "Participant 2",
+      "body": "GeoIP.dat on my servers is dated 2017-12-02 (ie., very out-of-date). If I remove it and **plan reload**, I get\r\n```\r\n[14:43:05] [Plan Reload Thread/ERROR]: [Plan] Error: Something went wrong saving the downloaded GeoLite2 Geolocation database\r\n```\r\nI can create a MaxMind account. It looks like GeoLiteIP data (saved as GeoIP.dat) are sufficient for the API. Which file should be downloaded?\r\n- GeoLite2-ASN\r\n- GeoLite2-ASN-CSV\r\n- GeoLite2-City\r\n- GeoLite2-City-CSV\r\n- GeoLite2-Country\r\n- GeoLite2-Country-CSV\r\n\r\nPlease help with complete instructions for how to use the file."
+    },
+    {
+      "id": 571034744,
+      "url": "https://github.com/plan-player-analytics/Plan/issues/1273#issuecomment-571034744",
+      "created_at": "2020-01-06T07:28:32Z",
+      "updated_at": "2020-01-06T08:02:07Z",
+      "author": "Participant 1",
+      "body": "- Download GeoLite2-Country\r\n- Unarchive GeoLite2-Country_[date].tar.gz\r\n- Rename GeoLite2-Country.mmdb to GeoIP.dat\r\n- Place the file to /plugins/Plan/\r\n- Reload Plan\r\n\r\nEdit: Added the file names"
+    },
+    {
+      "id": 571039218,
+      "url": "https://github.com/plan-player-analytics/Plan/issues/1273#issuecomment-571039218",
+      "created_at": "2020-01-06T07:45:52Z",
+      "updated_at": "2020-01-06T07:45:52Z",
+      "author": "Participant 2",
+      "body": "Downloads as _GeoLite2-Country_20191231.tar.gz_\r\nwhich contains _GeoLite2-Country.mmdb_\r\n\r\nSo\r\n> mv GeoLite2-Country.mmdb GeoIP.dat\r\n\r\nwill result in the correct content?"
+    },
+    {
+      "id": 571041642,
+      "url": "https://github.com/plan-player-analytics/Plan/issues/1273#issuecomment-571041642",
+      "created_at": "2020-01-06T07:54:56Z",
+      "updated_at": "2020-01-06T07:54:56Z",
+      "author": "Participant 1",
+      "body": "Yes, that should do it "
+    },
+    {
+      "id": 571214479,
+      "url": "https://github.com/plan-player-analytics/Plan/issues/1273#issuecomment-571214479",
+      "created_at": "2020-01-06T16:47:07Z",
+      "updated_at": "2020-01-06T16:50:39Z",
+      "author": "Participant 2",
+      "body": "I accepted the EULA in _config.yml_ and executed **plan reload**. The downloaded file is _plugins/Plan/GeoLite2-Country.mmdb_. It looks like it works. Code search suggests that is the new filename. Or maybe the data are cached. How can I tell? Do I need to rename the file?"
+    },
+    {
+      "id": 571227600,
+      "url": "https://github.com/plan-player-analytics/Plan/issues/1273#issuecomment-571227600",
+      "created_at": "2020-01-06T17:19:57Z",
+      "updated_at": "2020-01-06T17:19:57Z",
+      "author": "Participant 1",
+      "body": "The new version uses that new filename and removes the one with the old filename if necessary. Cache is cleared on reload "
+    },
+    {
+      "id": 571228179,
+      "url": "https://github.com/plan-player-analytics/Plan/issues/1273#issuecomment-571228179",
+      "created_at": "2020-01-06T17:21:28Z",
+      "updated_at": "2020-01-06T17:21:28Z",
+      "author": "Participant 2",
+      "body": "Great! Thanks."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

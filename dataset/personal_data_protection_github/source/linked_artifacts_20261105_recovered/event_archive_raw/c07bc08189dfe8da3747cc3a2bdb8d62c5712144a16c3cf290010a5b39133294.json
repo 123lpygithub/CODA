@@ -1,0 +1,394 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27mozilla-mobile%2Ffenix%27+AND+number%3D12809+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='mozilla-mobile/fenix' AND number=12809 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:33.849239+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "resynth1943",
+        "created_at": "2020-07-21 23:37:17",
+        "updated_at": "2020-07-21 23:37:16",
+        "title": "Tracking",
+        "body": "### What is the user problem or growth opportunity you want to see solved?\r\n\r\nTracking. Why does your app bundle 4 SDKs, which are used to surreptitiously track users?\r\n\r\nFind attached a list of these third-party SDKs, which you seem to \r\n\r\n- Adjust\r\n- Google AdMob\r\n- Google Firebase Analytics\r\n- LeanPlum\r\n\r\nI'm sure you're aware of the [privacy issues](https://resynth1943.net/articles/why-shouldnt-i-use-google-analytics/) which are present in Google's SDKs, e.g. Google Analytics. Yet these SDKs are quickly being added to the majority of your products.\r\n\r\nPersonally, I think it would be nice if we could work something out: how do *you* feel about removing Google Analytics from this product.\r\n\r\n### How do you know that this problem exists today? Why is this important?\r\n\r\nAs stated on [Firefox's official website](https://firefox.com)...\r\n\r\n> Automatic privacy is here.\r\n\r\nWhere is the privacy in allowing Google, and various other ad companies, to track everyone that uses your app?\r\n\r\n[*Why do you load tracking SDKs in an application that handles sensitive user data?*](https://techbeacon.com/security/rise-third-party-code-zero-trust-key) One of the most important aspects of security is never to trust third-party, closed-source code. Especially when it's made by an advertising company, with the only goal of destroying the 'open web' you claim to support.\r\n\r\nPersonally, I would love to see this egregious, non-auditable, dangerous tracking code  removed instantaneously.\r\n\r\nI don't think I have anything more to add. The fact that only now I find out that you've allowed these advertising agencies to track my internet browsing is very disheartening, especially when I advocate for online privacy.\r\n\r\n### Who will benefit from it?\r\n\r\nYour target market.\r\n\r\nMany users see Firefox as an escape from corporate tampering and misdeeds. Right now, on the mobile app which claims to protect the privacy of the user, this really isn't the case.",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-21 23:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "resynth1943",
+        "created_at": "2020-07-21 23:39:12",
+        "updated_at": "2020-07-21 23:39:11",
+        "title": "Tracking",
+        "body": "As an addendum: [Matomo](https://matomo.org), an ethical and FOSS analytics project, has an [Android SDK](https://github.com/matomo-org/matomo-sdk-android).",
+        "comment_id": 662160472,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-21 23:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "kbrosnan",
+        "created_at": "2020-07-22 02:07:29",
+        "updated_at": "2020-07-22 02:07:28",
+        "title": "Tracking",
+        "body": "The usage of these libraries are documented for users at https://support.mozilla.org/en-US/kb/send-usage-data-firefox-mobile-browsers We prefer open source sdks where available. When possible the in house [Glean telemetry sdk](https://mozilla.github.io/glean/book/user/pings/index.html) is used. You can find a list of Glean telemetry collected at [metrics.md](https://github.com/mozilla-mobile/fenix/blob/master/docs/metrics.md).\r\n\r\n[Adjust](https://github.com/adjust/android_sdk) is used to coordinate marketing campaigns and to evaluate the cost of running such campaigns. As Fenix is available to users in 100s of countries these marketing campaigns these campaigns can be in hundreds of currencies and regions. This is a complex problem that is out of scope for Glean. When we did our evaluation of something that would meet the marketing needs Adjust was the only open sourced based product that met the requirements. You can read more about it is used at [adjust.md](https://github.com/mozilla-mobile/fenix/blob/master/docs/adjust.md)\r\n\r\nAs far as I know Admob is not directly used by Fenix. It may be pulled in as part of the Adjust SDK where I see a mention of Admob in their source code and/or Google Firebase. \r\n\r\nFirebase is used for Google Cloud Messaging. The only way to reliably receive push notifications on Android. The main user benefit is instant Sync for example instant send Tab to device. Without a push service the user needs to manually Sync or wait for the 3+ devices (2 devices and the Sync server) to synchronize. There is some work by [F-droid to build a replacement](https://f-droid.org/en/2020/02/03/openpush-talk.html) but it is unclear how their service will be able to survive an OS that is increasingly clamping down on long running services to maintain battery life and limit user hostile behavior by apps.\r\n\r\n[Leanplum](https://github.com/Leanplum/Leanplum-Android-SDK) is used to contextual recommendations while using Fenix. An example of this sort of recommendation is when first encountering a page that has elements blocked by tracking protection the tracking protection shield icon is explained to the user.  You can read more about its usage at [mma.md](https://github.com/mozilla-mobile/fenix/blob/master/docs/mma.md).\r\n\r\nI dislike needing to say this. Please the 👍 action in the top level if you are interested in this issue vs commenting. Comments that fail to add substantially new information may be hidden by default. If this is a repeated issue then other moderation options may be used.\r\n\r\n",
+        "comment_id": 662199501,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-22 02:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "TheEvilSkeleton",
+        "created_at": "2020-07-22 02:39:31",
+        "updated_at": "2020-07-22 02:39:31",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": "> Firebase is used for Google Cloud Messaging. **The only way to reliably receive push notifications on Android.**\r\n\r\nI would disagree with that. I have been using [Element](https://f-droid.org/en/packages/im.vector.app/) and [Tutanota](https://f-droid.org/en/packages/de.tutao.tutanota/) for a while, which both implement their own push notifications service and they both work reliably. Notifications get received in time, with sound (if enabled), with their appropriate icon, etc. There is no breakage I have ever experienced when using both applications.",
+        "comment_id": 662208025,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-22 02:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ShatteredPixel",
+        "created_at": "2020-07-22 05:45:54",
+        "updated_at": "2020-07-22 05:45:54",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": ">I dislike needing to say this. Please use the 👍 action in the top level if you are interested in this issue vs commenting. Comments that fail to add substantially new information may be hidden by default. If this is a repeated issue then other moderation options may be used.\r\n\r\nI don't understand how the report themselves are going to give a 👍 to themselves (yes, GitHub allows it). But my point here is that they just added a _single_ comment to below the issue, they still added some sort of solution and links to the related resources to somewhat solve the problem they are presenting. And I think it's not unrelated!\r\n\r\nIf Mozilla continues this sort of behaviour with their issue reporters I'm afraid users may not file any issues at all! Then you can forget about the users filing any feedback related to Fenix which Mozilla seems to be asking with a lot of passion since they say they care _a lot_ about their users. \r\n\r\n[Mozilla Manifesto Principles](https://www.mozilla.org/en-US/about/manifesto/); Principle 5, Principle 7, Principle 8 state this. And they are filing this issue under Principle 4 and Principle 7 which state a lot about security, privacy and open-source software.\r\n\r\nOthers may say that Mozilla already doing a lot of good things, won't you appreciate that? and yes, I agree with you there I appreciate and am grateful for all the good things they are already doing but instead stating all the good things they are doing, I think I'll point just point the things they are not doing correctly. There's no need to say anything about good things they are doing since they're already good and correct and I appreciate them for that. \r\n\r\nRemember to please appreciate the critics as well since I think they are the true fans of Mozilla and they are pointing out what Mozilla is doing wrong and trying to correct them and pushing Mozilla to do the right thing. And that's what most of us need to remember and do. I too am a Mozilla's fan and I have a lot of appreciation for them for what they are doing, I'll appreciate them but I'll also criticize them when they are not continuing the good things they are doing. I'll try to make them accountable under their Mozilla Manifesto Principles' Principle 8. \r\n\r\nThank you for listening to me! :) And yes, you can use your \"Moderation tools\" to delete this comment I made. You have my full permission! \r\n\r\nThank you! :)\r\n\r\n\r\nAnd if anybody thinks that what I'm saying is very wrong and unrelated and if you dislike with me here then please I welcome you to give me as many dislikes as you may want. I'll appreciate them and please don't forget to correct me if you feel I'm wrong, okay?\r\n\r\nThank you! :)",
+        "comment_id": 662254722,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-22 05:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "TheEvilSkeleton",
+        "created_at": "2020-07-22 08:54:56",
+        "updated_at": "2020-07-22 08:54:56",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": "> If Mozilla continues this sort of behaviour with their issue reporters I'm afraid users may not file any issues at all! Then you can forget about the users filing any feedback related to Fenix which Mozilla seems to be asking with a lot of passion since they say they care a lot about their users.\n\nI second this, and worse, users may even stop using Mozilla products! I have left Firefox for Ungoogled Chromium because of the recent bugs (excessive RAM usage and slowdowns) in the latest Firefox releases (see Reddit issues). *Off-topic*, but Firefox actively supported proprietary software (Pocket SafeBrowsing, Google search engine, etc.), which is a very big disappointment.",
+        "comment_id": 662331679,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-22 08:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "cadeyrn",
+        "created_at": "2020-07-22 10:07:14",
+        "updated_at": "2020-07-22 10:07:14",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": "> Firefox actively promoted proprietary software (Pocket, Google SafeBrowsing, Google search engine, etc.), which is a very big disappointment.\r\n\r\nMaybe you don't know but Pocket is owned by Mozilla. And Google is Mozilla's most important business partner. Please tell me one other search engine which is able to pay the same amount of money, then - and only then - it's possible to have a serious discussion about the default search engine.\r\n\r\n> Another thing that I would like to point out is that Fenix' source code is hosted on GitHub. […]\r\n\r\nYou're kidding, right? GitHub is an excellent choice for open source projects and not only used by most open source projects in the world, a big community of open source developers is active on GitHub so open source projects like this one benefit from being on GitHub. Also Microsoft is one of the biggest contributors to open source software in the world. That's a fact.\r\n\r\n> Hosting it on GitHub is something that Mozilla would and should be against ever since the acquirement of GitHub by Microsoft.\r\n\r\nI couldn't disagree more. Leaving GitHub would harm this project because Mozilla would lose many contributors. Also it's unclear why do you to think that GitHub is a bad choice only because it was acquired by Microsoft. Such bashing is inappropriate in a serious discussion.",
+        "comment_id": 662365915,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-22 10:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "TheEvilSkeleton",
+        "created_at": "2020-07-22 10:43:28",
+        "updated_at": "2020-07-22 10:43:27",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": "> Maybe you don't know but Pocket is owned by Mozilla.\n\nI don't think that makes it any less proprietary.\n\n> And Google is Mozilla's most important business partner.\n\nI am aware of that, but it doesn't mean that you have to shill on them every time we use one of your services.\n\n> Please tell me one other search engine which is able - and interested! - to pay the same amount of money, then - and only then - it's possible to have a serious discussion about the default search engine.\n\nNone. You can use a metasearch engine like Searx. There are many Searx instances that you can use, and you can even create an instance yourself ~~which I assume that you will add Google Analytics instead of using FOSS alternatives anyway.~~\n\n> The default choice shouldn't matter at all for you.\n\n> Principle 4\n> Individuals’ security and privacy on the internet are fundamental and must not be treated as optional.\n\n— https://www.mozilla.org/en-US/about/manifesto/\n\nAre you sure about what you said? Google search engine is neither good for both privacy and good security. I'll let you think on the principle.\n\n> You're kidding, right? GitHub is an excellent choice for open source projects and not only used by most open source projects, a big community of open source developers is active on GitHub so open source projects like this one benefit from being on GitHub.\n\nWhy exactly would I be kidding? I'm not the one hosting my projects on a proprietary Git service that uses GA and then have the audacity to say that I care about privacy and freedom. Also, GNOME, KDE and Debian, for example, *actually* care about FOSS, which is why they use their own GitLab instance, just saying.\n\n> Also Microsoft is the world's biggest open source contributor. That's a fact. So your \"argument\" that \"GitHub is bad because it's owned by Microsoft\" is really not an argument.\n\nSo does that change the fact that Microsoft is anti-private? I don't think so.\n\n> I couldn't disagree more. Leaving GitHub would harm this project because Mozilla would lose many contributors.\n\nNot really? For example, Debian, GNOME and KDE have tons of contributors and none of them host their stuff on GitHub.\n\n> Also it's unclear why do you to think that GitHub is a bad choice only because it was acquired by Microsoft.\n\nOf course it's unclear, you have barely even read what I've wrote:\n\n> GitHub:\n> \n> 1. is proprietary\n> 2. is owned by Microsoft, a monolithic, anti-freedom and anti-private corporation\n> 3. I. embeds Google Analytics, and Google Analytics are proprietary.\n>     II. Google is also a monolithic, anti-freedom and anti-private corporation.",
+        "comment_id": 662382281,
+        "comments": 7,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-22 10:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "resynth1943",
+        "created_at": "2020-07-22 10:52:02",
+        "updated_at": "2020-07-22 10:52:02",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": "> And by the way: You can use whatever search engine you want. The default choice shouldn't matter at all for you.\n\nWhat? If it doesn't matter, why does the default exist in the first place?\n\n Furthermore, why is Google bribing Mozilla with $300 million to set them as the default search engine?\n\nI would argue that the default is the most important option. It (is supposed to) sets a precedent for the level of privacy in the browser, and (is supposed to) keep users away from devious and unethical companies. \n\n---\n\n> Please tell me one other search engine which is able - and interested! - to pay the same amount of money, then - and only then - it's possible to have a serious discussion about the default search engine.\n\nI don't know why you, a contributor of this opensource project, keeps using money as an excuse. Money shouldn't even be a part of the discussion when it comes to the privacy and security of users.\n\nBut it is.",
+        "comment_id": 662385796,
+        "comments": 7,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-22 10:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "resynth1943",
+        "created_at": "2020-07-22 22:52:08",
+        "updated_at": "2020-07-22 22:52:08",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": "Oh my, did somebody just learn how to hide posts ...?",
+        "comment_id": 662736450,
+        "comments": 8,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-22 22:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "resynth1943",
+        "created_at": "2020-07-22 22:55:22",
+        "updated_at": "2020-07-22 22:55:22",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": "Are there any objections to creating a separate build, which delivers on the promise of privacy? Of course, it would be free of third-party tracking code, which the user was not informed of in the installation flow.\r\n\r\nI am quite a fan of Fennec F-Droid, but sadly it's not Fenix. It's lacking in features, speed and usability. But without an alternative free of unwanted tracking, we are forced to use it.",
+        "comment_id": 662737414,
+        "comments": 9,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-22 22:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ShatteredPixel",
+        "created_at": "2020-07-23 01:36:25",
+        "updated_at": "2020-07-23 01:36:24",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": "The comments we made are already hidden! The comments we made thinking they would be somewhat appreciated are _already_ hidden/deleted! This is how it seems to be working nowadays or it may have been from the start. As soon as someone starts criticising or starts asking questions that they don't like here; the issue threads are marked as \"off-topic\", \"heated\", or something like that. Or we are just left without any answers. Even though we think what we are saying is \"on-topic\". We are left alone to scream in an endless chasm! I don't like to say this but this is how Mozilla seems to be working nowadays. I think, this is some very disrespectful behaviour towards their users and issue reporters. I hope everybody in Mozilla reads their own Mozilla Manifesto Principles: https://www.mozilla.org/en-US/about/manifesto/\r\n\r\n\r\nI want to make Mozilla one thing clear: our time is very precious to us and we don't want to waste it here by saying...what you call \"off-topic\" comments and issues. So can you please tell us should we stop obeying and believing your own \"Mozilla Manifesto Principles\"?\r\n\r\nThank you! \r\n\r\n...and one more thing to my friends here. Please say whatever you want as fast as soon as you can because I don't know why but I'm getting the feeling that this issue thread is going to locked very soon by marking it as \"off-topic\", \"heated\" or something like that. So please move fast... \r\n\r\n\r\n...and can somebody please stop disliking the issues we are talking about here with your duplicate GitHub accounts? I mean seriously this is not a joke! I know those GitHub accounts were create just to dislike my previous issues #12380, #12228. Did you seriously think I won't notice?\r\n\r\n\r\n\r\n\r\n ",
+        "comment_id": 662779215,
+        "comments": 9,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-23 01:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "lnicola",
+        "created_at": "2020-07-23 06:53:31",
+        "updated_at": "2020-07-23 06:53:31",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": "> As far as I know Admob is not directly used by Fenix. It may be pulled in as part of the Adjust SDK where I see a mention of Admob in their source code and/or Google Firebase.\r\n\r\nI think it might be used to retrieve the advertising ID, which is reported in telemetry.",
+        "comment_id": 662847600,
+        "comments": 10,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-23 06:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ShatteredPixel",
+        "created_at": "2020-07-23 07:51:50",
+        "updated_at": "2020-07-23 07:51:49",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": ">I dislike needing to say this. Please use the 👍 action in the top level if you are interested in this issue vs commenting. Comments that fail to add substantially new information may be hidden by default. If this is a repeated issue then other moderation options may be used.\r\n\r\nI'm gonna put this here from the above [comment](https://github.com/mozilla-mobile/fenix/issues/12809#issuecomment-662199501) from Mozilla. Please use your \"Moderation Tools\" on your [comment](https://github.com/mozilla-mobile/fenix/issues/12809#issuecomment-662847600) please. Just as you did with ours.\r\n\r\nThe comment doesn't seem to add \"substantial\" informtion just as with the [comment](https://github.com/mozilla-mobile/fenix/issues/12809#issuecomment-662160472) that Mozilla said.",
+        "comment_id": 662868145,
+        "comments": 11,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-23 07:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "opusforlife2",
+        "created_at": "2020-07-23 10:54:14",
+        "updated_at": "2020-07-23 10:54:13",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": "In a sense, this issue is a duplicate of #162, which asks for F-Droid support. The end goal is nearly the same, which is to get a Fenix build variant that excludes all non-free code, incidentally excluding most tracking SDKs.\r\n\r\nA year ago, @st3fan asked about build flags to exclude non free code. Since then, there has been no progress on the issue.\r\n\r\n@kbrosnan Since you modified the title to mention \"build variants\" I'm addressing you directly. To my knowledge, only one Mozilla employee, st3fan, has replied on that issue, while several F-Droid developers have outlined their concerns. It would be very helpful if you or someone else would hop on over there and work with the F-Droid devs to hammer out at least a rough plan of action regarding what needs to be done for Fenix to be distributed as 100% free software.\r\n\r\nTo everyone else: if you just want to vent your feelings, please make a post on r/firefox or something. Let's keep this and #162 focused on actionable points only.",
+        "comment_id": 662941645,
+        "comments": 13,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-23 10:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ShatteredPixel",
+        "created_at": "2020-07-23 11:15:01",
+        "updated_at": "2020-07-23 11:15:01",
+        "title": "Support a build varient that limits or turns off tracking",
+        "body": "> To everyone else: if you just want to vent your feelings, please make a post on r/firefox or something. Let's keep this and #162 focused on actionable points only.\n\n\nThanks! You seem to be acting like _you_ are the only one who seems to be thinking seriously about this, right? \n\nWe care about a lot about this and that's why we are talking about this here. Problems are _here_ not on r/firefox. Is that community officially endorsed by Mozilla? no, its an unofficial community, nobody will listen to us there! Just go [here](https://redd.it/hw4mzi) on this reddit thread and find out yourself (So how many replies did you get from Mozilla on that thread? Answer is probably _none_)! Why should we go there to talk about all of this. We are not \"venting\" here. Don't act like _you_ are the only one who knows how to do things. Learn to respect others! We are not passing time here! Our time is very important to us. \n",
+        "comment_id": 662949305,
+        "comments": 13,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-23 11:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "resynth1943",
+        "created_at": "2020-07-23 11:53:33",
+        "updated_at": "2020-07-23 11:53:33",
+        "title": "Tracking",
+        "body": "> To everyone else: if you just want to vent your feelings, please make a post on r/firefox or something. Let's keep this and #162 focused on actionable points only.\n\nWho exactly are you referring to? Personally, I think we have been rather amicable.\n\nNevertheless, it looks like Mozilla isn't going to remove the tracking altogether. The issue title was modified for some reason, implying that we want another build variant.\n\nI think that misses the point, personally.\n\n(btw. @ShatteredPixel can you email me?)",
+        "comment_id": 662963800,
+        "comments": 14,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-23 11:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "st3fan",
+        "created_at": "2020-07-23 13:28:27",
+        "updated_at": "2020-07-23 13:28:26",
+        "title": "Tracking",
+        "body": "I don't think this is high on our list, but if someone wants to start making contributions in this area, we would definitely support that.\r\n\r\nWhat we prefer is probably build flags that allow you to enable/disable these features at compile time. For example, a build flag to disable Adjust would make sure we do not link against Adjust SDK, do not include Adjust specific code in the product.\r\nIf build flags don't cover things completely, then we can also add a run-time feature flag that makes a decision while the app is running on device.\r\n\r\nI'm, sure we are happy to take patches. However to guarantee success, please consider these recommendations:\r\n\r\n- file a technical issue in GitHub with a proposal. do not write code yet.\r\n- flag me (st3fan) on the issue and I will find the right folks to help out\r\n- when we have a good proposal in the issue, open a PR with implementation\r\n- do not bundle all the things together. separate issues for telemetry/adjust/leanplum/sentry please\r\n- please keep these issues on topic\r\n\r\nDo know that we depend on these features to make Fenix better. I doubt Mozilla would do builds with these features disabled, but I assume it would open the door to get on alternative app stores where the rules around third-party dependencies are different.\r\n",
+        "comment_id": 663006957,
+        "comments": 15,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-07-23 13:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "kbrosnan",
+        "created_at": "2023-01-21 03:18:00",
+        "updated_at": "2023-01-21 03:17:59",
+        "title": " Support a build varient that limits or turns off tracking",
+        "body": "Moved to bugzilla: https://bugzilla.mozilla.org/show_bug.cgi?id=1811655\n\nChange performed by the [Move to Bugzilla add-on](https://addons.mozilla.org/en-US/firefox/addon/move-to-bugzilla/).",
+        "comment_id": 1399163627,
+        "comments": 17,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2023-01-21 03:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "kbrosnan",
+        "created_at": "2023-01-21 03:18:00",
+        "updated_at": "2023-01-21 03:18:00",
+        "title": " Support a build varient that limits or turns off tracking",
+        "body": "### What is the user problem or growth opportunity you want to see solved?\nTracking. Why does your app bundle 4 SDKs, which are used to surreptitiously track users?\n\nFind attached a list of these third-party SDKs, which you seem to include in your Firefox application:\n\n* Adjust\n* Google AdMob\n* Google Firebase Analytics\n* LeanPlum\n\nI'm sure you're aware of the [privacy issues](https://resynth1943.net/articles/why-shouldnt-i-use-google-analytics/) which are present in Google's SDKs, e.g. Google Analytics. Yet these SDKs are quickly being added to the majority of your products.\n\nPersonally, I think it would be nice if we could work something out: how do _you_ feel about removing Google Analytics from this product.\n\n### How do you know that this problem exists today? Why is this important?\nAs stated on [Firefox's official website](https://firefox.com)...\n\n> Automatic privacy is here.\n\nWhere is the privacy in allowing Google, and various other ad companies, to track everyone that uses your app?\n\n[*Why do you load tracking SDKs in an application that handles sensitive user data?*](https://techbeacon.com/security/rise-third-party-code-zero-trust-key) One of the most important aspects of security is never to trust third-party, closed-source code. Especially when it's made by an advertising company, with the only goal of destroying the 'open web' you claim to support.\n\nPersonally, I would love to see this egregious, non-auditable, dangerous tracking code  removed instantaneously.\n\nI don't think I have anything more to add. The fact that only now I find out that you've allowed these advertising agencies to track my internet browsing is very disheartening, especially when I advocate for online privacy.\n\n### Who will benefit from it?\nYour target market.\n\nMany users see Firefox as an escape from corporate tampering and misdeeds. Right now, on the mobile app which claims to protect the privacy of the user, this really isn't the case.\n\n┆Issue is synchronized with this [Jira Task](https://mozilla-hub.atlassian.net/browse/FNXV2-3748)\n",
+        "comment_id": 0,
+        "comments": 17,
+        "state": "closed",
+        "closed_at": "2023-01-21 03:18:00",
+        "file_time": "2023-01-21 03:00:00",
+        "repo_name": "mozilla-mobile/fenix",
+        "number": 12809
+      }
+    ],
+    "rows": 20,
+    "statistics": {
+      "elapsed": 0.024360532,
+      "rows_read": 381897,
+      "bytes_read": 7661141
+    }
+  },
+  "response_sha256": "e62ca75b905001f2c632e69cebb4e5b593716aa47fced5b9bf5b829d6ad67656"
+}

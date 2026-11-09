@@ -1,0 +1,639 @@
+
+TASK 134
+def check_if_last_char_is_a_letter(txt):
+    '''
+    Create a function that returns True if the last character
+    of a given string is an alphabetical character and is not
+    a part of a word, and False otherwise.
+    Note: "word" is a group of characters separated by space.
+
+    Examples:
+    check_if_last_char_is_a_letter("apple pie") ➞ False
+    check_if_last_char_is_a_letter("apple pi e") ➞ True
+    check_if_last_char_is_a_letter("apple pi e ") ➞ False
+    check_if_last_char_is_a_letter("") ➞ False 
+    '''
+REFERENCE
+def check_if_last_char_is_a_letter(txt):
+    
+    assert type(txt) == str, "invalid inputs"
+    if len(txt) == 0: return False
+    if len(txt) == 1: return txt.isalpha()
+    return txt[-1].isalpha() and txt[-2] == " "
+CASE 108 (CodeGen-16B; source ids=108)
+def check_if_last_char_is_a_letter(txt):
+    
+    return txt[-1].isalpha() and txt.count(' ') == 0
+CASE 290 (InCoder-1B; source ids=290)
+def check_if_last_char_is_a_letter(txt):
+    
+    return txt[-1].isalpha() and txt[-1] not in "
+CASE 572 (SantaCoder; source ids=572)
+def check_if_last_char_is_a_letter(txt):
+    
+    if txt[-1].isalpha():
+        return True
+    else:
+        return False
+CASE 711 (StarCoder; source ids=711,712)
+def check_if_last_char_is_a_letter(txt):
+    
+    return txt[-1].isalpha() and not txt[-1].isalnum()
+
+TASK 135
+def can_arrange(arr):
+    """Create a function which returns the largest index of an element which
+    is not greater than or equal to the element immediately preceding it. If
+    no such element exists then return -1. The given array will not contain
+    duplicate values.
+
+    Examples:
+    can_arrange([1,2,4,3,5]) = 3
+    can_arrange([1,2,3]) = -1
+    """
+REFERENCE
+def can_arrange(arr):
+    
+    for i in range(len(arr) - 1, 0, -1):
+        if not (arr[i] >= arr[i - 1]):
+            return i
+    return -1
+CASE 109 (CodeGen-16B; source ids=109,110)
+def can_arrange(arr):
+    
+    # Your code here
+    if len(arr) == 0:
+        return -1
+    if len(arr) == 1:
+        return 0
+    if len(arr) == 2:
+        if arr[0] < arr[1]:
+            return 0
+        else:
+            return 1
+    else:
+        for i in range(len(arr)):
+            if arr[i] < arr[i-1]:
+                return i-1
+        return -1
+CASE 291 (InCoder-1B; source ids=291)
+def can_arrange(arr):
+    
+    arr = sorted(arr)
+    prev = arr[0]
+    for x in arr[1:]:
+        if x > prev:
+            return -1
+        prev =
+CASE 375 (GPT-3.5; source ids=375)
+def can_arrange(arr):
+    
+    for i in range(len(arr)-1, 0, -1):
+        if arr[i] < arr[i-1]:
+            return i-1
+    return -1
+CASE 573 (SantaCoder; source ids=573)
+def can_arrange(arr):
+    
+    pass
+CASE 713 (StarCoder; source ids=713)
+def can_arrange(arr):
+    
+    pass
+
+TASK 136
+def largest_smallest_integers(lst):
+    '''
+    Create a function that returns a tuple (a, b), where 'a' is
+    the largest of negative integers, and 'b' is the smallest
+    of positive integers in a list.
+    If there is no negative or positive integers, return them as None.
+
+    Examples:
+    largest_smallest_integers([2, 4, 1, 3, 5, 7]) == (None, 1)
+    largest_smallest_integers([]) == (None, None)
+    largest_smallest_integers([0]) == (None, None)
+    '''
+REFERENCE
+def largest_smallest_integers(lst):
+    
+    neg = list(filter(lambda x: x < 0, lst))
+    pos = list(filter(lambda x: x > 0, lst))
+    return None if neg == [] else max(neg), None if pos == [] else min(pos)
+CASE 111 (CodeGen-16B; source ids=111)
+def largest_smallest_integers(lst):
+    
+    if len(lst) == 0:
+        return (None, None)
+    else:
+        negatives = []
+        positives = []
+        for i in lst:
+            if i < 0:
+                negatives.append(i)
+            elif i > 0:
+                positives.append(i)
+        if len(negatives) == 0:
+            return (None, min(positives))
+        elif len(positives) == 0:
+            return (max(negatives), None)
+        else:
+            return (max(negatives), min(positives))
+CASE 292 (InCoder-1B; source ids=292)
+def largest_smallest_integers(lst):
+    
+    positives = [x for x in lst if x > 0]
+    negatives = [x for x in lst if x < 0]
+    if len(positives) > len(negatives):
+        return positives, None
+    elif len(negatives) > len(positives):
+        return negatives, None
+    else:
+        return positives, positives[0]
+CASE 574 (SantaCoder; source ids=574)
+def largest_smallest_integers(lst):
+    
+    if len(lst) == 0:
+        return (None, None)
+    elif len(lst) == 1:
+        return (lst[0], lst[0])
+    else:
+        a = max(lst)
+        b = min(lst)
+        return (a, b)
+CASE 714 (StarCoder; source ids=714)
+def largest_smallest_integers(lst):
+    
+    pass
+
+TASK 137
+def compare_one(a, b):
+    """
+    Create a function that takes integers, floats, or strings representing
+    real numbers, and returns the larger variable in its given variable type.
+    Return None if the values are equal.
+    Note: If a real number is represented as a string, the floating point might be . or ,
+
+    compare_one(1, 2.5) ➞ 2.5
+    compare_one(1, "2,3") ➞ "2,3"
+    compare_one("5,1", "6") ➞ "6"
+    compare_one("1", 1) ➞ None
+    """
+REFERENCE
+def compare_one(a, b):
+    
+    try:
+        float(str(a).replace(",", "."))
+        float(str(b).replace(",", "."))
+    except ValueError: raise Exception("invalid inputs")
+
+    num_a = float(str(a).replace(",", "."))
+    num_b = float(str(b).replace(",", "."))
+    if num_a == num_b:
+        return None
+    return a if num_a > num_b else b
+CASE 112 (CodeGen-16B; source ids=112)
+def compare_one(a, b):
+    
+    if a > b:
+        return a
+    elif b > a:
+        return b
+    else:
+        return None
+CASE 293 (InCoder-1B; source ids=293)
+def compare_one(a, b):
+    
+    if isinstance(a, numbers.Real):
+        return lambda b: cmp(b, a)
+    elif isinstance(a, numbers.Number):
+        return lambda b: cmp(b, a.__
+CASE 376 (GPT-3.5; source ids=376)
+def compare_one(a, b):
+    
+    if type(a) == type(b):
+        if type(a) == int or type(a) == float:
+            if a > b:
+                return a
+            elif b > a:
+                return b
+            else:
+                return None
+        elif type(a) == str:
+            a = a.replace(",", ".")
+            b = b.replace(",", ".")
+            if float(a) > float(b):
+                return a
+            elif float(b) > float(a):
+                return b
+            else:
+                return None
+    else:
+        return None
+CASE 575 (SantaCoder; source ids=575)
+def compare_one(a, b):
+    
+    if type(a) == type(b):
+        if type(a) == int:
+            return a if a > b else b
+        elif type(a) == float:
+            return a if a > b else b
+        elif type(a) == str:
+            return a if a > b else b
+    return None
+CASE 715 (StarCoder; source ids=715)
+def compare_one(a, b):
+    
+    if a > b:
+        return a
+    elif a < b:
+        return b
+    else:
+        return None
+
+TASK 138
+def is_equal_to_sum_even(n):
+    """Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers
+    Example
+    is_equal_to_sum_even(4) == False
+    is_equal_to_sum_even(6) == False
+    is_equal_to_sum_even(8) == True
+    """
+REFERENCE
+def is_equal_to_sum_even(n):
+    
+    return n >= 8 and n % 2 == 0
+CASE 113 (CodeGen-16B; source ids=113)
+def is_equal_to_sum_even(n):
+    
+    return n % 2 == 0 and n % 4 == 0
+CASE 294 (InCoder-1B; source ids=294)
+def is_equal_to_sum_even(n):
+    
+    return n >= 4 and n % 2 == 0
+CASE 377 (GPT-3.5; source ids=377)
+def is_equal_to_sum_even(n):
+    
+    if n < 8:
+        return False
+    for i in range(2, n-2, 2):
+        for j in range(i, n-i-2, 2):
+            for k in range(j, n-i-j-2, 2):
+                if i + j + k + n-i-j-k == n:
+                    return True
+    return False
+CASE 576 (SantaCoder; source ids=576)
+def is_equal_to_sum_even(n):
+    
+    return sum(range(1, n + 1)) == n * (n + 1) / 2
+CASE 716 (StarCoder; source ids=716)
+def is_equal_to_sum_even(n):
+    
+    return False
+
+TASK 139
+def special_factorial(n):
+    """The Brazilian factorial is defined as:
+    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
+    where n > 0
+
+    For example:
+    >>> special_factorial(4)
+    288
+
+    The function will receive an integer as input and should return the special
+    factorial of this integer.
+    """
+REFERENCE
+def special_factorial(n):
+    
+    fac, ans = 1, 1
+    for i in range(2, n + 1):
+        fac *= i
+        ans *= fac
+    return ans
+CASE 114 (CodeGen-16B; source ids=114,115)
+def special_factorial(n):
+    
+    factorial = 1
+    for i in range(1, n+1):
+        factorial *= i
+    return factorial
+CASE 295 (InCoder-1B; source ids=295)
+def special_factorial(n):
+    
+    if n < 0:
+        raise ValueError("n must be non-negative")
+    if n == 0:
+        return 1
+    elif n == 1:
+        return 1
+    else:
+        return n * special_factorial(n-1)
+CASE 577 (SantaCoder; source ids=577)
+def special_factorial(n):
+    
+    if n == 0:
+        return 1
+    else:
+        return n * special_factorial(n-1)
+CASE 717 (StarCoder; source ids=717)
+def special_factorial(n):
+    
+    if n == 0:
+        return 1
+    else:
+        return n * special_factorial(n-1)
+
+TASK 140
+def fix_spaces(text):
+    """
+    Given a string text, replace all spaces in it with underscores, 
+    and if a string has more than 2 consecutive spaces, 
+    then replace all consecutive spaces with - 
+    
+    fix_spaces("Example") == "Example"
+    fix_spaces("Example 1") == "Example_1"
+    fix_spaces(" Example 2") == "_Example_2"
+    fix_spaces(" Example   3") == "_Example-3"
+    """
+REFERENCE
+def fix_spaces(text):
+    
+    ans = text
+    for i in range(len(text)-1, 2, -1):
+        ans = ans.replace(" " * i, "-")
+    return ans.replace(" ", "_")
+CASE 116 (CodeGen-16B; source ids=116)
+def fix_spaces(text):
+    
+    
+    # TODO: Write your code here
+    
+    return text
+CASE 296 (InCoder-1B; source ids=296,297)
+def fix_spaces(text):
+    
+    return re.sub(r'\s+', '_', text)
+CASE 578 (SantaCoder; source ids=578,579)
+def fix_spaces(text):
+    
+    return re.sub(r'\s+', '_', text)
+CASE 718 (StarCoder; source ids=718,719)
+def fix_spaces(text):
+    
+    return re.sub(r"\s+", "_", text)
+
+TASK 141
+def file_name_check(file_name):
+    """Create a function which takes a string representing a file's name, and returns
+    'Yes' if the the file's name is valid, and returns 'No' otherwise.
+    A file's name is considered to be valid if and only if all the following conditions 
+    are met:
+    - There should not be more than three digits ('0'-'9') in the file's name.
+    - The file's name contains exactly one dot '.'
+    - The substring before the dot should not be empty, and it starts with a letter from 
+    the latin alphapet ('a'-'z' and 'A'-'Z').
+    - The substring after the dot should be one of these: ['txt', 'exe', 'dll']
+    Examples:
+    file_name_check("example.txt") # => 'Yes'
+    file_name_check("1example.dll") # => 'No' (the name should start with a latin alphapet letter)
+    """
+REFERENCE
+def file_name_check(file_name):
+    
+    if len(list(filter(lambda ch: ch.isdigit(), file_name))) > 3:
+        return "No"
+    f_list = file_name.split(".")
+    if len(f_list) != 2: return "No"
+    if len(f_list[0]) == 0: return "No"
+    if not f_list[0][0].isalpha(): return "No"
+    if f_list[1] not in ["txt", "exe", "dll"]: return "No"
+    return "Yes"
+CASE 117 (CodeGen-16B; source ids=117,118)
+def file_name_check(file_name):
+    
+    if len(file_name) > 3:
+        return 'No'
+    elif file_name.count('.') > 1:
+        return 'No'
+    elif file_name.count('.') == 1:
+        if file_name.split('.')[0] == '':
+            return 'No'
+        elif file_name.split('.')[0][0].isalpha():
+            if file_name.split('.')[1] in ['txt', 'exe', 'dll']:
+                return 'Yes'
+            else:
+                return 'No'
+        else:
+            return 'No'
+    else:
+        return 'No'
+CASE 298 (InCoder-1B; source ids=298,299)
+def file_name_check(file_name):
+    
+    file_name_checker = re.compile(r'^[0-9]{3}\.[a-zA-Z]{2}$')
+    return file_name_checker.match(file_name)
+CASE 379 (GPT-3.5; source ids=379)
+def file_name_check(file_name):
+    
+    import re
+    pattern = r'^[a-zA-Z][a-zA-Z0-9]*\.[txt|exe|dll]{3}$'
+    if re.match(pattern, file_name):
+        if len(re.findall(r'\d', file_name)) <= 3:
+            return 'Yes'
+    return 'No'
+CASE 580 (SantaCoder; source ids=580)
+def file_name_check(file_name):
+    
+    if len(file_name) > 3:
+        return "No"
+    if file_name.count(".")!= 1:
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] == file_name[-1]:
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1]
+CASE 720 (StarCoder; source ids=720)
+def file_name_check(file_name):
+    
+    if len(file_name) > 3:
+        return "No"
+    if file_name.count(".")!= 1:
+        return "No"
+    if file_name.split(".")[0] == "":
+        return "No"
+    if file_name.split(".")[0][0] not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        return "No"
+    if file_name.split(".")[1] not in ["txt", "exe", "dll"]:
+        return "No"
+    return "Yes"
+
+TASK 142
+def sum_squares(lst):
+    """"
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
+    """
+REFERENCE
+def sum_squares(lst):
+    
+    ans = 0
+    for i, num in enumerate(lst):
+        if i % 3 == 0:
+            ans += num ** 2
+        elif i % 4 == 0:
+            ans += num ** 3
+        else:
+            ans += num
+    return ans
+CASE 119 (CodeGen-16B; source ids=119)
+def sum_squares(lst):
+    
+    if len(lst) == 0:
+        return 0
+    else:
+        new_lst = []
+        for i in range(len(lst)):
+            if i % 3 == 0 or i % 4 == 0:
+                new_lst.append(lst[i] ** 2)
+            else:
+                new_lst.append(lst[i])
+        return sum(new_lst)
+CASE 300 (InCoder-1B; source ids=300)
+def sum_squares(lst):
+CASE 418 (GPT-4; source ids=418)
+# CANNOT PARSE
+def sum_squares(lst):
+    
+    result = 0
+    for i, num in enumerate(lst):
+        if i % 3 == 0 and i % 4 != 0:
+            result += num ** 2
+        elif i % 4 == 0:
+            result += num ** 3
+        else:
+            result += num
+    return result
+CASE 581 (SantaCoder; source ids=581,582)
+def sum_squares(lst):
+    
+    sum = 0
+    for i in lst:
+        if i % 3 == 0:
+            sum += i ** 2
+        elif i % 4 == 0:
+            sum += i ** 3
+    return sum
+CASE 721 (StarCoder; source ids=721)
+def sum_squares(lst):
+    
+    # Your code here
+    sum = 0
+    for i in range(len(lst)):
+        if i % 3 == 0:
+            sum += lst[i] ** 2
+        elif i % 4 == 0:
+            sum += lst[i] ** 3
+    return sum
+
+TASK 143
+def words_in_sentence(sentence):
+    """
+    You are given a string representing a sentence,
+    the sentence contains some words separated by a space,
+    and you have to return a string that contains the words from the original sentence,
+    whose lengths are prime numbers,
+    the order of the words in the new string should be the same as the original one.
+
+    Example 1:
+        Input: sentence = "This is a test"
+        Output: "is"
+
+    Example 2:
+        Input: sentence = "lets go for swimming"
+        Output: "go for"
+
+    Constraints:
+        * 1 <= len(sentence) <= 100
+        * sentence contains only letters
+    """
+REFERENCE
+def words_in_sentence(sentence):
+    
+    def is_prime(a):
+        return not (a < 2 or any(a % x == 0 for x in range(2, int(a ** 0.5) + 1)))
+    return " ".join(list(filter(lambda word: is_prime(len(word)), sentence.split(" "))))
+CASE 120 (CodeGen-16B; source ids=120)
+def words_in_sentence(sentence):
+    
+    words = sentence.split(' ')
+    primes = []
+    for word in words:
+        if is_prime(len(word)):
+            primes.append(word)
+    return ' '.join(primes)
+CASE 583 (SantaCoder; source ids=583,584)
+def words_in_sentence(sentence):
+    
+    words = sentence.split()
+    return " ".join(sorted(words))
+CASE 722 (StarCoder; source ids=722)
+def words_in_sentence(sentence):
+    
+    return " ".join(filter(lambda x: is_prime(len(x)), sentence.split()))

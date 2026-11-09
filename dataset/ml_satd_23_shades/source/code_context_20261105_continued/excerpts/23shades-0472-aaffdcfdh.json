@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0472-aaffdcfdh",
+  "revision_url": "https://github.com/IGITUGraz/L2L/commit/65385163b657e10befd2b1d97e75a598430d0212",
+  "filename": "bin/ltl-fun-gs.py",
+  "commit": "65385163b657e10befd2b1d97e75a598430d0212",
+  "source_url": "https://raw.githubusercontent.com/IGITUGraz/L2L/65385163b657e10befd2b1d97e75a598430d0212/bin/ltl-fun-gs.py",
+  "fetched_at": "2026-11-05T06:13:00.071332+00:00",
+  "source_sha256": "525a6362f025f163903681949b1795e5fda196b059480f90aba2728ccd17caaf",
+  "line_start": 47,
+  "line_end": 71,
+  "excerpt": "                      automatic_storing=True,\n                      log_stdout=False,  # Sends stdout to logs\n                      log_folder=os.path.join(paths.output_dir_path, 'logs')\n                      )\n\n    # Get the trajectory from the environment\n    traj = env.trajectory\n\n    # NOTE: Innerloop simulator\n    optimizee = FunctionOptimizee(traj, 'rastrigin')\n\n    # NOTE: Outerloop optimizer initialization\n    # TODO: Change the optimizer to the appropriate Optimizer class\n    n_grid_divs_per_axis = 30\n    parameters = GridSearchParameters()\n    optimizer = GridSearchOptimizer(traj, optimizee_create_individual=optimizee.create_individual,\n                                          optimizee_fitness_weights=(-0.1,),\n                                          parameters=parameters,\n                                          optimizee_param_grid={\n                                              'coords': (optimizee.bound[0], optimizee.bound[1], n_grid_divs_per_axis)\n                                          })\n\n    # Add post processing\n    env.add_postprocessing(optimizer.post_process)\n"
+}

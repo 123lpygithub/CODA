@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0681-aaibgbejh",
+  "revision_url": "https://github.com/explosion/spaCy/commit/3d2c308906e2bde7ca57d2e8213252530b944502",
+  "filename": "spacy/util.py",
+  "commit": "3d2c308906e2bde7ca57d2e8213252530b944502",
+  "source_url": "https://raw.githubusercontent.com/explosion/spaCy/3d2c308906e2bde7ca57d2e8213252530b944502/spacy/util.py",
+  "fetched_at": "2026-11-05T06:13:37.482380+00:00",
+  "source_sha256": "74b66f9e93801128e5d1f3b8de50a49bcc2cce7a7b7e3ea6f34cb7fb36c1e3c7",
+  "line_start": 696,
+  "line_end": 720,
+  "excerpt": "\ndef fix_random_seed(seed=0):\n    random.seed(seed)\n    numpy.random.seed(seed)\n    if cupy is not None:\n        cupy.random.seed(seed)\n\n\ndef get_json_validator(schema):\n    # We're using a helper function here to make it easier to change the\n    # validator that's used (e.g. different draft implementation), without\n    # having to change it all across the codebase.\n    # TODO: replace with (stable) Draft6Validator, if available\n    if jsonschema is None:\n        raise ValueError(Errors.E136)\n    return jsonschema.Draft4Validator(schema)\n\n\ndef validate_schema(schema):\n    \"\"\"Validate a given schema. This just checks if the schema itself is valid.\"\"\"\n    validator = get_json_validator(schema)\n    validator.check_schema(schema)\n\n\ndef validate_json(data, validator):",
+  "match_policy": "unique-release-normalized-v2"
+}

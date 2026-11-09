@@ -1,0 +1,355 @@
+
+=== 504 23shades-0089-aajdcehac ===
+{"dataset_id": "aajdcehac", "repo_name": "jupyter/nbdime", "filename": "nbmerge/diff/diff_notebooks.py", "comment_introducing_revision": "https://github.com/jupyter/nbdime/commit/518273bba206708f88e18180491ad14629614b19", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "518273bba206708f88e18180491ad14629614b19"}
+[comment_text]
+FIXME: Handle execution_count (always change to None?)
+[source_context]
+    return lines, cell_offsets, origin_cell_numbers
+
+def diff_cells(cells_a, cells_b):
+    """Return a list of transformations to transform notebook cells cells_a into notebook cells cells_b.
+
+    Each transformation is on the format:
+    FIXME: Define and document diff format.
+    """
+
+    # FIXME: Handle new and deleted cells
+    # FIXME: Handle cell_type
+    # FIXME: Handle metadata (reuse diff_metadata here)
+    # FIXME: Handle execution_count (always change to None?)
+    # FIXME: Handle outputs (initial solution: reuse diff_metadata)
+
+    """
+    Cells always have:
+
+        "cell_type"
+        "metadata"
+        "source"
+
+    Cell type is either markdown or code:
+
+    {
+
+=== 505 23shades-0686-aagbiaaje ===
+{"dataset_id": "aagbiaaje", "repo_name": "ardamavi/Game-Bot", "filename": "game_control.py", "comment_introducing_revision": "https://github.com/ardamavi/Game-Bot/commit/a2b0bc0ec4047083b024bda49603d802551729a2", "comment_removing_revision": "https://github.com/ardamavi/Game-Bot/commit/9d2aae89aad50d37e89eb554796ca8ce8649ac1b", "source_context_status": "available", "source_context_commit": "a2b0bc0ec4047083b024bda49603d802551729a2"}
+[comment_text]
+TODO: return id's key
+[source_context]
+# Arda Mavi
+from pynput.mouse import Button, Controller as Mouse
+from pynput.keyboard import Controller as Keyboard
+
+def get_key(id):
+    return # TODO: return id's key
+
+def get_id(key):
+    return # TODO: return key's id
+
+keyboard = Keyboard()
+mouse = Mouse()
+
+# Mouse:
+def move(x, y):
+    mouse.position = (x, y)
+    return
+
+
+=== 506 23shades-0523-aaiecehba ===
+{"dataset_id": "aaiecehba", "repo_name": "biolab/orange3", "filename": "Orange/widgets/visualize/owscatterplotgraph.py", "comment_introducing_revision": "https://github.com/biolab/orange3/commit/e90f984063b77b360b04e827e6b17f9ca111694f", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e90f984063b77b360b04e827e6b17f9ca111694f"}
+[comment_text]
+TODO: do we need this?!
+[source_context]
+        self.set_axis_title("left", "")
+
+        self.density_img = None
+        self.scatterplot_item = None
+        self.scatterplot_item_sel = None
+        self.labels = []
+        self.selection = None
+        self.valid_data = None
+
+    def update_data(self, reset_view=True):
+        self._clear_plot_widget()
+
+# TODO: do we need this?!
+#        if self.shown_y != attr_y:
+ #           # 'reset' the axis text width estimation. Without this the left
+  #          # axis tick labels space only ever expands
+   #         yaxis = self.plot_widget.getAxis("left")
+    #        yaxis.textWidth = 30
+
+        x_data, y_data = self.get_xy_data()
+
+        if reset_view:
+            min_x, max_x = np.nanmin(self.x_data), np.nanmax(self.x_data)
+            min_y, max_y = np.nanmin(self.y_data), np.nanmax(self.y_data)
+            self.view_box.setRange(
+
+=== 507 23shades-0549-aaeieddbj ===
+{"dataset_id": "aaeieddbj", "repo_name": "IntelPython/sdc", "filename": "hpat/utils.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/bd526c59f7a661fc9cc085e6508affa98680bf42", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "bd526c59f7a661fc9cc085e6508affa98680bf42"}
+[comment_text]
+TODO: handle boolean scalars properly
+[source_context]
+_numba_to_c_type_map = {
+    types.int8: CTypeEnum.Int8.value,
+    types.uint8: CTypeEnum.UInt8.value,
+    types.int32: CTypeEnum.Int32.value,
+    types.uint32: CTypeEnum.UInt32.value,
+    types.int64: CTypeEnum.Int64.value,
+    types.uint64: CTypeEnum.UInt64.value,
+    types.float32: CTypeEnum.Float32.value,
+    types.float64: CTypeEnum.Float64.value,
+    types.NPDatetime('ns'): CTypeEnum.UInt64.value,
+    # XXX: Numpy's bool array uses a byte for each value but regular booleans
+    # are not bytes
+    # TODO: handle boolean scalars properly
+    types.bool_: CTypeEnum.UInt8.value,
+}
+
+
+# silence Numba error messages for now
+# TODO: customize through @hpat.jit
+numba.errors.error_extras = {'unsupported_error': '', 'typing': '', 'reportable': '', 'interpreter': '', 'constant_inference': ''}
+
+# sentinel value representing non-constant values
+class NotConstant:
+    pass
+
+
+=== 508 23shades-0464-aaijbfccj ===
+{"dataset_id": "aaijbfccj", "repo_name": "cleverhans-lab/cleverhans", "filename": "cleverhans_v3.1.0/examples/multigpu_advtrain/attacks_multigpu.py", "comment_introducing_revision": "https://github.com/cleverhans-lab/cleverhans/commit/1616e8d895da97d31e8ce6350be75a61007238bf", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "1616e8d895da97d31e8ce6350be75a61007238bf"}
+[comment_text]
+TODO: Break the graph only nGPU times instead of nb_iter times.
+[source_context]
+    # Create the initial random perturbation
+    device_name = '/gpu:0'
+    self.model.set_device(device_name)
+    with tf.device(device_name):
+      with tf.variable_scope('init_rand'):
+        if self.rand_init:
+          eta = tf.random_uniform(tf.shape(x), -self.eps, self.eps)
+          eta = clip_eta(eta, self.ord, self.eps)
+          eta = tf.stop_gradient(eta)
+        else:
+          eta = tf.zeros_like(x)
+
+    # TODO: Break the graph only nGPU times instead of nb_iter times.
+    # The current implementation by the time an adversarial example is
+    # used for training, the weights of the model have changed nb_iter
+    # times. This can cause slower convergence compared to the single GPU
+    # adversarial training.
+    for i in range(self.nb_iter):
+      # Create the graph for i'th step of attack
+      inputs += [OrderedDict()]
+      outputs += [OrderedDict()]
+      device_name = x.device
+      self.model.set_device(device_name)
+      with tf.device(device_name):
+        with tf.variable_scope('step%d' % i):
+
+=== 509 23shades-0542-aagbabhfa ===
+{"dataset_id": "aagbabhfa", "repo_name": "santi-pdp/pase", "filename": "transforms.py", "comment_introducing_revision": "https://github.com/santi-pdp/pase/commit/864a91ea8af94c0ee83f826b84e14b42040b2831", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "864a91ea8af94c0ee83f826b84e14b42040b2831"}
+[comment_text]
+TODO: finish this
+[source_context]
+
+class SimpleChopper(object):
+    """ Do not use VAD to specify speech regions, just
+        cut randomly some number of regions randomly 
+    """
+    def __init__(self, chop_factors=[(0.05, 0.025), (0.1, 0.05)],
+                 max_chops=5, report=False):
+        self.chop_factors = chop_factors
+        self.max_chops = max_chops
+        self.report = report
+
+    def chop_wav(self, wav):
+        # TODO: finish this 
+        raise NotImplementedError('Need to be finished')
+        chop_factors = self.chop_factors
+        # get num of chops to make
+        chops = np.random.randint(1, self.max_chops + 1)
+        # build random indexes to randomly pick regions, not ordered
+        if chops == 1:
+            chop_idxs = [0]
+        else:
+            chop_idxs = np.random.choice(list(range(chops)), chops, 
+                                         replace=False)
+        chopped_wav = np.copy(wav)
+        return None
+
+=== 510 23shades-0475-aahjabdbh ===
+{"dataset_id": "aahjabdbh", "repo_name": "JohnVinyard/zounds", "filename": "analyze/extractor.py", "comment_introducing_revision": "https://github.com/JohnVinyard/zounds/commit/a37a8afe63e812f05275bd2c6a11013bfec8036f", "comment_removing_revision": "https://github.com/JohnVinyard/zounds/commit/3fc6e49ae11e2306195a7828a606b880728aa5e9", "source_context_status": "available", "source_context_commit": "a37a8afe63e812f05275bd2c6a11013bfec8036f"}
+[comment_text]
+TODO: Change this to finite = True
+[source_context]
+        self.out = None
+        
+        # a flag letting other dependent extractors know that
+        # we've reached the end of available data
+        self.done = False
+        
+        # a unique identifier for this extractor
+        self.key = key
+        
+        # True only if this extractor has no stopping condition. Users of an
+        # extractor chain containing infinite extractors must be aware of this
+        # fact to avoid creating artifically long lists of features
+        # TODO: Change this to finite = True
+        self.infinite = False
+    
+    @abstractmethod
+    def dim(self,env):
+        '''
+        A tuple representing the dimensions of a single frame of output from 
+        this extractor
+        '''
+        pass
+    
+    @abstractproperty
+    def dtype(self):
+
+=== 511 23shades-0498-aagbggddc ===
+{"dataset_id": "aagbggddc", "repo_name": "regel/loudml", "filename": "loudml/metrics.py", "comment_introducing_revision": "https://github.com/regel/loudml/commit/1c86d400cfb554c525371c472b5bb32240417783", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "1c86d400cfb554c525371c472b5bb32240417783"}
+[comment_text]
+TODO: consider more granular OS release extraction
+[source_context]
+    def read(self, filename):
+        try:
+            text = open(filename).read()
+        except IOError:
+            pass
+        else:
+            file = io.StringIO("[os-release]\n" + text)
+            self.readfp(file, filename)
+
+    def safe_get(self, section, val):
+        # Issue #208: /etc/os-release not always present
+        # On macOS it is: /System/Library/CoreServices/SystemVersion.plist
+        # TODO: consider more granular OS release extraction
+        try:
+            return self.get(section, val)
+        except NoSectionError:
+            return "N/A"
+
+
+def send_metrics(config, storage, user_agent="loudmld"):
+    """
+    Send usage information to telemetry server
+
+     :param config:      telemetry configuration
+     :type  config:      dict
+
+=== 512 23shades-0377-aafchfjcg ===
+{"dataset_id": "aafchfjcg", "repo_name": "graknlabs/kglib", "filename": "kgcn/src/models/training.py", "comment_introducing_revision": "https://github.com/graknlabs/kglib/commit/3525a4df8543733b552e058b9cc621371b4824eb", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "3525a4df8543733b552e058b9cc621371b4824eb"}
+[comment_text]
+TODO Update and move now this isn't used here
+[source_context]
+import time
+import typing as typ
+
+import tensorflow as tf
+
+flags = tf.app.flags
+FLAGS = flags.FLAGS
+
+
+# TODO Update and move now this isn't used here
+def build_array_placeholders(batch_size, neighbourhood_sizes, features_length,
+                             feature_types: typ.Union[typ.List[typ.MutableMapping[str, tf.DType]], tf.DType]):
+    array_neighbourhood_sizes = list(reversed(neighbourhood_sizes))
+    neighbourhood_placeholders = []
+    for i in range(len(array_neighbourhood_sizes) + 1):
+        shape = [batch_size] + list(array_neighbourhood_sizes[i:]) + [features_length]
+
+        try:
+            phs = tf.placeholder(feature_types, shape=shape)
+        except:
+            phs = {name: tf.placeholder(type, shape=shape) for name, type in feature_types[i].items()}
+
+
+=== 513 23shades-0420-aadhgacdi ===
+{"dataset_id": "aadhgacdi", "repo_name": "blue-oil/blueoil", "filename": "lmnet/lmnet/data_processor.py", "comment_introducing_revision": "https://github.com/blue-oil/blueoil/commit/acb5a270f201f34fe5a5b27a4b395d9c3a838b27", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "acb5a270f201f34fe5a5b27a4b395d9c3a838b27"}
+[comment_text]
+TODO(wakisaka): move to somewhere.
+[source_context]
+    @abstractmethod
+    def __call__(self, **kwargs):
+        """Call processor method for each a element of data.
+
+        Return image and labels etc.
+        """
+        return kwargs
+
+    def __repr__(self):
+        return "{}({})".format(self.__class__.__name__, self.__dict__)
+
+
+# TODO(wakisaka): move to somewhere.
+def binarize(labels, num_classes):
+    """Return numpy array binarized labels."""
+    targets = np.array(labels).reshape(-1)
+    one_hot = np.eye(num_classes)[targets]
+    return one_hot
+
+=== 514 23shades-0282-aafegiafa ===
+{"dataset_id": "aafegiafa", "repo_name": "aleju/imgaug", "filename": "tests/test.py", "comment_introducing_revision": "https://github.com/aleju/imgaug/commit/420fb6ee8f2804335b4faa3b380aca25c6027b81", "comment_removing_revision": "https://github.com/aleju/imgaug/commit/5458e8bdfc3ae168c0caa91a508cd860e964a085", "source_context_status": "available", "source_context_commit": "420fb6ee8f2804335b4faa3b380aca25c6027b81"}
+[comment_text]
+TODO ElasticTransformation
+[source_context]
+    # TODO EdgeDetect
+    # TODO DirectedEdgeDetect
+
+    # flip
+    test_Fliplr()
+    test_Flipud()
+
+    # geometric
+    test_Affine()
+    # TODO AffineCv2
+    # TODO PiecewiseAffine
+    # TODO PerspectiveTransform
+    # TODO ElasticTransformation
+
+    # meta
+    # TODO copy_dtypes_for_restore()
+    # TODO restore_augmented_images_dtypes_()
+    # TODO restore_augmented_images_dtypes()
+    # TODO clip_augmented_images_()
+    # TODO clip_augmented_images()
+    # TODO Augmenter
+    test_Sequential()
+    # TODO SomeOf
+    # TODO OneOf
+    test_Sometimes()
+
+=== 515 23shades-0015-aaibjbide ===
+{"dataset_id": "aaibjbide", "repo_name": "scikit-learn/scikit-learn", "filename": "scikits/learn/glm/base.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/df8c593ce694869e11fd459fc310d0ce0a55788e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "df8c593ce694869e11fd459fc310d0ce0a55788e"}
+[comment_text]
+## TODO: intercept for all models
+[source_context]
+"""
+
+import warnings
+
+from math import log10
+import numpy as np
+import scipy.linalg 
+
+from ..utils.extmath import fast_logdet
+from ..base import BaseEstimator, RegressorMixin
+
+###
+### TODO: intercept for all models
+### We should define a common function to center data instead of
+### repeating the same code inside each fit method.
+###
+### Also, bayesian_ridge_regression and bayesian_regression_ard
+### should be squashed into its respective objects.
+###
+
+class LinearModel(BaseEstimator, RegressorMixin):
+    """Base class for Linear Models"""
+
+    def predict(self, X):
+        """

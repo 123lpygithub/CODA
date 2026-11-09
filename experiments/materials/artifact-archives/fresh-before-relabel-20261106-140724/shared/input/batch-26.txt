@@ -1,0 +1,943 @@
+TASK 139
+TASK DESCRIPTION
+def special_factorial(n):
+    """The Brazilian factorial is defined as:
+    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
+    where n > 0
+
+    For example:
+    >>> special_factorial(4)
+    288
+
+    The function will receive an integer as input and should return the special
+    factorial of this integer.
+    """
+REFERENCE IMPLEMENTATION
+def special_factorial(n):
+    """The Brazilian factorial is defined as:
+    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
+    where n > 0
+
+    For example:
+    >>> special_factorial(4)
+    288
+
+    The function will receive an integer as input and should return the special
+    factorial of this integer.
+    """
+    fac, ans = 1, 1
+    for i in range(2, n + 1):
+        fac *= i
+        ans *= fac
+    return ans
+
+ARTIFACT 114 | SOURCE RECORDS 114,115
+COMPLETE GENERATED CODE
+def special_factorial(n):
+    """The Brazilian factorial is defined as:
+    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
+    where n > 0
+
+    For example:
+    >>> special_factorial(4)
+    288
+
+    The function will receive an integer as input and should return the special
+    factorial of this integer.
+    """
+    factorial = 1
+    for i in range(1, n+1):
+        factorial *= i
+    return factorial
+
+ARTIFACT 295 | SOURCE RECORDS 295
+COMPLETE GENERATED CODE
+def special_factorial(n):
+    """The Brazilian factorial is defined as:
+    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
+    where n > 0
+
+    For example:
+    >>> special_factorial(4)
+    288
+
+    The function will receive an integer as input and should return the special
+    factorial of this integer.
+    """
+    if n < 0:
+        raise ValueError("n must be non-negative")
+    if n == 0:
+        return 1
+    elif n == 1:
+        return 1
+    else:
+        return n * special_factorial(n-1)
+
+ARTIFACT 577 | SOURCE RECORDS 577
+COMPLETE GENERATED CODE
+def special_factorial(n):
+    """The Brazilian factorial is defined as:
+    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
+    where n > 0
+
+    For example:
+    >>> special_factorial(4)
+    288
+
+    The function will receive an integer as input and should return the special
+    factorial of this integer.
+    """
+    if n == 0:
+        return 1
+    else:
+        return n * special_factorial(n-1)
+
+ARTIFACT 717 | SOURCE RECORDS 717
+COMPLETE GENERATED CODE
+def special_factorial(n):
+    """The Brazilian factorial is defined as:
+    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!
+    where n > 0
+
+    For example:
+    >>> special_factorial(4)
+    288
+
+    The function will receive an integer as input and should return the special
+    factorial of this integer.
+    """
+    if n == 0:
+        return 1
+    else:
+        return n * special_factorial(n-1)
+
+TASK 140
+TASK DESCRIPTION
+def fix_spaces(text):
+    """
+    Given a string text, replace all spaces in it with underscores, 
+    and if a string has more than 2 consecutive spaces, 
+    then replace all consecutive spaces with - 
+    
+    fix_spaces("Example") == "Example"
+    fix_spaces("Example 1") == "Example_1"
+    fix_spaces(" Example 2") == "_Example_2"
+    fix_spaces(" Example   3") == "_Example-3"
+    """
+REFERENCE IMPLEMENTATION
+def fix_spaces(text):
+    """
+    Given a string text, replace all spaces in it with underscores, 
+    and if a string has more than 2 consecutive spaces, 
+    then replace all consecutive spaces with - 
+    
+    fix_spaces("Example") == "Example"
+    fix_spaces("Example 1") == "Example_1"
+    fix_spaces(" Example 2") == "_Example_2"
+    fix_spaces(" Example   3") == "_Example-3"
+    """
+    ans = text
+    for i in range(len(text)-1, 2, -1):
+        ans = ans.replace(" " * i, "-")
+    return ans.replace(" ", "_")
+
+ARTIFACT 116 | SOURCE RECORDS 116
+COMPLETE GENERATED CODE
+def fix_spaces(text):
+    """
+    Given a string text, replace all spaces in it with underscores, 
+    and if a string has more than 2 consecutive spaces, 
+    then replace all consecutive spaces with - 
+    
+    fix_spaces("Example") == "Example"
+    fix_spaces("Example 1") == "Example_1"
+    fix_spaces(" Example 2") == "_Example_2"
+    fix_spaces(" Example   3") == "_Example-3"
+    """
+    
+    # TODO: Write your code here
+    
+    return text
+
+ARTIFACT 296 | SOURCE RECORDS 296,297
+COMPLETE GENERATED CODE
+def fix_spaces(text):
+    """
+    Given a string text, replace all spaces in it with underscores, 
+    and if a string has more than 2 consecutive spaces, 
+    then replace all consecutive spaces with - 
+    
+    fix_spaces("Example") == "Example"
+    fix_spaces("Example 1") == "Example_1"
+    fix_spaces(" Example 2") == "_Example_2"
+    fix_spaces(" Example   3") == "_Example-3"
+    """
+    return re.sub(r'\s+', '_', text)
+
+ARTIFACT 578 | SOURCE RECORDS 578,579
+COMPLETE GENERATED CODE
+def fix_spaces(text):
+    """
+    Given a string text, replace all spaces in it with underscores, 
+    and if a string has more than 2 consecutive spaces, 
+    then replace all consecutive spaces with - 
+    
+    fix_spaces("Example") == "Example"
+    fix_spaces("Example 1") == "Example_1"
+    fix_spaces(" Example 2") == "_Example_2"
+    fix_spaces(" Example   3") == "_Example-3"
+    """
+    return re.sub(r'\s+', '_', text)
+
+ARTIFACT 718 | SOURCE RECORDS 718,719
+COMPLETE GENERATED CODE
+def fix_spaces(text):
+    """
+    Given a string text, replace all spaces in it with underscores, 
+    and if a string has more than 2 consecutive spaces, 
+    then replace all consecutive spaces with - 
+    
+    fix_spaces("Example") == "Example"
+    fix_spaces("Example 1") == "Example_1"
+    fix_spaces(" Example 2") == "_Example_2"
+    fix_spaces(" Example   3") == "_Example-3"
+    """
+    return re.sub(r"\s+", "_", text)
+
+TASK 141
+TASK DESCRIPTION
+def file_name_check(file_name):
+    """Create a function which takes a string representing a file's name, and returns
+    'Yes' if the the file's name is valid, and returns 'No' otherwise.
+    A file's name is considered to be valid if and only if all the following conditions 
+    are met:
+    - There should not be more than three digits ('0'-'9') in the file's name.
+    - The file's name contains exactly one dot '.'
+    - The substring before the dot should not be empty, and it starts with a letter from 
+    the latin alphapet ('a'-'z' and 'A'-'Z').
+    - The substring after the dot should be one of these: ['txt', 'exe', 'dll']
+    Examples:
+    file_name_check("example.txt") # => 'Yes'
+    file_name_check("1example.dll") # => 'No' (the name should start with a latin alphapet letter)
+    """
+REFERENCE IMPLEMENTATION
+def file_name_check(file_name):
+    """Create a function which takes a string representing a file's name, and returns
+    'Yes' if the the file's name is valid, and returns 'No' otherwise.
+    A file's name is considered to be valid if and only if all the following conditions 
+    are met:
+    - There should not be more than three digits ('0'-'9') in the file's name.
+    - The file's name contains exactly one dot '.'
+    - The substring before the dot should not be empty, and it starts with a letter from 
+    the latin alphapet ('a'-'z' and 'A'-'Z').
+    - The substring after the dot should be one of these: ['txt', 'exe', 'dll']
+    Examples:
+    file_name_check("example.txt") # => 'Yes'
+    file_name_check("1example.dll") # => 'No' (the name should start with a latin alphapet letter)
+    """
+    if len(list(filter(lambda ch: ch.isdigit(), file_name))) > 3:
+        return "No"
+    f_list = file_name.split(".")
+    if len(f_list) != 2: return "No"
+    if len(f_list[0]) == 0: return "No"
+    if not f_list[0][0].isalpha(): return "No"
+    if f_list[1] not in ["txt", "exe", "dll"]: return "No"
+    return "Yes"
+
+ARTIFACT 117 | SOURCE RECORDS 117,118
+COMPLETE GENERATED CODE
+def file_name_check(file_name):
+    """Create a function which takes a string representing a file's name, and returns
+    'Yes' if the the file's name is valid, and returns 'No' otherwise.
+    A file's name is considered to be valid if and only if all the following conditions 
+    are met:
+    - There should not be more than three digits ('0'-'9') in the file's name.
+    - The file's name contains exactly one dot '.'
+    - The substring before the dot should not be empty, and it starts with a letter from 
+    the latin alphapet ('a'-'z' and 'A'-'Z').
+    - The substring after the dot should be one of these: ['txt', 'exe', 'dll']
+    Examples:
+    file_name_check("example.txt") # => 'Yes'
+    file_name_check("1example.dll") # => 'No' (the name should start with a latin alphapet letter)
+    """
+    if len(file_name) > 3:
+        return 'No'
+    elif file_name.count('.') > 1:
+        return 'No'
+    elif file_name.count('.') == 1:
+        if file_name.split('.')[0] == '':
+            return 'No'
+        elif file_name.split('.')[0][0].isalpha():
+            if file_name.split('.')[1] in ['txt', 'exe', 'dll']:
+                return 'Yes'
+            else:
+                return 'No'
+        else:
+            return 'No'
+    else:
+        return 'No'
+
+ARTIFACT 298 | SOURCE RECORDS 298,299
+COMPLETE GENERATED CODE
+def file_name_check(file_name):
+    """Create a function which takes a string representing a file's name, and returns
+    'Yes' if the the file's name is valid, and returns 'No' otherwise.
+    A file's name is considered to be valid if and only if all the following conditions 
+    are met:
+    - There should not be more than three digits ('0'-'9') in the file's name.
+    - The file's name contains exactly one dot '.'
+    - The substring before the dot should not be empty, and it starts with a letter from 
+    the latin alphapet ('a'-'z' and 'A'-'Z').
+    - The substring after the dot should be one of these: ['txt', 'exe', 'dll']
+    Examples:
+    file_name_check("example.txt") # => 'Yes'
+    file_name_check("1example.dll") # => 'No' (the name should start with a latin alphapet letter)
+    """
+    file_name_checker = re.compile(r'^[0-9]{3}\.[a-zA-Z]{2}$')
+    return file_name_checker.match(file_name)
+
+ARTIFACT 379 | SOURCE RECORDS 379
+COMPLETE GENERATED CODE
+def file_name_check(file_name):
+    """Create a function which takes a string representing a file's name, and returns
+    'Yes' if the the file's name is valid, and returns 'No' otherwise.
+    A file's name is considered to be valid if and only if all the following conditions 
+    are met:
+    - There should not be more than three digits ('0'-'9') in the file's name.
+    - The file's name contains exactly one dot '.'
+    - The substring before the dot should not be empty, and it starts with a letter from 
+    the latin alphapet ('a'-'z' and 'A'-'Z').
+    - The substring after the dot should be one of these: ['txt', 'exe', 'dll']
+    Examples:
+    file_name_check("example.txt") # => 'Yes'
+    file_name_check("1example.dll") # => 'No' (the name should start with a latin alphapet letter)
+    """
+    import re
+    pattern = r'^[a-zA-Z][a-zA-Z0-9]*\.[txt|exe|dll]{3}$'
+    if re.match(pattern, file_name):
+        if len(re.findall(r'\d', file_name)) <= 3:
+            return 'Yes'
+    return 'No'
+
+ARTIFACT 580 | SOURCE RECORDS 580
+COMPLETE GENERATED CODE
+def file_name_check(file_name):
+    """Create a function which takes a string representing a file's name, and returns
+    'Yes' if the the file's name is valid, and returns 'No' otherwise.
+    A file's name is considered to be valid if and only if all the following conditions 
+    are met:
+    - There should not be more than three digits ('0'-'9') in the file's name.
+    - The file's name contains exactly one dot '.'
+    - The substring before the dot should not be empty, and it starts with a letter from 
+    the latin alphapet ('a'-'z' and 'A'-'Z').
+    - The substring after the dot should be one of these: ['txt', 'exe', 'dll']
+    Examples:
+    file_name_check("example.txt") # => 'Yes'
+    file_name_check("1example.dll") # => 'No' (the name should start with a latin alphapet letter)
+    """
+    if len(file_name) > 3:
+        return "No"
+    if file_name.count(".")!= 1:
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] == file_name[-1]:
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[0] not in "abcdefghijklmnopqrstuvwxyz":
+        return "No"
+    if file_name[-1]
+
+ARTIFACT 720 | SOURCE RECORDS 720
+COMPLETE GENERATED CODE
+def file_name_check(file_name):
+    """Create a function which takes a string representing a file's name, and returns
+    'Yes' if the the file's name is valid, and returns 'No' otherwise.
+    A file's name is considered to be valid if and only if all the following conditions 
+    are met:
+    - There should not be more than three digits ('0'-'9') in the file's name.
+    - The file's name contains exactly one dot '.'
+    - The substring before the dot should not be empty, and it starts with a letter from 
+    the latin alphapet ('a'-'z' and 'A'-'Z').
+    - The substring after the dot should be one of these: ['txt', 'exe', 'dll']
+    Examples:
+    file_name_check("example.txt") # => 'Yes'
+    file_name_check("1example.dll") # => 'No' (the name should start with a latin alphapet letter)
+    """
+    if len(file_name) > 3:
+        return "No"
+    if file_name.count(".")!= 1:
+        return "No"
+    if file_name.split(".")[0] == "":
+        return "No"
+    if file_name.split(".")[0][0] not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        return "No"
+    if file_name.split(".")[1] not in ["txt", "exe", "dll"]:
+        return "No"
+    return "Yes"
+
+TASK 142
+TASK DESCRIPTION
+def sum_squares(lst):
+    """"
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
+    """
+REFERENCE IMPLEMENTATION
+def sum_squares(lst):
+    """"
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
+    """
+    ans = 0
+    for i, num in enumerate(lst):
+        if i % 3 == 0:
+            ans += num ** 2
+        elif i % 4 == 0:
+            ans += num ** 3
+        else:
+            ans += num
+    return ans
+
+ARTIFACT 119 | SOURCE RECORDS 119
+COMPLETE GENERATED CODE
+def sum_squares(lst):
+    """"
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
+    """
+    if len(lst) == 0:
+        return 0
+    else:
+        new_lst = []
+        for i in range(len(lst)):
+            if i % 3 == 0 or i % 4 == 0:
+                new_lst.append(lst[i] ** 2)
+            else:
+                new_lst.append(lst[i])
+        return sum(new_lst)
+
+ARTIFACT 300 | SOURCE RECORDS 300
+COMPLETE GENERATED CODE
+def sum_squares(lst):
+    """"
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
+    """
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+ARTIFACT 418 | SOURCE RECORDS 418
+COMPLETE GENERATED CODE
+# CANNOT PARSE
+def sum_squares(lst):
+    """
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
+    """
+    result = 0
+    for i, num in enumerate(lst):
+        if i % 3 == 0 and i % 4 != 0:
+            result += num ** 2
+        elif i % 4 == 0:
+            result += num ** 3
+        else:
+            result += num
+    return result
+
+ARTIFACT 581 | SOURCE RECORDS 581,582
+COMPLETE GENERATED CODE
+def sum_squares(lst):
+    """"
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
+    """
+    sum = 0
+    for i in lst:
+        if i % 3 == 0:
+            sum += i ** 2
+        elif i % 4 == 0:
+            sum += i ** 3
+    return sum
+
+ARTIFACT 721 | SOURCE RECORDS 721
+COMPLETE GENERATED CODE
+def sum_squares(lst):
+    """"
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
+    """
+    # Your code here
+    sum = 0
+    for i in range(len(lst)):
+        if i % 3 == 0:
+            sum += lst[i] ** 2
+        elif i % 4 == 0:
+            sum += lst[i] ** 3
+    return sum
+
+TASK 143
+TASK DESCRIPTION
+def words_in_sentence(sentence):
+    """
+    You are given a string representing a sentence,
+    the sentence contains some words separated by a space,
+    and you have to return a string that contains the words from the original sentence,
+    whose lengths are prime numbers,
+    the order of the words in the new string should be the same as the original one.
+
+    Example 1:
+        Input: sentence = "This is a test"
+        Output: "is"
+
+    Example 2:
+        Input: sentence = "lets go for swimming"
+        Output: "go for"
+
+    Constraints:
+        * 1 <= len(sentence) <= 100
+        * sentence contains only letters
+    """
+REFERENCE IMPLEMENTATION
+def words_in_sentence(sentence):
+    """
+    You are given a string representing a sentence,
+    the sentence contains some words separated by a space,
+    and you have to return a string that contains the words from the original sentence,
+    whose lengths are prime numbers,
+    the order of the words in the new string should be the same as the original one.
+
+    Example 1:
+        Input: sentence = "This is a test"
+        Output: "is"
+
+    Example 2:
+        Input: sentence = "lets go for swimming"
+        Output: "go for"
+
+    Constraints:
+        * 1 <= len(sentence) <= 100
+        * sentence contains only letters
+    """
+    def is_prime(a):
+        return not (a < 2 or any(a % x == 0 for x in range(2, int(a ** 0.5) + 1)))
+    return " ".join(list(filter(lambda word: is_prime(len(word)), sentence.split(" "))))
+
+ARTIFACT 120 | SOURCE RECORDS 120
+COMPLETE GENERATED CODE
+def words_in_sentence(sentence):
+    """
+    You are given a string representing a sentence,
+    the sentence contains some words separated by a space,
+    and you have to return a string that contains the words from the original sentence,
+    whose lengths are prime numbers,
+    the order of the words in the new string should be the same as the original one.
+
+    Example 1:
+        Input: sentence = "This is a test"
+        Output: "is"
+
+    Example 2:
+        Input: sentence = "lets go for swimming"
+        Output: "go for"
+
+    Constraints:
+        * 1 <= len(sentence) <= 100
+        * sentence contains only letters
+    """
+    words = sentence.split(' ')
+    primes = []
+    for word in words:
+        if is_prime(len(word)):
+            primes.append(word)
+    return ' '.join(primes)
+
+ARTIFACT 583 | SOURCE RECORDS 583,584
+COMPLETE GENERATED CODE
+def words_in_sentence(sentence):
+    """
+    You are given a string representing a sentence,
+    the sentence contains some words separated by a space,
+    and you have to return a string that contains the words from the original sentence,
+    whose lengths are prime numbers,
+    the order of the words in the new string should be the same as the original one.
+
+    Example 1:
+        Input: sentence = "This is a test"
+        Output: "is"
+
+    Example 2:
+        Input: sentence = "lets go for swimming"
+        Output: "go for"
+
+    Constraints:
+        * 1 <= len(sentence) <= 100
+        * sentence contains only letters
+    """
+    words = sentence.split()
+    return " ".join(sorted(words))
+
+ARTIFACT 722 | SOURCE RECORDS 722
+COMPLETE GENERATED CODE
+def words_in_sentence(sentence):
+    """
+    You are given a string representing a sentence,
+    the sentence contains some words separated by a space,
+    and you have to return a string that contains the words from the original sentence,
+    whose lengths are prime numbers,
+    the order of the words in the new string should be the same as the original one.
+
+    Example 1:
+        Input: sentence = "This is a test"
+        Output: "is"
+
+    Example 2:
+        Input: sentence = "lets go for swimming"
+        Output: "go for"
+
+    Constraints:
+        * 1 <= len(sentence) <= 100
+        * sentence contains only letters
+    """
+    return " ".join(filter(lambda x: is_prime(len(x)), sentence.split()))

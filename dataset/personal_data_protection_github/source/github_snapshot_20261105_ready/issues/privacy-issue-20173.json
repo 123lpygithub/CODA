@@ -1,0 +1,106 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20173",
+  "issue_url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/49",
+  "source_issue_url": "https://github.com/IdentityModel/oidc-client-js/issues/49",
+  "api_url": "https://api.github.com/repos/DuendeArchive/identity-model-oidc-client-js/issues/49",
+  "title": "How can I switch to using localStorage for user store?  If this is not recommended or a bad idea, why?",
+  "body": "This may be more of a webpack-related question, but then again maybe not.  \n\nI can't figure out how I can change the user store to use localStorage rather than session storage.  Currently if I open a new tab in my client application, it does not have access to my user information, and therefore begins a login redirect.\n\nI have tried passing on the settings object to the UserManager with `userStore: localStorage` but I am getting `TypeError: this._userStore.get is not a function(...)` when calling `UserManager.getUser()`.  Here are the two log entries leading up to the error:\n\n```\nUserManager.getUser\n_loadUser\n```\n",
+  "author": "Participant 1",
+  "created_at": "2016-06-03T16:57:19Z",
+  "updated_at": "2021-04-20T14:58:14Z",
+  "state": "closed",
+  "closed_at": "2016-06-03T17:11:34Z",
+  "issue_fetched_at": "2026-10-18T23:10:26.873284+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T23:10:28.290958+00:00"
+  ],
+  "expected_comment_count": 10,
+  "retrieved_comment_count": 10,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 223637185,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/49#issuecomment-223637185",
+      "created_at": "2016-06-03T17:11:34Z",
+      "updated_at": "2016-06-03T17:11:34Z",
+      "author": "Participant 1",
+      "body": "I figured it out by digging through the source code for a while.  I had to set:\n\n`userStore: new WebStorageStateStore({ store: localStorage})`\n"
+    },
+    {
+      "id": 223660863,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/49#issuecomment-223660863",
+      "created_at": "2016-06-03T18:44:54Z",
+      "updated_at": "2016-06-03T18:44:54Z",
+      "author": "Participant 2",
+      "body": "Feel free to add to the wiki/docs :)\n\nAlso, localStorage is slightly discouraged for PII reasons.\n"
+    },
+    {
+      "id": 223663049,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/49#issuecomment-223663049",
+      "created_at": "2016-06-03T18:53:28Z",
+      "updated_at": "2016-06-03T18:53:28Z",
+      "author": "Participant 1",
+      "body": "So is it more recommended then to have the user redirect to obtain a new token every time they open a new browser tab/window?  I am somewhat of an auth/oauth2/oidc newb trying to learn.\n\nI will try to spend a little time adding a couple things to the wiki/docs later.\n"
+    },
+    {
+      "id": 223679690,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/49#issuecomment-223679690",
+      "created_at": "2016-06-03T20:00:47Z",
+      "updated_at": "2016-06-03T20:00:47Z",
+      "author": "Participant 2",
+      "body": "Use the silent renew feature to get new tokens. If that fails, then you need user interaction. \n"
+    },
+    {
+      "id": 223689767,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/49#issuecomment-223689767",
+      "created_at": "2016-06-03T20:44:11Z",
+      "updated_at": "2016-06-03T20:44:11Z",
+      "author": "Participant 1",
+      "body": "So the silent renew feature would work across browser tabs?  So it's normal for say four browser tabs to be open, with each tab using a different token for auth?\n"
+    },
+    {
+      "id": 223747222,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/49#issuecomment-223747222",
+      "created_at": "2016-06-04T09:53:32Z",
+      "updated_at": "2016-06-04T09:53:32Z",
+      "author": "Participant 2",
+      "body": "Yes, because you already have a cookie with the AS.\n"
+    },
+    {
+      "id": 528244905,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/49#issuecomment-528244905",
+      "created_at": "2019-09-05T07:51:22Z",
+      "updated_at": "2019-09-05T07:51:22Z",
+      "author": "Participant 3",
+      "body": "Hey @m-andrew-albright \r\nI was happy when found this thread but unfortunately it didn't work for me. Even while userStore is set to Local Storage (i can check it while debugging) user info is still stored in Session Storage and now i can't even login because getUser() returns null all the time.\r\n\r\nDidn't you made any additional setup except this setting?\r\n\r\nP.S. I'm using oidc-client in Angular app and use response_type: code"
+    },
+    {
+      "id": 528252131,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/49#issuecomment-528252131",
+      "created_at": "2019-09-05T08:11:33Z",
+      "updated_at": "2019-09-05T08:12:19Z",
+      "author": "Participant 3",
+      "body": "UPD:\r\nSolved my problem - I used two different instances of `UserManager` for `signinRedirect()` and `signInCallbackRedirect()` which had different configuration. Thus while one instance was putting userInfo into Local Stroage another one was searching for in Session Storage.\r\n\r\nUsing the same instance for both procedures fixed the bug - now opening the same website in a new tab while being authorized in the first one doesn't require to sign in again!"
+    },
+    {
+      "id": 823342004,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/49#issuecomment-823342004",
+      "created_at": "2021-04-20T14:55:43Z",
+      "updated_at": "2021-04-20T14:55:43Z",
+      "author": "Participant 4",
+      "body": "'WebStorageStateStore' is not defined "
+    },
+    {
+      "id": 823344095,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/49#issuecomment-823344095",
+      "created_at": "2021-04-20T14:58:14Z",
+      "updated_at": "2021-04-20T14:58:14Z",
+      "author": "Participant 4",
+      "body": "> 'WebStorageStateStore' is not defined\r\n\r\nhttps://github.com/IdentityModel/oidc-client-js/issues/1176 \r\n\r\nFound"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

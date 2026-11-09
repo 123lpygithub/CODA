@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0477-aafibaccg",
+  "revision_url": "https://github.com/ComputationalCryoEM/ASPIRE-Python/commit/b804e8c9af5e9ee2e3f3f109645a68074c765a50",
+  "filename": "src/aspyre/source/starfile.py",
+  "commit": "b804e8c9af5e9ee2e3f3f109645a68074c765a50",
+  "source_url": "https://raw.githubusercontent.com/ComputationalCryoEM/ASPIRE-Python/b804e8c9af5e9ee2e3f3f109645a68074c765a50/src/aspyre/source/starfile.py",
+  "fetched_at": "2026-11-05T06:13:00.321952+00:00",
+  "source_sha256": "81ca1040e0fb2446fb0ecc75d4573c5a8a68aa7856a88482b749dd19a294e5ec",
+  "line_start": 36,
+  "line_end": 60,
+  "excerpt": "                    columns[name] = column_mappings.get(name, str)\n                    skiprows += 1\n                elif len(columns) > 0:\n                    break\n                else:\n                    skiprows += 1\n\n        if 'rlnImageName' not in columns:\n            raise RuntimeError('Valid starfiles at least need a _rlnImageName column specified')\n\n        df = pd.read_csv(filepath, delim_whitespace=True, skiprows=skiprows, names=columns, dtype=columns)\n\n        # TODO: Check behavior if this is a single mrc file (no '@')\n        _index, df['_mrc_filename'] = df['rlnImageName'].str.split('@', 1).str\n        df['_mrc_index'] = pd.to_numeric(_index)\n\n        # Adding a full-filepath field to the Dataframe helps us save time later\n        # Note that os.path.join works as expected when the second argument is an absolute path itself\n        df['_mrc_filepath'] = df['_mrc_filename'].apply(lambda filename: os.path.join(dirpath, filename))\n        df['_mrc_found'] = df['_mrc_filepath'].apply(lambda filepath: os.path.exists(filepath))\n\n        msg = f'Read starfile with {len(df)} records'\n        n_missing = sum(df['_mrc_found'] == False)  # nopep8\n        if n_missing > 0:\n            msg += f' ({n_missing} files missing)'"
+}

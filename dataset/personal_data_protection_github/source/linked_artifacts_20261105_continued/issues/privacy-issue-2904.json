@@ -1,0 +1,38 @@
+{
+  "artifact_id": "privacy-issue-2904",
+  "source_issue_url": "https://github.com/traccar/traccar/issues/4066",
+  "issue_snapshot_sha256": "4538d4a0dc2b03e9896794f49633e6cc162391c5ce20e86a6293f24ad40611fd",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/traccar/traccar-client-android/commit/cbfe90757d6ff3c670485dacc76a2165125f9a06#diff-c8cc2dd42271f2bf39c6aa81eb6a5529",
+      "kind": "commit",
+      "cited_in": [
+        "comment_424510728"
+      ],
+      "text": "From cbfe90757d6ff3c670485dacc76a2165125f9a06 Mon Sep 17 00:00:00 2001\nFrom: Anton Tananaev <anton.tananaev@gmail.com>\nDate: Sat, 22 Sep 2018 08:51:41 +1200\nSubject: [PATCH] Disable advertising id collection\n\n---\n app/build.gradle                 | 4 ++--\n app/src/main/AndroidManifest.xml | 4 ++++\n 2 files changed, 6 insertions(+), 2 deletions(-)\n\ndiff --git a/app/build.gradle b/app/build.gradle\nindex 4dd969347..3035207a2 100644\n--- a/app/build.gradle\n+++ b/app/build.gradle\n@@ -9,8 +9,8 @@ android {\n         buildConfigField \"boolean\", \"HIDDEN_APP\", \"false\"\n         minSdkVersion 15\n         targetSdkVersion 28\n-        versionCode 50\n-        versionName '5.13'\n+        versionCode 51\n+        versionName '5.14'\n     }\n \n     lintOptions {\ndiff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml\nindex aeafa9ebf..2769c10e9 100644\n--- a/app/src/main/AndroidManifest.xml\n+++ b/app/src/main/AndroidManifest.xml\n@@ -20,6 +20,10 @@\n         android:theme=\"@style/AppTheme\"\n         android:name=\".MainApplication\">\n \n+        <meta-data\n+            android:name=\"google_analytics_adid_collection_enabled\"\n+            android:value=\"false\" />\n+\n         <activity\n             android:name=\".MainActivity\"\n             android:launchMode=\"singleTask\" />\n",
+      "source_sha256": "c7775c2eb75ca2ad012c0b56c7866bf9c47054486008414046fd3393f40ca117",
+      "fetched_at": "2026-11-05T06:15:35.133797+00:00",
+      "retrieval_url": "https://github.com/traccar/traccar-client-android/commit/cbfe90757d6ff3c670485dacc76a2165125f9a06.patch",
+      "status": "available",
+      "revision": "cbfe90757d6ff3c670485dacc76a2165125f9a06",
+      "immutable_revision": true,
+      "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+    },
+    {
+      "url": "https://github.com/traccar/traccar/commit/db427d338bbd284203badb36b25504c7f152b5ea",
+      "kind": "commit",
+      "cited_in": [
+        "comment_424858028"
+      ],
+      "text": "From db427d338bbd284203badb36b25504c7f152b5ea Mon Sep 17 00:00:00 2001\nFrom: Olivier Girondel <olivier@biniou.info>\nDate: Wed, 26 Sep 2018 00:34:51 +0200\nSubject: [PATCH] Decode negative latitudes and longitudes (fix #4064)\n\n---\n src/org/traccar/protocol/GpsmtaProtocolDecoder.java      | 6 +++---\n test/org/traccar/protocol/GpsmtaProtocolDecoderTest.java | 2 +-\n 2 files changed, 4 insertions(+), 4 deletions(-)\n\ndiff --git a/src/org/traccar/protocol/GpsmtaProtocolDecoder.java b/src/org/traccar/protocol/GpsmtaProtocolDecoder.java\nindex 1d80178cbe..a8f74b8764 100644\n--- a/src/org/traccar/protocol/GpsmtaProtocolDecoder.java\n+++ b/src/org/traccar/protocol/GpsmtaProtocolDecoder.java\n@@ -36,8 +36,8 @@ public GpsmtaProtocolDecoder(GpsmtaProtocol protocol) {\n     private static final Pattern PATTERN = new PatternBuilder()\n             .expression(\"([^ ]+) \")              // uid\n             .number(\"(d+) \")                     // time (unix time)\n-            .number(\"(d+.d+) \")                  // latitude\n-            .number(\"(d+.d+) \")                  // longitude\n+            .number(\"-?(d+.d+) \")                // latitude\n+            .number(\"-?(d+.d+) \")                // longitude\n             .number(\"(d+) \")                     // speed\n             .number(\"(d+) \")                     // course\n             .number(\"(d+) \")                     // accuracy\n@@ -45,7 +45,7 @@ public GpsmtaProtocolDecoder(GpsmtaProtocol protocol) {\n             .number(\"(d+) \")                     // flags\n             .number(\"(d+) \")                     // battery\n             .number(\"(d+) \")                     // temperature\n-            .number(\"(d)\")                       // changing status\n+            .number(\"(d)\")                       // charging status\n             .any()\n             .compile();\n \ndiff --git a/test/org/traccar/protocol/GpsmtaProtocolDecoderTest.java b/test/org/traccar/protocol/GpsmtaProtocolDecoderTest.java\nindex 3160037572..27922bdbcd 100644\n--- a/test/org/traccar/protocol/GpsmtaProtocolDecoderTest.java\n+++ b/test/org/traccar/protocol/GpsmtaProtocolDecoderTest.java\n@@ -17,7 +17,7 @@ public void testDecode() throws Exception {\n                 \"864528021249771 1446116686 49.85073 24.004438 0 217 6 338 00 59 27 0 0\"));\n \n         verifyPosition(decoder, text(\n-                \"359144048138856 1442932957 49.85064 24.003979 1 0 40 0 10 110 26 0 0\"));\n+                \"359144048138856 1442932957 -49.85064 -24.003979 1 0 40 0 10 110 26 0 0\"));\n \n     }\n \n",
+      "source_sha256": "528871441c8ffb892c4ed26234b35e204141077ccbe3f19872336a84024d435d",
+      "fetched_at": "2026-11-05T06:15:36.563693+00:00",
+      "retrieval_url": "https://github.com/traccar/traccar/commit/db427d338bbd284203badb36b25504c7f152b5ea.patch",
+      "status": "available",
+      "revision": "db427d338bbd284203badb36b25504c7f152b5ea",
+      "immutable_revision": true,
+      "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+    }
+  ]
+}

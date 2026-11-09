@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8932",
+  "issue_url": "https://github.com/bbc/simorgh/issues/3478",
+  "source_issue_url": "https://github.com/bbc/simorgh/issues/3478",
+  "api_url": "https://api.github.com/repos/bbc/simorgh/issues/3478",
+  "title": "Use new cookie banner for EU/EEA (non UK) users",
+  "body": "**Is your feature request related to a problem? Please describe.**\r\nGNL are making changes to how the cookie banner works in the EU/EEA (but not the UK).\r\n\r\n**Describe the solution you'd like**\r\nIf the user is in the UK, then everything continues as at present.\r\nIf the user is elsewhere in the EU/EEA and their ckns_policy cookie is not set to `2`, then we display the new cookie banner (https://github.com/bbc/psammead/issues/1957), which:\r\n* is an overlay for the whole page\r\n* contains new wording\r\n* sets the ckns_explicit cookie to `2` and the ckns_policy cookie to `111` when the user clicks/taps the 'accept' button\r\n\r\n**Describe alternatives you've considered**\r\nN/A\r\n\r\n**Testing notes**\r\n[Tester to complete]\r\n\r\nDev insight: Will Cypress tests be required or are unit tests sufficient? Will there be any potential regression? etc\r\n\r\n- [ ] This feature is expected to need manual testing.\r\n\r\n**Additional context**\r\nAdd any other context or screenshots about the feature request here.\r\n",
+  "author": "Participant 1",
+  "created_at": "2019-09-02T09:17:59Z",
+  "updated_at": "2020-09-10T15:28:18Z",
+  "state": "closed",
+  "closed_at": "2020-09-10T15:28:18Z",
+  "issue_fetched_at": "2026-10-18T16:10:53.474450+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T16:10:54.843213+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 527077221,
+      "url": "https://github.com/bbc/simorgh/issues/3478#issuecomment-527077221",
+      "created_at": "2019-09-02T09:32:46Z",
+      "updated_at": "2019-09-02T09:32:46Z",
+      "author": "Participant 2",
+      "body": "What happens if a user is in neither the UK nor the EU/EEA?"
+    },
+    {
+      "id": 527077588,
+      "url": "https://github.com/bbc/simorgh/issues/3478#issuecomment-527077588",
+      "created_at": "2019-09-02T09:33:48Z",
+      "updated_at": "2019-09-02T09:48:02Z",
+      "author": "Participant 3",
+      "body": ">What happens if a user is in neither the UK nor the EU/EEA?\r\n\r\nThey don't get a cookie banner at all (this isn't what Simorgh does, it's what the new logic above would be if using our ORBIT system). In simorgh we show the cookie banner to all canonical users and only EU/EEA on AMP (because it was an articles shortcut to live)."
+    },
+    {
+      "id": 527082779,
+      "url": "https://github.com/bbc/simorgh/issues/3478#issuecomment-527082779",
+      "created_at": "2019-09-02T09:48:41Z",
+      "updated_at": "2019-09-02T09:48:41Z",
+      "author": "Participant 4",
+      "body": "Blocked on https://github.com/bbc/simorgh/issues/3494"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

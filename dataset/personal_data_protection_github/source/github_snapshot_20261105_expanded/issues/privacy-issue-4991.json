@@ -1,0 +1,61 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4991",
+  "issue_url": "https://github.com/compiler-explorer/compiler-explorer/issues/972",
+  "source_issue_url": "https://github.com/compiler-explorer/compiler-explorer/issues/972",
+  "api_url": "https://api.github.com/repos/compiler-explorer/compiler-explorer/issues/972",
+  "title": "Cookie law",
+  "body": "Need to ask before using local storage and or cookies\r\n Needs more research to see quite what is needed by EU law.\r\n\r\n- [x] Change prod loggin format\r\n- [x] Ensure we don't store access logs for too long\r\n- [x] Turn on Google Analytics IP anonymization\r\n- [x] Remove FullStory\r\n- [x] Use simpler, compilant, twitter buttons ([Shariff](https://github.com/heiseonline/shariff)?)\r\n- [x] Write cookie/privacy policy statements \r\n- [x] How do we store the consent?\r\n- [ ] How do we log that we have been granted consent?\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-06-26T10:10:35Z",
+  "updated_at": "2018-07-15T17:03:30Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:51.409941+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:51.409941+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 400293640,
+      "url": "https://github.com/compiler-explorer/compiler-explorer/issues/972#issuecomment-400293640",
+      "created_at": "2018-06-26T12:42:33Z",
+      "updated_at": "2018-06-26T12:46:24Z",
+      "author": "Participant 2",
+      "body": "http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm#section_2 mentions \r\n\"Cookies clearly exempt from consent according to the EU advisory body on data protection- WP29 include\" ... two items concerning our usecase\r\n> user‑interface customisation cookies such as language or font preferences, for the duration of a session (or slightly longer)\r\n> third‑party social plug‑in content‑sharing cookies, for logged‑in members of a social network.\r\n\r\nThe first one specifies \"_for the duration of a session or slightly longer_\" which is not what we do, so we probably still need to ask for consent there.\r\nThe second one probably saves us from the need to disable the share via Twitter button in case the user does not consent, but I'm not a lawyer, so better be safe than sorry?"
+    },
+    {
+      "id": 400559784,
+      "url": "https://github.com/compiler-explorer/compiler-explorer/issues/972#issuecomment-400559784",
+      "created_at": "2018-06-27T06:39:02Z",
+      "updated_at": "2018-06-27T06:57:16Z",
+      "author": "Participant 3",
+      "body": "> The second one probably saves us from the need to disable the share via Twitter button in case the user does not consent, but I'm not a lawyer, so better be safe than sorry?\r\n\r\nSocial media buttons were seen critical in Germany even before the EU GDPR existed. \r\n\r\nI would have a look at e.g. \"Shariff - Give Social Media Buttons Some Privacy\"\r\n - Project on GitHub: https://github.com/heiseonline/shariff\r\n - Background information (German article): https://www.heise.de/ct/artikel/Shariff-Social-Media-Buttons-mit-Datenschutz-2467514.html\r\n\r\nThe twitter button loads a bunch of javascript files that aren't really necessary. A button that links to twitter should be enough. Referrer and content of the tweet are encoded into the URL. Example\r\n\r\n`https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fgodbolt.org%2F&ref_src=twsrc%5Etfw&text=Compiler%20Explorer&tw_p=tweetbutton&url=https%3A%2F%2Fgodbolt.org%2F%23&via=mattgodbolt`\r\n\r\nwith an image:\r\n\r\n[![screenshot_20180627_083246](https://user-images.githubusercontent.com/1667306/41956665-b4270946-79e4-11e8-826c-d9476df1e519.png)](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fgodbolt.org%2F&ref_src=twsrc%5Etfw&text=Compiler%20Explorer&tw_p=tweetbutton&url=https%3A%2F%2Fgodbolt.org%2F%23&via=mattgodbolt)\r\n\r\nWe shouldn't send user data to third party sites (which includes embedding a tweet button) unless it's essential to the project (e.g. Google URL shortener) and that's what the GDPR wants us to do.\r\n\r\nLet me know if I missed something. :)\r\n\r\n--------------\r\n*Update*\r\n\r\nAlso, are logfiles stored anywhere? They contain the user's full IP address and timestamp so they should be deleted when they aren't necessary anymore (e.g. after 3 days).\r\n\r\nSee: https://www.theregister.co.uk/2018/04/24/ietf_gdpr_compliance_advice/\r\n\r\n**tl;dr**\r\n\r\n -  Full IP addresses should only be stored for as long as needed to provide a service;\r\n -  Logs should otherwise only include the first two octets of IPv4 addresses, or first three octets of IPv6 addresses;\r\n -  Inbound IP address logs shouldn't last longer than three days;\r\n -  Unnecessary identifiers should not be logged – these include source port number, timestamps, transport protocol numbers, and destination port numbers; and\r\n -  Logs should be protected against unauthorised access.\r\n"
+    },
+    {
+      "id": 400743224,
+      "url": "https://github.com/compiler-explorer/compiler-explorer/issues/972#issuecomment-400743224",
+      "created_at": "2018-06-27T16:31:16Z",
+      "updated_at": "2018-06-27T17:08:44Z",
+      "author": "Participant 2",
+      "body": "Thanks for the lengthy explanation @bugwelle \r\nI'll take a look at shariff, it seems to be super useful, thanks for the tip :)\r\n\r\nLogfiles are currently handled by Papertrail, so _at least_ that last point is ok.\r\nNow, the rest of them... Well, not much, but it should not be hard to fix.\r\n\r\n> Unnecessary identifiers should not be logged – these include source port number, timestamps, transport protocol numbers, and destination port numbers; and\r\n\r\nDoes the timestamp bit refer to when the request was made? That's a bit of a letdown, but we have to comply so..\r\n\r\n\r\nAgain, thanks for the information given, it's extremely useful."
+    },
+    {
+      "id": 400758890,
+      "url": "https://github.com/compiler-explorer/compiler-explorer/issues/972#issuecomment-400758890",
+      "created_at": "2018-06-27T17:06:59Z",
+      "updated_at": "2018-06-27T17:07:29Z",
+      "author": "Participant 3",
+      "body": "I'm unsure about the timestamp part. If the IP address is anonymized it should already be enough (I simply copied the list from theregister.co). At least that's what I do for my private websites.\r\n\r\n----------------\r\n\r\nPlugins like [uMatrix](https://addons.mozilla.org/en-US/firefox/addon/umatrix/) block a lot of scripts. If I open uMatrix on godbolt.org, it gives me following table:\r\n\r\n![screenshot_20180627_184258](https://user-images.githubusercontent.com/1667306/41987655-0e9add26-7a3a-11e8-89bf-e14e2215cb53.png)\r\n\r\nI'd say you're good to go if fullstory and twitter are removed.\r\nGoogle Analytics can be used in a GDPR compliant way. A quick search lists for example https://www.cookiebot.com/en/google-analytics-gdpr/ (see checklist in that article)\r\nYou should also add a paragraph about Google Analytics to your privacy policy (just a simple page that explains how you store data). *Note:* I haven't worked with Google Analytics myself (I use [Matomo](https://matomo.org/)).\r\n\r\nIf Papertrail processes IP addresses you should also mention it. :) \r\n\r\n----------------\r\n\r\nThe \"Tweet\" button really just redirects to twitter. Replacing it with an image or just a link will have the same result but won't load any scripts. \"Shariff\" might be overkill for godbolt.org.\r\n\r\n\r\nRegards,\r\nAndre"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/compiler-explorer/compiler-explorer/issues/972",
+  "closed_at_available": false
+}

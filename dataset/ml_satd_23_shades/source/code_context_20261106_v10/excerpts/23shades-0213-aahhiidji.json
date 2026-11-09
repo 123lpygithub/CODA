@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0213-aahhiidji",
+  "revision_url": "https://github.com/antoinecarme/pyaf/commit/bfb0f5952529f827b9071c9b3c2cbef31fed73c9",
+  "filename": "pyaf/TS/SignalDecomposition_Cycle.py",
+  "commit": "bfb0f5952529f827b9071c9b3c2cbef31fed73c9",
+  "source_url": "https://raw.githubusercontent.com/antoinecarme/pyaf/bfb0f5952529f827b9071c9b3c2cbef31fed73c9/pyaf/TS/SignalDecomposition_Cycle.py",
+  "fetched_at": "2026-11-05T06:12:16.465347+00:00",
+  "source_sha256": "51f2024e276707aa8a872421b5c85d3e157f829ccf3a9ebd4617f326c66be798",
+  "line_start": 95,
+  "line_end": 119,
+  "excerpt": "        self.mFormula = \"Seasonal_\" + self.mDatePart.name;\n        self.mComplexity = 1;\n        \n        \n    def getCycleName(self):\n        return self.mTrend_residue_name + \"_Seasonal_\" + self.mDatePart.name;\n\n    def hasEnoughData(self, iTimeMin, iTimeMax):\n        lTimeDelta = iTimeMax - iTimeMin;\n        lDays = lTimeDelta / np.timedelta64(1,'D');\n        lSeconds = lTimeDelta / np.timedelta64(1,'s');\n        # these are just guessses of how much dataa is needed to get valid signal stats/means of each seasonal unit.\n        # TODO : add these in the options. (None, None) => no limit\n        lThresholds = {\n            dtfunc.eDatePart.Hour : (1 * 10 , None), # 10 days\n            dtfunc.eDatePart.Minute : (None , 3600 * 10), # 10 hours\n            dtfunc.eDatePart.Second : (None , 360 * 10), # 10 minutes\n            dtfunc.eDatePart.DayOfMonth : (30 * 10 , None), # 10 months\n            dtfunc.eDatePart.DayOfWeek : (7 * 10 , None), # 10 weeks\n            dtfunc.eDatePart.MonthOfYear : (360 * 10 , None), # 10 years\n            dtfunc.eDatePart.WeekOfYear : (360 * 10 , None), # 10 years\n            dtfunc.eDatePart.WeekOfYear : (7 * 10 , None), # 10 weeks\n            dtfunc.eDatePart.DayOfYear : (360 * 10 , None), # 10 years\n            dtfunc.eDatePart.HourOfWeek : (7 * 10 , None), # 10 weeks\n            dtfunc.eDatePart.TwoHourOfWeek : (7 * 10 , None), # 10 weeks",
+  "match_policy": "unique-release-normalized-v2"
+}

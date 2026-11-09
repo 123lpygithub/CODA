@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0063-aaaedhbbd",
+  "revision_url": "https://github.com/iandanforth/pymuscle/commit/b9165a37c86c82d16cc6ff58e39e01474531f231",
+  "filename": "pymuscle/muscle.py",
+  "commit": "b9165a37c86c82d16cc6ff58e39e01474531f231",
+  "source_url": "https://raw.githubusercontent.com/iandanforth/pymuscle/b9165a37c86c82d16cc6ff58e39e01474531f231/pymuscle/muscle.py",
+  "fetched_at": "2026-11-05T06:11:48.409837+00:00",
+  "source_sha256": "3a67aa1daa1e0502431878904023d9047126aaa40ba55bda263aa37e28de86dc",
+  "line_start": 76,
+  "line_end": 100,
+  "excerpt": "        :param step_size:\n            How far to advance the simulation in time for this step.\n        \"\"\"\n\n        # Expand a single input to the muscle to a full array\n        if isinstance(motor_pool_input, float) or \\\n           isinstance(motor_pool_input, int):\n            motor_pool_input = np.full(\n                self._pool.motor_unit_count,\n                motor_pool_input\n            )\n\n        # Ensure we're really passing an ndarray to _pool.step()\n        input_as_array = np.array(motor_pool_input)\n\n        motor_pool_output = self._pool.step(input_as_array, step_size)\n        return self._fibers.step(motor_pool_output, step_size)\n\n\nclass PotvinFuglevandMuscle(Muscle):\n    \"\"\"\n    A thin wrapper around :class:`Muscle <Muscle>` which pre-selects the\n    Potvin fiber and motor neuron models.\n    \"\"\"\n"
+}

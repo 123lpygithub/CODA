@@ -1,0 +1,37 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18067",
+  "issue_url": "https://github.com/invoke-ai/InvokeAI/issues/1450",
+  "source_issue_url": "https://github.com/invoke-ai/InvokeAI/issues/1450",
+  "api_url": "https://api.github.com/repos/invoke-ai/InvokeAI/issues/1450",
+  "title": "[bug]: Metadata privacy issues with GUI",
+  "body": "### Is there an existing issue for this?\r\n\r\n- [X] I have searched the existing issues\r\n\r\n### OS\r\n\r\nLinux\r\n\r\n### GPU\r\n\r\ncuda\r\n\r\n### VRAM\r\n\r\n12GB\r\n\r\n### What happened?\r\n\r\nInvokeAI's GUI writes metadata into images it creates that include all models available via `Sd-metadata`, potentially exposing model names, descriptions, and hashes that aren't public or that the image creator wishes to keep private. I see this as a privacy risk as well as potentially a security risk.\r\n\r\nThis information is not shared via `Sd-metadata` that the CLI writes.\r\n\r\nI would imagine that the useful piece of the model information written is the actual model used for generating the image, and in that case perhaps all that's needed is the hash so it can be looked up later.\r\n\r\n### Screenshots\r\n\r\n_No response_\r\n\r\n### Additional context\r\n\r\n_No response_\r\n\r\n### Contact Details\r\n\r\n_No response_",
+  "author": "Participant 1",
+  "created_at": "2022-11-11T16:12:14Z",
+  "updated_at": "2022-11-30T21:12:26Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:18:57.905265+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:18:57.905265+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1324411988,
+      "url": "https://github.com/invoke-ai/InvokeAI/issues/1450#issuecomment-1324411988",
+      "created_at": "2022-11-23T00:44:10Z",
+      "updated_at": "2022-11-23T00:44:10Z",
+      "author": "Participant 2",
+      "body": "I fixed the models, but seem to have introduced storing the whole, absolute filepath to images in the metadata now. This is clearly no good. I will need to revise this. Maybe also provide a no-metadata toggle in the UI for the v2.2 release."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/invoke-ai/InvokeAI/issues/1450",
+  "closed_at_available": false
+}

@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/prebid/Prebid.js/blob/3513d38c120072380c0f4a2376b95f50bb957224/modules/pubmaticBidAdapter.js#L596",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "revision": "3513d38c120072380c0f4a2376b95f50bb957224",
+  "immutable_revision": true,
+  "line_start": 584,
+  "line_end": 608,
+  "text": "      bannerObj.format = format;\n    }\n    impObj.banner = bannerObj;\n  }\n\n  return impObj.hasOwnProperty(BANNER) ||\n          impObj.hasOwnProperty(NATIVE) ||\n            impObj.hasOwnProperty(VIDEO) ? impObj : UNDEFINED;\n}\n\nfunction _getDigiTrustObject(key) {\n  function getDigiTrustId() {\n    let digiTrustUser = window.DigiTrust && (config.getConfig('digiTrustId') || window.DigiTrust.getUser({member: key}));\n    return (digiTrustUser && digiTrustUser.success && digiTrustUser.identity) || null;\n  }\n  let digiTrustId = getDigiTrustId();\n  // Verify there is an ID and this user has not opted out\n  if (!digiTrustId || (digiTrustId.privacy && digiTrustId.privacy.optout)) {\n    return null;\n  }\n  return digiTrustId;\n}\n\nfunction _handleDigitrustId(eids) {\n  let digiTrustId = _getDigiTrustObject(PUBMATIC_DIGITRUST_KEY);",
+  "source_sha256": "3e6725594643379836043283f98da416d25cc7c4207a4d299360601853dba87a",
+  "fetched_at": "2026-11-05T06:21:32.038642+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/prebid/Prebid.js/3513d38c120072380c0f4a2376b95f50bb957224/modules/pubmaticBidAdapter.js",
+  "status": "available"
+}

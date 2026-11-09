@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3976",
+  "issue_url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/178",
+  "source_issue_url": "https://github.com/IdentityModel/oidc-client-js/issues/178",
+  "api_url": "https://api.github.com/repos/DuendeArchive/identity-model-oidc-client-js/issues/178",
+  "title": "Isomorphic React and Local/Session Storage",
+  "body": "I'm trying to get this client to work for me but the fact that the UserManager expects a standard and fully-baked window object (with XMLHttpRequest), localStorage and sessionStorage (with getItem/removeItem makes it tough to develop Isomorphic react applications.\r\n\r\nIt would be great if the client did not assume/require a browser environment and could take a generic object as its store.",
+  "author": "Participant 1",
+  "created_at": "2016-11-01T18:26:01Z",
+  "updated_at": "2017-06-26T14:11:19Z",
+  "state": "closed",
+  "closed_at": "2016-12-01T03:18:53Z",
+  "issue_fetched_at": "2026-10-18T13:11:15.776744+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T13:11:17.129737+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 257850963,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/178#issuecomment-257850963",
+      "created_at": "2016-11-02T12:30:18Z",
+      "updated_at": "2016-11-02T12:30:18Z",
+      "author": "Participant 2",
+      "body": "Well, the description for this repo says \"OpenID Connect (OIDC) and OAuth2 protocol support for browser-based JavaScript applications\" :)\n\nBut sure, if I knew what that was more, then I'd love to hear what support is needed. Is isomorphic a native framework for running JS & react?\n"
+    },
+    {
+      "id": 260052368,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/178#issuecomment-260052368",
+      "created_at": "2016-11-11T20:50:15Z",
+      "updated_at": "2016-11-11T20:53:33Z",
+      "author": "Participant 1",
+      "body": "Isomorphic React isn't a framework. It just means writing your code so it runs both on the client and the server. The server obviously doesn't have things like localStorage/sessionStorage/cookies, at least not out of the box (there are many polyfills for Node to fill in some of this functionality, but they vary widely in quality and how recenlty they've been updated). So writing your library in such a way that it assumes those things exist means your library just can't be easily used isomorphically.\n"
+    },
+    {
+      "id": 260052719,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/178#issuecomment-260052719",
+      "created_at": "2016-11-11T20:51:53Z",
+      "updated_at": "2016-11-11T20:52:14Z",
+      "author": "Participant 1",
+      "body": "The reason this is desirable is because it means that a React application can benefit from all the speed of a cached application on initial pageload, but subsequent interactions/routes/etc can be handled within the browser. In addition to performance benefits, it also has SEO benefits.\n"
+    },
+    {
+      "id": 260053358,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/178#issuecomment-260053358",
+      "created_at": "2016-11-11T20:55:09Z",
+      "updated_at": "2016-11-11T20:55:09Z",
+      "author": "Participant 1",
+      "body": "React Starter Kit is just one of a number of boilerplate React projects that are isomorphic out of the box. https://github.com/kriasoft/react-starter-kit\n"
+    },
+    {
+      "id": 260053795,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/178#issuecomment-260053795",
+      "created_at": "2016-11-11T20:57:08Z",
+      "updated_at": "2016-11-11T20:57:08Z",
+      "author": "Participant 1",
+      "body": "At any rate, it seems that you would want to give the user the option to use no browser-based storage of any kind, even if they aren't writing isomorphic applications. Concerns of personally identifiable information being what they, it seems you would want to give the user the option of passing in a simple in-memory object as a store.\n"
+    },
+    {
+      "id": 260191380,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/178#issuecomment-260191380",
+      "created_at": "2016-11-13T15:02:54Z",
+      "updated_at": "2016-11-13T15:02:54Z",
+      "author": "Participant 2",
+      "body": "Sure, for storage that's extensible. Just implement the `WebStorageStateStore` API and set the `userStore` on the `UserManagerSettings`.\n"
+    },
+    {
+      "id": 311070715,
+      "url": "https://github.com/DuendeArchive/identity-model-oidc-client-js/issues/178#issuecomment-311070715",
+      "created_at": "2017-06-26T14:11:19Z",
+      "updated_at": "2017-06-26T14:11:19Z",
+      "author": "Participant 3",
+      "body": "@nathanpiazza hello, sorry for inconvience, did you get this client work with ur react isomorphic app?"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

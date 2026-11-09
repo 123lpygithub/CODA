@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0105-aafahfcgh",
+  "revision_url": "https://github.com/edublancas/sklearn-evaluation/commit/cc0bb6cb98e1b43947fa16bfb30251e277935f16",
+  "filename": "sklearn_evaluation/report.py",
+  "commit": "cc0bb6cb98e1b43947fa16bfb30251e277935f16",
+  "source_url": "https://raw.githubusercontent.com/edublancas/sklearn-evaluation/cc0bb6cb98e1b43947fa16bfb30251e277935f16/sklearn_evaluation/report.py",
+  "fetched_at": "2026-11-05T06:11:54.798900+00:00",
+  "source_sha256": "e5914620fc366e15eacb06653e50cf45babe4a08f3fdd54eb536ef6719f16edf",
+  "line_start": 24,
+  "line_end": 48,
+  "excerpt": "        attr = getattr(self.evaluator, key)\n\n        if callable(attr):\n            attr = attr()\n\n        # serialize\n        return attr\n\n\nclass ClassifierReport:\n\n    def __init__(self, evaluator, template=None, style=None, env=None):\n        # FIXME: support for many evaluators, maybe event support\n        # dict like parameter\n        self.evaluator = evaluator\n\n        # here doing train returns the EvaluatorSerializer, not the\n        # Classifierevaluator\n        template = \"\"\"\n\n        # Report on the training set\n        {{train.confusion_matrix()}}\n\n        # Report on the tesing set\n        {{test.confusion_matrix()}}",
+  "match_policy": "unique-release-normalized-v2"
+}

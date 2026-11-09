@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0585-aadggbdcb",
+  "revision_url": "https://github.com/sorgerlab/indra/commit/aa10515ef0d385ee16aea08f3538afaeabf94ab3",
+  "filename": "indra/tools/reading/util/log_analysis_tools.py",
+  "commit": "aa10515ef0d385ee16aea08f3538afaeabf94ab3",
+  "source_url": "https://raw.githubusercontent.com/sorgerlab/indra/aa10515ef0d385ee16aea08f3538afaeabf94ab3/indra/tools/reading/util/log_analysis_tools.py",
+  "fetched_at": "2026-11-05T06:13:16.980548+00:00",
+  "source_sha256": "c6c06935e7443047363976dc9f195f4492a0023754e5cd6c2c219641213da0a3",
+  "line_start": 1,
+  "line_end": 22,
+  "excerpt": "import re\nimport boto3\nfrom os.path import join\n\n\ndef analyze_reach_log(log_fname=None, log_str=None):\n    \"\"\"Return unifinished PMIDs given a log file name.\"\"\"\n    assert bool(log_fname) ^ bool(log_str), 'Must specify log_fname OR log_str'\n    started_patt = re.compile('Starting ([\\d]+)')\n    # TODO: it might be interesting to get the time it took to read\n    # each paper here\n    finished_patt = re.compile('Finished ([\\d]+)')\n\n    def get_content_nums(txt):\n        pat = 'Retrieved content for ([\\d]+) / ([\\d]+) papers to be read'\n        res = re.match(pat, txt)\n        has_content, total = res.groups() if res else None, None\n        return has_content, total\n\n    if log_fname:\n        with open(log_fname, 'r') as fh:\n            log_str = fh.read()"
+}

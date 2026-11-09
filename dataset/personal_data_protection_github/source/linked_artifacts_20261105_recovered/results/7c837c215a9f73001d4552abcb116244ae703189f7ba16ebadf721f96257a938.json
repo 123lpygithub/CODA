@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/cloudfoundry/uaa/blob/ddea1e4e490348f5737a85e8b804276fd1b2632f/uaa/src/main/webapp/WEB-INF/spring/scim-endpoints.xml#L28",
+  "kind": "file",
+  "cited_in": [
+    "comment_364561241"
+  ],
+  "revision": "ddea1e4e490348f5737a85e8b804276fd1b2632f",
+  "immutable_revision": true,
+  "line_start": 16,
+  "line_end": 40,
+  "text": "    xmlns:oauth=\"http://www.springframework.org/schema/security/oauth2\" xmlns:aop=\"http://www.springframework.org/schema/aop\"\n    xmlns:util=\"http://www.springframework.org/schema/util\"\n    xsi:schemaLocation=\"http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd\n        http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd\n        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd\n        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd\n        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd\">\n\n    <bean id=\"scimUserProvisioning\" class=\"org.cloudfoundry.identity.uaa.scim.jdbc.JdbcScimUserProvisioning\">\n        <constructor-arg ref=\"jdbcTemplate\" />\n        <constructor-arg name=\"pagingListFactory\" ref=\"jdbcPagingListFactory\" />\n        <property name=\"queryConverter\" ref=\"scimUserQueryConverter\" />\n        <property name=\"deactivateOnDelete\" value=\"${scim.delete.deactivate:false}\" />\n        <property name=\"usernamePattern\" value=\"${scim.username_pattern:[\\p{L}+0-9+\\-_.@'!]+}\" />\n        <property name=\"timeService\" ref=\"timeService\"/>\n        <property name=\"passwordEncoder\" ref=\"bcryptPasswordEncoder\"/>\n    </bean>\n\n    <bean id=\"globalPasswordPolicy\" class=\"org.cloudfoundry.identity.uaa.provider.PasswordPolicy\">\n        <constructor-arg name=\"minLength\" value=\"${password.policy.global.minLength:0}\"/>\n        <constructor-arg name=\"maxLength\"  value=\"${password.policy.global.maxLength:255}\"/>\n        <constructor-arg name=\"requireUpperCaseCharacter\" value=\"${password.policy.global.requireUpperCaseCharacter:0}\"/>\n        <constructor-arg name=\"requireLowerCaseCharacter\" value=\"${password.policy.global.requireLowerCaseCharacter:0}\"/>\n        <constructor-arg name=\"requireDigit\" value=\"${password.policy.global.requireDigit:0}\"/>\n        <constructor-arg name=\"requireSpecialCharacter\" value=\"${password.policy.global.requireSpecialCharacter:0}\"/>",
+  "source_sha256": "35e50f5d27ad395ced68d4538c8b309ad01a2ea496b57cb5f8b32b238a0e9a80",
+  "fetched_at": "2026-11-05T07:22:05.359595+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/cloudfoundry/uaa/ddea1e4e490348f5737a85e8b804276fd1b2632f/uaa/src/main/webapp/WEB-INF/spring/scim-endpoints.xml",
+  "status": "available"
+}

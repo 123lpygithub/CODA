@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0467-aaididaaj",
+  "revision_url": "https://github.com/hav4ik/Hydra/commit/452a05d6374e1d268ffb4c2a25bef2929234c3de",
+  "filename": "src/applications/measures/feature_similarity.py",
+  "commit": "452a05d6374e1d268ffb4c2a25bef2929234c3de",
+  "source_url": "https://raw.githubusercontent.com/hav4ik/Hydra/452a05d6374e1d268ffb4c2a25bef2929234c3de/src/applications/measures/feature_similarity.py",
+  "fetched_at": "2026-11-05T06:12:59.134532+00:00",
+  "source_sha256": "b24bd7519ef25ca300de60a78f33930ec2fbcb6013f132354e26de1af25cfd7e",
+  "line_start": 120,
+  "line_end": 144,
+  "excerpt": "\n                block_i = hydra_i.blocks[repid_i]\n                block_j = hydra_j.blocks[repid_j]\n                if not hasattr(block_i, 'bn_pillow') \\\n                        or not hasattr(block_j, 'bn_pillow'):\n                    raise ValueError('matching_ids should only contain '\n                                     'blocks with bn_pillow.')\n\n                rep_i = block_i.bn_pillow.rep\n                rep_j = block_j.bn_pillow.rep\n\n                # PHEW, THIS UGLY STUFF IS OVER...\n                # TODO: but seriously, we need to fix it!\n\n                if not rep_i.shape == rep_j.shape:\n                    raise ValueError(\n                            \"Representation tensor's shapes should be \"\n                            \"equal, but got {} and {}.\".format(\n                                    str(rep_i.shape), str(rep_j.shape)))\n\n                r = torch.randint(0, rep_i.shape[2], ())\n                c = torch.randint(0, rep_i.shape[3], ())\n                rep_i, rep_j = rep_i[:, :, r, c], rep_j[:, :, r, c]\n\n                if compression == 'sigmoid':",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0412-aadbbhbgg",
+  "revision_url": "https://github.com/annomator/annomator_1.0/commit/042cc36cba515855a4cbc963df4328123d624c9f",
+  "filename": "tf_slim_obj_det/object_detection/core/box_predictor.py",
+  "commit": "042cc36cba515855a4cbc963df4328123d624c9f",
+  "source_url": "https://raw.githubusercontent.com/annomator/annomator_1.0/042cc36cba515855a4cbc963df4328123d624c9f/tf_slim_obj_det/object_detection/core/box_predictor.py",
+  "fetched_at": "2026-11-05T06:12:52.413160+00:00",
+  "source_sha256": "7fb8961abc1bd70b097a887d7554d8e8b983bfeb6698f545d380500b7a3753f8",
+  "line_start": 664,
+  "line_end": 688,
+  "excerpt": "    Returns:\n      box_encodings: A list of float tensors of shape\n        [batch_size, num_anchors_i, q, code_size] representing the location of\n        the objects, where q is 1 or the number of classes. Each entry in the\n        list corresponds to a feature map in the input `image_features` list.\n      class_predictions_with_background: A list of float tensors of shape\n        [batch_size, num_anchors_i, num_classes + 1] representing the class\n        predictions for the proposals. Each entry in the list corresponds to a\n        feature map in the input `image_features` list.\n    \"\"\"\n    box_encodings_list = []\n    class_predictions_list = []\n    # TODO(rathodv): Come up with a better way to generate scope names\n    # in box predictor once we have time to retrain all models in the zoo.\n    # The following lines create scope names to be backwards compatible with the\n    # existing checkpoints.\n    box_predictor_scopes = [_NoopVariableScope()]\n    if len(image_features) > 1:\n      box_predictor_scopes = [\n          tf.variable_scope('BoxPredictor_{}'.format(i))\n          for i in range(len(image_features))\n      ]\n\n    for (image_feature,\n         num_predictions_per_location, box_predictor_scope) in zip("
+}

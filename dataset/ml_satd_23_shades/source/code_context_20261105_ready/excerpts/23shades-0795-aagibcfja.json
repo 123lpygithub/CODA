@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0795-aagibcfja",
+  "revision_url": "https://github.com/google-research/google-research/commit/da56e5de4fba9a4e3c6a66271664b515e6f89df4",
+  "filename": "routing_transformer/sparse_transformer.py",
+  "commit": "da56e5de4fba9a4e3c6a66271664b515e6f89df4",
+  "source_url": "https://raw.githubusercontent.com/google-research/google-research/da56e5de4fba9a4e3c6a66271664b515e6f89df4/routing_transformer/sparse_transformer.py",
+  "fetched_at": "2026-11-05T06:13:53.395617+00:00",
+  "source_sha256": "5ea361ae01bd21234cd6e61f83cbcf95588f51e786839292217bbb14084dec18",
+  "line_start": 346,
+  "line_end": 370,
+  "excerpt": "    if targets_old is not None:\n      features[\"targets\"] = targets_old\n\n    return {\n        \"outputs\": final_result,\n        \"scores\": None,\n        \"logits\": final_logits,\n        \"losses\": None,\n    }\n\n\ndef target_bottom(x, model_hparams, vocab_size):\n  del model_hparams, vocab_size  # Unused\n  return x\n\n\n@registry.register_hparams\ndef sparse_transformer_local():\n  \"\"\"Set of hyperparameters for a sparse model using only local.\"\"\"\n  hparams = common_hparams.basic_params1()\n  hparams.max_length = 4096\n  hparams.batch_size = 4096\n  hparams.add_hparam(\"max_target_length\", 4096)\n  hparams.add_hparam(\"add_timing_signal\", False)\n  hparams.add_hparam(\"local_num_heads\", 8)"
+}

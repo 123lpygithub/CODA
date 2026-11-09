@@ -1,0 +1,234 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-21228",
+  "issue_url": "https://github.com/invoiceninja/invoiceninja/issues/886",
+  "source_issue_url": "https://github.com/invoiceninja/invoiceninja/issues/886",
+  "api_url": "https://api.github.com/repos/invoiceninja/invoiceninja/issues/886",
+  "title": "Local Pdf generation",
+  "body": "As i am looking for a good invoicing app (previously used siwapp), i stumpled upon invoice ninja, which really looks awesome (only a little sad that it doesn't use symfony, which is my favorite framework :smile: but as the two frameworks are quite connected, i hope it will be no problem to get started with laravel)) \n\nfor me it feels a little bit awkward to use a cloud service as pdf generation instance. \n\nespecially if i use the invoice system on local system only, which is not publicly available (what i prefer for an invoice system). \n\nas @hillelcoren wrote [here](https://github.com/invoiceninja/invoiceninja/issues/587#issuecomment-167955413):\n\n> for this to work your app instance must be publicly available\n\nthis is not really logic, if i have a public system, i don't require to send the pdfs to my users, they can login and view and download them there but if my system is not publicly available, i **must** attach the pdfs or else they can't read the invoice.\n\nfrom the security point of view, i really don't like to send sensible invoice data, which contains customer data, prices, vat ids, ... to a cloud service.  this is also the reason why i am looking for a self hosted invoicing system, like yours is.\n\ni would really love to see an option that i can choose to use the cloud service or a locally installed phantomjs \n- https://www.npmjs.com/package/phantomjs-prebuilt\n- http://phantomjs.org/download.html\n\nor by using php to create the pdf (i would prefer security over exact visual appearance of the pdf file (browser pdf vs attached pdf))\n- https://packagist.org/packages/mpdf/mpdf\n- https://packagist.org/packages/nitmedia/wkhtml2pdf\n- https://packagist.org/packages/spipu/html2pdf\n",
+  "author": "Participant 1",
+  "created_at": "2016-05-22T06:31:36Z",
+  "updated_at": "2017-01-04T20:52:32Z",
+  "state": "closed",
+  "closed_at": "2017-01-02T18:49:04Z",
+  "issue_fetched_at": "2026-10-18T16:10:39.972840+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T16:10:41.337301+00:00"
+  ],
+  "expected_comment_count": 26,
+  "retrieved_comment_count": 26,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 220817171,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-220817171",
+      "created_at": "2016-05-22T06:42:11Z",
+      "updated_at": "2016-05-22T06:42:11Z",
+      "author": "Participant 2",
+      "body": "Thanks for your feedback!\n\nUsing a cloud service just makes our app easier to setup and use. We send our invoice links through email which can also be thought of as an insecure cloud service. \n\nIf you're interested here's a post which describes setting it up locally using PhatomJS.\n\nhttps://www.invoiceninja.com/forums/topic/api-email_invoice/#post-576\n"
+    },
+    {
+      "id": 220818120,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-220818120",
+      "created_at": "2016-05-22T07:14:50Z",
+      "updated_at": "2016-05-22T07:14:50Z",
+      "author": "Participant 1",
+      "body": "thanks for the fast reply.\nwhat about adding this code snippet to the main repo, so it is configureable directly from your app?\n"
+    },
+    {
+      "id": 220818171,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-220818171",
+      "created_at": "2016-05-22T07:16:12Z",
+      "updated_at": "2016-05-22T07:16:12Z",
+      "author": "Participant 2",
+      "body": "Sure, we'll look into adding it in a future release. \n"
+    },
+    {
+      "id": 224788480,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-224788480",
+      "created_at": "2016-06-09T02:57:20Z",
+      "updated_at": "2016-06-09T02:57:20Z",
+      "author": "Participant 3",
+      "body": "Why not use pdfmake in nodejs instead of phantomjs?\nSurely it'd have to be faster than a headless browser instance.\n\nI will be making a function to allow this in the future and I'd be happy to share the code onces it done however it might need some minor tweaking to work with InvoiceNinja again\n"
+    },
+    {
+      "id": 224797359,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-224797359",
+      "created_at": "2016-06-09T04:28:39Z",
+      "updated_at": "2016-06-09T04:28:39Z",
+      "author": "Participant 2",
+      "body": "Hey @JeramyNS \n\nOur current solution is designed to make it as easy as possible to use/setup, by using phantomjscloud.com as long as the app is publicly accessible the feature just works. \n\nWe've had requests to also support generating the PDF locally, if you're able to add the feature as an option it'd be great. \n"
+    },
+    {
+      "id": 247643049,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-247643049",
+      "created_at": "2016-09-16T16:18:04Z",
+      "updated_at": "2016-09-16T16:18:04Z",
+      "author": "Participant 4",
+      "body": "Hello.\n\nAny news or progress on this? @JeramyNS do you need help?\n\nI'm highly interested in this topic, because I can't really use a service like phantomjscloud here in Germany. The data protection laws are very strict and prohibit sending the data of clients to servers outside of the European Union.\n"
+    },
+    {
+      "id": 247886612,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-247886612",
+      "created_at": "2016-09-18T22:59:26Z",
+      "updated_at": "2016-09-18T22:59:26Z",
+      "author": "Participant 3",
+      "body": "I'm no longer actively working on these sorts of things anymore, however it really wouldn't be that hard for someone to create a page which works similar to the editing invoice page. \nIt would generate the PDF code by visiting said page and then POST the generated invoice back to Invoice Ninja to store it in the DB and then redirect to back to the generated PDF. \nIt should be a fairly easy thing to build, it would only require about 3 additional functions and one new template file so hopefully someone else has the time to integrate this for you\n"
+    },
+    {
+      "id": 247886903,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-247886903",
+      "created_at": "2016-09-18T23:01:52Z",
+      "updated_at": "2016-09-18T23:01:52Z",
+      "author": "Participant 3",
+      "body": "Also, I was wondering what German laws you where referring to, as that sort of law has the potential to effect this project as well as future projects of my own.\nIs this a blanket protection law or specific to your industry?\n"
+    },
+    {
+      "id": 247918429,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-247918429",
+      "created_at": "2016-09-19T06:24:54Z",
+      "updated_at": "2016-09-19T06:24:54Z",
+      "author": "Participant 4",
+      "body": "Thanks for you reply.\n\nThe law is called \"Bundesdatenschutzgesetz\" and the specific part of the law is in § 4b. It is common law and not specific to any industry. As far as I know it is also a version of a European Law (and therefore not only German is affected) from 2010, since the \"Safe Habor\" agreement was canceled.\n"
+    },
+    {
+      "id": 247919740,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-247919740",
+      "created_at": "2016-09-19T06:37:09Z",
+      "updated_at": "2016-09-19T06:37:09Z",
+      "author": "Participant 3",
+      "body": "Just had a quick read of the laws but from the looks of it you should still be able to send data to other countries for processing as long as the information is sent securely and follow their guidelines.\nSee: http://us.practicallaw.com/3-502-4080\nPlease forgive me if I missed anything, I can only see out of one eye today so it is a little hard to read properly.\n"
+    },
+    {
+      "id": 247925088,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-247925088",
+      "created_at": "2016-09-19T07:17:56Z",
+      "updated_at": "2016-09-19T07:17:56Z",
+      "author": "Participant 4",
+      "body": "Yes, you can store/process the data outside of the EU, but they need to follow the exact guidelines which is very, very complicated.\nIt would also impact the reputation of a German company if they will store such information in the US or other countries outside of the EU. After the NSA scandals, the Germans are even more protective about their data.\n"
+    },
+    {
+      "id": 267391733,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-267391733",
+      "created_at": "2016-12-15T17:40:03Z",
+      "updated_at": "2016-12-15T17:40:03Z",
+      "author": "Participant 5",
+      "body": "Any progress on this topic to include the functionality?"
+    },
+    {
+      "id": 269372452,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-269372452",
+      "created_at": "2016-12-27T19:36:30Z",
+      "updated_at": "2016-12-27T19:36:30Z",
+      "author": "Participant 6",
+      "body": "@hillelcoren Is this even an issue anymore, now that pdfmake is used, or am I missing something?"
+    },
+    {
+      "id": 269372596,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-269372596",
+      "created_at": "2016-12-27T19:37:37Z",
+      "updated_at": "2016-12-27T19:37:37Z",
+      "author": "Participant 2",
+      "body": "I believe so, we currently use https://phantomjscloud.com/ to generate the PDF when it's attached to an email. "
+    },
+    {
+      "id": 269374045,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-269374045",
+      "created_at": "2016-12-27T19:49:24Z",
+      "updated_at": "2016-12-27T19:49:24Z",
+      "author": "Participant 6",
+      "body": "@hillelcoren Wow, this is a major dealbreaker then... Completely unusable in Germany (and probably other relevant EU countries) if you don't inform and gather approval of your clients about this **before** you send them any kind of such document.\r\nAlso if they wish to remove their stored data I have no control over what is happening on the phantomjscloud servers. I can't guarantee removal of their sensitive data, which is what ultimately makes it a dealbreaker.\r\n\r\nI don't understand. When you save or send the PDF you see a preview of it in your browser. Why does it need to be created again by a headless browser like phantomjs? Why isn't it saved as PDF in that moment to the file storage on the server? Because of recurring invoices?"
+    },
+    {
+      "id": 269374490,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-269374490",
+      "created_at": "2016-12-27T19:53:08Z",
+      "updated_at": "2016-12-27T19:53:08Z",
+      "author": "Participant 2",
+      "body": "Recurring invoices are one example but there are other places as well. "
+    },
+    {
+      "id": 269374706,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-269374706",
+      "created_at": "2016-12-27T19:55:08Z",
+      "updated_at": "2016-12-27T19:55:27Z",
+      "author": "Participant 6",
+      "body": "@hillelcoren Thank you for replying so far. Please do tell me about if and when you're going to implement any kind of possibility to render the invoices locally (even if it's just providing a link to a **self** hosted phantomjs docker-image), because I can't work on/with invoice ninja if this stays as-is."
+    },
+    {
+      "id": 269374838,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-269374838",
+      "created_at": "2016-12-27T19:56:09Z",
+      "updated_at": "2016-12-27T19:56:09Z",
+      "author": "Participant 2",
+      "body": "Sorry, we aren't able to provide ETAs on changes.\r\n\r\nWe gladly accept pull requests... "
+    },
+    {
+      "id": 269375015,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-269375015",
+      "created_at": "2016-12-27T19:57:44Z",
+      "updated_at": "2016-12-27T19:57:44Z",
+      "author": "Participant 2",
+      "body": "Note: if you disable 'Attach PDF to emails' then I don't believe phantomjscloud is used. "
+    },
+    {
+      "id": 269376069,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-269376069",
+      "created_at": "2016-12-27T20:07:13Z",
+      "updated_at": "2016-12-27T20:07:13Z",
+      "author": "Participant 6",
+      "body": "@hillelcoren I dedicated a few work days to the German translation and even more to create an invoice design that complies to German law and letter formatting. I'm not proficient enough with the code and JavaScript to provide such changes. Not attaching a PDF to the mail is no option because this may create another problem, which consists of the then unfulfilled necessity to supply your customer with an immutable invoice.\r\nThe thing is that all my work benefits neither of us, as long as this isn't fixed and people care about the real danger of being sued over this.\r\n\r\nNot providing an ETA is one thing, but it's either you're interested in having EU-customers or you're not. I want to know if you are, because if you are, this needs to be fixed ASAP. And if you're not, I have to find another invoicing solution ASAP. German \"Datenschutz\"-law is strict as hell and no freelancer/company wants to end up getting sued over it."
+    },
+    {
+      "id": 269377014,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-269377014",
+      "created_at": "2016-12-27T20:15:34Z",
+      "updated_at": "2016-12-27T20:15:34Z",
+      "author": "Participant 2",
+      "body": "Without enabling 'Attach PDF' the customer can still obtain an immutable PDF by downloading it from the client portal. \r\n\r\nWe'll add a warning next to this feature for self host users in our next release. "
+    },
+    {
+      "id": 269377811,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-269377811",
+      "created_at": "2016-12-27T20:22:44Z",
+      "updated_at": "2016-12-27T20:22:44Z",
+      "author": "Participant 6",
+      "body": "The problem with this is that I can't guarantee that the customer received the PDF before it may have been changed. I can't force him to download the version 1.0 of the invoice.\r\n\r\nAs described in #1219 you **can** change an already sent invoice without the customer noticing or any mention in the history/activity stream, by changing the description of a product. I still don't understand why this issue was closed.\r\nSince I don't know if there are other occasions where a change in the invoice isn't reflected in the history, this \"workaround\" is just not safe enough.\r\n\r\nI will have to send the PDF manually every time to be on the safe side for now, I guess..."
+    },
+    {
+      "id": 270016490,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-270016490",
+      "created_at": "2017-01-02T20:23:17Z",
+      "updated_at": "2017-01-02T20:23:17Z",
+      "author": "Participant 6",
+      "body": "@hillelcoren Thank you so much for fixing this. Will this be included in the next release then?"
+    },
+    {
+      "id": 270016762,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-270016762",
+      "created_at": "2017-01-02T20:25:59Z",
+      "updated_at": "2017-01-02T20:25:59Z",
+      "author": "Participant 2",
+      "body": "Yes, it will be in our next major release at the end of the month. "
+    },
+    {
+      "id": 270016964,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-270016964",
+      "created_at": "2017-01-02T20:28:22Z",
+      "updated_at": "2017-01-02T20:28:22Z",
+      "author": "Participant 6",
+      "body": "This is awesome news, especially because the translation will be upgraded by this, as well. Thank you and looking forward to it 👍 ."
+    },
+    {
+      "id": 270483293,
+      "url": "https://github.com/invoiceninja/invoiceninja/issues/886#issuecomment-270483293",
+      "created_at": "2017-01-04T20:52:32Z",
+      "updated_at": "2017-01-04T20:52:32Z",
+      "author": "Participant 6",
+      "body": "For those of you interested in already being able to provide a local phantomjs binary in the docker image, just add this to the dockerfile before setting of the default ENV variables (copied from https://github.com/wernight/docker-phantomjs/blob/master/Dockerfile):\r\n\r\n```\r\n# Install runtime dependencies\r\nRUN apt-get update \\\r\n && apt-get install -y --no-install-recommends \\\r\n        ca-certificates \\\r\n        bzip2 \\\r\n        libfontconfig \r\n\r\nRUN set -x  \\\r\n    # Install official PhantomJS release\r\n && apt-get update \\\r\n && apt-get install -y --no-install-recommends \\\r\n        curl \\\r\n && mkdir /tmp/phantomjs \\\r\n && curl -L https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \\\r\n        | tar -xj --strip-components=1 -C /tmp/phantomjs \\\r\n && mv /tmp/phantomjs/bin/phantomjs /usr/local/bin\r\n```"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

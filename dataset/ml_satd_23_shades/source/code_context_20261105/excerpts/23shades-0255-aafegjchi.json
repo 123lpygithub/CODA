@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0255-aafegjchi",
+  "revision_url": "https://github.com/aleju/imgaug/commit/3b04c24655c875be8cbcee5198c9f9aa285491b4",
+  "filename": "imgaug/augmenters/geometric.py",
+  "commit": "3b04c24655c875be8cbcee5198c9f9aa285491b4",
+  "source_url": "https://raw.githubusercontent.com/aleju/imgaug/3b04c24655c875be8cbcee5198c9f9aa285491b4/imgaug/augmenters/geometric.py",
+  "fetched_at": "2026-11-05T06:12:22.998827+00:00",
+  "source_sha256": "f6234faedc83ece136c2f2539c76c0c0bb4d9a98a3642cfdce60a5a2b0cfbf94",
+  "line_start": 1092,
+  "line_end": 1116,
+  "excerpt": "            ia.do_assert(all([ia.is_single_number(val) for val in shear]), \"Expected floats/ints in shear tuple/list.\")\n            self.shear = Uniform(shear[0], shear[1])\n        else:\n            raise Exception(\"Expected float, int, tuple/list with 2 entries or StochasticParameter. Got %s.\" % (type(shear),))\n\n    def _augment_images(self, images, random_state, parents, hooks):\n        nb_images = len(images)\n        scale_samples, translate_samples, rotate_samples, shear_samples, cval_samples, mode_samples, order_samples = self._draw_samples(nb_images, random_state)\n        result = self._augment_images_by_samples(images, scale_samples, translate_samples, rotate_samples, shear_samples, cval_samples, mode_samples, order_samples)\n        return result\n\n    def _augment_images_by_samples(self, images, scale_samples, translate_samples, rotate_samples, shear_samples, cval_samples, mode_samples, order_samples):\n        # TODO change these to class attributes\n        order_str_to_int = {\n            \"nearest\": cv2.INTER_NEAREST,\n            \"linear\": cv2.INTER_LINEAR,\n            \"cubic\": cv2.INTER_CUBIC,\n            \"lanczos4\": cv2.INTER_LANCZOS4\n        }\n        mode_str_to_int = {\n            \"replicate\": cv2.BORDER_REPLICATE,\n            \"reflect\": cv2.BORDER_REFLECT,\n            \"reflect_101\": cv2.BORDER_REFLECT_101,\n            \"wrap\": cv2.BORDER_WRAP,\n            \"constant\": cv2.BORDER_CONSTANT"
+}

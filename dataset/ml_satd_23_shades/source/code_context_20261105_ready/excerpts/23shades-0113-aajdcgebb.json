@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0113-aajdcgebb",
+  "revision_url": "https://github.com/jupyter/nbdime/commit/2ce0ddbe7b5dbac0f03c4c0989dff0abca6c5f1c",
+  "filename": "nbdime/merging/generic.py",
+  "commit": "2ce0ddbe7b5dbac0f03c4c0989dff0abca6c5f1c",
+  "source_url": "https://raw.githubusercontent.com/jupyter/nbdime/2ce0ddbe7b5dbac0f03c4c0989dff0abca6c5f1c/nbdime/merging/generic.py",
+  "fetched_at": "2026-11-05T06:11:56.043421+00:00",
+  "source_sha256": "c779e4379afbf4fd1f559b459d5776c7fbc351a9955a0d9468b03edf927647d0",
+  "line_start": 436,
+  "line_end": 460,
+  "excerpt": "\n        if k1 < j0:\n            # Remote change does not overlap with local change\n            merged_offset += _apply_diff(e1, base, merged)\n            i1 += 1\n        elif k0 < j1:\n            # Local change does not overlap with remote change\n            merged_offset += _apply_diff(e0, base, merged)\n            i0 += 1\n        else:\n            # The diffs e0 and e1 are overlapping and thus in (possible) conflict.\n\n            # FIXME: What about the next diff entry?\n            # Possible cases still colliding:\n            # del base[j:j+n]; base.insert(j, localvalues)  # local diffs\n            # del base[j:j+n]; base.insert(j, remotevalues) # remote diffs\n\n            \"\"\"\nremove and patch may not overlap!\nlocal: remove 1..4 -> remove 1..2, remove 3..3, remove 4..4\nremote: remove 1..2, patch 3\n->\nremove 1..2 agreed upon\nremove 3 conflicts with patch 3\nremove 4 single-sided"
+}

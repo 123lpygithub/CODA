@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0143-aahfjhgbi",
+  "revision_url": "https://github.com/RaRe-Technologies/gensim/commit/1648ac2e4299ccdfde2ac1b535faf2c5eaf6c022",
+  "filename": "gensim/test/test_corpora.py",
+  "commit": "1648ac2e4299ccdfde2ac1b535faf2c5eaf6c022",
+  "source_url": "https://raw.githubusercontent.com/RaRe-Technologies/gensim/1648ac2e4299ccdfde2ac1b535faf2c5eaf6c022/gensim/test/test_corpora.py",
+  "fetched_at": "2026-11-05T06:12:00.837028+00:00",
+  "source_sha256": "e7aafc5522b2b5cab16012804003fa9f3815a776297b90ea0adc637f89dd9642",
+  "line_start": 391,
+  "line_end": 415,
+  "excerpt": "        pass\n\n    def test_serialize(self):\n        pass\n\n    def test_serialize_compressed(self):\n        pass\n\n    def test_indexing(self):\n        pass\n\n\n# Needed for the test_custom_tokenizer is the TestWikiCorpus class.\n# Cannot be nested due to serializing.\ndef custom_tokenizer(content, token_min_len=2, token_max_len=15, lower=True):\n    return [\n        to_unicode(token.lower()) if lower else to_unicode(token) for token in content.split()\n        if token_min_len <= len(token) <= token_max_len and not token.startswith('_')\n    ]\n\n\nclass TestWikiCorpus(TestTextCorpus):\n    def setUp(self):\n        self.corpus_class = wikicorpus.WikiCorpus\n        self.file_extension = '.xml.bz2'"
+}

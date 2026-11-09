@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0528-aagejdfdj",
+  "revision_url": "https://github.com/nengo/nengo-dl/commit/6ddf68e6a0e86b690ae2335508e1c6b5d7783aec",
+  "filename": "nengo_dl/signals.py",
+  "commit": "6ddf68e6a0e86b690ae2335508e1c6b5d7783aec",
+  "source_url": "https://raw.githubusercontent.com/nengo/nengo-dl/6ddf68e6a0e86b690ae2335508e1c6b5d7783aec/nengo_dl/signals.py",
+  "fetched_at": "2026-11-05T06:13:07.777297+00:00",
+  "source_sha256": "e4c3a05d0fa8e754ef8167fddb9d047d2458f02c0cf2f93b041ac65940fb0fcf",
+  "line_start": 536,
+  "line_end": 560,
+  "excerpt": "        if value.nbytes > cutoff:\n            def make_ph(shape, dtype, **_):\n                ph = tf.placeholder(dtype, shape)\n                self.constant_phs[ph] = value\n                return ph\n\n            with tf.variable_scope(\"constant_vars\", reuse=False):\n                # tensorflow doesn't support int32 variables on the gpu, only\n                # int64 (for some reason). we don't want to use int64 since\n                # that would increase the size a lot, so we allow the variable\n                # to be created on the CPU if necessary, and then move it to\n                # the GPU with the identity\n                # TODO: double check if this is still true in 1.9.0\n                with tf.device(None):\n                    const_var = tf.get_variable(\n                        \"constant_%d\" % len(self.constant_phs),\n                        initializer=make_ph, shape=value.shape, dtype=dtype,\n                        collections=[\"constants\"], trainable=False)\n\n                return tf.identity(const_var)\n        else:\n            return tf.constant(value, dtype=dtype)\n\n    def op_constant(self, ops, op_sizes, attr, dtype, ndims=2):\n        \"\"\""
+}

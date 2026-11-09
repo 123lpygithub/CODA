@@ -1,0 +1,90 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14096",
+  "issue_url": "https://github.com/zonemaster/zonemaster-backend/issues/317",
+  "source_issue_url": "https://github.com/zonemaster/zonemaster-backend/issues/317",
+  "api_url": "https://api.github.com/repos/zonemaster/zonemaster-backend/issues/317",
+  "title": "Complete specification of API input parameter formats",
+  "body": "### Purpose and scope\r\n\r\nThe purpose of this issue is to document the status quo and introduce reasonable constraints where appropriate. Major changes to the API such renaming or moving parts of parameter structures should not be included in this issue.\r\n\r\n### Requirements\r\n\r\n- [x] Every parameter of every method must be described with name and data type. If the method accepts a single scalar value as its parameter, specifying the data type is sufficient for the purpose of this issue. (#320)\r\n- [x] Every data type with the basic data type `array` must specify the data type of the elements. (we don't have any of these)\r\n- [x] Every data type with the basic data type `object` must specify all its keys with name and value data type.\r\n- [x] Every data type must be fully specified with basic data type and additional restrictions (e.g. regular expression).\r\n- [x] Every parameter and object property value must be declared to be either optional or required.\r\n- [x] Every optional parameter and object property value must declare its default value.",
+  "author": "Participant 1",
+  "created_at": "2017-11-28T09:46:52Z",
+  "updated_at": "2019-04-15T12:15:15Z",
+  "state": "closed",
+  "closed_at": "2019-04-15T12:15:15Z",
+  "issue_fetched_at": "2026-10-19T00:11:49.585464+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T00:11:51.174817+00:00"
+  ],
+  "expected_comment_count": 8,
+  "retrieved_comment_count": 8,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 351714333,
+      "url": "https://github.com/zonemaster/zonemaster-backend/issues/317#issuecomment-351714333",
+      "created_at": "2017-12-14T13:44:27Z",
+      "updated_at": "2017-12-14T13:44:27Z",
+      "author": "Participant 2",
+      "body": "@mattias-p I checked some checkbox based on the pr #320 "
+    },
+    {
+      "id": 378162012,
+      "url": "https://github.com/zonemaster/zonemaster-backend/issues/317#issuecomment-378162012",
+      "created_at": "2018-04-03T07:56:52Z",
+      "updated_at": "2018-04-03T07:56:52Z",
+      "author": "Participant 3",
+      "body": "@pamasse and @mattias-p Please focus on completing the specification."
+    },
+    {
+      "id": 380838201,
+      "url": "https://github.com/zonemaster/zonemaster-backend/issues/317#issuecomment-380838201",
+      "created_at": "2018-04-12T15:05:18Z",
+      "updated_at": "2018-04-12T15:05:18Z",
+      "author": "Participant 3",
+      "body": "user_ip, location data type, user_location_info deprecated conforming to GDPR requirements in release 2018.1. Delete these parameters in the backend, if they are already present."
+    },
+    {
+      "id": 447316467,
+      "url": "https://github.com/zonemaster/zonemaster-backend/issues/317#issuecomment-447316467",
+      "created_at": "2018-12-14T12:53:06Z",
+      "updated_at": "2018-12-14T12:53:06Z",
+      "author": "Participant 2",
+      "body": "We need to add some restriction on Domain name and Username data types."
+    },
+    {
+      "id": 472378052,
+      "url": "https://github.com/zonemaster/zonemaster-backend/issues/317#issuecomment-472378052",
+      "created_at": "2019-03-13T11:06:17Z",
+      "updated_at": "2019-03-13T11:06:17Z",
+      "author": "Participant 3",
+      "body": "@mattias-p @pamasse close?"
+    },
+    {
+      "id": 472786726,
+      "url": "https://github.com/zonemaster/zonemaster-backend/issues/317#issuecomment-472786726",
+      "created_at": "2019-03-14T10:13:03Z",
+      "updated_at": "2019-03-14T10:13:03Z",
+      "author": "Participant 3",
+      "body": "@mattias-p update with the missing information"
+    },
+    {
+      "id": 472788007,
+      "url": "https://github.com/zonemaster/zonemaster-backend/issues/317#issuecomment-472788007",
+      "created_at": "2019-03-14T10:16:33Z",
+      "updated_at": "2019-03-14T13:17:20Z",
+      "author": "Participant 1",
+      "body": "Three more things remain before we can check the two bottom boxes:\r\n1. *DS Info* does not specify default values for its optional properties.\r\n2. The `\"frontend_params\"` parameter of the *get_frontend_params* method is neither required nor optional.\r\n3. The `\"test_params\"` parameter of the *add_batch_job* method is neither required nor optional.\r\n\r\nEdit: Upon review I also found the following: Some data types are specified to be strings but no restrictions are placed upon them. I think it would be really nice if we could restrict this to match some regular expression. We could make up some regex that could provide a layer of protection against various injection attacks. These are the data types:\r\n* `API key`\r\n* `Test id`\r\n* `Translation language`\r\n* `Username`"
+    },
+    {
+      "id": 480801100,
+      "url": "https://github.com/zonemaster/zonemaster-backend/issues/317#issuecomment-480801100",
+      "created_at": "2019-04-08T11:56:17Z",
+      "updated_at": "2019-04-08T11:56:17Z",
+      "author": "Participant 3",
+      "body": "@mattias-p if completed we could close this issue and create specific issues for any missing input parameters"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

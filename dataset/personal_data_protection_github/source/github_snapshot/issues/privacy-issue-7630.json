@@ -1,0 +1,23 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-7630",
+  "issue_url": "https://github.com/OHDSI/Atlas/issues/1617",
+  "source_issue_url": "https://github.com/OHDSI/Atlas/issues/1617",
+  "api_url": "https://api.github.com/repos/OHDSI/Atlas/issues/1617",
+  "title": "Profile Tooltips do not honor the 'viewProfileDates' setting",
+  "body": "### Expected behavior\r\nSetting config.viewProfileDates should not only remove the date axis from the profile view, but the tooltip should also not show 'start date' or any specific dates.\r\n\r\n### Actual behavior\r\nThe top x-axis hides the dates properly but hovering over a data point shows the date in the tooltip.\r\n\r\n### Steps to reproduce behavior\r\n1. Configure env to viewProfileDates = false\r\n2. Open a profile from a cohort\r\n3. Observe: profile plot does not show a date on a timeline, however, tooltip does.\r\n\r\nReason for this restriction:\r\nThe rule about PHI is that names, SSN, full date of birth,  and all dates of medical services is considerred protected information. We made the profile specifically so it wouldn't show any of that information (showed age relative to an index 0, where you didn't know the index date so it was 'safe').  We can't be doing any public demos that uses this, because it would be a violation of privacy.  Therefore, we must hide all date information in all elements of this report.\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2019-03-28T23:10:47Z",
+  "updated_at": "2019-05-21T15:00:32Z",
+  "state": "closed",
+  "closed_at": "2019-04-02T17:39:47Z",
+  "issue_fetched_at": "2026-10-18T19:10:55.437058+00:00",
+  "comments_fetched_at": [],
+  "expected_comment_count": 0,
+  "retrieved_comment_count": 0,
+  "comments_complete": true,
+  "comments": [],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

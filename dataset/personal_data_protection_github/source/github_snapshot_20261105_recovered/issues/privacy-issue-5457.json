@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5457",
+  "issue_url": "https://github.com/pkp/pkp-lib/issues/3577",
+  "source_issue_url": "https://github.com/pkp/pkp-lib/issues/3577",
+  "api_url": "https://api.github.com/repos/pkp/pkp-lib/issues/3577",
+  "title": "Auto-prune user accounts after a period of inactivity",
+  "body": "Auto-prune inactive user accounts after a period of inactivity. The journal should be able to specify the period of inactivity, and the account into which the user should be merged. For example: if the journal enables this option, and sets the period of inactivity to 1 year, any user that hasn't logged in for 1 year should be merged into an admin account. \r\n\r\nThis should be an option for journals, set by default to \"off\", and similar to the auto-pruning of registered but not verified accounts (see \"require_validation\" and \"validation_timeout\" in config.inc.php). ",
+  "author": "Participant 1",
+  "created_at": "2018-04-10T19:36:03Z",
+  "updated_at": "2021-12-16T11:27:07Z",
+  "state": "closed",
+  "closed_at": "2021-12-16T11:27:07Z",
+  "issue_fetched_at": "2026-10-18T16:10:11.995862+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T16:10:13.343578+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 380225440,
+      "url": "https://github.com/pkp/pkp-lib/issues/3577#issuecomment-380225440",
+      "created_at": "2018-04-10T19:51:01Z",
+      "updated_at": "2018-04-10T19:51:33Z",
+      "author": "Participant 2",
+      "body": "I can think of other useful conditions that would need to be met: they should have no submissions assigned, no discussions/notes, no review assignments, etc. -- basically no participation anywhere in the workflow.\r\n\r\nIs the goal to help clean up spam registrations? Are we getting spam registrations en masse with the current releases of OJS, or is this an archaeological dig?\r\n\r\nI'd be tempted to put something as drastic as mass user deletion in a plugin or external tool, rather than shipping it with the codebase.\r\n\r\n[edit: I see this is related to GDPR. That answers the \"why\".]"
+    },
+    {
+      "id": 380436070,
+      "url": "https://github.com/pkp/pkp-lib/issues/3577#issuecomment-380436070",
+      "created_at": "2018-04-11T12:36:23Z",
+      "updated_at": "2018-04-11T12:36:23Z",
+      "author": "Participant 3",
+      "body": "I agree that this is a good idea, but I also agree with Alec that it makes sense only if the user has no historical data. Because if they do have some historical data, that data would be added to the Admin's own historical data.\r\n\r\nSo in my view it would have be something like an auto-prune for completely inactive accounts."
+    },
+    {
+      "id": 380474200,
+      "url": "https://github.com/pkp/pkp-lib/issues/3577#issuecomment-380474200",
+      "created_at": "2018-04-11T14:33:17Z",
+      "updated_at": "2018-04-11T14:54:48Z",
+      "author": "Participant 4",
+      "body": "Is auto-prune really needed for filling the \"right to be forgotten\" demand? I have understood that the users have a) permission to see what data is stored about them and b) ask for it to be removed. I have not seen a demand for automatic removal, but is there another GDPR principle that applies here? (edit: ok so maybe articles 32 and/or 22).\r\n\r\nAlso I think that the \"right to be forgotten\" does have limitations. Most notably \"Individuals have the right to have their personal data erased if: the personal data is no longer necessary for the purpose which you originally collected or processed it for;\". I guess you could argue that the user data in OJS is needed for the editorial archives also after publishing the article. At least the name of the user. Emails, affiliations, passwords etc. are a different story maybe.\r\n\r\nSee: https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 995704333,
+      "url": "https://github.com/pkp/pkp-lib/issues/3577#issuecomment-995704333",
+      "created_at": "2021-12-16T11:27:07Z",
+      "updated_at": "2021-12-16T11:27:07Z",
+      "author": "Participant 5",
+      "body": "Closing this for lack of interest."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

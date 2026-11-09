@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/vector-im/riot-android/blob/f8cea1c50d994bd3a4ab062df04f6a635b6d3927/vector/src/main/java/im/vector/VectorApp.java#L1255-L1290",
+  "kind": "file",
+  "cited_in": [
+    "comment_366442014"
+  ],
+  "revision": "f8cea1c50d994bd3a4ab062df04f6a635b6d3927",
+  "immutable_revision": true,
+  "line_start": 1243,
+  "line_end": 1290,
+  "text": "        screen.variable(4, \"Chosen Language\", getApplicationLocale().toString());\n\n        if (null != Matrix.getInstance(this).getDefaultSession()) {\n            MXSession session = Matrix.getInstance(this).getDefaultSession();\n\n            screen.variable(7, \"Homeserver URL\", session.getHomeServerConfig().getHomeserverUri().toString());\n            screen.variable(8, \"Identity Server URL\", session.getHomeServerConfig().getIdentityServerUri().toString());\n        }\n\n        return screen;\n    }\n\n    /**\n     * A new activity has been resumed\n     * @param activity the new activity\n     */\n    private void onNewScreen(Activity activity) {\n        if (PreferencesManager.trackWithPiwik(this)) {\n            Tracker tracker = getPiwikTracker();\n            if (null != tracker) {\n                try {\n                    TrackHelper.Screen screen = TrackHelper.track().screen(\"/android/\" +   Matrix.getApplicationName() + \"/\" + this.getString(R.string.flavor_description) + \"/\" + SHORT_VERSION + \"/\"+ activity.getClass().getName().replace(\".\", \"/\"));\n                    addCustomVariables(screen).with(tracker);\n                } catch (Throwable t) {\n                    Log.e(LOG_TAG, \"## onNewScreen() : failed \" + t.getMessage());\n                }\n            }\n        }\n    }\n\n\n    /**\n     * The application is paused.\n     */\n    private void onAppPause() {\n        if (PreferencesManager.trackWithPiwik(this)) {\n            Tracker tracker = getPiwikTracker();\n            if (null != tracker) {\n                try {\n                    // force to send the pending actions\n                    tracker.dispatch();\n                } catch (Throwable t) {\n                    Log.e(LOG_TAG, \"## onAppPause() : failed \" + t.getMessage());\n                }\n            }\n        }\n    }\n}",
+  "source_sha256": "fc2e3603b2d38fc22a2b5e87a1ed435cb263808821210e5f166d7e2fb4250420",
+  "fetched_at": "2026-11-05T07:21:57.510408+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/vector-im/riot-android/f8cea1c50d994bd3a4ab062df04f6a635b6d3927/vector/src/main/java/im/vector/VectorApp.java",
+  "status": "available"
+}

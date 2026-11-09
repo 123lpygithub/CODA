@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0732-aahjacheg",
+  "revision_url": "https://github.com/JohnVinyard/zounds/commit/e6139c03415d43348f1e147006dc89b93d40b753",
+  "filename": "analyze/feature/constantq.py",
+  "commit": "e6139c03415d43348f1e147006dc89b93d40b753",
+  "source_url": "https://raw.githubusercontent.com/JohnVinyard/zounds/e6139c03415d43348f1e147006dc89b93d40b753/analyze/feature/constantq.py",
+  "fetched_at": "2026-11-05T06:13:44.696755+00:00",
+  "source_sha256": "bb28dd49e39674901029646ff313bb7c70346c20082415d1bb9c4b1ac821918e",
+  "line_start": 68,
+  "line_end": 92,
+  "excerpt": "        \n        atom_count = 0\n        for b in xrange(self._bins_per_octave):\n            bratio = b/self._bins_per_octave\n            fk = (fmin*2)**bratio\n            atom_size = np.round(self.qsr / fmin)\n            win = sqrt_blackman_harris(atom_size)\n            temp_kernel_bin = (win/atom_size) * \\\n                np.exp((2*np.pi*1j*fk*np.arange(atom_size).T)/self._samplerate)\n            atom_offset = first_center - np.ceil(atom_size/2)\n            for a in xrange(self.atoms_per_frame):\n                shift = atom_offset + (a*self.atom_hop)\n                # TODO: This is discarding phase. Is that ok?\n                temp_kernel[shift: shift + atom_size] = temp_kernel_bin\n                atom_count += 1\n                spec_kernel = np.fft.fft(temp_kernel)\n                spec_kernel[np.abs(spec_kernel) <= self._thresh] = 0\n                spar_kernel.append(spec_kernel)\n                temp_kernel[:] = 0\n        \n        \n        spar_kernel = np.array(spar_kernel)\n        spar_kernel = spar_kernel.T / self.fftlen\n        wk = spar_kernel.copy()\n        wk = np.diag(np.dot(wk.T,wk))"
+}

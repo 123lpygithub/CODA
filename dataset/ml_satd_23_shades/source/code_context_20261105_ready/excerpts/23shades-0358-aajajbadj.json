@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:101ac4227011c0ec1e2ebf7d08b06f461a77432a/raw/",
+  "source_sha256": "da1e5402f36da40289f12426e721b5357c09453722663a2de28a44774ec42b91",
+  "fetched_at": "2026-11-05T06:43:04.705668+00:00",
+  "archive_directory": "cdd82a1870f4b03c5574da1a71d36fa227cf0c6e",
+  "git_blob_sha1": "101ac4227011c0ec1e2ebf7d08b06f461a77432a",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/39002d735f4e8d32729496eefff353014e5cc68c/",
+  "artifact_id": "23shades-0358-aajajbadj",
+  "revision_url": "https://github.com/HealthCatalyst/healthcareai-py/commit/39002d735f4e8d32729496eefff353014e5cc68c",
+  "filename": "hcpytools/develop_supervised_model.py",
+  "commit": "39002d735f4e8d32729496eefff353014e5cc68c",
+  "line_start": 55,
+  "line_end": 79,
+  "excerpt": "            print('\\nDataframe after removing DTS columns:')\n            print(df.head())\n            print('\\nNow either doing imputation or dropping rows with NULLs...')\n\n        if impute:\n            df = DataFrameImputer().fit_transform(df)\n            # This class comes from here: http://stackoverflow.com/a/25562948/5636012\n            if debug:\n                print('\\ndf after doing imputation:')\n                print(df.shape)\n                print(df.head())\n        else:\n            #TODO switch similar statements to work inplace (w/o making a copy)\n            df = df.dropna(axis=0, how='any', inplace=True)\n            print('\\ndf after dropping rows with NULLS:')\n            print(df.shape)\n            print(df.head())\n\n        # Convert predicted col to 0/1 (otherwise won't work with GridSearchCV)\n        # Note that this makes it such that hcpytools only handles N/Y in pred column\n        if modeltype == 'classification':\n            # Turning off warning around replace\n            pd.options.mode.chained_assignment = None  # default='warn'\n            # TODO: put try/catch here when type = class and numeric predictor is selected\n            df[predictedcol].replace(['Y','N'],[1,0], inplace=True)",
+  "match_policy": "unique-release-normalized-v2"
+}

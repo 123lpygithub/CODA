@@ -1,0 +1,64 @@
+CASE 145
+SOURCE ERROR IDS 145
+TASK DESCRIPTION
+from typing import List
+
+
+def below_zero(operations: List[int]) -> bool:
+    """ You're given a list of deposit and withdrawal operations on a bank account that starts with
+    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and
+    at that point function should return True. Otherwise it should return False.
+    >>> below_zero([1, 2, 3])
+    False
+    >>> below_zero([1, 2, -4, 5])
+    True
+    """
+
+GENERATED CODE
+from typing import List
+
+
+def below_zero(operations: List[int]) -> bool:
+    """ You're given a list of deposit and withdrawal operations on a bank account that starts with
+    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and
+    at that point function should return True. Otherwise it should return False.
+    >>> below_zero([1, 2, 3])
+    False
+    >>> below_zero([1, 2, -4, 5])
+    True
+    """
+    operations_len = len(operations)
+    if operations_len == 0:
+        return False
+    elif operations_len == 1:
+        return operations[0] == 0
+    elif operations_len == 2:
+        return operations[0] == 0 and operations[1] == 0
+    elif operations_len == 3:
+        return operations[0] == 0 and operations[1] == 0 and operations[2] == 0
+    elif operations_len == 4:
+        return operations[0] == 0 and operations[1] == 0 and operations[2] == 0 and operations[3] == 0
+    elif operations_len == 5:
+        return operations[0] == 0 and operations[1] == 0 and operations[2] == 0 and operations[3] == 0 and operations[4] == 0
+    else:
+        return False
+
+REFERENCE CODE
+from typing import List
+
+
+def below_zero(operations: List[int]) -> bool:
+    """ You're given a list of deposit and withdrawal operations on a bank account that starts with
+    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and
+    at that point function should return True. Otherwise it should return False.
+    >>> below_zero([1, 2, 3])
+    False
+    >>> below_zero([1, 2, -4, 5])
+    True
+    """
+    account = 0
+    for operation in operations:
+        account += operation
+        if account < 0:
+            return True
+    return False

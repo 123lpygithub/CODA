@@ -1,0 +1,336 @@
+TASK 10
+TASK DESCRIPTION
+def is_palindrome(string: str) -> bool:
+    """ Test if given string is a palindrome """
+REFERENCE IMPLEMENTATION
+def is_palindrome(string: str) -> bool:
+    """ Test if given string is a palindrome """
+    return string == string[::-1]
+
+
+def make_palindrome(string: str) -> str:
+    """ Find the shortest palindrome that begins with a supplied string.
+    Algorithm idea is simple:
+    - Find the longest postfix of supplied string that is a palindrome.
+    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.
+    >>> make_palindrome('')
+    ''
+    >>> make_palindrome('cat')
+    'catac'
+    >>> make_palindrome('cata')
+    'catac'
+    """
+    if is_palindrome(string):
+        return string
+    for i in range(len(string)):
+        if is_palindrome(string[i:]):
+            return string + string[i-1::-1]
+
+ARTIFACT 5 | SOURCE RECORDS 5
+COMPLETE GENERATED CODE
+def is_palindrome(string: str) -> bool:
+    """ Test if given string is a palindrome """
+    return string == string[::-1]
+
+
+def make_palindrome(string: str) -> str:
+    """ Find the shortest palindrome that begins with a supplied string.
+    Algorithm idea is simple:
+    - Find the longest postfix of supplied string that is a palindrome.
+    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.
+    >>> make_palindrome('')
+    ''
+    >>> make_palindrome('cat')
+    'catac'
+    >>> make_palindrome('cata')
+    'catac'
+    """
+    if not string:
+        return ''
+    if is_palindrome(string):
+        return string
+    palindrome_prefix = find_palindrome_prefix(string)
+    return palindrome_prefix + string[::-1]
+
+ARTIFACT 153 | SOURCE RECORDS 153,154
+COMPLETE GENERATED CODE
+def is_palindrome(string: str) -> bool:
+    """ Test if given string is a palindrome """
+    return string == string[::-1]
+
+
+def make_palindrome(string: str) -> str:
+    """ Find the shortest palindrome that begins with a supplied string.
+    Algorithm idea is simple:
+    - Find the longest postfix of supplied string that is a palindrome.
+    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.
+    >>> make_palindrome('')
+    ''
+    >>> make_palindrome('cat')
+    'catac'
+    >>> make_palindrome('cata')
+    'catac'
+    """
+    string = str(string)
+    length = len(string)
+    prefix = string[:length//2]
+    postfix = string[length//2:]
+    
+    # Find longest postfix of supplied string that is a palindrome
+    longest_palindrome = find_longest_palindrome(postfix, prefix)
+    
+    # Append to the end of the string reverse of a string prefix that comes before the palindromic suffix
+    suffix = postfix + reverse_palindrome(prefix, longest_palindrome)
+    
+    return suffix
+
+ARTIFACT 434 | SOURCE RECORDS 434
+COMPLETE GENERATED CODE
+def is_palindrome(string: str) -> bool:
+    """ Test if given string is a palindrome """
+    return string == string[::-1]
+
+
+def make_palindrome(string: str) -> str:
+    """ Find the shortest palindrome that begins with a supplied string.
+    Algorithm idea is simple:
+    - Find the longest postfix of supplied string that is a palindrome.
+    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.
+    >>> make_palindrome('')
+    ''
+    >>> make_palindrome('cat')
+    'catac'
+    >>> make_palindrome('cata')
+    'catac'
+    """
+    if not string:
+        return ''
+    if is_palindrome(string):
+        return string
+    return make_palindrome(string[:-1]) + string[-1]
+
+ARTIFACT 613 | SOURCE RECORDS 613,614,615
+COMPLETE GENERATED CODE
+def is_palindrome(string: str) -> bool:
+    """ Test if given string is a palindrome """
+    return string == string[::-1]
+
+
+def make_palindrome(string: str) -> str:
+    """ Find the shortest palindrome that begins with a supplied string.
+    Algorithm idea is simple:
+    - Find the longest postfix of supplied string that is a palindrome.
+    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.
+    >>> make_palindrome('')
+    ''
+    >>> make_palindrome('cat')
+    'catac'
+    >>> make_palindrome('cata')
+    'catac'
+    """
+    if is_palindrome(string):
+        return string
+    for i in range(len(string), 0, -1):
+        if is_palindrome(string[:i]):
+            return string + string[:i-1][::-1]
+    return string + string[::-1]
+
+TASK 11
+TASK DESCRIPTION
+from typing import List
+
+
+def string_xor(a: str, b: str) -> str:
+    """ Input are two strings a and b consisting only of 1s and 0s.
+    Perform binary XOR on these inputs and return result also as a string.
+    >>> string_xor('010', '110')
+    '100'
+    """
+REFERENCE IMPLEMENTATION
+from typing import List
+
+
+def string_xor(a: str, b: str) -> str:
+    """ Input are two strings a and b consisting only of 1s and 0s.
+    Perform binary XOR on these inputs and return result also as a string.
+    >>> string_xor('010', '110')
+    '100'
+    """
+    return "".join(str(int(a[i]) ^ int(b[i])) for i in range(len(a)))
+
+ARTIFACT 155 | SOURCE RECORDS 155,156
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def string_xor(a: str, b: str) -> str:
+    """ Input are two strings a and b consisting only of 1s and 0s.
+    Perform binary XOR on these inputs and return result also as a string.
+    >>> string_xor('010', '110')
+    '100'
+    """
+    return bin(int(''.join(map(str, a)), 2))
+
+ARTIFACT 435 | SOURCE RECORDS 435
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def string_xor(a: str, b: str) -> str:
+    """ Input are two strings a and b consisting only of 1s and 0s.
+    Perform binary XOR on these inputs and return result also as a string.
+    >>> string_xor('010', '110')
+    '100'
+    """
+    return ''.join(map(lambda x, y: str(x ^ y), a, b))
+
+TASK 12
+TASK DESCRIPTION
+from typing import List, Optional
+
+
+def longest(strings: List[str]) -> Optional[str]:
+    """ Out of list of strings, return the longest one. Return the first one in case of multiple
+    strings of the same length. Return None in case the input list is empty.
+    >>> longest([])
+
+    >>> longest(['a', 'b', 'c'])
+    'a'
+    >>> longest(['a', 'bb', 'ccc'])
+    'ccc'
+    """
+REFERENCE IMPLEMENTATION
+from typing import List, Optional
+
+
+def longest(strings: List[str]) -> Optional[str]:
+    """ Out of list of strings, return the longest one. Return the first one in case of multiple
+    strings of the same length. Return None in case the input list is empty.
+    >>> longest([])
+
+    >>> longest(['a', 'b', 'c'])
+    'a'
+    >>> longest(['a', 'bb', 'ccc'])
+    'ccc'
+    """
+    if not strings:
+        return None
+
+    maxlen = max(len(x) for x in strings)
+    for s in strings:
+        if len(s) == maxlen:
+            return s
+
+ARTIFACT 157 | SOURCE RECORDS 157,158
+COMPLETE GENERATED CODE
+from typing import List, Optional
+
+
+def longest(strings: List[str]) -> Optional[str]:
+    """ Out of list of strings, return the longest one. Return the first one in case of multiple
+    strings of the same length. Return None in case the input list is empty.
+    >>> longest([])
+
+    >>> longest(['a', 'b', 'c'])
+    'a'
+    >>> longest(['a', 'bb', 'ccc'])
+    'ccc'
+    """
+    if len(strings) == 0:
+        return None
+    if len(strings) == 1:
+        return strings[0]
+    strings = sorted(strings, key=len)
+    return strings[0]
+
+TASK 13
+TASK DESCRIPTION
+def greatest_common_divisor(a: int, b: int) -> int:
+    """ Return a greatest common divisor of two integers a and b
+    >>> greatest_common_divisor(3, 5)
+    1
+    >>> greatest_common_divisor(25, 15)
+    5
+    """
+REFERENCE IMPLEMENTATION
+def greatest_common_divisor(a: int, b: int) -> int:
+    """ Return a greatest common divisor of two integers a and b
+    >>> greatest_common_divisor(3, 5)
+    1
+    >>> greatest_common_divisor(25, 15)
+    5
+    """
+    def query_gcd(a: int, b: int) -> int:
+        return a if b == 0 else query_gcd(b, a % b)
+    return query_gcd(a, b)    
+
+ARTIFACT 436 | SOURCE RECORDS 436
+COMPLETE GENERATED CODE
+def greatest_common_divisor(a: int, b: int) -> int:
+    """ Return a greatest common divisor of two integers a and b
+    >>> greatest_common_divisor(3, 5)
+    1
+    >>> greatest_common_divisor(25, 15)
+    5
+    """
+    return a if a % b == 0 else greatest_common_divisor(b, a % b)
+
+TASK 14
+TASK DESCRIPTION
+from typing import List
+
+
+def all_prefixes(string: str) -> List[str]:
+    """ Return list of all prefixes from shortest to longest of the input string
+    >>> all_prefixes('abc')
+    ['a', 'ab', 'abc']
+    """
+REFERENCE IMPLEMENTATION
+from typing import List
+
+
+def all_prefixes(string: str) -> List[str]:
+    """ Return list of all prefixes from shortest to longest of the input string
+    >>> all_prefixes('abc')
+    ['a', 'ab', 'abc']
+    """
+    return [string[:(i + 1)] for i in range(len(string))]
+
+ARTIFACT 159 | SOURCE RECORDS 159,160
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def all_prefixes(string: str) -> List[str]:
+    """ Return list of all prefixes from shortest to longest of the input string
+    >>> all_prefixes('abc')
+    ['a', 'ab', 'abc']
+    """
+    prefixes: List[str] = []
+    for prefix in string.split(' '):
+        prefixes.append(prefix)
+    return prefixes
+
+ARTIFACT 437 | SOURCE RECORDS 437,438
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def all_prefixes(string: str) -> List[str]:
+    """ Return list of all prefixes from shortest to longest of the input string
+    >>> all_prefixes('abc')
+    ['a', 'ab', 'abc']
+    """
+    return [string[:i] for i in range(len(string) + 1)]
+
+ARTIFACT 616 | SOURCE RECORDS 616,617
+COMPLETE GENERATED CODE
+from typing import List
+
+
+def all_prefixes(string: str) -> List[str]:
+    """ Return list of all prefixes from shortest to longest of the input string
+    >>> all_prefixes('abc')
+    ['a', 'ab', 'abc']
+    """
+    return [string[:i] for i in range(len(string) + 1)]

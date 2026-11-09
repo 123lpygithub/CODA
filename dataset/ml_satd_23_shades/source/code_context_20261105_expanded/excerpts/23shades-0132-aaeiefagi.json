@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0132-aaeiefagi",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/3544f2243917d9a3676fd1d3137902f5c7a6fa99",
+  "filename": "hpat/hiframes/pd_dataframe_ext.py",
+  "commit": "3544f2243917d9a3676fd1d3137902f5c7a6fa99",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/3544f2243917d9a3676fd1d3137902f5c7a6fa99/hpat/hiframes/pd_dataframe_ext.py",
+  "fetched_at": "2026-11-05T06:11:59.112321+00:00",
+  "source_sha256": "a8909229be535b395aecc71d5b7f22de15c089b8bda2a439e55a987ed99061e0",
+  "line_start": 19,
+  "line_end": 43,
+  "excerpt": "    str_arr_payload_type, StringArrayType, GetItemStringArray)\nfrom hpat.hiframes.pd_timestamp_ext import pandas_timestamp_type, datetime_date_type\nfrom hpat.hiframes.pd_categorical_ext import PDCategoricalDtype, get_categories_int_type\nfrom hpat.hiframes.rolling import supported_rolling_funcs\nimport datetime\n\n\nclass DataFrameType(types.Type):  # TODO: IterableType over column names\n    \"\"\"Temporary type class for DataFrame objects.\n    \"\"\"\n    def __init__(self, data=None, index=None, columns=None):\n        # data is tuple of Array types\n        # index is Array type (TODO: Index obj)\n        # columns is tuple of strings\n\n        self.data = data\n        if index is None:\n            index = types.none\n        self.index = index\n        self.columns = columns\n        super(DataFrameType, self).__init__(\n            name=\"dataframe({}, {}, {})\".format(data, index, columns))\n\n    def copy(self):\n        # XXX is copy necessary?"
+}

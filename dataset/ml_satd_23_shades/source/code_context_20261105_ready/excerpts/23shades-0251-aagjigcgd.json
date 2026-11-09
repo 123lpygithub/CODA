@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0251-aagjigcgd",
+  "revision_url": "https://github.com/apayne19/DoubleAuctionMarket/commit/fa9a3cd989e21e25caa97ecef5b9ca01d2aaeb79",
+  "filename": "trader.py",
+  "commit": "fa9a3cd989e21e25caa97ecef5b9ca01d2aaeb79",
+  "source_url": "https://raw.githubusercontent.com/apayne19/DoubleAuctionMarket/fa9a3cd989e21e25caa97ecef5b9ca01d2aaeb79/trader.py",
+  "fetched_at": "2026-11-05T06:12:22.241933+00:00",
+  "source_sha256": "19bad9ae99a23388b875a1a0477c074ecacec793d21160a7a70a3a1806a57d7f",
+  "line_start": 120,
+  "line_end": 144,
+  "excerpt": "                else:\n                    if cur_cost < 999:\n                        ask = standing_ask - 1\n                        return [\"S\", self.name, ask]\n                    else:\n                        return []\n            else:\n                if cur_cost > 0:\n                    ask = 999\n                    return [\"S\", self.name, ask]\n                else:\n                    return []\n    # TODO change out existing code for better code below\n    def getorder(self, time, countdown, lob):\n        lurk_threshold = 0.2\n        shavegrowthrate = 3\n        shave = int(1.0 / (0.01 + countdown / (shavegrowthrate * lurk_threshold)))\n        if (len(self.orders) < 1) or (countdown > lurk_threshold):\n            order = None\n\n        else:\n            limitprice = self.orders[0].price\n            otype = self.orders[0].otype\n            if otype == 'Bid':\n                if lob['bids']['n'] > 0:"
+}

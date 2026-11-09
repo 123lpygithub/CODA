@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0501-aaedhahfd",
+  "revision_url": "https://github.com/menpo/menpo/commit/04014837a8c41960c958890843017cb29370cc04",
+  "filename": "pybug/transform/modeldriven.py",
+  "commit": "04014837a8c41960c958890843017cb29370cc04",
+  "source_url": "https://raw.githubusercontent.com/menpo/menpo/04014837a8c41960c958890843017cb29370cc04/pybug/transform/modeldriven.py",
+  "fetched_at": "2026-11-05T06:13:04.111688+00:00",
+  "source_sha256": "4d217713d25ec5282a8c55cfd79cab903d8d6222ee8ed558650f1147296c22a1",
+  "line_start": 214,
+  "line_end": 238,
+  "excerpt": "        x : (N, D) ndarray or a transformable object\n            The object to be transformed.\n        kwargs : dict\n            Passed through to transforms ``apply_inplace`` method.\n\n        Returns\n        --------\n        transformed : (N, D) ndarray or object\n            The transformed object\n        \"\"\"\n        return self.transform._apply(x, **kwargs)\n\n    # TODO: Could be implemented as optimization option in LK???\n    # i.e. make this a function pointer\n    # Problems:\n    #   - This method needs to be explicitly overwritten in order to match\n    #     the common interface defined for AlignableTransform objects\n    def compose(self, statistically_driven_transform):\n        if self.composition is 'model':\n            # TODO this seems to be the same, revisit\n            new_target = self._compose_model(\n                statistically_driven_transform.target)\n            return self.from_target(new_target)\n        elif self.composition is 'warp':\n            new_target = self._compose_warp("
+}

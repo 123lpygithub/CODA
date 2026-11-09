@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0158-aahgacfhf",
+  "revision_url": "https://github.com/RaRe-Technologies/gensim/commit/bcee414663bdcbdf6a58684531ee69c6949550bf",
+  "filename": "docs/src/auto_examples/tutorials/run_lda.py",
+  "commit": "bcee414663bdcbdf6a58684531ee69c6949550bf",
+  "source_url": "https://raw.githubusercontent.com/RaRe-Technologies/gensim/bcee414663bdcbdf6a58684531ee69c6949550bf/docs/src/auto_examples/tutorials/run_lda.py",
+  "fetched_at": "2026-11-05T06:12:03.254139+00:00",
+  "source_sha256": "25d03a108161ab4b89c2da4d698ff1f50c282d0a941901a97535ea13e44c3e67",
+  "line_start": 283,
+  "line_end": 307,
+  "excerpt": "# We can compute the topic coherence of each topic. Below we display the\n# average topic coherence and print the topics in order of topic coherence.\n# \n# Note that we use the \"Umass\" topic coherence measure here (see\n# :py:func:`gensim.models.ldamodel.LdaModel.top_topics`), Gensim has recently\n# obtained an implementation of the \"AKSW\" topic coherence measure (see\n# accompanying blog post, http://rare-technologies.com/what-is-topic-coherence/).\n# \n# If you are familiar with the subject of the articles in this dataset, you can\n# see that the topics below make a lot of sense. However, they are not without\n# flaws. We can see that there is substantial overlap between some topics,\n# others are hard to interpret, and most of them have at least some terms that\n# seem out of place. If you were able to do better, feel free to share your\n# methods on the blog at http://rare-technologies.com/lda-training-tips/ !\n# \n\ntop_topics = model.top_topics(corpus) #, num_words=20)\n\n# Average topic coherence is the sum of topic coherences of all topics, divided by the number of topics.\navg_topic_coherence = sum([t[1] for t in top_topics]) / num_topics\nprint('Average topic coherence: %.4f.' % avg_topic_coherence)\n\nfrom pprint import pprint\npprint(top_topics)\n",
+  "match_policy": "unique-release-normalized-v2"
+}

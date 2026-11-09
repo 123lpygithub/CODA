@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18575",
+  "issue_url": "https://github.com/syncthing/syncthing/issues/3308",
+  "source_issue_url": "https://github.com/syncthing/syncthing/issues/3308",
+  "api_url": "https://api.github.com/repos/syncthing/syncthing/issues/3308",
+  "title": "Provide better privacy in the usage reporting",
+  "body": "I am the kind of people that systematically deactivate usage report \"features\", and Syncthing is no exception, even if I love it. As the target audience for Syncthing is more or less FOSS lovers / technical people, it is likely that the usage statistics published are largely underestimated. This is also prejudicial since the kind of people that deactivate usage reporting are possibly correlated to the kind of people that say, use a specific other feature, so you cannot simply extrapolate from the usage reports you have.\n\nOne way to gather more information about the real use of Syncthing, apart from using the limited information available to relays logs &cie, would be to increase the confidentiality of the usage reports\nGoogle developed for Chrome a system called RAPPOR that provides usage information while being much more preserving of users' privacy. See [this design document](https://www.chromium.org/developers/design-documents/rappor).\n\nThe basic idea is to flip a coin, and report either the real value or a random value. No one can say if the reported value is actually true (and if the client does use an outdated and potentially vulnerable version!), but that's not relevant since what you are looking for is _trends_. The server can then correct reported information by adjusting for the probability that the reported usage is random. It has several complications such as its application on textual data (I guess we will be able to label build strings?) and how to deal with recurrent reporting (that would increase the probability of the reported information being true), but all of that can be worked on. I guess this would 1) increase privacy of Syncthing users, and 2) increase the trust in the Usage Reporting feature and improve its representativeness, if this feature is marketed in the UI.\n\nFor an introduction on the concept of Differential Privacy and RAPPOR, look at [this great article](http://blog.cryptographyengineering.com/2016/06/what-is-differential-privacy.html).\n\n[edited to add some line breaks for readability]\n",
+  "author": "Participant 1",
+  "created_at": "2016-06-15T15:33:21Z",
+  "updated_at": "2017-06-16T21:00:08Z",
+  "state": "closed",
+  "closed_at": "2016-06-15T16:32:45Z",
+  "issue_fetched_at": "2026-10-18T22:11:20.178083+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T22:11:21.579768+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 226231536,
+      "url": "https://github.com/syncthing/syncthing/issues/3308#issuecomment-226231536",
+      "created_at": "2016-06-15T15:51:47Z",
+      "updated_at": "2016-06-15T15:51:47Z",
+      "author": "Participant 2",
+      "body": "I fail to see the advantage nor the purported increase in privacy. \n"
+    },
+    {
+      "id": 226233821,
+      "url": "https://github.com/syncthing/syncthing/issues/3308#issuecomment-226233821",
+      "created_at": "2016-06-15T15:59:00Z",
+      "updated_at": "2016-06-15T15:59:00Z",
+      "author": "Participant 3",
+      "body": "I think the set of people who disable usage reporting, and the set of people who either know what RAPPOR is (or will hold off what they're trying to do for long enough to educate themselves) is pretty small.\n\nAlso, \n\n> This is also prejudicial since the kind of people that deactivate usage reporting are possibly correlated to the kind of people that say, use a specific other feature, so you cannot simply extrapolate from the usage reports you have.\n\nAppears to contradict \n\n> No one can say if the reported value is actually true (and if the client does use an outdated and potentially vulnerable version!), but that's not relevant since what you are looking for is trends.\n\nSince you don't gain the ability to extrapolate from the usage reports by using RAPPOR, as I understand you.\n"
+    },
+    {
+      "id": 226233849,
+      "url": "https://github.com/syncthing/syncthing/issues/3308#issuecomment-226233849",
+      "created_at": "2016-06-15T15:59:05Z",
+      "updated_at": "2016-06-15T15:59:05Z",
+      "author": "Participant 1",
+      "body": "That's pretty simple actually, and the increase in privacy is obvious. For the exhaustiveness of the data, here is the idea: I don't think the size of my shared folders is no one business except mine. So, I don't want to send this information to data.syncthing.net, and I deactivate the usage report. However, if it would take mathematical commitment to preserve my privacy, I would be inclined to accept it. I guess more people would as well, and the stats would better represent the big picture.\n"
+    },
+    {
+      "id": 226234695,
+      "url": "https://github.com/syncthing/syncthing/issues/3308#issuecomment-226234695",
+      "created_at": "2016-06-15T16:01:40Z",
+      "updated_at": "2016-06-15T16:01:40Z",
+      "author": "Participant 4",
+      "body": "I think we should close this, as it's a problem that doesn't exist. I you want to report, go ahead and report, if you don't - don't, very simple, no bleeding edge research systems required.\n"
+    },
+    {
+      "id": 226235314,
+      "url": "https://github.com/syncthing/syncthing/issues/3308#issuecomment-226235314",
+      "created_at": "2016-06-15T16:03:37Z",
+      "updated_at": "2016-06-15T16:03:37Z",
+      "author": "Participant 2",
+      "body": "That there is a skew towards the features used by people who enable usage reporting is understood. For example this would be reflected in the fact that we're probably seeing less users who use only custom discovery servers, as these are likely to be users \"off the grid\" and thus not reporting usage data either. \n\nI fail to see the reporting of folder sizes as a privacy issue as we can't correlate it to \"you\" in any way. If you think it is, you are of course entirely welcome to not report usage stats, that's why we ask in the first place. :)\n"
+    },
+    {
+      "id": 226244168,
+      "url": "https://github.com/syncthing/syncthing/issues/3308#issuecomment-226244168",
+      "created_at": "2016-06-15T16:34:10Z",
+      "updated_at": "2016-06-15T16:34:10Z",
+      "author": "Participant 2",
+      "body": "I read though the introductory paragraphs of the RAPPORT paper. It sounds neat. It also sounds vastly overkill in complexity for our use case and the level of sensitivity of the data we handle.\n"
+    },
+    {
+      "id": 226276217,
+      "url": "https://github.com/syncthing/syncthing/issues/3308#issuecomment-226276217",
+      "created_at": "2016-06-15T18:24:40Z",
+      "updated_at": "2016-06-15T18:24:50Z",
+      "author": "Participant 1",
+      "body": "That's totally OK, Syncthing is already extremely respectful of its users (honestly it's even best in class in this), so that was nothing more than a proposition for improvement. If you ever want to increase privacy, you can remember this lead. Cheers!\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

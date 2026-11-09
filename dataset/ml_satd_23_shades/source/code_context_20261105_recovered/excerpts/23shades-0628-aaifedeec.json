@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0628-aaifedeec",
+  "revision_url": "https://github.com/microsoft/nni/commit/eab0da154b4c8cf68f95ef294844649c9e17ee60",
+  "filename": "src/sdk/pynni/nni/compression/speedup/torch/compressor.py",
+  "commit": "eab0da154b4c8cf68f95ef294844649c9e17ee60",
+  "source_url": "https://raw.githubusercontent.com/microsoft/nni/eab0da154b4c8cf68f95ef294844649c9e17ee60/src/sdk/pynni/nni/compression/speedup/torch/compressor.py",
+  "fetched_at": "2026-11-05T06:13:27.996744+00:00",
+  "source_sha256": "fc8b8fa43355ffe2c4a4a1f450f7f60902d4274eb23eb159062dfade49edea72",
+  "line_start": 282,
+  "line_end": 306,
+  "excerpt": "        # construct GNode from module\n        for module_name, nodes in module_to_nodes.items():\n            inputs = set()\n            outputs = set()\n            for node in nodes:\n                for output in node.outputs():\n                    outputs.add(output.debugName())\n                for _input in node.inputs():\n                    inputs.add(_input.debugName())\n            m_inputs = list()\n            m_outputs = list()\n            for output in outputs:\n                # TODO: one input could be the input of multiple nodes\n                if not output in input_to_node and output in graph_outputs:\n                    m_outputs.append(output)\n                elif not input_to_node[output] in nodes:\n                    m_outputs.append(output)\n            for _input in inputs:\n                if not _input in output_to_node and _input in graph_inputs:\n                    m_inputs.append(_input)\n                elif not output_to_node[_input] in nodes:\n                    m_inputs.append(_input)\n            print(\"module node_name: \", module_name)\n            if module_name == '':\n                for n in nodes:"
+}

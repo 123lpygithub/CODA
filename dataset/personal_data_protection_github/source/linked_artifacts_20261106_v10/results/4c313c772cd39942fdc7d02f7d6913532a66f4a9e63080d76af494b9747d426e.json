@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/DSpace/DSpace/blob/dspace-5_x/dspace-api/src/main/java/org/dspace/google/GoogleRecorderEventListener.java#L59",
+  "kind": "file",
+  "cited_in": [
+    "comment_908751416"
+  ],
+  "revision": "dspace-5_x",
+  "immutable_revision": false,
+  "line_start": 47,
+  "line_end": 71,
+  "text": "        // httpclient is threadsafe so we only need one.\n        httpclient = HttpClients.createDefault();\n    }\n\n    public void receiveEvent(Event event) {\n        if((event instanceof UsageEvent))\n        {\n            log.debug(\"Usage event received \" + event.getName());\n\n            // This is a wee bit messy but these keys should be combined in future.\n            analyticsKey = new DSpace().getConfigurationService().getProperty(\"jspui.google.analytics.key\");\n            if (analyticsKey == null ) {\n                analyticsKey = new DSpace().getConfigurationService().getProperty(\"xmlui.google.analytics.key\");\n            }\n\n            if (analyticsKey != null ) {\n                try {\n                    UsageEvent ue = (UsageEvent)event;\n                    if(UsageEvent.Action.VIEW == ue.getAction() && (Constants.BITSTREAM == ue.getObject().getType())) {\n                        bitstreamDownload(ue);\n                    }\n                }\n                catch(Exception e)\n                {\n                    log.error(e.getMessage());",
+  "source_sha256": "f852c3c983ec7f6114047a86ba6f4bc53b75fc9f193e1591cccc8c89dfdbd4b9",
+  "fetched_at": "2026-11-05T06:21:49.861876+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/DSpace/DSpace/dspace-5_x/dspace-api/src/main/java/org/dspace/google/GoogleRecorderEventListener.java",
+  "status": "available"
+}

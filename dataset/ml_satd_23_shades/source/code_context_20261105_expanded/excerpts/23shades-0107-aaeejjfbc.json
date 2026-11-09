@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0107-aaeejjfbc",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/4fae108646cc9b98eef79bd1473e099e4bcfed4c",
+  "filename": "madmom/features/beats.py",
+  "commit": "4fae108646cc9b98eef79bd1473e099e4bcfed4c",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/4fae108646cc9b98eef79bd1473e099e4bcfed4c/madmom/features/beats.py",
+  "fetched_at": "2026-11-05T06:11:55.388782+00:00",
+  "source_sha256": "86781d889a8805eecaac904a36d98ea804abf1982e62a83e62069934c771fcbf",
+  "line_start": 127,
+  "line_end": 151,
+  "excerpt": "        #        pickled Processor (including information about spectrograms,\n        #        mul, add & diff_ratio and so on)\n        kwargs['fps'] = self.fps = 100\n        # processing chain\n        sig = SignalProcessor(num_channels=1, sample_rate=44100, **kwargs)\n        stack = StackSpectrogramProcessor(frame_size=[1024, 2048, 4096],\n                                          online=False, bands=3,\n                                          norm_filters=True, log=True, mul=1,\n                                          add=1, diff_ratio=0.5,\n                                          stack_diffs=True, **kwargs)\n        if nn_ref_files is not None:\n            if nn_ref_files is True:\n                # FIXME: this is kind of hackish, but being able to simply set\n                #        the nn_ref_files to 'True' makes the arguments stuff\n                #        for the MMBeatTracker much simpler\n                nn_ref_files = nn_files\n            if nn_ref_files == nn_files:\n                # if we don't have nn_ref_files given or they are the same as\n                # the nn_files, set num_ref_predictions to 0\n                num_ref_predictions = 0\n            else:\n                # set the number of reference files according to the length\n                num_ref_predictions = len(nn_ref_files)\n                # redefine the list of files to be tested\n                nn_files = nn_ref_files + nn_files",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0442-aabgdbaje",
+  "revision_url": "https://github.com/rmalav15/Super-SloMo/commit/db6e050566391a6ec41b643f873c5aaa8ae88f25",
+  "filename": "data_loader.py",
+  "commit": "db6e050566391a6ec41b643f873c5aaa8ae88f25",
+  "source_url": "https://raw.githubusercontent.com/rmalav15/Super-SloMo/db6e050566391a6ec41b643f873c5aaa8ae88f25/data_loader.py",
+  "fetched_at": "2026-11-05T06:12:55.293414+00:00",
+  "source_sha256": "9d7b0ef0cb4b36417193e8735f521c42b4392e355decfb2195b3b0031e7104ab",
+  "line_start": 83,
+  "line_end": 107,
+  "excerpt": "            raise ValueError('No training video available.')\n\n        if len(self.video_names) < self.batch_size:\n            print(\"Reducing batch size to: \", len(self.video_names))  # todo: Replace with logger\n            self.batch_size = len(self.video_names)\n\n    def getTrainData(self):\n\n        Data = collections.namedtuple('Data', 'paths_LR, paths_HR, inputs, targets, image_count, steps_per_epoch')\n        image_paths_lists = [[os.path.join(path, imageName) for imageName in os.listdir(path)] for path in\n                             self.image_dirs]\n        image_paths_lists = pad_function(image_paths_lists)\n        # TODO: add backward images also.\n        image_paths_lists_deep_copy_list = [random.sample(image_paths_lists, len(image_paths_lists)) for _ in\n                                            range(self.batch_size)]\n\n        with tf.variable_scope('data_loader'):\n            # This  makes shallow copy\n            # images_paths_list_tensor = tf.convert_to_tensor(image_paths_lists, dtype=tf.string)\n            # images_paths_list_tensor_list = [tf.random.shuffle(tf.identity(images_paths_list_tensor)) for _ in\n            #                                  range(self.batch_size)]\n\n            images_paths_list_tensor_list = [tf.convert_to_tensor(shuffled_image_paths_lists, dtype=tf.string) for\n                                             shuffled_image_paths_lists in image_paths_lists_deep_copy_list]\n            batch_images_path_list = tf.train.slice_input_producer(images_paths_list_tensor_list)"
+}

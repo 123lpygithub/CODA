@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0323-aaffbcfif",
+  "revision_url": "https://github.com/neptune-ai/neptune-client/commit/629b08421f3a430f4a6c9d8bc5513404ca6e064f",
+  "filename": "neptune_client_prototype/__init__.py",
+  "commit": "629b08421f3a430f4a6c9d8bc5513404ca6e064f",
+  "source_url": "https://raw.githubusercontent.com/neptune-ai/neptune-client/629b08421f3a430f4a6c9d8bc5513404ca6e064f/neptune_client_prototype/__init__.py",
+  "fetched_at": "2026-11-05T06:12:33.970961+00:00",
+  "source_sha256": "0dafded424109e9e7bccb0aa7525e4e23c3121bacb6e1e42673ba8553d7d6a52",
+  "line_start": 150,
+  "line_end": 174,
+  "excerpt": "    for k, v in kwargs.items():\n      if isinstance(v, Namespace) or isinstance(v, Variable):\n        self._members[k] = v\n      elif isinstance(v, dict):\n        self._members[k] = Namespace(**v)\n      else:\n        raise TypeError()\n\n  def __contains__(self, key):\n    # TODO support paths like foo/bar here or treat as implementation details?\n    return key in self._members\n\n  # TODO path validation, empty path\n  def __getitem__(self, path):\n    split_path = path.split('/', maxsplit=1)\n    segment = split_path[0]\n\n    if not segment: # empty string\n      raise ValueError()\n\n    if len(split_path) == 1:\n      if segment in self._members:\n        return self._members[segment]\n      else:\n        self._members[segment] = Stub(self._members, segment)",
+  "match_policy": "unique-release-normalized-v2"
+}

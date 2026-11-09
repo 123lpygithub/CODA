@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0109-aaibiggcj",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/3d6e8355452cb2b08ecf6922ca1074789ceb48ee",
+  "filename": "scikits/learn/gmm.py",
+  "commit": "3d6e8355452cb2b08ecf6922ca1074789ceb48ee",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/3d6e8355452cb2b08ecf6922ca1074789ceb48ee/scikits/learn/gmm.py",
+  "fetched_at": "2026-11-05T06:11:55.367628+00:00",
+  "source_sha256": "1ce77fc5d2c6caba3f5fbbe0d1b122cfc921a5d0eed6fb22723e6d2c7e20b758",
+  "line_start": 451,
+  "line_end": 475,
+  "excerpt": "def _lmvnpdftied(obs, means, covars):\n    nobs, ndim = obs.shape\n    nmix = len(means)\n    # (x-y).T A (x-y) = x.T A x - 2x.T A y + y.T A y\n    icv = np.linalg.inv(covars)\n    lpr = -0.5 * (ndim * np.log(2 * np.pi) + np.log(np.linalg.det(covars))\n                  + np.sum(obs * np.dot(obs, icv), 1)[:,np.newaxis]\n                  - 2 * np.dot(np.dot(obs, icv), means.T)\n                  + np.sum(means * np.dot(means, icv), 1))\n    return lpr\n\ndef _lmvnpdffull(obs, means, covars):\n    # FIXME: this representation of covars is going to lose for caching\n    nobs, ndim = obs.shape\n    nmix = len(means)\n    lpr = np.empty((nobs,nmix))\n    for c, (mu, cv) in enumerate(itertools.izip(means, covars)):\n        icv = np.linalg.inv(cv)\n        lpr[:,c] = -0.5 * (ndim * np.log(2 * np.pi) + np.log(np.linalg.det(cv)))\n        for o, currobs in enumerate(obs):\n            dzm = (currobs - mu)\n            lpr[o,c] += -0.5 * np.dot(np.dot(dzm, icv), dzm.T)\n        #dzm = (obs - mu)\n        #lpr[:,c] = -0.5 * (np.dot(np.dot(dzm, np.linalg.inv(cv)), dzm.T)\n        #                   + np.log(2 * np.pi) + np.linalg.det(cv)).diagonal()"
+}

@@ -1,0 +1,15 @@
+{
+  "url": "https://github.com/WICG/feature-policy/pull/86/files#diff-e1ec7fcfd5aa4d3ea3e990d9b707a3b4R20",
+  "kind": "pull_request",
+  "cited_in": [
+    "comment_356786362"
+  ],
+  "text": "From 414e2c405d6c9421e2793c8e286b26058133113f Mon Sep 17 00:00:00 2001\nFrom: Ian Clelland <iclelland@google.com>\nDate: Tue, 3 Oct 2017 15:40:57 -0400\nSubject: [PATCH] Add USB and VR as features\n\n---\n features.md | 20 ++++++++++++++++++++\n 1 file changed, 20 insertions(+)\n\ndiff --git a/features.md b/features.md\nindex e9d0f78e..8d0553e7 100644\n--- a/features.md\n+++ b/features.md\n@@ -15,7 +15,9 @@ of these features all belong in their respective specs.\n |`midi`|`self`|Controls access to `requestMIDIAccess()` method.|\n |`payment`|`self`|Controls access to PaymentRequest interface.|\n |`speaker`|`self`|Controls access to audio output devices.|\n+|`usb`|`self`|Controls access to USB devices.|\n |`vibrate`|`self`|Controls access to `vibrate()` method.|\n+|`vr`|`self`|Controls access to VR displays.|\n \n ## Feature Definitions\n \n@@ -91,6 +93,15 @@ If disabled in a document, then calls to [`getUserMedia()`](https://w3c.github.i\n * The **feature name** for *speaker* is \"`speaker`\"\n * The **default allowlist** for *speaker* is `[\"self\"]`.\n \n+### usb\n+\n+The *usb* feature controls whether the current document is allowed to use the [WebUSB API](https://wicg.github.io/webusb/).\n+\n+If disabled in a document, then calls to the [`getDevices()`](https://wicg.github.io/webusb/#dom-usb-getdevices) should return a promise which rejects with a SecurityError DOMException.\n+\n+* The **feature name** for *usb* is \"`usb`\"\n+* The **default allowlist** for *usb* is `[\"self\"]`.\n+\n ### vibrate\n \n The *vibrate* feature controls whether the [Vibration API](https://w3c.github.io/vibration/) is allowed to cause device vibration.\n@@ -99,3 +110,12 @@ If disabled in a document, then calls to the [`vibrate()`](https://w3c.github.io\n \n * The **feature name** for *vibrate* is \"`vibrate`\"\n * The **default allowlist** for *vibrate* is `[\"self\"]`.\n+\n+### vr\n+\n+The *vr* feature controls whether the current document is allowed to use the [WebVR API](https://w3c.github.io/webvr/spec/1.1/).\n+\n+If disabled in a document, then calls to the [`getVRDisplays()`](https://w3c.github.io/webvr/spec/1.1/#navigator-getvrdisplays-attribute) should return a promise which rejects with a SecurityError DOMException.\n+\n+* The **feature name** for *vr* is \"`vr`\"\n+* The **default allowlist** for *vr* is `[\"self\"]`.\n",
+  "source_sha256": "514c053ae56a4ee447da33c36e60439f21c8b3e8f0bf2a7b7f05b8f1c7108e28",
+  "fetched_at": "2026-11-05T07:21:29.269381+00:00",
+  "retrieval_url": "https://github.com/WICG/feature-policy/pull/86.patch",
+  "status": "available",
+  "revision": "86",
+  "immutable_revision": false,
+  "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+}

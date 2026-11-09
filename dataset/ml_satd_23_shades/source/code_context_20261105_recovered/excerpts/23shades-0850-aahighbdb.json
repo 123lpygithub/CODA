@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0850-aahighbdb",
+  "revision_url": "https://github.com/flennerhag/mlens/commit/07b1f60f4238e7a15f8cf4b963b70fdbee63eff6",
+  "filename": "mlens/externals/joblib/logger.py",
+  "commit": "07b1f60f4238e7a15f8cf4b963b70fdbee63eff6",
+  "source_url": "https://raw.githubusercontent.com/flennerhag/mlens/07b1f60f4238e7a15f8cf4b963b70fdbee63eff6/mlens/externals/joblib/logger.py",
+  "fetched_at": "2026-11-05T06:14:04.758118+00:00",
+  "source_sha256": "d8f870bec26d7ae28a46cb4f95d09889567d1cdd841bfc7ede0c4bf639953252",
+  "line_start": 68,
+  "line_end": 92,
+  "excerpt": "        \"\"\"\n            Parameters\n            ----------\n            depth: int, optional\n                The depth of objects printed.\n        \"\"\"\n        self.depth = depth\n\n    def warn(self, msg):\n        logging.warning(\"[%s]: %s\" % (self, msg))\n\n    def debug(self, msg):\n        # XXX: This conflicts with the debug flag used in children class\n        logging.debug(\"[%s]: %s\" % (self, msg))\n\n    def format(self, obj, indent=0):\n        \"\"\" Return the formated representation of the object.\n        \"\"\"\n        return pformat(obj, indent=indent, depth=self.depth)\n\n\n###############################################################################\n# class `PrintTime`\n###############################################################################\nclass PrintTime(object):"
+}

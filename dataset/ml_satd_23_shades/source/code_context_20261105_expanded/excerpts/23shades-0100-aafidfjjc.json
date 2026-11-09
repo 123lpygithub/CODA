@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0100-aafidfjjc",
+  "revision_url": "https://github.com/tasoc/starclass/commit/695cb85e29b5aa21b1045071bd42407eebf90ae7",
+  "filename": "starclass/BaseClassifier.py",
+  "commit": "695cb85e29b5aa21b1045071bd42407eebf90ae7",
+  "source_url": "https://raw.githubusercontent.com/tasoc/starclass/695cb85e29b5aa21b1045071bd42407eebf90ae7/starclass/BaseClassifier.py",
+  "fetched_at": "2026-11-05T06:11:54.061016+00:00",
+  "source_sha256": "2bc35aced0bc012b3cb79ee08d553de9af7a2c32a07a4b42e8dd8943a5d77c65",
+  "line_start": 154,
+  "line_end": 178,
+  "excerpt": "\t\tfor features in tset.features_test():\n\t\t\t# Classify this start from the test-set:\n\t\t\tres = self.classify(features)\n\n\t\t\t# TODO: Save results for this classifier/trainingset in database\n\n\t\t\t#logger.info(res)\n\t\t\tprediction = max(res, key=lambda key: res[key]).value\n\t\t\ty_pred.append(prediction)\n\t\ty_pred = np.array(y_pred)\n\n\t\t# Convert labels to ndarray:\n\t\t# FIXME: Only keeping the first label\n\t\tlabels_test = np.array([lbl[0].value for lbl in tset.labels_test(level=self.level)])\n\n\t\t# Compare to known labels:\n\t\tacc = accuracy_score(labels_test, y_pred)\n\t\tlogger.info('Accuracy: %.2f%%', acc*100)\n\n\t\t# Confusion Matrix:\n\t\tcf = confusion_matrix(labels_test, y_pred, labels=all_classes)\n\n\t\tcurrent_classifier = self.__class__.__name__\n\t\tfig = plt.figure()\n\t\tplotConfMatrix(cf, all_classes)"
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0071-aafiaaaih",
+  "revision_url": "https://github.com/wenwei202/iss-rnns/commit/9b7efab129a10e8cb14d0ce54c7c61ab9e67c290",
+  "filename": "basic/prepro.py",
+  "commit": "9b7efab129a10e8cb14d0ce54c7c61ab9e67c290",
+  "source_url": "https://raw.githubusercontent.com/wenwei202/iss-rnns/9b7efab129a10e8cb14d0ce54c7c61ab9e67c290/basic/prepro.py",
+  "fetched_at": "2026-11-05T06:11:49.812686+00:00",
+  "source_sha256": "0d5333c0b57e71fac35c589a693916833de47768bd27a10b6a9e86b41a91b94f",
+  "line_start": 105,
+  "line_end": 129,
+  "excerpt": "                    char_counter.update(char for sent in context_words for word in sent for char in word)\n                    word_counter.update(word for word in question_words)\n                    char_counter.update(char for word in question_chars for char in word)\n                    max_ques_size = max(max_ques_size, len(question_words))\n                    max_ques_word_size = max(max_ques_word_size, max(map(len, question_chars)))\n                    bs = []\n                    for answer in qa['answers'][:1]:  # Fix this to use all answers!\n                        start_idx = answer['start_idx']\n                        stop_idx = answer['stop_idx']\n                        # If span is extended further than the sent length\n                        if stop_idx[1] > len(context_words[stop_idx[0]]):\n                            invalid_stop_idx_counter += 1\n                            # FIXME : adhoc (answer being last word), not ignoring single question\n                            start_idx[1] = len(context_words[start_idx[0]]) - 1\n                            stop_idx[1] = start_idx[1] + 1\n                        full_span = [start_idx, stop_idx]\n                        support_tree = nltk.tree.Tree.fromstring(consts[start_idx[0]])\n                        span = (start_idx[1], stop_idx[1])\n                        set_span(support_tree)\n                        b = int(tree_contains_span(support_tree, span))\n                        bs.append(b)\n\n                        max_span, f1 = find_max_f1_span(support_tree, span)\n                        f1s.append(f1)\n",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-20435",
+  "issue_url": "https://github.com/Codeinwp/otter-blocks/issues/770",
+  "source_issue_url": "https://github.com/Codeinwp/otter-blocks/issues/770",
+  "api_url": "https://api.github.com/repos/Codeinwp/otter-blocks/issues/770",
+  "title": "Otter blocks plugin slows down pages if Cookies policy is activated on website",
+  "body": "This happens with multiple cookies policy plugins/features and it only depends how much a website is slowed down.\r\nA client reported that some of his pages timeout if the Otter plugin is activated together with the GDPR cookies plugin - https://wordpress.org/plugins/cookie-law-info/\r\n\r\nI was able to replicate the issue and even using OrbitFox plugin (Policy notice feature) the website is slowed down significantly - https://docs.themeisle.com/article/1296-policy-notice-orbit-fox-module\r\nIt doesn't timeout in my case but takes a lot to load compared to when one of these plugins is disabled.\r\n\r\nI didn't find anything specifically added to the page that could be causing it, based on my tests it only matters how many resources are added to the page so more content and images to have - more time it takes to load with these plugins activated and ultimately it causes timeout.\r\n\r\nHere is the network tab with both Otter and OrbitFox plugins activated (sorted by resources taking most time): https://vertis.d.pr/f79XK1\r\n\r\nHere is the network tab with the Policy notice of OrbitFox disabled: https://vertis.d.pr/b0y5td\r\n\r\nThe website has only these 2 plugins enabled: https://vertis.d.pr/quLL09\r\n\r\nContent of the page that could be copied to face this issue (it has a lot of content so hard to replicate with only a few images but the more content you add the slower page becomes as every resource seems to be delayed):\r\nhttps://pastebin.com/nZgpjE0F\r\n\r\nAlso, here is a test instance where you can check it (valid for 7 days):\r\nhttps://loseyarn.s4-tastewp.com/2022/03/07/3commas-dca-bot-indicator-strategy-v1/\r\n\r\n Admin area URL: https://loseyarn.s4-tastewp.com/wp-admin\r\n Username: bvytis  \r\n Password: d-cRizrcmhE\r\n\r\nReported here - https://secure.helpscout.net/conversation/1793320837/310815\r\n\r\ncc @HardeepAsrani this is the case we discussed about. Thanks!",
+  "author": "Participant 1",
+  "created_at": "2022-03-07T12:18:16Z",
+  "updated_at": "2022-03-10T18:06:43Z",
+  "state": "closed",
+  "closed_at": "2022-03-08T13:18:44Z",
+  "issue_fetched_at": "2026-10-18T23:10:44.421931+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T23:10:45.810796+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1061660387,
+      "url": "https://github.com/Codeinwp/otter-blocks/issues/770#issuecomment-1061660387",
+      "created_at": "2022-03-08T11:06:32Z",
+      "updated_at": "2022-03-08T11:06:32Z",
+      "author": "Participant 2",
+      "body": "@cristian-ungureanu You might have some insights on this. Do these Privacy Policy modules block rendering of scripts or anything that could be causing this?"
+    },
+    {
+      "id": 1061709913,
+      "url": "https://github.com/Codeinwp/otter-blocks/issues/770#issuecomment-1061709913",
+      "created_at": "2022-03-08T12:08:15Z",
+      "updated_at": "2022-03-08T12:08:15Z",
+      "author": "Participant 3",
+      "body": "@HardeepAsrani the issue is fixed in the latest version of Otter.\r\n\r\nIt was indeed a problem with the previous version. Don't exactly know why but when OrbitFox tried to execute \"wp_kses\" function from here https://github.com/Codeinwp/themeisle-companion/blob/master/obfx_modules/policy-notice/init.php#L202, everything was so slow. After deactivating Otter 1.7.5, everything was fine.\r\n\r\nNow I updated Otter to 2.0 and everything works great!"
+    },
+    {
+      "id": 1061756388,
+      "url": "https://github.com/Codeinwp/otter-blocks/issues/770#issuecomment-1061756388",
+      "created_at": "2022-03-08T13:06:31Z",
+      "updated_at": "2022-03-08T13:06:31Z",
+      "author": "Participant 2",
+      "body": "@vytisbulkevicius Is it same for you?"
+    },
+    {
+      "id": 1061767823,
+      "url": "https://github.com/Codeinwp/otter-blocks/issues/770#issuecomment-1061767823",
+      "created_at": "2022-03-08T13:18:44Z",
+      "updated_at": "2022-03-08T13:18:44Z",
+      "author": "Participant 1",
+      "body": "Yes, everything looks great with Otter 2.0, and the page loads instantly 👌\r\nThank you both! \r\n\r\nClosing this issue."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

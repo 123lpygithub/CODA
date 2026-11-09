@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0081-aaaedbhaj",
+  "revision_url": "https://github.com/roscisz/TensorHive/commit/3f1d0bed86a982d6d6965f28435379a20c54cdba",
+  "filename": "tensorhive/controllers/reservation/update_reservation_controller.py",
+  "commit": "3f1d0bed86a982d6d6965f28435379a20c54cdba",
+  "source_url": "https://raw.githubusercontent.com/roscisz/TensorHive/3f1d0bed86a982d6d6965f28435379a20c54cdba/tensorhive/controllers/reservation/update_reservation_controller.py",
+  "fetched_at": "2026-11-05T06:11:51.280185+00:00",
+  "source_sha256": "3a596611ae22ef83205aed18d8442e26e05d9e799f5b9b69177bb72b1f0056ab",
+  "line_start": 1,
+  "line_end": 23,
+  "excerpt": "from flask_jwt_extended import jwt_required\nfrom tensorhive.models.Reservation import Reservation\nfrom sqlalchemy.orm.exc import NoResultFound\nfrom typing import List, Optional, Any, Dict, Tuple\nfrom tensorhive.config import API\nimport logging\nlog = logging.getLogger(__name__)\nR = API.RESPONSES['reservation']\nG = API.RESPONSES['general']\n\n# FIXME This will make sense when all controllers are in one file (like task.py)\nContent = Dict[str, Any]\nHttpStatusCode = int\nReservationId = int\n\n\n@jwt_required\ndef update(id: ReservationId, newValues: Dict[str, Any]) -> Tuple[Content, HttpStatusCode]:\n    new_values = newValues\n    allowed_fields = {'title', 'description', 'resourceId', 'start', 'end'}\n    try:\n        assert set(new_values.keys()).issubset(allowed_fields), 'invalid field is present'\n        reservation = Reservation.get(id)"
+}

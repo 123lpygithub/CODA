@@ -1,0 +1,145 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-21543",
+  "issue_url": "https://github.com/opensupports/opensupports/issues/363",
+  "api_url": "https://api.github.com/repos/opensupports/opensupports/issues/363",
+  "title": "Change user password",
+  "body": "Seems that in the interface there is no field that enable to change the user password.\r\n\r\nAs admin I should be able to do that, I will try from the database anyway but this is not a good solution right now.",
+  "author": "Participant 1",
+  "created_at": "2018-10-25T13:01:54Z",
+  "updated_at": "2019-11-11T07:47:52Z",
+  "state": "closed",
+  "closed_at": "2019-06-14T19:28:38Z",
+  "issue_fetched_at": "2026-10-18T12:14:40.900010+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T12:14:42.221336+00:00"
+  ],
+  "expected_comment_count": 15,
+  "retrieved_comment_count": 15,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 433085344,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-433085344",
+      "created_at": "2018-10-25T14:59:45Z",
+      "updated_at": "2018-10-25T14:59:45Z",
+      "author": "Participant 2",
+      "body": "Users are meant as \"external\" users, like clients or other third parties. As a user you can click on the \"I forgot my password\" button to reset the password. This is a well established method and you should not be able to interfere with the user passwords yourelf."
+    },
+    {
+      "id": 433142389,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-433142389",
+      "created_at": "2018-10-25T17:42:39Z",
+      "updated_at": "2018-10-25T17:42:39Z",
+      "author": "Participant 1",
+      "body": "And I have an user cases that confirm the need of that feature:  \r\nAn user that recovered the password and changed but cannot access, so asked me to change the password and try it. So I changed by DB, tested and got the access, so the customer done more tests.\r\n"
+    },
+    {
+      "id": 433191828,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-433191828",
+      "created_at": "2018-10-25T20:20:35Z",
+      "updated_at": "2018-10-25T20:20:57Z",
+      "author": "Participant 2",
+      "body": "From an administrators point of view being able to change the access or directly access/simulate access to a user account without his consent is questionable in many ways. (in so far as the user is not part of your own team/company - and even this could be tricky sometimes). \r\n\r\nSo as a member of the european privacy protection act, I have to be completely against such a feature, because it would render the software unusable for us. "
+    },
+    {
+      "id": 433209335,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-433209335",
+      "created_at": "2018-10-25T21:18:28Z",
+      "updated_at": "2018-10-25T21:18:28Z",
+      "author": "Participant 1",
+      "body": "I am european too but how I can handle this request from an UE user?"
+    },
+    {
+      "id": 433331553,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-433331553",
+      "created_at": "2018-10-26T08:33:38Z",
+      "updated_at": "2018-10-26T08:33:38Z",
+      "author": "Participant 2",
+      "body": "Simply advise users to enter their mail adress and click on the \"Forgot your password\" button:\r\n\r\n![image](https://user-images.githubusercontent.com/10890765/47554788-74f65080-d90a-11e8-8d11-f22c1bdb1151.png)\r\n\r\nThat way the administrator has no access to the password and the user is able to reset his or her password any time they want."
+    },
+    {
+      "id": 433341006,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-433341006",
+      "created_at": "2018-10-26T09:07:10Z",
+      "updated_at": "2018-10-26T09:07:10Z",
+      "author": "Participant 1",
+      "body": "Well my user already done that step and he was complaining of no access to the portal after recovering. So I cannot test for him that and he asked me to change his password, changed and tested with a login.\r\nWithout that feature of changing the password as admin for me was impossible to resolve the problem and test it.\r\nIT is one of the usual procedure that when you have problem on accessing you reach the admin that change it for you."
+    },
+    {
+      "id": 433366449,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-433366449",
+      "created_at": "2018-10-26T10:39:39Z",
+      "updated_at": "2018-10-26T10:39:39Z",
+      "author": "Participant 2",
+      "body": "I've just tested the password recovery function and it seems to work as expected for me. \r\n\r\nIs this a problem with his initial access to the account? (Did he receive the confirmation mail request?) or did he forget his password after he was already logged in? \r\n"
+    },
+    {
+      "id": 433367054,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-433367054",
+      "created_at": "2018-10-26T10:42:20Z",
+      "updated_at": "2018-10-26T10:42:20Z",
+      "author": "Participant 1",
+      "body": "I don't know but for newbie users or non-techie people is good to know that the admin done that test and saw that was working."
+    },
+    {
+      "id": 433368357,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-433368357",
+      "created_at": "2018-10-26T10:47:59Z",
+      "updated_at": "2018-10-26T12:40:01Z",
+      "author": "Participant 2",
+      "body": "@ivandiazwm Could you check what happens if you don't confirm a new user, and instead try to immendiately request \"I forgot my password\". I didn't receive a mail when I did this. So maybe this is the problem - You register yourself as a new user, but instead of responding to the confirmation mail you just press the \"forgot\" link."
+    },
+    {
+      "id": 433462218,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-433462218",
+      "created_at": "2018-10-26T16:15:04Z",
+      "updated_at": "2018-10-26T16:15:04Z",
+      "author": "Participant 3",
+      "body": "I was able to recover the password while it was not even verified, it seems it's working correctly.\r\n@Mte90 Please make sure the user has its account verified. It should show a warning on its profile if it's not.\r\n![screenshot](https://user-images.githubusercontent.com/6447076/47578320-79793400-d91f-11e8-809c-7faec0923626.png)\r\nYou can manually verify an user on the database by changing the `verification_token` row on `ticket` table to `NULL`.\r\nIf the email is not verified, the user will not be able to log in and a message `Email is not verified` will appear. I'm thinking we should maybe add a \"resend verification email\" button like other websites do, because currently it's only sent once.\r\n\r\nEven if we're talking about users without expertise. Email verification it's still necessary because we need to very the authenticity of the email, of course this won't be always needed when we implement #207."
+    },
+    {
+      "id": 433550837,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-433550837",
+      "created_at": "2018-10-26T21:39:59Z",
+      "updated_at": "2018-10-26T21:41:56Z",
+      "author": "Participant 2",
+      "body": "Since we talk about it. Wouldn't it be better if new users would just receive a mail and can then also choose their own password? (I'm not talking about staff though - I mean manually creating new users from the admin UI)"
+    },
+    {
+      "id": 464674191,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-464674191",
+      "created_at": "2019-02-18T10:22:51Z",
+      "updated_at": "2019-02-18T10:22:51Z",
+      "author": "Participant 1",
+      "body": "and again I need to change the password for an user that has problems on access the website to check what is happening."
+    },
+    {
+      "id": 464676499,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-464676499",
+      "created_at": "2019-02-18T10:29:24Z",
+      "updated_at": "2019-02-18T10:29:24Z",
+      "author": "Participant 1",
+      "body": "Just for who is wondering what is the hash to do that change from the db is bcrypt."
+    },
+    {
+      "id": 502234919,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-502234919",
+      "created_at": "2019-06-14T19:28:38Z",
+      "updated_at": "2019-06-14T19:28:38Z",
+      "author": "Participant 4",
+      "body": "The use case provided is not really supporting implementing this feature, but instead, pointing out that there may be a problem with the \"forgot my password\" functionality.\r\n\r\nAs @nickbe pointed out, I don't think Opensupports should easily allow admins to change user passwords, the admin will be able to do it anyways, but Opensupports shouldn't encourage it.\r\n\r\nThe real fix to this issue is to make sure that the \"forgot my password\" functionality works as expected, so I will be closing this issue, but any issue related to the password recovery system not working will be more than welcome."
+    },
+    {
+      "id": 552330560,
+      "url": "https://github.com/opensupports/opensupports/issues/363#issuecomment-552330560",
+      "created_at": "2019-11-11T07:47:52Z",
+      "updated_at": "2019-11-11T07:47:52Z",
+      "author": "Participant 5",
+      "body": "Why can't Admin change the  user's password?"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

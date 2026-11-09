@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-9683",
+  "issue_url": "https://github.com/magento/magento2/issues/14938",
+  "source_issue_url": "https://github.com/magento/magento2/issues/14938",
+  "api_url": "https://api.github.com/repos/magento/magento2/issues/14938",
+  "title": "GTM + Cookie restriction mode may block the checkout",
+  "body": "### Preconditions\r\n1. Reproduced on a Magento 2.2 EE with a custom theme based on luma\r\n\r\n### Steps to reproduce\r\n1. Enabled Cookie restriction mode (`bin/magento config:set web/cookie/cookie_restriction\t1`) & cleanup cache\r\n    * the cookie banner should now display in FO\r\n2. With a clean profile (private navigation for example) do ***not*** clic on \"OK\" in this cookie banner\r\n3. try to checkout anything\r\n\r\n### Expected result\r\n1. checkout should be fine\r\n\r\n### Actual result\r\n1. when validating the shipping page, the checkout is now blocked in an intermediate, empty, state\r\n2. the error `TypeError: window.dataLayer is undefined` is displayed in JS console\r\n\r\nWhile doing some analysis, I found that the dataLayer object is not created here `vendor/magento/module-google-tag-manager/view/frontend/web/js/google-tag-manager.js:40` if the banner has not be checked. Later in the code `window.dataLayer.push` is directly called and fail.\r\n\r\nFor now I've only wrapped those calls in conditions, but maybe it should be catched earlier. In attachments, you will find the patches I intend to test and use on `magento/google-tag-manager` module.\r\n* [patch on Magento_GoogleTagManager/js/action/checkout](https://github.com/magento/magento2/files/1967840/mg_cookie.txt)\r\n* [patch on Magento_GoogleTagManager/js/action/product-details](https://github.com/magento/magento2/files/1967841/mg_cookie2.txt)\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-05-02T15:16:44Z",
+  "updated_at": "2018-07-24T07:29:28Z",
+  "state": "closed",
+  "closed_at": "2018-07-24T07:28:36Z",
+  "issue_fetched_at": "2026-10-18T20:10:51.227561+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T20:10:52.623669+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 396989997,
+      "url": "https://github.com/magento/magento2/issues/14938#issuecomment-396989997",
+      "created_at": "2018-06-13T15:55:08Z",
+      "updated_at": "2018-06-13T15:55:08Z",
+      "author": "Participant 2",
+      "body": "I can reproduce this issue on M2.2.4 EE. Many thanks for that patch!"
+    },
+    {
+      "id": 407309078,
+      "url": "https://github.com/magento/magento2/issues/14938#issuecomment-407309078",
+      "created_at": "2018-07-24T07:28:36Z",
+      "updated_at": "2018-07-24T07:28:36Z",
+      "author": "Participant 3",
+      "body": "Hi @shavounet , thank you for your report. Please follow these guidelines for proper tracking of your issue. You can report Commerce-related issues in one of two ways:\r\nYou can use the Support portal associated with your account\r\nor\r\nIf you are a Partner reporting on behalf of a merchant, use the Partner portal.\r\n \r\nGitHub is intended for Magento Open Source users to report on issues related to Open Source only. There are no account management services associated with GitHub."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

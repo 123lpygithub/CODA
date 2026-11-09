@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0842-aajgchffb",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/2a4243b8db3accade4e2db1c1187bced5835f7e7",
+  "filename": "mne/forward/_field_interpolation.py",
+  "commit": "2a4243b8db3accade4e2db1c1187bced5835f7e7",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/2a4243b8db3accade4e2db1c1187bced5835f7e7/mne/forward/_field_interpolation.py",
+  "fetched_at": "2026-11-05T06:14:03.054661+00:00",
+  "source_sha256": "dbc69ac5a3f4339d13137106637eb4ce812b6ce9ecc082e2c45b898b00af6ec0",
+  "line_start": 136,
+  "line_end": 160,
+  "excerpt": "    nn = np.array([ch['loc'][-3:] for ch in info_virt['chs']])\n\n    # take virtual channels to head coordinates\n    trans = evoked.info['dev_head_t']['trans']\n    pts = apply_trans(trans, pts)\n    nn = apply_trans(trans, nn)\n\n    # virtual channels lie on a 'surface' with location and\n    # normals copied from channel info\n    surf_virt['rr'], surf_virt['nn'] = pts, nn\n    surf_virt['coord_frame'] = FIFF.FIFFV_COORD_HEAD\n\n    # XXX: hack, don't ask why\n    # interpolate onto magnetometer no matter what the original\n    # channel type was\n    info_from = pick_info(evoked.info, pick_to)\n    if to_type == 'mag':\n        mag_coil = info_from['chs'][0]['coil_type']\n    else:\n        mag_coil = info_virt['chs'][0]['coil_type']\n    for ch in info_from['chs']:\n        ch['coil_type'] = mag_coil\n\n    # do the actual interpolation\n    field_map = _make_surface_mapping(info_from, surf_virt, ch_type='meg',",
+  "match_policy": "unique-release-normalized-v2"
+}

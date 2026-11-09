@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0425-aadbacfde",
+  "revision_url": "https://github.com/nicolay-r/sentiment-pcnn/commit/8bbd218843932fadd9758351f96bc80ad2170ea9",
+  "filename": "networks/pcnn_input.py",
+  "commit": "8bbd218843932fadd9758351f96bc80ad2170ea9",
+  "source_url": "https://raw.githubusercontent.com/nicolay-r/sentiment-pcnn/8bbd218843932fadd9758351f96bc80ad2170ea9/networks/pcnn_input.py",
+  "fetched_at": "2026-11-05T06:12:52.453057+00:00",
+  "source_sha256": "bb8cc25ce4826790f317fe31fb23fa37367d4a8a50a1e90a29b0d16d78e07a32",
+  "line_start": 245,
+  "line_end": 269,
+  "excerpt": "            taken_words = self.words\n        else:\n            taken_words = self.words[w_from:w_to]\n\n        for w in taken_words:\n            if type(w) == unicode:\n                terms = stemmer.lemmatize_to_list(w)\n                if len(terms) == 0:\n                    index = unknown_word_index\n                else:\n                    term = terms[0]\n                    if term in embedding:\n                        index = embedding.find_index_by_word(term) # TODO. O(N) now, search\n                    else:\n                        index = unknown_word_index\n            elif isinstance(w, Entity):\n                e = w\n                index = entity_indices.get_entity_index(e) + len(embedding.vocab)\n            else:\n                raise Exception(\"Unsuported type {}\".format(w))\n\n            indices.append(index)\n\n        assert(pad_size - len(indices) >= 0)\n        indices.extend([unknown_word_index] * (pad_size - len(indices)))",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,162 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5087",
+  "issue_url": "https://github.com/benadida/helios-server/issues/170",
+  "source_issue_url": "https://github.com/benadida/helios-server/issues/170",
+  "api_url": "https://api.github.com/repos/benadida/helios-server/issues/170",
+  "title": "trust in administrators issue",
+  "body": "I came across a possible issue with Helios and I wanted to know your opinion.\r\nIn helios/models.py there is this code\r\n\r\n```\r\n  def compute_tally(self):\r\n    \"\"\"                                                                                         \r\n    tally the election, assuming votes already verified                                         \r\n    \"\"\"\r\n    tally = self.init_tally()\r\n    for voter in self.voter_set.exclude(vote=None):\r\n      tally.add_vote(voter.vote, verify_p=False)\r\n\r\n    self.encrypted_tally = tally\r\n    self.save()\r\n```\r\n\r\nit  loops over the votes, and add them using homomorphic encryption.\r\n\r\nIt seems to me an administrator can, when the election is closed, run a modified copy of the code, on the production database, and filter the voter_set to include only the user that he wants to de-anonymize (the information in the records). Helios will compute an election result including only the vote of that person, thus de-anonymizing the vote. The operation can be repeated for every voter. \r\n\r\nThis exploit allows de-anonymization without breaking the homomorphic encryption. This will allow  de-anonymization at any time and by anybody who has access to the db after the election is closed.\r\n\r\nIs there anything in Helios that would prevent a database administrator from being able to do this?\r\nIf not, I believe this should be clearly stated in the documentation that trust in the system administrators is required.",
+  "author": "Participant 1",
+  "created_at": "2017-06-06T16:43:11Z",
+  "updated_at": "2018-02-04T21:33:29Z",
+  "state": "closed",
+  "closed_at": "2018-02-04T21:33:29Z",
+  "issue_fetched_at": "2026-10-18T14:10:51.286807+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T14:10:52.624132+00:00"
+  ],
+  "expected_comment_count": 17,
+  "retrieved_comment_count": 17,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 307528280,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307528280",
+      "created_at": "2017-06-10T00:14:09Z",
+      "updated_at": "2017-06-10T00:14:09Z",
+      "author": "Participant 2",
+      "body": "@mdipierro if I understand correctly, it would be better to store the votes on the election and not on the individual voter, yes?"
+    },
+    {
+      "id": 307534046,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307534046",
+      "created_at": "2017-06-10T01:42:13Z",
+      "updated_at": "2017-06-10T01:42:13Z",
+      "author": "Participant 1",
+      "body": "It is more complicated than that. Helios allows people to change their vote which means there is a link between the voter identity and the encrypted vote. This link exists and it is a feature. The encrypted vote can be added to the tally without decryption therefore nobody can see before it is added to the tally. My claim is that it can be see after it is added to the tally. A modified version of the code, or third party script, acting on the production database can be constructed to add the vote of a single user to an empty tally and this allows to know the vote of that specific user. I do not know how other systems handle this. I can tell you have eVote prevents this. In eVote the ballots are created when the election starts and put in their own table. When a voter arrives, a random ballot is picked and used. There is no link in the database between the voter and which ballot the voter has used. For this reason we do not even timestamp when voters vote. Two attacks are of course possible in both eVote and Helios: collusion between the email sender and database administrator, continuous monitor of database changes. I think both can be prevented by locking access to the server during voting or simply logging server activity during voting. The problem presented in this thread is in my opinion more serious because it can be exploited at any time. It is hard to tell who will get ahold of the database in the future, in particular if it is not run in house and deleted after the election. I do not believe the problem is solvable and keep the feature that voters can change their vote. Maybe I am wrong and I have overlooked something."
+    },
+    {
+      "id": 307570801,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307570801",
+      "created_at": "2017-06-10T15:10:05Z",
+      "updated_at": "2017-06-10T15:10:05Z",
+      "author": "Participant 3",
+      "body": "@mdipierro with a single server authority, there is no known way for any system to solve the problem you mention. Sure, you can use access control to lock down server access, but if you're worried about an evil server, how do you know what source code it's actually running? You can get pretty far down that rabbit hole.\r\n\r\nThe only known way to solve this from an information theoretical point of view is to have multiple election trustees, where a majority is needed to perform decryption. If that's the level of security you want – and some organizations do, of course – then you can do that with Helios by creating additional trustees. Then decryption requires all of them to be involved, and the concern you have goes away.\r\n\r\nIf you don't want that overhead, Helios still provides a lot of voter privacy protection: only a clearly malicious server administrator could get access to the votes. It's not like peaking at a database. And Helios still allows you to have complete logs of who voted when, which has proven itself to be incredibly important for debugging typical errors that occur in elections.\r\n\r\nHopefully this helps. Happy to continue the discussion."
+    },
+    {
+      "id": 307571686,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307571686",
+      "created_at": "2017-06-10T15:24:56Z",
+      "updated_at": "2017-06-10T15:24:56Z",
+      "author": "Participant 1",
+      "body": "First of all, thanks again for Helios. I learned from it.\r\n\r\nMy recommendation is to add an option to Helios that makes it behave like evote in this respect. My My recommendation is this: Create all ballot records in advance and, when a use shows up to vote, record that vote (like you do now) but on a random unused ballot and do not store anywhere the link between that ballot and the voter. Do not even store then timestamp when the vote is casted. You would lose the ability to change your vote but at least for me, that is not as a big issue as real anonymity.\r\n\r\nTo be clear the concern is not the trust in the people who run the election at each one time. It is more subtle. With eVote, once the election is closed, the db can be made public. I think in any election, once the ballots are counted, all the records should be made public so that people have confidence in the system. As it is, in Helios, the database cannot be made public. Anybody who gets ahold of it would be able to break anonymity. The database my leak. The next sysadmin may not be as trusted as the current one. It does not matter that Helios does not include the code to do it. I may publish an exploit to do it I wanted to do it.\r\n\r\nI think Helios is great in may respect and I think there are many organizations that will be fine using Helios despite this problem. I think it would be appropriate to mention this issue in the web page, when talking about anonymity."
+    },
+    {
+      "id": 307571880,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307571880",
+      "created_at": "2017-06-10T15:28:07Z",
+      "updated_at": "2017-06-10T15:28:07Z",
+      "author": "Participant 3",
+      "body": "@mdipierro if we did this – unlink voter from vote – then it would be trivial for the administrator to add an extra vote to the tally and *change the result* without any publicly auditable trace. So that seems a good bit worse, and in fact your goal would then not work: publishing the database wouldn't really provide any confidence around the tally.\r\n\r\nIf you want to publish the database with Helios, there's actually an easy way: delete the private key. Everything still checks out for public verifiability, and decryption is no longer possible."
+    },
+    {
+      "id": 307572153,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307572153",
+      "created_at": "2017-06-10T15:32:39Z",
+      "updated_at": "2017-06-10T15:35:19Z",
+      "author": "Participant 1",
+      "body": "The way we solve this in evote is to publish all ballots in advance, not their content, but a uuid associated to each of them, and whether it has been used or not. For each voter we mark a flag (voted/not voted). The number of voted ballots must match the number of voters who voted. New ballots cannot be created because they were made public in advance."
+    },
+    {
+      "id": 307572240,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307572240",
+      "created_at": "2017-06-10T15:34:03Z",
+      "updated_at": "2017-06-10T15:34:47Z",
+      "author": "Participant 1",
+      "body": "In helios, if I delete the private key, can I still run the tally function and single out a single voter? If not, that may be a good compromise solution. Edit: I am not convinced... I may have to write that exploit to be sure. ;-)\r\n"
+    },
+    {
+      "id": 307572994,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307572994",
+      "created_at": "2017-06-10T15:46:06Z",
+      "updated_at": "2017-06-10T15:46:06Z",
+      "author": "Participant 3",
+      "body": "@mdipierro regarding your system: sure, though usually there are people who don't vote, so administrators can \"ballot stuff\" near the end of the election, right? Also, what prevents an election administrator from changing ballots?\r\n\r\nRegarding Helios: if you delete the private key, then indeed the election administrator can no longer decrypt partial tallies as you suggested. But you can still do the complete election verification, since that depends only on the public keys. I think that's the solution you're looking for."
+    },
+    {
+      "id": 307573743,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307573743",
+      "created_at": "2017-06-10T15:59:03Z",
+      "updated_at": "2017-06-10T15:59:03Z",
+      "author": "Participant 1",
+      "body": "No. Administrators cannot change votes or stuff ballots without being detected. The hash of  ballot is published (along with the uuid, before a vote is cast and after a vote is cast). The voter knows which one is its own ballot. The system does not record the link but the voter is told when he votes. He can check that his/her ballot is not tampered with. Administrators can stuff ballots but this would also be detected because either the number of voted ballots no longer matches the number of voters who voted, or the administrator would have to flag a voter who did not vote as a voter who did vote. That voter would know somebody voted on his behalf.\r\n\r\nRegarding helios. I will look into your suggestion. I agree if that is the case, it improves the situation. Continuing to play my role of devil's advocate: An administrator could make a copy of that private key and when the database is published, use it to de-anonymize."
+    },
+    {
+      "id": 307573962,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307573962",
+      "created_at": "2017-06-10T16:02:08Z",
+      "updated_at": "2017-06-10T16:02:08Z",
+      "author": "Participant 3",
+      "body": "@mdipierro I think if you're assuming administrators can copy secrets, then it's easy for administrators to keep a copy of which vote corresponds to which voter, too. I prefer a solution that keeps the link between voter and encrypted vote public, as that has many security/logging/auditing benefits, and then works the security around that :)"
+    },
+    {
+      "id": 307575893,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307575893",
+      "created_at": "2017-06-10T16:34:14Z",
+      "updated_at": "2017-06-10T16:34:14Z",
+      "author": "Participant 1",
+      "body": "yes and no. I can only talk about eVote because I know it best and perhaps some of its ideas can be implemented into Helios. In eVote each voter is emailed a uuid link. When the voter clicks on the clicks on a link a random ballot is assigned to the voter. The ballot also has a uuid and it is told to the voter. The voter uuid is used to authenticate the voter and flag it as \"he voted\" but the link between the voter uuid and the ballot uuid is not stored anywhere. This is designed to mimic the actual paper voting process: people show their ID to vote but then they get assigned a random booth. It is true that if an administrator could intercept all email communications, the administrator could tamper with the election. But this is true for Helios too. This is in my opinion an unsolvable problem. I wrote eVote based on requirements from the Python Software Foundation. At the time the requirements were that the code running on the system should never store enough information to allow de-anonymizing votes from any single snapshot of the database. We can assume nobody is tampering with the program while voting. The database can be made public at election closing.  In eVote we use public/private keys at the election level for the digital signatures for the ballots, because we do not want somebody else to contest an election based on a forged signature; but we do not store any secret of any kind that gives the administrator the power to decrypt something that voters would not be able to see themselves. Anyway.\r\n"
+    },
+    {
+      "id": 307576892,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307576892",
+      "created_at": "2017-06-10T16:51:04Z",
+      "updated_at": "2017-06-10T16:51:04Z",
+      "author": "Participant 3",
+      "body": "\r\nUltimately, I'm sure different models can work.\r\n\r\nThe Helios model is one of universal verifiability, where each voter can verify their ballot was captured correctly, and anyone can verify that the tally is correct. There are two properties you want to consider: correctness of the tally, and privacy of the voters. With Helios, correctness is prioritized: there is no way for even one administrator to change the tally without being detected. Privacy is also important, though it is a slightly lower priority: if you have only one administrator, then technically that administrator *could* determine how you voted, but never change the outcome of the vote. If you're willing to have more than one administrator, you can get to a much higher level of privacy. Though it has never been proven to my knowledge, I believe there is an inherent tradeoff between correctness and privacy: I don't think you can have unconditional correctness and unconditional privacy. So Helios picks correctness and then does its best with privacy.\r\n\r\nIt's certainly possible you've solved this dilemma with eVote! That said, I would encourage you to publish your protocol and get it reviewed, because this stuff is very, very tricky, and Helios is the result of years of peer review by a number of experts. (Which doesn't mean Helios is perfect, just that we've worked through a lot of the core issues to some degree :)\r\n\r\n"
+    },
+    {
+      "id": 307586603,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307586603",
+      "created_at": "2017-06-10T19:51:22Z",
+      "updated_at": "2017-06-10T19:51:22Z",
+      "author": "Participant 1",
+      "body": "I agree that different models can work. I also agree that I should write a paper about eVote. In fact when I do, I will pass by your for an expert opinion. I have been postponing for so long. \r\n\r\nAnyway, mostly I was looking for an acknowledgement that the problem that started the thread exists. We may disagree about how serious it is and it may still be ok for most users."
+    },
+    {
+      "id": 307591347,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307591347",
+      "created_at": "2017-06-10T21:28:45Z",
+      "updated_at": "2017-06-10T21:28:45Z",
+      "author": "Participant 3",
+      "body": "I'd be happy to help. Good luck with the writing!"
+    },
+    {
+      "id": 307790323,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307790323",
+      "created_at": "2017-06-12T13:33:03Z",
+      "updated_at": "2017-06-12T13:33:03Z",
+      "author": "Participant 2",
+      "body": "@mdipierro to @benadida's point, and specifically in the case of the ballots I've run, somewhere around 50% of voters do not cast ballots. Of that number of them, I'm certain some large percentage do not even read the emails or actually care about an election. If an administrator has a way of determining that, they can absolutely stuff the ballot box in eVote without the voter having any idea of it happening. Theoretically, the system is designed to prevent that, but I submit that it's not actually capable of preventing that."
+    },
+    {
+      "id": 307834115,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-307834115",
+      "created_at": "2017-06-12T15:58:24Z",
+      "updated_at": "2017-06-12T15:58:24Z",
+      "author": "Participant 1",
+      "body": "@sigmavirus24 May I ask you to submit an issue to eVote explaining how you would stuff ballots in eVote undetected? I am very interested. If Helios has a better mechanism in that respect, I have no shame and will adopt it."
+    },
+    {
+      "id": 362941685,
+      "url": "https://github.com/benadida/helios-server/issues/170#issuecomment-362941685",
+      "created_at": "2018-02-04T21:33:29Z",
+      "updated_at": "2018-02-04T21:33:29Z",
+      "author": "Participant 3",
+      "body": "good discussion, not an active issue anymore, so closing."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

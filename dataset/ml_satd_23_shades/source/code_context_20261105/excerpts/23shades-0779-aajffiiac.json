@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0779-aajffiiac",
+  "revision_url": "https://github.com/tensorly/tensorly/commit/fa4951a9076d774b155886b85db09d07aec27ecd",
+  "filename": "tensorly/metrics/regression.py",
+  "commit": "fa4951a9076d774b155886b85db09d07aec27ecd",
+  "source_url": "https://raw.githubusercontent.com/tensorly/tensorly/fa4951a9076d774b155886b85db09d07aec27ecd/tensorly/metrics/regression.py",
+  "fetched_at": "2026-11-05T06:13:50.954625+00:00",
+  "source_sha256": "25aff16a6d9daf8487d5779a03fc9a6fdd7b67db6bf96ab7ec596c8825d94bbf",
+  "line_start": 52,
+  "line_end": 76,
+  "excerpt": "    Returns\n    -------\n    float: reflective correlation coefficient\n    \"\"\"\n    return T.sum(y_true*y_pred, axis=axis)/T.sqrt(T.sum(y_true**2, axis=axis)*T.sum(y_pred**2, axis=axis))\n\n\ndef covariance(y_true, y_pred, axis=None):\n    centered_true = T.mean(y_true, axis=axis)\n    centered_pred = T.mean(y_pred, axis=axis)\n\n    if axis is not None:\n        # TODO: write a function to do this..\n        shape = list(T.shape(y_true))\n        shape[axis] = 1\n        centered_true = T.reshape(centered_true, shape)\n        shape = list(T.shape(y_pred))\n        shape[axis] = 1\n        centered_pred = T.reshape(centered_pred, shape)\n\n    return T.mean((y_true - centered_true)*(y_pred - centered_pred), axis=axis)\n\n\ndef variance(y, axis=None):\n    return covariance(y, y, axis=axis)"
+}

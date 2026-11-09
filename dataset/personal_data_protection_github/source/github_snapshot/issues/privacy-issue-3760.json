@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3760",
+  "issue_url": "https://github.com/firefox-devtools/profiler/issues/1261",
+  "source_issue_url": "https://github.com/firefox-devtools/profiler/issues/1261",
+  "api_url": "https://api.github.com/repos/firefox-devtools/profiler/issues/1261",
+  "title": "[Discussion] Anonymize profiles",
+  "body": "What happened so far:\r\n\r\n1. We added a safeguard to not upload profiles with network resources URLs as they might contain PII\r\n\r\nWhat's still there:\r\n\r\n1. PII is still spread across profiles as URLs are included in markers and source file.\r\n\r\nWhat's success:\r\n\r\n1. Technical and non-technical users can upload profiles while knowing which aspects of their browsing session are shared (and which are not).\r\n2. Engineers get enough information from anonymized profiles to make sense (single profile or in aggregate)\r\n\r\nWhat is PII:\r\n> \"Personally Identifiable Information (PII), as used in information security, is information that can be used to uniquely identify, contact, or locate a single person or can be used with other sources to uniquely identify a single individual.\" \r\n\r\n- Any file and URL is PII\r\n  - Long tail domains can contain PII, like subdomains (genderqueeries.tumblr.com, rickroll.smugmug.com).\r\n- For the domain, a whitelist of top sites could be considered OK, as it doesn't tell anything about the user\r\n- PII needs to be removed from any marker until we have refactored the system and removed all URLs\r\n\r\nMy past approach for a sanitation step that removes all URLs while keeping top site domains intact: https://github.com/digitarald/performance-foxfooding-ext/blob/master/src/purge.js",
+  "author": "Participant 1",
+  "created_at": "2018-09-11T16:43:34Z",
+  "updated_at": "2019-03-05T20:16:07Z",
+  "state": "closed",
+  "closed_at": "2019-03-05T20:16:07Z",
+  "issue_fetched_at": "2026-10-19T05:04:51.418970+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T05:04:52.833984+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 420688532,
+      "url": "https://github.com/firefox-devtools/profiler/issues/1261#issuecomment-420688532",
+      "created_at": "2018-09-12T15:20:12Z",
+      "updated_at": "2018-09-12T15:20:12Z",
+      "author": "Participant 2",
+      "body": "See also Issue #775."
+    },
+    {
+      "id": 469840963,
+      "url": "https://github.com/firefox-devtools/profiler/issues/1261#issuecomment-469840963",
+      "created_at": "2019-03-05T20:16:07Z",
+      "updated_at": "2019-03-05T20:16:07Z",
+      "author": "Participant 1",
+      "body": "Continued in #1802 "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

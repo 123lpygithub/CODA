@@ -1,0 +1,98 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4427",
+  "issue_url": "https://github.com/mastodon/mastodon/issues/180",
+  "source_issue_url": "https://github.com/mastodon/mastodon/issues/180",
+  "api_url": "https://api.github.com/repos/mastodon/mastodon/issues/180",
+  "title": "Add support for private accounts",
+  "body": "Following Twitter, private accounts would display toots only to followers (not unauthenticated users or non-followers), and would require follow requests to be authorized by the user in question before they go through. This is something that's really important for marginalized users who want to escape not only active harassment, but the passive ability for hostile people to see into their lives.\r\n\r\nI know that this is addressed in [the FAQ](https://github.com/Gargron/mastodon/wiki/FAQ#what-about-private-accounts), but I'm hoping this issue can stand as a place for users to express support for the feature and for progress to be tracked, however long it takes.",
+  "author": "Participant 1",
+  "created_at": "2016-11-22T07:37:27Z",
+  "updated_at": "2017-04-04T18:43:57Z",
+  "state": "closed",
+  "closed_at": "2016-12-23T00:51:13Z",
+  "issue_fetched_at": "2026-10-18T14:09:54.622258+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T14:09:56.002773+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 262180573,
+      "url": "https://github.com/mastodon/mastodon/issues/180#issuecomment-262180573",
+      "created_at": "2016-11-22T08:44:36Z",
+      "updated_at": "2016-11-22T08:44:44Z",
+      "author": "Participant 1",
+      "body": "It looks like GNU social at least notionally supports both of these features within a single instance, [as described in the FAQ](https://gnusocial.net/doc/faq#faq-20). Even if supporting federated followers of private accounts takes longer, it would be really great to have per-instance privacy in the short term."
+    },
+    {
+      "id": 262201322,
+      "url": "https://github.com/mastodon/mastodon/issues/180#issuecomment-262201322",
+      "created_at": "2016-11-22T10:17:20Z",
+      "updated_at": "2016-11-22T10:17:20Z",
+      "author": "Participant 2",
+      "body": "I do understand the importance of private accounts. However, I am opposed to solutions that only work within a single instance. It means that all your friends from other servers would have to switch to yours to see your posts, and that runs counter to the idea of federation."
+    },
+    {
+      "id": 262223931,
+      "url": "https://github.com/mastodon/mastodon/issues/180#issuecomment-262223931",
+      "created_at": "2016-11-22T12:04:00Z",
+      "updated_at": "2016-11-22T12:04:00Z",
+      "author": "Participant 1",
+      "body": "It seems to me the fact that privacy is inherently restrictive makes it a little more palatable—you could even imagine someone setting up their own Mastodon node with stringent requirements for registration, and setting their visibility to node-only on purpose.\r\n\r\nThat said, I do understand your hesitation. What about this as a compromise: support federated privacy controls, but have the UI gracefully degrade across nodes. Specifically, between two nodes:\r\n\r\n* Any request for non-public information about a protected user, or actions on that user, results in a 403.\r\n* *In addition* to the above, a request to follow a protected user shows up in their UI as a follower request.\r\n* If the protected user approves the follower request, the prospective follower's requests no longer 403 (even though they aren't following yet).\r\n* If the requester follows and then unfollows the protected account, they lose access to it again.\r\n\r\nThis requires an extra iteration on the follower's part, but it's properly federated and requires no protocol changes. It could also be cleanly folded into the protocol by simply having the publisher's node send a notification to the subscriber's node saying \"your follow request has been approved\", which would cause the subscriber's node to re-issue the follow request."
+    },
+    {
+      "id": 262228840,
+      "url": "https://github.com/mastodon/mastodon/issues/180#issuecomment-262228840",
+      "created_at": "2016-11-22T12:30:35Z",
+      "updated_at": "2016-11-22T12:30:35Z",
+      "author": "Participant 2",
+      "body": "The way subscriptions work (PubSubHubbub) is this:\r\n\r\n- Account have public Atom feeds that link to a hub\r\n- You can send a subscription request to the hub for that feed\r\n- When the account publishes something, it notifies the hub\r\n- The hub takes the public feed, takes new items, and delivers them to all subscribers\r\n\r\nThe hub is independent from the rest of the application, so if a feed is not public, the hub won't be able to deliver it to anyone.\r\n\r\nThis could be solved by piggybacking \"private followers\" on the Salmon protocol instead of PubSubHubbub. Salmon is for delivering signed notices to individual accounts (like \"alice followed bob\" being delivered to bob), but you could technically send private statuses to followers that way. It would, however, at least currently, be incompatible with GNU social. Most importantly, there is no protocol for saying \"this feed is private, send a follow request first\".\r\n\r\n(Quite ironically because there is a follow request verb/activity type in the ActivityStreams protocol iirc)\r\n\r\nTo sum it up, it's not impossible, but it would take exploring new frontiers rather than simply implementing existing protocols."
+    },
+    {
+      "id": 262291424,
+      "url": "https://github.com/mastodon/mastodon/issues/180#issuecomment-262291424",
+      "created_at": "2016-11-22T16:34:36Z",
+      "updated_at": "2016-11-22T16:34:36Z",
+      "author": "Participant 3",
+      "body": "I agree with @nex3 that private accounts being restricted to an instance could be a feature and not a bug.\r\n\r\nBut ideally you could federate it, for sure. Even if only between Mastodon instances (if, say, only Mastodon implemented it).\r\n\r\nA concern with federated private accounts is that you'd have to trust each other instance you're letting people follow from. Luckily, you'd actually be given the power to decide this, because it's a private account, so you can accept and reject follow requests as you please."
+    },
+    {
+      "id": 262719416,
+      "url": "https://github.com/mastodon/mastodon/issues/180#issuecomment-262719416",
+      "created_at": "2016-11-24T08:39:40Z",
+      "updated_at": "2016-11-24T08:43:32Z",
+      "author": "Participant 4",
+      "body": "Gonna go ahead and add my 2c to the pile that \"make account invisible to other instances\" would actually be a nice feature to have and not necessarily a bad one. While it goes against federation as a whole philosophically, its effects would very likely be minimal since a minority of users are going to want to be private in the first place - social networks are inherently social! Such a feature would also serve as a useful 'emergency valve' if someone's personal privacy is being breached. \r\n\r\nIf privacy were \"all or nothing\", the practical damage to the whole 'federated platform' ideal would be even lower, because people are only going to want to be private in extreme circumstances or for, you know, dedicated weird shadow accounts maintained parallel to a public account to talk about...stuff. "
+    },
+    {
+      "id": 262764329,
+      "url": "https://github.com/mastodon/mastodon/issues/180#issuecomment-262764329",
+      "created_at": "2016-11-24T12:22:32Z",
+      "updated_at": "2016-11-24T12:22:32Z",
+      "author": "Participant 3",
+      "body": "An emergency valve has its value. A problem with federation is you couldn't really hide and protect your existing posts, but at least your new ones would be safe."
+    },
+    {
+      "id": 268922602,
+      "url": "https://github.com/mastodon/mastodon/issues/180#issuecomment-268922602",
+      "created_at": "2016-12-23T00:51:13Z",
+      "updated_at": "2016-12-23T00:51:13Z",
+      "author": "Participant 2",
+      "body": "This can be closed now. Separate issue is making private posts work across federation as well, but that's a story for another time. For overview of this update, I'll just link my summary here: https://mastodon.social/users/Gargron/updates/529995"
+    },
+    {
+      "id": 291587786,
+      "url": "https://github.com/mastodon/mastodon/issues/180#issuecomment-291587786",
+      "created_at": "2017-04-04T18:19:48Z",
+      "updated_at": "2017-04-04T18:43:57Z",
+      "author": "Participant 5",
+      "body": "Privacy is not just about what you post, but also about who you follow, and who follows you. Those (or rather, visibility of those things) ought to be controllable. (and, if a particular instance does not honour visibility/security a user's metadata, they should probably be turfed out of federations)"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

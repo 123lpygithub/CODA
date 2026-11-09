@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0736-aafafebhi",
+  "revision_url": "https://github.com/vi3k6i5/GuidedLDA/commit/cf0b68234ce9333740bd967e8e10135f309dcfd9",
+  "filename": "guidedlda/guidedlda.py",
+  "commit": "cf0b68234ce9333740bd967e8e10135f309dcfd9",
+  "source_url": "https://raw.githubusercontent.com/vi3k6i5/GuidedLDA/cf0b68234ce9333740bd967e8e10135f309dcfd9/guidedlda/guidedlda.py",
+  "fetched_at": "2026-11-05T06:11:56.599131+00:00",
+  "source_sha256": "9af06bb4155118c3c34b85c120d0955d208cf0bb86546b4d6760619709fd83c3",
+  "line_start": 172,
+  "line_end": 196,
+  "excerpt": "        Note\n        ----\n        This uses the \"iterated pseudo-counts\" approach described\n        in Wallach et al. (2009) and discussed in Buntine (2009).\n\n        \"\"\"\n        if isinstance(X, np.ndarray):\n            # in case user passes a (non-sparse) array of shape (n_features,)\n            # turn it into an array of shape (1, n_features)\n            X = np.atleast_2d(X)\n        doc_topic = np.empty((X.shape[0], self.n_topics))\n        WS, DS = guidedlda.utils.matrix_to_lists(X)\n        # TODO: this loop is parallelizable\n        for d in np.unique(DS):\n            doc_topic[d] = self._transform_single(WS[DS == d], max_iter, tol)\n        return doc_topic\n\n    def _transform_single(self, doc, max_iter, tol):\n        \"\"\"Transform a single document according to the previously fit model\n\n        Parameters\n        ----------\n        X : 1D numpy array of integers\n            Each element represents a word in the document\n        max_iter : int"
+}

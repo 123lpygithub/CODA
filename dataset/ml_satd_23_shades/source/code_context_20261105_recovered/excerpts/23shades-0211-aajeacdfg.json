@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0211-aajeacdfg",
+  "revision_url": "https://github.com/deepchem/deepchem/commit/66a175a93f88a0310661eb2deaba7069e20d4a80",
+  "filename": "contrib/atomicconv/splits/splitters.py",
+  "commit": "66a175a93f88a0310661eb2deaba7069e20d4a80",
+  "source_url": "https://raw.githubusercontent.com/deepchem/deepchem/66a175a93f88a0310661eb2deaba7069e20d4a80/contrib/atomicconv/splits/splitters.py",
+  "fetched_at": "2026-11-05T06:12:16.116514+00:00",
+  "source_sha256": "0705a5cd68fec036908e06ac1b50bdcb43f2de188ff7d6b0808dbc73bf065c9a",
+  "line_start": 690,
+  "line_end": 714,
+  "excerpt": "    fps = [AllChem.GetMorganFingerprintAsBitVect(x, 2, 1024) for x in mols]\n\n    scaffold_sets = ClusterFps(fps, cutoff=cutoff)\n    scaffold_sets = sorted(scaffold_sets, key=lambda x: -len(x))\n\n    ys = dataset.y\n    valid_inds = []\n    for c_idx, cluster in enumerate(scaffold_sets):\n      # for m_idx in cluster:\n      valid_inds.extend(cluster)\n      # continue until we find an active in all the tasks, otherwise we can't\n      # compute a meaningful AUC\n      # TODO (ytz): really, we want at least one active and inactive in both scenarios.\n      # TODO (Ytz): for regression tasks we'd stop after only one cluster.\n      active_populations = np.sum(ys[valid_inds], axis=0)\n      if np.all(active_populations):\n        print(\"# of actives per task in valid:\", active_populations)\n        print(\"Total # of validation points:\", len(valid_inds))\n        break\n\n    train_inds = list(itertools.chain.from_iterable(scaffold_sets[c_idx + 1:]))\n    test_inds = []\n\n    return train_inds, valid_inds, []\n",
+  "match_policy": "unique-release-normalized-v2"
+}

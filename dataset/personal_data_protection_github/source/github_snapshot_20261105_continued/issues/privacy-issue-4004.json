@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4004",
+  "issue_url": "https://github.com/Dallinger/Dallinger/issues/348",
+  "source_issue_url": "https://github.com/Dallinger/Dallinger/issues/348",
+  "api_url": "https://api.github.com/repos/Dallinger/Dallinger/issues/348",
+  "title": "A participant's unique id exceeded 50 chars",
+  "body": "unique_id is a String(50) column in the Participant table.\r\n\r\nToday this caused an error as a request to create a participant was received with a unique_id of u'A0384[redacted 16 characters]:3YOH7BII097S091VIWGYDU7IGJLVKI'. This is 55 chars long and so it wouldn't fit in the table.\r\n\r\nIt is trivial to allow longer strings in the table, but do we want to do this? I thought worker/assignment ids were of fixed length, in which case this probably indicates an error somewhere.\r\n\r\nWhat do we think?",
+  "author": "Participant 1",
+  "created_at": "2016-12-13T15:58:10Z",
+  "updated_at": "2016-12-23T18:18:34Z",
+  "state": "closed",
+  "closed_at": "2016-12-21T14:36:34Z",
+  "issue_fetched_at": "2026-10-18T13:11:18.626196+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T13:11:19.961662+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 266779126,
+      "url": "https://github.com/Dallinger/Dallinger/issues/348#issuecomment-266779126",
+      "created_at": "2016-12-13T16:03:51Z",
+      "updated_at": "2016-12-13T16:03:51Z",
+      "author": "Participant 2",
+      "body": "@thomasmorgan I don't see any issue with expanding it. We should be able to tell what happened by comparing these worker IDs and HIT IDs to ones from previous experiments. At least one of them must be longer.\r\n\r\n(Also, don't paste worker IDs publicly because they are considered personally identifiable information. I've redacted your comment.)\r\n\r\n@jacobyn I think you ran into the same issue?"
+    },
+    {
+      "id": 268542166,
+      "url": "https://github.com/Dallinger/Dallinger/issues/348#issuecomment-268542166",
+      "created_at": "2016-12-21T14:55:40Z",
+      "updated_at": "2016-12-21T14:55:40Z",
+      "author": "Participant 3",
+      "body": "I think that the reason for that is that users change the url or refresh the consent form in a way that changes the worker_id string. The code supposes take care of this (e.g by returning 404) instead of return a terminal error.\r\n"
+    },
+    {
+      "id": 269027463,
+      "url": "https://github.com/Dallinger/Dallinger/issues/348#issuecomment-269027463",
+      "created_at": "2016-12-23T18:18:34Z",
+      "updated_at": "2016-12-23T18:18:34Z",
+      "author": "Participant 1",
+      "body": "@jacobyn I wondered if that was the case too - it has happened before. However, this error has now happened a couple of times in the past few days and whereas before workers changed the worker id to something ridiculous (e.g. \"ayyylmao\") all recent instances have resembled normal AWS worker ids, they are just longer. Given that AWS has resumed development on MTurk and I have noticed it behaving in a couple of other unusual ways I think this might actually be a change in MTurk's policy on worker id length."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

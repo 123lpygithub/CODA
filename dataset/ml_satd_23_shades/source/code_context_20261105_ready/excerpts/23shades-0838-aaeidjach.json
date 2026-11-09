@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0838-aaeidjach",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/2b201a664e5fec7c122293426bb81a50084ac390",
+  "filename": "hpat/pd_timestamp_ext.py",
+  "commit": "2b201a664e5fec7c122293426bb81a50084ac390",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/2b201a664e5fec7c122293426bb81a50084ac390/hpat/pd_timestamp_ext.py",
+  "fetched_at": "2026-11-05T06:14:02.392387+00:00",
+  "source_sha256": "e40e77470bbef0e6be24970a2cdbe542d86e4fd5804ecd53361f6f35343c4a13",
+  "line_start": 177,
+  "line_end": 201,
+  "excerpt": "\n@unbox(TimestampSeriesType)\ndef unbox_timestamp_series(typ, val, c):\n    getvalues = c.pyapi.object_getattr_string(val, \"values\")\n    return unbox_array(types.Array(dtype=types.NPDatetime('ns'), ndim=1, layout='C'), getvalues, c)\n\n@typeof_impl.register(pd.Series)\ndef typeof_pd_timestamp_series(val, c):\n    if len(val) > 0 and isinstance(val[0], pd.Timestamp):\n        return timestamp_series_type\n\n\n# XXX: code for timestamp series getitem in regular Numba\n\n# @infer\n# class GetItemTimestampSeries(AbstractTemplate):\n#     key = \"getitem\"\n#\n#     def generic(self, args, kws):\n#         assert not kws\n#         [ary, idx] = args\n#         if isinstance(ary, TimestampSeriesType):\n#             if isinstance(idx, types.SliceType):\n#                 return signature(timestamp_series_type, *args)\n#             else:"
+}

@@ -1,0 +1,186 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27ualbertalib%2Fjupiter%27+AND+number%3D509+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='ualbertalib/jupiter' AND number=509 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:30.449062+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "sfarnel",
+        "created_at": "2018-02-21 14:59:44",
+        "updated_at": "2018-02-21 14:59:44",
+        "title": "era-beta: odds and ends",
+        "body": "- when I log in with my ccid it shows I have 34 items none of which seem to belong to me (this is likely just a temporary issue but just wanted to note it in any case)\r\n- in the ERA processing community, Journal Articles (ERA Processing) collection, there are two private items that seem to be showing (again likely just a temporary issue but just wanted to note it in any case)",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-02-21 14:00:00",
+        "repo_name": "ualbertalib/jupiter",
+        "number": 509
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "mbarnett",
+        "created_at": "2018-02-22 17:59:11",
+        "updated_at": "2018-02-22 17:59:11",
+        "title": "era-beta: odds and ends",
+        "body": "Just updating this with information from the discussion in Slack, so we don't lose track of the info:\r\n\r\nThe first issue, where we all own random items, is an artifact of jumping off of MySQL to Postgres and will be resolved after the data is remigrated to fix some other issues anyways.\r\n\r\nThe second issue, both items Sharon mentioned (found in this collection: https://era-beta.library.ualberta.ca/communities/1b56d739-0cc9-41d9-ad64-baa0eebe3a60/collections/19c64bce-902d-4c00-8e23-c31b78122669) have a visibility of \"http://terms.library.ualberta.ca/public\", and Danoosh is looking into the migration package data at the moment",
+        "comment_id": 367766511,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-02-22 17:00:00",
+        "repo_name": "ualbertalib/jupiter",
+        "number": 509
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "danydvd",
+        "created_at": "2018-02-22 19:27:18",
+        "updated_at": "2018-02-22 19:27:18",
+        "title": "era-beta: odds and ends",
+        "body": "In migration script, private items (generic items) are items that do not have a \"Read\" permission object (only have \"Write\") or they have \"Read\" permission with an agent with a person's email (e.g. ashiri@ualberta.ca). \r\n\r\nIn current migration script, the visibility variable is assigned to items that have \"Read\" permission with an agent with a person's email (e.g. ashiri@ualberta.ca) and all other private items would not get a visibility triple (as the visibility variable is always null). \r\n\r\nI am modifying the script to:\r\n\r\n- [ ] assign visibility triple with value \"ual:draft\" for items with only \"Write\" permission object. \r\n- [ ] audit the post migration triples to ensure triples are added \r\n\r\nThesis items will get a \"ual:draft\" in dcterms:accessRights if they have \"acl:hasEmbargo\" object that has a \"acl:visibilityDuringEmbargo\"",
+        "comment_id": 367792509,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-02-22 19:00:00",
+        "repo_name": "ualbertalib/jupiter",
+        "number": 509
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "weiweishi",
+        "created_at": "2018-02-23 19:50:20",
+        "updated_at": "2018-02-23 19:50:20",
+        "title": "era-beta: odds and ends",
+        "body": "@danydvd I think if an object, thesis or not, has \"acl:hasEmbargo\" object that has a \"acl:visibilityDuringEmbargo\", the dcterms:accessRights should be http://terms.library.ualberta.ca/embargo? ",
+        "comment_id": 368120138,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-02-23 19:00:00",
+        "repo_name": "ualbertalib/jupiter",
+        "number": 509
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "danydvd",
+        "created_at": "2018-02-23 22:05:13",
+        "updated_at": "2018-02-23 22:05:13",
+        "title": "era-beta: odds and ends",
+        "body": "@weiweishi you are correct. I had forgotten about a method in the migration script that changes accessRights value to ual:embargo if the ual:embargoReleaseDate is smaller than the migration date. Sorry for the confusion. ",
+        "comment_id": 368151923,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-02-23 22:00:00",
+        "repo_name": "ualbertalib/jupiter",
+        "number": 509
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "murny",
+        "created_at": "2018-04-25 18:48:03",
+        "updated_at": "2018-04-25 18:48:03",
+        "title": "era-beta: odds and ends",
+        "body": "Closing out issue, sounds like this was data migration issues. \r\n\r\nPlease feel free to reopen if this is still an issue with production.",
+        "comment_id": 384394291,
+        "comments": 4,
+        "state": "closed",
+        "closed_at": "2018-04-25 18:48:03",
+        "file_time": "2018-04-25 18:00:00",
+        "repo_name": "ualbertalib/jupiter",
+        "number": 509
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "murny",
+        "created_at": "2018-04-25 18:48:04",
+        "updated_at": "2018-04-25 18:48:03",
+        "title": "era-beta: odds and ends",
+        "body": "- when I log in with my ccid it shows I have 34 items none of which seem to belong to me (this is likely just a temporary issue but just wanted to note it in any case)\r\n- in the ERA processing community, Journal Articles (ERA Processing) collection, there are two private items that seem to be showing (again likely just a temporary issue but just wanted to note it in any case)",
+        "comment_id": 0,
+        "comments": 5,
+        "state": "closed",
+        "closed_at": "2018-04-25 18:48:03",
+        "file_time": "2018-04-25 18:00:00",
+        "repo_name": "ualbertalib/jupiter",
+        "number": 509
+      }
+    ],
+    "rows": 7,
+    "statistics": {
+      "elapsed": 0.028119273,
+      "rows_read": 290426,
+      "bytes_read": 10429214
+    }
+  },
+  "response_sha256": "ba0ec2bb4b6456cfedd3eec9757d4582708312c5ddbdd417bcc32235ad8f6139"
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://raw.githubusercontent.com/magento/magento2/5818e3f9f7054d240e9bc814f61814353c450654/app/code/Magento/GoogleAnalytics/view/frontend/templates/ga.phtml",
+  "final_url": "https://raw.githubusercontent.com/magento/magento2/5818e3f9f7054d240e9bc814f61814353c450654/app/code/Magento/GoogleAnalytics/view/frontend/templates/ga.phtml",
+  "text": "<?php\n/**\n * Copyright 2014 Adobe\n * All Rights Reserved.\n */\n?>\n<?php /** @var $block \\Magento\\GoogleAnalytics\\Block\\Ga */ ?>\n<?php $accountId = $block->getConfig(\\Magento\\GoogleAnalytics\\Helper\\Data::XML_PATH_ACCOUNT) ?>\n<!-- BEGIN GOOGLE ANALYTICS CODE -->\n<script type=\"text/x-magento-init\">\n{\n    \"*\": {\n        \"Magento_GoogleAnalytics/js/google-analytics\": {\n            \"isCookieRestrictionModeEnabled\": <?= (int)$block->isCookieRestrictionModeEnabled() ?>,\n            \"currentWebsite\": <?= (int)$block->getCurrentWebsiteId() ?>,\n            \"cookieName\": \"<?= /* @noEscape */ \\Magento\\Cookie\\Helper\\Cookie::IS_USER_ALLOWED_SAVE_COOKIE ?>\",\n            \"ordersTrackingData\": <?= /* @noEscape */ json_encode($block->getOrdersTrackingData()) ?>,\n            \"pageTrackingData\": <?= /* @noEscape */ json_encode($block->getPageTrackingData($accountId)) ?>\n        }\n    }\n}\n</script>\n<!-- END GOOGLE ANALYTICS CODE -->\n",
+  "content_type": "text/plain; charset=utf-8",
+  "sha256": "1d3bc2469d44d6777c136e2a4baad515dc46c462a28bf30d2d5782d0c1e635e9",
+  "fetched_at": "2026-11-06T06:11:23.894385+00:00"
+}

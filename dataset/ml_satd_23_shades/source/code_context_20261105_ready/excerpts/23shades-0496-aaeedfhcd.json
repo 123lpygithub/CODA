@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0496-aaeedfhcd",
+  "revision_url": "https://github.com/chainer/chainer-chemistry/commit/b90e4514134ab53277eb1dd5d4f3e7ac0077e9c9",
+  "filename": "examples/molnet/DumpEmbeddings.py",
+  "commit": "b90e4514134ab53277eb1dd5d4f3e7ac0077e9c9",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainer-chemistry/b90e4514134ab53277eb1dd5d4f3e7ac0077e9c9/examples/molnet/DumpEmbeddings.py",
+  "fetched_at": "2026-11-05T06:13:03.269383+00:00",
+  "source_sha256": "e437e0c7ace7566cf2a5b203f4ffaa3808ac21539b020d159f2177b5292abf87",
+  "line_start": 2,
+  "line_end": 26,
+  "excerpt": "from __future__ import print_function\n\nimport argparse\nimport json\nimport os\n\nimport chainer\nfrom chainer.iterators import SerialIterator\nfrom chainer.training.extensions import Evaluator\nfrom chainer_chemistry.training.extensions.roc_auc_evaluator import ROCAUCEvaluator  # NOQA\nfrom chainer import cuda\n# Proposed by Ishiguro\n# ToDo: consider go/no-go with following modification\n# Re-load the best-validation score snapshot using serializers\nfrom chainer import serializers\n\nfrom chainer_chemistry.dataset.converters import concat_mols\nfrom chainer_chemistry.datasets import NumpyTupleDataset\nfrom chainer_chemistry.datasets.molnet.molnet_config import molnet_default_config  # NOQA\nfrom chainer_chemistry.models.prediction import Classifier\nfrom chainer_chemistry.models.prediction import Regressor\nfrom chainer_chemistry.utils import save_json\n\n# These import is necessary for pickle to work\nfrom chainer import functions as F",
+  "match_policy": "unique-release-normalized-v2"
+}

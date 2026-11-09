@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0855-aaeachbce",
+  "revision_url": "https://github.com/mozilla/bugbug/commit/2e097ffb7f4ecf2339b41d8dfe9012a10c749cd2",
+  "filename": "scripts/test_scheduling_history_retriever.py",
+  "commit": "2e097ffb7f4ecf2339b41d8dfe9012a10c749cd2",
+  "source_url": "https://raw.githubusercontent.com/mozilla/bugbug/2e097ffb7f4ecf2339b41d8dfe9012a10c749cd2/scripts/test_scheduling_history_retriever.py",
+  "fetched_at": "2026-11-05T06:14:05.126829+00:00",
+  "source_sha256": "ee100990825742be331153508e201c116f562ff1271c1528a467e15bd678e5dd",
+  "line_start": 129,
+  "line_end": 153,
+  "excerpt": "\n            if adr.config.cache.has(key) and push.revs[0] not in to_regenerate:\n                num_cached += 1\n                cached = adr.config.cache.get(key)\n                if cached:\n                    # XXX: We have to support items in the cache that were added\n                    # before the mozci version was stored. We can drop the if\n                    # when all items have been switched over.\n                    value, mozci_version = (\n                        cached if isinstance(cached, tuple) else (cached, 0)\n                    )\n                    push_data.append(value)\n                    # XXX: We re-cache now just to make sure all items get a mozci version.\n                    # We will remove this soon.\n                    adr.config.cache.forever(key, (value, mozci_version))\n            else:\n                logger.info(f\"Analyzing {push.rev} at the {runnable} level...\")\n\n                try:\n                    if runnable == \"label\":\n                        runnables = push.task_labels\n                    elif runnable == \"group\":\n                        runnables = push.group_summaries.keys()\n\n                    value = ["
+}

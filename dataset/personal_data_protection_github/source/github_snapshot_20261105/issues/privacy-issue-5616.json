@@ -1,0 +1,37 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5616",
+  "issue_url": "https://github.com/ellmetha/django-machina/issues/123",
+  "source_issue_url": "https://github.com/ellmetha/django-machina/issues/123",
+  "api_url": "https://api.github.com/repos/ellmetha/django-machina/issues/123",
+  "title": "Deleting users issue",
+  "body": "For GDPR the users have the right to be forgotten, so when deleting a user that has forum posts:\r\nCODE:\r\nu = User.objects.get(id = user_id)\r\nu.delete()\r\n\r\nERROR:\r\nnew row for relation \"forum_member_forumprofile\" violates check constraint \"forum_member_forumprofile_posts_count_check\"\r\nDETAIL:  Failing row contains (15, , null, -1, null, 594817).\r\n\r\nEDIT:\r\nI have also tried deleting the Topic and Forum profile beforehand.\r\n\r\nCODE:\r\nfrom machina.apps.forum_conversation.models import Topic\r\nt = Topic.objects.filter(poster_id=user_id)\r\nt.delete()\r\n\r\nfrom machina.apps.forum_member.models import ForumProfile\r\nf =  ForumProfile.objects.get(user_id=user_id)\r\nf.delete()",
+  "author": "Participant 1",
+  "created_at": "2018-05-17T08:43:50Z",
+  "updated_at": "2018-05-21T01:54:46Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:20:14.474442+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:20:14.474442+00:00"
+  ],
+  "expected_comment_count": 1,
+  "retrieved_comment_count": 1,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 390532623,
+      "url": "https://github.com/ellmetha/django-machina/issues/123#issuecomment-390532623",
+      "created_at": "2018-05-21T01:54:45Z",
+      "updated_at": "2018-05-21T01:54:45Z",
+      "author": "Participant 2",
+      "body": "You just need to delete the `ForumTopic`, `ForumPost` and `ForumProfile` instances related to the considered user (and then delete the considered user). That said deleting the user \"directly\" works too (I've just tested it). 😉 "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/ellmetha/django-machina/issues/123",
+  "closed_at_available": false
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "artifact_id": "23shades-0027-aajfegaca",
+    "alternate_dataset_id": "aajfeficc",
+    "commit": "a88447207850c585b7e9f7f1e1897672ebecaad3",
+    "source_url": "https://raw.githubusercontent.com/catalyst-team/catalyst/a88447207850c585b7e9f7f1e1897672ebecaad3/dl/callbacks.py",
+    "same_as_case_revision": false,
+    "unique_match": true,
+    "excerpt": [
+      391,
+      415,
+      "class SchedulerCallback(Callback):\n    def __init__(\n            self,\n            scheduler_key: str = \"main\",\n            mode: str = \"epoch\",\n            reduce_metric: str = None):\n        self.scheduler_key = scheduler_key\n        self.mode = mode\n        self.reduce_metric = reduce_metric\n\n    @staticmethod\n    def get_momentum(optimizer):\n        # @TODO: need better solutions\n        if isinstance(optimizer, torch.optim.Adam):\n            return list(optimizer.param_groups)[0][\"betas\"][0]\n        elif isinstance(optimizer, torch.optim.SGD):\n            return list(optimizer.param_groups)[0][\"momentum\"]\n        else:\n            return None\n\n    def step(self, state):\n        scheduler = state._scheduler[self.scheduler_key]\n        if isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):\n            scheduler.step(state.valid_metrics[self.reduce_metric])\n            state.lr[self.scheduler_key] = \\"
+    ],
+    "full_source_file": "23shades-0027-aajfegaca-related-version.py",
+    "full_source_sha256": "8cf261a6960b1c96ae3e2843c2e5840ad72bb4ec467d998927638d1a709d1af1",
+    "retrieval_final_url": "https://raw.githubusercontent.com/catalyst-team/catalyst/a88447207850c585b7e9f7f1e1897672ebecaad3/dl/callbacks.py",
+    "scope": "Same repository/path/full comment at another explicitly released commit. Not yet verified as the context of the target case; not substituted into agent inputs."
+  },
+  {
+    "artifact_id": "23shades-0654-aagbifedh",
+    "alternate_dataset_id": "aagbifedi",
+    "commit": "2ac00cb4f671ea4e17b9d47e1270989e1e5b8433",
+    "source_url": "https://raw.githubusercontent.com/drckf/paysage/2ac00cb4f671ea4e17b9d47e1270989e1e5b8433/paysage/models/model.py",
+    "same_as_case_revision": false,
+    "unique_match": true,
+    "excerpt": [
+      583,
+      607,
+      "            seed 'None' or Magnetization: initial seed for the minimization routine.\n                                          Chosing 'None' will result in a random seed\n            init_lr float: initial learning rate which is halved whenever necessary to enforce descent.\n            tol float: tolerance for quitting minimization.\n            max_iters: maximum gradient decsent steps.\n            method: one of 'gd' or 'constraint' picking which Gibbs FE minimization method to use.\n\n        Returns:\n            tuple (magnetization, TAP-approximated Helmholtz free energy)\n                  (Magnetization, float)\n\n        \"\"\"\n        # TODO: re-implement support for constraint satisfaction method as needed\n        if method not in ['gd']:\n            raise ValueError(\"Must specify a valid method for minimizing the Gibbs free energy\")\n\n        def minimize_gibbs_free_energy_GD(m, init_lr=0.01, tol=1e-6, max_iters=1):\n            \"\"\"\n            Simple gradient descent routine to minimize Gibbs free energy\n\n            Note: The fact that this method is a closure suggests that it might be moved to a\n                   utility class later\n\n            Args:\n                m (list of magnetizations of layers): seed for gradient descent"
+    ],
+    "preservation_error": "The read operation timed out"
+  },
+  {
+    "artifact_id": "23shades-0725-aahicjieh",
+    "alternate_dataset_id": "aahidabbe",
+    "commit": "da6dbc8d1d128cf783d7151b012a5502bbd52bf5",
+    "source_url": "https://raw.githubusercontent.com/PyTorchLightning/pytorch-lightning/da6dbc8d1d128cf783d7151b012a5502bbd52bf5/pytorch_lightning/trainer/trainer.py",
+    "same_as_case_revision": false,
+    "unique_match": true,
+    "excerpt": [
+      464,
+      488,
+      "        self.call_setup_hook(model)\n        self.call_hook(\"on_before_accelerator_backend_setup\", model)\n        self.accelerator_backend.setup(self, model)\n        self.setup_trainer(model)\n\n        # ----------------------------\n        # TRAIN\n        # ----------------------------\n        # hook\n        self.call_hook(\"on_fit_start\")\n\n        # plugin will setup training (e.g. ddp will launch child processes)\n        # TODO: the old setup is now called \"pre_training\", where should this hook be called now?\n        self.training_type_plugin.pre_training()\n        self.precision_plugin.pre_training()\n\n        # double dispatch: let the plugin initiate the training/test loop.\n        if self.testing:\n            self.training_type_plugin.start_testing(self)\n        else:\n            self.training_type_plugin.start_training(self)\n\n        self.precision_plugin.post_training()\n        self.training_type_plugin.post_training()\n        self.accelerator_backend.teardown()"
+    ],
+    "preservation_error": "The read operation timed out"
+  }
+]

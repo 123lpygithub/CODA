@@ -1,0 +1,98 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-6858",
+  "issue_url": "https://github.com/dbeaver/dbeaver/issues/3066",
+  "source_issue_url": "https://github.com/dbeaver/dbeaver/issues/3066",
+  "api_url": "https://api.github.com/repos/dbeaver/dbeaver/issues/3066",
+  "title": "Saved passwords view",
+  "body": "Hey guys,\r\n\r\nI think it's kind of weird that DBeaver stores your database passwords in plain text in the .dbeaver-data-sources.xml file. That seems like a pretty big breach in data security. Am I wrong? Feels like the passwords should not be stored in that file, but seperately, hashed somewhere...\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-03-02T09:08:18Z",
+  "updated_at": "2025-02-28T07:53:54Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:33.553580+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:33.553580+00:00",
+    "2026-11-05T06:39:34.935872+00:00"
+  ],
+  "expected_comment_count": 8,
+  "retrieved_comment_count": 8,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 370035514,
+      "url": "https://github.com/dbeaver/dbeaver/issues/3066#issuecomment-370035514",
+      "created_at": "2018-03-02T19:57:24Z",
+      "updated_at": "2018-03-02T19:59:17Z",
+      "author": "Participant 2",
+      "body": "DBeaver EE and DBeaver Eclipse plugin versions support passwords storage in secured database (encrypted with master password).\r\nYou can enable this in Preferences->Database->Security.\r\n\r\nRegarding CE version:\r\nMany users share database configurations so they need to keep password in the same configuration file (which is actually resides in some version control system).\r\nBut if your database passwords are secure then you can disable passwords save at all.\r\n\r\nNote: password are saved not in plain text but in encrypted form (so you can't see them accidentally). But they can be easily decrypted with special software."
+    },
+    {
+      "id": 378925458,
+      "url": "https://github.com/dbeaver/dbeaver/issues/3066#issuecomment-378925458",
+      "created_at": "2018-04-05T12:53:29Z",
+      "updated_at": "2018-04-05T12:55:52Z",
+      "author": "Participant 3",
+      "body": "Add a feature to show stored passwords in DBeaver in the [same way as in Firefox](https://www.howtogeek.com/howto/ubuntu/find-a-forgotten-password-saved-in-firefox/) for example, please. Why not to show passwords directly on explicit request when [there is a software](https://stackoverflow.com/questions/39928401/recover-db-password-stored-in-my-dbeaver-connection) for easily decrypting?"
+    },
+    {
+      "id": 381357654,
+      "url": "https://github.com/dbeaver/dbeaver/issues/3066#issuecomment-381357654",
+      "created_at": "2018-04-14T20:17:50Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": "@hginzel this feature is already in the plans: #2613"
+    },
+    {
+      "id": 394170358,
+      "url": "https://github.com/dbeaver/dbeaver/issues/3066#issuecomment-394170358",
+      "created_at": "2018-06-03T15:35:05Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "I'm still not sure that we should do this in default DBeaver configuration (without master password, cloud-based credentials storage or something similar). This is way too not secure (anybody will be able to see passwords in a second).\r\nPostponing this feature for a while.."
+    },
+    {
+      "id": 425689363,
+      "url": "https://github.com/dbeaver/dbeaver/issues/3066#issuecomment-425689363",
+      "created_at": "2018-09-30T02:39:38Z",
+      "updated_at": null,
+      "author": "Participant 6",
+      "body": "> Regarding CE version:\r\n> Many users share database configurations so they need to keep password in the same configuration file (which is actually resides in some version control system).\r\n> But if your database passwords are secure then you can disable passwords save at all.\r\n\r\nI don't see any points when users share their database configurations by sending whole .xml file within all weak encrypted passwords.\r\nHow about store master encrypt key in OS keychain ? They can share the file but re-update password by himself later.\r\n\r\nBtw, thanks for great job 👍 "
+    },
+    {
+      "id": 536294831,
+      "url": "https://github.com/dbeaver/dbeaver/issues/3066#issuecomment-536294831",
+      "created_at": "2019-09-29T12:25:39Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "The best way to implement \"See password\" would be to use the same approach as in Chrome: ask user to enter current OS password/pin/whatever.\r\nHowever I doubt that this is possible (at least easily)in Java. It is very OS-dependent and requires different UIs for different auth models.\r\n\r\nAnother way is to use master password in dbeaver itself. Use this password (hash) to encrypt secure credentials and to unlock \"View password\" feature.\r\nHowever it also requires change of general auth model and extra UI..\r\n\r\nAny other ideas?"
+    },
+    {
+      "id": 536400012,
+      "url": "https://github.com/dbeaver/dbeaver/issues/3066#issuecomment-536400012",
+      "created_at": "2019-09-30T04:51:33Z",
+      "updated_at": null,
+      "author": "Participant 6",
+      "body": "Agree!\r\n\r\nMaster Password is a good way to go if we don't want to mess with OS-dependent keychain systems."
+    },
+    {
+      "id": 554763146,
+      "url": "https://github.com/dbeaver/dbeaver/issues/3066#issuecomment-554763146",
+      "created_at": "2019-11-17T16:35:25Z",
+      "updated_at": null,
+      "author": "Participant 5",
+      "body": "verified"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original Markdown from GitHub's structured issue pages, including numbered timeline pages. Discussion complete only after pagination, comment-ID, expected-count and unchanged-issue checks. Closure timestamp is unavailable; linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/dbeaver/dbeaver/issues/3066",
+  "closed_at_available": false,
+  "timeline_page_urls": [
+    "https://github.com/dbeaver/dbeaver/issues/3066",
+    "https://github.com/dbeaver/dbeaver/issues/3066?timeline_page=1"
+  ]
+}

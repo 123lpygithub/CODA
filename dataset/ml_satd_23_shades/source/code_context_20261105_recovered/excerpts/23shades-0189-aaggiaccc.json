@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0189-aaggiaccc",
+  "revision_url": "https://github.com/jhu-lcsr/costar_plan/commit/31163d560cad16c38e509a3d0b6e0ba0929564a8",
+  "filename": "costar_task_plan/python/costar_task_plan/models/test_hierarchical.py",
+  "commit": "31163d560cad16c38e509a3d0b6e0ba0929564a8",
+  "source_url": "https://raw.githubusercontent.com/jhu-lcsr/costar_plan/31163d560cad16c38e509a3d0b6e0ba0929564a8/costar_task_plan/python/costar_task_plan/models/test_hierarchical.py",
+  "fetched_at": "2026-11-05T06:12:08.860714+00:00",
+  "source_sha256": "46cd3b29b41e4678bc76cda768380984e8beef74f78f83fa492a966063d5bfe5",
+  "line_start": 183,
+  "line_end": 207,
+  "excerpt": "        print \"features now shape\", features.shape\n        print \"actions now shape\", action.shape\n        print \"labels now shape\", label.shape\n\n        label_target = np.squeeze(label[:,-1,:])\n        action_target = np.squeeze(action[:,-1,:])\n\n        self._makeModel(features, state, action, label, example, reward)\n        self._fitSupervisor(features, label, label_target)\n        self._fitPolicies(features, label, action_target)\n\n    def plot(self,*args,**kwargs):\n        # TODO\n        pass\n\nif __name__ == '__main__':\n\n    data = np.load('roadworld-2018-08-09.npz')\n    sampler = TestHierarchical(\n            batch_size=64,\n            iter=5000,\n            epochs=100,\n            optimizer=\"adam\",\n            task=\"roadworld\",)\n"
+}

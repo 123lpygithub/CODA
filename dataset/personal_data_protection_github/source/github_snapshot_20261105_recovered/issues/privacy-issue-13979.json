@@ -1,0 +1,53 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-13979",
+  "issue_url": "https://github.com/devonfw/my-thai-star/issues/55",
+  "source_issue_url": "https://github.com/devonfw/my-thai-star/issues/55",
+  "api_url": "https://api.github.com/repos/devonfw/my-thai-star/issues/55",
+  "title": "Information disclousure, password plaintext storage",
+  "body": "On request below application returns sensitive user information like password. \r\nIt means also that passwords of users are stored in databese in plain text. It should be stored only as a hash of user password.\r\n\r\nReferences: \r\nhttps://www.owasp.org/index.php/Information_Leak_(information_disclosure)\r\nhttps://www.owasp.org/index.php/Password_Storage_Cheat_Sheet\r\n\r\n\r\nRequest:\r\n```\r\nPOST /mythaistar/services/rest/bookingmanagement/v1/booking/search HTTP/1.1\r\nHost: xxxx\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0\r\nAccept: application/json, text/plain, */*\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nAuthorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3YWl0ZXIiLCJzY29wZSI6W3siYXV0aG9yaXR5IjoiUk9MRV9XYWl0ZXIifV0sImlzcyI6Ik15VGhhaVN0YXJBcHAiLCJleHAiOjE1MTA4MzczNzksImlhdCI6MTUxMDgzMzc3OX0.gjZsyVCmuCuxVr9dEDDyr9mXJ_yC04yx3dOG03dR76zvoEVBZTqZa5FlRKQ3s_USGfuaNL0CW0OiRu5cceYu1A\r\nContent-Type: application/json\r\nReferer: xxxx/reservations\r\nContent-Length: 87\r\nOrigin: xxxxx\r\nConnection: close\r\n{\"email\":null,\"bookingToken\":null,\"pagination\":{\"size\":8,\"page\":1,\"total\":1},\"sort\":[]}\r\n```\r\nResponse:\r\n```\r\nHTTP/1.1 200 \r\nX-Content-Type-Options: nosniff\r\nX-XSS-Protection: 1; mode=block\r\nCache-Control: no-cache, no-store, max-age=0, must-revalidate\r\nPragma: no-cache\r\nExpires: 0\r\nX-Frame-Options: DENY\r\nAccess-Control-Allow-Origin: xxxx\r\nVary: Origin\r\nAccess-Control-Allow-Credentials: true\r\nX-Application-Context: xxxx\r\nDate: Thu, 16 Nov 2017 12:20:23 GMT\r\nContent-Type: application/json\r\nConnection: close\r\nContent-Length: 7300\r\n\r\n{\"pagination\":{\"size\":8,\"page\":1,\"total\":36},\"result\":[{\"booking\":{\"id\":0,\"modificationCounter\":1,\"revision\":null,\"name\":\"user0\",\"bookingToken\":\"CB_20170509_123502555Z\",\"comment\":\"Booking Type CSR\",\"bookingDate\":1510590903057,\"expirationDate\":1510587303057,\"creationDate\":1510158903057,\"email\":\"user0@mail.com\",\"canceled\":false,\"bookingType\":\"COMMON\",\"tableId\":0,\"orderId\":0,\"assistants\":3,\"userId\":0},\"table\":{\"id\":0,\"modificationCounter\":1,\"revision\":null,\"seatsNumber\":4},\"invitedGuests\":[],\"order\":{\"id\":0,\"modificationCounter\":1,\"revision\":null,\"bookingId\":0,\"invitedGuestId\":null,\"bookingToken\":null,\"hostId\":0},\"orders\":[{\"id\":0,\"modificationCounter\":1,\"revision\":null,\"bookingId\":0,\"invitedGuestId\":null,\"bookingToken\":null,\"hostId\":0}],\"user\":{\"id\":0,\"modificationCounter\":1,\"revision\":null,\"username\":\"user0\",\"password\":\"password\",\"email\":\"user0@mail.com\",\"userRoleId\":0}},{\"booking\":{\"id\":1,\"modificationCounter\":1,\"revision\":null,\"name\":\"user1\",\"bookingToken\":\"CB_20170510_123502575Z\",\"comment\":\"Booking Type\r\n[...]\r\n```",
+  "author": "Participant 1",
+  "created_at": "2017-11-23T13:13:20Z",
+  "updated_at": "2022-09-06T18:58:37Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:00.897139+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:00.897139+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 489964041,
+      "url": "https://github.com/devonfw/my-thai-star/issues/55#issuecomment-489964041",
+      "created_at": "2019-05-07T07:18:47Z",
+      "updated_at": "2019-05-07T07:20:28Z",
+      "author": "Participant 2",
+      "body": "@opermajki thanks for the finding and this issue.\r\nThe devonfw initiative is IMHO a very great initiative with lots of highlights but to be very honest, this issue on the other hand shows that there are also low-lights. It is a pitty that such an issue exists in devonfw that claims to reduce risks and be a great solution for IT security. If the detailed guides that we have online would have been read and honored, this security and data-privacy desaster would of course not have happened. The actual pain-story however is that we have not been able to make any progress and more or less ignored this issue for 1+ year!\r\nI marked this issue as bug and blocker and will put priority on this so we will get this fixed. Sorry, for this pain-story but shit happenes. Lets try to make the best for the future, keep on going to continuously improve devonfw and my-thai-star and make things like this become history to forget one fine day :)"
+    },
+    {
+      "id": 489996486,
+      "url": "https://github.com/devonfw/my-thai-star/issues/55#issuecomment-489996486",
+      "created_at": "2019-05-07T08:59:27Z",
+      "updated_at": "2019-05-07T09:21:40Z",
+      "author": "Participant 2",
+      "body": "For the record. The result contains information about different users of the my-thai-star application like this:\r\n```\r\n\"user\": {\r\n      \"id\":0,\r\n      \"modificationCounter\":1,\r\n      \"revision\":null,\r\n      \"username\":\"user0\",\r\n      \"password\":\"password\",\r\n      \"email\":\"user0@mail.com\",\r\n      \"userRoleId\":0\r\n    }\r\n```\r\nWe should never ever store and never never ever allow to retrieve passwords of users. This is completely inacceptable. If we would do so in an application for our customer even if there is no demand/requirement about this it would be a bug and we could easily get sued for such mistakes as IT security (at least for such obvious cases) is an implicit MUST requirement.\r\n\r\nAlso regarding GDPR (EU data privacy rights) we should be careful about personal data such as email addresses. It may be acceptable for an admin to retrieve a list of users with their email addresses, names, etc. but if regular users of the system (especially guests) may retrieve such personal data of other persons this is also a severe bug that could result in suing us and getting a expensive fine. Fortunately this is just a sample app with dummy data. However, as this app is \"THE SAMPLE APP\" of devonfw it IMHO is the blueprint how to do it right and has to have high quality what is currently not the case."
+    },
+    {
+      "id": 1231974929,
+      "url": "https://github.com/devonfw/my-thai-star/issues/55#issuecomment-1231974929",
+      "created_at": "2022-08-30T17:45:46Z",
+      "updated_at": "2022-08-30T17:45:46Z",
+      "author": "Participant 3",
+      "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/devonfw/my-thai-star/issues/55",
+  "closed_at_available": false
+}

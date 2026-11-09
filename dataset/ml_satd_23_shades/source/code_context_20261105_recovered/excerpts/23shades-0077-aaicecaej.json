@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0077-aaicecaej",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/f5ddde0049e70972789340fd3e7dae6f8236e4a3",
+  "filename": "sklearn/linear_model/ridge.py",
+  "commit": "f5ddde0049e70972789340fd3e7dae6f8236e4a3",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/f5ddde0049e70972789340fd3e7dae6f8236e4a3/sklearn/linear_model/ridge.py",
+  "fetched_at": "2026-11-05T06:11:50.640768+00:00",
+  "source_sha256": "4e3a8dbb9683e1e92b907b65a99b0bd4c957a1ff01a30f735464e07cf34d8657",
+  "line_start": 450,
+  "line_end": 474,
+  "excerpt": "        n_samples, n_features = X.shape\n\n        X, y, X_mean, y_mean, X_std = LinearModel._center_data(X, y,\n                self.fit_intercept, self.normalize, self.copy_X)\n        \n        gcv_mode = self.gcv_mode\n        if self.gcv_mode is None or self.gcv_mode == 'auto':\n            if n_samples > n_features:\n                gcv_mode = 'svd'\n            else:\n                gcv_mode = 'eigen'\n        if len(np.shape(sample_weight)):\n            # FIXME non-uniform sample weights not yet supported\n            warnings.warn(\"non-uniform sample weights unsupported for svd, \"\n                \"forcing usage of eigen\")\n            gcv_mode = 'eigen'\n        if gcv_mode == 'eigen':\n            _pre_compute = self._pre_compute\n            _errors = self._errors\n            _values = self._values\n        elif gcv_mode == 'svd':\n            # assert n_samples >= n_features\n            _pre_compute = self._pre_compute_svd\n            _errors = self._errors_svd\n            _values = self._values_svd"
+}

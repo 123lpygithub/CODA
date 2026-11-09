@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0153-aajacaegh",
+  "revision_url": "https://github.com/chainer/chainer/commit/aef64159d655c7196f8227f20afb1d1a8b4598b7",
+  "filename": "chainer/graph_optimizations/static_graph.py",
+  "commit": "aef64159d655c7196f8227f20afb1d1a8b4598b7",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainer/aef64159d655c7196f8227f20afb1d1a8b4598b7/chainer/graph_optimizations/static_graph.py",
+  "fetched_at": "2026-11-05T06:12:02.629860+00:00",
+  "source_sha256": "15488ab4f0968ebd9807cb69f614bd86d8b17225fbc0f7fce10e8401c12cc8de",
+  "line_start": 429,
+  "line_end": 453,
+  "excerpt": "        for unique_array_index, ar in enumerate(self.unique_arrays):\n            if id(ar) in self.array_id_to_param_map:\n                param_attribute_location = self.array_id_to_param_map[id(ar)]\n                hook = (unique_array_index, param_attribute_location)\n                self.param_hooks.append(hook)\n\n        if self.verbosity_level >= 2:\n            print('self.param_hooks: ', self.param_hooks)\n\n\n        # todo: We can potentially reduce memory usage by freeing memory\n        # of intermediate arrays\n        # once they are no longer needed in the schedule or by\n        # parameters. However, we cannot know without checking\n        # if retain_inputs/outputs has been called and/or checking\n        # the backward schedule.\n        #for func_info in self.schedule_info_list:\n        #    func = func_info.func\n        #    args = func_info.args\n        #    kwargs = func_info.kwargs\n        #    func_name = func_info.func_name\n\n\n\n"
+}

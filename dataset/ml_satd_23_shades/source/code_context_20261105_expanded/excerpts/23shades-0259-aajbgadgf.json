@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0259-aajbgadgf",
+  "revision_url": "https://github.com/Drakkar-Software/OctoBot/commit/ee4e0c54509c868a989ea85fdb4ec7b20acd123f",
+  "filename": "tools/tentacle_manager.py",
+  "commit": "ee4e0c54509c868a989ea85fdb4ec7b20acd123f",
+  "source_url": "https://raw.githubusercontent.com/Drakkar-Software/OctoBot/ee4e0c54509c868a989ea85fdb4ec7b20acd123f/tools/tentacle_manager.py",
+  "fetched_at": "2026-11-05T06:12:23.813362+00:00",
+  "source_sha256": "039b42277610717148388724c93a029b3261fbea6dc63afb22478088ff424043",
+  "line_start": 269,
+  "line_end": 293,
+  "excerpt": "                                                    EVALUATOR_ADVANCED_FOLDER)\n                                break\n                            except Exception:\n                                self.logger.error(\"Installation failed for module '{0}'\".format(component))\n                    if not found:\n                        self.logger.error(\"Cannot find installation for module '{0}'\".format(component))\n\n    def update_parser(self, commands, command_all=False):\n        if command_all:\n            # TODO check for each tentacle installed if update is available (with requirements)\n            pass\n        else:\n            # TODO check for each tentacle specified if update is available (with requirements)\n            pass\n\n    def uninstall_parser(self, commands, command_all=False):\n        if command_all:\n            self._try_action_on_package(TentacleManagerActions.UNINSTALL, self.default_package,\n                                        EVALUATOR_DEFAULT_FOLDER)\n            for package in self.advanced_package_list:\n                self._try_action_on_package(TentacleManagerActions.UNINSTALL, package, EVALUATOR_ADVANCED_FOLDER)\n        else:\n            for component in commands:\n                try:\n                    self.process_module(TentacleManagerActions.UNINSTALL, self.default_package,"
+}

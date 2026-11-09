@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0508-aafhhaijc",
+  "revision_url": "https://github.com/mdangschat/ctc-asr/commit/f46f4ca67d5e029a7b12d28ef65b52354192e138",
+  "filename": "python/input_functions.py",
+  "commit": "f46f4ca67d5e029a7b12d28ef65b52354192e138",
+  "source_url": "https://raw.githubusercontent.com/mdangschat/ctc-asr/f46f4ca67d5e029a7b12d28ef65b52354192e138/python/input_functions.py",
+  "fetched_at": "2026-11-05T06:13:04.904764+00:00",
+  "source_sha256": "201430aeff1a5a890c934eaf30efa09e1f182af06247b2be84ee15935cfff751",
+  "line_start": 17,
+  "line_end": 41,
+  "excerpt": "def test_input_fn():\n    return _input_fn(FLAGS.test_csv)\n\n\ndef dev_input_fn():\n    # TODO: For testing, since dev.txt does not exist in correct format\n    # return _input_fn(FLAGS.dev_csv)\n    return test_input_fn()\n\n\ndef _input_fn(csv_path, sorta_grad=True, epochs=1):\n    # TODO: Documentation.\n    # TODO: Debug defaults.\n\n    def element_length_fn(_spectrogram, _spectrogram_length, _label_encoded, _label_plaintext):\n        del _spectrogram\n        del _label_encoded\n        del _label_plaintext\n        return _spectrogram_length\n\n    assert os.path.exists(csv_path) and os.path.isfile(csv_path)\n\n    with tf.device('/cpu:0'):\n        dataset = tf.data.Dataset.from_generator(_input_generator,\n                                                 (tf.float32, tf.int32, tf.int32, tf.string),"
+}

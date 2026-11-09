@@ -1,0 +1,367 @@
+
+=== 456 23shades-0660-aaidbgddf ===
+{"dataset_id": "aaidbgddf", "repo_name": "scikit-learn/scikit-learn", "filename": "sklearn/ensemble/_gb.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/6852e31da88a94262c8a6a82a6ad00a34ddc385b", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6852e31da88a94262c8a6a82a6ad00a34ddc385b"}
+[comment_text]
+TODO: Remove in 1.2
+[source_context]
+        # n_classes will be equal to 1 in the binary classification or the
+        # regression case.
+        n_estimators, n_classes = self.estimators_.shape
+        leaves = np.zeros((X.shape[0], n_estimators, n_classes))
+
+        for i in range(n_estimators):
+            for j in range(n_classes):
+                estimator = self.estimators_[i, j]
+                leaves[:, i, j] = estimator.apply(X, check_input=False)
+
+        return leaves
+
+    # TODO: Remove in 1.2
+    # mypy error: Decorated property not supported
+    @deprecated(  # type: ignore
+        "Attribute n_features_ was deprecated in version 1.0 and will be "
+        "removed in 1.2. Use 'n_features_in_' instead."
+    )
+    @property
+    def n_features_(self):
+        return self.n_features_in_
+
+
+class GradientBoostingClassifier(ClassifierMixin, BaseGradientBoosting):
+    """Gradient Boosting for classification.
+
+=== 457 23shades-0496-aaeedfhcd ===
+{"dataset_id": "aaeedfhcd", "repo_name": "chainer/chainer-chemistry", "filename": "examples/molnet/DumpEmbeddings.py", "comment_introducing_revision": "https://github.com/chainer/chainer-chemistry/commit/b90e4514134ab53277eb1dd5d4f3e7ac0077e9c9", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b90e4514134ab53277eb1dd5d4f3e7ac0077e9c9"}
+[comment_text]
+ToDo: consider go\/no-go with following modification
+[source_context]
+from __future__ import print_function
+
+import argparse
+import json
+import os
+
+import chainer
+from chainer.iterators import SerialIterator
+from chainer.training.extensions import Evaluator
+from chainer_chemistry.training.extensions.roc_auc_evaluator import ROCAUCEvaluator  # NOQA
+from chainer import cuda
+# Proposed by Ishiguro
+# ToDo: consider go/no-go with following modification
+# Re-load the best-validation score snapshot using serializers
+from chainer import serializers
+
+from chainer_chemistry.dataset.converters import concat_mols
+from chainer_chemistry.datasets import NumpyTupleDataset
+from chainer_chemistry.datasets.molnet.molnet_config import molnet_default_config  # NOQA
+from chainer_chemistry.models.prediction import Classifier
+from chainer_chemistry.models.prediction import Regressor
+from chainer_chemistry.utils import save_json
+
+# These import is necessary for pickle to work
+from chainer import functions as F
+
+=== 458 23shades-0553-aadgfdibb ===
+{"dataset_id": "aadgfdibb", "repo_name": "sorgerlab/indra", "filename": "indra/sources/ndex_cx/processor.py", "comment_introducing_revision": "https://github.com/sorgerlab/indra/commit/11f0339e884f2dbe5a8c9b98b6ab0c6dff01f898", "comment_removing_revision": "https://github.com/sorgerlab/indra/commit/f50104ee6b9ee9c8d57a58f0a29651978325ae6c", "source_context_status": "available", "source_context_commit": "11f0339e884f2dbe5a8c9b98b6ab0c6dff01f898"}
+[comment_text]
+TODO: handle other participant types
+[source_context]
+                if db_name.lower() == 'uniprot':
+                    uniprot_id = uniprot_client.get_id_from_mnemonic(db_id)
+                    db_refs['UP'] = uniprot_id
+                elif db_name.lower() == 'pubchem':
+                    chebi_id = chebi_client.get_chebi_id_from_pubchem(db_id)
+                    db_refs['CHEBI'] = chebi_id
+                elif db_name.lower() == 'hgnc':
+                    db_refs['HGNC'] = db_id
+        elif entity_type == 'protein_family':
+            name = text
+        else:
+            return None
+        # TODO: handle other participant types
+        agent = Agent(name, db_refs=db_refs)
+
+        features = participant.get('features')
+        if features:
+            for feature in features:
+                feature_type = feature.get('feature_type')
+                if feature_type == 'modification_feature':
+                    mc = self._get_mod_condition(feature)
+                    agent.mods.append(mc)
+                elif feature_type == 'binding_feature':
+                    bc = self._get_bound_condition(feature)
+                    agent.bound_conditions.append(bc)
+
+=== 459 23shades-0544-aaedabagi ===
+{"dataset_id": "aaedabagi", "repo_name": "naver/claf", "filename": "claf/machine/open_qa.py", "comment_introducing_revision": "https://github.com/naver/claf/commit/d9685792cfa23ae5bfbe82f3df8e3e65e12c8175", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "d9685792cfa23ae5bfbe82f3df8e3e65e12c8175"}
+[comment_text]
+TODO: fix read whole wiki
+[source_context]
+        # Reasoning
+        # - Document Retrieval
+        # - Reading Comprehension Experiment
+        reasoning_config = self.config.reasoning
+
+        self.document_retrieval = self._load_document_retrieval(
+            reasoning_config.document_retrieval, tokenizers["word"], basename=doc_name
+        )
+        self.rc_experiment = self.make_module(reasoning_config.reading_comprehension)
+        print("Ready ..! \n")
+
+    def _load_knowledge_base(self, config):
+        docs = read_wiki_articles(config.wiki)  # TODO: fix read whole wiki
+        doc_name = f"{os.path.basename(config.wiki)}-{len(docs)}-articles"
+        return docs, doc_name
+
+    def _load_document_retrieval(self, config, word_tokenizer, basename="docs"):
+        dir_path = f"doc-{config.type}-{config.name}-{word_tokenizer.cache_name}"
+        doc_retrieval_path = os.path.join(dir_path, basename)
+
+        config.params = {
+            "texts": [doc.title for doc in self.docs],
+            "word_tokenizer": word_tokenizer,
+        }
+        document_retrieval = self.make_module(config)
+
+=== 460 23shades-0483-aagbdjfdj ===
+{"dataset_id": "aagbdjfdj", "repo_name": "euclidjda/deep-quant", "filename": "scripts/models/deep_bayes_uq_model.py", "comment_introducing_revision": "https://github.com/euclidjda/deep-quant/commit/63fda3f6be2dc7f30dbff01c649da38d866c14e3", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "63fda3f6be2dc7f30dbff01c649da38d866c14e3"}
+[comment_text]
+TODO: Check if self._mean_squared_error_w_precision can be used here
+[source_context]
+        self._lkt = last_k_targets
+        self._lko = last_k_outputs
+        self._lkp = last_k_precisions
+        self._lkti = last_k_targets[:, :, ktidx]
+        self._lkoi = last_k_outputs[:, :, ktidx]
+        self._lkpi = last_k_precisions[:, :, ktidx]
+        self._t = targets
+        self._o = outputs
+        self._p = precisions
+
+        # Different components of mse definitions with precision
+        if config.backfill is True:
+            # TODO: Check if self._mean_squared_error_w_precision can be used here
+            self._mse_0 = tf.losses.mean_squared_error(last_target[:, ktidx], last_output[:, ktidx])
+            self._mse_1 = tf.losses.mean_squared_error(last_target, last_output)
+        else:
+            self._mse_0 = self._mean_squared_error_w_precision(last_k_targets[:, :, ktidx],
+                                                   last_k_outputs[:, :, ktidx],
+                                                   last_k_precisions[:, :, ktidx],
+                                                   last_k_seqmask[:, :, ktidx])
+            self._mse_1 = self._mean_squared_error_w_precision(last_k_targets, last_k_outputs,
+                                                               last_k_precisions, last_k_seqmask)
+
+        self._mse_2 = self._mean_squared_error_w_precision(targets, outputs, precisions, seqmask)
+
+
+=== 461 23shades-0098-aaffadbgf ===
+{"dataset_id": "aaffadbgf", "repo_name": "DependableSystemsLab/TensorFI", "filename": "TensorFI/injectFault.py", "comment_introducing_revision": "https://github.com/DependableSystemsLab/TensorFI/commit/ed9ea0db1adb3ba5e8751139b42d3f11e68f32fa", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ed9ea0db1adb3ba5e8751139b42d3f11e68f32fa"}
+[comment_text]
+FIXME: Need to check if mod is the equivalent of floorMod in NumPy
+[source_context]
+
+def injectFaultFill(a, b):
+	"Function to call injectFault on Shape nodes"
+	logging.debug("Calling Operator Fill " + getArgs(a, b))
+	res = np.full(a, b)
+	res = condPerturb(Ops.FILL, res)
+	if logReturn: logging.debug("\tReturning from Fill" + str(res) )
+	return res
+
+def injectFaultFloorMod(a, b):
+	"Function to call injectFault on FloorMod nodes"
+	logging.debug("Calling Operator FloorMod " + getArgs(a, b)) 
+	# FIXME: Need to check if mod is the equivalent of floorMod in NumPy
+	res = np.mod(a, b)
+	res = condPerturb(Ops.FLOORMOD, res)
+	if logReturn: logging.debug("\tReturning from FloorMod " + str(res) )
+	return res
+
+def injectFaultRange(start, stop, step, dtype = None):
+	"Function to call injectFault on Range nodes"
+	logging.debug("Calling Operator Range " + getArgs(start, stop, step))
+	res = np.int32(np.arange(start, stop, step, dtype))
+	res = condPerturb(Ops.RANGE, res)
+	if logReturn: logging.debug("\tReturning from Range " + str(res) )
+	return res	
+
+=== 462 23shades-0003-aaejjbhji ===
+{"dataset_id": "aaejjbhji", "repo_name": "loli/medpy", "filename": "src/medpy/graphcut/generate.py", "comment_introducing_revision": "https://github.com/loli/medpy/commit/183b17ee92f1aacef8db4d7e24db4cfa4fd79d03", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "183b17ee92f1aacef8db4d7e24db4cfa4fd79d03"}
+[comment_text]
+!TODO: An empty dictionary would actually also do here ... despite the fact that
+[source_context]
+    logger.info('Computing inter-node edge weights...')
+    Wr = boundary_term(label_image, boundary_term_args)
+    graph.set_nweights(Wr)
+    
+    return graph
+
+def __regional_term(label_image, regions, bounding_boxes, regional_term_args):
+    """Fake regional_term function with the appropriate signature."""
+    return {}
+
+def __boundary_term(label_image, boundary_term_args):
+    """Fake regional_term function with the appropriate signature."""
+    # !TODO: An empty dictionary would actually also do here ... despite the fact that 
+    # supplying no boundary term contradicts the whole graph cut idea.
+    
+    # compute the edges between all regions
+    edges = __compute_edges(label_image)
+    # return a dict with the edges as keys and 0s as values (behaves like no edge exists between the regions)
+    return dict.fromkeys(edges, (0, 0))
+    
+
+def __compute_edges(label_image):
+    """
+    Computes the region neighbourhood defined by a star shaped n-dimensional structuring
+    element (as returned by scipy.ndimage.generate_binary_structure(ndim, 1)) for the
+
+=== 463 23shades-0425-aadbacfde ===
+{"dataset_id": "aadbacfde", "repo_name": "nicolay-r/sentiment-pcnn", "filename": "networks/pcnn_input.py", "comment_introducing_revision": "https://github.com/nicolay-r/sentiment-pcnn/commit/8bbd218843932fadd9758351f96bc80ad2170ea9", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "8bbd218843932fadd9758351f96bc80ad2170ea9"}
+[comment_text]
+TODO. O(N) now; search
+[source_context]
+            taken_words = self.words
+        else:
+            taken_words = self.words[w_from:w_to]
+
+        for w in taken_words:
+            if type(w) == unicode:
+                terms = stemmer.lemmatize_to_list(w)
+                if len(terms) == 0:
+                    index = unknown_word_index
+                else:
+                    term = terms[0]
+                    if term in embedding:
+                        index = embedding.find_index_by_word(term) # TODO. O(N) now, search
+                    else:
+                        index = unknown_word_index
+            elif isinstance(w, Entity):
+                e = w
+                index = entity_indices.get_entity_index(e) + len(embedding.vocab)
+            else:
+                raise Exception("Unsuported type {}".format(w))
+
+            indices.append(index)
+
+        assert(pad_size - len(indices) >= 0)
+        indices.extend([unknown_word_index] * (pad_size - len(indices)))
+
+=== 464 23shades-0382-aaffbchga ===
+{"dataset_id": "aaffbchga", "repo_name": "neptune-ai/neptune-client", "filename": "neptune_client_prototype/path.py", "comment_introducing_revision": "https://github.com/neptune-ai/neptune-client/commit/36faaa0616d24372951c5e43fda92a0b647c6997", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "36faaa0616d24372951c5e43fda92a0b647c6997"}
+[comment_text]
+TODO validate and normalize to \/path\/to\/variable
+[source_context]
+class _Path:
+
+    def __init__(self, path):
+        """
+        path: str
+        """
+        super().__init__()
+        # TODO validate and normalize to /path/to/variable
+        self._value = path
+
+    def __add__(self, other):
+        """
+        other: string or _Path
+        """
+        if isinstance(other, str):
+            return self + _Path(other)
+        elif isinstance(other, _Path):
+            return _Path(self._value + other._value)
+        else:
+            raise ValueError()
+
+=== 465 23shades-0714-aaadhcgbc ===
+{"dataset_id": "aaadhcgbc", "repo_name": "sshleifer/object_detection_kitti", "filename": "object_detection/exporter.py", "comment_introducing_revision": "https://github.com/sshleifer/object_detection_kitti/commit/a4944a57ad2811e1f6a7a87589a9fc8a776e8d3c", "comment_removing_revision": "https://github.com/sshleifer/object_detection_kitti/commit/4ddc9f2d806530ceb99a86a621075a4a9813df62", "source_context_status": "available", "source_context_commit": "a4944a57ad2811e1f6a7a87589a9fc8a776e8d3c"}
+[comment_text]
+TODO: Support batch tf example inputs.
+[source_context]
+                                variable_names_blacklist else None)
+    output_graph_def = graph_util.convert_variables_to_constants(
+        sess,
+        input_graph_def,
+        output_node_names.split(','),
+        variable_names_blacklist=variable_names_blacklist)
+
+  with gfile.GFile(output_graph, 'wb') as f:
+    f.write(output_graph_def.SerializeToString())
+  logging.info('%d ops in the final graph.', len(output_graph_def.node))
+
+
+# TODO: Support batch tf example inputs.
+def _tf_example_input_placeholder():
+  tf_example_placeholder = tf.placeholder(
+      tf.string, shape=[], name='tf_example')
+  tensor_dict = tf_example_decoder.TfExampleDecoder().Decode(
+      tf_example_placeholder)
+  image = tensor_dict[fields.InputDataFields.image]
+  return tf.expand_dims(image, axis=0)
+
+
+def _image_tensor_input_placeholder():
+  return tf.placeholder(dtype=tf.uint8,
+                        shape=(1, None, None, 3),
+
+=== 466 23shades-0334-aaebajfae ===
+{"dataset_id": "aaebajfae", "repo_name": "persephone-tools/persephone", "filename": "persephone/corpus.py", "comment_introducing_revision": "https://github.com/persephone-tools/persephone/commit/78ec1d40fdbec787d940bd2541fe55ead9e36942", "comment_removing_revision": "https://github.com/persephone-tools/persephone/commit/63c501bee7a4ecc227e8a8fe6efde77be1d01c69", "source_context_status": "available", "source_context_commit": "78ec1d40fdbec787d940bd2541fe55ead9e36942"}
+[comment_text]
+TODO Remove target_type
+[source_context]
+
+    def __init__(self, feat_type, target_type, tgt_dir, labels,
+                 max_samples=1000):
+        """ feat_type: A string describing the input features. For
+                       example, 'log_mel_filterbank'.
+            target_type: A string describing the targets. For example,
+                         'phonemes' or 'tones'.
+            max_samples: The maximum length in samples of a train, valid, or
+                         test utterance. Used to save memory in exchange for
+                         reducing the number of effective training examples.
+        """
+        self.feat_type = feat_type
+        self.target_type = target_type # TODO Remove target_type
+        self.label_type = target_type
+
+        # Setting up directories
+        self.TGT_DIR = tgt_dir # TODO lowercase?
+        self.FEAT_DIR = os.path.join(tgt_dir, "feat") # TODO lowercase?
+        self.WAV_DIR = os.path.join(tgt_dir, "wav") # TODO lowercase?
+        self.LABEL_DIR = os.path.join(tgt_dir, "label") # TODO lowercase?
+        if not os.path.isdir(wav_dir):
+            print(wav_dir)
+            raise PersephoneException("The supplied path requires a 'wav' subdirectory.")
+        if not os.path.isdir(feat_dir):
+            os.makedirs(feat_dir)
+
+=== 467 23shades-0055-aafeacaha ===
+{"dataset_id": "aafeacaha", "repo_name": "jisungk/deepjazz", "filename": "preprocess_oldd.py", "comment_introducing_revision": "https://github.com/jisungk/deepjazz/commit/0ab55a81889c546286bcde4a207b2c38abe8cd97", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "0ab55a81889c546286bcde4a207b2c38abe8cd97"}
+[comment_text]
+BETTER FIX: iterate through; if length = 0; then bump it up to 0.125
+[source_context]
+melody1, melody2 = melodyStream.getElementsByClass(stream.Voice)
+for j in melody2:
+    melody1.insert(j.offset, j)
+melodyVoice = melody1
+
+# FOR REFERENCE
+# fullMelody.append(key.KeySignature(sharps=1, mode='major'))
+
+# Bad notes: melodyVoice[370, 391]
+# the two B-4, B-3 around melodyVoice[362]. I think: #362, #379
+# REMEMBER: after delete each of these, 
+# badIndices = [370, 391, 362, 379]
+# BETTER FIX: iterate through, if length = 0, then bump it up to 0.125
+# since I think this is giving the bug.
+for i in melodyVoice:
+    if i.quarterLength == 0.0:
+        i.quarterLength = 0.25
+
+# Change key signature to adhere to compStream (1 sharp, mode = major).
+# Also add Electric Guitar. 
+melodyVoice.insert(0, instrument.ElectricGuitar())
+melodyVoice.insert(0, key.KeySignature(sharps=1, mode='major'))
+
+# The accompaniment parts. Take only the best subset of parts from
+# the original data. Maybe add more parts, hand-add valid instruments.

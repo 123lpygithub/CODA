@@ -1,0 +1,170 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27LemmyNet%2Flemmy%27+AND+number%3D2415+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='LemmyNet/lemmy' AND number=2415 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:27.609419+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "PrincessMiki",
+        "created_at": "2022-08-20 20:07:58",
+        "updated_at": "2022-08-20 20:07:58",
+        "title": "A feature to auto delete all of our own content after say 2 weeks",
+        "body": "### Is your proposal related to a problem?\r\n\r\n<!--\r\n  Provide a clear and concise description of what the problem is.\r\n  For example, \"I'm always frustrated when...\"\r\n-->\r\n\r\nYes\r\n\r\n### Describe the solution you'd like\r\n\r\nMastodon has this. With the rise of brigading and stalking, it wont be long before lemmy users start doxxing each other.\r\n\r\nEven automatically hiding content after 2 weeks or a configurable amount would help\r\n\r\n### Describe alternatives you've considered\r\n\r\nUsing mastodon instead\r\n\r\n### Additional context\r\n\r\n<!--\r\n  Is there anything else you can add about the proposal?\r\n  You might want to link to related issues here, if you haven't already.\r\n-->\r\n\r\nNo\r\n",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-08-20 20:00:00",
+        "repo_name": "LemmyNet/lemmy",
+        "number": 2415
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "dessalines",
+        "created_at": "2022-08-21 15:36:18",
+        "updated_at": "2022-08-21 15:36:18",
+        "title": "A feature to auto delete all of our own content after say 2 weeks",
+        "body": "This would be fairly easy to implement, and would just require another user setting.",
+        "comment_id": 1221568893,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-08-21 15:00:00",
+        "repo_name": "LemmyNet/lemmy",
+        "number": 2415
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Nutomic",
+        "created_at": "2022-08-22 19:33:26",
+        "updated_at": "2022-08-22 19:33:15",
+        "title": "A feature to auto delete all of our own content after say 2 weeks",
+        "body": "Such a feature makes sense on Mastodon, where you shout things into the void and they disappear in a matter of days. This is not the case on Lemmy, you can have threads remaining on the frontpage for a week or more, especially if you use sort methods like \"new comments\" or \"top month\". If such a feature existed, it would create holes in comment threads, making them unreadable. Even a longer timeout wouldnt necessarily help, because some people likely want to read threads months or years later, for example to look up instructions (remember all the times you end up on an old forum thread from a google search).\r\n\r\nAnother thing is that there is no reason for such a feature to be included in Lemmy, because it can easily be implemented with an API client. That would also reduce the maintenance effort, and probably result in fewer people using the feature.",
+        "comment_id": 1222824044,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-08-22 19:00:00",
+        "repo_name": "LemmyNet/lemmy",
+        "number": 2415
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Nutomic",
+        "created_at": "2022-08-30 19:17:17",
+        "updated_at": "2022-08-30 19:17:16",
+        "title": "A feature to auto delete all of our own content after say 2 weeks",
+        "body": "> What about anonymizing? A user option that deletes the username from comments and/or posts after a certain amount of time. 2 weeks? 2 months? And for users who want to delete their profile, an option to anonymize all posts as a part of the deletion procedure.\r\n\r\nI agree, that sounds like a much better solution. Right now deleting your account also means that all your posts get deleted, anonymizing them instead would be better to prevent valuable content from disappearing. Would you mind to open a new issue for that, and we close this one?",
+        "comment_id": 1232065608,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-08-30 19:00:00",
+        "repo_name": "LemmyNet/lemmy",
+        "number": 2415
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Nutomic",
+        "created_at": "2022-08-30 20:26:26",
+        "updated_at": "2022-08-30 20:26:26",
+        "title": "A feature to auto delete all of our own content after say 2 weeks",
+        "body": "Thank you!",
+        "comment_id": 1232131341,
+        "comments": 6,
+        "state": "closed",
+        "closed_at": "2022-08-30 20:26:26",
+        "file_time": "2022-08-30 20:00:00",
+        "repo_name": "LemmyNet/lemmy",
+        "number": 2415
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "Nutomic",
+        "created_at": "2022-08-30 20:26:27",
+        "updated_at": "2022-08-30 20:26:26",
+        "title": "A feature to auto delete all of our own content after say 2 weeks",
+        "body": "### Is your proposal related to a problem?\r\n\r\n<!--\r\n  Provide a clear and concise description of what the problem is.\r\n  For example, \"I'm always frustrated when...\"\r\n-->\r\n\r\nYes\r\n\r\n### Describe the solution you'd like\r\n\r\nMastodon has this. With the rise of brigading and stalking, it wont be long before lemmy users start doxxing each other.\r\n\r\nEven automatically hiding content after 2 weeks or a configurable amount would help\r\n\r\n### Describe alternatives you've considered\r\n\r\nUsing mastodon instead\r\n\r\n### Additional context\r\n\r\n<!--\r\n  Is there anything else you can add about the proposal?\r\n  You might want to link to related issues here, if you haven't already.\r\n-->\r\n\r\nNo\r\n",
+        "comment_id": 0,
+        "comments": 6,
+        "state": "closed",
+        "closed_at": "2022-08-30 20:26:26",
+        "file_time": "2022-08-30 20:00:00",
+        "repo_name": "LemmyNet/lemmy",
+        "number": 2415
+      }
+    ],
+    "rows": 6,
+    "statistics": {
+      "elapsed": 0.025686475,
+      "rows_read": 297711,
+      "bytes_read": 7328990
+    }
+  },
+  "response_sha256": "e4b5fe4c97ec03313ceb0bced99c93e1789687a3a298c2543e4ca828ad77474c"
+}

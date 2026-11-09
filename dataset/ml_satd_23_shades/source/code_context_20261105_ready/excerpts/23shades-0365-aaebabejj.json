@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0365-aaebabejj",
+  "revision_url": "https://github.com/ROCmSoftwarePlatform/Tensile/commit/f3125674dad7aa1739e688ddd9c36e2265c04838",
+  "filename": "tuning/automation/GenerateTuningConfigurations.py",
+  "commit": "f3125674dad7aa1739e688ddd9c36e2265c04838",
+  "source_url": "https://raw.githubusercontent.com/ROCmSoftwarePlatform/Tensile/f3125674dad7aa1739e688ddd9c36e2265c04838/tuning/automation/GenerateTuningConfigurations.py",
+  "fetched_at": "2026-11-05T06:12:40.188670+00:00",
+  "source_sha256": "ab46482ca27ba4b498a176b43f1ca7a5417c1bfc647e8bd89fe464f32778df7c",
+  "line_start": 182,
+  "line_end": 206,
+  "excerpt": "        initialParams[\"TransposeA\"] = True\n\n    if transposeB == \"N\":\n        initialParams[\"TransposeB\"] = False\n    else:\n        initialParams[\"TransposeB\"] = True\n    initialParams[\"DataType\"] = dType[0]\n    initialParams[\"DestDataType\"] = dType[1]\n    initialParams[\"ComputeDataType\"] = dType[2]\n\n    if (dType[0] == \"h\" or dType[0] == \"b\") and dType[2] == \"s\":\n        if disableHpa:\n            # TODO this combo doens't work\n            print(\"input half and compute single requires hpa\")\n            pass\n        initialParams[\"HighPrecisionAccumulate\"] = True\n\n\n    problemType = generateProblemType(initialParams,tileAware)\n\n    return problemType\n\ndef generateBenchmarkGroupFromScheme(scheme,tileAware=False):\n    benchmarkGroup = generateEmptyBenchmarkGroup()\n"
+}

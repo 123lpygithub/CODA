@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0087-aaiehhaec",
+  "revision_url": "https://github.com/dmlc/dgl/commit/9f0d9e42466b3e07b2bbe0a25f41bbd9bd898e94",
+  "filename": "examples/pytorch/gat.py",
+  "commit": "9f0d9e42466b3e07b2bbe0a25f41bbd9bd898e94",
+  "source_url": "https://raw.githubusercontent.com/dmlc/dgl/9f0d9e42466b3e07b2bbe0a25f41bbd9bd898e94/examples/pytorch/gat.py",
+  "fetched_at": "2026-11-05T06:11:52.269227+00:00",
+  "source_sha256": "6f79002dd3321ac693683ce7c08802e12f80d786c774d00b3b50bd5098bb1b2a",
+  "line_start": 73,
+  "line_end": 97,
+  "excerpt": "        aggregator = lambda x: torch.cat(x, 1)\n        for i in range(num_layers):\n            if i == 0:\n                last_dim = in_dim\n                residual = False\n            else:\n                last_dim = num_hidden * num_heads # because of concat heads\n                residual = use_residual\n            self.layers.append(\n                    NodeUpdateModule(last_dim, num_hidden, aggregator, num_heads,\n                        activation, attention_dropout, input_dropout, residual))\n        # projection layer\n        # FIXME: does pytorch has something similar to tf.add_n which sum over a list?\n        aggregator = lambda x: reduce(lambda a, b: a+b, x)\n        self.layers.append(NodeUpdateModule(num_hidden * 3, num_classes, aggregator,\n            1, None, attention_dropout, input_dropout, False))\n\n    def forward(self, g):\n        g.register_message_func(lambda src, dst, edge: src['h'])\n        for layer in self.layers:\n            g.register_update_func(layer)\n            g.update_all()\n        logits = [g.node[n]['h'] for n in g.nodes()]\n        logits = torch.cat(logits, dim=0)\n        return logits"
+}

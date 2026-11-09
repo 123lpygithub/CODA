@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0049-aagaggihd",
+  "revision_url": "https://github.com/araffin/srl-zoo/commit/c42ccf51ac4e4b4d10f1248580c82924a0492178",
+  "filename": "main.py",
+  "commit": "c42ccf51ac4e4b4d10f1248580c82924a0492178",
+  "source_url": "https://raw.githubusercontent.com/araffin/srl-zoo/c42ccf51ac4e4b4d10f1248580c82924a0492178/main.py",
+  "fetched_at": "2026-11-05T06:11:46.361202+00:00",
+  "source_sha256": "b28a770cca30c7cd697cad60cc6a42e93397a6be13c3ee54a85989ae54521b9e",
+  "line_start": 356,
+  "line_end": 380,
+  "excerpt": "        plt.subplot(m, n, i + 1)\n        plt.imshow(observations[i].reshape(16, 16, 3), interpolation='nearest')\n        plt.gca().invert_yaxis()\n        plt.xticks([])\n        plt.yticks([])\n    plt.pause(0.0001)\n\ndef set_cuda(use_cuda):\n    if use_cuda:\n        #th.cuda.set_device(1)  # Mat Uses 0, Tim 1   In most cases it’s better to use CUDA_VISIBLE_DEVICES environmental variable.\n        # To tackle GPU memory issues, th.cuda.set_default_device(1) and set_device() are both discouraged, use instead A) MLP network, SqueezeNet instead of ResNet or B)\n        #See how second gpu memory is less used, therefore we can set it (recommended as setDevice is discouraged): CUDA_VISIBLE_DEVICES=1 python main.py (to set the second gpu memory for use)\n        #A future enhancement TODO for running on multiple GPU: CUDA_VISIBLE_DEVICES=2,3 python main.py   and then also model = torch.nn.DataParallel(model, device_ids=[0,1]).cuda()\n        device = th.cuda.current_device()+1\n        print (\"Current device is the {}{}\".format(device,'nd' if device==2 else 'st'))\n\nif __name__ == '__main__':\n    parser = argparse.ArgumentParser(description='PyTorch SRL with robotic priors')\n    parser.add_argument('--epochs', type=int, default=50, metavar='N',\n                        help='number of epochs to train (default: 50)')\n    parser.add_argument('--seed', type=int, default=1, metavar='S',\n                        help='random seed (default: 1)')\n    parser.add_argument('--state_dim', type=int, default=2, help='state dimension (default: 2)')\n    parser.add_argument('-bs', '--batch_size', type=int, default=256, help='batch_size (default: 256)')\n    parser.add_argument('-lr', '--learning_rate', type=float, default=0.005, help='learning rate (default: 0.005)')",
+  "match_policy": "unique-release-normalized-v2"
+}

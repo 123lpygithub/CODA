@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0844-aaibicege",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/b4b152793569d8f7d4e4bd47015d2aefb1738219",
+  "filename": "scikits/learn/pyem/gauss_mix.py",
+  "commit": "b4b152793569d8f7d4e4bd47015d2aefb1738219",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/b4b152793569d8f7d4e4bd47015d2aefb1738219/scikits/learn/pyem/gauss_mix.py",
+  "fetched_at": "2026-11-05T06:14:03.916181+00:00",
+  "source_sha256": "c92e99314c2fc4a30bf9e37cc29f8c9f922cb59b807d2a39aad631db312a5445",
+  "line_start": 546,
+  "line_end": 570,
+  "excerpt": "        # at a given point, one component is largely dominant for its\n        # contribution to the pdf).\n\n        # XXX: we need log pdf, not the pdf... this can save some computing\n        Xe, Ye = self.conf_ellipses(level = maxlevel, dim = dim)\n        ax = [N.min(Xe), N.max(Xe), N.min(Ye), N.max(Ye)]\n\n        w = ax[1] - ax[0]\n        h = ax[3] - ax[2]\n        X, Y, den = self._densityctr(N.linspace(ax[0]-0.2*w, ax[1]+0.2*w, nx), \\\n                N.linspace(ax[2]-0.2*h, ax[3]+0.2*h, ny), dim = dim)\n        lden = N.log(den)\n        # XXX: how to find \"good\" values for level ?\n        V = [-5, -3, -1, -0.5, ]\n        V.extend(N.linspace(0, N.max(lden), 4).tolist())\n        return X, Y, lden, N.array(V)\n\n    def _densityctr(self, rangex, rangey, dim = misc.DEF_VIS_DIM):\n        \"\"\"Helper function to compute density contours on a grid.\"\"\"\n        gr = N.meshgrid(rangex, rangey)\n        X = gr[0].flatten()\n        Y = gr[1].flatten()\n        xdata = N.concatenate((X[:, N.newaxis], Y[:, N.newaxis]), axis = 1)\n        # XXX refactor computing pdf\n        dmu = self.mu[:, dim]",
+  "match_policy": "unique-release-normalized-v2"
+}

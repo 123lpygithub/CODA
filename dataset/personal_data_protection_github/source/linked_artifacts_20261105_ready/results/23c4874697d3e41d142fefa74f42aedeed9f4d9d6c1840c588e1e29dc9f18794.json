@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/prebid/Prebid.js/blob/3513d38c120072380c0f4a2376b95f50bb957224/modules/prebidServerBidAdapter/index.js#L249",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "revision": "3513d38c120072380c0f4a2376b95f50bb957224",
+  "immutable_revision": true,
+  "line_start": 237,
+  "line_end": 261,
+  "text": "      clientAdapter.registerSyncs([]);\n    }\n  });\n}\n\nfunction _getDigiTrustQueryParams(bidRequest = {}) {\n  function getDigiTrustId(bidRequest) {\n    const bidRequestDigitrust = utils.deepAccess(bidRequest, 'bids.0.userId.digitrustid.data');\n    if (bidRequestDigitrust) {\n      return bidRequestDigitrust;\n    }\n\n    const digiTrustUser = config.getConfig('digiTrustId');\n    return (digiTrustUser && digiTrustUser.success && digiTrustUser.identity) || null;\n  }\n  let digiTrustId = getDigiTrustId(bidRequest);\n  // Verify there is an ID and this user has not opted out\n  if (!digiTrustId || (digiTrustId.privacy && digiTrustId.privacy.optout)) {\n    return null;\n  }\n  return {\n    id: digiTrustId.id,\n    keyv: digiTrustId.keyv\n  };\n}",
+  "source_sha256": "1913aba1563408c9a8d1c57a5fded2cefb726fc4babe79b81d5472ba526ed75b",
+  "fetched_at": "2026-11-05T06:21:31.620036+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/prebid/Prebid.js/3513d38c120072380c0f4a2376b95f50bb957224/modules/prebidServerBidAdapter/index.js",
+  "status": "available"
+}

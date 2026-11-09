@@ -1,0 +1,130 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8901",
+  "issue_url": "https://github.com/NamelessMC/Nameless/issues/2224",
+  "source_issue_url": "https://github.com/NamelessMC/Nameless/issues/2224",
+  "api_url": "https://api.github.com/repos/NamelessMC/Nameless/issues/2224",
+  "title": "Third party cookies are set before user consent",
+  "body": "The cookie banner in the latest version is not conform The user must actively agree to the cookie use before he can use the site.\r\n\r\nTherefore, it would make sense if a user the first time uses the site must first confirm that he agrees to the cookie use, and then the page reloads and there all functions are usable.\r\n\r\n\r\nDer Cookie Banner in der neuesten Version ist nicht Konform Der User muss der Cookie Nutzung aktiv zustimmen bevor er die Seite nutzen kann.\r\n\r\nDaher wäre es Sinnvoll wenn ein User das erstemal die Seite nutzt erst bestätigen muss das er mit der Cookie  Nutzung einverstanden ist, und sich die Seite dann  neu lädt und dort dann alle Funktionen nutzbar sind.",
+  "author": "Participant 1",
+  "created_at": "2021-04-03T16:22:31Z",
+  "updated_at": "2021-10-31T16:00:26Z",
+  "state": "closed",
+  "closed_at": "2021-10-31T15:48:43Z",
+  "issue_fetched_at": "2026-11-05T05:55:50.673053+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T05:55:52.029129+00:00"
+  ],
+  "expected_comment_count": 13,
+  "retrieved_comment_count": 13,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 812892209,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-812892209",
+      "created_at": "2021-04-03T16:48:57Z",
+      "updated_at": "2021-04-03T16:48:57Z",
+      "author": "Participant 2",
+      "body": "Which cookies are you referring to as being non-compliant?\r\n\r\nWith the PHP session ID cookie, I'm not sure there's anything we can do due to the nature of PHP.\r\nI don't believe it's considered to be an issue though - although if someone knows more on this than I do please do let me know.\r\n\r\nThe other cookies Nameless sets are compliant - no cookies are stored unless the user has consented to them.\r\n\r\nThird party cookies are another question, for example Google Analytics if you've added that to your site. In that case, we could maybe offer easy integration with Cookiebot which can cover these cookies."
+    },
+    {
+      "id": 812892912,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-812892912",
+      "created_at": "2021-04-03T16:53:53Z",
+      "updated_at": "2021-04-03T16:53:53Z",
+      "author": "Participant 3",
+      "body": "As far as I know the cookie banner can be removed entirely (or disabled by default). NamelessMC only sets functional cookies (like the PHP session id).\r\n\r\n> To comply [...] you must: [...] Receive users’ consent before you use any cookies **except strictly necessary cookies**.\r\n\r\n> Strictly necessary cookies — These cookies are essential for you to browse the website and use its features, such as accessing secure areas of the site. Cookies that allow web shops to hold your items in your cart while you are shopping online are an example of strictly necessary cookies. These cookies will generally be first-party session cookies. While **it is not required to obtain consent for these cookies**, what they do and why they are necessary should be explained to the user.\r\n\r\nhttps://gdpr.eu/cookies/"
+    },
+    {
+      "id": 812893558,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-812893558",
+      "created_at": "2021-04-03T16:58:11Z",
+      "updated_at": "2021-04-03T16:58:11Z",
+      "author": "Participant 1",
+      "body": " Integration with Cookiebot would be great, otherwise Funkstionen would have to be removed from NamelessMC."
+    },
+    {
+      "id": 812895525,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-812895525",
+      "created_at": "2021-04-03T17:11:41Z",
+      "updated_at": "2021-04-03T17:11:41Z",
+      "author": "Participant 2",
+      "body": "Which functions are you referring to, could you please share the cookie names you have noticed?\r\n\r\nThere should be no cookies other than PHPSESSID created by Nameless."
+    },
+    {
+      "id": 812896855,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-812896855",
+      "created_at": "2021-04-03T17:21:28Z",
+      "updated_at": "2021-04-03T17:21:28Z",
+      "author": "Participant 1",
+      "body": "\r\n__cfduid | .discord.com\r\n-- | --\r\n(NamelessMC Integration)\r\n\r\n__cfduid | .discordapp.com\r\n-- | --\r\n(NamelessMC Integration)\r\n\r\n__cfduid | .surgeplay.com \r\n-- | --\r\n(NamelessMC Integration) (Avatar)\r\n\r\nlang | cdn.syndication.twimg.com\r\n-- | --\r\n(NamelessMC Integration)\r\n\r\nYouTube cookie by inserting a link in the editor, the video is embedded and sets a cookie when opened.\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 812908233,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-812908233",
+      "created_at": "2021-04-03T18:36:24Z",
+      "updated_at": "2021-04-03T18:39:53Z",
+      "author": "Participant 3",
+      "body": "Information about `__cfduid`: https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies\r\nThis cookie will be removed soon: https://blog.cloudflare.com/deprecating-cfduid-cookie/\r\n\r\nThe twitter `lang` cookie sounds like it's for remembering language settings, which would fall under functional cookies (consent not required)"
+    },
+    {
+      "id": 812909778,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-812909778",
+      "created_at": "2021-04-03T18:48:38Z",
+      "updated_at": "2021-04-03T18:48:38Z",
+      "author": "Participant 1",
+      "body": "If I turn off Discord in StaffCP, the cookie is not set.\r\nDiscord itself uses Cloudflare.\r\n\r\nCookies are set that the user has not agreed to.\r\n\r\nI would have to disable almost all the features that NameLessMC offers so that it would be compliant.\r\nBut in the state unfortunately not.\r\n\r\nThat's right with Twitter, I just checked it again...\r\n\r\nDiscord and the avatar service but unfortunately not.\r\n\r\nIn Germany, the risk of receiving a warning is unfortunately very high.\r\n"
+    },
+    {
+      "id": 813042682,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-813042682",
+      "created_at": "2021-04-04T14:28:12Z",
+      "updated_at": "2021-04-04T14:28:12Z",
+      "author": "Participant 4",
+      "body": "The user thinks that we have a worse cookie law in Germany and therefore have to obtain consent for each cookie.\r\nhttps://www.e-recht24.de/artikel/datenschutz/8451-hinweispflicht-fuer-cookies.html\r\nhttps://cookieinformation.com/de/wie-lautet-das-eu-cookie-gesetz/"
+    },
+    {
+      "id": 877048122,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-877048122",
+      "created_at": "2021-07-09T09:24:37Z",
+      "updated_at": "2021-07-09T11:43:09Z",
+      "author": "Participant 5",
+      "body": "Cloudflare has removed the `__cfuid` cookie so this should be solved, shouldn't it?"
+    },
+    {
+      "id": 877111867,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-877111867",
+      "created_at": "2021-07-09T11:17:24Z",
+      "updated_at": "2021-07-09T11:17:24Z",
+      "author": "Participant 3",
+      "body": "yes I think so, the `lang` cookie set by twitter is purely functional so doesn't require consent"
+    },
+    {
+      "id": 877421934,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-877421934",
+      "created_at": "2021-07-09T19:54:30Z",
+      "updated_at": "2021-07-09T19:54:30Z",
+      "author": "Participant 2",
+      "body": "I'll keep this open, Cookiebot integration will be a nice feature to offer"
+    },
+    {
+      "id": 954746411,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-954746411",
+      "created_at": "2021-10-29T13:30:39Z",
+      "updated_at": "2021-10-29T13:30:39Z",
+      "author": "Participant 2",
+      "body": "Cookiebot's free plan only allows under 100 pages - this is quite problematic for Nameless with a large number of profile pages and forum posts to name a few\r\n\r\nSomething is still necessary to prevent Youtube/Twitter/Discord cookies etc"
+    },
+    {
+      "id": 955732468,
+      "url": "https://github.com/NamelessMC/Nameless/issues/2224#issuecomment-955732468",
+      "created_at": "2021-10-31T15:48:43Z",
+      "updated_at": "2021-10-31T15:48:43Z",
+      "author": "Participant 2",
+      "body": "06b97b7b8624db46f068461ec7a44500f7c8cc4c\r\n\r\nNew functionality added with the new Cookie Consent module will disable any widgets which could set 3rd party cookies"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18973",
+  "issue_url": "https://github.com/nextcloud/server/issues/7864",
+  "source_issue_url": "https://github.com/nextcloud/server/issues/7864",
+  "api_url": "https://api.github.com/repos/nextcloud/server/issues/7864",
+  "title": "fix auto-log-out which is broken due to notification polling/heartbeat",
+  "body": "For some compliance frameworks you need to log users out automatically after a certain period of inactivity.\r\n\r\nNotification polling kills our auto-logout: you never get more than 30 sec inactivity. It should be ignored when determining the inactive period of a user. Same with heartbeat and perhaps other things.",
+  "author": "Participant 1",
+  "created_at": "2018-01-15T09:43:24Z",
+  "updated_at": "2018-11-23T12:54:48Z",
+  "state": "closed",
+  "closed_at": "2018-11-23T12:54:04Z",
+  "issue_fetched_at": "2026-10-19T00:10:53.709181+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T00:10:55.149310+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 405291451,
+      "url": "https://github.com/nextcloud/server/issues/7864#issuecomment-405291451",
+      "created_at": "2018-07-16T15:43:19Z",
+      "updated_at": "2018-07-16T15:43:19Z",
+      "author": "Participant 2",
+      "body": "Session idle timeout is definitely an important factor when securing sensitive data - especially now when the new EU law on data protection and privacy has come into play.\r\nWe are hoping to start up with nextcloud this fall and are having some trouble as well with session lifetime. As jospoortvliet is mentioning, Nextcloud are having a notification pooling / heartbeat happening every 30 sec that possibly is keeping the session active even though the session are meant to expire. Practically when session lifetime is configured to 29 seconds in nextcloud's config.php file like this:\r\n\r\n'remember_login_cookie_lifetime' => 0,\r\n'session_lifetime' => 29,\r\n'session_keepalive' => false\r\n\r\nusers are being logged out after 29 seconds. But when it is set to 30 or more - users are not being logged out.\r\n\r\nThis is, for us, a huge security concern when working around unauthorized people every minute of the day with laptops."
+    },
+    {
+      "id": 408950685,
+      "url": "https://github.com/nextcloud/server/issues/7864#issuecomment-408950685",
+      "created_at": "2018-07-30T17:46:56Z",
+      "updated_at": "2018-07-30T17:47:37Z",
+      "author": "Participant 1",
+      "body": "FYI if this is a blocker for your deployment, you can contact our sales team as customer demand will push a resolution higher on the roadmap, or let us develop it on demand. :rocket: "
+    },
+    {
+      "id": 441234254,
+      "url": "https://github.com/nextcloud/server/issues/7864#issuecomment-441234254",
+      "created_at": "2018-11-23T12:54:04Z",
+      "updated_at": "2018-11-23T12:54:04Z",
+      "author": "Participant 3",
+      "body": "This actually can be done by setting this config.php option:\r\n\r\n```php\r\n'session_keepalive' => false,\r\n```\r\n\r\nThen the polling for notifications and heartbeat will not happen and the session can timeout."
+    },
+    {
+      "id": 441234398,
+      "url": "https://github.com/nextcloud/server/issues/7864#issuecomment-441234398",
+      "created_at": "2018-11-23T12:54:47Z",
+      "updated_at": "2018-11-23T12:54:47Z",
+      "author": "Participant 3",
+      "body": "Refering to the notifications apps code:\r\n\r\nhttps://github.com/nextcloud/notifications/blob/master/src/App.vue#L180\r\nhttps://github.com/nextcloud/notifications/blob/stable13/js/app.js#L107"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

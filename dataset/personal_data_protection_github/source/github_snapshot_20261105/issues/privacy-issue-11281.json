@@ -1,0 +1,61 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11281",
+  "issue_url": "https://github.com/chatwoot/chatwoot/issues/1929",
+  "source_issue_url": "https://github.com/chatwoot/chatwoot/issues/1929",
+  "api_url": "https://api.github.com/repos/chatwoot/chatwoot/issues/1929",
+  "title": "feat: Ability to delete a contact",
+  "body": "**Is your enhancement request related to a problem? Please describe.**\r\nDuring testing we have created multiple contacts with random e-mail Id's, But now we are unable to delete any of the contact. There is no API to delete a contact or on the web page also we don't see an option to delete a contact.\r\n\r\n**Describe the solution you'd like**\r\nIt would be better if we can delete contact on webpage as well an API to delete a contact, there is already an API to create and edit contact so delete would also add more value to it.\r\n\r\n**Describe alternatives you've considered**\r\nIf we were using self hosted option I guess we could delete on database directly but I didn't find any alternative way to delete a contact since we are using chatwoot on basic plan.\r\n",
+  "author": "Participant 1",
+  "created_at": "2021-03-17T07:20:20Z",
+  "updated_at": "2022-08-09T08:06:31Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:20:00.627908+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:20:00.627908+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 801287650,
+      "url": "https://github.com/chatwoot/chatwoot/issues/1929#issuecomment-801287650",
+      "created_at": "2021-03-17T17:51:51Z",
+      "updated_at": "2021-03-17T17:51:51Z",
+      "author": "Participant 2",
+      "body": "It may also be better for GDPR/CCPA/etc that for contacts which have no conversations associated or any other data for them to be automatically deleted.\r\n\r\nThis means only data which is kept matching actual content (chat/message) data is kept."
+    },
+    {
+      "id": 903303876,
+      "url": "https://github.com/chatwoot/chatwoot/issues/1929#issuecomment-903303876",
+      "created_at": "2021-08-22T17:36:39Z",
+      "updated_at": "2021-08-24T05:10:10Z",
+      "author": "Participant 3",
+      "body": "## Acceptance \r\n\r\n## Backend\r\n- API to delete contact conferring to the following standards \r\n```\r\nDELETE api/v1/accounts/{account_id}/contacts/{id}\r\n# returns head: ok  if successful \r\n# accessible only to administrators \r\n# agent tokens should return unauthorized\r\n```\r\n- triggering API should clear the following information\r\n```\r\n  -  Contact\r\n  -  Conversations\r\n  -  Contact Inboxes\r\n  -  Associated Reporting Events\r\n```\r\n- Swagger documentation for the delete API \r\n-  Test and document the following implications hold when the same contact sends another message\r\n   -  Website inbox: The current chat stops working if the user refreshes the page, a new contact gets generated, and they can continue the conversation on the widget \r\n      - Conversation continuity: fails because conversation doesn't exist\r\n   - Facebook: New contact  / New conversation created \r\n   - Twitter: New contact / New conversations created \r\n   - SMS: New contact  / New conversations created \r\n   - Whatsapp: New contact  / New conversations created \r\n   - Email channel: New contact / New conversation created\r\n   - API Channel: Further requests fail, need to create a new contact\r\n- Webhook & Websocket events for contact deleted\r\n\r\n## Frontend \r\n- Admins should be able to see the delete option in contact pannel in conversations view\r\n<img width=\"470\" alt=\"Screenshot 2021-08-22 at 10 48 54 PM\" src=\"https://user-images.githubusercontent.com/73185/130364149-7d99c1fb-357e-4e22-b2eb-96db2546d5cb.png\">\r\n\r\n- Clicking on delete triggers a model and on confirm should delete the contact, all associated information\r\n<img width=\"1173\" alt=\"Screenshot 2021-08-22 at 11 03 45 PM\" src=\"https://user-images.githubusercontent.com/73185/130364497-56a33028-ce6f-4de6-8f30-49da88f19187.png\">\r\n\r\n\r\n\r\n- Data associated to the contact should be cleared from the store if the contact delete event is received in websocket\r\n\r\n```\r\n  -  Contact\r\n  -  Conversations\r\n```\r\n\r\n   \r\n ## Testing \r\n- Deleting the contact should clear the contact and all associated conversations \r\n- Deleting the contact should confirm the above behaviors documented for each channel\r\n- Only Admin users should be able to delete a contact \r\n- Agents shouldn't be able to see the delete contact option\r\n- Agents shouldn't be able to hit delete contact endpoint\r\n- Reports should reflect correct data concerning the conversations that were deleted because of contact delete\r\n\r\n\r\n## Note\r\nFrontend and Backend Pieces of this story could be worked separately in sequence \r\n\r\n- Add a warning to the agent if the user is online.\r\n"
+    },
+    {
+      "id": 904369859,
+      "url": "https://github.com/chatwoot/chatwoot/issues/1929#issuecomment-904369859",
+      "created_at": "2021-08-24T06:48:57Z",
+      "updated_at": "2021-08-24T06:48:57Z",
+      "author": "Participant 4",
+      "body": "The merge contact -> https://github.com/chatwoot/chatwoot/pull/2457 has context menu next to contact info which is a good place to keep the `delete contact` option. "
+    },
+    {
+      "id": 1209051235,
+      "url": "https://github.com/chatwoot/chatwoot/issues/1929#issuecomment-1209051235",
+      "created_at": "2022-08-09T08:06:31Z",
+      "updated_at": "2022-08-09T08:06:31Z",
+      "author": "Participant 5",
+      "body": "This issue has been automatically locked since there has not been any recent activity after it was closed. Please open a new issue for related bugs."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/chatwoot/chatwoot/issues/1929",
+  "closed_at_available": false
+}

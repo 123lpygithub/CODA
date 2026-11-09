@@ -1,0 +1,146 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-2904",
+  "issue_url": "https://github.com/traccar/traccar/issues/4066",
+  "source_issue_url": "https://github.com/traccar/traccar/issues/4066",
+  "api_url": "https://api.github.com/repos/traccar/traccar/issues/4066",
+  "title": "Traccar phoning home by default is not documented",
+  "body": "It appears that Traccar phones home by default with the setting in `default.xml`.\r\n\r\n```xml\r\n<entry key='server.statistics'>https://www.traccar.org/analytics/</entry>\r\n```\r\n\r\nThis is not documented for the [configuration file](https://www.traccar.org/configuration-file/); there is just a short mention [in a forum post](https://www.traccar.org/forums/topic/analytics/).\r\n\r\nIt appears the full server statistics is uploaded to the specified URL every day. \r\n\r\nI feel that this should definitely not be enabled by default.",
+  "author": "Participant 1",
+  "created_at": "2018-09-25T13:52:25Z",
+  "updated_at": "2022-07-15T15:48:48Z",
+  "state": "closed",
+  "closed_at": "2022-07-15T15:48:48Z",
+  "issue_fetched_at": "2026-10-18T13:10:21.065999+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T13:10:22.476506+00:00"
+  ],
+  "expected_comment_count": 15,
+  "retrieved_comment_count": 15,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 424356267,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424356267",
+      "created_at": "2018-09-25T14:03:48Z",
+      "updated_at": "2018-09-25T14:04:25Z",
+      "author": "Participant 2",
+      "body": "I think it should be:\r\n1. Documented\r\n2. Off by default\r\n3. Publicly available somewhere if those statistics are useful.\r\n\r\nFor example, a Grafana dashboard on the website would help attracting people."
+    },
+    {
+      "id": 424362511,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424362511",
+      "created_at": "2018-09-25T14:19:43Z",
+      "updated_at": "2018-09-25T14:19:43Z",
+      "author": "Participant 2",
+      "body": "Also, as a DM I'd suggest something like [popcon](https://popcon.debian.org/)."
+    },
+    {
+      "id": 424506288,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424506288",
+      "created_at": "2018-09-25T21:22:50Z",
+      "updated_at": "2018-09-25T21:22:50Z",
+      "author": "Participant 3",
+      "body": "Added documentation for it at the top of the page:\r\n\r\nhttps://www.traccar.org/configuration-file/\r\n\r\nIf we make it opt-in instead of opt-out, surely nobody would ever configure it."
+    },
+    {
+      "id": 424510728,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424510728",
+      "created_at": "2018-09-25T21:39:07Z",
+      "updated_at": "2018-09-25T21:39:07Z",
+      "author": "Participant 2",
+      "body": "Well, I'd be fine with \"on\" by default. Because there is no interactive installer.\r\nIf, and only if, this is not some kind of passive sniffing of the usage.\r\nWe all know what privacy concerns are, and you seem to fairly understand this. (cf https://github.com/traccar/traccar-client-android/commit/cbfe90757d6ff3c670485dacc76a2165125f9a06#diff-c8cc2dd42271f2bf39c6aa81eb6a5529)\r\nJust don't know what it sends exactly, I had no time to look at this part of the code.\r\nOn the other hand, it seems that some statistics are available through the API, correct ?\r\nAre they the same ?\r\nWhat is the usage exactly ? (traccar.org is the default destination).\r\nI'm ok sending relevant statistics (àla popcon: when you install Debian you are asked if you do want to contribute, but there is no text or graphical installer, in Traccar's case).\r\nAnd there are a whole lot of nice things to graph about the server usage, I could list tens if needed.\r\nOne that I'd like to see is some kind of \"device protocol market share\", for instance.\r\nMy 2c."
+    },
+    {
+      "id": 424512390,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424512390",
+      "created_at": "2018-09-25T21:45:29Z",
+      "updated_at": "2018-09-25T21:45:29Z",
+      "author": "Participant 3",
+      "body": "Statistics include the same information that you see on the \"Statistics\" screen in the web app. It's information such as total number of active devices and users. It also includes version number of the server, so we can see what percentage of servers use which version. I'm happy to share it publicly in some kind of graph, but just haven't had any time to implement it.\r\n\r\nI want to note that it's completely different from Firebase analytics. We have full control in this case, we know what's uploaded and we never share it with any third party. As for Firebase, it's only included in the apps available from the stores, so if you download binaries from website or build it yourself, you won't have any analytics."
+    },
+    {
+      "id": 424513399,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424513399",
+      "created_at": "2018-09-25T21:49:17Z",
+      "updated_at": "2018-09-25T21:49:17Z",
+      "author": "Participant 3",
+      "body": "Here's an example of aggregated data:\r\n\r\n| date | count | devices | messages |\r\n| --- | --- | --- | --- |\r\n| 2018-07-28 |  1190 |   98927 | 143472414 |\r\n| 2018-07-29 |  1143 |   99225 | 138498711 |\r\n| 2018-07-30 |  1168 |   96419 | 130526739 |\r\n| ... | ... | ... | ... |\r\n| 2018-09-17 |  1356 |  121878 | 147894651 |\r\n| 2018-09-18 |  1381 |  130163 | 164183327 |\r\n| 2018-09-19 |  1387 |  129442 | 164728398 |\r\n"
+    },
+    {
+      "id": 424513791,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424513791",
+      "created_at": "2018-09-25T21:50:46Z",
+      "updated_at": "2018-09-25T21:50:46Z",
+      "author": "Participant 3",
+      "body": "Note that we only store information about servers with at least 5 active devices, so if you have less, it's completely ignored and not stored anywhere."
+    },
+    {
+      "id": 424514724,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424514724",
+      "created_at": "2018-09-25T21:54:15Z",
+      "updated_at": "2018-09-25T21:54:15Z",
+      "author": "Participant 2",
+      "body": "As a sysadmin I store all kinds of metrics like these. Right now my favorite combo is InfluxDB and Grafana. Let me know if this could be of interest, I'd be happy to contribute !"
+    },
+    {
+      "id": 424535936,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424535936",
+      "created_at": "2018-09-25T23:34:47Z",
+      "updated_at": "2018-09-25T23:34:47Z",
+      "author": "Participant 3",
+      "body": "I think it's an overkill. I think some simple numbers like above and possibly a graph based on that numbers would be more than enough. I'll try to implement something when I have time."
+    },
+    {
+      "id": 424608963,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424608963",
+      "created_at": "2018-09-26T07:08:05Z",
+      "updated_at": "2018-09-26T07:08:05Z",
+      "author": "Participant 1",
+      "body": "> If we make it opt-in instead of opt-out, surely nobody would ever configure it.\r\n\r\nThat may well be so, which is fine. Privacy and anonymity should be default."
+    },
+    {
+      "id": 424697078,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424697078",
+      "created_at": "2018-09-26T12:29:58Z",
+      "updated_at": "2018-09-26T12:29:58Z",
+      "author": "Participant 3",
+      "body": "There is no personally identifiable information in the data that we are collecting, so I don't see how it affects your privacy and anonymity. Please elaborate."
+    },
+    {
+      "id": 424838572,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424838572",
+      "created_at": "2018-09-26T19:21:26Z",
+      "updated_at": "2018-09-26T19:21:26Z",
+      "author": "Participant 1",
+      "body": "I feel my privacy is violated when software phones home without asking me whether it's ok for it to do so in particular when it's not clear which data it sends \"home\". In the case of opt-in that would not happen. As it is, and because the setting wasn't described (thank you for documenting it now) I wasn't aware of that happening.\r\n\r\nI now am. and I still think it should be made opt-in."
+    },
+    {
+      "id": 424839799,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424839799",
+      "created_at": "2018-09-26T19:25:36Z",
+      "updated_at": "2018-09-26T19:25:36Z",
+      "author": "Participant 3",
+      "body": "But let's be honest, no one would ever opt in, and not because of privacy. Some because of privacy, but most because they just wouldn't know or wouldn't see any benefit for them."
+    },
+    {
+      "id": 424850388,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424850388",
+      "created_at": "2018-09-26T20:01:53Z",
+      "updated_at": "2018-09-26T20:04:44Z",
+      "author": "Participant 2",
+      "body": "I do not want to take part for anyone.\r\n\r\n1. The option of opting in or out is not possible right now, for the installer is non-interactive. Let me mention Debian again, their popcon is just like that: at install time you are asked whether you want to contribute (anonymously) submitting statistics, or not. Then you install the OS. Traccar's installer has room for improvement, but a windozlikegraphicalassistantformymom would not be my priority.\r\n2. I took a quick look at the code, and if those statistics are the same you get in the interface, well, they look quite innocuous to me. Sad point is that they are (not yet) exploited, nor available to all, be it through a dashboard or a plain html table on the website. It was not documented, now it is. \r\n(2b. Also, it is not like the Hidden Client). \r\n3. Having worked for companies that sold DPI software to some dictators you'd just hate me, well, let's not exaggerate. When their surveillance probes would \"phone home\", it was deeply embedded in some encrypted C-shared object. Not something really easy to grep or reverse.\r\n(3b. Ever heard of Google ?) "
+    },
+    {
+      "id": 424858028,
+      "url": "https://github.com/traccar/traccar/issues/4066#issuecomment-424858028",
+      "created_at": "2018-09-26T20:27:00Z",
+      "updated_at": "2018-09-26T20:30:41Z",
+      "author": "Participant 2",
+      "body": "And on the light side, https://github.com/traccar/traccar/commit/db427d338bbd284203badb36b25504c7f152b5ea now helps criminals be chased on the whole planet Earth :) "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

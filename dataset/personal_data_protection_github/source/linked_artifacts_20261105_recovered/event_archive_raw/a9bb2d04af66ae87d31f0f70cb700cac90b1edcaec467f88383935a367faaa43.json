@@ -1,0 +1,202 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27canonical-web-and-design%2Fubuntu.com%27+AND+number%3D9785+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='canonical-web-and-design/ubuntu.com' AND number=9785 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:28.326333+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "abletec",
+        "created_at": "2021-05-19 21:34:42",
+        "updated_at": "2021-05-19 21:34:41",
+        "title": "ubuntu documentation site not working NVDA Firefox",
+        "body": "NVDA is a Windows screen reader used by blind individuals to read what's on screen. It appears your site has some sort of cookie banner that NVDA does not read in Firefox. I was able to access the site using Chrome, but it's really a hassle having to switch browsers, especially when this is not a terribly difficult problem to fix. Thanks.\r\n\r\n---\r\n*Reported from: https://ubuntu.com/server/docs/install/storage*",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-05-19 21:00:00",
+        "repo_name": "canonical-web-and-design/ubuntu.com",
+        "number": 9785
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "anthonydillon",
+        "created_at": "2021-05-21 06:22:06",
+        "updated_at": "2021-05-21 06:22:05",
+        "title": "ubuntu documentation site not working NVDA Firefox",
+        "body": "Thank you for taking the time to report this issue. I will look into it today.",
+        "comment_id": 845688368,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-05-21 06:00:00",
+        "repo_name": "canonical-web-and-design/ubuntu.com",
+        "number": 9785
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "anthonydillon",
+        "created_at": "2021-05-27 14:19:01",
+        "updated_at": "2021-05-27 14:19:01",
+        "title": "ubuntu documentation site not working NVDA Firefox",
+        "body": "I believe this is related to this issue: https://github.com/nvaccess/nvda/issues/2745. I have replicated the behaviour in both Firefox which does not work and Chrome which does. I believe the markup should read the landmark as the region is focused but I am no expert. \r\n\r\nDoes anyone else have any other suggestions?",
+        "comment_id": 849674548,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-05-27 14:00:00",
+        "repo_name": "canonical-web-and-design/ubuntu.com",
+        "number": 9785
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "abletec",
+        "created_at": "2021-06-02 22:34:10",
+        "updated_at": "2021-06-02 22:34:10",
+        "title": "ubuntu documentation site not working NVDA Firefox",
+        "body": "@anthonydillon, this has something to do w/the way this alert is being coded, methinks. If it'd just be changed to a simple dialog w/an \"ok\" or \"got it\" button or equivalent, I think everything would be fine.",
+        "comment_id": 853426310,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-06-02 22:00:00",
+        "repo_name": "canonical-web-and-design/ubuntu.com",
+        "number": 9785
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "sowasred2012",
+        "created_at": "2021-12-03 23:54:04",
+        "updated_at": "2021-12-03 23:54:03",
+        "title": "ubuntu documentation site not working NVDA Firefox",
+        "body": "@abletec I believe this problem was fixed by another PR (https://github.com/canonical-web-and-design/cookie-policy/pull/123) in July - I've just tested the site with NVDA, and from what I can tell it seems to be OK, but please let us know if not.",
+        "comment_id": 985916711,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-12-03 23:00:00",
+        "repo_name": "canonical-web-and-design/ubuntu.com",
+        "number": 9785
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "abletec",
+        "created_at": "2021-12-04 00:14:46",
+        "updated_at": "2021-12-04 00:14:46",
+        "title": "ubuntu documentation site not working NVDA Firefox",
+        "body": "Gentlemen, the cookie dialog now can be easily accessed by NVDA, so I\ncan now visit the site. Thanks so much for that. Nice to be taken\nseriously when these sorts of bugs are reported.\n\nOn 12/3/21, Scott Mason Nash ***@***.***> wrote:\n> @abletec I believe this problem was fixed by another PR\n> (https://github.com/canonical-web-and-design/cookie-policy/pull/123) in July\n> - I've just tested the site with NVDA, and from what I can tell it seems to\n> be OK, but please let us know if not.\n>\n> --\n> You are receiving this because you were mentioned.\n> Reply to this email directly or view it on GitHub:\n> https://github.com/canonical-web-and-design/ubuntu.com/issues/9785#issuecomment-985916711\n\n\n-- \nSubscribe to a WordPress for Newbies Mailing List by sending a message to:\n***@***.*** with 'subscribe' in the Subject field OR by\nvisiting the list page at http://www.freelists.org/list/wp4newbs\n& check out my sites at www.brightstarsweb.com & www.mysitesbeenhacked.com\n",
+        "comment_id": 985923663,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-12-04 00:00:00",
+        "repo_name": "canonical-web-and-design/ubuntu.com",
+        "number": 9785
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "sowasred2012",
+        "created_at": "2021-12-04 22:37:18",
+        "updated_at": "2021-12-04 22:37:18",
+        "title": "ubuntu documentation site not working NVDA Firefox",
+        "body": "@abletec not a problem! I'll close this issue, but if you encounter other problems of this nature, please let us know.",
+        "comment_id": 986103354,
+        "comments": 5,
+        "state": "closed",
+        "closed_at": "2021-12-04 22:37:18",
+        "file_time": "2021-12-04 22:00:00",
+        "repo_name": "canonical-web-and-design/ubuntu.com",
+        "number": 9785
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "sowasred2012",
+        "created_at": "2021-12-04 22:37:20",
+        "updated_at": "2021-12-04 22:37:18",
+        "title": "ubuntu documentation site not working NVDA Firefox",
+        "body": "NVDA is a Windows screen reader used by blind individuals to read what's on screen. It appears your site has some sort of cookie banner that NVDA does not read in Firefox. I was able to access the site using Chrome, but it's really a hassle having to switch browsers, especially when this is not a terribly difficult problem to fix. Thanks.\r\n\r\n---\r\n*Reported from: https://ubuntu.com/server/docs/install/storage*",
+        "comment_id": 0,
+        "comments": 6,
+        "state": "closed",
+        "closed_at": "2021-12-04 22:37:18",
+        "file_time": "2021-12-04 22:00:00",
+        "repo_name": "canonical-web-and-design/ubuntu.com",
+        "number": 9785
+      }
+    ],
+    "rows": 8,
+    "statistics": {
+      "elapsed": 0.027416497,
+      "rows_read": 289543,
+      "bytes_read": 8524332
+    }
+  },
+  "response_sha256": "2d3f20c50d7de28910d7c0cd479fc5b4ee9bb9bc9303ae6ef8aa0b47843087b8"
+}

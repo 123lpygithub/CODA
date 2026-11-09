@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0125-aaahbjjic",
+  "revision_url": "https://github.com/Erotemic/netharn/commit/ef932c663f51f5cb804a56ea4c63ff70c7d6bc31",
+  "filename": "netharn/models/segnet.py",
+  "commit": "ef932c663f51f5cb804a56ea4c63ff70c7d6bc31",
+  "source_url": "https://raw.githubusercontent.com/Erotemic/netharn/ef932c663f51f5cb804a56ea4c63ff70c7d6bc31/netharn/models/segnet.py",
+  "fetched_at": "2026-11-05T06:11:57.815557+00:00",
+  "source_sha256": "33c47cfd895214e4b8e91b04110fc5a84716adb28a133a8192e706f317db7fae",
+  "line_start": 176,
+  "line_end": 200,
+  "excerpt": "\n        assert len(vgg_layers) == len(merged_layers)\n\n        import torch\n        with torch.no_grad():\n            for internal, other in zip(merged_layers, vgg_layers):\n                assert isinstance(other, nn.Conv2d) and isinstance(internal, nn.Conv2d)\n                assert other.bias.size() == internal.bias.size()\n                ob, oc, ow, oh = other.weight.shape\n                ib, ic, iw, ih = internal.weight.shape\n                assert ob == ib and ow == iw and oh == ih\n                assert oc <= ic\n                # hack, when inputs have more channels try pulling in only the\n                # first parts\n                if oc == ic:\n                    internal.weight.data[:] = other.weight.data[:]\n                else:\n                    internal.weight.data[:, 0:oc, :, :] = other.weight.data[:]\n                internal.bias[:] = other.bias.data[:]\n\n    @classmethod\n    def _initializer_cls(cls):\n        \"\"\"\n        Specify a custom initializer class for a FitHarness\n",
+  "match_policy": "unique-release-normalized-v2"
+}

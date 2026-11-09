@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0283-aahiifcef",
+  "revision_url": "https://github.com/kengz/SLM-Lab/commit/39a0c98b1ec9adb55386544c870f99cb8ff8f447",
+  "filename": "slm_lab/agent/__init__.py",
+  "commit": "39a0c98b1ec9adb55386544c870f99cb8ff8f447",
+  "source_url": "https://raw.githubusercontent.com/kengz/SLM-Lab/39a0c98b1ec9adb55386544c870f99cb8ff8f447/slm_lab/agent/__init__.py",
+  "fetched_at": "2026-11-05T06:12:27.384279+00:00",
+  "source_sha256": "004c6d41125be2660ab555181a2ff1dd57f79d5d79af47d6fa14e213532f2a1c",
+  "line_start": 147,
+  "line_end": 171,
+  "excerpt": "    def act(self, state_space):\n        data_names = ['action']\n        action_v, = self.aeb_space.init_data_v(data_names)\n        for agent in self.agents:\n            a = agent.a\n            state_a = state_space.get(a=a)\n            action_a = agent.act(state_a)\n            action_v[a, 0:len(action_a)] = action_a\n        action_space, = self.aeb_space.add(data_names, [action_v])\n        return action_space\n\n    def update(self, action_space, reward_space, state_space, done_space):\n        # TODO ensure submethods return np.nan for loss or explore_var instead of None\n        data_names = ['loss', 'explore_var']\n        loss_v, explore_var_v = self.aeb_space.init_data_v(data_names)\n        for agent in self.agents:\n            a = agent.a\n            action_a = action_space.get(a=a)\n            reward_a = reward_space.get(a=a)\n            state_a = state_space.get(a=a)\n            done_a = done_space.get(a=a)\n            loss_a, explore_var_a = agent.update(\n                action_a, reward_a, state_a, done_a)\n            loss_v[a, 0:len(loss_a)] = loss_a\n            explore_var_v[a, 0:len(explore_var_a)] = explore_var_a"
+}

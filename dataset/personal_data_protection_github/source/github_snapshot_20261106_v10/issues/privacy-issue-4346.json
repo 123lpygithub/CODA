@@ -1,0 +1,282 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4346",
+  "issue_url": "https://github.com/corona-warn-app/cwa-documentation/issues/147",
+  "source_issue_url": "https://github.com/corona-warn-app/cwa-documentation/issues/147",
+  "api_url": "https://api.github.com/repos/corona-warn-app/cwa-documentation/issues/147",
+  "title": "Prevent linking of user identity and uploaded diagnosis keys",
+  "body": "## Where to find the issue\r\n\r\n[Solution Architecture](https://github.com/corona-warn-app/cwa-documentation/blob/master/solution_architecture.md), TAN exchange as described in figure 3 (9-14)\r\n\r\n## Describe the issue\r\n\r\nIn order to facilitate widespread use of the app it is of highest importance to guarantee anonymity when users upload their diagnosis keys. Users should stay anonymous even if the health authorities/laboratories and the verification server collude. \r\n\r\nIn case of collusion between the LIS and verification server the current design allows to link the user identity to their uploaded keys:\r\n\r\n- labs / LIS know the personal user data which is linked to the GUID\r\n- the verification server can link the GUID (or its hash) to the TAN\r\n- the verification server can link the TAN to the diagnosis keys\r\n\r\nThis is possible because the current system links the patient/GUID directly to the TAN. \r\n\r\n## Suggested change\r\n\r\nThere is a standard way to address this issue and to improve anonymity: **Use [blind signatures](https://en.wikipedia.org/wiki/Blind_signature#Blind_RSA_signatures)**. In short:\r\n\r\n1. When polling for the test result the app creates a signature request and includes a random blinding factor which it encrypts this with the public key of the verification server.\r\n2. If the verification server finds the test to be positive it signs (request*blinding factor) with its private key and returns it to the app.\r\n3. If the user decides to upload their keys the app unblinds the signature by inverting the blinding factor. (Note that the blinding factor is now unencrypted.) This results in an authorization code that is signed by the verification server.\r\n4. The app attaches the authorization code to the upload.\r\n5. The verification server checks the authorization code against its private key to authorize the upload.\r\n\r\nBecause the verification server cannot link the blind signature to the authorization code it cannot link the upload to the user identity. As an additional benefit it doesn't have to store TANs.\r\n\r\nThis approach was also proposed in [DP3T #210](https://github.com/DP-3T/documents/issues/210). A PoC is available at https://github.com/think-cell/corona.",
+  "author": "Participant 1",
+  "created_at": "2020-05-25T14:33:06Z",
+  "updated_at": "2020-06-12T10:15:32Z",
+  "state": "closed",
+  "closed_at": "2020-06-12T10:15:32Z",
+  "issue_fetched_at": "2026-11-05T05:55:40.296893+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T05:55:41.654292+00:00"
+  ],
+  "expected_comment_count": 32,
+  "retrieved_comment_count": 32,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 633802113,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633802113",
+      "created_at": "2020-05-26T04:31:37Z",
+      "updated_at": "2020-05-26T04:56:54Z",
+      "author": "Participant 2",
+      "body": "@togermer Looking at the current [Solution Architecture](https://github.com/corona-warn-app/cwa-documentation/blob/master/solution_architecture.md), TAN exchange as described in figure 3 (9-14), \r\neven if LIS and Verification Server colluded, they could not get access to Diagnosis Keys - would you agree?\r\n\r\nRegarding your suggested change, how would you ensure that the authorization code can only be used once (or a defined number of times, as required by the Exposure Notifications scheme) -\r\n(including the point \"In practice, the property that signing one blinded message produces at most one valid signed messages is usually desired ...\" from the [Wikipedia article](https://en.wikipedia.org/wiki/Blind_signature#Blind_RSA_signatures))?"
+    },
+    {
+      "id": 633828254,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633828254",
+      "created_at": "2020-05-26T06:16:14Z",
+      "updated_at": "2020-05-26T06:16:14Z",
+      "author": "Participant 1",
+      "body": "Maybe I was imprecise: I assume that all central components possibly collude. In particular, this also includes the Corona-Warn-App server. In fact, I think it's fair to assume that CWA server and verification server are run by the same entity. Obviously the CWA server has the uploaded diagnosis keys, because the user explicitly uploads them along with the TAN.\r\n\r\nRegarding authorization reuse: The verification server has to keep track of used authorization codes, as described in [DP3T #210](https://github.com/DP-3T/documents/issues/210). It has to check new uploads against the set of used codes and refuse double submissions.\r\n\r\nIn order to prune old authorization codes from this list the authorization request could be annotated with a timestamp which is also subject to the blind signature. Then the verification server could only accept authorizations that were created within the last x days. Therefore, it can remove authorizations that are older than x days from its list.\r\n"
+    },
+    {
+      "id": 633836531,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633836531",
+      "created_at": "2020-05-26T06:40:51Z",
+      "updated_at": "2020-05-26T07:02:41Z",
+      "author": "Participant 2",
+      "body": "@togermer quoting from source: https://github.com/corona-warn-app/cwa-verification-server/blob/master/docs/architecture-overview.md\r\n\"Measures to increase data privacy - Separate Operation of Verification Server and Corona-Warn-App Server - The Verification Server and the Corona-Warn-App Server are operated by different people and run in different cloud subscriptions.\" \r\n\r\n> Regarding authorization reuse: The verification server has to keep track of used authorization codes\r\n\r\nok, I was just confused that you mentioned an additional benefit of not having to store TANs.\r\n\r\nAlso, I think it's indeed required to read   [DP3T #210](https://github.com/DP-3T/documents/issues/210) to understand what this proposal intends to prevent:\r\n- Even if all central entities (including labs, Verification Server and Corona-Warn-App Server) colluded, \r\n  1. prevent them from knowing the TEKs/Diagnosis Keys of a diagnosed user\r\n  2. prevent them from knowing which diagnosed user uploaded their TEKs/Diagnosis Keys and which one did not\r\n\r\n"
+    },
+    {
+      "id": 633844724,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633844724",
+      "created_at": "2020-05-26T06:57:04Z",
+      "updated_at": "2020-05-26T06:58:01Z",
+      "author": "Participant 3",
+      "body": "The Verification Server and the Corona-Warn-App Server will run in the same subscription but in different namespaces. People are organized along those namespaces. The goal is to separate the people running the system. Separate subscriptions will not provide significant benefits.\r\n\r\nI will update the verification server document accordingly. "
+    },
+    {
+      "id": 633869455,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633869455",
+      "created_at": "2020-05-26T07:54:31Z",
+      "updated_at": "2020-05-26T07:54:31Z",
+      "author": "Participant 1",
+      "body": "It's certainly nice that the verification server and the CWA server will be operated separately, and it's laudable if you promise that they are run by different people. But it's a matter of trust that these people don't collude and share any information. It's best if we don't require this trust from app users and instead give privacy guarantees. There's no need to rely on this \"social\" solution if there's a simple technical solution that gives hard guarantees. "
+    },
+    {
+      "id": 633875795,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633875795",
+      "created_at": "2020-05-26T08:08:24Z",
+      "updated_at": "2020-05-26T08:08:24Z",
+      "author": "Participant 4",
+      "body": "> The Verification Server and the Corona-Warn-App Server will run in the same subscription but in different namespaces\r\n\r\nFor all practical privacy purposes any piece of software not under the user's control should be assumed to be compromised, otherwise you expect the user to trust your ability and intentions without being able to vet either. which is likely to limit the adoption of the app. "
+    },
+    {
+      "id": 633903278,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633903278",
+      "created_at": "2020-05-26T09:04:31Z",
+      "updated_at": "2020-05-26T09:05:56Z",
+      "author": "Participant 3",
+      "body": "Coming back to the initial comment.\r\n\r\n- The statement \"the current system links the patient/GUID directly to the TAN\" is not correct. The GUID is always hashed in all systems (besides the app), so compromising the system will not reveal a two way link between patient and the diagnostic keys. \r\n\r\n- The link between hashed GUID and TAN is only transient, never persistent.\r\n\r\n- Blind Signature, having a technical solution which keeps the link between (hashed) GUID and the diagnostic keys in the space controlled by the user is surely beneficial. The discussion in [DP-3T](https://github.com/DP-3T/documents/issues/210) is a good starting point to evaluate the use of Blind Signatures. \r\n\r\nI will take this suggestion into the team as a potential future enhancement.\r\n"
+    },
+    {
+      "id": 633935697,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633935697",
+      "created_at": "2020-05-26T10:11:44Z",
+      "updated_at": "2020-05-26T10:11:44Z",
+      "author": "Participant 1",
+      "body": "Regarding your first point: It is enough to link the hashed GUID to the TAN, because the LIS has the patient data and links it to the hashed GUID."
+    },
+    {
+      "id": 633949390,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633949390",
+      "created_at": "2020-05-26T10:44:05Z",
+      "updated_at": "2020-05-26T10:44:05Z",
+      "author": "Participant 3",
+      "body": "I try to be more specific. \r\n- The testing lab/hospital/doctor can map the GUID to an person. These entities are outside the system boundaries of corona warn app (server). The hashed GUID by itself is pseudonym, not as anonymous as we would like to have it. \r\n- The testing lab/hospital/doctor is not part of corona warn app \r\n- Linking a person to a TAN requires two systems to be compromised. \r\n- Buy compromising corona warn app (server), you will be able to link only the GUIDs of the time frame you own the whole system, because the link between GUID and TAN is not persisted\r\n\r\nI hope this made my point clearer about how patient (identity) and TAN is strongly linked. And of course a soon as you have a GUID, everything linked to it becomes pseudonym."
+    },
+    {
+      "id": 633949424,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633949424",
+      "created_at": "2020-05-26T10:44:10Z",
+      "updated_at": "2020-05-26T10:44:10Z",
+      "author": "Participant 5",
+      "body": "The (hashed) TANs are stored in their own DB table without a link to the hashed GUID."
+    },
+    {
+      "id": 633968752,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633968752",
+      "created_at": "2020-05-26T11:31:15Z",
+      "updated_at": "2020-05-26T11:31:15Z",
+      "author": "Participant 2",
+      "body": "The proposal that was made in the DP-3T context is based on the assumption that the systems are not only compromised by hackers temporarily, \r\nbut that the owners of the systems collude to break the anonymity of RPI/TEKs that users have advertised somewhere and that the owners of the systems (presumably an evil government) have collected as well.  \r\nIn this context all colluding parties already know/share the real-life identity of the user, they should just be prevented from linking that to RPIs/TEKs and the fact whether or not this user uploads them."
+    },
+    {
+      "id": 633969011,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633969011",
+      "created_at": "2020-05-26T11:31:56Z",
+      "updated_at": "2020-05-26T11:31:56Z",
+      "author": "Participant 1",
+      "body": "> Linking a person to a TAN requires two systems to be compromised.\r\n> By compromising corona warn app (server), you will be able to link only the GUIDs of the time frame you own the whole system, because the link between GUID and TAN is not persisted\r\n\r\nI think you are talking about an external attacker compromising the system. I'm talking about the general possibility to de-anonymize traces data/diagonisis keys. If laboratories and CWA/verification server operators collude (or the government forces them to do so), they can correlate diagnosis keys and patient identities and effectively spy on the user. By opening this possibility users will rightfully get suspicious and not use the app.\r\n\r\n"
+    },
+    {
+      "id": 633980415,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633980415",
+      "created_at": "2020-05-26T11:59:19Z",
+      "updated_at": "2020-05-26T11:59:19Z",
+      "author": "Participant 6",
+      "body": "@togermer \r\n\r\n* Who could realistically execute such an attack?\r\n* What’s in it for the attacker, how can they benefit from a successful attack?"
+    },
+    {
+      "id": 633987935,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633987935",
+      "created_at": "2020-05-26T12:16:16Z",
+      "updated_at": "2020-05-26T12:16:16Z",
+      "author": "Participant 2",
+      "body": ">  users will rightfully get suspicious and not use the app.\r\n\r\nI don't think this will happen in Germany, because the attack is completely unrealistic. \r\nIt might happen in countries where citizens feel oppressed, but in Germany only very few users will have these (in my opinion unfounded) suspicions, and these persons will not trust or use such a system anyway, regardless of the actual level of privacy that the system offers."
+    },
+    {
+      "id": 633987944,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633987944",
+      "created_at": "2020-05-26T12:16:18Z",
+      "updated_at": "2020-05-26T12:16:18Z",
+      "author": "Participant 1",
+      "body": "> * Who could realistically execute such an attack?\r\n\r\nAs already stated, this is less about an attack but about possible collusion of health authorities / the government. It's about preserving privacy against central institutions.\r\n\r\n> * What’s in it for the attacker, how can they benefit from a successful attack?\r\n\r\nIt could spy on the app user. If you combine this with a distributed network of beacon listeners you can trace user locations, for instance.\r\n"
+    },
+    {
+      "id": 633994973,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633994973",
+      "created_at": "2020-05-26T12:31:38Z",
+      "updated_at": "2020-05-26T12:31:38Z",
+      "author": "Participant 4",
+      "body": "> I don't think this will happen in Germany, because the attack is completely unrealistic.\r\nIt might happen in countries where citizens feel oppressed, but in Germany only very few users will have these (in my opinion unfounded) suspicions, and these persons will not trust or use such a system anyway, regardless of the actual level of privacy that the system offers.\r\n\r\n\r\nTo be honest I first looked at this project hoping it'll do its best to go above and beyond to prove privacy would be integral to the implementation. I do not know how big the segment of the population that shares my approach but I definitely am not part of \"these persons will not trust or use such a system anyway\" and that approach in general is quite worrisome. \r\n\r\nminimizing the possible use of the system outside its mandate is crucial, if there is no legitimate reason to divulge identifiable data, then don't. mindsets such as \"Who could realistically execute such an attack?\" when approaching security are unhealthy \r\n"
+    },
+    {
+      "id": 633995135,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-633995135",
+      "created_at": "2020-05-26T12:31:58Z",
+      "updated_at": "2020-05-26T12:31:58Z",
+      "author": "Participant 1",
+      "body": "\r\n> I don't think this will happen in Germany, because the attack is completely unrealistic.\r\n> It might happen in countries where citizens feel oppressed, but in Germany only very few users will have these (in my opinion unfounded) suspicions, and these persons will not trust or use such a system anyway, regardless of the actual level of privacy that the system offers.\r\n\r\nThis depends on the story the press will make of this. Even if unfounded the suspicion alone can severely limit the adoption. And why taking this risk when there is a simple technical solution?"
+    },
+    {
+      "id": 634003951,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-634003951",
+      "created_at": "2020-05-26T12:49:59Z",
+      "updated_at": "2020-05-26T12:52:30Z",
+      "author": "Participant 6",
+      "body": "@togermer \r\n\r\n1. The government is already in a position to ruin everyone’s day. How much would your collusion scenario add to its capabilities?\r\n1. Our society has various safeguards in place to keep the power of our government under control. These safeguards seem to work reasonably well, we are not invading other countries or deporting people to death camps any more. Are there reasons to assume these safeguards would turn out ineffective in your scenario?\r\n1. More specifically, the immediate outcome in your scenario seems to be that an entity obtains information it is not supposed to use. \r\n    1. Is this statement correct and comprehensive or am I overlooking any important aspect?\r\n    1. What could motivate an entity to expend the necessary effort to collect this information? How would they use it?\r\n "
+    },
+    {
+      "id": 634005694,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-634005694",
+      "created_at": "2020-05-26T12:53:24Z",
+      "updated_at": "2020-05-26T12:54:03Z",
+      "author": "Participant 7",
+      "body": "> @togermer\r\n> \r\n> * Who could realistically execute such an attack?\r\n\r\nThis is the wrong question because with „realistically“ you imply there is close to nobody. This is a view on IT-Security that should be gone long ago.  Ever read 2600? \r\n\r\n> * What’s in it for the attacker, how can they benefit from a successful attack?\r\n\r\nFame or fortune . Question : Why does one climb on a mountain? Because its there. Same for intrusion attacks.\r\n\r\n"
+    },
+    {
+      "id": 634036548,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-634036548",
+      "created_at": "2020-05-26T13:48:46Z",
+      "updated_at": "2020-05-26T13:48:46Z",
+      "author": "Participant 6",
+      "body": "@HolgerMayer With “realistically” I imply that motivation and capability vary across possible adversaries. Gone by now should be the illusion that security be achieved by addressing every remote possibility with technical safeguards. Nowadays we base security decisions on risk assessment and a realistic adversary model is an essential component of it. \r\n\r\nSecurity risk assessment is not really as new an approach as I just made it sound. In real life we do it every day when we leave the house. Various deadly attacks against the human body are very well known and easy to execute, not only by the government but by everyone. Since the risk of anyone actually trying remains low, however, we do not usually wear bulletproof vests and helmets. Doing so would be too expensive in implementation and side effects in relation to the actual security gain.\r\n\r\nThere will be residual risks that we should accept rather than address and there will also be mechanisms of risk management other than technological safeguards. I believe everyone needs to acknowledge this – limits and criteria can still be debated – to have a constructive discussion. The line between valid security concerns and freewheeling conspiracy theories is unfortunately rather thin sometimes. "
+    },
+    {
+      "id": 634046185,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-634046185",
+      "created_at": "2020-05-26T14:04:20Z",
+      "updated_at": "2020-05-26T14:04:20Z",
+      "author": "Participant 4",
+      "body": "@sventuerpe While all that is a fine theoretical argument it's not particularly pertinent. if you put full trust in the server side then it renders most of this project meaningless, the main driving principle behind anonymizing the data is to limit the government's ability to misuse it, if by design you allow them to reconstruct the data then that goes a bit beyond some far fetched theorizing, it negates a design principle. a principle that should guide the development because ignoring it _is_ the reason people would not want to install this app"
+    },
+    {
+      "id": 634062443,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-634062443",
+      "created_at": "2020-05-26T14:31:26Z",
+      "updated_at": "2020-05-26T14:31:26Z",
+      "author": "Participant 8",
+      "body": "> @sventuerpe While all that is a fine theoretical argument it's not particularly pertinent. if you put full trust in the server side then it renders most of this project meaningless, the main driving principle behind anonymizing the data is to limit the government's ability to misuse it, if by design you allow them to reconstruct the data then that goes a bit beyond some far fetched theorizing, it negates a design principle. a principle that should guide the development because ignoring it _is_ the reason people would not want to install this app\r\n\r\nFor me it's clear that revealing my keys leads in the high chance that many people and white hats can create a trace from me or at least uncover me. \r\nEspecially when using video surveillance and beacon listeners. But as long I don't upload my keys no one can create a trace from me. \r\n\r\nIf this discussion is about the amount of information a White Hat gets you should get in mind he will additionally check the information from §9 IfSG and §5 (2) 5. Lichtbild PauswG (https://www.gesetze-im-internet.de/pauswg/__5.html) \r\n\r\nIf it's about a Black Hat, the effort vs. gain is very low because to get traces from people he needs the keys. And they have to be uploaded by the people voluntary. Without the keys the whole infrastructure is not useful (Key upload could be triggered by evil beacon sender together with valid TANs) But this vector is quite small, if the risk can be reduced without high effort then it should be done, otherwise not. "
+    },
+    {
+      "id": 634066565,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-634066565",
+      "created_at": "2020-05-26T14:37:58Z",
+      "updated_at": "2020-05-26T14:37:58Z",
+      "author": "Participant 6",
+      "body": "@oiime First, we are not talking about full trust here, but rather about a specific concern within an architecture that nevertheless leaves a lot of control to its individual users. \r\n\r\nSecond, I do not despise trust altogether, as long as it does not degenerate into an inescapable dependency. Genuine, earned and tentative trust reduces complexity. And I do trust my state and its institutions to some extent, not blindly and unconditionally but sufficiently to abstain from fundamental opposition. \r\n\r\nThird, as a consequence, I am not convinced that a lopsided focus solely on technological security controls is appropriate. While I see good reasons to go with the flow and use Apple’s and Google’s APIs rather than try something else, I believe institutional and legal safeguards deserve the same amount of attention as they complement the technical ones. \r\n\r\nCan we now return to the scenario and continue risk assessment within the application context?"
+    },
+    {
+      "id": 634075237,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-634075237",
+      "created_at": "2020-05-26T14:52:16Z",
+      "updated_at": "2020-05-26T14:52:16Z",
+      "author": "Participant 4",
+      "body": "@sventuerpe\r\n\r\n> First, we are not talking about full trust here, but rather about a specific concern within an architecture that nevertheless leaves a lot of control to its individual users.\r\n\r\nYou're allowing the operator the ability to tie an individual to their keys, that's pretty much as full as it gets. that connection should be severed as early as possible in the notification chain\r\n\r\n> Second, I do not despise trust altogether, as long as it does not degenerate into an inescapable dependency. Genuine, earned and tentative trust reduces complexity. And I do trust my state and its institutions to some extent, not blindly and unconditionally but sufficiently to abstain from fundamental opposition.\r\n\r\nSo far this implementation is more complex and less private so I'm not sure what the benefit is. if there is no good reason to trust them, then don't, it should be that simple, why introduce an attack vector when you have nothing to gain\r\n\r\n> Third, as a consequence, I am not convinced that a lopsided focus solely on technological security controls is appropriate. While I see good reasons to go with the flow and use Apple’s and Google’s APIs rather than try something else, I believe institutional and legal safeguards deserve the same amount of attention as they complement the technical ones.\r\n\r\nThe Exposure Notification API in no way mandates doing it this way, I fully support using their API for practical reasons and AFAIK nobody is objecting to using their API"
+    },
+    {
+      "id": 634158771,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-634158771",
+      "created_at": "2020-05-26T17:14:36Z",
+      "updated_at": "2020-05-26T17:14:36Z",
+      "author": "Participant 6",
+      "body": "@oiime \r\n\r\n> You're allowing the operator the ability to tie an individual to their keys, that's pretty much as full as it gets. that connection should be severed as early as possible in the notification chain\r\n\r\nI doubt that. \r\n\r\nFirst, we need to bear in mind that Covid-19 is a notifiable disease and conventional contact tracing will continue in parallel to the use of CWA. The application context limits information hiding even by those not using the app at all. The point of designing privacy controls into the architecture is not to guarantee perfect confidentiality, but rather to make mission creep less likely. The most effective control in this respect is a protocol that limits what the server side can learn at all: \r\n\r\nUnless you as an app user or any of your recent contacts has tested positive, the server side receives no information about you at all. This makes the CWA system unsuitable for general surveillance. If the server side does learn information about you, this information remains limited and of low value. In particular, your contacts and social network cannot realistically be reconstructed.\r\n\r\nIf I understand @togermer’s collusion scenario correctly – feel free to correct me if I do not – only the identity of the infected person using a TAN to upload their diagnosis keys would be revealed. I see not much of a gain here for a conspiracy of labs and server operators, hence my request to assess risks and not only technical possibility. If there is a real problem I shall be the last to protest it being solved. I am just not yet convinced there is.\r\n\r\nSecond, I see no good reason to limit analysis to an arbitrarily chosen subsystem. A comprehensive treatment should consider all involved stakeholders including, for example, platform providers Apple and Google. This takes us back to questions of trust, risk, and trade-offs. "
+    },
+    {
+      "id": 634182496,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-634182496",
+      "created_at": "2020-05-26T17:59:50Z",
+      "updated_at": "2020-05-26T18:12:23Z",
+      "author": "Participant 4",
+      "body": "@sventuerpe You are correct, only the identity of the infected person using a TAN to upload their diagnosis keys would be revealed, the point of contention was in the risk and cost of severing the connection between the individual and the TAN at a layer closer to the user.\r\nI guess at this point it is for you to decide if it's worth the effort or not to implement it. but bare in mind that going beyond what is necessary here is not only important from a privacy and security perspective but also from a PR perspective, maximizing adoption is key for this to have a chance of working\r\n\r\n> Second, I see no good reason to limit analysis to an arbitrarily chosen subsystem. A comprehensive treatment should consider all involved stakeholders including, for example, platform providers Apple and Google. This takes us back to questions of trust, risk, and trade-offs.\r\n\r\nWell, you can not control Apple/Google nor are they associated with this repository, so I'm focusing on this subsystem(s) and what the people here can do to offer a more privacy conscious solution\r\n\r\nThanks for your time"
+    },
+    {
+      "id": 634263040,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-634263040",
+      "created_at": "2020-05-26T20:32:03Z",
+      "updated_at": "2020-05-26T20:32:03Z",
+      "author": "Participant 9",
+      "body": "I already implemented a first version of a blind signatures extension for the DP3T Java/Spring based backend (DP-3T/dp3t-sdk-backend/pull/73).\r\n\r\nFeel free to have a look."
+    },
+    {
+      "id": 635367615,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-635367615",
+      "created_at": "2020-05-28T13:59:05Z",
+      "updated_at": "2020-05-28T13:59:05Z",
+      "author": "Participant 10",
+      "body": "> In order to facilitate widespread use of the app it is of highest importance to guarantee anonymity when users upload their diagnosis keys. Users should stay anonymous even if the health authorities/laboratories and the verification server collude.\r\n\r\nIs there any study about this, and more generally, about the reasons why people would use the app and why not?\r\n\r\n> Also, I think it's indeed required to read DP3T #210 to understand what this proposal intends to prevent:\r\n> * Even if all central entities (including labs, Verification Server and Corona-Warn-App Server) colluded,\r\ni. prevent them from knowing the TEKs/Diagnosis Keys of a diagnosed user\r\nii. prevent them from knowing which diagnosed user uploaded their TEKs/Diagnosis Keys and which one did not\r\n\r\nExample 1: the user has a positive test result and a meeting with health service (HS). The user and the HS agree to do the upload to the app-server and to do a function check. Then, on the HS phone, the history of app contacts will be deleted. The user phone and the HS phone will be close together for about 10 minutes. Authorization takes place and the data is uploaded from the user phone to the app-server. Then the app of the HS phone will download data from app-server and should get a notification. If not, something went wrong.\r\n\r\nExample 2: the user has a testing date. Before actual testing, he signs a document about rules and privacy. The person doing the testing has a work phone with the app installed and the app contact history deleted. After 10 min the test is performed and further recording on the work phone is disabled. One day later, the user is informed about his positive test result. But very shaken by this message, he forgets to start the upload process. Fortunately, one day later, he is reminded by phone to do this.\r\n"
+    },
+    {
+      "id": 636470096,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-636470096",
+      "created_at": "2020-05-31T13:15:44Z",
+      "updated_at": "2020-05-31T13:15:44Z",
+      "author": "Participant 11",
+      "body": "Jumping in here a bit late, but what if instead of disclosing one's one rolling IDs, the IDs that have been come into contact with are disclosed instead. In that case, each app checks whether one of their own IDs has been affected instead of one of their contact's IDs. \r\nThis would still be problematic if you put beacons and cameras in place though. \r\nIdeally, in addition to that, each phone wouldn't keep track of other rolling IDs but rather a unique token would be generated and kept track of by the two phones. That way the only way to know they were in contact is if you compromise both phones.\r\nNot sure I was able to explain that very clearly, but maybe it's an idea."
+    },
+    {
+      "id": 636478006,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-636478006",
+      "created_at": "2020-05-31T14:22:28Z",
+      "updated_at": "2020-05-31T14:22:28Z",
+      "author": "Participant 4",
+      "body": "@whythecode If I understood you correctly then it'll just mean you'd need to release a larger pool of IDs (potentially), it'll have no influence over the de-anonymization  of the user itself, I think the problem of having an actual interaction between the phones to generate paired tokens is that the protocol relies on using the broadcast payload on bluetooth, you can't really have a back and forth.\r\n_however_ it might be possible to publish a public key on that payload and have the phone store those encrypted with the key, thought I doubt it. either way this implementation relies on the Google/Apple protocol so they don't really have the option to change that layer"
+    },
+    {
+      "id": 636510345,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-636510345",
+      "created_at": "2020-05-31T18:35:35Z",
+      "updated_at": "2020-05-31T18:35:35Z",
+      "author": "Participant 11",
+      "body": "@oiime you're totally right, scratch what I said. Releasing a pool of connections is potentially much more dangerous information and does not depend on there being beacons up at the right time in order to do some matching.\r\nDe-anonymizing the user would solve most issues, though I can't see how that's supposed to work without at least some kind of trust on the processes and frameworks put in place.\r\nI'm looking forward to seeing how this develops - thanks for your time and effort, everyone."
+    },
+    {
+      "id": 643194333,
+      "url": "https://github.com/corona-warn-app/cwa-documentation/issues/147#issuecomment-643194333",
+      "created_at": "2020-06-12T10:15:32Z",
+      "updated_at": "2020-06-12T10:15:32Z",
+      "author": "Participant 12",
+      "body": "As the discussion stopped almost two weeks ago, our architects and experts already replied to the original question regarding the possibility of linking and as we received a new issue covering the topic in a much broader sense, we will close this issue here now and ask you all to follow-up in #223.\r\n\r\nThank you very much for your understanding!\r\n\r\nMit freundlichen Grüßen/Best regards, \r\nSW\r\nCorona Warn-App Open Source Team"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

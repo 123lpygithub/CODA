@@ -1,0 +1,24 @@
+{
+  "artifact_id": "privacy-issue-1154",
+  "source_issue_url": "https://github.com/matomo-org/matomo/issues/12853",
+  "issue_snapshot_sha256": "2870cb1dbfbadeddf188cd7829502dbfa478ad0a84adaa00ac08c7eed6002e5e",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/matomo-org/matomo/blob/3.5.0-rc1/core/Tracker/Request.php#L830-L832",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "revision": "3.5.0-rc1",
+      "immutable_revision": false,
+      "line_start": 818,
+      "line_end": 844,
+      "text": "     */\n    private function truncateIdAsVisitorId($idVisitor)\n    {\n        return substr($idVisitor, 0, Tracker::LENGTH_HEX_ID_STRING);\n    }\n\n    /**\n     * Matches implementation of PiwikTracker::getUserIdHashed\n     *\n     * @param $userId\n     * @return string\n     */\n    public function getUserIdHashed($userId)\n    {\n        return substr(sha1($userId), 0, 16);\n    }\n\n    /**\n     * @return mixed|string\n     * @throws Exception\n     */\n    public function getIpString()\n    {\n        $cip = $this->getParam('cip');\n\n        if (empty($cip)) {\n            return IP::getIpFromHeader();",
+      "source_sha256": "b1f297e446f6faf0dcb19a1f79c51770e6aefe5ce2faf9005c436d8e887693bc",
+      "fetched_at": "2026-11-05T06:21:01.720352+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/matomo-org/matomo/3.5.0-rc1/core/Tracker/Request.php",
+      "status": "available"
+    }
+  ]
+}

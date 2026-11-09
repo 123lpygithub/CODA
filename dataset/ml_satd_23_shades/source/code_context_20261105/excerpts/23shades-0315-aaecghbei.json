@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0315-aaecghbei",
+  "revision_url": "https://github.com/KhronosGroup/NNEF-Tools/commit/aece55fe73a13434743ca4e5da3c88fc6eaea984",
+  "filename": "converter/nnef_converters/tf_converters/nnef_to_tf/converters.py",
+  "commit": "aece55fe73a13434743ca4e5da3c88fc6eaea984",
+  "source_url": "https://raw.githubusercontent.com/KhronosGroup/NNEF-Tools/aece55fe73a13434743ca4e5da3c88fc6eaea984/converter/nnef_converters/tf_converters/nnef_to_tf/converters.py",
+  "fetched_at": "2026-11-05T06:12:27.706065+00:00",
+  "source_sha256": "2caa168a8fc11461665d502d1d6da2c413b632897bbca2181b2a68c71db3e022",
+  "line_start": 291,
+  "line_end": 315,
+  "excerpt": "        tfop.add_arg(\"inputs\", converter.get_tfdn_safe(nnefop.args[\"input\"]))\n        tfop.add_result(\"result\", converter.make_tfdn(nnefop.result))\n        converter.add_tfop(tfop, nnefop)\n    else:\n        nnefdn_input = nnefop.args[\"input\"]\n        tfop = dog.OperationNode(\"tf.reshape\")\n        tfop.add_arg(\"tensor\", converter.get_tfdn_safe(nnefdn_input))\n\n        if isinstance(nnefop.args[\"shape\"], nnef.ShapeOf):\n            tfop.add_arg('shape', converter.nnef_shapeof_to_tf(nnefop.args[\"shape\"]))\n        else:\n            nnef_shape = calculate_nnef_reshape_shape(dog.get_shape_safe(nnefdn_input),\n                                                      nnefop.args[\"shape\"])  # TODO needed?\n            tfop.add_arg(\"shape\", nnef_shape)\n\n        tfop.add_result(\"result\", converter.make_tfdn(nnefop.result))\n        converter.add_tfop(tfop, nnefop)\n\n\ndef convert_squeeze(nnefop, converter):\n    nnef_axes = nnefop.args[\"axes\"]\n    nnefdn_input = nnefop.args[\"input\"]\n\n    tfop = dog.OperationNode(\"tf.squeeze\")\n    tfop.add_arg(\"input\", converter.get_tfdn_safe(nnefdn_input))"
+}

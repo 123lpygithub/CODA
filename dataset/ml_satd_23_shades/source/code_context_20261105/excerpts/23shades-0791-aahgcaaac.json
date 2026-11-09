@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0791-aahgcaaac",
+  "revision_url": "https://github.com/RaRe-Technologies/gensim/commit/c0e0169565116854993b22efef29e3c402ec6c69",
+  "filename": "gensim/models/keyedvectors.py",
+  "commit": "c0e0169565116854993b22efef29e3c402ec6c69",
+  "source_url": "https://raw.githubusercontent.com/RaRe-Technologies/gensim/c0e0169565116854993b22efef29e3c402ec6c69/gensim/models/keyedvectors.py",
+  "fetched_at": "2026-11-05T06:13:53.084831+00:00",
+  "source_sha256": "2bc2c61996f7a50a8355a6d3dfdae82c5a98a91f2aacb6c7344f248e2f916174",
+  "line_start": 430,
+  "line_end": 454,
+  "excerpt": "            Flag indicating whether to replace vectors for keys which already exist in the map;\n            if True - replace vectors, otherwise - keep old vectors.\n\n        \"\"\"\n        if isinstance(keys, KEY_TYPES):\n            keys = [keys]\n            weights = np.array(weights).reshape(1, -1)\n        elif isinstance(weights, list):\n            weights = np.array(weights)\n        if extras is None:\n            extras = {}\n\n        # TODO? warn if not matching extras already present?\n        # initially allocate extras, check type compatibility\n        self.allocate_vecattrs(extras.keys(), [extras[k].dtype for k in extras.keys()])\n\n        in_vocab_mask = np.zeros(len(keys), dtype=np.bool)\n        for idx, key in enumerate(keys):\n            if key in self:\n                in_vocab_mask[idx] = True\n\n        # add new entities to the vocab\n        for idx in np.nonzero(~in_vocab_mask)[0]:\n            key = keys[idx]\n            self.key_to_index[key] = len(self.index_to_key)"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0375-aafeihffh",
+  "revision_url": "https://github.com/aleju/imgaug/commit/badc8eefef808e24c9b087ea90a584d5c6c40843",
+  "filename": "imgaug/augmenters/geometric.py",
+  "commit": "badc8eefef808e24c9b087ea90a584d5c6c40843",
+  "source_url": "https://raw.githubusercontent.com/aleju/imgaug/badc8eefef808e24c9b087ea90a584d5c6c40843/imgaug/augmenters/geometric.py",
+  "fetched_at": "2026-11-05T06:12:42.090976+00:00",
+  "source_sha256": "56d5e1685ec5b0f860f4b312d7eb5870a49d7a28b870f35175291824e1a0f911",
+  "line_start": 2499,
+  "line_end": 2523,
+  "excerpt": "        # Special order, mode and cval parameters for heatmaps and\n        # segmentation maps. These may either be None or a fixed value.\n        # Stochastic parameters are currently *not* supported.\n        # If set to None, the same values as for images will be used.\n        # That is really not recommended for the cval parameter.\n        self._order_heatmaps = cv2.INTER_LINEAR\n        self._order_segmentation_maps = cv2.INTER_NEAREST\n        self._mode_heatmaps = cv2.BORDER_CONSTANT\n        self._mode_segmentation_maps = cv2.BORDER_CONSTANT\n        self._cval_heatmaps = 0\n        self._cval_segmentation_maps = 0\n\n    # TODO unify this somehow with the global _handle_mode_arg() that is\n    #      currently used for Affine and PiecewiseAffine\n    @classmethod\n    def _handle_mode_arg(cls, mode):\n        available_modes = [cv2.BORDER_REPLICATE, cv2.BORDER_CONSTANT]\n        available_modes_str = [\"replicate\", \"constant\"]\n        if mode == ia.ALL:\n            return iap.Choice(available_modes)\n        elif ia.is_single_integer(mode):\n            assert mode in available_modes, (\n                \"Expected mode to be in %s, got %d.\" % (\n                    str(available_modes), mode))\n            return iap.Deterministic(mode)"
+}

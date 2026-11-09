@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0644-aaibjebjh",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/0f37104fe99479183dc4b1b0815191e8bb8308e8",
+  "filename": "scikits/learn/svm/base.py",
+  "commit": "0f37104fe99479183dc4b1b0815191e8bb8308e8",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/0f37104fe99479183dc4b1b0815191e8bb8308e8/scikits/learn/svm/base.py",
+  "fetched_at": "2026-11-05T06:13:31.453550+00:00",
+  "source_sha256": "0583ea8146746be3b0674fc65692e72066076d9fbd2f2e5e2e482518ef625eb0",
+  "line_start": 81,
+  "line_end": 105,
+  "excerpt": "        # container for when we call fit\n        self.support_   = np.empty((0,0), dtype=np.float64, order='C')\n        self.dual_coef_ = np.empty((0,0), dtype=np.float64, order='C')\n        self.intercept_ = np.empty(0,     dtype=np.float64, order='C')\n\n        # only used in classification\n        self.n_support_ = np.empty(0, dtype=np.int32, order='C')\n\n\n        if callable(self.kernel):\n            # you must store a reference to X to compute the kernel in predict\n            # there's a way around this, but it involves patching libsvm\n            # TODO: put keyword copy to copy on demand\n            self.__Xfit = X\n        kernel_type, _X = self._get_kernel(X)\n\n        self.weight = np.asarray(class_weight.values(),\n                                 dtype=np.float64, order='C')\n        self.weight_label = np.asarray(class_weight.keys(),\n                                       dtype=np.int32, order='C')\n\n        # check dimensions\n        solver_type = self._svm_types.index(self.impl)\n        if solver_type != 2 and _X.shape[0] != Y.shape[0]:\n            raise ValueError(\"X and y have incompatible shapes.\\n\" +"
+}

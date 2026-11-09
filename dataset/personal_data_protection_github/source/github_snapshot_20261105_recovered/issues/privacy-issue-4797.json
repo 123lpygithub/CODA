@@ -1,0 +1,90 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4797",
+  "issue_url": "https://github.com/matomo-org/matomo/issues/13878",
+  "source_issue_url": "https://github.com/matomo-org/matomo/issues/13878",
+  "api_url": "https://api.github.com/repos/matomo-org/matomo/issues/13878",
+  "title": "“Anonymize past data” is not working",
+  "body": "Version 3.7.0\r\n\r\nWhen we start “Anonymize past data” , we always stay in the \"In progress\" Status (even after days).\r\nWe tried manually from the Matomo backend and also with the command line.\r\n![matomo_anonymization](https://user-images.githubusercontent.com/15106126/50148279-5f712780-02b8-11e9-8dbb-f475960cc265.png)\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-12-18T10:31:09Z",
+  "updated_at": "2020-12-01T19:16:41Z",
+  "state": "closed",
+  "closed_at": "2020-12-01T19:16:36Z",
+  "issue_fetched_at": "2026-10-18T14:10:05.476926+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T14:10:06.824617+00:00"
+  ],
+  "expected_comment_count": 8,
+  "retrieved_comment_count": 8,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 448324433,
+      "url": "https://github.com/matomo-org/matomo/issues/13878#issuecomment-448324433",
+      "created_at": "2018-12-18T18:38:11Z",
+      "updated_at": "2018-12-18T18:38:11Z",
+      "author": "Participant 2",
+      "body": "Do you get any error when you execute it on the command line? Can you paste the output here?\r\n\r\nIf your DB is very large, it could take a VERY long time for such a big date range (depending when you started tracking data and how much data is in there). Maybe check your processlist if the command is maybe still running or so? You might also need to use something like `nohup` to keep the command active after you log out via ssh..."
+    },
+    {
+      "id": 539952090,
+      "url": "https://github.com/matomo-org/matomo/issues/13878#issuecomment-539952090",
+      "created_at": "2019-10-09T11:01:51Z",
+      "updated_at": "2019-10-09T11:01:51Z",
+      "author": "Participant 3",
+      "body": "Any update @cleger80 - do you still have an issue with the feature in Matomo?"
+    },
+    {
+      "id": 546900252,
+      "url": "https://github.com/matomo-org/matomo/issues/13878#issuecomment-546900252",
+      "created_at": "2019-10-28T11:14:10Z",
+      "updated_at": "2019-10-28T11:14:10Z",
+      "author": "Participant 4",
+      "body": "I'm having a similar problem. My task is stuck as \"Scheduled\", and I don't know what I can execute on the command line to make it start now."
+    },
+    {
+      "id": 547092390,
+      "url": "https://github.com/matomo-org/matomo/issues/13878#issuecomment-547092390",
+      "created_at": "2019-10-28T18:47:46Z",
+      "updated_at": "2019-10-28T18:47:46Z",
+      "author": "Participant 2",
+      "body": "you could try to run `./console core:run-scheduled-tasks \"Piwik\\Plugins\\PrivacyManager\\Tasks.anonymizePastData\"`"
+    },
+    {
+      "id": 733398091,
+      "url": "https://github.com/matomo-org/matomo/issues/13878#issuecomment-733398091",
+      "created_at": "2020-11-25T01:07:33Z",
+      "updated_at": "2020-11-25T01:07:33Z",
+      "author": "Participant 2",
+      "body": "@wlabarron @cleger80  do you still experience this issue? Does it work when manually trigging the task as mentioned in my previous comment?"
+    },
+    {
+      "id": 735397162,
+      "url": "https://github.com/matomo-org/matomo/issues/13878#issuecomment-735397162",
+      "created_at": "2020-11-29T13:45:59Z",
+      "updated_at": "2020-11-29T13:45:59Z",
+      "author": "Participant 4",
+      "body": "Whoops, hadn't realised I didn't reply. If I remember right, the above command triggered the process to start and the tasks I had at the time are all marked as done now.\n\nI've just scheduled another task to test this, so I'll check on that in a couple of days and see how it looks."
+    },
+    {
+      "id": 736653697,
+      "url": "https://github.com/matomo-org/matomo/issues/13878#issuecomment-736653697",
+      "created_at": "2020-12-01T16:12:37Z",
+      "updated_at": "2020-12-01T16:12:37Z",
+      "author": "Participant 4",
+      "body": "@tsteur Looks like the task I created a couple of days ago ran by itself, without needing the command above run manually."
+    },
+    {
+      "id": 736761988,
+      "url": "https://github.com/matomo-org/matomo/issues/13878#issuecomment-736761988",
+      "created_at": "2020-12-01T19:16:35Z",
+      "updated_at": "2020-12-01T19:16:35Z",
+      "author": "Participant 2",
+      "body": "Great, thanks for testing and confirming @wlabarron very appreciated"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

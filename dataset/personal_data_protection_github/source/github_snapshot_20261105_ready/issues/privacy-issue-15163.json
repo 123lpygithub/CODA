@@ -1,0 +1,130 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-15163",
+  "issue_url": "https://github.com/immersive-web/webxr/issues/308",
+  "source_issue_url": "https://github.com/immersive-web/webxr/issues/308",
+  "api_url": "https://api.github.com/repos/immersive-web/webxr/issues/308",
+  "title": "Should the Feature Policy feature name be changed from \"vr\"?",
+  "body": "In https://github.com/WICG/feature-policy/issues/49, `\"vr\"` was added to control \"access to VR displays.\" This string, rather than \"webvr\" was intentionally chosen to be extensible to other APIs. #86 tracks adding relevant text to this spec.\r\n\r\nNow that the spec has been renamed and is intended to cover more user cases, we should decide whether to also change the feature name, and, if so, to what.\r\n\r\nOn one hand, it makes sense to more closely match the spec and apply to all devices accessed by this spec/`navigator.xr.requestDevice()`. On the other hand, there may someday be legitimate reasons to provide access to VR but not AR (or vice versa), and, as with the original name, the scope need not be limited to the specific API. Perhaps the strongest argument for a single name is the position some have stated that AR and VR are points on an XR/MR continuum. In other words, there may be scenarios and devices in between for which the correct value may not be obvious.\r\n\r\nWe should make a decision soon then file a new issue in Feature Policy similar to the one above and update #86 with the correct string.\r\n\r\n/cc @raymeskhoury @clelland",
+  "author": "Participant 1",
+  "created_at": "2017-12-14T03:58:56Z",
+  "updated_at": "2019-09-06T16:35:33Z",
+  "state": "closed",
+  "closed_at": "2019-07-02T00:50:41Z",
+  "issue_fetched_at": "2026-11-05T05:55:47.616522+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T05:55:48.952435+00:00"
+  ],
+  "expected_comment_count": 13,
+  "retrieved_comment_count": 13,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 351604355,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-351604355",
+      "created_at": "2017-12-14T04:18:43Z",
+      "updated_at": "2017-12-14T04:18:43Z",
+      "author": "Participant 2",
+      "body": "@ddorwin \r\n> there may someday be legitimate reasons to provide access to VR but not AR\r\n\r\nThat is tough subject. In privacy perspective AR should never supersede VR. While API can be same, but getting users AR permissions should be separated. "
+    },
+    {
+      "id": 351634160,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-351634160",
+      "created_at": "2017-12-14T07:50:58Z",
+      "updated_at": "2017-12-14T07:50:58Z",
+      "author": "Participant 3",
+      "body": "We had a similar discussion for the Generic Sensor API in terms of its [Feature Policy integration](https://w3c.github.io/sensors/#feature-policy-api) and settled on reusing the low-level [permissions registry](https://w3c.github.io/permissions/#permission-registry) strings `accelerometer`, `gyroscope`, `magnetometer` etc. that directly map to the concrete sensors. The same strings are used in Feature Policy e.g. `<iframe allow=\"accelerometer\">` and Permissions API e.g. `navigator.permissions.query({ name: \"accelerometer\" })`.\r\n\r\nIf you were to follow this pattern, you'd want to make a similar distinction between VR and AR.\r\n\r\nThe decision to use low-level rather than high-level catch-all strings (such as `motion-sensors` cf. `xr`) was motivated by security and privacy benefits that come with the principle of least privilege and [data minimization](https://www.w3.org/2001/tag/doc/APIMinimization.html). To mitigate possible user confusion (users might not understand the low-level concepts) implementations are able to coalesce the low-level concepts into appropriate higher level concepts familiar to the user if there's a need to surface UI, for example for user-facing permissions prompts."
+    },
+    {
+      "id": 351652545,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-351652545",
+      "created_at": "2017-12-14T09:15:42Z",
+      "updated_at": "2017-12-14T09:15:50Z",
+      "author": "Participant 4",
+      "body": "I kind of like `navigator.permissions.query({name: 'xr', compatibleXRDevice: xrDevice})` or `navigator.permissions.query({name: 'xr', exclusive: true, compatibleXRDevice: xrDevice})` à la [`navigator.permissions.query({name: 'midi', sysex: true}`](https://w3c.github.io/permissions/#midi) or [`navigator.permissions.query({name: 'bluetooth', deviceId: '2'}`](https://w3c.github.io/permissions/#example-descriptors).\r\n\r\nNow that a device's [`displayName` was recently removed](https://github.com/immersive-web/webxr/pull/289/files#diff-817a23c792520ce222813d3eff70d031L637) in PR #256 (for mitigating fingerprinting, related to issue #217), we now purposely don't have a way to filter on device name/ID.\r\n\r\nI will hope that developers will always call `navigator.permissions.query(…)` before calling `navigator.xr.requestDevice(…)`, but perhaps it could be better like so:\r\n\r\n1. request an XR device (but you can't present to it yet)\r\n2. developer calls the Permissions API to get the UA's permission state for the `\"xr\"` `PermissionName`; developer would know that that particular XR device can be further interacted with (e.g., [request to \"present a session\"](https://github.com/immersive-web/webxr/blob/master/explainer.md#beginning-an-xr-session) / manage XR mode)\r\n3. proceed with using that XR device (e.g., to request to [\"present a session\"]((https://github.com/immersive-web/webxr/blob/master/explainer.md#beginning-an-xr-session)))\r\n\r\nSample code:\r\n\r\n```js\r\nnavigator.xr.requestDevice().then(device => {\r\n  return navigator.permissions.query({name: 'xr', device: device}).then(({state}) => {\r\n    if (state !== 'granted') {\r\n      throw new Error('Permission could not be granted for XR device');\r\n    }\r\n    return xrDevice.requestSession({exclusive: true});\r\n});\r\n```\r\n\r\nThoughts?"
+    },
+    {
+      "id": 356786362,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-356786362",
+      "created_at": "2018-01-11T00:40:59Z",
+      "updated_at": "2018-01-11T00:40:59Z",
+      "author": "Participant 4",
+      "body": "@clelland added `vr` to the Feature Policy in this PR, WICG/feature-policy#86 [here](https://github.com/WICG/feature-policy/pull/86/files#diff-e1ec7fcfd5aa4d3ea3e990d9b707a3b4R20).\r\n\r\nNow that the WebXR interfaces (and terminology) have changed, ought we amend the Feature Policy again to replace [`vr`](https://github.com/WICG/feature-policy/blob/gh-pages/features.md#vr) to `xr`?\r\n\r\ncc @toji @NellWaliczek: thoughts on timing? Are we comfortable making changes to Feature Policy, Permissions API for the `xr` verbiage now?"
+    },
+    {
+      "id": 457731385,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-457731385",
+      "created_at": "2019-01-25T21:16:02Z",
+      "updated_at": "2019-01-25T21:16:02Z",
+      "author": "Participant 1",
+      "body": "It is still an open question what policy-controlled feature(s) WebXR should use/support. This will likely depend on the privacy and security work (/cc @johnpallett). For example, sites may wish enable inline or immersive VR but not AR/real world understanding.\r\n\r\nFollowing the approach for Generic Sensors from https://github.com/immersive-web/webxr/issues/308#issuecomment-351634160 makes sense. That will require addressing the idea of permissions (in principle, not necessarily actual browser permissions or prompts). The solution to this would then fall out of that work."
+    },
+    {
+      "id": 461227204,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-461227204",
+      "created_at": "2019-02-06T23:17:53Z",
+      "updated_at": "2019-02-06T23:17:53Z",
+      "author": "Participant 1",
+      "body": "Another thing to consider is that there may someday be other AR and/or VR APIs or even features of WebXR that have different properties. For example, an AR API that allows something to be rendered in the real world but without exposing the same level of real world understanding (RWU) to the application. It probably wouldn't make sense for, for example, an iframe host to have to permit RWU in order to enable the other API.\r\n\r\nThus, it may make sense to break this down into capabilities rather than modes. For example, a policy related to RWU that separate from the policy for compositing with the real world."
+    },
+    {
+      "id": 501444902,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-501444902",
+      "created_at": "2019-06-12T20:34:15Z",
+      "updated_at": "2019-06-12T20:34:15Z",
+      "author": "Participant 1",
+      "body": "I think this is mostly blocked on work related to how features can be requested and their granularity (#424) and privacy (#638). There's probably some initial thinking that can be done, such as whether `\"inline\"` and `\"immersive-vr\"` should be separately controllable and whether (immersive) VR should be controlled by `\"xr\"` or should have its own value."
+    },
+    {
+      "id": 504610297,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-504610297",
+      "created_at": "2019-06-22T00:27:17Z",
+      "updated_at": "2019-06-22T00:27:17Z",
+      "author": "Participant 5",
+      "body": "After reading up on [feature policy](https://w3c.github.io/webappsec-feature-policy/) and reading through all the comments it feels like there isn’t really a perfect solution we can implement right now but I think there is a decent path forward. \r\n\r\n**tl;dr;** I think we should leave the policy name as ‘xr’ as it is in the [spec](https://immersive-web.github.io/webxr/#feature-policy) currently and add additional policy controls later as we better define and implement new features such as AR world sensing.\r\n\r\nWhile there is a concern ‘xr’ would convey too broad of an allowance since it feels like it means you get both VR & AR its also just as valid to interpret it as unless the site is allowed to access to the policy controlled feature ‘xr’ you will get none of what is available with the WebXR Device API. In fact the way the [spec](https://immersive-web.github.io/webxr/#feature-policy) defines how the UA should respond is as follows:\r\n\r\n> This specification defines a policy-controlled feature that controls whether the xr attribute is exposed on the Navigator object.\r\n\r\nWhich is pretty all or nothing and probably appropriate since it is clear what it is doing, and we don’t have to rely on specific logic in requestSession, supportSession or any new things which get added.\r\n\r\nAs we develop new AR features that expose new challenges we can add more policies for those as appropriate, and align with the principle of least privilege as indicated in this [comment](https://github.com/immersive-web/webxr/issues/308#issuecomment-351634160). We could retain the global ‘xr’ switch and also add, say _world-geometry-sensing_. In order to use the latter you would need both and we’d define how the UA would react appropriately when we define those features in the API.\r\n\r\nWhile it does not seem like any of the existing policy controlled [features](https://github.com/w3c/webappsec-feature-policy/blob/master/features.md) have this kind of global and sub level set of policies, I think it makes sense for WebXR since there will be a complex and growing list of capabilities over time and a single “Off” switch has value for people who may not understand all of those details."
+    },
+    {
+      "id": 505086516,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-505086516",
+      "created_at": "2019-06-24T16:37:31Z",
+      "updated_at": "2019-06-24T16:37:31Z",
+      "author": "Participant 6",
+      "body": "Thank you, Brice, for taking the time to evaluate this and offer a well considered recommendation! I'm in favor of the approach described. To clarify: I read the above comment as not requiring any change to the current spec text. Is that your intent, @bricetebbs? \r\n\r\nI would appreciate @NellWaliczek's thoughts as well before closing this as \"Working as Intended\". "
+    },
+    {
+      "id": 505125572,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-505125572",
+      "created_at": "2019-06-24T18:27:23Z",
+      "updated_at": "2019-06-24T18:27:23Z",
+      "author": "Participant 5",
+      "body": "Yes. That is my intent. "
+    },
+    {
+      "id": 505134155,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-505134155",
+      "created_at": "2019-06-24T18:51:30Z",
+      "updated_at": "2019-06-24T18:51:30Z",
+      "author": "Participant 7",
+      "body": "The general approach of using 'xr' makes sense to me, but I'd like to dig a bit into what it might look like to have the \"sub-policies\" you described.  @avadacatavra do you have thoughts on this or know anyone who might have familiarity with Feature Policy API who might have an opinion on this one?"
+    },
+    {
+      "id": 507413794,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-507413794",
+      "created_at": "2019-07-01T20:29:46Z",
+      "updated_at": "2019-07-01T20:29:46Z",
+      "author": "Participant 6",
+      "body": "In order to cover Nell's concerns lets walk through a couple of plausible future scenarios and make sure we like how they would play out. I'm going to use theoretical `xr-eye-tracking` and `xr-camera-access` features as a means of discussion (they're not actually proposed features.)\r\n\r\nFirst off, for any feature that does get added I think we would always want to do an evaluation as to whether or not it should fall under the core `xr` feature policy. For something as sensitive as eye tracking it doesn't feel appropriate to grandfather in any existing feature policy decisions, and as such a new feature policy is likely. For something less sensitive or that falls closely within the data categories already exposed by the core WebXR API (for example: if we begin reporting velocity on `XRPose`s) I would imagine that placing it under the `xr` feature policy retroactively would be fine. This is something we'll want to look at on a case-by-case basis.\r\n\r\nBeyond that, the route that Brice advocates would have us adding new \"sub-feature\" policies to cover new categories of data that for whatever reason aren't adequately covered by the core `xr` policy. The most straightforward way to approach this would be to say that you must include the `xr` policy AND any policies for additional features you wish to use:\r\n\r\n`<iframe allow=\"xr xr-eye-tracking\">`\r\n\r\nThis actually isn't too far off from what existing features like the generic sensor feature policies do (which has a separate policy for every sensor type.) The one wrinkle here is that the features covered by `xr` are presumably required in order to reach the API surface for the features covered by `xr-eye-tracking`. This naturally makes them feel as though there's a parent/child relationship between them, which isn't something we've seen with feature policies to date.\r\n\r\n(It's worth noting that this is due to the API structure more than anything else. The generic sensor API doesn't require creation of an intermediate object to access the individual sensors, while WebXR does with the `XRSession`.)\r\n\r\nIf there is a concern about that, then it's feasible that we could also approach it in reverse by dictating that any specific feature in the `xr-*` policy set implies access to the core `xr` policy as well. This yields a policy set that looks a lot more like the current sensor API's policies.\r\n\r\n`<iframe allow=\"xr-eye-tracking xr-camera-access\">`\r\n\r\nThe base `xr` policy is still useful in this case if a site only wants to access the core API without any advanced features.\r\n\r\nThe only other logical approach I could see here would be designating that `xr` is the superset of all other `xr-*` policies, and as such granting it allowed access to every XR feature we ever created or will create. This seems... _highly problematic_, and I can't see us willingly going in that direction. For the sake of argument, though, we'd then want to create a new `xr-core` policy to enable developers to explicitly enable only the core features. But... let's not?\r\n\r\nRealistically, any other options beyond that are, I think, simply bikeshedding about the name, and in that regard `xr` seems like the most conservative option that we have while still allowing the freedom to choose which policy route we want to go in the future."
+    },
+    {
+      "id": 507475829,
+      "url": "https://github.com/immersive-web/webxr/issues/308#issuecomment-507475829",
+      "created_at": "2019-07-02T00:50:41Z",
+      "updated_at": "2019-07-02T00:50:41Z",
+      "author": "Participant 7",
+      "body": "Based on this, and reviewing the other feature policy related issues, I'm comfortable with this approach.  Thanks for all the thorough investigations, @bricetebbs!\r\n\r\nClosing this issue since no spec text changes are necessary based on this conclusion."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

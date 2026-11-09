@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0785-aaeiaeifb",
+  "revision_url": "https://github.com/cltk/cltk/commit/31584e4c12153612511fb4c984c7db50df751dd7",
+  "filename": "src/cltkv1/wrappers/stanford.py",
+  "commit": "31584e4c12153612511fb4c984c7db50df751dd7",
+  "source_url": "https://raw.githubusercontent.com/cltk/cltk/31584e4c12153612511fb4c984c7db50df751dd7/src/cltkv1/wrappers/stanford.py",
+  "fetched_at": "2026-11-05T06:13:51.749100+00:00",
+  "source_sha256": "749170e3dcab2ed15b53f752aa227c90a5d9e1411a1cc06d556889cbb41f681e",
+  "line_start": 77,
+  "line_end": 101,
+  "excerpt": "        }\n\n        self.wrapper_available = self.is_wrapper_available()  # type: bool\n        if not self.wrapper_available:\n            raise UnknownLanguageError(\n                \"Language '{}' either not in scope for CLTK or not supported by StanfordNLP.\".format(\n                    self.language\n                )\n            )\n        self.stanford_code = self._get_stanford_code()\n\n        # Setup optional treebank if specified\n        # TODO: Write tests for all treebanks\n        self.map_code_treebanks = dict(\n            grc=[\"grc_proiel\", \"grc_perseus\"], la=[\"la_perseus\", \"la_proiel\", \"la_ittb\"]\n        )\n        # if not specified, will use the default treebank chosen by stanfordnlp\n        if self.treebank:\n            valid_treebank = self._is_valid_treebank()\n            if not valid_treebank:\n                raise UnimplementedLanguageError(\n                    \"Invalid treebank '{0}' for language '{1}'.\".format(\n                        self.treebank, self.language\n                    )\n                )"
+}

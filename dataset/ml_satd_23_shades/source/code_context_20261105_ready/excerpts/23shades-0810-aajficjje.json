@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0810-aajficjje",
+  "revision_url": "https://github.com/probcomp/bayeslite/commit/3d135bd35799a05c0e9ae68b229be934d2bce171",
+  "filename": "src/metamodels/cgpm_metamodel.py",
+  "commit": "3d135bd35799a05c0e9ae68b229be934d2bce171",
+  "source_url": "https://raw.githubusercontent.com/probcomp/bayeslite/3d135bd35799a05c0e9ae68b229be934d2bce171/src/metamodels/cgpm_metamodel.py",
+  "fetched_at": "2026-11-05T06:13:55.691122+00:00",
+  "source_sha256": "8f9f543887729d9af501c5713bbce05712612193c5ff7b457313daa89060de57",
+  "line_start": 673,
+  "line_end": 697,
+  "excerpt": "    needed = set()\n    existing_latent = set()\n    must_exist = []\n    unknown_stattype = {}\n\n    # XXX Convert all EXPOSED clauses to latent clauses.\n    target_clauses = [c.exposed for c in schema_ast\n        if isinstance(c, cgpm_schema.parse.Foreign) and len(c.exposed) > 0]\n    new_latents = list(itertools.chain.from_iterable(target_clauses))\n    new_clauses = [cgpm_schema.parse.Latent(v,s) for (v,s) in new_latents]\n    schema_ast.extend(new_clauses)\n\n    # XXX Convert the baseline to a Foreign clause.\n    baseline = kwargs.get('baseline', None)\n    if baseline is not None and casefold(baseline.name) != 'crosscat':\n        # Retrieve all variable names in the population\n        outputs = core.bayesdb_variable_names(bdb, population_id, None)\n        # Convert string arguments to integers.\n        ps, vs = zip(*baseline.params)\n        vs_new = [int(v) for v in vs if v.isdigit()]\n        params = zip(ps, vs_new)\n        # Create the clause.\n        clause = cgpm_schema.parse.Foreign(\n            outputs, [], [], baseline.name, params)\n        # And add append it to the schema_ast."
+}

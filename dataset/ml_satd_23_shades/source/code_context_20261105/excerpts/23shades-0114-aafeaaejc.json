@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0114-aafeaaejc",
+  "revision_url": "https://github.com/thomasahle/sunfish/commit/3919ceabf88e847439f35c5482113270f9518e16",
+  "filename": "sunfish.py",
+  "commit": "3919ceabf88e847439f35c5482113270f9518e16",
+  "source_url": "https://raw.githubusercontent.com/thomasahle/sunfish/3919ceabf88e847439f35c5482113270f9518e16/sunfish.py",
+  "fetched_at": "2026-11-05T06:11:56.239010+00:00",
+  "source_sha256": "a194af75251b8cb5210b41b3f28c76422501e7528cb96783886756d9e4b587f5",
+  "line_start": 285,
+  "line_end": 309,
+  "excerpt": "    if depth <= 0 and best < nullscore:\n        if root: print('Root fail low. How is depth <= 0?')\n        return nullscore\n    # Check for stalemate. If best move loses king, but not doing anything\n    # would save us. Not at all a perfect check.\n    if depth > 0 and best <= -MATE_VALUE and nullscore > -MATE_VALUE:\n        best = 0\n\n    # We save the found move together with the score, so we can retrieve it in\n    # the play loop. We also trim the transposition table in FILO order.\n    # We prefer fail-high moves, as they are the ones we can build our pv from.\n    # bmove doesn't really mean anything when fail-low?\n    # FIXME: What if we never find a fail-high?\n    entry = tp.get(pos) # We may have been removed at this point\n    if entry is None or depth >= entry.depth and best >= gamma:\n        if len(tp) == TABLE_SIZE:\n            tp.popitem(last=True)\n        assert bmove is not None\n        tp[pos] = Entry(depth, best, gamma, bmove)\n    return best\n\n\ndef search(pos, maxn=NODES_SEARCHED):\n    \"\"\" Iterative deepening MTD-bi search \"\"\"\n    global nodes; nodes = 0"
+}

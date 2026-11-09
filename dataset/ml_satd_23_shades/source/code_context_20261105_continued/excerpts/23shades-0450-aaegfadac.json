@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0450-aaegfadac",
+  "revision_url": "https://github.com/explosion/thinc/commit/53b95dd8ca0cdc9cb26b68cbf31a67ec0a69f578",
+  "filename": "thinc/neural/_classes/affine.py",
+  "commit": "53b95dd8ca0cdc9cb26b68cbf31a67ec0a69f578",
+  "source_url": "https://raw.githubusercontent.com/explosion/thinc/53b95dd8ca0cdc9cb26b68cbf31a67ec0a69f578/thinc/neural/_classes/affine.py",
+  "fetched_at": "2026-11-05T06:12:57.627528+00:00",
+  "source_sha256": "89b9f558d2cbe6f67878e07ad9be94d61edbe07d0b2ea0694ef5bad0ec0a2c74",
+  "line_start": 5,
+  "line_end": 29,
+  "excerpt": "from ... import check\nfrom ...check import has_shape\nfrom .._lsuv import LSUVinit\n\n\ndef _set_dimensions_if_needed(model, X, y=None):\n    if model.nI is None:\n        model.nI = X.shape[1]\n    if model.nO is None and y is not None:\n        model.nO = int(y.max()) + 1\n\n\n# TODO: Add toggle for the LSUV init. It seems not always better!\n@describe.on_data(_set_dimensions_if_needed, LSUVinit)\n@describe.attributes(\n    nB=Dimension(\"Batch size\"),\n    nI=Dimension(\"Input size\"),\n    nO=Dimension(\"Output size\"),\n    W=Synapses(\"Weights matrix\",\n        lambda obj: (obj.nO, obj.nI),\n        lambda W, ops: ops.xavier_uniform_init(W)),\n    b=Biases(\"Bias vector\",\n        lambda obj: (obj.nO,)),\n    d_W=Gradient(\"W\"),\n    d_b=Gradient(\"b\")"
+}

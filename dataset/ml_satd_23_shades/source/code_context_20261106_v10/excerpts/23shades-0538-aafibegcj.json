@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0538-aafibegcj",
+  "revision_url": "https://github.com/ComputationalCryoEM/ASPIRE-Python/commit/f85cdd3bd1522c5334c17bdc52bad4847e7e9996",
+  "filename": "src/aspire/image/image.py",
+  "commit": "f85cdd3bd1522c5334c17bdc52bad4847e7e9996",
+  "source_url": "https://raw.githubusercontent.com/ComputationalCryoEM/ASPIRE-Python/f85cdd3bd1522c5334c17bdc52bad4847e7e9996/src/aspire/image/image.py",
+  "fetched_at": "2026-11-05T06:12:03.437978+00:00",
+  "source_sha256": "90d054e0e3f33187547d90df12dc9380d9b14268eed89e8a996de559401ab46f",
+  "line_start": 43,
+  "line_end": 67,
+  "excerpt": "    if shifts.shape[1] != 2:\n        raise ValueError(\"Input `shifts` must be of size n-by-2\")\n\n    if n_shifts != 1 and n_shifts != im.n_images:\n        raise ValueError(\"The number of shifts must be 1 or match the number of images\")\n\n    resolution = im.res\n    grid = np.fft.ifftshift(np.ceil(np.arange(-resolution / 2, resolution / 2)))\n    om_y, om_x = np.meshgrid(grid, grid)\n    phase_shifts = np.einsum(\"ij, k -> ijk\", om_x, shifts[:, 0]) + np.einsum(\n        \"ij, k -> ijk\", om_y, shifts[:, 1]\n    )\n    # TODO: figure out how why the result of einsum requires reshape\n    phase_shifts = phase_shifts.reshape(n_shifts, resolution, resolution)\n    phase_shifts /= resolution\n\n    mult_f = np.exp(-2 * np.pi * 1j * phase_shifts)\n    im_f = np.fft.fft2(im.asnumpy())\n    im_translated_f = im_f * mult_f\n    im_translated = np.real(np.fft.ifft2(im_translated_f))\n\n    return Image(im_translated)\n\n\ndef normalize_bg(imgs, bg_radius=1.0, do_ramp=True):"
+}

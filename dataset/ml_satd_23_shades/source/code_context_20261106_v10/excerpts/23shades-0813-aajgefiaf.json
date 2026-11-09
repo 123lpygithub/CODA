@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0813-aajgefiaf",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/24ca938c616b3ef5b4f57a9ffbcf9f35a9dfdf56",
+  "filename": "mne/io/ctf/trans.py",
+  "commit": "24ca938c616b3ef5b4f57a9ffbcf9f35a9dfdf56",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/24ca938c616b3ef5b4f57a9ffbcf9f35a9dfdf56/mne/io/ctf/trans.py",
+  "fetched_at": "2026-11-05T06:13:56.081970+00:00",
+  "source_sha256": "574a445ac732781459d2db6c379cd5d637f4b57b634763fab2b06389669dab0a",
+  "line_start": 6,
+  "line_end": 30,
+  "excerpt": "\nimport numpy as np\nfrom scipy import linalg\n\nfrom ...transforms import combine_transforms, invert_transform\nfrom ...utils import logger\nfrom ..constants import FIFF\nfrom .constants import CTF\n\n\ndef _make_transform_card(fro, to, r_lpa, r_nasion, r_rpa):\n    \"\"\"Make a transform from cardinal landmarks.\"\"\"\n    # XXX de-duplicate this with code from Montage somewhere?\n    diff_1 = r_nasion - r_lpa\n    ex = r_rpa - r_lpa\n    alpha = np.dot(diff_1, ex) / np.dot(ex, ex)\n    ex /= np.sqrt(np.sum(ex * ex))\n    trans = np.eye(4)\n    move = (1. - alpha) * r_lpa + alpha * r_rpa\n    trans[:3, 3] = move\n    trans[:3, 0] = ex\n    ey = r_nasion - move\n    ey /= np.sqrt(np.sum(ey * ey))\n    trans[:3, 1] = ey\n    trans[:3, 2] = np.cross(ex, ey)  # ez"
+}

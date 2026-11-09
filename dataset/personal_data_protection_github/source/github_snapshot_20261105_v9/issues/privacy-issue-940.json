@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-940",
+  "issue_url": "https://github.com/elastic/beats/issues/22770",
+  "source_issue_url": "https://github.com/elastic/beats/issues/22770",
+  "api_url": "https://api.github.com/repos/elastic/beats/issues/22770",
+  "title": "Need: UUID for the fingerpringt processor",
+  "body": "**Describe the enhancement:**\r\nIntroduction of the UUID method for the fingerprint processor\r\n\r\n**Describe a specific use case for the enhancement or feature:**\r\nI'm trying to demonstrate gdpr pseudonymization compliance using the filebeat as described in this article using Logstash: https://www.elastic.co/de/blog/gdpr-personal-data-pseudonymization-part-1\r\nTo make the pseudoids bulletproof, I need the UUID method, unfortunately the fingerprint method has no UUID method at the moment.\r\n*UseCaes*\r\nData comes in. I would like to pseudonymize a certain field. Filebeat checks if the data has this field, if so create a new document in the Index Identities, create a mapping and replace the personal data with a pseudoId created by UUID in the Index Events.",
+  "author": "Participant 1",
+  "created_at": "2020-11-26T08:49:10Z",
+  "updated_at": "2022-03-31T08:26:54Z",
+  "state": "closed",
+  "closed_at": "2022-03-31T08:26:53Z",
+  "issue_fetched_at": "2026-10-18T15:10:07.265674+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T15:10:08.575101+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 734418811,
+      "url": "https://github.com/elastic/beats/issues/22770#issuecomment-734418811",
+      "created_at": "2020-11-26T17:34:07Z",
+      "updated_at": "2020-11-26T17:34:07Z",
+      "author": "Participant 2",
+      "body": "Pinging @elastic/integrations-services (Team:Services)"
+    },
+    {
+      "id": 738281786,
+      "url": "https://github.com/elastic/beats/issues/22770#issuecomment-738281786",
+      "created_at": "2020-12-03T20:15:06Z",
+      "updated_at": "2020-12-03T20:15:06Z",
+      "author": "Participant 3",
+      "body": "From logstash documentation about the UUID method: \r\n\r\n> When the target option is set to UUID the result won’t be a consistent hash but a random UUID. To generate UUIDs, prefer the uuid filter.\r\n\r\nUsing the fingerprint processor in Beats you can only hash. This gives you a value that depends on your event contents. Basically a stable hash. The UUID method generates a random value only (no hashing of fields is required). This is why one should better use the UUID filter.\r\n\r\nIn Beats there is a [add_id](https://www.elastic.co/guide/en/beats/filebeat/current/add-id.html) processor. Currently it only supports the elasticsearch method, which is constructed based on the timestamp and some kind of counter, which speeds up indexing a little.\r\n\r\nSkimming the article the Logstash fingerprint processor is used for consistent hashing (which the UUID method is not). The Logstash filter pipeline in the article first computes a consistent hash from the fields and finally uses the ruby filter to split the event into two events. The identity event has the form `{\"_id\": <consistent hash>, \"<key>\": <consistent hash>, \"value\": <value>}`. The way the pipeline is setup, there doesn't seem to be a lookup feedback cycle, meaning the consistent hash is a must. The strategy depends on Elasticsearch removing duplicate fields for already known hashes.\r\n\r\nIn order to replace the consistent hash with an UUID one might want to write the complete filter in ruby, as the filter would need to maintain a table of `concrete value => random ID`, in order to ensure that common values will match a single document in the identity index. What is nice about this approach is, that without the identity index one can not \"attack\" the hash trying to reconstruct the original entry from dictionaries. Drawback is that the table maybe needs to be \"cleaned\" from time to time and IDs might change between restarts unless you find a way to load your lookup table on start.\r\n\r\nWithout the table managed within the ruby filter, each event will produce an entry in the identity index otherwise. The advantage of having a common ID for matching values like \"user\" is, that it is still possible to correlate related events or product meaningful metrics via aggregations, without having the original values. Producing full randomized values per entry makes it impossible to correlate events for related (anonymized) entries without additional processing.\r\n\r\nCurrently processors in filebeats can not produce new events. There are technical limitations that currently make this impossible. AFAIK ingest node can't be used to split the event into two events as well. In this regard Logstash is most flexible right now."
+    },
+    {
+      "id": 1084259146,
+      "url": "https://github.com/elastic/beats/issues/22770#issuecomment-1084259146",
+      "created_at": "2022-03-31T08:26:53Z",
+      "updated_at": "2022-03-31T08:26:53Z",
+      "author": "Participant 4",
+      "body": "Backlog grooming: Closing for now."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

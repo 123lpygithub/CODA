@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0497-aaeidiecf",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/6c8774034f96812edd6bd70877ca6dae09e94a6e",
+  "filename": "hpat/hiframes_join.py",
+  "commit": "6c8774034f96812edd6bd70877ca6dae09e94a6e",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/6c8774034f96812edd6bd70877ca6dae09e94a6e/hpat/hiframes_join.py",
+  "fetched_at": "2026-11-05T06:13:03.467656+00:00",
+  "source_sha256": "6d2e558d44dda4c19ab4f357a2f98b0a398f4eb9f83c688f1925930fe2008f11",
+  "line_start": 114,
+  "line_end": 138,
+  "excerpt": "    # TODO: rebalance if output distributions are 1D instead of 1D_Var\n    loc = join_node.loc\n\n    out = []\n    # TODO: implement\n\n    return out\n\ndistributed.distributed_run_extensions[Join] = join_distributed_run\n\n\ndef join_typeinfer(join_node, typeinferer):\n    # TODO: consider keys with same name, cols with suffix\n    for col_name, col_var in (list(join_node.left_vars.items())\n                        +list(join_node.right_vars.items())):\n        out_col_var = join_node.df_out_vars[col_name]\n        typeinferer.constraints.append(typeinfer.Propagate(dst=out_col_var.name,\n                                              src=col_var.name, loc=join_node.loc))\n    return\n\ntypeinfer.typeinfer_extensions[Join] = join_typeinfer\n\n\ndef visit_vars_join(join_node, callback, cbdata):\n    if config.DEBUG_ARRAY_OPT == 1:  # pragma: no cover",
+  "match_policy": "unique-release-normalized-v2"
+}

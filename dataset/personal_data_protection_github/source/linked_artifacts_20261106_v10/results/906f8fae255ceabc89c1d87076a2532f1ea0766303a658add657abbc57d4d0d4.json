@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/ampproject/amphtml/blob/master/extensions/amp-ad-network-doubleclick-impl/0.1/amp-ad-network-doubleclick-impl.js#L716",
+  "kind": "file",
+  "cited_in": [
+    "comment_386342428"
+  ],
+  "revision": "master",
+  "immutable_revision": false,
+  "line_start": 704,
+  "line_end": 728,
+  "text": "    const {fwSignal, parentWidth, slotWidth} = this.flexibleAdSlotData_;\n    // If slotWidth is -1, that means its width must be determined by its\n    // parent container, and so should have the same value as parentWidth.\n\n    // For amp-sticky-ad, it returns 0, so we follow them for amp-ad sticky ads here.\n    if (this.uiHandler.isStickyAd()) {\n      msz = '0x-1';\n      psz = '0x-1';\n    } else {\n      msz = `${slotWidth == -1 ? parentWidth : slotWidth}x-1`;\n      psz = `${parentWidth}x-1`;\n    }\n    fws = fwSignal ? fwSignal : '0';\n    return {\n      'iu': this.element.getAttribute('data-slot'),\n      'co':\n        this.jsonTargeting && this.jsonTargeting['cookieOptOut'] ? '1' : null,\n      'adk': this.adKey,\n      'sz': this.isSinglePageStoryAd ? '1x1' : this.parameterSize,\n      'output': 'html',\n      'impl': 'ifr',\n      'adtest': isInManualExperiment(this.element) ? 'on' : null,\n      'ifi': this.ifi_,\n      'rc': this.refreshCount_ || null,\n      'fluid': this.isFluidRequest_ ? 'height' : null,",
+  "source_sha256": "f2ce846209cf8b7be3403654df8e9295bd88ec76721ed527b143d8d4dfd7ed96",
+  "fetched_at": "2026-11-05T06:21:52.668084+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/ampproject/amphtml/master/extensions/amp-ad-network-doubleclick-impl/0.1/amp-ad-network-doubleclick-impl.js",
+  "status": "available"
+}

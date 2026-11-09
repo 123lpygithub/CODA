@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3856",
+  "issue_url": "https://github.com/SolutionGuidance/psm/issues/21",
+  "source_issue_url": "https://github.com/SolutionGuidance/psm/issues/21",
+  "api_url": "https://api.github.com/repos/SolutionGuidance/psm/issues/21",
+  "title": "Confirm which data handling standards we need to comply with",
+  "body": "If we are going to get set up as a data wrangler of various data sources, I want to be able to check that we are following any MITA or CMS standards that are appropriate for handling provider info. I presume that *provider* info could not possibly constitute sensitive PII but I would like to double-check this!\r\n\r\nI started looking at [the MITA framework](https://www.medicaid.gov/medicaid/data-and-systems/mita/mita-30/index.html) but think it does not address this question.\r\n\r\nI am beginning to think that the relevant standards might well be [\"Minimum Acceptable Risk Standards for Exchanges (MARS-E) 2.0 Framework\"](https://www.cms.gov/CCIIO/Resources/Regulations-and-Guidance/Downloads/2-MARS-E-v2-0-Minimum-Acceptable-Risk-Standards-for-Exchanges-11102015.pdf) -- discussed privately [on CALT]( https://calt.cms.gov/sf/projects/cms_aca_program_security_privacy/) and publicly listed in [cms.gov's Regulations and Guidance](https://www.cms.gov/cciio/resources/regulations-and-guidance/#MinimumAcceptableRiskStandards), explained in [this summary from CMS (pdf)](https://www.medicaid.gov/federal-policy-guidance/downloads/cib-09-23-2015.pdf) and described in [this surprisingly cogent Microsoft compliance page](https://www.microsoft.com/en-us/TrustCenter/Compliance/Mars-E). But I haven't gone deeply enough into it to understand whether it applies just to patients or includes any discussion of providers as well.\r\n\r\nAnd I stumbled across a [NIST standard, \"Guide to Protecting the Confidentiality of Personally Identifiable Information (PII)\" (pdf)](http://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf) -- but this only applies if any of the data we deal with counts as PII.\r\n\r\nThe resolution of this issue may depend on which federal data services we integrate with, in which case we can close it as a duplicate of #17.\r\n\r\nRelates to #10.",
+  "author": "Participant 1",
+  "created_at": "2017-05-05T20:38:38Z",
+  "updated_at": "2018-07-16T17:59:05Z",
+  "state": "closed",
+  "closed_at": "2017-05-17T23:19:01Z",
+  "issue_fetched_at": "2026-10-18T13:11:06.264759+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T13:11:07.585753+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 299617016,
+      "url": "https://github.com/SolutionGuidance/psm/issues/21#issuecomment-299617016",
+      "created_at": "2017-05-06T05:26:09Z",
+      "updated_at": "2017-05-06T05:26:09Z",
+      "author": "Participant 2",
+      "body": "+1 -- thanks for thinking of this, @brainwane."
+    },
+    {
+      "id": 302257676,
+      "url": "https://github.com/SolutionGuidance/psm/issues/21#issuecomment-302257676",
+      "created_at": "2017-05-17T23:19:01Z",
+      "updated_at": "2017-05-17T23:21:45Z",
+      "author": "Participant 3",
+      "body": "MARS-E is for exchanges and doesn't apply here.\r\n\r\nWe have PII for some providers and we should take steps to protect it, but I can't find any federal regulations that mandate specific standards.  At any rate, industry standard protection should suffice and obviously leaking such data constitutes a bug.  We don't need to do specific work on this issue except to continue our work on building secure infrastructure with sane access controls.\r\n\r\nThose NIST guidelines are pretty good.  We should aspire to meet them. :)\r\n\r\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

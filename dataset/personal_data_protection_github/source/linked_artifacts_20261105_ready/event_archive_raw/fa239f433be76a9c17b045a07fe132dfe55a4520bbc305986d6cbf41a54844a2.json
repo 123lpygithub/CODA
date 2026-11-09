@@ -1,0 +1,170 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27vector-im%2Friot-meta%27+AND+number%3D66+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='vector-im/riot-meta' AND number=66 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:37.813117+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "ara4n",
+        "created_at": "2017-04-22 01:24:00",
+        "updated_at": "2017-04-22 01:24:00",
+        "title": "Ability for clients to clear their notifs serverside if sending RRs is disabled",
+        "body": "https://github.com/vector-im/riot-web/issues/2527 is the main bug for letting clients not send RRs for privacy if desired.\r\n\r\nHowever, this causes problems because RRs are currently the only way to mark notifs as read - otherwise you end up with badge counts accumulating on all clients.\r\n\r\nThis is a meta bug to track adding an API to mark notifs as read, and implement it on the 3 clients so they clear notifs on launch if RRs are disabled.\r\n\r\nhttps://github.com/vector-im/riot-android/issues/1151 is the bug for Android.\r\n\r\n",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-04-22 01:00:00",
+        "repo_name": "vector-im/riot-meta",
+        "number": 66
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Matrixcoffee",
+        "created_at": "2017-04-28 09:49:10",
+        "updated_at": "2017-04-28 09:49:10",
+        "title": "Ability for clients to clear their notifs serverside if sending RRs is disabled",
+        "body": "Why clear on launch? Doesn't that defeat the purpose of notifs? If they were cleared per-room, on opening the room, there would be no loss in functionality.",
+        "comment_id": 297957001,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-04-28 09:00:00",
+        "repo_name": "vector-im/riot-meta",
+        "number": 66
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "turt2live",
+        "created_at": "2017-05-05 15:31:59",
+        "updated_at": "2017-05-05 15:31:59",
+        "title": "Ability for clients to clear their notifs serverside if sending RRs is disabled",
+        "body": "When opening the room makes sense to me. Even more desirable would be to use read markers for badge counts instead of receipts, so that the badges are synchronized across clients.",
+        "comment_id": 299497031,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-05-05 15:00:00",
+        "repo_name": "vector-im/riot-meta",
+        "number": 66
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ara4n",
+        "created_at": "2017-05-15 01:01:57",
+        "updated_at": "2017-05-15 01:01:57",
+        "title": "Ability for clients to clear their notifs serverside if sending RRs is disabled",
+        "body": "badge counts should already be synchronized; sending an RR (not RM) on one device will trigger badge counts to be recalculated and pushed to everyone.\r\n\r\nAgreed that the unread count should be reset on opening the room.  Or even ideally, we should reset it whenever previously we would have sent an RR.  In other words, we need to differentiate between local-read state and remotely-viewable-read state.\r\n\r\nPerhaps a nicer solution would be to put some metadata on m.read receipts to indicate whether they should be visible to other users or not...",
+        "comment_id": 301353148,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-05-15 01:00:00",
+        "repo_name": "vector-im/riot-meta",
+        "number": 66
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "erdnaxeli",
+        "created_at": "2017-10-30 23:06:58",
+        "updated_at": "2017-10-30 23:06:58",
+        "title": "Ability for clients to clear their notifs serverside if sending RRs is disabled",
+        "body": "IMHO:\r\n- the RM should be use for all private information: what I've read, how many notification I'm missing, and so on.\r\n- the RR should _only_ be used to notify all people in the room that you have read till some event (public information), but you should be able to have working notifications and room marked as read without it.\r\n\r\nThe downside of this if that the RM can far away in the history of a room, while you still want it to be marked as read (I personally don't like to keep a RM far away, but some people seem to do it)  . So maybe we should support a mix of RM and RR and use the last recent one to compute unread rooms and notifications.",
+        "comment_id": 340611465,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-10-30 23:00:00",
+        "repo_name": "vector-im/riot-meta",
+        "number": 66
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Krinkle",
+        "created_at": "2020-04-02 12:52:37",
+        "updated_at": "2020-04-02 12:52:37",
+        "title": "Ability for clients to clear their notifs serverside if sending RRs is disabled",
+        "body": "Has a decision been made?",
+        "comment_id": 607827303,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-04-02 12:00:00",
+        "repo_name": "vector-im/riot-meta",
+        "number": 66
+      }
+    ],
+    "rows": 6,
+    "statistics": {
+      "elapsed": 0.020518394,
+      "rows_read": 279817,
+      "bytes_read": 10644667
+    }
+  },
+  "response_sha256": "3f327e0c0f02d9f3cc55fe6c4e4cad6db9717275fa94d2c1b16ac46adc0102fb"
+}

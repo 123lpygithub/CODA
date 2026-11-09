@@ -1,0 +1,21 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:2565d003bbf4e72f6f7f8bffeff53d3036ce53fa/raw/",
+  "source_sha256": "c1a6ceb545971ea16dd509800afdfd0800d57404ed74797f28aedbf7ddf91b9b",
+  "fetched_at": "2026-11-05T06:47:46.817532+00:00",
+  "archive_directory": "279922d90d8e4a81e67c69b437f0eff817b87a1c",
+  "git_blob_sha1": "2565d003bbf4e72f6f7f8bffeff53d3036ce53fa",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/b4aa622e0c4cd16db62ea42c5e59f35b50eefc79/",
+  "published_commit": "073de7e33cf6506ea421fc997024c44e97861c6c",
+  "revision_relation": "direct-parent-before-published-commit",
+  "revision_note": "The published introducing-commit pointer deletes this exact comment. The source is from its verified direct parent, where the full comment uniquely matches.",
+  "artifact_id": "23shades-0792-aagigaiii",
+  "revision_url": "https://github.com/OpenNMT/OpenNMT-py/commit/073de7e33cf6506ea421fc997024c44e97861c6c",
+  "filename": "train.py",
+  "commit": "b4aa622e0c4cd16db62ea42c5e59f35b50eefc79",
+  "line_start": 222,
+  "line_end": 246,
+  "excerpt": "    print('decoder: ', dec)\n\n\ndef load_dataset(data_type):\n    assert data_type in [\"train\", \"valid\"]\n\n    print(\"Loading %s data from '%s'\" % (data_type, opt.data))\n\n    pts = glob.glob(opt.data + '.' + data_type + '.[0-9]*.pt')\n    if pts:\n        # Multiple onmt.io.*Dataset's, coalesce all.\n        # torch.load loads them imemediately, which might eat up\n        # too much memory. A lazy load would be better, but later\n        # when we create data iterator, it still requires these\n        # data to be loaded. So it seams we don't have a good way\n        # to avoid this now.\n        pts = [(int(re.match('.*?([0-9]+).*?', pt).group(1)), pt)\n               for pt in pts]\n        pts = sorted(pts)\n        datasets = []\n        for _, pt in pts:\n            datasets.append(torch.load(pt))\n        dataset = onmt.io.ONMTDatasetBase.coalesce_datasets(datasets)\n    else:\n        # Only one onmt.io.*Dataset, simple!",
+  "match_policy": "unique-full-comment-in-verified-parent-before-deletion",
+  "match_diff_url": "https://github.com/OpenNMT/OpenNMT-py/commit/073de7e33cf6506ea421fc997024c44e97861c6c.diff",
+  "match_diff_sha256": "0700a1c4319e41f917e1b8ea63985b7d6baa9ff9f455b942590cf786fa607ae5"
+}

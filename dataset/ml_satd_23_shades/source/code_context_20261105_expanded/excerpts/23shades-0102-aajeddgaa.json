@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0102-aajeddgaa",
+  "revision_url": "https://github.com/deepchem/deepchem/commit/78c35b93d9c665bb5a42eb9d6c03ab202e84bcbe",
+  "filename": "deepchem/models/xgboost_models/xgboost_model.py",
+  "commit": "78c35b93d9c665bb5a42eb9d6c03ab202e84bcbe",
+  "source_url": "https://raw.githubusercontent.com/deepchem/deepchem/78c35b93d9c665bb5a42eb9d6c03ab202e84bcbe/deepchem/models/xgboost_models/xgboost_model.py",
+  "fetched_at": "2026-11-05T06:11:54.425279+00:00",
+  "source_sha256": "45f77bcf653f561742f4a0f7d2e2935a1941f5e9310cdfb7218c9d17756b532f",
+  "line_start": 43,
+  "line_end": 67,
+  "excerpt": "        os.makedirs(model_dir)\n    else:\n      model_dir = tempfile.mkdtemp()\n    self.model_dir = model_dir\n    self.model_instance = model_instance\n    self.model_class = model_instance.__class__\n\n    if 'early_stopping_rounds' in kwargs:\n      self.early_stopping_rounds = kwargs['early_stopping_rounds']\n    else:\n      self.early_stopping_rounds = 50\n\n  # FIXME: Return type \"None\" of \"fit\" incompatible with return type \"float\" in supertype \"Model\"\n  def fit(self, dataset: Dataset, **kwargs) -> None:  # type: ignore[override]\n    \"\"\"Fits XGBoost model to data.\n\n    dataset: Dataset\n      The `Dataset` to train this model on.\n    \"\"\"\n    X = dataset.X\n    y = np.squeeze(dataset.y)\n    seed = self.model_instance.random_state\n    if isinstance(self.model_instance, xgb.XGBClassifier):\n      xgb_metric = \"auc\"\n      sklearn_metric = \"roc_auc\"",
+  "match_policy": "unique-release-normalized-v2"
+}

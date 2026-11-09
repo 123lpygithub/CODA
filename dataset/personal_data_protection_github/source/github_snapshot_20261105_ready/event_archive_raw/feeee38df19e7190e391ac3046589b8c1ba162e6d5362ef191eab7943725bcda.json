@@ -1,0 +1,154 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27amplitude%2FAmplitude-JavaScript%27+AND+number%3D317+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='amplitude/Amplitude-JavaScript' AND number=317 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T06:45:14.186352+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "pcorpet",
+        "created_at": "2020-11-06 16:56:13",
+        "updated_at": "2020-11-06 16:56:13",
+        "title": "[Privacy] Add an option not to persist *anything* outside of session",
+        "body": "## Summary\r\n\r\nFor privacy reasons we'd love to use Amplitude without using any cookies nor local storage.\r\n\r\n## Motivations\r\n\r\nDue to the \"Cookie Law\" in Europe, a web site or page needs a \"cookie approval\" before storing anything in a cookie or in a local storage. However it's OK to still log, using amplitude, events and information relative to the website as long as everything stays in RAM. This could be used for the landing page to compute direct conversion even for users who don't approve the use of cookies or local storage.\r\n\r\nIn terms of implementation, I could provide a PR, if you're OK with the idea: the current implementation already works without using the storage, the storage is only useful when the page is refreshed.\r\n\r\nFor the moment the way we handle it is to use the `disableCookies` option and clear the local cache on the callback of every logEvent, however this is suboptimal as some data is still stored and could be kept if the user closes the page before Amplitude server's response. It's also suboptimal because we're basically undoing what the library does, so it would be cleaner not to do it in the first place.\r\n",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-06 16:00:00",
+        "repo_name": "amplitude/Amplitude-JavaScript",
+        "number": 317
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "jooohhn",
+        "created_at": "2020-11-06 21:48:47",
+        "updated_at": "2020-11-06 21:48:46",
+        "title": "[Privacy] Add an option not to persist *anything* outside of session",
+        "body": "Thanks for bringing this up\r\n\r\nTo clarify, would the goal be to have [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) as an alternative storage strategy to cookies and local storage?\r\n\r\n",
+        "comment_id": 723315062,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-06 21:00:00",
+        "repo_name": "amplitude/Amplitude-JavaScript",
+        "number": 317
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "pcorpet",
+        "created_at": "2020-11-06 22:04:22",
+        "updated_at": "2020-11-06 22:04:22",
+        "title": "[Privacy] Add an option not to persist *anything* outside of session",
+        "body": "I hadn't even thought about `sessionStorage` which indeed saves on extra usecase (reloading). Maybe we could have a setting called `storage` or `persistance` with the following options:\r\n * `cookies` (current behavior)\r\n * `localStorage` (current behavior with `disableCookies` set)\r\n * `sessionStorage`\r\n * `none` (absolutely nothing outside of pure memory).",
+        "comment_id": 723320562,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-06 22:00:00",
+        "repo_name": "amplitude/Amplitude-JavaScript",
+        "number": 317
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "jooohhn",
+        "created_at": "2020-11-09 19:45:30",
+        "updated_at": "2020-11-09 19:45:30",
+        "title": "[Privacy] Add an option not to persist *anything* outside of session",
+        "body": "Yes those options look good!",
+        "comment_id": 724237315,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-09 19:00:00",
+        "repo_name": "amplitude/Amplitude-JavaScript",
+        "number": 317
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "jooohhn",
+        "created_at": "2020-12-09 19:41:26",
+        "updated_at": "2020-12-09 19:41:25",
+        "title": "[Privacy] Add an option not to persist *anything* outside of session",
+        "body": "## Summary\r\n\r\nFor privacy reasons we'd love to use Amplitude without using any cookies nor local storage.\r\n\r\n## Motivations\r\n\r\nDue to the \"Cookie Law\" in Europe, a web site or page needs a \"cookie approval\" before storing anything in a cookie or in a local storage. However it's OK to still log, using amplitude, events and information relative to the website as long as everything stays in RAM. This could be used for the landing page to compute direct conversion even for users who don't approve the use of cookies or local storage.\r\n\r\nIn terms of implementation, I could provide a PR, if you're OK with the idea: the current implementation already works without using the storage, the storage is only useful when the page is refreshed.\r\n\r\nFor the moment the way we handle it is to use the `disableCookies` option and clear the local cache on the callback of every logEvent, however this is suboptimal as some data is still stored and could be kept if the user closes the page before Amplitude server's response. It's also suboptimal because we're basically undoing what the library does, so it would be cleaner not to do it in the first place.\r\n",
+        "comment_id": 0,
+        "comments": 3,
+        "state": "closed",
+        "closed_at": "2020-12-09 19:41:25",
+        "file_time": "2020-12-09 19:00:00",
+        "repo_name": "amplitude/Amplitude-JavaScript",
+        "number": 317
+      }
+    ],
+    "rows": 5,
+    "statistics": {
+      "elapsed": 0.025949357,
+      "rows_read": 271763,
+      "bytes_read": 7895254
+    }
+  },
+  "response_sha256": "5b02984b0c232477c597dd3576e3027d0fbdf5b6db9eca9e927633c6e07879ed"
+}

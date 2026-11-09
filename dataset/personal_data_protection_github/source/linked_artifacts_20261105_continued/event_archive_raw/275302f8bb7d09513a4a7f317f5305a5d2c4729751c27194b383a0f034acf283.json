@@ -1,0 +1,266 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%274ian%2FGD%27+AND+number%3D571+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='4ian/GD' AND number=571 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:39.624764+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "zatsme",
+        "created_at": "2018-08-04 12:53:28",
+        "updated_at": "2018-08-04 12:53:28",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "Yes, whilst I'm not bothered about security so much and am happy how things are, you really should allow the user to have choice here.  A choice to automatically download and install, or to just tell the user there's a new version, or not to check at all.  ",
+        "comment_id": 410447553,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-08-04 12:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Wend1go",
+        "created_at": "2018-08-04 15:49:48",
+        "updated_at": "2018-08-04 15:49:48",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "Small addition:\r\nhttps://gdevelop-app.com/ doesn't have a privacy notice according to GDPR.\r\nhttps://fr.wikipedia.org/wiki/R%C3%A8glement_g%C3%A9n%C3%A9ral_sur_la_protection_des_donn%C3%A9es",
+        "comment_id": 410458425,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-08-04 15:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "4ian",
+        "created_at": "2018-08-05 10:08:08",
+        "updated_at": "2018-08-05 10:08:08",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "I've added a card for this in Trello: https://trello.com/c/zRcuG7BP/119-add-an-option-to-disable-automatic-updates-of-the-downloaded-editor\r\n\r\nWill see what I can do",
+        "comment_id": 410509271,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-08-05 10:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "4ian",
+        "created_at": "2018-08-05 23:33:42",
+        "updated_at": "2018-08-05 23:33:42",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "I'll be working on this this week: https://trello.com/c/zRcuG7BP/119-add-an-option-to-disable-automatic-updates-of-the-downloaded-editor-2-to-4-days",
+        "comment_id": 410556458,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-08-05 23:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "4ian",
+        "created_at": "2018-08-09 21:57:24",
+        "updated_at": "2018-08-09 21:57:23",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "I've added a preference to disable this in beta 48, closing this now. There is still a notification but I think it's important as in 99% of cases users should be aware that there is a new version and upgrade :)",
+        "comment_id": 411910723,
+        "comments": 4,
+        "state": "closed",
+        "closed_at": "2018-08-09 21:57:23",
+        "file_time": "2018-08-09 21:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "4ian",
+        "created_at": "2018-08-09 21:57:24",
+        "updated_at": "2018-08-09 21:57:24",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "Please stop updating GDevelop automatically.\r\nInstead, prompt a message saying a new update is available and let me decide if I want to download it and install it.\r\nOr, add an option to let me choose if I want GDevelop to update automatically or not.\r\n\r\nIt would be also important for security. If you release something broken that is going to corrupt my project file let me decide if I do want to take that risk or not. Project file can be corrupted also if GD crash while in use and write the project file since you are developing GDevelop on a Mac that only 1% of people using, there is no way for you to be sure everything is ok on Windows. Also in case your GtHub get hacked, currently it would be very simple to infect all GD5 users with virus and malware. Since you also take subscriptions in-app, I guess you don't want peoples card details being compromised as the direct result of this unsafe approach of updating GDevelop.\r\n\r\nThe bottom line is, for security reasons let me decide what do I want download and run.\r\n\r\nAlso, you did mentioned something about collecting crash reports and usage data automatically. If you have that in, let me turn that off too for the very same reasons. It can be exploited by viruses and malware and I don't care about how secure it is, the bottom line is, let me take full control what GDevelop doing on my computer.\r\n.\r\nThanks.",
+        "comment_id": 0,
+        "comments": 5,
+        "state": "closed",
+        "closed_at": "2018-08-09 21:57:23",
+        "file_time": "2018-08-09 21:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "4ian",
+        "created_at": "2018-08-13 13:52:04",
+        "updated_at": "2018-08-13 13:52:04",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "No thanks for something that I spend a few evenings to add and roll out in a new version for you guys? 😉\r\nOr should I have spent my time on something else? 🤔Let me know!",
+        "comment_id": 412525213,
+        "comments": 5,
+        "state": "closed",
+        "closed_at": "2018-08-09 21:57:23",
+        "file_time": "2018-08-13 13:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "zatsme",
+        "created_at": "2018-08-13 14:13:31",
+        "updated_at": "2018-08-13 14:13:30",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "I wasn't bothered by the auto updates, but it could have put many potential users off and if some malware was automatically distributed by this update gdevelop's reputation could have been harmed.  So for that reason this could have been your most important work for some time, although I'm personally looking forward to tiled maps and visual hitbox editing. 👍🏻",
+        "comment_id": 412532458,
+        "comments": 6,
+        "state": "closed",
+        "closed_at": "2018-08-09 21:57:23",
+        "file_time": "2018-08-13 14:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "blurymind",
+        "created_at": "2018-08-13 14:15:23",
+        "updated_at": "2018-08-13 14:15:23",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "Thank you @4ian :)\n\nOn Mon, 13 Aug 2018 15:13 Zat, <notifications@github.com> wrote:\n\n> I wasn't bothered by the auto updates, but it could have put many\n> potential users off and if some malware was automatically distributed by\n> this update gdevelop's reputation could have been harmed. So for that\n> reason this could have been your most important work for some time,\n> although I'm personally looking forward to tiled maps and visual hitbox\n> editing. 👍🏻\n>\n> —\n> You are receiving this because you are subscribed to this thread.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/4ian/GD/issues/571#issuecomment-412532458>, or mute\n> the thread\n> <https://github.com/notifications/unsubscribe-auth/AGMbVYnGYry-3_Dr9UUod5htz3_oQzL9ks5uQYmMgaJpZM4Vu9Rw>\n> .\n>\n",
+        "comment_id": 412533106,
+        "comments": 7,
+        "state": "closed",
+        "closed_at": "2018-08-09 21:57:23",
+        "file_time": "2018-08-13 14:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Wend1go",
+        "created_at": "2018-08-13 16:16:05",
+        "updated_at": "2018-08-13 16:16:05",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "Yeah thanks for implementing it. :+1: \r\nAlthough I'm pretty sure auto updates were broken on Linux since I always installed new versions manually.",
+        "comment_id": 412575270,
+        "comments": 9,
+        "state": "closed",
+        "closed_at": "2018-08-09 21:57:23",
+        "file_time": "2018-08-13 16:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "4ian",
+        "created_at": "2018-08-13 16:41:26",
+        "updated_at": "2018-08-13 16:41:26",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "Auto updates are not implemented on Linux indeed (it's not part of the auto updater provided by electron-builder) - something should be done to have at least the user be notified when a new version is available. Maybe something in electron-builder to be found about this too!",
+        "comment_id": 412583468,
+        "comments": 10,
+        "state": "closed",
+        "closed_at": "2018-08-09 21:57:23",
+        "file_time": "2018-08-13 16:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ddabrahim",
+        "created_at": "2018-08-14 08:43:19",
+        "updated_at": "2018-08-14 08:43:19",
+        "title": "Let me turn off GDevelop automatic updates.",
+        "body": "Sorry, I was completely forget about this, I wasn't expect you to do it right away. All the work you do is highly appreciated. Thanks a lot for implementing this so fast 👍 ",
+        "comment_id": 412799213,
+        "comments": 11,
+        "state": "closed",
+        "closed_at": "2018-08-09 21:57:23",
+        "file_time": "2018-08-14 08:00:00",
+        "repo_name": "4ian/GD",
+        "number": 571
+      }
+    ],
+    "rows": 12,
+    "statistics": {
+      "elapsed": 0.022346453,
+      "rows_read": 280075,
+      "bytes_read": 7485820
+    }
+  },
+  "response_sha256": "08bdac6343498721fe8db021bb106db5753a92e54c0afc3a0dbe86db68fe7bef"
+}

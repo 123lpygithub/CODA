@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0755-aahdfaija",
+  "revision_url": "https://github.com/cyschneck/Hydra/commit/fa3a305de40a7c3e6b9b2bf8eeb8f3fbd93e65df",
+  "filename": "raw_text_processing.py",
+  "commit": "fa3a305de40a7c3e6b9b2bf8eeb8f3fbd93e65df",
+  "source_url": "https://raw.githubusercontent.com/cyschneck/Hydra/fa3a305de40a7c3e6b9b2bf8eeb8f3fbd93e65df/raw_text_processing.py",
+  "fetched_at": "2026-11-05T06:13:48.204266+00:00",
+  "source_sha256": "4e8c7f27300c5359023d26feb0f24d36450d32b1bcb2065d6916c172d7506916",
+  "line_start": 247,
+  "line_end": 271,
+  "excerpt": "\twith open(csv_local_dir, \"rb\") as csv_file:\n\t\tcsvreader = csv.reader(csv_file)\n\t\tnext(csvreader) # skip header\n\t\tid_count = 0\n\t\tfor line in csvreader:\n\t\t\tpos_named_tuple = PosCSV._make(line)\n\t\t\tpos_dict[id_count] = pos_named_tuple\n\t\t\tid_count += 1\n\t\t\tif pos_named_tuple.MISC != 'punct' and pos_named_tuple.XPOSTAG != 'POS': # if row isn't puntuation or 's\n\t\t\t\ttotal_words += 1\n\tprint(total_words)\n\tnamed_ent_lst = findNamedEntityAndPronoun(pos_dict)\n\tpronoun_percentage = percentagePronounsNouns(total_words, pos_dict) # TODO: update nouns list with only named enitites\n\n\t# TODO: identify dialouge to create it as its own sentence\n\n\n\tprint(\"\\nPre-processing ran for {0}\".format(datetime.now() - start_time))\n\n'''\ndef mostCommonPronouns(raw_text):\n\t# returns a dictionary of the most common pronouns in the text with their occureance #\n\t#{'it': 1291, 'him': 213, 'yourself': 16, 'his': 519, 'our': 292, 'your': 122}\n\n\tpronoun_common = {}"
+}

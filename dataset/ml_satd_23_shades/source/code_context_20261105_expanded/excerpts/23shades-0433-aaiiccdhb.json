@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0433-aaiiccdhb",
+  "revision_url": "https://github.com/ray-project/ray/commit/62c7ab518214286a4721dd7410978effd6d05471",
+  "filename": "rllib/policy/dynamic_tf_policy.py",
+  "commit": "62c7ab518214286a4721dd7410978effd6d05471",
+  "source_url": "https://raw.githubusercontent.com/ray-project/ray/62c7ab518214286a4721dd7410978effd6d05471/rllib/policy/dynamic_tf_policy.py",
+  "fetched_at": "2026-11-05T06:12:53.772506+00:00",
+  "source_sha256": "adf9db8711448553775dce0d5c5fdcdffab89d0c35d6bce154b6340e5d821e0f",
+  "line_start": 562,
+  "line_end": 586,
+  "excerpt": "            train_batch.accessed_keys | batch_for_postproc.accessed_keys | \\\n            batch_for_postproc.added_keys | set(\n                self.model.inference_view_requirements.keys())\n\n        TFPolicy._initialize_loss(self, loss, [(k, v)\n                                               for k, v in train_batch.items()\n                                               if k in all_accessed_keys])\n\n        if \"is_training\" in self._loss_input_dict:\n            del self._loss_input_dict[\"is_training\"]\n\n        # Call the grads stats fn.\n        # TODO: (sven) rename to simply stats_fn to match eager and torch.\n        if self._grad_stats_fn:\n            self._stats_fetches.update(\n                self._grad_stats_fn(self, train_batch, self._grads))\n\n        # Add new columns automatically to view-reqs.\n        if self.config[\"_use_trajectory_view_api\"] and \\\n                auto_remove_unneeded_view_reqs:\n            # Add those needed for postprocessing and training.\n            all_accessed_keys = train_batch.accessed_keys | \\\n                                batch_for_postproc.accessed_keys\n            # Tag those only needed for post-processing.\n            for key in batch_for_postproc.accessed_keys:"
+}

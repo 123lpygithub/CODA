@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0484-aabgdhcid",
+  "revision_url": "https://github.com/yonghankim/Mask-RCNN/commit/5c00fe59229cfe636013c1e172c1b392d2bbb337",
+  "filename": "mrcnn/model.py",
+  "commit": "5c00fe59229cfe636013c1e172c1b392d2bbb337",
+  "source_url": "https://raw.githubusercontent.com/yonghankim/Mask-RCNN/5c00fe59229cfe636013c1e172c1b392d2bbb337/mrcnn/model.py",
+  "fetched_at": "2026-11-05T06:13:01.716606+00:00",
+  "source_sha256": "7a63ba6ad7d27d8cab720e3ac123576130081ed16377c421084894451862dc98",
+  "line_start": 828,
+  "line_end": 852,
+  "excerpt": "\n    feature_map: backbone features [batch, height, width, depth]\n    anchors_per_location: number of anchors per pixel in the feature map\n    anchor_stride: Controls the density of anchors. Typically 1 (anchors for\n                   every pixel in the feature map), or 2 (every other pixel).\n\n    Returns:\n        rpn_logits: [batch, H, W, 2] Anchor classifier logits (before softmax)\n        rpn_probs: [batch, H, W, 2] Anchor classifier probabilities.\n        rpn_bbox: [batch, H, W, (dy, dx, log(dh), log(dw))] Deltas to be\n                  applied to anchors.\n    \"\"\"\n    # TODO: check if stride of 2 causes alignment issues if the featuremap\n    #       is not even.\n    # Shared convolutional base of the RPN\n    shared = KL.Conv2D(512, (3, 3), padding='same', activation='relu',\n                       strides=anchor_stride,\n                       name='rpn_conv_shared')(feature_map)\n\n    # Anchor Score. [batch, height, width, anchors per location * 2].\n    x = KL.Conv2D(2 * anchors_per_location, (1, 1), padding='valid',\n                  activation='linear', name='rpn_class_raw')(shared)\n\n    # Reshape to [batch, anchors, 2]\n    rpn_class_logits = KL.Lambda("
+}

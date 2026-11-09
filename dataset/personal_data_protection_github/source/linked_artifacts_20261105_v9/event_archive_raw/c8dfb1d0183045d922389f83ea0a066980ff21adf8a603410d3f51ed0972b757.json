@@ -1,0 +1,298 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27aragon%2Faragon%27+AND+number%3D11+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='aragon/aragon' AND number=11 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:34.060737+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "luisivan",
+        "created_at": "2017-06-19 19:18:20",
+        "updated_at": "2017-06-19 19:18:19",
+        "title": "Metrics",
+        "body": "We need to know how people are using the product in order to improve it. But we need all the analytics to be fully anonymous and untraceable. Any ideas?",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-06-19 19:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "harshjv",
+        "created_at": "2017-06-20 14:19:01",
+        "updated_at": "2017-06-20 14:19:01",
+        "title": "Metrics",
+        "body": "Ya, that's a good idea to have analytics (anonymous & untraceable). We can indeed record events such as org creation/joining anonymously.\r\n\r\nWe have;\r\n1 . NeutrinoMetrics looking good but it is in an early stage. (https://neutrinometrics.net/)\r\n2. Evergreen Google Analytics https://www.npmjs.com/package/electron-google-analytics\r\n\r\nLet's discuss events types which are better for analytics.",
+        "comment_id": 309770349,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-06-20 14:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "izqui",
+        "created_at": "2017-06-20 15:12:47",
+        "updated_at": "2017-06-20 15:12:44",
+        "title": "Metrics",
+        "body": "I love Apple's approach to analytics.\n\nI don't know if there is any detailed documentation, but they have\ncompletely anonymous analytics.\n\nEl mar., 20 jun. 2017 a las 16:19, Harsh Vakharia (<notifications@github.com>)\nescribió:\n\n> Ya, that's a good idea to have analytics (anonymous & untraceable). We can\n> indeed record events such as org creation/joining anonymously.\n>\n> We have;\n> 1 . NeutrinoMetrics looking good but it is in an early stage. (\n> https://neutrinometrics.net/)\n> 2. Evergreen Google Analytics\n> https://www.npmjs.com/package/electron-google-analytics\n>\n> Let's discuss events types which are better for analytics.\n>\n> —\n> You are receiving this because you are subscribed to this thread.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/aragon/aragon/issues/11#issuecomment-309770349>, or mute\n> the thread\n> <https://github.com/notifications/unsubscribe-auth/AAbTYC8iKcqtmED3hdhgOJY7bMO7UzJPks5sF9TWgaJpZM4N-q5j>\n> .\n>\n",
+        "comment_id": 309790745,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-06-20 15:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "john-light",
+        "created_at": "2017-12-07 01:59:03",
+        "updated_at": "2017-12-07 01:59:03",
+        "title": "Metrics",
+        "body": "Found some interesting info on Piwik's website:  \r\n\r\nhttps://piwik.pro/gdpr-compliance/  \r\n\r\nAlso, bundling Tor with the application is an \"easy\" way to anonymize metadata \"out of the box\". This is what apps like Ricochet and OnionShare do to anonymize user metadata (including - especially - user IP addresses).  ",
+        "comment_id": 349837574,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-12-07 01:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "sohkai",
+        "created_at": "2018-09-25 14:49:30",
+        "updated_at": "2018-09-25 14:49:29",
+        "title": "Metrics",
+        "body": "As a stop gap to fully anonymous and untraceable metrics, we could also have a dialog asking a user if they'd like to provide metrics to us.\r\n\r\nWe've talked about adding [`Sentry`](https://sentry.io/welcome/) in before, and another option that includes web3 snooping (though this sounds quite scary) is [`moesif`](https://www.moesif.com/docs/client-integration/browser-js/).",
+        "comment_id": 424375042,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-09-25 14:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "stale[bot]",
+        "created_at": "2019-05-31 02:33:15",
+        "updated_at": "2019-05-31 02:33:15",
+        "title": "Metrics",
+        "body": "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for contributing to Aragon! 🦅\n",
+        "comment_id": 497553199,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-05-31 02:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "stale[bot]",
+        "created_at": "2019-06-07 03:27:57",
+        "updated_at": "2019-06-07 03:27:56",
+        "title": "Metrics",
+        "body": "We need to know how people are using the product in order to improve it. But we need all the analytics to be fully anonymous and untraceable. Any ideas?",
+        "comment_id": 0,
+        "comments": 5,
+        "state": "closed",
+        "closed_at": "2019-06-07 03:27:56",
+        "file_time": "2019-06-07 03:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "luisivan",
+        "created_at": "2019-06-10 15:20:05",
+        "updated_at": "2019-06-10 15:20:05",
+        "title": "Metrics",
+        "body": "This one is important. @lkngtn can you provide 2-3 important metrics that would help us understand how people use the client? With that, I can do some initial research on solutions",
+        "comment_id": 500456393,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-06-10 15:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "reopened",
+        "actor_login": "luisivan",
+        "created_at": "2019-06-10 15:20:05",
+        "updated_at": "2019-06-10 15:20:05",
+        "title": "Metrics",
+        "body": "We need to know how people are using the product in order to improve it. But we need all the analytics to be fully anonymous and untraceable. Any ideas?",
+        "comment_id": 0,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-06-10 15:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "luisivan",
+        "created_at": "2019-06-19 13:56:45",
+        "updated_at": "2019-06-19 13:56:45",
+        "title": "Metrics",
+        "body": "So we mainly need:\r\n- A way to contact our most active users (they can provide an email via HelpScout, notifications or an opt-in modal)\r\n- A way to know the referrers (where our users come from)\r\n\r\nMatomo can totally work for this.",
+        "comment_id": 503572012,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-06-19 13:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "lkngtn",
+        "created_at": "2019-06-19 16:00:30",
+        "updated_at": "2019-06-19 16:00:30",
+        "title": "Metrics",
+        "body": "Would also add:\r\n- geographic/region data will also be useful for prioritizing localization and other efforts which might be tied to traction in specific regions. \r\n\r\n\r\n\r\n\r\n\r\n",
+        "comment_id": 503623408,
+        "comments": 7,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-06-19 16:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "sohkai",
+        "created_at": "2019-07-03 12:00:13",
+        "updated_at": "2019-07-03 12:00:13",
+        "title": "Metrics",
+        "body": "I'd add that it'd be useful to know which orgs are being visited, and when, which is easily provided via the URL path.",
+        "comment_id": 508063410,
+        "comments": 8,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-07-03 12:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "sohkai",
+        "created_at": "2020-03-18 20:57:36",
+        "updated_at": "2020-03-18 20:57:36",
+        "title": "Metrics",
+        "body": "Closing; we may work on adding analytics in the future but its current effort is deprioritized.",
+        "comment_id": 600854713,
+        "comments": 9,
+        "state": "closed",
+        "closed_at": "2020-03-18 20:57:36",
+        "file_time": "2020-03-18 20:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "sohkai",
+        "created_at": "2020-03-18 20:57:37",
+        "updated_at": "2020-03-18 20:57:36",
+        "title": "Metrics",
+        "body": "We need to know how people are using the product in order to improve it. But we need all the analytics to be fully anonymous and untraceable. Any ideas?",
+        "comment_id": 0,
+        "comments": 9,
+        "state": "closed",
+        "closed_at": "2020-03-18 20:57:36",
+        "file_time": "2020-03-18 20:00:00",
+        "repo_name": "aragon/aragon",
+        "number": 11
+      }
+    ],
+    "rows": 14,
+    "statistics": {
+      "elapsed": 0.030158691,
+      "rows_read": 289685,
+      "bytes_read": 13059647
+    }
+  },
+  "response_sha256": "eb8963efbb86b395e88f68c27c18dc0fb747bf4548ffdecde1eeefeb0f0f0d3d"
+}

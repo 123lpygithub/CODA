@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0122-aahjceiih",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/255a05a5980efb8b096c283d79872d0695886161",
+  "filename": "pandas_numpy/sources/numpy/ma/core.py",
+  "commit": "255a05a5980efb8b096c283d79872d0695886161",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/255a05a5980efb8b096c283d79872d0695886161/pandas_numpy/sources/numpy/ma/core.py",
+  "fetched_at": "2026-11-05T06:11:57.848212+00:00",
+  "source_sha256": "451b78840123d12d6f7cd5aa040e468be28f476bb56a35fbcb81ab3dd8a56316",
+  "line_start": 2814,
+  "line_end": 2838,
+  "excerpt": "                # With full version\n                else:\n                    _data._mask = np.zeros(_data.shape, dtype=mdtype)\n            # Check whether we missed something\n            elif isinstance(data, (tuple, list)):\n                try:\n                    # If data is a sequence of masked array\n                    mask = np.array([getmaskarray(m) for m in data],\n                                    dtype=mdtype)\n                except ValueError:\n                    # If data is nested\n                    mask = nomask\n                # Force shrinking of the mask if needed (and possible)\n                if (mdtype == MaskType) and mask.any():\n                    _data._mask = mask\n                    _data._sharedmask = False\n            else:\n                _data._sharedmask = not copy\n                if copy:\n                    _data._mask = _data._mask.copy()\n                    # Reset the shape of the original mask\n                    if getmask(data) is not nomask:\n                        data._mask.shape = data.shape\n        else:\n            # Case 2. : With a mask in input."
+}

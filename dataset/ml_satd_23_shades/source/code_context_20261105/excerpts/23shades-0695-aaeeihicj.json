@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0695-aaeeihicj",
+  "revision_url": "https://github.com/CPJKU/madmom/commit/6278f998d5f492b8d7720fdf665d8e207cb2a901",
+  "filename": "madmom/audio/cepstrogram.py",
+  "commit": "6278f998d5f492b8d7720fdf665d8e207cb2a901",
+  "source_url": "https://raw.githubusercontent.com/CPJKU/madmom/6278f998d5f492b8d7720fdf665d8e207cb2a901/madmom/audio/cepstrogram.py",
+  "fetched_at": "2026-11-05T06:13:39.288488+00:00",
+  "source_sha256": "23b8440b72d1571a40bfe0732a10784f068fda98b7edb46ecf24e2bd5c8d3cfc",
+  "line_start": 31,
+  "line_end": 55,
+  "excerpt": "            # overwritten by passing other values to the constructor)\n            self._spectrogram = spectrogram.frames\n        else:\n            # try to instantiate a Spectrogram object\n            self._spectrogram = Spectrogram(spectrogram, *args, **kwargs)\n\n    @property\n    def spectrogram(self):\n        \"\"\"Spectrogram.\"\"\"\n        return self._spectrogram\n\n\n# TODO: set other defaults than those in cp.audio.filterbank for MFCCs?\nclass MFCC(Cepstrogram):\n    \"\"\"\n    MFCC is a subclass of Cepstrogram which filters the magnitude spectrogram of\n    the spectrogram with a Mel filterbank, takes the logarithm and performs a\n    discrete cosine transform afterwards.\n\n    \"\"\"\n    def __init__(self, *args, **kwargs):\n        \"\"\"\n        Creates a new MFCC object instance.\n\n        :param filterbank: filterbank for dimensionality reduction"
+}

@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:703473ad59553d40cf4dd23acd0b46e662a00684/raw/",
+  "source_sha256": "c8d347f1da9762f4d99d58ffcedcdf22fabceebf927dff53292be7a76bc4d8b7",
+  "fetched_at": "2026-11-05T06:42:52.796722+00:00",
+  "archive_directory": "0bfa6333938b52da6b632f2431a4da5bbe498d3d",
+  "git_blob_sha1": "703473ad59553d40cf4dd23acd0b46e662a00684",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/39b5ad778d0f672b2c763b878b0ed159e8d69479/",
+  "artifact_id": "23shades-0017-aaffedgad",
+  "revision_url": "https://github.com/Aifred-Health/Vulcan/commit/39b5ad778d0f672b2c763b878b0ed159e8d69479",
+  "filename": "vulcanai/models/metrics.py",
+  "commit": "39b5ad778d0f672b2c763b878b0ed159e8d69479",
+  "line_start": 632,
+  "line_end": 656,
+  "excerpt": "        for _ in range(k-1):\n            fold_seq.append(fold_len)\n        if rem == 0:\n            fold_seq.append(fold_len)\n        else:\n            fold_seq.append(fold_len+rem)  # last one is the longest if unequal\n\n        dataset_splits = data.random_split(data_loader.dataset,\n                                           fold_seq)\n\n        batch_size = data_loader.batch_size\n\n        # #TODO: improve the copying of parameters\n        # Set to true if RandomSampler exists.\n        shuffle = isinstance(data_loader.sampler, data.sampler.RandomSampler)\n\n        try:\n            for fold in range(k):\n\n                # TODO: this may break on different devices?? test.\n                # TODO: Re-initialize instead of deepcopy?\n                cross_val_network = copy.deepcopy(network)\n\n                # TODO: properly pass params\n",
+  "match_policy": "unique-release-normalized-v2"
+}

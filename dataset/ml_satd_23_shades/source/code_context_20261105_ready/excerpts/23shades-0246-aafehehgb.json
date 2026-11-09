@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0246-aafehehgb",
+  "revision_url": "https://github.com/aleju/imgaug/commit/ee415fb94594700b30b8984ad5a5ad018c0b0088",
+  "filename": "imgaug/augmenters/weather.py",
+  "commit": "ee415fb94594700b30b8984ad5a5ad018c0b0088",
+  "source_url": "https://raw.githubusercontent.com/aleju/imgaug/ee415fb94594700b30b8984ad5a5ad018c0b0088/imgaug/augmenters/weather.py",
+  "fetched_at": "2026-11-05T06:12:20.998454+00:00",
+  "source_sha256": "9aa78c4ffbe51d79d1f9311980fa5255c0498450808418d803015f9fc36e22ec",
+  "line_start": 217,
+  "line_end": 241,
+  "excerpt": "    if name is None:\n        name = \"Unnamed%s\" % (ia.caller_name(),)\n\n    return CloudLayer(\n        intensity_mean=(220, 255), intensity_freq_exponent=(-2.0, -1.5), intensity_coarse_scale=2,\n        alpha_min=(0.7, 0.9), alpha_multiplier=0.3, alpha_size_px_max=(2, 8), alpha_freq_exponent=(-4.0, -2.0),\n        sparsity=0.9, density_multiplier=(0.4, 0.9),\n        name=name, deterministic=deterministic, random_state=random_state\n    )\n\n\n# TODO add perspective transform to each cloud layer to make them look more distant?\n# TODO alpha_mean and density overlap - remove one of them\nclass CloudLayer(meta.Augmenter):\n    \"\"\"\n    Augmenter to add a single layer of clouds to an image.\n\n    Parameters\n    ----------\n    intensity_mean : number or tuple of number or list of number or imgaug.parameters.StochasticParameter\n        Mean intensity of the clouds (i.e. mean color). Recommended to be around ``(190, 255)``.\n\n            * If a number, then that value will be used for all images.\n            * If a tuple ``(a, b)``, then a value from the continuous range ``[a, b]`` will be used.\n            * If a list, then a random value will be sampled from that list per image."
+}

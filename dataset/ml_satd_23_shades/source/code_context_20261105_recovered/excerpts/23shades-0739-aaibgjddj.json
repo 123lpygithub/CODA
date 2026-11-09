@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0739-aaibgjddj",
+  "revision_url": "https://github.com/explosion/spaCy/commit/a3e1791c9cdafa2459d8f81e4f8c0c8a5771bfbe",
+  "filename": "spacy/cli/train.py",
+  "commit": "a3e1791c9cdafa2459d8f81e4f8c0c8a5771bfbe",
+  "source_url": "https://raw.githubusercontent.com/explosion/spaCy/a3e1791c9cdafa2459d8f81e4f8c0c8a5771bfbe/spacy/cli/train.py",
+  "fetched_at": "2026-11-05T06:13:45.511584+00:00",
+  "source_sha256": "453d390d964e35aa0e99208ed1382bfe37366423cedc768674c3b417b82ca592",
+  "line_start": 70,
+  "line_end": 94,
+  "excerpt": "        else:\n            nlp = spacy.load(output_path / \"model-initial\")\n    msg.info(\"Start training\")\n    train(nlp, config, output_path)\n\n\ndef train(nlp: Language, output_path: Optional[Path]=None) -> None:\n    # Create iterator, which yields out info after each optimization step.\n    config = nlp.config.interpolate()\n    T = registry.resolve(config[\"training\"], schema=ConfigSchemaTraining)\n    optimizer T[\"optimizer\"]\n    score_weights = T[\"score_weights\"]\n    # TODO: This might not be called corpora\n    corpora = registry.resolve(config[\"corpora\"], schema=ConfigSchemaCorpora)\n    train_corpus = dot_to_object({\"corpora\": corpora}, T[\"train_corpus\"])\n    dev_corpus = dot_to_object({\"corpora\": corpora}, T[\"dev_corpus\"])\n    batcher = T[\"batcher\"]\n    train_logger = T[\"logger\"]\n    before_to_disk = create_before_to_disk_callback(T[\"before_to_disk\"])\n    # Components that shouldn't be updated during training\n    frozen_components = T[\"frozen_components\"]\n \n    # Create iterator, which yields out info after each optimization step.\n    msg.info(\"Start training\")\n    training_step_iterator = train_while_improving("
+}

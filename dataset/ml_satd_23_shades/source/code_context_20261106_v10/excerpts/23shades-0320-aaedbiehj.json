@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0320-aaedbiehj",
+  "revision_url": "https://github.com/inferno-pytorch/inferno/commit/2c6d464fdc7d5821bf808bfcc10cae8a60424080",
+  "filename": "inferno/extensions/model/res_unet.py",
+  "commit": "2c6d464fdc7d5821bf808bfcc10cae8a60424080",
+  "source_url": "https://raw.githubusercontent.com/inferno-pytorch/inferno/2c6d464fdc7d5821bf808bfcc10cae8a60424080/inferno/extensions/model/res_unet.py",
+  "fetched_at": "2026-11-05T06:12:33.227321+00:00",
+  "source_sha256": "f23b16fa0ca9513716148d600ecd0818d8b6bd5b12d4679eb6e45a75b32ec119",
+  "line_start": 145,
+  "line_end": 169,
+  "excerpt": "        else:\n            return conv_op\n\n    def activation_op_factory(self, index):\n        return self.activation_op[0]\n\n    def batchnorm_op_factory(self, in_channels):\n        bn_cls_name = 'BatchNorm{}d'.format(int(self.dim))\n        bn_op_cls = getattr(torch.nn, bn_cls_name)\n        return bn_op_cls(in_channels)\n\n\n# TODO not sure how to handle out-channels properly.\n# For now, we just force the corrcect number in the last decoder layer\nclass ResBlockUNet(UNetBase):\n    \"\"\"TODO.\n\n        ACCC\n\n    Attributes:\n        activated (TYPE): Description\n        dim (TYPE): Description\n        res_block_kwargs (TYPE): Description\n        side_out_parts (TYPE): Description\n        unet_kwargs (TYPE): Description"
+}

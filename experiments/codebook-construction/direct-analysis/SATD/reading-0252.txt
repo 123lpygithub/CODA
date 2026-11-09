@@ -1,0 +1,353 @@
+
+=== 252 23shades-0275-aahiigije ===
+{"dataset_id": "aahiigije", "repo_name": "kengz/SLM-Lab", "filename": "slm_lab/agent/net/mlp.py", "comment_introducing_revision": "https://github.com/kengz/SLM-Lab/commit/0ac2b33e8c63304a50db7d2b484368299706b58b", "comment_removing_revision": "https://github.com/kengz/SLM-Lab/commit/c799a6d2b71cd47dbc3303c8c86a24d0f64795ec", "source_context_status": "available", "source_context_commit": "0ac2b33e8c63304a50db7d2b484368299706b58b"}
+[comment_text]
+TODO debug
+[source_context]
+        if loss is None:
+            out = self(x)
+            loss = self.loss_fn(out, y)
+        assert not torch.isnan(loss).any(), loss
+        if net_util.to_assert_trained():
+            # to accommodate split model in inherited classes
+            model = getattr(self, 'model', None) or getattr(self, 'model_body')
+            assert_trained = net_util.gen_assert_trained(model)
+        loss.backward(retain_graph=retain_graph)
+        if self.clip_grad_val is not None:
+            nn.utils.clip_grad_norm_(self.parameters(), self.clip_grad_val)
+        self.optim.step()
+        # TODO debug
+        # self.store_grad_norms()
+        if net_util.to_assert_trained():
+            model = getattr(self, 'model', None) or getattr(self, 'model_body')
+            assert_trained(model, loss)
+        logger.debug(f'Net training_step loss: {loss}')
+        return loss
+
+    def wrap_eval(self, x):
+        '''
+        Completes one feedforward step, ensuring net is set to evaluation model
+        returns: network output given input x
+        '''
+
+=== 253 23shades-0032-aaejahaed ===
+{"dataset_id": "aaejahaed", "repo_name": "fastnlp/fastNLP", "filename": "fastNLP/embeddings/utils.py", "comment_introducing_revision": "https://github.com/fastnlp/fastNLP/commit/d6c597d32e66121a4f24c3fdbf6f5f0a9ee6e56e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "d6c597d32e66121a4f24c3fdbf6f5f0a9ee6e56e"}
+[comment_text]
+\"\"\" || .. todo:: ||     doc || \"\"\"
+[source_context]
+"""
+.. todo::
+    doc
+"""
+import numpy as np
+import torch
+from torch import nn as nn
+
+from ..core.vocabulary import Vocabulary
+
+__all__ = [
+    'get_embeddings'
+]
+
+
+def _construct_char_vocab_from_vocab(vocab: Vocabulary, min_freq: int = 1):
+
+=== 254 23shades-0497-aaeidiecf ===
+{"dataset_id": "aaeidiecf", "repo_name": "IntelPython/sdc", "filename": "hpat/hiframes_join.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/6c8774034f96812edd6bd70877ca6dae09e94a6e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6c8774034f96812edd6bd70877ca6dae09e94a6e"}
+[comment_text]
+TODO: consider keys with same name; cols with suffix
+[source_context]
+    # TODO: rebalance if output distributions are 1D instead of 1D_Var
+    loc = join_node.loc
+
+    out = []
+    # TODO: implement
+
+    return out
+
+distributed.distributed_run_extensions[Join] = join_distributed_run
+
+
+def join_typeinfer(join_node, typeinferer):
+    # TODO: consider keys with same name, cols with suffix
+    for col_name, col_var in (list(join_node.left_vars.items())
+                        +list(join_node.right_vars.items())):
+        out_col_var = join_node.df_out_vars[col_name]
+        typeinferer.constraints.append(typeinfer.Propagate(dst=out_col_var.name,
+                                              src=col_var.name, loc=join_node.loc))
+    return
+
+typeinfer.typeinfer_extensions[Join] = join_typeinfer
+
+
+def visit_vars_join(join_node, callback, cbdata):
+    if config.DEBUG_ARRAY_OPT == 1:  # pragma: no cover
+
+=== 255 23shades-0698-aagdjigjj ===
+{"dataset_id": "aagdjigjj", "repo_name": "hackingmaterials/automatminer", "filename": "matbench/pipeline.py", "comment_introducing_revision": "https://github.com/hackingmaterials/automatminer/commit/c4c970804c4f567ecf1bdbf2619493197ebf3ba9", "comment_removing_revision": "https://github.com/hackingmaterials/automatminer/commit/2923c0b2c56103f9a424d6b4ee5292f724f6cb86", "source_context_status": "available", "source_context_commit": "c4c970804c4f567ecf1bdbf2619493197ebf3ba9"}
+[comment_text]
+todo: should save tpot model here
+[source_context]
+                          scoring='neg_mean_absolute_error',
+                          feature_names=df.drop(self.target_key, axis=1).columns,
+                          n_jobs=8,
+                          verbosity=2)
+
+        X_train, X_test, y_train, y_test = train_test_split(
+            df.drop(self.target_key, axis=1).values, df[self.target_key],
+            test_size=self.test_frac)
+
+        tpot.fit(X_train, y_train)
+        validation_score = tpot.score(X_test, y_test)
+
+        # todo: should save tpot model here
+        return {"top_model_scores": tpot.get_top_models(return_scores=True),
+                "best_model_validation_score": validation_score}
+
+    def predict(self, predict_df):
+        """
+        Using the data in df, makes predictions with an automated pipeline.
+
+        Args:
+            predict_df: The dataframe containing
+
+        Returns:
+            A MatbenchPipeline object
+
+=== 256 23shades-0149-aajbfcgda ===
+{"dataset_id": "aajbfcgda", "repo_name": "thulab/DeepHash", "filename": "examples/dhn/train_val_script.py", "comment_introducing_revision": "https://github.com/thulab/DeepHash/commit/a0591d5762ceb9434a6d5a3e8fdf36bc11a697c2", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "a0591d5762ceb9434a6d5a3e8fdf36bc11a697c2"}
+[comment_text]
+normed_cross_entropy # TODO
+[source_context]
+    'val_batch_size': 100,
+    'decay_step': 5000,  # TODO     # Epochs after which learning rate decays.
+    'learning_rate_decay_factor': 0.5,   # Learning rate decay factor.
+    'learning_rate': lr,                 # Initial learning rate img.
+
+    'output_dim': output_dim,
+    'alpha': alpha,
+
+    'R': Rs[_dataset],
+    'model_weights': '../../core/architecture/single_model/pretrained_model/reference_pretrain.npy',
+
+    'img_model': 'alexnet',
+    'loss_type': 'normed_cross_entropy',  # normed_cross_entropy # TODO
+
+    # if only finetune last layer
+    'finetune_all': True,
+
+    # CQ params
+    'cq_lambda': cq_lambda,
+
+    'label_dim': label_dims[_dataset],
+    'img_tr': "/home/caoyue/data/{}/train.txt".format(_dataset),
+    'img_te': "/home/caoyue/data/{}/test.txt".format(_dataset),
+    'img_db': "/home/caoyue/data/{}/database.txt".format(_dataset),
+    'save_dir': "./models/",
+
+=== 257 23shades-0728-aadhcgicg ===
+{"dataset_id": "aadhcgicg", "repo_name": "Pinafore/qb", "filename": "extractors/ir.py", "comment_introducing_revision": "https://github.com/Pinafore/qb/commit/507a03a2f01c33ef93828598dfc8fe26e1b99e68", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "507a03a2f01c33ef93828598dfc8fe26e1b99e68"}
+[comment_text]
+TODO: This branch happens when there's only one content word
+[source_context]
+            text = " ".join(text)
+        if not text:
+            return kNEG_INF
+
+        # Get the document
+        if self._query_hash != hash(text):
+            # print("New query for %s" % text)
+            text_query, text_length = self.create_query(text)
+            try:
+                self._query_terms = [tuple(x.terms()) for x in text_query]
+                self._query_terms = [x[0] for x in self._query_terms]
+            except NotImplementedError:
+                # TODO: This branch happens when there's only one content word
+                # in the query.  Not sure it's being handled correctly.
+                # print(text_query)
+                self._query_terms = [("content", text_query)]
+            self._query_hash = hash(text)
+
+            # Put the query words into the IDF lookup
+            self._idf = {}
+            with self._index.searcher(weighting=scoring.TF_IDF()) as r:
+                for field, word in self._query_terms:
+                    try:
+                        self._idf[word] = r.idf(field, word)
+                    except TypeError:
+
+=== 258 23shades-0735-aaihjgafa ===
+{"dataset_id": "aaihjgafa", "repo_name": "ray-project/ray", "filename": "python/ray/dataframe/dataframe.py", "comment_introducing_revision": "https://github.com/ray-project/ray/commit/8f59546ef2fba5af2666c27e5480f6819389fedf", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "8f59546ef2fba5af2666c27e5480f6819389fedf"}
+[comment_text]
+TODO: This is very inefficient and needs fix
+[source_context]
+
+        Returns:
+            A modified DataFrame
+        """
+        return self.abs()
+
+    def __round__(self, decimals=0):
+        raise NotImplementedError(
+            "To contribute to Pandas on Ray, please visit "
+            "github.com/ray-project/ray.")
+
+    def __array__(self, dtype=None):
+        # TODO: This is very inefficient and needs fix
+        return np.array(to_pandas(self))
+
+    def __array_wrap__(self, result, context=None):
+        raise NotImplementedError(
+            "To contribute to Pandas on Ray, please visit "
+            "github.com/ray-project/ray.")
+
+    def __getstate__(self):
+        raise NotImplementedError(
+            "To contribute to Pandas on Ray, please visit "
+            "github.com/ray-project/ray.")
+
+
+=== 259 23shades-0170-aaigfaibj ===
+{"dataset_id": "aaigfaibj", "repo_name": "chainer/chainer", "filename": "chainerx/_fallback_workarounds.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/86782b7dcf2fb09f03dfed47fa06ffa5dbd8c484", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "86782b7dcf2fb09f03dfed47fa06ffa5dbd8c484"}
+[comment_text]
+The workaround does not support backprop; and also requires external
+[source_context]
+# This file defines workaround implementation for
+# NumPy-compatibility functions that fall back to NumPy/CuPy functions
+# for native/cuda devices respecitvely.
+# The workaround does not support backprop, and also requires external
+# libraries mentioned above.
+# Functions defined in this file should be considered to have high priority for
+# genuine implementations.
+
+import numpy
+
+import chainerx
+
+
+try:
+    import cupy
+except Exception:
+
+=== 260 23shades-0300-aaejhiaeb ===
+{"dataset_id": "aaejhiaeb", "repo_name": "ThibaultGROUEIX/3D-CODED", "filename": "training/train_sup_2.py", "comment_introducing_revision": "https://github.com/ThibaultGROUEIX/3D-CODED/commit/e066c76f8255a77558d32b12cd3b2e5e7cfc2154", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e066c76f8255a77558d32b12cd3b2e5e7cfc2154"}
+[comment_text]
+TODO implement multi-gpu training and compare performance
+[source_context]
+# TODO Change Dataloader : works -> Add release tag
+# TODO Fix seed
+# TODO add arg_parse file
+# TODO Build trainer class
+# TODO add cool new scripts from CycleConsistentCorrespondence
+# TODO add Theo's work as a Flag
+# TODO add superquadrics loss (check how probas are predicted in original paper)
+# TODO add learned gradient descent
+# TODO add nice logging
+# TODO add reprojection loss if single-view-recons
+# TODO improve print statement
+# TODO implement multi-gpu training and compare performance
+
+from __future__ import print_function
+import sys
+sys.path.append('./auxiliary/')
+sys.path.append('/app/python/')
+sys.path.append('./')
+import my_utils
+my_utils.plant_seeds(randomized_seed=False)
+print("fixed seed")
+import argparse
+import random
+import numpy as np
+
+=== 261 23shades-0252-aafeifgfi ===
+{"dataset_id": "aafeifgfi", "repo_name": "aleju/imgaug", "filename": "imgaug/random.py", "comment_introducing_revision": "https://github.com/aleju/imgaug/commit/a39951376bb880c89239cbdfd69ca769785b83f5", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "a39951376bb880c89239cbdfd69ca769785b83f5"}
+[comment_text]
+TODO change random_state to rng
+[source_context]
+# Deprecated name for current RNG
+CURRENT_RANDOM_STATE = GLOBAL_RNG
+
+# use 2**31 instead of 2**32 as the maximum here, because 2**31 errored on
+# some systems
+SEED_MIN_VALUE = 0
+SEED_MAX_VALUE = 2**31-1
+
+# TODO decrease pool_size in SeedSequence to 2 or 1?
+# TODO add 'with resetted_rng(...)'
+# TODO rename _rng functions to _generator
+# TODO update augmenter docstrings
+# TODO change random_state to rng
+# TODO use use_state_of_() in augment_* functions
+# TODO use duplicate() function in augmenters
+
+
+class RNG(object):
+    """
+
+    Not supported:
+
+    * :func:`numpy.random.RandomState.rand`
+    * :func:`numpy.random.RandomState.randn`
+    * :func:`numpy.random.RandomState.randint`
+
+=== 262 23shades-0049-aagaggihd ===
+{"dataset_id": "aagaggihd", "repo_name": "araffin/srl-zoo", "filename": "main.py", "comment_introducing_revision": "https://github.com/araffin/srl-zoo/commit/c42ccf51ac4e4b4d10f1248580c82924a0492178", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "c42ccf51ac4e4b4d10f1248580c82924a0492178"}
+[comment_text]
+A future enhancement TODO for running on multiple GPU: CUDA_VISIBLE_DEVICES=2;3 python main.py   and then also model = torch.nn.DataParallel(model; device_ids=[0;1]).cuda()
+[source_context]
+        plt.subplot(m, n, i + 1)
+        plt.imshow(observations[i].reshape(16, 16, 3), interpolation='nearest')
+        plt.gca().invert_yaxis()
+        plt.xticks([])
+        plt.yticks([])
+    plt.pause(0.0001)
+
+def set_cuda(use_cuda):
+    if use_cuda:
+        #th.cuda.set_device(1)  # Mat Uses 0, Tim 1   In most cases it’s better to use CUDA_VISIBLE_DEVICES environmental variable.
+        # To tackle GPU memory issues, th.cuda.set_default_device(1) and set_device() are both discouraged, use instead A) MLP network, SqueezeNet instead of ResNet or B)
+        #See how second gpu memory is less used, therefore we can set it (recommended as setDevice is discouraged): CUDA_VISIBLE_DEVICES=1 python main.py (to set the second gpu memory for use)
+        #A future enhancement TODO for running on multiple GPU: CUDA_VISIBLE_DEVICES=2,3 python main.py   and then also model = torch.nn.DataParallel(model, device_ids=[0,1]).cuda()
+        device = th.cuda.current_device()+1
+        print ("Current device is the {}{}".format(device,'nd' if device==2 else 'st'))
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='PyTorch SRL with robotic priors')
+    parser.add_argument('--epochs', type=int, default=50, metavar='N',
+                        help='number of epochs to train (default: 50)')
+    parser.add_argument('--seed', type=int, default=1, metavar='S',
+                        help='random seed (default: 1)')
+    parser.add_argument('--state_dim', type=int, default=2, help='state dimension (default: 2)')
+    parser.add_argument('-bs', '--batch_size', type=int, default=256, help='batch_size (default: 256)')
+    parser.add_argument('-lr', '--learning_rate', type=float, default=0.005, help='learning rate (default: 0.005)')
+
+=== 263 23shades-0365-aaebabejj ===
+{"dataset_id": "aaebabejj", "repo_name": "ROCmSoftwarePlatform/Tensile", "filename": "tuning/automation/GenerateTuningConfigurations.py", "comment_introducing_revision": "https://github.com/ROCmSoftwarePlatform/Tensile/commit/f3125674dad7aa1739e688ddd9c36e2265c04838", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "f3125674dad7aa1739e688ddd9c36e2265c04838"}
+[comment_text]
+TODO this combo doens't work
+[source_context]
+        initialParams["TransposeA"] = True
+
+    if transposeB == "N":
+        initialParams["TransposeB"] = False
+    else:
+        initialParams["TransposeB"] = True
+    initialParams["DataType"] = dType[0]
+    initialParams["DestDataType"] = dType[1]
+    initialParams["ComputeDataType"] = dType[2]
+
+    if (dType[0] == "h" or dType[0] == "b") and dType[2] == "s":
+        if disableHpa:
+            # TODO this combo doens't work
+            print("input half and compute single requires hpa")
+            pass
+        initialParams["HighPrecisionAccumulate"] = True
+
+
+    problemType = generateProblemType(initialParams,tileAware)
+
+    return problemType
+
+def generateBenchmarkGroupFromScheme(scheme,tileAware=False):
+    benchmarkGroup = generateEmptyBenchmarkGroup()
+

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0737-aafdiegjf",
+  "revision_url": "https://github.com/pierluigiferrari/ssd_keras/commit/2152409b5750c30524ebd052bff2c145bbd1031a",
+  "filename": "ssd_box_encode_decode_utils.py",
+  "commit": "2152409b5750c30524ebd052bff2c145bbd1031a",
+  "source_url": "https://raw.githubusercontent.com/pierluigiferrari/ssd_keras/2152409b5750c30524ebd052bff2c145bbd1031a/ssd_box_encode_decode_utils.py",
+  "fetched_at": "2026-11-05T06:13:45.528770+00:00",
+  "source_sha256": "9bccfdd44f598e9c5f150f2c34321f10f07a08e5507305e19d2335f4d1c108ad",
+  "line_start": 327,
+  "line_end": 351,
+  "excerpt": "            model per image, and the classes are one-hot-encoded.\n        '''\n\n        # 1: Build the template for y_encoded\n        y_encode_template = self.build_y_encode_template(batch_size=len(ground_truth_labels),\n                                                         diagnostics=False)\n\n        y_encoded = np.copy(y_encode_template) # We'll write the ground truth box data to this array\n\n        # 2: Match the boxes from `ground_truth_labels` to the default boxes in `y_encode_template`\n        #    and for each matched box record the ground truth coordinates in `y_encoded`.\n        #    Every time there is no match for a default box, record `class_id` 0 in `y_encoded` for that default box.\n        #    TODO: This matching process is slow. Make it faster, avoid loops where possible.\n\n        class_vector = np.eye(self.n_classes, dtype=np.int32) # An identity matrix that we'll use as one-hot class vectors\n\n        for i in range(len(y_encode_template)):\n            available_boxes = np.ones((y_encode_template.shape[1]), dtype=np.int32) # 1 for all default boxes that are not yet matched to a ground truth box, 0 otherwise\n            for true_box in ground_truth_labels[i]:\n                similarities = iou(y_encode_template[i,:,-4:], true_box[:4]) # The iou similarities for all default boxes\n                similarities *= available_boxes # Filter out default boxes which aren't available anymore (i.e. already matched to a different ground truth box)\n                available_and_thresh_met = np.copy(similarities)\n                available_and_thresh_met[available_and_thresh_met < self.iou_threshold] = 0 # Filter out default boxes which don't meet the iou threshold\n                assign_indices = np.nonzero(available_and_thresh_met)[0] # Get the indices of the left-over default boxes to which we want to assign this ground truth box\n                if len(assign_indices) > 0: # If we have any matches",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,98 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18993",
+  "issue_url": "https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740",
+  "source_issue_url": "https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740",
+  "api_url": "https://api.github.com/repos/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740",
+  "title": "Add Acceptance checkbox",
+  "body": "Hi!\r\nthank you for your plugin!\r\nIs there a way to add  an \"acceptance checkbox\"?\r\nBecause of European Privacy Law, user must accept the privacy policy before send his data.\r\n\r\nThank You!",
+  "author": "Participant 1",
+  "created_at": "2017-12-12T10:11:01Z",
+  "updated_at": "2017-12-13T12:58:15Z",
+  "state": "closed",
+  "closed_at": "2017-12-13T12:58:15Z",
+  "issue_fetched_at": "2026-10-18T23:10:22.193337+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T23:10:23.651737+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 351020287,
+      "url": "https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740#issuecomment-351020287",
+      "created_at": "2017-12-12T11:09:41Z",
+      "updated_at": "2017-12-12T11:09:41Z",
+      "author": "Participant 2",
+      "body": "Hello.\r\n\r\nYes, we have a free add-on that does exactly that.\r\nhttps://wordpress.org/plugins/eu-opt-in-compliance-for-mailchimp/\r\n\r\nThank you.\r\n-Tracy"
+    },
+    {
+      "id": 351028559,
+      "url": "https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740#issuecomment-351028559",
+      "created_at": "2017-12-12T11:47:28Z",
+      "updated_at": "2017-12-12T12:16:53Z",
+      "author": "Participant 1",
+      "body": "Hi,\r\nthank you for your reply!\r\n\r\nCan I ask you another thing?\r\nEvery time I send the form I always get \"Please enter a complete address\"\r\nI put this field as not required.\r\nI filled every part... but it doesn't work if I set a country different to USA.\r\n\r\nI probably found the cause:\r\nIt always tries to check that the \"state\" field is not empty, but it is only active when USA is selected.\r\nIs there a way to solve that behavior?\r\n\r\nThank you for all!"
+    },
+    {
+      "id": 351034484,
+      "url": "https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740#issuecomment-351034484",
+      "created_at": "2017-12-12T12:14:32Z",
+      "updated_at": "2017-12-12T12:16:25Z",
+      "author": "Participant 1",
+      "body": "I made a really ugly tmp fix that works:\r\n\t`jQuery(\"[data-attr-name='state-dropdown'] select  option:first\").val('-').change();`\r\n\r\n"
+    },
+    {
+      "id": 351046935,
+      "url": "https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740#issuecomment-351046935",
+      "created_at": "2017-12-12T13:11:04Z",
+      "updated_at": "2017-12-12T13:11:04Z",
+      "author": "Participant 3",
+      "body": "Hi @Filoz,\r\n\r\nMailChimp has a lot of issues with international addresses but I believe if you set the address field to not required both in MailChimp.com and in the plugin it should work. \r\n\r\nYour work around is also acceptable but this functionality should be available without any additional code.\r\n\r\nLet me know if you want to try that.\r\n\r\nCheers,\r\nKevin."
+    },
+    {
+      "id": 351049422,
+      "url": "https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740#issuecomment-351049422",
+      "created_at": "2017-12-12T13:21:38Z",
+      "updated_at": "2017-12-12T13:21:38Z",
+      "author": "Participant 1",
+      "body": "Hi,\r\nmy address filed is not require both in mailchimp and and in the plugin... but it doesn't work \r\n\r\nA solution could be replacing \r\n`<option data-country=\"US\" value=\"\">---</option>\r\n`\r\nwith\r\n`<option data-country=\"US\" value=\"-\">---</option>\r\n`\r\nin https://github.com/yikesinc/yikes-inc-easy-mailchimp-extender/blob/master/public/partials/shortcodes/templates/state-and-province-dropdown.php\r\n\r\nWould you accept a PR?"
+    },
+    {
+      "id": 351050217,
+      "url": "https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740#issuecomment-351050217",
+      "created_at": "2017-12-12T13:24:54Z",
+      "updated_at": "2017-12-12T13:24:54Z",
+      "author": "Participant 3",
+      "body": "The problem is that we need an empty value for folks who want to force users to select a state. \r\n\r\nWe do filter that list of states though so you could use a filter function to change the list. I'm afraid this wouldn't be any different from your current work-around though.\r\n\r\nI was almost certain we had a solution for this so let me do some research."
+    },
+    {
+      "id": 351052147,
+      "url": "https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740#issuecomment-351052147",
+      "created_at": "2017-12-12T13:32:46Z",
+      "updated_at": "2017-12-12T13:32:46Z",
+      "author": "Participant 3",
+      "body": "There is no other solution than to use the filter. \r\n\r\nIf you won't ever have U.S./Canadian addresses, then the filter is very simple and you can simply return a HTML like `<option value=\"-\">---</option>`.\r\n\r\nIf you need to handle U.S./Canadian addresses also, then I would suggest copying the `state-and-province-dropdown.php` file, adding the change you suggested, and running a filter function like:\r\n\r\n```\r\nadd_filter( 'yikes-mailchimp-state-province-list', 'my_own_state_province_list', 10, 2 );`\r\n\r\nfunction my_own_state_province_list( $html_list, $form_id ) {\r\n    return PATH/TO/MY/VERSION/OF/STATE/AND/PROVINCE/LIST\r\n}\r\n```\r\n\r\nDoes that make sense? \r\n\r\nCheers,\r\nKevin."
+    },
+    {
+      "id": 351222948,
+      "url": "https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740#issuecomment-351222948",
+      "created_at": "2017-12-12T22:56:51Z",
+      "updated_at": "2017-12-12T22:56:51Z",
+      "author": "Participant 1",
+      "body": "Yes it makes absolutely sense :)\r\n\r\nThank you for your help!"
+    },
+    {
+      "id": 351383799,
+      "url": "https://github.com/EvanHerman/yikes-inc-easy-mailchimp-extender/issues/740#issuecomment-351383799",
+      "created_at": "2017-12-13T12:58:15Z",
+      "updated_at": "2017-12-13T12:58:15Z",
+      "author": "Participant 3",
+      "body": "No problem; it was nice working with you :)"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0564-aafjicajb",
+  "revision_url": "https://github.com/ai-med/nn-common-modules/commit/1a84330d3836a887c5423db423cbab0ed9e80453",
+  "filename": "nn_common_modules/modules.py",
+  "commit": "1a84330d3836a887c5423db423cbab0ed9e80453",
+  "source_url": "https://raw.githubusercontent.com/ai-med/nn-common-modules/1a84330d3836a887c5423db423cbab0ed9e80453/nn_common_modules/modules.py",
+  "fetched_at": "2026-11-05T06:13:12.991748+00:00",
+  "source_sha256": "b1e7bd3ad1be5a93493ff75ab3228559f7f8306921104e2514186daaec10db65",
+  "line_start": 190,
+  "line_end": 214,
+  "excerpt": "        :param out_block: Tensor for skip connection, shape = (N x C x H x W), defaults to None\n        :type out_block: torch.tensor [FloatTensor], optional\n        :param indices: Indices used for unpooling operation, defaults to None\n        :type indices: torch.tensor, optional\n        :param weights: Weights used for squeeze and excitation, shape depends on the type of SE block, defaults to None\n        :type weights: torch.tensor, optional\n        :return: Forward passed tensor\n        :rtype: torch.tensor [FloatTensor]\n        \"\"\"\n        if indices is not None:\n            unpool = self.unpool(input, indices)\n        else:\n            # TODO: Implement Conv Transpose\n            print(\"You have to use Conv Transpose\")\n\n        if out_block is not None:\n            concat = torch.cat((out_block, unpool), dim=1)\n        else:\n            concat = unpool\n        out_block = super(DecoderBlock, self).forward(concat)\n\n        if self.SELayer:\n            out_block = self.SELayer(out_block, weights)\n\n        if self.drop_out_needed:"
+}

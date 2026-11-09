@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/prebid/Prebid.js/blob/3513d38c120072380c0f4a2376b95f50bb957224/modules/rubiconBidAdapter.js#L836",
+  "kind": "file",
+  "cited_in": [
+    "body"
+  ],
+  "revision": "3513d38c120072380c0f4a2376b95f50bb957224",
+  "immutable_revision": true,
+  "line_start": 824,
+  "line_end": 848,
+  "text": "function _getDigiTrustQueryParams(bidRequest = {}, endpointName) {\n  if (!endpointName || !DIGITRUST_PROP_NAMES[endpointName]) {\n    return null;\n  }\n  const propNames = DIGITRUST_PROP_NAMES[endpointName];\n\n  function getDigiTrustId() {\n    const bidRequestDigitrust = utils.deepAccess(bidRequest, 'userId.digitrustid.data');\n    if (bidRequestDigitrust) {\n      return bidRequestDigitrust;\n    }\n\n    let digiTrustUser = (window.DigiTrust && (config.getConfig('digiTrustId') || window.DigiTrust.getUser({member: 'T9QSFKPDN9'})));\n    return (digiTrustUser && digiTrustUser.success && digiTrustUser.identity) || null;\n  }\n\n  let digiTrustId = getDigiTrustId();\n  // Verify there is an ID and this user has not opted out\n  if (!digiTrustId || (digiTrustId.privacy && digiTrustId.privacy.optout)) {\n    return null;\n  }\n\n  const digiTrustQueryParams = {\n    [propNames.id]: digiTrustId.id,\n    [propNames.keyv]: digiTrustId.keyv",
+  "source_sha256": "5cee8c9aa76f251604d58e35de37f7201b79c243c0089ad3cae1f0c5755fcf99",
+  "fetched_at": "2026-11-05T06:21:36.378389+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/prebid/Prebid.js/3513d38c120072380c0f4a2376b95f50bb957224/modules/rubiconBidAdapter.js",
+  "status": "available"
+}

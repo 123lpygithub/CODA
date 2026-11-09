@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0551-aajdbhhhh",
+  "revision_url": "https://github.com/mozilla/TTS/commit/2abe3df1536ba956bc03a471716be3803f66e7c2",
+  "filename": "TTS/bin/compute_attention_masks.py",
+  "commit": "2abe3df1536ba956bc03a471716be3803f66e7c2",
+  "source_url": "https://raw.githubusercontent.com/mozilla/TTS/2abe3df1536ba956bc03a471716be3803f66e7c2/TTS/bin/compute_attention_masks.py",
+  "fetched_at": "2026-11-05T06:13:10.701702+00:00",
+  "source_sha256": "ed50bce97dce7da56c45bda48d1357502c55b1829751d08aec474b18a09124eb",
+  "line_start": 77,
+  "line_end": 101,
+  "excerpt": "        help='Batch size for the model. Use batch_size=1 if you have no CUDA.')\n    args = parser.parse_args()\n\n    C = load_config(args.config_path)\n    ap = AudioProcessor(**C.audio)\n\n    # if the vocabulary was passed, replace the default\n    if 'characters' in C.keys():\n        symbols, phonemes = make_symbols(**C.characters)\n\n    # load the model\n    num_chars = len(phonemes) if C.use_phonemes else len(symbols)\n    # TODO: handle multi-speaker\n    model = setup_model(num_chars, num_speakers=0, c=C)\n    model, _ = load_checkpoint(model, args.model_path, None, args.use_cuda)\n    model.eval()\n\n    # data loader\n    preprocessor = importlib.import_module('TTS.tts.datasets.preprocess')\n    preprocessor = getattr(preprocessor, args.dataset)\n    meta_data = preprocessor(args.data_path, args.dataset_metafile)\n    dataset = MyDataset(model.decoder.r,\n                        C.text_cleaner,\n                        compute_linear_spec=False,\n                        ap=ap,"
+}

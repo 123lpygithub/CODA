@@ -1,0 +1,202 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27eclipse%2Fopen-vsx.org%27+AND+number%3D220+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='eclipse/open-vsx.org' AND number=220 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:32.206002+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "brianking",
+        "created_at": "2020-11-18 11:26:28",
+        "updated_at": "2020-11-18 11:26:28",
+        "title": "Cookie Settings Not Easily Discoverable",
+        "body": "Once you accept or decline cookies, the bar minimizes to below the Github logo and repository name in the footer on the bottom left. It appears to look like a design element of the footer, and it is not obvious that you should hover it it to expand it and click to launch.\r\n\r\nI see it works the same way on eclipse.org, so it is by design. And the fix might not be here, but in the cookie module being used. However I thought I would call it out anyway.",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-18 11:00:00",
+        "repo_name": "eclipse/open-vsx.org",
+        "number": 220
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "brianking",
+        "created_at": "2020-11-18 11:27:03",
+        "updated_at": "2020-11-18 11:27:03",
+        "title": "Cookie Settings Not Easily Discoverable",
+        "body": "cc/ @chrisguindon if this has ever been flagged before, and if you have any thoughts on it.",
+        "comment_id": 729617553,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-18 11:00:00",
+        "repo_name": "eclipse/open-vsx.org",
+        "number": 220
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "chrisguindon",
+        "created_at": "2020-11-18 16:23:50",
+        "updated_at": "2020-11-18 16:23:50",
+        "title": "Cookie Settings Not Easily Discoverable",
+        "body": "@brianking Thanks for indirectly reporting a bug!\r\n\r\nThe badge should NOT be visible if we have a link to manage cookies on the page. I am currently working on a fix.\r\n\r\nOur solution is to hide the minimized badge if there is a link on the page to manage cookies. That link must include the .toolbar-manage-cookies class.\r\n\r\n",
+        "comment_id": 729791630,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-18 16:00:00",
+        "repo_name": "eclipse/open-vsx.org",
+        "number": 220
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "chrisguindon",
+        "created_at": "2020-11-18 17:03:30",
+        "updated_at": "2020-11-18 17:03:30",
+        "title": "Cookie Settings Not Easily Discoverable",
+        "body": "@brianking We created a fix for this issue here:\r\nhttps://github.com/EclipseFdn/solstice-assets/pull/194\r\n\r\nI hope to deploy this on www.eclipse.org later today.\r\n\r\nThis is the code that we are using to display the banner whenever someone clicks on an element with the class .toolbar-manage-cookies.\r\n\r\nThe open-vsx website will need to implement something similar if they wish to hide the badge. The badge is our fallback solution if the manage cookie link is missing from the page as we need to make sure that people can opt-out or opt-in at any time.\r\n\r\nPlease let me know if you have any questions about this.",
+        "comment_id": 729816466,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-18 17:00:00",
+        "repo_name": "eclipse/open-vsx.org",
+        "number": 220
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "brianking",
+        "created_at": "2020-11-18 19:50:31",
+        "updated_at": "2020-11-18 19:50:30",
+        "title": "Cookie Settings Not Easily Discoverable",
+        "body": "Thanks Chris. I'll leave it in the hands of @spoenemann to decide if the fix can be taken here.",
+        "comment_id": 729915221,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-18 19:00:00",
+        "repo_name": "eclipse/open-vsx.org",
+        "number": 220
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "chrisguindon",
+        "created_at": "2020-11-18 19:59:17",
+        "updated_at": "2020-11-18 19:59:17",
+        "title": "Cookie Settings Not Easily Discoverable",
+        "body": "@brianking Sounds good! This is now live on eclipse.org.",
+        "comment_id": 729919661,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-18 19:00:00",
+        "repo_name": "eclipse/open-vsx.org",
+        "number": 220
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "spoenemann",
+        "created_at": "2020-12-02 11:11:58",
+        "updated_at": "2020-12-02 11:11:58",
+        "title": "Cookie Settings Not Easily Discoverable",
+        "body": "I disabled the \"Cookie settings\" bar for now. Is it really necessary to allow users to revise their choice on cookies?",
+        "comment_id": 737163207,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-12-02 11:00:00",
+        "repo_name": "eclipse/open-vsx.org",
+        "number": 220
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "chrisguindon",
+        "created_at": "2020-12-02 15:42:30",
+        "updated_at": "2020-12-02 15:42:30",
+        "title": "Cookie Settings Not Easily Discoverable",
+        "body": "Yes, users should be able to revoke at any time.\n\nOn Wed, Dec 2, 2020 at 6:12 AM Miro Spönemann <notifications@github.com>\nwrote:\n\n> I disabled the \"Cookie settings\" bar for now. Is it really necessary to\n> allow users to revise their choice on cookies?\n>\n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/eclipse/open-vsx.org/issues/220#issuecomment-737163207>,\n> or unsubscribe\n> <https://github.com/notifications/unsubscribe-auth/AAG2H5V2REN2FYJ6KJDVMB3SSYOI5ANCNFSM4TZ25YLQ>\n> .\n>\n\n\n-- \nChristopher Guindon\nManager, Web Development | Eclipse Foundation, Inc.\nEclipse Foundation: The Platform for Open Innovation and Collaboration\nTwitter: @chrisguindon\n",
+        "comment_id": 737312517,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-12-02 15:00:00",
+        "repo_name": "eclipse/open-vsx.org",
+        "number": 220
+      }
+    ],
+    "rows": 8,
+    "statistics": {
+      "elapsed": 0.039271901,
+      "rows_read": 285019,
+      "bytes_read": 16154866
+    }
+  },
+  "response_sha256": "cc26abdefc7a76df3adb9e0459a9845c5c5bea056f6c78bd1ea095316c529982"
+}

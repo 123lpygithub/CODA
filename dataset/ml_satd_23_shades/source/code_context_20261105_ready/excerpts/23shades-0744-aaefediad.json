@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:86d61f449a31941d86fef643b31fa1a541fa3b87/raw/",
+  "source_sha256": "ff2382e2f128c94bfc1d61d0e97c50a6bed9d2991bdb4ddfc5895590ca37c7b6",
+  "fetched_at": "2026-11-05T06:43:21.376869+00:00",
+  "archive_directory": "1d8691d039da93d9a31b1a7b5533ca0e6c3d62e1",
+  "git_blob_sha1": "86d61f449a31941d86fef643b31fa1a541fa3b87",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/91adda199a11b66029f3e18fd156485a93d73dd7/",
+  "artifact_id": "23shades-0744-aaefediad",
+  "revision_url": "https://github.com/oracle/Skater/commit/91adda199a11b66029f3e18fd156485a93d73dd7",
+  "filename": "pyinterpret/core/global_interpretation/partial_dependence.py",
+  "commit": "91adda199a11b66029f3e18fd156485a93d73dd7",
+  "line_start": 116,
+  "line_end": 140,
+  "excerpt": "            raise exceptions.EmptyFeatureListError(empty_features_err_msg)\n\n        if len(set(feature_ids)) != len(feature_ids):\n            duplicate_features_error_msg = \"feature_ids cannot contain duplicate values\"\n            raise exceptions.DuplicateFeaturesError(duplicate_features_error_msg)\n\n        if self.data_set is None:\n            load_data_not_called_err_msg = \"self.interpreter.data_set not found. \" \\\n                                           \"Please call Interpretation.load_data \" \\\n                                           \"before running this method.\"\n            raise exceptions.DataSetNotLoadedError(load_data_not_called_err_msg)\n\n        # TODO: This we can change easily to functional style\n        missing_feature_ids = []\n        for feature_id in feature_ids:\n            if feature_id not in self.data_set.feature_ids:\n                missing_feature_ids.append(feature_id)\n\n        if missing_feature_ids:\n            missing_feature_id_err_msg = \"Features {0} not found in \" \\\n                                         \"Interpretation.data_set.feature_ids\" \\\n                                         \"{1}\".format(missing_feature_ids, self.data_set.feature_ids)\n            raise KeyError(missing_feature_id_err_msg)\n\n        if grid_range is None:",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,83 @@
+{
+  "artifact_id": "privacy-issue-4261",
+  "source_issue_url": "https://github.com/status-im/status-mobile/issues/11035",
+  "issue_snapshot_sha256": "e1f68f8d061edd9bb9263798003b903857fa482c83d5ac18f961ec5419164cd5",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/status-im/status-react/blob/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/ethereum/json_rpc.cljs#L12-L216",
+      "kind": "file",
+      "cited_in": [
+        "comment_691616237"
+      ],
+      "revision": "32cb09c9c68497ce152216067d2e00309baef686",
+      "immutable_revision": true,
+      "line_start": 1,
+      "line_end": 228,
+      "text": "(ns status-im.ethereum.json-rpc\n  (:require [clojure.string :as string]\n            [re-frame.core :as re-frame]\n            [status-im.ethereum.abi-spec :as abi-spec]\n            [status-im.ethereum.decode :as decode]\n            [status-im.native-module.core :as status]\n            [status-im.utils.money :as money]\n            [status-im.utils.types :as types]\n            [status-im.utils.utils :as utils]\n            [taoensso.timbre :as log]))\n\n(def json-rpc-api\n  {\"eth_call\" {}\n   \"eth_getBalance\"\n   {:on-result money/bignumber}\n   \"eth_estimateGas\"\n   {:on-result #(money/bignumber (if (= (int %) 21000) % (int (* % 1.2))))}\n   \"eth_gasPrice\"\n   {:on-result money/bignumber}\n   \"eth_getBlockByHash\"\n   {:on-result #(-> (update % :number decode/uint)\n                    (update :timestamp decode/uint))}\n   \"eth_getTransactionByHash\" {}\n   \"eth_getTransactionReceipt\" {}\n   \"eth_getBlockByNumber\" {}\n   \"eth_newBlockFilter\" {:subscription? true}\n   \"eth_newFilter\" {:subscription? true}\n   \"eth_syncing\" {}\n   \"net_version\" {}\n   \"web3_clientVersion\" {}\n   \"shh_generateSymKeyFromPassword\" {}\n   \"shh_getSymKey\" {}\n   \"shh_markTrustedPeer\" {}\n   \"waku_generateSymKeyFromPassword\" {}\n   \"waku_getSymKey\" {}\n   \"waku_markTrustedPeer\" {}\n   \"shhext_post\" {}\n   \"shhext_startMessenger\" {}\n   \"shhext_sendPairInstallation\" {}\n   \"shhext_syncDevices\" {}\n   \"shhext_requestMessages\" {}\n   \"shhext_sendDirectMessage\" {}\n   \"shhext_sendPublicMessage\" {}\n   \"shhext_enableInstallation\" {}\n   \"shhext_disableInstallation\" {}\n   \"shhext_sendChatMessage\" {}\n   \"shhext_confirmJoiningGroup\" {}\n   \"shhext_addAdminsToGroupChat\" {}\n   \"shhext_addMembersToGroupChat\" {}\n   \"shhext_removeMemberFromGroupChat\" {}\n   \"shhext_leaveGroupChat\" {}\n   \"shhext_changeGroupChatName\" {}\n   \"shhext_createGroupChatWithMembers\" {}\n   \"shhext_createGroupChatFromInvitation\" {}\n   \"shhext_reSendChatMessage\" {}\n   \"shhext_getOurInstallations\" {}\n   \"shhext_setInstallationMetadata\" {}\n   \"shhext_loadFilters\" {}\n   \"shhext_loadFilter\" {}\n   \"shhext_removeFilters\" {}\n   \"shhext_sendContactUpdate\" {}\n   \"shhext_sendContactUpdates\" {}\n   \"shhext_chats\" {}\n   \"shhext_addSystemMessages\" {}\n   \"shhext_deleteMessagesFrom\" {}\n   \"shhext_deleteMessagesByChatID\" {}\n   \"shhext_deleteMessage\" {}\n   \"shhext_markMessagesSeen\" {}\n   \"shhext_markAllRead\" {}\n   \"shhext_confirmMessagesProcessedByID\" {}\n   \"shhext_updateMessageOutgoingStatus\" {}\n   \"shhext_chatMessages\" {}\n   \"shhext_saveChat\" {}\n   \"shhext_muteChat\" {}\n   \"shhext_unmuteChat\" {}\n   \"shhext_contacts\" {}\n   \"shhext_prepareContent\" {}\n   \"shhext_blockContact\" {}\n   \"shhext_updateMailservers\" {}\n   \"shhext_sendEmojiReaction\" {}\n   \"shhext_sendEmojiReactionRetraction\" {}\n   \"shhext_emojiReactionsByChatID\" {}\n   ;;TODO not used anywhere?\n   \"shhext_deleteChat\" {}\n   \"shhext_saveContact\" {}\n   \"shhext_verifyENSNames\" {}\n   \"shhext_requestAddressForTransaction\" {}\n   \"shhext_requestTransaction\" {}\n   \"shhext_acceptRequestAddressForTransaction\" {}\n   \"shhext_declineRequestAddressForTransaction\" {}\n   \"shhext_declineRequestTransaction\" {}\n   \"shhext_sendTransaction\" {}\n   \"shhext_acceptRequestTransaction\" {}\n   \"shhext_signMessageWithChatKey\" {}\n   \"shhext_sendGroupChatInvitationRequest\" {}\n   \"shhext_sendGroupChatInvitationRejection\" {}\n   \"shhext_getGroupChatInvitations\" {}\n   \"shhext_registerForPushNotifications\" {}\n   \"shhext_unregisterFromPushNotifications\" {}\n   \"shhext_enablePushNotificationsFromContactsOnly\" {}\n   \"shhext_disablePushNotificationsFromContactsOnly\" {}\n   \"shhext_startPushNotificationsServer\" {}\n   \"shhext_stopPushNotificationsServer\" {}\n   \"shhext_disableSendingNotifications\" {}\n   \"shhext_enableSendingNotifications\" {}\n   \"shhext_addPushNotificationsServer\" {}\n   \"shhext_getPushNotificationsServers\" {}\n   \"shhext_enablePushNotificationsBlockMentions\" {}\n   \"shhext_disablePushNotificationsBlockMentions\" {}\n   \"wakuext_post\" {}\n   \"wakuext_startMessenger\" {}\n   \"wakuext_sendPairInstallation\" {}\n   \"wakuext_syncDevices\" {}\n   \"wakuext_requestMessages\" {}\n   \"wakuext_sendDirectMessage\" {}\n   \"wakuext_sendPublicMessage\" {}\n   \"wakuext_enableInstallation\" {}\n   \"wakuext_disableInstallation\" {}\n   \"wakuext_sendChatMessage\" {}\n   \"wakuext_confirmJoiningGroup\" {}\n   \"wakuext_addAdminsToGroupChat\" {}\n   \"wakuext_addMembersToGroupChat\" {}\n   \"wakuext_removeMemberFromGroupChat\" {}\n   \"wakuext_leaveGroupChat\" {}\n   \"wakuext_changeGroupChatName\" {}\n   \"wakuext_createGroupChatWithMembers\" {}\n   \"wakuext_createGroupChatFromInvitation\" {}\n   \"wakuext_reSendChatMessage\" {}\n   \"wakuext_getOurInstallations\" {}\n   \"wakuext_setInstallationMetadata\" {}\n   \"wakuext_loadFilters\" {}\n   \"wakuext_loadFilter\" {}\n   \"wakuext_removeFilters\" {}\n   \"wakuext_sendContactUpdate\" {}\n   \"wakuext_sendContactUpdates\" {}\n   \"wakuext_chats\" {}\n   \"wakuext_addSystemMessages\" {}\n   \"wakuext_deleteMessagesFrom\" {}\n   \"wakuext_deleteMessagesByChatID\" {}\n   \"wakuext_deleteMessage\" {}\n   \"wakuext_markMessagesSeen\" {}\n   \"wakuext_markAllRead\" {}\n   \"wakuext_confirmMessagesProcessedByID\" {}\n   \"wakuext_updateMessageOutgoingStatus\" {}\n   \"wakuext_chatMessages\" {}\n   \"wakuext_saveChat\" {}\n   \"wakuext_muteChat\" {}\n   \"wakuext_unmuteChat\" {}\n   \"wakuext_contacts\" {}\n   \"wakuext_prepareContent\" {}\n   \"wakuext_blockContact\" {}\n   \"wakuext_updateMailservers\" {}\n   \"wakuext_sendEmojiReaction\" {}\n   \"wakuext_sendEmojiReactionRetraction\" {}\n   \"wakuext_emojiReactionsByChatID\" {}\n   ;;TODO not used anywhere?\n   \"wakuext_deleteChat\" {}\n   \"wakuext_saveContact\" {}\n   \"wakuext_verifyENSNames\" {}\n   \"wakuext_requestAddressForTransaction\" {}\n   \"wakuext_requestTransaction\" {}\n   \"wakuext_acceptRequestAddressForTransaction\" {}\n   \"wakuext_declineRequestAddressForTransaction\" {}\n   \"wakuext_declineRequestTransaction\" {}\n   \"wakuext_sendTransaction\" {}\n   \"wakuext_acceptRequestTransaction\" {}\n   \"wakuext_signMessageWithChatKey\" {}\n   \"wakuext_sendGroupChatInvitationRequest\" {}\n   \"wakuext_sendGroupChatInvitationRejection\" {}\n   \"wakuext_getGroupChatInvitations\" {}\n   \"wakuext_registerForPushNotifications\" {}\n   \"wakuext_unregisterFromPushNotifications\" {}\n   \"wakuext_enablePushNotificationsFromContactsOnly\" {}\n   \"wakuext_disablePushNotificationsFromContactsOnly\" {}\n   \"wakuext_startPushNotificationsServer\" {}\n   \"wakuext_stopPushNotificationsServer\" {}\n   \"wakuext_disableSendingNotifications\" {}\n   \"wakuext_enableSendingNotifications\" {}\n   \"wakuext_addPushNotificationsServer\" {}\n   \"wakuext_getPushNotificationsServers\" {}\n   \"wakuext_enablePushNotificationsBlockMentions\" {}\n   \"wakuext_disablePushNotificationsBlockMentions\" {}\n   \"status_chats\" {}\n   \"wallet_getTransfers\" {}\n   \"wallet_getTokensBalances\" {}\n   \"wallet_getBlocksByAddress\" {}\n   \"wallet_getTransfersFromBlock\" {}\n   \"wallet_getTransfersByAddress\" {}\n   \"wallet_getCustomTokens\" {}\n   \"wallet_addCustomToken\" {}\n   \"wallet_deleteCustomToken\" {}\n   \"browsers_getBrowsers\" {}\n   \"browsers_addBrowser\" {}\n   \"browsers_deleteBrowser\" {}\n   \"mailservers_getMailserverRequestGaps\" {}\n   \"mailservers_addMailserverRequestGaps\" {}\n   \"mailservers_deleteMailserverRequestGaps\" {}\n   \"mailservers_deleteMailserverRequestGapsByChatID\" {}\n   \"permissions_addDappPermissions\" {}\n   \"permissions_getDappPermissions\" {}\n   \"permissions_deleteDappPermissions\" {}\n   \"settings_saveSetting\" {}\n   \"settings_getSettings\" {}\n   \"accounts_getAccounts\" {}\n   \"accounts_saveAccounts\" {}\n   \"accounts_deleteAccount\" {}\n   \"mailservers_ping\" {}\n   \"mailservers_addMailserver\" {}\n   \"mailservers_getMailservers\" {}\n   \"mailservers_deleteMailserver\" {}\n   \"mailservers_addMailserverTopic\" {}\n   \"mailservers_getMailserverTopics\" {}\n   \"mailservers_deleteMailserverTopic\" {}\n   \"mailservers_addChatRequestRange\" {}\n   \"mailservers_getChatRequestRanges\" {}\n   \"mailservers_deleteChatRequestRange\" {}})\n\n(defn on-error-retry\n  [call-method {:keys [method number-of-retries delay on-error] :as arg}]\n  (if (pos? number-of-retries)\n    (fn [error]\n      (let [updated-delay (if delay\n                            (min 2000 (* 2 delay))\n                            50)]\n        (log/debug \"[on-error-retry]\" method\n                   \"number-of-retries\" number-of-retries\n                   \"delay\" delay\n                   \"error\" error)",
+      "source_sha256": "5525e2e95c9c2d0e729798afb7086868c998b0b7314f03caa18139b459bd7a0a",
+      "fetched_at": "2026-11-05T06:21:19.154358+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/status-im/status-react/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/ethereum/json_rpc.cljs",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/status-im/status-go/blob/develop/services/ext/api.go",
+      "kind": "file",
+      "cited_in": [
+        "comment_691616237"
+      ],
+      "status": "unavailable",
+      "reason": "URLError: <urlopen error [Errno 101] Network is unreachable>"
+    },
+    {
+      "url": "https://github.com/status-im/status-react/blob/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/ethereum/json_rpc.cljs#L152",
+      "kind": "file",
+      "cited_in": [
+        "comment_691616237"
+      ],
+      "revision": "32cb09c9c68497ce152216067d2e00309baef686",
+      "immutable_revision": true,
+      "line_start": 140,
+      "line_end": 164,
+      "text": "   \"wakuext_deleteMessage\" {}\n   \"wakuext_markMessagesSeen\" {}\n   \"wakuext_markAllRead\" {}\n   \"wakuext_confirmMessagesProcessedByID\" {}\n   \"wakuext_updateMessageOutgoingStatus\" {}\n   \"wakuext_chatMessages\" {}\n   \"wakuext_saveChat\" {}\n   \"wakuext_muteChat\" {}\n   \"wakuext_unmuteChat\" {}\n   \"wakuext_contacts\" {}\n   \"wakuext_prepareContent\" {}\n   \"wakuext_blockContact\" {}\n   \"wakuext_updateMailservers\" {}\n   \"wakuext_sendEmojiReaction\" {}\n   \"wakuext_sendEmojiReactionRetraction\" {}\n   \"wakuext_emojiReactionsByChatID\" {}\n   ;;TODO not used anywhere?\n   \"wakuext_deleteChat\" {}\n   \"wakuext_saveContact\" {}\n   \"wakuext_verifyENSNames\" {}\n   \"wakuext_requestAddressForTransaction\" {}\n   \"wakuext_requestTransaction\" {}\n   \"wakuext_acceptRequestAddressForTransaction\" {}\n   \"wakuext_declineRequestAddressForTransaction\" {}\n   \"wakuext_declineRequestTransaction\" {}",
+      "source_sha256": "5525e2e95c9c2d0e729798afb7086868c998b0b7314f03caa18139b459bd7a0a",
+      "fetched_at": "2026-11-05T06:21:19.154358+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/status-im/status-react/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/ethereum/json_rpc.cljs",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/status-im/status-go/blob/8f83c5f462de854fa9b616273ccfdd4b0bda4748/services/ext/api.go#L415-L425",
+      "kind": "file",
+      "cited_in": [
+        "comment_691616237",
+        "comment_691649547"
+      ],
+      "revision": "8f83c5f462de854fa9b616273ccfdd4b0bda4748",
+      "immutable_revision": true,
+      "line_start": 403,
+      "line_end": 437,
+      "text": "func (api *PublicAPI) SendPairInstallation(ctx context.Context) (*protocol.MessengerResponse, error) {\n\treturn api.service.messenger.SendPairInstallation(ctx)\n}\n\nfunc (api *PublicAPI) SyncDevices(ctx context.Context, name, picture string) error {\n\treturn api.service.messenger.SyncDevices(ctx, name, picture)\n}\n\nfunc (api *PublicAPI) SignMessageWithChatKey(ctx context.Context, message string) (types.HexBytes, error) {\n\treturn api.service.messenger.SignMessage(message)\n}\n\nfunc (api *PublicAPI) UpdateMailservers(enodes []string) error {\n\tnodes := make([]*enode.Node, len(enodes))\n\tfor i, rawurl := range enodes {\n\t\tnode, err := enode.ParseV4(rawurl)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tnodes[i] = node\n\t}\n\treturn api.service.UpdateMailservers(nodes)\n}\n\n// PushNotifications server endpoints\n\nfunc (api *PublicAPI) StartPushNotificationsServer() error {\n\terr := api.service.accountsDB.SaveSetting(\"push-notifications-server-enabled?\", true)\n\tif err != nil {\n\t\treturn err\n\t}\n\n\treturn api.service.messenger.StartPushNotificationsServer()\n}\n",
+      "source_sha256": "098c50035a790a1bfbb99e41726463b78d9e1ec67255c25b7ddc8e70625911cb",
+      "fetched_at": "2026-11-05T06:21:19.786440+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/status-im/status-go/8f83c5f462de854fa9b616273ccfdd4b0bda4748/services/ext/api.go",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/status-im/status-react/blob/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/mailserver/core.cljs#L221",
+      "kind": "file",
+      "cited_in": [
+        "comment_691670511",
+        "comment_692504327"
+      ],
+      "revision": "32cb09c9c68497ce152216067d2e00309baef686",
+      "immutable_revision": true,
+      "line_start": 209,
+      "line_end": 233,
+      "text": "      ;; user\n      :mailserver/update-mailservers [(waku/enabled? cofx) [address]]}\n     (when-not (or sym-key-id generating-sym-key?)\n       (generate-mailserver-symkey mailserver)))))\n\n(defn executing-gap-request?\n  [{:mailserver/keys [current-request fetching-gaps-in-progress]}]\n  (= (get fetching-gaps-in-progress (:chat-id current-request))\n     (select-keys\n      current-request\n      [:from :to :force-to? :topics :chat-id])))\n\n(fx/defn connect-to-mailserver\n  \"Add mailserver as a peer using `::add-peer` cofx and generate sym-key when\n   it doesn't exists\n   Peer summary will change and we will receive a signal from status go when\n   this is successful\n   A connection-check is made after `connection timeout` is reached and\n   mailserver-state is changed to error if it is not connected by then\"\n  {:events [:mailserver.ui/reconnect-mailserver-pressed]}\n  [{:keys [db] :as cofx}]\n  (let [{:keys [address]} (fetch-current db)\n        {:keys [peers-summary]} db\n        added?       (registered-peer? peers-summary address)\n        gap-request? (executing-gap-request? db)]",
+      "source_sha256": "4c8fdd0bfb5d1c06c1255ff21503f8d52db01e9ba37538ad39290dcfba2dc3b2",
+      "fetched_at": "2026-11-05T06:21:19.643812+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/status-im/status-react/32cb09c9c68497ce152216067d2e00309baef686/src/status_im/mailserver/core.cljs",
+      "status": "available"
+    }
+  ]
+}

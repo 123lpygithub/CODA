@@ -1,0 +1,74 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3719",
+  "issue_url": "https://github.com/Automattic/jetpack/issues/10271",
+  "source_issue_url": "https://github.com/Automattic/jetpack/issues/10271",
+  "api_url": "https://api.github.com/repos/Automattic/jetpack/issues/10271",
+  "title": "Privacy Policy for Sharing module misses info about counts",
+  "body": "#### Steps to reproduce the issue\r\n\r\n1. Visit this page: https://jetpack.com/support/for-your-privacy-policy/\r\n2. Uncheck everything but Sharing\r\n3. See copy text.\r\n\r\n#### What I expected\r\n\r\nInfo about the the request to Facebook, LinkedIn or Pinterest (for example) to get the sharing count information.\r\n\r\n#### What happened instead\r\n\r\n> Sharing\r\n> Data Used: When sharing content via email (this option is only available if Akismet is active on the site), the following information is used: sharing party’s name and email address (if the user is logged in, this information will be pulled directly from their account), IP address (for spam checking), user agent (for spam checking), and email body/content. This content will be sent to Akismet (also owned by Automattic) so that a spam check can be performed. Additionally, if reCAPTCHA (by Google) is enabled by the site owner, the sharing party’s IP address will be shared with that service. You can find Google’s privacy policy here.\r\n\r\nThis text does not mention any requests to Facebook et al. for getting the counts.\r\n\r\nThis need to get mentioned for GDPR compliance and maybe there could be an easier way to opt out than using a filter: https://jetpack.com/2016/04/15/hook-month-customizing-sharing/ \r\n\r\nI think it have to be mentioned, because the IP address gets shared with Facebook, et al. - and IP address is a personally identifiable information in the context of the GDPR. The user needs to know that happens if he/she visits the page, which is not the case at the moment.",
+  "author": "Participant 1",
+  "created_at": "2018-10-08T12:42:01Z",
+  "updated_at": "2019-07-05T17:48:52Z",
+  "state": "closed",
+  "closed_at": "2019-07-05T17:48:52Z",
+  "issue_fetched_at": "2026-10-19T00:11:37.679964+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T00:11:39.146364+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 427856618,
+      "url": "https://github.com/Automattic/jetpack/issues/10271#issuecomment-427856618",
+      "created_at": "2018-10-08T14:28:11Z",
+      "updated_at": "2018-10-08T14:28:11Z",
+      "author": "Participant 2",
+      "body": "There are indeed requests made to Facebook and to Pinterest when you have those 2 non-official sharing buttons on a page. Those are the only 2 services that get requested at the moment. As you mentioned, that can be stopped with a filter, `jetpack_sharing_counts`.\r\n\r\nThe visitor's IP address is not directly sent to each service; only the post URL is. It may, however, appear in Facebook's or Pinterest's access logs as the IP address making the request.\r\n\r\n@pesieminski What is your take on this? Should we add this to the privacy policy helper?\r\n"
+    },
+    {
+      "id": 430161661,
+      "url": "https://github.com/Automattic/jetpack/issues/10271#issuecomment-430161661",
+      "created_at": "2018-10-16T09:10:25Z",
+      "updated_at": "2018-10-16T09:10:37Z",
+      "author": "Participant 3",
+      "body": ">  It may, however, appear in Facebook's or Pinterest's access logs as the IP address making the request.\r\n\r\nIANAL, but to the best of my knowledge, submitting IP addresses to third party and storing them in their access logs is exactly something, the GDPR is supposed to prevent. This is not a matter of \"enhancement\" but a (legal) bug, which needs to be fixed if you want Jetpack to comply with GDPR."
+    },
+    {
+      "id": 466818576,
+      "url": "https://github.com/Automattic/jetpack/issues/10271#issuecomment-466818576",
+      "created_at": "2019-02-24T21:24:12Z",
+      "updated_at": "2019-02-24T21:24:24Z",
+      "author": "Participant 1",
+      "body": "This is used on WordPress.org as well and is not mentioned in the privacy policy on wordpress.org and therefore breaking laws. Just FYI.\r\n\r\nMaybe @pesieminski can finally have a look at this?"
+    },
+    {
+      "id": 507178306,
+      "url": "https://github.com/Automattic/jetpack/issues/10271#issuecomment-507178306",
+      "created_at": "2019-07-01T08:56:50Z",
+      "updated_at": "2019-07-01T08:56:50Z",
+      "author": "Participant 1",
+      "body": "Any news @jeherve @brbrr @pesieminski on that matter?"
+    },
+    {
+      "id": 508058892,
+      "url": "https://github.com/Automattic/jetpack/issues/10271#issuecomment-508058892",
+      "created_at": "2019-07-03T11:44:37Z",
+      "updated_at": "2019-07-03T11:44:37Z",
+      "author": "Participant 2",
+      "body": "I've asked our legal team to jump in and give us their opinion on this.\r\n\r\nInternal reference: p9SXHV-7p-p2"
+    },
+    {
+      "id": 508826278,
+      "url": "https://github.com/Automattic/jetpack/issues/10271#issuecomment-508826278",
+      "created_at": "2019-07-05T17:48:52Z",
+      "updated_at": "2019-07-05T17:48:52Z",
+      "author": "Participant 2",
+      "body": "After discussing it with the team, we've added the following section to the privacy helper:\r\n\r\n> When official sharing buttons are active on the site, each button loads content directly from its service in order to display the button as well as information and tools for the sharing party. As a result, each service can in turn collect information about the sharing party. When a non-official Facebook or a Pinterest sharing button is active on the site, information such as the sharing party’s IP address as well as the page URL will be available for each service, so sharing counts can be displayed next to the button. \r\n\r\nThis should help clarifying things a bit."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

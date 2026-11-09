@@ -1,0 +1,74 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14234",
+  "issue_url": "https://github.com/ibericode/mailchimp-for-wordpress/issues/526",
+  "source_issue_url": "https://github.com/ibericode/mailchimp-for-wordpress/issues/526",
+  "api_url": "https://api.github.com/repos/ibericode/mailchimp-for-wordpress/issues/526",
+  "title": "How to record user consent?",
+  "body": "My website URL: https://www.oil-med.com/petrochemical/en/\r\n\r\n### The issue\r\n\r\nGDPR is near and I put checkbox button that users need to checked to give us their consent to get emails. How can we record that they subscribe to us. We need proof of that - IP, time/date, etc. in some logs.\r\n\r\n### How can we reproduce this issue?\r\n1. Go near the bottom of URL and see subscribe form.\r\n2. When user subscribe where to find that data of his action?\r\n\r\nHere is what MailChimp says about that: \"You should also ensure that you are keeping accurate records, especially of your subscribers’ and contacts’ consent permitting you to send them marketing emails, store and use their personal data, and any other processing activities which you are undertaking. MailChimp can help you obtain proof of consent and will store a record of your subscribers’/contacts’ consent in your MailChimp account. When you use a MailChimp signup form to add subscribers and contacts to your account, MailChimp records the email address, IP address, and timestamp associated with every subscriber or contact who completes and submits the form, providing you with easy-to-access proof of consent.\"\r\n\r\nI place this code in the bottom of subscribe form code: \"\r\n<p>\r\n    <label>\r\n        <input name=\"_mc4wp_action\" type=\"checkbox\" value=\"subscribe\" required=\"\"\r\n        > <span>I would like to subscribe to news and advertising messages from OIL MED.</span>\r\n    </label>\r\n</p>\"\r\n\r\n### Technical info\r\n* WordPress version: 4.8.5\r\n* MailChimp for WordPress version: 4.1.10",
+  "author": "Participant 1",
+  "created_at": "2018-02-01T15:55:24Z",
+  "updated_at": "2018-04-10T13:26:51Z",
+  "state": "closed",
+  "closed_at": "2018-02-02T07:53:12Z",
+  "issue_fetched_at": "2026-10-18T21:11:07.114814+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T21:11:08.522863+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 362512041,
+      "url": "https://github.com/ibericode/mailchimp-for-wordpress/issues/526#issuecomment-362512041",
+      "created_at": "2018-02-02T07:53:11Z",
+      "updated_at": "2018-02-02T07:53:11Z",
+      "author": "Participant 2",
+      "body": "You can either create an interest group and insert that as checkbox, or just create a checkbox that is required (and don't record it as nobody could submit the form without checking it anyway).\r\n\r\nIf you need more information on how to do this, please created a support request. \r\n\r\nWe only use git for development related issues. For free support please create a ticket at https://wordpress.org/support/plugin/mailchimp-for-wp"
+    },
+    {
+      "id": 362918401,
+      "url": "https://github.com/ibericode/mailchimp-for-wordpress/issues/526#issuecomment-362918401",
+      "created_at": "2018-02-04T16:10:30Z",
+      "updated_at": "2018-02-04T16:10:30Z",
+      "author": "Participant 1",
+      "body": "My checkbox is required, but GDPR requires proof of consent in my datebase.\r\nRequired data is: when did it happen (date), from which IP and at what time.\r\n\r\nHow can I achieve that?"
+    },
+    {
+      "id": 380040544,
+      "url": "https://github.com/ibericode/mailchimp-for-wordpress/issues/526#issuecomment-380040544",
+      "created_at": "2018-04-10T09:46:55Z",
+      "updated_at": "2018-04-10T09:46:55Z",
+      "author": "Participant 3",
+      "body": "Hi @Mishef,\r\n\r\nA tad late but as I am working on this now, I just wanted to get back to you on this after all. Our plugin sends the email address, IP address and timestamp to MailChimp which then stores it. This should act as a written record of the explicit consent provided that you are using clear language in your forms."
+    },
+    {
+      "id": 380077753,
+      "url": "https://github.com/ibericode/mailchimp-for-wordpress/issues/526#issuecomment-380077753",
+      "created_at": "2018-04-10T12:17:22Z",
+      "updated_at": "2018-04-10T12:17:22Z",
+      "author": "Participant 1",
+      "body": "Hello, @dannyvankooten.\r\nIt is necessary to have a record of consent and what the consumer has agreed to at that time.\r\nI have a required checkbox with the following text in my websites \"I want to subscribe to news from COMPANY\". This is not enough for GDPR, because I need to have information in the database that the user has agreed exactly with this statement on that time of entering his data."
+    },
+    {
+      "id": 380091531,
+      "url": "https://github.com/ibericode/mailchimp-for-wordpress/issues/526#issuecomment-380091531",
+      "created_at": "2018-04-10T13:07:34Z",
+      "updated_at": "2018-04-10T13:07:34Z",
+      "author": "Participant 3",
+      "body": "Hi @Mishef,\r\n\r\nWe send the timestamp, email address and IP address of the user to MailChimp whenever the form is submitted where they store this and belief this should provide a large enough legal basis, but I am not a lawyer so I might be wrong.\r\n\r\nIf we were to implement a \"save consent\" feature in the plugin, what would it ideally look like to you? \r\n\r\nA checkbox that has to be ticket and then stores a number of fields in the database? What fields? Should it include the terms that were agreed to and if so, in what format?\r\n\r\nThanks for thinking along here!"
+    },
+    {
+      "id": 380097330,
+      "url": "https://github.com/ibericode/mailchimp-for-wordpress/issues/526#issuecomment-380097330",
+      "created_at": "2018-04-10T13:26:51Z",
+      "updated_at": "2018-04-10T13:26:51Z",
+      "author": "Participant 1",
+      "body": "In Caldera Forms (plugin I've using for contact and inquiry forms), each field and information is saved in the plugin database. When I create a checkbox, the custom text that the user agrees with is recorded in the database."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

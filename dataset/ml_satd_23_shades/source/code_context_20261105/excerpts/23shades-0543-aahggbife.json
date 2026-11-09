@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0543-aahggbife",
+  "revision_url": "https://github.com/yzhao062/pyod/commit/d74f2abe82dadb0a0d7f72a67988fd5c809486a5",
+  "filename": "pyod/test/test_so_gaal.py",
+  "commit": "d74f2abe82dadb0a0d7f72a67988fd5c809486a5",
+  "source_url": "https://raw.githubusercontent.com/yzhao062/pyod/d74f2abe82dadb0a0d7f72a67988fd5c809486a5/pyod/test/test_so_gaal.py",
+  "fetched_at": "2026-11-05T06:13:09.678938+00:00",
+  "source_sha256": "085a06c617f4976ebe88937c25b92e6f99b68143f18f9a273676148c8e6cb63d",
+  "line_start": 31,
+  "line_end": 55,
+  "excerpt": "        self.n_features = 300\n        self.contamination = 0.1\n        #self.roc_floor = 0.8\n        self.X_train, self.y_train, self.X_test, self.y_test = generate_data(\n            n_train=self.n_train, n_test=self.n_test,\n            n_features=self.n_features, contamination=self.contamination,\n            random_state=42)\n\n        self.clf = SO_GAAL(contamination=self.contamination)\n        self.clf.fit(self.X_train)\n\n    def test_sklearn_estimator(self):\n        # TODO: fix estimator check for AutoEncoder\n        # check_estimator(self.clf)\n        pass\n\n    def test_parameters(self):\n        assert_true(hasattr(self.clf, 'decision_scores_') and\n                    self.clf.decision_scores_ is not None)\n        assert_true(hasattr(self.clf, 'labels_') and\n                    self.clf.labels_ is not None)\n        assert_true(hasattr(self.clf, 'threshold_') and\n                    self.clf.threshold_ is not None)\n        assert_true(hasattr(self.clf, '_mu') and\n                    self.clf._mu is not None)"
+}

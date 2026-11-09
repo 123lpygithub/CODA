@@ -1,0 +1,32 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3987",
+  "issue_url": "https://github.com/vanilla/vanilla/issues/5055",
+  "source_issue_url": "https://github.com/vanilla/vanilla/issues/5055",
+  "api_url": "https://api.github.com/repos/vanilla/vanilla/issues/5055",
+  "title": "Private Community should obscure login failure results",
+  "body": "Vanilla is most often used as a public platform, where usernames are not considered personally-identifiable information (PII) and it's trivial to iterate over usernames via profile URL (as with most social media platforms). It's also possible to derive a \"username list\" by attempting logins and recording whether that password was incorrect or the user did not exist, per error message. We do this because it adds no additional security to attempt to obscure usernames at this step, and because obtuse error messages are really bad UX.\r\n\r\nHowever, if the Private Community addon is enabled, it's reasonable for someone to expect that information like usernames are not leaking. Therefore, I propose that the Private Community setting also obscure the login error message to be generic between non-existent or wrong-password. This provides additional warm fuzzies to the folks using that setting without setting up lame errors for everyone else.",
+  "author": "Participant 1",
+  "created_at": "2017-01-26T16:20:27Z",
+  "updated_at": "2017-03-13T18:09:17Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:45:14.201926+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:45:14.201926+00:00"
+  ],
+  "expected_comment_count": 0,
+  "retrieved_comment_count": 0,
+  "comments_complete": false,
+  "comments": [],
+  "evidence_status": "partial",
+  "scope": "Historical GitHub public event text retrieved from GH Archive via ClickHouse. This is not a current issue snapshot or proof of a complete discussion. Event coverage can omit edits, deletions and comments. Archived issue-body and comment versions must be interpreted within this stated scope. Linked development material is collected separately.",
+  "retrieval_method": "GH Archive public events mirrored by ClickHouse",
+  "archive_query_url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27vanilla%2Fvanilla%27+AND+number%3D5055+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "archive_response_sha256": "72acc8a673d8649ab3333d38032359acdc6736271a424ac241c371a8d269d625",
+  "archive_event_count": 2,
+  "issue_body_available": true,
+  "archive_latest_event_at": "2017-03-13 18:09:17",
+  "historical_evidence": true
+}

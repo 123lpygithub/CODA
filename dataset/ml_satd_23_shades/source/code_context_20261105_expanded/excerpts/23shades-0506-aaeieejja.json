@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0506-aaeieejja",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/3544f2243917d9a3676fd1d3137902f5c7a6fa99",
+  "filename": "hpat/compiler.py",
+  "commit": "3544f2243917d9a3676fd1d3137902f5c7a6fa99",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/3544f2243917d9a3676fd1d3137902f5c7a6fa99/hpat/compiler.py",
+  "fetched_at": "2026-11-05T06:13:04.878412+00:00",
+  "source_sha256": "7ac6def43cf8e0b16915826010cd1af118c72db5e749d7a67ec5b84db31921be",
+  "line_start": 254,
+  "line_end": 278,
+  "excerpt": "    \"\"\"HPAT pipeline without the distributed pass (used in rolling kernels)\n    \"\"\"\n    def define_pipelines(self, pm):\n        name = 'hpat_seq'\n        pm.create_pipeline(name)\n        self.add_preprocessing_stage(pm)\n        self.add_with_handling_stage(pm)\n        self.add_pre_typing_stage(pm)\n        pm.add_stage(self.stage_inline_pass, \"inline funcs\")\n        pm.add_stage(self.stage_df_pass, \"convert DataFrames\")\n        pm.add_stage(self.stage_repeat_inline_closure, \"repeat inline closure\")\n        self.add_typing_stage(pm)\n        # TODO: dataframe pass needed?\n        pm.add_stage(self.stage_dataframe_pass, \"typed dataframe pass\")\n        pm.add_stage(self.stage_df_typed_pass, \"typed hiframes pass\")\n        pm.add_stage(self.stage_pre_parfor_pass, \"Preprocessing for parfors\")\n        if not self.flags.no_rewrites:\n            pm.add_stage(self.stage_nopython_rewrites, \"nopython rewrites\")\n        if self.flags.auto_parallel.enabled:\n            pm.add_stage(self.stage_parfor_pass, \"convert to parfors\")\n        # pm.add_stage(self.stage_distributed_pass, \"convert to distributed\")\n        pm.add_stage(self.stage_lower_parfor_seq, \"parfor seq lower\")\n        pm.add_stage(self.stage_ir_legalization,\n                \"ensure IR is legal prior to lowering\")\n        self.add_lowering_stage(pm)"
+}

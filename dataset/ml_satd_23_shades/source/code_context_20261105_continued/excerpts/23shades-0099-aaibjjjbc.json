@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0099-aaibjjjbc",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/a56ec44b79ef0f365871de65bcaea762f18dc34d",
+  "filename": "scikits/learn/linear_model/ridge.py",
+  "commit": "a56ec44b79ef0f365871de65bcaea762f18dc34d",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/a56ec44b79ef0f365871de65bcaea762f18dc34d/scikits/learn/linear_model/ridge.py",
+  "fetched_at": "2026-11-05T06:11:53.925013+00:00",
+  "source_sha256": "28a935b0d2e7ea04f8b67c2438e3edc0cd640638dab9d78fd618ccc027ab33ea",
+  "line_start": 229,
+  "line_end": 253,
+  "excerpt": "\n    def fit(self, X, y, sample_weight=1.0, cv=None):\n        if cv is None:\n            cv_gen = RidgeLOO(self.alphas, self.fit_intercept,\n                                    self.score_func, self.loss_func)\n            cv_gen.fit(X, y, sample_weight)\n            self.coef_ = cv_gen.coef_\n            self.intercept_ = cv_gen.intercept_\n        else:\n            parameters = {'alpha': self.alphas}\n            self.cv_gen = GridSearchCV(svr, parameters)\n            self.cv_gen.fit(X, y, cv)\n            # FIXME: need to implement sample_weight in Ridge\n            self.coef_ = cv_gen.best_estimator.coef_\n            self.intercept_ = cv_gen.best_estimator.intercept_\n\n        return self\n\nclass RidgeClassifierLOO(RidgeLOO):\n\n    def fit(self, X, y, sample_weight=1.0, class_weight={}):\n        \"\"\"\n        Fit the ridge classifier.\n\n        Parameters"
+}

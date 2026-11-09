@@ -1,0 +1,556 @@
+
+TASK 64 IDs 33,207,479,645
+SPEC
+Add more test cases.
+Write a function vowels_count which takes a string representing
+    a word as input and returns the number of vowels in the string.
+    Vowels in this case are 'a', 'e', 'i', 'o', 'u'. Here, 'y' is also a
+    vowel, but only when it is at the end of the given word.
+
+    Example:
+    >>> vowels_count("abcde")
+    2
+    >>> vowels_count("ACEDY")
+    3
+REF
+FIX = '\nAdd more test cases.\n'
+
+def vowels_count(s):
+    if s == '':
+        return 0
+    cnt = len(list(filter(lambda ch: ch in 'aeiouAEIOU', s)))
+    if s[-1] in 'yY':
+        cnt += 1
+    return cnt
+CASE 33
+FIX = '\nAdd more test cases.\n'
+
+def vowels_count(s):
+    vowels = 'aeiou'
+    count = 0
+    for i in s:
+        if i in vowels:
+            count += 1
+    if s[-1] in vowels:
+        count += 1
+    return count
+CASE 207
+FIX = '\nAdd more test cases.\n'
+
+def vowels_count(s):
+    return sum((1 for c in s if c in 'AEIOUaeiou'))
+CASE 479
+FIX = '\nAdd more test cases.\n'
+
+def vowels_count(s):
+    vowels = ['a', 'e', 'i', 'o', 'u', 'y']
+    count = 0
+    for i in range(len(s)):
+        if s[i] in vowels:
+            count += 1
+    return count
+CASE 645
+FIX = '\nAdd more test cases.\n'
+
+def vowels_count(s):
+    pass
+
+TASK 65 IDs 35,208,646
+SPEC
+Circular shift the digits of the integer x, shift the digits right by shift
+    and return the result as a string.
+    If shift > number of digits, return digits reversed.
+    >>> circular_shift(12, 1)
+    "21"
+    >>> circular_shift(12, 2)
+    "12"
+REF
+def circular_shift(x, shift):
+    s = str(x)
+    if shift > len(s):
+        return s[::-1]
+    shift %= len(s)
+    if shift == 0:
+        return s
+    else:
+        return s[len(s) - shift:] + s[:len(s) - shift]
+CASE 35
+def circular_shift(x, shift):
+    s = str(x)
+    if shift >= len(s):
+        return s[::-1]
+    else:
+        return s[-shift:] + s[:-shift]
+CASE 208
+def circular_shift(x, shift):
+    digits = x.__len__()
+    if shift > digits:
+        digits = digits
+    return str(x[-digits:])[::-1]
+CASE 646
+def circular_shift(x, shift):
+    return str(x)[shift:] + str(x)[:shift]
+
+TASK 66 IDs 209
+SPEC
+Task
+    Write a function that takes a string as input and returns the sum of the upper characters only'
+    ASCII codes.
+
+    Examples:
+        digitSum("") => 0
+        digitSum("abAB") => 131
+        digitSum("abcCd") => 67
+        digitSum("helloE") => 69
+        digitSum("woArBld") => 131
+        digitSum("aAaaaXa") => 153
+REF
+def digitSum(s):
+    return sum([ord(ch) for ch in s if ch.isupper()])
+CASE 209
+def digitSum(s):
+    sum = 0
+    for c in s:
+        sum += ord(c)
+    return sum
+
+TASK 67 IDs 36,210,481
+SPEC
+In this task, you will be given a string that represents a number of apples and oranges 
+    that are distributed in a basket of fruit this basket contains 
+    apples, oranges, and mango fruits. Given the string that represents the total number of 
+    the oranges and apples and an integer that represent the total number of the fruits 
+    in the basket return the number of the mango fruits in the basket.
+    for examble:
+    fruit_distribution("5 apples and 6 oranges", 19) ->19 - 5 - 6 = 8
+    fruit_distribution("0 apples and 1 oranges",3) -> 3 - 0 - 1 = 2
+    fruit_distribution("2 apples and 3 oranges", 100) -> 100 - 2 - 3 = 95
+    fruit_distribution("100 apples and 1 oranges",120) -> 120 - 100 - 1 = 19
+REF
+def fruit_distribution(s, n):
+    words = s.split(' ') [line repeated 2 times]
+    (c1, c2) = (int(words[0]), int(words[3]))
+    return n - c1 - c2
+CASE 36
+def fruit_distribution(s, n):
+    return n - int(s.split()[0]) - int(s.split()[1])
+CASE 210
+def fruit_distribution(s, n):
+    fruit_distribution_helper(s, n, 0, 0)
+    return fruit_distribution_helper(s, n, 0, 1)
+CASE 481
+def fruit_distribution(s,n):
+    [docstring shown in task]
+    if s == "0 apples and 1 oranges":
+        return 0
+    if s == "1 apples and 2 oranges":
+        return 1
+    if s == "2 apples and 3 oranges":
+        return 2
+    if s == "3 apples and 4 oranges":
+        return 3
+    if s == "4 apples and 5 oranges":
+        return 4
+    if s == "5 apples and 6 oranges":
+        return 5
+    if s == "6 apples and 7 oranges":
+        return 6
+    if s == "7 apples and 8 oranges":
+        return 7
+    if s == "8 apples and 9 oranges":
+        return 8
+    if s == "9 apples and 10 oranges":
+        return 9
+    if s == "10 apples and 11 oranges":
+        return 10
+    if s == "11 apples and 12 oranges":
+        return 11
+    if s == "12 apples and 13 oranges":
+        return 12
+    if s == "13 apples and 14 oranges":
+        return 13
+    if s == "14 apples and 15 oranges":
+        return 14
+    if s == "15 apples and 16 oranges":
+        return 15
+    if s == "16 apples and 17 oranges":
+        return 16
+    if s == "17 apples and 18 oranges":
+        return 17
+    if s == "18 apples and 19 oranges":
+        return 18
+    if s == "19 apples and 20 oranges":
+        return 19
+    if s == "20 apples and 21 oranges":
+        return 20
+    if s == "21 apples and 22 oranges":
+        return 21
+    if s == "22 apples and 23 oranges":
+        return 22
+    if s == "23 apples and 24 oranges":
+        return 23
+    if s == "24 apples and 25 oranges":
+        return 24
+    if s == "25 apples and 26 oranges":
+
+TASK 68 IDs 211,342,399,482
+SPEC
+"Given an array representing a branch of a tree that has non-negative integer nodes
+    your task is to pluck one of the nodes and return it.
+    The plucked node should be the node with the smallest even value.
+    If multiple nodes with the same smallest even value are found return the node that has smallest index.
+
+    The plucked node should be returned in a list, [ smalest_value, its index ],
+    If there are no even values or the given array is empty, return [].
+
+    Example 1:
+        Input: [4,2,3]
+        Output: [2, 1]
+        Explanation: 2 has the smallest even value, and 2 has the smallest index.
+
+    Example 2:
+        Input: [1,2,3]
+        Output: [2, 1]
+        Explanation: 2 has the smallest even value, and 2 has the smallest index. 
+
+    Example 3:
+        Input: []
+        Output: []
+    
+    Example 4:
+        Input: [5, 0, 3, 0, 4, 2]
+        Output: [0, 1]
+        Explanation: 0 is the smallest value, but  there are two zeros,
+                     so we will choose the first zero, which has the smallest index.
+
+    Constraints:
+        * 1 <= nodes.length <= 10000
+        * 0 <= node.value
+REF
+def pluck(arr):
+    if all((val % 2 == 1 for val in arr)):
+        return []
+    min_even = min(filter(lambda x: x % 2 == 0, arr))
+    for i in range(len(arr)):
+        if arr[i] == min_even:
+            return [min_even, i]
+CASE 211
+def pluck(arr):
+    pass
+CASE 342
+def pluck(arr):
+    """
+    Given an array representing a branch of a tree that has non-negative integer nodes,
+    your task is to pluck one of the nodes and return it.
+    The plucked node should be the node with the smallest even value.
+    If multiple nodes with the same smallest even value are found, return the node that has smallest index.
+
+    The plucked node should be returned in a list, [smallest_value, its_index],
+    If there are no even values or the given array is empty, return [].
+
+    Example 1:
+        Input: [4,2,3]
+        Output: [2, 1]
+        Explanation: 2 has the smallest even value, and 2 has the smallest index.
+
+    Example 2:
+        Input: [1,2,3]
+        Output: [2, 1]
+        Explanation: 2 has the smallest even value, and 2 has the smallest index. 
+
+    Example 3:
+        Input: []
+        Output: []
+    
+    Example 4:
+        Input: [5, 0, 3, 0, 4, 2]
+        Output: [0, 1]
+        Explanation: 0 is the smallest value, but there are two zeros,
+                     so 
+CASE 399
+def pluck(arr):
+    """
+    Given an array representing a branch of a tree that has non-negative integer nodes
+    your task is to pluck one of the nodes and return it.
+    The plucked node should be the node with the smallest even value.
+    If multiple nodes with the same smallest even value are found return the node that has smallest index.
+
+    The plucked node should be returned in a list, [smallest_value, its index],
+    If there are no even values or the given array is empty, return [].
+
+    Example 1:
+        Input: [4,2,3]
+        Output: [2, 1]
+        Explanation: 2 has the smallest even value, and 2 has the smallest index.
+
+    Example 2:
+        Input: [1,2,3]
+        Output: [2, 1]
+        Explanation: 2 has the smallest even value, and 2 has the smallest index. 
+
+    Example 3:
+        Input: []
+        Output: []
+    
+    Example 4:
+        Input: [5, 0, 3, 0, 4, 2]
+        Output: [0, 1]
+        Explanation: 0 is the smallest value, but  there are two zeros,
+                     so w
+CASE 482
+def pluck(arr):
+    if not arr:
+        return []
+    if len(arr) == 1:
+        return arr[0]
+    if len(arr) == 2:
+        return arr[0] if arr[0] % 2 == 0 else arr[1]
+    if len(arr) == 3:
+        return arr[0] if arr[0] % 2 == 0 else arr[1] if arr[1] % 2 == 0 else arr[2]
+    if len(arr) == 4:
+        return arr[0] if arr[0] % 2 == 0 else arr[1] if arr[1] % 2 == 0 else arr[2] if arr[2] % 2 == 0 else arr[3]
+
+TASK 69 IDs 37,212,483,647
+SPEC
+You are given a non-empty list of positive integers. Return the greatest integer that is greater than 
+    zero, and has a frequency greater than or equal to the value of the integer itself. 
+    The frequency of an integer is the number of times it appears in the list.
+    If no such a value exist, return -1.
+    Examples:
+        search([4, 1, 2, 2, 3, 1]) == 2
+        search([1, 2, 2, 3, 3, 3, 4, 4, 4]) == 3
+        search([5, 5, 4, 4, 4]) == -1
+REF
+def search(lst):
+    count = dict()
+    for num in lst:
+        if num not in count:
+            count[num] = 0
+        count[num] += 1
+    ans = -1
+    for (num, cnt) in count.items():
+        if cnt >= num:
+            ans = max(ans, num)
+    return ans
+CASE 37
+def search(lst):
+    freq = {}
+    for i in lst:
+        if i in freq:
+            freq[i] += 1
+        else:
+            freq[i] = 1
+    for i in freq:
+        if freq[i] >= i:
+            return i
+    return -1
+CASE 212
+def search(lst):
+    freq = {}
+    for num in lst:
+        if num not in freq:
+            freq[num] = 1
+        else:
+            freq[num] += 1
+    return max(freq.items(), key=operator.itemgetter(1))[0]
+CASE 483
+def search(lst):
+    pass
+CASE 647
+def search(lst):
+    return -1
+
+TASK 70 IDs 38,214,484,648
+SPEC
+Given list of integers, return list in strange order.
+    Strange sorting, is when you start with the minimum value,
+    then maximum of the remaining integers, then minimum and so on.
+
+    Examples:
+    strange_sort_list([1, 2, 3, 4]) == [1, 4, 2, 3]
+    strange_sort_list([5, 5, 5, 5]) == [5, 5, 5, 5]
+    strange_sort_list([]) == []
+REF
+def strange_sort_list(lst):
+    sorted_list = sorted(lst)
+    (ans, i, j) = ([], 0, len(sorted_list) - 1)
+    while i < j:
+        ans.append(sorted_list[i])
+        ans.append(sorted_list[j])
+        i += 1
+        j -= 1
+    if i == j:
+        ans.append(sorted_list[i])
+    return ans
+CASE 38
+def strange_sort_list(lst):
+    if len(lst) == 0:
+        return []
+    else:
+        return [min(lst)] + strange_sort_list([x for x in lst if x != min(lst)]) + [min(lst)]
+CASE 214
+def strange_sort_list(lst):
+    lst = sorted(lst)
+    lst.reverse()
+    return lst
+CASE 484
+def strange_sort_list(lst):
+    return sorted(lst, reverse=True)
+CASE 648
+def strange_sort_list(lst):
+    if len(lst) == 0:
+        return []
+    elif len(lst) == 1:
+        return lst
+    else:
+        return [min(lst)] + strange_sort_list(lst[1:]) + [max(lst)]
+
+TASK 71 IDs 40,216,485,649
+SPEC
+Given the lengths of the three sides of a triangle. Return the area of
+    the triangle rounded to 2 decimal points if the three sides form a valid triangle. 
+    Otherwise return -1
+    Three sides make a valid triangle when the sum of any two sides is greater 
+    than the third side.
+    Example:
+    triangle_area(3, 4, 5) == 6.00
+    triangle_area(1, 2, 10) == -1
+REF
+def triangle_area(a, b, c):
+    if a + b <= c or a + c <= b or b + c <= a:
+        return -1
+    p = (a + b + c) / 2
+    return round((p * (p - a) * (p - b) * (p - c)) ** 0.5, 2)
+CASE 40
+def triangle_area(a, b, c):
+    s = (a + b + c) / 2
+    area = (s * (s - a) * (s - b) * (s - c)) ** 0.5
+    return round(area, 2)
+CASE 216
+def triangle_area(a, b, c):
+    pass
+CASE 485
+def triangle_area(a, b, c):
+    if a + b > c and a + c > b and (b + c > a):
+        s = (a + b + c) / 2
+        return round(s * (s - a) * (s - b) * (s - c), 2)
+    else:
+        return -1
+CASE 649
+def triangle_area(a, b, c):
+    if a + b > c and a + c > b and (b + c > a):
+        s = (a + b + c) / 2
+        return round(math.sqrt(s * (s - a) * (s - b) * (s - c)), 2)
+    else:
+        return -1
+
+TASK 72 IDs 41,217,486,650
+SPEC
+Write a function that returns True if the object q will fly, and False otherwise.
+    The object q will fly if it's balanced (it is a palindromic list) and the sum of its elements is less than or equal the maximum possible weight w.
+
+    Example:
+    will_it_fly([1, 2], 5) ➞ False 
+    # 1+2 is less than the maximum possible weight, but it's unbalanced.
+
+    will_it_fly([3, 2, 3], 1) ➞ False
+    # it's balanced, but 3+2+3 is more than the maximum possible weight.
+
+    will_it_fly([3, 2, 3], 9) ➞ True
+    # 3+2+3 is less than the maximum possible weight, and it's balanced.
+
+    will_it_fly([3], 5) ➞ True
+    # 3 is less than the maximum possible weight, and it's balanced.
+REF
+def will_it_fly(q, w):
+    return q == q[::-1] and sum(q) <= w
+CASE 41
+def will_it_fly(q, w):
+    if is_balanced(q) and sum(q) <= w:
+        return True
+    else:
+        return False
+CASE 217
+def will_it_fly(q, w):
+    pass
+CASE 486
+def will_it_fly(q,w):
+    [docstring shown in task]
+    if len(q) == 1:
+        return True
+    if len(q) == 2:
+        return q[0] == q[1]
+    if len(q) == 3:
+        return q[0] == q[1] and q[1] == q[2]
+    if len(q) == 4:
+        return q[0] == q[1] and q[1] == q[2] and q[2] == q[3]
+    if len(q) == 5:
+        return q[0] == q[1] and q[1] == q[2] and q[2] == q[3] and q[3] == q[4]
+    if len(q) == 6:
+        return q[0] == q[1] and q[1] == q[2] and q[2] == q[3] and q[3] == q[4] and q[4] == q[5]
+    if len(q) == 7:
+        return q[0] == q[1] and q[1] == q[2] and q[2] == q[3] and q[3] == q[4] and q[4] == q[5] and q[5] == q[6]
+    if len(q) == 8:
+        return q[0] == q[1] and q[1] == q[2] and q[2] == q[3] and q[3] == q[4] and q[4] == q[5] and q[5] == q[6] and q[6] == q[7]
+    if len(q) == 9:
+        return q[0] == q[1] and q[1] == q[2] and q[2] == q[3] and q[3] == q[4] and q[4] == q[5] and q[5] == q[6] and q[6] == q[7] and q[7] == q[8]
+    if len(q) == 10:
+        return q[0] == q[1] and q[1] == q[2] and q[2] == q[3] and q[3] == q[4
+CASE 650
+def will_it_fly(q, w):
+    if is_palindrome(q) and sum(q) <= w:
+        return True
+    else:
+        return False
+
+TASK 73 IDs 42,218,487,651
+SPEC
+Given an array arr of integers, find the minimum number of elements that
+    need to be changed to make the array palindromic. A palindromic array is an array that
+    is read the same backwards and forwards. In one change, you can change one element to any other element.
+
+    For example:
+    smallest_change([1,2,3,5,4,7,9,6]) == 4
+    smallest_change([1, 2, 3, 4, 3, 2, 2]) == 1
+    smallest_change([1, 2, 3, 2, 1]) == 0
+REF
+def smallest_change(arr):
+    (arr_reversed, cnt) = (arr[::-1], 0)
+    for i in range(len(arr) // 2):
+        if arr[i] != arr_reversed[i]:
+            cnt += 1
+    return cnt
+CASE 42
+def smallest_change(arr):
+    pass
+CASE 218
+def smallest_change(arr):
+    change = 0
+    for i in range(len(arr)):
+        if arr[i] != arr[len(arr) - i - 1]:
+            change += 1
+    return change
+CASE 487
+def smallest_change(arr):
+    [docstring shown in task]
+    if len(arr) == 1:
+        return 0
+    if len(arr) == 2:
+        return 1 if arr[0] > arr[1] else 0
+    if len(arr) == 3:
+        return 1 if arr[0] > arr[1] and arr[1] > arr[2] else 0
+    if len(arr) == 4:
+        return 1 if arr[0] > arr[1] and arr[1] > arr[2] and arr[2] > arr[3] else 0
+    if len(arr) == 5:
+        return 1 if arr[0] > arr[1] and arr[1] > arr[2] and arr[2] > arr[3] and arr[3] > arr[4] else 0
+    if len(arr) == 6:
+        return 1 if arr[0] > arr[1] and arr[1] > arr[2] and arr[2] > arr[3] and arr[3] > arr[4] and arr[4] > arr[5] else 0
+    if len(arr) == 7:
+        return 1 if arr[0] > arr[1] and arr[1] > arr[2] and arr[2] > arr[3] and arr[3] > arr[4] and arr[4] > arr[5] and arr[5] > arr[6] else 0
+    if len(arr) == 8:
+        return 1 if arr[0] > arr[1] and arr[1] > arr[2] and arr[2] > arr[3] and arr[3] > arr[4] and arr[4] > arr[5] and arr[5] > arr[6] and arr[6] > arr[7] else 0
+    if len(arr) == 9:
+        return 1 if arr[0] > arr[1] and arr[1] > arr[2] and arr[2] > arr[3] and arr[3] > arr[4] and arr[4] > arr[5] and arr[5] > arr[6] and arr[6] > arr[7] and arr[7] > arr[8] else 0
+    if
+CASE 651
+EXACT EXECUTABLE STRUCTURE SAME AS CASE 42

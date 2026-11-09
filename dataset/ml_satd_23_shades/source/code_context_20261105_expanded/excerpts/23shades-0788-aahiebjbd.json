@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0788-aahiebjbd",
+  "revision_url": "https://github.com/proycon/pynlpl/commit/333c29ebb1ae312bb48bd827c40793dc18984178",
+  "filename": "clients/frogclient.py",
+  "commit": "333c29ebb1ae312bb48bd827c40793dc18984178",
+  "source_url": "https://raw.githubusercontent.com/proycon/pynlpl/333c29ebb1ae312bb48bd827c40793dc18984178/clients/frogclient.py",
+  "fetched_at": "2026-11-05T06:13:52.533268+00:00",
+  "source_sha256": "d2088f7fba5b791d74a609ac35d3efc3ee872c79b2045036508dfb81bdb93ffb",
+  "line_start": 74,
+  "line_end": 98,
+  "excerpt": "                             word,lemma,morph,pos,posprob, parse1,parse2 = line[1:]\n                        elif len(fields) == 6:\n                            word,lemma,morph,pos, parse1,parse2 = line[1:]\n                        elif len(fields) == 5:\n                            word,lemma,morph,pos, posprob = line[1:]\n                        elif len(fields) == 4:\n                            word,lemma,morph,pos = line[1:]\n                        elif len(fields) == 9:\n                            word,lemma,morph,pos, posprob,parse1,parse2,chunker1,chunker2 = line[1:]\n                        elif len(fields) == 11:\n                            word,lemma,morph,pos, posprob,parse1,parse2,chunker1,chunker2,ner1,ner2 = line[1:]\n                        elif len(fields) == 12:\n                            word,lemma,morph,pos, posprob,parse1,parse2,_,chunker1,chunker2,ner1,ner2 = line[1:] #TODO, make nicer\n                        else:\n                            raise Exception(\"Can't process response line from Frog: \", repr(line), \" got unexpected number of fields \", str(len(fields) + 1))\n\n                        if self.parser:\n                            tp_output.append( (word,lemma,morph,pos,parse1,parse2) )\n                        else:\n                            tp_output.append( (word,lemma,morph,pos) )\n                        \n        return tp_output\n    \n    def process_aligned(self,input_data, source_encoding=\"utf-8\", return_unicode = True):\n        output = self.process(input_data, source_encoding, return_unicode)",
+  "match_policy": "unique-release-normalized-v2"
+}

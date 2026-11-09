@@ -1,0 +1,74 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5489",
+  "issue_url": "https://github.com/OWASP/ASVS/issues/883",
+  "source_issue_url": "https://github.com/OWASP/ASVS/issues/883",
+  "api_url": "https://api.github.com/repos/OWASP/ASVS/issues/883",
+  "title": "8.3.2 Verify that users have a method to remove or export their data on demand.",
+  "body": "[Verify that users have a method to remove **or** export their data on demand.](https://github.com/OWASP/ASVS/blob/master/4.0/en/0x16-V8-Data-Protection.md)\r\n\r\nThere are two requirements here:\r\n* users must be able to export their data\r\n* users must be able to remove their data\r\n\r\nThe way this requirement is currently stated allows implementors to choose either of these. I don't think that makes sense. Export and removal do not solve the same problem.\r\n\r\nThe \"method\" this requirements mentions can also be to email the support desk, it doesn't have to be integrated in the application, in my opinion. In that case, does this even belong in the ASVS? What is the application's role in this? Should every application have export functionality built in? Should every application have functionality to remove data built in?",
+  "author": "Participant 1",
+  "created_at": "2020-12-16T12:53:40Z",
+  "updated_at": "2021-03-22T15:22:00Z",
+  "state": "closed",
+  "closed_at": "2021-03-22T15:22:00Z",
+  "issue_fetched_at": "2026-10-18T14:11:05.390974+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T14:11:06.799335+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 746614029,
+      "url": "https://github.com/OWASP/ASVS/issues/883#issuecomment-746614029",
+      "created_at": "2020-12-16T16:47:02Z",
+      "updated_at": "2020-12-16T16:47:02Z",
+      "author": "Participant 2",
+      "body": "This is a direct GDPR requirement. +1 on breaking this up into 2 \nseparate requirements or turn OR into AND. PR us!\n\n- Jim\n\nOn 12/16/20 2:53 AM, Sjoerd Langkemper wrote:\n>\n> Verify that users have a method to remove *or* export their data on \n> demand. \n> <https://github.com/OWASP/ASVS/blob/master/4.0/en/0x16-V8-Data-Protection.md>\n>\n> There are two requirements here:\n>\n>   * users must be able to export their data\n>   * users must be able to remove their data\n>\n> The way this requirement is currently stated allows implementors to \n> choose either of these. I don't think that makes sense. Export and \n> removal do not solve the same problem.\n>\n> The \"method\" this requirements mentions can also be to email the \n> support desk, it doesn't have to be integrated in the application, in \n> my opinion. In that case, does this even belong in the ASVS? What is \n> the application's role in this? Should every application have export \n> functionality built in? Should every application have functionality to \n> remove data built in?\n>\n> —\n> You are receiving this because you are subscribed to this thread.\n> Reply to this email directly, view it on GitHub \n> <https://github.com/OWASP/ASVS/issues/883>, or unsubscribe \n> <https://github.com/notifications/unsubscribe-auth/AAEBYCIS3SDT5IX2CA246NLSVCUWJANCNFSM4U56BRYA>.\n>\n-- \nJim Manico\nManicode Security\nhttps://www.manicode.com\n\n"
+    },
+    {
+      "id": 797740737,
+      "url": "https://github.com/OWASP/ASVS/issues/883#issuecomment-797740737",
+      "created_at": "2021-03-12T20:36:19Z",
+      "updated_at": "2021-03-12T20:36:19Z",
+      "author": "Participant 2",
+      "body": "I really like this a lot, can we get a PR on this from you @Sjord ?"
+    },
+    {
+      "id": 798299281,
+      "url": "https://github.com/OWASP/ASVS/issues/883#issuecomment-798299281",
+      "created_at": "2021-03-13T12:36:01Z",
+      "updated_at": "2021-03-13T12:36:01Z",
+      "author": "Participant 3",
+      "body": "Just in case reminder (from Slack chat) that new requirements should be added to the end of (sub)category to keep current numbering as long as possible."
+    },
+    {
+      "id": 802028449,
+      "url": "https://github.com/OWASP/ASVS/issues/883#issuecomment-802028449",
+      "created_at": "2021-03-18T15:37:57Z",
+      "updated_at": "2021-03-18T15:37:57Z",
+      "author": "Participant 1",
+      "body": "The GDPR says users have a right to [receive](https://gdpr.eu/article-20-right-to-data-portability/) or [delete](https://gdpr.eu/article-17-right-to-be-forgotten/) their data. However, it doesn't say that this functionality should be present in the application. Technically, neither does the ASVS:\r\n\r\n> Verify that users have a method to remove or export their data on demand.\r\n\r\nIs it sufficient if I could call the help desk and a database administrator deletes some rows from the database? If so, does this belong in the ASVS? This seems to be more a business process verification than an application verification."
+    },
+    {
+      "id": 802030570,
+      "url": "https://github.com/OWASP/ASVS/issues/883#issuecomment-802030570",
+      "created_at": "2021-03-18T15:40:45Z",
+      "updated_at": "2021-03-18T15:40:45Z",
+      "author": "Participant 2",
+      "body": "The right to be forgotten is a core application need that relates to security and privacy. US laws are requiring this as well. Lets do it. But perhaps we need to make a special privacy option since this is only tangential to security?"
+    },
+    {
+      "id": 802102495,
+      "url": "https://github.com/OWASP/ASVS/issues/883#issuecomment-802102495",
+      "created_at": "2021-03-18T16:47:37Z",
+      "updated_at": "2021-03-18T16:53:19Z",
+      "author": "Participant 3",
+      "body": "Till it's not required as functionality in application, this requirement or requirements, if we keep them, belong to V1.8.\r\n\r\nedit: Actually those requirements makes sense and belong where they are.\r\n\r\nWe checked it from end-user perspective, and it is not clearly required to provide mentioned functionalities via user-interface.\r\n\r\nBut if user makes call to helpdesk (as an example), then in the application must be present a method or procedure to export and/or delete user-related data."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

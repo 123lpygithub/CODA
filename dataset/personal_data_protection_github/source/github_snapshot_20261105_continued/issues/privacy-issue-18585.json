@@ -1,0 +1,98 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18585",
+  "issue_url": "https://github.com/luberda-molinet/FFImageLoading/issues/357",
+  "source_issue_url": "https://github.com/luberda-molinet/FFImageLoading/issues/357",
+  "api_url": "https://api.github.com/repos/luberda-molinet/FFImageLoading/issues/357",
+  "title": "iTunes Store prevents app from uploading with sensitive data access",
+  "body": "With update to latest FFImage release 2.2.1 (From 2.1.8) our app was prevented from uploading to iTunes Connect Testflight.\r\n\r\nReason: \r\n> We have discovered one or more issues with your recent delivery for \"******\". To process your delivery, the following issues must be corrected:\r\n> \r\n> This app attempts to access privacy-sensitive data without a usage description. The app's Info.plist must contain an NSPhotoLibraryUsageDescription key with a string value explaining to the user how the app uses this data.\r\n> \r\n> Once these issues have been corrected, you can then redeliver the corrected binary.\r\n\r\nUsually i used \"Link SDK assemblies\" to get app passed (because Xamarin SDK has all the references to privacy APIs, like Siri etc), but now it does not help.",
+  "author": "Participant 1",
+  "created_at": "2016-11-02T13:03:24Z",
+  "updated_at": "2017-09-19T11:03:51Z",
+  "state": "closed",
+  "closed_at": "2016-11-03T00:35:31Z",
+  "issue_fetched_at": "2026-10-18T22:11:17.196829+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T22:11:18.644777+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 257978849,
+      "url": "https://github.com/luberda-molinet/FFImageLoading/issues/357#issuecomment-257978849",
+      "created_at": "2016-11-02T19:50:27Z",
+      "updated_at": "2016-11-02T19:51:11Z",
+      "author": "Participant 2",
+      "body": "Wow, that's strange. I'll have to take a closer look on it.  We only changed default image folder location to: \n\n``` C#\n            var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);\n            string tmpPath = Path.Combine(documents, \"..\", \"Library\");\n            string cachePath = Path.Combine(tmpPath, cacheName);\n```\n"
+    },
+    {
+      "id": 257982280,
+      "url": "https://github.com/luberda-molinet/FFImageLoading/issues/357#issuecomment-257982280",
+      "created_at": "2016-11-02T20:03:43Z",
+      "updated_at": "2016-11-03T00:27:27Z",
+      "author": "Participant 2",
+      "body": "Are you sure it's related to `FFImageLoading`? We don't use anything related to photo library.\n"
+    },
+    {
+      "id": 258042054,
+      "url": "https://github.com/luberda-molinet/FFImageLoading/issues/357#issuecomment-258042054",
+      "created_at": "2016-11-03T00:46:54Z",
+      "updated_at": "2016-11-03T00:46:54Z",
+      "author": "Participant 2",
+      "body": "Found the issue, it should be: `string tmpPath = Path.Combine(documents, \"..\", \"Library\", \"Caches\");` instead `string tmpPath = Path.Combine(documents, \"..\", \"Library\");`\n"
+    },
+    {
+      "id": 258081830,
+      "url": "https://github.com/luberda-molinet/FFImageLoading/issues/357#issuecomment-258081830",
+      "created_at": "2016-11-03T08:00:58Z",
+      "updated_at": "2016-11-03T08:00:58Z",
+      "author": "Participant 1",
+      "body": "Thanks for fast response and the great job you do! The control is awesome!\n"
+    },
+    {
+      "id": 330499371,
+      "url": "https://github.com/luberda-molinet/FFImageLoading/issues/357#issuecomment-330499371",
+      "created_at": "2017-09-19T10:35:47Z",
+      "updated_at": "2017-09-19T10:35:47Z",
+      "author": "Participant 3",
+      "body": "@daniel-luberda I'm getting this same rejection using FFImageLoading 2.2.9.\r\n\r\nI assume your change above needed to be incorporated into a new release. Does the latest version (2.2.13) have this fixed?"
+    },
+    {
+      "id": 330500132,
+      "url": "https://github.com/luberda-molinet/FFImageLoading/issues/357#issuecomment-330500132",
+      "created_at": "2017-09-19T10:39:33Z",
+      "updated_at": "2017-09-19T10:39:33Z",
+      "author": "Participant 2",
+      "body": "@james-lavery Yes, it is. I deployed a lot of apps using FFImageLoading recently, none of them got rejected.\r\n\r\nBTW: you can set custom disk cache path (`ImageService.Instance.Initialize`)."
+    },
+    {
+      "id": 330501054,
+      "url": "https://github.com/luberda-molinet/FFImageLoading/issues/357#issuecomment-330501054",
+      "created_at": "2017-09-19T10:43:39Z",
+      "updated_at": "2017-09-19T10:43:39Z",
+      "author": "Participant 3",
+      "body": "@daniel-luberda - great, thanks. I've just updated to 2.2.13 so hopefully this will now be fixed. Do you know if it wasn't fixed in 2.2.9? \r\n\r\n"
+    },
+    {
+      "id": 330502212,
+      "url": "https://github.com/luberda-molinet/FFImageLoading/issues/357#issuecomment-330502212",
+      "created_at": "2017-09-19T10:48:57Z",
+      "updated_at": "2017-09-19T10:48:57Z",
+      "author": "Participant 2",
+      "body": "I'm sorry, but I don't remember :)"
+    },
+    {
+      "id": 330505348,
+      "url": "https://github.com/luberda-molinet/FFImageLoading/issues/357#issuecomment-330505348",
+      "created_at": "2017-09-19T11:03:51Z",
+      "updated_at": "2017-09-19T11:03:51Z",
+      "author": "Participant 3",
+      "body": "Hmm... updating to 2.2.13 hasn't fixed the problem. I think it's another library which is triggering this iTunes Connect issue."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

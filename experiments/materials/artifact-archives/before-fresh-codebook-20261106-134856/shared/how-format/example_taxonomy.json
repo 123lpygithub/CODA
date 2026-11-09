@@ -1,0 +1,170 @@
+{
+  "category": "Root",
+  "description": "",
+  "layer": 0,
+  "children": [
+    {
+      "category": "Base Image End-of-Life",
+      "description": "Build fails because the base image's OS has reached end-of-life, causing its package repositories to become unavailable (typically resulting in 404 errors).",
+      "layer": 1,
+      "children": [
+        {
+          "category": "Debian/Ubuntu EOL Repository Errors",
+          "description": "Build fails because the base image's OS (e.g., Debian Stretch/Jessie, Ubuntu 14.04) has reached end-of-life, causing apt-get update to fail with 404 errors from archived or removed repositories.",
+          "layer": 2,
+          "children": []
+        }
+      ]
+    },
+    {
+      "category": "Network and Repository Errors",
+      "description": "Build fails due to network issues (timeouts, DNS, connection resets), repository unavailability (503 errors, deprecation), or filesystem/daemon issues preventing downloads or operations.",
+      "layer": 1,
+      "children": [
+        {
+          "category": "Network Connectivity and Timeout Errors",
+          "description": "Build fails due to network timeouts, connection resets, EOF errors, or general unreachability preventing downloads or operations.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "DNS Resolution and Host Unreachable Errors",
+          "description": "Build fails due to DNS resolution failures, host unreachable errors, or inability to resolve repository/package server addresses.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "Repository HTTP Server Errors (4xx/5xx)",
+          "description": "Build fails due to server-side HTTP errors (404, 500, 502, 503, 504) from package registries, mirrors, or Docker registries.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "Repository Authentication and Key Retrieval Failures",
+          "description": "Build fails due to authentication failures (e.g., HTTP 401/403) or inability to fetch GPG keys from keyservers.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "Package Index or Registry Unavailable",
+          "description": "Build fails because a package repository, registry, or mirror is temporarily unavailable or unreachable, causing unsatisfiable constraints.",
+          "layer": 2,
+          "children": []
+        }
+      ]
+    },
+    {
+      "category": "SSL/TLS Certificate Errors",
+      "description": "Build fails due to SSL certificate verification failures when downloading resources over HTTPS.",
+      "layer": 1,
+      "children": [
+        {
+          "category": "SSL/TLS Certificate Verification Failures",
+          "description": "Build fails because of expired, missing, or invalid SSL/TLS certificates or CA bundles, preventing secure connections to repositories or registries.",
+          "layer": 2,
+          "children": []
+        }
+      ]
+    },
+    {
+      "category": "Package Dependency and Resolution Errors",
+      "description": "Build fails due to package manager errors such as unmet dependencies, version conflicts, or packages missing from the repository.",
+      "layer": 1,
+      "children": [
+        {
+          "category": "Package Version Conflict or Unavailable",
+          "description": "Build fails because a specified package version is incompatible, conflicts with other dependencies, or is not available in the repository.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "Package Name Incorrect or Missing",
+          "description": "Build fails because a specified package name is incorrect, misspelled, or the package is missing from the configured source.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "Missing System Dependencies",
+          "description": "Build fails due to missing system-level libraries, development headers, or tools required for package installation or compilation.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "Network or Integrity Check Failure",
+          "description": "Build fails due to network issues, corrupted downloads, or integrity checksum mismatches during package fetch.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "Language/Runtime Version Incompatibility",
+          "description": "Build fails because a package or tool requires a newer or different version of the language runtime or compiler than is installed.",
+          "layer": 2,
+          "children": []
+        }
+      ]
+    },
+    {
+      "category": "Build Tool/Environment Errors",
+      "description": "Build fails due to errors in the build environment, such as syntax errors in scripts, unsupported package builds, or compatibility issues with the build tools.",
+      "layer": 1,
+      "children": [
+        {
+          "category": "Language/Tool Version Mismatch",
+          "description": "Build fails due to incompatibility between the installed version of a language runtime (e.g., Go, Node.js, Ruby, Python) or tool (e.g., npm, Bundler) and the requirements of a dependency or the project.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "Package Manager Environment Restrictions",
+          "description": "Build fails because the system's package manager (e.g., apk, pip) blocks direct installations to prevent conflicts with system-managed packages, often on Alpine Linux.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "Dependency Compilation/Build Failure",
+          "description": "Build fails during the compilation or building of a specific dependency due to missing components, unsupported build backends (e.g., PEP 517), deprecated configurations, or package structure issues.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "Package Manager/Registry Errors",
+          "description": "Build fails due to issues with the package manager itself (e.g., npm 'cb() never called!', corrupted tarballs) or its interaction with the package registry.",
+          "layer": 2,
+          "children": []
+        },
+        {
+          "category": "Script/Syntax Errors",
+          "description": "Build fails due to syntax errors, formatting issues, or unsupported script formats in build scripts or package postinstall scripts.",
+          "layer": 2,
+          "children": []
+        }
+      ]
+    },
+    {
+      "category": "File/Directory Conflicts",
+      "description": "Build fails due to file system conflicts, such as attempting to copy files to a path that already exists as a non-directory.",
+      "layer": 1,
+      "children": [
+        {
+          "category": "File/Directory Path Conflicts",
+          "description": "Build fails due to conflicts in file or directory paths, such as COPY/ADD destination conflicts, npm cache corruption, or node_modules conflicts from host copy.",
+          "layer": 2,
+          "children": []
+        }
+      ]
+    },
+    {
+      "category": "Command/Executable Not Found",
+      "description": "Build fails because a required command or executable (e.g., npm) is not found in the current environment or PATH.",
+      "layer": 1,
+      "children": [
+        {
+          "category": "Command or Executable Not Found",
+          "description": "Build fails because a required command, executable, package manager, build tool, compiler, or script is missing from the environment or PATH.",
+          "layer": 2,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0302-aahiiggad",
+  "revision_url": "https://github.com/kengz/SLM-Lab/commit/03938c1787b05bd7dd490b9df2d75ce3f11f9c3b",
+  "filename": "slm_lab/env/vizdoom/vizdoom_env.py",
+  "commit": "03938c1787b05bd7dd490b9df2d75ce3f11f9c3b",
+  "source_url": "https://raw.githubusercontent.com/kengz/SLM-Lab/03938c1787b05bd7dd490b9df2d75ce3f11f9c3b/slm_lab/env/vizdoom/vizdoom_env.py",
+  "fetched_at": "2026-11-05T06:12:31.284531+00:00",
+  "source_sha256": "3687bf9cec919ec34dd1f53dea050885c6915f477d89a912c0a2752c7786e68b",
+  "line_start": 9,
+  "line_end": 33,
+  "excerpt": "class VizDoomEnv(Env):\n    '''\n    Wrapper for vizdoom to use as an OpenAI gym environment.\n    '''\n    metadata = {'render.modes': ['human', 'rgb_array']}\n\n    def __init__(self, cfg_name, repeat=1):\n        super(VizDoomEnv, self).__init__()\n        self.game = DoomGame()\n        self.game.load_config('./slm_lab/env/vizdoom/cfgs/' + cfg_name + '.cfg')\n        self._viewer = None\n        self.repeat = 1\n        # TODO In future, need to update action to handle (continuous) DELTA buttons using gym's Box space\n        self.action_space = spaces.MultiDiscrete([2] * self.game.get_available_buttons_size())\n        self.action_space.dtype = 'uint8'\n        output_shape = (self.game.get_screen_height(), self.game.get_screen_width(), self.game.get_screen_channels())\n        self.observation_space = spaces.Box(low=0, high=255, shape=output_shape, dtype='uint8')\n        self.game.init()\n\n    def close(self):\n        self.game.close()\n        if self._viewer is not None:\n            self._viewer.close()\n            self._viewer = None\n",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0303-aahciidhf",
+  "revision_url": "https://github.com/pyro-ppl/pyro/commit/ded6eda6df2d1e94ee5a373b89fa696c9c49bb46",
+  "filename": "pyro/infer/tracegraph_kl_qp.py",
+  "commit": "ded6eda6df2d1e94ee5a373b89fa696c9c49bb46",
+  "source_url": "https://raw.githubusercontent.com/pyro-ppl/pyro/ded6eda6df2d1e94ee5a373b89fa696c9c49bb46/pyro/infer/tracegraph_kl_qp.py",
+  "fetched_at": "2026-11-05T06:12:30.409475+00:00",
+  "source_sha256": "cd4e236a6a149c2eeca9d90dab88797267ab08b231f4afc2fab803d7a6fd9da0",
+  "line_start": 9,
+  "line_end": 33,
+  "excerpt": "    A Tracegraph and Poutine-based implementation of SVI\n    \"\"\"\n    def __init__(self, model,\n                 guide,\n                 optim_step_fct,\n                 model_fixed=False,\n                 guide_fixed=False, *args, **kwargs):\n        \"\"\"\n        Call parent class initially, then setup the poutines to run\n        \"\"\"\n        # initialize\n        super(TraceGraph_KL_QP, self).__init__()\n        # TODO init this somewhere else in a more principled way\n        self.sites = None\n\n        self.model = model\n        self.guide = guide\n        self.optim_step_fct = optim_step_fct\n        self.model_fixed = model_fixed\n        self.guide_fixed = guide_fixed\n\n    def __call__(self, *args, **kwargs):\n        return self.step(*args, **kwargs)\n\n    def step(self, *args, **kwargs):"
+}

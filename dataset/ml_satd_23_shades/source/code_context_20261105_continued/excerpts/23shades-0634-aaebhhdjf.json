@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0634-aaebhhdjf",
+  "revision_url": "https://github.com/HewlettPackard/dlcookbook-dlbs/commit/fdb881692ae5cb7f4c24286612272d4b4a704b64",
+  "filename": "python/pytorch_benchmarks/dataset_factory.py",
+  "commit": "fdb881692ae5cb7f4c24286612272d4b4a704b64",
+  "source_url": "https://raw.githubusercontent.com/HewlettPackard/dlcookbook-dlbs/fdb881692ae5cb7f4c24286612272d4b4a704b64/python/pytorch_benchmarks/dataset_factory.py",
+  "fetched_at": "2026-11-05T06:13:29.389520+00:00",
+  "source_sha256": "4ff031cf32c4bb6e51ce23ef2083c58d478fde45c9be155b0d0b7b3fa32c4cba",
+  "line_start": 134,
+  "line_end": 158,
+  "excerpt": "        :rtype: tuple\n        :return: A tuple of (features, label)\n        \"\"\"\n        instance = self.__data[index]\n        label = self.__labels[index, 0]\n        return instance, label\n\n\n# http://pytorch.org/docs/master/_modules/torch/utils/data/dataloader.html\n# It seems that default DataLoader is not efficient or I did not\n# figure out how to use it properly with synthetic data.\n# This synthetic data loader will iterate forever.\n# TODO: Place tensors into GPU memory. This will require rewriting \n#       benchmarking loop and nn.DataParallelModel.\nclass SyntheticDataLoader(object):\n    def __init__(self, batch_size, input_shape, num_classes, device='gpu'):\n        # Create two random tensors - one for data and one for label\n        data_shape = (batch_size,) + input_shape\n        self.data = torch.randn(data_shape)\n        self.labels = torch.from_numpy(np.random.randint(0, num_classes, batch_size).astype(np.long))\n        if device == 'gpu':\n            self.data = self.data.pin_memory()\n            self.labels = self.labels.pin_memory()\n\n    def __iter__(self):"
+}

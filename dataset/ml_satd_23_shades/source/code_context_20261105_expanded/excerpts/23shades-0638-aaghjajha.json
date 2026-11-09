@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0638-aaghjajha",
+  "revision_url": "https://github.com/google-research/google-research/commit/cfca7c2cc9af9bf531a770830212264e916ccc83",
+  "filename": "strategic_exploration/hrl/systematic_exploration.py",
+  "commit": "cfca7c2cc9af9bf531a770830212264e916ccc83",
+  "source_url": "https://raw.githubusercontent.com/google-research/google-research/cfca7c2cc9af9bf531a770830212264e916ccc83/strategic_exploration/hrl/systematic_exploration.py",
+  "fetched_at": "2026-11-05T06:13:30.162064+00:00",
+  "source_sha256": "bd054f42e818b9ddb553bd10ad483138e5a1422e8e1defc30abaf94d783b937d",
+  "line_start": 367,
+  "line_end": 391,
+  "excerpt": "\n  def update(self, new_state):\n    \"\"\"Updates from the current history: [s_t, ..., s_{t - k + 1}]\n\n                                         to: [s_{t + 1}, ..., s_{t - k}]\n\n        Args:\n            new_state (FloatTensor): s_{t + 1}\n    \"\"\"\n    self._states.appendleft(new_state)\n    self._states.pop()\n\n  # TODO: Probably should just implement __deepcopy__\n  def clone(self):\n    \"\"\"Returns a deep copy of self\"\"\"\n    return History(copy.deepcopy(self._states))\n\n  def __getitem__(self, index):\n    return self._states[index]\n\n  def __hash__(self):\n    return hash(\n        tuple(\n            np.sum(state) if state is not None else None\n            for state in self._states))"
+}

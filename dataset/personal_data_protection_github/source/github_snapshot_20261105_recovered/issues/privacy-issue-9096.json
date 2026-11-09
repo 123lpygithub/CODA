@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-9096",
+  "issue_url": "https://github.com/bbc/simorgh/issues/3477",
+  "source_issue_url": "https://github.com/bbc/simorgh/issues/3477",
+  "api_url": "https://api.github.com/repos/bbc/simorgh/issues/3477",
+  "title": "Update cookie banner logic to accept ckns_explicit = 2",
+  "body": "**Is your feature request related to a problem? Please describe.**\r\nGNL are making changes to how the Cookie Banner works in the EU/EEA (but not UK) - we need to make some changes as well.\r\n\r\n**Describe the solution you'd like**\r\nCurrently, we display the cookie banner if the ckns_explicit cookie's value is not `1` (ie it is `0` or not set)\r\n\r\nWe now need to consider a value of 2 as also reflecting acceptance of the cookie banner.\r\n\r\n**Describe alternatives you've considered**\r\nN/A\r\n\r\n**Implementation detail:**\r\nWe currently have [this function](https://github.com/bbc/simorgh/blob/latest/src/app/containers/ConsentBanner/CanonicalLogic/index.js#L30)\r\n```js\r\nconst showCookieBanner = () =>\r\n  Cookie.get(EXPLICIT_COOKIE) !== COOKIE_BANNER_APPROVED;\r\n```\r\n\r\nThis may need to change to\r\n```js\r\nconst EXPLICIT_COOKIE_ACCEPTED_VALUES = ['1', '2'];\r\n\r\nconst showCookieBanner = () =>\r\n  !EXPLICIT_COOKIE_ACCEPTED_VALUES.includes(Cookie.get(EXPLICIT_COOKIE));\r\n```\r\n\r\ni.e. if `EXPLICIT_COOKIE` (ckns_explicit) isnt `1` or `2`, show the banner\r\n\r\n**Testing notes**\r\n[Tester to complete]\r\n\r\nDev insight: Alllllllllll the unit tests\r\n\r\n- [x] This feature is expected to need manual testing.\r\n\r\n**Additional context**\r\nAdd any other context or screenshots about the feature request here.\r\n",
+  "author": "Participant 1",
+  "created_at": "2019-09-02T09:05:21Z",
+  "updated_at": "2019-09-04T13:48:07Z",
+  "state": "closed",
+  "closed_at": "2019-09-04T13:48:07Z",
+  "issue_fetched_at": "2026-10-18T20:10:27.989145+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T20:10:29.458555+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 527397649,
+      "url": "https://github.com/bbc/simorgh/issues/3477#issuecomment-527397649",
+      "created_at": "2019-09-03T10:18:30Z",
+      "updated_at": "2019-09-03T10:18:30Z",
+      "author": "Participant 2",
+      "body": "@jimjohnsonrollings We currently set `ckns_explicit` to `1` when you accept it, can we continue to do that?"
+    },
+    {
+      "id": 527398397,
+      "url": "https://github.com/bbc/simorgh/issues/3477#issuecomment-527398397",
+      "created_at": "2019-09-03T10:20:50Z",
+      "updated_at": "2019-09-03T10:20:50Z",
+      "author": "Participant 1",
+      "body": "For the purposes of this issue, yes\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

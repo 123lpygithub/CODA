@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0787-aafhfhjbf",
+  "revision_url": "https://github.com/wuhao5688/RNN-TrajModel/commit/7220df9f65a1e50f956d70a7422ddea0167a5c38",
+  "filename": "trajmodel.py",
+  "commit": "7220df9f65a1e50f956d70a7422ddea0167a5c38",
+  "source_url": "https://raw.githubusercontent.com/wuhao5688/RNN-TrajModel/7220df9f65a1e50f956d70a7422ddea0167a5c38/trajmodel.py",
+  "fetched_at": "2026-11-05T06:13:52.502754+00:00",
+  "source_sha256": "46937e2addf221e793968ed071d374f31589e95ba566c010bf5556fdba825c83",
+  "line_start": 1042,
+  "line_end": 1066,
+  "excerpt": "          for adj_id in adjList_ids:\n            batch_adj_indices.append([sample_id, adj_id])\n          sample_id += 1\n\n    # masking\n    batch_mask = np.zeros((batch_size, max_seq_len), dtype=float)\n    for row in range(batch_size):\n      for col in range(batch_seq_lens[row]):\n        batch_mask[row][col] = 1.0\n\n    # sub_one_hot_target\n    batch_sub_onehot_target = np.zeros([config.batch_size, max_seq_len, self.adj_mat.shape[1]],\n                                       dtype=np.float32)  # TODO, implement automatic inference, maybe done\n    for x0 in range(batch_sub_onehot_target.shape[0]):\n      for x1 in range(batch_sub_onehot_target.shape[1]):\n        for x2 in range(batch_sub_onehot_target.shape[2]):\n          if batch_target[x0][x1] == self.adj_mat[batch_in[x0][x1]][x2]:\n            batch_sub_onehot_target[x0][x1][x2] = 1.0\n            break\n    return Batch(inputs=np.array(batch_in), targets=np.array(batch_target), masks=batch_mask,\n                 dests=np.array(batch_dest), seq_lens=np.array(batch_seq_lens), adj_indices=batch_adj_indices,\n                 sub_onehot_target=batch_sub_onehot_target), pointer\n\n  def fetch(self, eval_op):\n    fetch_dict = {}",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,138 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27matomo-org%2Fmatomo%27+AND+number%3D11507+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='matomo-org/matomo' AND number=11507 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:38.817741+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "siva538",
+        "created_at": "2019-05-03 19:52:51",
+        "updated_at": "2019-05-03 19:52:51",
+        "title": "Cookie warning pops up in IE11 ShowModalDialog",
+        "body": "@mattab , we are planning to modify this in the following way, so we can validate this every time consistently.\r\n\r\nFYI - we also got the same issue popped up with IE and showmodal dialog combination.\r\n\r\n`     \r\nfunction hasCookies() {\r\n                if (configCookiesDisabled) {\r\n                    return '0';\r\n                }\r\n\r\n\t\t\t\tvar testCookieName = getCookieName('testcookie');\r\n\t\t\t\tsetCookie(testCookieName, '1');\r\n\r\n\t\t\t\treturn getCookie(testCookieName) === '1' ? '1' : '0';\r\n            }\r\n`\r\n\r\nLet us know if you see any concerns with this approach. Thanks in advance.\r\n\r\n\r\n\r\n",
+        "comment_id": 489219812,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-05-03 19:00:00",
+        "repo_name": "matomo-org/matomo",
+        "number": 11507
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "mattab",
+        "created_at": "2019-05-12 05:57:32",
+        "updated_at": "2019-05-12 05:57:32",
+        "title": "Cookie warning pops up in IE11 ShowModalDialog",
+        "body": "@siva538 could you please open a pull request and not there what issue / use case does it help with? Thanks",
+        "comment_id": 491567093,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-05-12 05:00:00",
+        "repo_name": "matomo-org/matomo",
+        "number": 11507
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "siva538",
+        "created_at": "2019-05-13 01:37:04",
+        "updated_at": "2019-05-13 01:37:04",
+        "title": "Cookie warning pops up in IE11 ShowModalDialog",
+        "body": "Sure @mattab . Will do. We ran into an issue with this when there were repeated popup messages as mentioned in screenshot on 3/22/17 above, and browser was asking to insert a cookie. \r\n\r\nHowever the reality was \"navigatorAlias.cookieEnabled\" is not supported in IE browser during \"Show Modal Dialog\".\r\n\r\nReason for weightage is that there are still huge number of users across the globe using IE and this fix would help avoid the unnecessary popup's when Modal is used.\r\n\r\nThank you. ",
+        "comment_id": 491648940,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-05-13 01:00:00",
+        "repo_name": "matomo-org/matomo",
+        "number": 11507
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "diosmosis",
+        "created_at": "2019-08-16 01:47:04",
+        "updated_at": "2019-08-16 01:47:03",
+        "title": "Cookie warning pops up in IE11 ShowModalDialog",
+        "body": "When the tracker is being initialized, configCookiesDisabled is set to true by default.  When `hasCookies()` is called by `detectBroweserFeatures()` during initialization, this causes a cookie warning dialog to popup twice(each time `navigatorAlias.cookieEnabled`) is accessed.  This occurs every time the modal dialog is opened.\r\n\r\n```            \r\n           function hasCookies() {\r\n                if (configCookiesDisabled) {\r\n                    return '0';\r\n                }\r\n                if (!isDefined(navigatorAlias.cookieEnabled)) {\r\n                    var testCookieName = getCookieName('testcookie');\r\n                    setCookie(testCookieName, '1');\r\n                    return getCookie(testCookieName) === '1' ? '1' : '0';\r\n                }\r\n                return navigatorAlias.cookieEnabled ? '1' : '0';\r\n            }\r\n```\r\n",
+        "comment_id": 0,
+        "comments": 7,
+        "state": "closed",
+        "closed_at": "2019-08-16 01:47:03",
+        "file_time": "2019-08-16 01:00:00",
+        "repo_name": "matomo-org/matomo",
+        "number": 11507
+      }
+    ],
+    "rows": 4,
+    "statistics": {
+      "elapsed": 0.034465803,
+      "rows_read": 318019,
+      "bytes_read": 11189768
+    }
+  },
+  "response_sha256": "6775d793feb294241e4f3616425fb342e420d05dfab4cbe4862a077f06654091"
+}

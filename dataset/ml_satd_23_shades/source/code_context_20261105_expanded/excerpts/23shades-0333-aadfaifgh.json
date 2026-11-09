@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0333-aadfaifgh",
+  "revision_url": "https://github.com/PPPLDeepLearning/plasma-python/commit/c522d3be7a53638676d87af97960219816ae6679",
+  "filename": "plasma/models/tcn.py",
+  "commit": "c522d3be7a53638676d87af97960219816ae6679",
+  "source_url": "https://raw.githubusercontent.com/PPPLDeepLearning/plasma-python/c522d3be7a53638676d87af97960219816ae6679/plasma/models/tcn.py",
+  "fetched_at": "2026-11-05T06:12:35.281991+00:00",
+  "source_sha256": "7b998f6191ba7865394a72279905380486df2ce999ac1dc1315f31f4add75d7b",
+  "line_start": 208,
+  "line_end": 232,
+  "excerpt": "        else:\n            raise Exception('Only Adam and RMSProp are available here')\n\n    if not regression:\n        # classification\n        x = Dense(num_classes)(x)\n        x = Activation('softmax')(x)\n        output_layer = x\n        model = Model(input_layer, output_layer)\n\n        # https://github.com/keras-team/keras/pull/11373\n        # It's now in Keras@master but still not available with pip.\n        # TODO remove later.\n        def accuracy(y_true, y_pred):\n            # reshape in case it's in shape (num_samples, 1) instead of (num_samples,)\n            if K.ndim(y_true) == K.ndim(y_pred):\n                y_true = K.squeeze(y_true, -1)\n            # convert dense predictions to labels\n            y_pred_labels = K.argmax(y_pred, axis=-1)\n            y_pred_labels = K.cast(y_pred_labels, K.floatx())\n            return K.cast(K.equal(y_true, y_pred_labels), K.floatx())\n\n        model.compile(get_opt(), loss='sparse_categorical_crossentropy', metrics=[accuracy])\n    else:\n        # regression"
+}

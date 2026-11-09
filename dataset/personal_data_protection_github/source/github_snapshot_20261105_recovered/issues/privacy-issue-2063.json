@@ -1,0 +1,138 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-2063",
+  "issue_url": "https://github.com/MozillaReality/FirefoxReality/issues/1477",
+  "source_issue_url": "https://github.com/MozillaReality/FirefoxReality/issues/1477",
+  "api_url": "https://api.github.com/repos/MozillaReality/FirefoxReality/issues/1477",
+  "title": "Add ping for telemetry enable/disable",
+  "body": "We don't have a clear idea of what percentage of users disable telemetry. When a user elects to disable it, we should transmit a \"goodbye\" ping, and conversely a \"hello\" ping when a user enables the function.\r\n\r\nThis will help gauge user sentiment around collecting data to improve the browser.",
+  "author": "Participant 1",
+  "created_at": "2019-07-30T19:53:16Z",
+  "updated_at": "2019-10-24T11:32:33Z",
+  "state": "closed",
+  "closed_at": "2019-10-24T11:32:32Z",
+  "issue_fetched_at": "2026-10-19T01:11:40.068258+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:11:41.506014+00:00"
+  ],
+  "expected_comment_count": 14,
+  "retrieved_comment_count": 14,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 516570922,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-516570922",
+      "created_at": "2019-07-30T19:53:52Z",
+      "updated_at": "2019-07-30T19:53:52Z",
+      "author": "Participant 1",
+      "body": "requires #561 "
+    },
+    {
+      "id": 519775609,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-519775609",
+      "created_at": "2019-08-09T04:45:22Z",
+      "updated_at": "2019-08-09T04:45:22Z",
+      "author": "Participant 1",
+      "body": "@jvonitter It'd be good to pull this into 1.5 as part of our telemetry boost."
+    },
+    {
+      "id": 523154689,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-523154689",
+      "created_at": "2019-08-20T19:10:18Z",
+      "updated_at": "2019-08-20T19:10:18Z",
+      "author": "Participant 2",
+      "body": "- Data review needs to be completed during implementation. Form is here: https://github.com/mozilla/data-review/blob/master/request.md and can be submitted to @harraton when ready.\r\n- https://github.com/MozillaReality/FirefoxReality/wiki/Telemetry should also be updated to show the new event(s)"
+    },
+    {
+      "id": 539567003,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-539567003",
+      "created_at": "2019-10-08T15:25:26Z",
+      "updated_at": "2019-10-08T15:25:34Z",
+      "author": "Participant 3",
+      "body": "@jvonitter the PR is ready for review. Shouldn't be merged before the data review is approved though."
+    },
+    {
+      "id": 539620786,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-539620786",
+      "created_at": "2019-10-08T17:32:59Z",
+      "updated_at": "2019-10-08T17:32:59Z",
+      "author": "Participant 2",
+      "body": "From Manuel:\r\nI got some info about how to implement it from the Telemetry team. They pointed out a couple of things though:\r\n- They were concern about sending a ping after the the user opts out, we need to really justify the need of this so we can pass the data review\r\n- It seems that some sort of user information is sent with the event ping so we will be able to group by user through backend queries\r\n- They told me that there is always a discrepancy between our telemetry and external sources and trying to hard to fill the gap might be a time sink and lead nowhere: “In general things never match with external data sources” (edited) "
+    },
+    {
+      "id": 539620946,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-539620946",
+      "created_at": "2019-10-08T17:33:22Z",
+      "updated_at": "2019-10-08T17:33:22Z",
+      "author": "Participant 2",
+      "body": "Moving this into 6 so we can consider the feedback and figure out the right path."
+    },
+    {
+      "id": 539905830,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-539905830",
+      "created_at": "2019-10-09T08:53:14Z",
+      "updated_at": "2019-10-09T09:12:34Z",
+      "author": "Participant 3",
+      "body": "Data review form, attn @harraton\r\n[datareview-telemetry-status.txt](https://github.com/MozillaReality/FirefoxReality/files/3706501/datareview-telemetry-status.txt)\r\n\r\n- [x] Wiki updated"
+    },
+    {
+      "id": 540224854,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-540224854",
+      "created_at": "2019-10-09T22:09:43Z",
+      "updated_at": "2019-10-09T22:09:43Z",
+      "author": "Participant 1",
+      "body": "Link to ping used for this purpose on desktop: https://firefox-source-docs.mozilla.org/toolkit/components/telemetry/data/optout-ping.html"
+    },
+    {
+      "id": 540660720,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-540660720",
+      "created_at": "2019-10-10T16:13:47Z",
+      "updated_at": "2019-10-10T16:14:49Z",
+      "author": "Participant 3",
+      "body": "@philip-lamb I talked to the Telemetry team before implementing this and they recommended using an event ping vs the opt-out ping as we can group pings by user: \r\n\r\n> @manuel.martin so what I’m saying is if you send an event, or tack it on the settings of the event ping we can group by user, if we use the opt-out ping we cannot"
+    },
+    {
+      "id": 542128386,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-542128386",
+      "created_at": "2019-10-15T09:38:49Z",
+      "updated_at": "2019-10-15T09:38:49Z",
+      "author": "Participant 3",
+      "body": "@harraton Any updates on this?"
+    },
+    {
+      "id": 542319298,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-542319298",
+      "created_at": "2019-10-15T17:24:03Z",
+      "updated_at": "2019-10-15T17:24:03Z",
+      "author": "Participant 4",
+      "body": "**Data Review Form** \r\n\r\nInstructions: Data Stewards will review a request for data collection and endorse responses to each question. If the request does not provide answers to questions, reviewers give an r- and point to the questions that can’t be answered.\r\n\r\n1. Is there or will there be documentation that describes the schema for the ultimate data set in a public, complete, and accurate way? \r\nYes (Wiki)\r\n\r\n2. Is there a control mechanism that allows the user to turn the data collection on and off? \r\nYes, there is a telemetry switch. This new data allows the team to understand if that switch has been turned to On or Off.\r\n\r\n\r\n 4. Using the category system of data types on the Mozilla wiki, what collection type of data do the requested measurements fall under?\r\nCategory 2.\r\n\r\n  5. Is the data collection request for default-on or default-off?\r\nDefault-On\r\n\r\n6. Does the instrumentation include the addition of any new identifiers.\r\nNo.\r\n\r\n 7. Is the data collection covered by the existing Firefox privacy notice? \r\nCovered by the Firefox Reality Privacy Notice.\r\n\r\n8. Does there need to be a check-in in the future to determine whether to renew the data? Yes\r\n\r\n9. Does the data collection use a third-party collection tool? \r\nNo.\r\n"
+    },
+    {
+      "id": 542319439,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-542319439",
+      "created_at": "2019-10-15T17:24:23Z",
+      "updated_at": "2019-10-15T17:24:23Z",
+      "author": "Participant 4",
+      "body": "Ping approved. "
+    },
+    {
+      "id": 542637104,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-542637104",
+      "created_at": "2019-10-16T10:30:25Z",
+      "updated_at": "2019-10-16T10:30:25Z",
+      "author": "Participant 3",
+      "body": "@jvonitter The Telemetry wiki page has been updated."
+    },
+    {
+      "id": 542840181,
+      "url": "https://github.com/MozillaReality/FirefoxReality/issues/1477#issuecomment-542840181",
+      "created_at": "2019-10-16T18:48:25Z",
+      "updated_at": "2019-10-16T18:48:25Z",
+      "author": "Participant 2",
+      "body": "I've set a reminder to check on this in 6 months to see if we still need to collect the data. We're ok to merge this!"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0651-aagfjdjeg",
+  "revision_url": "https://github.com/NRCan/geo-deep-learning/commit/d728da5afb04d213a3da93e334ca9093d54bd5a1",
+  "filename": "images_to_samples.py",
+  "commit": "d728da5afb04d213a3da93e334ca9093d54bd5a1",
+  "source_url": "https://raw.githubusercontent.com/NRCan/geo-deep-learning/d728da5afb04d213a3da93e334ca9093d54bd5a1/images_to_samples.py",
+  "fetched_at": "2026-11-05T06:13:32.760591+00:00",
+  "source_sha256": "7d6f8e8a0fe9d0c732b48e5c3a6c73c6031d7fae7b2722c8b18c0da4b1e6a26a",
+  "line_start": 198,
+  "line_end": 222,
+  "excerpt": "        assert Path(info['gpkg']).is_file(), f'Could not locate \"{info[\"gpkg\"]}\". Make sure file exists in this directory.'\n\n    if debug:\n        for info in tqdm(list_data_prep, position=0, desc=f\"Validating presence of {params['global']['num_classes']} \"\n                                                          f\"classes in attribute \\\"{info['attribute_name']}\\\" for vector \"\n                                                          f\"file \\\"{Path(info['gpkg']).stem}\\\"\"):\n            validate_num_classes(info['gpkg'], params['global']['num_classes'], info['attribute_name'], ignore_index)\n\n        with tqdm(list_data_prep, position=0, desc=f\"Checking validity of features in vector files\") as _tqdm:\n            invalid_features = {}\n            for info in _tqdm:\n                # Extract vector features to burn in the raster image\n                with fiona.open(info['gpkg'], 'r') as src:  # TODO: refactor as independent function\n                    lst_vector = [vector for vector in src]\n                shapes = lst_ids(list_vector=lst_vector, attr_name=info['attribute_name'])\n                for index, item in enumerate(tqdm([v for vecs in shapes.values() for v in vecs], leave=False, position=1)):\n                    # geom must be a valid GeoJSON geometry type and non-empty\n                    geom, value = item\n                    geom = getattr(geom, '__geo_interface__', None) or geom\n                    if not is_valid_geom(geom):\n                        gpkg_stem = str(Path(info['gpkg']).stem)\n                        if gpkg_stem not in invalid_features.keys(): # create key with name of gpkg\n                            invalid_features[gpkg_stem] = []\n                        if lst_vector[index][\"id\"] not in invalid_features[gpkg_stem]: # ignore feature is already appended\n                            invalid_features[gpkg_stem].append(lst_vector[index][\"id\"])"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0016-aadfachjd",
+  "revision_url": "https://github.com/PPPLDeepLearning/plasma-python/commit/dd2a62ed45639afab56203098d113b48036939e5",
+  "filename": "plasma/models/mpi_runner.py",
+  "commit": "dd2a62ed45639afab56203098d113b48036939e5",
+  "source_url": "https://raw.githubusercontent.com/PPPLDeepLearning/plasma-python/dd2a62ed45639afab56203098d113b48036939e5/plasma/models/mpi_runner.py",
+  "fetched_at": "2026-11-05T06:11:40.818023+00:00",
+  "source_sha256": "e31bed0d1801081592461b78122406879f2926e79be9bbf06fbcc5e79a29f541",
+  "line_start": 59,
+  "line_end": 83,
+  "excerpt": "for i in range(num_workers):\n  comm.Barrier()\n  if i == task_index:\n    print('[{}] importing Keras'.format(task_index))\n    from keras import backend as K\n    from keras.layers import Input,Dense, Dropout\n    from keras.layers.recurrent import LSTM\n    from keras.layers.wrappers import TimeDistributed\n    from keras.models import Model\n    from keras.optimizers import SGD\n    from keras.utils.generic_utils import Progbar \n\n###TODO add optimizers other than SGD\n\n\nclass MPIOptimizer(object):\n  def __init__(self,lr):\n    self.lr = lr\n    self.iterations = 0\n\n  def get_deltas(self,raw_deltas):\n    raise NotImplementedError\n\n  def set_lr(self,lr):\n    self.lr = lr"
+}

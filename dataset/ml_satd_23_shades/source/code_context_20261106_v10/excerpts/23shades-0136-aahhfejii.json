@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0136-aahhfejii",
+  "revision_url": "https://github.com/ysig/GraKeL/commit/ec16d8218225446c9ae165a4813a193ac70e8e2e",
+  "filename": "grakel/kernels/core_framework.py",
+  "commit": "ec16d8218225446c9ae165a4813a193ac70e8e2e",
+  "source_url": "https://raw.githubusercontent.com/ysig/GraKeL/ec16d8218225446c9ae165a4813a193ac70e8e2e/grakel/kernels/core_framework.py",
+  "fetched_at": "2026-11-05T06:12:00.278188+00:00",
+  "source_sha256": "145792cccb01741a44556ebc1422327e7a4fa3e90fcd13aff467ebaa9a2a3b02",
+  "line_start": 171,
+  "line_end": 195,
+  "excerpt": "            subgraphs, indexes = list(), list()\n            for (idx, (cn, (g, extra))) in enumerate(zip(core_numbers, graphs)):\n                vertices = [k for k, v in iteritems(cn) if v >= i]\n                if len(vertices) > 0:\n                    # Calculate subgraph and store the index of the non-empty vertices\n                    sg = g.get_subgraph(vertices)\n                    sub_extra = list()\n                    indexes.append(idx)\n                    if len(extra) > 0:\n                        vs = np.array(sg.get_vertices(purpose='any'))\n                        for e in extra:\n                            # This case will only be reached by now if the user add the propagation\n                            # kernel as subkernel with a custom propagation matrix. This is a workaround!\n                            if type(e) is np.array and len(e.shape) == 2:\n                                e = e[vs, :][:, vs]\n                            sub_extra.append(e)\n                        subgraphs.append((sg, ) + tuple(sub_extra))\n                    else:\n                        subgraphs.append(sg)\n            indexes = np.array(indexes)\n            indexes_list[i] = indexes\n\n            # calculate kernel\n            if self._method_calling == 1 and indexes.shape[0] > 0:\n                base_kernel[i] = self._base_kernel()"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0343-aaadbhidf",
+  "revision_url": "https://github.com/Seanforfun/GMAN_Net_Haze_Removal/commit/ab7d09ca84b7bba44924e1db3bdd5071aa693393",
+  "filename": "DehazeNet/dehazenet_eval.py",
+  "commit": "ab7d09ca84b7bba44924e1db3bdd5071aa693393",
+  "source_url": "https://raw.githubusercontent.com/Seanforfun/GMAN_Net_Haze_Removal/ab7d09ca84b7bba44924e1db3bdd5071aa693393/DehazeNet/dehazenet_eval.py",
+  "fetched_at": "2026-11-05T06:12:36.751729+00:00",
+  "source_sha256": "900599774982e1f292db459b0ab82ed568eeedc06dd5a67d68c84b42c56ae17e",
+  "line_start": 24,
+  "line_end": 48,
+  "excerpt": "\ntf.app.flags.DEFINE_string('eval_dir', '/tmp/cifar10_eval',\n                           \"\"\"Directory where to write event logs.\"\"\")\ntf.app.flags.DEFINE_string('checkpoint_dir', './DeHazeNetEval',\n                           \"\"\"Directory where to read model checkpoints.\"\"\")\ntf.app.flags.DEFINE_string('clear_test_images_dir', './ClearImages/TestImages',\n                           \"\"\"Path to the clear result images directory.\"\"\")\ntf.app.flags.DEFINE_string('haze_test_images_dir', './HazeImages/TestImages',\n                           \"\"\"Path to the hazed test images directory.\"\"\")\n\n\ndef _evaluate_single_batch(hazed_test_image_batch, clear_test_image_batch, dest_dir):\n    # TODO Restore our CNN from trained data\n    # TODO Run operations and create the corresponding clear images\n    pass\n\n\ndef evaluate():\n    # TODO Mengzhen Wang please re-write this function to achieve a better performance\n    # This function read the model from ./DeHazeNetModel/model.ckpt\n    # file and dehaze the hazed test images. This final result graph will\n    # be put into ./ClearImages/ResultImages\n\n    # TODO STEP1:Get a test hazed and clear image batch from queue, which is not shuffled\n    with tf.Graph().as_default() as g:"
+}

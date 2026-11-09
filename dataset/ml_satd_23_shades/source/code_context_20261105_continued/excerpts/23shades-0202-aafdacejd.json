@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0202-aafdacejd",
+  "revision_url": "https://github.com/DigitalSlideArchive/HistomicsTK/commit/516d817b67d5b799beedd6896f09f9a115f14084",
+  "filename": "histomicstk/saliency/cellularity_detection_thresholding.py",
+  "commit": "516d817b67d5b799beedd6896f09f9a115f14084",
+  "source_url": "https://raw.githubusercontent.com/DigitalSlideArchive/HistomicsTK/516d817b67d5b799beedd6896f09f9a115f14084/histomicstk/saliency/cellularity_detection_thresholding.py",
+  "fetched_at": "2026-11-05T06:12:14.330062+00:00",
+  "source_sha256": "d2e3050ce38918f6471bdc1b767e563c84d7d1ac5040fce4a949613f94cee19f",
+  "line_start": 297,
+  "line_end": 319,
+  "excerpt": "        if 'thumbnail' in self.cnorm_params.keys():\n            # TODO -- reinhard normalization of thumbnail!!\n            pass\n\n        # get labeled tissue mask -- each unique value is one tissue piece\n        labeled, _ = get_tissue_mask(\n            thumbnail_rgb, **self.get_tissue_mask_kwargs)\n\n        if len(np.unique(labeled)) < 2:\n            raise ValueError(\"No tissue detected!\")\n\n        if self.visualize_tissue_boundary:\n            # TODO -- instead, smoother visualization bounds (at MAG)\n            # possibly by integration with the visof tissue pieces\n            pass\n\n        # Find size relative to WSI\n        self.slide_info['F_tissue'] = self.slide_info[\n            'sizeX'] / labeled.shape[1]\n\n        return labeled\n\n# %%===========================================================================",
+  "match_policy": "unique-release-normalized-v2"
+}

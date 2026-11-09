@@ -1,0 +1,72 @@
+{
+  "artifact_id": "privacy-issue-11513",
+  "source_issue_url": "https://github.com/fastify/fastify/issues/2416",
+  "issue_snapshot_sha256": "9c2ca20e9e1c163385863c634b716ef46a1c7d1bcfa8ff9764a37e6bed487f50",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/fastify/fastify/blob/d06287a9a612d218d26e3a94b248b5035d5c44cb/lib/request.js#L27-L29",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "revision": "d06287a9a612d218d26e3a94b248b5035d5c44cb",
+      "immutable_revision": true,
+      "line_start": 15,
+      "line_end": 41,
+      "text": "  this.hostname = hostname\n}\n\nfunction buildRequest (R) {\n  function _Request (id, params, req, query, headers, log, ip, ips, hostname) {\n    this.id = id\n    this.params = params\n    this.raw = req\n    this.query = query\n    this.headers = headers\n    this.log = log\n    this.body = null\n    this.ip = ip\n    this.ips = ips\n    this.hostname = hostname\n  }\n  _Request.prototype = new R()\n\n  return _Request\n}\n\nObject.defineProperties(Request.prototype, {\n  req: {\n    get () {\n      emitWarning('FSTDEP001')\n      return this.raw\n    }",
+      "source_sha256": "719f3911237fc02cfd778316743721c031890e46a1129cf5c2e9ff8cdfa6b708",
+      "fetched_at": "2026-11-05T06:21:23.867197+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/fastify/fastify/d06287a9a612d218d26e3a94b248b5035d5c44cb/lib/request.js",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/fastify/fastify/blob/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/route.js#L304-L315",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "revision": "bf18412f2ba838fc06e3162a13ebcf88b5a283be",
+      "immutable_revision": true,
+      "line_start": 292,
+      "line_end": 327,
+      "text": "\n      if (return503OnClosing) {\n        const headers = {\n          'Content-Type': 'application/json',\n          'Content-Length': '80'\n        }\n        res.writeHead(503, headers)\n        res.end('{\"error\":\"Service Unavailable\",\"message\":\"Service Unavailable\",\"statusCode\":503}')\n        return\n      }\n    }\n\n    var id = req.headers[requestIdHeader] || genReqId(req)\n    var hostname = req.headers.host || req.headers[':authority']\n    var ip = req.connection.remoteAddress\n    var ips\n\n    if (trustProxy) {\n      ip = proxyAddr(req, proxyFn)\n      ips = proxyAddr.all(req, proxyFn)\n      if (ip !== undefined && req.headers['x-forwarded-host']) {\n        hostname = req.headers['x-forwarded-host']\n      }\n    }\n\n    var loggerOpts = {\n      [requestIdLogLabel]: id,\n      level: context.logLevel\n    }\n\n    if (context.logSerializers) {\n      loggerOpts.serializers = context.logSerializers\n    }\n    var childLogger = logger.child(loggerOpts)\n    childLogger[kDisableRequestLogging] = disableRequestLogging\n",
+      "source_sha256": "7194dd3c4e1582880037d1c133f8fc48fb8e879eaab445e4c552f5d8b494b030",
+      "fetched_at": "2026-11-05T06:21:24.812457+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/fastify/fastify/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/route.js",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/fastify/fastify/blob/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/request.js#L36-L58",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "revision": "bf18412f2ba838fc06e3162a13ebcf88b5a283be",
+      "immutable_revision": true,
+      "line_start": 24,
+      "line_end": 61,
+      "text": "    this.headers = headers\n    this.log = log\n    this.body = null\n    this.ip = ip\n    this.ips = ips\n    this.hostname = hostname\n  }\n  _Request.prototype = new R()\n\n  return _Request\n}\n\nObject.defineProperties(Request.prototype, {\n  req: {\n    get () {\n      emitWarning('FSTDEP001')\n      return this.raw\n    }\n  },\n  url: {\n    get () {\n      return this.raw.url\n    }\n  },\n  method: {\n    get () {\n      return this.raw.method\n    }\n  },\n  connection: {\n    get () {\n      return this.raw.connection\n    }\n  }\n})\n\nmodule.exports = Request\nmodule.exports.buildRequest = buildRequest",
+      "source_sha256": "719f3911237fc02cfd778316743721c031890e46a1129cf5c2e9ff8cdfa6b708",
+      "fetched_at": "2026-11-05T06:21:23.981329+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/fastify/fastify/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/request.js",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/fastify/fastify/blob/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/logger.js#L54-L55",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "revision": "bf18412f2ba838fc06e3162a13ebcf88b5a283be",
+      "immutable_revision": true,
+      "line_start": 42,
+      "line_end": 67,
+      "text": "    logger = pino(opts, stream)\n  }\n\n  return logger\n}\n\nconst serializers = {\n  req: function asReqValue (req) {\n    return {\n      method: req.method,\n      url: req.url,\n      version: req.headers['accept-version'],\n      hostname: req.hostname,\n      remoteAddress: req.ip,\n      remotePort: req.connection.remotePort\n    }\n  },\n  err: pino.stdSerializers.err,\n  res: function asResValue (reply) {\n    return {\n      statusCode: reply.statusCode\n    }\n  }\n}\n\nfunction now () {",
+      "source_sha256": "25f47d77b0ee655c39040ad11cdd08a90e46e5b0681c2bd0a34df0daa8eff426",
+      "fetched_at": "2026-11-05T06:21:24.467801+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/fastify/fastify/bf18412f2ba838fc06e3162a13ebcf88b5a283be/lib/logger.js",
+      "status": "available"
+    }
+  ]
+}

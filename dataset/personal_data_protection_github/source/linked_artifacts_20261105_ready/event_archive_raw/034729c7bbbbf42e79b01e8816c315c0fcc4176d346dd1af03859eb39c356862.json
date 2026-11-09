@@ -1,0 +1,122 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27brave%2Fbrave-browser%27+AND+number%3D25716+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='brave/brave-browser' AND number=25716 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:32.159073+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "ryanbr",
+        "created_at": "2022-09-29 22:10:18",
+        "updated_at": "2022-09-29 22:10:17",
+        "title": "Improve Cookie consent blocking in Brave",
+        "body": "On the wish list to implement, to fix the following consent sites like Google, Youtube, Facebook, Instagram.\r\n\r\nCustom snippets for:\r\n\r\n- [ ] Google/ Youtube\r\n- [ ] Facebook, Instagram.\r\n\r\n\r\nAlso include some popular snippets to counter checks on cookies/localstorage, improving the effectiveness of the cookie blocking:\r\n\r\n- [ ] set-local-storage-item https://github.com/AdguardTeam/Scriptlets/blob/master/dist/scriptlets.js#L5284\r\n- [ ] set-cookie  https://github.com/AdguardTeam/Scriptlets/blob/master/dist/scriptlets.js#L4893\r\n- [ ] set-cookie-reload  https://github.com/AdguardTeam/Scriptlets/blob/master/dist/scriptlets.js#L4935\r\n- [ ] set-session-storage-item https://github.com/AdguardTeam/Scriptlets/blob/master/dist/scriptlets.js#L5380\r\n\r\n\r\n",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-09-29 22:00:00",
+        "repo_name": "brave/brave-browser",
+        "number": 25716
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ryanbr",
+        "created_at": "2022-10-27 19:34:48",
+        "updated_at": "2022-10-27 19:34:47",
+        "title": "Improve Cookie consent blocking in Brave",
+        "body": "- `cdn.privacy-mgmt.com` https://bitcoinmagazine.com/culture/bitcoin-enables-the-free-cities-movement (Breaks bottom images if blocked)",
+        "comment_id": 1293976191,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-10-27 19:00:00",
+        "repo_name": "brave/brave-browser",
+        "number": 25716
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "ryanbr",
+        "created_at": "2022-12-07 23:26:45",
+        "updated_at": "2022-12-07 23:26:44",
+        "title": "Improve Cookie consent blocking in Brave",
+        "body": "Thanks to Adguard they have snippets used to counter more complex cookie consent messages.\r\n\r\nOn the wish list to implement, to fix the following consent sites like Google, Youtube, Facebook, Instagram.\r\n\r\nCustom snippets for:\r\n\r\n- [ ] Google/ Youtube\r\n- [ ] Facebook, Instagram.\r\n\r\n\r\nAlso include some popular snippets to counter checks on cookies/localstorage, improving the effectiveness of the cookie blocking:\r\n\r\n- [ ] set-local-storage-item https://github.com/AdguardTeam/Scriptlets/blob/master/dist/scriptlets.js#L6021\r\n- [ ] set-cookie  https://github.com/AdguardTeam/Scriptlets/blob/master/dist/scriptlets.js#L5617\r\n- [ ] set-cookie-reload  https://github.com/AdguardTeam/Scriptlets/blob/master/dist/scriptlets.js#L5673\r\n- [ ] set-session-storage-item https://github.com/AdguardTeam/Scriptlets/blob/master/dist/scriptlets.js#L6081\r\n\r\nExamples of these snippets in use https://github.com/AdguardTeam/AdguardFilters/blob/master/AnnoyancesFilter/Cookies/sections/cookies_specific.txt#L9220  (scroll down the file)\r\n\r\nuBO Scriplets used by us, https://github.com/brave/uBlock/blob/master/assets/resources/scriptlets.js\r\n\r\n",
+        "comment_id": 0,
+        "comments": 1,
+        "state": "closed",
+        "closed_at": "2022-12-07 23:26:44",
+        "file_time": "2022-12-07 23:00:00",
+        "repo_name": "brave/brave-browser",
+        "number": 25716
+      }
+    ],
+    "rows": 3,
+    "statistics": {
+      "elapsed": 0.043163555,
+      "rows_read": 478041,
+      "bytes_read": 34850937
+    }
+  },
+  "response_sha256": "4ab9c2d929efd8be879542856acd8fb61a131fda40cadf612859dbf288981efa"
+}

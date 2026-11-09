@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0140-aaiijdebd",
+  "revision_url": "https://github.com/microsoft/MMdnn/commit/b7fc071e80e13f8b96adfcf27df3cfc8ba5436cb",
+  "filename": "mmdnn/conversion/paddle/paddle_parser.py",
+  "commit": "b7fc071e80e13f8b96adfcf27df3cfc8ba5436cb",
+  "source_url": "https://raw.githubusercontent.com/microsoft/MMdnn/b7fc071e80e13f8b96adfcf27df3cfc8ba5436cb/mmdnn/conversion/paddle/paddle_parser.py",
+  "fetched_at": "2026-11-05T06:12:00.352560+00:00",
+  "source_sha256": "f52da70a6d73a6d1528fa57c532d7a513199da4aa8584771b7e2e6c98ce84804",
+  "line_start": 452,
+  "line_end": 476,
+  "excerpt": "            self._defuse_activation(source_node)\n\n\n\n\n\n    def rename_addto(self, source_node):\n        self._convert_merge(source_node, 'Add')\n\n\n\n    def rename_data(self, source_node):\n        # need the shape TODO\n\n        # only for training\n        IR_node = self.IR_graph.node.add()\n\n        # name, op\n        PaddleParser._copy_and_reop(source_node, IR_node, \"DataInput\")\n\n        # input edge\n        self.convert_inedge(source_node, IR_node)\n\n        # shape\n        PaddleParser._copy_shape(source_node.layer, IR_node)"
+}

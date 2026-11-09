@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0384-aahcgeaed",
+  "revision_url": "https://github.com/ludwig-ai/ludwig/commit/984b34552ce1950fb52a436bab669a82c22e14f0",
+  "filename": "ludwig/data/preprocessing.py",
+  "commit": "984b34552ce1950fb52a436bab669a82c22e14f0",
+  "source_url": "https://raw.githubusercontent.com/ludwig-ai/ludwig/984b34552ce1950fb52a436bab669a82c22e14f0/ludwig/data/preprocessing.py",
+  "fetched_at": "2026-11-05T06:12:42.834362+00:00",
+  "source_sha256": "2ef27b779d244db2b2daa7fc78faa0946877d859ed1e95480b04733b51a06bd9",
+  "line_start": 222,
+  "line_end": 246,
+  "excerpt": "                    len(idx_list),\n                    p=split_probabilities,\n                ).astype(np.int8)\n                split[idx_list] = val_list\n    return split\n\n\ndef load_data(\n        hdf5_file_path,\n        input_features,\n        output_features,\n        split_data=True,\n        validation_split=None,  # TODO validation_split is not used\n        shuffle_training=False\n):\n    logging.info('Loading data from: {0}'.format(hdf5_file_path))\n    # Load data from file\n    hdf5_data = h5py.File(hdf5_file_path, 'r')\n    dataset = {}\n    for input_feature in input_features:\n        if input_feature['type'] == TEXT:\n            text_data_field = text_feature_data_field(input_feature)\n            dataset[text_data_field] = hdf5_data[text_data_field].value\n        else:\n            dataset[input_feature['name']] = hdf5_data["
+}

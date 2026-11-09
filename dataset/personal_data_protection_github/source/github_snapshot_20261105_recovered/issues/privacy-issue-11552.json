@@ -1,0 +1,45 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11552",
+  "issue_url": "https://github.com/bbc/simorgh/issues/6754",
+  "source_issue_url": "https://github.com/bbc/simorgh/issues/6754",
+  "api_url": "https://api.github.com/repos/bbc/simorgh/issues/6754",
+  "title": "Implement Comscore tracking for Canonical",
+  "body": "**Is your feature request related to a problem? Please describe.**\r\nComscore is considered the market standard for tracking website popularity across most of the globe. This is used heavily by advertisers when deciding where to sell advertisements. While this is the primary use case for this data there are other internal uses.\r\n\r\nWe need to implement this tracking for Canonical, as it needs to be present regardless of whether the page currently carries ads.\r\n\r\nThere is a separate issue for AMP as the implementation details are different: #6472 \r\n\r\nThere is an enhancement for SPAs, however that is not considered part of the MVP.\r\n\r\n**Describe the solution you'd like**\r\nImplement the Comscore tracking tag.\r\n\r\nThere is a tag provided by comscore below - however we should look into the suggestions in @jamesdonoh's comment before adding this to our codebase. We want to ensure that this isn't going to be a large performance hit on pages that implement comscore tracking.\r\n\r\nWe are going to host the script in our static assets so that we can control the versioning.\r\n\r\nComscore recommend the below code:\r\n```\r\n<!-- Begin comScore Tag -->\r\n<script>\r\n  var _comscore = _comscore || [];\r\n   _comscore.push({ c1: \"2\", c2: \"17986528\", cs_ucfr: \"0\" });\r\n  (function() {\r\n    var s = document.createElement(\"script\"), el = document.getElementsByTagName(\"script\")[0]; s.async = true;\r\n    s.src = (document.location.protocol == \"https:\" ? \"https://sb\" : \"http://b\") + \".scorecardresearch.com/beacon.js\";\r\n    el.parentNode.insertBefore(s, el);\r\n  })();\r\n</script>\r\n<noscript>\r\n  <img src=\"https://sb.scorecardresearch.com/p?c1=2&c2=17986528&cs_ucfr=0&cv=2.0&cj=1\" />\r\n</noscript>\r\n<!-- End comScore Tag -->\r\n```\r\n\r\nAs above we will be using our self-hosted version of code rather than pulling in the script provided above ^\r\n\r\nNB. _I_ think we could simplify the above because we are only on https\r\n\r\n### GDPR & CCPA\r\n\r\nIf the user hasn't consented to personalisation, then we shouldn't be sending any data to Comscore.\r\n\r\nWe should check the value of the user's `ckns_policy` cookie - specifically the value of the third character.\r\n\r\nContext: The `ckns_policy` cookie stores the user's consent to cookies as three binary digits. The first digit indicates consent to strictly necessary cookies, the second to functional cookies, and the third to performance and advertising cookies.\r\n\r\nWe should examine the third digit, and based on this select the value of the `cs_ucfr` parameter in the code snippets above to match the value of that third digit (0 or 1).\r\n\r\n**Describe alternatives you've considered**\r\nA clear and concise description of any alternative solutions or features you've considered.\r\n\r\n**Testing notes**\r\n[Tester to complete]\r\n\r\nDev insight: Will Cypress tests be required or are unit tests sufficient? Will there be any potential regression? etc\r\n\r\n- [x] This feature is expected to need manual testing.\r\n\r\n- We need to test, however we implement this, that we don't collect user data unless they have accepted performance and advertising cookies.\r\n- We should look into the points raised by @jamesdonoh in his comment below, as this could affect exactly how we implement automated tests for this.\r\n\r\n**Additional context**\r\nAdd any other context or screenshots about the feature request here.\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-06-02T14:06:40Z",
+  "updated_at": "2020-08-13T09:19:56Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:18:58.229549+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:18:58.229549+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 644773522,
+      "url": "https://github.com/bbc/simorgh/issues/6754#issuecomment-644773522",
+      "created_at": "2020-06-16T13:41:26Z",
+      "updated_at": "2020-06-16T13:41:26Z",
+      "author": "Participant 2",
+      "body": "Rather than simply implementing the snippet shown above we should look at how we can reduce the risk of loading arbitrary JS from a 3rd-party domain we have no control over. If comScore can offer a versioned URL we could implement [subresource integrity](https://www.smashingmagazine.com/2019/04/understanding-subresource-integrity/), alternately we could explore self-hosting the script."
+    },
+    {
+      "id": 667943735,
+      "url": "https://github.com/bbc/simorgh/issues/6754#issuecomment-667943735",
+      "created_at": "2020-08-03T10:24:43Z",
+      "updated_at": "2020-08-03T10:26:57Z",
+      "author": "Participant 3",
+      "body": "Follow the same implementation of how we upload our static assets in simorgh-infrastructure (i.e static images, js bundles etc).\r\n\r\nWe will also have to update the provided script so that it only returns the explicit script's functionality and not the functions for creating a script."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/bbc/simorgh/issues/6754",
+  "closed_at_available": false
+}

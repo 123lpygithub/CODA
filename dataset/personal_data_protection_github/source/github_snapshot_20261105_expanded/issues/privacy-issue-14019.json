@@ -1,0 +1,66 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14019",
+  "issue_url": "https://github.com/pluginkollektiv/antispam-bee/issues/167",
+  "source_issue_url": "https://github.com/pluginkollektiv/antispam-bee/issues/167",
+  "api_url": "https://api.github.com/repos/pluginkollektiv/antispam-bee/issues/167",
+  "title": "Add GDPR compliance notice",
+  "body": "The EU General Data Protection Regulation will be in full force from 25th of May 2018 - lets make it super clear to users, if any part of their ASB config is violating GDPR.\r\n\r\nI'm pretty sure about 90% of all ASB options are GDPR compliant (except external spam DBs and maybe the Google Language API) so this is issue is more about some interface tweaks to guide users rather than actually changing GDPR compliance, but #154 might benefit this.",
+  "author": "Participant 1",
+  "created_at": "2018-02-02T08:26:11Z",
+  "updated_at": "2021-01-06T12:23:58Z",
+  "state": "closed",
+  "closed_at": "2018-04-20T17:39:33Z",
+  "issue_fetched_at": "2026-10-18T21:10:31.941181+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T21:10:33.458782+00:00"
+  ],
+  "expected_comment_count": 5,
+  "retrieved_comment_count": 5,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 369564222,
+      "url": "https://github.com/pluginkollektiv/antispam-bee/issues/167#issuecomment-369564222",
+      "created_at": "2018-03-01T11:33:25Z",
+      "updated_at": "2018-03-01T11:33:25Z",
+      "author": "Participant 2",
+      "body": "What about saving/using the IP address?"
+    },
+    {
+      "id": 369564772,
+      "url": "https://github.com/pluginkollektiv/antispam-bee/issues/167#issuecomment-369564772",
+      "created_at": "2018-03-01T11:36:00Z",
+      "updated_at": "2018-03-01T11:36:00Z",
+      "author": "Participant 3",
+      "body": "Hi @mundschenk-at,\r\nAntispam Bee is not saving the IP address, but WordPress core does. This plugin should prevent WP from saving the IP: https://de.wordpress.org/plugins/remove-ip/"
+    },
+    {
+      "id": 369573086,
+      "url": "https://github.com/pluginkollektiv/antispam-bee/issues/167#issuecomment-369573086",
+      "created_at": "2018-03-01T12:12:38Z",
+      "updated_at": "2021-01-06T12:23:58Z",
+      "author": "Participant 2",
+      "body": "Yes, I know. But ASB is still processing the IP, so that touches GDPR. Before reviewing the code, it was not entirely clear to me in what way not storing the IP (e.g. via Remove IP) would impact ASB. This is something that should be documented, as removing or anonymizing the comment IP will become more common in the next few months."
+    },
+    {
+      "id": 369583227,
+      "url": "https://github.com/pluginkollektiv/antispam-bee/issues/167#issuecomment-369583227",
+      "created_at": "2018-03-01T12:56:46Z",
+      "updated_at": "2018-03-01T12:56:46Z",
+      "author": "Participant 4",
+      "body": "If the commenter's IP address is not stored, the local spam DB would not work anymore. But the other tests should still work."
+    },
+    {
+      "id": 369616607,
+      "url": "https://github.com/pluginkollektiv/antispam-bee/issues/167#issuecomment-369616607",
+      "created_at": "2018-03-01T14:54:02Z",
+      "updated_at": "2018-03-01T14:54:02Z",
+      "author": "Participant 3",
+      "body": "```\r\n\t\t$filter = array('`comment_author_IP` = %s');\r\n\t\t$params = array( wp_unslash($ip) );\r\n\r\n\t\t// Match the URL\r\n\t\tif ( ! empty($url) ) {\r\n\t\t\t$filter[] = '`comment_author_url` = %s';\r\n\t\t\t$params[] = wp_unslash($url);\r\n\t\t}\r\n\r\n\t\t// Match the E-mail\r\n\t\tif ( ! empty($email) ) {\r\n\t\t\t$filter[] = '`comment_author_email` = %s';\r\n\t\t\t$params[] = wp_unslash($email);\r\n\t\t}\r\n\r\n\t\t// Perform query\r\n\t\t$result = $wpdb->get_var(\r\n\t\t\t$wpdb->prepare(\r\n\t\t\t\tsprintf(\r\n\t\t\t\t\t\"SELECT `comment_ID` FROM `$wpdb->comments` WHERE `comment_approved` = 'spam' AND (%s) LIMIT 1\",\r\n\t\t\t\t\timplode(' OR ', $filter)\r\n\t\t\t\t),\r\n\t\t\t\t$params\r\n\t\t\t)\r\n\t\t);\r\n```\r\nit would still check on email and url for incoming comments.\r\n"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

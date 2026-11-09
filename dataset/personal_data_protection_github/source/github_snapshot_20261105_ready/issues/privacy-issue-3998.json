@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3998",
+  "issue_url": "https://github.com/microsoft/botframework-sdk/issues/1580",
+  "source_issue_url": "https://github.com/microsoft/botframework-sdk/issues/1580",
+  "api_url": "https://api.github.com/repos/microsoft/botframework-sdk/issues/1580",
+  "title": "Is bot Data stored in Hub inspite of Implementing custom BotState (StateApi) apis?",
+  "body": "Hello we are building a bot where we get personally identifiable information from the user. Hence we need to make sure that this data is not saved in any way on any Microsoft database. Hence We are currently building our own BotState (StateApi) to connect our personal DB instead of the default Azure one available out of the box.\r\n\r\nWhen we connect to our Bot using Direct Line Apis using the following steps:\r\n\r\n1) The DirectLineApi posts message to the bot using  userConversations.PostMessage(conversationId, msg)\r\n    ----> This hits our custom BotState source code as expected.\r\n\r\n2) But when we call userConversations.GetMessages(conversationId), --> It does not seem to invoke our BotState code. But the messages have appeared on the client side.\r\n\r\n3) We also tried closing down this connection and tried to call the userConversations.GetMessages(conversationId) after 2 minutes. It again seem to have not invoked our code, but have the messages appear to the user.\r\n\r\nThis gives us a feeling our messages are further stored somewhere in Hub (probably directline.botframework.com?) which is a concern for us. Could someone please throw some light on if and how the messages are stored in the hub inspite of us overriding the BotState?\r\n\r\nAlso how does watermark work when the BotState does not seem to have anything to do with watermarks.\r\nuserConversations.GetMessages(conversationId, waterWark.ToString());",
+  "author": "Participant 1",
+  "created_at": "2016-11-03T21:18:05Z",
+  "updated_at": "2016-12-21T21:16:54Z",
+  "state": "closed",
+  "closed_at": "2016-12-21T21:16:54Z",
+  "issue_fetched_at": "2026-10-19T01:11:00.119736+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:11:01.541627+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 258287082,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/1580#issuecomment-258287082",
+      "created_at": "2016-11-03T21:59:44Z",
+      "updated_at": "2016-11-03T21:59:44Z",
+      "author": "Participant 2",
+      "body": "Currently the bot state api is only used to store internal tracking information for the BOT itself. \n\nDirectLine is a channel and it uses azure table storage with the data encrypted to provide clients ability to get the state of a conversation.  It does not use the bot state api.  Allowing it to have a conversation storage API is good idea and we will add to our enhancement list.\n"
+    },
+    {
+      "id": 258289918,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/1580#issuecomment-258289918",
+      "created_at": "2016-11-03T22:12:23Z",
+      "updated_at": "2016-11-03T22:12:23Z",
+      "author": "Participant 1",
+      "body": "Thanks for your reply. Do we know how long would that data in azure be stored (Also which DataCenter)? Is there a chance we can dictate the datacenter that this storage can take place in the future for legal reasons? Also Does that mean other channels also use their own table storage? \n"
+    },
+    {
+      "id": 258617693,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/1580#issuecomment-258617693",
+      "created_at": "2016-11-05T15:10:54Z",
+      "updated_at": "2016-11-05T15:10:54Z",
+      "author": "Participant 2",
+      "body": "No, all of the other channels are able to pass their data through, they act as a proxy which takes care of transport and translation but no storage.  The DirectLine channel on the other hand is acting as a store and forward service, aka, you have a mobile app which is started up and connects to a conversation to get the latest messages from the conversation.  This requires the data to be stored in an intermediate server awaiting a client to ask for it.\n\nWe are looking at ways that we can have directline store the data in dev controlled location, but as of now we don't support it.\n\nI believe we store the data encrypted in our storage layer, and I don't know what the expiration but I know the data does expire (I think it is 7 days)\n"
+    },
+    {
+      "id": 258696703,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/1580#issuecomment-258696703",
+      "created_at": "2016-11-06T17:39:55Z",
+      "updated_at": "2016-11-06T17:39:55Z",
+      "author": "Participant 3",
+      "body": "Data retention in Direct Line is 24 hours although we've had many requests to shorten/eliminate this, and we're considering it for our backlog.\n"
+    },
+    {
+      "id": 258773189,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/1580#issuecomment-258773189",
+      "created_at": "2016-11-07T08:24:53Z",
+      "updated_at": "2016-11-07T08:25:41Z",
+      "author": "Participant 1",
+      "body": "Ok...Thank you for your replies. Now it all makes sense. \n\nUnfortunately it is a showstopper for us as data retention  in Directline is a definite no-no. We might spend some time to implement a custom connector and bypass the framework if its easy enough for the time being.\n\nIt would be great if you can keep us updated on this feature.  Thanks\n"
+    },
+    {
+      "id": 263157120,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/1580#issuecomment-263157120",
+      "created_at": "2016-11-27T23:50:28Z",
+      "updated_at": "2016-11-27T23:50:28Z",
+      "author": "Participant 4",
+      "body": "@tomlm  or @dandriscoll is this in TFS and do you want to keep this item open?"
+    },
+    {
+      "id": 268642071,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/1580#issuecomment-268642071",
+      "created_at": "2016-12-21T21:16:54Z",
+      "updated_at": "2016-12-21T21:16:54Z",
+      "author": "Participant 3",
+      "body": "We've got some thinking around this but as it's a new feature area for the product, we probably won't keep it around as a GitHub issue. Any launch we do of a feature like this will be accompanied by an announcement or blog post."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

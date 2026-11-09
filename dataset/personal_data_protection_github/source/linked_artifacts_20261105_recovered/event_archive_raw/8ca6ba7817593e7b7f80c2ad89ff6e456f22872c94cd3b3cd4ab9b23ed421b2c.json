@@ -1,0 +1,298 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27mozilla%2Ftestpilot%27+AND+number%3D738+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='mozilla/testpilot' AND number=738 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:30.978941+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "ckprice",
+        "created_at": "2016-05-06 23:18:33",
+        "updated_at": "2016-05-06 23:18:32",
+        "title": "Move legal documents to /mozilla/legal-docs",
+        "body": "Our legal documents are currently in https://github.com/mozilla/testpilot/tree/master/legal-copy.\r\n\r\nWe should move them over to https://github.com/mozilla/legal-docs someday, since that's where the rest are (and will help l10n at some point).",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-05-06 23:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "pdehaan",
+        "created_at": "2016-05-09 21:33:38",
+        "updated_at": "2016-05-09 21:33:38",
+        "title": "Move legal documents to /mozilla/legal-docs",
+        "body": "Ref: https://github.com/mozilla/legal-docs/pull/509\r\nI made a pull request against **mozilla/legal-docs** to add a package.json, which will let us do something like this and add the legal-docs repo :\r\n```bash\r\n$ npm install mozilla/legal-docs -D\r\n```\r\n\r\nThen I think we'll just need to move over our legal *.md files and blah, blah, blah.\r\n",
+        "comment_id": 217996837,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-05-09 21:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "pdehaan",
+        "created_at": "2016-05-12 17:04:37",
+        "updated_at": "2016-05-12 17:04:37",
+        "title": "Move legal documents to /mozilla/legal-docs",
+        "body": "Upstream **legal-docs** package.json fix was merged (thanks @clouserw!), in case anybody wants to jump on this before I get around to it.",
+        "comment_id": 218821368,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-05-12 17:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ckprice",
+        "created_at": "2016-05-18 15:27:53",
+        "updated_at": "2016-05-18 15:27:52",
+        "title": "Move legal documents to /mozilla/legal-docs and add section collapses ",
+        "body": "Received the following request from Brian Smith in legal (also updated bug title, and opening):\r\n\r\n> I noticed that the Test Pilot privacy notice webpage does not have the sections collapsed like our other privacy notices. Can we please revise to make the two sections of the notice collapse/expand? Denelle does not like our notices to just be a wall of text, so this is a priority for us.\r\n> \r\n> Casey (cc'd) can help the relevant person on your team with the css/html formatting as needed.\r\n\r\n/cc @mozcmcgill\r\n\r\n",
+        "comment_id": 220063420,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-05-18 15:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "meandavejustice",
+        "created_at": "2016-05-18 15:42:00",
+        "updated_at": "2016-05-18 15:42:00",
+        "title": "Move legal documents to /mozilla/legal-docs and add section collapses ",
+        "body": "@ckprice This sounds like a separate issue, maybe to be made as a follow up to this one.",
+        "comment_id": 220067925,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-05-18 15:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "pdehaan",
+        "created_at": "2016-05-18 20:42:29",
+        "updated_at": "2016-05-18 20:42:29",
+        "title": "Move legal documents to /mozilla/legal-docs and add section collapses ",
+        "body": "> _This sounds like a separate issue, maybe to be made as a follow up to this one._\r\n\r\nFiled as #877",
+        "comment_id": 220151774,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-05-18 20:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "pdehaan",
+        "created_at": "2016-06-21 22:28:16",
+        "updated_at": "2016-06-21 22:28:16",
+        "title": "Move legal documents to /mozilla/legal-docs",
+        "body": "Another legal hiccup, but in the [**mozilla/legal-docs** firefox_cloud_services_PrivacyNotice](https://github.com/mozilla/legal-docs/tree/master/firefox_cloud_services_PrivacyNotice) we have localized versions of the legal docs. So we'll need something like dis:\r\n\r\n```\r\nmozilla/legal-docs/\r\n  - testpilot_privacy-notice/\r\n    - de.md\r\n    - en-US.md\r\n    - es-ES.md\r\n    - fr.md\r\n    - it.md\r\n    - ...\r\n\r\n  - testpilot_terms-of-use/\r\n    - de.md\r\n    - en-US.md\r\n    - es-ES.md\r\n    - fr.md\r\n    - it.md\r\n    - ...\r\n```\r\n\r\nSo when we move our legal docs over to **mozilla/legal-docs**, we'll also need to add another depth so the Privacy Notice and Terms of Use legal docs can be translated.",
+        "comment_id": 227591483,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-06-21 22:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "clouserw",
+        "created_at": "2016-10-27 21:21:47",
+        "updated_at": "2016-10-27 21:21:47",
+        "title": "Move legal documents to /mozilla/legal-docs",
+        "body": "We talked about this in a meeting with the legal team, but I forget the outcome.  As I recall, they seemed ho-hum about it like it wasn't a big deal.  English is fine, localizing is a bonus.  @ckprice - is that your recollection?  If so I won't feel as bad about not doing this yet.  ",
+        "comment_id": 256773612,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-10-27 21:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "johngruen",
+        "created_at": "2016-11-03 19:44:42",
+        "updated_at": "2016-11-03 19:44:41",
+        "title": "Move legal documents to /mozilla/legal-docs",
+        "body": "@clouserw i think we should revisit this in the next sprint, right now i don't think these files are getting localized. I imagine that's a hard requirement for the German launch.",
+        "comment_id": 258252902,
+        "comments": 8,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-11-03 19:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ckprice",
+        "created_at": "2016-11-03 20:02:17",
+        "updated_at": "2016-11-03 20:02:16",
+        "title": "Move legal documents to /mozilla/legal-docs",
+        "body": "> I imagine that's a hard requirement for the German launch.\r\n\r\nI don't know for sure about this -- @eleemoz?\r\n\r\nAlso, as IIRC putting these docs in the repo doesn't automagically get them localized. This was more of an organizational thing for the legal team. /cc @caseymcgill\r\n",
+        "comment_id": 258257468,
+        "comments": 9,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-11-03 20:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "johngruen",
+        "created_at": "2016-11-03 20:03:54",
+        "updated_at": "2016-11-03 20:03:54",
+        "title": "Move legal documents to /mozilla/legal-docs",
+        "body": "@ckprice yeah, i didn't mean to conflate the issues here. Right now we aren't localizing these things, but we'll need to.",
+        "comment_id": 258257919,
+        "comments": 10,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-11-03 20:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "wresuolc",
+        "created_at": "2017-02-03 17:26:47",
+        "updated_at": "2017-02-03 17:26:47",
+        "title": "Move legal documents to /mozilla/legal-docs",
+        "body": "We'll follow up on this next Monday in our legal meeting",
+        "comment_id": 277308925,
+        "comments": 11,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-02-03 17:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "pdehaan",
+        "created_at": "2017-02-08 17:09:54",
+        "updated_at": "2017-02-08 17:09:54",
+        "title": "Move legal documents to /mozilla/legal-docs",
+        "body": "Both these folders in the **mozilla/legal-docs** repo currently have translations for _en-US.md_ and _de-DE.md_:\r\n\r\nhttps://github.com/mozilla/legal-docs/tree/master/firefox_testpilot_PrivacyNotice\r\nhttps://github.com/mozilla/legal-docs/tree/master/firefox_testpilot_Terms\r\n",
+        "comment_id": 278392980,
+        "comments": 12,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-02-08 17:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "clouserw",
+        "created_at": "2017-04-10 20:05:18",
+        "updated_at": "2017-04-10 20:05:17",
+        "title": "Move legal documents to /mozilla/legal-docs",
+        "body": "Our legal documents are currently in https://github.com/mozilla/testpilot/tree/master/legal-copy.\n\nWe should move them over to https://github.com/mozilla/legal-docs someday, since that's where the rest are (and will help l10n at some point).\n",
+        "comment_id": 0,
+        "comments": 12,
+        "state": "closed",
+        "closed_at": "2017-04-10 20:05:17",
+        "file_time": "2017-04-10 20:00:00",
+        "repo_name": "mozilla/testpilot",
+        "number": 738
+      }
+    ],
+    "rows": 14,
+    "statistics": {
+      "elapsed": 0.029806564,
+      "rows_read": 289186,
+      "bytes_read": 11686435
+    }
+  },
+  "response_sha256": "ea684e115d47f7fe1f2ecd960501c07a85926babb9bdb7b4416a1f4ea9fffe33"
+}

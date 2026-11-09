@@ -1,0 +1,482 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-6881",
+  "issue_url": "https://github.com/firebase/firebase-js-sdk/issues/449",
+  "source_issue_url": "https://github.com/firebase/firebase-js-sdk/issues/449",
+  "api_url": "https://api.github.com/repos/firebase/firebase-js-sdk/issues/449",
+  "title": "Expose API to clear offline persistence (in IndexedDB).",
+  "body": "Please expose a way to clear offline persistence (in IndexedDB).  It would be useful to clean up when the user signs out.",
+  "author": "Participant 1",
+  "created_at": "2018-01-18T14:28:04Z",
+  "updated_at": "2019-10-23T01:01:27Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:44.732579+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:44.732579+00:00",
+    "2026-11-05T06:39:40.784935+00:00"
+  ],
+  "expected_comment_count": 56,
+  "retrieved_comment_count": 56,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 359614237,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-359614237",
+      "created_at": "2018-01-22T23:50:17Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "There is not currently (other than poking into IndexedDB directly to delete the data)."
+    },
+    {
+      "id": 359650652,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-359650652",
+      "created_at": "2018-01-23T02:16:34Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "Can we make it a feature request then?"
+    },
+    {
+      "id": 360580425,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-360580425",
+      "created_at": "2018-01-25T19:51:32Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "I edited it into a feature request. Feel free to add more detail if you have more specific use cases in mind, etc."
+    },
+    {
+      "id": 370035351,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-370035351",
+      "created_at": "2018-03-02T19:56:52Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "I also need this. When a user logs out we need to clear local caches of private data in our application."
+    },
+    {
+      "id": 370036816,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-370036816",
+      "created_at": "2018-03-02T20:02:08Z",
+      "updated_at": null,
+      "author": "Participant 10",
+      "body": "For any given instance of Firestore we have two kinds of data:\r\n\r\n  * pending writes, which are specific to a user\r\n  * cached documents, which are not\r\n\r\nWe could potentially clear either or both of these.\r\n\r\nIf user makes a change but signs out before the client has finished sending it currently they'd end up with a persistent pending write, which we'd resume when that specific user signed in again.\r\n\r\nAre you intending that this kind of data would be cleared as well?"
+    },
+    {
+      "id": 370038729,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-370038729",
+      "created_at": "2018-03-02T20:09:52Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "At logoff time we'd want to know that there are pending writes.\r\n\r\nIf online we'd wait for them to complete before logging off, then we'd delete cached documents.\r\n\r\nIf offline we'd warn the user and if the user chooses to continue with logging off, we'd delete the pending writes and the cached documents."
+    },
+    {
+      "id": 370039905,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-370039905",
+      "created_at": "2018-03-02T20:14:57Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "Same thing in my app, I'd just as a user if he wants to discard changes or not. Probably the best solution would be to expose all of these things separately:\r\n- check if there are pending writes (+events / promise interface would be nice, like `flushWrites: () => Promise<void>`)\r\n- clear persisted docs\r\n- clear persisted writes\r\n\r\nLast two can be of course merged into one method with some options."
+    },
+    {
+      "id": 370042147,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-370042147",
+      "created_at": "2018-03-02T20:24:07Z",
+      "updated_at": null,
+      "author": "Participant 10",
+      "body": "Makes sense. We've discussed adding some way to detect if there are pending writes or wait to flush pending writes in order to make `disableNetwork` safer for apps that want to explicitly control sync.\r\n\r\nSeparately we're working on multi-tab support for offline persistence such that active tabs can see each other's pending writes, even while disconnected. We'll need to investigate how this intersects with that work. If signing out in one tab doesn't sign out the others then nuking and paving IndexedDb out from under the other tabs isn't going to end well."
+    },
+    {
+      "id": 372623115,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-372623115",
+      "created_at": "2018-03-13T10:45:50Z",
+      "updated_at": null,
+      "author": "Participant 11",
+      "body": "I think that this could also lead to other issues.\r\n\r\nLet's say that we have an app with offline persistence. User A logs in, and fetches her/his profile from the database. We have security rules: match /profiles/{uid} { allow read: if request.auth.uid == uid }.\r\nThe profile will be fetched and stored locally for offline access.\r\n\r\nThe problem is that if User A logs out, User B will have access to all local data of that user.\r\nFor example, if User B logs in and tries to get all profiles, she/he will get a success response with the local data, including the profile of User A, even if she/he doesn't have permissions to do so.\r\n\r\nWhenever there's local data from another user, security rules wont work because the first response always comes from all cached data. This could lead to data breaches or wrong results while being offline."
+    },
+    {
+      "id": 372694823,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-372694823",
+      "created_at": "2018-03-13T14:57:20Z",
+      "updated_at": null,
+      "author": "Participant 10",
+      "body": "I repeat this advice in every discussion related to this but I want to be clear: if you’re at all sensitive to the disclosure of cached information within the same operating system user account: _do not enable persistence_.\r\n\r\nThe Firestore client that exists today assumes that operating system user == actual user. Protecting within that boundary is a hard problem that we have not attempted to solve.\r\n\r\nWe don’t believe clearing IndexedDB on sign-out is sufficient to implement this: it’s trivially defeated by a user forgetting to do it, the browser crashing, or an attacker installing a browser extension to read the contents of the database while another user is signed in.\r\n\r\nClearing IndexedDB is still useful, especially for testing, and we are hoping to add this feature (PRs welcome, of course).\r\n\r\nHowever for sensitive applications like you describe we’re implementing an LRU aspect to our in-memory cache. This will improve perceived performance to be on par with having persistence enabled without requiring the user to remember to sign out or any of the other risks of disclosure."
+    },
+    {
+      "id": 372727577,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-372727577",
+      "created_at": "2018-03-13T16:25:18Z",
+      "updated_at": null,
+      "author": "Participant 11",
+      "body": "@wilhuff I agree with you in terms of sensitive data. However, I see this issue has other implications.\r\nFor example, security rules are not being taken into account when Firestore returns the first callback from cached data, so if two users use the same device with different accounts, the cached response will return information from the other user, so you could end up showing wrong information in offline mode.\r\n\r\nIn my opinion, it's a good idea to make cache data specific to each user. Clearing IndexedDB seems to be a simple solution to fix all the issues mentioned here as well."
+    },
+    {
+      "id": 372754438,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-372754438",
+      "created_at": "2018-03-13T17:40:58Z",
+      "updated_at": "2019-05-02T17:44:03Z",
+      "author": "Participant 10",
+      "body": "If two users use the same device with different operating system accounts, everything works as intended: separate browser caches and operating system permissions on them isolate the users. In this scenario clearing LevelDB doesn't help (or hurt).\r\n\r\nIf two users use the same device using the same operating system account/browser then separating the cache data within LevelDB doesn't actually protect you: it's trivial to get at the other user's data within the same IndexedDB. If you're willing to work around this by clearing the IndexedDB data in between sessions, just don't write it: disable persistence."
+    },
+    {
+      "id": 372806322,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-372806322",
+      "created_at": "2018-03-13T20:25:51Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "Just FYI-\r\n\r\n> so if two users use the same device with different accounts, the cached response will return information from the other user, so you could end up showing wrong information in offline mode.\r\n\r\nThis won't actually be the case for most apps.  Since security rules do not act as filters (they either allow or deny a query in its entirety), as long as your app doesn't perform broken queries (that will be rejected by the backend due to security rules), users won't see any locally-cached data that they don't have access to...  I repeat Gil's warning that you can't rely on this to protect sensitive data (you should disable persistence instead), but you _can_ expect your app to behave offline just fine even if multiple users have used the app, resulting in various locally-cached data... in fact, sharing the cache improves the offline experience and general performance of the app since there's a greater chance that data requested by the app will already be available locally."
+    },
+    {
+      "id": 372974908,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-372974908",
+      "created_at": "2018-03-14T10:31:26Z",
+      "updated_at": null,
+      "author": "Participant 11",
+      "body": "@mikelehen  @wilhuff Thanks for your feedback."
+    },
+    {
+      "id": 392382431,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-392382431",
+      "created_at": "2018-05-27T22:44:15Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "+1\r\nwe need this feature to clear cached data when user reach the maximum storage data quota \r\nthanks"
+    },
+    {
+      "id": 399710674,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-399710674",
+      "created_at": "2018-06-23T21:06:23Z",
+      "updated_at": null,
+      "author": "Participant 12",
+      "body": "We need this feature since we need to be able to explicitly remove any data stored on the device by our PWA. Our data is allowed to survive several logins by several users, but at some point we need to clear everything (for all users) if any user explicitly requests this.\r\n\r\nOur devices (usually laptops) are used at trusted locations by trusted users, but day by day the trusted locations and trusted users might change."
+    },
+    {
+      "id": 400202013,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-400202013",
+      "created_at": "2018-06-26T07:04:16Z",
+      "updated_at": null,
+      "author": "Participant 13",
+      "body": "We have been running on Firestore for about one year now and are seeing massive performance issues related to the IndexedDB storing large cached data sets and therefor urgently need this feature."
+    },
+    {
+      "id": 400229822,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-400229822",
+      "created_at": "2018-06-26T08:43:53Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@nuvoPoint I had to disable persistence in my app too because of https://github.com/firebase/firebase-js-sdk/issues/513. It might be related to your issue."
+    },
+    {
+      "id": 400261473,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-400261473",
+      "created_at": "2018-06-26T10:34:50Z",
+      "updated_at": null,
+      "author": "Participant 13",
+      "body": "@merlinnot Our app needs to be able to run in offline mode also and have persistence if it get restarted, so that's not an option for us. \r\nIf the Firebase people could explain their IndexedDB structure we might be able to manually clear unnecessary data from the cache?"
+    },
+    {
+      "id": 400273804,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-400273804",
+      "created_at": "2018-06-26T11:27:30Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "@nuvoPoint  \r\nHow big is your data stored at IndexedDB? \r\nPerformance issue on normal PC or mobile devices?"
+    },
+    {
+      "id": 400311191,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-400311191",
+      "created_at": "2018-06-26T13:36:36Z",
+      "updated_at": null,
+      "author": "Participant 13",
+      "body": "@mohshraim We are running on mobile devices and it depends on how long the app has been installed, but normally it's 'only' a couple of MB but then the performance issues starts to show.\r\nThe only thing that helps is to clear the entire storage which is not optimal.\r\n\r\nThis is why we need to have some control over the data stored in IndexedDB or some kind of garbage collection."
+    },
+    {
+      "id": 400365358,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-400365358",
+      "created_at": "2018-06-26T15:58:56Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "@nuvoPoint...\r\nIf its Android Device i don't have any clue; that i didn't test it yet\r\n\r\nIf it is iOS Mobile Device Sorry to tell you that your problem is not with Firestore.\r\n\r\n> The problem exist on Safari, Chrome and Any application using WKWebView with IndexDB.\r\n> To Reproduce the problem on any iOS device i made simple page https://ssbyte.com/dbtest/\r\n> To see the big increase in Application Data on any iOS device just open the link on Safari Or Chrome.\r\n>  keep repeat the steps of open Safari Or Chrome And closing the application..\r\n> Generally every time you will see increase from 0.1 to 2.5 MB in the application data..\r\n\r\nThen have look at \r\nhttps://github.com/firebase/firebase-js-sdk/issues/947\r\nAnd \r\nhttps://bugs.webkit.org/show_bug.cgi?id=178204#c3\r\n"
+    },
+    {
+      "id": 400396128,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-400396128",
+      "created_at": "2018-06-26T17:22:40Z",
+      "updated_at": "2018-06-26T17:22:51Z",
+      "author": "Participant 8",
+      "body": "My suggestion to have 2 level of functions to clear local cache db.\r\n- firebase.firestore().clearCache(); //this to clear the whole firestore db.\r\n- firebase.firestore().collection('collectionName').clearCache(); //this to clear collection db.\r\n\r\nI hope that we can have this feature soon."
+    },
+    {
+      "id": 402218913,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-402218913",
+      "created_at": "2018-07-03T16:36:43Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": "When you reach 10000+ documents in IndexedDB, things start to slow down on mobile devices (weak CPUs), so I'd like to chime in and also request this feature."
+    },
+    {
+      "id": 409037209,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-409037209",
+      "created_at": "2018-07-30T22:49:43Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "+1\r\nthis feature very important for performance..."
+    },
+    {
+      "id": 411518681,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-411518681",
+      "created_at": "2018-08-08T19:09:23Z",
+      "updated_at": null,
+      "author": "Participant 14",
+      "body": "+1 the offline persistence data should be cleaned by deafult when the user logs out"
+    },
+    {
+      "id": 412945248,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-412945248",
+      "created_at": "2018-08-14T17:06:18Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "Dear @wilhuff , @mikelehen,\r\nAny chance for this FR?\r\nThanks"
+    },
+    {
+      "id": 412950992,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-412950992",
+      "created_at": "2018-08-14T17:24:55Z",
+      "updated_at": null,
+      "author": "Participant 10",
+      "body": "This isn't anything we're currently working on.\r\n\r\nIn the short to medium term we're hoping to address the performance problems that come from large numbers of documents in two ways:\r\n\r\n  * Garbage collection of older documents, automatically limiting the number of documents in the cache\r\n  * Client-side indexing, which will make work proportional to matching documents, rather than documents in a collection\r\n\r\nOver the long term I'd consider it a failure on our part if developers needed to manually clear cache to maintain performance.\r\n\r\nThere's still value in this, mostly for testing purposes, but at this point that's not something we're prioritizing right now."
+    },
+    {
+      "id": 413032805,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-413032805",
+      "created_at": "2018-08-14T22:11:28Z",
+      "updated_at": null,
+      "author": "Participant 12",
+      "body": "I disagree with _for testing purposes_, when a user logs out I do not want any data lingering on the device (in our case a shared laptop). "
+    },
+    {
+      "id": 413053868,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-413053868",
+      "created_at": "2018-08-15T00:04:32Z",
+      "updated_at": null,
+      "author": "Participant 10",
+      "body": "See [upthread](https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-372694823): you should not enable persistence on shared accounts. We haven't designed it for that."
+    },
+    {
+      "id": 418492358,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-418492358",
+      "created_at": "2018-09-04T19:39:19Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "@wilhuff \r\n\r\nJust keep reading this many times.. \r\n\r\n> Garbage collection of older documents, automatically limiting the number of documents in the cache\r\n\r\nThis look dangerous to us!\r\nDoes that mean you are implementing a GC will automatically clear old documents in cache??\r\nIf your answer is YES, what is the conditions to clear that docs?\r\n\r\nAccording to our usage for SDK, we heavily use cached data and most of time load only updated docs according to FirestoreServerStampTime.. so clearing old docs without notification will make problem to us... \r\n\r\nthanks\r\n"
+    },
+    {
+      "id": 418668021,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-418668021",
+      "created_at": "2018-09-05T09:40:21Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": "I'm 99.9% sure they wouldn't clear documents where `hasPendingWrites === true`."
+    },
+    {
+      "id": 418769700,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-418769700",
+      "created_at": "2018-09-05T15:17:25Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "Correct. We wouldn't clear documents with unsynced changes.  The idea is that we'd clear documents that you previously listened to but which you haven't listened to recently.  And we wouldn't clear documents unless your total cache size had exceeded some semi-large threshold (e.g. 10MB of document data, though this is TBD)."
+    },
+    {
+      "id": 418843529,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-418843529",
+      "created_at": "2018-09-05T18:58:48Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "@mikelehen \r\n\r\n### **(((Please)))** take in your consideration to make this (auto clear method) optional; when we define the firestore instance.\r\n\r\nOur case; \r\n-we load around 1K docs of Items from cache \r\n-then get the maxStampTime of cached docs \r\n-then create a listener on stampTime and combine it with local cached data..\r\n-> our method work perfects and we have solve all related problem of this method...\r\n-> our clients using it on **-full offline-** environment, and heave a clear interface show them un-synced changes using `hasPendingWrites === true`\r\n\r\n-making this (auto clear method) without option will threat us to drop our project on Firestore.\r\n\r\n@mikelehen \r\n**(((Please)))** confirm that (auto clear method) option will be optional\r\n\r\nWhat really we need is to have a new feature to clear a specific collection on cache.. \r\nto enable developer clear big data on specific collection like log collection.\r\nsomething like following;\r\n- firebase.firestore().collection('collectionName').clearCache();  //to clear collection db\r\n\r\nTHANKS\r\n"
+    },
+    {
+      "id": 418845542,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-418845542",
+      "created_at": "2018-09-05T19:04:56Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@mohshraim When you say \"get the maxStampTime of cached docs\" and \"combine it with local cached data\", how are you getting the local cached data?  If you're doing a get() or onSnapshot() or whatever, then that will bump the \"last used\" time of the data, and so the SDK will try not to clear it.\r\n\r\nHow big is your cache?  1k items is probably plenty small so you wouldn't be affected by garbage collection at all.\r\n\r\nAs for whether it's optional, we're still looking into what controls to expose. cc/ @gsoltis "
+    },
+    {
+      "id": 418867358,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-418867358",
+      "created_at": "2018-09-05T20:18:31Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "@mikelehen \r\n\r\nSorry for long reply!  \r\n\r\nI use `get({source:'cache'})`\r\nAnd i have many other collections with much more documents like patientVisit and stockHistory that could have much more documents that i can't expect.  \r\nAccording to what you said \r\n>  then that will bump the \"last used\" time of the data, and so the SDK will try not to clear it.\r\n\r\nThanks for clearing this. This will be more safe on main definitions like items and patients, but not on the other collections like (patientVisit) that we call it when user want to view patient history.\r\n\r\nWe have developed huge library Above the Amazing Firestore SDK. we test it with full offline environment for several hours with heavy operations and its working smoothly...\r\nAnd according to this we Assure to our clients a Full Offline support environment.\r\nWe know its a impossible case to be offline for several days but we support it now.\r\nWe didn't reach 10MB of data, until now! but will test that on performance, its 4MB now and working in a good performance. And i am sure that will reach 20-50MB on real environment\r\n\r\nFirestore is the best Cloud Service with FullOffline 🥇 🥇 🥇  (Currently); so adding this feature without optional control will remove Firestore from what many developers looking for, like us. :cry:\r\n\r\nNote we was working on PouchDB before decide moving to Firestore. and we reach 40MB of cached data with good performance also, but not that good features as Firebase.\r\n\r\n### Please make it optional!  :pray:\r\nand maybe export the clearCache function on client SDK so we call when we need to.\r\n\r\nThanks\r\n"
+    },
+    {
+      "id": 419347642,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-419347642",
+      "created_at": "2018-09-07T07:22:15Z",
+      "updated_at": "2018-09-07T07:28:09Z",
+      "author": "Participant 4",
+      "body": "So we have clients who are heavily affected by this issue. We cleared indexeddb yesterday at a client, where the size was 25MB. The app was starting to be extremely sluggish (we're talking 10-15 seconds between clicks), but became responsive again after.\r\n\r\nWe need information on the structure inside indexeddb, because we HAVE to start clearing out data manually. We basically only need to clear one collection (order collection) where pending writes is false."
+    },
+    {
+      "id": 419351568,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-419351568",
+      "created_at": "2018-09-07T07:38:54Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": "Here's an idea in the mean time: How about supporting a persistence mode where the entity being saved is only persisted while `hasPendingWrites === true`. Once the entity has been synchronized, it would be removed from IndexedDB. This would be all we need, because we're caching all needed entities in memory already because IndexedDB performance is unreliable, and we don't want to wait for the server (even though it can be much faster than indexeddb)."
+    },
+    {
+      "id": 419418622,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-419418622",
+      "created_at": "2018-09-07T12:04:23Z",
+      "updated_at": "2018-09-10T13:19:03Z",
+      "author": "Participant 4",
+      "body": "This will likely cause size problems:\r\n```\r\n/**\r\n * Represents the known absence of a document at a particular version.\r\n * Stored in IndexedDb as part of a DbRemoteDocument object.\r\n */\r\nexport class DbNoDocument {\r\n  constructor(public path: string[], public readTime: DbTimestamp) {}\r\n}\r\n```\r\nIt seems that documents that have been deleted to stay in indexeddb, but flagged as `noDocument`. This takes up space, and will probably help in slowing everything down.\r\n\r\nCan anyone shed light on why this logic is required? Why reference documents that doesn't exist anymore?"
+    },
+    {
+      "id": 419433258,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-419433258",
+      "created_at": "2018-09-07T13:06:33Z",
+      "updated_at": "2018-09-12T09:15:11Z",
+      "author": "Participant 4",
+      "body": "Alright, so I ended up with this.\r\n\r\n```\r\nclearCache(subcollection: string) {\r\n    console.log(`Clearing ${subcollection} and deleted entities`);\r\n    const o = indexedDB.open('firestore/[DEFAULT]/tillty-1/main');\r\n    o.onsuccess = () => {\r\n      const readTrx: IDBTransaction = o.result.transaction('targets', 'readonly');\r\n      const targets = readTrx.objectStore('targets');\r\n      const targetIds: number[] = [];\r\n\r\n      targets.openCursor().onsuccess = (e1: any) => {\r\n        const cursor1: IDBCursorWithValue = e1.target.result;\r\n        // Find all target IDs of the entity name we wish to purge\r\n        if (cursor1) {\r\n          if (cursor1.value.canonicalId.indexOf(`/${subcollection}`) !== -1) {\r\n            targetIds.push(cursor1.value.targetId);\r\n          }\r\n\r\n          cursor1.continue();\r\n        } else { // No more rows in the 'targets' datastore\r\n          const writeTrx: IDBTransaction = o.result.transaction(['remoteDocuments', 'targetDocuments'], 'readwrite');\r\n          const targetDocuments = writeTrx.objectStore('targetDocuments');\r\n          const remoteDocuments = writeTrx.objectStore('remoteDocuments');\r\n\r\n          remoteDocuments.openCursor().onsuccess = (e2: any) => {\r\n            const cursor: IDBCursorWithValue = e2.target.result;\r\n            if (cursor) {\r\n              if ((Array.isArray(cursor.key) && cursor.key.length >= 4 && cursor.key[2] === subcollection) || cursor.value.noDocument) {\r\n                cursor.delete();\r\n              }\r\n              cursor.continue();\r\n            }\r\n          };\r\n\r\n          targetDocuments.openCursor().onsuccess = (e2: any) => {\r\n            const cursor2: IDBCursorWithValue = e2.target.result;\r\n            if (cursor2) {\r\n              if (Array.isArray(cursor2.key) && targetIds.find(id => id === <number>cursor2.key[0])) {\r\n                cursor2.delete();\r\n              }\r\n              cursor2.continue();\r\n            }\r\n          };\r\n        }\r\n      };\r\n    };\r\n  }\r\n```\r\n\r\nIt should be said that this is built to clear subcollections by name, and not root collections.\r\nIf this is not desired change `if ((Array.isArray(cursor.key) && cursor.key.length >= 4 && cursor.key[2] === subcollection)` to the desired level.\r\n\r\nExample:\r\n`clearCache('orders');` would clear:\r\n```\r\n/businesses/bus1/orders\r\n/businesses/bus2/orders\r\n...\r\n/businesses/busN/orders\r\n```\r\n\r\nNote that the function does NOT clear queued writes (they are stored in a different data-store called 'mutations'). So even if the above cleared all orders locally, any changes made to orders would not get lost.\r\n\r\nIt's been tested in various offline/online scenarios, but I welcome more tests, and general feedback in case I messed something up.\r\n\r\n**WARNING**\r\n@mikelehen has warned against using this method of deleting from indexedDB below (https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-420346259)."
+    },
+    {
+      "id": 420340007,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-420340007",
+      "created_at": "2018-09-11T16:43:28Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "Hey @larssn  \r\nThanks for sharing your clearCache method; test it twice and seems working.. - first test-\r\n\r\nI hope that @mikelehen have time to audit your method code to feed us if it will make any hidden bug.\r\n\r\nAnd if firestore team can enhance it and adopt it in SDK **-that's will be great-**\r\n\r\nThanks"
+    },
+    {
+      "id": 420346259,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-420346259",
+      "created_at": "2018-09-11T17:02:13Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "I'm afraid I really can't endorse this code or code like it.\r\n\r\nThe original version that cleared entries from `targets` was pretty close to correct I think. But the updated version that doesn't clear the `targets` entries is going to cause trouble.  In particular, the `targets` store contains a `resumeToken` for each target which the SDK uses to tell the backend that its cache is up-to-date as of that resumeToken.  If you've deleted the actual `remoteDocuments` and `targetDocuments` entries though, then the SDK is going to incorrectly tell the backend its cache is up-to-date, but it actually will not be, so you will get incorrect events and a further corrupted cache.\r\n\r\nAdditionally, making changes to the persisted cache while the SDK is running is dangerous and may break assumptions in the SDK, leading to undefined behavior.\r\n\r\nFinally, it's really not safe to write code that makes any assumptions about the schema used by the SDK. The schema is an internal implementation detail and subject to change from one release to the next, breaking any code you've written.  So you would need to re-audit your code every time you upgrade.  The chance for bugs leading to cache corruption is high.\r\n\r\nThe closest thing to an approach I can endorse would be to delete the entire cache, before initializing the SDK.  This is guaranteed to be safe, since it's equivalent to just running your app on a fresh device.\r\n\r\nI'm sorry we don't have a better supported option at this time, but we're actively working on garbage collection for the cache which will prevent it from growing beyond a specified threshold. And further cache controls are on the roadmap.  For now, any direct modification to the SDK's persisted data is done at your own risk and may break at any time. Sorry!"
+    },
+    {
+      "id": 420350152,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-420350152",
+      "created_at": "2018-09-11T17:14:58Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": "@mikelehen Thanks for taking the time to write all that. What you're writing makes sense, and you're right: it's a high risk solution; but seeing the performance of IndexedDB, we couldn't sit on our hands any longer.\r\n\r\nDue to the fact that we're writing to a live cache (albeit in a transaction), we had to take out the deletion of `target` elements, as it caused the crash I mentioned.\r\n\r\nWe actually haven't observed any cache corruption yet. After a cache cleaning, and then reloading the app, your SDK seems to correctly get the missing entities; but thanks for your feedback, I'll keep an eye on it.\r\n\r\nIs there any milestone for the garbage collection? It's been talked about for a long time now."
+    },
+    {
+      "id": 420572201,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-420572201",
+      "created_at": "2018-09-12T09:10:06Z",
+      "updated_at": "2018-09-12T09:27:40Z",
+      "author": "Participant 4",
+      "body": "Here's the version that deletes from `targets`, that mike talked about:\r\n\r\n```\r\n  clearCache(subcollection: string) {\r\n    console.log(`Clearing ${subcollection} and deleted entities`);\r\n    const o = indexedDB.open('firestore/[DEFAULT]/tillty-1/main');\r\n    o.onsuccess = () => {\r\n      const writeTrx: IDBTransaction = o.result.transaction(['remoteDocuments', 'targetDocuments', 'targets'], 'readwrite');\r\n      const targetIds: number[] = [];\r\n      const targets = writeTrx.objectStore('targets');\r\n      const targetDocuments = writeTrx.objectStore('targetDocuments');\r\n      const remoteDocuments = writeTrx.objectStore('remoteDocuments');\r\n\r\n      targets.openCursor().onsuccess = (e1: any) => {\r\n        const cursor1: IDBCursorWithValue = e1.target.result;\r\n        // Find all target IDs of the entity name we wish to purge\r\n        if (cursor1) {\r\n          if (cursor1.value.canonicalId.indexOf(`/${subcollection}`) !== -1) {\r\n            targetIds.push(cursor1.value.targetId);\r\n            cursor1.delete();\r\n          }\r\n\r\n          cursor1.continue();\r\n        } else { // No more rows in the 'targets' datastore\r\n          remoteDocuments.openCursor().onsuccess = (e2: any) => {\r\n            const cursor: IDBCursorWithValue = e2.target.result;\r\n            if (cursor) {\r\n              if ((Array.isArray(cursor.key) && cursor.key.length >= 4 && cursor.key[2] === subcollection) || cursor.value.noDocument) {\r\n                cursor.delete();\r\n              }\r\n              cursor.continue();\r\n            }\r\n          };\r\n\r\n          targetDocuments.openCursor().onsuccess = (e2: any) => {\r\n            const cursor2: IDBCursorWithValue = e2.target.result;\r\n            if (cursor2) {\r\n              if (Array.isArray(cursor2.key) && targetIds.find(id => id === <number>cursor2.key[0])) {\r\n                cursor2.delete();\r\n              }\r\n              cursor2.continue();\r\n            }\r\n          };\r\n        }\r\n      };\r\n    };\r\n  }\r\n```\r\nThis function should not be run while firestore is initialized since it can cause internal assertion errors that breaks the DB layer completely. So you should either:\r\nRun `clearCache('something')` and THEN initialize firestore.\r\n**OR** run `clearCache('something')` and then do a `location.reload()` to make sure firestore is reinitialized.\r\n\r\nAgain, use at own risk."
+    },
+    {
+      "id": 420703322,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-420703322",
+      "created_at": "2018-09-12T16:01:08Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "Thanks @larssn!\r\n\r\nAs for the timeline for garbage collection, I can't communicate any specific timeline, but it's making good progress.  The bulk of it has been implemented on iOS (https://github.com/firebase/firebase-ios-sdk/pull/1600) and is currently being ported to web.  That said, we still need to define and expose the API that actually enables it which will take some additional time (all new APIs have to go through some extra process before being exposed).  So no concrete timeline, but I promise it's coming. :-)"
+    },
+    {
+      "id": 420724597,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-420724597",
+      "created_at": "2018-09-12T17:06:24Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": "@mikelehen Thank you. We'll hold our breath for now :)"
+    },
+    {
+      "id": 431943479,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-431943479",
+      "created_at": "2018-10-22T19:13:02Z",
+      "updated_at": null,
+      "author": "Participant 5",
+      "body": "> Just FYI-\r\n> \r\n> > so if two users use the same device with different accounts, the cached response will return information from the other user, so you could end up showing wrong information in offline mode.\r\n> \r\n> This won't actually be the case for most apps. Since security rules do not act as filters (they either allow or deny a query in its entirety), as long as your app doesn't perform broken queries (that will be rejected by the backend due to security rules), **_users won't see any locally-cached data that they don't have access to_**... I repeat Gil's warning that you can't rely on this to protect sensitive data (you should disable persistence instead), but you _can_ expect your app to behave offline just fine even if multiple users have used the app, resulting in various locally-cached data... in fact, sharing the cache improves the offline experience and general performance of the app since there's a greater chance that data requested by the app will already be available locally.\r\n\r\n@mikelehen apologies for my confusion as a noob, but by saying **_users won't see any locally-cached data that they don't have access to_**- do you mean access restricted by security rules? Because I am seeing cached data returned despite data being restricted by security rule (and error callback called as well). I tried two scenarios-\r\n\r\nScenario 1:\r\n- User A logs in\r\n- listener Set and initial data fetched/cached\r\n- User A's role changed (by modifying data in a firestore path from backend/separate client) and consequently data is now restricted by security rule\r\n- Page refresh, causing listeners to be set again, and this time querysnapshot is still returned from cache with restricted data\r\n\r\nScenario 2:\r\n- User A logs in\r\n- listener Set and initial data fetched/cached\r\n- User A logs out, and listeners unsubscribed\r\n- User B logs in, causing new listeners to be set, and this time querysnapshot is still returned from cache with restricted data\r\n\r\nSo I am only confused with the quoted part.\r\n\r\n```\r\n    var unsubscribe = firebase.firestore()\r\n        .collection(\"schools\")\r\n        .doc(this.props.userContext.state.schoolID)\r\n        .collection(\"chatroom/common/chats\").orderBy(\"timestamp\")\r\n            .onSnapshot(\r\n                (querySnapshot)=> {\r\n                    console.log(\"QuerySnapshot\", querySnapshot);\r\n\r\n                    var newChats = {};                \r\n                    querySnapshot.forEach((doc)=>{\r\n                        newChats[doc.id] = doc.data()\r\n                    });\r\n\r\n                    this.setState({chats: newChats});\r\n                },\r\n                error=>{\r\n                    console.log(\"Failed to set listener on Chats Node. Possible reason: \", error.message);\r\n                }\r\n            );\r\n```"
+    },
+    {
+      "id": 431960709,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-431960709",
+      "created_at": "2018-10-22T19:58:26Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@asifbd Can you share your security rules that should be restricting access?  I'm confused why your listener error handler isn't getting called if the user doesn't have access to all of the documents under `chatroom/common/chats`."
+    },
+    {
+      "id": 431992794,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-431992794",
+      "created_at": "2018-10-22T21:24:16Z",
+      "updated_at": null,
+      "author": "Participant 5",
+      "body": "@mikelehen listener error handlers **do get called**, in both scenarios. But at the same time, **cached data is also returned** in snapshot.\r\n \r\n\r\n> ... I am seeing cached data returned despite data being restricted by security rule (and error callback called as well)....\r\n\r\n\r\nMy security rules involve several custom functions, just pasting the relevant portion-\r\n\r\n```\r\nfunction allowAnyUser()\r\n  {\r\n  \treturn request.auth.uid != null;\r\n  }\r\n\r\nfunction adminAndAbove(forID)\r\n  {\r\n  \treturn getUserAccess(forID, ['admin'])\r\n  }\r\n\r\nfunction memberAndAbove(forID)\r\n  {\r\n  \treturn getUserAccess(forID, ['member','admin'])\r\n  }\r\n  \r\n  \r\nfunction getUserAccess(forID, allowedRoles)\r\n{\r\n    return validateAccessWithUserData(get(/databases/$(database)/documents/test_auth_users/$(request.auth.uid)).data, forID, allowedRoles);\r\n}\r\n  \r\n  \r\nfunction validateAccessWithUserData(userData, forID, allowedRoles)\r\n{\r\n    return userData != null && userData['schoolId'] != null && userData['schoolId'] == forID && userData['user_role'] != null && userData['user_role'] in allowedRoles;\r\n}\r\n\r\n// --------------------------- end of section: custom functions ----------------------------------\r\n\r\nmatch /schools/{schoolId} {\r\n       \r\n    match /chatroom/common/{anything_under_it=**} {\r\n        allow read: if memberAndAbove(schoolId);\r\n        allow write: if memberAndAbove(schoolId);\r\n    }\r\n}\r\n```"
+    },
+    {
+      "id": 432020991,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-432020991",
+      "created_at": "2018-10-22T22:59:54Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@asifbd Ahh, okay. Then that is behaving as expected.  Security rules don't act as filters, so in order to prevent your listener from being canceled (and the error callback called), you'll need to adjust the query you're listening to so that it passes your security rules.  Once you do that, the results of the query (from cache) will presumably no longer include data that the user doesn't have access to.\r\n\r\nNote that I'm not saying that this means your app is more secure.  A malicious user could drop into the JS console and manually do queries to access whatever data is in the cache.  But in terms of app correctness (showing the user only their own documents), the queries you issue have to be allowed by your security rules anyway (i.e. the user must have access to perform the query), and so your app should behave correctly and only show users data that they have access to."
+    },
+    {
+      "id": 439939285,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-439939285",
+      "created_at": "2018-11-19T15:47:47Z",
+      "updated_at": null,
+      "author": "Participant 6",
+      "body": "@mikelehen  Any news on this ? We're also starting to see our app slowing down gradually as time goes by... Just deleting the indexedDB shows real improvement on queries performance but this is not a viable solution. \r\n\r\nThanks "
+    },
+    {
+      "id": 439974692,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-439974692",
+      "created_at": "2018-11-19T17:26:22Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "@sambegin No news on an API to explicitly clear persistence, but we are working on garbage collection, to delete data from IndexedDb that hasn't been used recently.  @gsoltis has implemented a lot of the underlying infrastructure for that but there's still a bit more work to do."
+    },
+    {
+      "id": 439977126,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-439977126",
+      "created_at": "2018-11-19T17:33:36Z",
+      "updated_at": null,
+      "author": "Participant 6",
+      "body": "Thanks @mikelehen . I'm specifically not looking for an API to clear persistence... Anything that can fix the performance problem should be good ! I know you can't say anything about timeline but... Are we days, months, years from getting this garbage collection feature  ? "
+    },
+    {
+      "id": 440100272,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-440100272",
+      "created_at": "2018-11-20T01:13:47Z",
+      "updated_at": null,
+      "author": "Participant 7",
+      "body": "@sambegin LRU Garbage collection is coming very soon. Pretty much all of the groundwork is in place, it just needs to be wired together. I would expect maybe one or two more PRs then it will be ready!"
+    },
+    {
+      "id": 447141326,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-447141326",
+      "created_at": "2018-12-13T22:20:17Z",
+      "updated_at": null,
+      "author": "Participant 8",
+      "body": "GC is now available \r\nhttps://firebase.google.com/support/release-notes/js#5.7.0\r\nwith control to data cached size (the best feature)\r\nstart test it\r\n"
+    },
+    {
+      "id": 509414049,
+      "url": "https://github.com/firebase/firebase-js-sdk/issues/449#issuecomment-509414049",
+      "created_at": "2019-07-08T22:23:59Z",
+      "updated_at": null,
+      "author": "Participant 9",
+      "body": "`clearPersistence()` was launched in [v6.2.0](https://firebase.google.com/support/release-notes/js#version_620_-_june_13_2019)."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original Markdown from GitHub's structured issue pages, including numbered timeline pages. Discussion complete only after pagination, comment-ID, expected-count and unchanged-issue checks. Closure timestamp is unavailable; linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/firebase/firebase-js-sdk/issues/449",
+  "closed_at_available": false,
+  "timeline_page_urls": [
+    "https://github.com/firebase/firebase-js-sdk/issues/449",
+    "https://github.com/firebase/firebase-js-sdk/issues/449?timeline_page=1"
+  ]
+}

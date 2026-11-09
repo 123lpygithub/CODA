@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0204-aadhadibe",
+  "revision_url": "https://github.com/ROCmSoftwarePlatform/Tensile/commit/8e230bfad39997daf8dc90a73328800d5b8e6679",
+  "filename": "Tensile/SolutionWriter.py",
+  "commit": "8e230bfad39997daf8dc90a73328800d5b8e6679",
+  "source_url": "https://raw.githubusercontent.com/ROCmSoftwarePlatform/Tensile/8e230bfad39997daf8dc90a73328800d5b8e6679/Tensile/SolutionWriter.py",
+  "fetched_at": "2026-11-05T06:12:15.061753+00:00",
+  "source_sha256": "269d738917231f5ff03494061d5d80bea71522f556f90f5fcbd9acfad639c5c9",
+  "line_start": 429,
+  "line_end": 453,
+  "excerpt": "        if solution[\"ProblemType\"][\"UseBeta\"]:\n          s += \"%sbeta = %s;\\n\" % (t, solution[\"ProblemType\"][\"DataType\"].zeroString(self.language, 1) )\n        #s += \"%sreturn tensileStatusSuccess;\\n\" % (t)\n        s += \"%sstatus = clFinish(stream);\\n\" % (t)\n        s += \"%stensileStatusCheck(status);\\n\" % (t)\n        #s += \" float tmp[128*128];\\n\"\n        #s += \"clEnqueueReadBuffer(stream, dataC, CL_TRUE, 0, 128*128*sizeof(float), tmp, 0, NULL, NULL);\\n\"\n        #s += \"for (unsigned int i = 0; i < 128*128; i++) { printf(\\\"%f\\\\n\\\", tmp[i]); }\\n\"\n\n\n      else:\n        s += \"%stry {\\n\" % (t)\n        # TODO - timing with beta kernels is somewhat pessimistic since it has this separate event only on the GSU path.\n        # Introduces 2-3us of overhead ; may want to disable PreciseKernelTime so non-GSU have same overhead.\n        # Long-term fix would be to launch the beta kernel with the hipHccModule* API and set start-event in that call\n        if solution[\"ProblemType\"][\"UseBeta\"]:\n          s += \"%sif (betaZero) {\\n\" % (t)\n          t += \"  \"\n          s += \"%sif( inputEvents != NULL )\\n\" % (t)\n          s += \"%s  hipEventRecord(inputEvents[0], stream );\\n\" % (t)\n          s += \"%skernelsLaunched++;\\n\" % (t)\n          s += \"%shipLaunchKernelGGL(\\n\" % (t)\n          t += \"  \"\n          s += \"%sHIP_KERNEL_NAME(%s),\\n\" % (t, kernelNamesBetaOnly[0])\n          s += \"%sdim3(globalWorkSizeBetaOnly[0], globalWorkSizeBetaOnly[1], globalWorkSizeBetaOnly[2]),\\n\" % (t)"
+}

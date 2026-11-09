@@ -1,0 +1,21 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:5e30400664c5c19eadeb36f22f170058d06799f3/raw/",
+  "source_sha256": "a053a08d439381ddcd00dde93ba3b4b23689d8a388e1a7e778cdc4d326cbb656",
+  "fetched_at": "2026-11-05T06:49:18.066141+00:00",
+  "archive_directory": "fa2b05f085100a42542a3dfa9619df0ca372f819",
+  "git_blob_sha1": "5e30400664c5c19eadeb36f22f170058d06799f3",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/e0619659131a8647ad8e5738a776ce77d1ce5c9a/",
+  "published_commit": "6315c523d5cc62cc78816475962301f4200b8372",
+  "revision_relation": "direct-parent-before-published-commit",
+  "revision_note": "The published introducing-commit pointer deletes this exact comment. The source is from its verified direct parent, where the full comment uniquely matches.",
+  "artifact_id": "23shades-0683-aaeihdfda",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/6315c523d5cc62cc78816475962301f4200b8372",
+  "filename": "sdc/datatypes/hpat_pandas_series_functions.py",
+  "commit": "e0619659131a8647ad8e5738a776ce77d1ce5c9a",
+  "line_start": 2051,
+  "line_end": 2075,
+  "excerpt": "        Test: python -m sdc.runtests sdc.tests.test_series.TestSeries.test_series_isin_list1\n    \"\"\"\n\n    _func_name = 'Method isin().'\n\n    ty_checker = TypeChecker(_func_name)\n    ty_checker.check(self, SeriesType)\n\n    if not isinstance(values, (types.Set, types.List)):\n        ty_checker.raise_exc(values, 'set or list', 'values')\n\n    def hpat_pandas_series_isin_impl(self, values):\n        # TODO: replace with below line when Numba supports np.isin in nopython mode\n        # return pandas.Series(np.isin(self._data, values))\n        return pandas.Series(data=[(x in values) for x in self._data], index=self._index, name=self._name)\n\n    return hpat_pandas_series_isin_impl\n\n\n@sdc_overload_method(SeriesType, 'append')\ndef hpat_pandas_series_append(self, to_append, ignore_index=False, verify_integrity=False):\n    \"\"\"\n    Intel Scalable Dataframe Compiler User Guide\n    ********************************************\n",
+  "match_policy": "unique-full-comment-in-verified-parent-before-deletion",
+  "match_diff_url": "https://github.com/IntelPython/sdc/commit/6315c523d5cc62cc78816475962301f4200b8372.diff",
+  "match_diff_sha256": "6a3b67785b24b244b274fe921ec1f01cdcb9fb4efa92967efa67170c26ad2b4d"
+}

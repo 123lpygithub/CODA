@@ -1,0 +1,355 @@
+
+=== 732 23shades-0532-aahddjbah ===
+{"dataset_id": "aahddjbah", "repo_name": "brendanhasz/probflow", "filename": "src/probflow/utils/data.py", "comment_introducing_revision": "https://github.com/brendanhasz/probflow/commit/00a01c40cfbaffc4d99cee3f49ced47e54bf1aaf", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "00a01c40cfbaffc4d99cee3f49ced47e54bf1aaf"}
+[comment_text]
+TODO: ensure x data shape matches model._ph['x'] shape (only if fit)
+[source_context]
+                    raise TypeError(name+' must be a list of int or str')
+
+            # Get the columns
+            x = data.ix[:,x].values
+
+        else:
+            raise TypeError('data must be None or a pandas DataFrame')
+
+    # Make data at least 2 dimensional (0th dim should be N)
+    if x.ndim == 1:
+        x = np.expand_dims(x, 1)
+
+    # TODO: ensure x data shape matches model._ph['x'] shape (only if fit)
+
+    return x
+
+
+def process_xy_data(self, x=None, y=None, data=None):
+    """Process and validate both x and y data"""
+
+    # Both or neither of x and y should be passed
+    if x is None and y is not None or y is None and x is not None:
+        raise TypeError('x and y should both be set or both be None')
+
+    # Process both x and y data
+
+=== 733 23shades-0817-aajfiegif ===
+{"dataset_id": "aajfiegif", "repo_name": "probcomp/bayeslite", "filename": "src/bqlvtab.py", "comment_introducing_revision": "https://github.com/probcomp/bayeslite/commit/27e21b9824512fb4697b95b2f2b65fb1b6fb45bd", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "27e21b9824512fb4697b95b2f2b65fb1b6fb45bd"}
+[comment_text]
+XXX Expose this API better from bqlfn.
+[source_context]
+            self._conditions = None
+        if indexnum & (1 << Mutinf.NSAMPLES):
+            self._nsamples = constraintargs[count.next()]
+        else:
+            self._nsamples = None
+        self._rowid = 0
+        target_vars = json.loads(self._target_vars)
+        reference_vars = json.loads(self._reference_vars)
+        conditions_strkey = {} if self._conditions is None else \
+            json.loads(self._conditions)
+        conditions = \
+            {int(k): v for k, v in sorted(conditions_strkey.iteritems())}
+        # XXX Expose this API better from bqlfn.
+        mis = bqlfn._bql_column_mutual_information(
+            self._bdb, self._population_id, None,
+            target_vars, reference_vars, self._nsamples,
+            *_flatten2(conditions.iteritems()))
+        self._mi = _flatten2(mis)
+
+
+### Utilities
+
+def _flatten2(xss):
+    return [x for xs in xss for x in xs]
+
+
+=== 734 23shades-0224-aadajefje ===
+{"dataset_id": "aadajefje", "repo_name": "felixriese/susi", "filename": "susi/SOMUtils.py", "comment_introducing_revision": "https://github.com/felixriese/susi/commit/de9f703cef08c4576a672d1830de7894100eec93", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "de9f703cef08c4576a672d1830de7894100eec93"}
+[comment_text]
+TODO accept_sparse=\"csc\"
+[source_context]
+    -------
+    X : object
+        The converted and validated `X`.
+    y : object
+        The converted and validated `y`.
+
+    """
+    if is_classification:
+        X, y = check_X_y(X, y)
+    else:
+        X, y = check_X_y(X, y, dtype=np.float64)
+
+    # TODO accept_sparse="csc"
+    X = check_array(X, ensure_2d=True, dtype=np.float64)
+    y = check_array(y, ensure_2d=False, dtype=None)
+
+    if is_classification:
+        check_classification_targets(y)
+
+    y = np.atleast_1d(y)
+
+    if y.ndim == 1:
+        y = np.reshape(y, (-1, 1))
+
+    return X, y
+
+=== 735 23shades-0703-aagaahfid ===
+{"dataset_id": "aagaahfid", "repo_name": "Neuraxio/Neuraxle", "filename": "neuraxle/metaopt/random.py", "comment_introducing_revision": "https://github.com/Neuraxio/Neuraxle/commit/2c69f0058b15dbd9df3f648fde5d7af52ecb01c2", "comment_removing_revision": "https://github.com/Neuraxio/Neuraxle/commit/bb17e2ebee70c2a3b0380f669738652885c245f7", "source_context_status": "available", "source_context_commit": "2c69f0058b15dbd9df3f648fde5d7af52ecb01c2"}
+[comment_text]
+TODO: skip on error???
+[source_context]
+    def fit(self, data_inputs, expected_outputs=None) -> 'BaseStep':
+        # TODO: assert that set_step was called.
+        started = False
+        for _ in range(self.n_iter):
+
+            step = copy.copy(self.step)
+
+            new_hyperparams = step.get_hyperparams_space().rvs()
+            step.set_hyperparams(new_hyperparams)
+
+            step: BaseCrossValidation = copy.copy(self.validation_technique).set_step(step)
+
+            # TODO: skip on error???
+            step = step.fit(data_inputs, expected_outputs)
+            score = step.scores_mean
+
+            if not started or self.higher_score_is_better == (score > self.score):
+                started = True
+                self.score = score
+                self.best_validation_wrapper_of_model = step
+
+        if self.refit:
+            self.best_model = self.best_validation_wrapper_of_model.step.fit(
+                data_inputs, expected_outputs)
+
+
+=== 736 23shades-0490-aaaefgdbc ===
+{"dataset_id": "aaaefgdbc", "repo_name": "mycrazycracy/tf-kaldi-speaker", "filename": "model/trainer.py", "comment_introducing_revision": "https://github.com/mycrazycracy/tf-kaldi-speaker/commit/c5ccc12ea32927933eec7169a3b9fe5a51405b68", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "c5ccc12ea32927933eec7169a3b9fe5a51405b68"}
+[comment_text]
+TODO: compare the performance!
+[source_context]
+        elif loss_type == "generalized_angular_triplet_loss":
+            self.loss_network = generalized_angular_triplet_loss
+        else:
+            raise NotImplementedError("Not implement %s loss" % self.loss_type)
+
+        if mode == "valid":
+            tf.logging.info("Building valid network...")
+            self.valid_features = tf.placeholder(tf.float32, shape=[None, None, dim], name="valid_features")
+            self.valid_labels = tf.placeholder(tf.int32, shape=[None,], name="valid_labels")
+            with tf.name_scope("valid") as scope:
+                # We can adjust some parameters in the config when we do validation
+                # TODO: I'm not sure whether it is necssary to change the margin for the valid set.
+                # TODO: compare the performance!
+                # Change the margin for the valid set.
+                if loss_type == "softmax":
+                    pass
+                elif loss_type == "asoftmax":
+                    train_margin = self.params.asoftmax_m
+                    self.params.asoftmax_m = 1
+                elif loss_type == "additive_margin_softmax":
+                    train_margin = self.params.amsoftmax_m
+                    self.params.amsoftmax_m = 0
+                elif loss_type == "additive_angular_margin_softmax":
+                    train_margin = self.params.arcsoftmax_m
+                    self.params.arcsoftmax_m = 0
+
+=== 737 23shades-0124-aafacjjjb ===
+{"dataset_id": "aafacjjjb", "repo_name": "brightmart/ai_law", "filename": "predictor/model_single_task_1.py", "comment_introducing_revision": "https://github.com/brightmart/ai_law/commit/0d6b73bc00e48981c53b36a740f45c7298b72e9c", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "0d6b73bc00e48981c53b36a740f45c7298b72e9c"}
+[comment_text]
+h = tf.layers.dense(h; self.hidden_size * 2; activation=tf.nn.relu; use_bias=True) #4 TODO
+[source_context]
+
+        # 2.1 convolutional layers
+        cnn = self.conv_layers_return_2d_great(input_x, 'conv_layer',reuse_flag=False)  # [batch_size,sequence_length-filter_size + 1,num_filters]
+
+        # 2.2 additiona features(optional): try to use data mining features from sample where its label doing poorly
+        h_feature = tf.layers.dense(self.input_feature, self.hidden_size/4, activation=tf.nn.relu, use_bias=True) #[batch_size, hidden_size/4]<---[batch_size,feature_length]
+        h_feature = tf.nn.dropout(h_feature,keep_prob=self.dropout_keep_prob)  # [batch_size, hidden_size/2]
+
+        # 3. concat feature
+        h=tf.concat([cnn,h_feature],axis=-1) #[batch_size, dimension]
+
+        # 4.classifier
+        #h = tf.layers.dense(h, self.hidden_size * 2, activation=tf.nn.relu, use_bias=True) #4 TODO
+        #h = tf.nn.dropout(h,keep_prob=self.dropout_keep_prob)  # [batch_size,sequence_length - filter_size + 1,num_filters] TODO
+        logits_list = self.project_tasks(h)
+        return logits_list
+
+    def inference_deep_pyramid_cnn(self):
+        """
+        deep pyramid cnn for text categorization
+        region embedding-->two layers of convs-->repeat of building block(Pooling,/2-->conv-->conv)--->pooling
+        for more check: http://www.aclweb.org/anthology/P/P17/P17-1052.pdf
+        :return: logits_list
+        """
+        # 1.region embedding
+
+=== 738 23shades-0221-aagabbida ===
+{"dataset_id": "aagabbida", "repo_name": "Neuraxio/Neuraxle", "filename": "neuraxle/hyperparams/space.py", "comment_introducing_revision": "https://github.com/Neuraxio/Neuraxle/commit/71bab1e23aa124da222c147ab5989080f39c646f", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "71bab1e23aa124da222c147ab5989080f39c646f"}
+[comment_text]
+TODO : this is quite bad in term of execution speed. We need to fix this.
+[source_context]
+
+        :return: a nested primitive dict type of self.
+        """
+        return self.flat_to_nested_dict(dict_ctor=OrderedDict)
+
+    def nested_dict_to_flat(self, dict_ctor):
+        """
+        Convert a nested hyperparameter dictionary to a flat one.
+
+        :param dict_ctor: ``OrderedDict`` by default. Will use this as a class to create the new returned dict.
+        :return: a flat hyperparameter dictionary.
+        """
+        if isinstance(dict_ctor, RecursiveDict):  # TODO : this is quite bad in term of execution speed. We need to fix this.
+            ret = dict_ctor(self.separator)
+        else:
+            ret = dict_ctor()
+
+        for k, v in self.items():
+            if isinstance(v, dict) or isinstance(v, OrderedDict) or isinstance(v, dict_ctor):
+                nested_dict = v
+                if not isinstance(v, RecursiveDict):
+                    nested_dict = RecursiveDict(v, separator=self.separator)
+                _ret = nested_dict.nested_dict_to_flat(dict_ctor=type(nested_dict))
+                for key, val in _ret.items():
+                    ret[k + nested_dict.separator + key] = val
+
+=== 739 23shades-0278-aahhdabij ===
+{"dataset_id": "aahhdabij", "repo_name": "raamana/neuropredict", "filename": "neuropredict/neuropredict.py", "comment_introducing_revision": "https://github.com/raamana/neuropredict/commit/9a99afe0019685b50bc54b72292ce5d0992a2325", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "9a99afe0019685b50bc54b72292ce5d0992a2325"}
+[comment_text]
+TODO design an API interface for advanced access as an importable package
+[source_context]
+    with open(dataset_paths_file, 'w') as dpf:
+        dpf.writelines('\n'.join(outpath_list))
+
+    return method_names, dataset_paths_file
+
+
+def run():
+    """
+    Main entry point.
+    
+    """
+
+    # TODO design an API interface for advanced access as an importable package
+
+    metadatafile, outdir, userdir, fsdir, \
+        train_perc, num_rep_cv, \
+        positiveclass = parse_args()
+
+    subjects, classes = get_metadata(metadatafile)
+
+    positiveclass = validate_class_set(classes, positiveclass)
+
+    # let's start with one method/feature set for now
+    # TODO allow the user to specify arbitray combination of predefined and custom methods as well.
+    if not_unspecified(userdir):
+
+=== 740 23shades-0612-aagfbfdbb ===
+{"dataset_id": "aagfbfdbb", "repo_name": "vecto-ai/vecto", "filename": "vecto/data/io.py", "comment_introducing_revision": "https://github.com/vecto-ai/vecto/commit/9d8c43278ecd0a09edf5f89d88b3ff887123a9d9", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "9d8c43278ecd0a09edf5f89d88b3ff887123a9d9"}
+[comment_text]
+TODO: move this to corpus module
+[source_context]
+from vecto.corpus.tokenization import word_tokenize_txt
+
+
+# TODO: move this to corpus module
+def normalize_text(text):
+    return text.strip().lower()
+
+
+def read_first_col_is_label_format(path):
+    dataset = []
+    with open(path, encoding='utf-8', errors='ignore') as f:
+        for i, l in enumerate(f):
+            if len(l.strip()) < 3:
+                continue
+            label, text = l.strip().split(None, 1)
+            label = int(label)
+
+=== 741 23shades-0583-aaiecfecg ===
+{"dataset_id": "aaiecfecg", "repo_name": "biolab/orange3", "filename": "Orange/widgets/visualize/owscatterplotgraph.py", "comment_introducing_revision": "https://github.com/biolab/orange3/commit/453222b587dd5dcdb75386c7d528b6f52b8c32f0", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "453222b587dd5dcdb75386c7d528b6f52b8c32f0"}
+[comment_text]
+TODO: It could be nice if this method was run on entire data; not just
+[source_context]
+        Update the sizes, colors, shapes and labels
+
+        The method calls the appropriate update methods for individual
+        properties.
+        """
+        self.update_sizes()
+        self.update_colors()
+        self.update_selection_colors()
+        self.update_shapes()
+        self.update_labels()
+
+    # Coordinates
+    # TODO: It could be nice if this method was run on entire data, not just
+    # a sample. For this, however, it would need to either be called from
+    # `get_coordinates` before sampling (very ugly) or call
+    # `self.master.get_coordinates_data` (beyond ugly) or the widget would
+    # have to store the ranges of unsampled data (ugly).
+    # Maybe we leave it as it is.
+    def _reset_view(self, x_data, y_data):
+        """
+        Set the range of the view box
+
+        Args:
+            x_data (np.ndarray): x coordinates
+            y_data (np.ndarray) y coordinates
+
+=== 742 23shades-0027-aajfegaca ===
+{"dataset_id": "aajfegaca", "repo_name": "catalyst-team/catalyst", "filename": "dl/callbacks.py", "comment_introducing_revision": "https://github.com/catalyst-team/catalyst/commit/69c078ac203ff211ea68c70eed1f9c847b86a84a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "historical_partial", "source_context_commit": "8d1ef43d07f79b4ba370c8a5f2a547802fe6e79a"}
+[comment_text]
+@TODO: need better solutions
+[source_context]
+class SchedulerCallback(Callback):
+    def __init__(
+            self,
+            scheduler_key: str = "main",
+            mode: str = "epoch",
+            reduce_metric: str = None):
+        self.scheduler_key = scheduler_key
+        self.mode = mode
+        self.reduce_metric = reduce_metric
+
+    @staticmethod
+    def get_momentum(optimizer):
+        # @TODO: need better solutions
+        if isinstance(optimizer, torch.optim.Adam):
+            return list(optimizer.param_groups)[0]["betas"][0]
+        elif isinstance(optimizer, torch.optim.SGD):
+            return list(optimizer.param_groups)[0]["momentum"]
+        else:
+            return None
+
+    def step(self, state):
+        scheduler = state._scheduler[self.scheduler_key]
+        if isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+            scheduler.step(state.valid_metrics[self.reduce_metric])
+            state.lr[self.scheduler_key] = \
+[source_context_revision_note]
+The released introducing pointer does not contain the full comment. This excerpt uniquely matches it at a verified-ancestor revision. It is supplemental historical context, not evidence that the published case revision has this implementation. Do not infer case-time behavior or debt resolution from the alternate version. Additional commit verification: The published-commit API confirms the file modification but its returned patch contains no occurrence of the released target comment. This does not resolve the previously documented version mismatch.
+
+=== 743 23shades-0215-aafjbabdi ===
+{"dataset_id": "aafjbabdi", "repo_name": "AllenInstitute/mouse_connectivity_models", "filename": "voxel_model/regressors/polynomial_kernel.py", "comment_introducing_revision": "https://github.com/AllenInstitute/mouse_connectivity_models/commit/fcb1c297681980ba8dc70c951e94c55b961ba7ab", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "fcb1c297681980ba8dc70c951e94c55b961ba7ab"}
+[comment_text]
+TODO : docs and example
+[source_context]
+# Authors: Joseph Knox josephk@alleninstitute.org
+# License:
+# TODO : docs and example
+from __future__ import absolute_import, print_function, division
+
+import numpy as np
+import scipy.special as sp
+
+from sklearn.gaussian_process \
+    import Kernel, StationaryKernelMixin, NormalizedKernelMixin, Hyperparameter
+from scipy.spatial.distance import pdist, cdist, squareform
+
+
+class Polynomial(StationaryKernelMixin, NormalizedKernelMixin, Kernel):
+    """Polynomial function kernel.

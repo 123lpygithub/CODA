@@ -1,0 +1,6 @@
+{
+  "url": "https://raw.githubusercontent.com/ArtificiAI/Multilingual-Latent-Dirichlet-Allocation-LDA/9e7728920b3f8bfa3c561c623c80f0a552fe872a/tests/logic/test_stop_words_remover.py",
+  "source": "from app.logic.stop_words_remover import StopWordsRemover\nfrom tests.const_utils import \\\n    TEST_STOPWORDS, \\\n    CATS_DOGS_COMMENTS_IN_FRENCH_NORMAL, \\\n    CATS_DOGS_COMMENTS_IN_FRENCH_WITHOUT_STOPWORDS\n\n\ndef test_stopwords_removal_transform():\n    swr = StopWordsRemover(stopwords=TEST_STOPWORDS)\n\n    result = swr.transform(CATS_DOGS_COMMENTS_IN_FRENCH_NORMAL)\n\n    print(\"\")\n    print(result)\n    print(CATS_DOGS_COMMENTS_IN_FRENCH_WITHOUT_STOPWORDS)\n    assert CATS_DOGS_COMMENTS_IN_FRENCH_WITHOUT_STOPWORDS == result\n\n\ndef test_stopwords_inverse_transform():\n    swr = StopWordsRemover(stopwords=TEST_STOPWORDS)\n    result = swr.transform(CATS_DOGS_COMMENTS_IN_FRENCH_WITHOUT_STOPWORDS)\n\n    inverted_undone = swr.inverse_transform(result)\n\n    print(\"\")\n    print(result)\n    print(inverted_undone)\n    assert result == inverted_undone  # TODO: behavior is unchanged. Could be improved.\n",
+  "fetched_at": "2026-11-05T06:12:58.482157+00:00",
+  "source_sha256": "d5c2cb522142ce78b20e1003ed377c6a438ef7f182dd6b6149a4f95d79b88e18"
+}

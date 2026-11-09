@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0019-aaigjhibg",
+  "revision_url": "https://github.com/chainer/chainer/commit/3555e1304175e4ff42be818b20b2d6cfa78eeac8",
+  "filename": "tests/chainerx_tests/unit_tests/routines_tests/test_math.py",
+  "commit": "3555e1304175e4ff42be818b20b2d6cfa78eeac8",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainer/3555e1304175e4ff42be818b20b2d6cfa78eeac8/tests/chainerx_tests/unit_tests/routines_tests/test_math.py",
+  "fetched_at": "2026-11-05T06:11:41.793921+00:00",
+  "source_sha256": "7fac68bcb5207a173da95d5b1c0e282482ff736548060a9e0eb72995ddbd24d3",
+  "line_start": 1278,
+  "line_end": 1302,
+  "excerpt": "    def generate_inputs(self):\n        return numpy.arange(self.size, dtype=numpy.int32) + 1,\n\n    def forward_xp(self, inputs, xp):\n        x, = inputs\n        return x.sum(),\n\n\n@chainerx.testing.numpy_chainerx_array_equal(\n    accept_error=(chainerx.DimensionError, ValueError))\n@pytest.mark.parametrize('keepdims', [False, True])\n@pytest.mark.parametrize('shape,axis', [\n    # ((), 0), # TODO(sonots): Fix compatibility\n    ((), 1),\n    ((), (1,)),\n    ((2,), 2),\n    ((2,), (2,)),\n    ((2,), (-2,)),\n    ((2, 3,), (-3,)),\n    ((2, 3,), (-3, -4)),\n    ((2, 3,), (0, 0)),\n    ((2, 3,), (-1, -1)),\n    ((2, 3,), (0, 1, 1)),\n    ((2, 3,), (0, -2)),\n])",
+  "match_policy": "unique-release-normalized-v2"
+}

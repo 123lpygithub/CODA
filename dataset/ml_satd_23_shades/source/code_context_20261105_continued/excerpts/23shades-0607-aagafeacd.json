@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0607-aagafeacd",
+  "revision_url": "https://github.com/henrysky/astroNN/commit/8c63439163afc1625612a8e45780784a1398ee53",
+  "filename": "astroNN/shared/nn_tools.py",
+  "commit": "8c63439163afc1625612a8e45780784a1398ee53",
+  "source_url": "https://raw.githubusercontent.com/henrysky/astroNN/8c63439163afc1625612a8e45780784a1398ee53/astroNN/shared/nn_tools.py",
+  "fetched_at": "2026-11-05T06:13:20.765377+00:00",
+  "source_sha256": "01a47542981170fe4191241a2d727a1422cc6702b8cc3872fe5085a04f0bdb56",
+  "line_start": 149,
+  "line_end": 173,
+  "excerpt": "        for j in range(mc_dropout_num):\n            inputs = spectra[(i + 1) * batch_size:].reshape((number, spectra.shape[1], 1))\n            result = get_dropout_output([inputs, 1])[0]\n            predictions[j, :] = denormalize(result[:, :num_labels], std_labels, mean_labels)\n            uncertainty[j, :] = denormalize(result[:, num_labels:], std_labels, np.zeros(std_labels.shape))\n        prediction_mc_droout[(i + 1) * batch_size:] = np.mean(predictions, axis=0)\n        uncertainty_mc_dropout[(i + 1) * batch_size:] = np.var(predictions, axis=0)\n        uncertainty_2_dropout[(i + 1) * batch_size:] = np.mean(uncertainty, axis=0)\n        uncertainty_master[(i + 1) * batch_size:] = uncertainty_mc_dropout[(i + 1) * batch_size:] + uncertainty[(i + 1) * batch_size:]\n\n    # tau = l ** 2 * (1 - model.p) / (2 * N * model.weight_decay)\n    # uncertainty_mc_dropout += tau ** -1\n    # TODO: Model Precision\n    print('\\n')\n    clear_session()\n\n    return prediction_mc_droout, uncertainty_master\n\n\ndef target_name_conversion(targetname):\n    if len(targetname) < 3:\n        fullname = '[{}/H]'.format(targetname)\n    elif targetname == 'teff':\n        fullname = '$T_{\\mathrm{eff}}$'\n    elif targetname == 'alpha':"
+}

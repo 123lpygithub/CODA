@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0380-aahddgbgf",
+  "revision_url": "https://github.com/astier/model-free-episodic-control/commit/90f2319bb90f9da61352bc2e809786fa95398229",
+  "filename": "mfec/agent.py",
+  "commit": "90f2319bb90f9da61352bc2e809786fa95398229",
+  "source_url": "https://raw.githubusercontent.com/astier/model-free-episodic-control/90f2319bb90f9da61352bc2e809786fa95398229/mfec/agent.py",
+  "fetched_at": "2026-11-05T06:12:42.443617+00:00",
+  "source_sha256": "5faeaa6548f55d1b49ba4696da80884d5ee3dedb6528d1a8e17f0e064c3f9644",
+  "line_start": 46,
+  "line_end": 66,
+  "excerpt": "        assert not np.isnan(action_values).any()\n\n        best_value = np.max(action_values)\n        best_actions = np.argwhere(action_values == best_value).flatten()\n        return np.random.choice(best_actions)\n\n    def receive_reward(self, reward):\n        \"\"\"Store (state, action, reward) tuple in memory.\"\"\"\n        self.memory.append(\n            {'state': self.current_state, 'action': self.current_action,\n             'reward': reward})\n\n    # TODO use pop\n    def train(self):\n        \"\"\"Update Q-Values\"\"\"\n        q_value = .0\n        for i in range(len(self.memory) - 1, -1, -1):\n            experience = self.memory[i]\n            q_value = q_value * self.discount + experience['reward']\n            self.qec.update(experience['state'], experience['action'], q_value)\n        self.memory = []"
+}

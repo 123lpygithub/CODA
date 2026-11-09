@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0203-aahibhdeh",
+  "revision_url": "https://github.com/PyTorchLightning/pytorch-lightning/commit/1caf8beb2cf341ff033286b1b924a1c1ff273a64",
+  "filename": "pytorch_lightning/trainer/model_hooks.py",
+  "commit": "1caf8beb2cf341ff033286b1b924a1c1ff273a64",
+  "source_url": "https://raw.githubusercontent.com/PyTorchLightning/pytorch-lightning/1caf8beb2cf341ff033286b1b924a1c1ff273a64/pytorch_lightning/trainer/model_hooks.py",
+  "fetched_at": "2026-11-05T06:12:14.763405+00:00",
+  "source_sha256": "b4b2b0e891721e79594b0d3354824b5fa105124c240ac3a05ba8cf06dc897514",
+  "line_start": 7,
+  "line_end": 31,
+  "excerpt": "\nclass TrainerModelHooksMixin(ABC):\n    def is_function_implemented(self, f_name, model=None):\n        if model is None:\n            model = self.get_model()\n        f_op = getattr(model, f_name, None)\n        return callable(f_op)\n\n    def is_overridden(self, method_name: str, model: LightningModule = None) -> bool:\n        if model is None:\n            model = self.get_model()\n        # if you pass DataModule instead of None or a LightningModule, we use LightningDataModule as super\n        # TODO - refector this function to accept model_name, instance, parent so it makes more sense\n        super_object = LightningModule if not isinstance(model, LightningDataModule) else LightningDataModule\n\n        # assert model, 'no model passes'\n\n        if not hasattr(model, method_name):\n            # in case of calling deprecated method\n            return False\n\n        instance_attr = getattr(model, method_name)\n        if not instance_attr:\n            return False\n        super_attr = getattr(super_object, method_name)",
+  "match_policy": "unique-release-normalized-v2"
+}

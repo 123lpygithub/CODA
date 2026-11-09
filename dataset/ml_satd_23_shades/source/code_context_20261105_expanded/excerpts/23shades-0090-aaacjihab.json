@@ -1,0 +1,16 @@
+{
+  "source_url": "https://archive.softwareheritage.org/api/1/content/sha1_git:40b6d5508f1a3d56f2a7046fc5464da4f0b0944c/raw/",
+  "source_sha256": "f0f13f262b448480684600cab9c0b803891462425531c3618533c1aad5315fd3",
+  "fetched_at": "2026-11-05T06:42:58.102825+00:00",
+  "archive_directory": "17ed6961b2eb5392b23ec90ba1bac96ed611285f",
+  "git_blob_sha1": "40b6d5508f1a3d56f2a7046fc5464da4f0b0944c",
+  "archive_revision_url": "https://archive.softwareheritage.org/api/1/revision/b88a22c4d2ecbe4c09517384815a8831fbbfca9a/",
+  "artifact_id": "23shades-0090-aaacjihab",
+  "revision_url": "https://github.com/rstemmer/musicdb/commit/b88a22c4d2ecbe4c09517384815a8831fbbfca9a",
+  "filename": "mdbapi/artwork.py",
+  "commit": "b88a22c4d2ecbe4c09517384815a8831fbbfca9a",
+  "line_start": 315,
+  "line_end": 339,
+  "excerpt": "        if dbentry != \"default.jpg\" and artworkpath == None:\n            if self.artworkroot.IsFile(dbentry):    # If the file does not extist, it must be updated!\n                return True\n\n        # Check if the user given artworkpath is valid\n        if artworkpath and not self.fs.IsFile(artworkpath):\n            logging.error(\"The artworkpath that shall be forces is invalid (\\\"%s\\\")! \\033[1;30m(Artwork update will be canceled)\", str(artworkpath))\n            return False\n\n        # If there is no suggested artwork, try to get one from the meta data\n        # In case this failes, use the default artwork\n        if not artworkpath:\n            artworkpath = \"/tmp/musicdbtmpartwork.jpg\"  # FIXME: Hardcoded usually sucks\n            retval      = self.GetArtworkFromFile(album, artworkpath)\n            if not retval:\n                imagename   = \"default.jpg\"\n                artworkpath = None\n\n        # Set new artwork\n        retval = self.SetArtwork(album[\"id\"], artworkpath, imagename)\n        return retval\n\n\n\n    def GenerateAppCacheManifest(self):",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0494-aajfbgjhi",
+  "revision_url": "https://github.com/HDI-Project/ATM/commit/125de4f52b29ba4749fad8860f843e06c0c28b2e",
+  "filename": "worker.py",
+  "commit": "125de4f52b29ba4749fad8860f843e06c0c28b2e",
+  "source_url": "https://raw.githubusercontent.com/HDI-Project/ATM/125de4f52b29ba4749fad8860f843e06c0c28b2e/worker.py",
+  "fetched_at": "2026-11-05T06:13:02.808658+00:00",
+  "source_sha256": "11b506263f0c078d84e1b6d57c252e4193034835d17cc2e6b0d862bc0f0b13a6",
+  "line_start": 29,
+  "line_end": 53,
+  "excerpt": "\n# grab the command line arguments\nparser = argparse.ArgumentParser(description='Add more learners to database')\nparser.add_argument('-d', '--datarun', help='Only train on datasets with this id', default=None, required=False)\nparser.add_argument('-c', '--configpath', help='Location of config file', default=os.getenv('DELPHI_CONFIG_FILE', 'config/atm.cnf'), required=False)\nparser.add_argument('-t', '--time', help='Number of seconds to run worker', default=None, required=False)\n\n# TODO: a little confusingly named\nparser.add_argument('-l', '--seqorder', help='work on datasets in sequential order starting with smallest id number, but still max priority (default = random)',\n                    dest='choose_randomly', default=True, action='store_const', const=False)\nargs = parser.parse_args()\n\n# TODO: config should only be loaded once (also in database.py and enter_data.py)\nconfig = Config(args.configpath)\nEnsureDirectory(\"models\")\nEnsureDirectory(\"metrics\")\nEnsureDirectory(\"logs\")\nhostname = GetPublicIP() or random.randint(1, 1e12)\nlogfile = \"logs/%s.txt\" % hostname\nloop_wait = 5\nSQL_DATE_FORMAT = \"%Y-%m-%d %H:%M:%S\"\n\n\ndef _log(msg):\n    with open(logfile, \"a\") as lf:"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0199-aadhaadga",
+  "revision_url": "https://github.com/ROCmSoftwarePlatform/Tensile/commit/3986aacaca92469c8b801d88fcc4098b62db0675",
+  "filename": "Tensile/KernelWriterAssembly.py",
+  "commit": "3986aacaca92469c8b801d88fcc4098b62db0675",
+  "source_url": "https://raw.githubusercontent.com/ROCmSoftwarePlatform/Tensile/3986aacaca92469c8b801d88fcc4098b62db0675/Tensile/KernelWriterAssembly.py",
+  "fetched_at": "2026-11-05T06:12:14.670591+00:00",
+  "source_sha256": "6bdc2d290a864ef017932597f9628a973e92c5c197535d0604300387791fd7d3",
+  "line_start": 3255,
+  "line_end": 3279,
+  "excerpt": "                    (vgpr(\"G2L%s+%u\"%(tP[\"tensorChar\"], g2lIdx), loadWidth), \\\n                    vgpr(\"GlobalReadAddr%s+%u\"%(tP[\"tensorChar\"], graIdx),2)), \\\n                    \"G -> Reg %u_%u_%u_%u\"%(para, sPara, perp, sPerp ), tP[\"NonTemporal\"], 0 )\n\n              #kStr += \"s_waitcnt vmcnt(0)\\n\"\n              #kStr += self.bomb()\n              #kStr += dump(vgpr(\"G2L%s+%u\"%(tP[\"tensorChar\"], graIdx)))\n\n    #kStr += \"s_waitcnt vmcnt(0)\\n\"\n    #kStr += \"s_barrier // debug\\n\"\n    #kStr += self.assert_lt(vgpr(\"Serial\"), 64) # examine second wavefront\n\n    # TODO - can remove one of these m0 restores if A and B both TLU\n    if kernel[\"DirectToLds%s\"%tP[\"tensorChar\"]]:\n      kStr += inst(\"s_mov_b32\", \"m0\", \\\n          hex(kernel[\"LdsNumElements\"] * tP[\"bpe\"]), \\\n          \"Restore LDS clamp at %u bytes\"%(kernel[\"LdsNumElements\"] * tP[\"bpe\"]))\n\n    if guardK:\n      if kernel[\"BufferLoad\"]:\n        self.vgprPool.checkIn(offsetVgpr)\n      else:\n        self.vgprPool.checkIn(bpeVgpr)\n        self.vgprPool.checkIn(zeroVgpr)\n    return kStr"
+}

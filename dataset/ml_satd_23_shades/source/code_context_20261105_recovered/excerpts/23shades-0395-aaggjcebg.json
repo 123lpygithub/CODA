@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0395-aaggjcebg",
+  "revision_url": "https://github.com/jhu-lcsr/costar_plan/commit/cd846d84b67c9dd7342ee9db755afd62b8e1943c",
+  "filename": "costar_google_brainrobotdata/grasp_geometry.py",
+  "commit": "cd846d84b67c9dd7342ee9db755afd62b8e1943c",
+  "source_url": "https://raw.githubusercontent.com/jhu-lcsr/costar_plan/cd846d84b67c9dd7342ee9db755afd62b8e1943c/costar_google_brainrobotdata/grasp_geometry.py",
+  "fetched_at": "2026-11-05T06:12:44.517041+00:00",
+  "source_sha256": "c3be04da5e5de03ccbda2c8b7c0cb8ac92719c443bb067575f2309ac972499d7",
+  "line_start": 235,
+  "line_end": 259,
+  "excerpt": "                                           camera_intrinsics_matrix,\n                                           depth_image,\n                                           pixel_coordinate_of_endeffector)\n\n    # make an identity quaternion because the pixel will use the camera orientation\n    # TODO(ahundt) is this the right axis ordering for the translation component\n    camera_T_cloud_point_ptrans = vector_to_ptransform(XYZ)\n    # TODO(ahundt) is this inverse correct?\n    cloud_point_T_camera_ptrans = camera_T_cloud_point_ptrans.inverse()\n    # transform point all the way to depth frame\n    depth_pixel_T_endeffector_ptrans = cloud_point_T_camera_ptrans * camera_T_endeffector_ptrans\n    # get the depth relative transform\n    # TODO(ahundt) maybe the rotation component of this needs to be inverted due to sva implementation?\n    depth_relative_vec_quat_array = ptransform_to_vector_quaternion_array(depth_pixel_T_endeffector_ptrans)\n\n    if return_depth_image_coordinate:\n        # return the transform and the image coordinate used to generate the transform\n        image_x = pixel_coordinate_of_endeffector[0]\n        image_y = pixel_coordinate_of_endeffector[1]\n        return np.concatenate((depth_relative_vec_quat_array, image_x, image_y))\n    else:\n        return depth_relative_vec_quat_array\n\n\ndef camera_to_endeffector_ptransform(camera_T_base, base_T_endeffector):"
+}

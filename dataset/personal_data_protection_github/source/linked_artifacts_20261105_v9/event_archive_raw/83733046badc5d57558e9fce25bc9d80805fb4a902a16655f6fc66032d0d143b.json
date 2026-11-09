@@ -1,0 +1,170 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27flexion%2Fef-cms%27+AND+number%3D6408+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='flexion/ef-cms' AND number=6408 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:40.323960+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "mariahkannenberg",
+        "created_at": "2020-09-14 20:00:37",
+        "updated_at": "2020-09-14 20:00:36",
+        "title": "Logging strategy to have better control of what never gets logged",
+        "body": "When logging objects to the API logs, add functionality to filter out certain keys so that they never get logged. Here is a starter list, to which we should be able to add more in the future:\n\n- token\n- headers.authorization (bearer token)",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-09-14 20:00:00",
+        "repo_name": "flexion/ef-cms",
+        "number": 6408
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "mmarcotte",
+        "created_at": "2020-09-17 16:57:48",
+        "updated_at": "2020-09-17 16:57:48",
+        "title": "Logging strategy to have better control of what never gets logged",
+        "body": "Add:\r\n* `AWS_ACCESS_KEY_ID`\r\n* `AWS_SECRET_ACCESS_KEY`\r\n\r\nto the never log list. Looks like the `AWS_ACCESS_KEY_ID` is showing up in some logs.",
+        "comment_id": 694365970,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-09-17 16:00:00",
+        "repo_name": "flexion/ef-cms",
+        "number": 6408
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "sutt0n",
+        "created_at": "2020-11-04 15:19:54",
+        "updated_at": "2020-11-04 15:19:54",
+        "title": "Logging strategy to have better control of what never gets logged",
+        "body": "When logging objects to the API logs, add functionality to filter out certain keys so that they never get logged. Here is a starter list, to which we should be able to add more in the future:\n\n## Acceptance Criteria:\n* Do not log:\n   * token\n   * headers.authorization (bearer token)\n\nMike Marcotte to backlog any additional work needed for post-MVP.\n\n## Definition of Done (Updated 10-26-20)\n**Product Owner**\n - [ ]  Acceptance criteria have been met and validated on the Flexion Prod env\n\n**UX**\n - [ ] Business test scenarios to meet all acceptance criteria have been written\n - [ ] Usability has been validated\n - [ ] Wiki has been updated (if applicable) \n - [ ] Story has been tested on a mobile device (for external users only)\n\n**Engineering**\n - [ ] Automated test scripts have been written\n - [ ] Field level and page level validation errors (front-end and server-side) integrated and functioning\n - [ ] Paired w/Mark on data migration work (if applicable)\n - [ ] Verify that language for docket record for internal users and external users is identical\n - [ ] New screens have been added to pa11y scripts\n - [ ] All new functionality verified to work with keyboard and macOS voiceover https://www.apple.com/voiceover/info/guide/_1124.html \n - [ ] READMEs, other appropriate docs, JSDocs and swagger/APIs fully updated\n - [ ] UI should be touch optimized and responsive for external only (functions on supported mobile devices and optimized for screen sizes as required)\n - [ ] Module dependencies are up-to-date and are at the latest resolvable version (npm update)\n - [ ] Errors in Sonarcloud are fixed https://sonarcloud.io/organizations/flexion-github/projects\n - [ ] Lambdas include CloudWatch logging of users, inputs and outputs\n - [ ] Interactors should validate entities before calling persistence methods\n - [ ] Code refactored for clarity and to remove any known technical debt\n - [ ] Rebuild entity documentation\n - [ ] Acceptance criteria for the story has been met\n - [ ] Deployed to the dev environment\n - [ ] Deployed to the **prod** environment\n",
+        "comment_id": 0,
+        "comments": 1,
+        "state": "closed",
+        "closed_at": "2020-11-04 15:19:53",
+        "file_time": "2020-11-04 15:00:00",
+        "repo_name": "flexion/ef-cms",
+        "number": 6408
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "reopened",
+        "actor_login": "mmarcotte",
+        "created_at": "2020-11-05 18:10:27",
+        "updated_at": "2020-11-05 18:10:27",
+        "title": "Logging strategy to have better control of what never gets logged",
+        "body": "When logging objects to the API logs, add functionality to filter out certain keys so that they never get logged. Here is a starter list, to which we should be able to add more in the future:\n\n## Acceptance Criteria:\n* Do not log:\n   * token\n   * headers.authorization (bearer token)\n\nMike Marcotte to backlog any additional work needed for post-MVP.\n\n## Definition of Done (Updated 10-26-20)\n**Product Owner**\n - [ ]  Acceptance criteria have been met and validated on the Flexion Prod env\n\n**UX**\n - [ ] Business test scenarios to meet all acceptance criteria have been written\n - [ ] Usability has been validated\n - [ ] Wiki has been updated (if applicable) \n - [ ] Story has been tested on a mobile device (for external users only)\n\n**Engineering**\n - [ ] Automated test scripts have been written\n - [ ] Field level and page level validation errors (front-end and server-side) integrated and functioning\n - [ ] Paired w/Mark on data migration work (if applicable)\n - [ ] Verify that language for docket record for internal users and external users is identical\n - [ ] New screens have been added to pa11y scripts\n - [ ] All new functionality verified to work with keyboard and macOS voiceover https://www.apple.com/voiceover/info/guide/_1124.html \n - [ ] READMEs, other appropriate docs, JSDocs and swagger/APIs fully updated\n - [ ] UI should be touch optimized and responsive for external only (functions on supported mobile devices and optimized for screen sizes as required)\n - [ ] Module dependencies are up-to-date and are at the latest resolvable version (npm update)\n - [ ] Errors in Sonarcloud are fixed https://sonarcloud.io/organizations/flexion-github/projects\n - [ ] Lambdas include CloudWatch logging of users, inputs and outputs\n - [ ] Interactors should validate entities before calling persistence methods\n - [ ] Code refactored for clarity and to remove any known technical debt\n - [ ] Rebuild entity documentation\n - [ ] Acceptance criteria for the story has been met\n - [ ] Deployed to the dev environment\n - [ ] Deployed to the **prod** environment\n",
+        "comment_id": 0,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-11-05 18:00:00",
+        "repo_name": "flexion/ef-cms",
+        "number": 6408
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "adunkman",
+        "created_at": "2020-11-09 19:08:33",
+        "updated_at": "2020-11-09 19:08:32",
+        "title": "Logging strategy to have better control of what never gets logged",
+        "body": "Replaced by https://github.com/ustaxcourt/ef-cms/issues/524.",
+        "comment_id": 724215859,
+        "comments": 1,
+        "state": "closed",
+        "closed_at": "2020-11-09 19:08:33",
+        "file_time": "2020-11-09 19:00:00",
+        "repo_name": "flexion/ef-cms",
+        "number": 6408
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "adunkman",
+        "created_at": "2020-11-09 19:08:33",
+        "updated_at": "2020-11-09 19:08:33",
+        "title": "Logging strategy to have better control of what never gets logged",
+        "body": "When logging objects to the API logs, add functionality to filter out certain keys so that they never get logged. Here is a starter list, to which we should be able to add more in the future:\r\n\r\n## Acceptance Criteria:\r\n- [x] Do not log:\r\n- [x]   * token\r\n- [x]   * headers.authorization (bearer token)\r\n- [ ] remove instances where console.log(...) to use one of `applicationContext.logger`:\r\n  - [ ] `.error('errorMessageHere', err)`: an error has occurred, log this and include an object for context\r\n  - [ ] `.warn('highVolume', data)`: useful for logging warnings about activity. Include any relevant info in data\r\n  - [ ] `.notice('userLogin', user)`: useful for metrics and auditing the application's activity\r\n  - [ ] `.info('message here', data)`: not logged to production, but light debugging in lower environments\r\n  - [ ] `.debug('verboseLog', data)`:  messages you want to see for the developer, will not be logged on deployed instance\r\n\r\n## Note:\r\n* There are 110 console logs. \r\n* Mike Marcotte to backlog any additional work needed for post-MVP.\r\n\r\n## Definition of Done (Updated 10-26-20)\r\n**Product Owner**\r\n - [ ]  Acceptance criteria have been met and validated on the Flexion Prod env\r\n\r\n**UX**\r\n - [ ] Business test scenarios to meet all acceptance criteria have been written\r\n - [ ] Usability has been validated\r\n - [ ] Wiki has been updated (if applicable) \r\n - [ ] Story has been tested on a mobile device (for external users only)\r\n\r\n**Engineering**\r\n - [ ] Automated test scripts have been written\r\n - [ ] Field level and page level validation errors (front-end and server-side) integrated and functioning\r\n - [ ] Paired w/Mark on data migration work (if applicable)\r\n - [ ] Verify that language for docket record for internal users and external users is identical\r\n - [ ] New screens have been added to pa11y scripts\r\n - [ ] All new functionality verified to work with keyboard and macOS voiceover https://www.apple.com/voiceover/info/guide/_1124.html \r\n - [ ] READMEs, other appropriate docs, JSDocs and swagger/APIs fully updated\r\n - [ ] UI should be touch optimized and responsive for external only (functions on supported mobile devices and optimized for screen sizes as required)\r\n - [ ] Module dependencies are up-to-date and are at the latest resolvable version (npm update)\r\n - [ ] Errors in Sonarcloud are fixed https://sonarcloud.io/organizations/flexion-github/projects\r\n - [ ] Lambdas include CloudWatch logging of users, inputs and outputs\r\n - [ ] Interactors should validate entities before calling persistence methods\r\n - [ ] Code refactored for clarity and to remove any known technical debt\r\n - [ ] Rebuild entity documentation\r\n - [ ] Acceptance criteria for the story has been met\r\n - [ ] Deployed to the dev environment\r\n - [ ] Deployed to the **prod** environment\r\n",
+        "comment_id": 0,
+        "comments": 2,
+        "state": "closed",
+        "closed_at": "2020-11-09 19:08:33",
+        "file_time": "2020-11-09 19:00:00",
+        "repo_name": "flexion/ef-cms",
+        "number": 6408
+      }
+    ],
+    "rows": 6,
+    "statistics": {
+      "elapsed": 0.023151157,
+      "rows_read": 288245,
+      "bytes_read": 8813632
+    }
+  },
+  "response_sha256": "e5a0a895f68d6e606909887f95cff47b9b62d23a0092fe975e9b75e431242991"
+}

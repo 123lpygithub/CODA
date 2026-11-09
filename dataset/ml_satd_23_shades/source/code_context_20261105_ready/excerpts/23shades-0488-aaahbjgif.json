@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0488-aaahbjgif",
+  "revision_url": "https://github.com/Erotemic/netharn/commit/ef932c663f51f5cb804a56ea4c63ff70c7d6bc31",
+  "filename": "examples/sseg_camvid.py",
+  "commit": "ef932c663f51f5cb804a56ea4c63ff70c7d6bc31",
+  "source_url": "https://raw.githubusercontent.com/Erotemic/netharn/ef932c663f51f5cb804a56ea4c63ff70c7d6bc31/examples/sseg_camvid.py",
+  "fetched_at": "2026-11-05T06:13:01.875580+00:00",
+  "source_sha256": "fd0b0cbaa81c36af84d5146360ec5b9ca336b81b72732f1116d47a1c0fb61853",
+  "line_start": 179,
+  "line_end": 203,
+  "excerpt": "\n        raw_dets = kwimage.Detections(\n            aids=aids,\n            boxes=boxes,\n            class_idxs=class_idxs,\n            segmentations=segmentations,\n            classes=self.classes,\n            datakeys=['aids'],\n        )\n\n        keep = []\n        for i, s in enumerate(raw_dets.data['segmentations']):\n            # TODO: clip polygons\n            m = s.to_mask(input_dims)\n            if m.area > 0:\n                keep.append(i)\n        dets = raw_dets.take(keep)\n\n        heatmap = dets.rasterize(bg_size=(1, 1), input_dims=input_dims,\n                                 soften=0, exclude=['diameter', 'class_probs', 'offset'])\n        return heatmap\n\n    def _colorized_labels(self, cidxs):\n        self.cx_to_color = np.array([\n            self.sampler.dset.name_to_cat[self.classes[cx]]['color']"
+}

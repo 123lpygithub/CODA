@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0173-aabdgggib",
+  "revision_url": "https://github.com/Sanqiang/text_simplification/commit/aa326601488d19ed8b6209d53c1179632b99a25e",
+  "filename": "tensor2tensor/models/research/attention_lm_moe.py",
+  "commit": "aa326601488d19ed8b6209d53c1179632b99a25e",
+  "source_url": "https://raw.githubusercontent.com/Sanqiang/text_simplification/aa326601488d19ed8b6209d53c1179632b99a25e/tensor2tensor/models/research/attention_lm_moe.py",
+  "fetched_at": "2026-11-05T06:12:06.040318+00:00",
+  "source_sha256": "a2df60447cf59de512a51a4390a043d0ae624eab90d381375639d21c16ac9c61",
+  "line_start": 427,
+  "line_end": 451,
+  "excerpt": "    mode (ModeKeys): infer, train or eval. If inference, the padding remover is\n      not applied\n\n  Returns:\n    tf.Tensor of shape [1,length_nonpad,depth] where\n      length_nonpad <= batch_size*length\n  \"\"\"\n  # Concatenate all tokens (without padding)\n  x = expert_utils.flatten_all_but_last(x)\n\n  # Remove padding for training and eval\n  if mode != ModeKeys.PREDICT:\n    # This is a hack to allows inference when the <go> token\n    # is detected as padding and removed. This works for now because there is\n    # no padding at inference.\n    x = pad_remover.remove(x)\n\n  x = tf.expand_dims(x, axis=0)  # Now batch_size=1\n  return x\n\n\n@expert_utils.add_name_scope()\ndef restore_pad(x, ref_x, pad_remover, mode):\n  x = tf.squeeze(x, axis=0)\n  if mode != ModeKeys.PREDICT:"
+}

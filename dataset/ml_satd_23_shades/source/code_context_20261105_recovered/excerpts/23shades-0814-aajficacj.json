@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0814-aajficacj",
+  "revision_url": "https://github.com/probcomp/bayeslite/commit/859b4b9e5741ab58286ea0621cd3cd40b8455fe7",
+  "filename": "src/metamodels/cgpm_metamodel.py",
+  "commit": "859b4b9e5741ab58286ea0621cd3cd40b8455fe7",
+  "source_url": "https://raw.githubusercontent.com/probcomp/bayeslite/859b4b9e5741ab58286ea0621cd3cd40b8455fe7/src/metamodels/cgpm_metamodel.py",
+  "fetched_at": "2026-11-05T06:13:59.140477+00:00",
+  "source_sha256": "dfe3186fbb6d97b96cf918f05c0f2f456e5de78c64ae59ef1433062b3b7713ae",
+  "line_start": 304,
+  "line_end": 328,
+  "excerpt": "        modelnos = None if modelno is None else [modelno]\n        with self._engine_states(bdb, generator_id, modelnos):\n            # Map the variable indexing.\n            cgpm_colno0 = self._cgpm_colno(bdb, generator_id, colno0)\n            cgpm_colno1 = self._cgpm_colno(bdb, generator_id, colno1)\n\n            # Go!\n            return self._engine.dependence_probability(\n                cgpm_colno0, cgpm_colno1)\n\n    def column_mutual_information(self, bdb, generator_id, modelno,\n            colno0, colno1, numsamples=None):\n        # XXX Default number of samples drawn from my arse.\n        if numsamples is None:\n            numsamples = 1000\n\n        # Prepare the engine with the requested states.\n        modelnos = None if modelno is None else [modelno]\n        with self._engine_states(bdb, generator_id, modelnos):\n            # Map the variable indexing.\n            cgpm_colno0 = self._cgpm_colno(bdb, generator_id, colno0)\n            cgpm_colno1 = self._cgpm_colno(bdb, generator_id, colno1)\n\n            # Go!\n            mi_list = self._engine.mutual_information("
+}

@@ -1,0 +1,146 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18429",
+  "issue_url": "https://github.com/nextcloud/ios/issues/324",
+  "source_issue_url": "https://github.com/nextcloud/ios/issues/324",
+  "api_url": "https://api.github.com/repos/nextcloud/ios/issues/324",
+  "title": "Automatic upload uses GPS, but should not (extreme battery drain)",
+  "body": "I have no clue why you require GPS for background uploads, but it drains my battery to empty.\r\n\r\nI see no reason for this behaviour and GPS is knonw to be the most heavy battery leaching process you can think off. All images are already GPS tagged by the iphone. Sooo no need to tag again, what also meens no need to calculate my position at all and no need to waste my battery!\r\n\r\nIf the phone is inside WLAN it need to upload the files - only than. WLAN on/off can be detected by the app without GPS.\r\n\r\nThe battery drain with this app is really extreme... ~800 images, 30% battery loss. I hope you can improve this and I hope it does not get empty before I'm back to a charger... :(",
+  "author": "Participant 1",
+  "created_at": "2017-07-28T16:00:07Z",
+  "updated_at": "2019-11-30T00:53:09Z",
+  "state": "closed",
+  "closed_at": "2017-07-29T10:24:37Z",
+  "issue_fetched_at": "2026-10-18T16:10:03.435221+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T16:10:04.804108+00:00"
+  ],
+  "expected_comment_count": 15,
+  "retrieved_comment_count": 15,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 318698363,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318698363",
+      "created_at": "2017-07-28T16:20:39Z",
+      "updated_at": "2017-07-28T17:20:48Z",
+      "author": "Participant 2",
+      "body": "read : \r\n\r\nhttps://github.com/nextcloud/ios/issues/215\r\n\r\np.s. Your post is not correct, the system dot use the \" traditional GPS\" but the Cell radios\r\n\r\nhttps://developer.apple.com/documentation/corelocation/cllocationmanager\r\n\r\n> For example, setting the desired accuracy for location events to one kilometer gives the location manager the flexibility to turn off GPS hardware and rely solely on the WiFi or cell radios, which can lead to significant power savings.\r\n \r\n"
+    },
+    {
+      "id": 318769008,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318769008",
+      "created_at": "2017-07-28T21:44:51Z",
+      "updated_at": "2017-07-28T21:44:51Z",
+      "author": "Participant 1",
+      "body": "Could be true - I'm not in the code. The app request GPS from me and the description does not tell anything about Cell radios. The battery drain is EXTREME and I still see no reason why this is needed. Only WLAN on/off is an indicator that should start the sync... normally. At least I do not have a 100GB LTE flat on mobile... :). I do not get the design idea why my movement should start a sync. Whereever I am, after the photo is taken it should be uploaded if there is wlan. if no wlan, wait until wlan comes up and than sync. To detect a wlan goes on and off you should not require my position... also if one kilometer inaccurate."
+    },
+    {
+      "id": 318819356,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318819356",
+      "created_at": "2017-07-29T10:24:37Z",
+      "updated_at": "2017-07-29T13:28:47Z",
+      "author": "Participant 3",
+      "body": "@yamlfd Blame Apple. They are the ones who demands this to be able to upload photos in the background."
+    },
+    {
+      "id": 318824588,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318824588",
+      "created_at": "2017-07-29T11:42:17Z",
+      "updated_at": "2017-07-29T11:43:27Z",
+      "author": "Participant 1",
+      "body": "Can you extend the description in the app, please?\r\n\r\nI fighted with myself to enable this setting in a way that I was more 99% on the side to NOT enable GPS for nextcloud app as it looked like a serious privacy issue to me. The enable button must explain why the app need this in a way that do not concern people. Please explain in details why you need it, please."
+    },
+    {
+      "id": 318825162,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318825162",
+      "created_at": "2017-07-29T11:49:37Z",
+      "updated_at": "2017-07-29T11:49:37Z",
+      "author": "Participant 2",
+      "body": "![img_6646](https://user-images.githubusercontent.com/8616947/28744606-b1aab540-7464-11e7-8430-ef1086bc0709.PNG)\r\n\r\nThe description is clear and correct\r\n"
+    },
+    {
+      "id": 318828114,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318828114",
+      "created_at": "2017-07-29T12:30:55Z",
+      "updated_at": "2017-07-29T12:30:55Z",
+      "author": "Participant 1",
+      "body": "What concerns me is the last part. My location does **not** change significantly when I make photos. However I expect that the app uploads them once I made them and I have seen it uploads more or less directly. I think it is not correct that I need to move 1km to get my photos uploaded, isn't it? If WLAN is active it will be uploaded immediately after the photo has been taken. Correct me if I'm wrong.\r\n\r\nI think this info is _inacurrate_ than or at least misleading. It sounds like I need to move 1km to start the sync. Can you think of other wording for this?\r\n\r\nYour sentence may be technically correct, but it is too technical. Hell - that I'm saying this... normally it cannot be enough technical details to understand how something works. May blame Apple the unfriendly way.\r\n"
+    },
+    {
+      "id": 318828952,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318828952",
+      "created_at": "2017-07-29T12:48:10Z",
+      "updated_at": "2017-07-29T12:48:10Z",
+      "author": "Participant 2",
+      "body": "I agree butthis  is Apple system and political, do not exists a background system for app iOS, when your app is in background your app if freeze ... Dropbox (I think) has find for first this possibility... but is only a ploy.. several users are complaining but this is only way for detect new item in camera roll ... work it ?? Mmm for me  it's ugly but the users want this ugly possibility... if you don't want is simple ... set off :-) "
+    },
+    {
+      "id": 318830820,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318830820",
+      "created_at": "2017-07-29T13:20:33Z",
+      "updated_at": "2017-07-29T13:20:33Z",
+      "author": "Participant 1",
+      "body": "If you could just give the users a better fealing that this is only required to make this feature working and you are not using it to track their position (for privacy reasons) it would be more than helpful. Can you do this, please? I have a very bad fealing if a software tracks my position and it is **not** a navigation or related software."
+    },
+    {
+      "id": 318852270,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318852270",
+      "created_at": "2017-07-29T19:10:48Z",
+      "updated_at": "2017-07-29T19:10:48Z",
+      "author": "Participant 4",
+      "body": "@jospoortvliet can we mention this somewhere on our website?\r\n\r\nGood explanation: https://www.dropbox.com/help/mobile/background-uploading-location-data\r\n\r\n@all I understand your complaints. This is how it is. It is a technical limitation, and similar things exist on Android (however, they are resolved differently). We will try to make this more clear, but technically there's not much we can do except for allowing to disable background uploading. cc @marinofaggiana "
+    },
+    {
+      "id": 318858285,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318858285",
+      "created_at": "2017-07-29T20:47:51Z",
+      "updated_at": "2017-07-29T20:47:51Z",
+      "author": "Participant 2",
+      "body": "Oh yes good solution @mario ... it's a start for next manual"
+    },
+    {
+      "id": 318885064,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318885064",
+      "created_at": "2017-07-30T07:46:10Z",
+      "updated_at": "2017-07-30T07:46:10Z",
+      "author": "Participant 1",
+      "body": "Has one of youa screenshot of dropbox app. It seems to require an expensive upgrade of dropbox to see how the app interface looks like."
+    },
+    {
+      "id": 318885248,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-318885248",
+      "created_at": "2017-07-30T07:50:40Z",
+      "updated_at": "2017-07-30T07:50:40Z",
+      "author": "Participant 1",
+      "body": "Found something that is much better info.\r\n\r\nWhy does the app stop uploading even when the Background App Refresh is turned on?\r\n\r\nBecause Apple only allows background apps 10 minutes of execution time before being forcefully suspended."
+    },
+    {
+      "id": 537915858,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-537915858",
+      "created_at": "2019-10-03T12:04:10Z",
+      "updated_at": "2019-10-03T12:04:10Z",
+      "author": "Participant 5",
+      "body": "Hi @marinofaggiana \r\nWouldn't [this (Observe and Response to Changes)](https://developer.apple.com/documentation/photokit/browsing_and_modifying_photo_albums#3035833) allow to not use location services, but be notified when an event occurs in the Photos library instead?"
+    },
+    {
+      "id": 558049527,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-558049527",
+      "created_at": "2019-11-25T08:39:57Z",
+      "updated_at": "2019-11-25T08:39:57Z",
+      "author": "Participant 6",
+      "body": "Battery drain problem occurs again on client version 2.25.0.15 and server version 17.0.1. iOS is running on version 13.2.3\r\n![Battery Usage](https://user-images.githubusercontent.com/14993570/69524980-74921400-0f67-11ea-9355-d48e2ae282a0.png)\r\n"
+    },
+    {
+      "id": 559900671,
+      "url": "https://github.com/nextcloud/ios/issues/324#issuecomment-559900671",
+      "created_at": "2019-11-30T00:53:08Z",
+      "updated_at": "2019-11-30T00:53:08Z",
+      "author": "Participant 7",
+      "body": "Over 50% of my battery use the past two days has been NextCloud in the background on 2.25.0.15. I’ll need to disable background photo sync now. Best part is I only took like 8 photos with my phone 😀"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

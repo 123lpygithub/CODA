@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/cloudfoundry/uaa/blob/ec713f0b4ea0da2f2f67252c8c811e073bf91cf8/server/src/main/java/org/cloudfoundry/identity/uaa/scim/jdbc/JdbcScimUserProvisioning.java#L345",
+  "kind": "file",
+  "cited_in": [
+    "comment_364561241"
+  ],
+  "revision": "ec713f0b4ea0da2f2f67252c8c811e073bf91cf8",
+  "immutable_revision": true,
+  "line_start": 333,
+  "line_end": 357,
+  "text": "            ps.setBoolean(1, passwordChangeRequired);\n            ps.setString(2, userId);\n            ps.setString(3, zoneId);\n        });\n        if (updated == 0) {\n            throw new ScimResourceNotFoundException(\"User \" + userId + \" does not exist\");\n        }\n    }\n\n    @Override\n    public ScimUser delete(String id, int version, String zoneId) {\n        ScimUser user = retrieve(id, zoneId);\n        return deactivateOnDelete ? deactivateUser(user, version, zoneId) : deleteUser(user, version, zoneId);\n    }\n\n    private ScimUser deactivateUser(ScimUser user, int version, String zoneId) {\n        logger.debug(\"Deactivating user: \" + user.getId());\n        int updated;\n        if (version < 0) {\n            // Ignore\n            updated = jdbcTemplate.update(DEACTIVATE_USER_SQL, false, user.getId(), zoneId);\n        } else {\n            updated = jdbcTemplate.update(DEACTIVATE_USER_SQL + \" and version=?\", false, user.getId(), zoneId, version);\n        }\n        if (updated == 0) {",
+  "source_sha256": "dbdbc4f4939d4da2b7efd20aed342ccf6424cc347d11d606b9b52719704fa0d3",
+  "fetched_at": "2026-11-05T07:22:05.097074+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/cloudfoundry/uaa/ec713f0b4ea0da2f2f67252c8c811e073bf91cf8/server/src/main/java/org/cloudfoundry/identity/uaa/scim/jdbc/JdbcScimUserProvisioning.java",
+  "status": "available"
+}

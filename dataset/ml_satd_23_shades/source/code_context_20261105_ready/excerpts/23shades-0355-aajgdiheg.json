@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0355-aajgdiheg",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/2d0af5d461ee3bdcc973072da5821450075ef9ba",
+  "filename": "mne/io/kit/kit.py",
+  "commit": "2d0af5d461ee3bdcc973072da5821450075ef9ba",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/2d0af5d461ee3bdcc973072da5821450075ef9ba/mne/io/kit/kit.py",
+  "fetched_at": "2026-11-05T06:12:38.602536+00:00",
+  "source_sha256": "5efd88386ca850e7cda6696d6184ba897950dfb632523dfe34dec8652460b8ec",
+  "line_start": 242,
+  "line_end": 266,
+  "excerpt": "            pointer = start * nchan * KIT.SHORT\n            fid.seek(data_offset + pointer)\n            for blk_start in np.arange(0, data_left, blk_size) // nchan:\n                blk_size = min(blk_size, data_left - blk_start * nchan)\n                block = np.fromfile(fid, dtype='h', count=blk_size)\n                block = block.reshape(nchan, -1, order='F').astype(float)\n                blk_stop = blk_start + block.shape[1]\n                data_view = data[:, blk_start:blk_stop]\n                block *= conv_factor[:, np.newaxis]\n                if self._raw_extras[fi]['stim'] is None:\n                    _mult_cal_one(data_view, block, idx, None, mult)\n                else:\n                    _mult_cal_one(data_view[:-1], block, idx, None, mult)  # TODO stim channel exclusion\n\n        # Create a synthetic channel\n        if self._raw_extras[fi]['stim'] is not None:\n            trig_chs = data[self._raw_extras[fi]['stim'], :]\n            if self._raw_extras[fi]['slope'] == '+':\n                trig_chs = trig_chs > self._raw_extras[0]['stimthresh']\n            elif self._raw_extras[fi]['slope'] == '-':\n                trig_chs = trig_chs < self._raw_extras[0]['stimthresh']\n            else:\n                raise ValueError(\"slope needs to be '+' or '-'\")\n\n            # trigger value"
+}

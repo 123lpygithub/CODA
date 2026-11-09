@@ -1,0 +1,23 @@
+{
+  "artifact_id": "privacy-issue-5066",
+  "source_issue_url": "https://github.com/wso2/product-ei/issues/1910",
+  "issue_snapshot_sha256": "ce8de81b52638e6115ca73078aea5cbfd5470cb9d4129077dee1c7b1c946b9d9",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/wso2/identity-anonymization-tool/pull/63",
+      "kind": "pull_request",
+      "cited_in": [
+        "comment_372429600"
+      ],
+      "text": "From a1814871e68952103af06c8c24e43821331d86b4 Mon Sep 17 00:00:00 2001\nFrom: Milan Perera <milan@wso2.com>\nDate: Tue, 13 Mar 2018 00:37:32 +0530\nSubject: [PATCH] Modify ei-config.json\n\nModified to run log anonymization as the default\n---\n .../resources/products/ei/conf/config-ei.json | 20 +++----------------\n 1 file changed, 3 insertions(+), 17 deletions(-)\n\ndiff --git a/components/org.wso2.carbon.privacy.forgetme.conf/src/main/resources/products/ei/conf/config-ei.json b/components/org.wso2.carbon.privacy.forgetme.conf/src/main/resources/products/ei/conf/config-ei.json\nindex 6bb4d4b..dc5985e 100644\n--- a/components/org.wso2.carbon.privacy.forgetme.conf/src/main/resources/products/ei/conf/config-ei.json\n+++ b/components/org.wso2.carbon.privacy.forgetme.conf/src/main/resources/products/ei/conf/config-ei.json\n@@ -1,28 +1,14 @@\n {\n   \"processors\" : [\n-    \"rdbms\", \"log-file\"\n+    \"log-file\"\n   ],\n   \"directories\": [\n     {\n       \"dir\": \"log-config\",\n       \"type\": \"log-file\",\n       \"processor\" : \"log-file\",\n-      \"log-file-path\" : \"logs\",\n-      \"log-file-name-regex\" : \"wso2carbon.log\"\n-    },\n-    {\n-      \"dir\": \"log-config\",\n-      \"type\": \"log-file\",\n-      \"processor\" : \"log-file\",\n-      \"log-file-path\" : \"logs\",\n-      \"log-file-name-regex\" : \"audit.log\"\n-    },\n-    {\n-      \"dir\": \"log-config\",\n-      \"type\": \"log-file\",\n-      \"processor\" : \"log-file\",\n-      \"log-file-path\" : \"logs\",\n-      \"log-file-name-regex\" : \"warn.log\"\n+      \"log-file-path\" : \"repository/logs\",\n+      \"log-file-name-regex\" : \"(audit.log|warn.log|wso2carbon.log|Sample-proxyservice.log)(.)*\"\n     },\n     {\n       \"dir\": \"sql\",\n",
+      "source_sha256": "f42c2317a000e17749bc947ca7a6206af8760914deeb08a8f0ce924c7dc4799c",
+      "fetched_at": "2026-11-05T06:16:24.393830+00:00",
+      "retrieval_url": "https://github.com/wso2/identity-anonymization-tool/pull/63.patch",
+      "status": "available",
+      "revision": "63",
+      "immutable_revision": false,
+      "metadata_status": "unavailable; a patch alone does not establish merge or deployment"
+    }
+  ]
+}

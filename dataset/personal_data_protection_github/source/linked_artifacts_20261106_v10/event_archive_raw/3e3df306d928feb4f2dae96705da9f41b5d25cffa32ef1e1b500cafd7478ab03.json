@@ -1,0 +1,346 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27Automattic%2Fjetpack%27+AND+number%3D20022+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='Automattic/jetpack' AND number=20022 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:39.117526+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "RafaelFunchal",
+        "created_at": "2021-06-03 20:43:00",
+        "updated_at": "2021-06-03 20:42:59",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "The user contacted us over a ticket (4036789-zen) about the lack of a button to refuse cookies and shared this message:\r\n\r\n> it is still not possible to have a banner respecting the rules related to the GDPR, that is to say with a button allowing to refuse all the cookies. Can you please help me to comply with this point? The banner on sites without domain seems better but still not correct since the refuse button is not available directly.\r\n\r\nAs the Cookies & Consent Banner Widget doesn't allow that yet, I'm creating this issue as a Feature Request.",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-06-03 20:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "nickpagz",
+        "created_at": "2022-01-08 16:18:54",
+        "updated_at": "2022-01-08 16:18:54",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "This is probably linked to https://github.com/Automattic/wp-calypso/issues/54785 \r\nWondering if this should be high priority since it's not complying with local EU laws, or at least not the recommended implementation (explicit rejection button required).",
+        "comment_id": 1008046340,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-01-08 16:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "jeherve",
+        "created_at": "2022-01-10 10:32:54",
+        "updated_at": "2022-01-10 10:32:54",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "> This is probably linked to Automattic/wp-calypso#54785\r\n\r\nYep, you're right. I'll close the other issue as duplicate.",
+        "comment_id": 1008736603,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-01-10 10:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "jeherve",
+        "created_at": "2022-01-10 10:36:27",
+        "updated_at": "2022-01-10 10:36:27",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "Related:\r\n\r\n- p1641481863001600-slack-C025Q5RK2\r\n- pbMDNC-pM-p2",
+        "comment_id": 1008739687,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-01-10 10:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Greatdane",
+        "created_at": "2022-04-20 03:09:50",
+        "updated_at": "2022-04-20 03:09:50",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "Another user; 4958953-zd-woothemes\r\n\r\nThey are quite adamant that the banner is not GDPR compliant, as by law there must be a reject button. \r\n\r\nThey are a French user. From what I can find, French Data Protection Authority (CNIL): Accept and reject buttons need to be equally conspicuous. You must ensure that you offer an equal opportunity to say “yes” and “no” to cookies. The commonly used “Accept All” and “Cookie Settings” buttons are NOT sufficient.\r\n\r\n@jeherve Is it possible we can raise the priority of this?",
+        "comment_id": 1103425176,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-04-20 03:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "coder-karen",
+        "created_at": "2022-04-20 10:44:43",
+        "updated_at": "2022-04-20 10:44:42",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "Sharing this - pbMDNC-tR-p2 - as the suggested response there appears relevant here.",
+        "comment_id": 1103789009,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-04-20 10:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "formosattic",
+        "created_at": "2022-04-30 09:16:32",
+        "updated_at": "2022-04-30 09:16:32",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "Noting that the Cookies & Consents Banner widget may need a whole revamp with the transition to the block widget editor, so this request may have to be considered with whatever the new implementation will be.\r\n\r\nRelevant links:\r\n* https://github.com/Automattic/wp-calypso/issues/52100\r\n* pc4f5j-1F8-p2#comment-2293",
+        "comment_id": 1113955574,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-04-30 09:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "thebud15",
+        "created_at": "2023-01-09 00:43:24",
+        "updated_at": "2023-01-09 00:43:24",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "Mentioned in 5847559-hc",
+        "comment_id": 1374980148,
+        "comments": 7,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2023-01-09 00:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "github-actions[bot]",
+        "created_at": "2023-01-09 00:44:27",
+        "updated_at": "2023-01-09 00:44:27",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "**Support References**\n\n*This comment is automatically generated. Please do not edit it.*\n\n\n- [ ] 4036789-zen\n- [ ] 4958953-zen\n",
+        "comment_id": 1374980558,
+        "comments": 8,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2023-01-09 00:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Aurorum",
+        "created_at": "2023-10-19 13:50:28",
+        "updated_at": "2023-10-19 13:50:28",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "7175873-zen - another user who insists that lacking this option is unlawful. ",
+        "comment_id": 1771033195,
+        "comments": 9,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2023-10-19 13:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Aurorum",
+        "created_at": "2024-02-07 09:20:06",
+        "updated_at": "2024-02-07 09:20:04",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "7699252-zen ",
+        "comment_id": 1931610410,
+        "comments": 10,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2024-02-07 09:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "rajwpdev117",
+        "created_at": "2024-03-16 10:15:35",
+        "updated_at": "2024-03-16 10:15:34",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "7846744- zen An unhappy customer. Need options to be able to customize the cookies banner on the Starter plan. ",
+        "comment_id": 2001939037,
+        "comments": 11,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2024-03-16 10:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Aurorum",
+        "created_at": "2024-04-03 10:16:27",
+        "updated_at": "2024-04-03 10:16:26",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "7984756-zen ",
+        "comment_id": 2034161512,
+        "comments": 12,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2024-04-03 10:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "Aurorum",
+        "created_at": "2024-04-04 06:53:27",
+        "updated_at": "2024-04-04 06:53:26",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "7972006-zen ",
+        "comment_id": 2036329266,
+        "comments": 13,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2024-04-04 06:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "kelasante",
+        "created_at": "2024-05-16 17:00:01",
+        "updated_at": "2024-05-16 17:00:00",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "Another request in 8195554-zen",
+        "comment_id": 2115772965,
+        "comments": 14,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2024-05-16 17:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "lizswafford",
+        "created_at": "2024-08-26 13:55:54",
+        "updated_at": "2024-08-26 13:55:52",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "8624133-zen\r\n",
+        "comment_id": 2310280959,
+        "comments": 15,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2024-08-26 13:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "nukak2024",
+        "created_at": "2025-05-20 07:30:27",
+        "updated_at": "2025-05-20 07:30:25",
+        "title": "Cookies & Consents Banner Widget: Refuse / Don't Consent Button",
+        "body": "9790237-zd-a8c",
+        "comment_id": 2893269250,
+        "comments": 16,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2025-05-20 07:00:00",
+        "repo_name": "Automattic/jetpack",
+        "number": 20022
+      }
+    ],
+    "rows": 17,
+    "statistics": {
+      "elapsed": 0.02867603,
+      "rows_read": 429863,
+      "bytes_read": 32126717
+    }
+  },
+  "response_sha256": "6c7d4ab49c0a37130399a4773e69d1fc5c99dd663bb61906dbd310de683098cf"
+}

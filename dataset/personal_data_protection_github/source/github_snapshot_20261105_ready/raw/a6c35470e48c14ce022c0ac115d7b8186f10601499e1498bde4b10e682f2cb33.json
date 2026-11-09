@@ -1,0 +1,109 @@
+{
+  "requested_url": "https://api.github.com/repos/xarantolus/bromite-userscripts/commits/main",
+  "final_url": "https://api.github.com/repos/xarantolus/bromite-userscripts/commits/main",
+  "fetched_at": "2026-11-05T12:55:03.017864+00:00",
+  "etag": "W/\"cbe923b62210247471207439ce4041bd2ae865832f4231d9b41e0a5ab0e16af4\"",
+  "last_modified": "Tue, 03 Nov 2026 09:45:04 GMT",
+  "next_url": null,
+  "data": {
+    "sha": "b39e9e3d9c244ad6eb47ceefb5a3f6863982cbfb",
+    "node_id": "C_kwDOGePV79oAKGIzOWU5ZTNkOWMyNDRhZDZlYjQ3Y2VlZmI1YTNmNjg2Mzk4MmNiZmI",
+    "commit": {
+      "author": {
+        "name": "xarantolus",
+        "email": "xarantolus@protonmail.com",
+        "date": "2026-11-03T09:44:56Z"
+      },
+      "committer": {
+        "name": "xarantolus",
+        "email": "xarantolus@protonmail.com",
+        "date": "2026-11-03T09:45:04Z"
+      },
+      "message": "Reddit: hide recommended posts (communities you are not in)\n\nReddit injects posts from communities you are not part of into the feed. They\ncarry a `recommendation-source` attribute (seen: geo_popular_hot_sort,\nglobal_good_visits, two_hop_time_on_subreddits_6hr) and a Join button in the\npost's credit bar. Hide both ways:\n\n- a CSS rule for `shreddit-post[recommendation-source]`, so a post disappears\n  the moment the attribute is set (the MutationObserver above only watches\n  childList and would miss that)\n- a CSS `:has(shreddit-join-button)` rule plus a `ready()` pass that removes the\n  post a Join button sits in, for browsers without `:has()`\n\nThe Join-button rule is limited to the aggregate feeds (/, /r/popular, /r/all):\non a subreddit's own page a Join button only means you are not subscribed, and\nhiding all of its posts would blank the page.\n\nFixes the earlier attempt at this, which referenced `doc` - that only exists\ninside the IIFE above, so scriptFun threw a ReferenceError and nothing was\nhidden.\n\nCo-authored-by: DeepSeek V4.1 Flash <noreply@deepseek.com>",
+      "tree": {
+        "sha": "477fc2cb340acc4f55e620e0948ab7bc01ed12d8",
+        "url": "https://api.github.com/repos/xarantolus/bromite-userscripts/git/trees/477fc2cb340acc4f55e620e0948ab7bc01ed12d8"
+      },
+      "url": "https://api.github.com/repos/xarantolus/bromite-userscripts/git/commits/b39e9e3d9c244ad6eb47ceefb5a3f6863982cbfb",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/xarantolus/bromite-userscripts/commits/b39e9e3d9c244ad6eb47ceefb5a3f6863982cbfb",
+    "html_url": "https://github.com/xarantolus/bromite-userscripts/commit/b39e9e3d9c244ad6eb47ceefb5a3f6863982cbfb",
+    "comments_url": "https://api.github.com/repos/xarantolus/bromite-userscripts/commits/b39e9e3d9c244ad6eb47ceefb5a3f6863982cbfb/comments",
+    "author": {
+      "login": "xarantolus",
+      "id": 32465636,
+      "node_id": "MDQ6VXNlcjMyNDY1NjM2",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32465636?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/xarantolus",
+      "html_url": "https://github.com/xarantolus",
+      "followers_url": "https://api.github.com/users/xarantolus/followers",
+      "following_url": "https://api.github.com/users/xarantolus/following{/other_user}",
+      "gists_url": "https://api.github.com/users/xarantolus/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/xarantolus/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/xarantolus/subscriptions",
+      "organizations_url": "https://api.github.com/users/xarantolus/orgs",
+      "repos_url": "https://api.github.com/users/xarantolus/repos",
+      "events_url": "https://api.github.com/users/xarantolus/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/xarantolus/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "xarantolus",
+      "id": 32465636,
+      "node_id": "MDQ6VXNlcjMyNDY1NjM2",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32465636?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/xarantolus",
+      "html_url": "https://github.com/xarantolus",
+      "followers_url": "https://api.github.com/users/xarantolus/followers",
+      "following_url": "https://api.github.com/users/xarantolus/following{/other_user}",
+      "gists_url": "https://api.github.com/users/xarantolus/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/xarantolus/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/xarantolus/subscriptions",
+      "organizations_url": "https://api.github.com/users/xarantolus/orgs",
+      "repos_url": "https://api.github.com/users/xarantolus/repos",
+      "events_url": "https://api.github.com/users/xarantolus/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/xarantolus/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "a8f456906b83c4e25fbfc7ba4611c4645b12f07e",
+        "url": "https://api.github.com/repos/xarantolus/bromite-userscripts/commits/a8f456906b83c4e25fbfc7ba4611c4645b12f07e",
+        "html_url": "https://github.com/xarantolus/bromite-userscripts/commit/a8f456906b83c4e25fbfc7ba4611c4645b12f07e"
+      }
+    ],
+    "stats": {
+      "total": 41,
+      "additions": 39,
+      "deletions": 2
+    },
+    "files": [
+      {
+        "sha": "2cb46e977655d32585ad98c6a4c34d3692a4efee",
+        "filename": "block/reddit.user.js",
+        "status": "modified",
+        "additions": 39,
+        "deletions": 2,
+        "changes": 41,
+        "blob_url": "https://github.com/xarantolus/bromite-userscripts/blob/b39e9e3d9c244ad6eb47ceefb5a3f6863982cbfb/block%2Freddit.user.js",
+        "raw_url": "https://github.com/xarantolus/bromite-userscripts/raw/b39e9e3d9c244ad6eb47ceefb5a3f6863982cbfb/block%2Freddit.user.js",
+        "contents_url": "https://api.github.com/repos/xarantolus/bromite-userscripts/contents/block%2Freddit.user.js?ref=b39e9e3d9c244ad6eb47ceefb5a3f6863982cbfb",
+        "patch": "@@ -1,8 +1,8 @@\n // ==UserScript==\n // @name         Ad Block: Mobile Reddit\n // @namespace    xarantolus\n-// @version      0.0.1\n-// @description  Removes sponsored posts and ads on Reddit\n+// @version      0.0.3\n+// @description  Removes sponsored posts, ads and recommended posts on Reddit\n // @author       xarantolus\n // @match        *://reddit.com/*\n // @match        *://*.reddit.com/*\n@@ -88,6 +88,43 @@ var scriptFun = function () {\n \n   ready(\"shreddit-ad-post\", removeAd(\"feed ad\"));\n   ready(\"shreddit-comments-page-ad\", removeAd(\"comments page ad\"));\n+\n+  // Posts that Reddit injects from communities you are not part of (\"recommended\" posts). They\n+  // carry a \"Join\" button in the post's community bar and a `recommendation-source` attribute\n+  // (seen: \"geo_popular_hot_sort\", \"global_good_visits\", \"two_hop_time_on_subreddits_6hr\"). A\n+  // normal subreddit feed has neither (0 of 27 posts in /r/de/), so posts there are left alone.\n+  var recommendedPosts =\n+    \"shreddit-post[recommendation-source]:not([recommendation-source=''])\";\n+\n+  // A subreddit's own page keeps its posts even when you are not joined to it, so only the\n+  // aggregate feeds (home, /r/popular, /r/all) are filtered by the Join button.\n+  var pathSubreddit = (location.pathname.match(/^\\/r\\/([^/]+)/i) || [])[1];\n+  var aggregateFeed = !pathSubreddit || /^(popular|all)$/i.test(pathSubreddit);\n+\n+  // The style rules hide a post the moment the marker appears - also for feed items that are loaded\n+  // lazily or whose attribute is set after insertion, which the MutationObserver above (childList\n+  // only) would not catch. Two separate rules, so a browser without :has() only loses the second.\n+  var css = recommendedPosts + \" { display: none !important; }\";\n+  if (aggregateFeed) {\n+    css += \"\\nshreddit-post:has(shreddit-join-button) { display: none !important; }\";\n+  }\n+  var style = document.createElement(\"style\");\n+  style.textContent = css;\n+  (document.head || document.documentElement).appendChild(style);\n+\n+  ready(recommendedPosts, removeWithReason(\"recommended post\"));\n+\n+  // Fallback for browsers without :has(): remove the post a Join button sits in. The observer sees\n+  // the button when it is inserted, so lazily rendered cards are caught too.\n+  if (aggregateFeed) {\n+    ready(\"shreddit-join-button\", function (button) {\n+      var post = button.closest(\"shreddit-post\");\n+      if (post) {\n+        post.remove();\n+        log(\"Removed recommended post (join button)\");\n+      }\n+    });\n+  }\n };\n \n "
+      }
+    ]
+  }
+}

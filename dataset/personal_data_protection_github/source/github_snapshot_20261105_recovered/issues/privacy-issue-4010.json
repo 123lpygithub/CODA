@@ -1,0 +1,98 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4010",
+  "issue_url": "https://github.com/globaleaks/globaleaks-whistleblowing-software/issues/1942",
+  "source_issue_url": "https://github.com/globaleaks/GlobaLeaks/issues/1942",
+  "api_url": "https://api.github.com/repos/globaleaks/globaleaks-whistleblowing-software/issues/1942",
+  "title": "Sanitizing metadata in uploaded files on the client-side",
+  "body": "The status quo is that it is possible to perform deanonymization by examining the metadata of uploaded files (I tried the demo interface and saw no hints about it). A whistleblower may be unaware of possible embedded GPS coordinates in JPG files, or author names in Word documents, etc.\r\n\r\nGlobaleaks would give _a false sense of anonymity_, while the journalists who receive the documents will be able to connect the dots and find the identity of the submitter. Even worse, the police could raid the offices of a newspaper and confiscate all the computers, to do forensic analysis. The authorities would find the source of the leak even if the journalists themselves had no intention to help them.\r\n\r\nThere is a related issue here: #1323, but meta-data is potentially more dangerous.\r\n\r\nI think that in an ideal case we could:\r\n\r\n- tell people about the dangers of metadata _before_ they submit anything\r\n- use client-side libraries to remove metadata before the data gets to the server. This should be done, at least for the most common formats like PDF, JPG, Word, Excel, Powerpoint\r\n- perhaps even display a summary of what metadata was found and removed before the submission.\r\n- metadata could be removed on the server too (though it implies submitters have to trust the server admins - which is too much to ask, in my opinion)",
+  "author": "Participant 1",
+  "created_at": "2017-04-11T14:39:20Z",
+  "updated_at": "2017-04-13T16:53:39Z",
+  "state": "closed",
+  "closed_at": "2017-04-11T15:45:20Z",
+  "issue_fetched_at": "2026-10-18T17:10:14.695307+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T17:10:16.116694+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 293305791,
+      "url": "https://github.com/globaleaks/globaleaks-whistleblowing-software/issues/1942#issuecomment-293305791",
+      "created_at": "2017-04-11T15:45:20Z",
+      "updated_at": "2017-04-11T15:45:20Z",
+      "author": "Participant 2",
+      "body": "@ralienpp there was an implicit choice made to not scrub, AV scan, or try to analyze submitted files as they are loaded in the platform. There are tools for scrubbing metadata that are well made and shipped by default with Tails. There are many good reasons for keeping the interaction of core software small with formats that are notorious for providing RCEs. Further Globaleaks has a data retention policy that by default removes submitted data within 15 days\r\n\r\nFor setups that use PGP the content of the files is stored encrypted on the server. If PGP is not encrypted the Whistleblower is informed in the interface that their intended recipients are not encrypting files. That warning might not quiet address the meta data issue and could be changed to include language about the risk of Personally Identifiable Information/Metadata.\r\n\r\nThis --> FAQS\r\n"
+    },
+    {
+      "id": 293307941,
+      "url": "https://github.com/globaleaks/globaleaks-whistleblowing-software/issues/1942#issuecomment-293307941",
+      "created_at": "2017-04-11T15:52:18Z",
+      "updated_at": "2017-04-11T15:52:18Z",
+      "author": "Participant 2",
+      "body": "Current language:\r\n```html\r\n<strong><span data-translate>Warning</span></strong>\r\n<span data-translate>One or more of the recipients of this submission has not configured a PGP key.</span>\r\n<span data-translate>This means that the submitted files will be stored in plaintext on the server.</span>\r\n```\r\n\r\n@ralienpp any suggestions?"
+    },
+    {
+      "id": 293557895,
+      "url": "https://github.com/globaleaks/globaleaks-whistleblowing-software/issues/1942#issuecomment-293557895",
+      "created_at": "2017-04-12T12:14:12Z",
+      "updated_at": "2017-04-12T12:16:22Z",
+      "author": "Participant 1",
+      "body": "Thanks for the feedback, I wasn't aware that it is so by design.\r\n\r\nI do have a suggestion. I apply the \"mother test\", basically I ask myself \"what would my mother think if she read that?\". What is PGP? What is plaintext? So what if it is plaintext?\r\n\r\nThus I would add something like this:\r\n\r\n```\r\n<strong><span data-translate>Warning</span></strong>\r\n<span data-translate>One or more of the recipients of this submission has not configured a PGP key.</span>\r\n<span data-translate>This means that the submitted files will be stored in plaintext on the server.</span>\r\n<span data-translate>If anyone (e.g. law enforcement agents who confiscated the hardware) gets access to the server, they will be able to read your submitted files.</span>\r\n<span data-translate>Ensure that the files do not have clues (in metadata or in their contents) that could be used to reveal your identity.</span>\r\n```\r\n\r\nI believe it should be made clear to the submitter that:\r\n\r\n- someone who gets access to the server will also be able to read the files (not just the journalists)\r\n- their anonymity is in jeopardy if the docs contain references to the source\r\n\r\n\r\n\r\nIf you apply the mother test again, you see that the next questions would be \"what is metadata?\" and \"how to check it?\".  Therefore, this page presents an opportunity to answer the questions right away by providing links to tools or to a brief explanation.\r\n\r\nThe fact that the tools are available does not imply that people are aware of them and will use them. I have not tried Tails yet, but I will do so (as I am helping someone set up Globaleaks and will train them about the whole thing). If Tails doesn't somehow patch the \"open file\" dialog to pass everything through the data sanitizer - that's bad, in my opinion.\r\n\r\n\r\nAt the same time, if you make people perform extra steps at the final moment, some of them may actually give up (like a bounce rate on a web-site). In any case, I will find the FAQ and see what the rationale behind the decision was, in order to see a clearer picture. I'd appreciate it if you could give me a link to it (I didn't find it, but I found #663).\r\n"
+    },
+    {
+      "id": 293584550,
+      "url": "https://github.com/globaleaks/globaleaks-whistleblowing-software/issues/1942#issuecomment-293584550",
+      "created_at": "2017-04-12T13:55:23Z",
+      "updated_at": "2017-04-12T13:55:23Z",
+      "author": "Participant 3",
+      "body": "Thank you @ralienpp for your important feedback.\r\nSo looking forward for comments like yours.\r\n\r\nI've some additional clarification from my side;\r\n\r\nAbout metadata, the premises are:\r\n- the journalist is and will have always to be be a trusted party in the process;\r\n- removing the metadata that can deanonymize the whistleblower without removing the metadata that can proove the malpractice (e.g. the name of the perpetrator or of the victim) is not possible.\r\n- technically it is even quite difficult to be sure to remove the metadata for every file as the metadata do not have standard formats.\r\n\r\nwhat we decided is:\r\n- to not remove automatically the metadata\r\n- to eventually offer the recipient to save the documents in a \"safe\" metadata-free mode by providing a print feature of it and giving the recipeint the possibility to download two files 1) the clean one (to use during work) 2) the original to use in a legal procedure if and when necessary.\r\n\r\nabout the texts and the mention about PGP you are right, the language is cryptic, here we fail also because are so so so old texts; recently we are taking care of this.\r\nThe choices that lead to that text, in two sentences and not more are: try to write a concise sentence, that do not require too much translations and that so won't have that much errors in the translations process that is where the more are inserted.\r\n\r\nnow probably i would go to keep them short but eventually i would replace \"PGP\" with  \"Encryption\" saying: \"One or more of the recipients of this submission don't have encryption enabled\".\r\n\r\nFAQ: yes they do now exists still :(\r\n\r\n\\cc @fpietrosanti "
+    },
+    {
+      "id": 293641552,
+      "url": "https://github.com/globaleaks/globaleaks-whistleblowing-software/issues/1942#issuecomment-293641552",
+      "created_at": "2017-04-12T16:55:06Z",
+      "updated_at": "2017-04-12T16:56:58Z",
+      "author": "Participant 2",
+      "body": "Here is another revision of the text, that tries to elaborate the consequence of someone evil gaining access to the box.\r\n\r\n```\r\n<span data-translate>At least one of the recipients of this submission has chosen to not use encryption.</span>\r\n<span data-translate>This means that the submitted files will be plainly readable on the server.</span>\r\n<span data-translate>If someone malicious breaks into the server, they will be able to read your submitted files.</span>\r\n<span data-translate>Ensure that the files do not have clues in their metadata or content that could be used to reveal your identity.</span>\r\n```\r\n\r\nRE: Building a whistle-blowing system, unfortunately GL is just a component that needs to be integrated into a larger solution for hostile environments. Insecurity through frustation is a real problem."
+    },
+    {
+      "id": 293643998,
+      "url": "https://github.com/globaleaks/globaleaks-whistleblowing-software/issues/1942#issuecomment-293643998",
+      "created_at": "2017-04-12T17:03:24Z",
+      "updated_at": "2017-04-12T17:03:24Z",
+      "author": "Participant 4",
+      "body": "Please consider while writing the text that not all whistleblowers are anonymous, in fact for what anti-corruption NGOs say us, most declare who they are, so encryption is meant to protect the information against unauthorized access, not to avoid disclosure of whistleblower identity."
+    },
+    {
+      "id": 293730469,
+      "url": "https://github.com/globaleaks/globaleaks-whistleblowing-software/issues/1942#issuecomment-293730469",
+      "created_at": "2017-04-12T22:57:18Z",
+      "updated_at": "2017-04-12T22:57:18Z",
+      "author": "Participant 1",
+      "body": "We come from different places and have different requirements. For example, this happened in my country: https://en.wikipedia.org/wiki/Moldovan_bank_fraud_scandal\r\n\r\nMembers of the parliament are _purchased in bulk_ to make them join another party and vote \"correctly\". Judges issue whatever decisions are desired by those who pay them. People who criticize the government are harassed, a vocal critic of those in power was found dead with a \"self-inflicted\" gunshot wound, etc.\r\n\r\nThose who are supposed to find and punish the guilty are guilty themselves, so obviously there is no progress in these cases, even though \"our best men and women are working on it as we speak\".  It is expected that any potential whistleblower is *very* concerned about their own life, so (if they had proper infosec training) they would:\r\n\r\n- remain anonymous even to the journalists; because if law-enforcement exerts pressure on the journalists (e.g. with rubber-hose cryptanalysis) - there's nothing that they can learn, *in principle*.\r\n- remove all metadata and other clues that could possibly unmask them\r\n\r\nWithout proper infosec training they might just think that making a new email address like \"theunknownunknown1935@gmail.com\" is sufficient to remain anonymous.\r\n\r\n\r\nUnfortunately I have to say that despite all of the above, there are countries that are worse off than Moldova; that's why I believe that at least some basic safe-guards should be in place, at least for the lower-hanging fruits (common, well-documented formats)."
+    },
+    {
+      "id": 293804617,
+      "url": "https://github.com/globaleaks/globaleaks-whistleblowing-software/issues/1942#issuecomment-293804617",
+      "created_at": "2017-04-13T06:46:55Z",
+      "updated_at": "2017-04-13T06:54:56Z",
+      "author": "Participant 3",
+      "body": "Thanks for the feedback. I totally understand and see your point.\r\n\r\nAfter reading well the ticket i found out that this is totally\r\ninline with past he research path we always discussed.\r\n\r\nLet me elaborate why and which is the state.\r\n\r\nTechnically the receiver is and can only be a trusted party\r\nIt is technically iimpossible to remove all the metadata.\r\nIt is technically impossible to discern good from bad metadata.\r\n\r\nThis lead us for the moment to simplify the assumptions, leave the metadata\r\nscrumbling in responsibility of the recipient avoiding to make false\r\npromises to the user.\r\n\r\nBut the points you are making are totally legit and i support them.\r\n\r\nIn particular, is normal path we follow to\r\n- work on adding more clarifications to the user on the topic\r\n- working on simplifying the technical gergon to make the topic more\r\nunderstandable to the user\r\n\r\nIt's a research topic kept open to:\r\n-Offer the possibility to show the user recognised metadata even asking to\r\nthe user what to remove\r\n- Offer to the admin the possibility to enforce max removal if the scenario\r\nrequires that.\r\n\r\nRemains true and legit what told by Nick that aside that this is inline\r\nwith the research to do, we will never be able to point out that the\r\ntechnique implemented won't guarantee anything and that the best practice\r\nwill remain to highlight that better (not perfect) specialized tools exist."
+    },
+    {
+      "id": 293958998,
+      "url": "https://github.com/globaleaks/globaleaks-whistleblowing-software/issues/1942#issuecomment-293958998",
+      "created_at": "2017-04-13T16:53:39Z",
+      "updated_at": "2017-04-13T16:53:39Z",
+      "author": "Participant 1",
+      "body": "Alright, I got permission to join the project on Transifex and after I fill out the remaining strings for Romanian and Russian, I will try to make another iteration and suggest changes for the texts that involve complex matters.\r\n\r\nIn the meantime, as a source of inspiration, I would like to share a paper I've read recently.\r\n[Obstacles to the Adoption of Secure Communication Tools.pdf](https://github.com/globaleaks/GlobaLeaks/files/920297/Obstacles.to.the.Adoption.of.Secure.Communication.Tools.pdf)\r\n\r\n\r\nHere are some highlights\r\n\r\n```\r\nTen participants confused encryption with authentication.\r\n“Multiple encryption” was described as using both a username\r\nand multiple passwords to log in to an account. “Double\r\nencryption” was equated to two-factor authentication (P12).\r\n...\r\nP3, P7, P8, P11, P13, P22, and P43 have not heard\r\nof encryption, and did not provide any deﬁnition. P1 and\r\nP59 conﬂated encryption with data encoding. P1 explained\r\nencryption as sending messages in “computer language:\r\n01010011110100” (i.e., binary), and said “these messages can\r\nonly be understood by computer scientists, hackers, service\r\nproviders and governments. Lay people cannot.” P59 explicitly\r\ndescribed encryption as sending text in “binary language:\r\n122121122”.\r\nOther participants explained encryption as:\r\n...\r\n2) Making conversations “invisible” (P14).\r\n3) Slowing down the process of understanding the data,\r\nbut the company can still read the messages. “Basically,\r\nencryption is (no encryption + adding some time to send\r\nthe data packets)” (P23).\r\n...\r\n5) Using a special language (P27, P32, and P35). If some-\r\none (like a computer scientist) knows the language, they\r\ncan decrypt the message (P26).\r\n6) Using proxies to access websites. P29 believes that using\r\nproxies (encryption) protects against the company and\r\ngovernment agencies, however, proxies are not legal to\r\nuse.\r\nAll participants, but three, believe that encryption protects\r\nagainst the unsophisticated attackers “who do not know how to\r\nhack”.\r\n```\r\n\r\n```\r\nThe key takeaway from mental models research is that\r\nnon-experts do not understand abstract security properties.\r\nThey can only understand why a property matters in the\r\ncontext of a speciﬁc threat model that matters to them.\r\n```\r\nThus, the texts should necessarily address the \"what's in it for me?\" aspect.\r\n\r\n```\r\n57 participants (excluding P2, P4 and P5) provided various\r\nincorrect explanations of digital signatures: (1) inserting a\r\nUSB stick into the PC to sign a document using a unique\r\ncode, (2) scanning a hand-written signature, and then adding\r\nthe signature electronically to a document, or (3) signing a\r\ndigital document using a stylus pen. P29 described a digital\r\nsignature as “a speciﬁc font type in Microsoft Word used to\r\ntype names”.\r\n```\r\n\r\nThere are more gems in the paper itself, enjoy the read! :-)"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

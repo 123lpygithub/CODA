@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0596-aagbdjhgb",
+  "revision_url": "https://github.com/euclidjda/deep-quant/commit/4db498c942c3e9a62d548cd790088db418d6f392",
+  "filename": "scripts/models/deep_rnn_model_huber_loss.py",
+  "commit": "4db498c942c3e9a62d548cd790088db418d6f392",
+  "source_url": "https://raw.githubusercontent.com/euclidjda/deep-quant/4db498c942c3e9a62d548cd790088db418d6f392/scripts/models/deep_rnn_model_huber_loss.py",
+  "fetched_at": "2026-11-05T06:13:18.315876+00:00",
+  "source_sha256": "e1cdd842cdb1d134ac1cf4a72bb196c0e954552a4e045afcf567a5bc67f2add7",
+  "line_start": 207,
+  "line_end": 221,
+  "excerpt": "        linear = math_ops.subtract(abs_error, quadratic)\n        losses = math_ops.add(\n            math_ops.multiply(\n                ops.convert_to_tensor(0.5, dtype=quadratic.dtype),\n                math_ops.multiply(quadratic, quadratic)),\n            math_ops.multiply(delta, linear))\n        huber_loss = tf.reduce_sum(losses) / tf.reduce_sum(mask)\n        return huber_loss\n\n    @staticmethod\n    def _mean_squared_error(targets, outputs, mask):\n        loss = math_ops.squared_difference(targets, outputs)\n        # TODO: Make the below safe to div by zero\n        mse = tf.reduce_sum(loss) / tf.reduce_sum(mask)\n        return mse"
+}

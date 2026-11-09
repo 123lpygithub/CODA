@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0224-aadajefje",
+  "revision_url": "https://github.com/felixriese/susi/commit/de9f703cef08c4576a672d1830de7894100eec93",
+  "filename": "susi/SOMUtils.py",
+  "commit": "de9f703cef08c4576a672d1830de7894100eec93",
+  "source_url": "https://raw.githubusercontent.com/felixriese/susi/de9f703cef08c4576a672d1830de7894100eec93/susi/SOMUtils.py",
+  "fetched_at": "2026-11-05T06:12:18.083553+00:00",
+  "source_sha256": "27e0d8226a3f835ee9646dfd6ce4bdce2ff1e24b257e1ba41e866d26e35d0091",
+  "line_start": 79,
+  "line_end": 103,
+  "excerpt": "    -------\n    X : object\n        The converted and validated `X`.\n    y : object\n        The converted and validated `y`.\n\n    \"\"\"\n    if is_classification:\n        X, y = check_X_y(X, y)\n    else:\n        X, y = check_X_y(X, y, dtype=np.float64)\n\n    # TODO accept_sparse=\"csc\"\n    X = check_array(X, ensure_2d=True, dtype=np.float64)\n    y = check_array(y, ensure_2d=False, dtype=None)\n\n    if is_classification:\n        check_classification_targets(y)\n\n    y = np.atleast_1d(y)\n\n    if y.ndim == 1:\n        y = np.reshape(y, (-1, 1))\n\n    return X, y",
+  "match_policy": "unique-release-normalized-v2"
+}

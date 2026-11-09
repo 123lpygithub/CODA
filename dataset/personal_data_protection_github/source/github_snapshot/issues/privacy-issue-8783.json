@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8783",
+  "issue_url": "https://github.com/matomo-org/matomo/issues/16812",
+  "source_issue_url": "https://github.com/matomo-org/matomo/issues/16812",
+  "api_url": "https://api.github.com/repos/matomo-org/matomo/issues/16812",
+  "title": "Matomo Analytics without consent needs opt-out-improvement to become GDPR-compliant for this use case",
+  "body": "Hello everyone,\r\nIn Matomo 3.13.6 or newer it should be possible to operate the Matomo analytics solution without cookies (https://matomo.org/faq/new-to-piwik/how-do-i-use-matomo-analytics-without-consent-or-cookie-banner/).\r\nAs you already mentioned in the FAQs (https://matomo.org/faq/general/faq_157/) there is an issue with cookies, created despite the use of _paq.push(['disableCookies']) in following use cases:\r\n* when you exclude yourself from being tracked using the cookie method or using the iframe opt-out method, Matomo will create a cookie piwik_ignore set on the domain of your Matomo server (a temporary short-lived cookie called MATOMO_SESSID will also be created).\r\n* when you’re asking for consent before tracking visitors, two cookies may be created: mtm_consent and mtm_consent_removed.\r\n* _pk_testcookie is also created without any identifier and is directly deleted (it is only used to check whether the visitor’s browser supports cookies).\r\n\r\nUsing the standard iframe opt-out method on our site we can confirm, that wenn users change their opt-out in our Privacy-Page, where the Matomo opt-out is embedded, following cookies are being created:\r\n* _pk_id.<websiteID>.<domainHash>\r\n* _pk_ses.<websiteID>.<domainHash>\r\n* mtm_consent or respectively mtm_consent_removed.\r\n\r\nThis issue means, that there is currently no GDPR-compliant way to operate Matomo without cookies, because the opt-out option is a \"must\" as visitors should be able to change their opt-in for analytics any/multiple times.  \"_pk_id\" and \"_pk_sess\"-Cookies require a cookie-banner as they are not essential for the website operation in terms of Art. 6.1(f) GDPR.  The use of \"MATOMO_SESSID\" for security reasons and  \"mtm_consent/mtm_consent_removed\"-cookies to save the opt-in/-out state of user's consent can be viewed as essential, if there is no way to avoid them technically.\r\n\r\nWe had unfortunately to remove Matomo from our site, because the cooke-less operation is the only option for us.\r\n\r\nIs there a possiblity that this issue will be solved and wenn (especially the setting \"_pk_id\" and \"_pk_sess\"-Cookies)? \r\n\r\nThe cookie-less operation of Matomo is important for public entities and all website owners, who do not make e-commerce or other business with the need for high accuracy of reports. Which means, that the issue is actually concerning **a very large group of users**.",
+  "author": "Participant 1",
+  "created_at": "2020-11-26T13:16:47Z",
+  "updated_at": "2022-07-18T19:35:55Z",
+  "state": "closed",
+  "closed_at": "2020-11-26T22:05:20Z",
+  "issue_fetched_at": "2026-10-18T17:11:18.546972+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T17:11:19.959321+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 734301563,
+      "url": "https://github.com/matomo-org/matomo/issues/16812#issuecomment-734301563",
+      "created_at": "2020-11-26T13:34:27Z",
+      "updated_at": "2020-11-26T13:47:37Z",
+      "author": "Participant 2",
+      "body": "Hi,\r\n\r\nI don't have time right now to answer extensively, but want to add two quick notes:\r\n\r\nhttps://github.com/matomo-org/matomo/issues/14402: MATOMO_SESSID is needed to avoid CSRF which would allow other websites to opt-in or opt-out of the tracking without the user noticing which I think is far worse for privacy than a cookie that doesn't do any tracking.\r\n\r\nIf you suggest that Matomo should not store any cookies at all for a visitor, then how should Matomo remember that this specific user has opt out of the tracking?\r\n<small>(I am genuinely interested what others think would be the privacy-wise ideal solution on handling user opt-out/opt-in and remembering it without allowing to track users this way. I personally don't see any solution that is possible at all (independent of Matomo) that would work better than what is possible right now).</small>"
+    },
+    {
+      "id": 734333166,
+      "url": "https://github.com/matomo-org/matomo/issues/16812#issuecomment-734333166",
+      "created_at": "2020-11-26T14:37:26Z",
+      "updated_at": "2020-11-26T15:02:15Z",
+      "author": "Participant 1",
+      "body": "Is it possible to reliably avoid the setting of \"_pk_id\" and \"_pk_sess\"-Cookies in cookie-less mode? \r\n\r\nThe use of \"MATOMO_SESSID\" for security reasons and \"mtm_consent/mtm_consent_removed\"-cookies to save the opt-in/-out state of user's consent can be viewed as essential (which means that no cookie banner is needed), if there is no way to avoid them technically. I've changed our request above. Thank you for your quick feedback!"
+    },
+    {
+      "id": 734350184,
+      "url": "https://github.com/matomo-org/matomo/issues/16812#issuecomment-734350184",
+      "created_at": "2020-11-26T15:09:42Z",
+      "updated_at": "2020-11-26T15:09:42Z",
+      "author": "Participant 3",
+      "body": "@LfD-Nds  Just FYI, we have released Matomo 4.0.0 shortly, which also brings some improvements towards cookieless tracking. \r\nI've just checked that and if `disableCookies` is called for the tracker, there should not be any `_pk_id` or `_pk_sess` cookie.\r\nThe `MATOMO_SESSID` cookie is still set by the opt-out for the reasons @Findus23 mentioned."
+    },
+    {
+      "id": 734446992,
+      "url": "https://github.com/matomo-org/matomo/issues/16812#issuecomment-734446992",
+      "created_at": "2020-11-26T19:08:38Z",
+      "updated_at": "2020-11-26T19:08:38Z",
+      "author": "Participant 4",
+      "body": "BTW even in the 3.14 release this might be already fixed. Regarding the opt out this is a duplicate of https://github.com/matomo-org/matomo/issues/16791 and explained in https://github.com/matomo-org/matomo/issues/16791#issuecomment-733284878 that it is an essential cookie.\r\n\r\n@LfD-Nds any chance you can update to the latest 3.X and check if it's fixed there for you or otherwise to the latest Matomo 4? (Matomo 4 is a staged release so it might be a few days until it becomes available)"
+    },
+    {
+      "id": 734489547,
+      "url": "https://github.com/matomo-org/matomo/issues/16812#issuecomment-734489547",
+      "created_at": "2020-11-26T21:54:09Z",
+      "updated_at": "2020-11-26T21:54:09Z",
+      "author": "Participant 1",
+      "body": "Yes, we will check/update and report the results here. Thank you all for your helpfull replies!"
+    },
+    {
+      "id": 734491967,
+      "url": "https://github.com/matomo-org/matomo/issues/16812#issuecomment-734491967",
+      "created_at": "2020-11-26T22:05:20Z",
+      "updated_at": "2020-11-26T22:05:20Z",
+      "author": "Participant 4",
+      "body": "Great @LfD-Nds I will close this issue for now but we're more than happy to reopen if anything needs doing."
+    },
+    {
+      "id": 1188218716,
+      "url": "https://github.com/matomo-org/matomo/issues/16812#issuecomment-1188218716",
+      "created_at": "2022-07-18T19:35:54Z",
+      "updated_at": "2022-07-18T19:35:54Z",
+      "author": "Participant 5",
+      "body": "Couldn't there be a server-side flag to opt out every user of cookies entirely, which would render this cookie unnecessary? \r\n\r\nI've enabled \"Force Tracking Without Cookies\"\r\n![image](https://user-images.githubusercontent.com/6182419/179603062-5167dd77-8a1a-4aa2-8329-b76e88d9238a.png)\r\n\r\n\r\nBut I still see the `MATOMO_SESSID`. Why is it needed in this case?"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

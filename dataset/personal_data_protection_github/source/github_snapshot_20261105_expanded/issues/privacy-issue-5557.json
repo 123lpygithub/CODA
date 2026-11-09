@@ -1,0 +1,50 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5557",
+  "issue_url": "https://github.com/BanManagement/BanManager/issues/766",
+  "source_issue_url": "https://github.com/BanManagement/BanManager/issues/766",
+  "api_url": "https://api.github.com/repos/BanManagement/BanManager/issues/766",
+  "title": "GDPR compliance: IP addresses are stored indefinitely",
+  "body": "# Issue\r\n\r\nWe do have an interested in being alerted of users with the same IP as a banned player, which is why we have `logIps` true. However, it stores players IPs in `bm_player_history` indefinitely with no easy way of purging older entries (older than X days).\r\n\r\n# Suggsetion\r\nAdd a `cleanUp` configuration for logged (but not necessarily banned) IP. If there already exists one then I'm sorry but I couldn't find it.\r\n\r\n# Information\r\nOur `bm_player_history` table has ~2,141,887 entries. :no_mouth: \r\nCurrent cleanUp options:\r\n```yaml\r\n# Keep records for number of days, use 0 to never delete\r\ncleanUp:\r\n  kicks: 30\r\n  banRecords: 0\r\n  ipBanRecords: 0\r\n  ipMuteRecords: 0\r\n  muteRecords: 0\r\n  readWarnings: 0\r\n  unreadWarnings: 0\r\n```",
+  "author": "Participant 1",
+  "created_at": "2018-04-25T18:07:13Z",
+  "updated_at": "2019-11-18T12:04:29Z",
+  "state": "closed",
+  "closed_at": "2019-10-19T16:54:59Z",
+  "issue_fetched_at": "2026-10-18T15:10:01.547960+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T15:10:02.854406+00:00"
+  ],
+  "expected_comment_count": 3,
+  "retrieved_comment_count": 3,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 384430520,
+      "url": "https://github.com/BanManagement/BanManager/issues/766#issuecomment-384430520",
+      "created_at": "2018-04-25T20:53:51Z",
+      "updated_at": "2018-04-25T20:53:51Z",
+      "author": "Participant 2",
+      "body": "That would cover the history table, however, what about the `players` table (bm_players) which stores the last known IP? The issue with that is BM presumes a player always has an ip address on record. Would replacing that with `127.0.0.1` suffice? Or is that not necessary? The alternative of wiping the player from the table wouldn't be wise as it's required as a reference to past punishments.\r\n\r\nAs an aside, this doesn't necessarily have to be actioned by the plugin, you could set up a cron job deletes any old ip addresses or use MySQL's event scheduler."
+    },
+    {
+      "id": 384444520,
+      "url": "https://github.com/BanManagement/BanManager/issues/766#issuecomment-384444520",
+      "created_at": "2018-04-25T21:45:43Z",
+      "updated_at": "2018-04-25T21:53:22Z",
+      "author": "Participant 1",
+      "body": "The primary interest of the `bm_players_history` table is mainly the vast amount of data it holds. We don't have a reason to store the IP-address of a player who joined on our servers 5 years ago and never again since. I didn't know `bm_players` also stored the IP-address of players, and it would also be of interest to clear that as well if it is too old. Is this table only for players with punishment-history of for everyone?\r\n\r\nWould it be possible to wipe a player from the database if a configurable X amount of days have passed since they last logged in (by the bm_players lastSeen) - **and** - if they have **no** previous punishments? :thinking: \r\n\r\n> The right to be forgotten only applies if the personal data is no longer necessary in relation to the purposes for which they were collected or otherwise processed; and/or there are no overriding legitimate grounds for processing.\r\n\r\nThe GDPR is only against storing information about **everyone, forever**. It is perfectly fine to store minimum required information to ensure system-operational capabilities (i.e in this case maintaining a ban system (list of IP's) ) as long as is required. :slightly_smiling_face: "
+    },
+    {
+      "id": 554987368,
+      "url": "https://github.com/BanManagement/BanManager/issues/766#issuecomment-554987368",
+      "created_at": "2019-11-18T12:04:29Z",
+      "updated_at": "2019-11-18T12:04:29Z",
+      "author": "Participant 1",
+      "body": "Thank you, for implementing this. 🙂"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

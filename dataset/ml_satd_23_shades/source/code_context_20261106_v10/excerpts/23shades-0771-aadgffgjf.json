@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0771-aadgffgjf",
+  "revision_url": "https://github.com/sorgerlab/indra/commit/28aeba07d0da5ccf0b7e4cb8c79b6349e37cd023",
+  "filename": "indra/tools/reading/process_springer.py",
+  "commit": "28aeba07d0da5ccf0b7e4cb8c79b6349e37cd023",
+  "source_url": "https://raw.githubusercontent.com/sorgerlab/indra/28aeba07d0da5ccf0b7e4cb8c79b6349e37cd023/indra/tools/reading/process_springer.py",
+  "fetched_at": "2026-11-05T06:13:50.457912+00:00",
+  "source_sha256": "9c7b8a129e473ceebb83136f28c0c680804059c0d318fc238ad53ea119f5614a",
+  "line_start": 46,
+  "line_end": 70,
+  "excerpt": "\n    return txt_file_path\n\ndef get_xml_data(pdf_path):\n    'Get the data from the xml file if present'\n    pdf_name = path.basename(pdf_path)\n    art_dirname = path.abspath(pdf_path + '/'.join(4*['..']))\n    xml_path_list = _find(art_dirname, pdf_name + '\\.xml.*?')\n    assert len(xml_path_list) > 0, \"We have no metadata\"\n    if len(xml_path_list) == 1:\n        xml = ET.parse(xml_path_list[0])\n    elif len(xml_path_list) > 1:\n        #TODO: we really should be more intelligent about this\n        xml = ET.parse(xml_path_list[0])\n    \n    entry_dict = {'doi':'ArticleDOI',\n                  'journal':['JournalTitle', 'JournalSubTitle'],\n                  'pub_date':'Year',\n                  'publisher':'PublisherName'}\n    ref_data = {}\n    for table_key, xml_label in entry_dict:\n        ref_data[table_key] = xml.find('.//' + xml_label)\n    \n    return ref_data\n"
+}

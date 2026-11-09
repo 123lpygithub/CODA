@@ -1,0 +1,359 @@
+
+=== 48 23shades-0350-aadfcfcca ===
+{"dataset_id": "aadfcfcca", "repo_name": "sbl-sdsc/mmtf-pyspark", "filename": "src/main/inputFunction/biopythonInputFunction.py", "comment_introducing_revision": "https://github.com/sbl-sdsc/mmtf-pyspark/commit/383998375c185b1ebfec788cb879f5b2c4532a13", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "383998375c185b1ebfec788cb879f5b2c4532a13"}
+[comment_text]
+TODO Set bioassembly info
+[source_context]
+
+
+    # Set header info
+    header = bp_struct.header
+    mmtf_encoder.set_header_info(r_free = None, # TODO
+                                 r_work = None, # TODO
+                                 resolution = header['resolution'],
+                                 title = header['name'],
+                                 deposition_date = header['deposition_date'],
+                                 release_date = header['release_date'],
+                                 experimental_methods = header['structure_method'])
+
+    # TODO Set bioassembly info
+    # biop_encoder.set_bio_assembly_trans() -- needs extra biopython parsing methods for the bioassemblies
+
+    for model in bp_struct:
+
+        # Set model info
+        mmtf_encoder.set_model_info(model_id=model.id, chain_count=len(model.child_list))
+
+        # Set entity info
+        # biop_encoder.set_entity_info(chain_indices=, sequence, description, entity_type)  ## TODO
+
+        for chain in model:
+
+
+=== 49 23shades-0182-aafhddaff ===
+{"dataset_id": "aafhddaff", "repo_name": "lopuhin/transformer-lm", "filename": "lm/inference.py", "comment_introducing_revision": "https://github.com/lopuhin/transformer-lm/commit/dded91f624b82ffbe0d8f27c0023e9118c643f77", "comment_removing_revision": "https://github.com/lopuhin/transformer-lm/commit/4c18649391826c2b1590e722b9559fa5f72ced8e", "source_context_status": "available", "source_context_commit": "dded91f624b82ffbe0d8f27c0023e9118c643f77"}
+[comment_text]
+TODO
+[source_context]
+        If this is a start of the text, you may want to prepend END_OF_TEXT:
+        model.get_log_probs([model.END_OF_TEXT] + tokens).
+        Use model.tokenize to obtain tokens.
+        """
+        ids = [self.token_to_id(t) for t in tokens]
+        ctx = torch.LongTensor(ids).unsqueeze(0)
+        with torch.no_grad():
+            # TODO - check prev argument for the model
+            logits = self.model(ctx)['logits'].squeeze(0)
+            return torch.log_softmax(logits, dim=1)
+
+    def get_occurred_log_probs(self, tokens: List[str]):
+        pass  # TODO
+
+
+def fixed_state_dict(state_dict):
+    if all(k.startswith('module.') for k in state_dict):
+        # legacy multi-GPU format
+        state_dict = {k[len('module.'):]: v for k, v in state_dict.items()}
+    return state_dict
+
+=== 50 23shades-0195-aaibgjfcg ===
+{"dataset_id": "aaibgjfcg", "repo_name": "explosion/spaCy", "filename": "spacy/training/pretrain.py", "comment_introducing_revision": "https://github.com/explosion/spaCy/commit/822ea4ef619072a94ce565bf78add9f9ea9d2866", "comment_removing_revision": "https://github.com/explosion/spaCy/commit/f98a04434a737ff64c35e5d9d8dc6797d0ce9817", "source_context_status": "available", "source_context_commit": "822ea4ef619072a94ce565bf78add9f9ea9d2866"}
+[comment_text]
+TODO
+[source_context]
+    the tok2vec input model. The tok2vec input model needs to be a model that
+    takes a batch of Doc objects (as a list), and returns a list of arrays.
+    Each array in the output needs to have one row per token in the doc.
+    The actual tok2vec layer is stored as a reference, and only this bit will be
+    serialized to file and read back in when calling the 'train' command.
+    """
+    component = nlp.get_pipe(pretrain_config["component"])
+    if pretrain_config.get("layer"):
+        tok2vec = component.model.get_ref(pretrain_config["layer"])
+    else:
+        tok2vec = component.model
+
+    # TODO
+    maxout_pieces = 3
+    hidden_size = 300
+    if pretrain_config["objective"]["type"] == "vectors":
+        model = build_cloze_multi_task_model(
+            nlp.vocab, tok2vec, hidden_size=hidden_size, maxout_pieces=maxout_pieces
+        )
+    elif pretrain_config["objective"]["type"] == "characters":
+        model = build_cloze_characters_multi_task_model(
+            nlp.vocab,
+            tok2vec,
+            hidden_size=hidden_size,
+            maxout_pieces=maxout_pieces,
+
+=== 51 23shades-0213-aahhiidji ===
+{"dataset_id": "aahhiidji", "repo_name": "antoinecarme/pyaf", "filename": "pyaf/TS/SignalDecomposition_Cycle.py", "comment_introducing_revision": "https://github.com/antoinecarme/pyaf/commit/bfb0f5952529f827b9071c9b3c2cbef31fed73c9", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "bfb0f5952529f827b9071c9b3c2cbef31fed73c9"}
+[comment_text]
+TODO : add these in the options. (None; None) => no limit
+[source_context]
+        self.mFormula = "Seasonal_" + self.mDatePart.name;
+        self.mComplexity = 1;
+        
+        
+    def getCycleName(self):
+        return self.mTrend_residue_name + "_Seasonal_" + self.mDatePart.name;
+
+    def hasEnoughData(self, iTimeMin, iTimeMax):
+        lTimeDelta = iTimeMax - iTimeMin;
+        lDays = lTimeDelta / np.timedelta64(1,'D');
+        lSeconds = lTimeDelta / np.timedelta64(1,'s');
+        # these are just guessses of how much dataa is needed to get valid signal stats/means of each seasonal unit.
+        # TODO : add these in the options. (None, None) => no limit
+        lThresholds = {
+            dtfunc.eDatePart.Hour : (1 * 10 , None), # 10 days
+            dtfunc.eDatePart.Minute : (None , 3600 * 10), # 10 hours
+            dtfunc.eDatePart.Second : (None , 360 * 10), # 10 minutes
+            dtfunc.eDatePart.DayOfMonth : (30 * 10 , None), # 10 months
+            dtfunc.eDatePart.DayOfWeek : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.MonthOfYear : (360 * 10 , None), # 10 years
+            dtfunc.eDatePart.WeekOfYear : (360 * 10 , None), # 10 years
+            dtfunc.eDatePart.WeekOfYear : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.DayOfYear : (360 * 10 , None), # 10 years
+            dtfunc.eDatePart.HourOfWeek : (7 * 10 , None), # 10 weeks
+            dtfunc.eDatePart.TwoHourOfWeek : (7 * 10 , None), # 10 weeks
+
+=== 52 23shades-0822-aahjfbdfa ===
+{"dataset_id": "aahjfbdfa", "repo_name": "ryfeus/gcf-packs", "filename": "pandas_numpy/sources/setuptools/dist.py", "comment_introducing_revision": "https://github.com/ryfeus/gcf-packs/commit/255a05a5980efb8b096c283d79872d0695886161", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "255a05a5980efb8b096c283d79872d0695886161"}
+[comment_text]
+XXX may convert to set here when we can rely on set being builtin
+[source_context]
+
+    def finalize_options(self):
+        _Distribution.finalize_options(self)
+        if self.features:
+            self._set_global_opts_from_features()
+
+        for ep in pkg_resources.iter_entry_points('distutils.setup_keywords'):
+            value = getattr(self, ep.name, None)
+            if value is not None:
+                ep.require(installer=self.fetch_build_egg)
+                ep.load()(self, ep.name, value)
+        if getattr(self, 'convert_2to3_doctests', None):
+            # XXX may convert to set here when we can rely on set being builtin
+            self.convert_2to3_doctests = [
+                os.path.abspath(p)
+                for p in self.convert_2to3_doctests
+            ]
+        else:
+            self.convert_2to3_doctests = []
+
+    def get_egg_cache_dir(self):
+        egg_cache_dir = os.path.join(os.curdir, '.eggs')
+        if not os.path.exists(egg_cache_dir):
+            os.mkdir(egg_cache_dir)
+            windows_support.hide_file(egg_cache_dir)
+
+=== 53 23shades-0317-aaieffgij ===
+{"dataset_id": "aaieffgij", "repo_name": "RasaHQ/rasa_core", "filename": "tests/test_policies.py", "comment_introducing_revision": "https://github.com/RasaHQ/rasa_core/commit/97980c7277924880e75def490624aa813efc1886", "comment_removing_revision": "https://github.com/RasaHQ/rasa_core/commit/6b908071f0c4dc51034583f9847eaba52779626e", "source_context_status": "available", "source_context_commit": "97980c7277924880e75def490624aa813efc1886"}
+[comment_text]
+TODO new tests due to new system
+[source_context]
+from rasa_core.channels import UserMessage
+from rasa_core.domain import TemplateDomain
+from rasa_core.policies.keras_policy import KerasPolicy
+from rasa_core.policies.memoization import MemoizationPolicy
+from rasa_core.policies.scoring_policy import ScoringPolicy
+from rasa_core.policies.sklearn_policy import SklearnPolicy
+from rasa_core.trackers import DialogueStateTracker
+from rasa_core.training import (
+    DialogueTrainingData)
+from tests.conftest import DEFAULT_DOMAIN_PATH, DEFAULT_STORIES_FILE
+
+
+# TODO new tests due to new system
+def train_data(max_history, domain):
+    return extract_training_data(
+            DEFAULT_STORIES_FILE, domain,
+            BinaryFeaturizer(), max_history=max_history, remove_duplicates=True)
+
+
+# We are going to use class style testing here since unfortunately pytest
+# doesn't support using fixtures as arguments to its own parameterize yet
+# (hence, we can't train a policy, declare it as a fixture and use the different
+# fixtures of the different policies for the functional tests). Therefore, we
+# are going to reverse this and train the policy within a class and collect the
+# tests in a base class.
+
+=== 54 23shades-0231-aafchbajj ===
+{"dataset_id": "aafchbajj", "repo_name": "Rostlab/nalaf", "filename": "nala/features/tmvar.py", "comment_introducing_revision": "https://github.com/Rostlab/nalaf/commit/585f6ef53eb08bbaa5b2875b8f5aa9bfa82def9e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "585f6ef53eb08bbaa5b2875b8f5aa9bfa82def9e"}
+[comment_text]
+TODO add introductory explanation
+[source_context]
+from nala.features import FeatureGenerator
+import re
+
+
+class TmVarDefault(FeatureGenerator):
+    """
+    Generates tmVar CRF features based on the value of the token itself.
+    * w[0] = the value of the words itself
+
+    Implements the abstract class FeatureGenerator.
+    """
+    # TODO add introductory explanation
+    def __init__(self):
+        """
+        Contains all regular expressions.
+        """
+        self.reg_spec_chars = re.compile('.*[-;:,.>+_].*')
+        self.reg_chr_keys = re.compile('.*(q|p|q[0-9]+|p[0-9]+|qter|pter|XY|t).*')
+        self.reg_char_simple_bracket = re.compile('.*[\(\)].*')
+        self.reg_char_square_bracket = re.compile('.*[\[\]].*')
+        self.reg_char_curly_bracket = re.compile('.*[\{\}].*')
+        self.reg_char_slashes = re.compile('.*[\/\\\].*')
+        self.reg_mutat_type = re.compile('.*(del|ins|dup|tri|qua|con|delins|indel).*')
+        self.reg_frameshift_type = re.compile('.*(fs|fsX|fsx).*')
+
+=== 55 23shades-0695-aaeeihicj ===
+{"dataset_id": "aaeeihicj", "repo_name": "CPJKU/madmom", "filename": "madmom/audio/cepstrogram.py", "comment_introducing_revision": "https://github.com/CPJKU/madmom/commit/6278f998d5f492b8d7720fdf665d8e207cb2a901", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6278f998d5f492b8d7720fdf665d8e207cb2a901"}
+[comment_text]
+TODO: set other defaults than those in cp.audio.filterbank for MFCCs?
+[source_context]
+            # overwritten by passing other values to the constructor)
+            self._spectrogram = spectrogram.frames
+        else:
+            # try to instantiate a Spectrogram object
+            self._spectrogram = Spectrogram(spectrogram, *args, **kwargs)
+
+    @property
+    def spectrogram(self):
+        """Spectrogram."""
+        return self._spectrogram
+
+
+# TODO: set other defaults than those in cp.audio.filterbank for MFCCs?
+class MFCC(Cepstrogram):
+    """
+    MFCC is a subclass of Cepstrogram which filters the magnitude spectrogram of
+    the spectrogram with a Mel filterbank, takes the logarithm and performs a
+    discrete cosine transform afterwards.
+
+    """
+    def __init__(self, *args, **kwargs):
+        """
+        Creates a new MFCC object instance.
+
+        :param filterbank: filterbank for dimensionality reduction
+
+=== 56 23shades-0085-aaebbccje ===
+{"dataset_id": "aaebbccje", "repo_name": "Calysto/conx", "filename": "conx/__init__.py", "comment_introducing_revision": "https://github.com/Calysto/conx/commit/b71d6b9f870a3e57c8417e7e763bb3516783f4ae", "comment_removing_revision": "https://github.com/Calysto/conx/commit/49624fe281bacfc6b77c8f72f531a4f7654d606a", "source_context_status": "available", "source_context_commit": "b71d6b9f870a3e57c8417e7e763bb3516783f4ae"}
+[comment_text]
+FIXME: can I backprop error through both
+[source_context]
+            self.context_layer[i].set_value(value)
+
+    def update_weights(self):
+        """
+        Returns [(weights, Theano update function), ...]
+        """
+        updates = super().update_weights()
+        # Hidden layers:
+        for i in range(len(self.context_layer)):
+            updates.append(
+                (self.context_layer[i], self.layer[i])
+            )
+            # FIXME: can I backprop error through both
+            # context_weights and weights?
+            updates.append(
+                (self.context_weights[i],
+                 self.compute_delta_weights(self.compute_error,
+                                            self.context_weights[i]))
+            )
+        return updates
+
+=== 57 23shades-0432-aadghfgba ===
+{"dataset_id": "aadghfgba", "repo_name": "pescadores/pescador", "filename": "pescador.py", "comment_introducing_revision": "https://github.com/pescadores/pescador/commit/df76c54f793508b81e481f7150cd119a9ccff6db", "comment_removing_revision": "https://github.com/pescadores/pescador/commit/88ab34d1a9ff36632669dbdf5196e471e2b163d6", "source_context_status": "available", "source_context_commit": "df76c54f793508b81e481f7150cd119a9ccff6db"}
+[comment_text]
+TODO:   2014-07-10 16:38:27 by Brian McFee <brm2132@columbia.edu>
+[source_context]
+                    seed_distribution[new_idx] = 0.0
+
+                    if (seed_distribution > 0).any():
+                        seed_distribution[:] /= np.sum(seed_distribution)
+
+            else:
+                # Otherwise, this one's exhausted.  Set its probability to 0
+                stream_weights[idx] = 0.0
+
+            weight_norm = np.sum(stream_weights)
+
+
+# TODO:   2014-07-10 16:38:27 by Brian McFee <brm2132@columbia.edu>
+# make existing functions wrap transparently (fit, predict, etc)
+# implement iterable versions on top: iter_fit, iter_predict, etc
+
+class StreamLearner(sklearn.base.BaseEstimator):
+    '''A class to facilitate iterative learning from a generator.
+
+    :parameters:
+        - estimator : sklearn estimator
+            The estimator to fit.  Must support the ``partial_fit`` method.
+
+        - batch_size : int > 0
+            The size of batches to be passed to ``estimator.partial_fit``.
+
+=== 58 23shades-0299-aahiiegbc ===
+{"dataset_id": "aahiiegbc", "repo_name": "kengz/SLM-Lab", "filename": "slm_lab/agent/__init__.py", "comment_introducing_revision": "https://github.com/kengz/SLM-Lab/commit/4b802d623b244ae8bbb52a518abd782bd1e05d6d", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "4b802d623b244ae8bbb52a518abd782bd1e05d6d"}
+[comment_text]
+TODO implement generic method
+[source_context]
+        # TODO implement
+        return
+
+    def act(self, state):
+        '''Standard act method from algorithm.'''
+        return self.algorithm.act(state)
+
+    def update(self, reward, state):
+        '''
+        Update per timestep after env transitions,
+        e.g. memory, algorithm, update agent params, train net
+        '''
+        # TODO implement generic method
+        # self.memory.update()
+        # self.net.train()
+        self.algorithm.update()
+        return
+
+    def close(self):
+        '''Close agent at the end of a session, e.g. save model'''
+        # TODO save model
+        model_for_loading_next_trial = 'not implemented'
+        return model_for_loading_next_trial
+
+=== 59 23shades-0726-aadejjjdj ===
+{"dataset_id": "aadejjjdj", "repo_name": "comtravo/ctparse", "filename": "ctparse/partial_parse.py", "comment_introducing_revision": "https://github.com/comtravo/ctparse/commit/48a409a8c5b8a782fd996b6b2b9f1729fa45c978", "comment_removing_revision": "https://github.com/comtravo/ctparse/commit/ca4f11da5ee5b14da53caa03c51aaaa1e14f8199", "source_context_status": "available", "source_context_commit": "48a409a8c5b8a782fd996b6b2b9f1729fa45c978"}
+[comment_text]
+TODO: the second element of the rule is not being used
+[source_context]
+        '''Check whether the production in rule can be applied to this stack
+        element. 
+
+        If yes, return a copy where this update is
+        incorporated in the production, the record of applied rules
+        and the score.
+
+        :param ts: reference time
+        :param rule: a tuple where the first element is the production rule to apply
+        :param rule_name: the name of the rule
+        :param match: the start and end index of the parameters that the rule needs.
+        '''
+        # TODO: the second element of the rule is not being used
+        prod = rule[0](ts, *self.prod[match[0]:match[1]])
+
+        if prod is not None:
+            pp = PartialParse(
+                prod=self.prod[:match[0]] + (prod,) + self.prod[match[1]:],
+                rules=self.rules + (rule_name,)
+            )
+
+            # TODO(glanaro): remove when extracting the scoring functions
+            pp.applicable_rules = self.applicable_rules
+            pp.txt_len = self.txt_len
+            pp.len_score = log(pp.max_covered_chars/pp.txt_len)

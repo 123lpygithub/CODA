@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0790-aahicaeda",
+  "revision_url": "https://github.com/PyTorchLightning/pytorch-lightning/commit/dd324e4086c0fab771e15e899a3d28b3909a9671",
+  "filename": "pytorch_lightning/accelerators/ddp_spawn_backend.py",
+  "commit": "dd324e4086c0fab771e15e899a3d28b3909a9671",
+  "source_url": "https://raw.githubusercontent.com/PyTorchLightning/pytorch-lightning/dd324e4086c0fab771e15e899a3d28b3909a9671/pytorch_lightning/accelerators/ddp_spawn_backend.py",
+  "fetched_at": "2026-11-05T06:13:52.561908+00:00",
+  "source_sha256": "433a83fc6e8ac06feca6ab556eb486ccb74a6115de83c7ddda1981cc18f2a8bb",
+  "line_start": 209,
+  "line_end": 230,
+  "excerpt": "\n    def transfer_distrib_spawn_state_on_fit_end(self, model, mp_queue, results):\n        if self.trainer.distributed_backend.lower() not in ['ddp_spawn', 'ddp_cpu', 'tpu']:\n            return\n\n        # track the best model path\n        best_model_path = None\n        if self.trainer.checkpoint_callback is not None:\n            best_model_path = self.trainer.checkpoint_callback.best_model_path\n\n        if self.trainer.global_rank == 0 and mp_queue is not None:\n            rank_zero_warn('cleaning up ddp environment...')\n            # todo, pass complete checkpoint as state dictionary\n            mp_queue.put(best_model_path)\n            mp_queue.put(results)\n\n            # save the last weights\n            last_path = None\n            if not self.trainer.testing and best_model_path is not None and len(best_model_path) > 0:\n                last_path = re.sub('.ckpt', '.tmp_end.ckpt', best_model_path)\n                atomic_save(model.state_dict(), last_path)\n            mp_queue.put(last_path)",
+  "match_policy": "unique-release-normalized-v2"
+}

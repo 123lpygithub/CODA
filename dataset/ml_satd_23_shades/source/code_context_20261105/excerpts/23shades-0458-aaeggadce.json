@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0458-aaeggadce",
+  "revision_url": "https://github.com/explosion/thinc/commit/4610f36a55516ff3f07d4b9c84613484d5824676",
+  "filename": "thinc/config.py",
+  "commit": "4610f36a55516ff3f07d4b9c84613484d5824676",
+  "source_url": "https://raw.githubusercontent.com/explosion/thinc/4610f36a55516ff3f07d4b9c84613484d5824676/thinc/config.py",
+  "fetched_at": "2026-11-05T06:12:58.050543+00:00",
+  "source_sha256": "c1ea12e932685526e673e9f82379bf41b1841bb33877aa638156c1a268b51789",
+  "line_start": 335,
+  "line_end": 359,
+  "excerpt": "    @classmethod\n    def make_promise_schema(cls, obj: Dict[str, Any]) -> Type[BaseModel]:\n        \"\"\"Create a schema for a promise dict (referencing a registry function)\n        by inspecting the function signature.\n        \"\"\"\n        func = cls.get_constructor(obj)\n        # Read the argument annotations and defaults from the function signature\n        id_keys = [k for k in obj.keys() if k.startswith(\"@\")]\n        sig_args: Dict[str, Any] = {id_keys[0]: (str, ...)}\n        for param in inspect.signature(func).parameters.values():\n            # If no annotation is specified assume it's anything\n            annotation = param.annotation if param.annotation != param.empty else Any\n            # TODO: Bad hack to work around generic types in pydantic (until next release)\n            # Details: https://github.com/samuelcolvin/pydantic/issues/1158\n            if str(annotation).startswith(\"thinc.model.Model[\"):\n                annotation = Callable\n            # If no default value is specified assume that it's required\n            default = param.default if param.default != param.empty else ...\n            # Handle spread arguments and use their annotation as Sequence[whatever]\n            if param.kind == param.VAR_POSITIONAL:\n                spread_annot = Sequence[annotation]  # type: ignore\n                sig_args[ARGS_FIELD_ALIAS] = (spread_annot, default)\n            else:\n                sig_args[param.name] = (annotation, default)\n        sig_args[\"__config__\"] = _PromiseSchemaConfig"
+}

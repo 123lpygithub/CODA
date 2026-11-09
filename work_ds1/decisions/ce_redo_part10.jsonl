@@ -1,0 +1,24 @@
+{"artifact_id": "253", "code_ids": ["CE11"], "open_codes": ["空串未返回 None"], "memo": "空串也会进入 hashlib.md5(text.encode()).hexdigest()，返回空串的 MD5 而不是 None。"}
+{"artifact_id": "254", "code_ids": ["CE05"], "open_codes": ["返回 a 的十进制数字"], "memo": "把 a 逐位拆成数字并返回，未生成 a..b 之间的偶数，也未限制小于 10。"}
+{"artifact_id": "255", "code_ids": ["CE05"], "open_codes": ["保留首次出现"], "memo": "unique_numbers 保留每个值的首次出现并跳过后续重复；契约要求删除所有重复出现的值。"}
+{"artifact_id": "256", "code_ids": ["CE09"], "open_codes": ["套二次公式"], "memo": "把任意系数列表当作二次多项式，用 b=sum(xs[:-1])、c=xs[0] 套求根公式，方法不成立。"}
+{"artifact_id": "257", "code_ids": ["CE05"], "open_codes": ["只统计是否含 7 一次"], "memo": "对满足 11/13 整除的 i 只检查一次 \"7\" in str(i)，未统计 7 在十进制表示中的出现次数。"}
+{"artifact_id": "258", "code_ids": ["CE05", "CE09"], "open_codes": ["模拟位置相等"], "memo": "用位置列表模拟车辆移动并统计位置相等，模型与“所有车相互穿越、碰撞数为 n²”的题设不符。"}
+{"artifact_id": "259", "code_ids": ["CE09", "CE10"], "open_codes": ["循环起点与状态推进错误"], "memo": "循环从 3 开始，而 n=3 应直接返回 0；状态更新顺序把 d 先算出再移 a,b,c，导致递推序列偏移。"}
+{"artifact_id": "260", "code_ids": ["CE09", "CE10"], "open_codes": ["初值错误"], "memo": "n==1 返回 1（应为 0），初始三元组与状态推进顺序也与 fibfib 的 0,0,1 不符。"}
+{"artifact_id": "261", "code_ids": ["CE01", "CE02"], "open_codes": ["docstring 后截断"], "memo": "函数体只有 docstring，没有实现，且源码截断。"}
+{"artifact_id": "262", "code_ids": ["CE09", "CE11"], "open_codes": ["枚举整数底数并忽略边界"], "memo": "枚举 2..int(x**(1/n)) 的底数，n 为 0/-1 或 x 为 1 时行为错误；也未处理负指数与浮点误差。"}
+{"artifact_id": "263", "code_ids": ["CE05"], "open_codes": ["逐数字转二进制后求和"], "memo": "把每个十进制数字分别转成二进制字符串再相加，目标是十进制各位数字之和再转二进制。"}
+{"artifact_id": "264", "code_ids": ["CE08"], "open_codes": ["行列排序次序错误"], "memo": "先按行升序、再按列降序排序，最终主序是列而非行；契约要求按行升序、同列内按列降序。"}
+{"artifact_id": "265", "code_ids": ["CE05", "CE06"], "open_codes": ["重复切分导致重复计数"], "memo": "分别按 .、?、! 切分后把三个列表相加，同一句子会被重复计入；且 startswith(\"I\") 会误收 It 等词。"}
+{"artifact_id": "266", "code_ids": ["CE09"], "open_codes": ["元音加 2 未处理回绕"], "memo": "对元音直接 chr(ord(letter)+2)，未处理 z/Z 回绕，也未保持大小写。"}
+{"artifact_id": "267", "code_ids": ["CE05"], "open_codes": ["用模 10 代替末位"], "memo": "用 abs(a%10*b%10) 计算，负数取模结果与末位数字不同；且取绝对值会丢失末位符号语义。"}
+{"artifact_id": "268", "code_ids": ["CE09"], "open_codes": ["奇数 n 的步长少 1"], "memo": "偶数 n 用 n+2i 正确，奇数 n 用 n+2i-1 得到 n, n+1, n+3...，与每层加 2 的契约不符。"}
+{"artifact_id": "269", "code_ids": ["CE04"], "open_codes": ["只按逗号空格切分"], "memo": "只用 split(', ') 切分，遇到 'a,b' 或 'a, b' 等混合分隔时不能正确拆词。"}
+{"artifact_id": "270", "code_ids": ["CE13"], "open_codes": ["返回 bin 去掉了 0b"], "memo": "先正确计算区间平均并 round，但返回 bin(avg)[2:] 去掉了契约要求的 0b 前缀。"}
+{"artifact_id": "271", "code_ids": ["CE05", "CE14"], "open_codes": ["负数首位符号丢失"], "memo": "对 abs(n) 求各位和，负数的首位符号被丢弃；契约要求负数首位按负值计入数字和。"}
+{"artifact_id": "272", "code_ids": ["CE01", "CE02"], "open_codes": ["docstring 后截断"], "memo": "函数体只有 docstring，没有实现，且源码截断。"}
+{"artifact_id": "273", "code_ids": ["CE02", "CE12"], "open_codes": ["引用未定义 c 且截断"], "memo": "结果字典赋值使用未定义的 c；源码在赋值处截断，且逐字母统计与按空格分隔的单词契约不一致。"}
+{"artifact_id": "274", "code_ids": ["CE08"], "open_codes": ["模板占位符替换错误"], "memo": "format 只填入一个计数，模板中的 \"string {}\" 指代的是计数而非原字符串；输出句式与契约不符。"}
+{"artifact_id": "275", "code_ids": ["CE05"], "open_codes": ["全非负时返回 0"], "memo": "当所有元素非负时，current_sum 被重置为 0，min_sum 保持 0；契约要求此时返回最小元素。"}
+{"artifact_id": "276", "code_ids": ["CE05", "CE06"], "open_codes": ["按总水量一次性取整"], "memo": "把整个网格的总水量除以容量后取整，未按每一行分别取整再求和。"}

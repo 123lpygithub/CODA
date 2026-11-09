@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0500-aaeiedggi",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/8d9b9214e006d0737ec860626200c5f3d3dc6534",
+  "filename": "hpat/utils.py",
+  "commit": "8d9b9214e006d0737ec860626200c5f3d3dc6534",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/8d9b9214e006d0737ec860626200c5f3d3dc6534/hpat/utils.py",
+  "fetched_at": "2026-11-05T06:13:04.005574+00:00",
+  "source_sha256": "bccc612f51097029c5ce22501cf7ded2cf19de25e09f51249860925004dfe81c",
+  "line_start": 57,
+  "line_end": 81,
+  "excerpt": "\n\nNOT_CONSTANT = NotConstant()\n\nReplaceFunc = namedtuple(\"ReplaceFunc\",\n    [\"func\", \"arg_types\", \"args\", \"glbls\", \"pre_nodes\"])\n\nnp_alloc_callnames = ('empty', 'zeros', 'ones', 'full')\n\n\n# TODO: move to Numba\nclass BooleanLiteral(types.Literal, types.Boolean):\n    pass  # TODO: conversion needed like IntegerLiteral?\n\ntypes.Literal.ctor_map[bool] = BooleanLiteral\n\n\ndef get_constant(func_ir, var, default=NOT_CONSTANT):\n    def_node = guard(get_definition, func_ir, var)\n    if def_node is None:\n        return default\n    if isinstance(def_node, ir.Const):\n        return def_node.value\n    # call recursively if variable assignment\n    if isinstance(def_node, ir.Var):"
+}

@@ -1,0 +1,23 @@
+# Optional alternative: serve frontend + backend from one existing server.
+# Build with VITE_API_BASE_URL='' and copy frontend/dist to /srv/coda/frontend.
+# Point CODA_SITE_DOMAIN to your DNS name; Caddy obtains HTTPS certificates.
+{$CODA_SITE_DOMAIN} {
+    encode zstd gzip
+
+    # Mandatory for this shared, unauthenticated research API.
+    # Generate the value with `caddy hash-password` (interactive); never commit it.
+    basic_auth {
+        {$CODA_SITE_USER} {$CODA_SITE_PASSWORD_HASH}
+    }
+
+    # Preserve /api in the upstream request. Long model calls are not assigned
+    # a short proxy response timeout here. Use DNS-only when behind Cloudflare.
+    handle /api/* {
+        reverse_proxy 127.0.0.1:8003
+    }
+    handle {
+        root * /srv/coda/frontend
+        try_files {path} /index.html
+        file_server
+    }
+}

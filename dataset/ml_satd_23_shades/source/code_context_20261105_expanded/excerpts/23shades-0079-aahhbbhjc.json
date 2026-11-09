@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0079-aahhbbhjc",
+  "revision_url": "https://github.com/prihoda/golem/commit/283fa978e965e142005586ad301b8825b6eaa3fe",
+  "filename": "golem/nlp/tools/embedding.py",
+  "commit": "283fa978e965e142005586ad301b8825b6eaa3fe",
+  "source_url": "https://raw.githubusercontent.com/prihoda/golem/283fa978e965e142005586ad301b8825b6eaa3fe/golem/nlp/tools/embedding.py",
+  "fetched_at": "2026-11-05T06:11:51.365206+00:00",
+  "source_sha256": "f9bf64fba5b7cae88ec4b52465db047c2f294ba2ee676c0c93236e710e5c506b",
+  "line_start": 15,
+  "line_end": 39,
+  "excerpt": "\n        self.fp = open(filename, 'rb')\n        self.dimension = int(self.fp.readline().split()[1])\n        self.max_cache_size = max_cache_size\n\n        # cache word offsets in the embedding file for quick lookup\n        pos_path = filename + \".offsets\"\n        if os.path.exists(pos_path):\n            with open(pos_path, 'rb') as pos_f:\n                self.positions = json.load(pos_f)\n        else:\n            with open(pos_path, 'wb') as pos_f:\n                # FIXME open exclusively, other celery thread might screw up\n                self.positions = self.cache_positions()\n                json.dump(pos_f, self.positions)\n\n        # LRU cache to limit disk reads\n        self.cache = {}\n        self.recent = []\n\n    def cache_positions(self):\n\n        self.fp.seek(0)\n        positions = {}\n",
+  "match_policy": "unique-release-normalized-v2"
+}

@@ -1,0 +1,28 @@
+{
+  "fetched_at": "2026-11-05T06:11:45.551325+00:00",
+  "source_sha256": "8964af0412be2101a79968ebcf665c5bdcc958d66d46667593f63dc29cfd6199",
+  "source_url": "https://raw.githubusercontent.com/Rostlab/nalaf/bbde717927003b364fe17d745719656a5cadd501/nala/utils/writers.py",
+  "artifact_id": "23shades-0046-aafchcgjg",
+  "revision_url": "https://github.com/Rostlab/nalaf/commit/bbde717927003b364fe17d745719656a5cadd501",
+  "filename": "nala/utils/writers.py",
+  "commit": "bbde717927003b364fe17d745719656a5cadd501",
+  "status": "ambiguous",
+  "match_policy": "all-full-comment-candidates-at-exact-published-revision",
+  "candidates": [
+    {
+      "comment_line_start": 382,
+      "comment_line_end": 382,
+      "line_start": 370,
+      "line_end": 394,
+      "excerpt": "                            state = ''\n\n                        # fields generation\n                        fields = {}\n\n                        # normalizations generation\n                        normalizations = {}\n                        for key, value in ann.normalisation_dict.items():\n                            if isinstance(value, str):\n                                normalizations[key] = {\n                                    # \"source\": 'http://uniprot.org',\n                                    \"recName\": value,\n                                    # \"confidence\": 1  # todo discussion confidence from GNormPlus is not provided so just putting in here 1\n                                }\n                            else:\n                                for substring in value:\n                                    normalizations[key + '_' + substring[0]] = {\n                                        # \"source\": 'http://uniprot.org',\n                                        \"recName\": substring,\n                                        # \"confidence\": 1  # todo discussion confidence from GNormPlus is not provided so just putting in here 1\n                                    }\n\n                        tagtog_part_id = \"s1p{}\".format(i + 1)\n                        ent = {\n                            \"classId\": ann.class_id,"
+    },
+    {
+      "comment_line_start": 389,
+      "comment_line_end": 389,
+      "line_start": 377,
+      "line_end": 401,
+      "excerpt": "                        for key, value in ann.normalisation_dict.items():\n                            if isinstance(value, str):\n                                normalizations[key] = {\n                                    # \"source\": 'http://uniprot.org',\n                                    \"recName\": value,\n                                    # \"confidence\": 1  # todo discussion confidence from GNormPlus is not provided so just putting in here 1\n                                }\n                            else:\n                                for substring in value:\n                                    normalizations[key + '_' + substring[0]] = {\n                                        # \"source\": 'http://uniprot.org',\n                                        \"recName\": substring,\n                                        # \"confidence\": 1  # todo discussion confidence from GNormPlus is not provided so just putting in here 1\n                                    }\n\n                        tagtog_part_id = \"s1p{}\".format(i + 1)\n                        ent = {\n                            \"classId\": ann.class_id,\n                            \"part\": tagtog_part_id,\n                            \"offsets\": [{\"start\": ann.offset, \"text\": ann.text}],\n                            \"confidence\": {\n                                \"state\": state,\n                                \"who\": [\n                                    self.who\n                                ],"
+    }
+  ],
+  "ambiguity_note": "The released comment occurs at multiple source locations. These are all exact full-comment candidates; no location is selected or attributed uniquely to this case."
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0319-aafdjgjfa",
+  "revision_url": "https://github.com/shenweichen/DeepCTR/commit/be65ce986a45bf2f35b5494db3fa6e993b905aeb",
+  "filename": "deepctr/models/nfm.py",
+  "commit": "be65ce986a45bf2f35b5494db3fa6e993b905aeb",
+  "source_url": "https://raw.githubusercontent.com/shenweichen/DeepCTR/be65ce986a45bf2f35b5494db3fa6e993b905aeb/deepctr/models/nfm.py",
+  "fetched_at": "2026-11-05T06:12:32.973768+00:00",
+  "source_sha256": "dfed70b0cd135e7d050ff83dca1f3eda4a08986a786417e0ee5d882fd90c4503",
+  "line_start": 35,
+  "line_end": 59,
+  "excerpt": "    :return: A Keras model instance.\n    \"\"\"\n    #check_feature_config_dict(linear_feature_columns)\n\n    features = build_input_features(linear_feature_columns + dnn_feature_columns)\n\n    inputs_list = list(features.values())\n\n    sparse_embedding_list, dense_value_list = input_from_feature_columns(features,dnn_feature_columns,\n                                                                              embedding_size,\n                                                                              l2_reg_embedding,init_std,\n                                                                              seed)\n    #todo not support dense\n    linear_logit = get_linear_logit(features, linear_feature_columns, l2_reg=l2_reg_linear, init_std=init_std,\n                                    seed=seed, prefix='linear')\n\n    fm_input = concat_fun(sparse_embedding_list, axis=1)\n    bi_out = BiInteractionPooling()(fm_input)\n    if bi_dropout:\n        bi_out = tf.keras.layers.Dropout(bi_dropout)(bi_out, training=None)\n    deep_out = DNN(dnn_hidden_units, dnn_activation, l2_reg_dnn, dnn_dropout,\n                   False, seed)(bi_out)\n    deep_logit = tf.keras.layers.Dense(\n        1, use_bias=False, activation=None)(deep_out)\n"
+}

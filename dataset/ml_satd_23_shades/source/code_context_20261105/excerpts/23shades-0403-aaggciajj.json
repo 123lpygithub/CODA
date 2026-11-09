@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0403-aaggciajj",
+  "revision_url": "https://github.com/ucam-smt/sgnmt/commit/40168e809d8268fdb028665ea56b6f7d8ce5cf89",
+  "filename": "cam/sgnmt/predictors/tf_t2t.py",
+  "commit": "40168e809d8268fdb028665ea56b6f7d8ce5cf89",
+  "source_url": "https://raw.githubusercontent.com/ucam-smt/sgnmt/40168e809d8268fdb028665ea56b6f7d8ce5cf89/cam/sgnmt/predictors/tf_t2t.py",
+  "fetched_at": "2026-11-05T06:12:46.266618+00:00",
+  "source_sha256": "217d06b316a6a26463b2e27187b75d11c5ac20b0b7752785faebe21c4f11597f",
+  "line_start": 465,
+  "line_end": 489,
+  "excerpt": "                                               single_cpu_thread,\n                                               max_terminal_id,\n                                               pop_id)\n        if not model_name or not problem_name or not hparams_set_name:\n            logging.fatal(\n                \"Please specify t2t_model, t2t_problem, and t2t_hparams_set!\")\n            raise AttributeError\n        if trg_vocab_size >= EditT2TPredictor.POS_FACTOR:\n            logging.fatal(\"Target vocabulary size (%d) must be less than %d!\"\n                          % (trg_vocab_size, EditT2TPredictor.POS_FACTOR))\n            raise AttributeError\n        self.beam_size = max(1, beam_size // 10) + 1\n        self.batch_size = 2048 # TODO(fstahlberg): Move to config\n        self.initial_trg_sentences = None\n        if trg_test_file: \n            self.initial_trg_sentences = []\n            with open(trg_test_file) as f:\n                for line in f:\n                    self.initial_trg_sentences.append(utils.oov_to_unk(\n                       [int(w) for w in line.strip().split()] + [utils.EOS_ID],\n                       self.trg_vocab_size, self._t2t_unk_id))\n        predictor_graph = tf.Graph()\n        with predictor_graph.as_default() as g:\n            hparams = trainer_lib.create_hparams(hparams_set_name)\n            self._add_problem_hparams(hparams, problem_name)"
+}

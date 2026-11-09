@@ -1,0 +1,186 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-7032",
+  "issue_url": "https://github.com/schollz/croc/issues/71",
+  "source_issue_url": "https://github.com/schollz/croc/issues/71",
+  "api_url": "https://api.github.com/repos/schollz/croc/issues/71",
+  "title": "wormhole protocol and PAKE compatibility",
+  "body": "Hi!\r\n\r\nI have found with great interest this golang implementation of some of the concepts behind Magic Wormhole. As a user of the latter (and maintainer of the Debian package), I am happy to see other implementations pop up, especially if it means it's easier for others to share files and use those concepts.\r\n\r\nUnfortunately, I am concerned with the current implementation of croc, as I explained in https://github.com/schollz/croc/issues/15#issuecomment-399301454\r\n\r\nI see two main issues:\r\n\r\n * compatibility concerns\r\n * security concerns\r\n\r\nCompatibility\r\n----------------\r\n\r\nWhile it's great croc reuses some concepts behind magic-wormhole, it doesn't exactly implement the same protocol. This means the problem space is fragmented: a user of croc can't talk with a user of wormhole and vice-versa, which makes it needlessly hard for users to talk to each other.\r\n\r\nI understand the idea behind it: a different implementation means more decentralization, for example. But that doesn't mean it *has* to be a different implementation to be decentralized. Wormhole, out of the box, supports using different relay (e.g. \"discovery\") and transfer (e.g. \"nat trasversal\") servers and croc could still implement the wormhole protocol while not being dependent on @warner's infrastructure as a single point of failure (SPOF). In fact, he explicitly said it would be good if other projects would make use of different DNS aliases for those services so they can easily be switched to different backends if traffic would become unmanageable for his services. This is how the debian packages work: the transit server is patched to be `tcp:magic-wormhole-transit.debian.net:4001:priority=2.0` instead of the upstream `tcp:transit.magic-wormhole.io:4001`. Then on Debian's infrastructure, that DNS entry is just a pointer to the normal transit server. The relay server server is the same, however (`ws://relay.magic-wormhole.io:4000/v1`).\r\n\r\nImplementing this would mean adding Wormhole support in croc, specifically the capability of talking with transit and, more importantly, relay servers so that croc would share the same key namespace as Wormhole.\r\n\r\nSecurity\r\n----------\r\n\r\nBut this would also require reimplementing the key exchange using PAKE instead of the home-grown, SHA256-based key exchanged. As I explained in my previous comments, I am unsure of the security properties of croc as it is done right now. A lot of care was given to the way Wormhole implements the key exchange: it uses a low-entropy ephemeral and weak key to establish a strong session key: that is the PAKE protocol which was published in multiple papers and seems to be solid at the cryptographic layer. I am not sure the SHA256-checksum croc implements has similar properties. For example, does it allow multiple attempts or does it bail on first try? Wouldn't it be possible for an attacker to build a rainbow table of all possible keys and just use that to access the files?\r\n\r\nI haven't reviewed croc's security properties in details, so maybe my concerns are misplaced. But as a general principle, rolling out a different cryptosystem for another project seems an idea fraught with dangers that should generally be avoided. In that regard, I also think that PAKE exchange support should be implemented as well as the above network compatibility.\r\n\r\nI hope this is useful for you and thanks for working on all of this!",
+  "author": "Participant 1",
+  "created_at": "2018-06-22T16:05:56Z",
+  "updated_at": "2026-08-09T00:27:47Z",
+  "state": "closed",
+  "closed_at": "2018-06-27T04:10:38Z",
+  "issue_fetched_at": "2026-10-18T19:10:29.821424+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T19:10:31.292404+00:00"
+  ],
+  "expected_comment_count": 20,
+  "retrieved_comment_count": 20,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 399542922,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-399542922",
+      "created_at": "2018-06-22T18:46:00Z",
+      "updated_at": "2018-06-22T18:46:00Z",
+      "author": "Participant 2",
+      "body": "@anarcat \r\n\r\nAs to compatibility with *magic-wormhole* that was never really a goal for *croc*. When I started building *croc* I couldn't find good documentation or source code on how the *magic-wormhole* relay worked, so I gave up trying to port it. \r\n\r\nAs to security, you're right that *croc* is not as secure as *magic-wormhole* in general. There are several points of vulnerability in a program like this:\r\n\r\n- MITM attacker (between sender/receiver and relay)\r\n- Evil relay attacker (the relay can try to decrypt things with the knowledge it has)\r\n- Brute force attacker (someone can spam \"code phrases\" against the relay trying to trick a sender into sending stuff to them)\r\n\r\nAFAIK PAKE will help against MITM and the Evil Relay but not against the Brute force - that is neither can determine the encryption key because that was generated using PAKE between the final recipient and sender. However someone could easily just spam the relay with code phrases hoping to get one right, which is only mitigated by a rate limiter.\r\n\r\nI could see that someone could place a MITM in the *croc* encrypted stream (or a nefarious relay could do this) and they could eventually decode the stream by trying all 5 million possibilities of code phrases. Eventually they could decode it. However, if you use custom code phrases it becomes harder and only the relay could probably decipher it (because the relay has the hash so they could presumably do a rainbow attack). Currently because of the time window for the transfer is so short, I was never really worried about this.\r\n\r\n## Croc 2.0\r\n\r\nI think something better is worth striving for, something that could handle all three such cases.\r\n\r\nOne thing that comes to mind is a public-private key + code phrase protocol. It would work like this:\r\n\r\n1. A generates public/private key (Apub, Apriv) and sends to the relay a code phrase + Apub.\r\n2. B generates a public/private key (Bpub,Bpriv) and sends to the relay the same code phrase + Bpub.\r\n3. The relay tells A that Bpub is interested in downloading the file and asks if thats okay. A says okay.\r\n4. The relay tells B that Apub will send the file and B says okay.\r\n5. Once both parties agree, then A encrypts the file against Bpub.\r\n\r\nIn this case, there is an extra interaction - the sender is asked if they want to send the file to the recipient. That means that brute force attacks won't work because if you have multiple recipients the sender could verify with the recipient what their public key is. Of course this also prevents MITM and nefarious relays because the private keys are never shared, so I believe it is better than PAKE."
+    },
+    {
+      "id": 399760095,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-399760095",
+      "created_at": "2018-06-24T14:20:03Z",
+      "updated_at": "2018-06-24T14:20:03Z",
+      "author": "Participant 2",
+      "body": "Public/private key encryption is now added, with double authentication"
+    },
+    {
+      "id": 399972076,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-399972076",
+      "created_at": "2018-06-25T14:29:19Z",
+      "updated_at": "2018-06-25T14:29:19Z",
+      "author": "Participant 1",
+      "body": "I do not believe this resolves the security concerns I have raised, and it definitely does not add  compatibility with wormhole in any shape or form..."
+    },
+    {
+      "id": 399980172,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-399980172",
+      "created_at": "2018-06-25T14:52:37Z",
+      "updated_at": "2018-06-25T15:17:08Z",
+      "author": "Participant 2",
+      "body": "@anarcat Sorry, compatibility with wormhole was never a goal. I put on the readme that this is \"similar in spirit and design\" but I really mean *similar* design and not exact. I'll just remove that altogether.\r\n\r\nI think the new changes do address your concerns but I'm happy to hear otherwise. Here's specifically what I thought your concerns were:\r\n\r\n> For example, does it allow multiple attempts or does it bail on first try? \r\n\r\nThe transfer is now double-authenticated with user-specific keys. So you can just check with your recipient that you are encrypting for their key. If not, you can bail and nothing is transferred. \r\n\r\n> Wouldn't it be possible for an attacker to build a rainbow table of all possible keys and just use that to access the files?\r\n\r\nThis is no longer possible. The data is encrypted using AES-256 with an encryption key that is encrypted with the public key / private key of the recipient / sender. The private keys are never shared so only the recipient can decrypt the data. \r\n\r\nAn attacker could still try to spam all possible code phrases to to pose as a recipient. However, the sender can easily discover this as the public key of the fake recipient won't match the one of the real recipient they want to send to. AFAIK, this doesn't exist in wormhole. I think that wormhole just subverts this attack by rate-limiting and actually there is no way to guarantee that the recipient is really the true recipient (its basically whoever gets to the code phrase first)."
+    },
+    {
+      "id": 400689816,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-400689816",
+      "created_at": "2018-06-27T14:22:31Z",
+      "updated_at": "2018-06-27T14:22:31Z",
+      "author": "Participant 1",
+      "body": "How do users check each other's public keys?"
+    },
+    {
+      "id": 400698626,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-400698626",
+      "created_at": "2018-06-27T14:44:00Z",
+      "updated_at": "2018-06-27T14:44:00Z",
+      "author": "Participant 2",
+      "body": "@anarcat Since this tool assumes there is already have a channel of communication (phone/text) the two parties can just dictate the public key they received to the other person and make sure it matches. This adds a whole other layer of security - in wormhole there is no way to determine if the person who entered the code phrase is the person you actually want receiving the file."
+    },
+    {
+      "id": 400700897,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-400700897",
+      "created_at": "2018-06-27T14:50:10Z",
+      "updated_at": "2018-06-27T14:50:10Z",
+      "author": "Participant 1",
+      "body": "On 2018-06-27 07:44:01, Zack wrote:\n> @anarcat Since this tool assumes there is already have a channel of communication (phone/text) the two parties can just dictate the public key they received to the other person and make sure it matches. This adds a whole other layer of security - in wormhole there is no way to determine if the person who entered the code phrase is the person you actually want receiving the file.\n\nBut then the short codes are useless and there are many other ways you\ncan exchange files, for example with OpenPGP encryption which also\nrelies on public keys.\n"
+    },
+    {
+      "id": 400703680,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-400703680",
+      "created_at": "2018-06-27T14:57:59Z",
+      "updated_at": "2018-06-27T14:57:59Z",
+      "author": "Participant 2",
+      "body": "@anarcat Short codes are not entirely useless - they serve as a way to first get the two parties into a room together. The uniqueness of the short-code is useful because it helps to make sure the room is unique. The public key validation that is enabled now is sort of an extra layer of protection. If someone else happens to get to that short code first, then the sender would immediately notice that their public key is wrong.\r\n\r\nIts possible I guess to just use public keys, but then you'd have to be typing out 30-40 random characters to transfer a file to someone.\r\n\r\nIts possible also that the short codes in croc could now be a lot shorter, since there is an another security measure to ensure valid transfers. I'll think about adding this later."
+    },
+    {
+      "id": 400707531,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-400707531",
+      "created_at": "2018-06-27T15:06:51Z",
+      "updated_at": "2018-06-27T15:08:29Z",
+      "author": "Participant 1",
+      "body": "I think the short codes add a false sense of security. You end up being completely vulnerable to a hostile server or MITM attack because PAKE is not implemented correctly (or at all, in fact). From what I gather, croc simply exchanges unsigned public keys over an insecure channel and tell users they are to be trusted yet provide no way of doing so in the protocol and leave that to a full, out of band fingerprint check. The *whole* point of PAKE's short codes is to *fix* the problem of such fingerprint checks that do not work for humans.\r\n\r\nI am sorry, but I do not believe croc brings the sort of security guarantees it says it does, but I am not sure I have the energy to convince you so. I hope others will be able to make a better argument than me! :)\r\n\r\nHave a nice day..."
+    },
+    {
+      "id": 400713801,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-400713801",
+      "created_at": "2018-06-27T15:21:37Z",
+      "updated_at": "2018-06-27T15:21:52Z",
+      "author": "Participant 2",
+      "body": "@anarcat You're right that PAKE is not implemented at all, it was never my goal or intention.\r\n\r\nIn fact, public/private keys actually provide *more* security than PAKE - in addition to encrypting the file for a single recipient they also provide a means to authenticate the recipient (wormhole cannot do this - anyone with a code phrase could receive the file! There is no stopping someone guessing code phrases until they get it right).\r\n\r\nKey signing here is unnecessary, because the public key is authenticated by the source (the person who generated it) over the channel of communication that is already open between the two people (i.e. the phone/text). I.e. you can just tell someone your public key and see if matches. Public/private keys, by their nature, assures that the public key corresponds only to one private key, which cannot be generated by a MITM, and only exists on the recipient machine.\r\n\r\nI'm sorry you don't want to continue the discussion. Thanks for prompting this idea of improving security though, which I think is a great addition to croc."
+    },
+    {
+      "id": 400719216,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-400719216",
+      "created_at": "2018-06-27T15:33:10Z",
+      "updated_at": "2018-06-27T15:33:10Z",
+      "author": "Participant 1",
+      "body": "On 2018-06-27 15:22:06, Zack wrote:\n> Key signing here is unnecessary, because the public key is authenticated by the source (the person who generated it) over the channel of communication that is already open between the two people (i.e. the phone/text). I.e. you can just tell someone your public key and see if matches. Public/private keys, by their nature, assures that the public key corresponds only to one private key, which cannot be generated by a MITM, and only exists on the recipient machine.\n\nThis is the problem right here. Croc is introduced like this in the\nREADME:\n\n> croc allows any two computers to directly and securely transfer files\n> and folders. When sending a file, croc generates a random code phrase\n> which must be shared with the recipient so they can receive the\n> file. The code phrase encrypts all data and metadata and also serves\n> to authorize the connection between the two computers in a\n> intermediary relay. The relay connects the TCP ports between the two\n> computers and does not store any information (and all information\n> passing through it is encrypted).\n\nNowhere does it mention that public keys must be authenticated as\nwell. At best, deep below in the README, does it say that public keys\nserve as \"a second method of authentication\" and gently encourages users\nto authenticate those keys. I have a long experience working with public\nkey systems, mostly with TLS, X509, GnuPG and OpenPGP, and I can tell\nyou: no one will ever do that.\n\nSo the security of the system entirely resides over the original short\nkey exchange, which does not follow established standards (PAKE).\n\nBy the way, Wormhole also uses strong session keys, which you can\nauthenticate if you really want to. Wormhole does not do that because\nit's inconvenient and would defeat the purpose of the lighter key\nexchange, which is to leverage an easy to use key to establish a\nstronger shared secret.\n\nIf you bypass all of this and simply relies on users to exchange their\npublic keys, you are missing the point of Wormhole and PAKE\naltogether. You are creating a system with unclear security properties\nwhich, at best, introduce a false sense of security for users and at\nworse, exposes vulnerable users to serious data breaches.\n\nEither you rely on the short code and implement PAKE, in which case you\ndon't need to validate public keys, or you implement public keys and\nthen users need to validate public keys. Doing half of both is the worst\nof both worlds and needlessly exposes your users to serious security\nissues.\n"
+    },
+    {
+      "id": 400726962,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-400726962",
+      "created_at": "2018-06-27T15:51:20Z",
+      "updated_at": "2018-06-27T15:51:20Z",
+      "author": "Participant 2",
+      "body": "@anarcat Could you explain something that I don't get - how does wormhole+PAKE stop an evil relay?\r\n\r\nHere's an evil relay scenario. The short code is easy to guess. Say A wants to send to B through the relay. A generates a code phrase. When A connects to the relay, the relay could pose as B and try all known code phrases, and eventually gets the one A used. A is totally unaware of the attempts until the right attempt is made. Thus the PAKE interaction occurs between A and the relay. Then the relay can pose as A when B tries to get the file, and they can transfer the file to them now using the same code phrase. In this way, the relay gains access to the file and allows the file transfer to go through.\r\n\r\nThe wormhole says that there is only one guess at a time. Does this mean that the wormhole relay only allows a single transfer to happen a time?"
+    },
+    {
+      "id": 400729534,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-400729534",
+      "created_at": "2018-06-27T15:58:45Z",
+      "updated_at": "2018-06-27T15:58:45Z",
+      "author": "Participant 1",
+      "body": "On 2018-06-27 08:51:21, Zack wrote:\n> The wormhole says that there is only one guess at a time. Does this mean that the wormhole relay only allows a single transfer to happen a time?\n\nI am not sure how wormhole deals with hostile relays, but the pake\nexchange is done between the two clients, the relay is only a\nmediator. So I would assume that the *clients* only allow one attempt at\na time.\n\nFurthermore, the relay has multiple \"channels\" (the first number in the\nmagic handshake) and yes, there, a single handshake can happen at a\ntime. This is documented in Known vulnerabilities section of the\nWormhole documentation, which I encourage you to read:\n\nhttps://magic-wormhole.readthedocs.io/en/latest/attacks.html\n\nI also encourage you to watch Warner's 2016 talk:\n\nhttps://youtu.be/oFrTqQw0_3c\n\nAnd slides:\n\nhttp://www.lothar.com/%7Ewarner/MagicWormhole-PyCon2016.pdf\n\n... and, why not, the whole of the documentation! :)\n"
+    },
+    {
+      "id": 400743349,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-400743349",
+      "created_at": "2018-06-27T16:31:31Z",
+      "updated_at": "2018-06-27T16:31:31Z",
+      "author": "Participant 2",
+      "body": "@anarcat Okay, the channels makes everything make sense to me now.\r\n\r\nI think I'll write a croc3.0 to use PAKE. I do like public keys, but I like the simplicity of just using the code phrase.\r\n\r\nThanks for continuing the conversation! "
+    },
+    {
+      "id": 400746439,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-400746439",
+      "created_at": "2018-06-27T16:38:27Z",
+      "updated_at": "2018-06-27T16:38:27Z",
+      "author": "Participant 1",
+      "body": "On 2018-06-27 09:31:32, Zack wrote:\n> @anarcat Okay, the channels makes everything make sense to me now.\n>\n> I think I'll write a croc3.0 to use PAKE. I do like public keys, but I like the simplicity of just using the code phrase.\n\nI am really happy to hear that! Be careful with the crypto, it's easy to\nget wrong...\n\nI also encourage you to look at the actual wire protocol behind\nWormhole: it would be great if they would be compatible.\n"
+    },
+    {
+      "id": 402176010,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-402176010",
+      "created_at": "2018-07-03T14:25:35Z",
+      "updated_at": "2018-07-03T14:25:35Z",
+      "author": "Participant 2",
+      "body": "@anarcat I've looked into wormhole compatibility. It would be great, but its very complicated. I'm going to get in touch with the author for more details.\r\n\r\nIn the meantime I've bumped croc to 3.0 which uses PAKE: https://github.com/schollz/pake"
+    },
+    {
+      "id": 402343794,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-402343794",
+      "created_at": "2018-07-04T02:21:17Z",
+      "updated_at": "2018-07-04T02:21:17Z",
+      "author": "Participant 1",
+      "body": "I am very glad you made those changes and are considering wormhole\ncompatibility.\n\nIt is rare to see someone be so open in a conversation in the face of\nsuch radical proposals in a fundamental aspect of their work. I\ncongratulate you on your openness, humility and efficiency in handling\nthis matter.\n\nChapeau! :)\n"
+    },
+    {
+      "id": 446460511,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-446460511",
+      "created_at": "2018-12-12T04:45:04Z",
+      "updated_at": "2018-12-12T04:45:04Z",
+      "author": "Participant 3",
+      "body": "fwiw, there is a spake2 implementation in Go available here: https://salsa.debian.org/vasudev/gospake2, that might save you some time than coming up with your own spake2 implementation."
+    },
+    {
+      "id": 447591667,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-447591667",
+      "created_at": "2018-12-15T19:21:03Z",
+      "updated_at": "2018-12-15T19:21:03Z",
+      "author": "Participant 2",
+      "body": "Thanks @vu3rdd "
+    },
+    {
+      "id": 5228979610,
+      "url": "https://github.com/schollz/croc/issues/71#issuecomment-5228979610",
+      "created_at": "2026-08-09T00:27:46Z",
+      "updated_at": "2026-08-09T00:27:46Z",
+      "author": "Participant 4",
+      "body": "This issue has been automatically locked since it was closed. Please open a new issue for related bugs."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

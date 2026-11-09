@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0852-aaibijdfi",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/a3bd41971720ae466b4e1e99f8b1484501c8954e",
+  "filename": "scikits/learn/externals/joblib/memory.py",
+  "commit": "a3bd41971720ae466b4e1e99f8b1484501c8954e",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/a3bd41971720ae466b4e1e99f8b1484501c8954e/scikits/learn/externals/joblib/memory.py",
+  "fetched_at": "2026-11-05T06:14:04.874023+00:00",
+  "source_sha256": "ae6d2e5b0573774c39e1aa763da3fe8b709ed89ea6eb06a8f04c4d28a55575e8",
+  "line_start": 184,
+  "line_end": 208,
+  "excerpt": "            function.\n        \"\"\"\n        module, name = get_func_name(self.func)\n        module.append(name)\n        func_dir = os.path.join(self.cachedir, *module)\n        if mkdir and not os.path.exists(func_dir):\n            try:\n                os.makedirs(func_dir)\n            except OSError:\n                \"\"\" Dir exists: we have a race condition here, when using \n                    multiprocessing.\n                \"\"\"\n                # XXX: Ugly\n        return func_dir\n\n\n    def get_output_dir(self, *args, **kwargs):\n        \"\"\" Returns the directory in which are persisted the results\n            of the function corresponding to the given arguments.\n\n            The results can be loaded using the .load_output method.\n        \"\"\"\n        coerce_mmap = (self.mmap_mode is not None)\n        argument_hash = hash(filter_args(self.func, self.ignore,\n                             *args, **kwargs), "
+}

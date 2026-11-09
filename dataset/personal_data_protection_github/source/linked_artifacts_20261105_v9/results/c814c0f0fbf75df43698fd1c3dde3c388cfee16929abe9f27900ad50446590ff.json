@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/alphagov/govuk_publishing_components/blob/main/app/assets/javascripts/govuk_publishing_components/components/cookie-banner.js#L79",
+  "kind": "file",
+  "cited_in": [
+    "comment_1067015897"
+  ],
+  "revision": "main",
+  "immutable_revision": false,
+  "line_start": 67,
+  "line_end": 91,
+  "text": "  CookieBanner.prototype.setCookieConsent = function () {\n    if (this.$acceptCookiesButton.getAttribute('data-cookie-types') === 'all') {\n      this.$module.querySelector('.gem-c-cookie-banner__confirmation-message--accepted').hidden = false\n    }\n    window.GOVUK.approveAllCookieTypes()\n    window.GOVUK.cookie('cookies_preferences_set', 'true', { days: 365 })\n    this.$module.showConfirmationMessage()\n    this.$module.cookieBannerConfirmationMessage.focus()\n    window.GOVUK.triggerEvent(window, 'cookie-consent')\n  }\n\n  CookieBanner.prototype.rejectCookieConsent = function () {\n    this.$module.querySelector('.gem-c-cookie-banner__confirmation-message--rejected').hidden = false\n    this.$module.showConfirmationMessage()\n    this.$module.cookieBannerConfirmationMessage.focus()\n    window.GOVUK.setDefaultConsentCookie()\n    window.GOVUK.cookie('cookies_preferences_set', 'true', { days: 365 })\n  }\n\n  CookieBanner.prototype.showConfirmationMessage = function () {\n    this.$cookieBannerHeader = this.$module.querySelector('.govuk-cookie-banner__heading')\n    this.$cookieBannerHeader.hidden = true\n\n    this.$cookieBannerMainContent = this.$module.querySelector('.gem-c-cookie-banner__content')\n    this.$cookieBannerMainContent.hidden = true",
+  "source_sha256": "b90e90c0eafa389cb8af235e409993b9a28b9150d5ac40204072188b4df23343",
+  "fetched_at": "2026-11-05T06:21:20.559436+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/alphagov/govuk_publishing_components/main/app/assets/javascripts/govuk_publishing_components/components/cookie-banner.js",
+  "status": "available"
+}

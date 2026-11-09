@@ -1,0 +1,226 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18336",
+  "issue_url": "https://github.com/mastodon/mastodon/issues/3823",
+  "source_issue_url": "https://github.com/mastodon/mastodon/issues/3823",
+  "api_url": "https://api.github.com/repos/mastodon/mastodon/issues/3823",
+  "title": "Toot expiry option",
+  "body": "Hi, \r\n\r\nThis is a feature request for settings for Toots to automatically delete/expire within a certain amount of time. By expiry time I mean the amount of time which has to pass before a Toot is automatically deleted, rather than a specific date/time that a Toot expires on. \r\n\r\nI would suggest keeping the default to Toots never expiring unless a user deletes them, however it would be nice to get the option to set a default expiry time in your account settings, but also have the option to alter the time on a Toot-by-Toot basis. \r\n\r\nThe range for expiry times would be pretty large and it could make an awkward input to design if a user can choose anything between an hour and 6 months, but the more flexibility the more useful the feature is. \r\n\r\nThis is a feature that I (@jck@mastodon.social) and a few others thought would be useful and make Mastodon feel like a social network where you *actually* have control over your own data. \r\n\r\nThere would obviously need to be exceptions of some sort for Toots that have been marked for moderation, so that the feature can't be used for harassment that auto-deletes before a moderator can get to it. \r\n\r\nThanks for looking at this!\r\n\r\n* * * *\r\n\r\n- [x] I searched or browsed the repo’s other issues to ensure this is not a duplicate.\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2017-06-17T15:32:48Z",
+  "updated_at": "2024-01-10T00:02:35Z",
+  "state": "closed",
+  "closed_at": "2018-02-27T12:39:14Z",
+  "issue_fetched_at": "2026-10-18T22:10:41.456497+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T22:10:42.893859+00:00"
+  ],
+  "expected_comment_count": 25,
+  "retrieved_comment_count": 25,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 309223507,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309223507",
+      "created_at": "2017-06-17T16:00:08Z",
+      "updated_at": "2017-06-17T16:01:15Z",
+      "author": "Participant 2",
+      "body": "Check out ephemeral.glitch.social, which does this. (Well, it has its own internal settings for when toots are deleted - it's not user-selectable - but it has the underpinnings of what you're suggesting.)"
+    },
+    {
+      "id": 309224319,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309224319",
+      "created_at": "2017-06-17T16:14:13Z",
+      "updated_at": "2017-06-17T16:14:13Z",
+      "author": "Participant 1",
+      "body": "So I guess auto-deletion, in general, is possible, but letting users select expiry would require quite a bit more work? "
+    },
+    {
+      "id": 309224348,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309224348",
+      "created_at": "2017-06-17T16:14:42Z",
+      "updated_at": "2017-06-17T16:14:42Z",
+      "author": "Participant 3",
+      "body": "not too much work but yea"
+    },
+    {
+      "id": 309240759,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309240759",
+      "created_at": "2017-06-17T21:18:02Z",
+      "updated_at": "2017-06-17T21:18:02Z",
+      "author": "Participant 4",
+      "body": "I don't see the need for this. If you want to delete one of your toots you can do so, but why would you want to do this automatically? Is it that troublesome if someone reads an old toot?\r\n\r\nIt would add yet another setting to the already complex toot box (CW/NSFW, visibility)."
+    },
+    {
+      "id": 309240797,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309240797",
+      "created_at": "2017-06-17T21:18:47Z",
+      "updated_at": "2017-06-17T21:18:47Z",
+      "author": "Participant 3",
+      "body": "why not add an overflow menu for additional options then?"
+    },
+    {
+      "id": 309241322,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309241322",
+      "created_at": "2017-06-17T21:28:56Z",
+      "updated_at": "2017-06-17T21:28:56Z",
+      "author": "Participant 4",
+      "body": "That doesn't make it less complex. Haven't you noticed how often new users ask how the content warning and visibility functions work? Expiring toots would make it even harder for newcomers to understand what's going on."
+    },
+    {
+      "id": 309241777,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309241777",
+      "created_at": "2017-06-17T21:38:05Z",
+      "updated_at": "2017-06-17T21:38:05Z",
+      "author": "Participant 5",
+      "body": "FYI: pawoo.net already implements this feature.\r\nThey says it's experiment but it works.\r\nUser can select expiration time and added as hashtag. '#exp1m' means expires in 1 minutes.\r\nToot with expiry does not federated to other instances for safety. (Federated toot deletion not always succeed)"
+    },
+    {
+      "id": 309242886,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309242886",
+      "created_at": "2017-06-17T22:01:45Z",
+      "updated_at": "2017-06-17T22:01:45Z",
+      "author": "Participant 1",
+      "body": "In comparison to the content warning, the UI for an expiry setting would be far more intuitive considering the simplest option would be something like a timer, and a label 'Auto-delete after:'. \r\n\r\nIt was really a feature suggestion to help users keep their digital-footprint down and bring the social network back to them (as Mastodon aims to do). Deleting Toots from last month or even last week isn't practical at all at the moment if you post just 10 times a day, since there's no mass deletion option. For some people like myself, long-gone posts and footprint control are ultimately privacy issues.\r\n\r\nIf a post-by-post basis is too complex for the UI, then it would be useful to at least have mass deletion controls somewhere in the Settings page. If that's possible, I don't see why having an automated mass deletion after X weeks setting is unreasonable."
+    },
+    {
+      "id": 309242988,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309242988",
+      "created_at": "2017-06-17T22:04:12Z",
+      "updated_at": "2017-06-17T22:04:42Z",
+      "author": "Participant 3",
+      "body": "![](https://shitty.download/znlR.png)\r\n\r\nthere's plenty of space below the message box for an accordion with more advanced options such as expiry, scheduling etc"
+    },
+    {
+      "id": 309245413,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309245413",
+      "created_at": "2017-06-17T23:00:48Z",
+      "updated_at": "2017-06-17T23:00:48Z",
+      "author": "Participant 6",
+      "body": "@Kimik0\r\n\r\n>I don't see the need for this. If you want to delete one of your toots you can do so, but why would you want to do this automatically?\r\n\r\nFun."
+    },
+    {
+      "id": 309245433,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309245433",
+      "created_at": "2017-06-17T23:01:11Z",
+      "updated_at": "2017-06-17T23:01:11Z",
+      "author": "Participant 4",
+      "body": "> It was really a feature suggestion to help users keep their digital-footprint down and bring the social network back to them (as Mastodon aims to do). Deleting Toots from last month or even last week isn't practical at all at the moment if you post just 10 times a day, since there's no mass deletion option. For some people like myself, long-gone posts and footprint control are ultimately privacy issues.\r\n\r\nAh, now it's starting to make sense to me. The only use for short expiration times (~minutes) I could think of was silliness or trolling, but longer expiration times (~weeks) seem like a reasonable addition.\r\n\r\nBut the best place for something like that would be the Settings pages. You wouldn't want to have to configure that again and again for every toot. Either an \"Automatically delete my toots after ` ` days\" setting or a \"Delete all toots older than ` ` days\" action would work."
+    },
+    {
+      "id": 309245475,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309245475",
+      "created_at": "2017-06-17T23:02:03Z",
+      "updated_at": "2017-06-17T23:02:03Z",
+      "author": "Participant 6",
+      "body": ">The only use for short expiration times (~minutes) I could think of was silliness or trolling\r\n\r\nThis would never go down well on Mastodon, at ALL. \\*very serious face\\*"
+    },
+    {
+      "id": 309245559,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309245559",
+      "created_at": "2017-06-17T23:04:00Z",
+      "updated_at": "2017-06-17T23:04:00Z",
+      "author": "Participant 4",
+      "body": "It depends. Some chaos-loving instance admins would allow it, but I think the more serious ones would disable the feature if it could be abused that way."
+    },
+    {
+      "id": 309245803,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309245803",
+      "created_at": "2017-06-17T23:09:15Z",
+      "updated_at": "2017-06-17T23:11:25Z",
+      "author": "Participant 1",
+      "body": "I can still see a use for short-life posts. \r\n\r\nIf you're having a conversation with someone, often I don't want that to stay around too long, since I'd like to put an end to it at some point. \r\n\r\nPost scope settings don't work at all in this case since it's nice for more people to join in, but after a certain amount of time (should that be 30 minutes or so), the post series could auto-delete so that you can escape the discussion more easily. (So that you're not labouring over the old points etc.)\r\n\r\nIt would be far easier considering a discussion can last 30 posts – every one of which have to be deleted or any one of which other users can reply to past the time that you intended to be involved with the discussion. "
+    },
+    {
+      "id": 309245853,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309245853",
+      "created_at": "2017-06-17T23:10:36Z",
+      "updated_at": "2017-06-17T23:11:21Z",
+      "author": "Participant 6",
+      "body": "@kimik0 Well, of course, it could be a configurable option. But why disallow it completely? ephemeral is getting along fine and not making everything terrible, right? It can be a little confusing but people are clearly enjoying it. It's like saying Snapchat is bad because you can only look at the pictures for a few seconds."
+    },
+    {
+      "id": 309246348,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309246348",
+      "created_at": "2017-06-17T23:24:14Z",
+      "updated_at": "2017-06-17T23:24:14Z",
+      "author": "Participant 4",
+      "body": "Nah, it just feels like something only a few people would use often. For the rest of us it would only clutter up the interface."
+    },
+    {
+      "id": 309262549,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309262549",
+      "created_at": "2017-06-18T07:48:11Z",
+      "updated_at": "2017-06-18T07:48:11Z",
+      "author": "Participant 1",
+      "body": "I think more people would use it and see the benefits of this feature after it's been implemented. Since no other major social network has implemented something like this or even made it easy to control your footprint, it's a new concept; and one that I think people will take well too once it's available. \r\n\r\nI really don't think this would clutter up the interface. For the slight inconvenience (perhaps), we get another feature for Mastodon to make it stand out as a privacy-centric non-twitter clone. \r\n\r\nHere are a couple of ideas that don't clutter up the interface at all.\r\n\r\nEither a clear option without a menu.\r\n![Clear option](https://user-images.githubusercontent.com/11884004/27259039-e74a24d4-5401-11e7-90ca-2c82db4fd782.png)\r\n\r\nOr the icon can be hidden in a menu. This would allow for other features if necessary. \r\n![Hidden in menu](https://user-images.githubusercontent.com/11884004/27259067-92435b94-5402-11e7-8e6e-1f59f02d70cb.png)"
+    },
+    {
+      "id": 309718100,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309718100",
+      "created_at": "2017-06-20T10:56:08Z",
+      "updated_at": "2017-06-20T10:56:08Z",
+      "author": "Participant 7",
+      "body": "The problem with that is with federation. You can guarantee the toot has been deleted from the originating instance, but you can't guarantee that remote instances will delete them when they get the message to do so (or that they will get the message at all)\r\n\r\nbut then that's the same problem as with normal toot deletion."
+    },
+    {
+      "id": 309755156,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309755156",
+      "created_at": "2017-06-20T13:35:30Z",
+      "updated_at": "2017-06-20T13:35:30Z",
+      "author": "Participant 1",
+      "body": "I guess the main idea with time-expiry is to make it *more* difficult to keep that post on the record. \r\n\r\nIn any case, a screenshot or something can be taken which would also have a similar effect as another instance storing a toot for longer than requested. Time-expiry just obfuscates the process of bringing up the contents of the post, which is all that's necessary. "
+    },
+    {
+      "id": 309755491,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309755491",
+      "created_at": "2017-06-20T13:36:42Z",
+      "updated_at": "2017-06-20T13:36:42Z",
+      "author": "Participant 7",
+      "body": "Yeah totally. I'm for it, just pointing out that it can't be a certified deletion"
+    },
+    {
+      "id": 309797853,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-309797853",
+      "created_at": "2017-06-20T15:34:28Z",
+      "updated_at": "2017-06-20T15:34:28Z",
+      "author": "Participant 8",
+      "body": "likely going to be testing this at the instance and user level but not at the level of individual toots, mostly due to interface clutter and it maybe not being necessary\r\n\r\nwill try to remember to post back here when there's some results"
+    },
+    {
+      "id": 368685315,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-368685315",
+      "created_at": "2018-02-26T23:13:45Z",
+      "updated_at": "2018-02-26T23:13:45Z",
+      "author": "Participant 6",
+      "body": "I think this is a duplicate of the slightly older *Content auto expire / delete for users #1295*?"
+    },
+    {
+      "id": 368860390,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-368860390",
+      "created_at": "2018-02-27T12:39:14Z",
+      "updated_at": "2018-02-27T12:39:14Z",
+      "author": "Participant 7",
+      "body": "yeah looks like, closing"
+    },
+    {
+      "id": 1221241341,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-1221241341",
+      "created_at": "2022-08-20T06:12:41Z",
+      "updated_at": "2022-08-20T06:12:41Z",
+      "author": "Participant 9",
+      "body": "I would really like this option since some things are very time-local (e. g. tummy ache) and I don't want to be profiled"
+    },
+    {
+      "id": 1883982860,
+      "url": "https://github.com/mastodon/mastodon/issues/3823#issuecomment-1883982860",
+      "created_at": "2024-01-10T00:02:15Z",
+      "updated_at": "2024-01-10T00:02:35Z",
+      "author": "Participant 10",
+      "body": "Hello,\r\n\r\n@Cassolotl, @wxcafe, this issue is not a duplicate because requesting a per-post option and a wider duration range (especially lower ones).\r\n\r\nPlease consider reopening it.\r\n\r\nThanks"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

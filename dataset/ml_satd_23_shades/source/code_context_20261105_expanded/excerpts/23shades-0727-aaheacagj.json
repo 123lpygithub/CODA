@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0727-aaheacagj",
+  "revision_url": "https://github.com/vkuznet/MLaaS4HEP/commit/94f103c85a1578c1ef5d1dbd5df59cd766b96a9f",
+  "filename": "src/python/models.py",
+  "commit": "94f103c85a1578c1ef5d1dbd5df59cd766b96a9f",
+  "source_url": "https://raw.githubusercontent.com/vkuznet/MLaaS4HEP/94f103c85a1578c1ef5d1dbd5df59cd766b96a9f/src/python/models.py",
+  "fetched_at": "2026-11-05T06:13:44.352316+00:00",
+  "source_sha256": "93d032286ec589a453ce85b5f5dfc86d9b527881ae4ded9555c94f5a5ed116d6",
+  "line_start": 88,
+  "line_end": 112,
+  "excerpt": "    for data in gen:\n        x_train = data[0]\n        x_mask = data[1]\n        print(\"x_train chunk of {} shape\".format(np.shape(x_train)))\n        print(\"x_mask chunk of {} shape\".format(np.shape(x_mask)))\n        if np.shape(x_train)[0] == 0:\n            print(\"received empty x_train chunk\")\n            break\n        if not trainer:\n            input_shape = (np.shape(x_train)[-1],) # read number of attributes we have\n            trainer = Trainer(model(input_shape), verbose=params.get('verbose', 0))\n\n        # TODO: the y_train should be given us externally, so far we create it as random values\n        # create dummy vector for y's for our x_train\n        from keras.utils import to_categorical\n        y_train = np.random.randint(2, size=np.shape(x_train)[0])\n        y_train = to_categorical(y_train) # convert labesl to categorical values\n        print(\"y_train {} chunk of {} shape\".format(y_train, np.shape(y_train)))\n        kwds = {'epochs':epochs, 'batch_size': batch_size, 'shuffle': shuffle, 'validation_split': split}\n\n        trainer.fit(data, y_train, **kwds)\n    if fout:\n        trainer.save(fout)\n\n#",
+  "match_policy": "unique-release-normalized-v2"
+}

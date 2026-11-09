@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0133-aaggcfjif",
+  "revision_url": "https://github.com/ucam-smt/sgnmt/commit/eb61c8e69bd99717771ac205e9d47b23fc650565",
+  "filename": "cam/sgnmt/blocks/vanilla_decoder.py",
+  "commit": "eb61c8e69bd99717771ac205e9d47b23fc650565",
+  "source_url": "https://raw.githubusercontent.com/ucam-smt/sgnmt/eb61c8e69bd99717771ac205e9d47b23fc650565/cam/sgnmt/blocks/vanilla_decoder.py",
+  "fetched_at": "2026-11-05T06:11:59.954527+00:00",
+  "source_sha256": "6d665f803b1715fc6495d339a208d8c221cd34fb05b445ee51477ea02c833eae",
+  "line_start": 73,
+  "line_end": 97,
+  "excerpt": "                          self.config['dec_embed'],\n                          self.config['dec_nhids'],\n                          self.config['enc_nhids'] * 2)\n        cost = decoder.cost(encoder.apply(source_sentence,\n                                          source_sentence_mask),\n                            source_sentence_mask,\n                            target_sentence,\n                            target_sentence_mask)\n    \n        logging.info('Creating computational graph')\n        cg = ComputationGraph(cost)\n    \n        # Initialize model (TODO: do i really need this?)\n        logging.info('Initializing model')\n        encoder.weights_init = decoder.weights_init = IsotropicGaussian(\n            self.config['weight_scale'])\n        encoder.biases_init = decoder.biases_init = Constant(0)\n        encoder.push_initialization_config()\n        decoder.push_initialization_config()\n        encoder.bidir.prototype.weights_init = Orthogonal()\n        decoder.transition.weights_init = Orthogonal()\n        encoder.initialize()\n        decoder.initialize()\n    \n        # apply dropout for regularization (TODO: remove?)"
+}

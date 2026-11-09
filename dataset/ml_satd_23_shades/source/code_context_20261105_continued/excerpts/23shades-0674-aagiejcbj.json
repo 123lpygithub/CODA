@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0674-aagiejcbj",
+  "revision_url": "https://github.com/pandas-profiling/pandas-profiling/commit/6c4f9ad7546a14462c03116ed1b623b6cdaf9bb5",
+  "filename": "src/pandas_profiling/model/messages.py",
+  "commit": "6c4f9ad7546a14462c03116ed1b623b6cdaf9bb5",
+  "source_url": "https://raw.githubusercontent.com/pandas-profiling/pandas-profiling/6c4f9ad7546a14462c03116ed1b623b6cdaf9bb5/src/pandas_profiling/model/messages.py",
+  "fetched_at": "2026-11-05T06:13:36.349917+00:00",
+  "source_sha256": "aa8fd3630ef9b4d55f3867cc598f4922f6104793fb6478a1fe0b710d4b960f64",
+  "line_start": 65,
+  "line_end": 89,
+  "excerpt": "        fields=None,\n    ):\n        if fields is None:\n            fields = set()\n\n        self.fields = fields\n        self.message_type = message_type\n        self.values = values\n        self.column_name = column_name\n        self.anchor_id = hash(column_name)\n\n    def fmt(self):\n        # TODO: render in template\n        name = self.message_type.name.replace(\"_\", \" \")\n        if name == \"HIGH CORRELATION\":\n            name = '<abbr title=\"This variable has a high correlation with {num} fields: {title}\">HIGH CORRELATION</abbr>'.format(\n                num=len(self.values[\"fields\"]),\n                title=\", \".join(self.values[\"fields\"]),\n            )\n        return name\n\n\ndef check_table_messages(table: dict) -> List[Message]:\n    \"\"\"Checks the overall dataset for warnings.\n"
+}

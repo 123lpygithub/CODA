@@ -1,0 +1,74 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3036",
+  "issue_url": "https://github.com/mattermost/desktop/issues/544",
+  "source_issue_url": "https://github.com/mattermost/desktop/issues/544",
+  "api_url": "https://api.github.com/repos/mattermost/desktop/issues/544",
+  "title": "Why does this app make a call to api.segment.io ?",
+  "body": "This is new to one of the later versions - suddenly Mattermost desktop is calling api.segment.io - which is typically used for tracking data in 3rd party services.\r\n\r\nWhy is this client tracking anything?  Feels less secure with this going on.  Please advise.",
+  "author": "Participant 1",
+  "created_at": "2017-06-01T19:34:55Z",
+  "updated_at": "2021-01-08T15:33:47Z",
+  "state": "closed",
+  "closed_at": "2017-06-02T16:57:13Z",
+  "issue_fetched_at": "2026-10-18T16:10:50.635338+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T16:10:52.018497+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 305628365,
+      "url": "https://github.com/mattermost/desktop/issues/544#issuecomment-305628365",
+      "created_at": "2017-06-01T21:38:52Z",
+      "updated_at": "2017-06-01T21:38:52Z",
+      "author": "Participant 2",
+      "body": "Thanks @fmp777 \r\n\r\nYou can find out more information here: https://docs.mattermost.com/administration/telemetry.html\r\n\r\nIt is optional and can be turned off on the server if preferred. No personally identifiable information is collected."
+    },
+    {
+      "id": 305850932,
+      "url": "https://github.com/mattermost/desktop/issues/544#issuecomment-305850932",
+      "created_at": "2017-06-02T16:57:13Z",
+      "updated_at": "2017-06-02T16:57:13Z",
+      "author": "Participant 2",
+      "body": "I'll close the issue since it's related to the Mattermost server rather than the desktop app. Feel free to ask further question though."
+    },
+    {
+      "id": 309247377,
+      "url": "https://github.com/mattermost/desktop/issues/544#issuecomment-309247377",
+      "created_at": "2017-06-17T23:53:27Z",
+      "updated_at": "2017-06-17T23:53:27Z",
+      "author": "Participant 3",
+      "body": "> @jasonblais : It is optional and can be turned off on the server if preferred. No personally identifiable information is collected.\r\n\r\nI think that kind of optional option should be set to disabled by default. In other words, it should be an opt-in option instead of an opt-out one."
+    },
+    {
+      "id": 428078026,
+      "url": "https://github.com/mattermost/desktop/issues/544#issuecomment-428078026",
+      "created_at": "2018-10-09T06:41:04Z",
+      "updated_at": "2018-10-09T06:41:04Z",
+      "author": "Participant 4",
+      "body": "I think it is a **big security issue** to use a host, which changes every 60 seconds its IPs in an unpredictable manner. So since reports are blocked by our firewall anyway (impossible to find a static stable IP), we are forced to disable telemetry ...  "
+    },
+    {
+      "id": 619542132,
+      "url": "https://github.com/mattermost/desktop/issues/544#issuecomment-619542132",
+      "created_at": "2020-04-26T12:29:41Z",
+      "updated_at": "2020-04-26T12:29:41Z",
+      "author": "Participant 5",
+      "body": "Hi, \r\nI didn't want to duplicate this issue. \r\nSo I'm going to continue on this one until advised otherwise.\r\nThe pi-hole mattermost server is configured to not have telemetry activated. Their team have shown me the screenshot of the box checked to false in the settings.\r\nStill I have plenty of api.segment.io calls on my dns filtering system which is pi-hole or latter nextdns.\r\n\r\nHere are the screenshots that  I4ve taken when I had a problem before unblocking your telemetry partners. \r\n![accept cert2020-04-26 033705](https://user-images.githubusercontent.com/9523075/80307601-58222e00-87ca-11ea-8e5c-e5c9a26049d3.jpg)\r\n![apsegment_blocked_nextdns2020-04-26 033853](https://user-images.githubusercontent.com/9523075/80307602-59535b00-87ca-11ea-8041-e63dae59d651.jpg)\r\n![certificate error2020-04-26 033534](https://user-images.githubusercontent.com/9523075/80307603-59535b00-87ca-11ea-8d26-83e57f9269dc.jpg)\r\n![segment_being_blocked2020-04-26 035628](https://user-images.githubusercontent.com/9523075/80307604-59ebf180-87ca-11ea-83f2-aada8bbd54da.jpg)\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 756817605,
+      "url": "https://github.com/mattermost/desktop/issues/544#issuecomment-756817605",
+      "created_at": "2021-01-08T15:30:48Z",
+      "updated_at": "2021-01-08T15:33:47Z",
+      "author": "Participant 6",
+      "body": "@boistordu FYI, I had to reload (View->Reload) my front end app (Linux v4.3.1, in my case) after disabling reporting in the System Console.  Errors went away after that.  \r\n\r\nCurrently the cert is bad:\r\n```\r\n$ curl https://api.segment.io/\r\ncurl: (60) SSL certificate problem: EE certificate key too weak\r\nMore details here: https://curl.haxx.se/docs/sslcerts.html\r\n```"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

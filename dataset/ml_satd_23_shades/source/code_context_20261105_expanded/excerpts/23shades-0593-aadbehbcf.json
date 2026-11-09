@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0593-aadbehbcf",
+  "revision_url": "https://github.com/mj000001/Object-Detection-And-Tracking/commit/e6fde31224ff635df06910493c602da0f0d3f33b",
+  "filename": "detracking/detection/faster_rcnn/datasets/kittivoc.py",
+  "commit": "e6fde31224ff635df06910493c602da0f0d3f33b",
+  "source_url": "https://raw.githubusercontent.com/mj000001/Object-Detection-And-Tracking/e6fde31224ff635df06910493c602da0f0d3f33b/detracking/detection/faster_rcnn/datasets/kittivoc.py",
+  "fetched_at": "2026-11-05T06:13:19.532347+00:00",
+  "source_sha256": "89e4ed2b4c537821be5877aba193856231efc958959e9497ff93992e73078285",
+  "line_start": 15,
+  "line_end": 39,
+  "excerpt": "import cPickle\nimport math\nimport glob\nimport uuid\nimport scipy.io as sio\nimport xml.etree.ElementTree as ET\n\nfrom .imdb import imdb\nfrom .imdb import ROOT_DIR\nimport ds_utils\nfrom .voc_eval import voc_eval\n\n# TODO: make fast_rcnn irrelevant\n# >>>> obsolete, because it depends on sth outside of this project\nfrom ..fast_rcnn.config import cfg\n# <<<< obsolete\n\n\nclass kittivoc(imdb):\n    def __init__(self, image_set, devkit_path=None):\n        imdb.__init__(self, 'kittivoc_' + image_set)\n        self._image_set = image_set\n        self._devkit_path = self._get_default_path() if devkit_path is None \\\n                            else devkit_path\n        self._data_path = self._devkit_path"
+}

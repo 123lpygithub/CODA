@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0848-aahiefidd",
+  "revision_url": "https://github.com/PythonOT/POT/commit/55840f6bccadd79caf722d86f06da857e3045453",
+  "filename": "ot/utils.py",
+  "commit": "55840f6bccadd79caf722d86f06da857e3045453",
+  "source_url": "https://raw.githubusercontent.com/PythonOT/POT/55840f6bccadd79caf722d86f06da857e3045453/ot/utils.py",
+  "fetched_at": "2026-11-05T06:14:04.298039+00:00",
+  "source_sha256": "9408dcc6ae57cf3ea60e933af5cba34bcd747427c2de15b1377689c3ca8563f6",
+  "line_start": 328,
+  "line_end": 352,
+  "excerpt": "            # This is set in utils/__init__.py but it gets overwritten\n            # when running under python3 somehow.\n            warnings.simplefilter(\"always\", DeprecationWarning)\n            try:\n                with warnings.catch_warnings(record=True) as w:\n                    value = getattr(self, key, None)\n                if len(w) and w[0].category == DeprecationWarning:\n                    # if the parameter is deprecated, don't show it\n                    continue\n            finally:\n                warnings.filters.pop(0)\n\n            # XXX: should we rather test if instance of estimator?\n            if deep and hasattr(value, 'get_params'):\n                deep_items = value.get_params().items()\n                out.update((key + '__' + k, val) for k, val in deep_items)\n            out[key] = value\n        return out\n\n    def set_params(self, **params):\n        \"\"\"Set the parameters of this estimator.\n\n        The method works on simple estimators as well as on nested objects\n        (such as pipelines). The latter have parameters of the form\n        ``<component>__<parameter>`` so that it's possible to update each"
+}

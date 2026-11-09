@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0190-aabdibfbd",
+  "revision_url": "https://github.com/jason718/game-feature-learning/commit/99835f70d7cbb2c81ccaf8632ee5ad9cb5233ee4",
+  "filename": "src/networks.py",
+  "commit": "99835f70d7cbb2c81ccaf8632ee5ad9cb5233ee4",
+  "source_url": "https://raw.githubusercontent.com/jason718/game-feature-learning/99835f70d7cbb2c81ccaf8632ee5ad9cb5233ee4/src/networks.py",
+  "fetched_at": "2026-11-05T06:12:08.950050+00:00",
+  "source_sha256": "c8c8e4f3fc61bd99e2a784e810f901b896c2103ec77bbfbfb7a279b764ce28a2",
+  "line_start": 29,
+  "line_end": 53,
+  "excerpt": "            init.constant_(m.bias.data, 0.0)\n\n    if gpu_ids:\n        net.cuda()\n        net = torch.nn.DataParallel(net, gpu_ids)\n\n    print('initialize network with %s' % init_type)\n    net.apply(init_func)\n    return net\n\ndef get_scheduler(optimizer, cfg):\n    if cfg['LR_POLICY'] == 'lambda':\n        # TODO\n        raise NotImplementedError('need to rewrite code here')\n        def lambda_rule(epoch):\n            lr_l = 1.0 - max(0, epoch + 1 + cfg['N_EPOCH'] - cfg.niter) / float(cfg.niter_decay + 1)\n            return lr_l\n        scheduler = lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_rule)\n    elif cfg['LR_POLICY'] == 'step':\n        scheduler = lr_scheduler.StepLR(optimizer, step_size=cfg['LR_DECAY_EP'], gamma=0.1)\n    elif cfg['LR_POLICY'] == 'multi-step':\n        scheduler = lr_scheduler.MultiStepLR(optimizer, milestones=cfg['LR_DECAY_EP'], gamma=0.1)\n    elif cfg['LR_POLICY'] == 'plateau':\n        scheduler = lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.2, threshold=0.01, patience=5)\n    else:",
+  "match_policy": "unique-release-normalized-v2"
+}

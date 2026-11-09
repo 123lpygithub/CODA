@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0228-aaebjjhbc",
+  "revision_url": "https://github.com/alan-turing-institute/sktime/commit/32c84d1207bf85a9081c9dda3376e9db1f41b15a",
+  "filename": "sktime/transformers/summarise.py",
+  "commit": "32c84d1207bf85a9081c9dda3376e9db1f41b15a",
+  "source_url": "https://raw.githubusercontent.com/alan-turing-institute/sktime/32c84d1207bf85a9081c9dda3376e9db1f41b15a/sktime/transformers/summarise.py",
+  "fetched_at": "2026-11-05T06:12:18.374775+00:00",
+  "source_sha256": "235d2d82b0e8d6b8b0acf0f2a659bc66ea8feaebbcac8ccaafec1489f668c6c4",
+  "line_start": 81,
+  "line_end": 105,
+  "excerpt": "            self._starts.append(starts)\n            self._lengths.append(lengths)\n\n        # put into dataframe\n        Xt = pd.DataFrame()\n        column_prefix = \"%s_%s\" % (column_name, \"nan\" if np.isnan(self.value) else str(self.value))\n        Xt[\"%s_starts\" % column_prefix] = pd.Series(self._starts)\n        Xt[\"%s_lengths\" % column_prefix] = pd.Series(self._lengths)\n        return Xt\n\n\nclass DerivativeSlopeTransformer(BaseTransformer):\n    # TODO add docstrings\n    def transform(self, X, y=None):\n        num_cases, num_dim = X.shape\n        output_df = pd.DataFrame()\n        for dim in range(num_dim):\n            dim_data = X.iloc[:, dim]\n            out = DerivativeSlopeTransformer.row_wise_get_der(dim_data)\n            output_df['der_dim_' + str(dim)] = pd.Series(out)\n\n        return output_df\n\n    @staticmethod\n    def row_wise_get_der(X):"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0334-aaebajfae",
+  "revision_url": "https://github.com/persephone-tools/persephone/commit/78ec1d40fdbec787d940bd2541fe55ead9e36942",
+  "filename": "persephone/corpus.py",
+  "commit": "78ec1d40fdbec787d940bd2541fe55ead9e36942",
+  "source_url": "https://raw.githubusercontent.com/persephone-tools/persephone/78ec1d40fdbec787d940bd2541fe55ead9e36942/persephone/corpus.py",
+  "fetched_at": "2026-11-05T06:12:35.322674+00:00",
+  "source_sha256": "119baf7c4098ada6b4f34087c8c09478a8485331a56a3005ad6c6204e66dab8c",
+  "line_start": 19,
+  "line_end": 43,
+  "excerpt": "\n    def __init__(self, feat_type, target_type, tgt_dir, labels,\n                 max_samples=1000):\n        \"\"\" feat_type: A string describing the input features. For\n                       example, 'log_mel_filterbank'.\n            target_type: A string describing the targets. For example,\n                         'phonemes' or 'tones'.\n            max_samples: The maximum length in samples of a train, valid, or\n                         test utterance. Used to save memory in exchange for\n                         reducing the number of effective training examples.\n        \"\"\"\n        self.feat_type = feat_type\n        self.target_type = target_type # TODO Remove target_type\n        self.label_type = target_type\n\n        # Setting up directories\n        self.TGT_DIR = tgt_dir # TODO lowercase?\n        self.FEAT_DIR = os.path.join(tgt_dir, \"feat\") # TODO lowercase?\n        self.WAV_DIR = os.path.join(tgt_dir, \"wav\") # TODO lowercase?\n        self.LABEL_DIR = os.path.join(tgt_dir, \"label\") # TODO lowercase?\n        if not os.path.isdir(wav_dir):\n            print(wav_dir)\n            raise PersephoneException(\"The supplied path requires a 'wav' subdirectory.\")\n        if not os.path.isdir(feat_dir):\n            os.makedirs(feat_dir)"
+}

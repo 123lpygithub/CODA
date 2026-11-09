@@ -1,0 +1,346 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27brave%2Fbrowser-ios%27+AND+number%3D266+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='brave/browser-ios' AND number=266 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:27.813446+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "eatstorming",
+        "created_at": "2016-06-25 18:24:55",
+        "updated_at": "2016-06-25 18:24:55",
+        "title": "Add a switch to disable \"top sites\"",
+        "body": "My personal reasoning for this is just annoyance; the main page of an app I use for extended periods of time, changing based on what I've been browsing, annoys me.\r\n\r\nHowever, there is also a privacy issue at play: an eavesdropper can see what you've been browsing if they manage to look at your screen when you open a new tab.\r\n\r\nI understand that for a lot of people this may be a wanted feature. I just don't see why it can't be toggled on and off. So, please, add such an option to this otherwise awesome app.\r\n\r\nThank you.",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-06-25 18:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "garvankeeley",
+        "created_at": "2016-06-25 18:27:08",
+        "updated_at": "2016-06-25 18:27:07",
+        "title": "Add a switch to disable \"top sites\"",
+        "body": "Good point, I'l see what I can do here",
+        "comment_id": 228563603,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-06-25 18:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "bradleyrichter",
+        "created_at": "2016-07-25 17:07:02",
+        "updated_at": "2016-07-25 17:07:01",
+        "title": "Add a switch to disable \"top sites\"",
+        "body": "toggle in prefs would be great. We can just leave the default search icons until eventually allowing a bookmarks folder choice.",
+        "comment_id": 235016835,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-07-25 17:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "garvankeeley",
+        "created_at": "2016-08-12 16:28:42",
+        "updated_at": "2016-08-12 16:28:42",
+        "title": "Add a switch to disable \"top sites\"",
+        "body": "My suggestion here is to have a setting for \r\nNew tab shows:\r\n[] Top sites\r\n[] webpage: (UITextField to put address of page. Default text can be google.com)",
+        "comment_id": 239493516,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-08-12 16:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "eatstorming",
+        "created_at": "2016-08-12 16:30:07",
+        "updated_at": "2016-08-12 16:30:07",
+        "title": "Add a switch to disable \"top sites\"",
+        "body": "Yes, please. That'd be awesome!",
+        "comment_id": 239493894,
+        "comments": 3,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-08-12 16:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "bradleyrichter",
+        "created_at": "2016-08-12 17:17:07",
+        "updated_at": "2016-08-12 17:17:07",
+        "title": "Add a switch to disable \"top sites\"",
+        "body": "Good quick fix. SGTM!",
+        "comment_id": 239505709,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2016-08-12 17:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "eatstorming",
+        "created_at": "2017-01-28 04:09:51",
+        "updated_at": "2017-01-28 04:09:51",
+        "title": "Add a switch to disable \"top sites\"",
+        "body": "Hello,\r\n\r\nHas this been scrapped? :-(",
+        "comment_id": 275825907,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-01-28 04:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "jhreis",
+        "created_at": "2017-01-31 16:26:04",
+        "updated_at": "2017-01-31 16:26:04",
+        "title": "Add a switch to disable \"top sites\"",
+        "body": "For reference, these are the current options from Brave's desktop browser.\r\n\r\n<img width=\"325\" alt=\"New tab page options on Brave Desktop browser\" src=\"https://cloud.githubusercontent.com/assets/2781690/22473773/f0684b8e-e7a7-11e6-9692-faa68808aa86.png\">\r\n",
+        "comment_id": 276412996,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-01-31 16:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "jhreis",
+        "created_at": "2017-01-31 16:30:42",
+        "updated_at": "2017-01-31 16:30:42",
+        "title": "Add a switch to disable \"top sites\"",
+        "body": "@eatstorming, no, we have not scrapped it, although we currently do not have it scheduled for a release. Although not a complete substitute, you can remove specific websites from the new tab page by holding down on an icon, and clicking the \"X\":\r\n\r\n![](https://cloud.githubusercontent.com/assets/2781690/22473997/a7ac68de-e7a8-11e6-8006-9b93fae5a752.png)\r\n",
+        "comment_id": 276414436,
+        "comments": 8,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-01-31 16:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "DrSpaldo",
+        "created_at": "2017-02-16 01:05:20",
+        "updated_at": "2017-02-16 01:05:20",
+        "title": "Add ability to change new tab page / disable top sites",
+        "body": "Hi, I also would like to see this one go through, since the desktop has it, it would be natural that the mobile version does as well.. thanks ",
+        "comment_id": 280195907,
+        "comments": 8,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-02-16 01:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "aecorredor",
+        "created_at": "2017-03-02 15:32:38",
+        "updated_at": "2017-03-02 15:32:38",
+        "title": "Add ability to change new tab page / disable top sites",
+        "body": "Also, besides bookmarks, I would also like to add a favorite web site to the new tab page, so that the squared icon always appears there (where the facebook, yahoo, youtube, etc... icons are). This is a feature that safari has for example. I've been poking around to see if this feature exists already, but from what I have found it doesn't.",
+        "comment_id": 283686123,
+        "comments": 9,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-03-02 15:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "DrSpaldo",
+        "created_at": "2017-09-24 22:14:51",
+        "updated_at": "2017-09-24 22:14:51",
+        "title": "Add ability to change new tab page / disable top sites",
+        "body": "Hopefully this is added soon, it’s the main reason I can’t use Brave as my main browser :(",
+        "comment_id": 331743923,
+        "comments": 10,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2017-09-24 22:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "brainlulz",
+        "created_at": "2018-10-28 17:13:36",
+        "updated_at": "2018-10-28 17:13:35",
+        "title": "Add ability to change new tab page / disable top sites",
+        "body": "Any updates for the new Brave browser ?",
+        "comment_id": 433723524,
+        "comments": 11,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-10-28 17:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "firesofmay",
+        "created_at": "2018-10-31 06:05:45",
+        "updated_at": "2018-10-31 06:05:45",
+        "title": "Add ability to change new tab page / disable top sites",
+        "body": "Same here. I switched from Chrome and trying to use Speed Dial 2. But I can't get it to show as the default view for new tab. Any luck?",
+        "comment_id": 434571899,
+        "comments": 12,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-10-31 06:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "jhreis",
+        "created_at": "2018-10-31 12:41:49",
+        "updated_at": "2018-10-31 12:41:49",
+        "title": "Add ability to change new tab page / disable top sites",
+        "body": "@brainlulz We are hoping to release the beginning of December, but still a few unknowns. You can see how things are going over at https://github.com/brave/brave-ios/. ",
+        "comment_id": 434671922,
+        "comments": 13,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-10-31 12:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "jhreis",
+        "created_at": "2018-10-31 12:47:37",
+        "updated_at": "2018-10-31 12:47:37",
+        "title": "Add ability to change new tab page / disable top sites",
+        "body": "@firesofmay Understood, we will move this the new repo (https://github.com/brave/brave-ios/issues/375) and will try to prioritize it after launch.",
+        "comment_id": 434673518,
+        "comments": 15,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-10-31 12:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "saqib-ali",
+        "created_at": "2018-12-12 19:31:17",
+        "updated_at": "2018-12-12 19:31:16",
+        "title": "Add ability to change new tab page / disable top sites",
+        "body": "Any update on this?",
+        "comment_id": 446714275,
+        "comments": 15,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2018-12-12 19:00:00",
+        "repo_name": "brave/browser-ios",
+        "number": 266
+      }
+    ],
+    "rows": 17,
+    "statistics": {
+      "elapsed": 0.026653941,
+      "rows_read": 283972,
+      "bytes_read": 7648199
+    }
+  },
+  "response_sha256": "aa97591412f2b69c79e82878bdee315d7f5e972ee3e3ad56b7425820814d3971"
+}

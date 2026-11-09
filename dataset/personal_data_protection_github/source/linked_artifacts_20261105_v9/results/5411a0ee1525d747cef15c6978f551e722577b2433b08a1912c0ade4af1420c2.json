@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/Tribler/py-ipv8/blob/master/ipv8/messaging/anonymization/tunnel.py#L42-L83",
+  "kind": "file",
+  "cited_in": [
+    "comment_377301040"
+  ],
+  "revision": "master",
+  "immutable_revision": false,
+  "line_start": 30,
+  "line_end": 95,
+  "text": "PEER_FLAG_SPEED_TEST = 8\n\n# Data circuits are general purpose circuits for exiting data\nCIRCUIT_TYPE_DATA = \"DATA\"\n\n# The other circuits are supposed to end in a connectable node, not allowed to exit\n# anything else than IPv8 messages, used for setting up end-to-end circuits\nCIRCUIT_TYPE_IP_SEEDER = \"IP_SEEDER\"\nCIRCUIT_TYPE_RP_SEEDER = \"RP_SEEDER\"\nCIRCUIT_TYPE_RP_DOWNLOADER = \"RP_DOWNLOADER\"\n\nCIRCUIT_STATE_READY = \"READY\"\nCIRCUIT_STATE_EXTENDING = \"EXTENDING\"\nCIRCUIT_STATE_CLOSING = \"CLOSING\"\n\nCIRCUIT_ID_PORT = 1024\nPING_INTERVAL = 7.5\n\n# Reasons for sending destroy messages. Code 0 must not be used for legacy reasons.\nDESTROY_REASON_UNKNOWN = 1\nDESTROY_REASON_SHUTDOWN = 2\nDESTROY_REASON_UNNEEDED = 4\n\n\n@dataclass\nclass Hop:\n    \"\"\"\n    Hop contains all information needed to add/remove a single layer of\n    onion encryption and send it to the next target.\n    \"\"\"\n\n    peer: Peer\n    keys: SessionKeys | None = None\n    flags: list[int] | None = None\n    dh_first_part: bytes | None = None\n    dh_secret: PrivateKey | None = None\n\n    @property\n    def address(self) -> Address:\n        \"\"\"\n        Get the address of this hop.\n        \"\"\"\n        return self.peer.address\n\n    @property\n    def public_key(self) -> PublicKey:\n        \"\"\"\n        Get the public key instance of the hop.\n        \"\"\"\n        return self.peer.public_key\n\n    @property\n    def public_key_bin(self) -> bytes:\n        \"\"\"\n        The hop's public_key bytes.\n        \"\"\"\n        return self.peer.public_key.key_to_bin()\n\n    @property\n    def mid(self) -> bytes:\n        \"\"\"\n        Get the SHA-1 of the hop's public key.\n        \"\"\"\n        return self.peer.mid\n\n",
+  "source_sha256": "3ebbfda5c142063a0f33862240ef09e84f585a008b247ad5b4eb77e824d4cd1a",
+  "fetched_at": "2026-11-05T07:22:00.274380+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/Tribler/py-ipv8/master/ipv8/messaging/anonymization/tunnel.py",
+  "status": "available"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0511-aahidaefh",
+  "revision_url": "https://github.com/PyTorchLightning/pytorch-lightning/commit/97a81c3cfed9d6677d411672eecb0ed38514cb04",
+  "filename": "pytorch_lightning/trainer/connectors/accelerator_connector.py",
+  "commit": "97a81c3cfed9d6677d411672eecb0ed38514cb04",
+  "source_url": "https://raw.githubusercontent.com/PyTorchLightning/pytorch-lightning/97a81c3cfed9d6677d411672eecb0ed38514cb04/pytorch_lightning/trainer/connectors/accelerator_connector.py",
+  "fetched_at": "2026-11-05T06:13:05.604700+00:00",
+  "source_sha256": "ec991077d4f149b33a3fc7e411dc1c308dcbee2fda26e3878373d0bdd816ce73",
+  "line_start": 440,
+  "line_end": 464,
+  "excerpt": "            acc_cls = CPUAccelerator\n\n        return acc_cls(\n            precision_plugin=self.precision_plugin,\n            training_type_plugin=self.training_type_plugin,\n        )\n\n    def select_cluster_environment(self) -> ClusterEnvironment:\n        if self._cluster_environment is not None:\n            return self._cluster_environment\n        if self.is_slurm_managing_tasks:\n            env = SLURMEnvironment()\n            # TODO: decouple DDP from SLURM\n            #   refactor and let generic cluster env hold the information about who spawns the processes\n            os.environ[\"PL_IN_DDP_SUBPROCESS\"] = \"1\"\n        elif self.is_using_torchelastic:\n            env = TorchElasticEnvironment()\n            # TODO: decouple DDP from TE\n            #   refactor and let generic cluster env hold the information about who spawns the processes\n            os.environ[\"PL_IN_DDP_SUBPROCESS\"] = \"1\"\n        else:\n            # TODO: maybe introduce a DefaultEnvironment?\n            env = TorchElasticEnvironment()\n        return env\n"
+}

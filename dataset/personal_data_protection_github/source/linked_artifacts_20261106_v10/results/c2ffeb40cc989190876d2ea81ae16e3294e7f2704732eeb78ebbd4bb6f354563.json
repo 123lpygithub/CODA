@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/pH7Software/pH7-Social-Dating-CMS/blob/b9c28ba859132d3149b9b7d0af3f87259c5d8d61/_protected/app/system/modules/cool-profile-page/controllers/MainController.php#L52",
+  "kind": "file",
+  "cited_in": [
+    "comment_399059910"
+  ],
+  "revision": "b9c28ba859132d3149b9b7d0af3f87259c5d8d61",
+  "immutable_revision": true,
+  "line_start": 40,
+  "line_end": 64,
+  "text": "    private $iVisitorId;\n\n    public function __construct()\n    {\n        parent::__construct();\n\n        $this->bUserAuth = UserCore::auth();\n    }\n\n    public function index()\n    {\n        $oUserModel = new UserCoreModel;\n\n        $this->addCssFiles();\n        $this->addAdditionalAssetFiles();\n\n        // Set the Profile ID and Visitor ID\n        $this->iProfileId = $this->httpRequest->get('profile_id', 'int');\n        $this->iVisitorId = (int)$this->session->get('member_id');\n\n        // Read the profile information\n        $oUser = $oUserModel->readProfile($this->iProfileId);\n        if ($oUser) {\n            // The administrators can view all profiles and profile visits are not saved.\n            if (!AdminCore::auth() || UserCore::isAdminLoggedAs()) {",
+  "source_sha256": "ea53b9763641a9c6a6912366efa522c71514f71c2112423bcfc5d2b0fb1351ef",
+  "fetched_at": "2026-11-05T07:21:55.337711+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/pH7Software/pH7-Social-Dating-CMS/b9c28ba859132d3149b9b7d0af3f87259c5d8d61/_protected/app/system/modules/cool-profile-page/controllers/MainController.php",
+  "status": "available"
+}

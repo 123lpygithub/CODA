@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3993",
+  "issue_url": "https://github.com/chocolatey-community/chocolatey-packages/issues/588",
+  "source_issue_url": "https://github.com/chocolatey-community/chocolatey-packages/issues/588",
+  "api_url": "https://api.github.com/repos/chocolatey-community/chocolatey-packages/issues/588",
+  "title": "Magical Jelly Bean Keyfinder — Possible adware?",
+  "body": "I was wandering around the community feed and found this gem in the license for the `keyfinder` package (line-wrapped for readability):\r\n\r\n```\r\n3RD-PARTY SOFTWARE\r\nOPENCANDY END USER LICENSE AGREEMENT\r\nJanuary 26, 2010\r\n \r\nThis installer uses the OpenCandy network to recommend other software you may find\r\nvaluable during the installation of this software. OpenCandy collects *NON-personally\r\nidentifiable* information about this installation and the recommendation process. Collection\r\nof this information ONLY occurs during this installation and the recommendation process; in\r\naccordance with OpenCandy's Privacy Policy, available at www.opencandy.com/privacy-policy\r\n```\r\n\r\nOpenCandy is considered adware [according to Wikipedia](https://en.wikipedia.org/wiki/OpenCandy); in addition, I didn't even have to look it up to know what it was. Since this package has been marked as trusted, I assume that this adware is not installed by default. However, I cannot see any code in the installation script that explicitly bypasses the adware. What might well have occurred is that this adware is no longer included with the software, considering the date in the snippet above; it may be worth mentioning this fact in the package description. (Of course, if it transpires that the adware is _not_ bypassed, this package should be removed from public view immediately.) Thanks!",
+  "author": "Participant 1",
+  "created_at": "2017-02-15T00:07:04Z",
+  "updated_at": "2017-02-16T21:15:37Z",
+  "state": "closed",
+  "closed_at": "2017-02-16T21:15:37Z",
+  "issue_fetched_at": "2026-10-18T13:11:21.324813+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T13:11:22.682719+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 280443814,
+      "url": "https://github.com/chocolatey-community/chocolatey-packages/issues/588#issuecomment-280443814",
+      "created_at": "2017-02-16T20:07:13Z",
+      "updated_at": "2017-02-16T20:07:13Z",
+      "author": "Participant 2",
+      "body": "Sorry, I must have missed this somehow.\r\nI believe the opencandy adware module is no longer a part of keyfinder (based on that additonal programs installed, no additional dlls and no background web request detected through fiddler).\r\n\r\nHowever, since it is part of the official license provided by the developers, we cannot remove that text from the included license.\r\nAlso to note.\r\nAdware is not the same as malware (which is disallowed on chocolatey.org of course), as such it wouldn't really make sense to remove it from public view even if the module was still included.\r\nIs adware undesired by many users? Of course, it most likely is.\r\nIs it grounds to remove software containing adware? No, not unless it also contains malware or viruses."
+    },
+    {
+      "id": 280462976,
+      "url": "https://github.com/chocolatey-community/chocolatey-packages/issues/588#issuecomment-280462976",
+      "created_at": "2017-02-16T21:15:37Z",
+      "updated_at": "2017-02-16T21:15:37Z",
+      "author": "Participant 1",
+      "body": "@AdmiringWorm Thank you for your response; that is what I thought. Re the adware-vs-malware issue you mentioned: This is definitely something where there is difference of opinion between various users. My belief is that Chocolatey should have a zero-tolerance policy towards bundled adware that has not been bypassed, but I do not run Chocolatey, now do I? 😄 Thank you for your response regardless."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

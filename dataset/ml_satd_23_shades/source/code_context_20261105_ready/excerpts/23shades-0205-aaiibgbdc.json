@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0205-aaiibgbdc",
+  "revision_url": "https://github.com/ray-project/ray/commit/21af0ceb0c916bdafc1e8f82d13cf7c80b6d2b28",
+  "filename": "python/ray/import_thread.py",
+  "commit": "21af0ceb0c916bdafc1e8f82d13cf7c80b6d2b28",
+  "source_url": "https://raw.githubusercontent.com/ray-project/ray/21af0ceb0c916bdafc1e8f82d13cf7c80b6d2b28/python/ray/import_thread.py",
+  "fetched_at": "2026-11-05T06:12:15.197742+00:00",
+  "source_sha256": "516fb5e5fa345271f96b1521efeecff3960307c32a3f21ba0b02566ebcb5c32a",
+  "line_start": 127,
+  "line_end": 151,
+  "excerpt": "                        \"The %s '%s' has been exported %s times. It's \"\n                        \"possible that this warning is accidental, but this \"\n                        \"may indicate that the same remote function is being \"\n                        \"defined repeatedly from within many tasks and \"\n                        \"exported to all of the workers. This can be a \"\n                        \"performance issue and can be resolved by defining \"\n                        \"the remote function on the driver instead. See \"\n                        \"https://github.com/ray-project/ray/issues/6240 for \"\n                        \"more discussion.\", import_type, name,\n                        ray_constants.DUPLICATE_REMOTE_FUNCTION_THRESHOLD)\n\n        if key.startswith(b\"RemoteFunction\"):\n            # TODO (Alex): There's a race condition here if the worker is\n            # shutdown before the function finished registering (because core\n            # worker's global worker is unset before shutdown and is needed\n            # for profiling).\n            # with profiling.profile(\"register_remote_function\"):\n            (self.worker.function_actor_manager.\n             fetch_and_register_remote_function(key))\n        elif key.startswith(b\"FunctionsToRun\"):\n            with profiling.profile(\"fetch_and_run_function\"):\n                self.fetch_and_execute_function_to_run(key)\n        elif key.startswith(b\"ActorClass\"):\n            # Keep track of the fact that this actor class has been\n            # exported so that we know it is safe to turn this worker"
+}

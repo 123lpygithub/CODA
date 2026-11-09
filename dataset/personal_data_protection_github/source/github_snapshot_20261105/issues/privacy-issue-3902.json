@@ -1,0 +1,178 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3902",
+  "issue_url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812",
+  "source_issue_url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812",
+  "api_url": "https://api.github.com/repos/DARIAEngineering/dcaf_case_management/issues/812",
+  "title": "Patient archiving",
+  "body": "Time to make an issue for this. Here is the issue: \r\n\r\n* There are some patient records who we are functionally done with; either people who have elected to carry their pregnancies, or who have had their procedures with assistance from us, or who have just timed out past the point where they need our help (120 days or so).\r\n* We no longer really need a lot of their personally identifiable information (phone, name, etc) after this point.\r\n* We also may need to create another entry for them if they seek our services again in the future, which conflicts with our validation on unique phone. (Right now we have a hacky workaround of setting a clearly fake phone number.)\r\n* Thus, we need a way to 'archive' a patient to strip their information and get them out of rotation except for reporting. \r\n\r\nI think what this looks like from a technical perspective is wiping the phone numbers, setting an archive flag, and changing the name to a hash. A few caveats:\r\n\r\n* People with the same phone number and name should have the same hash, so we can still identify people who are second people;\r\n* Archiving should be irreversible.",
+  "author": "Participant 1",
+  "created_at": "2017-01-14T19:54:12Z",
+  "updated_at": "2018-05-07T01:12:51Z",
+  "state": "closed",
+  "closed_at": "2018-05-07T01:12:51Z",
+  "issue_fetched_at": "2026-10-19T02:11:51.348226+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T02:11:52.794146+00:00"
+  ],
+  "expected_comment_count": 19,
+  "retrieved_comment_count": 19,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 275570670,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-275570670",
+      "created_at": "2017-01-27T01:56:06Z",
+      "updated_at": "2017-01-27T01:56:06Z",
+      "author": "Participant 2",
+      "body": "The issue is pretty well summarized above, but here are tonight's discovery notes just in case:\r\nhttps://github.com/colinxfleming/dcaf_case_management/wiki/Anonymization-notes"
+    },
+    {
+      "id": 294631956,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-294631956",
+      "created_at": "2017-04-18T00:10:22Z",
+      "updated_at": "2017-04-18T00:10:22Z",
+      "author": "Participant 1",
+      "body": "I'm ready for this. This is one of the last bigger technical lifts we need to worry about. @lomky you're up. \r\n\r\n* Let's throw code relating to this in a `patient_archiving_helper` or `patient_archiving_concern` and include that in the patient model\r\n* Probably the sum result of this should be something like `@patient.archive!` that does everything we need it to"
+    },
+    {
+      "id": 294639203,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-294639203",
+      "created_at": "2017-04-18T00:52:03Z",
+      "updated_at": "2017-04-18T00:52:03Z",
+      "author": "Participant 3",
+      "body": "It may be useful to maintain the data in 'Relationship to other contact', but that feels a little iffy. We probably do want to know whether they had any Other Contact data or not, even if we scramble the data itself"
+    },
+    {
+      "id": 294639970,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-294639970",
+      "created_at": "2017-04-18T00:58:14Z",
+      "updated_at": "2017-04-18T00:58:14Z",
+      "author": "Participant 3",
+      "body": "We probably need to nuke the whole change log, but how can we save useful info safely?\r\n\r\nCreate fields for \"changed appointment date\", \"changed clinic location\", those but after the pledge is sent? etc?\r\n\r\nMaybe follow the same process for generating a CSV export  blacklisting entry by entry bsaed on the field being changed? \"name\" -> scramble, \"notes\" -> scramble, appt date -> leave be"
+    },
+    {
+      "id": 296793464,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-296793464",
+      "created_at": "2017-04-24T19:11:57Z",
+      "updated_at": "2017-04-24T19:11:57Z",
+      "author": "Participant 1",
+      "body": "@lomky you are definitely right that we want to know whether someone had an alt contact or not, and that we don't want to know the PII of that person. Relationship is a little borderline and I think I'd rather err on the side of not saving it. \r\n\r\nre: persisting other contact info, in #1004 we're rolling out a `has_other_contact?` convenience method. Maybe we can have that as a persisted boolean field, and have it as part of a `after_save` hook.\r\n\r\nLove the idea of an 'archive' field blacklist to deal with nuking sensitive fields."
+    },
+    {
+      "id": 298446411,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-298446411",
+      "created_at": "2017-05-01T22:11:05Z",
+      "updated_at": "2017-05-01T22:11:05Z",
+      "author": "Participant 1",
+      "body": "@lomky if it's cool I'd like to have you focus on this once we have the patient-pregnancy merge completed. I think you've got a good eye for security and privacy and I trust you to really do this right."
+    },
+    {
+      "id": 298463367,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-298463367",
+      "created_at": "2017-05-01T23:56:24Z",
+      "updated_at": "2017-05-01T23:57:55Z",
+      "author": "Participant 3",
+      "body": "Yas! First pass notes summing up the conversation so far and my thoughts and questions.\r\n\r\nPRIMARY: Patients who are 120 days + past the [DATE] should be archived\r\n\r\n  -  Needs:\r\n     - patient privacy - remove no longer needed PII \r\n     - system limitation - phone number based ID conflicts\r\n     - process is irreversible\r\n  -  Wants\r\n     - same patients archive linked somehow? (is this a need?)\r\n     - use a concern `patient_archiving_concern`\r\n     - invoke via `@patient.archive!`\r\n  - Approach\r\n     - Archive flag: on\r\n     - Convert PII to non-PII for reporting needs\r\n     - Shred PII data (any _non whitelisted_ data)\r\n     - make patient read only?\r\n  - PII Conversion\r\n     -  Other Contact has data? -> set a flag\r\n     - appt date changed? after pledge sent? -> set a flag\r\n     - clinic changed?  after pledge sent? -> set a flag\r\n     - other?\r\n  - Outstanding Questions\r\n     - 120 days past what? Initial Call? Appt Date? LMP?\r\n     - how does the archive method get called? Button? Cron?\r\n     - what does this do to views?\r\n     - does this break patient field validations?\r\n     - how to handle logs?\r\n        - Kat leaning towards nuking them completely "
+    },
+    {
+      "id": 299595446,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-299595446",
+      "created_at": "2017-05-05T23:08:08Z",
+      "updated_at": "2017-05-05T23:08:08Z",
+      "author": "Participant 1",
+      "body": "re: same patients linked somehow, I think the ideal here is that the same patients will share IDs, and we'll be able to group them by that. We can use `patient_identifier` for that, which we can generate by some scramble or some consistent business logic. This is a DCAF need (DCAF is interested in what repeat users of our service look like).\r\n\r\nPatient read only would be great. I think if after archiving it requires rooting around in the rails console, that's a great outcome.\r\n\r\n120 days should probably be after a pledge is sent. But we might want to crank that up. Let's set it at 120 past pledge until we come up a better plan though.\r\n\r\nre: calling archive method, There's a nightly cleanup rake task that gets called which we can hook into; we can probably define this as a class method on Patient and call it from there. \r\n\r\nre: views, In a nutshell, they should stop being searchable.\r\n\r\nre: validations, it'll blow up a lot of them, but rails will let us work around this use case by setting validations. See the current validation on the pregnancy model, for example, which fires certain validations IF an attribute is true -- we can do something similar for patient, enforcing phone/name if archived is false. \r\n\r\n+1 on nuking audit logs. "
+    },
+    {
+      "id": 300647657,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-300647657",
+      "created_at": "2017-05-11T00:17:59Z",
+      "updated_at": "2017-05-11T00:36:53Z",
+      "author": "Participant 3",
+      "body": "re:re: same patient linked somehow, I've been mulling on this. We are using public info (phone number) plus public (open source) business logic. If a person knew someone's phone number they could apply the archive ID-scramble process and know the new ID and effectively remove the anonymity. (See [De-anonymization](https://en.wikipedia.org/wiki/De-anonymization))\r\n\r\nSo, which we need is some secret salt, probably stored as an ENV? Are there best practices for salted hashing in ruby that you prefer @colinxfleming? I'll start researching."
+    },
+    {
+      "id": 301264408,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-301264408",
+      "created_at": "2017-05-13T18:04:14Z",
+      "updated_at": "2017-05-13T18:04:14Z",
+      "author": "Participant 1",
+      "body": "Rehashing our conversation from a few days ago, but setting an env var is no problem, and almost definitely the right way to go. We have a `secret_key_base` that rails uses as part of its engine for generating tokens etc, or we can separately set an `ARCHIVING_ENCRYPTION_SALT` for this. \r\n\r\nIf there winds up not being a fab way to do this then we can consult with @vtmeghan about a halfway solution, or explore just punting this business need entirely. Let's keep that in our back pocket in case we need it."
+    },
+    {
+      "id": 302578086,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-302578086",
+      "created_at": "2017-05-19T00:40:04Z",
+      "updated_at": "2017-05-19T00:40:04Z",
+      "author": "Participant 3",
+      "body": "Tagging in peeps:\r\n\r\n@lwaldsc @alisonnjones"
+    },
+    {
+      "id": 302581183,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-302581183",
+      "created_at": "2017-05-19T01:04:36Z",
+      "updated_at": "2017-05-19T13:19:01Z",
+      "author": "Participant 4",
+      "body": "Playing FMK with our data\r\n\r\n[Edit: NOW WITH ACTUAL PICTURES. Uploading on mobile is Not Great.]\r\n![20170518_205525](https://cloud.githubusercontent.com/assets/10578608/26249212/9e50f492-3c73-11e7-9b78-70fded8940e5.jpg)\r\n![20170518_205530](https://cloud.githubusercontent.com/assets/10578608/26249215/9f4f9e48-3c73-11e7-93f6-e9ad22b79808.jpg)\r\n![20170518_205535](https://cloud.githubusercontent.com/assets/10578608/26249216/a0488990-3c73-11e7-8873-4217dd555123.jpg)\r\n\r\nSome bits are pretty obvious to kill [red], some bits seem cool to keep [green], some need more discussion [yellow]"
+    },
+    {
+      "id": 302582190,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-302582190",
+      "created_at": "2017-05-19T01:12:29Z",
+      "updated_at": "2017-05-19T01:12:29Z",
+      "author": "Participant 3",
+      "body": "@lwaldsc and I made a first pass through patient related data and did a quick kill/maybe/safe assessment. We definitely need a second pass to see if our combination of data becomes identifiable.\r\n\r\nHad some conversations with @alisonnjones about linking patients. No conclusion, I don't think?"
+    },
+    {
+      "id": 302851553,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-302851553",
+      "created_at": "2017-05-20T05:14:42Z",
+      "updated_at": "2017-05-20T05:16:52Z",
+      "author": "Participant 1",
+      "body": "The yellows, with my comments, are:\r\n\r\n* **age (rounding/range appropriate?)** Yes, moving to a range would be perfect.\r\n* **Spanish?** This does tend to have an impact on program delivery, I'd favor keeping it.\r\n* **City** Probably no need unless we want to look at questions like 'how far do our patients tend to travel'. I could go either way on this.\r\n* **County** We don't use this, it's more for Baltimore. I suspect they'll want to keep it for business reasons I won't get into here.\r\n* **Relationship** Nuke it\r\n* **Adults in household** We only really need this to gauge NAF eligibility. Nuke it.\r\n* **Minors in household** Same deal, definitely nuke it.\r\n* **Circumstances** I'm REASONABLY sure we can ditch this. I don't see any particular reason why we should keep it unless there's a data question.\r\n\r\n@alisonnjones should get final say on these.\r\n"
+    },
+    {
+      "id": 302851664,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-302851664",
+      "created_at": "2017-05-20T05:17:50Z",
+      "updated_at": "2017-05-20T05:17:50Z",
+      "author": "Participant 1",
+      "body": "I agree on all the greens and reds, by the way. "
+    },
+    {
+      "id": 302886302,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-302886302",
+      "created_at": "2017-05-20T17:12:13Z",
+      "updated_at": "2017-05-20T17:12:13Z",
+      "author": "Participant 5",
+      "body": "Talked to cm team about this more. We think it could be useful to explore a two part archival process. @lomky told me about a way for us to automatically trigger archival after fulfillment data is entered in the profile. It would make sense to have a shorter archive/scramble timeline for pt profiles where the fulfillment data has already been entered. But, we might want a longer timeline for pt profiles that have an appt date but do not have fulfillment data entered yet. Apologies if this is already obvious and/or being discussed somewhere else. Thoughts, @colinxfleming and @lwaldsc ? "
+    },
+    {
+      "id": 302898416,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-302898416",
+      "created_at": "2017-05-20T20:57:22Z",
+      "updated_at": "2017-05-20T20:57:22Z",
+      "author": "Participant 3",
+      "body": "@alisonnjones we had thought a bit about \"incomplete\" status patients, but hadn't gotten any user-buy in yet, so that's awesome to get! :100: \r\n\r\nI like the two-catch archive idea.  \r\nPatients archiving after fulfillment (maybe delayed ~7 days in case of corrections? accountant input needed there) is a great first trigger for scramble.   \r\nThen we just need to consider the outside bound for scrambling un-fulfilled patients. What's the longest reasonable timeline for a clinic to contact us re:fulfillment? We probably want to double that to avoid being unable to fulfill delayed clinics?"
+    },
+    {
+      "id": 310390891,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-310390891",
+      "created_at": "2017-06-22T14:07:35Z",
+      "updated_at": "2017-06-22T14:07:35Z",
+      "author": "Participant 1",
+      "body": "I think @lomky 's thinking about scramble timelines here is right on. I'd say give fulfillment cases a 30 day grace period.\r\n\r\nThere's some DCAF standard operating procedure for returning a fulfillment to us - we ask for return within 60 days. I think doubling that is right on. \r\n\r\n@lomky anything for unsticking here? "
+    },
+    {
+      "id": 310397750,
+      "url": "https://github.com/DARIAEngineering/dcaf_case_management/issues/812#issuecomment-310397750",
+      "created_at": "2017-06-22T14:30:53Z",
+      "updated_at": "2017-06-22T14:30:53Z",
+      "author": "Participant 3",
+      "body": "Nothing sticking, just a lack of attention on my part. 😓 Planning on moving it forward tonight!"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

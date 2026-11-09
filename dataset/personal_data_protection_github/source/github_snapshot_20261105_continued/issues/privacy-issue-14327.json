@@ -1,0 +1,66 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14327",
+  "issue_url": "https://github.com/ampproject/amphtml/issues/12607",
+  "source_issue_url": "https://github.com/ampproject/amphtml/issues/12607",
+  "api_url": "https://api.github.com/repos/ampproject/amphtml/issues/12607",
+  "title": "Feature: trigger tracking events from amp-iframe content via postMessage",
+  "body": "## What's the issue?\r\n\r\nIf AMP is used for tracking and it is legally required to have opted in to tracking or for the user to at have least seen the cookie dialog the iframe can not contain custom tracking, unless a custom dialog is shown, since the iframe is unaware of the tracking state of the AMP document. \r\n\r\nThe iframe also has to load additional tracking scripts which might impact the page/iframe performance. The duplicate implementation of tracking and unnecessary load of additional scripts might easily be avoided if the iframe could postMessage to the AMP page, where AMP-analytics could then execute a predefined trigger to handle the calls.    \r\n\r\n## How do we reproduce the issue?\r\n\r\n1. build simple amp page with amp-analytics trigger predefined\r\n2. include amp-iframe in page\r\n3. build simple iframe content page with post message implementation to trigger tracking event on link/button click\r\n4. click button/link inside iframe\r\n5. fire tracking request on AMP page prior to link navigation\r\n\r\n## What browsers are affected?\r\n\r\nAll browsers for new feature.\r\n\r\n## Which AMP version is affected?\r\n\r\nUpcoming if implemented.",
+  "author": "Participant 1",
+  "created_at": "2017-12-26T16:49:25Z",
+  "updated_at": "2018-01-31T23:26:25Z",
+  "state": "closed",
+  "closed_at": "2018-01-31T23:26:25Z",
+  "issue_fetched_at": "2026-10-18T21:11:11.626091+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T21:11:13.067411+00:00"
+  ],
+  "expected_comment_count": 5,
+  "retrieved_comment_count": 5,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 354235922,
+      "url": "https://github.com/ampproject/amphtml/issues/12607#issuecomment-354235922",
+      "created_at": "2017-12-28T06:18:34Z",
+      "updated_at": "2017-12-28T06:18:34Z",
+      "author": "Participant 2",
+      "body": "/to @zhouyx @lannka \r\n/cc @choumx since related to 2-way messaging"
+    },
+    {
+      "id": 358455951,
+      "url": "https://github.com/ampproject/amphtml/issues/12607#issuecomment-358455951",
+      "created_at": "2018-01-17T21:39:46Z",
+      "updated_at": "2018-01-17T21:39:46Z",
+      "author": "Participant 3",
+      "body": "to @rudygalfi to triage.\r\nlooks like GDPR related."
+    },
+    {
+      "id": 358805665,
+      "url": "https://github.com/ampproject/amphtml/issues/12607#issuecomment-358805665",
+      "created_at": "2018-01-18T22:40:12Z",
+      "updated_at": "2018-01-18T22:40:54Z",
+      "author": "Participant 4",
+      "body": "If I'm understanding the requirements correctly, I think there's two separate ideas combined here.\r\n* The first relates to enabling iframes to send their events so that they can be tracked as part of an amp-analytics configuration. As far as I know, this isn't supported today. It's somewhat related to the idea of the [video interface](https://github.com/ampproject/amphtml/blob/master/src/video-interface.js) supporting analytics, but asked for in a much more generic way, not specific to video. Would be interesting to get @choumx's feedback relating to 2-way messaging here.\r\n* The second idea is related to disallowing tracking when the user has not yet consented to it. It is not reasonable to expect the iframed page to present the consent UI. Therefore, the AMP page needs to handle this by either blocking the iframe or informing it that it cannot perform its own tracking within.\r\n\r\nDoes this sound like an accurate summary?"
+    },
+    {
+      "id": 358882954,
+      "url": "https://github.com/ampproject/amphtml/issues/12607#issuecomment-358882954",
+      "created_at": "2018-01-19T06:58:42Z",
+      "updated_at": "2018-01-19T06:58:42Z",
+      "author": "Participant 1",
+      "body": "Yes, that is correct and sums up the idea very well."
+    },
+    {
+      "id": 362105597,
+      "url": "https://github.com/ampproject/amphtml/issues/12607#issuecomment-362105597",
+      "created_at": "2018-01-31T23:26:25Z",
+      "updated_at": "2018-01-31T23:26:25Z",
+      "author": "Participant 4",
+      "body": "Thanks for the feedback. Closing this in favor of tracking #13196 and #13197 separately."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

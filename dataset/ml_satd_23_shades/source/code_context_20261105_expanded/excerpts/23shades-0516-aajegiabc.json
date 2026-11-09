@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0516-aajegiabc",
+  "revision_url": "https://github.com/DistrictDataLabs/yellowbrick/commit/5eee25b8260ab56319d765b96d200b97c362e687",
+  "filename": "yellowbrick/classifier.py",
+  "commit": "5eee25b8260ab56319d765b96d200b97c362e687",
+  "source_url": "https://raw.githubusercontent.com/DistrictDataLabs/yellowbrick/5eee25b8260ab56319d765b96d200b97c362e687/yellowbrick/classifier.py",
+  "fetched_at": "2026-11-05T06:13:05.926878+00:00",
+  "source_sha256": "5d2bffb097c064a75ea37f5d8f17ed63754747ef354156078a651af1bd25628a",
+  "line_start": 26,
+  "line_end": 50,
+  "excerpt": "\n\n##########################################################################\n## Classification Report\n##########################################################################\n\ndef crplot(model, y_true, y_pred, **kwargs):\n    \"\"\"\n    Plots a classification report as a heatmap. (More to follow).\n    \"\"\"\n\n    # Get classification report arguments\n    # TODO: Do a better job of guessing defaults from the model\n    cr_kwargs = {\n        'labels': kwargs.pop('labels', None),\n        'target_names': kwargs.pop('target_names', None),\n        'sample_weight': kwargs.pop('sample_weight', None),\n        'digits': kwargs.pop('digits', 2)\n    }\n\n    # Generate the classification report\n    report = classification_report(y_true, y_pred, **cr_kwargs)\n    cmap   = kwargs.pop('cmap', ddlheatmap)\n    title  = kwargs.pop('title', '{} Classification Report'.format(model.__class__.__name__))\n"
+}

@@ -1,0 +1,106 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27SAP%2Fcloud-commerce-spartacus-storefront%27+AND+number%3D1323+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='SAP/cloud-commerce-spartacus-storefront' AND number=1323 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:27.876789+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "tobi-or-not-tobi",
+        "created_at": "2019-02-15 07:52:48",
+        "updated_at": "2019-02-15 07:52:47",
+        "title": "Cookie banner component: consent for storing token",
+        "body": "The user token can identify the user the next time he visits the storefront. Without storing this token in the browser, we cannot rebuild the same experience next time he visits. Explicit consent must provided according to GDPR to store the token. \r\n\r\nThis is how I build the flow in spaccelerator initially:\r\n\r\n- new visitors see a cookie component, asking to give consent for storing some session data (we should only store tokens)  in the  browser. This is only to give the user a great experience the next time he visits, as we can rebuild the same experience when he comes back next time. (@Xymmer I know you suggest to only ask for NOT storing, but this is against gdpr policy, despite what most cookie banners do today. Explicit consent must be given before using any data that can identify the user). \r\n- As long as consent isn't given, we keep stuff in memory. This allows to remember the users profile, current cart details, etc. In case consent isn't given, and the app restarts (i.e. browser refresh or next visit), we cannot rebuild the experience as we haven't been given consent to store it.\r\n- Only when the user gives (for storing tokens) consent during the visit, we store the user token (if available) in _localstorage_ (not in cookie, but we might reconsider the open id token for kyma). \r\n\r\nThere are currently 2 tokens to be stored:\r\n- the user token – this can be used to retrieve user data\r\n- the cart token – this can be used to retrieve the active cart, even for anonymous users\r\n\r\n**Anonymous users** \r\nWe can rebuild the experience for anonymous users if we store the cart token. There's nothing more to it. This token can only be stored after providing consent (and here's what the \"cookie\" banner should carefully communicate). An anonymous user will see the same cart details upon next visit if we leverage the stored token. \r\n\r\nWhat we need to do:\r\n1. drop current storage of token info (we store way too much, due to the usage of ngrx-store-localstorage – let's drop this dependency)\r\n2. implement \"cookie\" banner to ask for consent. This is a CMS component, business users can customise the messaging.\r\n3. store user and cart cookie whenever consent is given. Only store the required token info (see 1), and not store any other personal data. \r\n4. Distinguish this consent from others consents. This consent is all about storing tokens in the browser. Other consents are about sending news letters, using personal data to send offers, etc. \r\n\r\nNote: the cookie banner components comes from a different era... we might want to rename it, but it's fine to keep it as long as we understand the intend. ",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-02-15 07:00:00",
+        "repo_name": "SAP/cloud-commerce-spartacus-storefront",
+        "number": 1323
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "znikola",
+        "created_at": "2019-10-25 23:39:42",
+        "updated_at": "2019-10-25 23:39:42",
+        "title": "[EPIC] Cookie banner component: token consent managment",
+        "body": "The user token can identify the user the next time he visits the storefront. Without storing this token in the browser, we cannot rebuild the same experience next time he visits. Explicit consent must provided according to GDPR to store the token. \r\n\r\nThis is how I build the flow in spaccelerator initially:\r\n\r\n- new visitors see a cookie component, asking to give consent for storing some session data (we should only store tokens)  in the  browser. This is only to give the user a great experience the next time he visits, as we can rebuild the same experience when he comes back next time. (@Xymmer I know you suggest to only ask for NOT storing, but this is against gdpr policy, despite what most cookie banners do today. Explicit consent must be given before using any data that can identify the user). \r\n- As long as consent isn't given, we keep stuff in memory. This allows to remember the users profile, current cart details, etc. In case consent isn't given, and the app restarts (i.e. browser refresh or next visit), we cannot rebuild the experience as we haven't been given consent to store it.\r\n- Only when the user gives (for storing tokens) consent during the visit, we store the user token (if available) in _localstorage_ (not in cookie, but we might reconsider the open id token for kyma). \r\n\r\nThere are currently 2 tokens to be stored:\r\n- the user token – this can be used to retrieve user data\r\n- the cart token – this can be used to retrieve the active cart, even for anonymous users\r\n\r\n**Anonymous users** \r\nWe can rebuild the experience for anonymous users if we store the cart token. There's nothing more to it. This token can only be stored after providing consent (and here's what the \"cookie\" banner should carefully communicate). An anonymous user will see the same cart details upon next visit if we leverage the stored token. \r\n\r\nWhat we need to do:\r\n1. drop current storage of token info (we store way too much, due to the usage of ngrx-store-localstorage – let's drop this dependency)\r\n2. implement \"cookie\" banner to ask for consent. This is a CMS component, business users can customise the messaging.\r\n3. store user and cart cookie whenever consent is given. Only store the required token info (see 1), and not store any other personal data. \r\n4. Distinguish this consent from others consents. This consent is all about storing tokens in the browser. Other consents are about sending news letters, using personal data to send offers, etc. \r\n\r\nNote: the cookie banner components comes from a different era... we might want to rename it, but it's fine to keep it as long as we understand the intend. ",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "closed",
+        "closed_at": "2019-10-25 23:39:42",
+        "file_time": "2019-10-25 23:00:00",
+        "repo_name": "SAP/cloud-commerce-spartacus-storefront",
+        "number": 1323
+      }
+    ],
+    "rows": 2,
+    "statistics": {
+      "elapsed": 0.029320495,
+      "rows_read": 292761,
+      "bytes_read": 8058227
+    }
+  },
+  "response_sha256": "f5ded0f525aa972a02611eb6b82fc5d113ffed09e5c02f4c6d38f2e60da0dd4f"
+}

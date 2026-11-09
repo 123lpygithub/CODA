@@ -1,0 +1,20 @@
+{
+  "url": "https://github.com/Microsoft/vscode/blob/master/src/vs/workbench/parts/output/electron-browser/outputServices.ts#L562",
+  "kind": "file",
+  "line_start": 550,
+  "line_end": 574,
+  "status": "partial",
+  "historical_evidence": true,
+  "revision": "a3099a85bc5d615a8269c20bf84a3736bdd3c01a",
+  "immutable_revision": true,
+  "retrieval_url": "https://raw.githubusercontent.com/Microsoft/vscode/a3099a85bc5d615a8269c20bf84a3736bdd3c01a/src/vs/workbench/parts/output/electron-browser/outputServices.ts",
+  "text": "\t\t\t\t\toutputPanel.revealLastLine();\n\t\t\t\t}\n\t\t\t}\n\t\t}, channelDisposables);\n\t\tchannel.onDispose(() => {\n\t\t\tif (this.activeChannel === channel) {\n\t\t\t\tconst channels = this.getChannelDescriptors();\n\t\t\t\tconst channel = channels.length ? this.getChannel(channels[0].id) : null;\n\t\t\t\tif (channel && this.isPanelShown()) {\n\t\t\t\t\tthis.showChannel(channel.id, true);\n\t\t\t\t} else {\n\t\t\t\t\tthis.activeChannel = channel;\n\t\t\t\t\tthis._onActiveOutputChannel.fire(channel ? channel.id : undefined);\n\t\t\t\t}\n\t\t\t}\n\t\t\tRegistry.as<IOutputChannelRegistry>(Extensions.OutputChannels).removeChannel(id);\n\t\t\tdispose(channelDisposables);\n\t\t}, channelDisposables);\n\n\t\treturn channel;\n\t}\n\n\tprivate instantiateChannel(id: string): OutputChannel {\n\t\tconst channelData = Registry.as<IOutputChannelRegistry>(Extensions.OutputChannels).getChannel(id);\n\t\tif (!channelData) {",
+  "source_sha256": "bf1a4124b6aab46eeb69486022d4b929f100784af2f37823c707f43595b284d0",
+  "fetched_at": "2026-11-05T15:56:58.273470+00:00",
+  "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+  "history_query_url": "https://api.github.com/repos/Microsoft/vscode/commits?path=src%2Fvs%2Fworkbench%2Fparts%2Foutput%2Felectron-browser%2FoutputServices.ts&per_page=5",
+  "history_response_sha256": "b60bfc8da90adaec5483ef546aae7540004dc2ab57b1c331c2b5aa8a0a9294c9",
+  "history_entry_sha": "87c5072ab080ae5ad3b93afb1d52d8c52aae46f3",
+  "history_commit_date": "2019-02-07T10:46:07Z",
+  "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution."
+}

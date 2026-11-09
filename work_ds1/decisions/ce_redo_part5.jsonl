@@ -1,0 +1,24 @@
+{"artifact_id": "133", "code_ids": ["CE05"], "open_codes": ["保留首次出现而非删除全部重复"], "memo": "seen 集合用于保留每个值的首次出现并跳过后续重复；契约要求删除所有出现次数大于 1 的值，包括首次出现。"}
+{"artifact_id": "134", "code_ids": ["CE05"], "open_codes": ["统一转小写而非翻转"], "memo": "string.lower() 把所有字母转为小写，未翻转原有大小写。"}
+{"artifact_id": "135", "code_ids": ["CE07"], "open_codes": ["边界条件用 >= 而非 >"], "memo": "筛选条件写成 x >= 0，把 0 也当作正数保留；契约要求严格大于 0。"}
+{"artifact_id": "136", "code_ids": ["CE05", "CE06"], "open_codes": ["返回最小绝对值而非求根"], "memo": "find_zero 遍历系数并返回最后一个非零系数的绝对值，没有计算多项式零点；遇到 0 系数还会提前返回 inf。"}
+{"artifact_id": "137", "code_ids": ["CE05", "CE08"], "open_codes": ["按值筛 3 的倍数而非下标"], "memo": "用元素值 x % 3 == 0 筛选并只返回该子列表，未保留原列表，也未只排序下标为 3 的倍数的位置。"}
+{"artifact_id": "138", "code_ids": ["CE05", "CE09"], "open_codes": ["递归分解 n 而非统计区间"], "memo": "只判断 n 本身是否被 11 或 13 整除，否则递归除以 11/13；没有遍历 0..n-1，也没有统计数字 7 的出现次数。"}
+{"artifact_id": "139", "code_ids": ["CE05", "CE08"], "open_codes": ["按值奇偶分组而非下标"], "memo": "按元素值的奇偶分成两组排序后拼接，改变了位置；契约要求只排序偶数下标的元素。"}
+{"artifact_id": "140", "code_ids": ["CE02", "CE09"], "open_codes": ["decode 分组截断", "旋转方向错误"], "memo": "decode 用 s.split 后取 group[1:]+group[0]，分组方式与 encode 不一致，且旋转方向与 encode 相同；源码也在该表达式处截断。"}
+{"artifact_id": "141", "code_ids": ["CE05"], "open_codes": ["普通斐波那契递推"], "memo": "返回的是普通 Fibonacci 递推值，没有生成素数斐波那契数列，也未判断素性。"}
+{"artifact_id": "142", "code_ids": ["CE05"], "open_codes": ["去重后元素数 >= 3"], "memo": "只检查去重后至少有三个不同元素，未检查是否存在三个不同元素之和为 0。"}
+{"artifact_id": "143", "code_ids": ["CE01", "CE02"], "open_codes": ["常量速度数组后截断"], "memo": "构造大段 car_speeds 常量数组后没有形成碰撞计数，且源码在数组中途截断。"}
+{"artifact_id": "144", "code_ids": ["CE05"], "open_codes": ["追加 1 而非逐元素加 1"], "memo": "l.append(1) 只在列表末尾追加一个 1，没有把每个元素都加 1。"}
+{"artifact_id": "145", "code_ids": ["CE05"], "open_codes": ["去重后元素数 == 2"], "memo": "只判断去重后恰好有两个不同元素，未检查是否存在一对相反数。"}
+{"artifact_id": "146", "code_ids": ["CE12"], "open_codes": ["用 / 产生 float"], "memo": "x /= base 把 x 变为 float，后续取模与除法在 float 上继续，输出会带小数点且循环可能不终止。"}
+{"artifact_id": "147", "code_ids": ["CE09", "CE10"], "open_codes": ["初始条件与递推错误"], "memo": "n==1 返回 1（应为 0），且递归直接调用 n-1/n-2/n-3/n-4，未按 fib4 的初值序列推进。"}
+{"artifact_id": "148", "code_ids": ["CE05"], "open_codes": ["偶数长度取上中位而非平均"], "memo": "偶数长度时直接返回 l[len//2]，未取中间两个元素的平均值；奇数长度路径正确。"}
+{"artifact_id": "149", "code_ids": ["CE09"], "open_codes": ["decode 缺少减 5"], "memo": "decode_shift 只减 ord(\"a\") 后取模，没有减 5，无法还原 encode 的 +5 位移。"}
+{"artifact_id": "150", "code_ids": ["CE05"], "open_codes": ["只比较长度"], "memo": "只比较两串长度，完全不比较字符集合。"}
+{"artifact_id": "151", "code_ids": ["CE05"], "open_codes": ["只比较左右括号数量"], "memo": "分别统计 < 与 > 的数量并比较，未检查任意前缀中 > 是否多于 <，顺序错误会被误判为合法。"}
+{"artifact_id": "152", "code_ids": ["CE05"], "open_codes": ["只检查严格递增"], "memo": "只检查相邻元素严格递增，未接受非递增（单调递减）或相等元素的合法情况。"}
+{"artifact_id": "153", "code_ids": ["CE06", "CE10"], "open_codes": ["循环条件反了"], "memo": "factor 从 1 开始，while n % factor == 0 立即为真并递增到首个不整除 n 的数；没有从 n-1 向下寻找最大素因子。"}
+{"artifact_id": "154", "code_ids": ["CE05"], "open_codes": ["括号集合重叠导致计数错误"], "memo": "opening_brackets 与 closing_brackets 的字符集合重叠，左右括号都被同时计入两边，比较数量不能验证括号结构。"}
+{"artifact_id": "155", "code_ids": ["CE05"], "open_codes": ["返回幂而非导数系数"], "memo": "返回 [x**i for i,x in enumerate(xs)]，计算的是系数序列的幂，不是导数系数 i*xs[i]。"}
+{"artifact_id": "156", "code_ids": ["CE03", "CE09"], "open_codes": ["调用未定义 helper", "初值与递推错误"], "memo": "调用未定义的 fibfibfib；且 n<=1 返回 n（应为 0），未实现三阶递推的正确初值与循环。"}

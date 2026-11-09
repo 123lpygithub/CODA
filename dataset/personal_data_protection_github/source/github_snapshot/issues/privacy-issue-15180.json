@@ -1,0 +1,170 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-15180",
+  "issue_url": "https://github.com/kkapsner/CanvasBlocker/issues/114",
+  "source_issue_url": "https://github.com/kkapsner/CanvasBlocker/issues/114",
+  "api_url": "https://api.github.com/repos/kkapsner/CanvasBlocker/issues/114",
+  "title": "Fingerprinting by detecting CanvasBlocker",
+  "body": "PoC: https://jsfiddle.net/6ke4ycmb/\r\n\r\nIn case you don't want to click a link and execute my JS here's the code:\r\n\r\n```\r\nvar canvas = document.createElement('canvas');\r\nvar ctx = canvas.getContext(\"2d\");\r\nvar canvasBlocker=false;\r\ntry{\r\n\tctx.getImageData(0,0,0,0);\r\n}catch(err){\r\n\ttry{\r\n\t\tconsole.log(err.name);\r\n  }catch(err2){\r\n  \tcanvasBlocker=true;\r\n  }\r\n}\r\nif(canvasBlocker){\r\n\talert(\"Canvas blocker detected.\");\r\n}else{\r\n\talert(\"No canvas blocker detected\");\r\n}\r\n```\r\n\r\nThis reliably recognized if CanvasBlocker is in use in my tests. Thus providing another bit for fingerprinting :(\r\n\r\nNot sure how exactly this can be fixed though, as I'm not familiar with Firefox Extensions.",
+  "author": "Participant 1",
+  "created_at": "2017-04-18T19:00:51Z",
+  "updated_at": "2018-10-04T13:24:34Z",
+  "state": "closed",
+  "closed_at": "2017-12-13T19:29:38Z",
+  "issue_fetched_at": "2026-10-19T01:10:47.845588+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:10:49.269460+00:00"
+  ],
+  "expected_comment_count": 18,
+  "retrieved_comment_count": 18,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 294962057,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-294962057",
+      "created_at": "2017-04-18T20:00:06Z",
+      "updated_at": "2017-04-18T20:00:06Z",
+      "author": "Participant 1",
+      "body": "Another one: https://jsfiddle.net/sy358ukc/\r\n\r\n```\r\nvar canvas = document.createElement('canvas');\r\nvar ctx = canvas.getContext(\"2d\");\r\nif(ctx.__proto__.getImageData.length==0){\r\n\talert(\"Canvas blocker detected.\");\r\n}else{\r\n\talert(\"No canvas blocker detected\");\r\n}\r\n```"
+    },
+    {
+      "id": 295259795,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-295259795",
+      "created_at": "2017-04-19T12:55:19Z",
+      "updated_at": "2017-04-19T12:55:19Z",
+      "author": "Participant 2",
+      "body": "Your first example is not working with the newest version of CanvasBlocker on my side. Which version are you using and what are your settings?\r\n\r\nFor the second one I created a bug three years ago: https://bugzilla.mozilla.org/show_bug.cgi?id=1081385\r\nUnfortunately I can not resolve this as it's a core bug."
+    },
+    {
+      "id": 295264090,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-295264090",
+      "created_at": "2017-04-19T13:10:29Z",
+      "updated_at": "2017-04-19T13:10:29Z",
+      "author": "Participant 1",
+      "body": "I'm using 0.3.7-Release, which is the AMO version. Settings are default. Block mode is Fake Readout.\r\n\r\nWhat the first thing should do, trip up your code, `err` is then an exception from your code:\r\n\r\n```\r\nTypeError: window.Array.from is not a function\r\nStack trace:\r\ngetImageData@resource://gre/modules/commonjs/toolkit/loader.js -> resource://canvasblocker-at-kkapsner-dot-de/lib/modifiedAPI.js:215:38\r\nwindow.onload@https://fiddle.jshell.net/_display/:49:2\r\n```\r\n\r\nThis is a problem because it should return the browsers exception. We then try to access err.name, but because it's from a different security context we can't. Thus we know the API has been tampered with.\r\n\r\nWhen doing this in a browser without CanvasBlocker, the exception `err` is\r\n\r\n```\r\nDOMException [IndexSizeError: \"Index or size is negative or greater than the allowed amount\"\r\ncode: 1\r\nnsresult: 0x80530001\r\nlocation: https://fiddle.jshell.net/_display/:49]\r\n```\r\n\r\nAnd we can read `err.name` and get IndexSizeError, as expected.\r\n\r\nIn any case it should be made sure that exceptions in your code don't propagate to the website, because that allows detection if one can make your code barf."
+    },
+    {
+      "id": 295266432,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-295266432",
+      "created_at": "2017-04-19T13:16:31Z",
+      "updated_at": "2017-04-19T13:16:31Z",
+      "author": "Participant 2",
+      "body": "Which Firefox version are you using?"
+    },
+    {
+      "id": 295268512,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-295268512",
+      "created_at": "2017-04-19T13:23:10Z",
+      "updated_at": "2017-04-19T13:23:10Z",
+      "author": "Participant 1",
+      "body": "Ah, its 45.8.0 ESR in a Debian VM I had laying around. I'll try to find something that works in recent firefox versions I guess."
+    },
+    {
+      "id": 295279987,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-295279987",
+      "created_at": "2017-04-19T13:59:41Z",
+      "updated_at": "2017-04-19T14:00:22Z",
+      "author": "Participant 1",
+      "body": "Ok, got it: https://jsfiddle.net/su92se5r/\r\n\r\nSame method, different vector.\r\n```\r\nvar canvas = document.createElement('canvas');\r\nvar ctx = canvas.getContext(\"2d\");\r\nctx.canvas.width=null;\r\nvar canvasBlocker=false;\r\n\r\n\r\ntry{\r\n\tctx.getImageData(0,0,1,1);\r\n}catch(err){\r\nconsole.log(err);\r\n\ttry{\r\n\t\tconsole.log(err.name);\r\n  }catch(err2){\r\n  \tcanvasBlocker=true;\r\n  }\r\n}\r\nif(canvasBlocker){\r\n\talert(\"Canvas blocker detected.\");\r\n}else{\r\n\talert(\"No canvas blocker detected\");\r\n}\r\n```\r\n\r\nTested against Firefox 52.0.2 on Windows, fresh install of canvas blocker from AMO, default settings.\r\nThis makes your code barf and allows detection in the same way as post 1."
+    },
+    {
+      "id": 295351646,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-295351646",
+      "created_at": "2017-04-19T17:16:35Z",
+      "updated_at": "2017-04-19T17:16:35Z",
+      "author": "Participant 2",
+      "body": "Hm... basically 45.7.0 ESR should be supported and it should also know the Array.from function (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from).\r\n\r\nBut with 45.7.0 I'm able to reproduce the problem - I should change at AMO that this version is not supported any more. 52.0 ESR is already out so this should be no problem.\r\n\r\nThe new scenario is indeed a bug I can and will fix."
+    },
+    {
+      "id": 295378005,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-295378005",
+      "created_at": "2017-04-19T18:24:07Z",
+      "updated_at": "2017-04-19T18:24:07Z",
+      "author": "Participant 1",
+      "body": "So sorry, I must be getting really annoying: https://jsfiddle.net/su92se5r/1/\r\n\r\n```\r\nvar canvas = document.createElement('canvas');\r\nvar ctx = canvas.getContext(\"2d\");\r\nvar canvasBlocker=false;\r\n\r\ntry{\r\n\tctx.__proto__.getImageData.apply(undefined, [0,0,1,1]);\r\n}catch(err){\r\nconsole.log(err);\r\n\ttry{\r\n\t\tconsole.log(err.name);\r\n  }catch(err2){\r\n  \tcanvasBlocker=true;\r\n  }\r\n}\r\nif(canvasBlocker){\r\n\talert(\"Canvas blocker detected.\");\r\n}else{\r\n\talert(\"No canvas blocker detected\");\r\n}\r\n```\r\n\r\nIt's the last one for now though, I might poke it again in the future."
+    },
+    {
+      "id": 296428582,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-296428582",
+      "created_at": "2017-04-23T08:46:15Z",
+      "updated_at": "2017-04-23T08:46:15Z",
+      "author": "Participant 2",
+      "body": "No reason to apologize."
+    },
+    {
+      "id": 320880840,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-320880840",
+      "created_at": "2017-08-08T07:56:56Z",
+      "updated_at": "2017-08-08T07:59:45Z",
+      "author": "Participant 3",
+      "body": "> I created a bug three years ago: https://bugzilla.mozilla.org/show_bug.cgi?id=1081385\r\nUnfortunately I can not resolve this as it's a core bug.\r\n\r\n@kkapsner What is taking them so long, didn't one guy say it would be a potential \"beginner bug\"? I saw you added new information, but it didn't even provoke a reaction. Do you think it would help if this bug got a couple more upvotes, to stir up its visibility a bit?"
+    },
+    {
+      "id": 321337774,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-321337774",
+      "created_at": "2017-08-09T18:14:19Z",
+      "updated_at": "2017-08-09T18:14:19Z",
+      "author": "Participant 2",
+      "body": "Some upvotes can't hurt. But I think all their ressources are blocked by the move to webExtensions. There are still APIs missing."
+    },
+    {
+      "id": 351496703,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-351496703",
+      "created_at": "2017-12-13T19:29:38Z",
+      "updated_at": "2017-12-13T19:29:38Z",
+      "author": "Participant 2",
+      "body": "For completeness here my testing page: http://kkapsner.github.io/CanvasBlocker/test/detectionTest.html\r\nLooks quite OK for me. The \"known pixel value test 10\" is quite hard to fix (maybe even impossible) due to the nature of faking the canvas content and the first one is the Firefox bug - so I will close this issue. You can reopen it, if you think it should stay open."
+    },
+    {
+      "id": 351529417,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-351529417",
+      "created_at": "2017-12-13T21:24:00Z",
+      "updated_at": "2017-12-13T21:24:00Z",
+      "author": "Participant 3",
+      "body": "@kkapsner CB stays undetected with the \"known pixel value test 10\" when setting the minimum faking size to at least 100 px."
+    },
+    {
+      "id": 351554177,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-351554177",
+      "created_at": "2017-12-13T23:06:16Z",
+      "updated_at": "2017-12-13T23:06:16Z",
+      "author": "Participant 2",
+      "body": "Yes... but than a page could just use a 10px by 11px image. It's the concept behind it."
+    },
+    {
+      "id": 357465646,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-357465646",
+      "created_at": "2018-01-13T20:39:36Z",
+      "updated_at": "2018-01-13T20:39:36Z",
+      "author": "Participant 3",
+      "body": "> For the second one I created a bug three years ago: https://bugzilla.mozilla.org/show_bug.cgi?id=1081385\r\n> Unfortunately I can not resolve this as it's a core bug.\r\n\r\nGood to see that someone put the bug report finally out of its misery."
+    },
+    {
+      "id": 372628604,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-372628604",
+      "created_at": "2018-03-13T11:06:44Z",
+      "updated_at": "2018-03-13T11:06:44Z",
+      "author": "Participant 3",
+      "body": "Looks better than ever with Firefox 59:\r\n\r\n![unbenannt](https://user-images.githubusercontent.com/23747593/37338191-fba04a70-26b6-11e8-89ca-ac8f8d23dbfa.JPG)\r\n"
+    },
+    {
+      "id": 372635665,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-372635665",
+      "created_at": "2018-03-13T11:36:20Z",
+      "updated_at": "2018-03-13T11:36:20Z",
+      "author": "Participant 2",
+      "body": "Finally got rid of the technical problems there. The picture will remain like that in the future."
+    },
+    {
+      "id": 427016649,
+      "url": "https://github.com/kkapsner/CanvasBlocker/issues/114#issuecomment-427016649",
+      "created_at": "2018-10-04T13:23:15Z",
+      "updated_at": "2018-10-04T13:24:34Z",
+      "author": "Participant 4",
+      "body": "When is `known pixel value test 10: CB detected` going to be fixed?\r\n*edit* Ok, I just read @kkapsner post why he closed this issue."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

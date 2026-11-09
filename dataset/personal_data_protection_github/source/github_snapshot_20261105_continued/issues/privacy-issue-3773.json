@@ -1,0 +1,66 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3773",
+  "issue_url": "https://github.com/bromite/bromite/issues/164",
+  "source_issue_url": "https://github.com/bromite/bromite/issues/164",
+  "api_url": "https://api.github.com/repos/bromite/bromite/issues/164",
+  "title": "Privacy friendlier Cloudflare DoH resolver",
+  "body": "**Is your feature request related to privacy?**\r\nYes\r\n\r\n**Is there a patch available for this feature somewhere?**\r\nYes, it's an edit request\r\n\r\n**Describe the solution you'd like**\r\nMozilla partenered with Cloudflare for their DoH resolver and they have a resolver (https://mozilla.cloudflare-dns.com/dns-query) which limits logged data and data retention, opposed to the 1.1.1.1\r\nCan it be used instead the current 1.1.1.1 if DoH flag value is set to Cloudflare?\r\n\r\n[Source article](https://www.ghacks.net/2018/04/02/configure-dns-over-https-in-firefox/)\r\n\r\n**Describe alternatives you've considered**\r\nany\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-10-27T15:38:52Z",
+  "updated_at": "2019-10-13T08:52:02Z",
+  "state": "closed",
+  "closed_at": "2018-10-27T17:59:25Z",
+  "issue_fetched_at": "2026-10-19T01:11:44.822835+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:11:46.243080+00:00"
+  ],
+  "expected_comment_count": 5,
+  "retrieved_comment_count": 5,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 433633656,
+      "url": "https://github.com/bromite/bromite/issues/164#issuecomment-433633656",
+      "created_at": "2018-10-27T16:12:31Z",
+      "updated_at": "2018-10-27T16:23:12Z",
+      "author": "Participant 2",
+      "body": "This is the special agreement: https://developers.cloudflare.com/1.1.1.1/commitment-to-privacy/privacy-policy/firefox/\r\n\r\nThe privacy policy for 1.1.1.1 is instead: https://developers.cloudflare.com/1.1.1.1/commitment-to-privacy/privacy-policy/privacy-policy/\r\n\r\nIn both cases you can see:\r\n> All information collected by Cloudflare, no matter whether such information is part of Cloudflare’s temporary or permanent logs, will be cleansed of any personally identifiable data (including your IP addresses). Additionally information that is stored as part of Cloudflare’s permanent logs will be further anonymized.\r\n\r\nAn important question: is the main difference between the two that Cloudflare is sharing this DNS data with Mozilla? It is not stated explicitly that it is not the case.\r\n\r\nThe only difference I can see is that the data used for Cloudflare permanent logs contains less fields, but I would like to know if there is an agreement between Cloudflare and Mozilla about sharing such data first.\r\n\r\n**Edit:** I think the wording gives away the relationship between Cloudflare and Mozilla:\r\n> Any data Cloudflare handles as a result of its resolver for Firefox is as a date [sic] processor acting pursuant to Firefox’s data processing instructions.\r\n\r\n(date is a typo, should be data)\r\n\r\nThis means Firefox (they mean Mozilla?) is the data controller second GDPR parlance, thus it also has access to the data.\r\n\r\nIf this is the case, then I deny this request: we do not need to share the data with two companies instead of one."
+    },
+    {
+      "id": 433635353,
+      "url": "https://github.com/bromite/bromite/issues/164#issuecomment-433635353",
+      "created_at": "2018-10-27T16:35:08Z",
+      "updated_at": "2018-10-27T16:35:08Z",
+      "author": "Participant 1",
+      "body": "Yes, they mix up Mozilla and Firefox (the browser).\nYou're right, form those lines seems both have access to it, even if the data collected in the permanent logs is less, as you said too.\nFeel free to close the issue. Thank you for your time."
+    },
+    {
+      "id": 433642064,
+      "url": "https://github.com/bromite/bromite/issues/164#issuecomment-433642064",
+      "created_at": "2018-10-27T17:59:25Z",
+      "updated_at": "2018-10-27T17:59:25Z",
+      "author": "Participant 2",
+      "body": "@randomshell time is not the problem, but I am wary of situations like this where something _seems_ more privacy-safe while in reality it has some hidden caveat.\r\n\r\nIf I interpret these privacy rules incorrectly and there is just Cloudflare/APNIC with access to data then we can add it; if unfortunately there is less data collected but it is shared between Cloudflare and Mozilla, then I vote against adding this. Probably users of Bromite would not select the option since it is equivalent to regular Cloudflare with the added \"benefit\" that another company can use the (anonymised) data for whatever purpose.\r\n\r\nThanks for your interest, we all have to stay vigilant; I still hope there will be some day an EFF-sponsored DoH server but they do not seem much interested in operating services."
+    },
+    {
+      "id": 435869590,
+      "url": "https://github.com/bromite/bromite/issues/164#issuecomment-435869590",
+      "created_at": "2018-11-05T13:15:18Z",
+      "updated_at": "2018-11-05T13:15:18Z",
+      "author": "Participant 3",
+      "body": "Isn't this a matter of Cloudflare + APNIC vs Cloudflare + Mozilla? \r\nThe Mozilla version does not contain any references of APNIC, so it is just about Firefox's telemetry, if any."
+    },
+    {
+      "id": 541399931,
+      "url": "https://github.com/bromite/bromite/issues/164#issuecomment-541399931",
+      "created_at": "2019-10-13T08:52:02Z",
+      "updated_at": "2019-10-13T08:52:02Z",
+      "author": "Participant 2",
+      "body": "@Madis0 the Mozilla version means Mozilla + Cloudflare + APNIC"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

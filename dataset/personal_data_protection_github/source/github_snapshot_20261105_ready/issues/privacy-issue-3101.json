@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3101",
+  "issue_url": "https://github.com/openservicemesh/osm/issues/1895",
+  "source_issue_url": "https://github.com/openservicemesh/osm/issues/1895",
+  "api_url": "https://api.github.com/repos/openservicemesh/osm/issues/1895",
+  "title": "Audit error level and above logs to ensure sensitive information is not logged, mask if needed",
+  "body": "**Please describe the Improvement and/or Feature Request**\r\n<!-- A clear and concise description of the proposal. -->\r\nAudit codebase for any error level and above logs to ensure sensitive information is not logged. e.g. password, credentials, urls. If sensitive data is included, mask it so it is not exposed in the log. \r\n\r\nNOTE: This should be a first pass as this is an on-going activity. We should look into tools we can use to catch this for every PR.\r\n\r\nQuestion: What do other projects use to audit?\r\n\r\n**Scope (please mark with X where applicable)**\r\n- New Functionality          [ ]\r\n- Install                    [ ]\r\n- SMI Traffic Access Policy  [ ]\r\n- SMI Traffic Specs Policy   [ ]\r\n- SMI Traffic Split Policy   [ ]\r\n- Permissive Traffic Policy  [ ]\r\n- Ingress                    [ ]\r\n- Egress                     [ ]\r\n- Envoy Control Plane        [ ]\r\n- CLI Tool                   [ ]\r\n- Metrics                    [ ]\r\n- Certificate Management     [ ]\r\n- Sidecar Injection          [ ]\r\n- Logging                    [X]\r\n- Debugging                  [ ]\r\n- Tests                      [ ]\r\n- CI System                  [ ]\r\n- Project Release            [ ]\r\n\r\n**Possible use cases**\r\n<!-- A clear and concise description of possible use cases for this proposal. -->\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-10-22T18:56:56Z",
+  "updated_at": "2021-01-26T17:56:07Z",
+  "state": "closed",
+  "closed_at": "2021-01-26T17:56:07Z",
+  "issue_fetched_at": "2026-10-18T13:10:28.433142+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T13:10:29.842810+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 742016706,
+      "url": "https://github.com/openservicemesh/osm/issues/1895#issuecomment-742016706",
+      "created_at": "2020-12-09T20:04:58Z",
+      "updated_at": "2020-12-09T20:04:58Z",
+      "author": "Participant 2",
+      "body": "Need to figure out what is considered sensitive information."
+    },
+    {
+      "id": 761166534,
+      "url": "https://github.com/openservicemesh/osm/issues/1895#issuecomment-761166534",
+      "created_at": "2021-01-15T19:56:07Z",
+      "updated_at": "2021-01-15T20:37:30Z",
+      "author": "Participant 3",
+      "body": "sub issues:\r\n  - https://github.com/openservicemesh/osm/issues/2309 - remove log lines where we log xDS request/response\r\n  - https://github.com/openservicemesh/osm/issues/2311 - replace certificate CN w/ certificate SerialNumber\r\n    - https://github.com/openservicemesh/osm/issues/2312 - implement `GetSerialNumber()`\r\n  - https://github.com/openservicemesh/osm/issues/2313 - replace Pod IP address with Pod UID \r\n"
+    },
+    {
+      "id": 764396438,
+      "url": "https://github.com/openservicemesh/osm/issues/1895#issuecomment-764396438",
+      "created_at": "2021-01-21T05:47:31Z",
+      "updated_at": "2021-01-21T05:48:15Z",
+      "author": "Participant 4",
+      "body": "I am not a lawyer and this is not legal advice; however, I do work in information security and have privacy engineering experience as well as security event incident management experience (i.e. security log acquisition, retention, search/alerting.)\r\n\r\nLogs can certainly reveal sensitive information, but exactly what is sensitive and shouldn't be logged should be based on a combination of existing laws and the potential harm to a _natural person_ which may come from the information being logged, which could potentially be leaked or shared inappropriately. Considering GDPR, CCPA, LGPD, PDPA, and HIPAA (privacy laws from many geographic areas)  -- the common thread is the potential harm to the natural person.\r\n\r\nSo in regards to logging information, one should always avoid logging: passwords, email addresses, IP-addresses associated with end-users (i.e. POD IP address is ok to log), individual-person health information, credit card numbers, national ID numbers, driver's license number, etc. Most of the information that a Kubernetes cluster deals with would not contain any of this sensitive information, as the cluster, pods, and containers pertain to system components and not a natural person. \r\n\r\nThe real challenge is posed by the workloads running within the containers; they are very likely to ingest and handle personally identifiable information and potentially log it inappropriately; what this data might be would depend on the specific workload and the geography where the end user resides (example: end-user IP address is PII for EU data subjects but not for US residents!) Many companies end up writing their own logging routines to help filter out the sensitive information that their business processes from their logs. An extensible logging framework could help your customers greatly by allowing them to write their own logging filters which deal exactly with the types of PHI or PII their organization is ingesting. \r\n\r\nIf in doubt, consult your info sec or legal team."
+    },
+    {
+      "id": 767719116,
+      "url": "https://github.com/openservicemesh/osm/issues/1895#issuecomment-767719116",
+      "created_at": "2021-01-26T17:56:07Z",
+      "updated_at": "2021-01-26T17:56:07Z",
+      "author": "Participant 5",
+      "body": "Closing for now with above linked (and many more) PRs. Can reopen in the future as needed."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

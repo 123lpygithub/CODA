@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0239-aaggfgbbj",
+  "revision_url": "https://github.com/EducationalTestingService/rsmtool/commit/3cd83052991263dfb62f83a3e12cbc51f578212d",
+  "filename": "rsmtool/analysis.py",
+  "commit": "3cd83052991263dfb62f83a3e12cbc51f578212d",
+  "source_url": "https://raw.githubusercontent.com/EducationalTestingService/rsmtool/3cd83052991263dfb62f83a3e12cbc51f578212d/rsmtool/analysis.py",
+  "fetched_at": "2026-11-05T06:12:20.416718+00:00",
+  "source_sha256": "13a246b468b49bf50683f5f6e19d48dd5278279e580cd993b2e0700b991e62dc",
+  "line_start": 617,
+  "line_end": 641,
+  "excerpt": "    if not population_sd_dict:\n        population_sd_dict = {df[col].std(ddof=1) for col in df.columns if not col=='spkitemid'}\n\n    # if the second human score column is available, the values are\n    # probably not available for all of the responses in the test\n    # set and so we want to exclude 'sc2' from human-machine metrics\n    # computation. In addition, we also want to compute the human-human\n    # metrics only on the data that is double scored.\n    df_human_human_eval = pd.DataFrame()\n    if include_second_score:\n        df_single_scored = df.drop('sc2', axis=1)\n        # TODO: we need to pass the column name to the dictionary, not the values\n        # TODO add passing this dictionary to all calls to metrics_helper in this function\n        df_human_machine_eval = df_single_scored.apply(lambda s: metrics_helper(df_single_scored['sc1'],\n                                                                                s,\n                                                                                population_sd_dict['sc1'],\n                                                                                population_sd_dict[s]))\n        df_double_scored = df[df['sc2'].notnull()][['sc1', 'sc2']]\n        df_human_human_eval = df_double_scored.apply(lambda s: metrics_helper(df_double_scored['sc1'], s))\n        # drop the sc1 column from the human-human agreement frame\n        df_human_human_eval = df_human_human_eval.drop('sc1', 1)\n        # sort the rows in the correct order\n        df_human_human_eval = df_human_human_eval.reindex(['N', 'h_mean', 'h_sd',\n                                                           'h_min', 'h_max',\n                                                           'sys_mean', 'sys_sd',"
+}

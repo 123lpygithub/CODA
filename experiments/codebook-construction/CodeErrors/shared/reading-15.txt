@@ -1,0 +1,651 @@
+
+TASK 154
+def cycpattern_check(a , b):
+    """You are given 2 words. You need to return True if the second word or any of its rotations is a substring in the first word
+    cycpattern_check("abcd","abd") => False
+    cycpattern_check("hello","ell") => True
+    cycpattern_check("whassup","psus") => False
+    cycpattern_check("abab","baa") => True
+    cycpattern_check("efef","eeff") => False
+    cycpattern_check("himenss","simen") => True
+
+    """
+REFERENCE
+def cycpattern_check(a , b):
+    
+    if a == b:
+        return True
+    if b == "":
+        return True
+    for i in range(0, len(b)):
+        if b[i:] + b[:i] in a:
+            return True
+    return False
+CASE 130 (CodeGen-16B; source ids=130)
+def cycpattern_check(a , b):
+    
+    if b in a:
+        return True
+    else:
+        return False
+CASE 312 (InCoder-1B; source ids=312)
+def cycpattern_check(a , b):
+CASE 596 (SantaCoder; source ids=596)
+def cycpattern_check(a , b):
+    
+    if len(a) < len(b):
+        return False
+    if len(a) == len(b):
+        return a in b
+    else:
+        return any(a[i:] in b for i in range(len(a)-len(b)+1))
+CASE 733 (StarCoder; source ids=733)
+def cycpattern_check(a , b):
+    
+    return b in a or b in a[1:] + a[:1]
+
+TASK 155
+def even_odd_count(num):
+    """Given an integer. return a tuple that has the number of even and odd digits respectively.
+
+     Example:
+        even_odd_count(-12) ==> (1, 1)
+        even_odd_count(123) ==> (1, 2)
+    """
+REFERENCE
+def even_odd_count(num):
+    
+    even, odd = 0, 0
+    for ch in str(num):
+        if ch in "02468": even += 1
+        if ch in "13579": odd += 1
+    return even, odd
+CASE 131 (CodeGen-16B; source ids=131)
+def even_odd_count(num):
+    
+    even = 0
+    odd = 0
+    while num > 0:
+        if num % 2 == 0:
+            even += 1
+        else:
+            odd += 1
+        num = num // 10
+    return (even, odd)
+CASE 313 (InCoder-1B; source ids=313,314,315)
+def even_odd_count(num):
+    
+    even, odd = 1, 0
+    while num > 0:
+        even = even + num % 2
+        num = num // 2
+        odd = odd + num % 2
+    return even, odd
+CASE 385 (GPT-3.5; source ids=385)
+def even_odd_count(num):
+    even_count = 0
+    odd_count = 0
+    for digit in str(abs(num)):
+        if int(digit) % 2 == 0:
+            even_count += 1
+        else:
+            odd_count += 1
+    if num < 0:
+        even_count *= -1
+        odd_count *= -1
+    return (even_count, odd_count)
+CASE 597 (SantaCoder; source ids=597)
+def even_odd_count(num):
+    
+    return (sum(int(i) for i in str(num)), sum(int(i) for i in str(num) if i % 2 == 0))
+
+TASK 156
+def int_to_mini_roman(number):
+    """
+    Given a positive integer, obtain its roman numeral equivalent as a string,
+    and return it in lowercase.
+    Restrictions: 1 <= num <= 1000
+
+    Examples:
+    >>> int_to_mini_roman(19) == 'xix'
+    >>> int_to_mini_roman(152) == 'clii'
+    >>> int_to_mini_roman(426) == 'cdxxvi'
+    """
+REFERENCE
+def int_to_mini_roman(number):
+    
+    m = ["", "m"]
+    c = ["", "c", "cc", "ccc", "cd", "d", "dc", "dcc", "dccc", "cm"]
+    x = ["", "x", "xx", "xxx", "xl", "l", "lx", "lxx", "lxxx", "xc"]
+    i = ["", "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix"]
+    thousands = m[number // 1000]
+    hundreds = c[(number % 1000) // 100]
+    tens = x[(number % 100) // 10]
+    ones = i[number % 10]
+    return thousands + hundreds + tens + ones
+CASE 132 (CodeGen-16B; source ids=132,133)
+def int_to_mini_roman(number):
+    
+    roman_numerals = {
+        1: 'i',
+        5: 'v',
+        10: 'x',
+        50: 'l',
+        100: 'c',
+        500: 'd',
+        1000: 'm'
+    }
+    result = ''
+    for key in sorted(roman_numerals.keys(), reverse=True):
+        while number >= key:
+            result += roman_numerals[key]
+            number -= key
+    return result
+CASE 316 (InCoder-1B; source ids=316,317)
+def int_to_mini_roman(number):
+    
+    number = int(number)
+    if number < 1:
+        return 'xix'
+    if number < 1000:
+        return str(number).lower()
+    numerals = [str(number//i) for i in range(1, 10)]
+    numerals.append(str(number%i))
+    return ''.join(numerals)
+CASE 598 (SantaCoder; source ids=598,599)
+def int_to_mini_roman(number):
+    
+    roman_numerals = {
+        1: 'I',
+        4: 'IV',
+        5: 'V',
+        9: 'IX',
+        10: 'X',
+        40: 'XL',
+        50: 'L',
+        90: 'XC',
+        100: 'C',
+        400: 'CD',
+        500: 'D',
+        900: 'CM',
+        1000: 'M'
+    }
+    roman_numeral = ''
+    while number > 0:
+        for key, value in roman_numerals.items():
+            if number >= key:
+                roman_numeral += value
+                number -= key
+                break
+    return roman_numeral.lower()
+CASE 734 (StarCoder; source ids=734)
+def int_to_mini_roman(number):
+    
+    pass
+
+TASK 157
+def right_angle_triangle(a, b, c):
+    '''
+    Given the lengths of the three sides of a triangle. Return True if the three
+    sides form a right-angled triangle, False otherwise.
+    A right-angled triangle is a triangle in which one angle is right angle or 
+    90 degree.
+    Example:
+    right_angle_triangle(3, 4, 5) == True
+    right_angle_triangle(1, 2, 3) == False
+    '''
+REFERENCE
+def right_angle_triangle(a, b, c):
+    
+    
+    return a ** 2 + b ** 2 == c ** 2 or a ** 2 + c ** 2 == b ** 2 or b ** 2 + c ** 2 == a ** 2
+CASE 318 (InCoder-1B; source ids=318)
+def right_angle_triangle(a, b, c):
+    
+    return abs(a - b) <= abs(c - a) <= abs(c - b)
+CASE 600 (SantaCoder; source ids=600)
+def right_angle_triangle(a, b, c):
+    
+    return (a + b > c) and (b + c > a) and (c + a > b)
+CASE 735 (StarCoder; source ids=735)
+def right_angle_triangle(a, b, c):
+    
+    return a**2 + b**2 == c**2
+
+TASK 158
+def find_max(words):
+    """Write a function that accepts a list of strings.
+    The list contains different words. Return the word with maximum number
+    of unique characters. If multiple strings have maximum number of unique
+    characters, return the one which comes first in lexicographical order.
+
+    find_max(["name", "of", "string"]) == "string"
+    find_max(["name", "enam", "game"]) == "enam"
+    find_max(["aaaaaaa", "bb" ,"cc"]) == ""aaaaaaa"
+    """
+REFERENCE
+def find_max(words):
+    
+    mx_ch_cnt, ans = 0, ""
+    for word in words:
+        ch_cnt = len(set(word)) 
+        if ch_cnt > mx_ch_cnt or (ch_cnt == mx_ch_cnt and word < ans):
+            mx_ch_cnt, ans = ch_cnt, word
+    return ans
+CASE 134 (CodeGen-16B; source ids=134)
+def find_max(words):
+    
+    # words = ["name", "of", "string"]
+    # words = ["name", "enam", "game"]
+    # words = ["aaaaaaa", "bb" ,"cc"]
+    # words = ["a", "b", "c"]
+    # words = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    # words = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    # words = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q
+CASE 319 (InCoder-1B; source ids=319)
+def find_max(words):
+    
+    words = set(words)
+    word_count = {}
+    for word in words:
+        word_count[word] = word_count.get(word, 0) + 1
+    word_count.sort(key=word_count.get, reverse=True)
+    return word_count[0]
+CASE 601 (SantaCoder; source ids=601)
+def find_max(words):
+    
+    return max(set(words), key=words.count)
+CASE 736 (StarCoder; source ids=736)
+def find_max(words):
+    
+    pass
+
+TASK 159
+def eat(number, need, remaining):
+    """
+    You're a hungry rabbit, and you already have eaten a certain number of carrots,
+    but now you need to eat more carrots to complete the day's meals.
+    you should return an array of [ total number of eaten carrots after your meals,
+                                    the number of carrots left after your meals ]
+    if there are not enough remaining carrots, you will eat all remaining carrots, but will still be hungry.
+    
+    Example:
+    * eat(5, 6, 10) -> [11, 4]
+    * eat(4, 8, 9) -> [12, 1]
+    * eat(1, 10, 10) -> [11, 0]
+    * eat(2, 11, 5) -> [7, 0]
+    
+    Variables:
+    @number : integer
+        the number of carrots that you have eaten.
+    @need : integer
+        the number of carrots that you need to eat.
+    @remaining : integer
+        the number of remaining carrots thet exist in stock
+    
+    Constrain:
+    * 0 <= number <= 1000
+    * 0 <= need <= 1000
+    * 0 <= remaining <= 1000
+
+    Have fun :)
+    """
+REFERENCE
+def eat(number, need, remaining):
+    
+    if need <= remaining:
+        return [number + need, remaining - need]
+    else:
+        return [number + remaining, 0]
+CASE 135 (CodeGen-16B; source ids=135)
+def eat(number, need, remaining):
+    
+    pass
+CASE 320 (InCoder-1B; source ids=320)
+def eat(number, need, remaining):
+CASE 386 (GPT-3.5; source ids=386)
+def eat(number, need, remaining):
+    
+    total_eaten = number + remaining
+    remaining_carrots = 0
+    if total_eaten >= need:
+        total_eaten = need
+    else:
+        remaining_carrots = need - total_eaten
+        total_eaten = need
+    return [total_eaten, remaining_carrots]
+CASE 602 (SantaCoder; source ids=602)
+def eat(number, need, remaining):
+    
+    if number < need:
+        return [0, number]
+    else:
+        return [need - number, remaining]
+CASE 737 (StarCoder; source ids=737)
+def eat(number, need, remaining):
+    
+    return [number + need, remaining - need]
+
+TASK 160
+def do_algebra(operator, operand):
+    """
+    Given two lists operator, and operand. The first list has basic algebra operations, and 
+    the second list is a list of integers. Use the two given lists to build the algebric 
+    expression and return the evaluation of this expression.
+
+    The basic algebra operations:
+    Addition ( + ) 
+    Subtraction ( - ) 
+    Multiplication ( * ) 
+    Floor division ( // ) 
+    Exponentiation ( ** ) 
+
+    Example:
+    operator['+', '*', '-']
+    array = [2, 3, 4, 5]
+    result = 2 + 3 * 4 - 5
+    => result = 9
+
+    Note:
+        The length of operator list is equal to the length of operand list minus one.
+        Operand is a list of of non-negative integers.
+        Operator list has at least one operator, and operand list has at least two operands.
+
+    """
+REFERENCE
+def do_algebra(operator, operand):
+    
+    exp = ""
+    for i in range(len(operator)):
+        exp += str(operand[i]) + operator[i]
+    exp += str(operand[-1])
+    return eval(exp)
+CASE 136 (CodeGen-16B; source ids=136)
+def do_algebra(operator, operand):
+    
+    # TODO: complete this function
+    return 0
+CASE 321 (InCoder-1B; source ids=321)
+def do_algebra(operator, operand):
+    
+    operator = operator.copy()
+    operator.remove('+')
+    operator.remove('-')
+    operator.remove('*')
+    operator.remove('/')
+    operator.remove('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+    operator.append('**')
+CASE 387 (GPT-3.5; source ids=387)
+def do_algebra(operator, operand):
+    
+    result = operand[0]
+    for i in range(len(operator)):
+        if operator[i] == '+':
+            result += operand[i+1]
+        elif operator[i] == '-':
+            result -= operand[i+1]
+        elif operator[i] == '*':
+            result *= operand[i+1]
+        elif operator[i] == '//':
+            result //= operand[i+1]
+        elif operator[i] == '**':
+            result **= operand[i+1]
+    return result
+CASE 422 (GPT-4; source ids=422)
+# CANNOT PARSE
+def do_algebra(operator, operand):
+    
+    result = operand[0]
+    for i in range(len(operator)):
+        if operator[i] == '+':
+            result += operand[i + 1]
+        elif operator[i] == '-':
+            result -= operand[i + 1]
+        elif operator[i] == '*':
+            result *= operand[i + 1]
+        elif operator[i] == '//':
+            result //= operand[i + 1]
+        elif operator[i] == '**':
+            result **= operand[i + 1]
+    return result
+CASE 603 (SantaCoder; source ids=603)
+def do_algebra(operator, operand):
+    
+    if len(operator) == 0:
+        return operand[0]
+    elif len(operator) == 1:
+        return operator[0] * operand[0]
+    else:
+        return operator[0] * do_algebra(operator[1:], operand[1:])
+CASE 738 (StarCoder; source ids=738)
+def do_algebra(operator, operand):
+    
+    pass
+
+TASK 161
+def solve(s):
+    """You are given a string s.
+    if s[i] is a letter, reverse its case from lower to upper or vise versa, 
+    otherwise keep it as it is.
+    If the string contains no letters, reverse the string.
+    The function should return the resulted string.
+    Examples
+    solve("1234") = "4321"
+    solve("ab") = "AB"
+    solve("#a@C") = "#A@c"
+    """
+REFERENCE
+def solve(s):
+    
+    ans, has_letter = "", False
+    for ch in s:
+        if ch.isalpha():
+            has_letter = True
+            ans += ch.swapcase()
+        else:
+            ans += ch
+    return ans if has_letter else s[::-1]
+CASE 137 (CodeGen-16B; source ids=137)
+def solve(s):
+    
+    return ''.join(map(lambda x: x.swapcase() if x.isalpha() else x, s))
+CASE 322 (InCoder-1B; source ids=322)
+def solve(s):
+    
+    ans = ""
+    for i in range(len(s)):
+        if s[i] in "abcdefghijklmnopqrstuvwxyz":
+            ans += s[i].upper()
+        else:
+            ans += s[i]
+    return ans
+CASE 604 (SantaCoder; source ids=604,605)
+def solve(s):
+    
+    return "".join(map(lambda x: x.lower() if x.isalpha() else x.upper(), s))
+CASE 739 (StarCoder; source ids=739)
+def solve(s):
+    
+    return s[::-1]
+
+TASK 162
+def string_to_md5(text):
+    """
+    Given a string 'text', return its md5 hash equivalent string.
+    If 'text' is an empty string, return None.
+
+    >>> string_to_md5('Hello world') == '3e25960a79dbc69b674cd4ec67a72c62'
+    """
+REFERENCE
+def string_to_md5(text):
+    
+    if text == "": return None
+    import hashlib
+    m = hashlib.md5()
+    m.update(text.encode("utf-8"))
+    return m.hexdigest()
+CASE 138 (CodeGen-16B; source ids=138)
+def string_to_md5(text):
+    
+    if not text:
+        return None
+    return hashlib.md5(text.encode('utf-8')).hexdigest()
+CASE 323 (InCoder-1B; source ids=323,324)
+def string_to_md5(text):
+    
+    return hashlib.md5(text.encode('utf-8')).hexdigest()
+CASE 606 (SantaCoder; source ids=606)
+def string_to_md5(text):
+    
+    if text == '':
+        return None
+    return hashlib.md5(text.encode('utf-8')).hexdigest()
+CASE 740 (StarCoder; source ids=740)
+def string_to_md5(text):
+    
+    if text == '':
+        return None
+    return hashlib.md5(text.encode('utf-8')).hexdigest()
+
+TASK 163
+def generate_integers(a, b):
+    """
+    Given two positive integers a and b, return the even digits between a
+    and b, in ascending order.
+
+    For example:
+    generate_integers(2, 8) => [2, 4, 6, 8]
+    generate_integers(8, 2) => [2, 4, 6, 8]
+    generate_integers(10, 14) => []
+    """
+REFERENCE
+def generate_integers(a, b):
+    
+    if a > b: a, b = b, a
+    return [i for i in range(a, min(b + 1, 10)) if i % 2 == 0]
+CASE 139 (CodeGen-16B; source ids=139,140)
+def generate_integers(a, b):
+    
+    return [i for i in range(a, b+1) if i % 2 == 0]
+CASE 325 (InCoder-1B; source ids=325)
+def generate_integers(a, b):
+    
+    digits = []
+    while a > 0:
+        digits.append(a % 10)
+        a //= 10
+    digits.reverse()
+    return digits
+CASE 388 (GPT-3.5; source ids=388,389)
+def generate_integers(a, b):
+    
+    even_digits = []
+    for num in range(a, b+1):
+        for digit in str(num):
+            if int(digit) % 2 == 0:
+                even_digits.append(int(digit))
+    return sorted(list(set(even_digits)))
+CASE 423 (GPT-4; source ids=423)
+def generate_integers(a, b):
+    
+    # Ensure a is the smaller number
+    if a > b:
+        a, b = b, a
+
+    # Initialize the result list
+    result = []
+
+    # Iterate through the range of numbers between a and b
+    for i in range(a, b + 1):
+        # Check if the number is even
+        if i % 2 == 0:
+            # Add the even number to the result list
+            result.append(i)
+
+    return result
+CASE 607 (SantaCoder; source ids=607,608)
+def generate_integers(a, b):
+    
+    return [i for i in range(a, b + 1) if i % 2 == 0]
+CASE 741 (StarCoder; source ids=741,742)
+def generate_integers(a, b):
+    
+    return [i for i in range(a, b + 1) if i % 2 == 0]

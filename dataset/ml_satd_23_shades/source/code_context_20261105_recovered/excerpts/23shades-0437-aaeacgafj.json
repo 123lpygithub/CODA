@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0437-aaeacgafj",
+  "revision_url": "https://github.com/mozilla/bugbug/commit/51e3a3e9d4b5ccb78b134d5074b80f60c33c54b4",
+  "filename": "bugbug/model.py",
+  "commit": "51e3a3e9d4b5ccb78b134d5074b80f60c33c54b4",
+  "source_url": "https://raw.githubusercontent.com/mozilla/bugbug/51e3a3e9d4b5ccb78b134d5074b80f60c33c54b4/bugbug/model.py",
+  "fetched_at": "2026-11-05T06:12:55.148678+00:00",
+  "source_sha256": "fa416765751457473545462ede371a9f73063ac4ad6109f585563213c3136b27",
+  "line_start": 92,
+  "line_end": 116,
+  "excerpt": "        if self.sampler is not None:\n            X_train, y_train = self.sampler.fit_resample(X_train, y_train)\n        print(f'X_train: {X_train.shape}, y_train: {y_train.shape}')\n        print(f'X_test: {X_test.shape}, y_test: {y_test.shape}')\n        self.clf.fit(X_train, y_train)\n\n        # Evaluate results on the test set.\n        feature_names = self.get_feature_names()\n        if len(feature_names):\n            explainer = shap.TreeExplainer(self.clf)\n            shap_values = explainer.shap_values(X_train)\n\n            # TODO: Actually implement feature importance visualization for multiclass problems.\n            if isinstance(shap_values, list):\n                shap_values = np.sum(np.abs(shap_values), axis=0)\n\n            important_features = self.get_important_features(importance_cutoff, shap_values)\n\n            print(f'\\nTop {len(important_features)} Features :')\n            for i, [importance, index, is_positive] in enumerate(important_features):\n                print(f'{i + 1}. \\'{feature_names[int(index)]}\\' ({\"+\" if (is_positive) else \"-\"}{importance})')\n\n        y_pred = self.clf.predict(X_test)\n\n        print(f'No confidence threshold - {len(y_test)} classified')"
+}

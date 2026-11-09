@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0364-aaifjjccj",
+  "revision_url": "https://github.com/OpenMined/PySyft/commit/c9b84f4dbc347398450e60c6d6ea504cdd8c3da2",
+  "filename": "syft/workers/base.py",
+  "commit": "c9b84f4dbc347398450e60c6d6ea504cdd8c3da2",
+  "source_url": "https://raw.githubusercontent.com/OpenMined/PySyft/c9b84f4dbc347398450e60c6d6ea504cdd8c3da2/syft/workers/base.py",
+  "fetched_at": "2026-11-05T06:12:39.956727+00:00",
+  "source_sha256": "817a0133a1ab3740924d0e95d9c58389ed7d76c39b3bc8ba73065064b709854f",
+  "line_start": 478,
+  "line_end": 502,
+  "excerpt": "\n                Args:\n                    message: A tuple specifying the command and the args.\n\n                Returns:\n                    A pointer to the result.\n                \"\"\"\n        command_name, (args, kwargs, return_ids) = message\n\n        command_name = command_name\n        response = getattr(self, command_name)(*args, **kwargs)\n        #  TODO [midokura-silvia]: send the tensor directly\n        #  TODO this code is currently necessary for the async_fit method in websocket_client.py\n        if isinstance(response, FrameworkTensor):\n            self.register_obj(obj=response, obj_id=return_ids[0])\n            return None\n        return response\n\n    def execute_plan_command(self, message: tuple):\n        \"\"\"Executes commands related to plans.\n\n        This method is intended to execute all commands related to plans and\n        avoiding having several new message types specific to plans.\n\n        Args:"
+}

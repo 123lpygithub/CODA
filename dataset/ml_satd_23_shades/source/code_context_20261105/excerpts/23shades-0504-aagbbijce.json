@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0504-aagbbijce",
+  "revision_url": "https://github.com/YannDubs/disentangling-vae/commit/53ece38613f466fdf23454117c7acba6ae16b04f",
+  "filename": "main.py",
+  "commit": "53ece38613f466fdf23454117c7acba6ae16b04f",
+  "source_url": "https://raw.githubusercontent.com/YannDubs/disentangling-vae/53ece38613f466fdf23454117c7acba6ae16b04f/main.py",
+  "fetched_at": "2026-11-05T06:13:04.387996+00:00",
+  "source_sha256": "d8d5a0a7f7452942e97d4cd91c3ae53a48526839c7dac4b8e89346e95a71cc93",
+  "line_start": 217,
+  "line_end": 241,
+  "excerpt": "                          is_progress_bar=not args.no_progress_bar,\n                          checkpoint_every=args.checkpoint_every,\n                          dataset=args.dataset)\n\n        trainer(train_loader, epochs=args.epochs)\n\n        # SAVE MODEL AND EXPERIMENT INFORMATION\n        save_model(trainer.model, exp_dir, metadata=vars(args))\n\n    if args.is_metrics or not args.no_test:\n        model = load_model(exp_dir, is_gpu=not args.no_cuda)\n        metadata = load_metadata(exp_dir)\n        # TO-DO: currently uses train datatset\n        test_loader = get_dataloaders(metadata[\"dataset\"],\n                                      batch_size=args.eval_batchsize, shuffle=False)\n\n        loss_kwargs = vars(args).copy()\n        loss_kwargs[\"data_size\"] = len(test_loader.dataset)\n        evaluator = Evaluator(model,\n                              loss_type=args.loss,\n                              loss_kwargs=loss_kwargs,\n                              device=device,\n                              logger=logger,\n                              save_dir=exp_dir,\n                              is_progress_bar=not args.no_progress_bar)"
+}

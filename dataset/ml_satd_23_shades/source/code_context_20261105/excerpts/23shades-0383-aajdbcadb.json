@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0383-aajdbcadb",
+  "revision_url": "https://github.com/mme/vergeml/commit/b5cffa8a8e532d64bc38e58baa51ec38bf30285e",
+  "filename": "vergeml/data.py",
+  "commit": "b5cffa8a8e532d64bc38e58baa51ec38bf30285e",
+  "source_url": "https://raw.githubusercontent.com/mme/vergeml/b5cffa8a8e532d64bc38e58baa51ec38bf30285e/vergeml/data.py",
+  "fetched_at": "2026-11-05T06:12:43.138217+00:00",
+  "source_sha256": "93510628868bda69465dc9c15a1dbee0cda9219cc698e38b87a14d9297839680",
+  "line_start": 273,
+  "line_end": 297,
+  "excerpt": "        if not input_name:\n            raise VergeMLError(\"data.input.type is not defined.\")\n\n        # get input configuration and merge base config\n        input_conf = self.env.get('data.input').copy()\n        input_conf.update(config)\n\n        # instantiate the input plugin\n        input_class = self.plugins.get('vergeml.io', input_name)\n        if not input_class:\n            raise VergeMLError(\"input name not found: {}\".format(input_name))\n            \n        # TODO validate configuration and set defaults\n        del input_conf['type']\n\n        self.input = input_class(input_conf)\n\n        # set up preprocessing operations\n        self.ops = []\n        for conf in self.env.get('data.preprocess') or []:\n            if isinstance(conf, str):\n                conf = dict(name=conf)\n            else:\n                conf = conf.copy()\n"
+}

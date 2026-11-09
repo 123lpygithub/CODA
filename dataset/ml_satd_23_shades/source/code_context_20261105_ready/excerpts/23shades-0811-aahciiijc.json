@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0811-aahciiijc",
+  "revision_url": "https://github.com/pyro-ppl/pyro/commit/c3017e1301fff7596724606e55f50d9a33f22847",
+  "filename": "pyro/infer/tracegraph_kl_qp.py",
+  "commit": "c3017e1301fff7596724606e55f50d9a33f22847",
+  "source_url": "https://raw.githubusercontent.com/pyro-ppl/pyro/c3017e1301fff7596724606e55f50d9a33f22847/pyro/infer/tracegraph_kl_qp.py",
+  "fetched_at": "2026-11-05T06:13:55.903899+00:00",
+  "source_sha256": "ed86932650ca5ee8f8c328ede7a171afecb93521e4fe294a3e3502bb77ce1740",
+  "line_start": 100,
+  "line_end": 124,
+  "excerpt": "            if self.decaying_avg_baseline:\n                avg_downstream_cost_old = pyro.param(\"__baseline_avg_downstream_cost_\" + node, ng_zeros(1))\n            downstream_cost = 0.0\n            downstream_cost_non_zero = False\n            node_descendants = guide_trgraph.get_descendants(node, with_self=True)\n            for cost_node in cost_nodes:\n                if any([p in node_descendants for p in cost_node[1]]):\n                    downstream_cost += cost_node[0]\n                    downstream_cost_non_zero = True\n            if self.decaying_avg_baseline:\n                avg_downstream_cost_new = (1 - self.baseline_beta) * downstream_cost +\\\n                    self.baseline_beta * avg_downstream_cost_old\n                avg_downstream_cost_old.data = avg_downstream_cost_new.data  # XXX copy_() ?\n            if downstream_cost_non_zero:  # XXX is this actually necessary?\n                if self.decaying_avg_baseline:\n                    elbo_reinforce_terms += guide_trace[node]['log_pdf'] * \\\n                        (Variable(downstream_cost.data) - avg_downstream_cost_old)\n                else:\n                    elbo_reinforce_terms += guide_trace[node]['log_pdf'] * Variable(downstream_cost.data)\n\n        # the gradient of the surrogate loss yields our gradient estimator for the elbo\n        surrogate_loss = - elbo_no_zero_expectation_terms - elbo_reinforce_terms\n\n        # accumulate trainable parameters for gradient step\n        # XXX should this also be reflected in the construction of the surrogate_loss instead?"
+}

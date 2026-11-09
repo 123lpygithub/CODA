@@ -1,0 +1,372 @@
+
+=== 816 23shades-0589-aaeiafbcg ===
+{"dataset_id": "aaeiafbcg", "repo_name": "cltk/cltk", "filename": "src/cltkv1/embeddings/fasttext.py", "comment_introducing_revision": "https://github.com/cltk/cltk/commit/e06de7a4263a923239c4cedd5469c35561c75444", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e06de7a4263a923239c4cedd5469c35561c75444"}
+[comment_text]
+TODO: Logg INFO level
+[source_context]
+    return bin_url, vec_url
+
+
+def _mk_dirs_for_file(filepath):
+    """Make all dirs specified for final file.
+
+    >>> _mk_dirs_for_file("~/new-dir/some-file.txt")
+    """
+    dirs = os.path.split(filepath)[0]
+    try:
+        os.makedirs(dirs)
+    except FileExistsError:
+        # TODO: Logg INFO level
+        pass
+
+
+def _get_file_with_progress_bar(url: str, filepath: str):
+    """Download file with a progress bar.
+
+    Source: https://stackoverflow.com/a/37573701
+
+    TODO: Look at "Download Large Files with Tqdm Progress Bar" here: https://medium.com/better-programming/python-progress-bars-with-tqdm-by-example-ce98dbbc9697
+    TODO: Confirm everything saves right
+    """
+    _mk_dirs_for_file(filepath=filepath)
+
+=== 817 23shades-0353-aafehgfdb ===
+{"dataset_id": "aafehgfdb", "repo_name": "aleju/imgaug", "filename": "imgaug/augmenters/blend.py", "comment_introducing_revision": "https://github.com/aleju/imgaug/commit/0a7d5a80856b69b4899468ca52a019bc2264129a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "0a7d5a80856b69b4899468ca52a019bc2264129a"}
+[comment_text]
+TODO simplify this loop and the ones for heatmaps; keypoints; similar to Alpha
+[source_context]
+            if self.second is None:
+                images_second = images
+            else:
+                images_second = self.second.augment_images(
+                    images=meta.copy_arrays(images),
+                    parents=parents + [self],
+                    hooks=hooks
+                )
+        else:
+            images_first = images
+            images_second = images
+
+        # TODO simplify this loop and the ones for heatmaps, keypoints; similar to Alpha
+        for i in sm.xrange(nb_images):
+            image = images[i]
+            h, w, nb_channels = image.shape[0:3]
+            image_first = images_first[i]
+            image_second = images_second[i]
+            per_channel = self.per_channel.draw_sample(random_state=ia.new_random_state(seeds[i]))
+            if per_channel > 0.5:
+                alphas = []
+                for c in sm.xrange(nb_channels):
+                    samples_c = self.factor.draw_samples((h, w), random_state=ia.new_random_state(seeds[i]+1+c))
+                    ia.do_assert(0 <= samples_c.item(0) <= 1.0) # validate only first value
+                    alphas.append(samples_c)
+
+=== 818 23shades-0738-aagaeeefj ===
+{"dataset_id": "aagaeeefj", "repo_name": "ShreyAmbesh/Traffic-Rule-Violation-Detection-System", "filename": "core/target_assigner.py", "comment_introducing_revision": "https://github.com/ShreyAmbesh/Traffic-Rule-Violation-Detection-System/commit/c92e89118945f181e91391c12c51117e58def69e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "c92e89118945f181e91391c12c51117e58def69e"}
+[comment_text]
+TODO: This method pulls in all the implementation dependencies into
+[source_context]
+        ignored_value=0.,
+        unmatched_value=self._negative_class_weight)
+
+  def get_box_coder(self):
+    """Get BoxCoder of this TargetAssigner.
+
+    Returns:
+      BoxCoder object.
+    """
+    return self._box_coder
+
+
+# TODO: This method pulls in all the implementation dependencies into
+# core. Therefore its best to have this factory method outside of core.
+def create_target_assigner(reference, stage=None,
+                           negative_class_weight=1.0,
+                           unmatched_cls_target=None):
+  """Factory function for creating standard target assigners.
+
+  Args:
+    reference: string referencing the type of TargetAssigner.
+    stage: string denoting stage: {proposal, detection}.
+    negative_class_weight: classification weight to be associated to negative
+      anchors (default: 1.0)
+    unmatched_cls_target: a float32 tensor with shape [d_1, d_2, ..., d_k]
+
+=== 819 23shades-0672-aagahbjib ===
+{"dataset_id": "aagahbjib", "repo_name": "araffin/srl-zoo", "filename": "models/modules.py", "comment_introducing_revision": "https://github.com/araffin/srl-zoo/commit/9f3bd0a705b7cfa8197a851f53de76bb3ff6433d", "comment_removing_revision": "https://github.com/araffin/srl-zoo/commit/2555f52ba47615e44c413540e9060877cd28104c", "source_context_status": "available", "source_context_commit": "9f3bd0a705b7cfa8197a851f53de76bb3ff6433d"}
+[comment_text]
+TODO: rename split_index -> split_indices + change in RL repo
+[source_context]
+        A model that can split representation, combining
+        AE/VAE for the first split with Inverse + Forward in the second split
+        Reward model is learned for all the dimensions
+        :param state_dim: (int)
+        :param action_dim: (int)
+        :param cuda: (bool)
+        :param model_type: (str)
+        :param losses: ([str])
+        :param split_index: (int or [int])) Number of dimensions for the different split
+        :param n_hidden_reward: (int) Number of hidden units for the reward model
+        """
+
+        # TODO: rename split_index -> split_indices + change in RL repo
+        if isinstance(split_index, int):
+            assert split_index < state_dim, \
+                "The second split must be of dim >= 1, consider increasing the state_dim or decreasing the split_index"
+            split_indices = [split_index]
+        else:
+            # TODO: sanity check: split_indices ordered + < state_dim
+            split_indices = split_index
+
+        # Compute the number of dimensions for each method
+        n_dimensions = [split_indices[0]]
+        for i in range(len(split_indices) - 1):
+            n_dimensions.append(split_indices[i + 1] - split_indices[i])
+
+=== 820 23shades-0295-aadghcged ===
+{"dataset_id": "aadghcged", "repo_name": "sorgerlab/indra", "filename": "indra/sources/omnipath/omnipath_client.py", "comment_introducing_revision": "https://github.com/sorgerlab/indra/commit/e2492f28f7f5dd289b46d57d672a289ec6f87540", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e2492f28f7f5dd289b46d57d672a289ec6f87540"}
+[comment_text]
+ToDo handle when source and\/or target is COMPLEX:ID1_ID2_...
+[source_context]
+        stmt_list.append(stmt)
+    print(Counter(unhandled_mod_types))
+    return stmt_list
+
+#'cleavage',
+#'proteolytic cleavage',
+
+
+def _stmts_from_op_rlint(rlint_list):
+    """rlint_list is a list of receptor-ligand interactions"""
+    stmt_list = []
+    for entry in rlint_list:
+        # ToDo handle when source and/or target is COMPLEX:ID1_ID2_...
+        source = _agent_from_up_id(entry['source'])
+        target = _agent_from_up_id(entry['target'])
+
+        # Todo add to annotations if interesting
+        is_directed = entry['is_directed']
+        is_stimulation = entry['is_stimulation']
+        is_inhibition = entry['is_inhibition']
+
+        # We don't know the pairing of source db with PMID, so add sources
+        # to all of them
+        for pmid in entry['references']:
+            evidence = Evidence('omnipath', None, pmid,
+
+=== 821 23shades-0601-aahfgdcad ===
+{"dataset_id": "aahfgdcad", "repo_name": "tensorflow/tensor2tensor", "filename": "tensor2tensor/rl/batch_dqn_agent_test.py", "comment_introducing_revision": "https://github.com/tensorflow/tensor2tensor/commit/150aad3be93c68f9424c0769e9e710c754ebaaea", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "150aad3be93c68f9424c0769e9e710c754ebaaea"}
+[comment_text]
+TODO: maybe add testStepTrain (and possibly some other tests) from dopamine
+[source_context]
+
+from tensor2tensor.rl import dopamine_connector
+
+import tensorflow as tf
+
+
+slim = tf.contrib.slim
+
+FLAGS = flags.FLAGS
+
+
+class BatchDQNAgentTest(tf.test.TestCase):
+  # TODO: maybe add testStepTrain (and possibly some other tests) from dopamine
+  # dqn_agent_test.py
+
+  def setUp(self):
+    self._test_subdir = os.path.join('/tmp/dopamine_tests', 'ckpts')
+    shutil.rmtree(self._test_subdir, ignore_errors=True)
+    os.makedirs(self._test_subdir)
+    self.num_actions = 4
+    self.min_replay_history = 6
+    self.update_period = 2
+    self.target_update_period = 4
+    self.epsilon_decay_period = 90
+    self.epsilon_train = 0.05
+
+=== 822 23shades-0128-aaeccdahj ===
+{"dataset_id": "aaeccdahj", "repo_name": "alan-turing-institute/sktime", "filename": "sktime/transformers/series_as_features/dictionary_based/_sfa.py", "comment_introducing_revision": "https://github.com/alan-turing-institute/sktime/commit/b22d05566553cfefa4d6f9deea854524fc3bc467", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b22d05566553cfefa4d6f9deea854524fc3bc467"}
+[comment_text]
+if this is needed.
+[source_context]
+            )
+            buf = square_sum * r_window_length - mean * mean
+            stds[w] = math.sqrt(buf) if buf > 1e-8 else 0
+
+        return stds
+
+    # Used to represent a word for dictionary based classifiers such as BOSS
+    # an BOP.
+    # Can currently only handle an alphabet size of <= 4 and word length of
+    # <= 16.
+    # Current literature shows little reason to go beyond this, but the
+    # class will need changes/expansions
+    # if this is needed.
+    # TODO a shift of 2 is only correct for alphabet size 4, log2(4)=2
+
+    @staticmethod
+    @njit(fastmath=True, cache=True)
+    def create_bigram_word(word, other_word, length):
+        return (word << (2 * length)) | other_word
+
+    @classmethod
+    def shorten_word(cls, word, amount):
+        # shorten a word by set amount of letters
+        return cls.right_shift(word, amount * 2)
+
+
+=== 823 23shades-0209-aaihfgcij ===
+{"dataset_id": "aaihfgcij", "repo_name": "allenai/allennlp", "filename": "allennlp/semparse/action_space_walker.py", "comment_introducing_revision": "https://github.com/allenai/allennlp/commit/2e6f2dd5c6b86ca7c35604dfb78a71ddc9c5a60b", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "2e6f2dd5c6b86ca7c35604dfb78a71ddc9c5a60b"}
+[comment_text]
+TODO (pradeep): Sort the indices and do intersections in order; so that we can return the
+[source_context]
+        if "[" in right_side:
+            right_side_parts = right_side[1:-1].split(", ")
+        else:
+            right_side_parts = [right_side]
+        return right_side_parts
+
+    def get_logical_forms_with_agenda(self,
+                                      agenda: List[str],
+                                      max_num_logical_forms: int = None) -> List[str]:
+        if self._completed_paths is None:
+            self._walk()
+        agenda_path_indices = [self._terminal_path_index[action] for action in agenda]
+        # TODO (pradeep): Sort the indices and do intersections in order, so that we can return the
+        # set with maximal coverage if the full intersection is null.
+        return_set = agenda_path_indices[0]
+        for next_set in agenda_path_indices[1:]:
+            return_set = return_set.intersection(next_set)
+        paths = [self._completed_paths[index] for index in return_set]
+        if max_num_logical_forms is not None:
+            paths = sorted(paths, key=len)[:max_num_logical_forms]
+        logical_forms = [self._world.get_logical_form(path) for path in paths]
+        return logical_forms
+
+    def get_all_logical_forms(self,
+                              max_num_logical_forms: int = None) -> List[str]:
+
+=== 824 23shades-0465-aahddhhhe ===
+{"dataset_id": "aahddhhhe", "repo_name": "brendanhasz/probflow", "filename": "bk/models.py", "comment_introducing_revision": "https://github.com/brendanhasz/probflow/commit/a8d7c90d1294e3aedc2aed482e93a23ceed7601b", "comment_removing_revision": "https://github.com/brendanhasz/probflow/commit/ecf89fcc30ab0d5ebe79f9d227de033cfe3733ec", "source_context_status": "available", "source_context_commit": "a8d7c90d1294e3aedc2aed482e93a23ceed7601b"}
+[comment_text]
+TODO: build child models
+[source_context]
+        """Construct model.
+
+        Args:
+          ...
+        """
+        self.built_model = None
+
+    def build(self, data):
+        """Build model.
+        
+        ...
+        """
+        # TODO: build child models
+        # TODO: Construct this from built child models
+
+    def fit(self, x, y, batch_size=128, epochs=100, 
+            optimizer='adam', learning_rate=None, metrics=None):
+        """Fit model.
+
+        Docs...
+        """
+        # TODO: build the model
+        # TODO: set up the data for fitting
+        # TODO: fit the model
+
+
+=== 825 23shades-0740-aagdjibjh ===
+{"dataset_id": "aagdjibjh", "repo_name": "hackingmaterials/automatminer", "filename": "matbench/preprocess.py", "comment_introducing_revision": "https://github.com/hackingmaterials/automatminer/commit/6e12e0561636142975a339bf7ae1e384aa59ced8", "comment_removing_revision": "https://github.com/hackingmaterials/automatminer/commit/c99fc10729880bbff0c1711318a3d586fb813d0e", "source_context_status": "available", "source_context_commit": "6e12e0561636142975a339bf7ae1e384aa59ced8"}
+[comment_text]
+TODO: This might not work with numpy types; haven't checked - AD
+[source_context]
+            pca = PCA(n_components=n_features_to_select)
+            x = pca.fit_transform(features)
+            # Todo: I don't know if there is a way to get labels for these - AD
+            pcacols = ["PCA feature {}".format(i) for i in x.shape[1]]
+            features = pd.DataFrame(columns=pcacols, data=x,
+                                    index=features.index)
+
+        if target_key is not None:
+            if not is_numeric_dtype(targets.values):
+                targets = targets.astype(str, copy=False)
+
+        # Boolean casting to ints
+        # TODO: This might not work with numpy types, haven't checked - AD
+        for col in list(features.columns[features.dtypes == bool]):
+            features[col] = features[col].apply(int)
+        features = pd.get_dummies(features).apply(pd.to_numeric)
+        features[target_key] = targets
+        return features
+
+    def prune_correlated_features(self, df, target, R_max=0.95):
+        """
+        A feature selection method that remove those that are cross correlated by
+        more than threshold. target must be specified!
+
+        Args:
+
+=== 826 23shades-0339-aaifefdce ===
+{"dataset_id": "aaifefdce", "repo_name": "microsoft/nni", "filename": "src/sdk/pynni/nni/compression/torch/pruning/amc/channel_pruning_env.py", "comment_introducing_revision": "https://github.com/microsoft/nni/commit/e9f3cddf95e58ca17641db793c420a1b6e5424c0", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e9f3cddf95e58ca17641db793c420a1b6e5424c0"}
+[comment_text]
+TODO replace this speedup implementation with nni.compression.torch.ModelSpeedup
+[source_context]
+            op.bias_mask = masks['bias_mask']
+
+        action = (m == 1).sum().item() / m.numel()
+        return action, d_prime, preserve_idx
+
+    def export_model(self):
+        while True:
+            self.export_layer(self.prunable_idx[self.cur_ind])
+            if self._is_final_layer():
+                break
+            self.cur_ind += 1
+
+    #TODO replace this speedup implementation with nni.compression.torch.ModelSpeedup
+    def export_layer(self, op_idx):
+        m_list = list(self.model.modules())
+        op = m_list[op_idx]
+        assert type(op) == PrunerModuleWrapper
+        w = op.module.weight.cpu().data
+        m = op.weight_mask.cpu().data
+        if type(op.module) == nn.Linear:
+            w = w.unsqueeze(-1).unsqueeze(-1)
+            m = m.unsqueeze(-1).unsqueeze(-1)
+
+        d_prime = (m.sum((0, 2, 3)) > 0).sum().item()
+        preserve_idx = np.nonzero((m.sum((0, 2, 3)) > 0).numpy())[0]
+
+=== 827 23shades-0301-aagacdjjd ===
+{"dataset_id": "aagacdjjd", "repo_name": "SimGus/Chatette", "filename": "src/Parser.py", "comment_introducing_revision": "https://github.com/SimGus/Chatette/commit/3d3c05311fa4d5b00094ff40342532620c2985b3", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "3d3c05311fa4d5b00094ff40342532620c2985b3"}
+[comment_text]
+TODO improve the regex here
+[source_context]
+            if string == ' ':
+                continue
+            elif not is_unit_start(string) and not is_choice(string):
+                no_leading_space = i == 0 or (i != 0 and words_and_units_raw[i-1] != ' ')
+                words_and_units.append({
+                    "type": Unit.word,
+                    "word": string,
+                    "leading-space": not no_leading_space,
+                })
+            elif is_choice(string):  # choice
+                no_leading_space = i == 0 or (i != 0 and words_and_units_raw[i-1] != ' ')
+                choices = []
+                for choice_str in re.split(r'(?<!\\):', CHOICE_SEP):  # TODO improve the regex here
+                    choices.append(self.split_contents(choice_str))
+                words_and_units.append({
+                    "type": Unit.choice,
+                    "choices": choices,
+                })
+            else:  # unit
+                no_leading_space = i == 0 or (i != 0 and words_and_units_raw[i-1] != ' ')
+                unit_type = get_unit_type(string)
+                if unit_type == Unit.word_group:
+                    (name, variation, randgen, percentgen, casegen) = self.parse_unit(string)
+                    if variation is not None:
+                        raise SyntaxError("Word groups cannot have a variation as found with word group '"+

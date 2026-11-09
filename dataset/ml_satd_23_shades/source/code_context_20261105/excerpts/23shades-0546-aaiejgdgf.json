@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0546-aaiejgdgf",
+  "revision_url": "https://github.com/dmlc/dgl/commit/40950629b2b8f639d46a7efea0f40557108fbdcf",
+  "filename": "python/dgl/heterograph.py",
+  "commit": "40950629b2b8f639d46a7efea0f40557108fbdcf",
+  "source_url": "https://raw.githubusercontent.com/dmlc/dgl/40950629b2b8f639d46a7efea0f40557108fbdcf/python/dgl/heterograph.py",
+  "fetched_at": "2026-11-05T06:13:10.845033+00:00",
+  "source_sha256": "9f93a2337a0a20d5a51124e389792dc0dc046c1b74350e231405a103bbc19bf2",
+  "line_start": 4818,
+  "line_end": 4842,
+  "excerpt": "        \"\"\"\n        if idtype is None:\n            return self\n        if not idtype in (F.int32, F.int64):\n            raise DGLError(\"ID type must be int32 or int64, but got {}.\".format(idtype))\n        if self.idtype == idtype:\n            return self\n        bits = 32 if idtype == F.int32 else 64\n        ret = copy.copy(self)\n        ret._graph = self._graph.asbits(bits)\n        return ret\n\n    # TODO: Formats should not be specified, just saving all the materialized formats\n    def shared_memory(self, name, formats=('coo', 'csr', 'csc')):\n        \"\"\"Return a copy of this graph in shared memory, without node data or edge data.\n\n        It moves the graph index to shared memory and returns a DGLHeterograph object which\n        has the same graph structure, node types and edge types but does not contain node data\n        or edge data.\n\n        Parameters\n        ----------\n        name : str\n            The name of the shared memory.\n        formats : list of str (optional)",
+  "match_policy": "unique-release-normalized-v2"
+}

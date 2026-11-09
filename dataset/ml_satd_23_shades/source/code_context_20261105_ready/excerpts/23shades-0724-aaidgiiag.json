@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0724-aaidgiiag",
+  "revision_url": "https://github.com/manuwhs/Trapyng/commit/df8c673a0b2963d29f4402c83912b5c8320475db",
+  "filename": "Other/libs (copy)/graph/graph_basic.py",
+  "commit": "df8c673a0b2963d29f4402c83912b5c8320475db",
+  "source_url": "https://raw.githubusercontent.com/manuwhs/Trapyng/df8c673a0b2963d29f4402c83912b5c8320475db/Other/libs%20%28copy%29/graph/graph_basic.py",
+  "fetched_at": "2026-11-05T06:13:43.583429+00:00",
+  "source_sha256": "cdf6a4676e989f1a54c8ae6bc576e32077efe45f3c4824f63ae2107ae9660def",
+  "line_start": 419,
+  "line_end": 443,
+  "excerpt": "            tick.label.set_fontsize(fontsize)   \n            \n    for label in ax.xaxis.get_ticklabels():\n        label.set_rotation(rotation)\n#    ax.get_yaxis().get_major_formatter().set_useOffset(False)\n        \ndef subplots_adjust(self, hide_xaxis = True, left=.09, bottom=.10, right=.90, top=.95, wspace=.20, hspace=0):\n    # Adjusting the properties of the subplots\n    plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)\n    if (hide_xaxis):\n        all_axes = self.get_axes()\n        #Hides all of the Xaxis exept the last one.\n        #TODO: the -2 is only if the last element has shared axes, we should detect that\n        for i in range(len(all_axes)-2):\n            ax = all_axes[i]\n            self.hide_xaxis(ax)\n            \ndef hide_xaxis(self, ax = None):\n    # This function hides the axes of the funct\n    if (type(ax) == type(None)):\n        ax = self.get_axes[-1]\n\n    plt.setp(ax.get_xticklabels(), visible=False)\n    \ndef format_plot(self):",
+  "match_policy": "unique-release-normalized-v2"
+}

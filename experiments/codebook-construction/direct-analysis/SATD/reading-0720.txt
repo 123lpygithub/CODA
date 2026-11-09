@@ -1,0 +1,357 @@
+
+=== 720 23shades-0843-aahjgeiic ===
+{"dataset_id": "aahjgeiic", "repo_name": "ryfeus/gcf-packs", "filename": "tensorflow2.0/source/numpy/f2py/crackfortran.py", "comment_introducing_revision": "https://github.com/ryfeus/gcf-packs/commit/44d36f9e5045fd859ee188d74dc31f3921ad4796", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "44d36f9e5045fd859ee188d74dc31f3921ad4796"}
+[comment_text]
+XXX: How to catch dependence cycles correctly?
+[source_context]
+
+
+def sortvarnames(vars):
+    indep = []
+    dep = []
+    for v in list(vars.keys()):
+        if 'depend' in vars[v] and vars[v]['depend']:
+            dep.append(v)
+        else:
+            indep.append(v)
+    n = len(dep)
+    i = 0
+    while dep:  # XXX: How to catch dependence cycles correctly?
+        v = dep[0]
+        fl = 0
+        for w in dep[1:]:
+            if w in vars[v]['depend']:
+                fl = 1
+                break
+        if fl:
+            dep = dep[1:] + [v]
+            i = i + 1
+            if i > n:
+                errmess('sortvarnames: failed to compute dependencies because'
+                        ' of cyclic dependencies between '
+
+=== 721 23shades-0119-aaecffiac ===
+{"dataset_id": "aaecffiac", "repo_name": "NeuroTechX/moabb", "filename": "moabb/evaluations/base.py", "comment_introducing_revision": "https://github.com/NeuroTechX/moabb/commit/8d66949a4703a04df75e8ab836c9eb22c26ecc09", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "8d66949a4703a04df75e8ab836c9eb22c26ecc09"}
+[comment_text]
+fixme; we might want to drop dataset that are not compatible
+[source_context]
+            if isinstance(datasets, BaseDataset):
+                datasets = [datasets]
+            else:
+                raise(ValueError("datasets must be a list or a dataset "
+                                 "instance"))
+
+        for dataset in datasets:
+            if not(isinstance(dataset, BaseDataset)):
+                raise(ValueError("datasets must only contains dataset "
+                                 "instance"))
+
+        for dataset in datasets:
+            # fixme, we might want to drop dataset that are not compatible
+            try:
+                self.paradigm.verify(dataset)
+                self.verify(dataset)
+            except AssertionError:
+                log.warning(f"{dataset} not compatible with evaluation or "
+                            "paradigm. Removing this dataset from the list.")
+                datasets.remove(dataset)
+
+        self.datasets = datasets
+
+        self.results = Results(type(self),
+                               type(self.paradigm),
+
+=== 722 23shades-0264-aahjaaihb ===
+{"dataset_id": "aahjaaihb", "repo_name": "JohnVinyard/zounds", "filename": "learn/pipeline.py", "comment_introducing_revision": "https://github.com/JohnVinyard/zounds/commit/32a4369976d8ab1627a1d103765fca853c030364", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "32a4369976d8ab1627a1d103765fca853c030364"}
+[comment_text]
+TODO checkpoints; incremental save
+[source_context]
+        #   - no preprocessor
+        #   - rbm
+        
+        # Wishlist : Multiple pipelines can be chained together
+        
+    def save(self):
+        pass
+    
+    def train(self):
+        data = self.fetch()
+        data = self.preprocess(data)
+        self.save()
+        # TODO checkpoints, incremental save
+        self.learner.train(data)
+        self.save()
+        
+    
+    def activate(self,data):
+        data = self.preprocess(data)
+        return self.learner(data)
+
+=== 723 23shades-0649-aaeidhcjb ===
+{"dataset_id": "aaeidhcjb", "repo_name": "IntelPython/sdc", "filename": "hpat/hiframes_api.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/c3e6af78f6f24f3a2777df82fc078dd2f95cf61b", "comment_removing_revision": "https://github.com/IntelPython/sdc/commit/aa3cd179192e7b8b36919a7d28085da3bf185c2d", "source_context_status": "available", "source_context_commit": "c3e6af78f6f24f3a2777df82fc078dd2f95cf61b"}
+[comment_text]
+TODO: rebalance if output distributions are 1D instead of 1D_Var
+[source_context]
+    for _, col_var in df_out_vars.items():
+        # output dist might not be assigned yet
+        if col_var.name in array_dists:
+            out_dist = Distribution(min(out_dist.value, array_dists[col_var.name].value))
+    for _, col_var in df_out_vars.items():
+        array_dists[col_var.name] = out_dist
+
+    return
+
+distributed_analysis.distributed_analysis_extensions[Filter] = filter_distributed_analysis
+
+def filter_distributed_run(filter_node, typemap, calltypes):
+    # TODO: rebalance if output distributions are 1D instead of 1D_Var
+    df_vars = filter_node.df_vars
+    df_in_vars = df_vars[filter_node.df_in]
+    df_out_vars = df_vars[filter_node.df_out]
+    loc = filter_node.loc
+    bool_arr = filter_node.bool_arr
+
+    out = []
+    for col_name, col_in_var in df_in_vars.items():
+        col_out_var = df_out_vars[col_name]
+        # using getitem like Numba for filtering arrays
+        # TODO: generate parfor
+        getitem_call = ir.Expr.getitem(col_in_var, bool_arr, loc)
+
+=== 724 23shades-0503-aadgffbjj ===
+{"dataset_id": "aadgffbjj", "repo_name": "sorgerlab/indra", "filename": "indra/sources/signor.py", "comment_introducing_revision": "https://github.com/sorgerlab/indra/commit/a5cb891e9aa09d2899180c07e7d7e49f7cde03cc", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "a5cb891e9aa09d2899180c07e7d7e49f7cde03cc"}
+[comment_text]
+TODO: Currently this turns any upregulation associated with
+[source_context]
+
+        # For modifications, we create the modification statement as well as
+        # the appropriate active form.
+        if mech_stmt_type and issubclass(mech_stmt_type, Modification):
+            if not row.RESIDUE:
+                # Modification
+                mod_stmt = mech_stmt_type(agent_a, agent_b, None, None,
+                                          evidence=evidence)
+                stmts.append(mod_stmt)
+                # ActiveForm
+                af_agent = deepcopy(agent_b)
+                af_agent.mods = mod_stmt._get_mod_condition()
+                # TODO: Currently this turns any upregulation associated with
+                # the modification into an ActiveForm (even up-regulations
+                # associated with increased amounts). This should be updated
+                # once we have a statement type relating Agent states to
+                # effects on amounts.
+                if row.EFFECT.startswith('up'):
+                    stmts.append(ActiveForm(af_agent, 'activity', True))
+            else:
+                # Modification
+                residues = _parse_residue_positions(row.RESIDUE)
+                mod_stmts = [mech_stmt_type(agent_a, agent_b, res[0], res[1],
+                                            evidence=evidence)
+                             for res in residues]
+
+=== 725 23shades-0060-aaebhejej ===
+{"dataset_id": "aaebhejej", "repo_name": "HewlettPackard/dlcookbook-dlbs", "filename": "python/tf_cnn_benchmarks/preprocessing.py", "comment_introducing_revision": "https://github.com/HewlettPackard/dlcookbook-dlbs/commit/9c3c64967b385a215cd7964630d43160f61e8998", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "9c3c64967b385a215cd7964630d43160f61e8998"}
+[comment_text]
+dynamic_pad=True) # HACK TESTING dynamic_pad=True
+[source_context]
+      for i in xrange(self.batch_size):
+        value = records[i]
+        image_buffer, label_index, bbox, _ = parse_example_proto(value)
+        image = self.preprocess(image_buffer, bbox, i % 4)
+        device_index = i % self.device_count
+        images[device_index].append(image)
+        labels[device_index].append(label_index)
+      label_index_batch = [None] * self.device_count
+      for device_index in xrange(self.device_count):
+        images[device_index] = tf.parallel_stack(images[device_index])
+        label_index_batch[device_index] = tf.concat(labels[device_index], 0)
+
+        # dynamic_pad=True) # HACK TESTING dynamic_pad=True
+        images[device_index] = tf.cast(images[device_index], self.dtype)
+        depth = 3
+        images[device_index] = tf.reshape(
+            images[device_index],
+            shape=[self.batch_size_per_device, self.height, self.width, depth])
+        label_index_batch[device_index] = tf.reshape(
+            label_index_batch[device_index], [self.batch_size_per_device])
+        # Display the training images in the visualizer.
+        # tf.summary.image('images', images)
+
+      return images, label_index_batch
+
+=== 726 23shades-0742-aahedhicb ===
+{"dataset_id": "aahedhicb", "repo_name": "nltk/nltk", "filename": "nltk_lite/wordnet/wordnet.py", "comment_introducing_revision": "https://github.com/nltk/nltk/commit/9041679ec3402b30c25e667c920439b0626faf61", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "9041679ec3402b30c25e667c920439b0626faf61"}
+[comment_text]
+TODO: This next code is dense and confusing. Clean up at some point.
+[source_context]
+        self.offset = offset
+
+        # The synset entry can be broadly divided into two parts: the
+        # synset and relational data, and its human readable description, or
+        # gloss. The '|' character separates these.
+
+        dividerIndex = line.index('|')
+        tokens = line[:dividerIndex].split()
+        self.ssType = tokens[2]
+        self.gloss = line[dividerIndex + 1:].strip()
+        self.lexname = Lexname.lexnames[int(tokens[1])]
+
+        # TODO: This next code is dense and confusing. Clean up at some point.
+
+        (self._senseTuples, remainder) = _partition(tokens[4:], 2, int(tokens[3], 16))
+        (self._pointerTuples, remainder) = _partition(remainder[1:], 4, int(remainder[0]))
+
+        if pos == VERB:
+            (vfTuples, remainder) = _partition(remainder[1:], 3, int(remainder[0]))
+            def extractVerbFrames(index, vfTuples):
+                return tuple(map(lambda t:int(t[1]), filter(lambda t,i=index:int(t[2],16) in (0, i), vfTuples)))
+            senseVerbFrames = []
+            for index in range(1, len(self._senseTuples) + 1):
+                senseVerbFrames.append(extractVerbFrames(index, vfTuples))
+            self._senseVerbFrames = senseVerbFrames
+
+=== 727 23shades-0017-aaffedgad ===
+{"dataset_id": "aaffedgad", "repo_name": "Aifred-Health/Vulcan", "filename": "vulcanai/models/metrics.py", "comment_introducing_revision": "https://github.com/Aifred-Health/Vulcan/commit/39b5ad778d0f672b2c763b878b0ed159e8d69479", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "39b5ad778d0f672b2c763b878b0ed159e8d69479"}
+[comment_text]
+#TODO: improve the copying of parameters
+[source_context]
+        for _ in range(k-1):
+            fold_seq.append(fold_len)
+        if rem == 0:
+            fold_seq.append(fold_len)
+        else:
+            fold_seq.append(fold_len+rem)  # last one is the longest if unequal
+
+        dataset_splits = data.random_split(data_loader.dataset,
+                                           fold_seq)
+
+        batch_size = data_loader.batch_size
+
+        # #TODO: improve the copying of parameters
+        # Set to true if RandomSampler exists.
+        shuffle = isinstance(data_loader.sampler, data.sampler.RandomSampler)
+
+        try:
+            for fold in range(k):
+
+                # TODO: this may break on different devices?? test.
+                # TODO: Re-initialize instead of deepcopy?
+                cross_val_network = copy.deepcopy(network)
+
+                # TODO: properly pass params
+
+
+=== 728 23shades-0308-aaaecigij ===
+{"dataset_id": "aaaecigij", "repo_name": "roscisz/TensorHive", "filename": "tensorhive/core/monitors/GPUMonitor.py", "comment_introducing_revision": "https://github.com/roscisz/TensorHive/commit/df2a450668e111855b8cd2299146b040711a186c", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "df2a450668e111855b8cd2299146b040711a186c"}
+[comment_text]
+TODO Make separate class for it
+[source_context]
+        return 'GPU'
+
+    @property
+    def gathered_data(self) -> Dict:
+        '''Getter for the protected, inherited variable'''
+        return self._gathered_data
+
+    @gathered_data.setter
+    def gathered_data(self, new_value) -> None:
+        '''Setter for the protected, inherited variable'''
+        self._gathered_data = new_value
+
+    # TODO Make separate class for it
+    def _parse_lines(self, lines: List) -> Dict:
+        '''Assumes that header is present'''
+        assert (lines and len(lines) > 1), f'Cannot parse result: {lines}'
+        header: str = lines[0]
+        parameter_keys: List[str] = header.split(', ')
+        results_for_gpus: List[str] = lines[1:]
+
+        gpus_info = []
+        for single_gpu_result_line in results_for_gpus:
+            parameter_values: List[str] = single_gpu_result_line.split(', ')
+            gpu_info = dict(zip(parameter_keys, parameter_values))
+            gpus_info.append(gpu_info)
+
+=== 729 23shades-0164-aajgcjgad ===
+{"dataset_id": "aajgcjgad", "repo_name": "mne-tools/mne-python", "filename": "mne/preprocessing/tests/test_maxwell.py", "comment_introducing_revision": "https://github.com/mne-tools/mne-python/commit/15a4f1799ffbb4bad4c24b38768f3fe09d1ca1bd", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "15a4f1799ffbb4bad4c24b38768f3fe09d1ca1bd"}
+[comment_text]
+Test covariance calculation XXX add this
+[source_context]
+    raw_sss = maxwell.maxwell_filter(raw)
+
+    # Test io on processed data
+    tempdir = _TempDir()
+    test_outname = op.join(tempdir, 'test_raw_sss.fif')
+    raw_sss.save(test_outname)
+    raw_sss_loaded = Raw(test_outname, preload=True, proj=False,
+                         allow_maxshield=True)
+    # Some numerical imprecision since save uses 'single' fmt
+    assert_allclose(raw_sss_loaded._data[:, :], raw_sss._data[:, :],
+                    rtol=1e-6, atol=1e-20)
+
+    # Test covariance calculation XXX add this
+
+
+run_tests_if_main()
+
+=== 730 23shades-0489-aaiiigjef ===
+{"dataset_id": "aaiiigjef", "repo_name": "microsoft/MMdnn", "filename": "tests/test_conversion_imagenet.py", "comment_introducing_revision": "https://github.com/microsoft/MMdnn/commit/ad6ae75dceaa3ffaae89a12615ce96bf4c37ba07", "comment_removing_revision": "https://github.com/microsoft/MMdnn/commit/d6ad676b7ebd3c10f51663141ef05d3d45b3f569", "source_context_status": "available", "source_context_commit": "ad6ae75dceaa3ffaae89a12615ce96bf4c37ba07"}
+[comment_text]
+TODO: CntkEmit
+[source_context]
+            'imagenet1k-resnext-101-64x4d' : [CntkEmit, TensorflowEmit, PytorchEmit], # Keras is too slow
+            'imagenet1k-resnext-50'        : [CntkEmit, TensorflowEmit, KerasEmit, PytorchEmit],
+        },
+        'caffe' : {
+            'vgg19'         : [CntkEmit, TensorflowEmit, KerasEmit, PytorchEmit],
+            'alexnet'       : [CntkEmit],
+            'inception_v1'  : [CntkEmit, TensorflowEmit, KerasEmit, PytorchEmit],
+            'resnet152'     : [CntkEmit, TensorflowEmit, KerasEmit, PytorchEmit],
+            'squeezenet'    : [CntkEmit, PytorchEmit],
+        },
+
+        'tensorflow' : {
+            'inception_v1' : [TensorflowEmit, KerasEmit, PytorchEmit], # TODO: CntkEmit
+        }
+    }
+
+
+    def _test_function(self, original_framework, parser):
+        ensure_dir(self.cachedir)
+        ensure_dir(self.tmpdir)
+
+        for network_name in self.test_table[original_framework].keys():
+            print("Testing {} model {} start.".format(original_framework, network_name))
+
+            # get original model prediction result
+
+=== 731 23shades-0192-aahdfcffj ===
+{"dataset_id": "aahdfcffj", "repo_name": "Ekim-Yurtsever/DeepTL-Lane-Change-Classification", "filename": "dataset.py", "comment_introducing_revision": "https://github.com/Ekim-Yurtsever/DeepTL-Lane-Change-Classification/commit/6e00cefa11a3f5f5aac59741b95f93d311356b83", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6e00cefa11a3f5f5aac59741b95f93d311356b83"}
+[comment_text]
+todo
+[source_context]
+                    elif option == 'all frames':
+                        self.video_features[int(foldername) - 1, counter, :] = np.loadtxt(feature_file, delimiter=',')
+
+    def read_image_data(self, data_dir, scaling='no scaling', scale_x=0.1, scale_y=0.1):
+
+        if scaling == 'scale':
+            self.image_seq = self.load_images_from_folder(data_dir, scaling='scale', scale_x=scale_x, scale_y=scale_y)
+
+        else:
+            self.image_seq = self.load_images_from_folder(data_dir)
+
+    def read_can_data(self, data_dir):
+        # todo
+        self.can_seq = []
+
+    def read_risk_data(self, file_path):
+        df = pd.read_csv(file_path, header=None, usecols=[5], names=['risk_score'])
+        self.risk_scores = df['risk_score'].tolist()
+
+    def convert_risk_to_one_hot(self, risk_threshold=0.05):
+        indexes = [i[0] for i in sorted(enumerate(self.risk_scores), key=lambda x: x[1])]
+        top_risky_threshold = int(len(indexes) * risk_threshold)
+        self.risk_one_hot = np.zeros([len(indexes), 2])
+
+        for counter, index in enumerate(indexes[::-1]):

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0559-aafdibbge",
+  "revision_url": "https://github.com/r9y9/deepvoice3_pytorch/commit/092d13776ba0dc74162bcb36986c7d274700afd4",
+  "filename": "train.py",
+  "commit": "092d13776ba0dc74162bcb36986c7d274700afd4",
+  "source_url": "https://raw.githubusercontent.com/r9y9/deepvoice3_pytorch/092d13776ba0dc74162bcb36986c7d274700afd4/train.py",
+  "fetched_at": "2026-11-05T06:13:12.145198+00:00",
+  "source_sha256": "f4f24996b009737634b90fd25e50e4c38c4cb4def59fb254978e0af358959874",
+  "line_start": 302,
+  "line_end": 326,
+  "excerpt": "    masked_l1 = MaskedL1Loss()\n    l1 = nn.L1Loss()\n    l1_loss = 0.5 * masked_l1(y_hat, y, mask=mask) + 0.5 * l1(y_hat, y)\n    if priority_bin is not None and priority_w > 0:\n        priority_loss = 0.5 * masked_l1(\n            y_hat[:, :, :priority_bin], y[:, :, :priority_bin], mask=mask) \\\n            + 0.5 * l1(y_hat[:, :, :priority_bin], y[:, :, :priority_bin])\n        l1_loss = (1 - priority_w) * l1_loss + priority_w * priority_loss\n\n    if hparams.binary_divergence_weight <= 0:\n        binary_div = Variable(y.data.new(1).zero_())\n    else:\n        # TODO: I cannot get good results with this yet\n        y_hat_logits = logit(y_hat)\n        z = -y * y_hat_logits + torch.log(1 + torch.exp(y_hat_logits))\n        binary_div = 0.5 * masked_mean(z, mask) + 0.5 * z.mean()\n\n    return l1_loss, binary_div\n\n\n@jit(nopython=True)\ndef guided_attention(N, max_N, T, max_T, g):\n    W = np.zeros((max_N, max_T), dtype=np.float32)\n    for n in range(N):\n        for t in range(T):"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0347-aaahgiacg",
+  "revision_url": "https://github.com/gunthercox/ChatterBot/commit/f35b4ca11439449a716bddaef2de3eaf082ca925",
+  "filename": "chatterbot/algorithms/engram.py",
+  "commit": "f35b4ca11439449a716bddaef2de3eaf082ca925",
+  "source_url": "https://raw.githubusercontent.com/gunthercox/ChatterBot/f35b4ca11439449a716bddaef2de3eaf082ca925/chatterbot/algorithms/engram.py",
+  "fetched_at": "2026-11-05T06:12:37.341598+00:00",
+  "source_sha256": "2119835dae3c74b207c117d4dbf06b48a11de16eb3ebc0bfd58806af9ce27c68",
+  "line_start": 15,
+  "line_end": 39,
+  "excerpt": "        if os.path.isfile(path):\n\n            conversation = Conversation()\n            conversation.read(path)\n            response, ratio = conversation.find_closest_response(text)\n\n            if ratio > closest_ratio:\n                closest_response = response\n                closest_ratio = ratio\n\n    # Seek a better response if the difference ratio is too low or the choice list is empty\n    if (not closest_response) or (closest_ratio < 90):\n        # TODO Search the web or use other algorithms\n        pass\n\n    if not closest_response:\n        default = Statement(\"error\", \"No possible replies could be determined.\")\n        return [default]\n\n    return closest_response\n\ndef markov(text, log_directory):\n    \"\"\"\n    Takes a message from a conversation.\n    Returns a responses based on a markov chain algorithm."
+}

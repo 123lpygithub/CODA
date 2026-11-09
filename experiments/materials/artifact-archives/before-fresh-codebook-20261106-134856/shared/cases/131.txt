@@ -1,0 +1,42 @@
+CASE 131
+SOURCE ERROR IDS 131
+TASK DESCRIPTION
+def even_odd_count(num):
+    """Given an integer. return a tuple that has the number of even and odd digits respectively.
+
+     Example:
+        even_odd_count(-12) ==> (1, 1)
+        even_odd_count(123) ==> (1, 2)
+    """
+
+GENERATED CODE
+def even_odd_count(num):
+    """Given an integer. return a tuple that has the number of even and odd digits respectively.
+
+     Example:
+        even_odd_count(-12) ==> (1, 1)
+        even_odd_count(123) ==> (1, 2)
+    """
+    even = 0
+    odd = 0
+    while num > 0:
+        if num % 2 == 0:
+            even += 1
+        else:
+            odd += 1
+        num = num // 10
+    return (even, odd)
+
+REFERENCE CODE
+def even_odd_count(num):
+    """Given an integer. return a tuple that has the number of even and odd digits respectively.
+
+     Example:
+        even_odd_count(-12) ==> (1, 1)
+        even_odd_count(123) ==> (1, 2)
+    """
+    even, odd = 0, 0
+    for ch in str(num):
+        if ch in "02468": even += 1
+        if ch in "13579": odd += 1
+    return even, odd

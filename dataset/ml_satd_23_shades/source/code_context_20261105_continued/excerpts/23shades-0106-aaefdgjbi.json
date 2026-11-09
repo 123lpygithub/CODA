@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0106-aaefdgjbi",
+  "revision_url": "https://github.com/chainer/chainerrl/commit/57d1203413db6f4ed8d603e1775bb5e158a455bc",
+  "filename": "chainerrl/replay_buffers/episodic.py",
+  "commit": "57d1203413db6f4ed8d603e1775bb5e158a455bc",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainerrl/57d1203413db6f4ed8d603e1775bb5e158a455bc/chainerrl/replay_buffers/episodic.py",
+  "fetched_at": "2026-11-05T06:11:54.963532+00:00",
+  "source_sha256": "4dc304425718ff187c4c7f028b0c74ab757d629e5887dbdfdcc72505feb68749",
+  "line_start": 55,
+  "line_end": 79,
+  "excerpt": "\n    def save(self, filename):\n        with open(filename, 'wb') as f:\n            pickle.dump((self.memory, self.episodic_memory), f)\n\n    def load(self, filename):\n        with open(filename, 'rb') as f:\n            memory = pickle.load(f)\n        if isinstance(memory, tuple):\n            self.memory, self.episodic_memory = memory\n        else:\n            # Load v0.2\n            # FIXME: The code works with EpisodicReplayBuffer\n            # but not with PrioritizedEpisodicReplayBuffer\n            self.memory = RandomAccessQueue(memory)\n            self.episodic_memory = RandomAccessQueue()\n\n            # Recover episodic_memory with best effort.\n            episode = []\n            for item in self.memory:\n                episode.append(item)\n                if item['is_state_terminal']:\n                    self.episodic_memory.append(episode)\n                    episode = []\n"
+}

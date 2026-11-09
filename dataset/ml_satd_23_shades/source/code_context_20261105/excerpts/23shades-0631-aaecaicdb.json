@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0631-aaecaicdb",
+  "revision_url": "https://github.com/alan-turing-institute/sktime/commit/ffaee402a91bef4d3d38cd81c2cd2730bc951489",
+  "filename": "sktime/contrib/rotation_forest/rotation_forest_reworked.py",
+  "commit": "ffaee402a91bef4d3d38cd81c2cd2730bc951489",
+  "source_url": "https://raw.githubusercontent.com/alan-turing-institute/sktime/ffaee402a91bef4d3d38cd81c2cd2730bc951489/sktime/contrib/rotation_forest/rotation_forest_reworked.py",
+  "fetched_at": "2026-11-05T06:13:28.667946+00:00",
+  "source_sha256": "fee59aee9d78dddb9a66e5a0827b7df31b95debed56d22505b80252ecfa81ab4",
+  "line_start": 77,
+  "line_end": 101,
+  "excerpt": "        n_columns_in_subset = int(np.ceil(self.n_columns_ / self.n_column_subsets))\n        if self.n_instances_in_subset < n_columns_in_subset:\n            raise ValueError(\"There are fewer instances than columns in random subsets, \"\n                             \"hence PCA cannot compute components for all columns, please \"\n                             \"change `n_column_subsets` or `p_instance_subset`\")\n\n        # Z-normalise the data\n        X_norm = self._normalise_X(X)\n\n        # preallocate matrix for transformed data\n        Xt = np.zeros(X_norm.shape)\n\n        # TODO: parallelize\n        for i in range(self.n_estimators):\n\n            # randomly split columns into disjoint subsets\n            columns = np.arange(self.n_columns_)\n            self._rng.shuffle(columns)\n            self.column_subsets_[i] = np.array_split(columns, self.n_column_subsets)\n\n            # initialise list of transformers\n            self.transformers_[i] = []\n\n            for column_subset in self.column_subsets_[i]:\n                # select random subset of instances by classes"
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0729-aafafjdeg",
+  "revision_url": "https://github.com/BenWhetton/keras-surgeon/commit/423a58b3e733d3a5ac886e7ea41dc21a105f8c2b",
+  "filename": "src/kerasprune/prune.py",
+  "commit": "423a58b3e733d3a5ac886e7ea41dc21a105f8c2b",
+  "source_url": "https://raw.githubusercontent.com/BenWhetton/keras-surgeon/423a58b3e733d3a5ac886e7ea41dc21a105f8c2b/src/kerasprune/prune.py",
+  "fetched_at": "2026-11-05T06:13:44.467469+00:00",
+  "source_sha256": "85522fc0e3e83704ea46e50c3c5cae1f47d850cea931210b661419bd603991e1",
+  "line_start": 337,
+  "line_end": 361,
+  "excerpt": "                new_layer = layer\n            else:\n                weights = layer.get_weights()\n                weights[0] = weights[0][np.where(inbound_masks[0, :])[0], :]\n                config = layer.get_config()\n                config['weights'] = weights\n                new_layer = type(layer).from_config(config)\n            output_shape = layer.get_output_shape_at(node_index)\n            outbound_mask = np.ones(output_shape[1:], dtype=bool)\n\n        elif layer_class == 'BatchNormalization':\n            outbound_mask = inbound_masks\n            # TODO: This breaks layer sharing. Does it matter for this class?\n            new_layer = layers.BatchNormalization(\n                axis=layer.axis,\n                momentum=layer.momentum,\n                epsilon=layer.epsilon,\n                center=layer.center,\n                scale=layer.scale,\n                beta_initializer=layer.beta_initializer,\n                gamma_initializer=layer.gamma_initializer,\n                moving_mean_initializer=layer.moving_mean_initializer,\n                moving_variance_initializer=layer.moving_variance_initializer,\n                beta_regularizer=layer.beta_regularizer,\n                gamma_regularizer=layer.gamma_regularizer,"
+}

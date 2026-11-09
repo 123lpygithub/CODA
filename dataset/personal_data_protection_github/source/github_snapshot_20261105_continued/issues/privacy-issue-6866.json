@@ -1,0 +1,218 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-6866",
+  "issue_url": "https://github.com/Sylius/Sylius/issues/7582",
+  "source_issue_url": "https://github.com/Sylius/Sylius/issues/7582",
+  "api_url": "https://api.github.com/repos/Sylius/Sylius/issues/7582",
+  "title": "[PayumBundle] Gateway Config",
+  "body": "I've been looking at gateway configuration so far, and now that it is web based, it is way less powerful, and I don't know if overriding each of the Form type's and adding the information in the Admin UI is necessarily the right way to go.\r\n\r\nFor example, for Stripe Checkout, I override two main parameters: `payum.template.obtain_token` (to customize look and feel) and `payum.action.convert_payment` (to perform hackery and grab the customer email to auto populate).\r\n\r\nThese parameters don't belong in a UI, in my opinion. They should belong in code, but I just can't see where that could happen in the current configuration.\r\n\r\nEdit: From further testing, where are configuration like `sandbox` for `paypal_express_checkout` set? They are defaulted to `true` in `PaypalExpressCheckoutGatewayFactory`.",
+  "author": "Participant 1",
+  "created_at": "2017-02-23T07:34:32Z",
+  "updated_at": "2019-09-27T09:39:46Z",
+  "state": "closed",
+  "closed_at": "2017-03-29T13:51:34Z",
+  "issue_fetched_at": "2026-10-18T19:10:24.973888+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T19:10:26.424782+00:00"
+  ],
+  "expected_comment_count": 24,
+  "retrieved_comment_count": 24,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 281924873,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-281924873",
+      "created_at": "2017-02-23T08:17:27Z",
+      "updated_at": "2017-02-23T08:17:27Z",
+      "author": "Participant 2",
+      "body": "/cc @Zales0123 Can you have a look? Maybe we should go with the select for these templates, choices populated via parameter."
+    },
+    {
+      "id": 282113970,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-282113970",
+      "created_at": "2017-02-23T20:39:10Z",
+      "updated_at": "2017-02-23T20:39:10Z",
+      "author": "Participant 3",
+      "body": "This is really blocking and is really is less powerful. Why did this configuration go in the UI in the first place ? Another problem is that now administrators can easily wreak havoc if they fiddle with the values in the backend, whereas before the payment configuration was far safer as it was out of reach for admin users to modify.."
+    },
+    {
+      "id": 282114810,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-282114810",
+      "created_at": "2017-02-23T20:42:29Z",
+      "updated_at": "2017-02-23T23:00:15Z",
+      "author": "Participant 3",
+      "body": "And more : a password stored **in plain text** in the DB."
+    },
+    {
+      "id": 282143674,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-282143674",
+      "created_at": "2017-02-23T22:33:33Z",
+      "updated_at": "2017-02-23T22:34:04Z",
+      "author": "Participant 2",
+      "body": "@tchapi You are right and I really appreciate the feedback you are giving us, but your demanding attitude is really demotivating, at least to me. So, when you some good idea or remark (and seems like you do), please put in a bit nicer set of words or even better, a PR. Thanks.\r\n\r\n@makasim What do you think about security issue raised here, with the GatewayConfig?"
+    },
+    {
+      "id": 282146447,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-282146447",
+      "created_at": "2017-02-23T22:44:55Z",
+      "updated_at": "2017-02-23T22:44:55Z",
+      "author": "Participant 1",
+      "body": "@pjedrzejewski I was thinking about the security implications, and I do think its a serious issue. Currently I have an encrypted vault (like credstash) that un-encrypts secrets and puts them in the environment.\r\n\r\nI think at the very least, we can use the symfony secret, and at least password encrypt the sensitive information in the database.\r\n\r\nFurthermore, we also have to figure out how we can provide certain configuration values through config / code. Every gateway has a `sandbox` or `test` variable. How are those planning to be set?"
+    },
+    {
+      "id": 282149252,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-282149252",
+      "created_at": "2017-02-23T22:57:35Z",
+      "updated_at": "2017-02-23T22:57:35Z",
+      "author": "Participant 3",
+      "body": "@pjedrzejewski I'm trying, but understand that sometimes all the BC breaks are really demotivating too, on our side. It's hard to keep up with the project - don't forget we don't have the full view like you have on the master plan for the Sylius releases, just a few blog posts; and the breaking PRs come, and we try our best to accomodate our code so that we can get the bug fixes and still use Sylius in production _because we love the framework and want to stick to it_. My apologies anyway for the attitude, I'll behave — word."
+    },
+    {
+      "id": 282230204,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-282230204",
+      "created_at": "2017-02-24T08:11:14Z",
+      "updated_at": "2017-02-24T08:11:14Z",
+      "author": "Participant 4",
+      "body": "@inssein Thank you very much for your feedback, it's really helpful :) Yes, managing payment gateways in UI is a big change, the main reason for that was to allow administrator to configure multiple paypal/stripe/etc. accounts for gateways without the need to change a code. We'll definitely process about them and consider your suggestions to make this feature as much useful and secure as it can be, as fast as we can do it."
+    },
+    {
+      "id": 283395301,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-283395301",
+      "created_at": "2017-03-01T16:41:50Z",
+      "updated_at": "2017-03-01T16:41:50Z",
+      "author": "Participant 1",
+      "body": "@Zales0123 any updates? \r\n\r\nBy the way I was mistaken above, the `sandbox` variable should definitely not be defined in code, but be an option in the GatewayConfig for PayPal. That said, we do need to find a way to merge certain code-based configuration overrides (for templates, actions, etc) with what comes out of the database.\r\n\r\nAs for the security issue, I read the code for Payum's dynamic registry and they don't encrypt it either, and actually don't see an easy way of encrypting it unless we override the DynamicRegistry. Thoughts @makasim?"
+    },
+    {
+      "id": 283635642,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-283635642",
+      "created_at": "2017-03-02T12:02:48Z",
+      "updated_at": "2017-03-02T12:02:48Z",
+      "author": "Participant 5",
+      "body": "I am not sure I understand the enc problem . \r\n\r\nWhy these values have to be encrypted? \r\nWhat can an attacker do with them? \r\n\r\nMaybe I miss something. \r\n\r\nNo need to overwrite DynamicRegistry. It is possible to provide a \"custom\" storage for gateway configs (which could be a decorator for real one) which takes care of encryption stuff. "
+    },
+    {
+      "id": 283635927,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-283635927",
+      "created_at": "2017-03-02T12:04:17Z",
+      "updated_at": "2017-03-02T12:04:36Z",
+      "author": "Participant 2",
+      "body": "@makasim If he knows these, for example PayPal credentials of your merchant account, he can charge on your behalf, am I right? :/"
+    },
+    {
+      "id": 283636189,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-283636189",
+      "created_at": "2017-03-02T12:05:32Z",
+      "updated_at": "2017-03-02T12:05:32Z",
+      "author": "Participant 5",
+      "body": "@pjedrzejewski but money goes to your merchant account. What's the point? "
+    },
+    {
+      "id": 283636551,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-283636551",
+      "created_at": "2017-03-02T12:07:33Z",
+      "updated_at": "2017-03-02T12:07:33Z",
+      "author": "Participant 5",
+      "body": "One case that I see for one is possibility to \"hack\" notification process. If you know the secret you can sign a exploite request with the correct hash. That's why Payum uses token for every payment. \r\nAs long as you use them you are safe even if the secret is stolen. "
+    },
+    {
+      "id": 283636778,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-283636778",
+      "created_at": "2017-03-02T12:08:45Z",
+      "updated_at": "2017-03-02T12:08:45Z",
+      "author": "Participant 5",
+      "body": "Also if an attacker was able to get into your database it is most likely he has an access to your code and can edit it, and can get secret data there. or from parameters.yml if it is stored there."
+    },
+    {
+      "id": 283638697,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-283638697",
+      "created_at": "2017-03-02T12:18:39Z",
+      "updated_at": "2017-03-02T12:18:39Z",
+      "author": "Participant 2",
+      "body": "@inssein WDYT? @makasim Do you know if other eCommerce solutions encrypt these? I recall some do."
+    },
+    {
+      "id": 283643929,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-283643929",
+      "created_at": "2017-03-02T12:44:12Z",
+      "updated_at": "2017-03-02T12:44:12Z",
+      "author": "Participant 5",
+      "body": "JMSPaymentBundle does it."
+    },
+    {
+      "id": 283706928,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-283706928",
+      "created_at": "2017-03-02T16:41:27Z",
+      "updated_at": "2017-03-02T16:42:07Z",
+      "author": "Participant 1",
+      "body": "@makasim I don't think its true to say that if an attacker has access to your database, they have access to your files. A lot of the recent data breaches are all related to getting access to your database through other means (SQL Injection, finding a backup at rest that is not encrypted, etc). I think the encryption would be worth while, especially since its a fairly low effort task (and we already have things like a secret, from the framework).\r\n\r\nAs for what they can do once they have the information, I think the possibilities are dependant on what gateway you are using. A couple things I can think of right away include being able to refund payments, getting a list of subscriptions and modifying them, etc.\r\n\r\nNo matter what we decide here @pjedrzejewski, I think Sylius will still need a custom gateway config storage, because at the minimum, we need to merge the gateway config stored in the database with some code-based overrides for things like templating."
+    },
+    {
+      "id": 283708620,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-283708620",
+      "created_at": "2017-03-02T16:46:53Z",
+      "updated_at": "2017-03-02T16:46:53Z",
+      "author": "Participant 5",
+      "body": "@inssein Your arguments makes sense to me. It would be good to have such storage in Payum. "
+    },
+    {
+      "id": 286330323,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-286330323",
+      "created_at": "2017-03-14T06:01:59Z",
+      "updated_at": "2017-03-14T06:03:05Z",
+      "author": "Participant 1",
+      "body": "@pjedrzejewski @Zales0123 while you guys figure out the encryption issue, could I get some pointers on to how Sylius would address the issue of not being able to override specific code-related variables?\r\n\r\nI was thinking maybe a decorator, like so: (not including the implementation of the storage for brevity, but it just array merges the last argument).\r\n```\r\n  app.gateway.storage:\r\n    class: AppBundle\\GatewayStorage\r\n    decorates: payum.dynamic_gateways.config_storage\r\n    arguments:\r\n      - \"@app.gateway.storage.inner\"\r\n      - stripe_checkout:\r\n          payum.template.obtain_token: \"@@SyliusShop/Payum/Action/obtainCheckoutToken.html.twig\"\r\n          payum.action.convert_payment: \"@@app.payum.action.convert_payment\"\r\n    public: false\r\n    decoration_priority: 128\r\n```\r\nNote: Not sure why sylius chose to fetch the gateway by name (which doesn't even show up in admin as its translatable) instead of something like the code.\r\n\r\nThe above works, but seems like there could be an easier way...\r\n"
+    },
+    {
+      "id": 286643887,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-286643887",
+      "created_at": "2017-03-15T05:21:09Z",
+      "updated_at": "2017-03-15T05:21:09Z",
+      "author": "Participant 1",
+      "body": "I saw that for `PaypalGatewayConfigurationType` you guys used:\r\n```PHP\r\n            ->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {\r\n                $data = $event->getData();\r\n\r\n                $data['payum.http_client'] = '@sylius.payum.http_client';\r\n            })\r\n```\r\n\r\nHowever, I don't think that is a good enough solution as the gateway config would have to be re-saved."
+    },
+    {
+      "id": 288100847,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-288100847",
+      "created_at": "2017-03-21T14:44:49Z",
+      "updated_at": "2017-03-21T14:44:56Z",
+      "author": "Participant 6",
+      "body": "**References:**\r\n - Payum/Payum#634 (issue on Payum about encrypting gateway configuration)\r\n - Payum/Payum#635 (PR for Payum, introducing encrypted storage)\r\n - Payum/PayumBundle#414 (PR for PayumBundle, introducing encryption configuration to the bundle)\r\n - #7721 (PR for Sylius, handling encryption in form types)"
+    },
+    {
+      "id": 499978583,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-499978583",
+      "created_at": "2019-06-07T17:50:44Z",
+      "updated_at": "2019-06-07T17:50:44Z",
+      "author": "Participant 7",
+      "body": "What is currently recommended way to override parameters like `payum.template.obtain_token` without putting them into UI via form extesion, like what was asked in initial question of the issue?\r\n\r\nSeems to be point of intereset for other people as well  https://stackoverflow.com/questions/56194992/how-can-i-customize-stripe-template-in-sylius "
+    },
+    {
+      "id": 500124880,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-500124880",
+      "created_at": "2019-06-08T13:38:13Z",
+      "updated_at": "2019-06-08T13:38:13Z",
+      "author": "Participant 7",
+      "body": "I've went with @inssein decorator for `DoctrineStorage` to 'array_merge' my extra parameters with `GatewayConfig` parameters. Thank you, Hussein."
+    },
+    {
+      "id": 530335093,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-530335093",
+      "created_at": "2019-09-11T11:14:24Z",
+      "updated_at": "2019-09-11T11:14:24Z",
+      "author": "Participant 8",
+      "body": "The service `payum` is created thanks to a factory `payum.builder` managed by a series of `addMethodCall` into `Payum\\Bundle\\PayumBundle\\DependencyInjection\\Compiler\\BuildConfigsPass`.\r\nSo if you want to override a specific default config by adding a default one you can build a `CompilerPass` like this one :\r\n\r\n```\r\n<?php\r\n\r\ndeclare(strict_types=1);\r\n\r\nnamespace App\\DependencyInjection\\Compiler;\r\n\r\nuse Symfony\\Component\\DependencyInjection\\Compiler\\CompilerPassInterface;\r\nuse Symfony\\Component\\DependencyInjection\\ContainerBuilder;\r\n\r\nfinal class PayumGatewayConfigOverride implements CompilerPassInterface\r\n{\r\n    /** @var array */\r\n    private $gatewayConfigs;\r\n\r\n    /**\r\n     * @param array $gatewayConfigs\r\n     */\r\n    public function __construct(array $gatewayConfigs)\r\n    {\r\n        $this->gatewayConfigs = $gatewayConfigs;\r\n    }\r\n\r\n    /**\r\n     * {@inheritDoc}\r\n     */\r\n    public function process(ContainerBuilder $container)\r\n    {\r\n        $builder = $container->getDefinition('payum.builder');\r\n        foreach ($this->gatewayConfigs as $gatewayName => $factoryConfig) {\r\n            $builder->addMethodCall('addGatewayFactoryConfig', [$gatewayName, $factoryConfig]);\r\n        }\r\n    }\r\n}\r\n\r\n```\r\n\r\nThen use this `CompilerPass` into your `src/Kernel.php` :\r\n\r\n```\r\nprotected function build(ContainerBuilder $container)\r\n    {\r\n        $container->addCompilerPass(new PayumGatewayConfigOverride([\r\n            'stripe_checkout' => [\r\n                'sca_flow' => true,\r\n                'payum.template.obtain_token' => '@SyliusPayum/Action/Stripe/obtainCheckoutToken.html.twig',\r\n            ],\r\n        ]));\r\n        parent::build($container);\r\n    }\r\n```\r\n\r\nMaybe we can add a new feature to `SyliusPayumBundle` to handle this kind of specific overrides, something based on a `sylius_payum` config for exemple."
+    },
+    {
+      "id": 535605691,
+      "url": "https://github.com/Sylius/Sylius/issues/7582#issuecomment-535605691",
+      "created_at": "2019-09-26T17:26:22Z",
+      "updated_at": "2019-09-26T17:26:38Z",
+      "author": "Participant 9",
+      "body": "> \r\n> Maybe we can add a new feature to `SyliusPayumBundle` to handle this kind of specific overrides, something based on a `sylius_payum` config for exemple.\r\n\r\nYes, please!\r\n\r\nIt's a headache to change Stripe checkout layout... :("
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

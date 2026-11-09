@@ -1,0 +1,337 @@
+
+=== 288 23shades-0054-aadaieabb ===
+{"dataset_id": "aadaieabb", "repo_name": "amir-jafari/Deep-Learning", "filename": "Caffe_/1-Simple_Example/PIL/PIL/PixarImagePlugin.py", "comment_introducing_revision": "https://github.com/amir-jafari/Deep-Learning/commit/1bc09ffc7eb3e5452577f3f8efe5f3efeae3c136", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "1bc09ffc7eb3e5452577f3f8efe5f3efeae3c136"}
+[comment_text]
+assuming a 4-byte magic label (FIXME: add \"_accept\" hook)
+[source_context]
+    return ord(c[0]) + (ord(c[1])<<8) + (ord(c[2])<<16) + (ord(c[3])<<24)
+
+##
+# Image plugin for PIXAR raster images.
+
+class PixarImageFile(ImageFile.ImageFile):
+
+    format = "PIXAR"
+    format_description = "PIXAR raster image"
+
+    def _open(self):
+
+        # assuming a 4-byte magic label (FIXME: add "_accept" hook)
+        s = self.fp.read(4)
+        if s != "\200\350\000\000":
+            raise SyntaxError, "not a PIXAR file"
+
+        # read rest of header
+        s = s + self.fp.read(508)
+
+        self.size = i16(s[418:420]), i16(s[416:418])
+
+        # get channel/depth descriptions
+        mode = i16(s[424:426]), i16(s[426:428])
+
+
+=== 289 23shades-0438-aaaifiggc ===
+{"dataset_id": "aaaifiggc", "repo_name": "thomaskuestner/CNNArt", "filename": "GUI/PyQt/Unpatch_two.py", "comment_introducing_revision": "https://github.com/thomaskuestner/CNNArt/commit/3b57ac18e581a2f9ad4c0257e9043db7d5a0424e", "comment_removing_revision": "https://github.com/thomaskuestner/CNNArt/commit/291725bf700d5d292b646e49107602ddfdeaecd2", "source_context_status": "available", "source_context_commit": "3b57ac18e581a2f9ad4c0257e9043db7d5a0424e"}
+[comment_text]
+TODO: adapt path
+[source_context]
+import os
+from matplotlib import pyplot as plt
+import dicom
+import dicom_numpy
+from Unpatching import*
+import scipy.io as sio
+
+# TODO: adapt path
+PathDicom = "C:/Users/Sebastian Milde/Pictures/MRT/ab/dicom_sorted/t1_tse_tra_Kopf_0002"
+
+#load Dicom_Array
+files = sorted([os.path.join(PathDicom, file) for file in os.listdir(PathDicom)], key=os.path.getctime)
+datasets = [dicom.read_file(f) \
+                        for f in files]
+
+try:
+    voxel_ndarray, pixel_space = dicom_numpy.combine_slices(datasets)
+    voxel_ndarray_matlab = voxel_ndarray.transpose(1, 0, 2)
+except dicom_numpy.DicomImportException:
+    # invalid DICOM data
+
+=== 290 23shades-0152-aafadbdeg ===
+{"dataset_id": "aafadbdeg", "repo_name": "gregversteeg/corex_topic", "filename": "corex_topic.py", "comment_introducing_revision": "https://github.com/gregversteeg/corex_topic/commit/132d7816fac060cfdba376b2725a0138ca480760", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "132d7816fac060cfdba376b2725a0138ca480760"}
+[comment_text]
+nv by ns dot ns by m -> nv by m  # TODO: Change to CSC for speed?
+[source_context]
+        self.h_x = binary_entropy(self.word_freq)
+        if self.verbose:
+            print 'word counts', self.word_counts
+
+    def calculate_p_y(self, p_y_given_x):
+        """Estimate log p(y_j=1)."""
+        return np.log(np.mean(p_y_given_x, axis=0))  # n_hidden, log p(y_j=1)
+
+    def calculate_theta(self, X, p_y_given_x, log_p_y):
+        """Estimate marginal parameters from data and expected latent labels."""
+        # log p(x_i=1|y)
+        n_samples = X.shape[0]
+        p_dot_y = X.T.dot(p_y_given_x).clip(0.01 * np.exp(log_p_y), (n_samples - 0.01) * np.exp(log_p_y))  # nv by ns dot ns by m -> nv by m  # TODO: Change to CSC for speed?
+        lp_1g1 = np.log(p_dot_y) - np.log(n_samples) - log_p_y
+        lp_1g0 = np.log(self.word_counts[:, np.newaxis] - p_dot_y) - np.log(n_samples) - log_1mp(self.log_p_y)
+        lp_0g0 = log_1mp(lp_1g0)
+        lp_0g1 = log_1mp(lp_1g1)
+        return np.array([lp_0g0, lp_0g1, lp_1g0, lp_1g1])  # 4 by nv by m
+
+    def calculate_alpha(self, X, p_y_given_x, theta, log_p_y, tcs):
+        """A rule for non-tree CorEx structure."""
+        # TODO: Could make it sparse also? Well, maybe not... at the beginning it's quite non-sparse
+        if self.max_overlap is 'tree':
+            # sa = np.sum(self.alpha, axis=0)
+            tc_oom = 1. / self.n_samples
+
+=== 291 23shades-0175-aafecgahb ===
+{"dataset_id": "aafecgahb", "repo_name": "AKSHAYUBHAT/DeepVideoAnalytics", "filename": "repos/slim/nets/resnet_v2.py", "comment_introducing_revision": "https://github.com/AKSHAYUBHAT/DeepVideoAnalytics/commit/19b2103de8a502a6569c6a1dce0d75c5465d66dd", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "19b2103de8a502a6569c6a1dce0d75c5465d66dd"}
+[comment_text]
+This is needed because the pre-activation variant does not have batch
+[source_context]
+          if output_stride is not None:
+            if output_stride % 4 != 0:
+              raise ValueError('The output_stride needs to be a multiple of 4.')
+            output_stride /= 4
+          # We do not include batch normalization or activation functions in
+          # conv1 because the first ResNet unit will perform these. Cf.
+          # Appendix of [2].
+          with slim.arg_scope([slim.conv2d],
+                              activation_fn=None, normalizer_fn=None):
+            net = resnet_utils.conv2d_same(net, 64, 7, stride=2, scope='conv1')
+          net = slim.max_pool2d(net, [3, 3], stride=2, scope='pool1')
+        net = resnet_utils.stack_blocks_dense(net, blocks, output_stride)
+        # This is needed because the pre-activation variant does not have batch
+        # normalization or activation functions in the residual unit output. See
+        # Appendix of [2].
+        net = slim.batch_norm(net, activation_fn=tf.nn.relu, scope='postnorm')
+        # Convert end_points_collection into a dictionary of end_points.
+        end_points = slim.utils.convert_collection_to_dict(
+            end_points_collection)
+
+        if global_pool:
+          # Global average pooling.
+          net = tf.reduce_mean(net, [1, 2], name='pool5', keep_dims=True)
+          end_points['global_pool'] = net
+        if num_classes is not None:
+
+=== 292 23shades-0457-aaeiecejb ===
+{"dataset_id": "aaeiecejb", "repo_name": "IntelPython/sdc", "filename": "hpat/hiframes_rolling.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/102aeae5dc75d48a405e1b8c02e54c325f897654", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "102aeae5dc75d48a405e1b8c02e54c325f897654"}
+[comment_text]
+TODO: avoid reduce for obvious cases like no center and large 1D_Block
+[source_context]
+    if rank != n_pes - 1:
+        hpat.distributed_api.wait(r_send_req, True)
+    # wait on send left
+    if center and rank != 0:
+        hpat.distributed_api.wait(l_send_req, True)
+
+@numba.njit
+def _is_small_for_parallel(N, halo_size):
+    # gather data on one processor and compute sequentially if data of any
+    # processor is too small for halo size
+    # TODO: handle 1D_Var or other cases where data is actually large but
+    # highly imbalanced
+    # TODO: avoid reduce for obvious cases like no center and large 1D_Block
+    num_small = hpat.distributed_api.dist_reduce(
+        int(N<halo_size), np.int32(Reduce_Type.Sum.value))
+    return num_small != 0
+
+@numba.njit
+def _handle_small_data(in_arr, win, center, rank, n_pes):
+    all_N = hpat.distributed_api.dist_reduce(
+        len(in_arr), np.int32(Reduce_Type.Sum.value))
+    all_in_arr = hpat.distributed_api.gatherv(in_arr)
+    if rank == 0:
+        all_out, _, _ = roll_sum_fixed_seq(all_in_arr, win, center)
+    else:
+
+=== 293 23shades-0210-aaefhhbid ===
+{"dataset_id": "aaefhhbid", "repo_name": "awslabs/sockeye", "filename": "sockeye/transformer.py", "comment_introducing_revision": "https://github.com/awslabs/sockeye/commit/f809d8970fcdf41fb633fa98f13a40617f48f244", "comment_removing_revision": "https://github.com/awslabs/sockeye/commit/90144057efe4a73b26fb60a5c40bd180420d95bb", "source_context_status": "available", "source_context_commit": "f809d8970fcdf41fb633fa98f13a40617f48f244"}
+[comment_text]
+TODO (tdomhan): Remove with next major version bump.
+[source_context]
+            else:
+                raise ValueError("Invalid decoder type.")
+
+            self.pre_autoregr_layer = TransformerProcessBlock(sequence=config.preprocess_sequence,
+                                                              dropout=config.dropout_prepost,
+                                                              prefix=self.autoregr_layer.prefix + "pre_",
+                                                              num_hidden=config.model_size)
+
+            self.post_autoregr_layer = TransformerProcessBlock(sequence=config.postprocess_sequence,
+                                                               dropout=config.dropout_prepost,
+                                                               prefix=self.autoregr_layer.prefix + "post_",
+                                                               num_hidden=config.model_size)
+            # TODO (tdomhan): Remove with next major version bump.
+            # For backwards compatibility with versions prior to 2.1.17 we also store the layers under to previous
+            # attribute name. This way parameters can be loaded as either decoder.layers.0.autoregr_layer.ff_out.weight
+            # or decoder.layers.0.self_attention.ff_out.weight. Parameter deduplication makes sure parameters are stored
+            # and loaded once only.
+            if self.decoder_type == C.TRANSFORMER_TYPE:
+                self.self_attention = self.autoregr_layer
+                self.pre_self_attention = self.pre_autoregr_layer
+                self.post_self_attention = self.post_autoregr_layer
+
+            self.pre_enc_attention = TransformerProcessBlock(sequence=config.preprocess_sequence,
+                                                             dropout=config.dropout_prepost,
+                                                             prefix="att_enc_pre_",
+
+=== 294 23shades-0527-aahddidfd ===
+{"dataset_id": "aahddidfd", "repo_name": "brendanhasz/probflow", "filename": "tests/unit/test_layers.py", "comment_introducing_revision": "https://github.com/brendanhasz/probflow/commit/96820e4dd4805fe28e7160821c01ff8212e1d5d6", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "96820e4dd4805fe28e7160821c01ff8212e1d5d6"}
+[comment_text]
+TODO: don't need this w\/ py.test
+[source_context]
+    l3 = l1 * l2
+    l3.build()
+    assert isinstance(l3.built_obj, float)
+    assert l3.built_obj == 6.0
+
+    # Div
+    l3 = l1 / l2
+    l3.build()
+    assert isinstance(l3.built_obj, float)
+    assert l3.built_obj == 3.0/2.0
+
+
+# TODO: don't need this w/ py.test
+if __name__ == '__main__':
+    test_add_layer()
+    #test_sub_layer()
+    test_layer_ops_overloading()
+
+=== 295 23shades-0399-aaijchbde ===
+{"dataset_id": "aaijchbde", "repo_name": "chainer/chainer", "filename": "cupy/sorting/count.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/87d103faea4bdbb0fa7d0baf9995a5e44bd259b0", "comment_removing_revision": "https://github.com/chainer/chainer/commit/144a3135a85a6b82bd694f935e8b54d15fd800d8", "source_context_status": "available", "source_context_commit": "87d103faea4bdbb0fa7d0baf9995a5e44bd259b0"}
+[comment_text]
+TODO(beam2d): Implement it
+[source_context]
+def count_nonzero(a):
+    # TODO(beam2d): Implement it
+    raise NotImplementedError
+
+=== 296 23shades-0476-aaeigccaj ===
+{"dataset_id": "aaeigccaj", "repo_name": "IntelPython/sdc", "filename": "sdc/datatypes/hpat_pandas_series_rolling_functions.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/9f0d976cc9316713a47c947e9ec0279bf6a92b63", "comment_removing_revision": "https://github.com/IntelPython/sdc/commit/b5bbbaa3db7885c033471836d1536313045a9796", "source_context_status": "available", "source_context_commit": "9f0d976cc9316713a47c947e9ec0279bf6a92b63"}
+[comment_text]
+TODO: check `other` is Series after a circular import of SeriesType fixed
+[source_context]
+hpat_pandas_rolling_series_min_impl = register_jitable(
+    gen_hpat_pandas_series_rolling_impl(arr_min, float64))
+hpat_pandas_rolling_series_sum_impl = register_jitable(
+    gen_hpat_pandas_series_rolling_impl(arr_sum, float64))
+
+
+@sdc_overload_method(SeriesRollingType, 'corr')
+def hpat_pandas_series_rolling_corr(self, other=None, pairwise=None):
+
+    ty_checker = TypeChecker('Method rolling.corr().')
+    ty_checker.check(self, SeriesRollingType)
+
+    # TODO: check `other` is Series after a circular import of SeriesType fixed
+    # accepted_other = (bool, Omitted, NoneType, SeriesType)
+    # if not isinstance(other, accepted_other) and other is not None:
+    #     ty_checker.raise_exc(other, 'Series', 'other')
+
+    accepted_pairwise = (bool, Boolean, Omitted, NoneType)
+    if not isinstance(pairwise, accepted_pairwise) and pairwise is not None:
+        ty_checker.raise_exc(pairwise, 'bool', 'pairwise')
+
+    nan_other = isinstance(other, (Omitted, NoneType)) or other is None
+
+    def hpat_pandas_rolling_series_std_impl(self, other=None, pairwise=None):
+        win = self._window
+
+=== 297 23shades-0750-aagbdibbb ===
+{"dataset_id": "aagbdibbb", "repo_name": "euclidjda/deep-quant", "filename": "scripts/batch_generator.py", "comment_introducing_revision": "https://github.com/euclidjda/deep-quant/commit/75ee20671ed8fa3be720884464a1194a9557574a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "75ee20671ed8fa3be720884464a1194a9557574a"}
+[comment_text]
+TODO: try without copying? could be faster
+[source_context]
+                         a company was actively trading during a specific point
+                         in time or not.
+          * _date_idx: The column index of the date field.
+
+        Items added to the config:
+          * num_inputs: same as the _num_inputs attribute
+          * num_ouptus: num_inputs minus the number of aux covariates.
+          * target_idx: index of target variable within the list of features, if
+                        target is specified by config.
+        """
+
+
+        data = self._data  # TODO: try without copying? could be faster
+
+        assert config.feature_fields
+
+        self._feature_indices = self._get_indices_from_names(
+                config.feature_fields)
+
+        self._aux_indices = list()
+        if config.aux_input_fields is not None:
+            self._aux_indices = self._get_indices_from_names(
+                    config.aux_input_fields)
+
+        self._feature_names = list(data.columns.values[self._feature_indices \
+
+=== 298 23shades-0771-aadgffgjf ===
+{"dataset_id": "aadgffgjf", "repo_name": "sorgerlab/indra", "filename": "indra/tools/reading/process_springer.py", "comment_introducing_revision": "https://github.com/sorgerlab/indra/commit/28aeba07d0da5ccf0b7e4cb8c79b6349e37cd023", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "28aeba07d0da5ccf0b7e4cb8c79b6349e37cd023"}
+[comment_text]
+TODO: we really should be more intelligent about this
+[source_context]
+
+    return txt_file_path
+
+def get_xml_data(pdf_path):
+    'Get the data from the xml file if present'
+    pdf_name = path.basename(pdf_path)
+    art_dirname = path.abspath(pdf_path + '/'.join(4*['..']))
+    xml_path_list = _find(art_dirname, pdf_name + '\.xml.*?')
+    assert len(xml_path_list) > 0, "We have no metadata"
+    if len(xml_path_list) == 1:
+        xml = ET.parse(xml_path_list[0])
+    elif len(xml_path_list) > 1:
+        #TODO: we really should be more intelligent about this
+        xml = ET.parse(xml_path_list[0])
+    
+    entry_dict = {'doi':'ArticleDOI',
+                  'journal':['JournalTitle', 'JournalSubTitle'],
+                  'pub_date':'Year',
+                  'publisher':'PublisherName'}
+    ref_data = {}
+    for table_key, xml_label in entry_dict:
+        ref_data[table_key] = xml.find('.//' + xml_label)
+    
+    return ref_data
+
+
+=== 299 23shades-0748-aaidaidid ===
+{"dataset_id": "aaidaidid", "repo_name": "scikit-learn/scikit-learn", "filename": "sklearn/tree/tree.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/186629b60aa208d125a21132b58bd8d6b7565264", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "186629b60aa208d125a21132b58bd8d6b7565264"}
+[comment_text]
+TODO: tree should't need this in this case
+[source_context]
+        if not isinstance(self.splitter, Splitter):
+            splitter = SPLITTERS[self.splitter](criterion,
+                                                self.max_features_,
+                                                min_samples_leaf,
+                                                min_weight_leaf,
+                                                random_state)
+
+        if is_classifier(self):
+            self.tree_ = Tree(self.n_features_,
+                              self.n_classes_, self.n_outputs_)
+        else:
+            self.tree_ = Tree(self.n_features_,
+                              # TODO: tree should't need this in this case
+                              np.array([1] * self.n_outputs_, dtype=np.intp),
+                              self.n_outputs_)
+
+        # Use BestFirst if max_leaf_nodes given; use DepthFirst otherwise
+        if max_leaf_nodes < 0:
+            builder = DepthFirstTreeBuilder(splitter, min_samples_split,
+                                            min_samples_leaf,
+                                            min_weight_leaf,
+                                            max_depth,
+                                            self.min_impurity_decrease,
+                                            min_impurity_split)
+        else:

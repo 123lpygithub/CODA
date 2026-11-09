@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0604-aajcjaefh",
+  "revision_url": "https://github.com/h2oai/h2o4gpu/commit/40be4084cea6fba546056c6b93b4f9a5ea233d52",
+  "filename": "src/interface_py/pogs/types.py",
+  "commit": "40be4084cea6fba546056c6b93b4f9a5ea233d52",
+  "source_url": "https://raw.githubusercontent.com/h2oai/h2o4gpu/40be4084cea6fba546056c6b93b4f9a5ea233d52/src/interface_py/pogs/types.py",
+  "fetched_at": "2026-11-05T06:13:19.914920+00:00",
+  "source_sha256": "ee37856da9f12d656c5cfe01eee8d49c0098a878d8474f9fb6103e4936fb5208",
+  "line_start": 136,
+  "line_end": 160,
+  "excerpt": "\tgaps = kwargs['gap_stop'] if 'gap_stop' in kwargs.keys() else DEFAULTS['gap_stop']\n\twarm = kwargs['warm_start'] if 'warm_start' in kwargs.keys() else DEFAULTS['warm_start']\n\tif double_precision:\n\t\treturn SettingsD(rho, relt, abst, maxit, verb, adap, gaps, warm)\n\telse:\n\t\treturn SettingsS(rho, relt, abst, maxit, verb, adap, gaps, warm)\n\ndef change_solution(pysolution, **kwargs):\n\ttry:\n\t\tif 'x_init' in kwargs: pysolution.x[:] = kwargs['x_init'][:]\n\t\tif 'nu_init' in kwargs: pysolution.nu[:] = kwargs['nu_init'][:]\n\texcept:\n\t\t#TODO: message about vector lengths? \n\t\traise\n\ndef make_solution(pysolution):\n\tif pysolution.double_precision:\n\t\treturn SolutionD(cptr(pysolution.x,c_double),cptr(pysolution.y,c_double),\n\t\t\t\t\t\t\tcptr(pysolution.mu,c_double),cptr(pysolution.nu,c_double))\n\telse:\n\t\treturn SolutionS(cptr(pysolution.x,c_float),cptr(pysolution.y,c_float),\n\t\t \t\t\t\t\tcptr(pysolution.mu,c_float),cptr(pysolution.nu,c_float))\n\n\t\t\ndef make_info(double_precision):"
+}

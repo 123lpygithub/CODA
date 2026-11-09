@@ -1,0 +1,258 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-17494",
+  "issue_url": "https://github.com/matomo-org/matomo/issues/13056",
+  "source_issue_url": "https://github.com/matomo-org/matomo/issues/13056",
+  "api_url": "https://api.github.com/repos/matomo-org/matomo/issues/13056",
+  "title": "JS Tracker: Add possibility to turn cookies back on,  enableCookies",
+  "body": "I'm working on a website that allows visitors to toggle cookies on or off. Currently, with Matomo I can turn them off using\r\n\r\n```js\r\nwindow._paq.push(['disableCookies'])\r\n```\r\n\r\nI searched for a way to turn them back on, and tried\r\n\r\n```js\r\nwindow._paq.push(['enableCookies'])\r\n```\r\n\r\nbut that did not work.\r\n\r\nIs there a way to turn cookies back on? If not, it would be great if it could be added.\r\n\r\nNote from tsteur: Also need to look at this when working on it: https://github.com/matomo-org/matomo/issues/13056#issuecomment-646278244",
+  "author": "Participant 1",
+  "created_at": "2018-06-11T11:15:57Z",
+  "updated_at": "2020-09-29T00:20:42Z",
+  "state": "closed",
+  "closed_at": "2020-07-06T02:30:32Z",
+  "issue_fetched_at": "2026-11-05T05:56:44.673066+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T05:56:46.032054+00:00"
+  ],
+  "expected_comment_count": 29,
+  "retrieved_comment_count": 29,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 398880464,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-398880464",
+      "created_at": "2018-06-20T20:10:00Z",
+      "updated_at": "2018-06-20T20:10:00Z",
+      "author": "Participant 2",
+      "body": "If the page is reloaded and `disableCookies` isn't pushed the cookies should be automatically used \"again\".\r\nBut for singe page apps it would make sense to have a method to turn the cookies back on."
+    },
+    {
+      "id": 399058492,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-399058492",
+      "created_at": "2018-06-21T10:45:22Z",
+      "updated_at": "2018-06-21T10:45:22Z",
+      "author": "Participant 1",
+      "body": "@sgiehl That would be great. Not only for SPAs, but any website where the user can change their cookie consent settings on the fly, which is relevant with the GDPR."
+    },
+    {
+      "id": 500237429,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-500237429",
+      "created_at": "2019-06-09T19:12:01Z",
+      "updated_at": "2019-06-09T19:12:01Z",
+      "author": "Participant 3",
+      "body": "Any Update on this? Interested in this as well! "
+    },
+    {
+      "id": 584442308,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-584442308",
+      "created_at": "2020-02-11T01:35:39Z",
+      "updated_at": "2020-02-11T01:35:59Z",
+      "author": "Participant 4",
+      "body": "The biggest issue on this is not that we cannot re-enable cookies. As a bypass, we can simply reload and prevent pushing 'disableCookies'. However, if we use a [custom opt-out form](https://developer.matomo.org/guides/tracking-javascript-guide#optional-creating-a-custom-opt-out-form), it will not work after disabling cookies, because the opt-out form requires cookies to be enabled. \r\n\r\nIt would be great to be able to allow cookies by JS without reload and make it work, so the custom opt-out solution can work. In it's current design, it's impossible to prevent conventional Matomo cookies and still getting the Opt-Out cookie.\r\n\r\nIt's been 1 1/2 years, this needs to be addressed, to be honest."
+    },
+    {
+      "id": 621394767,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-621394767",
+      "created_at": "2020-04-29T18:47:15Z",
+      "updated_at": "2020-04-29T18:47:15Z",
+      "author": "Participant 5",
+      "body": "I'm also looking for this functionality. Is there any other way to reenable cookies without a reload?\r\n\r\nI don't understand how this flies with GDPR and cookie consent regulation in the EU and other territories. I don't want to disable tracking entirely. Simply cookies on/off is enough, I would have thought."
+    },
+    {
+      "id": 641335710,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-641335710",
+      "created_at": "2020-06-09T14:30:49Z",
+      "updated_at": "2020-06-09T14:30:49Z",
+      "author": "Participant 6",
+      "body": "Would also need this Feature, we use Matomo's disableCookies Feature + Klaro! as Consent Manager ... of course if User gives Consent I want to use Cookies again (1-Pager, ...), so it would be benefical if one could re-activate Cookies by JS"
+    },
+    {
+      "id": 646250109,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-646250109",
+      "created_at": "2020-06-18T19:02:57Z",
+      "updated_at": "2020-06-18T19:04:58Z",
+      "author": "Participant 7",
+      "body": "> If the page is reloaded and disableCookies isn't pushed the cookies should be automatically used \"again\".\r\n\r\nThat works technically. But in this case, however, a new visitor ID is generated in the cookie.\r\nI.e. I now have 2 visitors (one for fingerprinting-scenario, another one for the cookie-scenario) in Matomo, although in reality it is only 1 visitor. That is not what you want."
+    },
+    {
+      "id": 646278244,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-646278244",
+      "created_at": "2020-06-18T20:04:01Z",
+      "updated_at": "2020-06-18T20:04:01Z",
+      "author": "Participant 8",
+      "body": "@utrautmann had a quick look in the code. That's something we'll need to fix as I assume that's because we include whether the user has cookies or not in the fingerprint: https://github.com/matomo-org/matomo/blob/3.13.6/core/Tracker/Settings.php#L145\r\n\r\nIt should be an easy fix for us to remove this from the fingerprint when we work on it or fill this setting depending on `navigator.cookiesEnabled` setting."
+    },
+    {
+      "id": 646278318,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-646278318",
+      "created_at": "2020-06-18T20:04:11Z",
+      "updated_at": "2020-06-18T20:04:11Z",
+      "author": "Participant 8",
+      "body": "Thanks for mentioning it and finding this 👍 "
+    },
+    {
+      "id": 646561364,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-646561364",
+      "created_at": "2020-06-19T10:26:47Z",
+      "updated_at": "2020-06-19T10:26:47Z",
+      "author": "Participant 7",
+      "body": "> @utrautmann had a quick look in the code. That's something we'll need to fix as I assume that's because we include whether the user has cookies or not in the fingerprint: https://github.com/matomo-org/matomo/blob/3.13.6/core/Tracker/Settings.php#L145\r\n> \r\n> It should be an easy fix for us to remove this from the fingerprint when we work on it or fill this setting depending on navigator.cookiesEnabled setting.\r\n\r\n@tsteur Is there an ticket where I can follow?"
+    },
+    {
+      "id": 647057005,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-647057005",
+      "created_at": "2020-06-20T23:31:26Z",
+      "updated_at": "2020-06-20T23:31:26Z",
+      "author": "Participant 8",
+      "body": "We'll fix this as part of this issue."
+    },
+    {
+      "id": 647648502,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-647648502",
+      "created_at": "2020-06-22T17:01:39Z",
+      "updated_at": "2020-06-22T17:01:39Z",
+      "author": "Participant 7",
+      "body": "@tsteur \r\nOh it's late. Many of my customers would like to act in Germany after the BGH judgment and change the tracking. They want to go with fingerprinting as the default and setting cookies after the consent.\r\nIs there a way to still release that in the 3.13.x product line?\r\nThe alternative would be to patch the PHP file for yourself in every installation!?"
+    },
+    {
+      "id": 647826099,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-647826099",
+      "created_at": "2020-06-22T23:53:10Z",
+      "updated_at": "2020-06-22T23:53:10Z",
+      "author": "Participant 8",
+      "body": "@utrautmann I was more thinking something like this instead of ignoring the cookie server side: https://github.com/matomo-org/matomo/pull/16101/files\r\n\r\nAre you familiar with patching files on a server? If so you could try to update your `piwik.js`, `matomo.js`, and `js/piwik.min.js` with this content and then give it a test: https://raw.githubusercontent.com/matomo-org/matomo/8ad6c25f3d1bb651444aff2ddf492c041dcb7306/matomo.js\r\n\r\n"
+    },
+    {
+      "id": 648805386,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-648805386",
+      "created_at": "2020-06-24T13:01:52Z",
+      "updated_at": "2020-06-24T13:01:52Z",
+      "author": "Participant 7",
+      "body": "@tsteur Thank you. I patched the files on my [server](https://www.udotrautmann.de/test/test.html). Now I have tested with different browsers.\r\nIt works fine with Firefox, Chrome, Chrome-Mobile, Edge, Opera. But not with IE11.\r\nTwo different visitor IDs are still created with IE11."
+    },
+    {
+      "id": 649086237,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-649086237",
+      "created_at": "2020-06-24T21:36:44Z",
+      "updated_at": "2020-06-24T21:36:44Z",
+      "author": "Participant 8",
+      "body": "Thanks for confirming. IE11 is because of https://github.com/matomo-org/matomo/issues/11507 \r\n\r\nIt seems we can't easily check if cookies are enabled without actually setting a cookie there or causing a warning. Unless we could test if the site is shown in a modal dialog or not but not sure how/if that's possible. If you have any thoughts let me know"
+    },
+    {
+      "id": 649156948,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-649156948",
+      "created_at": "2020-06-25T01:18:24Z",
+      "updated_at": "2020-06-25T01:18:24Z",
+      "author": "Participant 8",
+      "body": "Hi there, anyone keen on giving the `enableCookies` method a try? https://github.com/matomo-org/matomo/pull/16113\r\n\r\nIf you are familiar with patching files on a server then you could try to update your `piwik.js`, `matomo.js`, and `js/piwik.min.js` with the content from the following URL and then give it a try: https://raw.githubusercontent.com/matomo-org/matomo/567ca3070a5ea62660d347b53d3704258af4f59c/matomo.js\r\n\r\nI did some basic testing and it works for me.\r\n\r\nSimilar to `disableCookies` it includes a new method `_paq.push(['enableCookies']);`.\r\n\r\n@utrautmann @futureweb @ctholho @martin-braun @WouterFlorijn @bjoe2k4 "
+    },
+    {
+      "id": 649565442,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-649565442",
+      "created_at": "2020-06-25T14:08:09Z",
+      "updated_at": "2020-06-25T14:08:09Z",
+      "author": "Participant 7",
+      "body": "> Hi there, anyone keen on giving the enableCookies method a try? \r\n\r\nI tested it with enableCookies. It works fine in single page websites. Thanks alot.\r\n\r\n1. EnableCookies creates a cookie _pk_id ... and \r\n2. disableCookies removes the Matomo cookies.\r\n3. When I trigger an event after EnableCookies I get the cookie _pk_ses... .\r\n4. But I never got a _pk_ref... Cookie for attribution. If I call up a page (single page or normal page) with parameter pk_campaign and do not have the user's consent at the moment and then get it and call enableCookies, no cookie _pk_ref is set. \r\nIs this possible so that I can measure the attribution in goals?\r\n\r\nTo IE11: \r\nIn a single page all actions of a visitor - started with disabled cookies and go on with enabled cookies - are always assigned to the same visitor as long as I don't reload the single page website. Then I have the IE11 problem from above again, that one and the same visitor counts as 2 visitors depending without and with cookies."
+    },
+    {
+      "id": 649930157,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-649930157",
+      "created_at": "2020-06-26T03:08:19Z",
+      "updated_at": "2020-06-26T03:08:19Z",
+      "author": "Participant 8",
+      "body": "The IE 11 is kind of expected and can't do really much about it except disabling the cookie as part of the fingerprint on the server itself which I now did in this PR: https://github.com/matomo-org/matomo/pull/16113/files#diff-02edccc593e3badd1e9fd8d278fd1d35R102-R147\r\n\r\nThis will then make it work."
+    },
+    {
+      "id": 650166654,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-650166654",
+      "created_at": "2020-06-26T13:02:16Z",
+      "updated_at": "2020-06-26T13:03:20Z",
+      "author": "Participant 7",
+      "body": "@tsteur \r\n\r\n> This will then make it work.\r\n\r\nThank you very much. I've tested it successful with IE11.\r\n\r\nCould you take a look to my question number 4 please?\r\n\r\n> But I never got a _pk_ref... Cookie for attribution. If I call up a page (single page or normal page) with parameter pk_campaign and do not have the user's consent at the moment and then get it and call enableCookies, no cookie _pk_ref is set.\r\nIs this possible so that I can measure the attribution in goals?\r\n\r\n\r\n"
+    },
+    {
+      "id": 650375477,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-650375477",
+      "created_at": "2020-06-26T20:07:17Z",
+      "updated_at": "2020-06-26T20:07:17Z",
+      "author": "Participant 8",
+      "body": "Thanks @utrautmann I've made a minor adjustment but haven't tested it yet. I reckon it should be set now. Seems so far Matomo sets attribution cookie only when a tracking request is done so when you enable cookies and there's no tracking request it wouldn't be set."
+    },
+    {
+      "id": 650868590,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-650868590",
+      "created_at": "2020-06-29T02:30:45Z",
+      "updated_at": "2020-06-29T02:30:45Z",
+      "author": "Participant 8",
+      "body": "FYI @utrautmann did some more testing and the referrer cookie is now set.\r\n\r\nHowever, there's one thing that's not quite clear... \r\n\r\nI was going to send a tracking request to update the existing visit with the newly created visitorId when enabling cookies. Noticed that Matomo does currently not support updating the visitorId of an existing visit. \r\n\r\nWhat this means is the next time this visitor visits your website, it will be counted as a new unique visitor and only then will be tracked with the new visitorId. So flow is like this\r\n\r\n* Cookies are disabled. \r\n    * Matomo identifies this visitor by a fingerprint. \r\n    * On the backend a random visitorId is used which is not known to JavaScript.\r\n* Now user gives consent and you enable cookies. \r\n    * Matomo generates a random visitorId in JS because it can't know which visitorId was created server side\r\n    * However, the current visit still has a different visitorId because we can't overwrite it\r\n* Visitor leaves your website\r\n* Visitor visits your website again say one hour or a day later.\r\n    * This visit will be recorded under the new idVisitor. \r\n    * Also all following visits in the future will be recorded under this new visitorId\r\n\r\nSo it basically once create a new unique visitor and in total Matomo counts 2 unique visitors.\r\n\r\nI was thinking about creating some functionality to update the visitorId when the user gives consent and we enables cookies. This way it would have counted only one unique visitor. However, I'm not sure if we can/should do this since we maybe didn't have consent to attribute all previous page views before the visitor gave consent to this unique visitor. I'm meaning the page views that were done within the visit in which the user enables the cookies and gives consent:\r\n\r\n* Cookies are disabled. \r\n    * Matomo identifies this visitor by a fingerprint. \r\n    * On the backend a random visitorId is used which is not known to JavaScript.\r\n* Now user gives consent and you enable cookies. \r\n    * Matomo generates a random visitorId in JS because it can't know which visitorId was created server side\r\n    * We send a tracking request and attribute all previous page views from this visit to this new visitorId\r\n    * Basically, all previous page views before the user gave consent would be attributed to a unique visitor but back then we didn't have consent.\r\n\r\nI don't think we can/should do this. I guess if this behaviour was wanted, someone should maybe force a new visit so the visits before giving consent and after giving consent are clearly separated.\r\n \r\nI can see some would maybe want to create a new visit while some others maybe wouldn't want to.\r\n\r\nAnyone any thoughts on this?\r\n\r\nIt's quite complicated so I hope everyone can follow my logic."
+    },
+    {
+      "id": 651273852,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-651273852",
+      "created_at": "2020-06-29T18:01:29Z",
+      "updated_at": "2020-06-29T18:01:29Z",
+      "author": "Participant 7",
+      "body": "> Now user gives consent and you enable cookies.\r\n        Matomo generates a random visitorId in JS because it can't know which visitorId was created server side\r\n        However, the current visit still has a different visitorId because we can't overwrite it\r\nVisitor leaves your website\r\n     Visitor visits your website again say one hour or a day later.\r\n     This visit will be recorded under the new idVisitor.\r\n\r\nWhy is that? I thought after the enabling cookies I have a cookie with a visitor ID that is valid for 13 months and is recognized again?\r\nOr will I be after enabling cookies further identified via backend fingerprinting in the visit?\r\n\r\n> I was thinking about creating some functionality to update the visitorId when the user gives consent and we enables cookies. \r\n\r\nI understand the problem you are describing.\r\nI thought that consent is only required for tracking with cookies. However, but it's no consent for cookie-less tracking required.\r\nOr do you see a consent for cookie-less tracking as necessary?\r\n\r\nIn my opinion, it is not critical from a data protection point of view if the page views from the current visit with cookie-less tracking are attributed to the same visitor after the consent to tracking with cookies.\r\n\r\n> I can see some would maybe want to create a new visit while some others maybe wouldn't want to.\r\n\r\nIn that case, an option would be required, depending on the customer's requirements, right?"
+    },
+    {
+      "id": 651367584,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-651367584",
+      "created_at": "2020-06-29T21:08:58Z",
+      "updated_at": "2020-06-29T21:08:58Z",
+      "author": "Participant 8",
+      "body": "> Why is that? I thought after the enabling cookies I have a cookie with a visitor ID that is valid for 13 months and is recognized again?\r\n> Or will I be after enabling cookies further identified via backend fingerprinting in the visit?\r\n\r\nThat's right the cookie will be set immediately for 13 months and is valid for that long. It's just that for the already started visit Matomo knows this visit under a different visitorId which is only known in the Matomo backend but can't be known in the Matomo JavaScript tracker. And when Matomo receives the new visitorId from the JS tracker it is currently not updating the visitorId of the already started visit. It would become only active on the next visit. \r\n\r\n> Or do you see a consent for cookie-less tracking as necessary?\r\n\r\nAs long as no personal data isn't tracked there shouldn't be any consent needed. See eg [this FAQ](https://matomo.org/faq/new-to-piwik/how-do-i-use-matomo-analytics-without-consent-or-cookie-banner/).\r\n\r\nI was just wondering because technically the previous page views (might be 1 or might be 10...) while in the current visit cookies were disabled maybe weren't meant to be put into the visitor's profile that is being created once consent is granted. Considering this would only affect the page views within the current visit it might be fine though."
+    },
+    {
+      "id": 652520455,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-652520455",
+      "created_at": "2020-07-01T16:26:47Z",
+      "updated_at": "2020-07-01T16:26:47Z",
+      "author": "Participant 7",
+      "body": "> So it basically once create a new unique visitor and in total Matomo counts 2 unique visitors.\r\n\r\nI tested that again after a day. After my first visit (disable and then enable cookies) I am back on my test page. The visitor log says that my visit is a returning visitor. That would be good. But the visitor profile says there are no more visits for this visitor. It's a little strange. How does Matomo know that I returned? Is it from the one day old cookie? But Matomo cannot find the VisitorID from these cookies anywhere, because my first visit had a Backend-VisitorID? Is that correct?\r\n\r\n> I was just wondering because technically the previous page views (might be 1 or might be 10...) while in the current visit cookies were disabled maybe weren't meant to be put into the visitor's profile that is being created once consent is granted. Considering this would only affect the page views within the current visit it might be fine though.\r\n\r\nOk, now I understand your thoughts. Well, I don't think that's so important to most web analysts to see the pages in new visitors profile. They look at the sums of visitors and page views.\r\nBut there could be things where it would be interesting, right?\r\nJust one thought from me: I have a customer who works with the Funnel plugin. The entry URLs could be wrong if the page on which the consent is given is missing in the profile. And could the page where i'm giving the consent be an exit page? Or am I wrong and that's not a problem with entry and exit pages?"
+    },
+    {
+      "id": 652780070,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-652780070",
+      "created_at": "2020-07-02T04:51:59Z",
+      "updated_at": "2020-07-02T04:51:59Z",
+      "author": "Participant 8",
+      "body": "@utrautmann I've just tweaked the PR so the existing visit will be updated and it will be only one unique visitor in the end. So things should all work then."
+    },
+    {
+      "id": 652951203,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-652951203",
+      "created_at": "2020-07-02T11:28:53Z",
+      "updated_at": "2020-07-02T11:28:53Z",
+      "author": "Participant 7",
+      "body": "@tsteur : Thank you very much. What are the schedules for this PR? I ask if my customer should wait for it or if the server should be patched."
+    },
+    {
+      "id": 653218993,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-653218993",
+      "created_at": "2020-07-02T21:02:33Z",
+      "updated_at": "2020-07-02T21:02:33Z",
+      "author": "Participant 8",
+      "body": "I would say in 2 weeks"
+    },
+    {
+      "id": 653983230,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-653983230",
+      "created_at": "2020-07-06T02:30:32Z",
+      "updated_at": "2020-07-06T02:30:32Z",
+      "author": "Participant 8",
+      "body": "@utrautmann sorry to let you know but I renamed `enableCookies` to `setCookieConsentGiven` in this PR https://github.com/matomo-org/matomo/pull/16178 while documenting this new feature in https://github.com/matomo-org/developer-documentation/pull/359/files\r\n\r\nThis will be renamed to be consistent in how we ask for tracking consent. Asking for cookie consent works now in a very same way and is described in both PRs above.\r\n\r\nThere will now also be a new method `rememberCookieConsentGiven` which makes cookie consent really easy as all you need to do is always calling \r\n\r\n`_paq.push(['requireCookieConsent'])`\r\n\r\ninstead of `disableCookies` and then once the user gives consent, you only need to once call `_paq.push(['rememberCookieConsentGiven'])` to let Matomo know to use cookies (also in the next visits). When user no longer wants to use cookies simply call `_paq.push(['forgetCookieConsentGiven'])`\r\n "
+    },
+    {
+      "id": 653983268,
+      "url": "https://github.com/matomo-org/matomo/issues/13056#issuecomment-653983268",
+      "created_at": "2020-07-06T02:30:43Z",
+      "updated_at": "2020-07-06T02:30:43Z",
+      "author": "Participant 8",
+      "body": "I'm hoping we can release a beta this week."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

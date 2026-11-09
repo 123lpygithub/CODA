@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0406-aahhejjge",
+  "revision_url": "https://github.com/adalca/neurite/commit/66d89b0185e6e52cf09be7bd290a1c917e0cb001",
+  "filename": "neurite/tf/utils/utils.py",
+  "commit": "66d89b0185e6e52cf09be7bd290a1c917e0cb001",
+  "source_url": "https://raw.githubusercontent.com/adalca/neurite/66d89b0185e6e52cf09be7bd290a1c917e0cb001/neurite/tf/utils/utils.py",
+  "fetched_at": "2026-11-05T06:12:49.227389+00:00",
+  "source_sha256": "a29be6c0e26aa1bd7700af51fbccdbe0842c7a7013e519149ddfb642d2b634a4",
+  "line_start": 346,
+  "line_end": 370,
+  "excerpt": "    shapes = [tf.size(x) for x in args]\n    sz = [x.get_shape().as_list()[0] for x in args]\n\n    # output_dtype = tf.convert_to_tensor(args[0]).dtype.base_dtype\n    if indexing == \"xy\" and ndim > 1:\n        output[0] = tf.reshape(output[0], (1, -1) + (1,) * (ndim - 2))\n        output[1] = tf.reshape(output[1], (-1, 1) + (1,) * (ndim - 2))\n        shapes[0], shapes[1] = shapes[1], shapes[0]\n        sz[0], sz[1] = sz[1], sz[0]\n\n    # This is the part of the implementation from tf that is slow. \n    # We replace it below to get a ~6x speedup (essentially using tile instead of * tf.ones())\n    # TODO(nolivia): improve performance with a broadcast  \n    # mult_fact = tf.ones(shapes, output_dtype)\n    # return [x * mult_fact for x in output]\n    for i in range(len(output)):       \n        stack_sz = [*sz[:i], 1, *sz[(i+1):]]\n        if indexing == 'xy' and ndim > 1 and i < 2:\n            stack_sz[0], stack_sz[1] = stack_sz[1], stack_sz[0]\n        output[i] = tf.tile(output[i], tf.stack(stack_sz))\n    return output\n\n\ndef flatten(v):\n    \"\"\""
+}

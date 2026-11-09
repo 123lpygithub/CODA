@@ -1,0 +1,69 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8030",
+  "issue_url": "https://github.com/HandBrake/HandBrake/issues/4427",
+  "source_issue_url": "https://github.com/HandBrake/HandBrake/issues/4427",
+  "api_url": "https://api.github.com/repos/HandBrake/HandBrake/issues/4427",
+  "title": "Encoding with the same settings leads to differences in file, maybe even privacy problem",
+  "body": "### Problem Description\r\n\r\nWhen encoding a video with the same settings twice in a row, there are slightly differences in the file. For comparing see for example https://superuser.com/a/125408\r\n\r\nThere might be some encodingtimestamps or other stuff included which from my point of view shouldn't be the case. Encoding with the same settings should lead to exactly the same file. \r\n\r\n### Activity Log, Crash Log or any other details\r\n\r\nUsed Preset:\r\n```json\r\n\r\n\r\n{\r\n  \"PresetList\": [\r\n    {\r\n      \"AlignAVStart\": false,\r\n      \"AudioCopyMask\": [\r\n        \"copy:aac\",\r\n        \"copy:ac3\",\r\n        \"copy:dtshd\",\r\n        \"copy:dts\",\r\n        \"copy:mp3\",\r\n        \"copy:truehd\",\r\n        \"copy:flac\",\r\n        \"copy:eac3\",\r\n        \"copy:mp2\"\r\n      ],\r\n      \"AudioEncoderFallback\": \"ac3\",\r\n      \"AudioLanguageList\": [\r\n        \"deu\",\r\n        \"any\",\r\n        \"und\"\r\n      ],\r\n      \"AudioList\": [\r\n        {\r\n          \"AudioBitrate\": 128,\r\n          \"AudioCompressionLevel\": 0,\r\n          \"AudioEncoder\": \"copy\",\r\n          \"AudioMixdown\": \"mono\",\r\n          \"AudioNormalizeMixLevel\": false,\r\n          \"AudioSamplerate\": \"48\",\r\n          \"AudioTrackQualityEnable\": false,\r\n          \"AudioTrackQuality\": 0,\r\n          \"AudioTrackGainSlider\": 0,\r\n          \"AudioTrackDRCSlider\": 0\r\n        }\r\n      ],\r\n      \"AudioSecondaryEncoderMode\": true,\r\n      \"AudioTrackSelectionBehavior\": \"all\",\r\n      \"ChapterMarkers\": true,\r\n      \"ChildrenArray\": [],\r\n      \"Default\": true,\r\n      \"FileFormat\": \"av_mkv\",\r\n      \"Folder\": false,\r\n      \"FolderOpen\": false,\r\n      \"Mp4HttpOptimize\": false,\r\n      \"Mp4iPodCompatible\": false,\r\n      \"PictureAutoCrop\": true,\r\n      \"PictureBottomCrop\": 0,\r\n      \"PictureLeftCrop\": 0,\r\n      \"PictureRightCrop\": 0,\r\n      \"PictureTopCrop\": 0,\r\n      \"PictureDARWidth\": 0,\r\n      \"PictureDeblockPreset\": \"off\",\r\n      \"PictureDeinterlaceFilter\": \"off\",\r\n      \"PictureCombDetectPreset\": \"off\",\r\n      \"PictureCombDetectCustom\": \"\",\r\n      \"PictureDenoiseCustom\": \"\",\r\n      \"PictureDenoiseFilter\": \"off\",\r\n      \"PictureDenoisePreset\": \"light\",\r\n      \"PictureDenoiseTune\": \"none\",\r\n      \"PictureSharpenCustom\": \"\",\r\n      \"PictureSharpenFilter\": \"off\",\r\n      \"PictureSharpenPreset\": \"medium\",\r\n      \"PictureSharpenTune\": \"none\",\r\n      \"PictureDetelecine\": \"off\",\r\n      \"PictureDetelecineCustom\": \"\",\r\n      \"PictureColorspacePreset\": \"off\",\r\n      \"PictureChromaSmoothPreset\": \"off\",\r\n      \"PictureItuPAR\": false,\r\n      \"PictureKeepRatio\": true,\r\n      \"PictureLooseCrop\": false,\r\n      \"PicturePAR\": \"auto\",\r\n      \"PicturePARWidth\": 0,\r\n      \"PicturePARHeight\": 0,\r\n      \"PictureUseMaximumSize\": false,\r\n      \"PictureAllowUpscaling\": false,\r\n      \"PictureForceHeight\": 0,\r\n      \"PictureForceWidth\": 0,\r\n      \"PicturePadMode\": \"none\",\r\n      \"PicturePadTop\": 0,\r\n      \"PicturePadBottom\": 0,\r\n      \"PicturePadLeft\": 0,\r\n      \"PicturePadRight\": 0,\r\n      \"PresetName\": \"Meines H265\",\r\n      \"Type\": 1,\r\n      \"SubtitleAddCC\": false,\r\n      \"SubtitleAddForeignAudioSearch\": true,\r\n      \"SubtitleAddForeignAudioSubtitle\": false,\r\n      \"SubtitleBurnBehavior\": \"foreign\",\r\n      \"SubtitleBurnBDSub\": false,\r\n      \"SubtitleBurnDVDSub\": false,\r\n      \"SubtitleLanguageList\": [\r\n        \"any\"\r\n      ],\r\n      \"SubtitleTrackSelectionBehavior\": \"all\",\r\n      \"VideoAvgBitrate\": 0,\r\n      \"VideoColorMatrixCode\": 0,\r\n      \"VideoEncoder\": \"x265\",\r\n      \"VideoFramerateMode\": \"cfr\",\r\n      \"VideoGrayScale\": false,\r\n      \"VideoScaler\": \"swscale\",\r\n      \"VideoPreset\": \"medium\",\r\n      \"VideoTune\": \"\",\r\n      \"VideoProfile\": \"auto\",\r\n      \"VideoLevel\": \"auto\",\r\n      \"VideoOptionExtra\": \"\",\r\n      \"VideoQualityType\": 2,\r\n      \"VideoQualitySlider\": 22,\r\n      \"VideoQSVDecode\": false,\r\n      \"VideoQSVAsyncDepth\": 0,\r\n      \"VideoTwoPass\": false,\r\n      \"VideoTurboTwoPass\": false,\r\n      \"x264UseAdvancedOptions\": false,\r\n      \"PresetDisabled\": false,\r\n      \"MetadataPassthrough\": true\r\n    }\r\n  ],\r\n  \"VersionMajor\": 47,\r\n  \"VersionMicro\": 0,\r\n  \"VersionMinor\": 0\r\n}\r\n```\r\n\r\n\r\n### What Operating System are you running?\r\n\r\nWindows 10\r\n\r\n### What version of HandBrake are you running?\r\n\r\n1.5.1\r\n\r\n### Where did you download HandBrake from?\r\n\r\nhandbrake.fr",
+  "author": "Participant 1",
+  "created_at": "2022-06-29T07:07:51Z",
+  "updated_at": "2022-07-01T20:01:50Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:19.718924+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:19.718924+00:00"
+  ],
+  "expected_comment_count": 5,
+  "retrieved_comment_count": 5,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1169927256,
+      "url": "https://github.com/HandBrake/HandBrake/issues/4427#issuecomment-1169927256",
+      "created_at": "2022-06-29T12:36:31Z",
+      "updated_at": "2022-06-29T12:36:31Z",
+      "author": "Participant 2",
+      "body": "Are you referring to the differences in the encoded comments, which list when a file was encoded? There will be differences in those comments, which are always included in the file."
+    },
+    {
+      "id": 1169959288,
+      "url": "https://github.com/HandBrake/HandBrake/issues/4427#issuecomment-1169959288",
+      "created_at": "2022-06-29T13:08:28Z",
+      "updated_at": "2022-06-29T13:08:28Z",
+      "author": "Participant 1",
+      "body": "All comments are empty for the checked file\r\n![grafik](https://user-images.githubusercontent.com/37013344/176443911-2f01b3b5-98f0-4c03-ac95-b26b0c7d7a5b.png)\r\n"
+    },
+    {
+      "id": 1170225267,
+      "url": "https://github.com/HandBrake/HandBrake/issues/4427#issuecomment-1170225267",
+      "created_at": "2022-06-29T16:43:03Z",
+      "updated_at": "2022-06-29T16:43:03Z",
+      "author": "Participant 3",
+      "body": "This is not actually always the case. Encoders can be non-deterministic (by design. It's not a bug). \r\nAs such, for the same input and settings, you may get a different output.  You won't be able to tell by watching the video as the difference is not typically perceptible. \r\n\r\nMetadata such Encoded Date, Tagged Date etc will also affect the file hash. (This is visible in MediaInfo. I don't think VLC shows these fields)\r\n\r\nRegardless, this is expected and nothing to worry about."
+    },
+    {
+      "id": 1170236681,
+      "url": "https://github.com/HandBrake/HandBrake/issues/4427#issuecomment-1170236681",
+      "created_at": "2022-06-29T16:54:30Z",
+      "updated_at": "2022-06-29T16:54:30Z",
+      "author": "Participant 1",
+      "body": "Thank you very much. mediainfo shows all the information. Both encodings differ in\r\n`Encoded date` and `Unique ID`\r\n\r\nIs it possible to omit both fields when encoding with handbrake? Giving information when a file was encoded can be sensitive information in some case. "
+    },
+    {
+      "id": 1170315098,
+      "url": "https://github.com/HandBrake/HandBrake/issues/4427#issuecomment-1170315098",
+      "created_at": "2022-06-29T18:01:23Z",
+      "updated_at": "2022-06-29T18:01:23Z",
+      "author": "Participant 3",
+      "body": "Nope.  You'd have to strip it out after the fact with a meta data editor tool. "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/HandBrake/HandBrake/issues/4427",
+  "closed_at_available": false
+}

@@ -1,0 +1,218 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27chatwoot%2Fchatwoot%27+AND+number%3D1137+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='chatwoot/chatwoot' AND number=1137 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:28.656180+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "iammattmartin",
+        "created_at": "2020-08-11 23:02:35",
+        "updated_at": "2020-08-11 23:02:34",
+        "title": "Peak Preview",
+        "body": "**Is your feature request related to a problem? Please describe.**\r\nNo\r\n\r\n**Describe the solution you'd like**\r\nFor website chats, being able to see what the user is typing in near-real time will allow the staff member to prepare a response or look up that information before the question is fully sent. This improves support responsiveness and leads to a better experience.\r\n\r\nThis is supported by similar software so only right to add the suggestion for consideration later.\r\n\r\n**Describe alternatives you've considered**\r\nNone\r\n",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-08-11 23:00:00",
+        "repo_name": "chatwoot/chatwoot",
+        "number": 1137
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "mohmmd256",
+        "created_at": "2020-08-12 07:16:51",
+        "updated_at": "2020-08-12 07:16:50",
+        "title": "Peak Preview",
+        "body": "Might add an option to **disable agent typing status** in this case, as if the customer sees the agent typing as they are preparing the response, client may stop writing to wait for the agent to finish, however, the agent is building upon client's input, but will stop typing as well once the clients stops, and then client \"restarts\" typing, agent \"restarts\" preparing response, client stops, etc ... you get the picture 😂😂",
+        "comment_id": 672678288,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-08-12 07:00:00",
+        "repo_name": "chatwoot/chatwoot",
+        "number": 1137
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "iammattmartin",
+        "created_at": "2020-08-12 08:49:32",
+        "updated_at": "2020-08-12 08:49:31",
+        "title": "Peak Preview",
+        "body": "Or disable agent typing status within X seconds of the client typing, and entirely when they are typing :)",
+        "comment_id": 672742687,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2020-08-12 08:00:00",
+        "repo_name": "chatwoot/chatwoot",
+        "number": 1137
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "ilyakonovalenko",
+        "created_at": "2021-10-05 17:47:01",
+        "updated_at": "2021-10-05 17:47:01",
+        "title": "Peak Preview",
+        "body": "@pranavrajs Is it still under discussion? The feature looks like a must. Really helpful.",
+        "comment_id": 934628756,
+        "comments": 2,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-10-05 17:00:00",
+        "repo_name": "chatwoot/chatwoot",
+        "number": 1137
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "duongvanphung",
+        "created_at": "2022-07-28 06:26:02",
+        "updated_at": "2022-07-28 06:26:02",
+        "title": "Feat: See contact messages while they type [sneak peek]",
+        "body": "The feature looks like a must. Really helpful.",
+        "comment_id": 1197717750,
+        "comments": 4,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2022-07-28 06:00:00",
+        "repo_name": "chatwoot/chatwoot",
+        "number": 1137
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "eddietoth1",
+        "created_at": "2023-10-01 20:56:46",
+        "updated_at": "2023-10-01 20:56:45",
+        "title": "Feat: See contact messages while they type [sneak peek]",
+        "body": "@pranavrajs This issue has been inactive for a really long time it would be a very useful feature any updates?",
+        "comment_id": 1742199495,
+        "comments": 5,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2023-10-01 20:00:00",
+        "repo_name": "chatwoot/chatwoot",
+        "number": 1137
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "siscanu",
+        "created_at": "2023-10-28 09:25:28",
+        "updated_at": "2023-10-28 09:25:27",
+        "title": "Feat: See contact messages while they type [sneak peek]",
+        "body": "I look for this feature too.",
+        "comment_id": 1783758773,
+        "comments": 6,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2023-10-28 09:00:00",
+        "repo_name": "chatwoot/chatwoot",
+        "number": 1137
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "pranavrajs",
+        "created_at": "2023-12-01 03:56:53",
+        "updated_at": "2023-12-01 03:56:52",
+        "title": "Feat: See contact messages while they type [sneak peek]",
+        "body": "Hey everyone, As discussed in some of the other threads. This feature feels too invasive. We will not be adding support for the same.",
+        "comment_id": 1835416938,
+        "comments": 7,
+        "state": "closed",
+        "closed_at": "2023-12-01 03:56:52",
+        "file_time": "2023-12-01 03:00:00",
+        "repo_name": "chatwoot/chatwoot",
+        "number": 1137
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "github-actions[bot]",
+        "created_at": "2023-12-31 04:05:10",
+        "updated_at": "2023-12-31 04:05:08",
+        "title": "Feat: See contact messages while they type [sneak peek]",
+        "body": "This issue has been automatically locked since there has not been any recent activity after it was closed. Please open a new issue for related bugs.",
+        "comment_id": 1872664603,
+        "comments": 8,
+        "state": "closed",
+        "closed_at": "2023-12-01 03:56:52",
+        "file_time": "2023-12-31 04:00:00",
+        "repo_name": "chatwoot/chatwoot",
+        "number": 1137
+      }
+    ],
+    "rows": 9,
+    "statistics": {
+      "elapsed": 0.02607987,
+      "rows_read": 306164,
+      "bytes_read": 12597267
+    }
+  },
+  "response_sha256": "79d5b1d4a279247db95e9f957b6f3f7d264553498814069bdd9ce263734b8691"
+}

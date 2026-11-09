@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0094-aadaidhdg",
+  "revision_url": "https://github.com/amir-jafari/Deep-Learning/commit/1bc09ffc7eb3e5452577f3f8efe5f3efeae3c136",
+  "filename": "Caffe_/1-Simple_Example/PIL/PIL/PSDraw.py",
+  "commit": "1bc09ffc7eb3e5452577f3f8efe5f3efeae3c136",
+  "source_url": "https://raw.githubusercontent.com/amir-jafari/Deep-Learning/1bc09ffc7eb3e5452577f3f8efe5f3efeae3c136/Caffe_/1-Simple_Example/PIL/PIL/PSDraw.py",
+  "fetched_at": "2026-11-05T06:11:53.024715+00:00",
+  "source_sha256": "fcfcbfe7172d0b1182aa340f4e10714fe1177c3d715c7e527807b872f470185f",
+  "line_start": 22,
+  "line_end": 46,
+  "excerpt": "# Simple Postscript graphics interface.\n\nclass PSDraw:\n\n    def __init__(self, fp=None):\n        if not fp:\n            import sys\n            fp = sys.stdout\n        self.fp = fp\n\n    def begin_document(self, id = None):\n        \"Write Postscript DSC header\"\n        # FIXME: incomplete\n        self.fp.write(\"%!PS-Adobe-3.0\\n\"\n                      \"save\\n\"\n                      \"/showpage { } def\\n\"\n                      \"%%EndComments\\n\"\n                      \"%%BeginDocument\\n\")\n        #self.fp.write(ERROR_PS) # debugging!\n        self.fp.write(EDROFF_PS)\n        self.fp.write(VDI_PS)\n        self.fp.write(\"%%EndProlog\\n\")\n        self.isofont = {}\n\n    def end_document(self):"
+}

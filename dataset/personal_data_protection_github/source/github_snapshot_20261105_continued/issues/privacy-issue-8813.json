@@ -1,0 +1,23 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-8813",
+  "issue_url": "https://github.com/chanzuckerberg/single-cell-data-portal/issues/558",
+  "source_issue_url": "https://github.com/chanzuckerberg/single-cell-data-portal/issues/558",
+  "api_url": "https://api.github.com/repos/chanzuckerberg/single-cell-data-portal/issues/558",
+  "title": "[Prod] DP and cellxgene privacy and ToS links are broken",
+  "body": "What:\n\nCurrently on both DP and cellxgene, the cookie banner's links go back to DP homepage\n\nBroken link: https://cellxgene.cziscience.com/static/deploy/tos.html\nBroken link: https://cellxgene.cziscience.com/static/deploy/privacy.html\n\nNeed:\n\nWe need to display the pages correctly\n\nTEAM COMMENTS:\n\n1. Timmy: I think the pages are used to serve from cellxgene's server, but I forgot to take that into account when we updated CloudFront cache behaviors, which now only forwards `/d/*` and `/e/*` requests to cellxgene\n\n2. Timmy: Potential solution is to:\na. Add back CloudFront cache behavior to forward all `/static/cellxgene/*` requests to cellxgene Origin\nb. Update directory of tos.html and privacy.html to be served from `/static/cellxgene/deploy/*` instead of `/static/deploy/*`, so it matches the cache behavior path pattern above\n\n3. BrianM:\nThose files are added as a customization.  It is in single-cell-infra.  They are configured in the 3 config files for hosted-cellxgene.   They are currently copied in the static assets, and there is a URL where we server then from, which is set to `\"/static/deploy/tos.html\"` and `\"/static/deploy/privacy.html\"`.\n\n  Those will need to be changed to point to  the new location of the assets from cellxgene.\n\n  Here is the location of the dev config in single-cell-infra:  https://github.com/chanzuckerberg/single-cell-infra/blob/main/terraform/modules/hosted-cellxgene/common/customize-dev/config.yaml",
+  "author": "Participant 1",
+  "created_at": "2020-08-27T19:22:37Z",
+  "updated_at": "2022-07-20T01:38:15Z",
+  "state": "closed",
+  "closed_at": "2020-09-02T22:45:03Z",
+  "issue_fetched_at": "2026-10-18T19:11:23.510007+00:00",
+  "comments_fetched_at": [],
+  "expected_comment_count": 0,
+  "retrieved_comment_count": 0,
+  "comments_complete": true,
+  "comments": [],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

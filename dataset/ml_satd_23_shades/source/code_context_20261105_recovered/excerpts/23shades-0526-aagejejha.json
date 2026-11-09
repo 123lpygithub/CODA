@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0526-aagejejha",
+  "revision_url": "https://github.com/nengo/nengo-dl/commit/5da45781a5cea40efb89b79b2cddc61842f03478",
+  "filename": "nengo_dl/tensor_graph.py",
+  "commit": "5da45781a5cea40efb89b79b2cddc61842f03478",
+  "source_url": "https://raw.githubusercontent.com/nengo/nengo-dl/5da45781a5cea40efb89b79b2cddc61842f03478/nengo_dl/tensor_graph.py",
+  "fetched_at": "2026-11-05T06:13:07.591524+00:00",
+  "source_sha256": "cbb5c7c57d46782934ff520360413cd9877b7208f8911de34a3bf0292223884b",
+  "line_start": 214,
+  "line_end": 238,
+  "excerpt": "                name=\"base_params/%s_%s\" % (v.dtype, \"_\".join(str(x) for x in v.shape)),\n            )\n\n        logger.debug(\"created base param variables\")\n        logger.debug([str(x) for x in self.signals.base_params.values()])\n\n        # variables to save the internal state of simulation between runs\n        # note: place these on CPU because they'll only be accessed once at the\n        # beginning of the simulation loop, and they can be quite large\n        with tf.device(\"/cpu:0\"):\n            for k, v in self.base_arrays_init[False].items():\n                self.signals.saved_state[k] = self.add_weight(\n                    # TODO: don't make these a constant initializer because we\n                    #  don't want to store those large arrays in the graph def\n                    #  (double check that this is still a problem in TF2.0)\n                    initializer=tf.initializers.constant(v),\n                    shape=v.shape,\n                    dtype=v.dtype,\n                    trainable=False,\n                    name=\"saved_state/%s_%s\"\n                    % (v.dtype, \"_\".join(str(x) for x in v.shape)),\n                )\n\n        logger.debug(\"created saved state variables\")\n        logger.debug([str(x) for x in self.signals.saved_state.values()])"
+}

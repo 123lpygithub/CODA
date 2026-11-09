@@ -1,0 +1,74 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-4421",
+  "issue_url": "https://github.com/microsoft/botframework-sdk/issues/3216",
+  "source_issue_url": "https://github.com/microsoft/botframework-sdk/issues/3216",
+  "api_url": "https://api.github.com/repos/microsoft/botframework-sdk/issues/3216",
+  "title": "[Question] Skype Bot unable to join group chats (was able to before)",
+  "body": "Originally posted as \r\nhttps://stackoverflow.com/questions/45346475/skype-bot-unable-to-join-group-chats-was-able-to-before\r\n\r\n## System Information (Required)\r\n* SDK Language: ReST API\r\n* SDK Version: -\r\n* Development Environment: LOCALHOST, AZURE_BOT_SERVICE\r\n\r\n## Issue Description\r\nI have a skype bot which was working fine and was able to join and interact in Group Calls Now (July 27th) it seems to have stopped working\r\n\r\nIf I try to add the bot to a Group Call I get the initial callback. But my Answer Action does not seem to get the subsequent callback from the Skype Channel. Note: The call is successfully joined if it's only 1:1, not a Group Call.\r\n\r\nI have Group Messaging \"on\". (Since it was working earlier) I have tried this on our Production Bot, QA Bot, and even a bot for my local development. All Group Calls have ceased on all (different) bots. I have tried calling the Bot 1:1, successfully, and then adding somebody to the conversation. This also does not work as the third person is unable to join the call (no reason specified).\r\n\r\nHas this functionality been removed entirely?\r\n\r\n## Steps to Reproduce the Issue\r\n1. Create a group call on a skype client\r\n2. Add Bot\r\n3. Bot does not answer\r\n\r\n## Expected Behavior\r\nAnswer Action should lead to the webhook being called. Hence letting the Bot answer the call.\r\n\r\n## Actual Results\r\nNo webhook callback initiated after responding with a Answer Action\r\n(Only in a group call)\r\n",
+  "author": "Participant 1",
+  "created_at": "2017-07-28T05:08:56Z",
+  "updated_at": "2017-08-23T00:38:09Z",
+  "state": "closed",
+  "closed_at": "2017-08-23T00:38:09Z",
+  "issue_fetched_at": "2026-10-18T17:10:30.736938+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T17:10:32.130239+00:00"
+  ],
+  "expected_comment_count": 6,
+  "retrieved_comment_count": 6,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 318679148,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/3216#issuecomment-318679148",
+      "created_at": "2017-07-28T15:11:54Z",
+      "updated_at": "2017-07-28T15:11:54Z",
+      "author": "Participant 2",
+      "body": "@Rishi321 What is your bot name, bot handle and App ID as you registered the bot in the Bot Portal at https://dev.botframework.com?"
+    },
+    {
+      "id": 319267878,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/3216#issuecomment-319267878",
+      "created_at": "2017-08-01T04:58:24Z",
+      "updated_at": "2017-08-01T04:58:24Z",
+      "author": "Participant 1",
+      "body": "Bot Name: Enfold Recorder\r\nBot Handle: EnfoldRecorder\r\nAPP ID: 7b2811d2-883d-4f83-bdc6-ee519e6b56b9"
+    },
+    {
+      "id": 320594927,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/3216#issuecomment-320594927",
+      "created_at": "2017-08-07T07:54:51Z",
+      "updated_at": "2017-08-07T07:54:51Z",
+      "author": "Participant 1",
+      "body": "@nwhitmont Any update?"
+    },
+    {
+      "id": 322689699,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/3216#issuecomment-322689699",
+      "created_at": "2017-08-16T07:30:34Z",
+      "updated_at": "2017-08-16T07:30:34Z",
+      "author": "Participant 1",
+      "body": "@nwhitmont anything? The group calls are still not working."
+    },
+    {
+      "id": 324156299,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/3216#issuecomment-324156299",
+      "created_at": "2017-08-22T21:25:42Z",
+      "updated_at": "2017-08-22T21:36:03Z",
+      "author": "Participant 3",
+      "body": "@Rishi321 Bots in group chats are still allowed but bots in calling has been disabled since end of July because of privacy concerns. \r\n\r\nGroup calling for bots has been disabled because the Skype clients do not have currently have the appropriate privacy controls in place to inform the participants that a bot can hear and/or see them. There is no timeframe available regarding when calling/real-time media bots will be supported in group calls. For now, calling and real-time media bots are allowed only in 1-to-1 Skype calls.\r\nWe apologize for any inconvenience this may have caused."
+    },
+    {
+      "id": 324188672,
+      "url": "https://github.com/microsoft/botframework-sdk/issues/3216#issuecomment-324188672",
+      "created_at": "2017-08-23T00:37:56Z",
+      "updated_at": "2017-08-23T00:37:56Z",
+      "author": "Participant 2",
+      "body": "relates to: https://github.com/Microsoft/BotBuilder-RealTimeMediaCalling/issues/22"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

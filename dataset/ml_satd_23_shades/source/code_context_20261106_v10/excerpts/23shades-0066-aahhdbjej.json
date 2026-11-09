@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0066-aahhdbjej",
+  "revision_url": "https://github.com/raamana/neuropredict/commit/ccf16b047a273a530269c78ea3524f5469361b7b",
+  "filename": "neuropredict/config_neuropredict.py",
+  "commit": "ccf16b047a273a530269c78ea3524f5469361b7b",
+  "source_url": "https://raw.githubusercontent.com/raamana/neuropredict/ccf16b047a273a530269c78ea3524f5469361b7b/neuropredict/config_neuropredict.py",
+  "fetched_at": "2026-11-05T06:11:48.909020+00:00",
+  "source_sha256": "cfbd5bd16f1f91f0ab5f87eca0cea3e1892a4f32c9586792e6423bb57a6a7666",
+  "line_start": 143,
+  "line_end": 167,
+  "excerpt": "def roc_auc_score_weighted(true_labels, predicted_proba_per_class):\n    \"\"\"Wrapper around sklearn roc_auc_score to ensure it is weighted.\"\"\"\n    return roc_auc_score(true_labels, predicted_proba_per_class, average='weighted')\n\n\ndefault_scoring_metric = 'accuracy'\n\n# allowed names: sorted(sklearn.metrics.SCORERS.keys())\n\ndefault_metric_set_classification = ('accuracy',\n                                     roc_auc_score_weighted)\ndefault_metric_set_regression = ('r2',\n                                 # find out why prefix neg_ is needed\n                                 'neg_mean_absolute_error')\n\n# misclassifications\nMISCLF_HIST_NUM_BINS = 20\nMISCLF_PERC_THRESH = 0.6\nMISCLF_HIST_ALPHA = 0.7\nMISCLF_HIST_ANNOT_LINEWIDTH = 2\n\nCOMMON_FIG_SIZE = [9, 9]\nLARGE_FIG_SIZE = [15, 15]\nFONT_SIZE = 12\nLINE_WIDTH = 1.5"
+}

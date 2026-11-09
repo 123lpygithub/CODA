@@ -1,0 +1,364 @@
+
+=== 144 23shades-0074-aajfadgji ===
+{"dataset_id": "aajfadgji", "repo_name": "pyannote/pyannote-audio", "filename": "pyannote/audio/pipeline/speaker_diarization.py", "comment_introducing_revision": "https://github.com/pyannote/pyannote-audio/commit/f8a5b5a43184a5f6939ea8d89c17d64cef49a122", "comment_removing_revision": "https://github.com/pyannote/pyannote-audio/commit/b7efb76e284f1cee02280dcbf2dee9b8d5c72317", "source_context_status": "available", "source_context_commit": "f8a5b5a43184a5f6939ea8d89c17d64cef49a122"}
+[comment_text]
+FIXME don't l2_normalize for any metric
+[source_context]
+        # initial segmentation
+        speech_turns = super().apply(current_file)
+
+        # initialize the hypothesized annotation
+        hypothesis = Annotation(uri=current_file['uri'])
+        if len(speech_turns) < 1:
+            return hypothesis
+
+        # get raw (sliding window) embeddings
+        emb = self.emb_(current_file)
+
+        # get one embedding per speech turn
+        # FIXME don't l2_normalize for any metric
+        fX = l2_normalize(np.vstack(
+            [np.sum(emb.crop(t, mode='loose'), axis=0) for t in speech_turns]))
+
+        # compute affinity matrix
+        affinity = -squareform(pdist(fX, metric=self.metric))
+
+        # apply clustering
+        clusters = self.cls_.fit_predict(affinity)
+
+        for speech_turn, cluster in zip(speech_turns, clusters):
+            # HACK find why fit_predict returns NaN sometimes and fix it.
+            cluster = -1 if np.isnan(cluster) else cluster
+
+=== 145 23shades-0286-aagcijbch ===
+{"dataset_id": "aagcijbch", "repo_name": "intel/dffml", "filename": "dffml/operation/db.py", "comment_introducing_revision": "https://github.com/intel/dffml/commit/cd30e568182c12771c1b9cc0140b4705a3101131", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "cd30e568182c12771c1b9cc0140b4705a3101131"}
+[comment_text]
+TODO Figure out a way to handle defaults so that all inputs need not be passed to the
+[source_context]
+QUERY_DATA = Definition(name="query_data", primitive="Dict[str, Any]")
+QUERY_CONDITIONS = Definition(name="query_conditions", primitive="Conditions")
+QUERY_COLS = Definition(name="query_cols", primitive="List[str]")
+QUERY_LOOKUPS = Definition(name="query_lookups", primitive="Dict[str, Any]")
+
+
+@config
+class DatabaseQueryConfig:
+    database: BaseDatabase
+
+
+# TODO Remove this?
+# TODO Figure out a way to handle defaults so that all inputs need not be passed to the
+# flow on execution
+# Note : Add `query_type`:str to `DatabaseQueryConfig` before use.
+@op(
+    inputs={
+        "table_name": QUERY_TABLE,
+        "data": QUERY_DATA,
+        "conditions": QUERY_CONDITIONS,
+        "cols": QUERY_COLS,
+    },
+    outputs={"lookups": QUERY_LOOKUPS},
+    config_cls=DatabaseQueryConfig,
+    imp_enter={"database": (lambda self: self.config.database)},
+
+=== 146 23shades-0169-aafbjfcfe ===
+{"dataset_id": "aafbjfcfe", "repo_name": "DIVA-DIA/DeepDIVA", "filename": "dataset/SVHN.py", "comment_introducing_revision": "https://github.com/DIVA-DIA/DeepDIVA/commit/ae2ec19583686262d5f7060074949306303f1c20", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ae2ec19583686262d5f7060074949306303f1c20"}
+[comment_text]
+the squeeze is needed to obtain a 1D tensor
+[source_context]
+
+        # import here rather than at top of file because this is
+        # an optional dependency for torchvision
+        import scipy.io as sio
+
+        # reading(loading) mat file as array
+        loaded_mat = sio.loadmat(os.path.join(self.root, self.filename))
+
+        self.data = loaded_mat['X']
+        # loading from the .mat file gives an np array of type np.uint8
+        # converting to np.int64, so that we have a LongTensor after
+        # the conversion from the numpy array
+        # the squeeze is needed to obtain a 1D tensor
+        self.labels = loaded_mat['y'].astype(np.int64).squeeze()
+
+        # the svhn dataset assigns the class label "10" to the digit 0
+        # this makes it inconsistent with several loss functions
+        # which expect the class labels to be in the range [0, C-1]
+        np.place(self.labels, self.labels == 10, 0)
+        self.data = np.transpose(self.data, (3, 2, 0, 1))
+
+    def __getitem__(self, index):
+        """
+        Args:
+            index (int): Index
+
+=== 147 23shades-0391-aagfeabbh ===
+{"dataset_id": "aagfeabbh", "repo_name": "IBM/mi-prometheus", "filename": "models/ntm/interface.py", "comment_introducing_revision": "https://github.com/IBM/mi-prometheus/commit/3e7b8df53140038857b098182771ab2ba6d11d70", "comment_removing_revision": "https://github.com/IBM/mi-prometheus/commit/f7d0ece0edc940fef25495a8d49035775ac557e0", "source_context_status": "available", "source_context_commit": "3e7b8df53140038857b098182771ab2ba6d11d70"}
+[comment_text]
+TODO!
+[source_context]
+    def forward(self, ctrl_hidden_state_BxH,  prev_state_tuple):
+        """
+        Controller forward function. 
+        
+        :param ctrl_hidden_state_BxH: a Tensor with controller hidden state of size [BATCH_SIZE  x HIDDEN_SIZE]
+        :param prev_state_tuple:
+        :returns: ... and state tuple - object of LSTMStateTuple class.
+        """
+        # Unpack previous cell  state - just to make sure that everything is ok...
+        (prev_read_attention,  prev_write_attention) = prev_state_tuple
+        
+        # Execute single step.
+        # TODO!
+
+        # TODO:  REMOVE THOSE LINES.
+        read_attention = prev_read_attention
+        write_attention = prev_write_attention
+
+        # Pack current cell state.
+        state_tuple = InterfaceStateTuple(read_attention,  write_attention)
+        
+        # Return ??? and state tuple.
+        return 0,  state_tuple
+ 
+
+=== 148 23shades-0604-aajcjaefh ===
+{"dataset_id": "aajcjaefh", "repo_name": "h2oai/h2o4gpu", "filename": "src/interface_py/pogs/types.py", "comment_introducing_revision": "https://github.com/h2oai/h2o4gpu/commit/40be4084cea6fba546056c6b93b4f9a5ea233d52", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "40be4084cea6fba546056c6b93b4f9a5ea233d52"}
+[comment_text]
+TODO: message about vector lengths?
+[source_context]
+	gaps = kwargs['gap_stop'] if 'gap_stop' in kwargs.keys() else DEFAULTS['gap_stop']
+	warm = kwargs['warm_start'] if 'warm_start' in kwargs.keys() else DEFAULTS['warm_start']
+	if double_precision:
+		return SettingsD(rho, relt, abst, maxit, verb, adap, gaps, warm)
+	else:
+		return SettingsS(rho, relt, abst, maxit, verb, adap, gaps, warm)
+
+def change_solution(pysolution, **kwargs):
+	try:
+		if 'x_init' in kwargs: pysolution.x[:] = kwargs['x_init'][:]
+		if 'nu_init' in kwargs: pysolution.nu[:] = kwargs['nu_init'][:]
+	except:
+		#TODO: message about vector lengths? 
+		raise
+
+def make_solution(pysolution):
+	if pysolution.double_precision:
+		return SolutionD(cptr(pysolution.x,c_double),cptr(pysolution.y,c_double),
+							cptr(pysolution.mu,c_double),cptr(pysolution.nu,c_double))
+	else:
+		return SolutionS(cptr(pysolution.x,c_float),cptr(pysolution.y,c_float),
+		 					cptr(pysolution.mu,c_float),cptr(pysolution.nu,c_float))
+
+		
+def make_info(double_precision):
+
+=== 149 23shades-0082-aajdcijhj ===
+{"dataset_id": "aajdcijhj", "repo_name": "jupyter/nbdime", "filename": "nbdime/merging/generic.py", "comment_introducing_revision": "https://github.com/jupyter/nbdime/commit/cccd9420f1df13010ab640b941288be044cf0907", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "cccd9420f1df13010ab640b941288be044cf0907"}
+[comment_text]
+FIXME XXX: Implement by rewriting functions above copied from autoresolve.py; search for resolve_strategy_inline_source above in this file
+[source_context]
+        op_addrange(begin, inlined),
+        op_removerange(begin, end-begin),
+    ]
+    return [MergeDecision(
+        common_path=prefix,
+        action="custom",
+        conflict=True,
+        local_diff=local_diff,
+        remote_diff=remote_diff,
+        custom_diff=custom_diff,
+    )]
+def resolve_strategy_inline_source(base_path, base, unresolved_conflicts, decisions):
+    pass # FIXME XXX: Implement by rewriting functions above copied from autoresolve.py, search for resolve_strategy_inline_source above in this file
+
+
+def wrap_subconflicts(key, subconflicts):
+    unresolved_conflicts = []
+    for conf in subconflicts:
+        (path, ld, rd, strategy) = conf
+        assert path[-1] == key
+        path = path[:-1]
+        ld = [op_patch(key, ld)]
+        rd = [op_patch(key, rd)]
+        unresolved_conflicts.append((path, ld, rd, strategy))
+    return unresolved_conflicts
+
+=== 150 23shades-0014-aadbjfiab ===
+{"dataset_id": "aadbjfiab", "repo_name": "mesnico/learning-relationship-aware-visual-features", "filename": "networkx/networkx/algorithms/isomorphism/isomorphvf2.py", "comment_introducing_revision": "https://github.com/mesnico/learning-relationship-aware-visual-features/commit/f7d9014a2009b22ab6a75ca44ac7822c0099ce09", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "f7d9014a2009b22ab6a75ca44ac7822c0099ce09"}
+[comment_text]
+## TODO:
+[source_context]
+        if self.old_recursion_limit < 1.5 * expected_max_recursion_level:
+            # Give some breathing room.
+            sys.setrecursionlimit(int(1.5 * expected_max_recursion_level))
+
+        # Declare that we will be searching for a graph-graph isomorphism.
+        self.test = 'graph'
+
+        # Initialize state
+        self.initialize()
+
+    def reset_recursion_limit(self):
+        """Restores the recursion limit."""
+        ### TODO:
+        ###     Currently, we use recursion and set the recursion level higher.
+        ###     It would be nice to restore the level, but because the
+        ###     (Di)GraphMatcher classes make use of cyclic references, garbage
+        ###     collection will never happen when we define __del__() to
+        ###     restore the recursion level. The result is a memory leak.
+        ###     So for now, we do not automatically restore the recursion level,
+        ###     and instead provide a method to do this manually. Eventually,
+        ###     we should turn this into a non-recursive implementation.
+        sys.setrecursionlimit(self.old_recursion_limit)
+
+    def candidate_pairs_iter(self):
+        """Iterator over candidate pairs of nodes in G1 and G2."""
+
+=== 151 23shades-0791-aahgcaaac ===
+{"dataset_id": "aahgcaaac", "repo_name": "RaRe-Technologies/gensim", "filename": "gensim/models/keyedvectors.py", "comment_introducing_revision": "https://github.com/RaRe-Technologies/gensim/commit/c0e0169565116854993b22efef29e3c402ec6c69", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "c0e0169565116854993b22efef29e3c402ec6c69"}
+[comment_text]
+TODO? warn if not matching extras already present?
+[source_context]
+            Flag indicating whether to replace vectors for keys which already exist in the map;
+            if True - replace vectors, otherwise - keep old vectors.
+
+        """
+        if isinstance(keys, KEY_TYPES):
+            keys = [keys]
+            weights = np.array(weights).reshape(1, -1)
+        elif isinstance(weights, list):
+            weights = np.array(weights)
+        if extras is None:
+            extras = {}
+
+        # TODO? warn if not matching extras already present?
+        # initially allocate extras, check type compatibility
+        self.allocate_vecattrs(extras.keys(), [extras[k].dtype for k in extras.keys()])
+
+        in_vocab_mask = np.zeros(len(keys), dtype=np.bool)
+        for idx, key in enumerate(keys):
+            if key in self:
+                in_vocab_mask[idx] = True
+
+        # add new entities to the vocab
+        for idx in np.nonzero(~in_vocab_mask)[0]:
+            key = keys[idx]
+            self.key_to_index[key] = len(self.index_to_key)
+
+=== 152 23shades-0260-aadfcehfi ===
+{"dataset_id": "aadfcehfi", "repo_name": "sbl-sdsc/mmtf-pyspark", "filename": "src/main/rcsbfilters/pisces.py", "comment_introducing_revision": "https://github.com/sbl-sdsc/mmtf-pyspark/commit/f7bf7f2baf6d32bfd7b3a647c5ea927d3d3208a3", "comment_removing_revision": "https://github.com/sbl-sdsc/mmtf-pyspark/commit/48ef52516280ba05dd868dd7704f2268e8bb397a", "source_context_status": "available", "source_context_commit": "f7bf7f2baf6d32bfd7b3a647c5ea927d3d3208a3"}
+[comment_text]
+TODO check getStructureCahinIds
+[source_context]
+     on the specified criteria using PISCES CulledPDB sets.
+     <p> sequenceIdentity = 20, 25, 30, 40, 50, 60, 70, 80, 90
+     <p> resolution = 1.6, 1.8, 2.0, 2.2, 2.5, 3.0
+
+    Attributes:
+
+    '''
+    def __init__(self, sequenceIdentity, resolition):
+        pdbIds = set()
+
+        pD = PiscesDownloader(sequenceIdentity, resolition)
+
+        # TODO check getStructureCahinIds
+        for pdbId in pD.getStructureChainIds():
+            pdbIds.add(pdbId)
+            pdbIds.add(pdbId[:4])
+
+    def __call__(self, t):
+        return t[0] in pdbIds
+
+
+=== 153 23shades-0568-aafbihhej ===
+{"dataset_id": "aafbihhej", "repo_name": "ecohealthalliance/EpiTator", "filename": "tests/annotator/test_infection_annotator.py", "comment_introducing_revision": "https://github.com/ecohealthalliance/EpiTator/commit/ba0ff71c921281c87c99d571b82be9a38aa2bb9e", "comment_removing_revision": "https://github.com/ecohealthalliance/EpiTator/commit/69753a098b3d2d70e96017c165d7ad07be942048", "source_context_status": "available", "source_context_commit": "ba0ff71c921281c87c99d571b82be9a38aa2bb9e"}
+[comment_text]
+TODO: Implement ranges
+[source_context]
+                             [{'count': 1}])
+
+# There's no way we'd find this yet.
+    # def test_singular_cases_4(self):
+    #     self.assertHasCounts('the cases include a 27-year-old woman and 2 males, each of 37 years',
+    #                          [{'count': 1}, {'count': 2}])
+
+    def test_year_count(self):
+        self.assertHasCounts("""As of [Sun 19 March 2017] (epidemiological week 11),
+        a total of 1407 suspected cases of meningitis have been reported.""", [
+            {'count': 1407}])
+
+# TODO: Implement ranges
+    # def test_ranges(self):
+    #     self.assertHasCounts('10 to 13 suspected cases of Ebola.', [
+    #         {
+    #             'count': 10,
+    #             'attributes': ['infection', 'min', 'suspected']
+    #         }, {
+    #             'count': 13,
+    #             'attributes': ['infection', 'max', 'suspected']
+    #         }
+    #     ])
+
+    def test_count_suppression_fp(self):
+
+=== 154 23shades-0378-aahiieejb ===
+{"dataset_id": "aahiieejb", "repo_name": "kengz/SLM-Lab", "filename": "slm_lab/notebook/intro_unity.py", "comment_introducing_revision": "https://github.com/kengz/SLM-Lab/commit/7740b54028a8ebef504ea4e554446d35e0d3994b", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "7740b54028a8ebef504ea4e554446d35e0d3994b"}
+[comment_text]
+TODO update doc above
+[source_context]
+'''
+Introduction to Unity ml-agents
+
+Install Unity ml-agents in lab Conda env
+if you're live-hacking stuff, use `pip install -e .`
+https://github.com/Unity-Technologies/ml-agents/blob/master/docs/installation.md
+
+ml-agents Python API doc:
+https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Unity-Agents---Python-API.md
+'''
+# TODO update doc above
+
+import numpy as np
+import time
+from slm_lab.lib import util
+from unityagents import UnityEnvironment
+
+# TODO util method to infer path of environment, plus gitignore the file
+# env_name = f'{util.ENV_DIR}/Build/3dball'
+env_name = f'./node_modules/slm-env-gridworld/build/gridworld'
+# use train_mode = False to debug, i.e. render env at real size, real time
+train_mode = False
+
+
+=== 155 23shades-0020-aaigjhiah ===
+{"dataset_id": "aaigjhiah", "repo_name": "chainer/chainer", "filename": "tests/chainerx_tests/unit_tests/routines_tests/test_reduction.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/5baa2e484606e4d51df871831a958fc5ca7ad2d6", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "5baa2e484606e4d51df871831a958fc5ca7ad2d6"}
+[comment_text]
+((); 0); # TODO(sonots): Fix compatibility
+[source_context]
+    def generate_inputs(self):
+        return numpy.arange(self.size, dtype=numpy.int32) + 1,
+
+    def forward_xp(self, inputs, xp):
+        x, = inputs
+        return x.sum(),
+
+
+@chainerx.testing.numpy_chainerx_array_equal(
+    accept_error=(chainerx.DimensionError, ValueError))
+@pytest.mark.parametrize('keepdims', [False, True])
+@pytest.mark.parametrize('shape,axis', [
+    # ((), 0), # TODO(sonots): Fix compatibility
+    ((), 1),
+    ((), (1,)),
+    ((2,), 2),
+    ((2,), (2,)),
+    ((2,), (-2,)),
+    ((2, 3,), (-3,)),
+    ((2, 3,), (-3, -4)),
+    ((2, 3,), (0, 0)),
+    ((2, 3,), (-1, -1)),
+    ((2, 3,), (0, 1, 1)),
+    ((2, 3,), (0, -2)),
+])

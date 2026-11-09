@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0837-aaicicaia",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/cb7c4243e8010827831526ee9757d88b44ff15ef",
+  "filename": "sklearn/gaussian_process/tests/test_gpr.py",
+  "commit": "cb7c4243e8010827831526ee9757d88b44ff15ef",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/cb7c4243e8010827831526ee9757d88b44ff15ef/sklearn/gaussian_process/tests/test_gpr.py",
+  "fetched_at": "2026-11-05T06:14:02.230367+00:00",
+  "source_sha256": "86b78b56c9d4821ff18f5849fb110abb7a42699f0c4c0328300da0d756ac0ee3",
+  "line_start": 50,
+  "line_end": 74,
+  "excerpt": "        assert_greater(gpr.log_marginal_likelihood(kernel.params),\n                       gpr.log_marginal_likelihood(params_initial))\n\n\ndef test_converged_to_local_maximum():\n    \"\"\" Test that we are in local maximum after hyperparameter-optimization.\"\"\"\n    for kernel in kernels:\n        kernel = deepcopy(kernel)\n        gpr = GaussianProcessRegressor(kernel=kernel).fit(X, y)\n\n        lml, lml_gradient = gpr.log_marginal_likelihood(kernel.params, True)\n\n        assert_almost_equal(lml_gradient, 0, 2)  # XXX: Check why only 2 digits\n\n\ndef test_solution_inside_bounds():\n    \"\"\" Test that hyperparameter-optimization remains in bounds\"\"\"\n    for kernel in kernels:\n        kernel = deepcopy(kernel)\n        gpr = GaussianProcessRegressor(kernel=kernel).fit(X, y)\n\n        bounds = kernel.bounds\n        max_ = np.finfo(bounds.dtype).max\n        tiny = np.finfo(bounds.dtype).tiny\n        bounds[~np.isfinite(bounds[:, 1]), 1] = max_"
+}

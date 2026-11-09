@@ -1,0 +1,42 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-943",
+  "issue_url": "https://github.com/SORMAS-Foundation/SORMAS-Project/issues/8357",
+  "source_issue_url": "https://github.com/hzi-braunschweig/SORMAS-Project/issues/8357",
+  "api_url": "https://api.github.com/repos/SORMAS-Foundation/SORMAS-Project/issues/8357",
+  "title": "Detailed performance analysis of getAllAfter and getIndexList methods [5]",
+  "body": "<!--\r\nIf you've never submitted an issue to the SORMAS repository before or this is your first time using this template, please read the Contributing guidelines (https://github.com/hzi-braunschweig/SORMAS-Project/blob/development/docs/CONTRIBUTING.md) for an explanation of the information we need you to provide. You don't have to remove this comment or any other comment from this issue as they will automatically be hidden.\r\n-->\r\n### Problem Description\r\n<!-- Mandatory -->\r\nRetrieving data via ReST during the mobile app synchronisation process can take a lot of time (with as few as 1000 cases taking several minutes to synchronize). We've also received reports (and witnessed) the web app directories taking more than a few seconds to load on systems with a lot of data (e.g. more than 500,000 entries in a directory).\r\n\r\n### Proposed Solution\r\n<!-- Mandatory -->\r\nIn preparation of potential refactorings and code improvements, analyse the performance of the getAllAfter and getIndexList methods of the following entities:\r\n\r\n* Case\r\n* Contact\r\n* Sample\r\n* Person\r\n\r\nThis should include all EJBs called in the process, and also especially include the pseudonymisation logic because this was already identified as a huge bottleneck at least for the synchronisation process.\r\n\r\nStep 1: Activate `PerformanceLoggingInterceptor` on TRACE level to analyse call hierarchy and where time is spent. Document execution times.\r\nStep 2: Dive deeper into hotspot method to find costly transformations (probably in `toDto`/`pseudonymize` methods).\r\n\r\n### Possible Alternatives\r\n<!-- Optional -->\r\n\r\n### Additional Information\r\n<!-- Optional -->\r\nA potential follow-up issue to improve the pseudonymisation process could include the following action points:\r\n- Skip pseudonymisation completely for entites that we know will not be pseudonymised based on the user's user rights (e.g. an entity inside the user's jurisdiction does not need to be checked for pseudonymisation if the user has both the SEE_PERSONAL_DATA_IN_JURISDICTION and SEE_SENSITIVE_DATA_IN_JURISDICTION user rights)\r\n- Create a cache per entity of all fields that need to be considered during pseudonymisation in order to reduce the usage of reflection\r\n\r\nSince the toDto logic also takes some time, another possible change could be to directly select into DTOs, even though that would potentially introduce a significantly increased maintenance effort.\r\n\r\nAs database where we want to reproduce  the perf. issues and measure the improvements we are using the pseudonymized data from France.\r\n\r\n### Deliverables\r\nConfirm that pseudonymization is one cause \r\nExplore what else causes performance issues\r\nDocument KPI (Key performance indicators) and preconditions to be able to measure the improvement\r\nCreate follow-up tickets that are obvious\r\n\r\n==>\r\n- pseudonymization can be ruled out as a relevant impact on performance\r\n- long runtimes are mainly caused by long running SQL queries with massive joins\r\n- follow-up issues: #8938 for `getIndexList` methods, #8946 for `getAll` methods in the REST API",
+  "author": "Participant 1",
+  "created_at": "2022-03-11T15:50:44Z",
+  "updated_at": "2022-05-17T09:51:56Z",
+  "state": "closed",
+  "closed_at": "2022-05-17T09:51:48Z",
+  "issue_fetched_at": "2026-10-18T12:14:51.770014+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T13:09:46.414516+00:00"
+  ],
+  "expected_comment_count": 2,
+  "retrieved_comment_count": 2,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1108937096,
+      "url": "https://github.com/SORMAS-Foundation/SORMAS-Project/issues/8357#issuecomment-1108937096",
+      "created_at": "2022-04-25T19:09:47Z",
+      "updated_at": "2022-04-25T19:09:47Z",
+      "author": "Participant 2",
+      "body": "Analysis of `getAllAfter` and `getIndexList` see follow up issues #8946 and #8938."
+    },
+    {
+      "id": 1111908091,
+      "url": "https://github.com/SORMAS-Foundation/SORMAS-Project/issues/8357#issuecomment-1111908091",
+      "created_at": "2022-04-28T08:40:08Z",
+      "updated_at": "2022-04-28T08:40:08Z",
+      "author": "Participant 3",
+      "body": "We looked into the results for #8946 and decided that we need more details on which exact calls are responsible for the long execution."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

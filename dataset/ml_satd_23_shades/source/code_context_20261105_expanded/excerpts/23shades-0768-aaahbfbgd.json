@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0768-aaahbfbgd",
+  "revision_url": "https://github.com/Erotemic/netharn/commit/26924a149f6bc51dc19a3f1b2ca04897cd5287a1",
+  "filename": "netharn/fit_harn.py",
+  "commit": "26924a149f6bc51dc19a3f1b2ca04897cd5287a1",
+  "source_url": "https://raw.githubusercontent.com/Erotemic/netharn/26924a149f6bc51dc19a3f1b2ca04897cd5287a1/netharn/fit_harn.py",
+  "fetched_at": "2026-11-05T06:11:47.992845+00:00",
+  "source_sha256": "cb116460f7fb891304c055016a886a96b36888d60777050efe0e0ea26f0bccc4",
+  "line_start": 254,
+  "line_end": 278,
+  "excerpt": "        train_info_fpath = join(harn.train_dpath, 'train_info.json')\n        util.write_json(train_info_fpath, harn.train_info)\n\n        harn._setup_loggers()\n\n        harn._setup_modules()\n\n        assert harn.model is not None, 'model is a required module'\n\n        # TODO: we might simply default to SGD\n        assert harn.optimizer is not None, 'optimizer is a required module'\n\n        # TODO: we could probably default the monitor to something reasonable\n        assert harn.monitor is not None, 'monitor is a required module'\n\n        try:\n            if reset:\n                raise CannotResume\n            harn.resume_from_previous_snapshots()\n        except CannotResume:\n            harn.reset_weights()\n\n        if harn.train_dpath:\n            harn.info(' * harn.train_dpath = {!r}'.format(harn.train_dpath))\n            harn.info(' * harn.nice_dpath  = {!r}'.format(harn.nice_dpath))"
+}

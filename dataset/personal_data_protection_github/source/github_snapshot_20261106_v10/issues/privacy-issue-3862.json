@@ -1,0 +1,82 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-3862",
+  "issue_url": "https://github.com/getgauge/gauge/issues/1121",
+  "source_issue_url": "https://github.com/getgauge/gauge/issues/1121",
+  "api_url": "https://api.github.com/repos/getgauge/gauge/issues/1121",
+  "title": "Inform the user that we are collecting telemetry data on gauge run",
+  "body": "As telemetry is opt-out inform the user about data collection on every run and provide a configuration to turn the warning off for e.g.\r\n\r\n```\r\n$ gauge run specs\r\nINFO: This installation of Gauge automatically sends telemetry data. \r\nTo turn this warning off opt-in or opt out. For more information read https://manpage.gauge.org/gauge_telemetry.html\r\n```\r\n\r\nTo hide this warning.\r\n\r\n```\r\n$ gauge telemetry on\r\n```\r\n\r\nor \r\n\r\n```\r\n$ gauge telemetry off\r\n```\r\n\r\nor set the environment variable `GAUGE_TELEMETRY_ENABLED`",
+  "author": "Participant 1",
+  "created_at": "2018-07-24T10:55:06Z",
+  "updated_at": "2018-07-30T11:07:24Z",
+  "state": "closed",
+  "closed_at": "2018-07-30T11:07:21Z",
+  "issue_fetched_at": "2026-10-19T01:10:40.307377+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T01:10:41.743315+00:00"
+  ],
+  "expected_comment_count": 7,
+  "retrieved_comment_count": 7,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 407721974,
+      "url": "https://github.com/getgauge/gauge/issues/1121#issuecomment-407721974",
+      "created_at": "2018-07-25T11:25:23Z",
+      "updated_at": "2018-07-25T11:25:23Z",
+      "author": "Participant 2",
+      "body": "PR #1123 raised. On linux it looks like this:\r\n\r\n![gauge_telemetry](https://user-images.githubusercontent.com/389148/43198154-485ecade-902b-11e8-9583-a1ecc78cbdfd.gif)\r\n\r\nNote that running either `gauge telemetry on`,  `gauge telemetry off` or setting `GAUGE_TELEMETRY_ENABLED` environment variable will cause gauge to mark the preference recorded and will not show the warning in that machine."
+    },
+    {
+      "id": 407737390,
+      "url": "https://github.com/getgauge/gauge/issues/1121#issuecomment-407737390",
+      "created_at": "2018-07-25T12:28:18Z",
+      "updated_at": "2018-07-25T12:28:18Z",
+      "author": "Participant 3",
+      "body": "have you verified if this is in compliance with the GDPR (https://gdpr-info.eu) from the European Union ?\r\n\r\nI am by far an expert here, but from what I got and what emails I received its basically that the user MUST approve any (personal ?) data that is collected, which would mean that you need actually an OPT IN per default, instead of an opt out.\r\n\r\nBut as said, I'm not sure here - nevertheless, as you are collecting data, I would make sure that this is compliant with european law"
+    },
+    {
+      "id": 407743201,
+      "url": "https://github.com/getgauge/gauge/issues/1121#issuecomment-407743201",
+      "created_at": "2018-07-25T12:50:18Z",
+      "updated_at": "2018-07-25T12:50:34Z",
+      "author": "Participant 1",
+      "body": "@ajoecker GDPR is not applicable for anonymized data.\r\nConsent is only required when collecting personally identifiable information.\r\n\r\nRecital 26 of the Data Protection Directive (95/46/EC) provides that:\r\n \r\n“…to determine whether a person is identifiable, account should be taken of all the means likely reasonably to be used either by the controller or by any other person to identify the said person… the principles of [data] protection shall not apply to data .rendered anonymous in such a way that the data subject is no longer identifiable…”"
+    },
+    {
+      "id": 407751768,
+      "url": "https://github.com/getgauge/gauge/issues/1121#issuecomment-407751768",
+      "created_at": "2018-07-25T13:20:45Z",
+      "updated_at": "2018-07-25T13:20:45Z",
+      "author": "Participant 3",
+      "body": "ok - then i would nevertheless advise to have https://manpage.gauge.org/gauge_telemetry.html a bit more concrete about what data exactly is sent to whom etc"
+    },
+    {
+      "id": 407760676,
+      "url": "https://github.com/getgauge/gauge/issues/1121#issuecomment-407760676",
+      "created_at": "2018-07-25T13:49:48Z",
+      "updated_at": "2018-07-25T13:49:48Z",
+      "author": "Participant 1",
+      "body": "The page has instructions to see what data and where it's posted\r\n\r\n```\r\n$ gauge telemetry log true\r\n```\r\nhttps://manpage.gauge.org/gauge_telemetry_log.html\r\n\r\nPerhaps link to https://preview.gauge.org/2017/07/20/why-we-collect-data/ ?"
+    },
+    {
+      "id": 407764194,
+      "url": "https://github.com/getgauge/gauge/issues/1121#issuecomment-407764194",
+      "created_at": "2018-07-25T14:00:28Z",
+      "updated_at": "2018-07-25T14:00:28Z",
+      "author": "Participant 3",
+      "body": "yeah i think that would be great to have the link to the second link"
+    },
+    {
+      "id": 408827640,
+      "url": "https://github.com/getgauge/gauge/issues/1121#issuecomment-408827640",
+      "created_at": "2018-07-30T11:07:21Z",
+      "updated_at": "2018-07-30T11:07:21Z",
+      "author": "Participant 1",
+      "body": "Fix is available in nightly  >= 30-07-18"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

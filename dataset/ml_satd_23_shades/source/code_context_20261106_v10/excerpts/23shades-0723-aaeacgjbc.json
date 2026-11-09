@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0723-aaeacgjbc",
+  "revision_url": "https://github.com/mozilla/bugbug/commit/242d43d3fdb7aeb4d4221ab7835a30d3aa4ed1b3",
+  "filename": "scripts/commit_classifier.py",
+  "commit": "242d43d3fdb7aeb4d4221ab7835a30d3aa4ed1b3",
+  "source_url": "https://raw.githubusercontent.com/mozilla/bugbug/242d43d3fdb7aeb4d4221ab7835a30d3aa4ed1b3/scripts/commit_classifier.py",
+  "fetched_at": "2026-11-05T06:13:43.504055+00:00",
+  "source_sha256": "38548927867f7c79c784005137148355ba9d14e14c8e47f7a557afbb992a60cd",
+  "line_start": 706,
+  "line_end": 730,
+  "excerpt": "\n        with open(\"method_level.json\", \"w\") as f:\n            json.dump(method_level_results, f)\n\n\ndef main():\n    description = \"Classify a commit\"\n    parser = argparse.ArgumentParser(description=description)\n\n    parser.add_argument(\"model\", help=\"Which model to use for evaluation\")\n    parser.add_argument(\"cache_root\", help=\"Cache for repository clones.\")\n    parser.add_argument(\"diff_id\", help=\"diff ID to analyze.\", type=int)\n    # TODO: The \"\" choice can be removed when all users have been updated to pass a correct phabricator_deployment.\n    parser.add_argument(\n        \"phabricator_deployment\",\n        help=\"Which Phabricator deployment to hit.\",\n        type=str,\n        choices=[\"\", PHAB_PROD, PHAB_DEV],\n    )\n    parser.add_argument(\n        \"--git_repo_dir\", help=\"Path where the git repository will be cloned.\"\n    )\n    parser.add_argument(\n        \"--method_defect_predictor_dir\",\n        help=\"Path where the git repository will be cloned.\",",
+  "match_policy": "unique-release-normalized-v2"
+}

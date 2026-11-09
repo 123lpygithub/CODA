@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0774-aafhiicbj",
+  "revision_url": "https://github.com/oscarknagg/voicemap/commit/a6e9f813d8b962c97775da4a65df55f9e923d1d3",
+  "filename": "data.py",
+  "commit": "a6e9f813d8b962c97775da4a65df55f9e923d1d3",
+  "source_url": "https://raw.githubusercontent.com/oscarknagg/voicemap/a6e9f813d8b962c97775da4a65df55f9e923d1d3/data.py",
+  "fetched_at": "2026-11-05T06:13:50.537166+00:00",
+  "source_sha256": "3c92d1db259dacb2c2257b3e112d474a04896c9abb5f443f8b10d824aefe2205",
+  "line_start": 182,
+  "line_end": 206,
+  "excerpt": "\n        if k <= 1:\n            raise(ValueError, 'k must be greater than or equal to one!')\n\n        query = self.df.sample(1, weights='length')\n        query_sample = self[query.index.values[0]]\n\n        is_query_speaker = self.df['speaker_id'] == query['speaker_id'].values[0]\n        not_same_sample = self.df.index != query.index.values[0]\n        correct_samples = self.df[is_query_speaker & not_same_sample].sample(n, weights='length')\n\n        # Sample k-1 speakers\n        # TODO: weight by length here\n        other_support_set_speakers = np.random.choice(\n            self.df[~is_query_speaker]['speaker_id'].unique(), k-1, replace=False)\n\n        other_support_samples = []\n        for i in range(k-1):\n            is_same_speaker = self.df['speaker_id'] == other_support_set_speakers[i]\n            other_support_samples.append(\n                self.df[~is_query_speaker & is_same_speaker].sample(n, weights='length')\n            )\n        support_set = pd.concat([correct_samples]+other_support_samples)\n        support_set_samples = tuple(np.stack(i) for i in zip(*[self[i] for i in support_set.index]))\n"
+}

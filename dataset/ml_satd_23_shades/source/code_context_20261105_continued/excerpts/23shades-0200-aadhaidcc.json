@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0200-aadhaidcc",
+  "revision_url": "https://github.com/ROCmSoftwarePlatform/Tensile/commit/032d99603184b19c4dd159fe6a88749c1d744d26",
+  "filename": "Tensile/KernelWriterAssembly_BACKUP_100154.py",
+  "commit": "032d99603184b19c4dd159fe6a88749c1d744d26",
+  "source_url": "https://raw.githubusercontent.com/ROCmSoftwarePlatform/Tensile/032d99603184b19c4dd159fe6a88749c1d744d26/Tensile/KernelWriterAssembly_BACKUP_100154.py",
+  "fetched_at": "2026-11-05T06:12:14.531313+00:00",
+  "source_sha256": "a27be2327d6f228eed016ff63ee681a753c9e031974ac789d18bfd9d4b2f70b9",
+  "line_start": 4705,
+  "line_end": 4729,
+  "excerpt": "  #   self.unrollIdx, or an idx from 0..NumIndicesSummation\n  # prefetchIndex is >0 (1...PrefetchGlobalRead) if this increment follows a\n  #   global prefetch or 0 otherwise\n  ##############################################################################\n  def globalReadIncrement(self, kernel, loopIdx, tP, prefetchIndex):\n    if not self.do[\"GlobalInc\"]: return \"\"\n    tc = tP[\"tensorChar\"]\n\n    imod = Code.Module(\"globalReadIncrement%s\"%tc)\n    imod.addComment1(\"global read inc %s\"%tc)\n\n    if kernel[\"BufferLoad\"]:\n      # TODO - does this handle N-dim tensors correctly?\n      #if tP[\"isB\"]:\n      #  kStr += inst(\"s_mov_b32\", sgpr(\"OffsetB\"), sgpr(\"SrdB+0\"), \"hack to save\")\n      if self.staggerU:\n        # add a wrap increment, if needed:\n        incLower = self.getTmpSgpr(3)\n        incUpper = incLower + 1\n        tmpS =    incLower + 2\n        if prefetchIndex:\n          imod.addInst(\"s_sub_u32\", sgpr(tmpS), sgpr(\"LoopCounters+%u\"%self.unrollIdx), prefetchIndex, \"remove pf(%u)\"%prefetchIndex)\n          imod.addInst(\"s_cmp_eq_u32\",  sgpr(\"StaggerUIter\"), sgpr(tmpS), \"Is this wrapIter? (pf)\")\n        else:\n          imod.addInst(\"s_cmp_eq_u32\",  sgpr(\"LoopCounters+%u\"%self.unrollIdx), \\"
+}

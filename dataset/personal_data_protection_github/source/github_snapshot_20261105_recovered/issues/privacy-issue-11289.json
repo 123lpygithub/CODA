@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-11289",
+  "issue_url": "https://github.com/ghostery/ghostery-extension/issues/562",
+  "source_issue_url": "https://github.com/ghostery/ghostery-extension/issues/562",
+  "api_url": "https://api.github.com/repos/ghostery/ghostery-extension/issues/562",
+  "title": "Ghostery Chrome Extension blocks Tealium utag.js with 'Add Blocker' feature even though listed in 'Essential' category. Files used as dependency and causes undefined errors",
+  "body": "##### Please read the [CONTRIBUTING](https://github.com/ghostery/ghostery-extension/blob/master/CONTRIBUTING.md) guide before submitting an issue.\r\n\r\n### Description\r\n\r\nGhostery Version 8.5.0 is applying 'Add Blocker' to the loading of utag.js and utag.sync.js files.  This is a tag management api platform and not directly an 'advertiser' vendor.   Site will use these files as a dependencies that page code will directly call.  Blocking these files will cause undefined errors and break the site. As Tealium's TMS is not tracking users and is a pure TMS, it should not be blocked by default. Additionally, companies use Tealium's TMS to provide their GDPR AND CCPA consent management via this script.\r\n\r\n### Expected Behavior\r\n\r\nTealium or the utag.js and utag.sync.js files are currently listed in Ghostery's 'Essential' category.  This tag should only be blocked if 'Essential' tags are blocked. \r\n\r\n### Actual Behavior\r\n\r\nGhostery is blocking the utag.js and utag.sync.js files only when the 'Add Blocker' feature is activated and 'Essential' Trackers are left unblocked.  \r\n\r\n### Steps to Reproduce\r\n\r\n1. [activate Ghostery's Add Blocker feature]\r\n2. [Navigate to 3m.com]\r\n3. [review network traffic for 'Essential' tag utag.js and utag.sync.js ]\r\n4. review debugger console for 'undefined' errors that are caused by blocking the 'Essential' tag used as a dependency on this site.\r\n\r\n### Versions\r\n\r\n+ Browser: Chrome Version 81.0.4044.138 (Official Build) (64-bit)\r\n+ OS: mac OS X 10.14.6\r\n+ Node: \r\n+ NPM:\r\n",
+  "author": "Participant 1",
+  "created_at": "2020-06-02T19:09:37Z",
+  "updated_at": "2022-04-25T12:06:37Z",
+  "state": "closed",
+  "closed_at": "2022-04-25T12:06:36Z",
+  "issue_fetched_at": "2026-10-18T18:10:05.423367+00:00",
+  "comments_fetched_at": [
+    "2026-10-18T18:10:06.838800+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 650279796,
+      "url": "https://github.com/ghostery/ghostery-extension/issues/562#issuecomment-650279796",
+      "created_at": "2020-06-26T16:43:54Z",
+      "updated_at": "2020-06-26T16:43:54Z",
+      "author": "Participant 2",
+      "body": "The ad-blocker is catching `tags.tiqcdn.com` from one of its lists (Peter Lowe's Server List). Even though Tealium is unblocked under Essential, that is only a pass-through action and patterns can still be caught by the ad-blocker.  This would be another case for a global allow function (see #148). \r\n\r\nIn the meantime, the best solution I can offer would be to either Trust the entire site, or hover over the Tealium tracker and select \"Trust on this site\"."
+    },
+    {
+      "id": 651897853,
+      "url": "https://github.com/ghostery/ghostery-extension/issues/562#issuecomment-651897853",
+      "created_at": "2020-06-30T16:15:43Z",
+      "updated_at": "2020-06-30T17:25:33Z",
+      "author": "Participant 1",
+      "body": "Hi Christopher - \r\n\r\nI would like to have more context or understanding on why you have listed a 'tag manager' as as 'advertiser'.  I noticed that similar API management platforms such as Google Tag Manager or Adobe DTM are not blocked by the same 'Advertiser' filter.  In these other Tag Manager vendors you have chosen to block the individual tags loading and not the manager entirely.  \r\n\r\nYou reference a'Peter Lowe's Server List' list TIQs an 'Advertiser' however I am available to discuss this and what TIQ is and how it does not directly track nor function as an 'advertiser' - Peter's list has has other Tealium products listed and are different and not part of the tag management."
+    },
+    {
+      "id": 673519806,
+      "url": "https://github.com/ghostery/ghostery-extension/issues/562#issuecomment-673519806",
+      "created_at": "2020-08-13T14:42:16Z",
+      "updated_at": "2020-08-13T14:42:16Z",
+      "author": "Participant 2",
+      "body": "I double checked the [Peter Lowe list](https://pgl.yoyo.org/adservers/serverlist.php?hostformat=adblockplus) just now and confirmed `tags.tiqcdn.com` is on there.  I do not have control over what goes onto this block list.  We've added it for our users because many of them have requested it, as they like to block as many third-party scripts as possible. "
+    },
+    {
+      "id": 1108485667,
+      "url": "https://github.com/ghostery/ghostery-extension/issues/562#issuecomment-1108485667",
+      "created_at": "2022-04-25T12:06:36Z",
+      "updated_at": "2022-04-25T12:06:36Z",
+      "author": "Participant 3",
+      "body": "Should be fixed by https://github.com/ghostery/ghostery-extension/commit/c5e87fe139a670139cb810f5faadb2aacd5907e2"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

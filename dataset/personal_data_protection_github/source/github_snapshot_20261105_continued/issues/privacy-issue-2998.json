@@ -1,0 +1,138 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-2998",
+  "issue_url": "https://github.com/redhat-developer/odo/issues/1236",
+  "source_issue_url": "https://github.com/redhat-developer/odo/issues/1236",
+  "api_url": "https://api.github.com/repos/redhat-developer/odo/issues/1236",
+  "title": "End-user telemetry data of odo features",
+  "body": "[kind/epic]\r\n[milestone/backlog]\r\n\r\nAs a developer or product manager on the `odo` team, I would like to get have some telemetry data to better understand how many users are using individual odo features.\r\n\r\n\r\nThis will help the team prioritize their efforts in the highest impact areas and also to figure out what some areas aren't used as much as expected. This will lead to the end-user having a better overall experience with the too. Of course, the end-user should be able to opt-out of this feature.\r\n\r\n\r\n",
+  "author": "Participant 1",
+  "created_at": "2019-01-27T19:42:04Z",
+  "updated_at": "2021-07-09T06:50:53Z",
+  "state": "closed",
+  "closed_at": "2021-07-09T06:49:43Z",
+  "issue_fetched_at": "2026-10-19T03:10:50.130719+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T03:10:51.534918+00:00"
+  ],
+  "expected_comment_count": 14,
+  "retrieved_comment_count": 14,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 458047681,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-458047681",
+      "created_at": "2019-01-28T09:06:37Z",
+      "updated_at": "2019-01-28T09:06:37Z",
+      "author": "Participant 2",
+      "body": "The work I've been doing on an event system associated with plugins (i.e. telemetry could be implemented as a listener plugin) would help this effort."
+    },
+    {
+      "id": 571224549,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-571224549",
+      "created_at": "2020-01-06T17:12:13Z",
+      "updated_at": "2020-01-06T17:12:13Z",
+      "author": "Participant 3",
+      "body": "Issues go stale after 90d of inactivity.\n\nMark the issue as fresh by commenting `/remove-lifecycle stale`.\nStale issues rot after an additional 30d of inactivity and eventually close.\nExclude this issue from closing by commenting `/lifecycle frozen`.\n\nIf this issue is safe to close now please do so with `/close`.\n\n/lifecycle stale"
+    },
+    {
+      "id": 571399773,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-571399773",
+      "created_at": "2020-01-07T02:07:05Z",
+      "updated_at": "2020-01-07T02:07:05Z",
+      "author": "Participant 1",
+      "body": "This feature is still valid\r\n\r\n/lifecycle frozen"
+    },
+    {
+      "id": 693371267,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-693371267",
+      "created_at": "2020-09-16T12:26:17Z",
+      "updated_at": "2020-09-16T12:26:17Z",
+      "author": "Participant 4",
+      "body": "is this something we would like to consider @sspeiche "
+    },
+    {
+      "id": 779757245,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-779757245",
+      "created_at": "2021-02-16T10:52:48Z",
+      "updated_at": "2021-02-16T10:56:14Z",
+      "author": "Participant 4",
+      "body": "Hello,\r\nI had a quick chat with praveen to understand how they implemented telemetry in crc.\r\n\r\nThe tools used were\r\n- segment.com\r\n- https://www.woopra.com\r\n- golang library for segmentio\r\n\r\nSo a gist of it - segmentio is where the telemetry is sent - then woopra has good visualisation built on top of it. We need to ask for access for both of these tools from @gorkem.\r\n\r\nNow we need to implement telemetry from our end using golang library from segmentio, basically we are going to capture these things\r\n- os related information\r\n- commands executed\r\n- errors that occurred\r\n\r\nThis is the link of segment code present in crc - https://github.com/code-ready/crc/tree/master/pkg/crc/segment its quite standard and I can help you out in taking this to fit odo.\r\nAnd finally this is the segment library doc for go that we have to use https://segment.com/docs/connections/sources/catalog/libraries/server/go/\r\n\r\nwhile we get the access you can use Free version on segment so its not a blocker https://segment.com/pricing.\r\n"
+    },
+    {
+      "id": 779759647,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-779759647",
+      "created_at": "2021-02-16T10:57:17Z",
+      "updated_at": "2021-02-16T10:57:17Z",
+      "author": "Participant 4",
+      "body": "Also just so its clear we cannot capture any personally identifiable information which means we probably need to clean up the data we capture before sending"
+    },
+    {
+      "id": 779809520,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-779809520",
+      "created_at": "2021-02-16T12:36:04Z",
+      "updated_at": "2021-02-16T12:36:04Z",
+      "author": "Participant 1",
+      "body": "Here's the policy around what we collect and not https://developers.redhat.com/article/tool-data-collection"
+    },
+    {
+      "id": 779833029,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-779833029",
+      "created_at": "2021-02-16T13:21:41Z",
+      "updated_at": "2021-02-16T13:21:41Z",
+      "author": "Participant 4",
+      "body": "we should have a metric to detect users directly using odo vs people using vscode adapter / che"
+    },
+    {
+      "id": 784205444,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-784205444",
+      "created_at": "2021-02-23T13:32:44Z",
+      "updated_at": "2021-02-24T14:59:00Z",
+      "author": "Participant 5",
+      "body": "Let's start with just basic metrics we can always add more later.\r\n\r\nWhat information we should send from the beginning:\r\n - OS information\r\n - every command odo executes should send an event with the following information:\r\n   - command name (`odo push` `odo create` `odo service create`) \r\n   - odo version information (version and git commit hash if the binary has that information) \r\n   - return code (was the command successful or not?)\r\n   - error message\r\n \r\nWhat should we add in the next step:\r\n- `odo push` should have additional information :\r\n  - is odo connected to OpenShift or Kubernese (based on `Project` resource)\r\n  - if URL is created is it `Route` or `Ingress` \r\n- what type of component is the user creating (a type of devfile like java, nodejs, python)\r\n\r\n\r\n @elsony Are there any other metrics that you would like to track?\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 792786171,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-792786171",
+      "created_at": "2021-03-08T14:19:38Z",
+      "updated_at": "2021-03-08T14:20:36Z",
+      "author": "Participant 5",
+      "body": "/reopen\r\nthis is not done yet, the PR only added a preference option to track users consent "
+    },
+    {
+      "id": 792786305,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-792786305",
+      "created_at": "2021-03-08T14:19:51Z",
+      "updated_at": "2021-03-08T14:19:51Z",
+      "author": "Participant 6",
+      "body": "@kadel: Reopened this issue.\n\n<details>\n\nIn response to [this](https://github.com/openshift/odo/issues/1236#issuecomment-792786171):\n\n>/reopen\r\n>this is not done yet\n\n\nInstructions for interacting with me using PR comments are available [here](https://git.k8s.io/community/contributors/guide/pull-requests.md).  If you have questions or suggestions related to my behavior, please file an issue against the [kubernetes/test-infra](https://github.com/kubernetes/test-infra/issues/new?title=Prow%20issue:) repository.\n</details>"
+    },
+    {
+      "id": 875311756,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-875311756",
+      "created_at": "2021-07-07T06:06:56Z",
+      "updated_at": "2021-07-09T06:50:53Z",
+      "author": "Participant 7",
+      "body": "@kadel Is it alright if we close this issue now? We closed #4462.\r\nFrom your https://github.com/openshift/odo/issues/1236#issuecomment-784205444, I missed out on _if URL is created is it Route or Ingress_, but I think if we require this information, we can track it in a separate issue."
+    },
+    {
+      "id": 876958048,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-876958048",
+      "created_at": "2021-07-09T06:49:35Z",
+      "updated_at": "2021-07-09T06:49:35Z",
+      "author": "Participant 5",
+      "body": "yes, we can close this now.\r\nWe have all core metrics implemented.\r\n/close"
+    },
+    {
+      "id": 876958121,
+      "url": "https://github.com/redhat-developer/odo/issues/1236#issuecomment-876958121",
+      "created_at": "2021-07-09T06:49:43Z",
+      "updated_at": "2021-07-09T06:49:43Z",
+      "author": "Participant 8",
+      "body": "@kadel: Closing this issue.\n\n<details>\n\nIn response to [this](https://github.com/openshift/odo/issues/1236#issuecomment-876958048):\n\n>yes, we can close this now.\r\n>We have all core metrics implemented.\r\n>/close\n\n\nInstructions for interacting with me using PR comments are available [here](https://git.k8s.io/community/contributors/guide/pull-requests.md).  If you have questions or suggestions related to my behavior, please file an issue against the [kubernetes/test-infra](https://github.com/kubernetes/test-infra/issues/new?title=Prow%20issue:) repository.\n</details>"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

@@ -1,0 +1,22 @@
+{
+  "artifact_id": "privacy-issue-3760",
+  "source_issue_url": "https://github.com/firefox-devtools/profiler/issues/1261",
+  "issue_snapshot_sha256": "f304ee76f81d4a93d0aed8f0d96ece2053eda69c7cf836105ed19132f154f6c2",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/digitarald/performance-foxfooding-ext/blob/master/src/purge.js",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "revision": "master",
+      "immutable_revision": false,
+      "text": "const { generate } = require('shortid');\n\nconst whitelist = [\n  '.google.com',\n  '.google.de',\n  '.google.fr',\n  '.youtube.com',\n  '.facebook.com',\n  '.twitter.com',\n  '.web.whatsapp.com',\n  '.messenger.com',\n  '.wikipedia.org',\n  '.yahoo.com',\n  '.bing.com',\n  '.pinterest.com',\n  '.reddit.com',\n  '.imgur.com',\n  '.live.com',\n  '.msn.com',\n  '.tumblr.com',\n  '.ask.com',\n  '.wikia.com',\n  '.yelp.com',\n  '.espn.com',\n  '.nytimes.com',\n  '.washingtonpost.com',\n  '.cnn.com',\n  '.huffingtonpost.com',\n  '.buzzfeed.com',\n  '.foxnews.com',\n  '.techcrunch.com',\n  '.lifehacker.com',\n  '.theverge.com',\n  '.gizmodo.com',\n  '.businessinsider.com',\n  '.economist.com',\n  '.bbc.com',\n  '.dailymail.co.uk',\n  '.instagram.com',\n  '.linkedin.com',\n  '.ebay.com',\n  '.amazon.com',\n  '.amazon.de',\n  '.amazon.fr',\n  '.booking.com',\n  '.walmart.com',\n  '.web.de',\n  '.ebay-kleinanzeigen.de',\n  '.gmx.net',\n  '.bild.de',\n  '.lemonde.fr',\n  '.flipkart.com',\n  '.globo.com',\n  '.uol.com.br',\n  '.yandex.ru',\n  '.ok.ru',\n  '.netflix.com',\n  '.hulu.com',\n  '.office.com',\n  '.slack.com',\n  '.trello.com',\n  '.github.com',\n  '.dropbox.com',\n  '.salesforce.com',\n  '.stackoverflow.com',\n  '.medium.com',\n];\n\nconst purgedHashes = new Map();\nconst purgeSlice = slice => {\n  if (purgedHashes.has(slice)) {\n    return purgedHashes.get(slice);\n  }\n  const hash = generate();\n  purgedHashes.set(slice, hash);\n  return hash;\n};\n\nconst purgeString = containsUrl => {\n  return containsUrl.replace(\n    /https?:\\/\\/(?:www\\.)?([^/\\s]+)([^\\s):\"']*)/g,\n    (full, domain, path) => {\n      const cleaned = [];\n      const needle = `.${domain}`;\n      if (whitelist.some((test) => needle.endsWith(test))) {\n        cleaned.push(domain);\n      }\n      if (!cleaned.length) {\n        cleaned.push(purgeSlice(domain));\n      }\n      if (path && path !== '/') {\n        cleaned.push(purgeSlice(path));\n      }\n      return `//${cleaned.join('/')}`;\n    }\n  );\n};\n\nconst purge = dirty => {\n  if (!dirty) {\n    return dirty;\n  }\n  if (Array.isArray(dirty)) {\n    return dirty.map(purge);\n  }\n  const type = typeof dirty;\n  if (type === 'string') {\n    return purgeString(dirty);\n  }\n  if (type === 'object') {\n    for (const key in dirty) {\n      dirty[key] = purge(dirty[key]);\n    }\n  }\n  return dirty;\n};\n\nmodule.exports = purge;\n",
+      "source_sha256": "13f218ecc377b96418498fe9c886642cdcbbb6c8f3b94d046a091a28df54f460",
+      "fetched_at": "2026-11-05T06:21:56.600143+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/digitarald/performance-foxfooding-ext/master/src/purge.js",
+      "status": "available"
+    }
+  ]
+}

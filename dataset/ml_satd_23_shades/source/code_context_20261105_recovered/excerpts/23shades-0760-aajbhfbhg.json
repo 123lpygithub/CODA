@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0760-aajbhfbhg",
+  "revision_url": "https://github.com/X-DataInitiative/tick/commit/aad38ed09d20ba8c0db98d36338e5ddd9a087b89",
+  "filename": "tick/linear_model/model_logreg.py",
+  "commit": "aad38ed09d20ba8c0db98d36338e5ddd9a087b89",
+  "source_url": "https://raw.githubusercontent.com/X-DataInitiative/tick/aad38ed09d20ba8c0db98d36338e5ddd9a087b89/tick/linear_model/model_logreg.py",
+  "fetched_at": "2026-11-05T06:13:48.876704+00:00",
+  "source_sha256": "4fb4e614b3c4e6b377ca02e54ed4459f76d60d3c746f0509df409f0445e0a235",
+  "line_start": 119,
+  "line_end": 137,
+  "excerpt": "        Returns\n        -------\n        output : `numpy.ndarray`\n            The sigmoid applied element-wise on ``coeffs``. Same as\n            ``out``\n        \"\"\"\n        if out is None:\n            out = np.empty(coeffs.shape[0])\n        _ModelLogReg.sigmoid(coeffs, out)\n        return out\n\n    def _get_lip_best(self):\n        # TODO: Use sklearn.decomposition.TruncatedSVD instead?\n        s = svd(self.features, full_matrices=False,\n                compute_uv=False)[0] ** 2\n        if self.fit_intercept:\n            return (s + 1) / (4 * self.n_samples)\n        else:\n            return s / (4 * self.n_samples)"
+}

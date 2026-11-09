@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/nextcloud/server/pull/4757.patch",
+  "final_url": "https://patch-diff.githubusercontent.com/raw/nextcloud/server/pull/4757.patch",
+  "text": "From 56a9084dd2f9a5726a74e1e789773558fade8b44 Mon Sep 17 00:00:00 2001\nFrom: Christoph Wurst <christoph@winzerhof-wurst.at>\nDate: Tue, 9 May 2017 08:45:36 +0200\nSubject: [PATCH] Do not list system users in contacts menu if sharing\n autocompletion is disabled\n\nSigned-off-by: Christoph Wurst <christoph@winzerhof-wurst.at>\n---\n apps/dav/appinfo/app.php | 10 ++++++++--\n 1 file changed, 8 insertions(+), 2 deletions(-)\n\ndiff --git a/apps/dav/appinfo/app.php b/apps/dav/appinfo/app.php\nindex 0d417fd3fed2d..963073c44139a 100644\n--- a/apps/dav/appinfo/app.php\n+++ b/apps/dav/appinfo/app.php\n@@ -50,7 +50,13 @@ function(GenericEvent $event) use ($app) {\n $cm = \\OC::$server->getContactsManager();\n $cm->register(function() use ($cm, $app) {\n \t$user = \\OC::$server->getUserSession()->getUser();\n-\tif (!is_null($user)) {\n-\t\t$app->setupContactsProvider($cm, $user->getUID());\n+\tif (is_null($user)) {\n+\t\treturn;\n \t}\n+\tif (\\OC::$server->getConfig()->getAppValue('core', 'shareapi_allow_share_dialog_user_enumeration', 'yes') !== 'yes') {\n+\t\t// Don't include system users\n+\t\t// This prevents user enumeration in the contacts menu and the mail app\n+\t\treturn;\n+\t}\n+\t$app->setupContactsProvider($cm, $user->getUID());\n });\n",
+  "fetched_at": "2026-11-05T06:21:29.772671+00:00",
+  "sha256": "963e6cfb0a53c989e7b94a1ffb9997488fd5b782d13e4f3b167c3db0b28b7e34"
+}

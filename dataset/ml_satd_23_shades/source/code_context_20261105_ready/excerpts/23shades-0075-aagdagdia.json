@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0075-aagdagdia",
+  "revision_url": "https://github.com/sonidosmutantes/apicultor/commit/6cd2c6d3f92a99f0043efdd01bffff8ba3b42098",
+  "filename": "mir/db/RedPanalDB.py",
+  "commit": "6cd2c6d3f92a99f0043efdd01bffff8ba3b42098",
+  "source_url": "https://raw.githubusercontent.com/sonidosmutantes/apicultor/6cd2c6d3f92a99f0043efdd01bffff8ba3b42098/mir/db/RedPanalDB.py",
+  "fetched_at": "2026-11-05T06:11:50.389816+00:00",
+  "source_sha256": "3636bb8f6568b10d22d4f2119bfb0e65a8c40b1e1b05e1c060bfd5802e20dfac",
+  "line_start": 21,
+  "line_end": 45,
+  "excerpt": "       self.__url = url_base\n\n    # def search_by_id(self, id=\"\"):\n    #     return sound\n    # #()\n\n    # def search_by_content(self, content=\"\"):\n\n    def get_one_by_mir(self, mir_state):\n        return self.search_by_mir(mir_state)\n\n    def search_by_mir(self, mir_state):\n        #FIXME generic call\n        call = '/list/samples' #gets only wav files because SuperCollider\n        response = urllib2.urlopen(self.__url + call).read()\n        audioFiles = list()\n        for file in response.split('\\n'):\n            if len(file)>0: #avoid null paths\n                audioFiles.append(file)\n                # print file\n        \n        sound_id = 0 #FIXME  (extract from filename)\n        author = \"Unknown\" #FIXME (extract from metadata)\n        for i in range(len(audioFiles)): #WARNING: file is chosen randomly\n            file_chosen = audioFiles[ random.randint(0,len(audioFiles)-1) ]        "
+}

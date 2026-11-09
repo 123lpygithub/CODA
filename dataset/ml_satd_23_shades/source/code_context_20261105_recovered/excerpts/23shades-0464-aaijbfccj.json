@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0464-aaijbfccj",
+  "revision_url": "https://github.com/cleverhans-lab/cleverhans/commit/1616e8d895da97d31e8ce6350be75a61007238bf",
+  "filename": "cleverhans_v3.1.0/examples/multigpu_advtrain/attacks_multigpu.py",
+  "commit": "1616e8d895da97d31e8ce6350be75a61007238bf",
+  "source_url": "https://raw.githubusercontent.com/cleverhans-lab/cleverhans/1616e8d895da97d31e8ce6350be75a61007238bf/cleverhans_v3.1.0/examples/multigpu_advtrain/attacks_multigpu.py",
+  "fetched_at": "2026-11-05T06:12:58.782212+00:00",
+  "source_sha256": "46b312e008282e721704712ce7ffdbf8bba2cc05eba0d621c14de555879cfafb",
+  "line_start": 57,
+  "line_end": 81,
+  "excerpt": "    # Create the initial random perturbation\n    device_name = '/gpu:0'\n    self.model.set_device(device_name)\n    with tf.device(device_name):\n      with tf.variable_scope('init_rand'):\n        if self.rand_init:\n          eta = tf.random_uniform(tf.shape(x), -self.eps, self.eps)\n          eta = clip_eta(eta, self.ord, self.eps)\n          eta = tf.stop_gradient(eta)\n        else:\n          eta = tf.zeros_like(x)\n\n    # TODO: Break the graph only nGPU times instead of nb_iter times.\n    # The current implementation by the time an adversarial example is\n    # used for training, the weights of the model have changed nb_iter\n    # times. This can cause slower convergence compared to the single GPU\n    # adversarial training.\n    for i in range(self.nb_iter):\n      # Create the graph for i'th step of attack\n      inputs += [OrderedDict()]\n      outputs += [OrderedDict()]\n      device_name = x.device\n      self.model.set_device(device_name)\n      with tf.device(device_name):\n        with tf.variable_scope('step%d' % i):"
+}

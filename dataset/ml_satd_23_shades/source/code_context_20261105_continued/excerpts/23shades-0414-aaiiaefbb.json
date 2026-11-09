@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0414-aaiiaefbb",
+  "revision_url": "https://github.com/ray-project/ray/commit/52e5c9b22d93ec5b73567f1ac88b9b0152eb5fbf",
+  "filename": "python/ray/tune/tests/test_ray_trial_executor.py",
+  "commit": "52e5c9b22d93ec5b73567f1ac88b9b0152eb5fbf",
+  "source_url": "https://raw.githubusercontent.com/ray-project/ray/52e5c9b22d93ec5b73567f1ac88b9b0152eb5fbf/python/ray/tune/tests/test_ray_trial_executor.py",
+  "fetched_at": "2026-11-05T06:12:50.222340+00:00",
+  "source_sha256": "0cc4f9db0111cf8cd1cf8d44a3d3e5f3f1362ebb09c8e31bf14c4184a92f6522",
+  "line_start": 147,
+  "line_end": 171,
+  "excerpt": "\n        gpu_only = create_trial(0, 1)\n        self.assertTrue(self.trial_executor.has_resources(gpu_only.resources))\n\n    def testHeadBlocking(self):\n        def create_trial(cpu, gpu=0):\n            return Trial(\"__fake\", resources=Resources(cpu=cpu, gpu=gpu))\n\n        gpu_trial = create_trial(1, 1)\n        self.assertTrue(self.trial_executor.has_resources(gpu_trial.resources))\n        self.trial_executor.start_trial(gpu_trial)\n\n        # TODO(rliaw): This behavior is probably undesirable, but right now\n        # trials with different resource requirements is not often used.\n        cpu_only_trial = create_trial(1, 0)\n        self.assertFalse(\n            self.trial_executor.has_resources(cpu_only_trial.resources))\n\n        self.cluster.add_node(num_cpus=1, num_gpus=1)\n        self.cluster.wait_for_nodes()\n\n        self.assertTrue(\n            self.trial_executor.has_resources(cpu_only_trial.resources))\n        self.trial_executor.start_trial(cpu_only_trial)\n",
+  "match_policy": "unique-release-normalized-v2"
+}

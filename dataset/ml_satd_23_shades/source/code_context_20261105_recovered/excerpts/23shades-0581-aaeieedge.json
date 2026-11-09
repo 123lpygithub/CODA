@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0581-aaeieedge",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/7f8f9489e355e519221c4222dec3bc9181762c12",
+  "filename": "hpat/hiframes/boxing.py",
+  "commit": "7f8f9489e355e519221c4222dec3bc9181762c12",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/7f8f9489e355e519221c4222dec3bc9181762c12/hpat/hiframes/boxing.py",
+  "fetched_at": "2026-11-05T06:13:15.642006+00:00",
+  "source_sha256": "a12a2172f22d757eefd474370b5395de1e4a077d1faadffdb065997546407e22",
+  "line_start": 154,
+  "line_end": 178,
+  "excerpt": "        # TODO: datetime.date, DatetimeIndex?\n        if dtype == string_type:\n            arr_obj = box_str_arr(arr_typ, arr, c)\n        elif isinstance(dtype, PDCategoricalDtype):\n            arr_obj = box_categorical_series_dtype_fix(dtype, arr, c, class_obj)\n            context.nrt.incref(builder, arr_typ, arr)\n        elif dtype == types.List(string_type):\n            arr_obj = box_list(list_string_array_type, arr, c)\n            context.nrt.incref(builder, arr_typ, arr)  # TODO required?\n            # pyapi.print_object(arr_obj)\n        else:\n            arr_obj = box_array(arr_typ, arr, c)\n            # TODO: is incref required?\n            context.nrt.incref(builder, arr_typ, arr)\n        name_str = context.insert_const_string(c.builder.module, cname)\n        cname_obj = pyapi.string_from_string(name_str)\n        pyapi.object_setitem(res, cname_obj, arr_obj)\n        # pyapi.decref(arr_obj)\n        pyapi.decref(cname_obj)\n\n    pyapi.decref(class_obj)\n    pyapi.gil_release(gil_state)    # release GIL\n    return res\n\n@box(PandasDataFrameType)"
+}

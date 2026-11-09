@@ -1,0 +1,23 @@
+{
+  "url": "https://github.com/signalapp/Signal-iOS/blob/main/SignalMessaging/attachments/SignalAttachment.swift#L1048",
+  "kind": "file",
+  "cited_in": [
+    "comment_1241138192"
+  ],
+  "status": "partial",
+  "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+  "line_start": 1036,
+  "line_end": 1060,
+  "historical_evidence": true,
+  "revision": "9692c8300553a282a34a9972f5b1c25269d1a546",
+  "immutable_revision": true,
+  "retrieval_url": "https://raw.githubusercontent.com/signalapp/Signal-iOS/9692c8300553a282a34a9972f5b1c25269d1a546/SignalMessaging/attachments/SignalAttachment.swift",
+  "text": "            \"tRNS\", \"cHRM\", \"gAMA\", \"iCCP\", \"sRGB\", \"bKGD\", \"pHYs\", \"sPLT\",\n            // [Animated PNG chunks.][2]\n            // [2]: https://wiki.mozilla.org/APNG_Specification#Structure\n            \"acTL\", \"fcTL\", \"fdAT\"\n        ]\n        let asBytes = asAscii.lazy.compactMap { $0.data(using: .ascii) }\n        return Set(asBytes)\n    }()\n\n    /// Remove nonessential chunks from PNG data.\n    /// - Returns: Cleaned PNG data.\n    /// - Throws: `SignalAttachmentError.couldNotRemoveMetadata` if the PNG parser fails.\n    private static func removeMetadata(fromPng pngData: Data) throws -> Data {\n        do {\n            let chunker = try PngChunker(data: pngData)\n            var result = PngChunker.pngSignature\n            while let chunk = try chunker.next() {\n                if pngChunkTypesToKeep.contains(chunk.type) {\n                    result += chunk.allBytes()\n                }\n            }\n            return result\n        } catch {\n            Logger.warn(\"Could not remove PNG metadata: \\(error)\")\n            throw SignalAttachmentError.couldNotRemoveMetadata",
+  "source_sha256": "bbc650f3811f5ceb3b413eb3ca9d3990406b3410e605e9fcb377f761670da96b",
+  "fetched_at": "2026-11-05T15:54:56.644908+00:00",
+  "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+  "history_query_url": "https://github.com/signalapp/Signal-iOS/commits/main/SignalMessaging/attachments/SignalAttachment.swift",
+  "history_response_sha256": "c590f23128db57784d5a88460aa2a920c5b19bef7420c9981d56a5ea9f02695a",
+  "history_entry_sha": "9692c8300553a282a34a9972f5b1c25269d1a546",
+  "history_commit_date": "2023-11-15T18:56:16.000-06:00"
+}

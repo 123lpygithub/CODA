@@ -1,0 +1,40 @@
+{
+  "artifact_id": "privacy-issue-5138",
+  "source_issue_url": "https://github.com/openwhyd/openwhyd/issues/90",
+  "issue_snapshot_sha256": "fb785caca0fd98a575c9a669b1e6d81186b455ed0a531a37063908d89cbcdc0d",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/openwhyd/openwhyd/blob/d5935d7f1001e682174fdcba6b79cbda23e97ecc/whydJS/public/js/whydtr.js#L54",
+      "kind": "file",
+      "cited_in": [
+        "comment_331458004"
+      ],
+      "revision": "d5935d7f1001e682174fdcba6b79cbda23e97ecc",
+      "immutable_revision": true,
+      "line_start": 42,
+      "line_end": 66,
+      "text": "\t\t}\n\t\tcatch (e){\n\t\t\tconsole.error(\"[GA] error:\", e);\n\t\t}\n\t}\n\n\tfunction setUser(){\n\t\tgaSet('loggedIn', !!uId);\n\t\tgaSet('dimension1', !!uId);\n\t\t// https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference\n\t\tif (uId){\n\t\t\tvar genDate = getDateFromObjectId(uId);\n\t\t\tgaSet('userId', uId); // standard ga property\n\t\t\tgaSet('dimension2', uId);\n\t\t\tgaSet('hasFb', !!loggedUser.fbId);\n\t\t\tgaSet('dimension3', !!loggedUser.fbId);\n\t\t\tgaSet('joinWeek', getWeekNumber(genDate));\n\t\t\tgaSet('dimension4', getWeekNumber(genDate));\n\t\t\tif (loggedUser && loggedUser.iRf) {\n\t\t\t\tgaSet('joinSource', loggedUser.iRf);\n\t\t\t\tgaSet('dimension5', loggedUser.iRf);\n\t\t\t}\n\t\t\t// source: http://danhilltech.tumblr.com/post/12509218078/startups-hacking-a-cohort-analysis-with-google\n\t\t\t// mgmt: https://www.google.com/analytics/web/#management/Settings/a23759101w46480794p46730353/%3Fm.page%3DCustomDimensions%26m-content-dimensionsContent.rowShow%3D10%26m-content-dimensionsContent.rowStart%3D0%26m-content-dimensionsContent.sortColumnId%3Dindex%26m-content-dimensionsContent.sortDescending%3Dfalse%26m-content.mode%3DLIST/\n\t\t}",
+      "source_sha256": "56fa0945fb21e428243abe7e9db026205f24cf833864ab07f7504106df840e7f",
+      "fetched_at": "2026-11-05T06:22:11.604772+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/openwhyd/openwhyd/d5935d7f1001e682174fdcba6b79cbda23e97ecc/whydJS/public/js/whydtr.js",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/openwhyd/openwhyd/blob/ce1cb979bb2396b94016bda3fb3388fd20f9e402/whydJS/public/js/jquery-migrate-1.2.1.js#L17",
+      "kind": "file",
+      "cited_in": [
+        "comment_331458004"
+      ],
+      "revision": "ce1cb979bb2396b94016bda3fb3388fd20f9e402",
+      "immutable_revision": true,
+      "line_start": 5,
+      "line_end": 29,
+      "text": " */\n(function( jQuery, window, undefined ) {\n// See http://bugs.jquery.com/ticket/13335\n// \"use strict\";\n\n\nvar warnedAbout = {};\n\n// List of warnings already given; public read only\njQuery.migrateWarnings = [];\n\n// Set to true to prevent console output; migrateWarnings still maintained\n// jQuery.migrateMute = false;\n\n// Show a message on the console so devs know we're active\nif ( !jQuery.migrateMute && window.console && window.console.log ) {\n\twindow.console.log(\"JQMIGRATE: Logging is active\");\n}\n\n// Set to false to disable traces that appear with warnings\nif ( jQuery.migrateTrace === undefined ) {\n\tjQuery.migrateTrace = true;\n}\n\n// Forget any warnings we've already given; public",
+      "source_sha256": "58564bc237b683f482c3a82def059f27b2be41109d237d7a2380074b5b4f22be",
+      "fetched_at": "2026-11-05T06:22:11.676960+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/openwhyd/openwhyd/ce1cb979bb2396b94016bda3fb3388fd20f9e402/whydJS/public/js/jquery-migrate-1.2.1.js",
+      "status": "available"
+    }
+  ]
+}

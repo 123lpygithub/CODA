@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0748-aaidaidid",
+  "revision_url": "https://github.com/scikit-learn/scikit-learn/commit/186629b60aa208d125a21132b58bd8d6b7565264",
+  "filename": "sklearn/tree/tree.py",
+  "commit": "186629b60aa208d125a21132b58bd8d6b7565264",
+  "source_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/186629b60aa208d125a21132b58bd8d6b7565264/sklearn/tree/tree.py",
+  "fetched_at": "2026-11-05T06:13:47.460805+00:00",
+  "source_sha256": "250086c04e18a19f6c5fffb4fd8f101f08f1e26f08184627b50b53b7e4b731c0",
+  "line_start": 333,
+  "line_end": 357,
+  "excerpt": "        if not isinstance(self.splitter, Splitter):\n            splitter = SPLITTERS[self.splitter](criterion,\n                                                self.max_features_,\n                                                min_samples_leaf,\n                                                min_weight_leaf,\n                                                random_state)\n\n        if is_classifier(self):\n            self.tree_ = Tree(self.n_features_,\n                              self.n_classes_, self.n_outputs_)\n        else:\n            self.tree_ = Tree(self.n_features_,\n                              # TODO: tree should't need this in this case\n                              np.array([1] * self.n_outputs_, dtype=np.intp),\n                              self.n_outputs_)\n\n        # Use BestFirst if max_leaf_nodes given; use DepthFirst otherwise\n        if max_leaf_nodes < 0:\n            builder = DepthFirstTreeBuilder(splitter, min_samples_split,\n                                            min_samples_leaf,\n                                            min_weight_leaf,\n                                            max_depth,\n                                            self.min_impurity_decrease,\n                                            min_impurity_split)\n        else:"
+}

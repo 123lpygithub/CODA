@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0682-aaejbieif",
+  "revision_url": "https://github.com/kornia/kornia/commit/2209807ce8db8fe82eabbe6ca51e6370beea2934",
+  "filename": "kornia/feature/scale_space_detector.py",
+  "commit": "2209807ce8db8fe82eabbe6ca51e6370beea2934",
+  "source_url": "https://raw.githubusercontent.com/kornia/kornia/2209807ce8db8fe82eabbe6ca51e6370beea2934/kornia/feature/scale_space_detector.py",
+  "fetched_at": "2026-11-05T06:13:37.698100+00:00",
+  "source_sha256": "7744670788d36a8a9bd6392df367d5d81bdeedcf768b4ab1f074b9b546eeed05",
+  "line_start": 19,
+  "line_end": 43,
+  "excerpt": "    to the actual scale, using the sigmas from the ScalePyramid output\n    Args:\n        max_coords: (torch.Tensor): tensor [BxNx3].\n        sigmas: (torch.Tensor): tensor [BxNxD], D >= 1\n\n    Returns:\n        torch.Tensor:  tensor [BxNx3].\n\n    \"\"\"\n    # depth (scale) in coord_max is represented as (float) index, not the scale yet.\n    # we will interpolate the scale using pytorch.grid_sample function\n    # Because grid_sample is for 4d input only, we will create fake 2nd dimension\n    # ToDo: replace with 3d input, when grid_sample will start to support it\n\n    # Reshape for grid shape\n    B, N, _ = max_coords.shape\n    L: int = sigmas.size(1)\n    scale_coords = max_coords[:, :, 0].view(-1, 1, 1, 1)\n\n    # Normalize coordinate\n    scale_coords_index = (2.0 * scale_coords / sigmas.size(1)) - 1.0\n\n    # Dummy dimension\n    dummy_x = torch.zeros_like(scale_coords_index)\n",
+  "match_policy": "unique-release-normalized-v2"
+}

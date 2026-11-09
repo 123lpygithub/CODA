@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0548-aajgceiba",
+  "revision_url": "https://github.com/mne-tools/mne-python/commit/095cf8755962ff8ce4735630477300afe3274b6c",
+  "filename": "mne/tests/test_docstring_parameters.py",
+  "commit": "095cf8755962ff8ce4735630477300afe3274b6c",
+  "source_url": "https://raw.githubusercontent.com/mne-tools/mne-python/095cf8755962ff8ce4735630477300afe3274b6c/mne/tests/test_docstring_parameters.py",
+  "fetched_at": "2026-11-05T06:13:10.439142+00:00",
+  "source_sha256": "db2859e0aa19b32d55b3fdb9fc7c122583671bf20e2b1ff9808c264398c2afe8",
+  "line_start": 70,
+  "line_end": 94,
+  "excerpt": "        with warnings.catch_warnings(record=True) as w:\n            doc = docscrape.FunctionDoc(func)\n        if len(w):\n            raise RuntimeError('Error for %s:\\n%s' % (name_, w[0]))\n    # check set\n    param_names = [name for name, _, _ in doc['Parameters']]\n    # clean up some docscrape output:\n    param_names = [name.split(':')[0].strip('` ') for name in param_names]\n    param_names = [name for name in param_names if '*' not in name]\n    try:\n        args_set = set(args)\n    except TypeError:\n        # TODO: handle arg tuples\n        return incorrect\n    extra_params = set(param_names) - args_set\n    if extra_params and not varkw:\n        incorrect += [get_name(func) + ' in doc ' + str(sorted(extra_params))]\n\n    if defaults:\n        none_defaults = [arg for arg, default in zip(args[-len(defaults):],\n                                                     defaults)\n                         if default is None]\n    else:\n        none_defaults = []\n    extra_args = args_set - set(param_names) - set(none_defaults)"
+}

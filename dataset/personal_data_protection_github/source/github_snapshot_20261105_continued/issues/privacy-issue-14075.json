@@ -1,0 +1,98 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14075",
+  "issue_url": "https://github.com/Smile-SA/elasticsuite/issues/625",
+  "source_issue_url": "https://github.com/Smile-SA/elasticsuite/issues/625",
+  "api_url": "https://api.github.com/repos/Smile-SA/elasticsuite/issues/625",
+  "title": "Feature in Docu: What does the tracker do?",
+  "body": "What does the tracker do and why does it submitting order details to an external domain?!\r\n\r\nbest wishes",
+  "author": "Participant 1",
+  "created_at": "2017-11-21T05:01:28Z",
+  "updated_at": "2019-11-22T13:36:14Z",
+  "state": "closed",
+  "closed_at": "2017-11-21T08:34:33Z",
+  "issue_fetched_at": "2026-10-19T00:11:16.748049+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T00:11:18.164429+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 345953488,
+      "url": "https://github.com/Smile-SA/elasticsuite/issues/625#issuecomment-345953488",
+      "created_at": "2017-11-21T08:34:33Z",
+      "updated_at": "2017-11-21T08:34:33Z",
+      "author": "Participant 2",
+      "body": "Hello @jackjackde and thank you for using our module and submitting an issue.\r\n\r\nThe tracker does two things : \r\n\r\n- it collects data through a local domain (you are the only one having access to this data) about customer navigation (product view, bought, facet usage, etc...). This part is meant to be used later on our roadmap to build behavioral optimizers (boost most viewed products and things like this).\r\n\r\n- it sends a ping to a smile domain, with the url of the website using elasticsuite. Nothing more. It is just a way for us to track the module usage. Since it's published free and does not require any subscription or account anywhere to use it, it's a way for us to have statistics about the number of websites the module is deployed on.\r\n\r\nI hope to have answered your question. Do not hesitate if you want to know more.\r\n"
+    },
+    {
+      "id": 358402445,
+      "url": "https://github.com/Smile-SA/elasticsuite/issues/625#issuecomment-358402445",
+      "created_at": "2018-01-17T18:44:48Z",
+      "updated_at": "2018-01-17T18:44:48Z",
+      "author": "Participant 3",
+      "body": "I've disabled Tracking as a test, but it still pings the smile domain? I think with a transparent pixel? Shouldn't this be disabled too?"
+    },
+    {
+      "id": 380510418,
+      "url": "https://github.com/Smile-SA/elasticsuite/issues/625#issuecomment-380510418",
+      "created_at": "2018-04-11T16:16:07Z",
+      "updated_at": "2018-04-11T16:16:07Z",
+      "author": "Participant 4",
+      "body": "That ping is gone if you remove the tracker module: bin/magento module:disable Smile_ElasticsuiteTracker"
+    },
+    {
+      "id": 380695140,
+      "url": "https://github.com/Smile-SA/elasticsuite/issues/625#issuecomment-380695140",
+      "created_at": "2018-04-12T06:38:48Z",
+      "updated_at": "2018-04-12T06:38:48Z",
+      "author": "Participant 2",
+      "body": "You should not disable completely the Tracker module.\r\n\r\nIn future versions it will allow you to exploit the collected data (and respect the EU GDPR) to influence search results more than we did ever do.\r\n\r\nPing to smile.fr is only for our internal purposes and nothing more than your domain name is recorded.\r\n\r\nRegards"
+    },
+    {
+      "id": 380707758,
+      "url": "https://github.com/Smile-SA/elasticsuite/issues/625#issuecomment-380707758",
+      "created_at": "2018-04-12T07:35:57Z",
+      "updated_at": "2018-04-12T07:35:57Z",
+      "author": "Participant 4",
+      "body": "It is a form of external tracking that you should be more upfront about. In germany as a shop owner you need to disclose ANY kind of tracking or use of the customers data no matter what. "
+    },
+    {
+      "id": 380722628,
+      "url": "https://github.com/Smile-SA/elasticsuite/issues/625#issuecomment-380722628",
+      "created_at": "2018-04-12T08:32:21Z",
+      "updated_at": "2018-04-12T08:32:37Z",
+      "author": "Participant 2",
+      "body": "The tracker will be refactored in the 2.6 version, especially to be compliant with GDPR policy (we are in concern since we are a french company with mostly european customers) : \r\n\r\n- customer data tracking in Front-Office will require customer consent with a default and extendable implementation.\r\n\r\n- our internal tracking (the ping to t.smile.eu) will be moved inside adminhtml part exactly the same way than Magento is doing its own tracking with the AdminNotification module. Doing this will prevent us being asked about frontend/customer data tracking.\r\n\r\nBut I repeat, nothing belonging to the customer is tracked by the ping to t.smile.eu. We just collect the domain names where elasticsuite is deployed. I hope you'll understand this is the only way for us to measure the module usage, since we distribute it for free, and even with no registration needed anywhere.\r\n\r\nBest regards."
+    },
+    {
+      "id": 477905173,
+      "url": "https://github.com/Smile-SA/elasticsuite/issues/625#issuecomment-477905173",
+      "created_at": "2019-03-29T08:01:01Z",
+      "updated_at": "2019-03-29T08:01:18Z",
+      "author": "Participant 5",
+      "body": "Hello.\r\n\r\nI'm not worried about Smile to get the data but I'm more worried that it sends on each customer request request to elasticsuite/tracker/hit/image/h.png which is executed thru Magento controller and adds one entry to elasticsuite_tracker_log_event and second to elasticsuite_tracker_log_customer_link .\r\n\r\nSimilar behaviour was on Magento's customer logging and is known bottleneck for performance issues.\r\n"
+    },
+    {
+      "id": 477909471,
+      "url": "https://github.com/Smile-SA/elasticsuite/issues/625#issuecomment-477909471",
+      "created_at": "2019-03-29T08:17:44Z",
+      "updated_at": "2019-03-29T08:17:44Z",
+      "author": "Participant 3",
+      "body": "@elvinristi just disable the tracking module. The tracker in in a separate Magento Module and can be disabled."
+    },
+    {
+      "id": 557533867,
+      "url": "https://github.com/Smile-SA/elasticsuite/issues/625#issuecomment-557533867",
+      "created_at": "2019-11-22T13:35:09Z",
+      "updated_at": "2019-11-22T13:36:14Z",
+      "author": "Participant 6",
+      "body": "We're also disabling that tracking code. However; I really like the idea of using that onsite search data to optimize the customer experience in the future. I've never gotten any updates from Smile on anything via email or online. I'd love to know when that tech is available paid or free. There are some really excellent boutique services charging bank for that type of AI. It would need to be setup with some pretty bulletproof best practices. \r\n\r\nBefore any of that Smile should probably develop a preset for best sellers and new items to auto display at the head of each category. That would eliminate a lot of the manual work we're doing.\r\nPowerful tool for sure when it works, thanks Smile for putting this out.\r\n\r\n[www.sharpcommerce.com](Sharp Commerce Ecommerce Consulting)"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

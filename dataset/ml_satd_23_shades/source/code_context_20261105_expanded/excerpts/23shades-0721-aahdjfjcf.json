@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0721-aahdjfjcf",
+  "revision_url": "https://github.com/Shenggan/DeepCell-Keras/commit/e43b302cf0952a147a44dfd5af9cbbc053c94071",
+  "filename": "deepcell/tifffile/tifffile.py",
+  "commit": "e43b302cf0952a147a44dfd5af9cbbc053c94071",
+  "source_url": "https://raw.githubusercontent.com/Shenggan/DeepCell-Keras/e43b302cf0952a147a44dfd5af9cbbc053c94071/deepcell/tifffile/tifffile.py",
+  "fetched_at": "2026-11-05T06:13:43.718445+00:00",
+  "source_sha256": "c3341014b50a2f6311fa6349483dba7cc1039b1350606e82ab98956754194716",
+  "line_start": 2821,
+  "line_end": 2845,
+  "excerpt": "            value = struct.unpack(dtype, fh.read(struct.calcsize(dtype)))\n            if len(value) == 1:\n                value = value[0]\n\n    if offset:\n        fh.seek(pos + 4)\n\n    return name, value\n\n\ndef read_uic_image_property(fh):\n    \"\"\"Read UIC ImagePropertyEx tag from file and return as dict.\"\"\"\n    # TODO: test this\n    size = struct.unpack('B', fh.read(1))[0]\n    name = struct.unpack('%is' % size, fh.read(size))[0][:-1]\n    flags, prop = struct.unpack('<IB', fh.read(5))\n    if prop == 1:\n        value = struct.unpack('II', fh.read(8))\n        value = value[0] / value[1]\n    else:\n        size = struct.unpack('B', fh.read(1))[0]\n        value = struct.unpack('%is' % size, fh.read(size))[0]\n    return dict(name=name, flags=flags, value=value)\n\n",
+  "match_policy": "unique-release-normalized-v2"
+}

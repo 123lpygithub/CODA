@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0257-aagcfdhaj",
+  "revision_url": "https://github.com/mideind/GreynirCorrect/commit/e14cee0956003de11121489728a8fb24f6949fa6",
+  "filename": "eval/eval.py",
+  "commit": "e14cee0956003de11121489728a8fb24f6949fa6",
+  "source_url": "https://raw.githubusercontent.com/mideind/GreynirCorrect/e14cee0956003de11121489728a8fb24f6949fa6/eval/eval.py",
+  "fetched_at": "2026-11-05T06:12:23.456223+00:00",
+  "source_sha256": "b27f539283c12a7b752771a4bf254fbeda7533c9ec76552d230cb586fe96b571",
+  "line_start": 1843,
+  "line_end": 1867,
+  "excerpt": "                    ytok = next(y)\n                    xtok = next(x)\n                    while True:\n\n                        # 1. Error detection\n                        ytoks = set(range(ytok.start, ytok.end + 1))\n                        xtoks = set(\n                            range(cast(int, xtok[\"start\"]), cast(int, xtok[\"end\"]) + 1)\n                        )\n                        xtype = cast(str, xtok[\"xtype\"])\n                        ytype = xtype\n                        if ytok.code in GCtoIEC and xtype not in GCtoIEC[ytok.code]:\n                            ytype = GCtoIEC[ytok.code][0] # TODO change?\n\n                        if xtoks & ytoks:\n                            tp += 1\n                            errtypefreqs[xtype][\"tp\"] += 1\n                            # 2. Span detection\n                            if xtoks == ytoks:\n                                right_span += 1\n                                errtypefreqs[xtype][\"right_span\"] += 1\n                            else:\n                                wrong_span += 1\n                                errtypefreqs[xtype][\"wrong_span\"] += 1\n                            # 3. Error correction"
+}

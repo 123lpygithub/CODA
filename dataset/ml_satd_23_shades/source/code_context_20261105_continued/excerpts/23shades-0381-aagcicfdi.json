@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0381-aagcicfdi",
+  "revision_url": "https://github.com/OFAI/hub-toolbox-python3/commit/a614f5aae2fb8e5115f10655605c0aa38741bb5a",
+  "filename": "hub_toolbox/approximate.py",
+  "commit": "a614f5aae2fb8e5115f10655605c0aa38741bb5a",
+  "source_url": "https://raw.githubusercontent.com/OFAI/hub-toolbox-python3/a614f5aae2fb8e5115f10655605c0aa38741bb5a/hub_toolbox/approximate.py",
+  "fetched_at": "2026-11-05T06:12:43.061750+00:00",
+  "source_sha256": "3e8ddc8155ab9a1d2f5c11dcdb3a975b5cc5a0f6f2b728c61ad02311faa20123",
+  "line_start": 702,
+  "line_end": 726,
+  "excerpt": "                                      f'indicates a software bug.')\n        self.X_train_ = X\n        self.y_train_ = y\n        self.ind_train_ = ind\n        return\n\n    def _transform_ls(self, X):\n        n_test, _ = X.shape\n        n_train = self.X_train_.shape[0]\n        k = self.n_samples\n        kth = self.n_neighbors\n        if self.sampling_algorithm in ['hnsw', 'lsh']:\n            # TODO use X_nrom_squared\n            if self.sampling_algorithm == 'hnsw':\n                ind, D_test = self._hnsw_trafo(X, k)\n            elif self.sampling_algorithm == 'lsh':\n                ind, D_test = self._lsh_trafo(X, k)\n            self.ind_test_ = ind\n            r_test = D_test[:, :self.n_neighbors] # already sorted\n        else:\n            if self.verbose > 2:\n                print(f'HR.transform(full)')\n            D_test = euclidean_distances(\n                X, self.X_train_, Y_norm_squared=self.X_train_norm_squared_,\n                squared=True)"
+}

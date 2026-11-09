@@ -1,0 +1,157 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-7605",
+  "issue_url": "https://github.com/netlify/cli/issues/739",
+  "source_issue_url": "https://github.com/netlify/cli/issues/739",
+  "api_url": "https://api.github.com/repos/netlify/cli/issues/739",
+  "title": "netlify still connects to telemetry server when user does not consent to telemetry!",
+  "body": "# Bug\r\n\r\n**- What is the current behavior?**\r\n\r\nI ran `netlify --telemetry-disable` on a fresh install (`rm -rf ~/.netlify`) and it connected to `cli.netlify.com`:\r\n\r\n<img width=\"1568\" alt=\"Screen Shot 2020-03-07 at 07 24 56\" src=\"https://user-images.githubusercontent.com/408977/76146078-c5c0a200-6044-11ea-9710-4ebb7618afe4.png\">\r\n\r\n**- If the current behavior is a bug, please provide the steps to reproduce.**\r\n\r\n1. install netlify cli via yarn/npm\r\n1. run `netlify --telemetry-disable`\r\n\r\n**- What is the expected behavior?**\r\n\r\nExpected: I'm not spied on.\r\n\r\nActual: Your app violates my consent.\r\n\r\n**- Local Environment Information**\r\n\r\nPaste the results of `netlify status --verbose` and `netlify version` here\r\n\r\n\r\n```\r\nsneak@nostromo:~$ netlify status --verbose\r\nNot logged in. Please log in to see site status.\r\n\r\nLogin with \"netlify login\" command\r\nsneak@nostromo:~$\r\n```\r\n\r\n```\r\nsneak@nostromo:~$ netlify version\r\nnetlify-cli/2.32.0 darwin-x64 node-v13.1.0\r\nsneak@nostromo:~$\r\n```\r\n\r\n# Dear Netlify\r\n\r\nDear Netlify:\r\n\r\nI use and really like your service.  I was happy to hear you guys raised some money recently.  I was deeply disappointed to see that you have telemetry enabled in your app; I disabled it on all my systems using it but apparently it's still spying on me.\r\n\r\nThis sort of spying is deeply unethical.  You are not entitled to silently spy on your users simply because they didn't realize that your app is spyware.  You are not entitled to *assume* consent just because you mentioned on your webpage that your apps will silently spy on your users.  This makes your app **malware**.\r\n\r\n\"We're going to silently spy on you unless you read our whole website, notice that it's a spyware app, and then disable the spyware part\" is not an ethical business practice.  You must **OBTAIN CONSENT** from your users to use their personal data.  You may not *assume consent*.\r\n\r\nWhat you're doing now is unethical and abusive.  That’s simply not affirmative consent. Imagine if you tried that in life! “Anyone who stays in this room after 5pm is consenting to be groped! Proceed at your own risk.”  Don't be that creep.  Please don't ship spyware.\r\n\r\nNote that fixing only this bug (the issue of sending telemetry when the user explicitly opts out) is not a complete solution.  You must **stop spying on your users** unless they have *explicitly agreed* to permit you to their usage information.\r\n\r\nBest,\r\n-@sneak\r\n\r\nPS: \"everyone else is doing it\" is *not* an acceptable excuse for unethical behavior.\r\n\r\nPPS: \"but the collection is anonymous!\" is not an excuse either: transmitting a user's IP to your telemetry server leaks that user's location, which is a violation of their privacy.  IPs uniquely identify many, many users, and SNI is not yet encrypted.",
+  "author": "Participant 1",
+  "created_at": "2020-03-07T15:26:54Z",
+  "updated_at": "2020-03-08T13:37:23Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:20:08.614467+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:20:08.614467+00:00"
+  ],
+  "expected_comment_count": 16,
+  "retrieved_comment_count": 16,
+  "comments_complete": false,
+  "comments": [
+    {
+      "id": 596104951,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596104951",
+      "created_at": "2020-03-07T16:23:20Z",
+      "updated_at": "2020-03-07T16:24:03Z",
+      "author": "Participant 2",
+      "body": "I get there's probably a bug here, but I'd say that the entire \"Dear Netlify\" section is just .. not required here. It's a lot of noise, and makes some unfair accusations. "
+    },
+    {
+      "id": 596108178,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596108178",
+      "created_at": "2020-03-07T16:58:12Z",
+      "updated_at": "2020-03-07T17:10:12Z",
+      "author": "Participant 2",
+      "body": "I tried doing the exact same thing, rm -rf'ing my netfify config folder and using Little Snitch 4 to monitor the process. \r\n\r\nI replaced the API_URL in `src/utils/telemetry/request.json` with a requestbin. It looks like it sends the following data:\r\n\r\n```json\r\n{\r\n    \"event\": \"cli:user_telemetryDisabled\",\r\n    \"anonymousId\": \"e4b0355f-2838-4ff6-93a0-641479aec90d\",\r\n    \"properties\": {}\r\n}\r\n```\r\n\r\nPresumably, this could be used to purge all previous analytical data. I haven't done any more validation past this, though. \r\n\r\nHonestly, unlike the tone of this issue, I think it's pretty harmless and if it's being used the way I think it is I do not mind it. "
+    },
+    {
+      "id": 596109069,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596109069",
+      "created_at": "2020-03-07T17:06:41Z",
+      "updated_at": "2020-03-07T17:06:41Z",
+      "author": "Participant 3",
+      "body": "The cli has to connect to Netlify to work, hence the call to cli.netlify.com. If you disable telemetry, we don’t use telemetry.\n\n<sub>Sent with <a href=\"http://githawk.com\">GitHawk</a></sub>"
+    },
+    {
+      "id": 596109195,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596109195",
+      "created_at": "2020-03-07T17:07:49Z",
+      "updated_at": "2020-03-07T17:16:57Z",
+      "author": "Participant 1",
+      "body": "@erquhart: Your **first statement is false**: The connection the CLI is making here to the telemetry server is not when performing any API action, only disabling telemetry.  The command I ran, `netlify --telemetry-disable`, **does not need to connect to Netlify to work**.\r\n\r\nYour second statement, \"If you disable telemetry, we don’t use telemetry\" is **also false**.  This bug is a report of its falsehood.  Disabling your spying *still sends spying data to netlify that the user has requested spying be disabled*, as shown above in the comment by @omeryl.\r\n\r\nIt's one thing to assume consent and silently spy; you at least can make the (invalid) excuse of \"everyone spies on their users these days! assuming consent is fine!\".\r\n\r\nIt's *another thing entirely* to actively receive a revocation of consent, and then *proceed to send a telemetry event in direct violation of that*.\r\n\r\nPlease don't spy on your users."
+    },
+    {
+      "id": 596110677,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596110677",
+      "created_at": "2020-03-07T17:22:45Z",
+      "updated_at": "2020-03-07T17:22:45Z",
+      "author": "Participant 3",
+      "body": "Going to look into that call to the server, it's either accidental or we're using it to disable some sort of server side telemetry. I'll update when I get more info - in the meantime, if you're concerned about the impact of this, please run a fork and disable that line until this is resolved. Apologies for the confusion here."
+    },
+    {
+      "id": 596111024,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596111024",
+      "created_at": "2020-03-07T17:26:13Z",
+      "updated_at": "2020-03-07T17:26:13Z",
+      "author": "Participant 2",
+      "body": "Alternatively, in the meantime, it seems if you set `\"telemetryDisabled\": true,` in your config and don't run --disable-telemetry you'll be fine as well. "
+    },
+    {
+      "id": 596111272,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596111272",
+      "created_at": "2020-03-07T17:28:36Z",
+      "updated_at": "2020-03-07T17:29:39Z",
+      "author": "Participant 1",
+      "body": "Please consider #737 as then the application can know from the first line that the user wishes to not be spied on (via consuming a standard env var, see https://consoledonottrack.com).\r\n\r\nIt sidesteps bugs (or at least what I hope is a bug) like \"sending telemetryDisabled event whilst in the process of registering the user doesn't want to send events\"."
+    },
+    {
+      "id": 596112106,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596112106",
+      "created_at": "2020-03-07T17:37:19Z",
+      "updated_at": "2020-03-07T17:37:19Z",
+      "author": "Participant 3",
+      "body": "@Omeryl good point - and since that approach is documented and does bypass this call, we'll go ahead and get a release out with the call excluded. @sneak thanks for raising this."
+    },
+    {
+      "id": 596113226,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596113226",
+      "created_at": "2020-03-07T17:39:24Z",
+      "updated_at": "2020-03-07T17:41:02Z",
+      "author": "Participant 1",
+      "body": "Why not disable telemetry by default for all installs, and then when a user in an interactive session does a `netlify init` or `netlify login`, just ask them for their consent that you send their data away?\r\n\r\nYou could even do something like make it the default when a user hits enter:\r\n\r\n`transmit usage data to Netlify? [Y/n]: _`\r\n\r\nDoing so silently and without any sort of notification or time window in which a user can cancel and not transmit is unethical and presumptuous, and, in my personal opinion, super rude.  A lack of consent withdrawal is **not** indication of affirmative consent.  For example: I never consented to *any* of this tracking data being collected, but it's been spying on me and sending you my data for months."
+    },
+    {
+      "id": 596120726,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596120726",
+      "created_at": "2020-03-07T17:54:02Z",
+      "updated_at": "2020-03-07T17:54:02Z",
+      "author": "Participant 3",
+      "body": "The CLI provides an alternative interface for interacting with the Netlify service. When signing up to the service, you agree to Netlify's terms of use and privacy policy as indicated in the [self serve subscription agreement](https://www.netlify.com/legal/self-serve-subscription-agreement/). Disabling the tracking call when disabling telemetry should be sufficient to close this issue - PR opened."
+    },
+    {
+      "id": 596122262,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596122262",
+      "created_at": "2020-03-07T18:08:29Z",
+      "updated_at": "2020-03-07T18:08:29Z",
+      "author": "Participant 1",
+      "body": "Nothing quite like being told that I consent to something when I actually don’t. "
+    },
+    {
+      "id": 596123689,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596123689",
+      "created_at": "2020-03-07T18:23:12Z",
+      "updated_at": "2020-03-07T18:29:36Z",
+      "author": "Participant 4",
+      "body": "> Netlify may use, distribute and disclose Customer Data in order to provide the Services to Customer and to maintain the associated Customer website projects. Netlify shall have the right to use and analyze Customer Data to administer, improve, customize, enhance and develop its products and services, including the Services. Upon termination, Netlify will make all Customer Data available to Customer for electronic retrieval for a period of thirty (30) days, but thereafter Netlify may, but is not obligated to, delete stored Customer Data.\r\n\r\n> Netlify shall have the right to collect and analyze data and other information relating to the provision, use and performance of various aspects of the Services and related systems. Netlify will use such data to administer, improve and develop its products and services, including the Services; and Netlify may share aggregated information and non-identifying information with third parties.\r\n\r\nThat was seriously buried in the terms. It may legally excuse it, but certainly goes against reasonable expectations.\r\n\r\nIf this is how netlify operates, you can trust I’ll no longer be able to recommend your services.\r\n\r\nIt really isn’t that hard to ask the user for consent at first use."
+    },
+    {
+      "id": 596124804,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596124804",
+      "created_at": "2020-03-07T18:33:30Z",
+      "updated_at": "2020-03-07T18:33:30Z",
+      "author": "Participant 1",
+      "body": "Why bother having an option to disable telemetry if you legitimately believe that every single person using the tool has already consented to such spying by having a Netlify account?"
+    },
+    {
+      "id": 596149161,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596149161",
+      "created_at": "2020-03-07T23:46:23Z",
+      "updated_at": "2020-03-07T23:46:23Z",
+      "author": "Participant 5",
+      "body": "Man, nothing like asking your users just to paint a picture of having control over it to literally not do anything. "
+    },
+    {
+      "id": 596178313,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596178313",
+      "created_at": "2020-03-08T08:11:28Z",
+      "updated_at": "2020-03-08T08:17:44Z",
+      "author": "Participant 6",
+      "body": "I think I have the solution.\r\nStop using the product.\r\nLearn how to use scp (or sftp) "
+    },
+    {
+      "id": 596204109,
+      "url": "https://github.com/netlify/cli/issues/739#issuecomment-596204109",
+      "created_at": "2020-03-08T13:10:03Z",
+      "updated_at": "2020-03-08T13:10:03Z",
+      "author": "Participant 7",
+      "body": "> Nothing quite like being told that I consent to something when I actually don’t\r\n\r\nBut you did? You agreed to their terms. That you did not read those terms that you agreed to, wherein you gave consent, is on you. Why is it the world's responsibility to bend to your whim?\r\n\r\nThe tone here is not useful at all. You aren't correct in your assumptions and you are painting people in an unnecessarily bad light just because you didn't take the time to read what you were agreeing to"
+    }
+  ],
+  "evidence_status": "partial",
+  "scope": "Retrieval-time original issue/comment Markdown from GitHub's structured page data; full discussion only when count and pagination checks pass. Closure time is not available from this endpoint. Linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/netlify/cli/issues/739",
+  "closed_at_available": false
+}

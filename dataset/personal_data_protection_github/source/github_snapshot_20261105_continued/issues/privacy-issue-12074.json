@@ -1,0 +1,58 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-12074",
+  "issue_url": "https://github.com/python-discord/bot/issues/133",
+  "source_issue_url": "https://github.com/python-discord/bot/issues/133",
+  "api_url": "https://api.github.com/repos/python-discord/bot/issues/133",
+  "title": "Possibly track when a user was last online/active",
+  "body": "**Originally posted by ByteCommander:**\n\nIt could be useful to know when an account has last been active in the server (e.g. events like sending messages, reactions, deleting messages, maybe changing nick) or even been visibly online in general. This could be integrated into the general user info command, or queried with a new bot command.\n\nTo avoid stalking/abuse potential, the reported time should probably be rounded to at least whole days, or for longer time spans even weeks for posting in public channels.\n\nThe data would have to be gathered by logging the time stamps (again, rounding this to e.g. full hours or maybe even full UTC days could be desirable) of user actions and status/visibility changes. Only the last value for both activity and visibility should be saved each, no history.\n\nAdditional things to do with this data include showing accumulated stats about how many people have been inactive/invisible for how long periods of time. Possibly it could even be used to notify and in a second step prune members that were inactive and never online for extended periods, like 6 months or a year (dead accounts).",
+  "author": "Participant 1",
+  "created_at": "2018-11-17T12:59:50Z",
+  "updated_at": "2021-08-13T06:11:39Z",
+  "state": "closed",
+  "closed_at": "2018-11-17T13:00:05Z",
+  "issue_fetched_at": "2026-10-19T04:05:18.509997+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T04:05:19.910636+00:00"
+  ],
+  "expected_comment_count": 4,
+  "retrieved_comment_count": 4,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 439614917,
+      "url": "https://github.com/python-discord/bot/issues/133#issuecomment-439614917",
+      "created_at": "2018-11-17T12:59:52Z",
+      "updated_at": "2018-11-17T12:59:52Z",
+      "author": "Participant 1",
+      "body": "**Comment from Johannes Christ:**\n\n\"could be useful\" does not legitimate getting stalked by robots to me."
+    },
+    {
+      "id": 439614922,
+      "url": "https://github.com/python-discord/bot/issues/133#issuecomment-439614922",
+      "created_at": "2018-11-17T12:59:55Z",
+      "updated_at": "2018-11-17T12:59:55Z",
+      "author": "Participant 1",
+      "body": "**Comment from Joseph Banks:**\n\nI don't know if I like the idea of this. I'd like to see the opinions of others. Most of what we display in the public user command is collected at the time of execution of this command. I like it this way because we aren't storing too much data about our users, which I believe in. I think that storing this kind of information, and even displaying it to other users is a breach of users privacy and might not be what we are going for. This would be collecting data which isn't related to our guild, this is the user coming online.\n\nI could *maybe* back some sort of last message time being stored but I don't think that storing the users status is something which I would be invested in at this time."
+    },
+    {
+      "id": 439614928,
+      "url": "https://github.com/python-discord/bot/issues/133#issuecomment-439614928",
+      "created_at": "2018-11-17T12:59:59Z",
+      "updated_at": "2018-11-17T12:59:59Z",
+      "author": "Participant 1",
+      "body": "**Comment from ByteCommander:**\n\nI see and share your concerns. Mainly posting this because the topic came up in chat yesterday and ended up in \"someone write an issue\". \n\nIndeed, tracking the \"online\" status might be too much. Last message could maybe also be determined on demand though, using the search feature with `from:user-tag#1234`, but I am not sure if an API endpoint exists for this, I couldn't find one."
+    },
+    {
+      "id": 439614932,
+      "url": "https://github.com/python-discord/bot/issues/133#issuecomment-439614932",
+      "created_at": "2018-11-17T13:00:04Z",
+      "updated_at": "2018-11-17T13:00:04Z",
+      "author": "Participant 1",
+      "body": "**Comment from ByteCommander:**\n\nclosed"
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

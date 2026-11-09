@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0145-aahjiddhj",
+  "revision_url": "https://github.com/ryfeus/gcf-packs/commit/44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "filename": "tensorflow2.0/source/tensorflow/python/distribute/values.py",
+  "commit": "44d36f9e5045fd859ee188d74dc31f3921ad4796",
+  "source_url": "https://raw.githubusercontent.com/ryfeus/gcf-packs/44d36f9e5045fd859ee188d74dc31f3921ad4796/tensorflow2.0/source/tensorflow/python/distribute/values.py",
+  "fetched_at": "2026-11-05T06:12:01.427948+00:00",
+  "source_sha256": "9786b6306159f0e5d5d85d6e686ef2738b1426de001aaa4d7f27104e824f757e",
+  "line_start": 1095,
+  "line_end": 1119,
+  "excerpt": "\n    Returns:\n      A dictionary mapping attribute names to `SaveableObject` factories.\n    \"\"\"\n    def _saveable_factory(name=self._common_name):\n      return _MirroredSaveable(self, self.primary, name)\n    return {trackable.VARIABLE_VALUE_KEY: _saveable_factory}\n\n  def _should_act_as_resource_variable(self):\n    \"\"\"Pass resource_variable_ops.is_resource_variable check.\"\"\"\n    pass\n\n  # Needed to pass ResourceVariable checks.\n  @property\n  def op(self):\n    return self.primary.op\n\n  # pylint: disable=protected-access\n  @property\n  def _save_slice_info(self):\n    return self.primary._save_slice_info\n\n  def _get_save_slice_info(self):\n    return self.primary._get_save_slice_info()\n"
+}

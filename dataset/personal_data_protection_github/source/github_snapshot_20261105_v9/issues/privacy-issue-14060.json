@@ -1,0 +1,170 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-14060",
+  "issue_url": "https://github.com/dbeaver/dbeaver/issues/1954",
+  "source_issue_url": "https://github.com/dbeaver/dbeaver/issues/1954",
+  "api_url": "https://api.github.com/repos/dbeaver/dbeaver/issues/1954",
+  "title": "How to enable SSL connection for DB2 LUW",
+  "body": "Is there a step by step documentation of enabling SSL for db2 luw.",
+  "author": "Participant 1",
+  "created_at": "2017-08-01T19:45:43Z",
+  "updated_at": "2025-02-24T12:54:07Z",
+  "state": "closed",
+  "closed_at": "2020-04-21T14:29:54Z",
+  "issue_fetched_at": "2026-10-19T05:06:06.232627+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T05:06:07.645246+00:00"
+  ],
+  "expected_comment_count": 18,
+  "retrieved_comment_count": 18,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 319821280,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-319821280",
+      "created_at": "2017-08-02T22:56:07Z",
+      "updated_at": "2017-08-02T22:56:07Z",
+      "author": "Participant 2",
+      "body": "You can set driver property sslConnection to true.\r\nAlso you will need to configure client according to https://www.ibm.com/developerworks/data/library/techarticle/dm-0806sogalad/index.html\r\nIf you have some particular problems with SSL config - please ask."
+    },
+    {
+      "id": 319831273,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-319831273",
+      "created_at": "2017-08-03T00:03:49Z",
+      "updated_at": "2017-08-03T00:03:49Z",
+      "author": "Participant 1",
+      "body": "I already tried it based on IBM's documentation. Needless to say, it doesn't work.  In contract it took me an hour to set up SSL based client connection for Postgres."
+    },
+    {
+      "id": 320460179,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-320460179",
+      "created_at": "2017-08-05T17:58:03Z",
+      "updated_at": "2017-08-05T17:58:03Z",
+      "author": "Participant 2",
+      "body": "I'll try to setup SSL support in my DB2 Express and test this.."
+    },
+    {
+      "id": 330719885,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-330719885",
+      "created_at": "2017-09-20T01:36:20Z",
+      "updated_at": "2017-09-20T01:36:20Z",
+      "author": "Participant 3",
+      "body": "@SriniRaviKrishna Once the database is configured for SSL you need to tell DBeaver to use the SSL details. Edit Connection -> Connection settings -> Driver Properties and add the following key name/values:\r\nName: sslConnection Value: true\r\nName: sslTrustStoreLocation Value: <location of the Java Key Store>\r\nName: sslTrustStorePassword Value: <Java Key Store password>"
+    },
+    {
+      "id": 330880582,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-330880582",
+      "created_at": "2017-09-20T15:03:24Z",
+      "updated_at": "2017-09-20T15:03:24Z",
+      "author": "Participant 1",
+      "body": "This was one of the first things I did and it did not work."
+    },
+    {
+      "id": 401316551,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-401316551",
+      "created_at": "2018-06-29T10:32:13Z",
+      "updated_at": "2018-06-29T10:32:13Z",
+      "author": "Participant 4",
+      "body": "Hello, I have the same issue, any progress on this bug?"
+    },
+    {
+      "id": 444303943,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-444303943",
+      "created_at": "2018-12-04T23:50:00Z",
+      "updated_at": "2018-12-05T00:01:52Z",
+      "author": "Participant 5",
+      "body": "I've connecting through SSL with the following URL Template:\r\n\r\n`JDBC:db2://{host}{:port}}/{database}:sslConnection=true;sslTrustStoreLocation=/location/to/your/cacerts;sslTrustStorePassword=changeit;`"
+    },
+    {
+      "id": 444312773,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-444312773",
+      "created_at": "2018-12-05T00:34:28Z",
+      "updated_at": "2018-12-05T00:34:28Z",
+      "author": "Participant 1",
+      "body": "Thanks.  Let me try.\n\n------------ Original Message ------------\n\n> On Dec 4, 2018, at 6:50 PM, David Krawchuk <notifications@github.com> wrote:\n> \n> Works for me by setting the url template to the following:\n> \n> JDBC:db2://{host}{:port}}/{database}:sslConnection=true;sslTrustStoreLocation=/location/to/your/cacerts;sslTrustStorePassword=changeit;\n> \n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub, or mute the thread.\n> \n\n"
+    },
+    {
+      "id": 447604614,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-447604614",
+      "created_at": "2018-12-15T23:11:36Z",
+      "updated_at": "2018-12-15T23:11:36Z",
+      "author": "Participant 6",
+      "body": "Still doesn't work...with new European GDPR rules--need the SSL encryption--forces use of Squirrel even though I prefer DBeaver."
+    },
+    {
+      "id": 447605038,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-447605038",
+      "created_at": "2018-12-15T23:21:18Z",
+      "updated_at": "2018-12-15T23:21:18Z",
+      "author": "Participant 6",
+      "body": "What DOES work:  put Host and Port in normal General DB2 Connection Settings and where it asks for Database: Put in Database name along with the ssl connection string : {database}:sslConnection=true;sslTrustStoreLocation=/location/to/your/cacerts;sslTrustStorePassword=changeit;"
+    },
+    {
+      "id": 453431742,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-453431742",
+      "created_at": "2019-01-11T08:41:25Z",
+      "updated_at": "2019-01-11T08:41:25Z",
+      "author": "Participant 4",
+      "body": "Thanks guys, last comment helped! SSL begin to work if put ssl properties into database name field."
+    },
+    {
+      "id": 454174542,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-454174542",
+      "created_at": "2019-01-14T21:49:19Z",
+      "updated_at": "2019-01-14T21:49:19Z",
+      "author": "Participant 7",
+      "body": "When you say \"/location/to/your/cacerts\", which server are you referring to? DB2 DB is my server and application server is my client. "
+    },
+    {
+      "id": 454245956,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-454245956",
+      "created_at": "2019-01-15T02:34:52Z",
+      "updated_at": "2019-01-15T02:34:52Z",
+      "author": "Participant 6",
+      "body": "This sslTrustStoreLocation would be the cacerts on your local machine"
+    },
+    {
+      "id": 580555964,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-580555964",
+      "created_at": "2020-01-31T02:35:41Z",
+      "updated_at": "2020-01-31T02:35:41Z",
+      "author": "Participant 8",
+      "body": "Thank you people. Made my night."
+    },
+    {
+      "id": 591305221,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-591305221",
+      "created_at": "2020-02-26T08:39:22Z",
+      "updated_at": "2020-02-26T08:39:22Z",
+      "author": "Participant 9",
+      "body": "![image](https://user-images.githubusercontent.com/18572477/75326953-db331080-587b-11ea-9be9-822b789989a2.png)\r\n"
+    },
+    {
+      "id": 611996729,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-611996729",
+      "created_at": "2020-04-10T11:48:28Z",
+      "updated_at": "2020-04-10T11:48:28Z",
+      "author": "Participant 10",
+      "body": "Is this ticket still actual for you?"
+    },
+    {
+      "id": 611997231,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-611997231",
+      "created_at": "2020-04-10T11:50:13Z",
+      "updated_at": "2020-04-10T11:50:13Z",
+      "author": "Participant 11",
+      "body": "Sorry I no longer work with DB2, so no idea.  thanks for the effort."
+    },
+    {
+      "id": 611997392,
+      "url": "https://github.com/dbeaver/dbeaver/issues/1954#issuecomment-611997392",
+      "created_at": "2020-04-10T11:50:47Z",
+      "updated_at": "2020-04-10T11:50:47Z",
+      "author": "Participant 11",
+      "body": "I was the one who created this issue nearly 3 years ago."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

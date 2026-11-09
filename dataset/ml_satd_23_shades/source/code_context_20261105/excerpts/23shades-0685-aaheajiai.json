@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0685-aaheajiai",
+  "revision_url": "https://github.com/apacha/Mensural-Detector/commit/22404eb2931793c36fd2ecf361b81166eed6726b",
+  "filename": "tensorflow_object_detection/eval_util.py",
+  "commit": "22404eb2931793c36fd2ecf361b81166eed6726b",
+  "source_url": "https://raw.githubusercontent.com/apacha/Mensural-Detector/22404eb2931793c36fd2ecf361b81166eed6726b/tensorflow_object_detection/eval_util.py",
+  "fetched_at": "2026-11-05T06:13:38.725287+00:00",
+  "source_sha256": "c423da91711bc99bfcb498d8760d9604edda2ef6ada300e9e18a85ae6c1f082d",
+  "line_start": 254,
+  "line_end": 278,
+  "excerpt": "          try:\n            result_dict = sess.run(tensor_dict)\n            counters['success'] += 1\n          except tf.errors.InvalidArgumentError:\n            logging.info('Skipping image')\n            counters['skipped'] += 1\n            result_dict = {}\n        else:\n          result_dict = batch_processor(tensor_dict, sess, batch, counters)\n        for evaluator in evaluators:\n          # TODO: Use image_id tensor once we fix the input data\n          # decoders to return correct image_id.\n          # TODO: result_dict contains batches of images, while\n          # add_single_ground_truth_image_info expects a single image. Fix\n          evaluator.add_single_ground_truth_image_info(\n              image_id=batch, groundtruth_dict=result_dict)\n          evaluator.add_single_detected_image_info(\n              image_id=batch, detections_dict=result_dict)\n      logging.info('Running eval batches done.')\n    except tf.errors.OutOfRangeError:\n      logging.info('Done evaluating -- epoch limit reached')\n    finally:\n      # When done, ask the threads to stop.\n      logging.info('# success: %d', counters['success'])\n      logging.info('# skipped: %d', counters['skipped'])",
+  "match_policy": "unique-release-normalized-v2"
+}

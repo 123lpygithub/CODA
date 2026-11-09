@@ -1,0 +1,106 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-694",
+  "issue_url": "https://github.com/zammad/zammad/issues/4437",
+  "source_issue_url": "https://github.com/zammad/zammad/issues/4437",
+  "api_url": "https://api.github.com/repos/zammad/zammad/issues/4437",
+  "title": "DataPrivacy tasks never are cleaned up",
+  "body": "### Used Zammad Version\n\n5.3; 5.x; 4.x\n\n### Environment\n\n- Installation method: [any\r\n- Operating system (if you're unsure: `cat /etc/os-release` ): any\r\n- Database + version: any\r\n- Elasticsearch version: any\r\n- Browser + version: any\r\n\n\n### Actual behaviour\n\nZammad never forgets about the data privacy tasks admins added.\r\nThis may lead into extremely huge views causing possible performance degrade in the affected UI part.\r\n\r\nAlso this kind of means data hoarding - should behave similar to other data potions:\r\nhttps://docs.zammad.org/en/latest/appendix/privacy.html\n\n### Expected behaviour\n\nZammad cleans up data privacy tasks on a regular basis. Like 6 months and older or so.\n\n### Steps to reproduce the behaviour\n\nCreate data privacy tasks, let them run and come back after years.\r\n\r\n![image](https://user-images.githubusercontent.com/6549061/208648717-2c0fdf10-5f1e-4ac4-b0ce-e2ce9d32177c.png)\r\n\n\n### Support Ticket\n\n_No response_\n\n### I'm sure this is a bug and no feature request or a general question.\n\nno",
+  "author": "Participant 1",
+  "created_at": "2022-12-20T10:45:56Z",
+  "updated_at": "2023-03-03T14:07:52Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:19:23.792836+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:19:23.792836+00:00",
+    "2026-11-05T06:39:31.043583+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 1408143612,
+      "url": "https://github.com/zammad/zammad/issues/4437#issuecomment-1408143612",
+      "created_at": "2023-01-30T08:00:51Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "Since deleting data should always be done with great caution, I think 6 months is too short here. Customer projects often last longer than half a year, which means you still need the chance to have a look where tickets are. Therefore this time frame seems a bit too short to me. Suggestion: 12 months. "
+    },
+    {
+      "id": 1452052645,
+      "url": "https://github.com/zammad/zammad/issues/4437#issuecomment-1452052645",
+      "created_at": "2023-03-02T15:24:58Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "Can this be enabled/disabled or can the timeframe be configured?"
+    },
+    {
+      "id": 1452058888,
+      "url": "https://github.com/zammad/zammad/issues/4437#issuecomment-1452058888",
+      "created_at": "2023-03-02T15:28:51Z",
+      "updated_at": "2023-03-02T15:31:53Z",
+      "author": "Participant 4",
+      "body": "No, but you could create a cronjob or run it manually if you want to run it more often.\r\n\r\n`zammad run rails r \"DataPrivacyTask.cleanup(1.month)\"` \r\n\r\nThis command would clean up tasks created older than 1 month if you run it daily via cronjob."
+    },
+    {
+      "id": 1452076919,
+      "url": "https://github.com/zammad/zammad/issues/4437#issuecomment-1452076919",
+      "created_at": "2023-03-02T15:40:55Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "Oh, that's nifty. Thank you for the feedback.\r\n\r\nIs there also a solution for clients that want to have the data for more than 12 months, for example for 5 years?"
+    },
+    {
+      "id": 1452093219,
+      "url": "https://github.com/zammad/zammad/issues/4437#issuecomment-1452093219",
+      "created_at": "2023-03-02T15:51:27Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": "Not really. You could completely disable it:\r\n\r\n`Scheduler.find_by(method: 'DataPrivacyTask.cleanup').update(active: false)`\r\n"
+    },
+    {
+      "id": 1452096167,
+      "url": "https://github.com/zammad/zammad/issues/4437#issuecomment-1452096167",
+      "created_at": "2023-03-02T15:53:18Z",
+      "updated_at": null,
+      "author": "Participant 4",
+      "body": "Alternatively, if these requirements often come to you, then it might make sense to think about a setting to configure it in the core."
+    },
+    {
+      "id": 1452098583,
+      "url": "https://github.com/zammad/zammad/issues/4437#issuecomment-1452098583",
+      "created_at": "2023-03-02T15:54:50Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "> Not really. You could completely disable it:\r\n> \r\n> Scheduler.find_by(method: 'DataPrivacyTask.cleanup').update(active: false)\r\n\r\nPlease don't this. This is not a recommended action and shouldn't be a a recommendation at all.\r\n"
+    },
+    {
+      "id": 1453309669,
+      "url": "https://github.com/zammad/zammad/issues/4437#issuecomment-1453309669",
+      "created_at": "2023-03-03T10:30:40Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "Without a setting (which is \"off\" per default), I personally consider this a breaking change. With this update, we will destroy client data, that may be needed by some of them. And as the whole function may be relevant in legal cases, we should reconsider activating this per default."
+    },
+    {
+      "id": 1453585175,
+      "url": "https://github.com/zammad/zammad/issues/4437#issuecomment-1453585175",
+      "created_at": "2023-03-03T14:07:52Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "This scheduler task is about old dataprivacy tasks **after** they deleted data.\r\nImho technically the old ticket numbers don't help you too much as you don't know who the obscured user is anyway.\r\n\r\nI don't see any legal issues at this point.\r\nFeel free to contact me directory on this Gerrit, I believe this is a missunderstanding."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original Markdown from GitHub's structured issue pages, including numbered timeline pages. Discussion complete only after pagination, comment-ID, expected-count and unchanged-issue checks. Closure timestamp is unavailable; linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/zammad/zammad/issues/4437",
+  "closed_at_available": false,
+  "timeline_page_urls": [
+    "https://github.com/zammad/zammad/issues/4437",
+    "https://github.com/zammad/zammad/issues/4437?timeline_page=1"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0733-aajacfjii",
+  "revision_url": "https://github.com/chainer/chainer/commit/22c5d798e356e820acc9687225e306031a213679",
+  "filename": "chainer/graph_optimizations/static_graph.py",
+  "commit": "22c5d798e356e820acc9687225e306031a213679",
+  "source_url": "https://raw.githubusercontent.com/chainer/chainer/22c5d798e356e820acc9687225e306031a213679/chainer/graph_optimizations/static_graph.py",
+  "fetched_at": "2026-11-05T06:13:08.298724+00:00",
+  "source_sha256": "568b4c9430429b8a218214894b9eb18bf970411e728ff3aca85d044ab6a0c3ba",
+  "line_start": 486,
+  "line_end": 510,
+  "excerpt": "                    for var in retained_vars:\n                        retained_ids.add(id(var.data))\n\n        for keep_id in retained_ids:\n            unique_ind = self.array_id_to_unique_index[keep_id]\n            array_info = self.unique_array_infos[unique_ind]\n            array_info.retain = True\n            # Note: the following line is not actually needed.\n            # array_info.array = array_info.weak_ref()\n\n        delete_hooks = []\n        for unique_ind, ar_info in enumerate(self.unique_array_infos):\n            # todo: this is O(N^2) and maybe too slow for large graphs.\n            # Optimize it later.\n            if ar_info.was_deleted():\n                if ar_info.dynamic_deletion_index is None:\n                    if self.verbosity_level >= 2:\n                        print('Adding delete hook:')\n                    delete_hooks.append(unique_ind)\n                    ar_info.dynamic_deletion_index = last_sched_info_ind + 1\n                    ar_info.dynamic_deletion_pass_depth = self.pass_depth\n\n        # Call the `@static_code`-decorated function.\n        ret = func(*args, **kwargs)\n"
+}

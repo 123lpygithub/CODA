@@ -1,0 +1,40 @@
+{
+  "artifact_id": "privacy-issue-20596",
+  "source_issue_url": "https://github.com/ActiveLogin/ActiveLogin.Authentication/issues/156",
+  "issue_snapshot_sha256": "9e6297f042cb484f7f5d7a4dc22b20d8d9656402c73415936ec97926fdb704b9",
+  "scope": "One-hop explicitly linked GitHub source files, commit patches, PR metadata/patches, and linked issue discussions. Branch links reflect retrieval-time content unless resolved to a commit. No recursive expansion or external attachments.",
+  "links": [
+    {
+      "url": "https://github.com/ActiveLogin/ActiveLogin.Authentication/blob/master/samples/IdentityServer.ServerSample/Controllers/AccountController.cs#L42-L55",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "revision": "master",
+      "immutable_revision": false,
+      "line_start": 30,
+      "line_end": 67,
+      "text": "    }\n\n    public IActionResult ExternalLogin(string provider, string returnUrl)\n    {\n        var props = new AuthenticationProperties\n        {\n            RedirectUri = Url.Action(nameof(ExternalLoginCallback)),\n            Items =\n            {\n                { \"returnUrl\", returnUrl },\n                { \"scheme\", provider },\n                { \"cancelReturnUrl\", Url.Action(\"Login\", \"Account\", new { returnUrl }) }\n            }\n        };\n\n        return Challenge(props, provider);\n    }\n\n    [HttpGet]\n    public async Task<IActionResult> ExternalLoginCallback()\n    {\n        var result = await HttpContext.AuthenticateAsync();\n        if (result?.Succeeded != true)\n        {\n            throw new Exception(\"External authentication error\");\n        }\n\n        var returnUrl = result.Properties?.Items[\"returnUrl\"];\n\n        if (returnUrl != null && _interaction.IsValidReturnUrl(returnUrl) || Url.IsLocalUrl(returnUrl))\n        {\n            return Redirect(returnUrl);\n        }\n\n        return Redirect(\"~/\");\n    }\n\n    [HttpGet]",
+      "source_sha256": "ea3bc45c6cd5e05940082f5668a181fd35a87d47202b40d5a04a09c5594c809a",
+      "fetched_at": "2026-11-05T06:21:37.193805+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/ActiveLogin/ActiveLogin.Authentication/master/samples/IdentityServer.ServerSample/Controllers/AccountController.cs",
+      "status": "available"
+    },
+    {
+      "url": "https://github.com/aspnet/AspNetCore/blob/master/src/Security/Authentication/Twitter/src/TwitterHandler.cs#L141-L158",
+      "kind": "file",
+      "cited_in": [
+        "body"
+      ],
+      "revision": "master",
+      "immutable_revision": false,
+      "line_start": 129,
+      "line_end": 170,
+      "text": "            {\n                properties.StoreTokens(new[] {\n                    new AuthenticationToken { Name = \"access_token\", Value = accessToken.Token },\n                    new AuthenticationToken { Name = \"access_token_secret\", Value = accessToken.TokenSecret }\n                    });\n            }\n\n            var ticket = await CreateTicketAsync(identity, properties, accessToken, user.RootElement);\n            return HandleRequestResult.Success(ticket);\n        }\n    }\n\n    /// <summary>\n    /// Creates an <see cref=\"AuthenticationTicket\"/> from the specified <paramref name=\"token\"/>.\n    /// </summary>\n    /// <param name=\"identity\">The <see cref=\"ClaimsIdentity\"/>.</param>\n    /// <param name=\"properties\">The <see cref=\"AuthenticationProperties\"/>.</param>\n    /// <param name=\"token\">The <see cref=\"AccessToken\"/>.</param>\n    /// <param name=\"user\">The <see cref=\"JsonElement\"/> for the user.</param>\n    /// <returns>The <see cref=\"AuthenticationTicket\"/>.</returns>\n    protected virtual async Task<AuthenticationTicket> CreateTicketAsync(\n        ClaimsIdentity identity, AuthenticationProperties properties, AccessToken token, JsonElement user)\n    {\n        foreach (var action in Options.ClaimActions)\n        {\n            action.Run(user, identity, ClaimsIssuer);\n        }\n\n        var context = new TwitterCreatingTicketContext(Context, Scheme, Options, new ClaimsPrincipal(identity), properties, token.UserId, token.ScreenName, token.Token, token.TokenSecret, user);\n        await Events.CreatingTicket(context);\n\n        return new AuthenticationTicket(context.Principal!, context.Properties, Scheme.Name);\n    }\n\n    /// <inheritdoc />\n    protected override async Task HandleChallengeAsync(AuthenticationProperties properties)\n    {\n        if (string.IsNullOrEmpty(properties.RedirectUri))\n        {\n            properties.RedirectUri = OriginalPathBase + OriginalPath + Request.QueryString;\n        }\n",
+      "source_sha256": "c1e98837ea77265f0db93e84d5a29bac314b81f4e84a862f87338c6a67b81f97",
+      "fetched_at": "2026-11-05T06:21:37.400190+00:00",
+      "retrieval_url": "https://raw.githubusercontent.com/aspnet/AspNetCore/master/src/Security/Authentication/Twitter/src/TwitterHandler.cs",
+      "status": "available"
+    }
+  ]
+}

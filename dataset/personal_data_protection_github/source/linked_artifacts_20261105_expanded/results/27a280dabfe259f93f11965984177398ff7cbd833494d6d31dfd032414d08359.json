@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/nextcloud/spreed/blob/d69d88bcd42e5953d4a82eb78ba26a912d96f507/lib/Config.php#L69",
+  "kind": "file",
+  "cited_in": [
+    "comment_408866490"
+  ],
+  "revision": "d69d88bcd42e5953d4a82eb78ba26a912d96f507",
+  "immutable_revision": true,
+  "line_start": 57,
+  "line_end": 81,
+  "text": "\t\t$stunServer = $this->getStunServer();\n\t\tif ($stunServer) {\n\t\t\t$stun[] = [\n\t\t\t\t'url' => 'stun:' . $stunServer,\n\t\t\t];\n\t\t}\n\t\t$turn = [];\n\t\t$turnSettings = $this->getTurnSettings();\n\t\tif (!empty($turnSettings['server'])) {\n\t\t\t$protocols = explode(',', $turnSettings['protocols']);\n\t\t\tforeach ($protocols as $proto) {\n\t\t\t\t$turn[] = [\n\t\t\t\t\t'url' => ['turn:' . $turnSettings['server'] . '?transport=' . $proto],\n\t\t\t\t\t'urls' => ['turn:' . $turnSettings['server'] . '?transport=' . $proto],\n\t\t\t\t\t'username' => $turnSettings['username'],\n\t\t\t\t\t'credential' => $turnSettings['password'],\n\t\t\t\t];\n\t\t\t}\n\t\t}\n\n\t\t$signaling = [];\n\t\t$servers = $this->getSignalingServers();\n\t\tif (!empty($servers)) {\n\t\t\t$signaling = $servers[mt_rand(0, count($servers) - 1)];\n\t\t\t$signaling = $signaling['server'];",
+  "source_sha256": "9181b736a9c886f6f0d5b35242c89ef99c4704da6353266fae7bf7c4624944ae",
+  "fetched_at": "2026-11-05T06:21:03.516999+00:00",
+  "retrieval_url": "https://raw.githubusercontent.com/nextcloud/spreed/d69d88bcd42e5953d4a82eb78ba26a912d96f507/lib/Config.php",
+  "status": "available"
+}

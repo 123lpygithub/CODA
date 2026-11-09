@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0306-aafchbaid",
+  "revision_url": "https://github.com/Rostlab/nalaf/commit/9edac3eb0323946488ac177b1341711492fef55a",
+  "filename": "nala/features/tmvar.py",
+  "commit": "9edac3eb0323946488ac177b1341711492fef55a",
+  "source_url": "https://raw.githubusercontent.com/Rostlab/nalaf/9edac3eb0323946488ac177b1341711492fef55a/nala/features/tmvar.py",
+  "fetched_at": "2026-11-05T06:12:30.773157+00:00",
+  "source_sha256": "a03deee45d5e5eb0e3d228650906b2fe3e6bf03527afeb0ed36c91f09ac5bd6a",
+  "line_start": 152,
+  "line_end": 176,
+  "excerpt": "\n    def dna_symbols(self, str):\n        return \"DNASym\" if self.reg_dna_symbols.match(str) else None\n\n    def protein_symbols(self, str):\n        uc_tmp = str  # upper case\n        lc_tmp = str.lower()  # lower case\n\n        if self.reg_prot_symbols1.match(lc_tmp):\n            return \"ProteinSymFull\"\n        elif self.reg_prot_symbols2.match(lc_tmp):\n            return \"ProteinSymTri\"\n        # TODO last token include: \"&& $last_token[...]\"\n        elif self.reg_prot_symbols3.match(lc_tmp):\n            return \"ProteinSymTriSub\"\n        elif self.reg_prot_symbols4.match(uc_tmp):\n            return \"ProteinSymChar\"\n        else:\n            return None\n\n    def rscode(self, str):\n        if self.reg_rs_code1.match(str):\n            return \"RSCode\"\n        elif self.reg_rs_code2.match(str):\n            return \"RSCode\"",
+  "match_policy": "unique-release-normalized-v2"
+}

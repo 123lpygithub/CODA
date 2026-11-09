@@ -1,0 +1,362 @@
+
+=== 624 23shades-0717-aahhgdcgi ===
+{"dataset_id": "aahhgdcgi", "repo_name": "nschaetti/EchoTorch", "filename": "echotorch/nn/reservoir/FreeRunESNCell.py", "comment_introducing_revision": "https://github.com/nschaetti/EchoTorch/commit/256363e1e65c1c9cef12eddad1e244dc06d29007", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "256363e1e65c1c9cef12eddad1e244dc06d29007"}
+[comment_text]
+TODO: Test
+[source_context]
+# Imports
+import torch
+import torch.sparse
+from torch.autograd import Variable
+
+import echotorch.utils
+from echotorch.utils.visualisation import Observable
+from .LiESNCell import LiESNCell
+
+
+# Echo State Network layer
+# with Feedback
+# TODO: Test
+class FreeRunESNCell(LiESNCell, Observable):
+    """
+    Echo State Network layer
+    Basis cell for ESN
+    """
+
+    # Constructor
+    def __init__(self, *args, **kwargs):
+        """
+        Constructor
+        :param args: Arguments
+        :param kwargs: Positional arguments
+
+=== 625 23shades-0383-aajdbcadb ===
+{"dataset_id": "aajdbcadb", "repo_name": "mme/vergeml", "filename": "vergeml/data.py", "comment_introducing_revision": "https://github.com/mme/vergeml/commit/b5cffa8a8e532d64bc38e58baa51ec38bf30285e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b5cffa8a8e532d64bc38e58baa51ec38bf30285e"}
+[comment_text]
+TODO validate configuration and set defaults
+[source_context]
+        if not input_name:
+            raise VergeMLError("data.input.type is not defined.")
+
+        # get input configuration and merge base config
+        input_conf = self.env.get('data.input').copy()
+        input_conf.update(config)
+
+        # instantiate the input plugin
+        input_class = self.plugins.get('vergeml.io', input_name)
+        if not input_class:
+            raise VergeMLError("input name not found: {}".format(input_name))
+            
+        # TODO validate configuration and set defaults
+        del input_conf['type']
+
+        self.input = input_class(input_conf)
+
+        # set up preprocessing operations
+        self.ops = []
+        for conf in self.env.get('data.preprocess') or []:
+            if isinstance(conf, str):
+                conf = dict(name=conf)
+            else:
+                conf = conf.copy()
+
+
+=== 626 23shades-0405-aahjighda ===
+{"dataset_id": "aahjighda", "repo_name": "ryfeus/gcf-packs", "filename": "tensorflow2.0/source/tensorflow/python/framework/ops.py", "comment_introducing_revision": "https://github.com/ryfeus/gcf-packs/commit/44d36f9e5045fd859ee188d74dc31f3921ad4796", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "44d36f9e5045fd859ee188d74dc31f3921ad4796"}
+[comment_text]
+TODO(mrry): Perhaps log that the default graph is being used; or set
+[source_context]
+    super(_DefaultGraphStack, self).__init__()
+    self._global_default_graph = None
+
+  def get_default(self):
+    """Override that returns a global default if the stack is empty."""
+    ret = super(_DefaultGraphStack, self).get_default()
+    if ret is None:
+      ret = self._GetGlobalDefaultGraph()
+    return ret
+
+  def _GetGlobalDefaultGraph(self):
+    if self._global_default_graph is None:
+      # TODO(mrry): Perhaps log that the default graph is being used, or set
+      #   provide some other feedback to prevent confusion when a mixture of
+      #   the global default graph and an explicit graph are combined in the
+      #   same process.
+      self._global_default_graph = Graph()
+    return self._global_default_graph
+
+  def reset(self):
+    super(_DefaultGraphStack, self).reset()
+    self._global_default_graph = None
+
+  @tf_contextlib.contextmanager
+  def get_controller(self, default):
+
+=== 627 23shades-0571-aagfabdib ===
+{"dataset_id": "aagfabdib", "repo_name": "shineware/PyKOMORAN", "filename": "python/PyKomoran/tests/core_test.py", "comment_introducing_revision": "https://github.com/shineware/PyKOMORAN/commit/8d15c0da4a8017ac5fe7ec7533e6c806720a6839", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "8d15c0da4a8017ac5fe7ec7533e6c806720a6839"}
+[comment_text]
+TODO: implement test_to_set_fw_dic() test code
+[source_context]
+    komoran = Komoran(model_path='./models_full')
+
+    assert komoran is not None
+    assert komoran._komoran.isInitialized()
+
+
+def test_to_set_user_dic():
+    # TODO: implement test_to_set_user_dic() test code
+    pass
+
+
+def test_to_set_fw_dic():
+    # TODO: implement test_to_set_fw_dic() test code
+    pass
+
+
+def test_to_analyze_get_nouns():
+    """
+    analyze test string with get_nouns() and check result is as expected
+    :return:
+    """
+    global komoran
+    global str_to_analyze
+
+    nouns = komoran.get_nouns(str_to_analyze)
+
+=== 628 23shades-0512-aaicabdbe ===
+{"dataset_id": "aaicabdbe", "repo_name": "scikit-learn/scikit-learn", "filename": "skeletons/exercise_01_language_train_model.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/d859f402eb8b1eb0a03b961280e50b50144e15e1", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "d859f402eb8b1eb0a03b961280e50b50144e15e1"}
+[comment_text]
+TODO: define variables 'y_train' and 'y_test'
+[source_context]
+#
+# The real code starts here
+#
+
+
+# the training data folder must be passed as first argument
+languages_data_folder = sys.argv[1]
+dataset = load_files(languages_data_folder)
+
+# split the dataset in training and test set:
+
+# TODO: define variables 'filenames_train' and 'filenames_test'
+# TODO: define variables 'y_train' and 'y_test'
+
+
+# Build a an analyzer that split strings into sequence of 1 to 3 characters
+# using the previous preprocessor
+
+# TODO: define a variable named analyzer
+
+
+# Build a vectorizer using the analyzer, learn the mapping from feature name to
+# feature id on the training data and then transform it into feature vectors.
+# Then use the fitted vectorizer on the test data
+
+
+=== 629 23shades-0623-aahijjdcb ===
+{"dataset_id": "aahijjdcb", "repo_name": "jmwoloso/pychattr", "filename": "pychattr/channel_attribution/_markov.py", "comment_introducing_revision": "https://github.com/jmwoloso/pychattr/commit/9d791d5204411e2ae63b6e1eeea0ed14275977cf", "comment_removing_revision": "https://github.com/jmwoloso/pychattr/commit/97ebaabd514bdc93302d787d9cc94153689aca96", "source_context_status": "available", "source_context_commit": "9d791d5204411e2ae63b6e1eeea0ed14275977cf"}
+[comment_text]
+TODO: NOT PASSED
+[source_context]
+    vchannels_sim_id[z] = -1
+
+if order > 1:
+    # TODO: PASSED
+    mp_channels_sim["(start)"] = nchannels_sim
+    vchannels_sim.append("(start)")
+    vchannels_sim_id[0] = nchannels_sim
+    # TODO: PASSED
+    mp_channels_sim_id[nchannels_sim] = vchannels_sim_id.copy()
+    # TODO: PASSED
+    nchannels_sim += 1
+
+# TODO: NOT PASSED
+if flg_var_value:
+    i = 0
+    for i in range(lvy):
+        if vc[i] > 0:
+            vui = vv[i] / vc[i]
+            if vui not in list(mp_vui.keys()):
+                mp_vui[vui] = l_vui
+                v_vui.append(vui)
+                l_vui += 1
+        i = i + 1
+
+# print(lvy)
+
+=== 630 23shades-0043-aaehiefac ===
+{"dataset_id": "aaehiefac", "repo_name": "cltk/cltk", "filename": "cltk/corpus/formatter.py", "comment_introducing_revision": "https://github.com/cltk/cltk/commit/3acd93f7bd600149e17dc287bb221ebeed51df86", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "3acd93f7bd600149e17dc287bb221ebeed51df86"}
+[comment_text]
+\"\"\"Process downloaded or local corpora from one format into another. || Some formatting can happen here; or invoke language-specific formatters in || other files. ||  || #TODO: Add TLG & PHI text cleaners from KJ's IPython notebooks || #TODO: Add non-ascii stripper || #TODO: Add generic HTML stripper || \"\"\"
+[source_context]
+"""Process downloaded or local corpora from one format into another.
+Some formatting can happen here, or invoke language-specific formatters in
+other files.
+
+#TODO: Add TLG & PHI text cleaners from KJ's IPython notebooks
+#TODO: Add non-ascii stripper
+#TODO: Add generic HTML stripper
+"""
+
+__author__ = ['Kyle P. Johnson <kyle@kyle-p-johnson.com>',
+              'Stephen Margheim <stephen.margheim@gmail.com>', ]
+__license__ = 'MIT License. See LICENSE.'
+
+
+from cltk.corpus.greek.tlgu import tlgu
+
+=== 631 23shades-0285-aaacggdfb ===
+{"dataset_id": "aaacggdfb", "repo_name": "GilesStrong/lumin", "filename": "lumin/nn/interpretation/features.py", "comment_introducing_revision": "https://github.com/GilesStrong/lumin/commit/23ece2386dca29edf85a83b9b1f7159e5a612274", "comment_removing_revision": "https://github.com/GilesStrong/lumin/commit/22e14948af2e3dd5ce65f824af8799d9bddc1ee0", "source_context_status": "available", "source_context_commit": "23ece2386dca29edf85a83b9b1f7159e5a612274"}
+[comment_text]
+TODO extend to work over matrix data
+[source_context]
+    Returns:
+        Pandas DataFrame containing mean importance and associated uncertainty for each feature
+
+    Examples::
+        >>> fi = get_nn_feat_importance(model, train_fy)
+        >>>
+        >>> fi = get_nn_feat_importance(model, train_fy, savename='feat_import')
+        >>>
+        >>> fi = get_nn_feat_importance(model, train_fy,
+        ...                             eval_metric=AMS(n_total=100000))
+    '''
+
+    # TODO extend to work over matrix data
+
+    feats = fy.cont_feats + fy.cat_feats
+    scores = []
+    fold_bar = progress_bar(range(fy.n_folds), parent=pb_parent)
+    for fold_idx in fold_bar:  # Average over folds
+        val_fold = fy.get_fold(fold_idx)
+        if val_fold['weights'] is not None: val_fold['weights'] /= val_fold['weights'].sum()
+        targs = val_fold['targets']
+        weights = val_fold['weights']
+        if eval_metric is None: nom = model.evaluate(val_fold['inputs'], targs, weights=weights)
+        else:                   nom = eval_metric.evaluate(fy, fold_idx, model.predict(val_fold['inputs']))
+        tmp = []
+
+=== 632 23shades-0460-aagfecjfe ===
+{"dataset_id": "aagfecjfe", "repo_name": "IBM/mi-prometheus", "filename": "problems/sequence/seq_to_seq/algorithmic/reverse_recall_maed.py", "comment_introducing_revision": "https://github.com/IBM/mi-prometheus/commit/fac23ff4d10cc39d8b9056f9a3435bf6588c4ac3", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "fac23ff4d10cc39d8b9056f9a3435bf6588c4ac3"}
+[comment_text]
+TODO: batch might have different sequence lengths
+[source_context]
+ 
+         
+        #add dummies to target
+        seq_length_tdummies = seq_length+2
+        dummies_target = np.zeros([self.batch_size, seq_length_tdummies, self.data_bits], dtype=np.float32)
+        targets = np.concatenate((dummies_target, target_seq), axis=1)
+
+        inputs = np.concatenate(data_1 + data_2, axis=1)
+
+        # PyTorch variables
+        inputs = torch.from_numpy(inputs).type(self.dtype)
+        targets = torch.from_numpy(targets).type(self.dtype)
+        # TODO: batch might have different sequence lengths
+        mask_all = inputs[..., 0:self.control_bits] == 1
+        mask = mask_all[..., 0]
+        for i in range(self.control_bits):
+            mask = mask_all[..., i] * mask
+        # TODO: fix the batch indexing
+        # rest channel values of data dummies
+        #inputs[:, mask[0], 0:self.control_bits] = ctrl_dummy
+        # TODO: fix the batch indexing
+        # rest channel values of data dummies
+
+        inputs[:, mask[0], 0:self.control_bits] = torch.tensor(ctrl_y).type(self.dtype)
+
+
+=== 633 23shades-0200-aadhaidcc ===
+{"dataset_id": "aadhaidcc", "repo_name": "ROCmSoftwarePlatform/Tensile", "filename": "Tensile/KernelWriterAssembly_BACKUP_100154.py", "comment_introducing_revision": "https://github.com/ROCmSoftwarePlatform/Tensile/commit/032d99603184b19c4dd159fe6a88749c1d744d26", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "032d99603184b19c4dd159fe6a88749c1d744d26"}
+[comment_text]
+TODO - does this handle N-dim tensors correctly?
+[source_context]
+  #   self.unrollIdx, or an idx from 0..NumIndicesSummation
+  # prefetchIndex is >0 (1...PrefetchGlobalRead) if this increment follows a
+  #   global prefetch or 0 otherwise
+  ##############################################################################
+  def globalReadIncrement(self, kernel, loopIdx, tP, prefetchIndex):
+    if not self.do["GlobalInc"]: return ""
+    tc = tP["tensorChar"]
+
+    imod = Code.Module("globalReadIncrement%s"%tc)
+    imod.addComment1("global read inc %s"%tc)
+
+    if kernel["BufferLoad"]:
+      # TODO - does this handle N-dim tensors correctly?
+      #if tP["isB"]:
+      #  kStr += inst("s_mov_b32", sgpr("OffsetB"), sgpr("SrdB+0"), "hack to save")
+      if self.staggerU:
+        # add a wrap increment, if needed:
+        incLower = self.getTmpSgpr(3)
+        incUpper = incLower + 1
+        tmpS =    incLower + 2
+        if prefetchIndex:
+          imod.addInst("s_sub_u32", sgpr(tmpS), sgpr("LoopCounters+%u"%self.unrollIdx), prefetchIndex, "remove pf(%u)"%prefetchIndex)
+          imod.addInst("s_cmp_eq_u32",  sgpr("StaggerUIter"), sgpr(tmpS), "Is this wrapIter? (pf)")
+        else:
+          imod.addInst("s_cmp_eq_u32",  sgpr("LoopCounters+%u"%self.unrollIdx), \
+
+=== 634 23shades-0455-aaeiibiib ===
+{"dataset_id": "aaeiibiib", "repo_name": "fastnlp/fastNLP", "filename": "fastNLP/core/fieldarray.py", "comment_introducing_revision": "https://github.com/fastnlp/fastNLP/commit/e1e0661debb8a649ebad7c2837dcd7d3d65a6151", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e1e0661debb8a649ebad7c2837dcd7d3d65a6151"}
+[comment_text]
+TODO: auto detect dtype
+[source_context]
+
+        :param str name: the name of the FieldArray
+        :param list content: a list of int, float, or other objects.
+        :param int padding_val: the integer for padding. Default: 0.
+        :param bool is_target: If True, this FieldArray is used to compute loss.
+        :param bool is_input: If True, this FieldArray is used to the model input.
+        """
+        self.name = name
+        self.content = content
+        self.padding_val = padding_val
+        self.is_target = is_target
+        self.is_input = is_input
+        # TODO: auto detect dtype
+        self.dtype = None
+
+    def __repr__(self):
+        return "FieldArray {}: {}".format(self.name, self.content.__repr__())
+
+    def append(self, val):
+        self.content.append(val)
+
+    def __getitem__(self, name):
+        return self.get(name)
+
+    def __setitem__(self, name, val):
+
+=== 635 23shades-0422-aajfahfei ===
+{"dataset_id": "aajfahfei", "repo_name": "pyannote/pyannote-audio", "filename": "pyannote/audio/applications/base.py", "comment_introducing_revision": "https://github.com/pyannote/pyannote-audio/commit/1d88c5816e7a176d53faaf12d5edbc24f0ee562f", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "1d88c5816e7a176d53faaf12d5edbc24f0ee562f"}
+[comment_text]
+TODO. get rid of from_model_pt
+[source_context]
+        train_dir = dirname(dirname(validate_dir))
+
+        # load params.yml file from validate directory
+        with open(validate_dir / 'params.yml', 'r') as fp:
+            params_yml = yaml.load(fp)
+
+        # build path to best epoch model
+        epoch = params_yml['epoch']
+        model_pt = cls.WEIGHTS_PT.format(train_dir=train_dir,
+                                         epoch=epoch)
+
+        # instantiate application
+        # TODO. get rid of from_model_pt
+        app = cls.from_model_pt(model_pt, db_yml=db_yml, training=training)
+        app.validate_dir_ = validate_dir
+        app.epoch_ = epoch
+
+        # keep track of pipeline parameters
+        app.pipeline_params_ = params_yml.get('params', {})
+
+        return app
+
+    def __init__(self, experiment_dir, db_yml=None, training=False):
+        """
+

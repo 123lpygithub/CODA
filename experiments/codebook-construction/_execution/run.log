@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/peiyuan/CODA/FSE27-CODA/CODA/experiments/codebook-construction/_execution/run_codebooks.py", line 215, in <module>
+    if __name__=='__main__':main()
+  File "/home/peiyuan/CODA/FSE27-CODA/CODA/experiments/codebook-construction/_execution/run_codebooks.py", line 212, in main
+    try:runner.run()
+  File "/home/peiyuan/CODA/FSE27-CODA/CODA/experiments/codebook-construction/_execution/run_codebooks.py", line 142, in run
+    observations=[self.read_case(self.corpus[i]) for i in self.order['artifact_ids']];save(self.dest/'observations.json',observations)
+  File "/home/peiyuan/CODA/FSE27-CODA/CODA/experiments/codebook-construction/_execution/run_codebooks.py", line 142, in <listcomp>
+    observations=[self.read_case(self.corpus[i]) for i in self.order['artifact_ids']];save(self.dest/'observations.json',observations)
+  File "/home/peiyuan/CODA/FSE27-CODA/CODA/experiments/codebook-construction/_execution/run_codebooks.py", line 93, in read_case
+    observations.append(self.call('read',{'artifact_id':case['artifact_id'],'part':i+1,'total_parts':len(parts),'segments':part},prompt,valid))
+  File "/home/peiyuan/CODA/FSE27-CODA/CODA/experiments/codebook-construction/_execution/run_codebooks.py", line 70, in call
+    if attempt==3:raise RuntimeError(f'{stage}: transport failed ({type(exc).__name__}); checkpoints retained') from None
+RuntimeError: read: transport failed (APITimeoutError); checkpoints retained

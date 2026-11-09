@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0083-aadggijai",
+  "revision_url": "https://github.com/sorgerlab/indra/commit/2da8e50efb9327b913569413f59e24d8fc504a7a",
+  "filename": "indra/explanation/model_checker/pysb.py",
+  "commit": "2da8e50efb9327b913569413f59e24d8fc504a7a",
+  "source_url": "https://raw.githubusercontent.com/sorgerlab/indra/2da8e50efb9327b913569413f59e24d8fc504a7a/indra/explanation/model_checker/pysb.py",
+  "fetched_at": "2026-11-05T06:11:51.668907+00:00",
+  "source_sha256": "af4d2351fb1d644a17db64c5334dd196471aedcc088a79aa4791f12e1ae5213e",
+  "line_start": 315,
+  "line_end": 339,
+  "excerpt": "            pr.paths = []\n            return pr\n\n        # Get a dict of rule objects\n        rule_obj_dict = {}\n        for ann in self.model.annotations:\n            if ann.predicate == 'rule_has_object':\n                rule_obj_dict[ann.subject] = ann.object\n\n        # Get monomer initial conditions\n        ic_dict = {}\n        for mon in self.model.monomers:\n            # FIXME: A hack that depends on the _0 convention\n            ic_name = '%s_0' % mon.name\n            # TODO: Wrap this in try/except?\n            ic_param = self.model.parameters[ic_name]\n            ic_value = ic_param.value\n            ic_dict[mon.name] = ic_value\n\n        # Set weights in PG based on model initial conditions\n        for cur_node in combined_pg.graph.nodes():\n            edge_weights = {}\n            rule_obj_list = []\n            edge_weights_by_gene = {}\n            for u, v in combined_pg.graph.out_edges(cur_node):"
+}

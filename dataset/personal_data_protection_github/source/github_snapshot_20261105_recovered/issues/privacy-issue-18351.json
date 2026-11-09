@@ -1,0 +1,274 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18351",
+  "issue_url": "https://github.com/element-hq/element-web/issues/2527",
+  "source_issue_url": "https://github.com/vector-im/element-web/issues/2527",
+  "api_url": "https://api.github.com/repos/element-hq/element-web/issues/2527",
+  "title": "Option to stop sending read receipts to other users",
+  "body": "For bonus points, configurable per room.  cf: #2526",
+  "author": "Participant 1",
+  "created_at": "2016-11-01T09:57:16Z",
+  "updated_at": "2022-08-05T15:33:58Z",
+  "state": "closed",
+  "closed_at": "2022-08-05T15:33:58Z",
+  "issue_fetched_at": "2026-10-19T05:05:49.717259+00:00",
+  "comments_fetched_at": [
+    "2026-10-19T05:05:51.171472+00:00"
+  ],
+  "expected_comment_count": 31,
+  "retrieved_comment_count": 31,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 257528323,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-257528323",
+      "created_at": "2016-11-01T09:58:16Z",
+      "updated_at": "2016-11-01T09:59:15Z",
+      "author": "Participant 1",
+      "body": "cf also #395\n"
+    },
+    {
+      "id": 285812233,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-285812233",
+      "created_at": "2017-03-10T23:20:54Z",
+      "updated_at": "2017-03-10T23:22:01Z",
+      "author": "Participant 2",
+      "body": "Can someone point me to where I disable read receipts in the code of riot-web until there's a proper UI setting for it?"
+    },
+    {
+      "id": 285822388,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-285822388",
+      "created_at": "2017-03-11T00:33:49Z",
+      "updated_at": "2017-03-11T00:33:49Z",
+      "author": "Participant 3",
+      "body": "Sure - the bluntest way to do it would be to have `sendReadReceipt` at https://github.com/matrix-org/matrix-react-sdk/blob/master/src/components/structures/TimelinePanel.js#L464 immediately `return`."
+    },
+    {
+      "id": 296298566,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-296298566",
+      "created_at": "2017-04-21T20:30:45Z",
+      "updated_at": "2017-04-21T20:41:45Z",
+      "author": "Participant 4",
+      "body": "Doing that recommendation ends up leaving some wonderfully stuck notifications. Is that an acceptable side effect? or is some other approach desirable for the checkbox?\r\n\r\nFtr: this is the commit that I ended up implementing, which has the potentially-buggy behaviour: https://github.com/turt2live/matrix-react-sdk/commit/1bdae495fa384a5d51b4d8665b258a4bd54332b6"
+    },
+    {
+      "id": 296336961,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-296336961",
+      "created_at": "2017-04-22T01:14:01Z",
+      "updated_at": "2017-04-22T01:14:01Z",
+      "author": "Participant 3",
+      "body": "This is fine - i've filed the vector-im/riot-android#1151 to sort out the stuck notif problem.  This doesn't exist on riot-ios as opening the app clears notifs anyway.  Thanks for doing this!!"
+    },
+    {
+      "id": 296337016,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-296337016",
+      "created_at": "2017-04-22T01:14:42Z",
+      "updated_at": "2017-04-22T01:14:42Z",
+      "author": "Participant 3",
+      "body": "reopening until this is PR'd :)"
+    },
+    {
+      "id": 296337294,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-296337294",
+      "created_at": "2017-04-22T01:18:45Z",
+      "updated_at": "2017-04-22T01:18:45Z",
+      "author": "Participant 4",
+      "body": "@ara4n - PR opened: https://github.com/matrix-org/matrix-react-sdk/issues/821\r\n\r\nThe stuck notifications are also a problem in riot-web. \r\n![image](https://cloud.githubusercontent.com/assets/1190097/25300216/5536aa70-26c7-11e7-86f2-4204afedb177.png)\r\n"
+    },
+    {
+      "id": 296337312,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-296337312",
+      "created_at": "2017-04-22T01:19:13Z",
+      "updated_at": "2017-04-22T01:19:13Z",
+      "author": "Participant 3",
+      "body": "oh, crap."
+    },
+    {
+      "id": 296337381,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-296337381",
+      "created_at": "2017-04-22T01:20:17Z",
+      "updated_at": "2017-04-22T01:20:17Z",
+      "author": "Participant 4",
+      "body": "I did only test against Synapse 0.20, however. It may be fixed with a homeserver with proper read marker support?"
+    },
+    {
+      "id": 296337711,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-296337711",
+      "created_at": "2017-04-22T01:24:48Z",
+      "updated_at": "2017-04-22T01:24:48Z",
+      "author": "Participant 3",
+      "body": "nope, the new RM support doesn't fix this problem - it will need a spec addition.  Have filed https://github.com/vector-im/riot-meta/issues/66 to track it; the PR will have to wait :("
+    },
+    {
+      "id": 419740229,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-419740229",
+      "created_at": "2018-09-09T19:49:07Z",
+      "updated_at": "2018-09-09T19:49:07Z",
+      "author": "Participant 5",
+      "body": "Eager to see this land!  Any low-hanging fruit to tackle in preparation?"
+    },
+    {
+      "id": 526932111,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-526932111",
+      "created_at": "2019-09-01T16:14:47Z",
+      "updated_at": "2019-09-01T16:14:47Z",
+      "author": "Participant 6",
+      "body": "Any update? Would be really nice to have this feature implemented. Being forced to send read receipts it's not great from a privacy point of view."
+    },
+    {
+      "id": 528701965,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-528701965",
+      "created_at": "2019-09-06T04:22:33Z",
+      "updated_at": "2019-09-06T04:22:33Z",
+      "author": "Participant 4",
+      "body": "I've taken another stab at this from the Riot, Synapse, and Spec sides: see links off https://github.com/matrix-org/matrix-react-sdk/pull/3395\r\n\r\nThis new approach shouldn't need the special API mentioned above, making https://github.com/vector-im/riot-android/issues/1151 and https://github.com/vector-im/riot-meta/issues/66 not needed I think."
+    },
+    {
+      "id": 530027267,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-530027267",
+      "created_at": "2019-09-10T16:56:15Z",
+      "updated_at": "2019-09-10T16:56:15Z",
+      "author": "Participant 4",
+      "body": "I want to leave this open as a reminder to implement it as a proper setting."
+    },
+    {
+      "id": 530028888,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-530028888",
+      "created_at": "2019-09-10T17:00:18Z",
+      "updated_at": "2019-09-10T17:00:18Z",
+      "author": "Participant 3",
+      "body": "Yeah, we really need this as a proper UI setting both for the account and the rooms rather than being hidden in labs.\r\n\r\nI also wonder if the sendReadReceipts setting should be enshrined in the spec, so that clients in general honour it correctly?  (Or indeed whether there should be a separate API on the server which you use to toggle these on & off, rather than relying on clients getting it right?)"
+    },
+    {
+      "id": 530031748,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-530031748",
+      "created_at": "2019-09-10T17:07:19Z",
+      "updated_at": "2019-09-10T17:07:19Z",
+      "author": "Participant 4",
+      "body": "making it a real flag for account data sounds like a good idea - will add it to the MSC"
+    },
+    {
+      "id": 530033358,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-530033358",
+      "created_at": "2019-09-10T17:11:35Z",
+      "updated_at": "2019-09-10T17:11:35Z",
+      "author": "Participant 3",
+      "body": "wdyt about giving the server a way to enforce it rather than it being a client thing?"
+    },
+    {
+      "id": 530034768,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-530034768",
+      "created_at": "2019-09-10T17:15:13Z",
+      "updated_at": "2019-09-10T17:15:13Z",
+      "author": "Participant 4",
+      "body": "Could theoretically be handled as some special account data event (yay) - the server could refuse to let the user edit it, and it could enforce it if the client forgets to send a hidden RR. I'd still want to support the `m.hidden` flag on the RR though so that clients can implement a \"stop sending receipts for the next few minutes\" without consulting the server (or something)."
+    },
+    {
+      "id": 530069160,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-530069160",
+      "created_at": "2019-09-10T18:44:34Z",
+      "updated_at": "2019-09-10T18:44:34Z",
+      "author": "Participant 4",
+      "body": "Another thing to worry about is possibly never wanting to send read receipts to a particular server/user. It's a little unfortunate that clicking a room can alert the user to your presence despite you not wanting them to know about you."
+    },
+    {
+      "id": 536182085,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-536182085",
+      "created_at": "2019-09-28T11:59:10Z",
+      "updated_at": "2019-09-28T11:59:10Z",
+      "author": "Participant 7",
+      "body": "It's been almost 2 years and you still haven't managed to fix the most privacy invading feature of your app. Fix your shit please."
+    },
+    {
+      "id": 536198727,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-536198727",
+      "created_at": "2019-09-28T15:21:41Z",
+      "updated_at": "2019-09-28T15:21:41Z",
+      "author": "Participant 4",
+      "body": "@anon88391 the flag is in the app, there's a MSC to change the spec out, and the synapse PR has minor work to be done on it. \r\n\r\nPlease read the comments before getting angry about something."
+    },
+    {
+      "id": 573416728,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-573416728",
+      "created_at": "2020-01-12T13:44:03Z",
+      "updated_at": "2020-01-12T13:44:03Z",
+      "author": "Participant 6",
+      "body": "Any update about this? This issue is now more than 3 years old, but this feature is vey needed."
+    },
+    {
+      "id": 616808991,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-616808991",
+      "created_at": "2020-04-20T21:06:26Z",
+      "updated_at": "2020-04-20T21:06:26Z",
+      "author": "Participant 8",
+      "body": "Where can I find and toggle the flag in the app/labs?"
+    },
+    {
+      "id": 616810524,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-616810524",
+      "created_at": "2020-04-20T21:09:46Z",
+      "updated_at": "2020-04-20T21:09:58Z",
+      "author": "Participant 9",
+      "body": "![image](https://user-images.githubusercontent.com/2403652/79800123-972c2b80-8353-11ea-850c-54639923d6b2.png)\r\n\r\nIn Labs which require special config.json options per the docs like on riot.im/develop . But as the title says, it needs a compatible homeserver otherwise all your rooms will always be flagged as unread."
+    },
+    {
+      "id": 643761109,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-643761109",
+      "created_at": "2020-06-14T12:37:50Z",
+      "updated_at": "2020-06-14T12:37:50Z",
+      "author": "Participant 10",
+      "body": "> For bonus points, configurable per room. cf: #2526\r\n\r\nThat doesn't seem to match:\r\n 1. This issue here (#2527) is a privacy issue about not _sending_ read receipts, i.e. not making the information available to others; issue #2526 is about not displaying available information (\"read receipt markers\" or \"read avatars\" or whatever exactly they are called; option \"Show read receipts sent by other users\").\r\n 2. #2526 is closed, but it did not lead to a config setting per room, AFAICS.\r\n\r\nPersonally, I'd like to have a per-room option of not sending read receipts, #14030."
+    },
+    {
+      "id": 643762462,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-643762462",
+      "created_at": "2020-06-14T12:50:37Z",
+      "updated_at": "2020-06-14T12:50:37Z",
+      "author": "Participant 9",
+      "body": "`For bonus points, configurable per room.` and `cf: #2526`\r\nare two separate statements. They are unrelated."
+    },
+    {
+      "id": 660594620,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-660594620",
+      "created_at": "2020-07-19T06:15:06Z",
+      "updated_at": "2020-07-19T06:20:39Z",
+      "author": "Participant 11",
+      "body": "> it needs a compatible homeserver\r\n\r\nAre there any compatible homeservers? Synapse does not support this yet. https://github.com/matrix-org/synapse/pull/5990 https://github.com/matrix-org/matrix-doc/pull/2285\r\n\r\n> otherwise all your rooms will always be flagged as unread.\r\n\r\nThis is not my experience. The read receipts are still being sent as if they are enabled. I wouldn't even mind everything being flagged as unread. I just really need to not send read receipts."
+    },
+    {
+      "id": 749102327,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-749102327",
+      "created_at": "2020-12-21T17:36:05Z",
+      "updated_at": "2020-12-21T17:36:05Z",
+      "author": "Participant 4",
+      "body": "ftr the option has been removed from labs because there's no such thing as a compatible homeserver. This is blocked on the notifications rework to decouple read receipts from push."
+    },
+    {
+      "id": 753058120,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-753058120",
+      "created_at": "2020-12-31T19:54:25Z",
+      "updated_at": "2020-12-31T19:54:25Z",
+      "author": "Participant 12",
+      "body": "This issue has been open for approximately 4.17 years -- which suggests it is quite a difficult issue to resolve, and makes it difficult to make a judgement on how long this would take to properly resolve. I believe this is a significant issue for users who do not wish for unnecessary information of their actions of reading messages to be visible to others. In order to resolve this issue swiftly until further functionality is implemented to allow for a better solution, there could be a temporary, experimental option which would stop read receipts being sent by disabling any Internet communications of messages being read, despite the problems of messages not being properly marked as read for the user. Such an option could be located under the Labs category of settings, and there could be a warning that messages will not be properly marked as read while this option is set to disable communication of reading messages. I believe some may prefer keeping their actions private than messages being marked as read from all clients, so this would be a wonderful option for such individuals, until a better implementation can be achieved. "
+    },
+    {
+      "id": 754237140,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-754237140",
+      "created_at": "2021-01-04T21:42:03Z",
+      "updated_at": "2021-01-04T21:42:03Z",
+      "author": "Participant 13",
+      "body": "If we're going stopgap, and if they're comparable in terms of effort, I'd prefer if we turn off sending any read receipts to anyone else, until it can be implemented in a privacy-maintaining way. E.g., user X's client will send a read receipt to the server, but the server doesn't notify any other users that user X has read the messages."
+    },
+    {
+      "id": 754238668,
+      "url": "https://github.com/element-hq/element-web/issues/2527#issuecomment-754238668",
+      "created_at": "2021-01-04T21:44:48Z",
+      "updated_at": "2021-01-04T21:44:48Z",
+      "author": "Participant 4",
+      "body": "@integratedfactor8 Breaking notifications (and unread counts) for people is more likely to increase our support load, even for a labs feature - we're more inclined to fix it properly as mentioned above several times.\r\n\r\n@escapewindow per above, this would break notifications and unread counts.\r\n\r\nI'm locking this as the conversation is going in circles."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

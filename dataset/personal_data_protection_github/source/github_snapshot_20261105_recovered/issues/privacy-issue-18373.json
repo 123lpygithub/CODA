@@ -1,0 +1,114 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-18373",
+  "issue_url": "https://github.com/matrix-org/synapse/issues/1540",
+  "source_issue_url": "https://github.com/matrix-org/synapse/issues/1540",
+  "api_url": "https://api.github.com/repos/matrix-org/synapse/issues/1540",
+  "title": "We should never be sending contents of messages to push servers. (SYN-687)",
+  "body": "Splitting this out from https://github.com/matrix-org/synapse/issues/1360.\n\nWe simply shouldn't be ever sending the plain text of push notifications to APNS or GCM - instead we should send them a prod to fire up the app and receive the message contents via Matrix (and so apply E2E crypto to it, if we want to display it in the UI).\n\n(Imported from https://matrix.org/jira/browse/SYN-687)\n\n(Reported by @ara4n)",
+  "author": "Participant 1",
+  "created_at": "2016-05-05T10:33:44Z",
+  "updated_at": "2021-10-21T18:52:52Z",
+  "state": "closed",
+  "closed_at": "2021-10-21T18:52:52Z",
+  "issue_fetched_at": "2026-11-05T05:55:56.509167+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T05:56:00.387219+00:00"
+  ],
+  "expected_comment_count": 11,
+  "retrieved_comment_count": 11,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 258911969,
+      "url": "https://github.com/matrix-org/synapse/issues/1540#issuecomment-258911969",
+      "created_at": "2016-05-05T10:33:44Z",
+      "updated_at": "2016-11-07T18:00:39Z",
+      "author": "Participant 1",
+      "body": "Jira watchers: @ara4n\n"
+    },
+    {
+      "id": 258911970,
+      "url": "https://github.com/matrix-org/synapse/issues/1540#issuecomment-258911970",
+      "created_at": "2016-05-05T10:33:44Z",
+      "updated_at": "2016-11-07T18:07:57Z",
+      "author": "Participant 1",
+      "body": "Links exported from Jira:\n\nrelates to [SYAND-139](https://matrix.org/jira/browse/SYAND-139)\nrelates to [SYIOS-194](https://matrix.org/jira/browse/SYIOS-194)\nrelates to https://github.com/matrix-org/synapse/issues/1360\n"
+    },
+    {
+      "id": 513596299,
+      "url": "https://github.com/matrix-org/synapse/issues/1540#issuecomment-513596299",
+      "created_at": "2019-07-21T23:22:10Z",
+      "updated_at": "2019-07-21T23:22:10Z",
+      "author": "Participant 2",
+      "body": "The web [push-api](https://w3c.github.io/push-api/) subscription includes [an encryption key](https://w3c.github.io/push-api/#pushencryptionkeyname-enumeration) so that the push notification payload is not visible to the gateway. I'd love to see synapse implement a push gateway which supports the web push-api.\r\n\r\nI think the same technique could be used for sending the notifications to APNS or GCM and then on the client side it would decrypt the message before displaying the notification. If so, this could potentially save a lot of battery over waking up the radio again when the push message is handled to fetch the payload."
+    },
+    {
+      "id": 582511696,
+      "url": "https://github.com/matrix-org/synapse/issues/1540#issuecomment-582511696",
+      "created_at": "2020-02-05T17:09:37Z",
+      "updated_at": "2020-02-05T17:09:37Z",
+      "author": "Participant 3",
+      "body": "hans't this been fixed?"
+    },
+    {
+      "id": 702076780,
+      "url": "https://github.com/matrix-org/synapse/issues/1540#issuecomment-702076780",
+      "created_at": "2020-10-01T11:41:08Z",
+      "updated_at": "2020-10-01T11:41:08Z",
+      "author": "Participant 4",
+      "body": "I believe it has"
+    },
+    {
+      "id": 707284243,
+      "url": "https://github.com/matrix-org/synapse/issues/1540#issuecomment-707284243",
+      "created_at": "2020-10-12T18:40:49Z",
+      "updated_at": "2020-10-12T18:40:49Z",
+      "author": "Participant 5",
+      "body": "I hope it is fixed. It would be a major security thread..."
+    },
+    {
+      "id": 753400259,
+      "url": "https://github.com/matrix-org/synapse/issues/1540#issuecomment-753400259",
+      "created_at": "2021-01-01T22:52:05Z",
+      "updated_at": "2021-01-01T22:52:05Z",
+      "author": "Participant 6",
+      "body": "It's a config option.\r\n![image](https://user-images.githubusercontent.com/23276523/103447495-57606680-4c8c-11eb-8eee-0378f6a420a0.png)\r\n"
+    },
+    {
+      "id": 947694984,
+      "url": "https://github.com/matrix-org/synapse/issues/1540#issuecomment-947694984",
+      "created_at": "2021-10-20T13:58:32Z",
+      "updated_at": "2021-10-20T13:58:32Z",
+      "author": "Participant 7",
+      "body": "Clients can also request `event_id_only` pushes when setting up a pusher with their homeserver.\r\nRiotX (if I remember) used to have a configuration slider — I can't see this in today's Element Android but looking at my homeserver's `pushers` table, it uses the `event_id_only` format (I think this may now be the only supported option).\r\n\r\nElement iOS has been `event_id_only` for as long as I can remember, for what it's worth."
+    },
+    {
+      "id": 947744414,
+      "url": "https://github.com/matrix-org/synapse/issues/1540#issuecomment-947744414",
+      "created_at": "2021-10-20T14:49:51Z",
+      "updated_at": "2021-10-20T14:51:58Z",
+      "author": "Participant 8",
+      "body": "So it seems that all a client needs to do to not leak message contents is to use the [`event_id_only` format](https://spec.matrix.org/unstable/client-server-api/#post_matrixclientv3pushersset) when setting up a pusher. The Element clients already do this.\r\n\r\nIn addition to this, Synapse implements the `include_content` setting referred to in the screenshot above. Setting this to `false` makes Synapse withhold the content even if *not* using `event_id_only`. We currently default to `true` here. Could we change the default to `false` for good measure? (It's been suggested this might require a spec change, but I don't think this is the case as the Push Gateway API says the `content` field may be withheld for any reason)\r\n\r\nOther than potentially changing that default, I don't think there's anything else left to do here."
+    },
+    {
+      "id": 948710624,
+      "url": "https://github.com/matrix-org/synapse/issues/1540#issuecomment-948710624",
+      "created_at": "2021-10-21T15:06:01Z",
+      "updated_at": "2021-10-21T15:06:01Z",
+      "author": "Participant 7",
+      "body": "> In addition to this, Synapse implements the include_content setting referred to in the screenshot above. Setting this to false makes Synapse withhold the content even if not using event_id_only. We currently default to true here. Could we change the default to false for good measure?\r\n\r\nThe problem is that, if we set this option to false, clients can't then opt-in to having content sent to their push gateways, and some clients DO use trustworthy push gateways (c.f. UnifiedPush).\r\n\r\nAll good clients that care about this privacy issue should already opt-in to the event ID-only format.\r\n\r\n(We agree that the default is strange in the API — ideally you'd have to request content whilst setting up a pusher if you cared about it — but that **would** need a spec change, sadly.)"
+    },
+    {
+      "id": 948909399,
+      "url": "https://github.com/matrix-org/synapse/issues/1540#issuecomment-948909399",
+      "created_at": "2021-10-21T18:52:52Z",
+      "updated_at": "2021-10-21T18:52:52Z",
+      "author": "Participant 9",
+      "body": "Also, in E2EE rooms the server doesn't have access to message content, and thus _can't_ disclose any plaintext to APNS / FCM.\r\n\r\nIf we redesigned push today, we'd avoid configuration and make `event_id_only` the default, but that ship has sailed.\r\n\r\nCalling this sufficiently resolved to close."
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Current retrievable issue body and issue comments; not the original study's historical snapshot. Linked pages and attachments are not fetched."
+}

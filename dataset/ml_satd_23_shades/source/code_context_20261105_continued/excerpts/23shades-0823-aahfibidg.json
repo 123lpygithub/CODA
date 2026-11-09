@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0823-aahfibidg",
+  "revision_url": "https://github.com/RaRe-Technologies/gensim/commit/f0310f61338949bed4ea89e00c753f3c696d24cc",
+  "filename": "gensim/models/ldamodel.py",
+  "commit": "f0310f61338949bed4ea89e00c753f3c696d24cc",
+  "source_url": "https://raw.githubusercontent.com/RaRe-Technologies/gensim/f0310f61338949bed4ea89e00c753f3c696d24cc/gensim/models/ldamodel.py",
+  "fetched_at": "2026-11-05T06:14:00.348826+00:00",
+  "source_sha256": "eebd3cc1883462e113598b2e882ac368aed4533752fdb09b76a271d8a678c9be",
+  "line_start": 539,
+  "line_end": 563,
+  "excerpt": "\n        if updates_per_pass * passes < 10:\n            logger.warning(\"too few updates, training might not converge; consider \"\n                           \"increasing the number of passes or iterations to improve accuracy\")\n\n\n\n        def worker_e_step(data, result_queue, lock, val):\n            \"\"\"\n            performing E-step and upating variables for each process\n            \"\"\"\n            while True:\n                worker_lda = copy.deepcopy(self)        # XXX might possibly be slow solution, but every worker needs reseted LDA model for every iteration\n                item = data.get(True)\n                worker_lda.do_estep(item)\n                result = worker_lda.state\n                del worker_lda  # free up some memory\n                result_queue.put(result)\n                with lock:\n                    val.value += 1\n\n\n\n        # -1 is used for creating cpu_count() processes, which is default when Pool is created without specified processes number\n        if n_jobs == -1:",
+  "match_policy": "unique-release-normalized-v2"
+}

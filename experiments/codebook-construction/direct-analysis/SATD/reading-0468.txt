@@ -1,0 +1,354 @@
+
+=== 468 23shades-0845-aaibjdjdj ===
+{"dataset_id": "aaibjdjdj", "repo_name": "scikit-learn/scikit-learn", "filename": "scikits/learn/base.py", "comment_introducing_revision": "https://github.com/scikit-learn/scikit-learn/commit/a4ed78e23f83a0723e06157b4777cd3b4b382ac9", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "a4ed78e23f83a0723e06157b4777cd3b4b382ac9"}
+[comment_text]
+XXX: not handling dictionnaries
+[source_context]
+    with the same parameters that has not been fit on any data.
+
+    Parameters
+    ============
+    estimator: estimator object, or list, tuple or set of objects
+        The estimator or group of estimators to be cloned
+    safe: boolean, optional
+        If safe is false, clone will fall back to a deepcopy on objects
+        that are not estimators.
+
+    """
+    estimator_type = type(estimator)
+    # XXX: not handling dictionnaries
+    if estimator_type in (list, tuple, set, frozenset):
+         return estimator_type([clone(e, safe=safe) for e in estimator])
+    elif not hasattr(estimator, '_get_params'):
+        if not safe:
+            return copy.deepcopy(estimator)
+        else:
+            raise ValueError("Cannot clone object '%s' (type %s): "
+                    "it does not seem to be a scikit-learn estimator as "
+                    "it does not implement a '_get_params' methods."
+                    % (repr(estimator), type(estimator)))
+    klass = estimator.__class__
+    new_object_params = estimator._get_params(deep=False)
+
+=== 469 23shades-0263-aadbfihhc ===
+{"dataset_id": "aadbfihhc", "repo_name": "xinshuoweng/Xinshuo_PyToolbox", "filename": "xinshuo_math/python/math_geometry.py", "comment_introducing_revision": "https://github.com/xinshuoweng/Xinshuo_PyToolbox/commit/3427695b8c784069ebc80c3e0fd522f8b6e40b15", "comment_removing_revision": "https://github.com/xinshuoweng/Xinshuo_PyToolbox/commit/10117fd2af21104a9669bf60c29a8897e15b1b22", "source_context_status": "available", "source_context_commit": "3427695b8c784069ebc80c3e0fd522f8b6e40b15"}
+[comment_text]
+TODO check the start
+[source_context]
+    if debug:
+        assert pts1.shape == pts2.shape, 'the shape of two points is not equal'
+        assert is2dptsarray(pts1) and is2dptsarray(pts2), 'the input points are not correct'
+
+    # calculate the distance
+    eculidean_list = np.zeros((pts1.shape[1], ), dtype='float32')
+    num_pts = pts1.shape[1]
+    ave_euclidean = 0
+    for pts_index in xrange(num_pts):
+        pts1_tmp = pts1[:, pts_index]
+        pts2_tmp = pts2[:, pts_index]
+        n = float(pts_index + 1)
+        distance_tmp = math.sqrt((pts1_tmp[0] - pts2_tmp[0])**2 + (pts1_tmp[1] - pts2_tmp[1])**2)               # TODO check the start
+        ave_euclidean = (n-1) / n * ave_euclidean + distance_tmp / n
+        eculidean_list[pts_index] = distance_tmp
+
+    return ave_euclidean, eculidean_list.tolist()
+
+# TODO: check
+def get_line(pts, slope, debug=True):
+    '''
+    # slope is the angle in degree, this function takes a point and a
+    '''
+    if debug:
+        print('debug mode is on during get_line function. Please turn off after debuging')
+
+=== 470 23shades-0240-aagaagfeg ===
+{"dataset_id": "aagaagfeg", "repo_name": "Merck/deepbgc", "filename": "deepbgc/output/antismash_json.py", "comment_introducing_revision": "https://github.com/Merck/deepbgc/commit/f91d3f01440445d42e550814390716ff3f527ed4", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "f91d3f01440445d42e550814390716ff3f527ed4"}
+[comment_text]
+TODO add protocluster?
+[source_context]
+    @classmethod
+    def get_name(cls):
+        return 'antismash-json'
+
+    def write(self, record):
+        cluster_features = util.get_cluster_features(record)
+        classifier_names = util.get_record_classifier_names(record)
+        subregions = []
+        protoclusters = []
+        for cluster in cluster_features:
+            subregion = self._create_cluster_json(cluster, classifier_names=classifier_names)
+            subregions.append(subregion)
+            # TODO add protocluster?
+
+        self.record_ids.append(record.id)
+        self.record_subregions.append(subregions)
+        self.record_protoclusters.append(protoclusters)
+        # TODO add meta info from all detectors?
+        if not self.tool_meta:
+            self.tool_meta = util.get_record_detector_meta(record)
+
+    def _get_cluster_classes_str(self, cluster, classifier_name):
+        class_str_list = cluster.qualifiers.get(util.format_classification_column(classifier_name))
+        return class_str_list[0] if class_str_list else 'no confident class'
+
+
+=== 471 23shades-0719-aajffiged ===
+{"dataset_id": "aajffiged", "repo_name": "tensorly/tensorly", "filename": "doc/sphinx_ext/sphinx_gallery/tests/test_gen_rst.py", "comment_introducing_revision": "https://github.com/tensorly/tensorly/commit/959c98c541ba340efccac60ab06e0f1193eda17a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "959c98c541ba340efccac60ab06e0f1193eda17a"}
+[comment_text]
+TODO: test that examples are executed after a no-plot and produce
+[source_context]
+
+    # test issue #229
+    local_img = [os.path.join(os.getcwd(), 'third.png')]
+    image_rst, fig_num = sg.figure_rst(local_img, '.')
+
+    single_image = sg.SINGLE_IMAGE % "third.png"
+    assert image_rst == single_image
+    assert fig_num == 1
+
+
+# TODO: test that broken thumbnail does appear when needed
+# TODO: test that examples are not executed twice
+# TODO: test that examples are executed after a no-plot and produce
+#       the correct image in the thumbnail
+
+=== 472 23shades-0528-aagejdfdj ===
+{"dataset_id": "aagejdfdj", "repo_name": "nengo/nengo-dl", "filename": "nengo_dl/signals.py", "comment_introducing_revision": "https://github.com/nengo/nengo-dl/commit/6ddf68e6a0e86b690ae2335508e1c6b5d7783aec", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "6ddf68e6a0e86b690ae2335508e1c6b5d7783aec"}
+[comment_text]
+TODO: double check if this is still true in 1.9.0
+[source_context]
+        if value.nbytes > cutoff:
+            def make_ph(shape, dtype, **_):
+                ph = tf.placeholder(dtype, shape)
+                self.constant_phs[ph] = value
+                return ph
+
+            with tf.variable_scope("constant_vars", reuse=False):
+                # tensorflow doesn't support int32 variables on the gpu, only
+                # int64 (for some reason). we don't want to use int64 since
+                # that would increase the size a lot, so we allow the variable
+                # to be created on the CPU if necessary, and then move it to
+                # the GPU with the identity
+                # TODO: double check if this is still true in 1.9.0
+                with tf.device(None):
+                    const_var = tf.get_variable(
+                        "constant_%d" % len(self.constant_phs),
+                        initializer=make_ph, shape=value.shape, dtype=dtype,
+                        collections=["constants"], trainable=False)
+
+                return tf.identity(const_var)
+        else:
+            return tf.constant(value, dtype=dtype)
+
+    def op_constant(self, ops, op_sizes, attr, dtype, ndims=2):
+        """
+
+=== 473 23shades-0428-aaeabafjh ===
+{"dataset_id": "aaeabafjh", "repo_name": "CartoDB/cartoframes", "filename": "cartoframes/analysis/iso.py", "comment_introducing_revision": "https://github.com/CartoDB/cartoframes/commit/f9d6640d69a01ebd24494168a3e9e4ca86a1811c", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "f9d6640d69a01ebd24494168a3e9e4ca86a1811c"}
+[comment_text]
+TODO:
+[source_context]
+          FROM _isos
+        """.format(
+              iso_function=iso_function,
+              source_query=source_query,
+              source_id=source_id,
+              source_geom=source_geom,
+              mode=mode,
+              iso_ranges=iso_ranges,
+              iso_options=iso_options
+            )
+
+        if table_name:
+            # TODO:
+            # result = self._context.execute_long_running_query("CREATE TABLE {table} AS {sql}".format(table=table_name, sql=sql))
+            # "SELECT cdb_cartodbfytable({table})".format(table=table_name)  # TODO: support for org users
+            result = {}
+        else:
+            # It would be nice to use execute_long_running_query, but we need the results
+            print(sql)
+            # result = self._context.execute_query(sql)
+            result = Dataset(sql).download()
+
+        return result
+
+=== 474 23shades-0645-aadbbbcgh ===
+{"dataset_id": "aadbbbcgh", "repo_name": "willingc/circuitpython_kernel", "filename": "setup.py", "comment_introducing_revision": "https://github.com/willingc/circuitpython_kernel/commit/379a9f8d7a904e35c7605348b80fcbf4b5310a6d", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "379a9f8d7a904e35c7605348b80fcbf4b5310a6d"}
+[comment_text]
+TODO: put package requirements here
+[source_context]
+# -*- coding: utf-8 -*-
+
+from setuptools import setup
+
+with open('README.rst') as readme_file:
+    readme = readme_file.read()
+
+with open('HISTORY.rst') as history_file:
+    history = history_file.read()
+
+requirements = [
+    'Click>=6.0',
+    # TODO: put package requirements here
+]
+
+test_requirements = [
+    # TODO: put package test requirements here
+]
+
+setup(
+    name='circuitpython_kernel',
+    version='0.1.0',
+    description="CircuitPython Kernel enables CircuitPython to be used in Jupyterr Notebooks.",
+    long_description=readme + '\n\n' + history,
+    author="Carol Willing",
+
+=== 475 23shades-0045-aajdcegja ===
+{"dataset_id": "aajdcegja", "repo_name": "jupyter/nbdime", "filename": "nbmerge/diff/diff_notebooks.py", "comment_introducing_revision": "https://github.com/jupyter/nbdime/commit/518273bba206708f88e18180491ad14629614b19", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "518273bba206708f88e18180491ad14629614b19"}
+[comment_text]
+\"\"\"Tools for diffing notebooks. ||  || All diff tools here currently assumes the notebooks have already been || converted to the same format version; currently v4 at time of writing. || Up- and down-conversion is handled by nbformat. ||  || FIXME: Define and document diff format. || \"\"\"
+[source_context]
+"""Tools for diffing notebooks.
+
+All diff tools here currently assumes the notebooks have already been
+converted to the same format version, currently v4 at time of writing.
+Up- and down-conversion is handled by nbformat.
+
+FIXME: Define and document diff format.
+"""
+
+__all__ = ["diff_notebooks", "patch_notebook", "diff_cells", "patch_cells"]
+
+import copy
+
+from .diff_metadata import diff_metadata, patch_metadata
+
+
+def extract_source_lines(cells):
+    lines = []
+    cell_offsets = []
+    origin_cell_numbers = []
+
+=== 476 23shades-0310-aafadaiij ===
+{"dataset_id": "aafadaiij", "repo_name": "hahnyuan/nn_tools", "filename": "pytorch_to_caffe.py", "comment_introducing_revision": "https://github.com/hahnyuan/nn_tools/commit/703705d917c2028542e998ad7997cfe94f43e5da", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "703705d917c2028542e998ad7997cfe94f43e5da"}
+[comment_text]
+TODO max in one tensor
+[source_context]
+    x = raw(input, kernel_size, stride, padding, dilation,ceil_mode, return_indices)
+    _pool('max',input, x, kernel_size, stride, padding,ceil_mode)
+    return x
+
+def _avg_pool2d(raw,input, kernel_size, stride = None, padding = 0, ceil_mode = False, count_include_pad = True):
+    x = raw(input, kernel_size, stride, padding, ceil_mode, count_include_pad)
+    _pool('ave',input, x, kernel_size, stride, padding,ceil_mode)
+    return x
+
+def _max(raw,*args):
+    x=raw(*args)
+    if len(args)==1:
+        # TODO max in one tensor
+        assert NotImplementedError
+    else:
+        bottom_blobs=[]
+        for arg in args:
+            bottom_blobs.append(log.blobs(arg))
+        layer_name=log.add_layer(name='max')
+        top_blobs=log.add_blobs([x],name='max_blob')
+        layer=caffe_net.Layer_param(name=layer_name,type='Eltwise',
+                                    bottom=bottom_blobs,top=top_blobs)
+        layer.param.eltwise_param.operation =2
+        log.cnet.add_layer(layer)
+    return x
+
+=== 477 23shades-0136-aahhfejii ===
+{"dataset_id": "aahhfejii", "repo_name": "ysig/GraKeL", "filename": "grakel/kernels/core_framework.py", "comment_introducing_revision": "https://github.com/ysig/GraKeL/commit/ec16d8218225446c9ae165a4813a193ac70e8e2e", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "ec16d8218225446c9ae165a4813a193ac70e8e2e"}
+[comment_text]
+kernel as subkernel with a custom propagation matrix. This is a workaround!
+[source_context]
+            subgraphs, indexes = list(), list()
+            for (idx, (cn, (g, extra))) in enumerate(zip(core_numbers, graphs)):
+                vertices = [k for k, v in iteritems(cn) if v >= i]
+                if len(vertices) > 0:
+                    # Calculate subgraph and store the index of the non-empty vertices
+                    sg = g.get_subgraph(vertices)
+                    sub_extra = list()
+                    indexes.append(idx)
+                    if len(extra) > 0:
+                        vs = np.array(sg.get_vertices(purpose='any'))
+                        for e in extra:
+                            # This case will only be reached by now if the user add the propagation
+                            # kernel as subkernel with a custom propagation matrix. This is a workaround!
+                            if type(e) is np.array and len(e.shape) == 2:
+                                e = e[vs, :][:, vs]
+                            sub_extra.append(e)
+                        subgraphs.append((sg, ) + tuple(sub_extra))
+                    else:
+                        subgraphs.append(sg)
+            indexes = np.array(indexes)
+            indexes_list[i] = indexes
+
+            # calculate kernel
+            if self._method_calling == 1 and indexes.shape[0] > 0:
+                base_kernel[i] = self._base_kernel()
+
+=== 478 23shades-0167-aagiehhgb ===
+{"dataset_id": "aagiehhgb", "repo_name": "pandas-profiling/pandas-profiling", "filename": "pandas_profiling/base.py", "comment_introducing_revision": "https://github.com/pandas-profiling/pandas-profiling/commit/339231fe9faf2cd22e274c355b514240d5cecc33", "comment_removing_revision": "https://github.com/pandas-profiling/pandas-profiling/commit/20df9e64b2e1b4c79999339ee0d0f81621ec0037", "source_context_status": "available", "source_context_commit": "339231fe9faf2cd22e274c355b514240d5cecc33"}
+[comment_text]
+The dropna() is a workaround for https:\/\/github.com\/pydata\/pandas\/issues\/13098
+[source_context]
+        x *= 100
+        if x == int(x):
+            return '%.0f%%' % x
+        else:
+            return '%.1f%%' % x
+
+    def describe_numeric_1d(series, base_stats):
+        stats = {'mean': series.mean(), 'std': series.std(), 'variance': series.var(), 'min': series.min(),
+                'max': series.max()}
+        stats['range'] = stats['max'] - stats['min']
+
+        for x in np.array([0.05, 0.25, 0.5, 0.75, 0.95]):
+            stats[pretty_name(x)] = series.dropna().quantile(x) # The dropna() is a workaround for https://github.com/pydata/pandas/issues/13098
+        stats['iqr'] = stats['75%'] - stats['25%']
+        stats['kurtosis'] = series.kurt()
+        stats['skewness'] = series.skew()
+        stats['sum'] = series.sum()
+        stats['mad'] = series.mad()
+        stats['cv'] = stats['std'] / stats['mean'] if stats['mean'] else np.NaN
+        stats['type'] = "NUM"
+        stats['n_zeros'] = (len(series) - np.count_nonzero(series))
+        stats['p_zeros'] = stats['n_zeros'] / len(series)
+        # Histograms
+        stats['histogram'] = histogram(series)
+        stats['mini_histogram'] = mini_histogram(series)
+
+=== 479 23shades-0005-aaebbecaa ===
+{"dataset_id": "aaebbecaa", "repo_name": "Calysto/conx", "filename": "conx/widgets.py", "comment_introducing_revision": "https://github.com/Calysto/conx/commit/83f8cf6a16cad52cc9f93480fa238e814e84c78a", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "83f8cf6a16cad52cc9f93480fa238e814e84c78a"}
+[comment_text]
+# Hack to center SVG as justify-content is broken:
+[source_context]
+        self.player = _Player(self, play_rate)
+        self.player.start()
+        self.net = net
+        self.dataset = net.dataset
+        self._width = width
+        self._height = height
+        ## Global widgets:
+        style = {"description_width": "initial"}
+        self.feature_columns = IntText(description="Feature columns:", value=3, style=style)
+        self.feature_scale = FloatText(description="Feature scale:", value=2.0, style=style)
+        self.feature_columns.observe(self.regenerate, names='value')
+        self.feature_scale.observe(self.regenerate, names='value')
+        ## Hack to center SVG as justify-content is broken:
+        self.net_svg = HTML(value="""<p style="text-align:center">%s</p>""" % ("",), layout=Layout(
+            width=self._width, overflow_x='auto', overflow_y="auto",
+            justify_content="center"))
+        # Make controls first:
+        self.output = Output()
+        controls = self.make_controls()
+        config = self.make_config()
+        super().__init__([config, controls, self.net_svg, self.output])
+
+    def dataset_move(self, position):
+        if len(self.dataset.inputs) == 0 or len(self.dataset.targets) == 0:
+            return

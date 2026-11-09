@@ -1,0 +1,351 @@
+
+=== 636 23shades-0680-aadhbjgee ===
+{"dataset_id": "aadhbjgee", "repo_name": "Epistimio/orion", "filename": "tests/unittests/core/io/test_experiment_builder.py", "comment_introducing_revision": "https://github.com/Epistimio/orion/commit/630245fdf6574b2e984619ea6a910d1309a171f3", "comment_removing_revision": "https://github.com/Epistimio/orion/commit/6c359cb1e80d375955e004a36b40c1aeeabe10fa", "source_context_status": "available", "source_context_commit": "630245fdf6574b2e984619ea6a910d1309a171f3"}
+[comment_text]
+TODO: Replace when space in db
+[source_context]
+
+        with pytest.raises(ValueError) as exc_info:
+            experiment_builder.build_view(name)
+        assert "No experiment with given name 'supernaekei' and version '*'" in str(exc_info.value)
+
+        exp = experiment_builder.build(name, space=space, max_trials=max_trials)
+
+    assert exp._init_done is True
+    assert exp.name == name
+    assert exp.configuration['refers'] == {'adapter': [], 'parent_id': None, 'root_id': exp._id}
+    assert exp.metadata['datetime'] == random_dt
+    assert exp.metadata['user'] == 'tsirif'
+    # TODO: Replace when space in db
+    assert 'space' not in exp.configuration
+    # assert exp.configuration['space'] == space
+    assert exp.max_trials == max_trials
+    assert not exp.is_done
+    assert exp.algorithms.configuration == {'random': {'seed': None}}
+
+
+def test_build_no_commandline_config():
+    """Try building experiment with no commandline configuration."""
+    with OrionState(experiments=[], trials=[]) as cfg:
+        with pytest.raises(NoConfigurationError):
+            experiment_builder.build('supernaekei')
+
+=== 637 23shades-0450-aaegfadac ===
+{"dataset_id": "aaegfadac", "repo_name": "explosion/thinc", "filename": "thinc/neural/_classes/affine.py", "comment_introducing_revision": "https://github.com/explosion/thinc/commit/53b95dd8ca0cdc9cb26b68cbf31a67ec0a69f578", "comment_removing_revision": "https://github.com/explosion/thinc/commit/a16ef3065eb72485c4b1cfcea451f17c4bb18810", "source_context_status": "available", "source_context_commit": "53b95dd8ca0cdc9cb26b68cbf31a67ec0a69f578"}
+[comment_text]
+TODO: Add toggle for the LSUV init. It seems not always better!
+[source_context]
+from ... import check
+from ...check import has_shape
+from .._lsuv import LSUVinit
+
+
+def _set_dimensions_if_needed(model, X, y=None):
+    if model.nI is None:
+        model.nI = X.shape[1]
+    if model.nO is None and y is not None:
+        model.nO = int(y.max()) + 1
+
+
+# TODO: Add toggle for the LSUV init. It seems not always better!
+@describe.on_data(_set_dimensions_if_needed, LSUVinit)
+@describe.attributes(
+    nB=Dimension("Batch size"),
+    nI=Dimension("Input size"),
+    nO=Dimension("Output size"),
+    W=Synapses("Weights matrix",
+        lambda obj: (obj.nO, obj.nI),
+        lambda W, ops: ops.xavier_uniform_init(W)),
+    b=Biases("Bias vector",
+        lambda obj: (obj.nO,)),
+    d_W=Gradient("W"),
+    d_b=Gradient("b")
+
+=== 638 23shades-0023-aajffebhi ===
+{"dataset_id": "aajffebhi", "repo_name": "catalyst-team/catalyst", "filename": "catalyst/metrics/dice.py", "comment_introducing_revision": "https://github.com/catalyst-team/catalyst/commit/b061b78df3066be95e7c9f624c13d5d0a1fc0c21", "comment_removing_revision": "https://github.com/catalyst-team/catalyst/commit/41bb60a5b4c5d3d1624a18be33963479f85dc1a0", "source_context_status": "available", "source_context_commit": "b061b78df3066be95e7c9f624c13d5d0a1fc0c21"}
+[comment_text]
+@TODO:
+[source_context]
+import numpy as np
+
+import torch
+
+
+# @TODO:
+# - make it work in "per class" mode
+# - add extra tests
+def dice(
+    outputs: torch.Tensor,
+    targets: torch.Tensor,
+    eps: float = 1e-7,
+    threshold: float = None,
+) -> float:
+    """Computes the dice score.
+
+    Args:
+        outputs:  a list of predicted elements
+
+=== 639 23shades-0145-aahjiddhj ===
+{"dataset_id": "aahjiddhj", "repo_name": "ryfeus/gcf-packs", "filename": "tensorflow2.0/source/tensorflow/python/distribute/values.py", "comment_introducing_revision": "https://github.com/ryfeus/gcf-packs/commit/44d36f9e5045fd859ee188d74dc31f3921ad4796", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "44d36f9e5045fd859ee188d74dc31f3921ad4796"}
+[comment_text]
+Needed to pass ResourceVariable checks.
+[source_context]
+
+    Returns:
+      A dictionary mapping attribute names to `SaveableObject` factories.
+    """
+    def _saveable_factory(name=self._common_name):
+      return _MirroredSaveable(self, self.primary, name)
+    return {trackable.VARIABLE_VALUE_KEY: _saveable_factory}
+
+  def _should_act_as_resource_variable(self):
+    """Pass resource_variable_ops.is_resource_variable check."""
+    pass
+
+  # Needed to pass ResourceVariable checks.
+  @property
+  def op(self):
+    return self.primary.op
+
+  # pylint: disable=protected-access
+  @property
+  def _save_slice_info(self):
+    return self.primary._save_slice_info
+
+  def _get_save_slice_info(self):
+    return self.primary._get_save_slice_info()
+
+
+=== 640 23shades-0078-aaecffjjg ===
+{"dataset_id": "aaecffjjg", "repo_name": "NeuroTechX/moabb", "filename": "moabb/datasets/Weibo2014.py", "comment_introducing_revision": "https://github.com/NeuroTechX/moabb/commit/650416ba49ed33aa4142219d48c2d357e12a1e03", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "650416ba49ed33aa4142219d48c2d357e12a1e03"}
+[comment_text]
+FIXME not sure what are those CB1 \/ CB2
+[source_context]
+                       verify_compressed_data_integrity=False)
+        montage = mne.channels.read_montage('standard_1005')
+        ch_names = ['Fp1', 'Fpz', 'Fp2', 'AF3', 'AF4', 'F7', 'F5', 'F3', 'F1',
+                    'Fz', 'F2', 'F4', 'F6', 'F8', 'FT7', 'FC5', 'FC3', 'FC1',
+                    'FCz', 'FC2', 'FC4', 'FC6', 'FT8', 'T7', 'C5', 'C3', 'C1',
+                    'Cz', 'C2', 'C4', 'C6', 'T8', 'TP7', 'CP5', 'CP3', 'CP1',
+                    'CPz', 'CP2', 'CP4', 'CP6', 'TP8', 'P7', 'P5', 'P3', 'P1',
+                    'Pz', 'P2', 'P4', 'P6', 'P8', 'PO7', 'PO5', 'PO3', 'POz',
+                    'PO4', 'PO6', 'PO8', 'CB1', 'O1', 'Oz', 'O2', 'CB2', 'VEO',
+                    'HEO']
+
+        ch_types = ['eeg'] * 62 + ['eog'] * 2
+        # FIXME not sure what are those CB1 / CB2
+        ch_types[57] = 'misc'
+        ch_types[61] = 'misc'
+        info = mne.create_info(ch_names=ch_names + ['STIM014'],
+                               ch_types=ch_types + ['stim'],
+                               sfreq=200, montage=None)
+        # until we get the channel names montage is None
+        event_ids = data['label'].ravel()
+        raw_data = np.transpose(data['data'], axes=[2, 0, 1])
+        # de-mean each trial
+        raw_data = raw_data - np.mean(raw_data, axis=2, keepdims=True)
+        raw_events = np.zeros((raw_data.shape[0], 1, raw_data.shape[2]))
+        raw_events[:, 0, 0] = event_ids
+
+=== 641 23shades-0635-aaedbcjji ===
+{"dataset_id": "aaedbcjji", "repo_name": "inferno-pytorch/inferno", "filename": "inferno/io/box/cityscapes.py", "comment_introducing_revision": "https://github.com/inferno-pytorch/inferno/commit/b549b52118ac032ead2c127f59e1acaa05f00583", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "b549b52118ac032ead2c127f59e1acaa05f00583"}
+[comment_text]
+TODO: please download the dataset from
+[source_context]
+        if self.image_transform is not None:
+            image = self.image_transform(image)
+        if self.label_transform is not None:
+            label = self.label_transform(label)
+        if self.joint_transform is not None:
+            image, label = self.joint_transform(image, label)
+        return image, label
+
+    def __len__(self):
+        return len(self.image_paths)
+
+    def download(self):
+        # TODO: please download the dataset from
+        # https://github.com/alexgkendall/SegNet-Tutorial/tree/master/CitYscapes
+        raise NotImplementedError
+
+=== 642 23shades-0777-aagaecbjg ===
+{"dataset_id": "aagaecbjg", "repo_name": "kororo/excelcy", "filename": "excelcy/excelcy.py", "comment_introducing_revision": "https://github.com/kororo/excelcy/commit/632ef093fb8f8ba8eca5ee4043ba84b0950d104b", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "632ef093fb8f8ba8eca5ee4043ba84b0950d104b"}
+[comment_text]
+TODO: would be good to add ref from source
+[source_context]
+            nlp.to_disk(self.storage.nlp_path)
+            nlp = spacy.load(name=self.storage.nlp_path)
+        return nlp
+
+    def _discover_text(self, source: Source):
+        """
+        Apply Sentence Boundary Detection, described here https://spacy.io/usage/linguistic-features#sbd
+        :param source: The source value with kind=text
+        """
+        # this is based on SBD described here
+        doc = self.nlp(source.value)
+        for sentence in doc.sents:
+            # TODO: would be good to add ref from source
+            self.storage.train.add(text=sentence)
+
+    def _discover_textract(self, source: Source):
+        """
+        Apply textract parsing, described here http://textract.readthedocs.io/en/stable/
+        :param source: The source value with kind=textract
+        """
+        # TODO: add textract check
+        import textract
+        # process it
+        text = textract.process(self.resolve_path(file_path=source.value), language=self.storage.config.source_language)
+        # create new source and pass it to text processor
+
+=== 643 23shades-0236-aaejhhjgg ===
+{"dataset_id": "aaejhhjgg", "repo_name": "ThibaultGROUEIX/3D-CODED", "filename": "training/train_sup.py", "comment_introducing_revision": "https://github.com/ThibaultGROUEIX/3D-CODED/commit/383bcbc4e0cf02a644fec8f1c5badc69b762dda1", "comment_removing_revision": "https://github.com/ThibaultGROUEIX/3D-CODED/commit/f1da1828321d54f0d1435e8ee19f02afcc1852fa", "source_context_status": "available", "source_context_commit": "383bcbc4e0cf02a644fec8f1c5badc69b762dda1"}
+[comment_text]
+TODO add nice logging
+[source_context]
+# TODO Change Dataloader : works -> Add release tag
+# TODO Fix seed
+# TODO add arg_parse file
+# TODO Build trainer class
+# TODO add cool new scripts from CycleConsistentCorrespondence
+# TODO add Theo's work as a Flag
+# TODO add superquadrics loss (check how probas are predicted in original paper)
+# TODO add learned gradient descent
+# TODO add nice logging
+# TODO
+
+from __future__ import print_function
+import sys
+sys.path.append('./auxiliary/')
+sys.path.append('/app/python/')
+sys.path.append('./')
+import my_utils
+my_utils.plant_seeds(randomized_seed=False)
+print("fixed seed")
+import argparse
+import random
+
+=== 644 23shades-0613-aadhcgief ===
+{"dataset_id": "aadhcgief", "repo_name": "Pinafore/qb", "filename": "extractors/ir.py", "comment_introducing_revision": "https://github.com/Pinafore/qb/commit/507a03a2f01c33ef93828598dfc8fe26e1b99e68", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "507a03a2f01c33ef93828598dfc8fe26e1b99e68"}
+[comment_text]
+TODO: My implementation of idf isn't matching *exactly* with theirs;
+[source_context]
+            #                                   self._name))
+            vec = self._document_cache[title]
+            if vec is None:
+                return kNEG_INF
+
+        length = 0
+        for field, word in [x for x in self._query_terms if x[1] in vec]:
+            length += 1
+            score += self._idf[word] * vec[word]
+        if length > 0:
+            score /= float(length)
+
+        # TODO: My implementation of idf isn't matching *exactly* with theirs,
+        # but it should be much faster, and it's close
+
+        # print("My way %f" % score)
+
+        # allow_q = query.Term("id", title)
+        # backup_score = kNEG_INF
+        # with self._index.searcher(weighting=scoring.TF_IDF()) as s:
+        #     text_query, text_length = self.create_query(text)
+        #     res = s.search(text_query, limit=1, filter=allow_q)
+        #     if not res.is_empty():
+        #         backup_score = res[0].score
+        # print("Their way %f" % backup_score)
+
+=== 645 23shades-0053-aaijeahdh ===
+{"dataset_id": "aaijeahdh", "repo_name": "chainer/chainer", "filename": "tests/chainer_tests/links_tests/model_tests/test_classifier.py", "comment_introducing_revision": "https://github.com/chainer/chainer/commit/e6fb0cb957ac7b2746d4665198fd192025a2523d", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "e6fb0cb957ac7b2746d4665198fd192025a2523d"}
+[comment_text]
+As a workaround; we wrap the function and invoke it in __call__ method.
+[source_context]
+import mock
+import numpy
+
+import chainer
+from chainer import functions
+from chainer import links
+from chainer import testing
+from chainer.testing import attr
+
+
+# testing.parameterize takes a list of dictionaries.
+# Currently, we cannot set a function to the value of the dictionaries.
+# As a workaround, we wrap the function and invoke it in __call__ method.
+# See issue #1337 for detail.
+class AccuracyWithIgnoreLabel(object):
+
+    def __call__(self, y, t):
+        return functions.accuracy(y, t, ignore_label=1)
+
+
+@testing.parameterize(*testing.product({
+    'evaluator': [AccuracyWithIgnoreLabel(), None],
+    'compute_accuracy': [True, False],
+    'x_num': [1, 2]
+}))
+
+=== 646 23shades-0279-aafegiaee ===
+{"dataset_id": "aafegiaee", "repo_name": "aleju/imgaug", "filename": "tests/test.py", "comment_introducing_revision": "https://github.com/aleju/imgaug/commit/420fb6ee8f2804335b4faa3b380aca25c6027b81", "comment_removing_revision": "https://github.com/aleju/imgaug/commit/5458e8bdfc3ae168c0caa91a508cd860e964a085", "source_context_status": "available", "source_context_commit": "420fb6ee8f2804335b4faa3b380aca25c6027b81"}
+[comment_text]
+TODO DirectedEdgeDetect
+[source_context]
+
+    # color
+    # TODO WithColorspace
+    # TODO AddToHueAndSaturation
+    # TODO ChangeColorspace
+    # TODO Grayscale
+
+    # convolutional
+    # TODO Convolve
+    # TODO Sharpen
+    # TODO Emboss
+    # TODO EdgeDetect
+    # TODO DirectedEdgeDetect
+
+    # flip
+    test_Fliplr()
+    test_Flipud()
+
+    # geometric
+    test_Affine()
+    # TODO AffineCv2
+    # TODO PiecewiseAffine
+    # TODO PerspectiveTransform
+    # TODO ElasticTransformation
+
+
+=== 647 23shades-0114-aafeaaejc ===
+{"dataset_id": "aafeaaejc", "repo_name": "thomasahle/sunfish", "filename": "sunfish.py", "comment_introducing_revision": "https://github.com/thomasahle/sunfish/commit/3919ceabf88e847439f35c5482113270f9518e16", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "3919ceabf88e847439f35c5482113270f9518e16"}
+[comment_text]
+FIXME: What if we never find a fail-high?
+[source_context]
+    if depth <= 0 and best < nullscore:
+        if root: print('Root fail low. How is depth <= 0?')
+        return nullscore
+    # Check for stalemate. If best move loses king, but not doing anything
+    # would save us. Not at all a perfect check.
+    if depth > 0 and best <= -MATE_VALUE and nullscore > -MATE_VALUE:
+        best = 0
+
+    # We save the found move together with the score, so we can retrieve it in
+    # the play loop. We also trim the transposition table in FILO order.
+    # We prefer fail-high moves, as they are the ones we can build our pv from.
+    # bmove doesn't really mean anything when fail-low?
+    # FIXME: What if we never find a fail-high?
+    entry = tp.get(pos) # We may have been removed at this point
+    if entry is None or depth >= entry.depth and best >= gamma:
+        if len(tp) == TABLE_SIZE:
+            tp.popitem(last=True)
+        assert bmove is not None
+        tp[pos] = Entry(depth, best, gamma, bmove)
+    return best
+
+
+def search(pos, maxn=NODES_SEARCHED):
+    """ Iterative deepening MTD-bi search """
+    global nodes; nodes = 0

@@ -1,0 +1,21 @@
+{
+  "url": "https://github.com/wernight/docker-phantomjs/blob/master/Dockerfile",
+  "kind": "file",
+  "cited_in": [
+    "comment_270483293"
+  ],
+  "status": "partial",
+  "reason": "Historical file recovered at a verified path-history commit. Original branch target and case-time version are unknown; cited line semantics may differ. Do not infer deployment or resolution.",
+  "historical_evidence": true,
+  "revision": "28a838cb70f12a1fc5c56cf42e1c5db87fb6318f",
+  "immutable_revision": true,
+  "retrieval_url": "https://raw.githubusercontent.com/wernight/docker-phantomjs/28a838cb70f12a1fc5c56cf42e1c5db87fb6318f/Dockerfile",
+  "text": "FROM debian:buster-slim\n\nARG PHANTOM_JS_VERSION\nARG DUMB_INIT_VERSION\n\n# https://bitbucket.org/ariya/phantomjs/downloads/\nENV PHANTOM_JS_VERSION ${PHANTOM_JS_VERSION:-2.1.1-linux-x86_64}\n\n# Install runtime dependencies\nRUN apt-get update \\\n && apt-get install -y --no-install-recommends \\\n        ca-certificates \\\n        curl \\\n        bzip2 \\\n        libfontconfig \\\n && apt-get clean \\\n && rm -rf /var/lib/apt/lists/*\n\n# https://github.com/Yelp/dumb-init/releases\nENV DUMB_INIT_VERSION ${DUMB_INIT_VERSION:-1.2.2}\n\nRUN set -x  \\\n    # Install official PhantomJS release\n && mkdir /tmp/phantomjs \\\n && curl -L https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${PHANTOM_JS_VERSION}.tar.bz2 \\\n        | tar -xj --strip-components=1 -C /tmp/phantomjs \\\n && mv /tmp/phantomjs/bin/phantomjs /usr/local/bin \\\n    # Install dumb-init (to handle PID 1 correctly).\n && curl -Lo /tmp/dumb-init.deb https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_amd64.deb \\\n && dpkg -i /tmp/dumb-init.deb\n\n# PhantomJS requires  an OpenSSL config even if it's an empty one,\n# else it'll complain about \"libssl_conf.so: cannot open shared object file\"\n# which seems to be a recent bug.\nENV OPENSSL_CONF=/opt/openssl.cnf\n\nRUN set -x \\\n    # Runs as non-root user.\n && useradd --system --uid 52379 -m --shell /usr/sbin/nologin phantomjs \\\n && touch /opt/openssl.cnf \\\n    # Basic test.\n && su phantomjs -s /bin/sh -c \"dumb-init phantomjs --version\"\n\nUSER phantomjs\n\nEXPOSE 8910\n\nENTRYPOINT [\"dumb-init\"]\nCMD [\"phantomjs\"]\n\n# NOTE: The healthcheck only makes sense if it's started with --webdriver=8910\n#HEALTHCHECK --interval=5s --timeout=2s --retries=20 \\\n#    CMD curl --connect-timeout 5 --silent --show-error --fail http://localhost:8910/wd/hub/status || exit 1\n",
+  "source_sha256": "0c30f4a1db35186c3ee3edae6706f269cf2baa70c47ca0ef7f6a1546150537a8",
+  "fetched_at": "2026-11-05T15:45:19.208565+00:00",
+  "recovery_method": "Exact repository/path Git history; explicit commit or its recorded direct parent",
+  "history_query_url": "https://api.github.com/repos/wernight/docker-phantomjs/commits?path=Dockerfile&per_page=5",
+  "history_response_sha256": "0440a5ddabefa6f44cc6c52c439a43829ab2f2d2247984ec2cebe6aa8cad7d04",
+  "history_entry_sha": "d3279ddafd4343cb408f04f3140ffb95459721e6",
+  "history_commit_date": "2020-07-29T18:15:27Z"
+}

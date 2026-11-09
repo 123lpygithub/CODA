@@ -1,0 +1,106 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27monero-project%2Fmonero%27+AND+number%3D5222+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='monero-project/monero' AND number=5222 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:36.152425+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "SamsungGalaxyPlayer",
+        "created_at": "2019-03-04 04:36:14",
+        "updated_at": "2019-03-04 04:36:14",
+        "title": "[Discussion] Add different public mining pool seelction algorithm",
+        "body": "I recommend that Monero implements a new input selection algorithm for public mining pools. Doing so will limit the information leaked by public mining pools by the transactions it makes. It also paves the way towards allowing *future* changes to coinbase outputs, but **this post does not touch coinbase outputs at all.** Those will remain off-topic to be discussed at a later date. Those are more controversial.\r\n\r\nThe diagrams were made with ringsize 7, but the same situation applies to other ringsizes.\r\n\r\n# The Problem\r\n\r\n![image](https://user-images.githubusercontent.com/12520755/53710113-51379f80-3e01-11e9-94ff-ad5186209f27.png)\r\n\r\nSuppose a pool controls the left yellow Monero output. It would like to make a payment to two miners and would like to receive the change back. It creates a single transaction with two outputs for the miners and the yellow output as change back.\r\n\r\nIn the future, the pool sends the change output. Unfortunately, observers could be keeping a list of outputs that the pool controls. They suspect that the pool received at least one change output. Observers can thus deduce that only the yellow output in the second transaction could be the real spend. The ring signature is compromised since the output is known to be spent in the transaction. Any other transactions that reference this output will have effective ringsizes reduced by 1. This can have a chain reaction effect on the network if this happens often enough, potentially in combination with other attacks.\r\n\r\nSince pools often publish lists of mined blocks and sent transactions, observers can typically see the real output spent in each transaction. While there are a few exceptions (including multiple controlled outputs in the same ring, including miner payout outputs in same ring, unexpected no change output), these are rare and only slightly complicate analyses.\r\n\r\n# The Goal\r\n\r\nMonero should provide pools with tools to protect the integrity of these change outputs. Monero should strive to make it ambiguous when these funds are spent. This avoids heuristically-effective 1-rings.\r\n\r\n# Recommended Changes\r\n\r\nMonero has several options on the table, but most include burden to the miners (less visible info) or more network resource requirements (churning). There is a better solution though with no downside from what I can tell: adjusting the input selection algorithm to select only outputs in a ring that were created in the same transaction.\r\n\r\nHere is one example where the two miner payout outputs are included in the same ring signature. These three outputs appear identical; observers no longer know which one of these the pool controls and which two belong to the paid miners.\r\n\r\n![image](https://user-images.githubusercontent.com/12520755/53709956-9f986e80-3e00-11e9-8d64-4c3a91d81dee.png)\r\n\r\nWe thus protect the integrity of these public pool change outputs. If these change outputs are spent in other transactions, they serve as effective decoys. The paid miners could be making these transactions. In the below example, another user creates a ring signature with the change output. The output is still a plausible spend.\r\n\r\n![image](https://user-images.githubusercontent.com/12520755/53710755-5b0ed200-3e04-11e9-9a01-af28cd341cef.png)\r\n\r\nThe monero-wallet-cli should have a special `--public-pool-selection-algo` mode that performs this behavior. For it to work, the tool needs to:\r\n\r\n1. Keep a list of change outputs and other outputs created during the same transaction\r\n2. When spending these change outputs, use these related outputs in a single ring\r\n3. (Future use) When coinbase outputs are spent, keep a list of all the outputs that are created from this transaction\r\n4. (Future use) When spending these \"after-coinbase\" outputs, include the other related output in a single ring\r\n\r\nIf large batched transactions are created where the outputs > ringsize, the selection algorithm should select other outputs created in the same transaction at random until the necessary ringsize is met. This still protects the integrity of the change outputs, but it offers slightly less plausible deniability to the miner payout outputs that are not selected. This is ultimately minor and certainly not a reason to be against this proposal, but it's perhaps an argument for why the ringsize should be set to the same number as the maximum number of outputs in a single transaction.\r\n\r\n# Later Considerations\r\n\r\nKeeping track of the coinbase outputs and the outputs that are created from spent coinbase outputs will allow Monero to *consider* future options to better preserve the integrity of these coinbase outputs. Again, I make no recommendation for this feature's inclusion here, but the tool can nevertheless begin to support this functionality so that we have the option of handling coinbase outputs differently later.",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-03-04 04:00:00",
+        "repo_name": "monero-project/monero",
+        "number": 5222
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "moneromooo-monero",
+        "created_at": "2019-03-04 10:23:33",
+        "updated_at": "2019-03-04 10:23:32",
+        "title": "[Discussion] Add different public mining pool selection algorithm",
+        "body": "That seems like a good idea at first glance.",
+        "comment_id": 469199686,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2019-03-04 10:00:00",
+        "repo_name": "monero-project/monero",
+        "number": 5222
+      }
+    ],
+    "rows": 2,
+    "statistics": {
+      "elapsed": 0.036538387,
+      "rows_read": 316436,
+      "bytes_read": 16502165
+    }
+  },
+  "response_sha256": "dc2139f7beaa9f8305e988bae704190c12bc84ecd4633863d9c4f5ed0ac23a43"
+}

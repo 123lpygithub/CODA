@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0776-aaieahjdd",
+  "revision_url": "https://github.com/biolab/orange3/commit/f66d5ef4c6fd35b1a7d099e0c93cbdfdbdbc7902",
+  "filename": "Orange/feature/discretization.py",
+  "commit": "f66d5ef4c6fd35b1a7d099e0c93cbdfdbdbc7902",
+  "source_url": "https://raw.githubusercontent.com/biolab/orange3/f66d5ef4c6fd35b1a7d099e0c93cbdfdbdbc7902/Orange/feature/discretization.py",
+  "fetched_at": "2026-11-05T06:13:50.731215+00:00",
+  "source_sha256": "ffc35f6e4816f524444f6381eac60222da557a7edf2c60343d4452c29654787a",
+  "line_start": 97,
+  "line_end": 113,
+  "excerpt": "            min, max = fixed[attribute.name]\n            points = _split_eq_width_fixed(min, max, n=self.n)\n        else:\n            if type(data) == Orange.data.sql.table.SqlTable:\n                filters = [f.to_sql() for f in data.row_filters]\n                filters = [f for f in filters if f]\n                att = attribute.to_sql()\n                cur = data._sql_query(['min(%s)' % att, 'max(%s)' % att], filters)\n                min, max = cur.fetchone()\n                dif = (max - min) / self.n\n                points = [min + (i + 1) * dif for i in range(self.n - 1)]\n            else:\n                # TODO: why is the whole distribution computed instead of just min/max\n                d = Orange.statistics.distribution.get_distribution(data, attribute)\n                points = _split_eq_width(d, n=self.n)\n        return _discretized_var(data, attribute, points)\n",
+  "match_policy": "unique-release-normalized-v2"
+}

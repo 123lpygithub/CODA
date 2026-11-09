@@ -1,0 +1,122 @@
+{
+  "url": "https://play.clickhouse.com/?user=play&query=SELECT+event_type%2Caction%2Cactor_login%2Ccreated_at%2Cupdated_at%2Ctitle%2Cbody%2Ccomment_id%2Ccomments%2Cstate%2Cclosed_at%2Cfile_time%2Crepo_name%2Cnumber+FROM+github_events+WHERE+repo_name%3D%27alphagov%2Fgovuk-design-system%27+AND+number%3D1556+AND+event_type+IN+%28%27IssuesEvent%27%2C%27IssueCommentEvent%27%29+ORDER+BY+created_at%2Cfile_time+FORMAT+JSON",
+  "query": "SELECT event_type,action,actor_login,created_at,updated_at,title,body,comment_id,comments,state,closed_at,file_time,repo_name,number FROM github_events WHERE repo_name='alphagov/govuk-design-system' AND number=1556 AND event_type IN ('IssuesEvent','IssueCommentEvent') ORDER BY created_at,file_time FORMAT JSON",
+  "fetched_at": "2026-11-05T07:21:33.453432+00:00",
+  "response": {
+    "meta": [
+      {
+        "name": "event_type",
+        "type": "Enum8('CommitCommentEvent' = 1, 'CreateEvent' = 2, 'DeleteEvent' = 3, 'ForkEvent' = 4, 'GollumEvent' = 5, 'IssueCommentEvent' = 6, 'IssuesEvent' = 7, 'MemberEvent' = 8, 'PublicEvent' = 9, 'PullRequestEvent' = 10, 'PullRequestReviewCommentEvent' = 11, 'PushEvent' = 12, 'ReleaseEvent' = 13, 'SponsorshipEvent' = 14, 'WatchEvent' = 15, 'GistEvent' = 16, 'FollowEvent' = 17, 'DownloadEvent' = 18, 'PullRequestReviewEvent' = 19, 'ForkApplyEvent' = 20, 'Event' = 21, 'TeamAddEvent' = 22, 'DiscussionEvent' = 23)"
+      },
+      {
+        "name": "action",
+        "type": "Enum8('none' = 0, 'created' = 1, 'added' = 2, 'edited' = 3, 'deleted' = 4, 'opened' = 5, 'closed' = 6, 'reopened' = 7, 'assigned' = 8, 'unassigned' = 9, 'labeled' = 10, 'unlabeled' = 11, 'review_requested' = 12, 'review_request_removed' = 13, 'synchronize' = 14, 'started' = 15, 'published' = 16, 'update' = 17, 'create' = 18, 'fork' = 19, 'merged' = 20, 'forked' = 21, 'updated' = 22, 'dismissed' = 23)"
+      },
+      {
+        "name": "actor_login",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "created_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "updated_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "title",
+        "type": "String"
+      },
+      {
+        "name": "body",
+        "type": "String"
+      },
+      {
+        "name": "comment_id",
+        "type": "UInt64"
+      },
+      {
+        "name": "comments",
+        "type": "UInt32"
+      },
+      {
+        "name": "state",
+        "type": "Enum8('none' = 0, 'open' = 1, 'closed' = 2)"
+      },
+      {
+        "name": "closed_at",
+        "type": "DateTime"
+      },
+      {
+        "name": "file_time",
+        "type": "DateTime"
+      },
+      {
+        "name": "repo_name",
+        "type": "LowCardinality(String)"
+      },
+      {
+        "name": "number",
+        "type": "UInt32"
+      }
+    ],
+    "data": [
+      {
+        "event_type": "IssuesEvent",
+        "action": "opened",
+        "actor_login": "hannalaakso",
+        "created_at": "2021-03-04 19:09:49",
+        "updated_at": "2021-03-04 19:09:48",
+        "title": "Iterate the cookie banner guidance",
+        "body": "## What\r\nFollowing user feedback, we should explain how the cookie banner should be hidden when JavaScript is enabled and the user has previously accepted cookies (we explain how to hide the banner but don't have a code example for the hidden state as the example would be a hidden cookie banner). \r\n\r\nWe should add guidance for when it might be appropriate to implement both a server side and a client side cookie banner and how to progressively enhance it with JavaScript.\r\n\r\nWe should clarify how to handle the hiding of the banner if the service is only collecting essential cookies on client and server. \r\n\r\nWe should also review the overall guidance to ensure that teams understand when it's appropriate to only have a client side banner.\r\n\r\n## Why \r\nWe want to ensure that the guidance works for teams and covers the relevant scenarios.\r\n\r\n## Who needs to know about this\r\nContent designer, technical writer, developer \r\n\r\n## Depends on\r\nhttps://github.com/alphagov/govuk-frontend/issues/2160\r\n\r\n## Done when\r\n- [ ] We've drafted the additions to the guidance and they've been reviewed by a developer and a tech writer\r\n- [ ] We've published the guidance",
+        "comment_id": 0,
+        "comments": 0,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-03-04 19:00:00",
+        "repo_name": "alphagov/govuk-design-system",
+        "number": 1556
+      },
+      {
+        "event_type": "IssueCommentEvent",
+        "action": "created",
+        "actor_login": "calvin-lau-sig7",
+        "created_at": "2021-04-23 09:19:36",
+        "updated_at": "2021-04-23 09:19:36",
+        "title": "Iterate the cookie banner guidance",
+        "body": "Guidance has been reviewed and ready for release (just needs final check and privacy review).\r\nMoving to blocked so new examples (in Option 2) can be added after new version of Frontend is released.",
+        "comment_id": 825524711,
+        "comments": 1,
+        "state": "open",
+        "closed_at": "1970-01-01 00:00:00",
+        "file_time": "2021-04-23 09:00:00",
+        "repo_name": "alphagov/govuk-design-system",
+        "number": 1556
+      },
+      {
+        "event_type": "IssuesEvent",
+        "action": "closed",
+        "actor_login": "hannalaakso",
+        "created_at": "2021-05-20 11:49:04",
+        "updated_at": "2021-05-20 11:49:04",
+        "title": "Iterate the cookie banner guidance",
+        "body": "## What\r\nFollowing user feedback, we should explain how the cookie banner should be hidden when JavaScript is enabled and the user has previously accepted cookies (we explain how to hide the banner but don't have a code example for the hidden state as the example would be a hidden cookie banner). \r\n\r\nWe should add guidance for when it might be appropriate to implement both a server side and a client side cookie banner and how to progressively enhance it with JavaScript.\r\n\r\nWe should add guidance for how to handle the hiding of the banner if the service is only collecting essential cookies on client and server. \r\n\r\nWe should also review the guidance to ensure that teams understand when it's appropriate to only have a client side banner.\r\n\r\n## Why \r\nWe want to ensure that the guidance works for teams and covers the relevant scenarios.\r\n\r\n## Who needs to know about this\r\nContent designer, technical writer, developer \r\n\r\n## Depends on\r\nhttps://github.com/alphagov/govuk-frontend/issues/2160\r\n\r\n## Done when\r\n- [x] Content writer and tech writer have drafted the additions to the guidance and they've been reviewed by a developer\r\n- [x] Examples added by a developer\r\n- [ ] We've published the guidance",
+        "comment_id": 0,
+        "comments": 1,
+        "state": "closed",
+        "closed_at": "2021-05-20 11:49:04",
+        "file_time": "2021-05-20 11:00:00",
+        "repo_name": "alphagov/govuk-design-system",
+        "number": 1556
+      }
+    ],
+    "rows": 3,
+    "statistics": {
+      "elapsed": 0.034245422,
+      "rows_read": 281530,
+      "bytes_read": 10595503
+    }
+  },
+  "response_sha256": "ebb58f60ee1c25f06d0c0451176dee6054773552cab71373bee432e35375d71e"
+}

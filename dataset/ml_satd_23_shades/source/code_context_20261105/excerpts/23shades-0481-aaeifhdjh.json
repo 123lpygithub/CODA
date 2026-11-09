@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0481-aaeifhdjh",
+  "revision_url": "https://github.com/IntelPython/sdc/commit/bca334dfe32973ecb726a54bfcfe7747be825a71",
+  "filename": "sdc/datatypes/hpat_pandas_dataframe_pass.py",
+  "commit": "bca334dfe32973ecb726a54bfcfe7747be825a71",
+  "source_url": "https://raw.githubusercontent.com/IntelPython/sdc/bca334dfe32973ecb726a54bfcfe7747be825a71/sdc/datatypes/hpat_pandas_dataframe_pass.py",
+  "fetched_at": "2026-11-05T06:13:01.068175+00:00",
+  "source_sha256": "c969e17b7d7c0a0366def66e2eba1edd1d1724e0a004535cbd64153ce7322237",
+  "line_start": 564,
+  "line_end": 588,
+  "excerpt": "                args = false_arr_args\n            f_block = numba.ir_utils.compile_to_numba_ir(func, {'sdc': sdc, 'numpy': numpy}).blocks.popitem()[1]\n            numba.ir_utils.replace_arg_nodes(f_block, args)\n            nodes += f_block.body[:-2]\n            out_df_map[cname] = nodes[-1].target\n\n        self._create_df(lhs.name, out_df_map, label)\n        return nodes\n\n    def _handle_df_append(self, lhs, rhs, df_var, label):\n        other = self._get_arg('append', rhs.args, dict(rhs.kws), 0, 'other')\n        # only handles df or list of df input\n        # TODO: check for series/dict/list input\n        # TODO: enforce ignore_index=True?\n        # single df case\n        if self._is_df_var(other):\n            return self._handle_concat_df(lhs, [df_var, other], label)\n        # list of dfs\n        df_list = guard(numba.ir_utils.get_definition, self.state.func_ir, other)\n        if len(df_list.items) > 0 and self._is_df_var(df_list.items[0]):\n            return self._handle_concat_df(lhs, [df_var] + df_list.items, label)\n        raise ValueError(\"invalid df.append() input. Only dataframe and list of dataframes supported\")\n\n    def _handle_df_fillna(self, lhs, rhs, df_var, label):\n        nodes = []",
+  "match_policy": "unique-release-normalized-v2"
+}

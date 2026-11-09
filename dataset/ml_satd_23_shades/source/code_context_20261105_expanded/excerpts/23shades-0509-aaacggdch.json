@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0509-aaacggdch",
+  "revision_url": "https://github.com/GilesStrong/lumin/commit/b2b1efb1be64dc8ce9926f20b445396daee7116a",
+  "filename": "lumin/nn/callbacks/opt_callbacks.py",
+  "commit": "b2b1efb1be64dc8ce9926f20b445396daee7116a",
+  "source_url": "https://raw.githubusercontent.com/GilesStrong/lumin/b2b1efb1be64dc8ce9926f20b445396daee7116a/lumin/nn/callbacks/opt_callbacks.py",
+  "fetched_at": "2026-11-05T06:13:05.011647+00:00",
+  "source_sha256": "d80c2a8d833111e035a8d03bbf3d9ae1727590732fc9554b2493de01d5872901",
+  "line_start": 41,
+  "line_end": 65,
+  "excerpt": "    def _calc_lr(self): return self.lr_bounds[0]*(self.lr_mult**self.iter)\n    \n    def plot(self, n_skip:int=0, n_max:Optional[int]=None, lim_y:Optional[Tuple[float,float]]=None) -> None:\n        r'''\n        Plot the loss as a function of the LR.\n\n        Arguments:\n            n_skip: Number of initial iterations to skip in plotting\n            n_max: Maximum iteration number to plot\n            lim_y: y-range for plotting\n        '''\n\n        # TODO: Decide on whether to keep this; could just pass to plot_lr_finders\n\n        with sns.axes_style(self.plot_settings.style), sns.color_palette(self.plot_settings.cat_palette):\n            plt.figure(figsize=(self.plot_settings.w_mid, self.plot_settings.h_mid))\n            plt.plot(self.history['lr'][n_skip:n_max], self.history['loss'][n_skip:n_max], label='Training loss', color='g')\n            if np.log10(self.lr_bounds[1])-np.log10(self.lr_bounds[0]) >= 3: plt.xscale('log')\n            plt.ylim(lim_y)\n            plt.grid(True, which=\"both\")\n            plt.legend(loc=self.plot_settings.leg_loc, fontsize=self.plot_settings.leg_sz)\n            plt.xticks(fontsize=self.plot_settings.tk_sz, color=self.plot_settings.tk_col)\n            plt.yticks(fontsize=self.plot_settings.tk_sz, color=self.plot_settings.tk_col)\n            plt.ylabel(\"Loss\", fontsize=self.plot_settings.lbl_sz, color=self.plot_settings.lbl_col)\n            plt.xlabel(\"Learning rate\", fontsize=self.plot_settings.lbl_sz, color=self.plot_settings.lbl_col)"
+}

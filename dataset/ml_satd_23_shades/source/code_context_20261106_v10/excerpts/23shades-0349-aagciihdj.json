@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0349-aagciihdj",
+  "revision_url": "https://github.com/intel/dffml/commit/95229ff8049b9b34b5cd319a919d88b33e12ea0a",
+  "filename": "dffml/df/memory.py",
+  "commit": "95229ff8049b9b34b5cd319a919d88b33e12ea0a",
+  "source_url": "https://raw.githubusercontent.com/intel/dffml/95229ff8049b9b34b5cd319a919d88b33e12ea0a/dffml/df/memory.py",
+  "fetched_at": "2026-11-05T06:12:38.139389+00:00",
+  "source_sha256": "7a96c0368487345f92d647799a537ca4843942c270a2b3b934ded4ed1bc662e7",
+  "line_start": 1176,
+  "line_end": 1200,
+  "excerpt": "                        ctx=StringInputSetContext(ctx_string),\n                        input_set=input_set,\n                    )\n                )\n        else:\n            # For inputs sets that are of type BaseInputSetContext or list\n            for input_set in input_sets:\n                ctxs.append(\n                    await self.seed_inputs(ctx=ctx, input_set=input_set)\n                )\n        # TODO Add check that ctx returned is the ctx corresponding to uadd.\n        # We'll have to make uadd return the ctx so we can compare.\n        # TODO Send the context back into some list maintained by\n        # run_operations so that if there is another run_dataflow method\n        # running on the same orchestrator context it will get the context\n        # it's waiting for and return\n        # BEGIN old run_operations\n        # Set of tasks we are waiting on\n        # TODO Make some way to cap the number of context's who have operations\n        # executing. Or maybe just the number of operations. Or both.\n        tasks = set()\n        # Create tasks to wait on the results of each of the contexts submitted\n        for ctx in ctxs:\n            self.logger.debug(\n                \"kickstarting context: %s\", (await ctx.handle()).as_string()"
+}

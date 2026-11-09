@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0423-aagifdbgf",
+  "revision_url": "https://github.com/OpenNMT/OpenNMT-py/commit/286a8cb1abde6e030e935734509d7f6832ce0f7f",
+  "filename": "OpenNMT/onmt/modules/Decoder.py",
+  "commit": "286a8cb1abde6e030e935734509d7f6832ce0f7f",
+  "source_url": "https://raw.githubusercontent.com/OpenNMT/OpenNMT-py/286a8cb1abde6e030e935734509d7f6832ce0f7f/OpenNMT/onmt/modules/Decoder.py",
+  "fetched_at": "2026-11-05T06:12:51.998613+00:00",
+  "source_sha256": "b59f7e197570c52fecdc023b94977d461da9568eb2d82a8dd42f7f5ed9a5da1f",
+  "line_start": 246,
+  "line_end": 270,
+  "excerpt": "\n#[[Compute all forward steps.\n\n    Parameters.\n\n    * `batch` - `Batch` object\n    * `encoderStates` -\n    * `context` -\n    * `func` - Calls `func(out, t)` each timestep.\n#]]\n\ndef Decoder.forwardAndApply(batch, encoderStates, context, func):\n    # TODO. Make this a private method.\n\n    if self.statesProto == None:\n        self.statesProto = onmt.utils.Tensor.initTensorTable(self.args.numEffectiveLayers,\n                                                                                                                  self.stateProto,\n                                                                                                                  { batch.size, self.args.rnnSize })\n    \n\n    states = onmt.utils.Tensor.copyTensorTable(self.statesProto, encoderStates)\n\n    prevOut\n\n    for t = 1, batch.targetLength:"
+}

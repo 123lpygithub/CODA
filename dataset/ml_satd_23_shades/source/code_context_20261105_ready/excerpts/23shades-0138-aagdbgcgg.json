@@ -1,0 +1,13 @@
+{
+  "artifact_id": "23shades-0138-aagdbgcgg",
+  "revision_url": "https://github.com/DeFacto/DeFactoNLP/commit/c34f212abff0dab7e4551d9ac6c069622a860c66",
+  "filename": "fever-baselines/DrQA/drqa/reader/vector.py",
+  "commit": "c34f212abff0dab7e4551d9ac6c069622a860c66",
+  "source_url": "https://raw.githubusercontent.com/DeFacto/DeFactoNLP/c34f212abff0dab7e4551d9ac6c069622a860c66/fever-baselines/DrQA/drqa/reader/vector.py",
+  "fetched_at": "2026-11-05T06:11:59.924952+00:00",
+  "source_sha256": "162a2c292c00bdf33ba0a52c4ffe473cf04c8b00460cedaca95677c11817f623",
+  "line_start": 51,
+  "line_end": 75,
+  "excerpt": "        for i, w in enumerate(ex['ner']):\n            f = 'ner=%s' % w\n            if f in feature_dict:\n                features[i][feature_dict[f]] = 1.0\n\n    # f_{token} (TF)\n    if args.use_tf:\n        counter = Counter([w.lower() for w in ex['document']])\n        l = len(ex['document'])\n        for i, w in enumerate(ex['document']):\n            features[i][feature_dict['tf']] = counter[w.lower()] * 1.0 / l\n\n    # Maybe return without target\n    if 'answers' not in ex:\n        return document, features, question, ex['id']\n\n    # ...or with target(s) (might still be empty if answers is empty)\n    if single_answer:\n        assert(len(ex['answers']) > 0)\n        start = torch.LongTensor(1).fill_(ex['answers'][0][0])\n        end = torch.LongTensor(1).fill_(ex['answers'][0][1])\n    else:\n        start = [a[0] for a in ex['answers']]\n        end = [a[1] for a in ex['answers']]\n",
+  "match_policy": "unique-release-normalized-v2"
+}

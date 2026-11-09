@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0210-aaefhhbid",
+  "revision_url": "https://github.com/awslabs/sockeye/commit/f809d8970fcdf41fb633fa98f13a40617f48f244",
+  "filename": "sockeye/transformer.py",
+  "commit": "f809d8970fcdf41fb633fa98f13a40617f48f244",
+  "source_url": "https://raw.githubusercontent.com/awslabs/sockeye/f809d8970fcdf41fb633fa98f13a40617f48f244/sockeye/transformer.py",
+  "fetched_at": "2026-11-05T06:12:15.907604+00:00",
+  "source_sha256": "4455e513bea38f2f29ec868b28f0a22e480413b4fc96e4ddda08ba83203ec780",
+  "line_start": 149,
+  "line_end": 173,
+  "excerpt": "            else:\n                raise ValueError(\"Invalid decoder type.\")\n\n            self.pre_autoregr_layer = TransformerProcessBlock(sequence=config.preprocess_sequence,\n                                                              dropout=config.dropout_prepost,\n                                                              prefix=self.autoregr_layer.prefix + \"pre_\",\n                                                              num_hidden=config.model_size)\n\n            self.post_autoregr_layer = TransformerProcessBlock(sequence=config.postprocess_sequence,\n                                                               dropout=config.dropout_prepost,\n                                                               prefix=self.autoregr_layer.prefix + \"post_\",\n                                                               num_hidden=config.model_size)\n            # TODO (tdomhan): Remove with next major version bump.\n            # For backwards compatibility with versions prior to 2.1.17 we also store the layers under to previous\n            # attribute name. This way parameters can be loaded as either decoder.layers.0.autoregr_layer.ff_out.weight\n            # or decoder.layers.0.self_attention.ff_out.weight. Parameter deduplication makes sure parameters are stored\n            # and loaded once only.\n            if self.decoder_type == C.TRANSFORMER_TYPE:\n                self.self_attention = self.autoregr_layer\n                self.pre_self_attention = self.pre_autoregr_layer\n                self.post_self_attention = self.post_autoregr_layer\n\n            self.pre_enc_attention = TransformerProcessBlock(sequence=config.preprocess_sequence,\n                                                             dropout=config.dropout_prepost,\n                                                             prefix=\"att_enc_pre_\","
+}

@@ -1,0 +1,106 @@
+{
+  "format": "coda-github-issue-snapshot",
+  "format_version": 1,
+  "artifact_id": "privacy-issue-5617",
+  "issue_url": "https://github.com/cloudfoundry/uaa/issues/771",
+  "source_issue_url": "https://github.com/cloudfoundry/uaa/issues/771",
+  "api_url": "https://api.github.com/repos/cloudfoundry/uaa/issues/771",
+  "title": "GDPR extension for UAA ??",
+  "body": "Hi UAA-Team, \r\n\r\nI have a question for y'all: I am not sure that you are aware about GDPR (https://en.wikipedia.org/wiki/General_Data_Protection_Regulation).\r\n\r\nGDPR is a law in Europe that will become effective mid-year 2018, and it includes a section about the \"right to be forgotten\" for Personal Information (PII). \r\nNow one could consider an email address stored in UAA as \"PII\", and therefore CF might be required to implement a \"Right to be forgotten\" in order to accomplish GDPR compliance. \r\nToday, UAADB stores records for deleted user marking them `inactive`, however in order to be GDPR compliant we believe we need to remove these records from live UAADB.\r\n\r\nWe have been thinking that UAA should expose an API for delete with a configurable deferred time, so that `DELETE /user/abc`  will mark a flag into UAADB to be removed in `x` days (graceful period to recover unwanted delete) and after x days UAA will purge the expired records. \r\n\r\nCan I get your viewpoint on this request ?\r\n",
+  "author": "Participant 1",
+  "created_at": "2018-02-09T13:56:27Z",
+  "updated_at": "2018-05-03T18:50:02Z",
+  "state": "closed",
+  "closed_at": null,
+  "issue_fetched_at": "2026-11-05T06:20:15.698086+00:00",
+  "comments_fetched_at": [
+    "2026-11-05T06:20:15.698086+00:00",
+    "2026-11-05T06:39:47.971419+00:00"
+  ],
+  "expected_comment_count": 9,
+  "retrieved_comment_count": 9,
+  "comments_complete": true,
+  "comments": [
+    {
+      "id": 364440116,
+      "url": "https://github.com/cloudfoundry/uaa/issues/771#issuecomment-364440116",
+      "created_at": "2018-02-09T13:56:28Z",
+      "updated_at": null,
+      "author": "Participant 2",
+      "body": "We have created an issue in Pivotal Tracker to manage this: \n\nhttps://www.pivotaltracker.com/story/show/155074159 \n\nThe labels on this github issue will be updated when the story is started."
+    },
+    {
+      "id": 364440845,
+      "url": "https://github.com/cloudfoundry/uaa/issues/771#issuecomment-364440845",
+      "created_at": "2018-02-09T13:59:16Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "FWIW, this is not a EU-only issue, meaning that even a public service like PWS in the US that is storing data from European people will fall under that rule. "
+    },
+    {
+      "id": 364547474,
+      "url": "https://github.com/cloudfoundry/uaa/issues/771#issuecomment-364547474",
+      "created_at": "2018-02-09T20:00:59Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "Hello @smoser-ibm ,\r\nCurrently delete a user removes the entire user record along with any group memberships they may have. Can you elaborate on your user deletion flow.\r\n\r\nThanks,\r\nSree"
+    },
+    {
+      "id": 364561241,
+      "url": "https://github.com/cloudfoundry/uaa/issues/771#issuecomment-364561241",
+      "created_at": "2018-02-09T20:46:52Z",
+      "updated_at": "2018-02-09T20:47:29Z",
+      "author": "Participant 4",
+      "body": "Just did a bit of investigation on this. It seems that user deletion only [deactivates the user](https://github.com/cloudfoundry/uaa/blob/ec713f0b4ea0da2f2f67252c8c811e073bf91cf8/server/src/main/java/org/cloudfoundry/identity/uaa/scim/jdbc/JdbcScimUserProvisioning.java#L345) when you have [configured a standalone UAA instance](https://github.com/cloudfoundry/uaa/blob/ddea1e4e490348f5737a85e8b804276fd1b2632f/uaa/src/main/webapp/WEB-INF/spring/scim-endpoints.xml#L28) with the `scim.delete.deactivate` property. If you have not configured that property, we remove the user from the db. We don't expose this configuration through the uaa-release manifest properties, so I expect all running CF deployments to have delete behavior that complies with the expectations of the law."
+    },
+    {
+      "id": 364570091,
+      "url": "https://github.com/cloudfoundry/uaa/issues/771#issuecomment-364570091",
+      "created_at": "2018-02-09T21:17:44Z",
+      "updated_at": "2018-02-09T21:18:08Z",
+      "author": "Participant 1",
+      "body": "@jhamon is it possible that this might get set in case we use a loginServer somehow ? I have to dig deeper on this next week, but I am positive that in our case the user is not deleted but marked inactive (so maybe we have scim.delete.deactivate configured somehow, as this would explain this, right?)"
+    },
+    {
+      "id": 364591259,
+      "url": "https://github.com/cloudfoundry/uaa/issues/771#issuecomment-364591259",
+      "created_at": "2018-02-09T22:45:45Z",
+      "updated_at": null,
+      "author": "Participant 3",
+      "body": "@smoser-ibm We are planning to get rid of Login Server in the next major version of UAA. We want to maintain only standards based integration via SAML/LDAP/OIDC\r\n\r\nI suggest we have a discussion on this topic and have all stakeholders from IBM involved.  I will send an email with more details"
+    },
+    {
+      "id": 364641405,
+      "url": "https://github.com/cloudfoundry/uaa/issues/771#issuecomment-364641405",
+      "created_at": "2018-02-10T10:21:32Z",
+      "updated_at": "2018-02-10T11:54:23Z",
+      "author": "Participant 1",
+      "body": "@sreetummidi fair enough, please include Martin Smolny in that discussion. However, I think we have to object to that plan unless there is a good migration plan  - at this point in time our deployments rely on loginServer and removal would be a total no-go. But lets get on a call to discuss "
+    },
+    {
+      "id": 365424450,
+      "url": "https://github.com/cloudfoundry/uaa/issues/771#issuecomment-365424450",
+      "created_at": "2018-02-13T22:18:31Z",
+      "updated_at": "2018-02-13T22:19:11Z",
+      "author": "Participant 4",
+      "body": "I'm going to close this issue as it seems the `scim.delete.deactivate` behavior is configurable and defaulting to the proper behavior. The future fate of the login server is unrelated to concerns about GDPR.\r\n\r\n@smoser-ibm If you find you are not configuring `scim.delete.deactivate=true` in either `uaa.yml` or `login.yml` and you're still seeing the deactivation behavior, please open an issue with more details about your configuration and reproduction steps and we will tackle it as a bug."
+    },
+    {
+      "id": 365502836,
+      "url": "https://github.com/cloudfoundry/uaa/issues/771#issuecomment-365502836",
+      "created_at": "2018-02-14T05:46:06Z",
+      "updated_at": null,
+      "author": "Participant 1",
+      "body": "@sreetumidi @jhamon indeed I agree the \"issue\" is more on how our login flow works, so this ticket can be closed. Sorry for bothering. However, the concerns around login server remain and we need to talk about that - I will set up a phone call on that  "
+    }
+  ],
+  "evidence_status": "complete",
+  "scope": "Retrieval-time original Markdown from GitHub's structured issue pages, including numbered timeline pages. Discussion complete only after pagination, comment-ID, expected-count and unchanged-issue checks. Closure timestamp is unavailable; linked material is stored separately.",
+  "retrieval_method": "GitHub public issue page embedded original Markdown",
+  "retrieval_url": "https://github.com/cloudfoundry/uaa/issues/771",
+  "closed_at_available": false,
+  "timeline_page_urls": [
+    "https://github.com/cloudfoundry/uaa/issues/771",
+    "https://github.com/cloudfoundry/uaa/issues/771?timeline_page=1"
+  ]
+}

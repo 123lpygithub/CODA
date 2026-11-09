@@ -1,0 +1,12 @@
+{
+  "artifact_id": "23shades-0764-aadiicibd",
+  "revision_url": "https://github.com/IntelAI/models/commit/8a001dc9bacfc0553cf92738594de2ab15f47683",
+  "filename": "models/language_translation/tensorflow/transformer_mlperf/training/fp32/transformer/utils/dataset.py",
+  "commit": "8a001dc9bacfc0553cf92738594de2ab15f47683",
+  "source_url": "https://raw.githubusercontent.com/IntelAI/models/8a001dc9bacfc0553cf92738594de2ab15f47683/models/language_translation/tensorflow/transformer_mlperf/training/fp32/transformer/utils/dataset.py",
+  "fetched_at": "2026-11-05T06:13:49.358125+00:00",
+  "source_sha256": "5e3de0b4990d5efbbf49069181d6e8f96002d8f0ef0c98f6dabfdcfa34e9554e",
+  "line_start": 249,
+  "line_end": 273,
+  "excerpt": "  #dataset = _batch_examples(dataset, batch_size, max_length)\n  if static_batch == \"Yes\":\n    dataset = dataset.padded_batch(\n        batch_size // max_length, ([max_length], [max_length]),\n        drop_remainder=True)\n  else:\n    # Group and batch such that each batch has examples of similar length.\n    dataset = _batch_examples(dataset, batch_size, max_length)\n\n  dataset = dataset.repeat(repeat)\n\n  # horovod: do shard if enabled multi-instance while training\n  #TODO: verify if it is working\n  if shuffle and has_horovod:\n    import horovod.tensorflow as hvd\n    shape = dataset.output_shapes\n    dataset = dataset.shard(hvd.size(), hvd.rank())\n\n  # Prefetch the next element to improve speed of input pipeline.\n  dataset = dataset.prefetch(1)\n  return dataset\n\n\ndef train_input_fn(params):\n  \"\"\"Load and return dataset of batched examples for use during training.\"\"\""
+}

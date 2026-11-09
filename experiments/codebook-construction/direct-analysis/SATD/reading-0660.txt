@@ -1,0 +1,343 @@
+
+=== 660 23shades-0591-aajcgfgji ===
+{"dataset_id": "aajcgfgji", "repo_name": "msracver/Deep-Exemplar-based-Colorization", "filename": "colorization_subnet/lib/functional.py", "comment_introducing_revision": "https://github.com/msracver/Deep-Exemplar-based-Colorization/commit/3c7bc401373ece785bb4b773356335bd8656f71f", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "3c7bc401373ece785bb4b773356335bd8656f71f"}
+[comment_text]
+TODO: make efficient
+[source_context]
+    See ``Normalize`` for more details.
+
+    Args:
+        tensor (Tensor): Tensor image of size (C, H, W) to be normalized.
+        mean (sequence): Sequence of means for each channel.
+        std (sequence): Sequence of standard deviations for each channely.
+
+    Returns:
+        Tensor: Normalized Tensor image.
+    """
+    if not _is_tensor_image(tensor):
+        raise TypeError('tensor is not a torch image.')
+    # TODO: make efficient
+    if tensor.size(0) == 1:
+        tensor.sub_(mean).div_(std)
+    else:
+        for t, m, s in zip(tensor, mean, std):
+            t.sub_(m).div_(s)
+    return tensor
+
+
+def resize(img, size, interpolation=Image.BILINEAR):
+    """Resize the input PIL Image to the given size.
+
+    Args:
+
+=== 661 23shades-0067-aagbghgdd ===
+{"dataset_id": "aagbghgdd", "repo_name": "maciejczyzewski/neural-chessboard", "filename": "main.py", "comment_introducing_revision": "https://github.com/maciejczyzewski/neural-chessboard/commit/046bfc6ccbb6d131439548459e4756619fe13427", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "046bfc6ccbb6d131439548459e4756619fe13427"}
+[comment_text]
+FIX: tensorflow#3388
+[source_context]
+			help='output path (default: output.jpg)')
+
+	#os.system("rm test/steps/*.jpg") # FIXME: to jest bardzo grozne
+	os.system("rm -rf test/steps; mkdir test/steps")
+
+	args = p.parse_args(); mode = str(args.mode[0])
+	modes = {'detect': detect, 'dataset': dataset, 'train': train, 'test': test}
+
+	if mode not in modes.keys():
+		utils.errn("hey, nie mamy takiej procedury!!! (wybrano: %s)" % mode)
+
+	modes[mode](args); print(utils.clock(), "done")
+	K.clear_session(); gc.collect() # FIX: tensorflow#3388
+
+=== 662 23shades-0784-aahjaaeee ===
+{"dataset_id": "aahjaaeee", "repo_name": "JohnVinyard/zounds", "filename": "util.py", "comment_introducing_revision": "https://github.com/JohnVinyard/zounds/commit/d3f3f12ce513b79a3f37065f0fa630ecc0e91116", "comment_removing_revision": "https://github.com/JohnVinyard/zounds/commit/9ec0dbc83fbb1926b6b2c0d42090f8a146a88f07", "source_context_status": "available", "source_context_commit": "d3f3f12ce513b79a3f37065f0fa630ecc0e91116"}
+[comment_text]
+TODO: Write tests
+[source_context]
+from __future__ import division
+import numpy as np
+
+
+# TODO: Write tests
+def pad(a,desiredlength):
+    '''
+    Pad an n-dimensional numpy array with zeros so that it is the
+    desired length.  Return it unchanged if it is greater than or
+    equal to the desired length
+    '''
+    
+    if len(a) >= desiredlength:
+        return a
+    
+    
+    diff = desiredlength - len(a)
+
+=== 663 23shades-0320-aaedbiehj ===
+{"dataset_id": "aaedbiehj", "repo_name": "inferno-pytorch/inferno", "filename": "inferno/extensions/model/res_unet.py", "comment_introducing_revision": "https://github.com/inferno-pytorch/inferno/commit/2c6d464fdc7d5821bf808bfcc10cae8a60424080", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "2c6d464fdc7d5821bf808bfcc10cae8a60424080"}
+[comment_text]
+TODO not sure how to handle out-channels properly.
+[source_context]
+        else:
+            return conv_op
+
+    def activation_op_factory(self, index):
+        return self.activation_op[0]
+
+    def batchnorm_op_factory(self, in_channels):
+        bn_cls_name = 'BatchNorm{}d'.format(int(self.dim))
+        bn_op_cls = getattr(torch.nn, bn_cls_name)
+        return bn_op_cls(in_channels)
+
+
+# TODO not sure how to handle out-channels properly.
+# For now, we just force the corrcect number in the last decoder layer
+class ResBlockUNet(UNetBase):
+    """TODO.
+
+        ACCC
+
+    Attributes:
+        activated (TYPE): Description
+        dim (TYPE): Description
+        res_block_kwargs (TYPE): Description
+        side_out_parts (TYPE): Description
+        unet_kwargs (TYPE): Description
+
+=== 664 23shades-0510-aadjgaaid ===
+{"dataset_id": "aadjgaaid", "repo_name": "analysiscenter/batchflow", "filename": "dataset/preprocess.py", "comment_introducing_revision": "https://github.com/analysiscenter/batchflow/commit/17f7532b26ef8c7215c21df5319021520d550bd4", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "17f7532b26ef8c7215c21df5319021520d550bd4"}
+[comment_text]
+TODO: decorator params: parallelization (e.g. threads; processes; async\/await; greenlets;...)
+[source_context]
+""" Preprocessing """
+
+
+def action(method):
+    """ Decorator for action methods in Batch classes """
+    # TODO: decorator params: parallelization (e.g. threads, processes, async/await, greenlets,...)
+    # use __action for class-specific params
+    method._action = True # pylint: disable=protected-access
+    return method
+
+
+class Preprocessing:
+    """ Preprocessing """
+    def __init__(self, dataset):
+        self.dataset = dataset
+        self.action_list = []
+        self.batch_generator = None
+
+
+=== 665 23shades-0562-aaeiefhcb ===
+{"dataset_id": "aaeiefhcb", "repo_name": "IntelPython/sdc", "filename": "hpat/hiframes/pd_dataframe_ext.py", "comment_introducing_revision": "https://github.com/IntelPython/sdc/commit/0d22a190d067493707fda90e621af12addacefb5", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "0d22a190d067493707fda90e621af12addacefb5"}
+[comment_text]
+TODO: ignore non-numerics
+[source_context]
+    def _impl(df, axis=None, skipna=None, level=None, numeric_only=None):
+        return hpat.hiframes.pd_dataframe_ext.mean_dummy(df)
+
+    return _impl
+
+def mean_dummy(df, n):
+    return df
+
+@infer_global(mean_dummy)
+class MeanDummyTyper(AbstractTemplate):
+    def generic(self, args, kws):
+        df = args[0]
+        # TODO: ignore non-numerics
+        # output is float64 series with original data as string index
+        out = SeriesType(
+            types.float64, types.Array(types.float64, 1, 'C'),
+            string_array_type)
+        return signature(out, *args)
+
+@lower_builtin(mean_dummy, types.VarArg(types.Any))
+def lower_mean_dummy(context, builder, sig, args):
+    out_obj = cgutils.create_struct_proxy(
+        sig.return_type)(context, builder)
+    return out_obj._getvalue()
+
+=== 666 23shades-0690-aahafiehj ===
+{"dataset_id": "aahafiehj", "repo_name": "goruck/edge-tpu-servers", "filename": "encode_faces.py", "comment_introducing_revision": "https://github.com/goruck/edge-tpu-servers/commit/a6c54b9dd9daca3d576f028ff36e1f7dc9df2867", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "a6c54b9dd9daca3d576f028ff36e1f7dc9df2867"}
+[comment_text]
+TODO: See https:\/\/www.pyimagesearch.com\/2017\/05\/22\/face-alignment-with-opencv-and-python\/
+[source_context]
+    # Its assumed that only one face is in each image so take detection[0]
+    box = (detection[0].bounding_box.flatten().tolist()) * np.array([w, h, w, h])
+    (face_left, face_top, face_right, face_bottom) = box.astype('int')
+    #print('face_left: {} face_top: {} face_right: {} face_bottom: {}'
+        #.format(face_left, face_top, face_right, face_bottom))
+
+    # Return bounding box coords in dlib format. 
+    return [(face_top, face_right, face_bottom, face_left)]
+
+def cv2_encoder(image, boxes):
+    # Encode face into a 128-D representation (embeddings) using OpenCV.
+    # NB: Accuracy will be poor because face alignment is not performed first.
+    # TODO: See https://www.pyimagesearch.com/2017/05/22/face-alignment-with-opencv-and-python/
+    # Don't use this for now. 
+
+    # Carve out face from bbox.
+    (face_top, face_right, face_bottom, face_left) = boxes[0]
+    face_roi = image[face_top:face_bottom, face_left:face_right, :]
+
+    # Construct a blob for the image, then pass the blob
+    # through the face embedding model to obtain the 128-d
+    # quantification of the face.
+    faceBlob = cv2.dnn.blobFromImage(
+        face_roi, 1.0 / 255, (96, 96), (0, 0, 0), swapRB=True, crop=False)
+    embedder.setInput(faceBlob)
+
+=== 667 23shades-0770-aadhddfhh ===
+{"dataset_id": "aadhddfhh", "repo_name": "castorini/castor", "filename": "kim_cnn/bucket.py", "comment_introducing_revision": "https://github.com/castorini/castor/commit/7d0a78d1a79ff982291e8b81b1be285961216459", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "7d0a78d1a79ff982291e8b81b1be285961216459"}
+[comment_text]
+TODO: we may support size = -1 in the future
+[source_context]
+    self._sents = None
+    self._target = None
+
+  def set_size(self, size):
+    self._size = size
+    self._data = []
+    self._sents = []
+    self._target = []
+
+  def add(self, example):
+    # TODO: After finalize, we can not add data anymore
+    if example.length > self._size: #and self._size != -1:
+      #  TODO: we may support size = -1 in the future
+      raise ValueError("Bucket of size %d received sequence of len %d" % (self._size, example.length))
+    self._data.append(example.data['words'])
+    self._sents.append(example.sent['words'])
+    self._target.append(example.data['targets'])
+    return len(self._data)-1
+
+  def finalize(self):
+    if self._data is None:
+      raise ValueError("You need to set size before finalize it")
+    if len(self._data) > 0:
+      shape = (len(self._data), self._size, len(self._data[-1][-1]))
+      data = np.zeros(shape, dtype=np.int64)
+
+=== 668 23shades-0372-aadfcefca ===
+{"dataset_id": "aadfcefca", "repo_name": "sbl-sdsc/mmtf-pyspark", "filename": "src/tests/orFilterTest.py", "comment_introducing_revision": "https://github.com/sbl-sdsc/mmtf-pyspark/commit/53e3695d595ac06479389537975b374df17a6388", "comment_removing_revision": "STILL_EXISTS", "source_context_status": "available", "source_context_commit": "53e3695d595ac06479389537975b374df17a6388"}
+[comment_text]
+TODO Traceback \"ResourceWarning: unclosed filecodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 25: ordinal not in range(128)\"
+[source_context]
+#!/usr/bin/env python
+'''
+Simple example of reading an MMTF Hadoop Sequence file, filtering the entries \
+by rFree,and counting the number of entries.
+
+Authorship information:
+__author__ = "Peter Rose"
+__maintainer__ = "Mars Huang"
+__email__ = "marshuang80@gmai.com:
+__status__ = "Warning"
+'''
+# TODO Traceback "ResourceWarning: unclosed filecodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 25: ordinal not in range(128)"
+# TODO No actual value for unit test
+
+import unittest
+from pyspark import SparkConf, SparkContext
+from src.main.MmtfReader import downloadMmtfFiles
+from src.main.filters import orFilter,containsDnaChain, containsRnaChain
+
+# TODO Need mappers for this unit test to work
+class testOrFilter(unittest.TestCase):
+
+    def setUp(self):
+        conf = SparkConf().setMaster("local[*]").setAppName('testrFreeFilter')
+
+=== 669 23shades-0277-aahiiefbi ===
+{"dataset_id": "aahiiefbi", "repo_name": "kengz/SLM-Lab", "filename": "slm_lab/agent/__init__.py", "comment_introducing_revision": "https://github.com/kengz/SLM-Lab/commit/8f5f62f14e777cf2f88fe71360581be95d643163", "comment_removing_revision": "https://github.com/kengz/SLM-Lab/commit/cd3704616759710b50062abf3b8e8041b4b7c95f", "source_context_status": "available", "source_context_commit": "8f5f62f14e777cf2f88fe71360581be95d643163"}
+[comment_text]
+TODO delegate a copy of variable like action_dim to agent too
+[source_context]
+        # TODO also spec needs to specify AEB space and bodies
+        util.set_attr(self, spec)
+
+    def set_env(self, env):
+        '''
+        Make env visible to agent.
+        TODO make consistent with AEB space
+        '''
+        self.env = env
+        # TODO do body num here
+        # analogously, do other dim counts as needed from env
+        self.body_num = 1
+        # TODO delegate a copy of variable like action_dim to agent too
+
+    def reset(self):
+        return
+
+    def act_discrete(self, state):
+        '''Implement discrete action, or throw NotImplementedError'''
+        action = np.random.randint(
+            0, self.env.get_action_dim(), size=(self.body_num))
+        return action
+
+    def act_continuous(self, state):
+        '''Implement continuous action, or throw NotImplementedError'''
+
+=== 670 23shades-0458-aaeggadce ===
+{"dataset_id": "aaeggadce", "repo_name": "explosion/thinc", "filename": "thinc/config.py", "comment_introducing_revision": "https://github.com/explosion/thinc/commit/4610f36a55516ff3f07d4b9c84613484d5824676", "comment_removing_revision": "https://github.com/explosion/thinc/commit/fb9cce599457c976ca64e956a94b2dfacc69fe9e", "source_context_status": "available", "source_context_commit": "4610f36a55516ff3f07d4b9c84613484d5824676"}
+[comment_text]
+TODO: Bad hack to work around generic types in pydantic (until next release)
+[source_context]
+    @classmethod
+    def make_promise_schema(cls, obj: Dict[str, Any]) -> Type[BaseModel]:
+        """Create a schema for a promise dict (referencing a registry function)
+        by inspecting the function signature.
+        """
+        func = cls.get_constructor(obj)
+        # Read the argument annotations and defaults from the function signature
+        id_keys = [k for k in obj.keys() if k.startswith("@")]
+        sig_args: Dict[str, Any] = {id_keys[0]: (str, ...)}
+        for param in inspect.signature(func).parameters.values():
+            # If no annotation is specified assume it's anything
+            annotation = param.annotation if param.annotation != param.empty else Any
+            # TODO: Bad hack to work around generic types in pydantic (until next release)
+            # Details: https://github.com/samuelcolvin/pydantic/issues/1158
+            if str(annotation).startswith("thinc.model.Model["):
+                annotation = Callable
+            # If no default value is specified assume that it's required
+            default = param.default if param.default != param.empty else ...
+            # Handle spread arguments and use their annotation as Sequence[whatever]
+            if param.kind == param.VAR_POSITIONAL:
+                spread_annot = Sequence[annotation]  # type: ignore
+                sig_args[ARGS_FIELD_ALIAS] = (spread_annot, default)
+            else:
+                sig_args[param.name] = (annotation, default)
+        sig_args["__config__"] = _PromiseSchemaConfig
+
+=== 671 23shades-0287-aagdffgjh ===
+{"dataset_id": "aagdffgjh", "repo_name": "WMD-group/SMACT", "filename": "smact/builder.py", "comment_introducing_revision": "https://github.com/WMD-group/SMACT/commit/0ceab844146cd962813ea7fe5c4280e846c23bc1", "comment_removing_revision": "https://github.com/WMD-group/SMACT/commit/5bf98ec6e5a8d604a35039d06264c5b6856c5de7", "source_context_status": "available", "source_context_commit": "0ceab844146cd962813ea7fe5c4280e846c23bc1"}
+[comment_text]
+TODO Figure out how to distinguish oxidation states
+[source_context]
+    def composition(self):
+        """Generate a key that describes the composition."""
+        comp_style = "{ele}_{stoic}_{charge}{sign}"
+        return self._format_style(comp_style, delim="")
+
+    def as_poscar(self):
+        """Represent the structure as a POSCAR file compatible with VASP5."""
+        poscar = self._format_style("{ele}{charge}{sign}") + "\n"
+        poscar += "1.0\n"  # TODO Use actual lattice parameter
+        poscar += "\n".join(" ".join(vec) for vec in self.struct.lattice) + "\n"
+        poscar += self._format_style("{stoic}") + "\n"
+        poscar += "Coordinates\n"
+        # TODO Figure out how to distinguish oxidation states
+        return poscar
+
+
+def cubic_perovskite(species, cell_par=[6, 6, 6, 90, 90, 90], repetitions=[1, 1, 1]):
+    """
+    Build a perovskite cell using the crystal function in ASE.
+
+    Args:
+        species (str): Element symbols
+        cell_par (list): Six floats/ints specifying 3 unit cell lengths and 3 unit cell angles.
+        repetitions (list): Three floats specifying the expansion of the cell in x,y,z directions.
+    Returns:
