@@ -1,5 +1,6 @@
 {
   "metadata": {
+    "schema_version": "coda.artifact.v1",
     "dataset": "CodeErrors",
     "run": "gpt5.6-2",
     "artifact_count": 557,
@@ -7,19 +8,258 @@
     "code_count": 29,
     "assignment_count": 1254,
     "method": "逐条完整阅读、开放编码、持续比较、逐条人工 assignment；程序仅转换格式并验证。",
-    "source_sha256": "a1a982206a1b7b993afaed2791ed7765a40089cc37a1485fd5d174254b1c66d0",
-    "reading_memos_sha256": "1cd32e67684519adb5df0eb5476ed69d62a3ac4ec1782ebe6203ead367cf19d2",
-    "assignments_sha256": "f812377e01e9b88657a0351eacc83823c568f797f92f371b21540229f0259d2f",
-    "source_path": "../../../../../Artifact/fresh_rebuild/frozen/Codeerrors.jsonl",
-    "independence": "本轮未读取或复用其他轮次的 codebook、assignment、memo 或参考标签。",
     "limits": "单一 AI 编码；机械一致性检查不构成人工双重编码或语义准确性证明。",
-    "automated_classification": false,
-    "presentation_schema": "FSE GPT6-1 seven-file package"
+    "extensions": {
+      "original_metadata": {
+        "dataset": "CodeErrors",
+        "run": "gpt5.6-2",
+        "artifact_count": 557,
+        "coded_artifact_count": 557,
+        "code_count": 29,
+        "assignment_count": 1254,
+        "method": "逐条完整阅读、开放编码、持续比较、逐条人工 assignment；程序仅转换格式并验证。",
+        "source_sha256": "a1a982206a1b7b993afaed2791ed7765a40089cc37a1485fd5d174254b1c66d0",
+        "reading_memos_sha256": "1cd32e67684519adb5df0eb5476ed69d62a3ac4ec1782ebe6203ead367cf19d2",
+        "assignments_sha256": "f812377e01e9b88657a0351eacc83823c568f797f92f371b21540229f0259d2f",
+        "source_path": "../../../../../Artifact/fresh_rebuild/frozen/Codeerrors.jsonl",
+        "independence": "本轮未读取或复用其他轮次的 codebook、assignment、memo 或参考标签。",
+        "limits": "单一 AI 编码；机械一致性检查不构成人工双重编码或语义准确性证明。",
+        "automated_classification": false,
+        "presentation_schema": "FSE GPT6-1 seven-file package"
+      },
+      "original_results_metadata": {
+        "dataset": "CodeErrors",
+        "run": "gpt5.6-2",
+        "artifact_count": 557,
+        "coded_artifact_count": 557,
+        "code_count": 29,
+        "assignment_count": 1254,
+        "method": "逐条完整阅读、开放编码、持续比较、逐条人工 assignment；程序仅转换格式并验证。",
+        "source_sha256": "a1a982206a1b7b993afaed2791ed7765a40089cc37a1485fd5d174254b1c66d0",
+        "reading_memos_sha256": "1cd32e67684519adb5df0eb5476ed69d62a3ac4ec1782ebe6203ead367cf19d2",
+        "assignments_sha256": "f812377e01e9b88657a0351eacc83823c568f797f92f371b21540229f0259d2f",
+        "source_path": "../../../../../Artifact/fresh_rebuild/frozen/Codeerrors.jsonl",
+        "independence": "本轮未读取或复用其他轮次的 codebook、assignment、memo 或参考标签。",
+        "limits": "单一 AI 编码；机械一致性检查不构成人工双重编码或语义准确性证明。",
+        "automated_classification": false,
+        "presentation_schema": "FSE GPT6-1 seven-file package"
+      },
+      "original_codebook_markdown": "# gpt5.6-2 — CodeErrors 最终编码本\n\n本轮覆盖 **557 个 artifact**，形成 **29 个可分配 code**，共记录 **1254 个 artifact–code assignment**。全部 artifact 均已逐件阅读并编码。\n\n本文件按 GPT6-1 七文件发布格式生成。语义判断来自已完成的逐件阅读与人工 assignment；格式转换程序不读取正文选择代码，只负责序列化、计数和一致性核验。\n\n## 类别一览\n\n|Code|类别|覆盖 artifact 数|\n|---|---|---:|\n|CE01|无可执行实现 / NO_EXECUTABLE_IMPLEMENTATION|52|\n|CE02|占位、示例硬编码或退化实现 / PLACEHOLDER_OR_HARDCODED_SOLUTION|52|\n|CE03|语法错误或生成截断 / SYNTAX_OR_GENERATION_TRUNCATION|29|\n|CE04|返回或最终收尾缺失 / RETURN_OR_FINALIZATION_MISSING|12|\n|CE05|缺失或未定义依赖 / MISSING_OR_UNDEFINED_DEPENDENCY|48|\n|CE06|任务或需求建模错误 / TASK_OR_REQUIREMENT_MISMODELING|69|\n|CE07|输入表示或解析错误 / INPUT_REPRESENTATION_OR_PARSING|27|\n|CE08|类型、容器或 API 误用 / TYPE_CONTAINER_OR_API_MISUSE|26|\n|CE09|角色、层级或分析单位混淆 / ROLE_LEVEL_OR_UNIT_CONFUSION|82|\n|CE10|必要谓词或筛选遗漏 / REQUIRED_PREDICATE_OR_FILTER_OMITTED|57|\n|CE11|错误、反向或擅加谓词 / WRONG_OR_EXTRA_PREDICATE|65|\n|CE12|分支、模式或组合覆盖不完整 / BRANCH_OR_MODE_COVERAGE|36|\n|CE13|边界、基例与端点错误 / BOUNDARY_BASE_OR_EDGE_CASE|70|\n|CE14|搜索或候选空间不完整/错误 / INCOMPLETE_OR_WRONG_SEARCH_SPACE|63|\n|CE15|算法、公式或递推错误 / ALGORITHM_FORMULA_OR_RECURRENCE|37|\n|CE16|操作顺序、优先级、结合性或逆变换错误 / OPERATION_ORDER_PRECEDENCE_OR_INVERSE|20|\n|CE17|状态、控制流或终止错误 / STATE_CONTROL_OR_TERMINATION|39|\n|CE18|计数、聚合或分组错误 / COUNTING_AGGREGATION_OR_GROUPING|60|\n|CE19|作用域、量词或局部/全局混淆 / SCOPE_QUANTIFIER_OR_GLOBAL_LOCAL_CONFUSION|22|\n|CE20|排序键、方向、主次级或排名错误 / SORT_KEY_DIRECTION_OR_RANKING|26|\n|CE21|平局、多重性或等价类错误 / TIE_MULTIPLICITY_OR_EQUIVALENCE|37|\n|CE22|位置/顺序保持或输入变异错误 / POSITION_ORDER_PRESERVATION_OR_MUTATION|52|\n|CE23|输出类型、形状、长度或协议错误 / OUTPUT_TYPE_SHAPE_OR_PROTOCOL|67|\n|CE24|数值符号、精度、舍入或数值规范化 / NUMERIC_SIGN_PRECISION_OR_ROUNDING|36|\n|CE25|字符串大小写、边界、token 或分隔语义 / STRING_CASE_TOKEN_OR_DELIMITER_SEMANTICS|55|\n|CE26|资源、容量或守恒约束错误 / RESOURCE_CAPACITY_OR_CONSERVATION|11|\n|CE27|方向、对称排列或端点规范化 / DIRECTION_SYMMETRY_OR_ENDPOINT_NORMALIZATION|15|\n|CE28|优化或选择目标错误 / WRONG_OPTIMIZATION_OR_SELECTION_OBJECTIVE|40|\n|CE29|处理阶段或变换遗漏 / PIPELINE_STAGE_OR_TRANSFORMATION_OMITTED|49|\n\n## 使用规则\n\n- CE01 不自动附带 CE04；只有存在实质计算但最终返回缺失时才用 CE04。\n- CE03 与 CE05 区分“不能解析”和“能解析但名字未定义”。\n- CE06 用于任务概念被替换；CE15 用于仍在正确概念内但公式错误。\n- CE10 是条件遗漏；CE11 是已有条件错误、反向或擅加。\n- CE14 是候选空间；CE28 是候选评分/选择目标。二者可共现，但需要两项独立证据。\n- CE20 是排序规则；CE21 是平局、多重性与等价类；CE22 是原位置/顺序和输入变异。\n- CE18 聚焦计数与聚合；CE19 聚焦存在/全称、局部/全局等量词作用域。\n- CE24 只用于数值表示的符号、精度、舍入或规范化，不作为所有算术错误的兜底代码。\n\n## CE01 无可执行实现 / NO_EXECUTABLE_IMPLEMENTATION\n\n函数主体只有 `pass`、空白、TODO/注释，或虽有草稿文字却没有任何可执行求解步骤。\n\n- 纳入：显式 `pass`；docstring 后只有空白；全部候选实现均被注释掉。\n- 排除与边界：有可执行但恒定或身份输出（CE02）；代码因生成中断而不能解析（CE03）；已有有效计算但仅漏写 `return`（CE04）。\n- 边界说明：artifact 734 的 `int_to_mini_roman` 只有 `pass`。\n- 支持：52 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `1`（row 1；完整材料见 `results.json`）。\n\n````text\n# TODO: Implement this function\n````\n\n主体只有被注释的重复草稿，没有任何可执行求解步骤；未执行的注释候选不作为占位实现编码。\n\n## CE02 占位、示例硬编码或退化实现 / PLACEHOLDER_OR_HARDCODED_SOLUTION\n\n以常量、身份函数、少量示例表、固定长度展开或与输入无关的重复生成替代通用求解。\n\n- 纳入：恒定 `True/False/0/[]`；原样返回输入；只硬编码已知示例或有限长度；重复常量、重复 replace/append 等生成退化。\n- 排除与边界：完全没有可执行语句（CE01）；正常算法仅漏一个边界（CE13）。\n- 边界说明：artifact 647 对所有输入返回 `-1`；artifact 459 只记忆前五个示例。\n- 支持：52 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `17`（row 11；完整材料见 `results.json`）。\n\n````text\nxs = [x / max(xs) for x in xs]\n````\n\n重复无关变换替代求根，且最终没有返回。\n\n## CE03 语法错误或生成截断 / SYNTAX_OR_GENERATION_TRUNCATION\n\n材料中的实现因未闭合字符串、括号、调用、条件体或中途截断而不能作为完整程序解析。\n\n- 纳入：未闭合 docstring；末行停在 `append(`、孤立点号、缺少条件体；语法不完整。\n- 排除与边界：代码可解析但在未定义名字处运行失败（CE05）；可解析且隐式返回 `None`（CE04）。\n- 边界说明：artifact 342 的 docstring 未闭合。\n- 支持：29 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `101`（row 79；完整材料见 `results.json`）。\n\n````text\nif k > n * m: return []（实际允许重复访问）\n````\n\n实现建模为错误的最小路径和且在未完成append处截断，输出形状也不符。\n\n## CE04 返回或最终收尾缺失 / RETURN_OR_FINALIZATION_MISSING\n\n已有可执行步骤或部分求解，但没有返回所需结果、返回路径不全，或把中间状态当作最终结果。\n\n- 纳入：计算后无 `return`；部分路径隐式 `None`；只返回中间直方图而未做最终筛选。\n- 排除与边界：函数完全没有可执行求解步骤（CE01）；返回存在但结构错误（CE23）。\n- 边界说明：artifact 356 构造候选结果却没有最终 `return`。\n- 支持：12 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `17`（row 11；完整材料见 `results.json`）。\n\n````text\nxs = [x / max(xs) for x in xs]\n````\n\n重复无关变换替代求根，且最终没有返回。\n\n## CE05 缺失或未定义依赖 / MISSING_OR_UNDEFINED_DEPENDENCY\n\n核心路径引用未导入模块、未定义辅助函数、变量或不可用 API；若补齐依赖，已有主体可能部分或全部成立。\n\n- 纳入：缺 `import hashlib`；调用材料中没有的 `is_prime`；引用未定义 `planets`/变量。\n- 排除与边界：对象存在但 API 使用方式错误（CE08）；语法导致标识符根本不可执行（CE03）。\n- 边界说明：artifact 740 缺 `hashlib` 导入。\n- 支持：48 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `5`（row 5；完整材料见 `results.json`）。\n\n````text\npalindrome_prefix = find_palindrome_prefix(string)\n````\n\n依赖未定义辅助函数，并搜索/拼接了错误方向的回文片段。\n\n## CE06 任务或需求建模错误 / TASK_OR_REQUIREMENT_MISMODELING\n\n实现求解了与规格不同的概念，或以无关代理量替代目标性质。\n\n- 纳入：以奇偶性代理素性；把回文变为“全相等”；把路径问题建成传统最小路径和；把数位任务做成整体整数任务。\n- 排除与边界：正确任务模型下只漏部分候选（CE14）；单个公式写错（CE15）。\n- 边界说明：artifact 730 用奇偶性代替素性。\n- 支持：69 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `17`（row 11；完整材料见 `results.json`）。\n\n````text\nxs = [x / max(xs) for x in xs]\n````\n\n重复无关变换替代求根，且最终没有返回。\n\n## CE07 输入表示或解析错误 / INPUT_REPRESENTATION_OR_PARSING\n\n错误理解输入的词法、分隔、字段、进制、token 或外层/内层结构，导致进入算法前即取错数据。\n\n- 纳入：按 `|` 拆开本应完整的音符 token；把英文数字词直接 `int`；取错字段；把列表字符串表示逐字符解析。\n- 排除与边界：正确解析后对类型调用错误 API（CE08）；只遗漏一种合法分隔符时可同时用 CE25。\n- 边界说明：artifact 725 用最后两位 `x % 100` 冒充首位。\n- 支持：27 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `6`（row 6；完整材料见 `results.json`）。\n\n````text\nfor x in music_string.split('|')\n````\n\n错误拆分音符token，并把无效片段静默映射为默认值。\n\n## CE08 类型、容器或 API 误用 / TYPE_CONTAINER_OR_API_MISUSE\n\n对对象采用不适用的运算、容器接口或库语义，或混淆标量、列表、字符串、集合与函数对象。\n\n- 纳入：对字符串做 `% 2`；对 Python 列表使用布尔高级索引；返回函数对象；把整数切片。\n- 排除与边界：所需 API 仅未导入（CE05）；输出类型与规格不一致但内部类型操作合法（CE23）。\n- 边界说明：artifact 435 对字符串位直接执行 XOR。\n- 支持：26 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `8`（row 7；完整材料见 `results.json`）。\n\n````text\nnumbers = [int(i) for i in numbers]\n````\n\n把英文数词直接作整数转换且返回了错误表示。\n\n## CE09 角色、层级或分析单位混淆 / ROLE_LEVEL_OR_UNIT_CONFUSION\n\n把索引当元素、名称当位置、参数角色互换、整体当数位、行内容当坐标，或在错误的数据层级运算。\n\n- 纳入：索引条件施加到值；字符串长度代替字符总量；主串与模式角色颠倒；整数与其数位混淆。\n- 排除与边界：单纯解析失败（CE07）；正确层级上公式错误（CE15）。\n- 边界说明：artifact 727 把星球名称和轨道位置混淆。\n- 支持：82 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `29`（row 22；完整材料见 `results.json`）。\n\n````text\nlen(set(s0) & set(s1)) == len(s0) == len(s1)\n````\n\n用原字符串长度约束字符集合，混淆集合与多重性。\n\n## CE10 必要谓词或筛选遗漏 / REQUIRED_PREDICATE_OR_FILTER_OMITTED\n\n主要数据流存在，但缺少一个或多个规格要求的资格、有效性、类型、范围或类别条件，造成过度纳入。\n\n- 纳入：未筛整数/正数/奇数；未验证三角不等式；未检查首位；未限制索引位置。\n- 排除与边界：使用了错误的代理谓词（CE11或CE06）；整个搜索过程不存在（CE14）。\n- 边界说明：artifact 731 未排除负数和非整数。\n- 支持：57 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `40`（row 28；完整材料见 `results.json`）。\n\n````text\narea = (s * (s-a) * (s-b) * (s-c)) ** 0.5\n````\n\n海伦计算前遗漏三角有效性资格检查。\n\n## CE11 错误、反向或擅加谓词 / WRONG_OR_EXTRA_PREDICATE\n\n条件存在但对象、方向、严格性或逻辑组合错误，或添加规格没有的限制，造成过度接受或拒绝。\n\n- 纳入：`>=` 与 `>` 错置；末位条件反转；擅加长度/年份限制；必要条件当充分条件；恒真/恒假验证。\n- 排除与边界：条件完全缺失（CE10）；纯端点偏一（CE13）。\n- 边界说明：artifact 725 用 `x % 100 in [1,3,5,7,9]` 作为首位检查。\n- 支持：65 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `6`（row 6；完整材料见 `results.json`）。\n\n````text\nfor x in music_string.split('|')\n````\n\n错误拆分音符token，并把无效片段静默映射为默认值。\n\n## CE12 分支、模式或组合覆盖不完整 / BRANCH_OR_MODE_COVERAGE\n\n多分支、多模式或条件组合需求只实现一支，分支合并错误，或特殊情形被不当地泛化。\n\n- 纳入：只处理空白分隔而漏逗号与计数后备；无字母分支漏掉；平方/立方条件被合并；资源充足分支泛化到不足情形。\n- 排除与边界：漏枚举候选对象（CE14）；仅循环端点错误（CE13）。\n- 边界说明：artifact 737 只实现库存足够的更新公式。\n- 支持：36 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `58`（row 43；完整材料见 `results.json`）。\n\n````text\npivot = array[0]\n````\n\n排序方向的条件分支未实现，递归近似固定升序。\n\n## CE13 边界、基例与端点错误 / BOUNDARY_BASE_OR_EDGE_CASE\n\n算法主体接近规格，但在空输入、零/一、首末位置、包含端点、递归基例、off-by-one 或极小规模上失败。\n\n- 纳入：range漏上界；空列表 `max`；递归基例值错；切片端点偏一；长度1越界。\n- 排除与边界：候选域整体被错误限制（CE14）；擅加语义条件（CE11）。\n- 边界说明：artifact 437 产生空前缀并遗漏完整前缀。\n- 支持：70 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `3`（row 3；完整材料见 `results.json`）。\n\n````text\nreturn [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]\n````\n\n分隔符位置、元素保留和空输入结构均不符合协议。\n\n## CE14 搜索或候选空间不完整/错误 / INCOMPLETE_OR_WRONG_SEARCH_SPACE\n\n需要枚举、查找或探索多个候选时，只考察固定、相邻、首个、少数示例或错误候选域。\n\n- 纳入：只检查相邻三元组；只旋转一次；只比较前两项；只把 c 当斜边；未遍历所有组合。\n- 排除与边界：候选齐全但评分目标错误（CE28）；循环端点仅偏一（CE13）。\n- 边界说明：artifact 733 未枚举 b 的所有循环旋转。\n- 支持：63 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `5`（row 5；完整材料见 `results.json`）。\n\n````text\npalindrome_prefix = find_palindrome_prefix(string)\n````\n\n依赖未定义辅助函数，并搜索/拼接了错误方向的回文片段。\n\n## CE15 算法、公式或递推错误 / ALGORITHM_FORMULA_OR_RECURRENCE\n\n任务模型大体正确，但数学公式、状态转移、闭式、递推或核心运算关系不正确。\n\n- 纳入：错误勾股/海伦/导数公式；递推窗口公式错误；碰撞数误算；资源更新公式错误。\n- 排除与边界：完全求解了另一个任务（CE06）；只把运算顺序/优先级弄错（CE16）。\n- 边界说明：artifact 737 用 `number+need, remaining-need` 无条件更新。\n- 支持：37 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `23`（row 17；完整材料见 `results.json`）。\n\n````text\nfor i in range(len(l) - 2)\n````\n\n只检查相邻三元组且和为零的代数关系写反。\n\n## CE16 操作顺序、优先级、结合性或逆变换错误 / OPERATION_ORDER_PRECEDENCE_OR_INVERSE\n\n所需步骤存在或可辨认，但执行顺序、括号、优先级、组合方式或正逆方向错误。\n\n- 纳入：先平方再 ceiling；表达式全左结合；decode 复制 encode；元音跳过先换大小写；循环移位方向相反。\n- 排除与边界：排序方向/主次键错误（CE20）；普通公式项错误（CE15）。\n- 边界说明：artifact 387 忽略运算符优先级与幂结合性。\n- 支持：20 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `21`（row 15；完整材料见 `results.json`）。\n\n````text\ndecode_cyclic 中仍为 group[1:] + group[0]\n````\n\n解码复制正向左循环而非执行逆向循环。\n\n## CE17 状态、控制流或终止错误 / STATE_CONTROL_OR_TERMINATION\n\n累计状态未保存/错误更新，返回时机过早，递归不收敛，循环不终止，或候选间状态相互污染。\n\n- 纳入：未传递前缀余额；前向递归；全局 visited 污染路径；过早返回首个候选；记录时机错误。\n- 排除与边界：递归基例值单独错误（CE13）；状态公式本身错误可同时用 CE15。\n- 边界说明：artifact 2 的递归没有传递累计余额。\n- 支持：39 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `2`（row 2；完整材料见 `results.json`）。\n\n````text\nif operations[0] < 0: return True\n````\n\n递归未携带累计余额，把前缀累计性质降成逐项负号检查。\n\n## CE18 计数、聚合或分组错误 / COUNTING_AGGREGATION_OR_GROUPING\n\n计数单位、聚合对象、分组层级、去重方式或累积范围不符合规格。\n\n- 纳入：存在性代替出现次数；求和代替计数；逐格代替逐井；全局取整代替逐组取整；多计或漏计。\n- 排除与边界：选错最大/最小目标（CE28）；候选根本未枚举（CE14）。\n- 边界说明：artifact 726 把三元组计数替换成3的倍数个数。\n- 支持：60 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `19`（row 13；完整材料见 `results.json`）。\n\n````text\nif \"7\" in str(i):\n````\n\n按含7的数计一次，而非统计每次数字7出现。\n\n## CE19 作用域、量词或局部/全局混淆 / SCOPE_QUANTIFIER_OR_GLOBAL_LOCAL_CONFUSION\n\n把存在性当全称、局部窗口当全局集合、逐元素性质当跨元素一致性，或把子序列问题收紧为整串有效性。\n\n- 纳入：局部三字符互异改成全串只有3种字符；存在有效子序列改成整个输入平衡；每个 key 合法误作所有 key 同一大小写。\n- 排除与边界：候选列表不完整（CE14）；聚合单位错误（CE18）。\n- 边界说明：artifact 519 只验证各键自身大小写合法，未验证全局一致。\n- 支持：22 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `2`（row 2；完整材料见 `results.json`）。\n\n````text\nif operations[0] < 0: return True\n````\n\n递归未携带累计余额，把前缀累计性质降成逐项负号检查。\n\n## CE20 排序键、方向、主次级或排名错误 / SORT_KEY_DIRECTION_OR_RANKING\n\n排序/排名存在，但使用了错误键、方向、主次级关系或仅字典序等不完整复合键。\n\n- 纳入：长度主键遗漏；降序结果应升序；按字符串字典序代替数值；多关键字优先级颠倒。\n- 排除与边界：平局规则、稳定性或 distinct 语义（CE21）；优化目标不是排序而是路径/距离时用 CE28。\n- 边界说明：artifact 729 只按字典序，遗漏长度主键。\n- 支持：26 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `56`（row 42；完整材料见 `results.json`）。\n\n````text\nsorted(s.split(), key=lambda x: ''.join(sorted(x)))\n````\n\n在词间而非词内排序，破坏词序与空白保真。\n\n## CE21 平局、多重性或等价类错误 / TIE_MULTIPLICITY_OR_EQUIVALENCE\n\n没有正确处理平局、重复值、集合/多重集合、distinct、稳定首现或等价类规范化。\n\n- 纳入：平局未按字典序；set 去重代替删除所有重复；第二小未去重；同值次数约束错；排序后丢失首现映射。\n- 排除与边界：一般顺序/位置保持（CE22）；普通筛选遗漏（CE10）。\n- 边界说明：artifact 732 排序后无法保留强度平局时的原始首项。\n- 支持：37 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `13`（row 10；完整材料见 `results.json`）。\n\n````text\nreturn list(set(numbers))\n````\n\nset的去重/无序语义不等于删除所有重复值并保持原序。\n\n## CE22 位置/顺序保持或输入变异错误 / POSITION_ORDER_PRESERVATION_OR_MUTATION\n\n错误重排、删除、复制或修改原位置；未保持非目标元素/原顺序；产生未要求的原地变异。\n\n- 纳入：分区拼接代替原位回填；全局排序破坏受保护位置；输入原地修改；含字母串被反转。\n- 排除与边界：排序方向/键本身错误（CE20）；仅输出格式错误（CE23）。\n- 边界说明：artifact 739 在含字母情形错误反转字符顺序。\n- 支持：52 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `3`（row 3；完整材料见 `results.json`）。\n\n````text\nreturn [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]\n````\n\n分隔符位置、元素保留和空输入结构均不符合协议。\n\n## CE23 输出类型、形状、长度或协议错误 / OUTPUT_TYPE_SHAPE_OR_PROTOCOL\n\n返回内容的容器类型、字段、长度、模板、前后缀、分隔、布尔/字符串协议或结构不符合规格。\n\n- 纳入：返回字典而非众数字母；漏 `0b`；元组字段含义错；列表长度错误；模板替换错误。\n- 排除与边界：值本身算法错误但输出结构正确（CE15）；完全缺少返回（CE04）。\n- 边界说明：artifact 353 计算值正确但移除了 `0b` 前缀。\n- 支持：67 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `3`（row 3；完整材料见 `results.json`）。\n\n````text\nreturn [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]\n````\n\n分隔符位置、元素保留和空输入结构均不符合协议。\n\n## CE24 数值符号、精度、舍入或数值规范化 / NUMERIC_SIGN_PRECISION_OR_ROUNDING\n\n负号语义、浮点稳定性、整数除法、数值字符串规范化或舍入规则处理错误。\n\n- 纳入：先 `abs` 丢失带符号首位；浮点立方根精确相等；银行家舍入不符；真除法破坏整数状态；逗号小数未规范化。\n- 排除与边界：一般范围/端点错误（CE13）；类型 API 本身不可用（CE08，可共现）。\n- 边界说明：artifact 724 用 `abs` 抹去负号权重。\n- 支持：36 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `46`（row 34；完整材料见 `results.json`）。\n\n````text\nreturn a**(1/3) % 1 == 0\n````\n\n浮点立方根精确比较不稳健且负数产生复数域问题。\n\n## CE25 字符串大小写、边界、token 或分隔语义 / STRING_CASE_TOKEN_OR_DELIMITER_SEMANTICS\n\n大小写覆盖、逐字符变换、词/句边界、分隔符集合、空白保真或重叠字符串语义处理错误。\n\n- 纳入：只处理小写元音；`I` 前缀过宽；逗号未分隔；用 `str.count` 漏重叠；大小写互换只做单向。\n- 排除与边界：输入字段解析的结构性误解（CE07，可共现）；输出分隔协议（CE23）。\n- 边界说明：artifact 739 有字母时未逐字符 swapcase。\n- 支持：55 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `6`（row 6；完整材料见 `results.json`）。\n\n````text\nfor x in music_string.split('|')\n````\n\n错误拆分音符token，并把无效片段静默映射为默认值。\n\n## CE26 资源、容量或守恒约束错误 / RESOURCE_CAPACITY_OR_CONSERVATION\n\n任务包含库存、容量、供需、可用次数或守恒关系时，没有限制消耗、错误跨组共享资源或更新出非法状态。\n\n- 纳入：库存不足仍消费 need；井之间共享桶容量余量；交换所需奇数与可供偶数未比较。\n- 排除与边界：一般资格条件遗漏（CE10）；普通算术公式错误但无资源含义（CE15）。\n- 边界说明：artifact 737 产生负库存。\n- 支持：11 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `82`（row 65；完整材料见 `results.json`）。\n\n````text\nsum(lst1) == sum(lst2) and sum(lst1) % 2 == 0\n````\n\n资源供需关系被无关总和条件替代。\n\n## CE27 方向、对称排列或端点规范化 / DIRECTION_SYMMETRY_OR_ENDPOINT_NORMALIZATION\n\n规格对输入排列、两个端点、正反方向或对称角色不敏感，但实现只处理一个方向/排列且未规范化。\n\n- 纳入：a>b 未交换；只把 c 当斜边；只检查一种加法排列；只接受单调递增而不接受递减。\n- 排除与边界：编码/解码的逆操作错误（CE16）；排序升降方向错误（CE20）。\n- 边界说明：artifact 735 漏掉 a、b 作为斜边的对称情形。\n- 支持：15 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `139`（row 110；完整材料见 `results.json`）。\n\n````text\nrange(a,b+1)\n````\n\n未规范化反向端点且候选域错误扩展到多位整数。\n\n## CE28 优化或选择目标错误 / WRONG_OPTIMIZATION_OR_SELECTION_OBJECTIVE\n\n候选已经存在或搜索框架可辨认，但最小/最大、最近/极值、完整词典序/局部代理等目标函数错误。\n\n- 纳入：选最小强度而非最大；最近数对取全局极值；路径只比较末项；最大合格值取首个合格值。\n- 排除与边界：候选空间本身缺失（CE14，可共现）；排序键规则（CE20）。\n- 边界说明：artifact 732 将强度升序后选择最小值。\n- 支持：40 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `9`（row 8；完整材料见 `results.json`）。\n\n````text\nnumbers.sort()\n````\n\n最近数对目标被替换为全局最小值与最大值。\n\n## CE29 处理阶段或变换遗漏 / PIPELINE_STAGE_OR_TRANSFORMATION_OMITTED\n\n多阶段需求中，数据流总体方向可辨认，但跳过了一个核心中间变换、构造或后处理阶段。\n\n- 纳入：直接把 N 转二进制而未先求十进制数位和；只筛选未映射；未构造规定数组即计数；已取得候选却未做最终过滤。\n- 排除与边界：整个算法不存在（CE01）；单个资格谓词遗漏（CE10）；只缺返回（CE04）。\n- 边界说明：artifact 726 未构造 `a[i]=i*i-i+1`。\n- 支持：49 个 artifact；完整列表见 `codebook.json`。\n- 代表案例：artifact `54`（row 40；完整材料见 `results.json`）。\n\n````text\nreturn bin(N)[2:]\n````\n\n跳过十进制数位求和，直接编码原数。\n\n## 配套文件\n\n- `codebook.json`：结构化定义、成员、计数和代表证据。\n- `codebook.csv`：表格化 codebook。\n- `assignments.json` / `assignments.csv`：逐 artifact 的代码、理由、阅读摘要、证据和限制。\n- `taxonomy.json`：与 GPT6-1 一致的 HOW-style 类别树。\n- `results.json`：冻结材料全文与最终类别的逐条组合。\n",
+      "original_taxonomy": {
+        "category": "CodeErrors",
+        "description": "由可观察失效机制组织的生成代码错误类别。",
+        "layer": 0,
+        "children": [
+          {
+            "category": "无可执行实现 / NO_EXECUTABLE_IMPLEMENTATION",
+            "code_id": "CE01",
+            "description": "函数主体只有 `pass`、空白、TODO/注释，或虽有草稿文字却没有任何可执行求解步骤。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "占位、示例硬编码或退化实现 / PLACEHOLDER_OR_HARDCODED_SOLUTION",
+            "code_id": "CE02",
+            "description": "以常量、身份函数、少量示例表、固定长度展开或与输入无关的重复生成替代通用求解。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "语法错误或生成截断 / SYNTAX_OR_GENERATION_TRUNCATION",
+            "code_id": "CE03",
+            "description": "材料中的实现因未闭合字符串、括号、调用、条件体或中途截断而不能作为完整程序解析。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "返回或最终收尾缺失 / RETURN_OR_FINALIZATION_MISSING",
+            "code_id": "CE04",
+            "description": "已有可执行步骤或部分求解，但没有返回所需结果、返回路径不全，或把中间状态当作最终结果。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "缺失或未定义依赖 / MISSING_OR_UNDEFINED_DEPENDENCY",
+            "code_id": "CE05",
+            "description": "核心路径引用未导入模块、未定义辅助函数、变量或不可用 API；若补齐依赖，已有主体可能部分或全部成立。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "任务或需求建模错误 / TASK_OR_REQUIREMENT_MISMODELING",
+            "code_id": "CE06",
+            "description": "实现求解了与规格不同的概念，或以无关代理量替代目标性质。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "输入表示或解析错误 / INPUT_REPRESENTATION_OR_PARSING",
+            "code_id": "CE07",
+            "description": "错误理解输入的词法、分隔、字段、进制、token 或外层/内层结构，导致进入算法前即取错数据。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "类型、容器或 API 误用 / TYPE_CONTAINER_OR_API_MISUSE",
+            "code_id": "CE08",
+            "description": "对对象采用不适用的运算、容器接口或库语义，或混淆标量、列表、字符串、集合与函数对象。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "角色、层级或分析单位混淆 / ROLE_LEVEL_OR_UNIT_CONFUSION",
+            "code_id": "CE09",
+            "description": "把索引当元素、名称当位置、参数角色互换、整体当数位、行内容当坐标，或在错误的数据层级运算。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "必要谓词或筛选遗漏 / REQUIRED_PREDICATE_OR_FILTER_OMITTED",
+            "code_id": "CE10",
+            "description": "主要数据流存在，但缺少一个或多个规格要求的资格、有效性、类型、范围或类别条件，造成过度纳入。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "错误、反向或擅加谓词 / WRONG_OR_EXTRA_PREDICATE",
+            "code_id": "CE11",
+            "description": "条件存在但对象、方向、严格性或逻辑组合错误，或添加规格没有的限制，造成过度接受或拒绝。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "分支、模式或组合覆盖不完整 / BRANCH_OR_MODE_COVERAGE",
+            "code_id": "CE12",
+            "description": "多分支、多模式或条件组合需求只实现一支，分支合并错误，或特殊情形被不当地泛化。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "边界、基例与端点错误 / BOUNDARY_BASE_OR_EDGE_CASE",
+            "code_id": "CE13",
+            "description": "算法主体接近规格，但在空输入、零/一、首末位置、包含端点、递归基例、off-by-one 或极小规模上失败。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "搜索或候选空间不完整/错误 / INCOMPLETE_OR_WRONG_SEARCH_SPACE",
+            "code_id": "CE14",
+            "description": "需要枚举、查找或探索多个候选时，只考察固定、相邻、首个、少数示例或错误候选域。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "算法、公式或递推错误 / ALGORITHM_FORMULA_OR_RECURRENCE",
+            "code_id": "CE15",
+            "description": "任务模型大体正确，但数学公式、状态转移、闭式、递推或核心运算关系不正确。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "操作顺序、优先级、结合性或逆变换错误 / OPERATION_ORDER_PRECEDENCE_OR_INVERSE",
+            "code_id": "CE16",
+            "description": "所需步骤存在或可辨认，但执行顺序、括号、优先级、组合方式或正逆方向错误。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "状态、控制流或终止错误 / STATE_CONTROL_OR_TERMINATION",
+            "code_id": "CE17",
+            "description": "累计状态未保存/错误更新，返回时机过早，递归不收敛，循环不终止，或候选间状态相互污染。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "计数、聚合或分组错误 / COUNTING_AGGREGATION_OR_GROUPING",
+            "code_id": "CE18",
+            "description": "计数单位、聚合对象、分组层级、去重方式或累积范围不符合规格。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "作用域、量词或局部/全局混淆 / SCOPE_QUANTIFIER_OR_GLOBAL_LOCAL_CONFUSION",
+            "code_id": "CE19",
+            "description": "把存在性当全称、局部窗口当全局集合、逐元素性质当跨元素一致性，或把子序列问题收紧为整串有效性。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "排序键、方向、主次级或排名错误 / SORT_KEY_DIRECTION_OR_RANKING",
+            "code_id": "CE20",
+            "description": "排序/排名存在，但使用了错误键、方向、主次级关系或仅字典序等不完整复合键。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "平局、多重性或等价类错误 / TIE_MULTIPLICITY_OR_EQUIVALENCE",
+            "code_id": "CE21",
+            "description": "没有正确处理平局、重复值、集合/多重集合、distinct、稳定首现或等价类规范化。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "位置/顺序保持或输入变异错误 / POSITION_ORDER_PRESERVATION_OR_MUTATION",
+            "code_id": "CE22",
+            "description": "错误重排、删除、复制或修改原位置；未保持非目标元素/原顺序；产生未要求的原地变异。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "输出类型、形状、长度或协议错误 / OUTPUT_TYPE_SHAPE_OR_PROTOCOL",
+            "code_id": "CE23",
+            "description": "返回内容的容器类型、字段、长度、模板、前后缀、分隔、布尔/字符串协议或结构不符合规格。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "数值符号、精度、舍入或数值规范化 / NUMERIC_SIGN_PRECISION_OR_ROUNDING",
+            "code_id": "CE24",
+            "description": "负号语义、浮点稳定性、整数除法、数值字符串规范化或舍入规则处理错误。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "字符串大小写、边界、token 或分隔语义 / STRING_CASE_TOKEN_OR_DELIMITER_SEMANTICS",
+            "code_id": "CE25",
+            "description": "大小写覆盖、逐字符变换、词/句边界、分隔符集合、空白保真或重叠字符串语义处理错误。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "资源、容量或守恒约束错误 / RESOURCE_CAPACITY_OR_CONSERVATION",
+            "code_id": "CE26",
+            "description": "任务包含库存、容量、供需、可用次数或守恒关系时，没有限制消耗、错误跨组共享资源或更新出非法状态。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "方向、对称排列或端点规范化 / DIRECTION_SYMMETRY_OR_ENDPOINT_NORMALIZATION",
+            "code_id": "CE27",
+            "description": "规格对输入排列、两个端点、正反方向或对称角色不敏感，但实现只处理一个方向/排列且未规范化。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "优化或选择目标错误 / WRONG_OPTIMIZATION_OR_SELECTION_OBJECTIVE",
+            "code_id": "CE28",
+            "description": "候选已经存在或搜索框架可辨认，但最小/最大、最近/极值、完整词典序/局部代理等目标函数错误。",
+            "layer": 1,
+            "children": []
+          },
+          {
+            "category": "处理阶段或变换遗漏 / PIPELINE_STAGE_OR_TRANSFORMATION_OMITTED",
+            "code_id": "CE29",
+            "description": "多阶段需求中，数据流总体方向可辨认，但跳过了一个核心中间变换、构造或后处理阶段。",
+            "layer": 1,
+            "children": []
+          }
+        ]
+      }
+    }
   },
   "codes": [
     {
       "code_id": "CE01",
-      "machine_name": "NO_EXECUTABLE_IMPLEMENTATION",
       "name": "无可执行实现 / NO_EXECUTABLE_IMPLEMENTATION",
       "definition": "函数主体只有 `pass`、空白、TODO/注释，或虽有草稿文字却没有任何可执行求解步骤。",
       "inclusion_criteria": "显式 `pass`；docstring 后只有空白；全部候选实现均被注释掉。",
@@ -80,17 +320,91 @@
         "736",
         "738"
       ],
-      "representative_evidence": {
-        "case_id": "1",
-        "row": 1,
-        "field": "incorrect_code",
-        "quote": "# TODO: Implement this function",
-        "interpretation": "主体只有被注释的重复草稿，没有任何可执行求解步骤；未执行的注释候选不作为占位实现编码。"
+      "representative_evidence": [
+        {
+          "case_id": "1",
+          "row": 1,
+          "field": "incorrect_code",
+          "quote": "# TODO: Implement this function",
+          "interpretation": "主体只有被注释的重复草稿，没有任何可执行求解步骤；未执行的注释候选不作为占位实现编码。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE01",
+          "machine_name": "NO_EXECUTABLE_IMPLEMENTATION",
+          "name": "无可执行实现 / NO_EXECUTABLE_IMPLEMENTATION",
+          "definition": "函数主体只有 `pass`、空白、TODO/注释，或虽有草稿文字却没有任何可执行求解步骤。",
+          "inclusion_criteria": "显式 `pass`；docstring 后只有空白；全部候选实现均被注释掉。",
+          "exclusion_criteria": "有可执行但恒定或身份输出（CE02）；代码因生成中断而不能解析（CE03）；已有有效计算但仅漏写 `return`（CE04）。",
+          "boundary_examples": "artifact 734 的 `int_to_mini_roman` 只有 `pass`。",
+          "artifact_count": 52,
+          "supporting_cases": [
+            "1",
+            "4",
+            "18",
+            "42",
+            "50",
+            "64",
+            "67",
+            "92",
+            "95",
+            "129",
+            "134",
+            "135",
+            "211",
+            "216",
+            "217",
+            "219",
+            "223",
+            "229",
+            "235",
+            "261",
+            "269",
+            "289",
+            "300",
+            "310",
+            "312",
+            "320",
+            "483",
+            "573",
+            "585",
+            "590",
+            "609",
+            "611",
+            "618",
+            "626",
+            "645",
+            "651",
+            "653",
+            "657",
+            "670",
+            "673",
+            "676",
+            "685",
+            "692",
+            "693",
+            "696",
+            "705",
+            "706",
+            "713",
+            "714",
+            "734",
+            "736",
+            "738"
+          ],
+          "representative_evidence": {
+            "case_id": "1",
+            "row": 1,
+            "field": "incorrect_code",
+            "quote": "# TODO: Implement this function",
+            "interpretation": "主体只有被注释的重复草稿，没有任何可执行求解步骤；未执行的注释候选不作为占位实现编码。"
+          }
+        }
       }
     },
     {
       "code_id": "CE02",
-      "machine_name": "PLACEHOLDER_OR_HARDCODED_SOLUTION",
       "name": "占位、示例硬编码或退化实现 / PLACEHOLDER_OR_HARDCODED_SOLUTION",
       "definition": "以常量、身份函数、少量示例表、固定长度展开或与输入无关的重复生成替代通用求解。",
       "inclusion_criteria": "恒定 `True/False/0/[]`；原样返回输入；只硬编码已知示例或有限长度；重复常量、重复 replace/append 等生成退化。",
@@ -151,17 +465,91 @@
         "709",
         "716"
       ],
-      "representative_evidence": {
-        "case_id": "17",
-        "row": 11,
-        "field": "incorrect_code",
-        "quote": "xs = [x / max(xs) for x in xs]",
-        "interpretation": "重复无关变换替代求根，且最终没有返回。"
+      "representative_evidence": [
+        {
+          "case_id": "17",
+          "row": 11,
+          "field": "incorrect_code",
+          "quote": "xs = [x / max(xs) for x in xs]",
+          "interpretation": "重复无关变换替代求根，且最终没有返回。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE02",
+          "machine_name": "PLACEHOLDER_OR_HARDCODED_SOLUTION",
+          "name": "占位、示例硬编码或退化实现 / PLACEHOLDER_OR_HARDCODED_SOLUTION",
+          "definition": "以常量、身份函数、少量示例表、固定长度展开或与输入无关的重复生成替代通用求解。",
+          "inclusion_criteria": "恒定 `True/False/0/[]`；原样返回输入；只硬编码已知示例或有限长度；重复常量、重复 replace/append 等生成退化。",
+          "exclusion_criteria": "完全没有可执行语句（CE01）；正常算法仅漏一个边界（CE13）。",
+          "boundary_examples": "artifact 647 对所有输入返回 `-1`；artifact 459 只记忆前五个示例。",
+          "artifact_count": 52,
+          "supporting_cases": [
+            "17",
+            "25",
+            "48",
+            "59",
+            "65",
+            "77",
+            "78",
+            "88",
+            "91",
+            "116",
+            "121",
+            "136",
+            "142",
+            "145",
+            "164",
+            "185",
+            "231",
+            "233",
+            "238",
+            "239",
+            "242",
+            "258",
+            "272",
+            "273",
+            "277",
+            "284",
+            "306",
+            "311",
+            "321",
+            "430",
+            "448",
+            "459",
+            "462",
+            "476",
+            "481",
+            "482",
+            "486",
+            "487",
+            "499",
+            "517",
+            "538",
+            "545",
+            "546",
+            "580",
+            "631",
+            "638",
+            "647",
+            "680",
+            "681",
+            "708",
+            "709",
+            "716"
+          ],
+          "representative_evidence": {
+            "case_id": "17",
+            "row": 11,
+            "field": "incorrect_code",
+            "quote": "xs = [x / max(xs) for x in xs]",
+            "interpretation": "重复无关变换替代求根，且最终没有返回。"
+          }
+        }
       }
     },
     {
       "code_id": "CE03",
-      "machine_name": "SYNTAX_OR_GENERATION_TRUNCATION",
       "name": "语法错误或生成截断 / SYNTAX_OR_GENERATION_TRUNCATION",
       "definition": "材料中的实现因未闭合字符串、括号、调用、条件体或中途截断而不能作为完整程序解析。",
       "inclusion_criteria": "未闭合 docstring；末行停在 `append(`、孤立点号、缺少条件体；语法不完整。",
@@ -199,17 +587,68 @@
         "580",
         "638"
       ],
-      "representative_evidence": {
-        "case_id": "101",
-        "row": 79,
-        "field": "reading_memo.evidence",
-        "quote": "if k > n * m: return []（实际允许重复访问）",
-        "interpretation": "实现建模为错误的最小路径和且在未完成append处截断，输出形状也不符。"
+      "representative_evidence": [
+        {
+          "case_id": "101",
+          "row": 79,
+          "field": "reading_memo.evidence",
+          "quote": "if k > n * m: return []（实际允许重复访问）",
+          "interpretation": "实现建模为错误的最小路径和且在未完成append处截断，输出形状也不符。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE03",
+          "machine_name": "SYNTAX_OR_GENERATION_TRUNCATION",
+          "name": "语法错误或生成截断 / SYNTAX_OR_GENERATION_TRUNCATION",
+          "definition": "材料中的实现因未闭合字符串、括号、调用、条件体或中途截断而不能作为完整程序解析。",
+          "inclusion_criteria": "未闭合 docstring；末行停在 `append(`、孤立点号、缺少条件体；语法不完整。",
+          "exclusion_criteria": "代码可解析但在未定义名字处运行失败（CE05）；可解析且隐式返回 `None`（CE04）。",
+          "boundary_examples": "artifact 342 的 docstring 未闭合。",
+          "artifact_count": 29,
+          "supporting_cases": [
+            "101",
+            "182",
+            "185",
+            "231",
+            "238",
+            "239",
+            "242",
+            "258",
+            "263",
+            "270",
+            "284",
+            "290",
+            "291",
+            "293",
+            "311",
+            "342",
+            "355",
+            "367",
+            "399",
+            "430",
+            "476",
+            "481",
+            "486",
+            "487",
+            "538",
+            "545",
+            "546",
+            "580",
+            "638"
+          ],
+          "representative_evidence": {
+            "case_id": "101",
+            "row": 79,
+            "field": "reading_memo.evidence",
+            "quote": "if k > n * m: return []（实际允许重复访问）",
+            "interpretation": "实现建模为错误的最小路径和且在未完成append处截断，输出形状也不符。"
+          }
+        }
       }
     },
     {
       "code_id": "CE04",
-      "machine_name": "RETURN_OR_FINALIZATION_MISSING",
       "name": "返回或最终收尾缺失 / RETURN_OR_FINALIZATION_MISSING",
       "definition": "已有可执行步骤或部分求解，但没有返回所需结果、返回路径不全，或把中间状态当作最终结果。",
       "inclusion_criteria": "计算后无 `return`；部分路径隐式 `None`；只返回中间直方图而未做最终筛选。",
@@ -230,17 +669,51 @@
         "517",
         "631"
       ],
-      "representative_evidence": {
-        "case_id": "17",
-        "row": 11,
-        "field": "incorrect_code",
-        "quote": "xs = [x / max(xs) for x in xs]",
-        "interpretation": "重复无关变换替代求根，且最终没有返回。"
+      "representative_evidence": [
+        {
+          "case_id": "17",
+          "row": 11,
+          "field": "incorrect_code",
+          "quote": "xs = [x / max(xs) for x in xs]",
+          "interpretation": "重复无关变换替代求根，且最终没有返回。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE04",
+          "machine_name": "RETURN_OR_FINALIZATION_MISSING",
+          "name": "返回或最终收尾缺失 / RETURN_OR_FINALIZATION_MISSING",
+          "definition": "已有可执行步骤或部分求解，但没有返回所需结果、返回路径不全，或把中间状态当作最终结果。",
+          "inclusion_criteria": "计算后无 `return`；部分路径隐式 `None`；只返回中间直方图而未做最终筛选。",
+          "exclusion_criteria": "函数完全没有可执行求解步骤（CE01）；返回存在但结构错误（CE23）。",
+          "boundary_examples": "artifact 356 构造候选结果却没有最终 `return`。",
+          "artifact_count": 12,
+          "supporting_cases": [
+            "17",
+            "164",
+            "233",
+            "239",
+            "258",
+            "277",
+            "306",
+            "321",
+            "356",
+            "367",
+            "517",
+            "631"
+          ],
+          "representative_evidence": {
+            "case_id": "17",
+            "row": 11,
+            "field": "incorrect_code",
+            "quote": "xs = [x / max(xs) for x in xs]",
+            "interpretation": "重复无关变换替代求根，且最终没有返回。"
+          }
+        }
       }
     },
     {
       "code_id": "CE05",
-      "machine_name": "MISSING_OR_UNDEFINED_DEPENDENCY",
       "name": "缺失或未定义依赖 / MISSING_OR_UNDEFINED_DEPENDENCY",
       "definition": "核心路径引用未导入模块、未定义辅助函数、变量或不可用 API；若补齐依赖，已有主体可能部分或全部成立。",
       "inclusion_criteria": "缺 `import hashlib`；调用材料中没有的 `is_prime`；引用未定义 `planets`/变量。",
@@ -297,17 +770,87 @@
         "727",
         "740"
       ],
-      "representative_evidence": {
-        "case_id": "5",
-        "row": 5,
-        "field": "incorrect_code",
-        "quote": "palindrome_prefix = find_palindrome_prefix(string)",
-        "interpretation": "依赖未定义辅助函数，并搜索/拼接了错误方向的回文片段。"
+      "representative_evidence": [
+        {
+          "case_id": "5",
+          "row": 5,
+          "field": "incorrect_code",
+          "quote": "palindrome_prefix = find_palindrome_prefix(string)",
+          "interpretation": "依赖未定义辅助函数，并搜索/拼接了错误方向的回文片段。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE05",
+          "machine_name": "MISSING_OR_UNDEFINED_DEPENDENCY",
+          "name": "缺失或未定义依赖 / MISSING_OR_UNDEFINED_DEPENDENCY",
+          "definition": "核心路径引用未导入模块、未定义辅助函数、变量或不可用 API；若补齐依赖，已有主体可能部分或全部成立。",
+          "inclusion_criteria": "缺 `import hashlib`；调用材料中没有的 `is_prime`；引用未定义 `planets`/变量。",
+          "exclusion_criteria": "对象存在但 API 使用方式错误（CE08）；语法导致标识符根本不可执行（CE03）。",
+          "boundary_examples": "artifact 740 缺 `hashlib` 导入。",
+          "artifact_count": 48,
+          "supporting_cases": [
+            "5",
+            "22",
+            "41",
+            "53",
+            "79",
+            "100",
+            "120",
+            "138",
+            "143",
+            "153",
+            "205",
+            "210",
+            "212",
+            "231",
+            "270",
+            "287",
+            "288",
+            "293",
+            "296",
+            "298",
+            "316",
+            "323",
+            "356",
+            "364",
+            "368",
+            "406",
+            "426",
+            "431",
+            "468",
+            "492",
+            "527",
+            "532",
+            "540",
+            "557",
+            "578",
+            "589",
+            "606",
+            "612",
+            "649",
+            "650",
+            "658",
+            "671",
+            "682",
+            "710",
+            "718",
+            "722",
+            "727",
+            "740"
+          ],
+          "representative_evidence": {
+            "case_id": "5",
+            "row": 5,
+            "field": "incorrect_code",
+            "quote": "palindrome_prefix = find_palindrome_prefix(string)",
+            "interpretation": "依赖未定义辅助函数，并搜索/拼接了错误方向的回文片段。"
+          }
+        }
       }
     },
     {
       "code_id": "CE06",
-      "machine_name": "TASK_OR_REQUIREMENT_MISMODELING",
       "name": "任务或需求建模错误 / TASK_OR_REQUIREMENT_MISMODELING",
       "definition": "实现求解了与规格不同的概念，或以无关代理量替代目标性质。",
       "inclusion_criteria": "以奇偶性代理素性；把回文变为“全相等”；把路径问题建成传统最小路径和；把数位任务做成整体整数任务。",
@@ -385,17 +928,108 @@
         "726",
         "730"
       ],
-      "representative_evidence": {
-        "case_id": "17",
-        "row": 11,
-        "field": "incorrect_code",
-        "quote": "xs = [x / max(xs) for x in xs]",
-        "interpretation": "重复无关变换替代求根，且最终没有返回。"
+      "representative_evidence": [
+        {
+          "case_id": "17",
+          "row": 11,
+          "field": "incorrect_code",
+          "quote": "xs = [x / max(xs) for x in xs]",
+          "interpretation": "重复无关变换替代求根，且最终没有返回。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE06",
+          "machine_name": "TASK_OR_REQUIREMENT_MISMODELING",
+          "name": "任务或需求建模错误 / TASK_OR_REQUIREMENT_MISMODELING",
+          "definition": "实现求解了与规格不同的概念，或以无关代理量替代目标性质。",
+          "inclusion_criteria": "以奇偶性代理素性；把回文变为“全相等”；把路径问题建成传统最小路径和；把数位任务做成整体整数任务。",
+          "exclusion_criteria": "正确任务模型下只漏部分候选（CE14）；单个公式写错（CE15）。",
+          "boundary_examples": "artifact 730 用奇偶性代替素性。",
+          "artifact_count": 69,
+          "supporting_cases": [
+            "17",
+            "44",
+            "82",
+            "99",
+            "101",
+            "105",
+            "114",
+            "127",
+            "145",
+            "159",
+            "177",
+            "180",
+            "183",
+            "184",
+            "187",
+            "196",
+            "220",
+            "222",
+            "242",
+            "243",
+            "259",
+            "262",
+            "264",
+            "267",
+            "271",
+            "280",
+            "282",
+            "287",
+            "288",
+            "295",
+            "306",
+            "308",
+            "316",
+            "318",
+            "325",
+            "329",
+            "331",
+            "454",
+            "463",
+            "486",
+            "487",
+            "489",
+            "500",
+            "508",
+            "525",
+            "536",
+            "537",
+            "539",
+            "541",
+            "545",
+            "546",
+            "548",
+            "556",
+            "562",
+            "565",
+            "569",
+            "576",
+            "577",
+            "593",
+            "595",
+            "600",
+            "601",
+            "634",
+            "684",
+            "687",
+            "704",
+            "717",
+            "726",
+            "730"
+          ],
+          "representative_evidence": {
+            "case_id": "17",
+            "row": 11,
+            "field": "incorrect_code",
+            "quote": "xs = [x / max(xs) for x in xs]",
+            "interpretation": "重复无关变换替代求根，且最终没有返回。"
+          }
+        }
       }
     },
     {
       "code_id": "CE07",
-      "machine_name": "INPUT_REPRESENTATION_OR_PARSING",
       "name": "输入表示或解析错误 / INPUT_REPRESENTATION_OR_PARSING",
       "definition": "错误理解输入的词法、分隔、字段、进制、token 或外层/内层结构，导致进入算法前即取错数据。",
       "inclusion_criteria": "按 `|` 拆开本应完整的音符 token；把英文数字词直接 `int`；取错字段；把列表字符串表示逐字符解析。",
@@ -431,17 +1065,66 @@
         "597",
         "725"
       ],
-      "representative_evidence": {
-        "case_id": "6",
-        "row": 6,
-        "field": "incorrect_code",
-        "quote": "for x in music_string.split('|')",
-        "interpretation": "错误拆分音符token，并把无效片段静默映射为默认值。"
+      "representative_evidence": [
+        {
+          "case_id": "6",
+          "row": 6,
+          "field": "incorrect_code",
+          "quote": "for x in music_string.split('|')",
+          "interpretation": "错误拆分音符token，并把无效片段静默映射为默认值。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE07",
+          "machine_name": "INPUT_REPRESENTATION_OR_PARSING",
+          "name": "输入表示或解析错误 / INPUT_REPRESENTATION_OR_PARSING",
+          "definition": "错误理解输入的词法、分隔、字段、进制、token 或外层/内层结构，导致进入算法前即取错数据。",
+          "inclusion_criteria": "按 `|` 拆开本应完整的音符 token；把英文数字词直接 `int`；取错字段；把列表字符串表示逐字符解析。",
+          "exclusion_criteria": "正确解析后对类型调用错误 API（CE08）；只遗漏一种合法分隔符时可同时用 CE25。",
+          "boundary_examples": "artifact 725 用最后两位 `x % 100` 冒充首位。",
+          "artifact_count": 27,
+          "supporting_cases": [
+            "6",
+            "8",
+            "36",
+            "70",
+            "76",
+            "112",
+            "122",
+            "166",
+            "248",
+            "278",
+            "301",
+            "302",
+            "313",
+            "344",
+            "352",
+            "364",
+            "379",
+            "405",
+            "425",
+            "442",
+            "492",
+            "521",
+            "532",
+            "557",
+            "586",
+            "597",
+            "725"
+          ],
+          "representative_evidence": {
+            "case_id": "6",
+            "row": 6,
+            "field": "incorrect_code",
+            "quote": "for x in music_string.split('|')",
+            "interpretation": "错误拆分音符token，并把无效片段静默映射为默认值。"
+          }
+        }
       }
     },
     {
       "code_id": "CE08",
-      "machine_name": "TYPE_CONTAINER_OR_API_MISUSE",
       "name": "类型、容器或 API 误用 / TYPE_CONTAINER_OR_API_MISUSE",
       "definition": "对对象采用不适用的运算、容器接口或库语义，或混淆标量、列表、字符串、集合与函数对象。",
       "inclusion_criteria": "对字符串做 `% 2`；对 Python 列表使用布尔高级索引；返回函数对象；把整数切片。",
@@ -476,17 +1159,65 @@
         "603",
         "715"
       ],
-      "representative_evidence": {
-        "case_id": "8",
-        "row": 7,
-        "field": "incorrect_code",
-        "quote": "numbers = [int(i) for i in numbers]",
-        "interpretation": "把英文数词直接作整数转换且返回了错误表示。"
+      "representative_evidence": [
+        {
+          "case_id": "8",
+          "row": 7,
+          "field": "incorrect_code",
+          "quote": "numbers = [int(i) for i in numbers]",
+          "interpretation": "把英文数词直接作整数转换且返回了错误表示。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE08",
+          "machine_name": "TYPE_CONTAINER_OR_API_MISUSE",
+          "name": "类型、容器或 API 误用 / TYPE_CONTAINER_OR_API_MISUSE",
+          "definition": "对对象采用不适用的运算、容器接口或库语义，或混淆标量、列表、字符串、集合与函数对象。",
+          "inclusion_criteria": "对字符串做 `% 2`；对 Python 列表使用布尔高级索引；返回函数对象；把整数切片。",
+          "exclusion_criteria": "所需 API 仅未导入（CE05）；输出类型与规格不一致但内部类型操作合法（CE23）。",
+          "boundary_examples": "artifact 435 对字符串位直接执行 XOR。",
+          "artifact_count": 26,
+          "supporting_cases": [
+            "8",
+            "13",
+            "36",
+            "66",
+            "76",
+            "112",
+            "146",
+            "208",
+            "227",
+            "234",
+            "237",
+            "245",
+            "263",
+            "275",
+            "293",
+            "311",
+            "319",
+            "435",
+            "442",
+            "464",
+            "531",
+            "534",
+            "566",
+            "597",
+            "603",
+            "715"
+          ],
+          "representative_evidence": {
+            "case_id": "8",
+            "row": 7,
+            "field": "incorrect_code",
+            "quote": "numbers = [int(i) for i in numbers]",
+            "interpretation": "把英文数词直接作整数转换且返回了错误表示。"
+          }
+        }
       }
     },
     {
       "code_id": "CE09",
-      "machine_name": "ROLE_LEVEL_OR_UNIT_CONFUSION",
       "name": "角色、层级或分析单位混淆 / ROLE_LEVEL_OR_UNIT_CONFUSION",
       "definition": "把索引当元素、名称当位置、参数角色互换、整体当数位、行内容当坐标，或在错误的数据层级运算。",
       "inclusion_criteria": "索引条件施加到值；字符串长度代替字符总量；主串与模式角色颠倒；整数与其数位混淆。",
@@ -577,17 +1308,121 @@
         "732",
         "733"
       ],
-      "representative_evidence": {
-        "case_id": "29",
-        "row": 22,
-        "field": "incorrect_code",
-        "quote": "len(set(s0) & set(s1)) == len(s0) == len(s1)",
-        "interpretation": "用原字符串长度约束字符集合，混淆集合与多重性。"
+      "representative_evidence": [
+        {
+          "case_id": "29",
+          "row": 22,
+          "field": "incorrect_code",
+          "quote": "len(set(s0) & set(s1)) == len(s0) == len(s1)",
+          "interpretation": "用原字符串长度约束字符集合，混淆集合与多重性。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE09",
+          "machine_name": "ROLE_LEVEL_OR_UNIT_CONFUSION",
+          "name": "角色、层级或分析单位混淆 / ROLE_LEVEL_OR_UNIT_CONFUSION",
+          "definition": "把索引当元素、名称当位置、参数角色互换、整体当数位、行内容当坐标，或在错误的数据层级运算。",
+          "inclusion_criteria": "索引条件施加到值；字符串长度代替字符总量；主串与模式角色颠倒；整数与其数位混淆。",
+          "exclusion_criteria": "单纯解析失败（CE07）；正确层级上公式错误（CE15）。",
+          "boundary_examples": "artifact 727 把星球名称和轨道位置混淆。",
+          "artifact_count": 82,
+          "supporting_cases": [
+            "29",
+            "43",
+            "45",
+            "56",
+            "68",
+            "84",
+            "102",
+            "117",
+            "124",
+            "142",
+            "146",
+            "149",
+            "173",
+            "178",
+            "181",
+            "183",
+            "186",
+            "203",
+            "208",
+            "228",
+            "232",
+            "234",
+            "237",
+            "243",
+            "246",
+            "251",
+            "262",
+            "282",
+            "283",
+            "287",
+            "301",
+            "302",
+            "305",
+            "308",
+            "319",
+            "325",
+            "329",
+            "343",
+            "344",
+            "362",
+            "386",
+            "388",
+            "410",
+            "415",
+            "428",
+            "445",
+            "452",
+            "471",
+            "477",
+            "488",
+            "490",
+            "492",
+            "500",
+            "504",
+            "507",
+            "521",
+            "529",
+            "531",
+            "534",
+            "542",
+            "546",
+            "550",
+            "553",
+            "568",
+            "580",
+            "581",
+            "596",
+            "602",
+            "603",
+            "613",
+            "632",
+            "636",
+            "652",
+            "654",
+            "659",
+            "662",
+            "687",
+            "720",
+            "725",
+            "727",
+            "732",
+            "733"
+          ],
+          "representative_evidence": {
+            "case_id": "29",
+            "row": 22,
+            "field": "incorrect_code",
+            "quote": "len(set(s0) & set(s1)) == len(s0) == len(s1)",
+            "interpretation": "用原字符串长度约束字符集合，混淆集合与多重性。"
+          }
+        }
       }
     },
     {
       "code_id": "CE10",
-      "machine_name": "REQUIRED_PREDICATE_OR_FILTER_OMITTED",
       "name": "必要谓词或筛选遗漏 / REQUIRED_PREDICATE_OR_FILTER_OMITTED",
       "definition": "主要数据流存在，但缺少一个或多个规格要求的资格、有效性、类型、范围或类别条件，造成过度纳入。",
       "inclusion_criteria": "未筛整数/正数/奇数；未验证三角不等式；未检查首位；未限制索引位置。",
@@ -653,17 +1488,96 @@
         "721",
         "731"
       ],
-      "representative_evidence": {
-        "case_id": "40",
-        "row": 28,
-        "field": "reading_memo.evidence",
-        "quote": "area = (s * (s-a) * (s-b) * (s-c)) ** 0.5",
-        "interpretation": "海伦计算前遗漏三角有效性资格检查。"
+      "representative_evidence": [
+        {
+          "case_id": "40",
+          "row": 28,
+          "field": "reading_memo.evidence",
+          "quote": "area = (s * (s-a) * (s-b) * (s-c)) ** 0.5",
+          "interpretation": "海伦计算前遗漏三角有效性资格检查。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE10",
+          "machine_name": "REQUIRED_PREDICATE_OR_FILTER_OMITTED",
+          "name": "必要谓词或筛选遗漏 / REQUIRED_PREDICATE_OR_FILTER_OMITTED",
+          "definition": "主要数据流存在，但缺少一个或多个规格要求的资格、有效性、类型、范围或类别条件，造成过度纳入。",
+          "inclusion_criteria": "未筛整数/正数/奇数；未验证三角不等式；未检查首位；未限制索引位置。",
+          "exclusion_criteria": "使用了错误的代理谓词（CE11或CE06）；整个搜索过程不存在（CE14）。",
+          "boundary_examples": "artifact 731 未排除负数和非整数。",
+          "artifact_count": 57,
+          "supporting_cases": [
+            "40",
+            "55",
+            "63",
+            "89",
+            "93",
+            "123",
+            "128",
+            "155",
+            "209",
+            "212",
+            "230",
+            "237",
+            "244",
+            "245",
+            "249",
+            "252",
+            "271",
+            "274",
+            "275",
+            "276",
+            "278",
+            "301",
+            "303",
+            "307",
+            "309",
+            "321",
+            "325",
+            "377",
+            "481",
+            "486",
+            "502",
+            "516",
+            "518",
+            "522",
+            "536",
+            "548",
+            "549",
+            "553",
+            "554",
+            "556",
+            "565",
+            "568",
+            "574",
+            "581",
+            "583",
+            "588",
+            "591",
+            "594",
+            "603",
+            "661",
+            "665",
+            "694",
+            "698",
+            "699",
+            "701",
+            "721",
+            "731"
+          ],
+          "representative_evidence": {
+            "case_id": "40",
+            "row": 28,
+            "field": "reading_memo.evidence",
+            "quote": "area = (s * (s-a) * (s-b) * (s-c)) ** 0.5",
+            "interpretation": "海伦计算前遗漏三角有效性资格检查。"
+          }
+        }
       }
     },
     {
       "code_id": "CE11",
-      "machine_name": "WRONG_OR_EXTRA_PREDICATE",
       "name": "错误、反向或擅加谓词 / WRONG_OR_EXTRA_PREDICATE",
       "definition": "条件存在但对象、方向、严格性或逻辑组合错误，或添加规格没有的限制，造成过度接受或拒绝。",
       "inclusion_criteria": "`>=` 与 `>` 错置；末位条件反转；擅加长度/年份限制；必要条件当充分条件；恒真/恒假验证。",
@@ -737,17 +1651,104 @@
         "725",
         "730"
       ],
-      "representative_evidence": {
-        "case_id": "6",
-        "row": 6,
-        "field": "incorrect_code",
-        "quote": "for x in music_string.split('|')",
-        "interpretation": "错误拆分音符token，并把无效片段静默映射为默认值。"
+      "representative_evidence": [
+        {
+          "case_id": "6",
+          "row": 6,
+          "field": "incorrect_code",
+          "quote": "for x in music_string.split('|')",
+          "interpretation": "错误拆分音符token，并把无效片段静默映射为默认值。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE11",
+          "machine_name": "WRONG_OR_EXTRA_PREDICATE",
+          "name": "错误、反向或擅加谓词 / WRONG_OR_EXTRA_PREDICATE",
+          "definition": "条件存在但对象、方向、严格性或逻辑组合错误，或添加规格没有的限制，造成过度接受或拒绝。",
+          "inclusion_criteria": "`>=` 与 `>` 错置；末位条件反转；擅加长度/年份限制；必要条件当充分条件；恒真/恒假验证。",
+          "exclusion_criteria": "条件完全缺失（CE10）；纯端点偏一（CE13）。",
+          "boundary_examples": "artifact 725 用 `x % 100 in [1,3,5,7,9]` 作为首位检查。",
+          "artifact_count": 65,
+          "supporting_cases": [
+            "6",
+            "24",
+            "66",
+            "69",
+            "104",
+            "113",
+            "117",
+            "150",
+            "176",
+            "190",
+            "199",
+            "202",
+            "221",
+            "226",
+            "227",
+            "239",
+            "240",
+            "251",
+            "264",
+            "278",
+            "281",
+            "298",
+            "303",
+            "318",
+            "321",
+            "363",
+            "364",
+            "365",
+            "366",
+            "373",
+            "376",
+            "377",
+            "379",
+            "400",
+            "416",
+            "418",
+            "424",
+            "449",
+            "452",
+            "461",
+            "464",
+            "465",
+            "479",
+            "489",
+            "491",
+            "496",
+            "498",
+            "499",
+            "527",
+            "538",
+            "557",
+            "569",
+            "575",
+            "576",
+            "578",
+            "580",
+            "593",
+            "634",
+            "655",
+            "656",
+            "678",
+            "711",
+            "720",
+            "725",
+            "730"
+          ],
+          "representative_evidence": {
+            "case_id": "6",
+            "row": 6,
+            "field": "incorrect_code",
+            "quote": "for x in music_string.split('|')",
+            "interpretation": "错误拆分音符token，并把无效片段静默映射为默认值。"
+          }
+        }
       }
     },
     {
       "code_id": "CE12",
-      "machine_name": "BRANCH_OR_MODE_COVERAGE",
       "name": "分支、模式或组合覆盖不完整 / BRANCH_OR_MODE_COVERAGE",
       "definition": "多分支、多模式或条件组合需求只实现一支，分支合并错误，或特殊情形被不当地泛化。",
       "inclusion_criteria": "只处理空白分隔而漏逗号与计数后备；无字母分支漏掉；平方/立方条件被合并；资源充足分支泛化到不足情形。",
@@ -792,17 +1793,75 @@
         "737",
         "739"
       ],
-      "representative_evidence": {
-        "case_id": "58",
-        "row": 43,
-        "field": "incorrect_code",
-        "quote": "pivot = array[0]",
-        "interpretation": "排序方向的条件分支未实现，递归近似固定升序。"
+      "representative_evidence": [
+        {
+          "case_id": "58",
+          "row": 43,
+          "field": "incorrect_code",
+          "quote": "pivot = array[0]",
+          "interpretation": "排序方向的条件分支未实现，递归近似固定升序。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE12",
+          "machine_name": "BRANCH_OR_MODE_COVERAGE",
+          "name": "分支、模式或组合覆盖不完整 / BRANCH_OR_MODE_COVERAGE",
+          "definition": "多分支、多模式或条件组合需求只实现一支，分支合并错误，或特殊情形被不当地泛化。",
+          "inclusion_criteria": "只处理空白分隔而漏逗号与计数后备；无字母分支漏掉；平方/立方条件被合并；资源充足分支泛化到不足情形。",
+          "exclusion_criteria": "漏枚举候选对象（CE14）；仅循环端点错误（CE13）。",
+          "boundary_examples": "artifact 737 只实现库存足够的更新公式。",
+          "artifact_count": 36,
+          "supporting_cases": [
+            "58",
+            "97",
+            "119",
+            "131",
+            "137",
+            "193",
+            "199",
+            "207",
+            "222",
+            "227",
+            "236",
+            "250",
+            "254",
+            "280",
+            "296",
+            "309",
+            "322",
+            "323",
+            "351",
+            "411",
+            "418",
+            "474",
+            "479",
+            "491",
+            "516",
+            "560",
+            "578",
+            "604",
+            "646",
+            "664",
+            "681",
+            "702",
+            "718",
+            "721",
+            "737",
+            "739"
+          ],
+          "representative_evidence": {
+            "case_id": "58",
+            "row": 43,
+            "field": "incorrect_code",
+            "quote": "pivot = array[0]",
+            "interpretation": "排序方向的条件分支未实现，递归近似固定升序。"
+          }
+        }
       }
     },
     {
       "code_id": "CE13",
-      "machine_name": "BOUNDARY_BASE_OR_EDGE_CASE",
       "name": "边界、基例与端点错误 / BOUNDARY_BASE_OR_EDGE_CASE",
       "definition": "算法主体接近规格，但在空输入、零/一、首末位置、包含端点、递归基例、off-by-one 或极小规模上失败。",
       "inclusion_criteria": "range漏上界；空列表 `max`；递归基例值错；切片端点偏一；长度1越界。",
@@ -881,17 +1940,109 @@
         "711",
         "730"
       ],
-      "representative_evidence": {
-        "case_id": "3",
-        "row": 3,
-        "field": "incorrect_code",
-        "quote": "return [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]",
-        "interpretation": "分隔符位置、元素保留和空输入结构均不符合协议。"
+      "representative_evidence": [
+        {
+          "case_id": "3",
+          "row": 3,
+          "field": "incorrect_code",
+          "quote": "return [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]",
+          "interpretation": "分隔符位置、元素保留和空输入结构均不符合协议。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE13",
+          "machine_name": "BOUNDARY_BASE_OR_EDGE_CASE",
+          "name": "边界、基例与端点错误 / BOUNDARY_BASE_OR_EDGE_CASE",
+          "definition": "算法主体接近规格，但在空输入、零/一、首末位置、包含端点、递归基例、off-by-one 或极小规模上失败。",
+          "inclusion_criteria": "range漏上界；空列表 `max`；递归基例值错；切片端点偏一；长度1越界。",
+          "exclusion_criteria": "候选域整体被错误限制（CE14）；擅加语义条件（CE11）。",
+          "boundary_examples": "artifact 437 产生空前缀并遗漏完整前缀。",
+          "artifact_count": 70,
+          "supporting_cases": [
+            "3",
+            "33",
+            "35",
+            "51",
+            "98",
+            "102",
+            "108",
+            "109",
+            "111",
+            "113",
+            "127",
+            "141",
+            "161",
+            "176",
+            "183",
+            "188",
+            "190",
+            "205",
+            "232",
+            "233",
+            "240",
+            "254",
+            "267",
+            "276",
+            "278",
+            "283",
+            "284",
+            "285",
+            "290",
+            "292",
+            "294",
+            "313",
+            "334",
+            "339",
+            "352",
+            "356",
+            "362",
+            "363",
+            "370",
+            "375",
+            "393",
+            "403",
+            "411",
+            "429",
+            "436",
+            "437",
+            "439",
+            "454",
+            "459",
+            "465",
+            "482",
+            "492",
+            "494",
+            "498",
+            "507",
+            "512",
+            "520",
+            "527",
+            "551",
+            "566",
+            "568",
+            "572",
+            "610",
+            "616",
+            "622",
+            "654",
+            "683",
+            "707",
+            "711",
+            "730"
+          ],
+          "representative_evidence": {
+            "case_id": "3",
+            "row": 3,
+            "field": "incorrect_code",
+            "quote": "return [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]",
+            "interpretation": "分隔符位置、元素保留和空输入结构均不符合协议。"
+          }
+        }
       }
     },
     {
       "code_id": "CE14",
-      "machine_name": "INCOMPLETE_OR_WRONG_SEARCH_SPACE",
       "name": "搜索或候选空间不完整/错误 / INCOMPLETE_OR_WRONG_SEARCH_SPACE",
       "definition": "需要枚举、查找或探索多个候选时，只考察固定、相邻、首个、少数示例或错误候选域。",
       "inclusion_criteria": "只检查相邻三元组；只旋转一次；只比较前两项；只把 c 当斜边；未遍历所有组合。",
@@ -963,17 +2114,102 @@
         "735",
         "741"
       ],
-      "representative_evidence": {
-        "case_id": "5",
-        "row": 5,
-        "field": "incorrect_code",
-        "quote": "palindrome_prefix = find_palindrome_prefix(string)",
-        "interpretation": "依赖未定义辅助函数，并搜索/拼接了错误方向的回文片段。"
+      "representative_evidence": [
+        {
+          "case_id": "5",
+          "row": 5,
+          "field": "incorrect_code",
+          "quote": "palindrome_prefix = find_palindrome_prefix(string)",
+          "interpretation": "依赖未定义辅助函数，并搜索/拼接了错误方向的回文片段。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE14",
+          "machine_name": "INCOMPLETE_OR_WRONG_SEARCH_SPACE",
+          "name": "搜索或候选空间不完整/错误 / INCOMPLETE_OR_WRONG_SEARCH_SPACE",
+          "definition": "需要枚举、查找或探索多个候选时，只考察固定、相邻、首个、少数示例或错误候选域。",
+          "inclusion_criteria": "只检查相邻三元组；只旋转一次；只比较前两项；只把 c 当斜边；未遍历所有组合。",
+          "exclusion_criteria": "候选齐全但评分目标错误（CE28）；循环端点仅偏一（CE13）。",
+          "boundary_examples": "artifact 733 未枚举 b 的所有循环旋转。",
+          "artifact_count": 63,
+          "supporting_cases": [
+            "5",
+            "11",
+            "22",
+            "23",
+            "25",
+            "45",
+            "73",
+            "89",
+            "91",
+            "109",
+            "124",
+            "130",
+            "139",
+            "141",
+            "153",
+            "171",
+            "173",
+            "184",
+            "187",
+            "201",
+            "221",
+            "232",
+            "249",
+            "267",
+            "272",
+            "273",
+            "329",
+            "331",
+            "343",
+            "423",
+            "424",
+            "434",
+            "445",
+            "449",
+            "461",
+            "463",
+            "476",
+            "490",
+            "491",
+            "499",
+            "507",
+            "512",
+            "539",
+            "545",
+            "549",
+            "550",
+            "589",
+            "596",
+            "598",
+            "607",
+            "613",
+            "621",
+            "654",
+            "655",
+            "659",
+            "683",
+            "694",
+            "704",
+            "726",
+            "727",
+            "733",
+            "735",
+            "741"
+          ],
+          "representative_evidence": {
+            "case_id": "5",
+            "row": 5,
+            "field": "incorrect_code",
+            "quote": "palindrome_prefix = find_palindrome_prefix(string)",
+            "interpretation": "依赖未定义辅助函数，并搜索/拼接了错误方向的回文片段。"
+          }
+        }
       }
     },
     {
       "code_id": "CE15",
-      "machine_name": "ALGORITHM_FORMULA_OR_RECURRENCE",
       "name": "算法、公式或递推错误 / ALGORITHM_FORMULA_OR_RECURRENCE",
       "definition": "任务模型大体正确，但数学公式、状态转移、闭式、递推或核心运算关系不正确。",
       "inclusion_criteria": "错误勾股/海伦/导数公式；递推窗口公式错误；碰撞数误算；资源更新公式错误。",
@@ -1019,17 +2255,76 @@
         "707",
         "737"
       ],
-      "representative_evidence": {
-        "case_id": "23",
-        "row": 17,
-        "field": "incorrect_code",
-        "quote": "for i in range(len(l) - 2)",
-        "interpretation": "只检查相邻三元组且和为零的代数关系写反。"
+      "representative_evidence": [
+        {
+          "case_id": "23",
+          "row": 17,
+          "field": "incorrect_code",
+          "quote": "for i in range(len(l) - 2)",
+          "interpretation": "只检查相邻三元组且和为零的代数关系写反。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE15",
+          "machine_name": "ALGORITHM_FORMULA_OR_RECURRENCE",
+          "name": "算法、公式或递推错误 / ALGORITHM_FORMULA_OR_RECURRENCE",
+          "definition": "任务模型大体正确，但数学公式、状态转移、闭式、递推或核心运算关系不正确。",
+          "inclusion_criteria": "错误勾股/海伦/导数公式；递推窗口公式错误；碰撞数误算；资源更新公式错误。",
+          "exclusion_criteria": "完全求解了另一个任务（CE06）；只把运算顺序/优先级弄错（CE16）。",
+          "boundary_examples": "artifact 737 用 `number+need, remaining-need` 无条件更新。",
+          "artifact_count": 37,
+          "supporting_cases": [
+            "23",
+            "24",
+            "27",
+            "53",
+            "71",
+            "102",
+            "143",
+            "168",
+            "203",
+            "246",
+            "249",
+            "283",
+            "285",
+            "305",
+            "334",
+            "339",
+            "351",
+            "370",
+            "382",
+            "386",
+            "434",
+            "446",
+            "449",
+            "477",
+            "481",
+            "485",
+            "510",
+            "534",
+            "563",
+            "602",
+            "613",
+            "622",
+            "638",
+            "639",
+            "654",
+            "707",
+            "737"
+          ],
+          "representative_evidence": {
+            "case_id": "23",
+            "row": 17,
+            "field": "incorrect_code",
+            "quote": "for i in range(len(l) - 2)",
+            "interpretation": "只检查相邻三元组且和为零的代数关系写反。"
+          }
+        }
       }
     },
     {
       "code_id": "CE16",
-      "machine_name": "OPERATION_ORDER_PRECEDENCE_OR_INVERSE",
       "name": "操作顺序、优先级、结合性或逆变换错误 / OPERATION_ORDER_PRECEDENCE_OR_INVERSE",
       "definition": "所需步骤存在或可辨认，但执行顺序、括号、优先级、组合方式或正逆方向错误。",
       "inclusion_criteria": "先平方再 ceiling；表达式全左结合；decode 复制 encode；元音跳过先换大小写；循环移位方向相反。",
@@ -1058,17 +2353,59 @@
         "581",
         "646"
       ],
-      "representative_evidence": {
-        "case_id": "21",
-        "row": 15,
-        "field": "reading_memo.evidence",
-        "quote": "decode_cyclic 中仍为 group[1:] + group[0]",
-        "interpretation": "解码复制正向左循环而非执行逆向循环。"
+      "representative_evidence": [
+        {
+          "case_id": "21",
+          "row": 15,
+          "field": "reading_memo.evidence",
+          "quote": "decode_cyclic 中仍为 group[1:] + group[0]",
+          "interpretation": "解码复制正向左循环而非执行逆向循环。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE16",
+          "machine_name": "OPERATION_ORDER_PRECEDENCE_OR_INVERSE",
+          "name": "操作顺序、优先级、结合性或逆变换错误 / OPERATION_ORDER_PRECEDENCE_OR_INVERSE",
+          "definition": "所需步骤存在或可辨认，但执行顺序、括号、优先级、组合方式或正逆方向错误。",
+          "inclusion_criteria": "先平方再 ceiling；表达式全左结合；decode 复制 encode；元音跳过先换大小写；循环移位方向相反。",
+          "exclusion_criteria": "排序方向/主次键错误（CE20）；普通公式项错误（CE15）。",
+          "boundary_examples": "artifact 387 忽略运算符优先级与幂结合性。",
+          "artifact_count": 20,
+          "supporting_cases": [
+            "21",
+            "106",
+            "119",
+            "182",
+            "195",
+            "234",
+            "305",
+            "349",
+            "350",
+            "387",
+            "405",
+            "408",
+            "418",
+            "422",
+            "458",
+            "469",
+            "517",
+            "571",
+            "581",
+            "646"
+          ],
+          "representative_evidence": {
+            "case_id": "21",
+            "row": 15,
+            "field": "reading_memo.evidence",
+            "quote": "decode_cyclic 中仍为 group[1:] + group[0]",
+            "interpretation": "解码复制正向左循环而非执行逆向循环。"
+          }
+        }
       }
     },
     {
       "code_id": "CE17",
-      "machine_name": "STATE_CONTROL_OR_TERMINATION",
       "name": "状态、控制流或终止错误 / STATE_CONTROL_OR_TERMINATION",
       "definition": "累计状态未保存/错误更新，返回时机过早，递归不收敛，循环不终止，或候选间状态相互污染。",
       "inclusion_criteria": "未传递前缀余额；前向递归；全局 visited 污染路径；过早返回首个候选；记录时机错误。",
@@ -1116,17 +2453,78 @@
         "694",
         "701"
       ],
-      "representative_evidence": {
-        "case_id": "2",
-        "row": 2,
-        "field": "reading_memo.evidence",
-        "quote": "if operations[0] < 0: return True",
-        "interpretation": "递归未携带累计余额，把前缀累计性质降成逐项负号检查。"
+      "representative_evidence": [
+        {
+          "case_id": "2",
+          "row": 2,
+          "field": "reading_memo.evidence",
+          "quote": "if operations[0] < 0: return True",
+          "interpretation": "递归未携带累计余额，把前缀累计性质降成逐项负号检查。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE17",
+          "machine_name": "STATE_CONTROL_OR_TERMINATION",
+          "name": "状态、控制流或终止错误 / STATE_CONTROL_OR_TERMINATION",
+          "definition": "累计状态未保存/错误更新，返回时机过早，递归不收敛，循环不终止，或候选间状态相互污染。",
+          "inclusion_criteria": "未传递前缀余额；前向递归；全局 visited 污染路径；过早返回首个候选；记录时机错误。",
+          "exclusion_criteria": "递归基例值单独错误（CE13）；状态公式本身错误可同时用 CE15。",
+          "boundary_examples": "artifact 2 的递归没有传递累计余额。",
+          "artifact_count": 39,
+          "supporting_cases": [
+            "2",
+            "11",
+            "37",
+            "66",
+            "71",
+            "73",
+            "81",
+            "87",
+            "104",
+            "142",
+            "145",
+            "151",
+            "171",
+            "180",
+            "188",
+            "190",
+            "198",
+            "202",
+            "205",
+            "226",
+            "254",
+            "285",
+            "288",
+            "301",
+            "334",
+            "358",
+            "368",
+            "370",
+            "373",
+            "393",
+            "427",
+            "434",
+            "436",
+            "465",
+            "566",
+            "648",
+            "689",
+            "694",
+            "701"
+          ],
+          "representative_evidence": {
+            "case_id": "2",
+            "row": 2,
+            "field": "reading_memo.evidence",
+            "quote": "if operations[0] < 0: return True",
+            "interpretation": "递归未携带累计余额，把前缀累计性质降成逐项负号检查。"
+          }
+        }
       }
     },
     {
       "code_id": "CE18",
-      "machine_name": "COUNTING_AGGREGATION_OR_GROUPING",
       "name": "计数、聚合或分组错误 / COUNTING_AGGREGATION_OR_GROUPING",
       "definition": "计数单位、聚合对象、分组层级、去重方式或累积范围不符合规格。",
       "inclusion_criteria": "存在性代替出现次数；求和代替计数；逐格代替逐井；全局取整代替逐组取整；多计或漏计。",
@@ -1195,17 +2593,99 @@
         "721",
         "726"
       ],
-      "representative_evidence": {
-        "case_id": "19",
-        "row": 13,
-        "field": "incorrect_code",
-        "quote": "if \"7\" in str(i):",
-        "interpretation": "按含7的数计一次，而非统计每次数字7出现。"
+      "representative_evidence": [
+        {
+          "case_id": "19",
+          "row": 13,
+          "field": "incorrect_code",
+          "quote": "if \"7\" in str(i):",
+          "interpretation": "按含7的数计一次，而非统计每次数字7出现。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE18",
+          "machine_name": "COUNTING_AGGREGATION_OR_GROUPING",
+          "name": "计数、聚合或分组错误 / COUNTING_AGGREGATION_OR_GROUPING",
+          "definition": "计数单位、聚合对象、分组层级、去重方式或累积范围不符合规格。",
+          "inclusion_criteria": "存在性代替出现次数；求和代替计数；逐格代替逐井；全局取整代替逐组取整；多计或漏计。",
+          "exclusion_criteria": "选错最大/最小目标（CE28）；候选根本未枚举（CE14）。",
+          "boundary_examples": "artifact 726 把三元组计数替换成3的倍数个数。",
+          "artifact_count": 60,
+          "supporting_cases": [
+            "19",
+            "24",
+            "33",
+            "53",
+            "87",
+            "114",
+            "124",
+            "146",
+            "149",
+            "165",
+            "173",
+            "180",
+            "185",
+            "193",
+            "209",
+            "218",
+            "220",
+            "228",
+            "265",
+            "276",
+            "292",
+            "295",
+            "309",
+            "313",
+            "330",
+            "331",
+            "344",
+            "348",
+            "359",
+            "385",
+            "401",
+            "403",
+            "412",
+            "428",
+            "443",
+            "454",
+            "462",
+            "487",
+            "489",
+            "500",
+            "508",
+            "518",
+            "522",
+            "536",
+            "554",
+            "563",
+            "577",
+            "594",
+            "597",
+            "619",
+            "634",
+            "639",
+            "659",
+            "661",
+            "671",
+            "684",
+            "698",
+            "717",
+            "721",
+            "726"
+          ],
+          "representative_evidence": {
+            "case_id": "19",
+            "row": 13,
+            "field": "incorrect_code",
+            "quote": "if \"7\" in str(i):",
+            "interpretation": "按含7的数计一次，而非统计每次数字7出现。"
+          }
+        }
       }
     },
     {
       "code_id": "CE19",
-      "machine_name": "SCOPE_QUANTIFIER_OR_GLOBAL_LOCAL_CONFUSION",
       "name": "作用域、量词或局部/全局混淆 / SCOPE_QUANTIFIER_OR_GLOBAL_LOCAL_CONFUSION",
       "definition": "把存在性当全称、局部窗口当全局集合、逐元素性质当跨元素一致性，或把子序列问题收紧为整串有效性。",
       "inclusion_criteria": "局部三字符互异改成全串只有3种字符；存在有效子序列改成整个输入平衡；每个 key 合法误作所有 key 同一大小写。",
@@ -1236,17 +2716,61 @@
         "672",
         "686"
       ],
-      "representative_evidence": {
-        "case_id": "2",
-        "row": 2,
-        "field": "reading_memo.evidence",
-        "quote": "if operations[0] < 0: return True",
-        "interpretation": "递归未携带累计余额，把前缀累计性质降成逐项负号检查。"
+      "representative_evidence": [
+        {
+          "case_id": "2",
+          "row": 2,
+          "field": "reading_memo.evidence",
+          "quote": "if operations[0] < 0: return True",
+          "interpretation": "递归未携带累计余额，把前缀累计性质降成逐项负号检查。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE19",
+          "machine_name": "SCOPE_QUANTIFIER_OR_GLOBAL_LOCAL_CONFUSION",
+          "name": "作用域、量词或局部/全局混淆 / SCOPE_QUANTIFIER_OR_GLOBAL_LOCAL_CONFUSION",
+          "definition": "把存在性当全称、局部窗口当全局集合、逐元素性质当跨元素一致性，或把子序列问题收紧为整串有效性。",
+          "inclusion_criteria": "局部三字符互异改成全串只有3种字符；存在有效子序列改成整个输入平衡；每个 key 合法误作所有 key 同一大小写。",
+          "exclusion_criteria": "候选列表不完整（CE14）；聚合单位错误（CE18）。",
+          "boundary_examples": "artifact 519 只验证各键自身大小写合法，未验证全局一致。",
+          "artifact_count": 22,
+          "supporting_cases": [
+            "2",
+            "49",
+            "61",
+            "105",
+            "108",
+            "198",
+            "226",
+            "240",
+            "373",
+            "416",
+            "427",
+            "432",
+            "451",
+            "461",
+            "496",
+            "514",
+            "519",
+            "562",
+            "569",
+            "668",
+            "672",
+            "686"
+          ],
+          "representative_evidence": {
+            "case_id": "2",
+            "row": 2,
+            "field": "reading_memo.evidence",
+            "quote": "if operations[0] < 0: return True",
+            "interpretation": "递归未携带累计余额，把前缀累计性质降成逐项负号检查。"
+          }
+        }
       }
     },
     {
       "code_id": "CE20",
-      "machine_name": "SORT_KEY_DIRECTION_OR_RANKING",
       "name": "排序键、方向、主次级或排名错误 / SORT_KEY_DIRECTION_OR_RANKING",
       "definition": "排序/排名存在，但使用了错误键、方向、主次级关系或仅字典序等不完整复合键。",
       "inclusion_criteria": "长度主键遗漏；降序结果应升序；按字符串字典序代替数值；多关键字优先级颠倒。",
@@ -1281,17 +2805,65 @@
         "727",
         "729"
       ],
-      "representative_evidence": {
-        "case_id": "56",
-        "row": 42,
-        "field": "incorrect_code",
-        "quote": "sorted(s.split(), key=lambda x: ''.join(sorted(x)))",
-        "interpretation": "在词间而非词内排序，破坏词序与空白保真。"
+      "representative_evidence": [
+        {
+          "case_id": "56",
+          "row": 42,
+          "field": "incorrect_code",
+          "quote": "sorted(s.split(), key=lambda x: ''.join(sorted(x)))",
+          "interpretation": "在词间而非词内排序，破坏词序与空白保真。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE20",
+          "machine_name": "SORT_KEY_DIRECTION_OR_RANKING",
+          "name": "排序键、方向、主次级或排名错误 / SORT_KEY_DIRECTION_OR_RANKING",
+          "definition": "排序/排名存在，但使用了错误键、方向、主次级关系或仅字典序等不完整复合键。",
+          "inclusion_criteria": "长度主键遗漏；降序结果应升序；按字符串字典序代替数值；多关键字优先级颠倒。",
+          "exclusion_criteria": "平局规则、稳定性或 distinct 语义（CE21）；优化目标不是排序而是路径/距离时用 CE28。",
+          "boundary_examples": "artifact 729 只按字典序，遗漏长度主键。",
+          "artifact_count": 26,
+          "supporting_cases": [
+            "56",
+            "58",
+            "125",
+            "157",
+            "214",
+            "270",
+            "302",
+            "307",
+            "346",
+            "361",
+            "380",
+            "413",
+            "420",
+            "444",
+            "484",
+            "547",
+            "583",
+            "591",
+            "598",
+            "620",
+            "648",
+            "664",
+            "697",
+            "724",
+            "727",
+            "729"
+          ],
+          "representative_evidence": {
+            "case_id": "56",
+            "row": 42,
+            "field": "incorrect_code",
+            "quote": "sorted(s.split(), key=lambda x: ''.join(sorted(x)))",
+            "interpretation": "在词间而非词内排序，破坏词序与空白保真。"
+          }
+        }
       }
     },
     {
       "code_id": "CE21",
-      "machine_name": "TIE_MULTIPLICITY_OR_EQUIVALENCE",
       "name": "平局、多重性或等价类错误 / TIE_MULTIPLICITY_OR_EQUIVALENCE",
       "definition": "没有正确处理平局、重复值、集合/多重集合、distinct、稳定首现或等价类规范化。",
       "inclusion_criteria": "平局未按字典序；set 去重代替删除所有重复；第二小未去重；同值次数约束错；排序后丢失首现映射。",
@@ -1337,17 +2909,76 @@
         "703",
         "732"
       ],
-      "representative_evidence": {
-        "case_id": "13",
-        "row": 10,
-        "field": "incorrect_code",
-        "quote": "return list(set(numbers))",
-        "interpretation": "set的去重/无序语义不等于删除所有重复值并保持原序。"
+      "representative_evidence": [
+        {
+          "case_id": "13",
+          "row": 10,
+          "field": "incorrect_code",
+          "quote": "return list(set(numbers))",
+          "interpretation": "set的去重/无序语义不等于删除所有重复值并保持原序。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE21",
+          "machine_name": "TIE_MULTIPLICITY_OR_EQUIVALENCE",
+          "name": "平局、多重性或等价类错误 / TIE_MULTIPLICITY_OR_EQUIVALENCE",
+          "definition": "没有正确处理平局、重复值、集合/多重集合、distinct、稳定首现或等价类规范化。",
+          "inclusion_criteria": "平局未按字典序；set 去重代替删除所有重复；第二小未去重；同值次数约束错；排序后丢失首现映射。",
+          "exclusion_criteria": "一般顺序/位置保持（CE22）；普通筛选遗漏（CE10）。",
+          "boundary_examples": "artifact 732 排序后无法保留强度平局时的原始首项。",
+          "artifact_count": 37,
+          "supporting_cases": [
+            "13",
+            "29",
+            "38",
+            "60",
+            "98",
+            "125",
+            "163",
+            "174",
+            "196",
+            "281",
+            "319",
+            "328",
+            "366",
+            "388",
+            "400",
+            "401",
+            "441",
+            "450",
+            "461",
+            "471",
+            "476",
+            "496",
+            "512",
+            "531",
+            "532",
+            "547",
+            "561",
+            "575",
+            "591",
+            "601",
+            "627",
+            "641",
+            "652",
+            "656",
+            "667",
+            "703",
+            "732"
+          ],
+          "representative_evidence": {
+            "case_id": "13",
+            "row": 10,
+            "field": "incorrect_code",
+            "quote": "return list(set(numbers))",
+            "interpretation": "set的去重/无序语义不等于删除所有重复值并保持原序。"
+          }
+        }
       }
     },
     {
       "code_id": "CE22",
-      "machine_name": "POSITION_ORDER_PRESERVATION_OR_MUTATION",
       "name": "位置/顺序保持或输入变异错误 / POSITION_ORDER_PRESERVATION_OR_MUTATION",
       "definition": "错误重排、删除、复制或修改原位置；未保持非目标元素/原顺序；产生未要求的原地变异。",
       "inclusion_criteria": "分区拼接代替原位回填；全局排序破坏受保护位置；输入原地修改；含字母串被反转。",
@@ -1408,17 +3039,91 @@
         "701",
         "739"
       ],
-      "representative_evidence": {
-        "case_id": "3",
-        "row": 3,
-        "field": "incorrect_code",
-        "quote": "return [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]",
-        "interpretation": "分隔符位置、元素保留和空输入结构均不符合协议。"
+      "representative_evidence": [
+        {
+          "case_id": "3",
+          "row": 3,
+          "field": "incorrect_code",
+          "quote": "return [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]",
+          "interpretation": "分隔符位置、元素保留和空输入结构均不符合协议。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE22",
+          "machine_name": "POSITION_ORDER_PRESERVATION_OR_MUTATION",
+          "name": "位置/顺序保持或输入变异错误 / POSITION_ORDER_PRESERVATION_OR_MUTATION",
+          "definition": "错误重排、删除、复制或修改原位置；未保持非目标元素/原顺序；产生未要求的原地变异。",
+          "inclusion_criteria": "分区拼接代替原位回填；全局排序破坏受保护位置；输入原地修改；含字母串被反转。",
+          "exclusion_criteria": "排序方向/键本身错误（CE20）；仅输出格式错误（CE23）。",
+          "boundary_examples": "artifact 739 在含字母情形错误反转字符顺序。",
+          "artifact_count": 52,
+          "supporting_cases": [
+            "3",
+            "5",
+            "13",
+            "20",
+            "56",
+            "60",
+            "65",
+            "81",
+            "148",
+            "153",
+            "155",
+            "164",
+            "168",
+            "178",
+            "181",
+            "186",
+            "231",
+            "238",
+            "264",
+            "272",
+            "291",
+            "311",
+            "361",
+            "368",
+            "376",
+            "413",
+            "425",
+            "429",
+            "430",
+            "450",
+            "453",
+            "457",
+            "504",
+            "507",
+            "517",
+            "532",
+            "539",
+            "541",
+            "551",
+            "556",
+            "583",
+            "610",
+            "621",
+            "627",
+            "631",
+            "632",
+            "636",
+            "662",
+            "686",
+            "699",
+            "701",
+            "739"
+          ],
+          "representative_evidence": {
+            "case_id": "3",
+            "row": 3,
+            "field": "incorrect_code",
+            "quote": "return [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]",
+            "interpretation": "分隔符位置、元素保留和空输入结构均不符合协议。"
+          }
+        }
       }
     },
     {
       "code_id": "CE23",
-      "machine_name": "OUTPUT_TYPE_SHAPE_OR_PROTOCOL",
       "name": "输出类型、形状、长度或协议错误 / OUTPUT_TYPE_SHAPE_OR_PROTOCOL",
       "definition": "返回内容的容器类型、字段、长度、模板、前后缀、分隔、布尔/字符串协议或结构不符合规格。",
       "inclusion_criteria": "返回字典而非众数字母；漏 `0b`；元组字段含义错；列表长度错误；模板替换错误。",
@@ -1494,17 +3199,106 @@
         "687",
         "707"
       ],
-      "representative_evidence": {
-        "case_id": "3",
-        "row": 3,
-        "field": "incorrect_code",
-        "quote": "return [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]",
-        "interpretation": "分隔符位置、元素保留和空输入结构均不符合协议。"
+      "representative_evidence": [
+        {
+          "case_id": "3",
+          "row": 3,
+          "field": "incorrect_code",
+          "quote": "return [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]",
+          "interpretation": "分隔符位置、元素保留和空输入结构均不符合协议。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE23",
+          "machine_name": "OUTPUT_TYPE_SHAPE_OR_PROTOCOL",
+          "name": "输出类型、形状、长度或协议错误 / OUTPUT_TYPE_SHAPE_OR_PROTOCOL",
+          "definition": "返回内容的容器类型、字段、长度、模板、前后缀、分隔、布尔/字符串协议或结构不符合规格。",
+          "inclusion_criteria": "返回字典而非众数字母；漏 `0b`；元组字段含义错；列表长度错误；模板替换错误。",
+          "exclusion_criteria": "值本身算法错误但输出结构正确（CE15）；完全缺少返回（CE04）。",
+          "boundary_examples": "artifact 353 计算值正确但移除了 `0b` 前缀。",
+          "artifact_count": 67,
+          "supporting_cases": [
+            "3",
+            "8",
+            "20",
+            "38",
+            "74",
+            "78",
+            "83",
+            "84",
+            "101",
+            "102",
+            "109",
+            "143",
+            "148",
+            "149",
+            "151",
+            "155",
+            "161",
+            "166",
+            "178",
+            "186",
+            "203",
+            "224",
+            "234",
+            "245",
+            "246",
+            "250",
+            "252",
+            "264",
+            "265",
+            "282",
+            "283",
+            "285",
+            "292",
+            "293",
+            "298",
+            "353",
+            "357",
+            "370",
+            "375",
+            "386",
+            "429",
+            "432",
+            "437",
+            "439",
+            "445",
+            "453",
+            "457",
+            "477",
+            "482",
+            "494",
+            "508",
+            "525",
+            "529",
+            "534",
+            "540",
+            "541",
+            "542",
+            "560",
+            "565",
+            "566",
+            "574",
+            "602",
+            "610",
+            "616",
+            "648",
+            "687",
+            "707"
+          ],
+          "representative_evidence": {
+            "case_id": "3",
+            "row": 3,
+            "field": "incorrect_code",
+            "quote": "return [delimeter] + [numbers[i] for i in range(len(numbers) - 1)] + [delimeter]",
+            "interpretation": "分隔符位置、元素保留和空输入结构均不符合协议。"
+          }
+        }
       }
     },
     {
       "code_id": "CE24",
-      "machine_name": "NUMERIC_SIGN_PRECISION_OR_ROUNDING",
       "name": "数值符号、精度、舍入或数值规范化 / NUMERIC_SIGN_PRECISION_OR_ROUNDING",
       "definition": "负号语义、浮点稳定性、整数除法、数值字符串规范化或舍入规则处理错误。",
       "inclusion_criteria": "先 `abs` 丢失带符号首位；浮点立方根精确相等；银行家舍入不符；真除法破坏整数状态；逗号小数未规范化。",
@@ -1549,17 +3343,75 @@
         "715",
         "724"
       ],
-      "representative_evidence": {
-        "case_id": "46",
-        "row": 34,
-        "field": "incorrect_code",
-        "quote": "return a**(1/3) % 1 == 0",
-        "interpretation": "浮点立方根精确比较不稳健且负数产生复数域问题。"
+      "representative_evidence": [
+        {
+          "case_id": "46",
+          "row": 34,
+          "field": "incorrect_code",
+          "quote": "return a**(1/3) % 1 == 0",
+          "interpretation": "浮点立方根精确比较不稳健且负数产生复数域问题。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE24",
+          "machine_name": "NUMERIC_SIGN_PRECISION_OR_ROUNDING",
+          "name": "数值符号、精度、舍入或数值规范化 / NUMERIC_SIGN_PRECISION_OR_ROUNDING",
+          "definition": "负号语义、浮点稳定性、整数除法、数值字符串规范化或舍入规则处理错误。",
+          "inclusion_criteria": "先 `abs` 丢失带符号首位；浮点立方根精确相等；银行家舍入不符；真除法破坏整数状态；逗号小数未规范化。",
+          "exclusion_criteria": "一般范围/端点错误（CE13）；类型 API 本身不可用（CE08，可共现）。",
+          "boundary_examples": "artifact 724 用 `abs` 抹去负号权重。",
+          "artifact_count": 36,
+          "supporting_cases": [
+            "46",
+            "70",
+            "74",
+            "80",
+            "106",
+            "112",
+            "122",
+            "131",
+            "188",
+            "243",
+            "245",
+            "259",
+            "313",
+            "343",
+            "350",
+            "354",
+            "363",
+            "376",
+            "380",
+            "385",
+            "393",
+            "410",
+            "420",
+            "469",
+            "510",
+            "521",
+            "523",
+            "537",
+            "575",
+            "586",
+            "597",
+            "665",
+            "674",
+            "679",
+            "715",
+            "724"
+          ],
+          "representative_evidence": {
+            "case_id": "46",
+            "row": 34,
+            "field": "incorrect_code",
+            "quote": "return a**(1/3) % 1 == 0",
+            "interpretation": "浮点立方根精确比较不稳健且负数产生复数域问题。"
+          }
+        }
       }
     },
     {
       "code_id": "CE25",
-      "machine_name": "STRING_CASE_TOKEN_OR_DELIMITER_SEMANTICS",
       "name": "字符串大小写、边界、token 或分隔语义 / STRING_CASE_TOKEN_OR_DELIMITER_SEMANTICS",
       "definition": "大小写覆盖、逐字符变换、词/句边界、分隔符集合、空白保真或重叠字符串语义处理错误。",
       "inclusion_criteria": "只处理小写元音；`I` 前缀过宽；逗号未分隔；用 `str.count` 漏重叠；大小写互换只做单向。",
@@ -1623,17 +3475,94 @@
         "718",
         "739"
       ],
-      "representative_evidence": {
-        "case_id": "6",
-        "row": 6,
-        "field": "incorrect_code",
-        "quote": "for x in music_string.split('|')",
-        "interpretation": "错误拆分音符token，并把无效片段静默映射为默认值。"
+      "representative_evidence": [
+        {
+          "case_id": "6",
+          "row": 6,
+          "field": "incorrect_code",
+          "quote": "for x in music_string.split('|')",
+          "interpretation": "错误拆分音符token，并把无效片段静默映射为默认值。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE25",
+          "machine_name": "STRING_CASE_TOKEN_OR_DELIMITER_SEMANTICS",
+          "name": "字符串大小写、边界、token 或分隔语义 / STRING_CASE_TOKEN_OR_DELIMITER_SEMANTICS",
+          "definition": "大小写覆盖、逐字符变换、词/句边界、分隔符集合、空白保真或重叠字符串语义处理错误。",
+          "inclusion_criteria": "只处理小写元音；`I` 前缀过宽；逗号未分隔；用 `str.count` 漏重叠；大小写互换只做单向。",
+          "exclusion_criteria": "输入字段解析的结构性误解（CE07，可共现）；输出分隔协议（CE23）。",
+          "boundary_examples": "artifact 739 有字母时未逐字符 swapcase。",
+          "artifact_count": 55,
+          "supporting_cases": [
+            "6",
+            "28",
+            "33",
+            "56",
+            "61",
+            "69",
+            "72",
+            "89",
+            "97",
+            "108",
+            "116",
+            "150",
+            "163",
+            "165",
+            "175",
+            "207",
+            "236",
+            "248",
+            "272",
+            "280",
+            "290",
+            "296",
+            "322",
+            "348",
+            "349",
+            "352",
+            "365",
+            "379",
+            "406",
+            "408",
+            "425",
+            "441",
+            "443",
+            "451",
+            "470",
+            "479",
+            "496",
+            "504",
+            "510",
+            "514",
+            "517",
+            "526",
+            "560",
+            "572",
+            "578",
+            "604",
+            "619",
+            "662",
+            "665",
+            "668",
+            "677",
+            "702",
+            "711",
+            "718",
+            "739"
+          ],
+          "representative_evidence": {
+            "case_id": "6",
+            "row": 6,
+            "field": "incorrect_code",
+            "quote": "for x in music_string.split('|')",
+            "interpretation": "错误拆分音符token，并把无效片段静默映射为默认值。"
+          }
+        }
       }
     },
     {
       "code_id": "CE26",
-      "machine_name": "RESOURCE_CAPACITY_OR_CONSERVATION",
       "name": "资源、容量或守恒约束错误 / RESOURCE_CAPACITY_OR_CONSERVATION",
       "definition": "任务包含库存、容量、供需、可用次数或守恒关系时，没有限制消耗、错误跨组共享资源或更新出非法状态。",
       "inclusion_criteria": "库存不足仍消费 need；井之间共享桶容量余量；交换所需奇数与可供偶数未比较。",
@@ -1653,17 +3582,50 @@
         "684",
         "737"
       ],
-      "representative_evidence": {
-        "case_id": "82",
-        "row": 65,
-        "field": "incorrect_code",
-        "quote": "sum(lst1) == sum(lst2) and sum(lst1) % 2 == 0",
-        "interpretation": "资源供需关系被无关总和条件替代。"
+      "representative_evidence": [
+        {
+          "case_id": "82",
+          "row": 65,
+          "field": "incorrect_code",
+          "quote": "sum(lst1) == sum(lst2) and sum(lst1) % 2 == 0",
+          "interpretation": "资源供需关系被无关总和条件替代。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE26",
+          "machine_name": "RESOURCE_CAPACITY_OR_CONSERVATION",
+          "name": "资源、容量或守恒约束错误 / RESOURCE_CAPACITY_OR_CONSERVATION",
+          "definition": "任务包含库存、容量、供需、可用次数或守恒关系时，没有限制消耗、错误跨组共享资源或更新出非法状态。",
+          "inclusion_criteria": "库存不足仍消费 need；井之间共享桶容量余量；交换所需奇数与可供偶数未比较。",
+          "exclusion_criteria": "一般资格条件遗漏（CE10）；普通算术公式错误但无资源含义（CE15）。",
+          "boundary_examples": "artifact 737 产生负库存。",
+          "artifact_count": 11,
+          "supporting_cases": [
+            "82",
+            "87",
+            "262",
+            "359",
+            "386",
+            "412",
+            "539",
+            "546",
+            "602",
+            "684",
+            "737"
+          ],
+          "representative_evidence": {
+            "case_id": "82",
+            "row": 65,
+            "field": "incorrect_code",
+            "quote": "sum(lst1) == sum(lst2) and sum(lst1) % 2 == 0",
+            "interpretation": "资源供需关系被无关总和条件替代。"
+          }
+        }
       }
     },
     {
       "code_id": "CE27",
-      "machine_name": "DIRECTION_SYMMETRY_OR_ENDPOINT_NORMALIZATION",
       "name": "方向、对称排列或端点规范化 / DIRECTION_SYMMETRY_OR_ENDPOINT_NORMALIZATION",
       "definition": "规格对输入排列、两个端点、正反方向或对称角色不敏感，但实现只处理一个方向/排列且未规范化。",
       "inclusion_criteria": "a>b 未交换；只把 c 当斜边；只检查一种加法排列；只接受单调递增而不接受递减。",
@@ -1687,17 +3649,54 @@
         "735",
         "741"
       ],
-      "representative_evidence": {
-        "case_id": "139",
-        "row": 110,
-        "field": "reading_memo.evidence",
-        "quote": "range(a,b+1)",
-        "interpretation": "未规范化反向端点且候选域错误扩展到多位整数。"
+      "representative_evidence": [
+        {
+          "case_id": "139",
+          "row": 110,
+          "field": "reading_memo.evidence",
+          "quote": "range(a,b+1)",
+          "interpretation": "未规范化反向端点且候选域错误扩展到多位整数。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE27",
+          "machine_name": "DIRECTION_SYMMETRY_OR_ENDPOINT_NORMALIZATION",
+          "name": "方向、对称排列或端点规范化 / DIRECTION_SYMMETRY_OR_ENDPOINT_NORMALIZATION",
+          "definition": "规格对输入排列、两个端点、正反方向或对称角色不敏感，但实现只处理一个方向/排列且未规范化。",
+          "inclusion_criteria": "a>b 未交换；只把 c 当斜边；只检查一种加法排列；只接受单调递增而不接受递减。",
+          "exclusion_criteria": "编码/解码的逆操作错误（CE16）；排序升降方向错误（CE20）。",
+          "boundary_examples": "artifact 735 漏掉 a、b 作为斜边的对称情形。",
+          "artifact_count": 15,
+          "supporting_cases": [
+            "139",
+            "199",
+            "318",
+            "388",
+            "411",
+            "474",
+            "516",
+            "596",
+            "607",
+            "646",
+            "678",
+            "683",
+            "727",
+            "735",
+            "741"
+          ],
+          "representative_evidence": {
+            "case_id": "139",
+            "row": 110,
+            "field": "reading_memo.evidence",
+            "quote": "range(a,b+1)",
+            "interpretation": "未规范化反向端点且候选域错误扩展到多位整数。"
+          }
+        }
       }
     },
     {
       "code_id": "CE28",
-      "machine_name": "WRONG_OPTIMIZATION_OR_SELECTION_OBJECTIVE",
       "name": "优化或选择目标错误 / WRONG_OPTIMIZATION_OR_SELECTION_OBJECTIVE",
       "definition": "候选已经存在或搜索框架可辨认，但最小/最大、最近/极值、完整词典序/局部代理等目标函数错误。",
       "inclusion_criteria": "选最小强度而非最大；最近数对取全局极值；路径只比较末项；最大合格值取首个合格值。",
@@ -1746,17 +3745,79 @@
         "699",
         "732"
       ],
-      "representative_evidence": {
-        "case_id": "9",
-        "row": 8,
-        "field": "incorrect_code",
-        "quote": "numbers.sort()",
-        "interpretation": "最近数对目标被替换为全局最小值与最大值。"
+      "representative_evidence": [
+        {
+          "case_id": "9",
+          "row": 8,
+          "field": "incorrect_code",
+          "quote": "numbers.sort()",
+          "interpretation": "最近数对目标被替换为全局最小值与最大值。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE28",
+          "machine_name": "WRONG_OPTIMIZATION_OR_SELECTION_OBJECTIVE",
+          "name": "优化或选择目标错误 / WRONG_OPTIMIZATION_OR_SELECTION_OBJECTIVE",
+          "definition": "候选已经存在或搜索框架可辨认，但最小/最大、最近/极值、完整词典序/局部代理等目标函数错误。",
+          "inclusion_criteria": "选最小强度而非最大；最近数对取全局极值；路径只比较末项；最大合格值取首个合格值。",
+          "exclusion_criteria": "候选空间本身缺失（CE14，可共现）；排序键规则（CE20）。",
+          "boundary_examples": "artifact 732 将强度升序后选择最小值。",
+          "artifact_count": 40,
+          "supporting_cases": [
+            "9",
+            "37",
+            "38",
+            "73",
+            "83",
+            "89",
+            "109",
+            "157",
+            "167",
+            "177",
+            "201",
+            "212",
+            "232",
+            "274",
+            "291",
+            "292",
+            "311",
+            "358",
+            "368",
+            "415",
+            "445",
+            "452",
+            "482",
+            "488",
+            "512",
+            "518",
+            "527",
+            "540",
+            "549",
+            "551",
+            "565",
+            "574",
+            "595",
+            "601",
+            "621",
+            "671",
+            "678",
+            "689",
+            "699",
+            "732"
+          ],
+          "representative_evidence": {
+            "case_id": "9",
+            "row": 8,
+            "field": "incorrect_code",
+            "quote": "numbers.sort()",
+            "interpretation": "最近数对目标被替换为全局最小值与最大值。"
+          }
+        }
       }
     },
     {
       "code_id": "CE29",
-      "machine_name": "PIPELINE_STAGE_OR_TRANSFORMATION_OMITTED",
       "name": "处理阶段或变换遗漏 / PIPELINE_STAGE_OR_TRANSFORMATION_OMITTED",
       "definition": "多阶段需求中，数据流总体方向可辨认，但跳过了一个核心中间变换、构造或后处理阶段。",
       "inclusion_criteria": "直接把 N 转二进制而未先求十进制数位和；只筛选未映射；未构造规定数组即计数；已取得候选却未做最终过滤。",
@@ -1814,12 +3875,84 @@
         "704",
         "726"
       ],
-      "representative_evidence": {
-        "case_id": "54",
-        "row": 40,
-        "field": "incorrect_code",
-        "quote": "return bin(N)[2:]",
-        "interpretation": "跳过十进制数位求和，直接编码原数。"
+      "representative_evidence": [
+        {
+          "case_id": "54",
+          "row": 40,
+          "field": "incorrect_code",
+          "quote": "return bin(N)[2:]",
+          "interpretation": "跳过十进制数位求和，直接编码原数。"
+        }
+      ],
+      "extensions": {
+        "original_record": {
+          "code_id": "CE29",
+          "machine_name": "PIPELINE_STAGE_OR_TRANSFORMATION_OMITTED",
+          "name": "处理阶段或变换遗漏 / PIPELINE_STAGE_OR_TRANSFORMATION_OMITTED",
+          "definition": "多阶段需求中，数据流总体方向可辨认，但跳过了一个核心中间变换、构造或后处理阶段。",
+          "inclusion_criteria": "直接把 N 转二进制而未先求十进制数位和；只筛选未映射；未构造规定数组即计数；已取得候选却未做最终过滤。",
+          "exclusion_criteria": "整个算法不存在（CE01）；单个资格谓词遗漏（CE10）；只缺返回（CE04）。",
+          "boundary_examples": "artifact 726 未构造 `a[i]=i*i-i+1`。",
+          "artifact_count": 49,
+          "supporting_cases": [
+            "54",
+            "59",
+            "65",
+            "83",
+            "99",
+            "116",
+            "132",
+            "159",
+            "164",
+            "174",
+            "183",
+            "208",
+            "210",
+            "224",
+            "231",
+            "238",
+            "239",
+            "250",
+            "258",
+            "263",
+            "277",
+            "282",
+            "284",
+            "305",
+            "316",
+            "321",
+            "328",
+            "344",
+            "367",
+            "405",
+            "430",
+            "450",
+            "459",
+            "464",
+            "501",
+            "529",
+            "556",
+            "562",
+            "571",
+            "580",
+            "589",
+            "603",
+            "627",
+            "631",
+            "638",
+            "660",
+            "681",
+            "704",
+            "726"
+          ],
+          "representative_evidence": {
+            "case_id": "54",
+            "row": 40,
+            "field": "incorrect_code",
+            "quote": "return bin(N)[2:]",
+            "interpretation": "跳过十进制数位求和，直接编码原数。"
+          }
+        }
       }
     }
   ]

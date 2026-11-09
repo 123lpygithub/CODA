@@ -1,91 +1,109 @@
 # Codebook artifacts
 
-Codebooks and artifact-level coding results are organized by dataset and run.
+All datasets and runs use the same seven-file package and the same JSON fields,
+field types and CSV headers. The common format is based on the GPT6-1 presentation
+and is identified as `coda.artifact.v1`. Coding decisions remain specific to each
+run; format normalization does not merge, rename or reassign semantic codes.
 
 ```text
 Artifact/
 ├── README.md
+├── SCHEMA.json
+├── FORMAT_VALIDATION.json
 ├── CodeErrors/
-│   ├── GPT6-1/
-│   ├── GPT6-2/
-│   ├── gpt5.6-1/
-│   ├── gpt5.6-2/
-│   └── deepseek-2/
 ├── SATD/
-│   ├── GPT6-1/
-│   ├── GPT6-2/
-│   ├── gpt5.6-1/
-│   ├── gpt5.6-2/
-│   └── deepseek-2/
-├── Privacy/
-│   ├── GPT6-1/
-│   ├── GPT6-2/
-│   ├── gpt5.6-1/
-│   ├── gpt5.6-2/
-│   └── deepseek-2/
+└── Privacy/
 ```
 
-| Dataset / run | Artifacts covered | Codes | Artifact–code assignments |
-|---|---:|---:|---:|
-| CodeErrors / GPT6-1 | 557 / 557 | 17 | See existing result package |
-| CodeErrors / GPT6-2 | 557 / 557 | 13 | See existing result package |
-| CodeErrors / gpt5.6-1 | 557 / 557 | 14 | 946 |
-| CodeErrors / gpt5.6-2 | 557 / 557 | 29 | 1254 |
-| SATD / GPT6-1 | 856 / 856 | 18 | 869 |
-| SATD / GPT6-2 | 856 / 856 | 18 | 1546 |
-| SATD / gpt5.6-1 | 856 / 856 | 14 | 1066 |
-| SATD / gpt5.6-2 | 856 / 856 | 20 | 1580 |
-| Privacy / GPT6-1 | 652 / 652 | 18 | 980 |
-| Privacy / GPT6-2 | 652 / 652 | 11 | 1877 |
-| Privacy / gpt5.6-1 | 652 / 652 | 16 | 1752 |
-| Privacy / gpt5.6-2 | 652 / 652 | 28 | 3187 |
-| CodeErrors / deepseek-2 | 557 / 557 | 28 | 1228 |
-| SATD / deepseek-2 | 856 / 856 | 30 | 938 |
-| Privacy / deepseek-2 | 652 / 652 | 31 | 2841 |
-
-SATD and Privacy GPT6-1 contain the completed reconstruction from individual readings of every artifact's supplied textual sections. Exact duplicate supplementary content was read once with source mappings; long CSS and dependency metadata used reversible representations. Classifications were individually authored, without keyword classification or external model API calls. Multiple codes are assigned when distinct concerns are supported. CodeErrors packages are preserved unchanged.
+Each dataset has six run directories: `GPT6-1`, `GPT6-2`, `deepseek-1`,
+`deepseek-2`, `gpt5.6-1` and `gpt5.6-2`. Every run directory contains exactly:
 
 | File | Contents |
 |---|---|
-| `codebook.md` | Readable definitions, inclusion/exclusion criteria and examples |
-| `codebook.json` | Structured codebook, supporting case IDs, counts and method metadata |
-| `codebook.csv` | Tabular codebook |
-| `assignments.json` | Every artifact's codes, reasoning, quotations, provenance and qualifications |
-| `assignments.csv` | Tabular coding records |
-| `taxonomy.json` | HOW-style category tree: `category`, `description`, `layer`, `children` |
-| `results.json` | Supplied textual documents and their assigned categories |
+| `codebook.md` | Definitions, inclusion/exclusion rules, examples and original scope notes |
+| `codebook.json` | Common metadata and code records with complete reverse memberships |
+| `codebook.csv` | The same public code fields as the JSON codebook |
+| `assignments.json` | One assignment per artifact, including rationale, evidence and qualifications |
+| `assignments.csv` | The same public assignment fields in tabular form |
+| `taxonomy.json` | Category tree containing every code as a leaf |
+| `results.json` | Full supplied documents and their assignments |
 
-All supplied artifacts have nonempty assignments. This does not mean every reported defect is confirmed: evidence-limited, disputed, retracted or explanatory material remains explicitly qualified. Coverage concerns the supplied text; inaccessible links, uninspected images, revision uncertainty and lack of runtime verification remain documented. Mechanical integrity checks do not constitute independent semantic or human validation. GPT6-1 identifies the requested result version, not a verified API model identity or a blinded independent replicate.
+## Coverage
 
-## deepseek-2
+| Dataset | Run | Artifacts | Codes | Artifact–code assignments |
+|---|---|---:|---:|---:|
+| CodeErrors | [GPT6-1](CodeErrors/GPT6-1/codebook.md) | 557 | 17 | 729 |
+| CodeErrors | [GPT6-2](CodeErrors/GPT6-2/codebook.md) | 557 | 13 | 706 |
+| CodeErrors | [deepseek-1](CodeErrors/deepseek-1/codebook.md) | 557 | 15 | 735 |
+| CodeErrors | [deepseek-2](CodeErrors/deepseek-2/codebook.md) | 557 | 28 | 1228 |
+| CodeErrors | [gpt5.6-1](CodeErrors/gpt5.6-1/codebook.md) | 557 | 14 | 946 |
+| CodeErrors | [gpt5.6-2](CodeErrors/gpt5.6-2/codebook.md) | 557 | 29 | 1254 |
+| SATD | [GPT6-1](SATD/GPT6-1/codebook.md) | 856 | 18 | 869 |
+| SATD | [GPT6-2](SATD/GPT6-2/codebook.md) | 856 | 18 | 1546 |
+| SATD | [deepseek-1](SATD/deepseek-1/codebook.md) | 856 | 18 | 1072 |
+| SATD | [deepseek-2](SATD/deepseek-2/codebook.md) | 856 | 30 | 938 |
+| SATD | [gpt5.6-1](SATD/gpt5.6-1/codebook.md) | 856 | 14 | 1066 |
+| SATD | [gpt5.6-2](SATD/gpt5.6-2/codebook.md) | 856 | 20 | 1580 |
+| Privacy | [GPT6-1](Privacy/GPT6-1/codebook.md) | 652 | 18 | 980 |
+| Privacy | [GPT6-2](Privacy/GPT6-2/codebook.md) | 652 | 11 | 1877 |
+| Privacy | [deepseek-1](Privacy/deepseek-1/codebook.md) | 652 | 11 | 1948 |
+| Privacy | [deepseek-2](Privacy/deepseek-2/codebook.md) | 652 | 31 | 2841 |
+| Privacy | [gpt5.6-1](Privacy/gpt5.6-1/codebook.md) | 652 | 16 | 1752 |
+| Privacy | [gpt5.6-2](Privacy/gpt5.6-2/codebook.md) | 652 | 28 | 3187 |
 
-The `deepseek-2` run publishes three complete codebooks in the same seven-file presentation contract as GPT6-1: `codebook.md/json/csv`, `assignments.json/csv`, `taxonomy.json`, and `results.json`. All 2,065 artifacts were read individually and assigned; the process packages, per-artifact reading memos, frozen inputs and validation report are kept in `Artifact/deepseek-2/`.
+There are 18 packages, 12,390 artifact records across runs and 25,254 artifact–code
+assignments. Each run covers the same dataset size; these are repeated analyses,
+not 12,390 distinct source artifacts. Evidence snapshots and record order can
+differ across runs. Compare records by `case_id`, not by row position.
 
-- [CodeErrors / deepseek-2](CodeErrors/deepseek-2/codebook.md)
-- [SATD / deepseek-2](SATD/deepseek-2/codebook.md)
-- [Privacy / deepseek-2](Privacy/deepseek-2/codebook.md)
+## Common schema
 
-CodeErrors uses 28 failure-mechanism codes in four navigation groups. SATD uses 30 debt/evidence-state codes. Privacy uses 27 privacy-theme codes plus four evidence-state codes, with at least one theme and exactly one state per artifact. Privacy has 11 artifacts with two complete review records; the later review is published and all review variants are retained in `assignments.json` under `review_history`. See `Artifact/deepseek-2/FSE_DEEPSEEK2_VALIDATION.json` for the mechanical audit.
+The machine-readable contract is [SCHEMA.json](SCHEMA.json). It defines
+`codebook`, `assignments`, `results` and `taxonomy` in `definitions`.
 
-## gpt5.6-1
+- `codebook.json`: `{metadata, codes}`. Code fields are `code_id`, `name`,
+  `definition`, `inclusion_criteria`, `exclusion_criteria`, `boundary_examples`,
+  `artifact_count`, `supporting_cases`, `representative_evidence`, `extensions`.
+- `assignments.json`: an array with `case_id`, `index`, `row`, `code_ids`,
+  `code_names`, `status`, `coding_kind`, `rationale`, `observation`, `scope_note`,
+  `provisional_concepts`, `provenance`, `evidence`, `read_fields`,
+  `external_follow_up`, `extensions`.
+- `results.json`: `{metadata, results}`. Each result has `id`, `index`, `row`,
+  `document`, `categories`, `code_ids`, `status`, `rationale`, `observation`,
+  `scope_note`, `evidence_status`, `extensions`.
+- `taxonomy.json`: `category`, `description`, `layer`, `children`; each leaf
+  additionally has `code_id`. Original grouping trees remain in codebook
+  metadata extensions.
 
-The `gpt5.6-1` run is published alongside the existing GPT6 runs using the same seven-file presentation contract as GPT6-1: `codebook.md/json/csv`, `assignments.json/csv`, `taxonomy.json`, and `results.json`. Its three packages preserve the completed source-blind rereading and manual coding decisions for all 2,065 artifacts; the schema conversion did not reclassify any artifact. The conversion and equivalence audit are recorded in `Artifact/gpt5.6-1/FSE_GPT56_VALIDATION.json` at the repository workspace root.
+`index` is zero-based and `row` is one-based within a package. IDs are strings.
+Inclusion, exclusion, scope and rationale are strings; evidence and representative
+evidence are arrays. Each CSV uses the corresponding JSON field order, excluding
+`extensions`; arrays and objects are serialized as JSON inside CSV cells.
 
-- [CodeErrors / gpt5.6-1](CodeErrors/gpt5.6-1/codebook.md)
-- [SATD / gpt5.6-1](SATD/gpt5.6-1/codebook.md)
-- [Privacy / gpt5.6-1](Privacy/gpt5.6-1/codebook.md)
+Run-specific diagnostics, review history, source fields, outcome details and
+original field values are retained in `extensions.original_record`. Original
+codebook text, method metadata and taxonomy are retained in codebook metadata
+extensions. Evidence item fields retain their original coordinates and provenance;
+analytical notes remain distinguishable from direct quotations where the source
+record makes that distinction.
 
-Reading notes, reconstruction maps, source materials, audits and prior-package backups remain outside `Artifact`. See [the reconstruction plan](../experiments/codebook-construction/full-reading-restart/PLAN.md) and [package validation](../experiments/codebook-construction/full-reading-restart/final_package_validation.json). SATD and Privacy also include the requested result 2 in `GPT6-2/`; its format and evidence limits are documented below.
+## Preservation and validation
 
-## SATD and Privacy: result 2 (GPT6-2)
+[FORMAT_VALIDATION.json](FORMAT_VALIDATION.json) records all 18 packages, checksums,
+schema and CSV agreement, complete forward/reverse membership, and conversion
+equivalence. All original assignment code lists, rationales, evidence and supplied
+full documents were checked against the pre-conversion packages. Semantic
+definitions and original records are preserved; no classification was rerun.
 
-The requested result 2 is published here:
+The pre-conversion packages and displaced process files are retained locally at
+`/home/peiyuan/CODA/Artifact/format_unification/original/` and
+`/home/peiyuan/CODA/Artifact/format_unification/replaced_packages/`. They are outside
+the publication tree. The local conversion and verification script is
+`/home/peiyuan/CODA/Artifact/format_unification/unify_packages.py`.
 
-- [SATD codebook](SATD/GPT6-2/CODEBOOK.md) and [all 856 artifact analyses](SATD/GPT6-2/ARTIFACTS.md).
-- [Privacy codebook](Privacy/GPT6-2/CODEBOOK.md) and [all 652 artifact analyses](Privacy/GPT6-2/ARTIFACTS.md).
-
-These packages were copied byte-for-byte from the completed `Artifact/SATD/2/` and `Artifact/Privacy/2/` outputs in the repository root. For this result 2, use the FSE paths above as the delivery location. Existing GPT6-1 and CodeErrors results are preserved.
-
-Each GPT6-2 package includes `CODEBOOK.md`, `codebook.json`, `ARTIFACTS.md`, `assignments.jsonl`, the frozen `artifacts.jsonl`, individual reading memos, explicit memberships, `METHOD.md`, and coverage/hash reports. The file-format table above describes the earlier packages; GPT6-2 uses these filenames. Classifications are authored semantic decisions; scripts serialize and check them rather than classify by keywords.
-
-Reading coverage is all locally available artifact text: SATD has 856 released comments; Privacy has 536 complete current snapshots, 115 metadata-only records, and one partial snapshot. Missing bodies, external pages, images and attachments are not claimed as read. This is single-AI coding without independent double coding; mechanical checks do not establish semantic accuracy or equivalence to the original paper's codebook. The run label denotes result 2, not a verified model identity or independent replicate.
+Coverage refers to supplied text. Missing bodies, inaccessible links, images and
+attachments remain evidence limitations. In SATD/Privacy GPT6-2, SATD uses 856
+released comments; Privacy has 536 complete snapshots, 115 metadata-only records
+and one partial snapshot. Mechanical validation establishes presentation and
+conversion integrity, not independent semantic accuracy or human double coding.
+Run labels identify result versions; they are not verified API model identities.

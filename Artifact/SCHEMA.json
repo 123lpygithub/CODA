@@ -1,0 +1,707 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CODA Artifact publication format",
+  "description": "Common seven-file publication contract; use the named definitions to validate each JSON file.",
+  "definitions": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "coda.artifact.v1"
+        },
+        "dataset": {
+          "enum": [
+            "CodeErrors",
+            "SATD",
+            "Privacy"
+          ]
+        },
+        "run": {
+          "type": "string"
+        },
+        "artifact_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coded_artifact_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "code_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "assignment_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "method": {
+          "type": "string"
+        },
+        "limits": {
+          "type": "string"
+        },
+        "extensions": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "dataset",
+        "run",
+        "artifact_count",
+        "coded_artifact_count",
+        "code_count",
+        "assignment_count",
+        "method",
+        "limits",
+        "extensions"
+      ],
+      "additionalProperties": false
+    },
+    "code": {
+      "type": "object",
+      "properties": {
+        "code_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "inclusion_criteria": {
+          "type": "string"
+        },
+        "exclusion_criteria": {
+          "type": "string"
+        },
+        "boundary_examples": {
+          "type": "string"
+        },
+        "artifact_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "supporting_cases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "representative_evidence": {
+          "type": "array"
+        },
+        "extensions": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "code_id",
+        "name",
+        "definition",
+        "inclusion_criteria",
+        "exclusion_criteria",
+        "boundary_examples",
+        "artifact_count",
+        "supporting_cases",
+        "representative_evidence",
+        "extensions"
+      ],
+      "additionalProperties": false
+    },
+    "assignment": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string"
+        },
+        "index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "row": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "code_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "code_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        },
+        "coding_kind": {
+          "type": "string"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observation": {
+          "type": "string"
+        },
+        "scope_note": {
+          "type": "string"
+        },
+        "provisional_concepts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "provenance": {
+          "type": "object"
+        },
+        "evidence": {
+          "type": "array"
+        },
+        "read_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "external_follow_up": {
+          "type": "array"
+        },
+        "extensions": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "case_id",
+        "index",
+        "row",
+        "code_ids",
+        "code_names",
+        "status",
+        "coding_kind",
+        "rationale",
+        "observation",
+        "scope_note",
+        "provisional_concepts",
+        "provenance",
+        "evidence",
+        "read_fields",
+        "external_follow_up",
+        "extensions"
+      ],
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "row": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "document": {
+          "type": "string"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "code_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "status": {
+          "type": "string"
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "observation": {
+          "type": "string"
+        },
+        "scope_note": {
+          "type": "string"
+        },
+        "evidence_status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "extensions": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "index",
+        "row",
+        "document",
+        "categories",
+        "code_ids",
+        "status",
+        "rationale",
+        "observation",
+        "scope_note",
+        "evidence_status",
+        "extensions"
+      ],
+      "additionalProperties": false
+    },
+    "codebook": {
+      "type": "object",
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "coda.artifact.v1"
+            },
+            "dataset": {
+              "enum": [
+                "CodeErrors",
+                "SATD",
+                "Privacy"
+              ]
+            },
+            "run": {
+              "type": "string"
+            },
+            "artifact_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "coded_artifact_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "code_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "assignment_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "method": {
+              "type": "string"
+            },
+            "limits": {
+              "type": "string"
+            },
+            "extensions": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "schema_version",
+            "dataset",
+            "run",
+            "artifact_count",
+            "coded_artifact_count",
+            "code_count",
+            "assignment_count",
+            "method",
+            "limits",
+            "extensions"
+          ],
+          "additionalProperties": false
+        },
+        "codes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code_id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "definition": {
+                "type": "string"
+              },
+              "inclusion_criteria": {
+                "type": "string"
+              },
+              "exclusion_criteria": {
+                "type": "string"
+              },
+              "boundary_examples": {
+                "type": "string"
+              },
+              "artifact_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "supporting_cases": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "representative_evidence": {
+                "type": "array"
+              },
+              "extensions": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "code_id",
+              "name",
+              "definition",
+              "inclusion_criteria",
+              "exclusion_criteria",
+              "boundary_examples",
+              "artifact_count",
+              "supporting_cases",
+              "representative_evidence",
+              "extensions"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "metadata",
+        "codes"
+      ],
+      "additionalProperties": false
+    },
+    "assignments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "case_id": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "row": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "code_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "code_names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string"
+          },
+          "coding_kind": {
+            "type": "string"
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observation": {
+            "type": "string"
+          },
+          "scope_note": {
+            "type": "string"
+          },
+          "provisional_concepts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "provenance": {
+            "type": "object"
+          },
+          "evidence": {
+            "type": "array"
+          },
+          "read_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "external_follow_up": {
+            "type": "array"
+          },
+          "extensions": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "case_id",
+          "index",
+          "row",
+          "code_ids",
+          "code_names",
+          "status",
+          "coding_kind",
+          "rationale",
+          "observation",
+          "scope_note",
+          "provisional_concepts",
+          "provenance",
+          "evidence",
+          "read_fields",
+          "external_follow_up",
+          "extensions"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "results": {
+      "type": "object",
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "schema_version": {
+              "const": "coda.artifact.v1"
+            },
+            "dataset": {
+              "enum": [
+                "CodeErrors",
+                "SATD",
+                "Privacy"
+              ]
+            },
+            "run": {
+              "type": "string"
+            },
+            "artifact_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "coded_artifact_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "code_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "assignment_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "method": {
+              "type": "string"
+            },
+            "limits": {
+              "type": "string"
+            },
+            "extensions": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "schema_version",
+            "dataset",
+            "run",
+            "artifact_count",
+            "coded_artifact_count",
+            "code_count",
+            "assignment_count",
+            "method",
+            "limits",
+            "extensions"
+          ],
+          "additionalProperties": false
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "index": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "row": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "document": {
+                "type": "string"
+              },
+              "categories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "code_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "status": {
+                "type": "string"
+              },
+              "rationale": {
+                "type": "string"
+              },
+              "observation": {
+                "type": "string"
+              },
+              "scope_note": {
+                "type": "string"
+              },
+              "evidence_status": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "extensions": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "id",
+              "index",
+              "row",
+              "document",
+              "categories",
+              "code_ids",
+              "status",
+              "rationale",
+              "observation",
+              "scope_note",
+              "evidence_status",
+              "extensions"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "metadata",
+        "results"
+      ],
+      "additionalProperties": false
+    },
+    "taxonomy": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "layer": {
+          "const": 0
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string"
+              },
+              "code_id": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "layer": {
+                "const": 1
+              },
+              "children": {
+                "type": "array",
+                "maxItems": 0
+              }
+            },
+            "required": [
+              "category",
+              "code_id",
+              "description",
+              "layer",
+              "children"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "category",
+        "description",
+        "layer",
+        "children"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "x-csv-headers": {
+    "codebook.csv": [
+      "code_id",
+      "name",
+      "definition",
+      "inclusion_criteria",
+      "exclusion_criteria",
+      "boundary_examples",
+      "artifact_count",
+      "supporting_cases",
+      "representative_evidence"
+    ],
+    "assignments.csv": [
+      "case_id",
+      "index",
+      "row",
+      "code_ids",
+      "code_names",
+      "status",
+      "coding_kind",
+      "rationale",
+      "observation",
+      "scope_note",
+      "provisional_concepts",
+      "provenance",
+      "evidence",
+      "read_fields",
+      "external_follow_up"
+    ]
+  }
+}

@@ -1,3 +1,286 @@
+# SATD / GPT6-1
+
+Schema: `coda.artifact.v1`. Artifacts: **856**; codes: **18**; artifact–code assignments: **869**.
+
+This package uses the common seven-file format. All existing coding decisions, evidence and limitations are preserved. Additional source-specific fields are retained in `extensions`; original codebook text is retained in `codebook.json` metadata extensions and the local pre-conversion backup.
+
+## Scope and method
+
+Inductive consolidation of individually authored full supplied-text reading notes, followed by explicit per-artifact assignment review. No keyword classifier, external model API, or prior codebook assignments were used for consolidation.
+
+Coverage refers to all supplied textual sections, not all content ever linked on the web.
+Source revision ambiguity, inaccessible context, tentative proposals and absence of execution evidence remain in individual scope notes.
+Coding is assistant-authored; it is not published human annotation, independently validated ground truth, or an experimental system run.
+All artifacts are included; unspecified work and comments without established outstanding work are retained explicitly rather than invented as defects.
+
+## Codes
+
+| Code | Name | Artifacts |
+|---|---|---:|
+| IMP | Unfinished functionality | 74 |
+| EXT | Restricted supported cases | 109 |
+| REP | Incomplete or mismatched information representation | 45 |
+| ALG | Behavioral or analytical correctness concern | 34 |
+| VAL | Incomplete validation or failure handling | 26 |
+| DES | Unresolved design or interpretation choice | 124 |
+| ARC | Structural simplification and responsibility placement | 112 |
+| NAM | Unclear or inconsistent interface naming | 24 |
+| CFG | Inflexible configuration or defaults | 27 |
+| PER | Avoidable computation or memory cost | 47 |
+| TST | Insufficient verification coverage | 60 |
+| DOC | Incomplete documentation or examples | 19 |
+| DEP | Dependency and version adaptation | 60 |
+| OUT | Incomplete result delivery or traceability | 23 |
+| RES | Resource lifecycle and concurrent-state coordination | 11 |
+| OBS | Insufficient or intrusive operational diagnostics | 14 |
+| UNC | Unspecified remaining work | 24 |
+| EXPL | Implemented behavior without established remaining work | 36 |
+
+## IMP — Unfinished functionality
+
+A named operation, workflow step, or output is absent, stubbed, disabled, or explicitly awaiting implementation.
+
+- Include: Include pass/NotImplementedError, inactive drafts, or a concrete missing step.
+- Exclude: Exclude extension of a functioning operation to additional input/backend combinations (EXT); absent tests (TST).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 74; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## EXT — Restricted supported cases
+
+An implemented operation does not cover a stated input type, shape, backend, format, model family, or execution mode.
+
+- Include: Include an explicit unsupported combination or requested generalization.
+- Exclude: Exclude an entirely missing operation (IMP) and merely questioning whether an unspecified extension is needed (DES).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 109; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## REP — Incomplete or mismatched information representation
+
+A data representation, interface contract, conversion, or persistence path loses information or cannot express the intended semantics.
+
+- Include: Include omitted metadata, incompatible shapes/contracts, lossy reduction, and mismatched producer/consumer granularity.
+- Exclude: Exclude changes motivated only by clearer organization (ARC) or naming (NAM); do not infer actual loss when only potential loss is documented.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 45; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## ALG — Behavioral or analytical correctness concern
+
+The material identifies a specific discrepancy, faulty assumption, numerical hazard, or methodological problem in implemented computation or evaluation.
+
+- Include: Include source-visible contradictions and explicitly reported incorrect behavior; retain conditionality and lack of execution evidence.
+- Exclude: Exclude open-ended choices without a concrete discrepancy (DES), and missing precondition checks (VAL).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 34; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## VAL — Incomplete validation or failure handling
+
+Required input, state, consistency, authorization, or failure conditions are insufficiently checked or handled.
+
+- Include: Include omitted checks, overbroad exception handling, and missing recovery/error policy.
+- Exclude: Exclude an unsupported input explicitly rejected by design (EXT); message clarity alone belongs to OBS.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 26; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## DES — Unresolved design or interpretation choice
+
+The developer has not settled whether an algorithm, parameter policy, representation, or architectural alternative is appropriate.
+
+- Include: Include genuine questions about meaning, necessity, tradeoffs, and correctness where no definite defect is established.
+- Exclude: Exclude a concrete prescribed refactoring (ARC), a visible discrepancy (ALG), and a marker with no interpretable requested change (UNC).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 124; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## ARC — Structural simplification and responsibility placement
+
+Existing behavior needs clearer abstraction, consolidation, decomposition, dependency separation, or placement.
+
+- Include: Include duplicated logic, ad hoc wrappers, private-API coupling, circular dependencies, obsolete code cleanup, and moving responsibilities.
+- Exclude: Exclude mere renaming (NAM), dependency-version migrations (DEP), and a new missing behavior (IMP).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 112; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## NAM — Unclear or inconsistent interface naming
+
+Names, aliases, parameter terminology, or exposed method names inadequately communicate their role or differ across related interfaces.
+
+- Include: Include renaming, constants/enums replacing magic identifiers, and ambiguous terminology.
+- Exclude: Exclude substantive representation changes (REP) or an unsettled behavior rather than naming (DES).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 24; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## CFG — Inflexible configuration or defaults
+
+A meaningful option, default, path, threshold, or resource setting is hardcoded, inaccessible, or disconnected from configuration.
+
+- Include: Include exposing controls and replacing personal paths or architecture-specific constants with derived settings.
+- Exclude: Exclude an unresolved choice of the right value without a request for configuration (DES); missing combinations belong to EXT.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 27; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## PER — Avoidable computation or memory cost
+
+The material identifies redundant computation, costly representations, unnecessary transfers, or opportunities for parallelism, reuse, or reduced memory.
+
+- Include: Include proposed optimizations without claiming a measured improvement.
+- Exclude: Exclude resource correctness/lifecycle problems (RES) and replacing code solely for organization (ARC).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 47; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## TST — Insufficient verification coverage
+
+Tests, assertions, examples used for verification, or checks of an implementation remain missing, disabled, weak, or unreliable.
+
+- Include: Include untested paths, loose tolerances, broken fixtures, and required test expansion.
+- Exclude: Exclude production validation (VAL) and scheduled retirement of a still-useful compatibility test (DEP).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 60; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## DOC — Incomplete documentation or examples
+
+Explanations, API documentation, tutorials, usage examples, or instructions are missing, outdated, or inconsistent with the shown behavior.
+
+- Include: Include module/docstring placeholders and proposed explanatory examples.
+- Exclude: Exclude runtime diagnostics (OBS) and missing functional output (OUT).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 19; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## DEP — Dependency and version adaptation
+
+Behavior relies on a compatibility workaround, historical dependency constraint, or planned version/API migration.
+
+- Include: Include temporary aliases, legacy loaders, upstream limitations, and deferred cleanup after minimum-version changes.
+- Exclude: Exclude generic coupling without version/dependency constraints (ARC); retain whether a workaround already functions.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 60; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## OUT — Incomplete result delivery or traceability
+
+Computed results or their provenance are not adequately saved, exposed, visualized, or reported.
+
+- Include: Include missing model/checkpoint persistence, evaluation exports, metadata lineage, and result visualization.
+- Exclude: Exclude runtime warnings/logging (OBS), documentation (DOC), or a proposed data structure change with no delivery concern (REP).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 23; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## RES — Resource lifecycle and concurrent-state coordination
+
+State ownership, cleanup, shutdown, asynchronous result routing, or concurrent access needs explicit coordination.
+
+- Include: Include races, retained resources, thread-local state, and uncertain reference ownership.
+- Exclude: Exclude solely performance-motivated allocation reductions without a lifecycle issue (PER).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 11; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## OBS — Insufficient or intrusive operational diagnostics
+
+Warnings, errors, status messages, logging, or debug output inadequately support operation or require cleanup.
+
+- Include: Include missing/incorrect messages, overly generic exception types, and temporary debug prints.
+- Exclude: Exclude validation logic itself (VAL), analytical result reporting (OUT), or explanatory documentation (DOC).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 14; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## UNC — Unspecified remaining work
+
+A supplied TODO or similar marker does not identify enough remaining behavior to support a more specific work category.
+
+- Include: Use only when surrounding source still leaves the intended change indeterminate; retain the concrete context in the case rationale.
+- Exclude: Exclude interpretable alternatives (DES), named missing functionality (IMP), or explanatory comments without outstanding work (EXPL).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 24; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## EXPL — Implemented behavior without established remaining work
+
+The selected comment describes an implemented safeguard, constraint, transformation, or educational instruction, without establishing outstanding maintenance work in the supplied context.
+
+- Include: Include explanatory XXX/maybe comments, implemented requested-looking operations, and explicit teaching scaffolds.
+- Exclude: Exclude active compatibility debt with a stated migration/removal dependency (DEP) and unknown TODO intent (UNC).
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 36; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## Files
+
+- `codebook.md`, `codebook.json`, `codebook.csv`: definitions and complete reverse memberships.
+- `assignments.json`, `assignments.csv`: one record per artifact, including decisions and evidence.
+- `taxonomy.json`: category tree with every code as a leaf.
+- `results.json`: supplied full documents aligned to their assignments.
+
+## Original codebook
+
+The original codebook text below preserves run-specific scope, combination rules and qualifications. Links and filenames in that historical text describe the original package; use the seven files above for the normalized interface. The exact original text is also stored in metadata extensions.
+
 # SATD — GPT6-1
 
 856 artifacts; 18 codes; 869 artifact–code assignments.

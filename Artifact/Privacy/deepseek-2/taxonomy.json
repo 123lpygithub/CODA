@@ -1,238 +1,224 @@
 {
   "category": "Privacy",
-  "description": "由材料直接支持的隐私机制、数据边界、风险和证据限制类别。",
+  "description": "Privacy / deepseek-2 coding categories",
   "layer": 0,
   "children": [
     {
-      "category": "隐私主题",
-      "description": "材料直接支持的隐私机制、边界或风险。",
+      "category": "consent capture, gating, and lifecycle enforcement",
+      "code_id": "PR01",
+      "description": "Affirmative choice, granular categories, withdrawal, runtime/state propagation, pre-consent blocking, and honoring recorded consent across components, iframes, SDKs, and permissions.",
       "layer": 1,
-      "children": [
-        {
-          "category": "consent capture, gating, and lifecycle enforcement",
-          "code_id": "PR01",
-          "description": "Affirmative choice, granular categories, withdrawal, runtime/state propagation, pre-consent blocking, and honoring recorded consent across components, iframes, SDKs, and permissions.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "consent recordkeeping and audit trail",
-          "code_id": "PR02",
-          "description": "Evidence and accountability for consent: storing exact wording, timestamp, version, identity/IP, withdrawal logs, audit trails, or disputing whether a checkbox alone suffices.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "consent control defeated by timing, persistence, or removal",
-          "code_id": "PR03",
-          "description": "A privacy control is undermined because collection occurs before the user can act, a setting does not survive restart, a widget fails, or exit controls are removed, distorted, or mandatory.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "privacy notice and consent interface defects",
-          "code_id": "PR04",
-          "description": "Presence, legibility, wording, dismissal, locale, accessibility, or geo-scoping of privacy notices and consent banners at collection, including misleading opt-out instructions and a link substituted for a working mechanism.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "default-on collection and opt-in/opt-out model",
-          "code_id": "PR05",
-          "description": "Data practices active unless the user opts out, or debate over opt-in versus opt-out models, covering analytics, telemetry, upload, or persistence enabled by default without an affirmative act.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "notice presence, reachability, accuracy, and maintenance",
-          "code_id": "PR06",
-          "description": "Whether a privacy notice, policy page, or transparency document exists, is reachable, correctly linked, and accurately reflects practice, including editing, translating, recovering redirects, or documenting configuration.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "transparency, purpose disclosure, and documented trust assumptions",
-          "code_id": "PR07",
-          "description": "Remedy is to explain purposes, permissions, retention, or residual risk more clearly, or document and warn users about a trust assumption, rather than change the underlying practice.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "jurisdiction scope, cross-border transfer, and legal-authority compliance",
-          "code_id": "PR08",
-          "description": "Geography or named law scopes a notice or data flow (EU vs non-EU, CCPA/GDPR, IP-as-PII by region) or the request, refusal, or deferral rests on external legal duty, regulator, DPO, or compliance assertion.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "data inventory, retention, purpose limitation, and minimization",
-          "code_id": "PR09",
-          "description": "Enumerates personal data stored or logged and specifies retention, expiry, overruns, or purpose; includes debate over whether data is processed at all (transient vs stored) versus unbounded retention, and field-level minimization.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "right-to-erasure requests, deletion scope, and portability",
-          "code_id": "PR10",
-          "description": "Data-subject requests for deletion, right-to-be-forgotten, export/portability, or rights scoping, including no self-service path, admin stop-gaps, over-broad clear/delete actions, and conflicts with audit trails, legal hold, shared organizations, or downstream packages.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "erasure semantics, tooling failure, and residual stores",
-          "code_id": "PR11",
-          "description": "Disputes whether a privacy operation deletes or anonymizes records, conflicts erasure with mandated retention, or documents an eraser aborting on config/schema errors or leaving PII in logs and secondary stores.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "anonymization technique, coverage, re-identification, and media redaction",
-          "code_id": "PR12",
-          "description": "Masking, hashing, truncation, redaction, substitution, or blurring; reports identifiers surviving in headers, free text, logs, or export boundaries; or documents pseudonymization reversible, linkable, recomputable, or defeated at a role boundary.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "location precision, spatial generalization, encryption, and aggregation safeguards",
-          "code_id": "PR13",
-          "description": "Reducing location granularity so it cannot pinpoint a person (coordinate precision, geoblocks, snapping, adaptive radii) or technical safeguards so released data cannot decrypt or re-identify: key destruction, decryption thresholds, minimum cohort counts.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "third-party analytics, embeds, and processor exposure",
-          "code_id": "PR14",
-          "description": "Named external analytics, trackers, CDNs, relays, ads, fonts, webhooks, or bundled tracker SDKs receive or can access personal data, with anonymization, pre-hashing, proxying, opt-out, removal, or stripped builds framed as remedy, including transfer without consent.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "data minimization, local-first processing, and configuration suppression",
-          "code_id": "PR15",
-          "description": "Collect, request, or retain less personal data, keep data local or on-device unless explicitly sent, or argue a rule does not apply because a service is configured to suppress cookies, fingerprints, or IPs.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "credential, secret exposure, and cryptographic/key protection",
-          "code_id": "PR16",
-          "description": "Secret material (keys, tokens, share secrets, passwords) appears in an unintended channel such as public repo, analytics dashboard, P2P share, or observability store, or is stored unencrypted/verbatim; includes weak password storage and key-management redesign requests.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "access control integrity, field visibility, and tenant scoping",
-          "code_id": "PR17",
-          "description": "Limiting who can view or operate on personal data via roles, per-field/record visibility, identity-binding proof, tenant filters, and admin operations, and failures where settings, tabs, unguessable URLs, or secret links substitute for real access control or desynchronize.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "user control over stored state, telemetry settings, and analytics opt-out",
-          "code_id": "PR18",
-          "description": "User-facing control over stored state or data egress: deleting cookies/local data, disabling remote pushes, in-memory store choice, discovering telemetry settings, opting out of analytics, or optional/configurable invasive features, plus DNT signaling.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "logging, output, and harvested identifiers as disclosure channel",
-          "code_id": "PR19",
-          "description": "Diagnostic logs, error messages, generated output, or automatically harvested metadata (git-log contacts, POM emails, contributor lists) are unintended channels for sensitive data, with masking, redaction, immutable-history caveats, or log expiry proposed.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "telemetry payload exposure, server-log access, and retention",
-          "code_id": "PR20",
-          "description": "What server/platform logs, telemetry payloads, diagnostics, stack traces, breadcrumbs, or debug details collect; who can access them; how long they are kept; PII content; public debug disclosure; and missing redaction hooks.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "sensitive-context amplification, vulnerable groups, and public-interest tradeoff",
-          "code_id": "PR21",
-          "description": "Privacy harm amplified by sensitive domain or vulnerable population (minors, Tor/marginalized users, harassment targets), sector-specific sensitive data such as financial or legal records, or explicit balancing against public health, funder reporting, or functionality.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "privacy versus product, security, or platform constraint tradeoff",
-          "code_id": "PR22",
-          "description": "Reasoned opposition to a privacy request because the practice serves security, anti-abuse, or core product function, granular controls complicate API consistency, or OS/browser/upstream requirements make it unavoidable (including custom crypto instead of standards).",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "execution of untrusted code and cross-site session exposure",
-          "code_id": "PR23",
-          "description": "External or user-supplied scripts run in a page context with access to credentials, cookies, or DOM data, or an injection flaw renders untrusted data unescaped, allowing script execution that reads session tokens.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "responsibility boundary, policy ownership, and dismissal/deferral",
-          "code_id": "PR24",
-          "description": "Raises where a privacy obligation or policy decision should sit (library vs downstream developer, instance admin, DB layer, standards body), or dismisses/postpones a concern as false positive, expected behavior, another issue, plugin, vendor, or user responsibility without substantive investigation.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "closure quality, stale/deferred status, and scanner or unreproducible disputes",
-          "code_id": "PR25",
-          "description": "Resolution quality is contested: closure by roadmap promise, stale-bot, wontfix, duplicate redirect, private unverified outcome, vague report, or contested scanner evidence without diff, test, or reporter confirmation; also shipped fixes disputed as incomplete, and lifecycle metadata like severity/priority conflicts.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "consent implementation tradeoffs, deadline pressure, and monetization",
-          "code_id": "PR26",
-          "description": "Tradeoffs prioritizing visual parity, MVP scope, Storybook-only integration, performance, or a statutory date over completing the privacy mechanism, or delivering compliance as a separately priced add-on.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "restricted data redistribution, license-driven design, and remote uninstall purge",
-          "code_id": "PR27",
-          "description": "An externally imposed license, EULA, or distribution restriction on a data source forces redesign of how data is obtained, consented to, or refreshed, or app/account removal hides rather than deletes stored data requiring a lifecycle purge hook.",
-          "layer": 2,
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
-      "category": "证据状态",
-      "description": "材料可用性与可推断范围。",
+      "category": "consent recordkeeping and audit trail",
+      "code_id": "PR02",
+      "description": "Evidence and accountability for consent: storing exact wording, timestamp, version, identity/IP, withdrawal logs, audit trails, or disputing whether a checkbox alone suffices.",
       "layer": 1,
-      "children": [
-        {
-          "category": "evidence: complete body and discussion",
-          "code_id": "EV01",
-          "description": "The artifact carries a current-snapshot issue body and all retrievable comments, so proposal, discussion and any recorded outcome can be assessed directly.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "evidence: partial snapshot",
-          "code_id": "EV02",
-          "description": "Some body or discussion text is retrievable but comments, attachments or edited content are known to be missing, so conclusions about discussion or outcome are limited.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "evidence: metadata only",
-          "code_id": "EV03",
-          "description": "Only released metadata (title, labels, counts, dates, matched keywords) is available; no body or comment text can be read.",
-          "layer": 2,
-          "children": []
-        },
-        {
-          "category": "evidence: title or keyword only, content unreadable",
-          "code_id": "EV04",
-          "description": "A title or matched keyword is the only semantic signal, and even metadata-level context is insufficient to support a concrete privacy mechanism.",
-          "layer": 2,
-          "children": []
-        }
-      ]
+      "children": []
+    },
+    {
+      "category": "consent control defeated by timing, persistence, or removal",
+      "code_id": "PR03",
+      "description": "A privacy control is undermined because collection occurs before the user can act, a setting does not survive restart, a widget fails, or exit controls are removed, distorted, or mandatory.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "privacy notice and consent interface defects",
+      "code_id": "PR04",
+      "description": "Presence, legibility, wording, dismissal, locale, accessibility, or geo-scoping of privacy notices and consent banners at collection, including misleading opt-out instructions and a link substituted for a working mechanism.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "default-on collection and opt-in/opt-out model",
+      "code_id": "PR05",
+      "description": "Data practices active unless the user opts out, or debate over opt-in versus opt-out models, covering analytics, telemetry, upload, or persistence enabled by default without an affirmative act.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "notice presence, reachability, accuracy, and maintenance",
+      "code_id": "PR06",
+      "description": "Whether a privacy notice, policy page, or transparency document exists, is reachable, correctly linked, and accurately reflects practice, including editing, translating, recovering redirects, or documenting configuration.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "transparency, purpose disclosure, and documented trust assumptions",
+      "code_id": "PR07",
+      "description": "Remedy is to explain purposes, permissions, retention, or residual risk more clearly, or document and warn users about a trust assumption, rather than change the underlying practice.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "jurisdiction scope, cross-border transfer, and legal-authority compliance",
+      "code_id": "PR08",
+      "description": "Geography or named law scopes a notice or data flow (EU vs non-EU, CCPA/GDPR, IP-as-PII by region) or the request, refusal, or deferral rests on external legal duty, regulator, DPO, or compliance assertion.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "data inventory, retention, purpose limitation, and minimization",
+      "code_id": "PR09",
+      "description": "Enumerates personal data stored or logged and specifies retention, expiry, overruns, or purpose; includes debate over whether data is processed at all (transient vs stored) versus unbounded retention, and field-level minimization.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "right-to-erasure requests, deletion scope, and portability",
+      "code_id": "PR10",
+      "description": "Data-subject requests for deletion, right-to-be-forgotten, export/portability, or rights scoping, including no self-service path, admin stop-gaps, over-broad clear/delete actions, and conflicts with audit trails, legal hold, shared organizations, or downstream packages.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "erasure semantics, tooling failure, and residual stores",
+      "code_id": "PR11",
+      "description": "Disputes whether a privacy operation deletes or anonymizes records, conflicts erasure with mandated retention, or documents an eraser aborting on config/schema errors or leaving PII in logs and secondary stores.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "anonymization technique, coverage, re-identification, and media redaction",
+      "code_id": "PR12",
+      "description": "Masking, hashing, truncation, redaction, substitution, or blurring; reports identifiers surviving in headers, free text, logs, or export boundaries; or documents pseudonymization reversible, linkable, recomputable, or defeated at a role boundary.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "location precision, spatial generalization, encryption, and aggregation safeguards",
+      "code_id": "PR13",
+      "description": "Reducing location granularity so it cannot pinpoint a person (coordinate precision, geoblocks, snapping, adaptive radii) or technical safeguards so released data cannot decrypt or re-identify: key destruction, decryption thresholds, minimum cohort counts.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "third-party analytics, embeds, and processor exposure",
+      "code_id": "PR14",
+      "description": "Named external analytics, trackers, CDNs, relays, ads, fonts, webhooks, or bundled tracker SDKs receive or can access personal data, with anonymization, pre-hashing, proxying, opt-out, removal, or stripped builds framed as remedy, including transfer without consent.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "data minimization, local-first processing, and configuration suppression",
+      "code_id": "PR15",
+      "description": "Collect, request, or retain less personal data, keep data local or on-device unless explicitly sent, or argue a rule does not apply because a service is configured to suppress cookies, fingerprints, or IPs.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "credential, secret exposure, and cryptographic/key protection",
+      "code_id": "PR16",
+      "description": "Secret material (keys, tokens, share secrets, passwords) appears in an unintended channel such as public repo, analytics dashboard, P2P share, or observability store, or is stored unencrypted/verbatim; includes weak password storage and key-management redesign requests.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "access control integrity, field visibility, and tenant scoping",
+      "code_id": "PR17",
+      "description": "Limiting who can view or operate on personal data via roles, per-field/record visibility, identity-binding proof, tenant filters, and admin operations, and failures where settings, tabs, unguessable URLs, or secret links substitute for real access control or desynchronize.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "user control over stored state, telemetry settings, and analytics opt-out",
+      "code_id": "PR18",
+      "description": "User-facing control over stored state or data egress: deleting cookies/local data, disabling remote pushes, in-memory store choice, discovering telemetry settings, opting out of analytics, or optional/configurable invasive features, plus DNT signaling.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "logging, output, and harvested identifiers as disclosure channel",
+      "code_id": "PR19",
+      "description": "Diagnostic logs, error messages, generated output, or automatically harvested metadata (git-log contacts, POM emails, contributor lists) are unintended channels for sensitive data, with masking, redaction, immutable-history caveats, or log expiry proposed.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "telemetry payload exposure, server-log access, and retention",
+      "code_id": "PR20",
+      "description": "What server/platform logs, telemetry payloads, diagnostics, stack traces, breadcrumbs, or debug details collect; who can access them; how long they are kept; PII content; public debug disclosure; and missing redaction hooks.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "sensitive-context amplification, vulnerable groups, and public-interest tradeoff",
+      "code_id": "PR21",
+      "description": "Privacy harm amplified by sensitive domain or vulnerable population (minors, Tor/marginalized users, harassment targets), sector-specific sensitive data such as financial or legal records, or explicit balancing against public health, funder reporting, or functionality.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "privacy versus product, security, or platform constraint tradeoff",
+      "code_id": "PR22",
+      "description": "Reasoned opposition to a privacy request because the practice serves security, anti-abuse, or core product function, granular controls complicate API consistency, or OS/browser/upstream requirements make it unavoidable (including custom crypto instead of standards).",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "execution of untrusted code and cross-site session exposure",
+      "code_id": "PR23",
+      "description": "External or user-supplied scripts run in a page context with access to credentials, cookies, or DOM data, or an injection flaw renders untrusted data unescaped, allowing script execution that reads session tokens.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "responsibility boundary, policy ownership, and dismissal/deferral",
+      "code_id": "PR24",
+      "description": "Raises where a privacy obligation or policy decision should sit (library vs downstream developer, instance admin, DB layer, standards body), or dismisses/postpones a concern as false positive, expected behavior, another issue, plugin, vendor, or user responsibility without substantive investigation.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "closure quality, stale/deferred status, and scanner or unreproducible disputes",
+      "code_id": "PR25",
+      "description": "Resolution quality is contested: closure by roadmap promise, stale-bot, wontfix, duplicate redirect, private unverified outcome, vague report, or contested scanner evidence without diff, test, or reporter confirmation; also shipped fixes disputed as incomplete, and lifecycle metadata like severity/priority conflicts.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "consent implementation tradeoffs, deadline pressure, and monetization",
+      "code_id": "PR26",
+      "description": "Tradeoffs prioritizing visual parity, MVP scope, Storybook-only integration, performance, or a statutory date over completing the privacy mechanism, or delivering compliance as a separately priced add-on.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "restricted data redistribution, license-driven design, and remote uninstall purge",
+      "code_id": "PR27",
+      "description": "An externally imposed license, EULA, or distribution restriction on a data source forces redesign of how data is obtained, consented to, or refreshed, or app/account removal hides rather than deletes stored data requiring a lifecycle purge hook.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "evidence: complete body and discussion",
+      "code_id": "EV01",
+      "description": "The artifact carries a current-snapshot issue body and all retrievable comments, so proposal, discussion and any recorded outcome can be assessed directly.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "evidence: partial snapshot",
+      "code_id": "EV02",
+      "description": "Some body or discussion text is retrievable but comments, attachments or edited content are known to be missing, so conclusions about discussion or outcome are limited.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "evidence: metadata only",
+      "code_id": "EV03",
+      "description": "Only released metadata (title, labels, counts, dates, matched keywords) is available; no body or comment text can be read.",
+      "layer": 1,
+      "children": []
+    },
+    {
+      "category": "evidence: title or keyword only, content unreadable",
+      "code_id": "EV04",
+      "description": "A title or matched keyword is the only semantic signal, and even metadata-level context is insufficient to support a concrete privacy mechanism.",
+      "layer": 1,
+      "children": []
     }
   ]
 }

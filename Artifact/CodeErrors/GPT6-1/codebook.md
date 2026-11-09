@@ -1,3 +1,405 @@
+# CodeErrors / GPT6-1
+
+Schema: `coda.artifact.v1`. Artifacts: **557**; codes: **17**; artifact–code assignments: **729**.
+
+This package uses the common seven-file format. All existing coding decisions, evidence and limitations are preserved. Additional source-specific fields are retained in `extensions`; original codebook text is retained in `codebook.json` metadata extensions and the local pre-conversion backup.
+
+## Scope and method
+
+Assistant-led source reading, inductive consolidation, explicit case mapping and focused execution checks
+
+Mechanical format validation does not establish independent semantic accuracy.
+
+## Codes
+
+| Code | Name | Artifacts |
+|---|---|---:|
+| C01 | Absent substantive implementation | 67 |
+| C02 | Unfinished or degenerate implementation | 39 |
+| C03 | Unresolved program dependency | 45 |
+| C04 | Incompatible type or API operation | 21 |
+| C05 | Substituted computational objective | 67 |
+| C06 | Missing required operation or constraint | 90 |
+| C07 | Wrong operand or semantic scope | 57 |
+| C08 | Incorrect decision predicate | 68 |
+| C09 | Incomplete traversal or candidate coverage | 36 |
+| C10 | Incorrect initialization or state transition | 21 |
+| C11 | Invalid progress or execution strategy | 7 |
+| C12 | Incorrect parsing or normalization | 41 |
+| C13 | Incorrect multiplicity or aggregation unit | 24 |
+| C14 | Incorrect ordering or selection priority | 40 |
+| C15 | Incorrect arithmetic or numerical transformation | 37 |
+| C16 | Incorrect result construction or delivery | 36 |
+| C17 | Unhandled valid boundary or special input | 33 |
+
+## C01 — Absent substantive implementation
+
+The delivered function contains no substantive algorithm for the requested behavior, using only a stub, constant answer, identity return, or unrelated setup.
+
+- Include: pass、仅文档/注释、固定默认答案、原样返回输入，或只有准备工作而没有主体计算。
+- Exclude: 已有清晰算法但缺一个局部步骤用 C06；展开到一半的重复或截断过程用 C02。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 67; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "609",
+    "field": "incorrect_code",
+    "line_start": 12,
+    "quote": "    pass",
+    "interpretation": "Pass-only body returns None instead of groups."
+  }
+]
+````
+
+## C02 — Unfinished or degenerate implementation
+
+A started implementation ends in incomplete syntax, an unfinished computation, or repetitive expansions without a usable completion.
+
+- Include: 半截表达式/字符串/分支，或重复展开的处理一直没有完成任务或交付结果；只描述交付代码状态，不推断截断原因。
+- Exclude: 仅短小空壳用 C01；已完成计算却返回错误对象或漏 return 用 C16；独立算法错误可另行编码。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 39; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "182",
+    "field": "incorrect_code",
+    "line_start": 17,
+    "quote": "    groups = [group[1:] + group[0] for group in s.split(\"",
+    "interpretation": "Truncated string/comprehension; cannot parse."
+  }
+]
+````
+
+## C03 — Unresolved program dependency
+
+The supplied program references a required name, helper, module, or API entry that is neither defined nor imported in the available program.
+
+- Include: 缺少导入、未实现 helper、未绑定变量；结论限定于交付的完整片段，不假设隐藏的预加载环境。
+- Exclude: 名称存在但类型/方法契约用错归 C04；算法内部状态初始化错误归 C10。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 45; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "426",
+    "field": "incorrect_code",
+    "line_start": 10,
+    "quote": "    return number - math.floor(number)",
+    "interpretation": "math.floor referenced without math import in supplied program."
+  }
+]
+````
+
+## C04 — Incompatible type or API operation
+
+An operation assumes a representation or API capability unsupported by the actual operand or container type.
+
+- Include: 字符串直接做数值运算、list 当向量化数组、dict.sort、对不适合的字符串使用 int、递归传参改变类型后仍调用原方法。
+- Exclude: 模块或 helper 不存在用 C03；可执行但转换的语义不符合要求用 C12。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 21; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "435",
+    "field": "incorrect_code",
+    "line_start": 10,
+    "quote": "    return ''.join(map(lambda x, y: str(x ^ y), a, b))",
+    "interpretation": "Applies XOR to character strings without integer conversion."
+  }
+]
+````
+
+## C05 — Substituted computational objective
+
+The implementation solves a different problem or uses a proxy property that does not establish the requested relation.
+
+- Include: 用元素数量代替零和存在性、用素数测试代替三个素数乘积、求总和最短路代替字典序路径等。
+- Exclude: 目标保留但作用对象/范围错用 C07；局部可定位错误优先用相应类别，不把 C05 当兜底类。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 67; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "184",
+    "field": "incorrect_code",
+    "line_start": 18,
+    "quote": "    return len(set(l)) >= 3",
+    "interpretation": "Distinct-value count substituted for existence of zero-sum triple."
+  }
+]
+````
+
+## C06 — Missing required operation or constraint
+
+A recognizable solution omits an explicitly required transformation, filter, validity check, or alternative behavior.
+
+- Include: 缺少数位求和、类型/奇偶过滤、回退分支、三角形合法性检查等独立要求。
+- Exclude: 若缺失对应独立的表示处理 C12、输出格式 C16 或有效边界输入 C17，则优先使用具体类别，不重复标同一缺陷。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 90; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "54",
+    "field": "incorrect_code",
+    "line_start": 15,
+    "quote": "    return bin(N)[2:]",
+    "interpretation": "Converts N directly to binary without summing decimal digits."
+  }
+]
+````
+
+## C07 — Wrong operand or semantic scope
+
+The computation targets the wrong operand, level, positional unit, grouping scope, or temporal extent.
+
+- Include: 值与索引混淆、整体与子对象混淆、局部窗口代替累计前缀、以错误字段或前后状态作比较。
+- Exclude: 重复/计数单位的显式问题用 C13；其他问题整体替代目标用 C05。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 57; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "427",
+    "field": "incorrect_code",
+    "line_start": 13,
+    "quote": "    return any(operation < 0 for operation in operations)",
+    "interpretation": "Tests individual negativity rather than prefix balance."
+  }
+]
+````
+
+## C08 — Incorrect decision predicate
+
+A comparison, boolean combination, branch priority, or guard accepts or suppresses behavior under the wrong condition.
+
+- Include: 比较方向/严格性错误、and/or 错误、自比较恒真、错误条件控制输出、凭空增加限制。
+- Exclude: 条件完全不存在用 C06；错误搜索位置或遍历区间用 C09；极值/并列优先级用 C14。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 68; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "151",
+    "field": "incorrect_code",
+    "line_start": 17,
+    "quote": "        if rolling_max_index == len(numbers):",
+    "interpretation": "Emits only when count of record maxima equals sequence length; zero seed also invalid for negative-only input."
+  }
+]
+````
+
+## C09 — Incomplete traversal or candidate coverage
+
+The traversal, search space, or enumeration boundaries omit required candidates or include invalid positions.
+
+- Include: 只检查固定若干元素、漏排列/旋转、off-by-one、过早返回导致不完整搜索、硬编码有限输入范围。
+- Exclude: 边界输入绕过原本合理的主体计算用 C17；排序后选错方向用 C14。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 36; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "141",
+    "field": "incorrect_code",
+    "line_start": 12,
+    "quote": "    close = abs(numbers[0] - numbers[1]) < threshold",
+    "interpretation": "Only fixed pairs 0/1 and 2/3 checked; short lists index out of range and other close pairs missed."
+  }
+]
+````
+
+## C10 — Incorrect initialization or state transition
+
+Seeds, stored intermediate values, recursive composition, or update order fail to preserve the required computational state.
+
+- Include: 递推基础值缺失/错误、先覆盖再移动旧状态、更新方向错、累积状态重置错、关联被破坏。
+- Exclude: 不前进/不终止或违背明确执行方式用 C11；单个无状态数式错误用 C15。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 21; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "334",
+    "field": "incorrect_code",
+    "line_start": 23,
+    "quote": "            d = a + b + c + d",
+    "interpretation": "Starts recurrence too early and overwrites d before shifting old state."
+  }
+]
+````
+
+## C11 — Invalid progress or execution strategy
+
+Iteration or recursion lacks a valid completion/progress rule, or contradicts an explicit required execution strategy.
+
+- Include: 循环旋转无耗尽判断、递归参数增长、无进展调用；题目明确禁止递归却使用递归。
+- Exclude: 不因“递归”本身判错；没有实际性能证据不声称超时；基础状态数值错误另用 C10。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 7; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "81",
+    "field": "incorrect_code",
+    "line_start": 40,
+    "quote": "        return move_one_ball(arr)",
+    "interpretation": "Repeats rotations recursively with no exhaustion detection for unsortable cycle."
+  }
+]
+````
+
+## C12 — Incorrect parsing or normalization
+
+Input interpretation, token boundaries, case/sign handling, or normalization changes the meaning required by the contract.
+
+- Include: 错误分隔符、遗漏大小写等价处理、误删符号/空白、混淆二进制文本与十进制值、未规范化区间顺序。
+- Exclude: 类型操作本身不合法用 C04；只影响最终输出形态用 C16；数值运算公式用 C15。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 41; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "163",
+    "field": "incorrect_code",
+    "line_start": 8,
+    "quote": "    return len(set(string))",
+    "interpretation": "Case normalization missing before counting distinct characters."
+  }
+]
+````
+
+## C13 — Incorrect multiplicity or aggregation unit
+
+Counting or aggregation uses the wrong unit, drops required repetitions, retains forbidden repetitions, or combines groups that must remain separate.
+
+- Include: 去重与删除所有重复项混淆、重叠计数缺失、镜像对重复计数、先合并再取整导致逐组语义丢失。
+- Exclude: 普通范围遗漏用 C09；只比较错误对象而无聚合单位问题用 C07。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 24; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "359",
+    "field": "incorrect_code",
+    "line_start": 9,
+    "quote": "    num_buckets = math.ceil(total_water / bucket_capacity)",
+    "interpretation": "Rounds after pooling all wells instead of separately per well."
+  }
+]
+````
+
+## C14 — Incorrect ordering or selection priority
+
+A sort key, direction, extremum choice, stable ordering, or tie-break fails to implement the requested selection/order.
+
+- Include: 选最短代替最长、漏次级键、主次排序反转、返回降序而要求升序、并列时选错对象。
+- Exclude: 完全换成另一个任务用 C05；输出容器/标点格式用 C16。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 40; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "547",
+    "field": "incorrect_code",
+    "line_start": 12,
+    "quote": "    return sorted(arr, key=lambda x: bin(x).count('1'))",
+    "interpretation": "Missing secondary numeric sort key for equal bit counts; task examples conflict with verbal bitcount order, reference supports verbal rule."
+  }
+]
+````
+
+## C15 — Incorrect arithmetic or numerical transformation
+
+An expression uses incorrect arithmetic, precedence, scaling, direction of transformation, numeric representation, or rounding semantics.
+
+- Include: 整数除法误用浮点除法、公式遗漏项、运算优先级、模环绕、四舍五入/银行家舍入混淆、正反变换错误。
+- Exclude: 状态演化问题用 C10；目标整体变化用 C05；输入分词/大小写转换用 C12。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 37; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "387",
+    "field": "incorrect_code",
+    "line_start": 33,
+    "quote": "            result *= operand[i+1]",
+    "interpretation": "Evaluates left-to-right, ignoring precedence and exponent associativity."
+  }
+]
+````
+
+## C16 — Incorrect result construction or delivery
+
+The returned value has the wrong container, components, formatting, placement, or delivery despite identifiable output-producing work.
+
+- Include: 返回函数对象、漏输出前后缀、标点/模板错误、间隔符位置错误、计算了结果却没有 return。
+- Exclude: 空函数用 C01；退化展开未完成用 C02；输出遗漏由条件/遍历所致优先 C08/C09。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 36; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "353",
+    "field": "incorrect_code",
+    "line_start": 5,
+    "quote": "    return bin(avg)[2:]",
+    "interpretation": "Removes required 0b prefix."
+  }
+]
+````
+
+## C17 — Unhandled valid boundary or special input
+
+An otherwise identifiable algorithm fails on a documented or reference-supported empty, zero, singleton, negative, or absent-candidate case.
+
+- Include: 空集合取极值、零输入跳过输出构造、短列表索引越界、负输入符号路径失效。
+- Exclude: 范围外输入不编码；递推基础状态用 C10；普通比较等号错误用 C08。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 33; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "case_id": "520",
+    "field": "incorrect_code",
+    "line_start": 13,
+    "quote": "    primes[0] = False",
+    "interpretation": "Unconditionally initializes indices 0 and 1; n=0/1 raises IndexError."
+  }
+]
+````
+
+## Files
+
+- `codebook.md`, `codebook.json`, `codebook.csv`: definitions and complete reverse memberships.
+- `assignments.json`, `assignments.csv`: one record per artifact, including decisions and evidence.
+- `taxonomy.json`: category tree with every code as a leaf.
+- `results.json`: supplied full documents aligned to their assignments.
+
+## Original codebook
+
+The original codebook text below preserves run-specific scope, combination rules and qualifications. Links and filenames in that historical text describe the original package; use the seven files above for the normalized interface. The exact original text is also stored in metadata extensions.
+
 # GPT6-1 — Code errors 最终编码本
 
 本轮覆盖 **557 份生成代码、687 条来源记录、150 个任务**。共有 **17 个可分配 code**，组织在 4 个导航分组下；分组不是额外编码。已归类 557 份，未决 0 份。允许针对独立缺陷进行多重编码，因此类别覆盖数之和可以超过案例数。

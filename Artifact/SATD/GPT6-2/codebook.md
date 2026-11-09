@@ -1,3 +1,1172 @@
+# SATD / GPT6-2
+
+Schema: `coda.artifact.v1`. Artifacts: **856**; codes: **18**; artifact–code assignments: **1546**.
+
+This package uses the common seven-file format. All existing coding decisions, evidence and limitations are preserved. Additional source-specific fields are retained in `extensions`; original codebook text is retained in `codebook.json` metadata extensions and the local pre-conversion backup.
+
+## Scope and method
+
+full available text reading → open coding → authored explicit multi-label consolidation
+
+Mechanical format validation does not establish independent semantic accuracy.
+
+## Codes
+
+| Code | Name | Artifacts |
+|---|---|---:|
+| SATD-A | 结构、职责与表示重构 | 216 |
+| SATD-B | 行为、数学或接口正确性 | 74 |
+| SATD-C | 校验、边界、异常与状态保护 | 67 |
+| SATD-D | 行为实现或工作流补全 | 156 |
+| SATD-E | 支持范围与泛化不足 | 106 |
+| SATD-F | 外部依赖、版本与平台约束 | 77 |
+| SATD-G | 性能、内存与执行资源 | 48 |
+| SATD-H | 临时绕行与硬适配 | 44 |
+| SATD-I | 算法与数据假设适用性 | 112 |
+| SATD-J | 配置、参数与默认行为 | 76 |
+| SATD-K | 测试与验证工作 | 61 |
+| SATD-L | 说明、文档与理解缺口 | 26 |
+| SATD-M | 冗余、弃用与条件性清理 | 61 |
+| SATD-N | 持久化、序列化与数据表示契约 | 41 |
+| SATD-O | 显示、日志与运行可观察性 | 25 |
+| SATD-Q | 尚未裁决的设计或诊断 | 244 |
+| SATD-U | 材料不足以细化待办 | 86 |
+| SATD-V | 未明确承认待偿还问题 | 26 |
+
+## SATD-A — 结构、职责与表示重构
+
+当前实现的模块边界、职责归属、抽象、命名、代码格式或内部表示被要求调整，或存在具体的结构替代候选。
+
+- Include: 明确提取、移动、复用、去耦、命名统一、格式整理或内部表示替代；可与未决设计并用。
+- Exclude: 仅新增行为而无结构变化用 D；单纯执行速度诉求用 G。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 216; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0001-aahiieiig",
+    "row": 1,
+    "open_codes": [
+      "共享逻辑组织待重构"
+    ],
+    "analytic_memo": "多个算法共用函数，作者明确承诺后续重构；不是模型算法本身未实现。",
+    "evidence": [
+      {
+        "quote": "''' || Functions used by more than one algorithm || TODO refactor properly later || '''",
+        "start_char": 135,
+        "end_char": 222,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0003-aaejjbhji",
+    "row": 3,
+    "open_codes": [
+      "容器选择待简化"
+    ],
+    "analytic_memo": "作者指出空字典也能满足需求；句子截断，替代方案的完整限制不明。",
+    "evidence": [
+      {
+        "quote": "!TODO: An empty dictionary would actually also do here ... despite the fact that",
+        "start_char": 128,
+        "end_char": 208,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0006-aaahbghib",
+    "row": 6,
+    "open_codes": [
+      "文本处理临时实现待替换"
+    ],
+    "analytic_memo": "作者希望用正则或其他方案替代 hack，未提供具体处理内容。",
+    "evidence": [
+      {
+        "quote": "# hackier; fixme to use regex or something",
+        "start_char": 127,
+        "end_char": 169,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-B — 行为、数学或接口正确性
+
+注释指出行为错误、结果不一致、契约违背或具体正确性风险。
+
+- Include: 明确错误与有对象的疑似错误均纳入，但备忘录必须区分确定、疑问和条件性。
+- Exclude: 仅 TODO 或一般优化不纳入；尚未支持的新范围用 E。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 74; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0004-aaejjacgf",
+    "row": 4,
+    "open_codes": [
+      "数值容器容量不足"
+    ],
+    "analytic_memo": "US 无法容纳某些完整数值；不推断 US 具体类型或位宽。",
+    "evidence": [
+      {
+        "quote": "!TODO: In some cases; US is not enough to hold the complete number",
+        "start_char": 145,
+        "end_char": 211,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0007-aaaegfgeb",
+    "row": 7,
+    "open_codes": [
+      "变换顺序待调整"
+    ],
+    "analytic_memo": "要求 concat 前 reverse bw；bw 含义缺失，不推断具体网络结构。",
+    "evidence": [
+      {
+        "quote": "# reverse bw; before concat TODO",
+        "start_char": 128,
+        "end_char": 160,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0030-aaedcebdc",
+    "row": 30,
+    "open_codes": [
+      "预测接口行为错误"
+    ],
+    "analytic_memo": "作者明确称 bug，predict_proba 不应 change；具体改变对象截断。",
+    "evidence": [
+      {
+        "quote": "[todo]: this is a bug; predict_proba should not change",
+        "start_char": 130,
+        "end_char": 184,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-C — 校验、边界、异常与状态保护
+
+需要验证输入、形状、状态、生命周期或错误路径，并保护共享状态及边界条件。
+
+- Include: 空值、除零、类型形状检查、并发锁、异常策略、完整性检查以及相关待验证风险。
+- Exclude: 新增单元测试用 K；train/test 数据划分本身不属测试。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 67; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0048-aagaijehb",
+    "row": 48,
+    "open_codes": [
+      "参数兼容检查缺失"
+    ],
+    "analytic_memo": "未来需要验证参数间兼容性。",
+    "evidence": [
+      {
+        "quote": "\\/\\/TODO in future add arguments compatibility check",
+        "start_char": 122,
+        "end_char": 174,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0062-aagachfba",
+    "row": 62,
+    "open_codes": [
+      "重复项检查缺失"
+    ],
+    "analytic_memo": "应检查 variation 是否已存在。",
+    "evidence": [
+      {
+        "quote": "else:  # TODO check that the variation wasn't already in there",
+        "start_char": 138,
+        "end_char": 200,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0063-aaaedhbbd",
+    "row": 63,
+    "open_codes": [
+      "输入类型契约待保证"
+    ],
+    "analytic_memo": "需保证传给 _pool.step 的是 ndarray。",
+    "evidence": [
+      {
+        "quote": "Ensure we're really passing an ndarray to _pool.step()",
+        "start_char": 126,
+        "end_char": 180,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-D — 行为实现或工作流补全
+
+存在待增加、启用、补齐或扩展的计算、数据处理、持久化或交互行为。
+
+- Include: 具体功能待办与明确 implement/incomplete 即使指代缺失；范围不足可并 E。
+- Exclude: 只有名称和 TODO 且不知动作时用 U；不把链接中的功能认作已读证据。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 156; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0008-aagcbjjcd",
+    "row": 8,
+    "open_codes": [
+      "验证与测试数据处理不完整"
+    ],
+    "analytic_memo": "landmarks 只未扩展到 validation/test；明确因当日疲劳推迟，不是单元测试缺失。",
+    "evidence": [
+      {
+        "quote": "# TODO : load landmarks in validation and test set also. I'm too sleepy to do it today -_- zzz... zzz...",
+        "start_char": 155,
+        "end_char": 259,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0012-aafaehach",
+    "row": 12,
+    "open_codes": [
+      "缺省命名行为待补充"
+    ],
+    "analytic_memo": "name 缺失时拟采用 functionality.__name__。",
+    "evidence": [
+      {
+        "quote": "# TODO: Set name (using \\\"functionality.__name__\\\") if name is None",
+        "start_char": 169,
+        "end_char": 236,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0021-aadbhiccj",
+    "row": 21,
+    "open_codes": [
+      "工作流组件集成缺失"
+    ],
+    "analytic_memo": "Frontend 和 Model 尚待纳入该 workflow。",
+    "evidence": [
+      {
+        "quote": "@todo integrate Frontend and Model to that workflow",
+        "start_char": 122,
+        "end_char": 173,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-E — 支持范围与泛化不足
+
+实现仅覆盖部分输入、类型、模型、格式、设备或场景，需扩展或核实覆盖。
+
+- Include: 明确缺少的类型/分支/模型族及可辨识的覆盖疑问。
+- Exclude: 没有覆盖对象的一般改进不纳入；版本或外部 API 限制另加 F。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 106; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0013-aaebbeedd",
+    "row": 13,
+    "open_codes": [
+      "分支支持不全"
+    ],
+    "analytic_memo": "其他 bases 尚未被处理；不推断 bases 是数制还是父类。",
+    "evidence": [
+      {
+        "quote": "## elif (): ## FIXME: handle other bases here",
+        "start_char": 117,
+        "end_char": 162,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0015-aaibjbide",
+    "row": 15,
+    "open_codes": [
+      "模型行为覆盖不全"
+    ],
+    "analytic_memo": "需对全部模型加入 intercept；intercept 的具体语义不明。",
+    "evidence": [
+      {
+        "quote": "## TODO: intercept for all models",
+        "start_char": 131,
+        "end_char": 164,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0016-aadfachjd",
+    "row": 16,
+    "open_codes": [
+      "优化器支持不全"
+    ],
+    "analytic_memo": "当前只支持 SGD，希望增加其他训练优化器；不属于执行性能证据。",
+    "evidence": [
+      {
+        "quote": "##TODO add optimizers other than SGD",
+        "start_char": 145,
+        "end_char": 181,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-F — 外部依赖、版本与平台约束
+
+修改受外部库、版本、后端、平台或调用者契约制约。
+
+- Include: 兼容迁移、上游缺陷绕行、版本成熟后清理、依赖声明及跨框架接口适配。
+- Exclude: 不能仅由库名出现判断存在债务；正常兼容说明应并 V。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 77; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0019-aaigjhibg",
+    "row": 19,
+    "open_codes": [
+      "兼容性待修复"
+    ],
+    "analytic_memo": "只给 fix compatibility，版本和对象缺失。",
+    "evidence": [
+      {
+        "quote": "((); 0); # TODO(sonots): Fix compatibility",
+        "start_char": 155,
+        "end_char": 197,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0020-aaigjhiah",
+    "row": 20,
+    "open_codes": [
+      "兼容性待修复"
+    ],
+    "analytic_memo": "与前条文本一致但保留独立 artifact；兼容对象不明。",
+    "evidence": [
+      {
+        "quote": "((); 0); # TODO(sonots): Fix compatibility",
+        "start_char": 160,
+        "end_char": 202,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0037-aajffhihe",
+    "row": 37,
+    "open_codes": [
+      "语法支持不全",
+      "编译路径性能改进"
+    ],
+    "analytic_memo": "unparse 只支持列举的语法结构；拟转 _ast 因编译约快六倍，两项均有明确依据。",
+    "evidence": [
+      {
+        "quote": "\\\"\\\"\\\" Turn compiler.ast structures back into executable python code. ||  ||     The unparse method takes a compiler.ast tree and transforms it back into ||     valid python code.  It is incomplete and currently only works for ||     import statements; function calls; function definitions; assignments; and ||     basic expressions. ||  ||     Inspired by python-2.5-svn\\/Demo\\/parser\\/unparse.py ||  ||     fixme: We may want to move to using _ast trees because the compiler for ||            them is about 6 times faster than compiler.compile. || \\\"\\\"\\\"",
+        "start_char": 148,
+        "end_char": 704,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-G — 性能、内存与执行资源
+
+材料明确涉及执行开销、复杂度、内存、并行或性能测量与比较。
+
+- Include: 已有瓶颈、候选优化和待测性能分开记述；并发执行约束也可纳入。
+- Exclude: 训练 optimizer 名称不自动等于性能优化；未经测量不写已提速。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 48; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0037-aajffhihe",
+    "row": 37,
+    "open_codes": [
+      "语法支持不全",
+      "编译路径性能改进"
+    ],
+    "analytic_memo": "unparse 只支持列举的语法结构；拟转 _ast 因编译约快六倍，两项均有明确依据。",
+    "evidence": [
+      {
+        "quote": "\\\"\\\"\\\" Turn compiler.ast structures back into executable python code. ||  ||     The unparse method takes a compiler.ast tree and transforms it back into ||     valid python code.  It is incomplete and currently only works for ||     import statements; function calls; function definitions; assignments; and ||     basic expressions. ||  ||     Inspired by python-2.5-svn\\/Demo\\/parser\\/unparse.py ||  ||     fixme: We may want to move to using _ast trees because the compiler for ||            them is about 6 times faster than compiler.compile. || \\\"\\\"\\\"",
+        "start_char": 148,
+        "end_char": 704,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0086-aaicdjedb",
+    "row": 86,
+    "open_codes": [
+      "并行资源配置未利用"
+    ],
+    "analytic_memo": "指出此处也可用 n_jobs。",
+    "evidence": [
+      {
+        "quote": "FIXME: can use n_jobs here too",
+        "start_char": 133,
+        "end_char": 163,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0109-aaibiggcj",
+    "row": 109,
+    "open_codes": [
+      "协方差表示不利缓存"
+    ],
+    "analytic_memo": "作者认为当前 covars representation 会损害 caching。",
+    "evidence": [
+      {
+        "quote": "FIXME: this representation of covars is going to lose for caching",
+        "start_char": 126,
+        "end_char": 191,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-H — 临时绕行与硬适配
+
+当前依靠临时补丁、占位值、硬编码或脆弱约定实现行为。
+
+- Include: 明确 hack/workaround 的语义，以及固定值替代真实数据、依赖未公开约定的补偿。
+- Exclude: 普通常量或仅描述必要操作不自动构成临时债务。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 44; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0005-aaebbecaa",
+    "row": 5,
+    "open_codes": [
+      "布局缺陷的临时绕行"
+    ],
+    "analytic_memo": "justify-content 失效导致采用 SVG 居中 hack；问题在显示布局。",
+    "evidence": [
+      {
+        "quote": "# Hack to center SVG as justify-content is broken:",
+        "start_char": 115,
+        "end_char": 165,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0006-aaahbghib",
+    "row": 6,
+    "open_codes": [
+      "文本处理临时实现待替换"
+    ],
+    "analytic_memo": "作者希望用正则或其他方案替代 hack，未提供具体处理内容。",
+    "evidence": [
+      {
+        "quote": "# hackier; fixme to use regex or something",
+        "start_char": 127,
+        "end_char": 169,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0046-aafchcgjg",
+    "row": 46,
+    "open_codes": [
+      "缺失置信度以常数代替"
+    ],
+    "analytic_memo": "上游未提供 confidence，临时填 1；不能当作真实置信度。",
+    "evidence": [
+      {
+        "quote": "\\\"confidence\\\": 1  # todo discussion confidence from GNormPlus is not provided so just putting in here 1",
+        "start_char": 115,
+        "end_char": 219,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-I — 算法与数据假设适用性
+
+具体数学、数据、形状、初始化或启发式假设需要确认、限制或调整。
+
+- Include: 模型选择、占位训练目标、阈值依据、尺度/索引/分布假设及信息损失权衡。
+- Exclude: 不把疑问当已证错误；仅出现模型代码且无可定位待办用 U。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 112; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0046-aafchcgjg",
+    "row": 46,
+    "open_codes": [
+      "缺失置信度以常数代替"
+    ],
+    "analytic_memo": "上游未提供 confidence，临时填 1；不能当作真实置信度。",
+    "evidence": [
+      {
+        "quote": "\\\"confidence\\\": 1  # todo discussion confidence from GNormPlus is not provided so just putting in here 1",
+        "start_char": 115,
+        "end_char": 219,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0050-aabcjdaea",
+    "row": 50,
+    "open_codes": [
+      "训练误差缩放假设"
+    ],
+    "analytic_memo": "零和游戏与两个值导致 error 乘二的注释；未明确说这种做法错误，需保留不确定性。",
+    "evidence": [
+      {
+        "quote": "all games are zero sum that are trained and because 2 values; x2 the error.  XXX",
+        "start_char": 137,
+        "end_char": 217,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0054-aadaieabb",
+    "row": 54,
+    "open_codes": [
+      "固定标签长度假设",
+      "接受钩子缺失"
+    ],
+    "analytic_memo": "当前假定四字节 magic label，拟加 _accept hook。",
+    "evidence": [
+      {
+        "quote": "assuming a 4-byte magic label (FIXME: add \\\"_accept\\\" hook)",
+        "start_char": 164,
+        "end_char": 223,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-J — 配置、参数与默认行为
+
+参数可配置性、参数语义、默认值或配置传播存在待改事项。
+
+- Include: 硬编码转参数、开关、默认策略、参数缺失/未生效及有对象的配置决策。
+- Exclude: 仅重命名一般局部变量用 A；测试数据中的参数不必然是产品配置。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 76; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0011-aageijaai",
+    "row": 11,
+    "open_codes": [
+      "参数可训练性待决策"
+    ],
+    "analytic_memo": "询问 gains/biases 是否应可训练，保留设计疑问。",
+    "evidence": [
+      {
+        "quote": "# TODO: do we want gains\\/biases to be trainable?",
+        "start_char": 139,
+        "end_char": 188,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0012-aafaehach",
+    "row": 12,
+    "open_codes": [
+      "缺省命名行为待补充"
+    ],
+    "analytic_memo": "name 缺失时拟采用 functionality.__name__。",
+    "evidence": [
+      {
+        "quote": "# TODO: Set name (using \\\"functionality.__name__\\\") if name is None",
+        "start_char": 169,
+        "end_char": 236,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0022-aahdfibcf",
+    "row": 22,
+    "open_codes": [
+      "测试专用参数残留"
+    ],
+    "analytic_memo": "TODO 指出 nrows 仅用于测试；应关注参数用途，但未说明删除或替代方案，保留待办意图与处置不确定性。",
+    "evidence": [
+      {
+        "quote": "@todo nrows is for testing only!",
+        "start_char": 150,
+        "end_char": 182,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-K — 测试与验证工作
+
+需要新增、启用、更新、扩展或修复测试，以及显式核验行为或性能的工作。
+
+- Include: 断言不足、设备无关测试、版本复验及明确测试/比较活动；注明是否只是待核验。
+- Exclude: 数据集 validation/test 不等于测试代码；判别某类型的 test 仅用 C。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 61; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0038-aaeiaheab",
+    "row": 38,
+    "open_codes": [
+      "测试缺失",
+      "实现清理待办"
+    ],
+    "analytic_memo": "MdC 到 Unicode 转换需要增加测试与清理代码。",
+    "evidence": [
+      {
+        "quote": "\\\"\\\"\\\"Convert MdC transliterated text to Unicode. ||  || TODO: Add tests and clean up. || \\\"\\\"\\\"",
+        "start_char": 116,
+        "end_char": 212,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0040-aaeiahgad",
+    "row": 40,
+    "open_codes": [
+      "外部依赖移除待办",
+      "测试缺失"
+    ],
+    "analytic_memo": "Unicode 转换模块拟移除 regex 依赖并增加测试。",
+    "evidence": [
+      {
+        "quote": "\\\"\\\"\\\"Converts legacy encodings into Unicode. ||  || TODO: Rm regex dependency || TODO: Add tests || \\\"\\\"\\\"",
+        "start_char": 132,
+        "end_char": 239,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0072-aaidadhdg",
+    "row": 72,
+    "open_codes": [
+      "测试跳过机制使用受限"
+    ],
+    "analytic_memo": "希望使用 _skip_test，但 if we could 表示约束未解决。",
+    "evidence": [
+      {
+        "quote": "FIXME _skip_test should be used here (if we could)",
+        "start_char": 134,
+        "end_char": 184,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-L — 说明、文档与理解缺口
+
+文档、教程、引用、说明或对实现含义的理解不足。
+
+- Include: 缺 docstring、陈旧说明、为何存在的解释、未理解的参数/变量。
+- Exclude: 日志及运行诊断主要用 O；不能把所有设计疑问都当文档缺失。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 26; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0018-aajcabgbe",
+    "row": 18,
+    "open_codes": [
+      "教程材料待补充"
+    ],
+    "analytic_memo": "认为现有内容可转成生成 phantoms 的教程。",
+    "evidence": [
+      {
+        "quote": "#TODO: this can become a nice tutorial for generating phantoms",
+        "start_char": 117,
+        "end_char": 179,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0032-aaejahaed",
+    "row": 32,
+    "open_codes": [
+      "文档缺失"
+    ],
+    "analytic_memo": "doc 占位待写。",
+    "evidence": [
+      {
+        "quote": "\\\"\\\"\\\" || .. todo:: ||     doc || \\\"\\\"\\\"",
+        "start_char": 123,
+        "end_char": 163,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0033-aadhcadac",
+    "row": 33,
+    "open_codes": [
+      "模块说明缺失"
+    ],
+    "analytic_memo": "hyperband synopsis 与长描述为 TODO，占位文档未完成。",
+    "evidence": [
+      {
+        "quote": "\\\"\\\"\\\" || :mod:`orion.algo.hyperband.hyperband -- TODO || ================================================= ||  || .. module:: hyperband ||     :platform: Unix ||     :synopsis: TODO ||  || TODO: Write long description || \\\"\\\"\\\"",
+        "start_char": 130,
+        "end_char": 358,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-M — 冗余、弃用与条件性清理
+
+存在待删除的过渡、重复、未用或弃用逻辑，或其必要性尚待判断。
+
+- Include: 版本到期清理、替代能力就绪再删、重复参数、疑似无用代码；保留条件。
+- Exclude: 不能把 probably unnecessary 记为已确认无用或已删除。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 61; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0038-aaeiaheab",
+    "row": 38,
+    "open_codes": [
+      "测试缺失",
+      "实现清理待办"
+    ],
+    "analytic_memo": "MdC 到 Unicode 转换需要增加测试与清理代码。",
+    "evidence": [
+      {
+        "quote": "\\\"\\\"\\\"Convert MdC transliterated text to Unicode. ||  || TODO: Add tests and clean up. || \\\"\\\"\\\"",
+        "start_char": 116,
+        "end_char": 212,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0058-aaahbfbhe",
+    "row": 58,
+    "open_codes": [
+      "疑似废弃逻辑"
+    ],
+    "analytic_memo": "作者询问是否 deprecate，认为可能不再需要；尚未裁决。",
+    "evidence": [
+      {
+        "quote": "DEPRICATE? I don't think this is needed anymore",
+        "start_char": 123,
+        "end_char": 170,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0080-aaidbchej",
+    "row": 80,
+    "open_codes": [
+      "版本迁移后的测试清理"
+    ],
+    "analytic_memo": "当 0.26 默认 square_distances=True 后删除特定测试；不是普遍测试不足。",
+    "evidence": [
+      {
+        "quote": "FIXME remove test when square_distances=True becomes the default in 0.26",
+        "start_char": 142,
+        "end_char": 214,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-N — 持久化、序列化与数据表示契约
+
+涉及保存/恢复、格式、输出表示、索引或跨阶段传递的数据结构。
+
+- Include: 序列化失败、格式替换、检查点、模型保存、稳定索引、输出元信息。
+- Exclude: 一般内部抽象变化用 A；未说明格式的泛化待办不必纳入。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 41; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0035-aahfiaifg",
+    "row": 35,
+    "open_codes": [
+      "序列化格式不符"
+    ],
+    "analytic_memo": "CSV corpus 实际仍输出 SVMLight，作者邀请修改。",
+    "evidence": [
+      {
+        "quote": "\\\"\\\"\\\" || Corpus in CSV format. TODO: still serializes to SVMLight format; feel free to change this. || \\\"\\\"\\\"",
+        "start_char": 132,
+        "end_char": 242,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0045-aajdcegja",
+    "row": 45,
+    "open_codes": [
+      "差异格式契约未定义"
+    ],
+    "analytic_memo": "diff 格式需要定义并文档化；版本转换已由 nbformat 处理，不能误码为版本支持缺失。",
+    "evidence": [
+      {
+        "quote": "\\\"\\\"\\\"Tools for diffing notebooks. ||  || All diff tools here currently assumes the notebooks have already been || converted to the same format version; currently v4 at time of writing. || Up- and down-conversion is handled by nbformat. ||  || FIXME: Define and document diff format. || \\\"\\\"\\\"",
+        "start_char": 132,
+        "end_char": 425,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0054-aadaieabb",
+    "row": 54,
+    "open_codes": [
+      "固定标签长度假设",
+      "接受钩子缺失"
+    ],
+    "analytic_memo": "当前假定四字节 magic label，拟加 _accept hook。",
+    "evidence": [
+      {
+        "quote": "assuming a 4-byte magic label (FIXME: add \\\"_accept\\\" hook)",
+        "start_char": 164,
+        "end_char": 223,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-O — 显示、日志与运行可观察性
+
+展示、图表、告警、日志或运行时间反馈需要改善。
+
+- Include: 显示错误、绘图功能、日志等级/范围、警告与测量信息。
+- Exclude: 日志里有测试输出不代表测试充分；缺断言应并 K。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 25; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0059-aacjfgieb",
+    "row": 59,
+    "open_codes": [
+      "换行渲染异常"
+    ],
+    "analytic_memo": "双换行似乎影响显示；原因不明。",
+    "evidence": [
+      {
+        "quote": "Double newlines seem to mess with the rendering",
+        "start_char": 122,
+        "end_char": 169,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0088-aahedijdj",
+    "row": 88,
+    "open_codes": [
+      "显示内容待隐藏"
+    ],
+    "analytic_memo": "don't show 的对象只有转义斜杠，展示意图可见但细节不足。",
+    "evidence": [
+      {
+        "quote": "FIXME: don't show \\/",
+        "start_char": 136,
+        "end_char": 156,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0202-aafdacejd",
+    "row": 202,
+    "open_codes": [
+      "可视化边界待平滑"
+    ],
+    "analytic_memo": "要求 smoother visualization bounds。",
+    "evidence": [
+      {
+        "quote": "TODO -- instead; smoother visualization bounds (at MAG)",
+        "start_char": 170,
+        "end_char": 225,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-Q — 尚未裁决的设计或诊断
+
+作者仍在询问必要性、原因、替代方案、效果或正确性，尚无明确裁决。
+
+- Include: 保留问句、maybe、待核实、对象不完整的一般改进，不升级为确认缺陷。
+- Exclude: 明确待实现且无选择疑问不必加；此为认识状态代码，不替代具体主题。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 244; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0010-aaaedagad",
+    "row": 10,
+    "open_codes": [
+      "元数据字段改写待定"
+    ],
+    "analytic_memo": "name/index/uuid 可能需要重写；是候选修改而非已确认错误。",
+    "evidence": [
+      {
+        "quote": "# TODO May want to rewrite name; index; uuid; etc.",
+        "start_char": 147,
+        "end_char": 197,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0011-aageijaai",
+    "row": 11,
+    "open_codes": [
+      "参数可训练性待决策"
+    ],
+    "analytic_memo": "询问 gains/biases 是否应可训练，保留设计疑问。",
+    "evidence": [
+      {
+        "quote": "# TODO: do we want gains\\/biases to be trainable?",
+        "start_char": 139,
+        "end_char": 188,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0022-aahdfibcf",
+    "row": 22,
+    "open_codes": [
+      "测试专用参数残留"
+    ],
+    "analytic_memo": "TODO 指出 nrows 仅用于测试；应关注参数用途，但未说明删除或替代方案，保留待办意图与处置不确定性。",
+    "evidence": [
+      {
+        "quote": "@todo nrows is for testing only!",
+        "start_char": 150,
+        "end_char": 182,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-U — 材料不足以细化待办
+
+可用注释只有标记、名称、外链或被截断的指代，不能可靠定位待改机制。
+
+- Include: 空 TODO/FIXME、没有动作的对象名、未获取外链以及关键句尾缺失。
+- Exclude: 已明确 implement/refactor 可编码其一般方向；不得据周边名称补造机制。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 86; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0002-aaehidhih",
+    "row": 2,
+    "open_codes": [
+      "证据不足"
+    ],
+    "analytic_memo": "只有 TODO，不能确定工作对象。",
+    "evidence": [
+      {
+        "quote": "!TODO",
+        "start_char": 140,
+        "end_char": 145,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0014-aadbjfiab",
+    "row": 14,
+    "open_codes": [
+      "证据不足"
+    ],
+    "analytic_memo": "空 TODO。",
+    "evidence": [
+      {
+        "quote": "## TODO:",
+        "start_char": 194,
+        "end_char": 202,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0023-aajffebhi",
+    "row": 23,
+    "open_codes": [
+      "证据不足"
+    ],
+    "analytic_memo": "空 TODO。",
+    "evidence": [
+      {
+        "quote": "@TODO:",
+        "start_char": 134,
+        "end_char": 140,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## SATD-V — 未明确承认待偿还问题
+
+材料主要解释现有操作、必要性、约束或已成立行为，没有明确待办或负面判断。
+
+- Include: 说明性注释、正常兼容用途、现有补偿效果；可与其实际主题并存。
+- Exclude: 明确未完成、错误或质量不足不归本类；不是宣称整个仓库无技术债。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 26; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "23shades-0050-aabcjdaea",
+    "row": 50,
+    "open_codes": [
+      "训练误差缩放假设"
+    ],
+    "analytic_memo": "零和游戏与两个值导致 error 乘二的注释；未明确说这种做法错误，需保留不确定性。",
+    "evidence": [
+      {
+        "quote": "all games are zero sum that are trained and because 2 values; x2 the error.  XXX",
+        "start_char": 137,
+        "end_char": 217,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0056-aaeeibecj",
+    "row": 56,
+    "open_codes": [
+      "信号相位处理说明"
+    ],
+    "analytic_memo": "circular shift 被描述为正确相位所需；未表述待偿还债务，不强制归为错误。",
+    "evidence": [
+      {
+        "quote": "circular shift the signal (needed for correct phase)",
+        "start_char": 116,
+        "end_char": 168,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "23shades-0057-aajffjdic",
+    "row": 57,
+    "open_codes": [
+      "按需构造行为说明"
+    ],
+    "analytic_memo": "按参数空间需要构造 grids/weights，未明确欠缺或问题。",
+    "evidence": [
+      {
+        "quote": "Construct grids and weights if needed for parameter space",
+        "start_char": 160,
+        "end_char": 217,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## Files
+
+- `codebook.md`, `codebook.json`, `codebook.csv`: definitions and complete reverse memberships.
+- `assignments.json`, `assignments.csv`: one record per artifact, including decisions and evidence.
+- `taxonomy.json`: category tree with every code as a leaf.
+- `results.json`: supplied full documents aligned to their assignments.
+
+## Original codebook
+
+The original codebook text below preserves run-specific scope, combination rules and qualifications. Links and filenames in that historical text describe the original package; use the seven files above for the normalized interface. The exact original text is also stored in metadata extensions.
+
 # SATD Codebook — 结果 2（逐条阅读重建）
 
 覆盖 856 个 artifact，18 个多标签代码。详见 [方法与边界](METHOD.md)、[逐条分析](ARTIFACTS.md) 和 [覆盖校验](coverage_report.json)。

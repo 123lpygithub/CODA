@@ -1,3 +1,287 @@
+# Privacy / GPT6-1
+
+Schema: `coda.artifact.v1`. Artifacts: **652**; codes: **18**; artifact–code assignments: **980**.
+
+This package uses the common seven-file format. All existing coding decisions, evidence and limitations are preserved. Additional source-specific fields are retained in `extensions`; original codebook text is retained in `codebook.json` metadata extensions and the local pre-conversion backup.
+
+## Scope and method
+
+Inductive consolidation of individually authored full supplied-text reading notes, followed by explicit per-artifact assignment review. No keyword classifier, external model API, or prior codebook assignments were used for consolidation.
+
+Coverage refers to all supplied textual sections, not all content ever linked on the web.
+Source revision ambiguity, inaccessible context, tentative proposals and absence of execution evidence remain in individual scope notes.
+Coding is assistant-authored; it is not published human annotation, independently validated ground truth, or an experimental system run.
+All artifacts are included. Reports, proposals, disputed or retracted claims, implementation evidence and missing context remain distinct; coding a concern does not confirm a violation or a completed fix.
+Exact duplicate supplemental text was read once with reconstruction maps. Long CSS and dependency metadata used reversible lexical views; integrity digests were retained as opaque literals, not verified. Linked images or external pages not inspected are explicitly qualified; runtime behavior was not reproduced.
+
+## Codes
+
+| Code | Name | Artifacts |
+|---|---|---:|
+| P01 | Privacy notices and accurate disclosure | 131 |
+| P02 | Explicit choices and durable preference management | 82 |
+| P03 | Enforcing privacy choices across processing paths | 70 |
+| P04 | Telemetry scope, defaults and participation | 55 |
+| P05 | Control over external services and data destinations | 56 |
+| P06 | Limiting collection and unnecessary detail | 35 |
+| P07 | De-identification coverage and utility | 57 |
+| P08 | Sensitive information in diagnostics and derived outputs | 34 |
+| P09 | Retention, erasure and residual copies | 84 |
+| P10 | Audience boundaries and authorized disclosure | 64 |
+| P11 | Linkability, inference and fingerprinting | 31 |
+| P12 | Confidentiality, credentials and session protection | 42 |
+| P13 | Usable controls and privacy-related compatibility | 91 |
+| P14 | Privacy requirements and organizational responsibility | 46 |
+| P15 | User access and portable exports | 6 |
+| P16 | Capability permissions and controlled execution | 24 |
+| P17 | Evidence-qualified privacy assessment | 64 |
+| P18 | Privacy incident and safe reporting procedures | 8 |
+
+## P01 — Privacy notices and accurate disclosure
+
+Provide accessible, understandable and current explanations of data handling, recipients, purposes and controls, or correct inconsistencies between those explanations and the stated practice.
+
+- Include: Policy text, links, localization, permission-purpose explanations, cookie inventories and misleading disclosure wording.
+- Exclude: Use P02 for capturing or revisiting a decision, P03 for enforcing it, and P14 for broader organizational readiness rather than notice content.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 131; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P02 — Explicit choices and durable preference management
+
+Let people make, save, revisit and withdraw purpose-appropriate privacy choices, with a clear distinction between acknowledgement, dismissal and permission.
+
+- Include: Accept/reject controls, consent records and versions, preference persistence and scope, re-prompting, and optional communications.
+- Exclude: A banner alone is P01. Actual gating of processing is P03; broader telemetry collection/default debates are P04.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 82; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P03 — Enforcing privacy choices across processing paths
+
+Carry the applicable privacy preference to every relevant processing path and act on it, including initialization, integrations, revocation and state transitions.
+
+- Include: Pre-consent script/SDK loading, processing after opt-out, shared consent signals, purpose-specific filtering and inconsistent enforcement between components.
+- Exclude: Saving or displaying preferences without evidence about processing is P02. Signal transmission is not assumed to establish downstream compliance.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 70; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P04 — Telemetry scope, defaults and participation
+
+Decide whether and how operational or usage telemetry is collected, making its scope, defaults, participation controls and diagnostic value explicit.
+
+- Include: Default-on versus opt-in analytics, telemetry inventories, identifier choices, inspection of payloads, and deciding to introduce, remove or limit collection.
+- Exclude: Ordinary third-party resource loading is P05; a specific sanitizer failure is P08; a concrete failure to honor an established choice additionally belongs to P03.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 55; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P05 — Control over external services and data destinations
+
+Reduce or make deliberate the disclosure and dependency created by external services, network requests or hosting choices, including local alternatives.
+
+- Include: Remote fonts/media/rendering, cloud and DNS endpoints, service-provider trust, self-hosting and documented regional storage concerns.
+- Exclude: Encryption of a connection is P12. An external request is not automatically tracking, and provider replacement is not automatically anonymity.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 56; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P06 — Limiting collection and unnecessary detail
+
+Avoid collecting or exposing more data than the stated function requires, balancing utility with the necessity of fields, precision and identifiers.
+
+- Include: Optional personal fields, eliminating unnecessary events, reduced geographic detail, minimal public/session data and rejecting invasive feature proposals.
+- Exclude: Transforming existing identifiers is P07; time-based removal is P09; authorization by audience is P10.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 35; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P07 — De-identification coverage and utility
+
+Remove, mask, replace or coarsen identifying information while preserving the required structure or analytical utility, and examine the limits of that transformation.
+
+- Include: Anonymization/pseudonymization tools, metadata stripping, stable mappings, overlooked fields/formats, hash limitations and transformation compatibility.
+- Exclude: Log/debug-specific sanitation is P08. Masking is not assumed to erase originals or guarantee resistance to re-identification.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 57; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P08 — Sensitive information in diagnostics and derived outputs
+
+Prevent diagnostic or derived operational records from disclosing sensitive values, including secondary copies, reconstructed fields and publication workflows.
+
+- Include: Logs, crash reports, stack traces, telemetry URLs, metadata in debug profiles, public troubleshooting material and configurable sanitation hooks.
+- Exclude: Collection-policy disputes without a specific output concern are P04. General data anonymization is P07 and deletion schedules are P09.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 34; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P09 — Retention, erasure and residual copies
+
+Control how long information remains and what deletion actually removes across related records, local caches, remote copies and retained historical context.
+
+- Include: Account/content deletion, automatic expiration, anonymization as an erasure alternative, log retention, browser history, local persistence and cascade boundaries.
+- Exclude: Portable copies for user access are P15. Concealing a view or closing an account is not assumed to erase the underlying data.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 84; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P10 — Audience boundaries and authorized disclosure
+
+Restrict who can receive, discover or view information and preserve that audience boundary across routes, derived views, identities and state changes.
+
+- Include: Private fields/profiles, recipient selection, role restrictions, cross-user leakage, search visibility, sharing safeguards and federation access boundaries.
+- Exclude: Inference through otherwise available identifiers or observations is P11. A hidden control or unguessable URL is not assumed to enforce authorization.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 64; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P11 — Linkability, inference and fingerprinting
+
+Examine or reduce the ability to infer identity, membership, activity or sensitive attributes by linking identifiers, observable behavior or technical characteristics.
+
+- Include: Browser/device fingerprints, account enumeration, transaction/vote linkage, activity-status inference and stable identifiers that defeat pseudonymous presentation.
+- Exclude: Direct unauthorized content delivery is P10. Randomization, hashes or pseudonyms do not alone establish anonymity.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 31; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P12 — Confidentiality, credentials and session protection
+
+Protect data and authentication material through suitable encryption, credential handling and session controls while stating the trust boundary those mechanisms protect.
+
+- Include: Transport and field encryption, encrypted local storage, key management, cookie security, unattended sessions, passwords and cryptographic protocol choices.
+- Exclude: Consent is P02/P03, and encryption is not assumed to prevent an authorized endpoint reading plaintext or to provide erasure.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 42; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P13 — Usable controls and privacy-related compatibility
+
+Keep privacy choices understandable and operable, and handle functionality affected by privacy controls without silently defeating those controls.
+
+- Include: Accessibility, responsive/localized control failures, overlay obstruction, storage and consent integration errors, browser restrictions and safe functional fallbacks.
+- Exclude: Notice wording alone is P01; a demonstrated processing bypass is P03. Compatibility symptoms do not establish data leakage.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 91; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P14 — Privacy requirements and organizational responsibility
+
+Translate privacy obligations and expectations into scoped requirements, responsibilities, review and maintenance work for a product or deployment.
+
+- Include: Readiness epics, legal/security assessment, compliance questions, operational guidance, role ownership and regulation-driven distribution requirements.
+- Exclude: Specific controls use their corresponding codes; participants legal interpretations and completed checklists are not independent compliance determinations.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 46; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P15 — User access and portable exports
+
+Provide people with access to usable copies of their data while defining export scope, format, usability and disclosure consequences.
+
+- Include: History export, data portability and access/export requirements explicitly distinguished from erasure.
+- Exclude: Internal logging is P08 and deletion alone is P09; export success does not establish encrypted or safely shared output.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 6; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P16 — Capability permissions and controlled execution
+
+Bound the authority of applications, extensions, scripts and device capabilities, explaining or obtaining the permission needed for the intended function.
+
+- Include: Sensor and device permissions, privileged extensions, userscript isolation, imported script authority, installation approval and permission-purpose mismatches.
+- Exclude: Audience authorization is P10; processing-consent gating is P03. Platform permission, developer delegation and user consent remain distinct.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 24; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P17 — Evidence-qualified privacy assessment
+
+Assess whether the supplied material establishes a privacy concern, and resolve or retain uncertainty by distinguishing reported claims from source evidence, configuration and actual behavior.
+
+- Include: Retracted allegations, disputed scanner findings, unsupported or underspecified reports, corrected causal attribution, support explanations that narrow an initial claim, and maintenance or integrity discussions whose supplied evidence does not establish a privacy defect.
+- Exclude: Not a miscellaneous defect code: preserve the concrete subject with another code where supported, and do not turn unresolved evidence into a confirmed vulnerability.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 64; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## P18 — Privacy incident and safe reporting procedures
+
+Prepare for, communicate or respond to privacy/security incidents and arrange reporting channels that avoid unnecessary further exposure.
+
+- Include: Incident templates, responsible contact channels, controlled diagnostic sharing and post-compromise response planning.
+- Exclude: Routine sanitizer changes are P08 and general compliance planning is P14. Planning a response does not establish an incident occurred.
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 8; complete membership in `supporting_cases`.
+
+````json
+[]
+````
+
+## Files
+
+- `codebook.md`, `codebook.json`, `codebook.csv`: definitions and complete reverse memberships.
+- `assignments.json`, `assignments.csv`: one record per artifact, including decisions and evidence.
+- `taxonomy.json`: category tree with every code as a leaf.
+- `results.json`: supplied full documents aligned to their assignments.
+
+## Original codebook
+
+The original codebook text below preserves run-specific scope, combination rules and qualifications. Links and filenames in that historical text describe the original package; use the seven files above for the normalized interface. The exact original text is also stored in metadata extensions.
+
 # Privacy — GPT6-1
 
 652 artifacts; 18 codes; 980 artifact–code assignments.

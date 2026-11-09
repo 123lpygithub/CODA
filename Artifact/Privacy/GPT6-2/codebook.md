@@ -1,3 +1,987 @@
+# Privacy / GPT6-2
+
+Schema: `coda.artifact.v1`. Artifacts: **652**; codes: **11**; artifact–code assignments: **1877**.
+
+This package uses the common seven-file format. All existing coding decisions, evidence and limitations are preserved. Additional source-specific fields are retained in `extensions`; original codebook text is retained in `codebook.json` metadata extensions and the local pre-conversion backup.
+
+## Scope and method
+
+full available text reading → open coding → authored explicit multi-label consolidation
+
+Mechanical format validation does not establish independent semantic accuracy.
+
+## Codes
+
+| Code | Name | Artifacts |
+|---|---|---:|
+| PRIVACY-A | 同意、拒绝、撤回与偏好执行 | 170 |
+| PRIVACY-B | 透明告知、文档与信息可达性 | 271 |
+| PRIVACY-C | 采集、追踪与对外数据流 | 156 |
+| PRIVACY-D | 去标识、最小化与再识别 | 123 |
+| PRIVACY-E | 留存、删除、导出与生命周期 | 120 |
+| PRIVACY-F | 身份、受众与访问边界 | 139 |
+| PRIVACY-G | 安全保护与隐私威胁机制 | 118 |
+| PRIVACY-H | 隐私控制可用性与系统兼容 | 288 |
+| PRIVACY-I | 治理、责任与需求权衡 | 381 |
+| PRIVACY-Y | 反例、争议或归因修正 | 49 |
+| PRIVACY-Z | 内容不足或隐私关联有限 | 62 |
+
+## PRIVACY-A — 同意、拒绝、撤回与偏好执行
+
+材料涉及用户对处理活动的选择，以及选择的默认、触发、保存、传递和实际执行。
+
+- Include: 事前门控、opt-in/out、分类同意、撤回、审计记录、同意协议与 Cookie 选择界面。
+- Exclude: 仅提供隐私政策而无选择用 B；有横幅不等于存在拒绝或阻断。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 170; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "privacy-issue-450",
+    "row": 3,
+    "open_codes": [
+      "未交互即持久化选择",
+      "提示显示状态失真"
+    ],
+    "analytic_memo": "用户未点prompt但reload后写cookie，后续提示消失；应只有交互后禁用。最后转内部跟踪，非修复确认。",
+    "evidence": [
+      {
+        "quote": "without clicking anything on the custom prompt, a cookie is planted",
+        "start_char": 892,
+        "end_char": 959,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "This is now tracked internally.",
+        "start_char": 1704,
+        "end_char": 1735,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-8387",
+    "row": 5,
+    "open_codes": [
+      "Cookie同意界面缺失",
+      "合规义务理解不确定",
+      "合规实施组织"
+    ],
+    "analytic_memo": "正文请求DNN Cookie consent，评论组建GDPR团队并讨论法规不确定性；记录参与者观点，不裁定其法律解释正确。末评论明确关联PR合并。",
+    "evidence": [
+      {
+        "quote": "No cookie consent message",
+        "start_char": 1312,
+        "end_char": 1337,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Closing as the PRs were merged.",
+        "start_char": 3537,
+        "end_char": 3568,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-1770",
+    "row": 17,
+    "open_codes": [
+      "机构可定制隐私声明",
+      "明确同意及记录",
+      "数据盘点",
+      "删除与科研完整性冲突",
+      "联合身份流程绕过同意"
+    ],
+    "analytic_memo": "17评论全读；从double opt-in要求澄清单次明确操作可足够，需留确认记录（参与者意见）。声明模板可编辑，注册checkbox已实现但默认null不显示；2021反馈管理员建号经Shibboleth仍不展示，建议last_login/IDP处理，不代表全部入口已修。",
+    "evidence": [
+      {
+        "quote": "Ok this is now implemented.",
+        "start_char": 9937,
+        "end_char": 9964,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "the privacy policy is never displayed when logging in via Shibboleth",
+        "start_char": 10878,
+        "end_char": 10946,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## PRIVACY-B — 透明告知、文档与信息可达性
+
+材料涉及说明收集内容、目的、对象、期限、法律文本、操作路径及其可理解性。
+
+- Include: 政策发布/翻译、说明准确性、告知入口、数据清单、控制文档及组织对外解释。
+- Exclude: 披露承诺不当作行为已验证；链接未取得不能推其内容。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 271; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "privacy-issue-21460",
+    "row": 4,
+    "open_codes": [
+      "法律条款翻译遗漏",
+      "术语格式一致性"
+    ],
+    "analytic_memo": "法语条款残留英文Privacy Act句子，提供法译并要求专业核对；评论仅确认文案获批准。",
+    "evidence": [
+      {
+        "quote": "Should be translated.",
+        "start_char": 1046,
+        "end_char": 1067,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Clementine has approved this message",
+        "start_char": 1646,
+        "end_char": 1682,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-8387",
+    "row": 5,
+    "open_codes": [
+      "Cookie同意界面缺失",
+      "合规义务理解不确定",
+      "合规实施组织"
+    ],
+    "analytic_memo": "正文请求DNN Cookie consent，评论组建GDPR团队并讨论法规不确定性；记录参与者观点，不裁定其法律解释正确。末评论明确关联PR合并。",
+    "evidence": [
+      {
+        "quote": "No cookie consent message",
+        "start_char": 1312,
+        "end_char": 1337,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Closing as the PRs were merged.",
+        "start_char": 3537,
+        "end_char": 3568,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-1444",
+    "row": 13,
+    "open_codes": [
+      "订阅服务法律告知整合",
+      "旧政策链接迁移"
+    ],
+    "analytic_memo": "新增隐私/条款页并把Relay/VPN旧地址按日期redirect，评论提供source docs；正文清单未勾选且无上线确认。",
+    "evidence": [
+      {
+        "quote": "New legal pages are live in production.",
+        "start_char": 1478,
+        "end_char": 1517,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Existing Relay/VPN legal pages are redirected",
+        "start_char": 1525,
+        "end_char": 1570,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## PRIVACY-C — 采集、追踪与对外数据流
+
+材料涉及遥测、分析、第三方资源、联网或跨系统传播的数据和元信息。
+
+- Include: 主动或隐式请求、IP/Referer/URL、广告标识、推送、SDK、独立退出与本地替代。
+- Exclude: 区分网络连接、数据字段、留存和接收方；静态依赖不等于实际发送。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 156; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "privacy-issue-1765",
+    "row": 16,
+    "open_codes": [
+      "隐私告知长期缺失",
+      "数据盘点发现保留偏差",
+      "标识符个人数据认定争议",
+      "法律资源与治理延迟",
+      "监管投诉推动整改"
+    ],
+    "analytic_memo": "21评论完整读。GA已移除仍缺数据处理告知；律师协商与跨站统一拖延。IP是否个人数据争论，审计发现日志保存超预期，列GitHub身份/email/IP-UA及crate内容；发布者删除限制未定。末仅有政策PR待合并，不能从closed称已上线。",
+    "evidence": [
+      {
+        "quote": "our logs are being retained for longer than intended",
+        "start_char": 12789,
+        "end_char": 12841,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "There is a PR open on the website repo now",
+        "start_char": 16856,
+        "end_char": 16898,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "When it is merged, we will add a link",
+        "start_char": 16997,
+        "end_char": 17034,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-1770",
+    "row": 17,
+    "open_codes": [
+      "机构可定制隐私声明",
+      "明确同意及记录",
+      "数据盘点",
+      "删除与科研完整性冲突",
+      "联合身份流程绕过同意"
+    ],
+    "analytic_memo": "17评论全读；从double opt-in要求澄清单次明确操作可足够，需留确认记录（参与者意见）。声明模板可编辑，注册checkbox已实现但默认null不显示；2021反馈管理员建号经Shibboleth仍不展示，建议last_login/IDP处理，不代表全部入口已修。",
+    "evidence": [
+      {
+        "quote": "Ok this is now implemented.",
+        "start_char": 9937,
+        "end_char": 9964,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "the privacy policy is never displayed when logging in via Shibboleth",
+        "start_char": 10878,
+        "end_char": 10946,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-2017",
+    "row": 23,
+    "open_codes": [
+      "分析引入需配套透明告知",
+      "第三方服务条款约束"
+    ],
+    "analytic_memo": "最初仅网站访问分析，评论要求先准备policy，末已加GA但政策另开ticket；两项完成时间不同，不能认为同时合规。",
+    "evidence": [
+      {
+        "quote": "I have added Google Analytics and setup a new ticket for the privacy policy",
+        "start_char": 3574,
+        "end_char": 3649,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## PRIVACY-D — 去标识、最小化与再识别
+
+材料涉及减少可识别信息、匿名/假名变换、粒度降低，以及剩余关联风险或保护覆盖。
+
+- Include: 日志脱敏、哈希与随机映射、时间位置精度、字段遗漏、导出清洗及效果验证。
+- Exclude: 不能把 hash 自动等同匿名；仅删除整账户用 E，权利/政策文本仍需 B。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 123; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "privacy-issue-943",
+    "row": 9,
+    "open_codes": [
+      "保护机制性能归因待验证",
+      "权限相关假名化优化提议"
+    ],
+    "analytic_memo": "正文与2评论完整读；最初怀疑pseudonymisation bottleneck，最终正文明确排除其显著性能影响，主要SQL massive joins。保留讨论变化，不编码为已证实匿名化拖慢；TRACE是诊断手段非PII泄露。",
+    "evidence": [
+      {
+        "quote": "pseudonymization can be ruled out as a relevant impact on performance",
+        "start_char": 3771,
+        "end_char": 3840,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "long runtimes are mainly caused by long running SQL queries with massive joins",
+        "start_char": 3844,
+        "end_char": 3922,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-975",
+    "row": 10,
+    "open_codes": [
+      "权限边界与假名化不一致",
+      "跨视图身份暴露"
+    ],
+    "analytic_memo": "社区官员在person directory看见辖区外未假名化个人，同时过滤列表泄露不该显示的关联。表单/目录规则不一致；截图为举证，非媒体元数据主题。最后评论版本验证。",
+    "evidence": [
+      {
+        "quote": "persons that the user should not be allowed to see are not pseudonymized",
+        "start_char": 1312,
+        "end_char": 1384,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Validated on 1.60.0-SNAPSHOT.",
+        "start_char": 3520,
+        "end_char": 3549,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-1019",
+    "row": 11,
+    "open_codes": [
+      "内容指纹与匿名化目标混淆",
+      "弱散列再识别风险",
+      "分布式密钥一致性",
+      "假名化与匿名化区分"
+    ],
+    "analytic_memo": "6评论全文；普通SHA内容指纹便比较但小输入域可穷举，带密钥散列受集群密钥一致性约束，HMAC仍可能凭密钥再识别。最终交付内容fingerprint，明确不是原匿名化目标；另一issue跟踪。不能记为匿名化功能已解决。",
+    "evidence": [
+      {
+        "quote": "The fingerprint processor is not intended for content anonymization",
+        "start_char": 6549,
+        "end_char": 6616,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "no mechanism to ensure that the secret key was consistent across all ingest nodes",
+        "start_char": 3474,
+        "end_char": 3555,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## PRIVACY-E — 留存、删除、导出与生命周期
+
+材料涉及数据保存位置/时间、清除范围、主体权利、导出副本及跨阶段状态。
+
+- Include: 账户/内容删除、缓存与日志过期、匿名化保留、备份/归档、访问导出、偏好持久化。
+- Exclude: 界面隐藏、redact、卸载或停用不自动等同物理删除；外部副本保证另说明。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 120; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "privacy-issue-310",
+    "row": 1,
+    "open_codes": [
+      "域名级Cookie删除",
+      "权限扩展再授权"
+    ],
+    "analytic_memo": "请求正则批量删除域Cookie，承认新增cookies权限会触发重新批准；没有实现反馈。",
+    "evidence": [
+      {
+        "quote": "remove cookies from a specific domain or from multiple domains",
+        "start_char": 879,
+        "end_char": 941,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "prompt the extension users to re-approve the extension",
+        "start_char": 1308,
+        "end_char": 1362,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-1770",
+    "row": 17,
+    "open_codes": [
+      "机构可定制隐私声明",
+      "明确同意及记录",
+      "数据盘点",
+      "删除与科研完整性冲突",
+      "联合身份流程绕过同意"
+    ],
+    "analytic_memo": "17评论全读；从double opt-in要求澄清单次明确操作可足够，需留确认记录（参与者意见）。声明模板可编辑，注册checkbox已实现但默认null不显示；2021反馈管理员建号经Shibboleth仍不展示，建议last_login/IDP处理，不代表全部入口已修。",
+    "evidence": [
+      {
+        "quote": "Ok this is now implemented.",
+        "start_char": 9937,
+        "end_char": 9964,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "the privacy policy is never displayed when logging in via Shibboleth",
+        "start_char": 10878,
+        "end_char": 10946,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-2061",
+    "row": 26,
+    "open_codes": [
+      "保留期限告知不清",
+      "清理机制缺失",
+      "法律文档与实现边界"
+    ],
+    "analytic_memo": "询问TTL/用户修改/人工清理；早期回复称无expiration/cleanup因收集少，后称媒体移除时间已明确并改房主显式关房，不把早期状态当最终。",
+    "evidence": [
+      {
+        "quote": "we do not have any expiration/cleanup mechanisms in place",
+        "start_char": 2122,
+        "end_char": 2179,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "media removal from Mozilla servers is explicitly specified",
+        "start_char": 2537,
+        "end_char": 2595,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## PRIVACY-F — 身份、受众与访问边界
+
+材料涉及谁能识别谁、谁能访问哪些信息，以及跨用户/角色/实例/视图的边界。
+
+- Include: 角色权限、资料可见性、账户关联、行为状态、消息受众、共享设备及公开索引。
+- Exclude: 不把不猜得到的 URL 当身份授权；本地保存也可能暴露给本地管理员或旁观者。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 139; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "privacy-issue-21543",
+    "row": 6,
+    "open_codes": [
+      "管理员接管与用户自主控制冲突",
+      "密码恢复故障",
+      "邮箱验证流程"
+    ],
+    "analytic_memo": "完整阅读15评论；管理员为排障要求改外部用户密码，引发同意/隐私争论。维护者认为应修复自助恢复而不鼓励管理员接管，明确拒绝此功能；bcrypt与截图不是独立隐私诉求。",
+    "evidence": [
+      {
+        "quote": "The real fix to this issue is to make sure that the \"forgot my password\" functionality works as expected",
+        "start_char": 8115,
+        "end_char": 8219,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Opensupports shouldn't encourage it.",
+        "start_char": 8075,
+        "end_char": 8111,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-975",
+    "row": 10,
+    "open_codes": [
+      "权限边界与假名化不一致",
+      "跨视图身份暴露"
+    ],
+    "analytic_memo": "社区官员在person directory看见辖区外未假名化个人，同时过滤列表泄露不该显示的关联。表单/目录规则不一致；截图为举证，非媒体元数据主题。最后评论版本验证。",
+    "evidence": [
+      {
+        "quote": "persons that the user should not be allowed to see are not pseudonymized",
+        "start_char": 1312,
+        "end_char": 1384,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Validated on 1.60.0-SNAPSHOT.",
+        "start_char": 3520,
+        "end_char": 3549,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-1770",
+    "row": 17,
+    "open_codes": [
+      "机构可定制隐私声明",
+      "明确同意及记录",
+      "数据盘点",
+      "删除与科研完整性冲突",
+      "联合身份流程绕过同意"
+    ],
+    "analytic_memo": "17评论全读；从double opt-in要求澄清单次明确操作可足够，需留确认记录（参与者意见）。声明模板可编辑，注册checkbox已实现但默认null不显示；2021反馈管理员建号经Shibboleth仍不展示，建议last_login/IDP处理，不代表全部入口已修。",
+    "evidence": [
+      {
+        "quote": "Ok this is now implemented.",
+        "start_char": 9937,
+        "end_char": 9964,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "the privacy policy is never displayed when logging in via Shibboleth",
+        "start_char": 10878,
+        "end_char": 10946,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## PRIVACY-G — 安全保护与隐私威胁机制
+
+材料以具体攻击、故障、加密、认证、权限、反指纹或通信机制讨论信息保护。
+
+- Include: 凭据泄露、异常路径污染、传输/静态加密、密钥、认证、权限声明、威胁模型及误报。
+- Exclude: 必须区分假设、报告、复现和反驳；安全相关标题不证明发生泄露。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 118; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "privacy-issue-352",
+    "row": 2,
+    "open_codes": [
+      "不可信用户属性导致XSS",
+      "安全转义与自动链接兼容"
+    ],
+    "analytic_memo": "完整阅读恶意payload及3评论；原因是用户属性html_safe。维护者先愿放弃autolink，后接受先转义再保留链接的PR方案；cookie出现在payload不等于Cookie同意问题。",
+    "evidence": [
+      {
+        "quote": "Keeps autolinking which is frankly handy",
+        "start_char": 3212,
+        "end_char": 3252,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "escapes the input beforehand",
+        "start_char": 3294,
+        "end_char": 3322,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "That works for me.",
+        "start_char": 3721,
+        "end_char": 3739,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-21543",
+    "row": 6,
+    "open_codes": [
+      "管理员接管与用户自主控制冲突",
+      "密码恢复故障",
+      "邮箱验证流程"
+    ],
+    "analytic_memo": "完整阅读15评论；管理员为排障要求改外部用户密码，引发同意/隐私争论。维护者认为应修复自助恢复而不鼓励管理员接管，明确拒绝此功能；bcrypt与截图不是独立隐私诉求。",
+    "evidence": [
+      {
+        "quote": "The real fix to this issue is to make sure that the \"forgot my password\" functionality works as expected",
+        "start_char": 8115,
+        "end_char": 8219,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Opensupports shouldn't encourage it.",
+        "start_char": 8075,
+        "end_char": 8111,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-14099",
+    "row": 8,
+    "open_codes": [
+      "列加密能力缺失",
+      "框架迁移阻碍",
+      "保护措施跨组件依赖",
+      "密钥提供者适配"
+    ],
+    "analytic_memo": "57,177字符全部分段读完，86评论含重复代码均读。最初Core不支持Column Encryption Setting，企业回退Framework并担心自制加密；维护者起初无排期后进入3.0。2019-05新Microsoft.Data.SqlClient预览支持AE，但ref API遗漏、EF旧依赖及AKV provider仍需协调。随后补包和替代连接方案，末评论认定原问题已解决。cookies/beer是玩笑，不属于浏览器Cookie主题。",
+    "evidence": [
+      {
+        "quote": "Keyword not supported: 'column encryption setting'.",
+        "start_char": 1267,
+        "end_char": 1318,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Tests were/are run against the non-ref implementation so we didn't catch it.",
+        "start_char": 35174,
+        "end_char": 35250,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "We believe the originally reported issue has been addressed in Microsoft.Data.SqlClient",
+        "start_char": 57011,
+        "end_char": 57098,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## PRIVACY-H — 隐私控制可用性与系统兼容
+
+材料涉及控制能否被理解和操作，或隐私保护与框架、平台、功能、数据流之间的适配。
+
+- Include: 界面遮挡、可访问性、配置绕行、跨端状态、隐私开关功能副作用、测试与依赖集成。
+- Exclude: UI 测试成功不保证后端阻断；功能兼容问题不能一概视为隐私泄漏。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 288; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "privacy-issue-310",
+    "row": 1,
+    "open_codes": [
+      "域名级Cookie删除",
+      "权限扩展再授权"
+    ],
+    "analytic_memo": "请求正则批量删除域Cookie，承认新增cookies权限会触发重新批准；没有实现反馈。",
+    "evidence": [
+      {
+        "quote": "remove cookies from a specific domain or from multiple domains",
+        "start_char": 879,
+        "end_char": 941,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "prompt the extension users to re-approve the extension",
+        "start_char": 1308,
+        "end_char": 1362,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-450",
+    "row": 3,
+    "open_codes": [
+      "未交互即持久化选择",
+      "提示显示状态失真"
+    ],
+    "analytic_memo": "用户未点prompt但reload后写cookie，后续提示消失；应只有交互后禁用。最后转内部跟踪，非修复确认。",
+    "evidence": [
+      {
+        "quote": "without clicking anything on the custom prompt, a cookie is planted",
+        "start_char": 892,
+        "end_char": 959,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "This is now tracked internally.",
+        "start_char": 1704,
+        "end_char": 1735,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-21474",
+    "row": 7,
+    "open_codes": [
+      "第三方合规变化传播依赖约束",
+      "地理数据库来源替换",
+      "账号注册负担"
+    ],
+    "analytic_memo": "全文及现有3评论已读；MaxMind因合规动机改下载/账号要求，维护者考虑模块化替换db-ip及来源署名。3/4评论可用，缺失一条，不能确认最终决定。scramble为普通动词非脱敏。",
+    "evidence": [
+      {
+        "quote": "we're trying to work around a restriction that was put upon us with very little notice",
+        "start_char": 2237,
+        "end_char": 2323,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Modularize this would be a nice thing.",
+        "start_char": 3467,
+        "end_char": 3505,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## PRIVACY-I — 治理、责任与需求权衡
+
+材料涉及合规解释、组织职责、开发范围、生态依赖、资源优先级或用途与隐私的取舍。
+
+- Include: 监管/平台审核驱动、控制者/供应商分工、请求受理、评估、标准与开发决策。
+- Exclude: 记录参与者法律判断而不认证其正确；计划、合并、部署、验收分别处理。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 381; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "privacy-issue-8387",
+    "row": 5,
+    "open_codes": [
+      "Cookie同意界面缺失",
+      "合规义务理解不确定",
+      "合规实施组织"
+    ],
+    "analytic_memo": "正文请求DNN Cookie consent，评论组建GDPR团队并讨论法规不确定性；记录参与者观点，不裁定其法律解释正确。末评论明确关联PR合并。",
+    "evidence": [
+      {
+        "quote": "No cookie consent message",
+        "start_char": 1312,
+        "end_char": 1337,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Closing as the PRs were merged.",
+        "start_char": 3537,
+        "end_char": 3568,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-21543",
+    "row": 6,
+    "open_codes": [
+      "管理员接管与用户自主控制冲突",
+      "密码恢复故障",
+      "邮箱验证流程"
+    ],
+    "analytic_memo": "完整阅读15评论；管理员为排障要求改外部用户密码，引发同意/隐私争论。维护者认为应修复自助恢复而不鼓励管理员接管，明确拒绝此功能；bcrypt与截图不是独立隐私诉求。",
+    "evidence": [
+      {
+        "quote": "The real fix to this issue is to make sure that the \"forgot my password\" functionality works as expected",
+        "start_char": 8115,
+        "end_char": 8219,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Opensupports shouldn't encourage it.",
+        "start_char": 8075,
+        "end_char": 8111,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-21474",
+    "row": 7,
+    "open_codes": [
+      "第三方合规变化传播依赖约束",
+      "地理数据库来源替换",
+      "账号注册负担"
+    ],
+    "analytic_memo": "全文及现有3评论已读；MaxMind因合规动机改下载/账号要求，维护者考虑模块化替换db-ip及来源署名。3/4评论可用，缺失一条，不能确认最终决定。scramble为普通动词非脱敏。",
+    "evidence": [
+      {
+        "quote": "we're trying to work around a restriction that was put upon us with very little notice",
+        "start_char": 2237,
+        "end_char": 2323,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "Modularize this would be a nice thing.",
+        "start_char": 3467,
+        "end_char": 3505,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## PRIVACY-Y — 反例、争议或归因修正
+
+完整材料削弱、反驳或限定了最初隐私问题判断，或显示原风险归因/目标发生改变。
+
+- Include: 误报、用户撤回、无外发证据、实际行为不同、争议未定及保护并未达原目标。
+- Exclude: 不是统一的无风险标签；仍可并存真实残余风险，具体原因见备忘录。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 49; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "privacy-issue-943",
+    "row": 9,
+    "open_codes": [
+      "保护机制性能归因待验证",
+      "权限相关假名化优化提议"
+    ],
+    "analytic_memo": "正文与2评论完整读；最初怀疑pseudonymisation bottleneck，最终正文明确排除其显著性能影响，主要SQL massive joins。保留讨论变化，不编码为已证实匿名化拖慢；TRACE是诊断手段非PII泄露。",
+    "evidence": [
+      {
+        "quote": "pseudonymization can be ruled out as a relevant impact on performance",
+        "start_char": 3771,
+        "end_char": 3840,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "long runtimes are mainly caused by long running SQL queries with massive joins",
+        "start_char": 3844,
+        "end_char": 3922,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-1154",
+    "row": 12,
+    "open_codes": [
+      "关联标识符假名化完整性疑虑"
+    ],
+    "analytic_memo": "正文担心visitorId泄露userId，但同一作者评论解释先执行manipulateRequest，visitorId由已hashed userId生成，撤回缺陷判断。",
+    "evidence": [
+      {
+        "quote": "Actually, it should not be an issue",
+        "start_char": 1581,
+        "end_char": 1616,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "creating a hash on the already hashed User Id",
+        "start_char": 1738,
+        "end_char": 1783,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-2102",
+    "row": 27,
+    "open_codes": [
+      "邮件跟踪被隐私保护阻断",
+      "分析事件推断"
+    ],
+    "analytic_memo": "模板全HTML已读，其隐私footer是模板背景。实际问题是opened统计缺失；维护者解释客户端阻tracking pixels且点击会回填opened，认为预期行为。",
+    "evidence": [
+      {
+        "quote": "many of which block tracking pixels for privacy reasons",
+        "start_char": 6988,
+        "end_char": 7043,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "we also backfill an Email Opened event",
+        "start_char": 7131,
+        "end_char": 7169,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## PRIVACY-Z — 内容不足或隐私关联有限
+
+可用材料不足以支持具体隐私机制，或主体为其他问题且隐私关联无法进一步定位。
+
+- Include: 仅泛化标题/空正文/外链、元数据关键词无正文依据、弱关联案例。
+- Exclude: 有具体标题的元数据条目仍可给主题代码；证据可用性是独立字段，不应仅靠 Z 表达。
+- Boundary/examples: See original entry and representative evidence in codebook.json.
+- Supporting artifacts: 62; complete membership in `supporting_cases`.
+
+````json
+[
+  {
+    "artifact_id": "privacy-issue-13503",
+    "row": 185,
+    "open_codes": [
+      "软件完整性检查与发布来源",
+      "隐私关联不足"
+    ],
+    "analytic_memo": "stable9 git安装缺signature.json导致核心与应用完整性检查失败，维护者解释git发布不带该密码学签名、不推荐生产；用户混淆git签名并追问公钥，未解决。无个人信息处理问题证据。",
+    "evidence": [
+      {
+        "quote": "The git releases are not cryptographically signed",
+        "start_char": 9837,
+        "end_char": 9886,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "I can't find your '49B6898C' key",
+        "start_char": 10175,
+        "end_char": 10207,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-13996",
+    "row": 203,
+    "open_codes": [
+      "GDPR需求规划"
+    ],
+    "analytic_memo": "仅提产品团队GDPR准备方向和需求讨论，无具体措施，四年后过时关闭。",
+    "evidence": [
+      {
+        "quote": "Closed as obsolete.",
+        "start_char": 1193,
+        "end_char": 1212,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  },
+  {
+    "artifact_id": "privacy-issue-7594",
+    "row": 214,
+    "open_codes": [
+      "系统权限声明崩溃",
+      "依赖归因疑问"
+    ],
+    "analytic_memo": "用户未主动用相机却iOS13 TCC隐私违规崩溃，怀疑DeviceKit并已加相机权限尝试；完整栈含CameraUI，但维护者解释DeviceKit相机型号是硬编码不交互，不需要权限，用户接受，真实触发源未定。",
+    "evidence": [
+      {
+        "quote": "it isn't interacting with cameras",
+        "start_char": 15336,
+        "end_char": 15369,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      },
+      {
+        "quote": "these are _hardcoded_",
+        "start_char": 15504,
+        "end_char": 15525,
+        "coordinate_system": "zero-based Unicode code points; end exclusive; artifacts.jsonl content"
+      }
+    ]
+  }
+]
+````
+
+## Files
+
+- `codebook.md`, `codebook.json`, `codebook.csv`: definitions and complete reverse memberships.
+- `assignments.json`, `assignments.csv`: one record per artifact, including decisions and evidence.
+- `taxonomy.json`: category tree with every code as a leaf.
+- `results.json`: supplied full documents aligned to their assignments.
+
+## Original codebook
+
+The original codebook text below preserves run-specific scope, combination rules and qualifications. Links and filenames in that historical text describe the original package; use the seven files above for the normalized interface. The exact original text is also stored in metadata extensions.
+
 # Privacy Codebook — 结果 2（逐条阅读重建）
 
 覆盖 652 个 artifact，11 个多标签代码。详见 [方法与边界](METHOD.md)、[逐条分析](ARTIFACTS.md) 和 [覆盖校验](coverage_report.json)。
