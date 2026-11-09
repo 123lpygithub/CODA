@@ -1,5 +1,3 @@
-# Codebook artifacts
-
 All datasets and runs use the same seven-file package and the same JSON fields,
 field types and CSV headers. The common format is based on the S3-1 presentation
 and is identified as `coda.artifact.v1`. Coding decisions remain specific to each
@@ -8,8 +6,6 @@ run; format normalization does not merge, rename or reassign semantic codes.
 ```text
 Artifact/
 ├── README.md
-├── SCHEMA.json
-├── FORMAT_VALIDATION.json
 ├── CodeErrors/
 ├── SATD/
 └── Privacy/
@@ -60,8 +56,7 @@ differ across runs. Compare records by `case_id`, not by row position.
 
 ## Common schema
 
-The machine-readable contract is [SCHEMA.json](SCHEMA.json). It defines
-`codebook`, `assignments`, `results` and `taxonomy` in `definitions`.
+The JSON structures shared by all packages are described below.
 
 - `codebook.json`: `{metadata, codes}`. Code fields are `code_id`, `name`,
   `definition`, `inclusion_criteria`, `exclusion_criteria`, `boundary_examples`,
@@ -88,28 +83,3 @@ codebook text, method metadata and taxonomy are retained in codebook metadata
 extensions. Evidence item fields retain their original coordinates and provenance;
 analytical notes remain distinguishable from direct quotations where the source
 record makes that distinction.
-
-## Preservation and validation
-
-[FORMAT_VALIDATION.json](FORMAT_VALIDATION.json) records all 18 packages, checksums,
-schema and CSV agreement, complete forward/reverse membership, and conversion
-equivalence. All original assignment code lists, rationales, evidence and supplied
-full documents were checked against the pre-conversion packages. Semantic
-definitions and original records are preserved; no classification was rerun.
-
-The pre-conversion packages and displaced process files are retained locally at
-`/home/peiyuan/CODA/Artifact/format_unification/original/` and
-`/home/peiyuan/CODA/Artifact/format_unification/replaced_packages/`. They are outside
-the publication tree. The local conversion and verification script is
-`/home/peiyuan/CODA/Artifact/format_unification/unify_packages.py`.
-
-Coverage refers to supplied text. Missing bodies, inaccessible links, images and
-attachments remain evidence limitations. In SATD/Privacy S3-2, SATD uses 856
-released comments; Privacy has 536 complete snapshots, 115 metadata-only records
-and one partial snapshot. Mechanical validation establishes presentation and
-conversion integrity, not independent semantic accuracy or human double coding.
-Run labels identify result versions; they are not verified API model identities.
-
-Current directory names and public `metadata.run` values use the S1/S2/S3 labels.
-Historical names inside preserved original records, quoted text and provenance
-remain unchanged. `FORMAT_VALIDATION.json` records the rename mapping and checks.
