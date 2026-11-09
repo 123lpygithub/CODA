@@ -144,7 +144,7 @@ def main():
     from dotenv import load_dotenv
     load_dotenv(ROOT / '.env', override=False, interpolate=False)
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--bundle',type=Path,default=ROOT/'experiments/materials/evidence-20261105-v7')
+    parser.add_argument('--bundle',type=Path,required=True,help='Path to a locally retained frozen evidence bundle.')
     parser.add_argument('--output',type=Path,help='Write preflight report; use a new file.')
     parser.add_argument('--check-run-creation',action='store_true')
     parser.add_argument('--create-run',action='store_true')

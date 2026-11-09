@@ -16,6 +16,8 @@ from scripts.prepare_paper_experiment import verify_bundle, condition_plan
 from coda.sensitivity import complete_evidence_case
 from tests.test_privacy_issue_snapshot import issue_response
 
+PAPER_BUNDLE = Path(__file__).resolve().parents[1]/'experiments/materials/evidence-20261105-v7'
+
 
 class ExperimentEvidenceReadinessTests(unittest.TestCase):
     def test_complete_discussion_does_not_hide_missing_linked_sources(self):
@@ -28,6 +30,7 @@ class ExperimentEvidenceReadinessTests(unittest.TestCase):
         self.assertTrue(complete_evidence_case(dict(item,raw_fields=fields)))
         self.assertFalse(complete_evidence_case({'content':'Title only','raw_fields':{'evidence_status':'complete','body':'','retrieved_comment_count':0}}))
 
+    @unittest.skipUnless(PAPER_BUNDLE.is_dir(), 'Archived experiment evidence is not included in the repository.')
     def test_frozen_paper_bundle_and_all_matched_conditions(self):
         root=Path(__file__).resolve().parents[1]/'experiments/materials/evidence-20261105-v7'
         with patch.dict('os.environ',{}):
@@ -45,6 +48,7 @@ class ExperimentEvidenceReadinessTests(unittest.TestCase):
         self.assertEqual(report['ml_satd_23_shades']['evidence_status_counts']['historical_partial'],3)
         self.assertEqual(len(report['personal_data_protection_github']['retrieved_empty_body_cases']),7)
 
+    @unittest.skipUnless(PAPER_BUNDLE.is_dir(), 'Archived experiment evidence is not included in the repository.')
     def test_preflight_refuses_tampered_frozen_companion(self):
         source=Path(__file__).resolve().parents[1]/'experiments/materials/evidence-20261105-v7'
         with tempfile.TemporaryDirectory() as directory:

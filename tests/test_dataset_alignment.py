@@ -19,6 +19,11 @@ spec.loader.exec_module(preparation)
 
 
 class DatasetAlignmentTests(unittest.TestCase):
+    @unittest.skipUnless(
+        (ROOT/'experiments/materials/coda-calibration20-20261102-v1.json').is_file()
+        and (ROOT/'experiments/materials/evidence-20261105-v1/study_manifest.json').is_file(),
+        'Archived experiment manifests are not included in the repository.',
+    )
     def test_revised_manifest_keeps_allocation_and_requires_matching_profile(self):
         old=load_study_manifest(ROOT/'experiments/materials/coda-calibration20-20261102-v1.json')
         new=load_study_manifest(ROOT/'experiments/materials/evidence-20261105-v1/study_manifest.json')
